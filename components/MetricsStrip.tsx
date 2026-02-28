@@ -4,11 +4,11 @@ export type MetricsStripProps = {
 
 export default function MetricsStrip({ metrics }: MetricsStripProps) {
   return (
-    <div className="mt-6 grid grid-cols-1 gap-3 border-t border-zinc-800 pt-4 sm:grid-cols-3">
+    <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
       {metrics.map((metric) => (
         <p
           key={metric}
-          className="rounded-md border border-zinc-800 bg-zinc-900/70 px-3 py-2 text-xs font-medium text-zinc-200"
+          className="rounded-lg border border-violet-500/20 bg-violet-950/30 px-4 py-3 text-sm font-semibold text-violet-200 backdrop-blur-sm"
         >
           {metric}
         </p>

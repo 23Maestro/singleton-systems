@@ -2,11 +2,11 @@ import CapabilitiesStrip from "@/components/CapabilitiesStrip";
 import CaseStudy from "@/components/CaseStudy";
 
 const capabilities = [
-  "Creative Post-Production",
-  "Workflow Automation (Python/Node)",
-  "API Integrations",
-  "FFmpeg / Headless Rendering",
-  "Process Architecture",
+  "Video Editing & Post",
+  "Custom Automation",
+  "API-Powered Workflows",
+  "Programmatic Video",
+  "Systems Design",
 ] as const;
 
 export default function Page() {
@@ -15,14 +15,14 @@ export default function Page() {
       <section className="py-16 sm:py-20" aria-labelledby="hero-heading">
         <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-8 sm:p-12">
-            <h1 id="hero-heading" className="max-w-4xl text-4xl font-semibold tracking-tight text-zinc-50 sm:text-6xl">
-              Scale Video Production. Eliminate Bottlenecks.
+            <h1 id="hero-heading" className="max-w-4xl text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
+              I Edit Video. I Engineer the&nbsp;System&nbsp;Around&nbsp;It.
             </h1>
             <p className="mt-5 max-w-3xl text-lg text-zinc-300 sm:text-xl">
-              I design and automate high-volume multimedia workflows that remove operational ceilings and multiply output by 2–3x.
+              I build automated workflows that let me deliver 2–3x more video — without burning out or hiring a team.
             </p>
             <p className="mt-4 text-sm text-zinc-500">
-              Hybrid creative + systems operator for education platforms, SaaS teams, and enterprise media.
+              Video editor and systems builder for education, sports, and media teams.
             </p>
           </div>
         </div>
@@ -30,28 +30,39 @@ export default function Page() {
 
       <CaseStudy
         id="case-study-1"
-        outcomeHeadline="Unlocking capacity for a 180+ video curriculum migration."
-        subtitle="Converted 38 hours of long-form educational content into a rapid-publishing system, bypassing traditional NLE bottlenecks."
+        name="YouTube Migration"
+        outcomeHeadline="180+ videos migrated. Zero timeline babysitting."
+        subtitle="I turned 38 hours of long-form lessons into a rapid-publish system — reducing timespent in Premiere."
         before={{
-          title: "Before",
-          label: "The Bottleneck",
+          title: "Manual Workflow",
+          label: "Before",
           bullets: [
-            "Manual timeline assembly",
-            "Hand-stitched transcripts",
-            "Tedious renaming",
-            "Repetitive re-exports",
-            "Throughput capped by human hours",
+            "Open lesson",
+            "Drag into timeline",
+            "Concatenate",
+            "Rename manually",
+            "Stitch transcript",
+            "Re-export",
+          ],
+          indicators: [
+            { icon: "🕐", label: "Time", value: "High", color: "status-high" },
+            { icon: "⚠️", label: "Error rate", value: "Moderate", color: "status-moderate" },
+            { icon: "📊", label: "Scalability", value: "Low", color: "status-low" },
           ],
         }}
         after={{
-          title: "After",
-          label: "The Engine",
+          title: "Automated Workflow",
+          label: "After",
           bullets: [
-            "Scripted FFmpeg concatenation",
-            "Strict naming schemas",
-            "Automated transcript merging",
-            "Headless batch exports",
-            "Standardized archive structure",
+            "FFmpeg concat script",
+            "Structured naming schema",
+            "Transcript merge automation",
+            "Batch export",
+          ],
+          indicators: [
+            { icon: "🕐", label: "Time", value: "Reduced", color: "status-reduced" },
+            { icon: "✅", label: "Error rate", value: "Minimal", color: "status-minimal" },
+            { icon: "📊", label: "Scalability", value: "High", color: "status-green" },
           ],
         }}
         metrics={[
@@ -63,33 +74,43 @@ export default function Page() {
 
       <CaseStudy
         id="case-study-2"
-        outcomeHeadline="Stabilizing video delivery under 4x enrollment growth."
-        subtitle="Rebuilt a fragile ingestion pipeline to sustain 140+ videos delivered over 6 weeks with zero manual debugging."
+        name="Sport Recruiting Pipeline"
+        outcomeHeadline="140+ recruiting videos delivered in 6 weeks. No hand-holding."
+        subtitle="I modernized a broken intake system to handle 4x enrollment growth — on autopilot."
         before={{
-          title: "Before",
-          label: "The Bottleneck",
+          title: "Manual Workflow",
+          label: "Before",
           bullets: [
-            "Fragile profile parsing",
-            "Legacy backend constraints",
-            "Inconsistent HTML formatting",
-            "Constant manual QC",
-            "Capacity broke past 30/month",
+            "Manual data lookups",
+            "Copy-paste formatting",
+            "Inconsistent file naming",
+            "Constant QC by hand",
+            "Maxed at 30/month",
+          ],
+          indicators: [
+            { icon: "🕐", label: "Time", value: "High", color: "status-high" },
+            { icon: "⚠️", label: "Error rate", value: "High", color: "status-high" },
+            { icon: "📊", label: "Scalability", value: "Low", color: "status-low" },
           ],
         }}
         after={{
-          title: "After",
-          label: "The Engine",
+          title: "Automated Workflow",
+          label: "After",
           bullets: [
-            "Deterministic API ingestion",
-            "Data normalization layers",
-            "Structured validation",
-            "Automated routing",
-            "Reduced failure points",
+            "API-powered intake",
+            "Auto-formatted profiles",
+            "Validated naming conventions",
+            "Hands-off routing",
+          ],
+          indicators: [
+            { icon: "🕐", label: "Time", value: "Minimal", color: "status-minimal" },
+            { icon: "✅", label: "Error rate", value: "Near zero", color: "status-green" },
+            { icon: "📊", label: "Scalability", value: "High", color: "status-green" },
           ],
         }}
         metrics={[
           "Scaled from 30 to 70+/month",
-          "Sustained 140 outputs in 6 weeks",
+          "140 outputs in 6 weeks",
           "Eliminated manual data entry",
         ]}
       />

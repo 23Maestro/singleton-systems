@@ -4,6 +4,7 @@ export type SplitCardData = {
   title: string;
   label: string;
   bullets: readonly string[];
+  indicators: readonly { icon: string; label: string; value: string; color: string }[];
 };
 
 export type SplitCardsProps = {
@@ -12,31 +13,61 @@ export type SplitCardsProps = {
   metrics: readonly [string, string, string];
 };
 
-function DetailCard({ data }: { data: SplitCardData }) {
+function DetailCard({ data, variant }: { data: SplitCardData; variant: "before" | "after" }) {
+  const bg = variant === "before"
+    ? "bg-[#1c2333]/90 border-[#2a3444]"
+    : "bg-[#1e2a3d]/90 border-[#2d3f55]";
+
   return (
-    <article className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-6">
-      <p className="text-xs uppercase tracking-wide text-zinc-500">{data.label}</p>
-      <h4 className="mt-2 text-lg font-semibold text-zinc-100">{data.title}</h4>
-      <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+    <article className={`relative rounded-xl border p-6 backdrop-blur-sm ${bg}`}>
+      {/* macOS window chrome */}
+      <div className="mac-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <h4 className="text-xl font-bold text-zinc-50">{data.title}</h4>
+
+      <ul className="mt-5 space-y-2.5 text-[15px] text-zinc-200">
         {data.bullets.map((bullet) => (
-          <li key={bullet} className="flex items-start gap-2">
-            <span aria-hidden className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zinc-500" />
+          <li key={bullet} className="flex items-start gap-2.5">
+            <span aria-hidden className="mt-1.5 text-zinc-400">•</span>
             <span>{bullet}</span>
           </li>
         ))}
       </ul>
+
+      {/* separator */}
+      <div className="my-5 border-t border-zinc-600/40"></div>
+
+      {/* arrow */}
+      <p className="mb-4 text-center text-lg text-zinc-400">↓</p>
+
+      {/* status indicators */}
+      <div className="space-y-2.5">
+        {data.indicators.map((ind) => (
+          <div key={ind.label} className="status-row">
+            <span className="icon">{ind.icon}</span>
+            <span className="text-zinc-300">{ind.label}:</span>
+            <span className={ind.color}>{ind.value}</span>
+          </div>
+        ))}
+      </div>
     </article>
   );
 }
 
 export default function SplitCards({ before, after, metrics }: SplitCardsProps) {
   return (
-    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 p-4 sm:p-6">
-      <div className="grid gap-4 lg:grid-cols-2">
-        <DetailCard data={before} />
-        <DetailCard data={after} />
+    <div className="case-gradient rounded-2xl p-4 sm:p-8">
+      <div className="relative z-10 grid gap-5 lg:grid-cols-2">
+        <DetailCard data={before} variant="before" />
+        <DetailCard data={after} variant="after" />
       </div>
-      <MetricsStrip metrics={metrics} />
+      <div className="relative z-10">
+        <MetricsStrip metrics={metrics} />
+      </div>
     </div>
   );
 }

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Video Engineer & Workflow Automator",
+  title: "Jerami Singleton — Video Editor & Systems Builder",
   description:
-    "Scale multimedia production with engineered workflows, automation, and resilient delivery systems.",
+    "I edit video. I engineer the system around it. Custom automation that lets me deliver 2–3x more — without burning out.",
 };
 
 export default function RootLayout({

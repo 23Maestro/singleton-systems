@@ -9,3 +9,63 @@
 * {
   border-color: rgb(39 39 42);
 }
+
+/* ── gradient canvas behind case study cards ── */
+.case-gradient {
+  background: linear-gradient(135deg, #1a1a3e 0%, #0f2744 30%, #1b1050 60%, #2d1570 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.case-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 50%, rgba(56, 120, 255, 0.18), transparent),
+    radial-gradient(ellipse 500px 350px at 80% 50%, rgba(139, 92, 246, 0.2), transparent);
+  pointer-events: none;
+}
+
+/* ── macOS window chrome dots ── */
+.mac-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.mac-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.mac-dots span:nth-child(1) { background: #ff5f57; }
+.mac-dots span:nth-child(2) { background: #ffbd2e; }
+.mac-dots span:nth-child(3) { background: #28c840; }
+
+/* ── status indicator rows ── */
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-row .icon {
+  font-size: 16px;
+}
+
+.status-high { color: #f87171; }
+.status-moderate { color: #fbbf24; }
+.status-low { color: #f87171; }
+.status-reduced { color: #a78bfa; }
+.status-minimal { color: #34d399; }
+.status-green { color: #34d399; }
+
+/* ── metric highlight number ── */
+.metric-highlight {
+  color: #7dd3fc;
+  font-weight: 800;
+}
