@@ -97,39 +97,123 @@ end repeat`}
 
 const beforeRecruitingRows = [
   {
-    dueDate: "Feb 10, 2026",
-    completionDate: "Feb 12, 2026",
-    owner: "M. Lee",
-    contact: "Jordan Clark",
-    gradYear: "2027",
-    title: "LB Highlights",
+    dueDate: "2/08/26",
+    completionDate: "",
+    owner: "Editor 1",
+    contact: "Mason Clark",
+    gradYear: "2026",
+    title: "Video Editing",
+    description: "Video Editing",
     overdue: true,
   },
   {
-    dueDate: "Feb 14, 2026",
-    completionDate: "Feb 13, 2026",
-    owner: "A. Cruz",
-    contact: "Evan Price",
+    dueDate: "2/09/26",
+    completionDate: "-",
+    owner: "Editor 1",
+    contact: "Jayden Reed",
+    gradYear: "2025",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: true,
+  },
+  {
+    dueDate: "2/10/26",
+    completionDate: "",
+    owner: "Editor 2",
+    contact: "Liam Torres",
     gradYear: "2026",
-    title: "WR Recruiting Reel",
-    overdue: false,
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: true,
   },
   {
-    dueDate: "Feb 16, 2026",
-    completionDate: "Feb 16, 2026",
-    owner: "J. Patel",
-    contact: "Chris Nolan",
-    gradYear: "2028",
-    title: "QB Mechanics Cut",
-    overdue: false,
-  },
-  {
-    dueDate: "Feb 19, 2026",
-    completionDate: "Feb 18, 2026",
-    owner: "M. Lee",
-    contact: "Taylor Reid",
+    dueDate: "2/11/26",
+    completionDate: "",
+    owner: "Editor 2",
+    contact: "Noah Brooks",
     gradYear: "2027",
-    title: "Defensive Line Film",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: true,
+  },
+  {
+    dueDate: "2/12/26",
+    completionDate: "",
+    owner: "Editor 3",
+    contact: "Caleb Morris",
+    gradYear: "2025",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: true,
+  },
+  {
+    dueDate: "2/13/26",
+    completionDate: "",
+    owner: "Editor 3",
+    contact: "Ethan Walker",
+    gradYear: "2026",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: true,
+  },
+  {
+    dueDate: "2/14/26",
+    completionDate: "-",
+    owner: "Editor 1",
+    contact: "Ryan Foster",
+    gradYear: "2026",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: true,
+  },
+  {
+    dueDate: "2/15/26",
+    completionDate: "",
+    owner: "Editor 2",
+    contact: "Daniel Cruz",
+    gradYear: "2027",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: false,
+  },
+  {
+    dueDate: "2/18/26",
+    completionDate: "",
+    owner: "Editor 3",
+    contact: "Aiden Scott",
+    gradYear: "2025",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: false,
+  },
+  {
+    dueDate: "2/20/26",
+    completionDate: "",
+    owner: "Editor 1",
+    contact: "Jordan Hayes",
+    gradYear: "2026",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: false,
+  },
+  {
+    dueDate: "2/21/26",
+    completionDate: "",
+    owner: "Editor 2",
+    contact: "Tyler Bennett",
+    gradYear: "2027",
+    title: "Video Editing",
+    description: "Video Editing",
+    overdue: false,
+  },
+  {
+    dueDate: "2/22/26",
+    completionDate: "",
+    owner: "Editor 3",
+    contact: "Marcus Hill",
+    gradYear: "2025",
+    title: "Video Editing",
+    description: "Video Editing",
     overdue: false,
   },
 ];
@@ -222,19 +306,21 @@ function SportBeforeTable() {
               <th className="px-2 py-1.5 font-medium">Contact</th>
               <th className="px-2 py-1.5 font-medium">Grad Year</th>
               <th className="px-2 py-1.5 font-medium">Title</th>
+              <th className="px-2 py-1.5 font-medium">Description</th>
             </tr>
           </thead>
           <tbody>
             {beforeRecruitingRows.map((row) => (
               <tr key={`${row.contact}-${row.title}`} className="border-b border-white/5 text-zinc-300 transition-colors duration-200 ease-in-out hover:bg-white/[0.06]">
                 <td className={`px-2 py-1.5 font-semibold ${row.overdue ? "text-red-300" : "text-zinc-200"}`}>
-                  {row.dueDate}
+                  {row.dueDate}{row.overdue ? " overdue" : ""}
                 </td>
-                <td className="px-2 py-1.5 text-zinc-400">{row.completionDate}</td>
+                <td className="px-2 py-1.5 text-zinc-400">{row.completionDate || "—"}</td>
                 <td className="px-2 py-1.5">{row.owner}</td>
                 <td className="px-2 py-1.5">{row.contact}</td>
                 <td className="px-2 py-1.5 text-zinc-400">{row.gradYear}</td>
                 <td className="px-2 py-1.5">{row.title}</td>
+                <td className="px-2 py-1.5">{row.description}</td>
               </tr>
             ))}
           </tbody>
