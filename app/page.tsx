@@ -15,13 +15,16 @@ export default function Page() {
       <section className="py-16 sm:py-20" aria-labelledby="hero-heading">
         <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-8 sm:p-12">
-            <h1 id="hero-heading" className="max-w-4xl text-4xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
-              I Edit Video. I Engineer the&nbsp;System&nbsp;Around&nbsp;It.
+            <h1
+              id="hero-heading"
+              className="fade-up max-w-4xl text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl"
+            >
+              I produce the edits. I code the workflow.
             </h1>
-            <p className="mt-5 max-w-3xl text-lg text-zinc-300 sm:text-xl">
-              I build automated workflows that let me deliver 2–3x more video — without burning out or hiring a team.
+            <p className="fade-up fade-up-delay-1 mt-5 max-w-3xl text-lg leading-relaxed text-gray-400 sm:text-xl">
+              Video editing. <span className="font-semibold text-emerald-400">Scaled 3x</span> by automation.
             </p>
-            <p className="mt-4 text-sm text-zinc-500">
+            <p className="fade-up fade-up-delay-2 mt-4 text-sm text-zinc-500">
               Video editor and systems builder for education, sports, and media teams.
             </p>
           </div>
