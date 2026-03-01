@@ -1,4 +1,5 @@
 import SplitCards, { type SplitCardData } from "./SplitCards";
+import CaseStudyAccordions from "./CaseStudyAccordions";
 
 export type CaseStudyProps = {
   id: string;
@@ -8,6 +9,7 @@ export type CaseStudyProps = {
   before: SplitCardData;
   after: SplitCardData;
   metrics: readonly [string, string, string];
+  kind: "youtube" | "sport";
 };
 
 export default function CaseStudy({
@@ -18,6 +20,7 @@ export default function CaseStudy({
   before,
   after,
   metrics,
+  kind,
 }: CaseStudyProps) {
   return (
     <section className="py-16 sm:py-20" aria-labelledby={id}>
@@ -32,6 +35,7 @@ export default function CaseStudy({
           <p className="mt-3 text-base text-zinc-400 sm:text-lg">{subtitle}</p>
         </header>
         <SplitCards before={before} after={after} metrics={metrics} />
+        <CaseStudyAccordions kind={kind} />
       </div>
     </section>
   );

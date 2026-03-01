@@ -32,6 +32,7 @@ export default function Page() {
       </section>
 
       <CaseStudy
+        kind="youtube"
         id="case-study-1"
         name="YouTube Migration"
         outcomeHeadline="180+ videos migrated. Zero timeline babysitting."
@@ -76,6 +77,7 @@ export default function Page() {
       />
 
       <CaseStudy
+        kind="sport"
         id="case-study-2"
         name="Sport Recruiting Pipeline"
         outcomeHeadline="140+ recruiting videos delivered in 6 weeks. No hand-holding."
