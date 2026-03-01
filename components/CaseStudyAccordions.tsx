@@ -1,15 +1,16 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 
 type CaseStudyKind = "youtube" | "sport";
 
 type CaseStudyAccordionsProps = {
   kind: CaseStudyKind;
+  mainContent: ReactNode;
 };
 
-type AccordionItem = {
+type ReferenceItem = {
   id: string;
   title: string;
   content: ReactNode;
@@ -17,7 +18,7 @@ type AccordionItem = {
 
 const transition = { duration: 0.3, ease: "easeInOut" as const };
 
-const youtubeAccordions: AccordionItem[] = [
+const youtubeReferences: ReferenceItem[] = [
   {
     id: "youtube-encoding",
     title: "Encoding Pipeline (FFmpeg)",
@@ -537,25 +538,9 @@ function SportAfterTable() {
   );
 }
 
-function Chevron({ open }: { open: boolean }) {
-  return (
-    <motion.svg
-      animate={{ rotate: open ? 180 : 0 }}
-      transition={transition}
-      className="h-4 w-4 text-zinc-400"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </motion.svg>
-  );
-}
-
-function getItems(kind: CaseStudyKind): AccordionItem[] {
+function getItems(kind: CaseStudyKind): ReferenceItem[] {
   if (kind === "youtube") {
-    return youtubeAccordions;
+    return youtubeReferences;
   }
 
   return [
@@ -572,53 +557,124 @@ function getItems(kind: CaseStudyKind): AccordionItem[] {
   ];
 }
 
-export default function CaseStudyAccordions({ kind }: CaseStudyAccordionsProps) {
-  const [openId, setOpenId] = useState<string | null>(null);
-  const items = getItems(kind);
+function DeckShell({ title, depth }: { title: string; depth: 1 | 2 }) {
+  const shellClass = depth === 1
+    ? "inset-x-2 top-2 opacity-40"
+    : "inset-x-4 top-4 opacity-25";
 
   return (
-    <div className="mt-5 space-y-3 sm:mt-6">
-      {items.map((item) => {
-        const isOpen = openId === item.id;
+    <div className={`pointer-events-none absolute ${shellClass} h-full rounded-2xl border border-white/10 bg-white/[0.03]`}>
+      <p className="px-3 py-2 text-xs text-zinc-500 sm:px-4">{title}</p>
+    </div>
+  );
+}
 
-        return (
-          <motion.div layout key={item.id} className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
-            <button
-              type="button"
-              onClick={() => setOpenId((current) => (current === item.id ? null : item.id))}
-              className="flex w-full items-center justify-between px-4 py-2.5 text-left"
-              aria-expanded={isOpen}
+export default function CaseStudyAccordions({ kind, mainContent }: CaseStudyAccordionsProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressTriggeredRef = useRef(false);
+  const items = getItems(kind);
+  const scenes: ReferenceItem[] = [
+    { id: `${kind}-primary-workflow`, title: "Workflow Overview", content: mainContent },
+    ...items,
+  ];
+
+  const activeScene = scenes[activeIndex];
+  const nextScene = scenes[(activeIndex + 1) % scenes.length];
+  const thirdScene = scenes[(activeIndex + 2) % scenes.length];
+
+  const advanceScene = () => {
+    setActiveIndex((index) => (index + 1) % scenes.length);
+  };
+
+  const clearLongPress = () => {
+    if (!longPressTimerRef.current) {
+      return;
+    }
+
+    clearTimeout(longPressTimerRef.current);
+    longPressTimerRef.current = null;
+  };
+
+  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "touch") {
+      return;
+    }
+
+    clearLongPress();
+    longPressTriggeredRef.current = false;
+    longPressTimerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true;
+      advanceScene();
+    }, 360);
+  };
+
+  const handlePointerUp = () => {
+    clearLongPress();
+  };
+
+  const handleClick = () => {
+    if (longPressTriggeredRef.current) {
+      longPressTriggeredRef.current = false;
+      return;
+    }
+
+    advanceScene();
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    advanceScene();
+  };
+
+  return (
+    <div className="mt-5 sm:mt-6">
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={`Reference scene ${activeIndex + 1} of ${scenes.length}. Activate to view next scene.`}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        className="cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+      >
+        <div className="relative">
+          <DeckShell depth={2} title={thirdScene.title} />
+          <DeckShell depth={1} title={nextScene.title} />
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={activeScene.id}
+              layout
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={transition}
+              className="relative z-20"
             >
-              <span className="text-sm font-medium text-zinc-200 sm:text-[15px]">{item.title}</span>
-              <Chevron open={isOpen} />
-            </button>
+              {activeScene.content}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
 
-            <AnimatePresence initial={false}>
-              {isOpen ? (
-                <motion.div
-                  key={`${item.id}-body`}
-                  layout
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={transition}
-                  className="overflow-hidden"
-                >
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.24, ease: "easeInOut", delay: 0.06 }}
-                    className="px-3 pb-2.5 sm:px-4 sm:pb-3"
-                  >
-                    {item.content}
-                  </motion.div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
-          </motion.div>
-        );
-      })}
+      <div className="mt-3 flex items-center justify-between px-1 text-xs sm:text-sm" aria-live="polite">
+        <p className="text-zinc-500">
+          Tap workflow to view reference {activeIndex + 1}/{scenes.length}
+        </p>
+        <button
+          type="button"
+          onClick={advanceScene}
+          className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-zinc-300 transition-colors duration-200 ease-in-out hover:bg-white/10"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }

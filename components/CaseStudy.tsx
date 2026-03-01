@@ -34,8 +34,10 @@ export default function CaseStudy({
           </h2>
           <p className="mt-3 text-base text-zinc-400 sm:text-lg">{subtitle}</p>
         </header>
-        <SplitCards before={before} after={after} metrics={metrics} />
-        <CaseStudyAccordions kind={kind} />
+        <CaseStudyAccordions
+          kind={kind}
+          mainContent={<SplitCards before={before} after={after} metrics={metrics} />}
+        />
       </div>
     </section>
   );
