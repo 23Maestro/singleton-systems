@@ -220,66 +220,223 @@ const beforeRecruitingRows = [
 
 const afterRecruitingRows = [
   {
-    name: "Jordan Clark",
+    name: "Mason Clark",
     gradYear: "2027",
     stage: "In Queue",
-    status: "Awaiting footage",
-    videoEditor: "M. Lee",
-    assignedDate: "Feb 17, 2026",
-    videoStartDate: "Feb 17, 2026",
-    dueDate: "Feb 24, 2026",
+    status: "HUDL",
+    videoEditor: "Editor 1",
+    assignedDate: "Feb 16, 2026",
+    videoStartDate: "Feb 16, 2026",
+    dueDate: "Feb 23, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
   {
-    name: "Evan Price",
+    name: "Jayden Reed",
     gradYear: "2026",
     stage: "Done",
-    status: "Delivered",
-    videoEditor: "A. Cruz",
-    assignedDate: "Feb 19, 2026",
-    videoStartDate: "Feb 20, 2026",
-    dueDate: "Feb 26, 2026",
+    status: "External Links",
+    videoEditor: "Editor 1",
+    assignedDate: "Feb 12, 2026",
+    videoStartDate: "Feb 12, 2026",
+    dueDate: "-",
     paymentStatus: "Paid",
     overdue: false,
   },
   {
-    name: "Chris Nolan",
-    gradYear: "2028",
+    name: "Liam Torres",
+    gradYear: "2029",
     stage: "Awaiting Client",
-    status: "Waiting approval",
-    videoEditor: "J. Patel",
-    assignedDate: "Feb 20, 2026",
-    videoStartDate: "Feb 22, 2026",
-    dueDate: "Feb 27, 2026",
-    paymentStatus: "Pending",
+    status: "HUDL",
+    videoEditor: "Editor 2",
+    assignedDate: "Feb 11, 2026",
+    videoStartDate: "-",
+    dueDate: "-",
+    paymentStatus: "Unpaid",
     overdue: false,
   },
   {
-    name: "Taylor Reid",
+    name: "Noah Brooks",
     gradYear: "2027",
     stage: "Done",
-    status: "Delivered",
-    videoEditor: "M. Lee",
-    assignedDate: "Feb 21, 2026",
-    videoStartDate: "Feb 22, 2026",
-    dueDate: "Feb 28, 2026",
+    status: "HUDL",
+    videoEditor: "Editor 2",
+    assignedDate: "Feb 09, 2026",
+    videoStartDate: "Feb 09, 2026",
+    dueDate: "-",
     paymentStatus: "Paid",
-    overdue: true,
+    overdue: false,
   },
   {
-    name: "Noah Bennett",
+    name: "Caleb Morris",
     gradYear: "2026",
-    stage: "In Queue",
-    status: "Edit started",
-    videoEditor: "A. Cruz",
-    assignedDate: "Feb 22, 2026",
-    videoStartDate: "Feb 24, 2026",
-    dueDate: "Mar 1, 2026",
+    stage: "Done",
+    status: "Dropbox",
+    videoEditor: "Editor 3",
+    assignedDate: "Feb 09, 2026",
+    videoStartDate: "Feb 09, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Ethan Walker",
+    gradYear: "2027",
+    stage: "Done",
+    status: "HUDL",
+    videoEditor: "Editor 3",
+    assignedDate: "Feb 09, 2026",
+    videoStartDate: "Feb 09, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Ryan Foster",
+    gradYear: "2026",
+    stage: "Done",
+    status: "HUDL",
+    videoEditor: "Editor 1",
+    assignedDate: "Feb 08, 2026",
+    videoStartDate: "Feb 08, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Daniel Cruz",
+    gradYear: "2026",
+    stage: "Done",
+    status: "Dropbox",
+    videoEditor: "Editor 2",
+    assignedDate: "Feb 07, 2026",
+    videoStartDate: "Feb 07, 2026",
+    dueDate: "Feb 15, 2026",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Aiden Scott",
+    gradYear: "2027",
+    stage: "Done",
+    status: "Revisions",
+    videoEditor: "Editor 3",
+    assignedDate: "Feb 07, 2026",
+    videoStartDate: "Feb 07, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Jordan Hayes",
+    gradYear: "2026",
+    stage: "Done",
+    status: "HUDL",
+    videoEditor: "Editor 1",
+    assignedDate: "Feb 04, 2026",
+    videoStartDate: "Feb 04, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Tyler Bennett",
+    gradYear: "2026",
+    stage: "Done",
+    status: "External Links",
+    videoEditor: "Editor 2",
+    assignedDate: "Feb 04, 2026",
+    videoStartDate: "Feb 04, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Marcus Hill",
+    gradYear: "2025",
+    stage: "Done",
+    status: "Dropbox",
+    videoEditor: "Editor 3",
+    assignedDate: "Feb 02, 2026",
+    videoStartDate: "Feb 02, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Ethan Price",
+    gradYear: "2026",
+    stage: "Done",
+    status: "Dropbox",
+    videoEditor: "Editor 1",
+    assignedDate: "Feb 01, 2026",
+    videoStartDate: "Feb 01, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Levi Worthing",
+    gradYear: "2026",
+    stage: "Done",
+    status: "HUDL",
+    videoEditor: "Editor 2",
+    assignedDate: "Jan 31, 2026",
+    videoStartDate: "Jan 31, 2026",
+    dueDate: "-",
+    paymentStatus: "Paid",
+    overdue: false,
+  },
+  {
+    name: "Dante Collins",
+    gradYear: "2027",
+    stage: "Done",
+    status: "HUDL",
+    videoEditor: "Editor 3",
+    assignedDate: "Jan 30, 2026",
+    videoStartDate: "Jan 30, 2026",
+    dueDate: "-",
     paymentStatus: "Paid",
     overdue: false,
   },
 ];
+
+function parseDateLabel(dateLabel: string) {
+  const parsed = new Date(`${dateLabel} UTC`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function addDays(date: Date, days: number) {
+  const next = new Date(date);
+  next.setUTCDate(next.getUTCDate() + days);
+  return next;
+}
+
+function formatDateLabel(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+function getDateDueDisplay(row: (typeof afterRecruitingRows)[number]) {
+  if (row.dueDate === "-") {
+    return "-";
+  }
+
+  if (row.dueDate) {
+    return row.dueDate;
+  }
+
+  const assigned = parseDateLabel(row.assignedDate);
+  if (!assigned) {
+    return "-";
+  }
+
+  return formatDateLabel(addDays(assigned, 7));
+}
 
 function stageChipClass(stage: string) {
   if (stage === "Done") {
@@ -316,7 +473,7 @@ function SportBeforeTable() {
                   {row.dueDate}{row.overdue ? " overdue" : ""}
                 </td>
                 <td className="px-2 py-1.5 text-zinc-400">{row.completionDate || "—"}</td>
-                <td className="px-2 py-1.5">{row.owner}</td>
+                <td className="px-2 py-1.5">Editor</td>
                 <td className="px-2 py-1.5">{row.contact}</td>
                 <td className="px-2 py-1.5 text-zinc-400">{row.gradYear}</td>
                 <td className="px-2 py-1.5">{row.title}</td>
@@ -333,9 +490,6 @@ function SportBeforeTable() {
 function SportAfterTable() {
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 sm:p-3">
-      <p className="mb-3 text-xs text-zinc-500 sm:text-sm">
-        due_date = assigned_date + 7 days, production starts 0 to 2 days after assignment.
-      </p>
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
@@ -366,9 +520,14 @@ function SportAfterTable() {
                 <td className="px-2 py-1.5 text-zinc-400">{row.assignedDate}</td>
                 <td className="px-2 py-1.5 text-zinc-400">{row.videoStartDate}</td>
                 <td className={`px-2 py-1.5 font-semibold ${row.overdue ? "text-red-300" : "text-zinc-200"}`}>
-                  {row.dueDate}
+                  {getDateDueDisplay(row)}
                 </td>
-                <td className="px-2 py-1.5">{row.paymentStatus}</td>
+                <td className="px-2 py-1.5">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className={row.paymentStatus === "Paid" ? "text-emerald-300" : "text-red-300"}>$</span>
+                    {row.paymentStatus}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -407,7 +566,7 @@ function getItems(kind: CaseStudyKind): AccordionItem[] {
     },
     {
       id: "sport-after-deadlines",
-      title: "After: Deadline logic gated by production start",
+      title: "After: Deadlines start only when work is ready",
       content: <SportAfterTable />,
     },
   ];
