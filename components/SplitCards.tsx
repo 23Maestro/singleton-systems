@@ -26,12 +26,12 @@ function DetailCard({
   revealClassName: string;
 }) {
   const bg = variant === "before"
-    ? "bg-[#1c2333]/90"
-    : "bg-[#1e2a3d]/90";
+    ? "bg-zinc-950"
+    : "bg-zinc-950";
 
   return (
     <article
-      className={`relative rounded-xl border border-white/10 p-6 backdrop-blur-sm transition-all duration-500 ease-out hover:-translate-y-1 hover:border-white/20 ${bg} ${revealClassName}`}
+      className={`relative rounded-xl border border-white/5 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.42)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/15 hover:shadow-[0_30px_70px_rgba(0,0,0,0.62)] ${bg} ${revealClassName}`}
     >
       {/* macOS window chrome */}
       <div className="mac-dots">
@@ -40,11 +40,15 @@ function DetailCard({
         <span></span>
       </div>
 
-      <h4 className="text-xl font-bold text-zinc-50">{data.title}</h4>
+      <h4 className="text-xl font-bold text-white">{data.title}</h4>
 
-      <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-zinc-200">
-        {data.bullets.map((bullet) => (
-          <li key={bullet} className="flex items-start gap-2.5 py-0.5">
+      <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-zinc-400">
+        {data.bullets.map((bullet, index) => (
+          <li
+            key={bullet}
+            className="list-fade-up flex items-start gap-2.5 py-0.5"
+            style={{ animationDelay: `${120 + (index * 60)}ms` }}
+          >
             <span aria-hidden className="mt-1.5 text-indigo-400">•</span>
             <span>{bullet}</span>
           </li>
@@ -95,15 +99,16 @@ export default function SplitCards({ before, after, metrics }: SplitCardsProps) 
   }, []);
 
   const beforeRevealClass = isVisible
-    ? "opacity-100 translate-x-0 motion-reduce:opacity-100"
-    : "opacity-0 -translate-x-6 motion-reduce:opacity-100 motion-reduce:translate-x-0";
+    ? "card-fade-up is-visible motion-reduce:opacity-100"
+    : "card-fade-up motion-reduce:opacity-100 motion-reduce:translate-y-0";
 
   const afterRevealClass = isVisible
-    ? "opacity-100 translate-x-0 delay-100 motion-reduce:opacity-100"
-    : "opacity-0 translate-x-6 motion-reduce:opacity-100 motion-reduce:translate-x-0";
+    ? "card-fade-up card-fade-delay is-visible motion-reduce:opacity-100"
+    : "card-fade-up card-fade-delay motion-reduce:opacity-100 motion-reduce:translate-y-0";
 
   return (
-    <div ref={containerRef} className="case-gradient rounded-2xl p-4 sm:p-8">
+    <div ref={containerRef} className="premium-surface relative overflow-hidden rounded-2xl p-4 sm:p-8">
+      <div aria-hidden className="pointer-events-none absolute -left-24 top-8 h-64 w-64 rounded-full bg-indigo-500/10 blur-[100px]" />
       <div className="relative z-10 grid gap-5 lg:grid-cols-2">
         <DetailCard data={before} variant="before" revealClassName={beforeRevealClass} />
         <DetailCard data={after} variant="after" revealClassName={afterRevealClass} />

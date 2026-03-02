@@ -23,8 +23,8 @@ const youtubeReferences: ReferenceItem[] = [
     id: "youtube-encoding",
     title: "Encoding Pipeline (FFmpeg)",
     content: (
-      <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 sm:p-3">
-        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-300 sm:text-[13px]">
+      <div className="rounded-xl border border-zinc-800 bg-[#0A0A0A] p-2.5 opacity-100 shadow-2xl sm:p-3">
+        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-400 sm:text-[13px]">
 {`# lesson_sequence.txt
 file '/input/01_intro_master.mov'
 file '/input/02_concepts_master.mov'
@@ -57,8 +57,8 @@ ffmpeg -i build/lesson_concat.mp4 \\
     id: "youtube-batch-rename",
     title: "Batch Rename System (AppleScript)",
     content: (
-      <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 sm:p-3">
-        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-300 sm:text-[13px]">
+      <div className="rounded-xl border border-zinc-800 bg-[#0A0A0A] p-2.5 opacity-100 shadow-2xl sm:p-3">
+        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-400 sm:text-[13px]">
 {`set lessonTitles to {"lesson one: intro", "lesson two: systems thinking", "lesson three: workflow qa", "lesson four: final review"}
 
 on pascalCase(rawText)
@@ -453,11 +453,11 @@ function stageChipClass(stage: string) {
 
 function SportBeforeTable() {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 sm:p-3">
+    <div className="rounded-xl border border-white/5 bg-zinc-950 p-2.5 shadow-2xl sm:p-3">
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
-            <tr className="border-b border-white/10">
+            <tr className="border-b border-white/5">
               <th className="px-2 py-1.5 font-medium">Due Date</th>
               <th className="px-2 py-1.5 font-medium">Completion Date</th>
               <th className="px-2 py-1.5 font-medium">Assigned Owner</th>
@@ -490,11 +490,11 @@ function SportBeforeTable() {
 
 function SportAfterTable() {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 sm:p-3">
+    <div className="rounded-xl border border-white/5 bg-zinc-950 p-2.5 shadow-2xl sm:p-3">
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
-            <tr className="border-b border-white/10">
+            <tr className="border-b border-white/5">
               <th className="px-2 py-1.5 font-medium">Name</th>
               <th className="px-2 py-1.5 font-medium">Grad Year</th>
               <th className="px-2 py-1.5 font-medium">Stage</th>
@@ -559,12 +559,12 @@ function getItems(kind: CaseStudyKind): ReferenceItem[] {
 
 function DeckShell({ title, depth }: { title: string; depth: 1 | 2 }) {
   const shellClass = depth === 1
-    ? "inset-x-2 top-2 opacity-40"
-    : "inset-x-4 top-4 opacity-25";
+    ? "inset-x-2 top-2"
+    : "inset-x-4 top-4";
 
   return (
-    <div className={`pointer-events-none absolute ${shellClass} h-full rounded-2xl border border-white/10 bg-white/[0.03]`}>
-      <p className="px-3 py-2 text-xs text-zinc-500 sm:px-4">{title}</p>
+    <div className={`pointer-events-none absolute ${shellClass} h-full rounded-2xl border border-white/5 bg-zinc-950`}>
+      <p className="px-3 py-2 text-xs text-zinc-600 sm:px-4">{title}</p>
     </div>
   );
 }
@@ -670,7 +670,7 @@ export default function CaseStudyAccordions({ kind, mainContent }: CaseStudyAcco
         <button
           type="button"
           onClick={advanceScene}
-          className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-zinc-300 transition-colors duration-200 ease-in-out hover:bg-white/10"
+          className="rounded-md border border-white/5 bg-zinc-950 px-2 py-1 text-zinc-300 transition-colors duration-200 ease-in-out hover:border-white/15"
         >
           Next
         </button>

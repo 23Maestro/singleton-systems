@@ -8,7 +8,7 @@ export default function MetricsStrip({ metrics }: MetricsStripProps) {
       {metrics.map((metric) => (
         <p
           key={metric}
-          className="rounded-lg border border-violet-500/20 bg-violet-950/30 px-4 py-3 text-sm font-semibold text-violet-200 backdrop-blur-sm"
+          className="rounded-lg border border-white/5 bg-zinc-950 px-4 py-3 text-sm font-semibold text-zinc-400 shadow-2xl"
         >
           {metric}
         </p>

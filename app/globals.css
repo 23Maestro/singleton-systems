@@ -11,20 +11,11 @@
 }
 
 /* ── gradient canvas behind case study cards ── */
-.case-gradient {
-  background: linear-gradient(135deg, #1a1a3e 0%, #0f2744 30%, #1b1050 60%, #2d1570 100%);
+.premium-surface {
+  background: #020202;
   position: relative;
   overflow: hidden;
-}
-
-.case-gradient::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 600px 400px at 20% 50%, rgba(56, 120, 255, 0.18), transparent),
-    radial-gradient(ellipse 500px 350px at 80% 50%, rgba(139, 92, 246, 0.2), transparent);
-  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* ── macOS window chrome dots ── */
@@ -74,7 +65,7 @@
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -84,7 +75,7 @@
 
 .fade-up {
   opacity: 0;
-  animation: fade-up 0.6s ease-out forwards;
+  animation: fade-up 0.7s ease-out forwards;
 }
 
 .fade-up-delay-1 {
@@ -92,5 +83,36 @@
 }
 
 .fade-up-delay-2 {
-  animation-delay: 0.24s;
+  animation-delay: 0.26s;
+}
+
+.card-fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms ease-out, transform 700ms ease-out;
+}
+
+.card-fade-up.card-fade-delay {
+  transition-delay: 100ms;
+}
+
+.card-fade-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes list-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.list-fade-up {
+  opacity: 0;
+  animation: list-fade-up 700ms ease-out forwards;
 }

@@ -15,7 +15,7 @@ export default function CapabilitiesStrip({
           {capabilities.map((capability) => (
             <li
               key={capability}
-              className="rounded-lg border border-zinc-700/60 bg-zinc-800/50 px-4 py-3 text-sm font-medium text-zinc-200 transition-colors hover:border-violet-500/30 hover:bg-violet-950/20"
+              className="rounded-lg border border-white/5 bg-zinc-950 px-4 py-3 text-sm font-medium text-zinc-400 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-white/15 hover:shadow-2xl"
             >
               {capability}
             </li>

@@ -11,18 +11,19 @@ const capabilities = [
 
 export default function Page() {
   return (
-    <main>
+    <main className="relative overflow-hidden bg-black">
       <section className="py-16 sm:py-20" aria-labelledby="hero-heading">
         <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-8 sm:p-12">
+          <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-zinc-950 p-8 shadow-2xl sm:p-12">
+            <div aria-hidden className="pointer-events-none absolute -left-16 top-0 h-56 w-56 rounded-full bg-indigo-500/10 blur-[100px]" />
             <h1
               id="hero-heading"
-              className="fade-up max-w-4xl text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl"
+              className="fade-up max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl"
             >
-              I produce the edits. I code the workflow.
+              Video Production, Engineered.
             </h1>
-            <p className="fade-up fade-up-delay-1 mt-5 max-w-3xl text-lg leading-relaxed text-gray-400 sm:text-xl">
-              Video editing. <span className="font-semibold text-emerald-400">Scaled 3x</span> by automation.
+            <p className="fade-up fade-up-delay-1 mt-5 max-w-3xl text-lg leading-relaxed text-zinc-400 sm:text-xl">
+              High-volume post-production scaled by custom code.
             </p>
             <p className="fade-up fade-up-delay-2 mt-4 text-sm text-zinc-500">
               Video editor and systems builder for education, sports, and media teams.
