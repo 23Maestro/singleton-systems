@@ -23,15 +23,16 @@ const youtubeReferences: ReferenceItem[] = [
     id: "youtube-encoding",
     title: "Encoding Pipeline (FFmpeg)",
     content: (
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
-        <div className="border-b border-white/10 px-4 py-3">
-          <div className="mac-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+      <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-3 shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
+        <div className="overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
+          <div className="border-b border-white/10 px-4 py-3">
+            <div className="mac-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
-        </div>
-        <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
+          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
 {`# lesson_sequence.txt
 file '/input/01_intro_master.mov'
 file '/input/02_concepts_master.mov'
@@ -56,7 +57,8 @@ ffmpeg -i build/lesson_concat.mp4 \\
   -c:a aac -ar 48000 -b:a 192k \\
   -movflags +faststart \\
   masters/LessonSeries_Master_1080p2398.mp4`}
-        </pre>
+          </pre>
+        </div>
       </div>
     ),
   },
@@ -64,15 +66,16 @@ ffmpeg -i build/lesson_concat.mp4 \\
     id: "youtube-batch-rename",
     title: "Batch Rename System (AppleScript)",
     content: (
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
-        <div className="border-b border-white/10 px-4 py-3">
-          <div className="mac-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+      <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-3 shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
+        <div className="overflow-hidden rounded-lg border border-white/10 bg-zinc-950">
+          <div className="border-b border-white/10 px-4 py-3">
+            <div className="mac-dots">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
-        </div>
-        <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
+          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
 {`set lessonTitles to {"lesson one: intro", "lesson two: systems thinking", "lesson three: workflow qa", "lesson four: final review"}
 
 on pascalCase(rawText)
@@ -104,7 +107,8 @@ repeat with lessonName in lessonTitles
   log finalName
   set indexCounter to indexCounter + 1
 end repeat`}
-        </pre>
+          </pre>
+        </div>
       </div>
     ),
   },
@@ -487,8 +491,8 @@ function stageChipClass(stage: string) {
 
 function SportBeforeTable() {
   return (
-    <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-2.5 shadow-[0_24px_54px_rgba(5,15,30,0.58)] sm:p-3">
-      <div className="overflow-x-auto">
+    <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-3 shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
+      <div className="mx-auto w-[98%] overflow-x-auto rounded-lg border border-white/10 bg-zinc-950">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
             <tr className="border-b border-white/5">
@@ -524,8 +528,8 @@ function SportBeforeTable() {
 
 function SportAfterTable() {
   return (
-    <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-2.5 shadow-[0_24px_54px_rgba(5,15,30,0.58)] sm:p-3">
-      <div className="overflow-x-auto">
+    <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-3 shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
+      <div className="mx-auto w-[98%] overflow-x-auto rounded-lg border border-white/10 bg-zinc-950">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
             <tr className="border-b border-white/5">
