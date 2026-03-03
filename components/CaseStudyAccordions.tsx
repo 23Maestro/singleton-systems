@@ -37,7 +37,7 @@ const youtubeReferences: ReferenceItem[] = [
               <span></span>
             </div>
           </div>
-          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[14px] leading-relaxed sm:text-[16px]">
+          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[15px] leading-relaxed sm:text-[17px]">
             <code className="block text-zinc-100">
               <CodeLine><span className="italic text-slate-400"># lesson_sequence.txt</span></CodeLine>
               <CodeLine><span className="text-violet-300">file</span> <span className="text-sky-300">'/input/01_intro_master.mov'</span></CodeLine>
@@ -82,7 +82,7 @@ const youtubeReferences: ReferenceItem[] = [
               <span></span>
             </div>
           </div>
-          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[14px] leading-relaxed sm:text-[16px]">
+          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[15px] leading-relaxed sm:text-[17px]">
             <code className="block text-zinc-100">
               <CodeLine><span className="text-violet-300">set</span> <span className="text-cyan-300">lessonTitles</span> <span className="text-violet-300">to</span> <span className="text-zinc-200">{"{\"lesson one: intro\", \"lesson two: systems thinking\", \"lesson three: workflow qa\", \"lesson four: final review\"}"}</span></CodeLine>
               <CodeLine>{" "}</CodeLine>
