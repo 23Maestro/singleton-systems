@@ -37,7 +37,7 @@ export default function Page() {
         id="case-study-1"
         name="YouTube Migration"
         outcomeHeadline="180+ videos migrated. Driven by Automation."
-        subtitle={<>I turned <span className="green-glow font-semibold text-emerald-300">40+</span> hours of long-form lessons into an automated system.</>}
+        subtitle={<>I turned <span className="font-semibold text-red-400">40+</span> hours of long-form lessons into an automated system.</>}
         before={{
           title: "Manual Workflow",
           label: "Before",

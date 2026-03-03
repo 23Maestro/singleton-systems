@@ -23,8 +23,15 @@ const youtubeReferences: ReferenceItem[] = [
     id: "youtube-encoding",
     title: "Encoding Pipeline (FFmpeg)",
     content: (
-      <div className="rounded-xl border border-[#4b6488] bg-[#1a2a44] p-2.5 opacity-100 shadow-[0_22px_44px_rgba(5,15,30,0.55)] sm:p-3">
-        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-200 sm:text-[13px]">
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
+        <div className="border-b border-white/10 px-4 py-3">
+          <div className="mac-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
 {`# lesson_sequence.txt
 file '/input/01_intro_master.mov'
 file '/input/02_concepts_master.mov'
@@ -57,8 +64,15 @@ ffmpeg -i build/lesson_concat.mp4 \\
     id: "youtube-batch-rename",
     title: "Batch Rename System (AppleScript)",
     content: (
-      <div className="rounded-xl border border-[#4b6488] bg-[#1a2a44] p-2.5 opacity-100 shadow-[0_22px_44px_rgba(5,15,30,0.55)] sm:p-3">
-        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-200 sm:text-[13px]">
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] shadow-[0_24px_54px_rgba(5,15,30,0.58)]">
+        <div className="border-b border-white/10 px-4 py-3">
+          <div className="mac-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
 {`set lessonTitles to {"lesson one: intro", "lesson two: systems thinking", "lesson three: workflow qa", "lesson four: final review"}
 
 on pascalCase(rawText)
@@ -100,7 +114,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/08/26",
     completionDate: "",
-    owner: "Editor 1",
+    owner: "Editor",
     contact: "Mason Clark",
     gradYear: "2026",
     title: "Video Editing",
@@ -110,7 +124,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/09/26",
     completionDate: "-",
-    owner: "Editor 1",
+    owner: "Editor",
     contact: "Jayden Reed",
     gradYear: "2025",
     title: "Video Editing",
@@ -120,7 +134,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/10/26",
     completionDate: "",
-    owner: "Editor 2",
+    owner: "Editor",
     contact: "Liam Torres",
     gradYear: "2026",
     title: "Video Editing",
@@ -130,7 +144,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/11/26",
     completionDate: "",
-    owner: "Editor 2",
+    owner: "Editor",
     contact: "Noah Brooks",
     gradYear: "2027",
     title: "Video Editing",
@@ -140,7 +154,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/12/26",
     completionDate: "",
-    owner: "Editor 3",
+    owner: "Editor",
     contact: "Caleb Morris",
     gradYear: "2025",
     title: "Video Editing",
@@ -150,7 +164,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/13/26",
     completionDate: "",
-    owner: "Editor 3",
+    owner: "Editor",
     contact: "Ethan Walker",
     gradYear: "2026",
     title: "Video Editing",
@@ -160,7 +174,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/14/26",
     completionDate: "-",
-    owner: "Editor 1",
+    owner: "Editor",
     contact: "Ryan Foster",
     gradYear: "2026",
     title: "Video Editing",
@@ -170,7 +184,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/15/26",
     completionDate: "",
-    owner: "Editor 2",
+    owner: "Editor",
     contact: "Daniel Cruz",
     gradYear: "2027",
     title: "Video Editing",
@@ -180,7 +194,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/18/26",
     completionDate: "",
-    owner: "Editor 3",
+    owner: "Editor",
     contact: "Aiden Scott",
     gradYear: "2025",
     title: "Video Editing",
@@ -190,7 +204,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/20/26",
     completionDate: "",
-    owner: "Editor 1",
+    owner: "Editor",
     contact: "Jordan Hayes",
     gradYear: "2026",
     title: "Video Editing",
@@ -200,7 +214,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/21/26",
     completionDate: "",
-    owner: "Editor 2",
+    owner: "Editor",
     contact: "Tyler Bennett",
     gradYear: "2027",
     title: "Video Editing",
@@ -210,7 +224,7 @@ const beforeRecruitingRows = [
   {
     dueDate: "2/22/26",
     completionDate: "",
-    owner: "Editor 3",
+    owner: "Editor",
     contact: "Marcus Hill",
     gradYear: "2025",
     title: "Video Editing",
@@ -219,13 +233,26 @@ const beforeRecruitingRows = [
   },
 ];
 
-const afterRecruitingRows = [
+type AfterRecruitingRow = {
+  name: string;
+  gradYear: string;
+  stage: string;
+  status: string;
+  videoEditor: string;
+  assignedDate: string;
+  videoStartDate?: string;
+  dueDate?: string;
+  paymentStatus: "Paid" | "Unpaid";
+  overdue: boolean;
+};
+
+const afterRecruitingRows: AfterRecruitingRow[] = [
   {
     name: "Mason Clark",
     gradYear: "2027",
     stage: "In Queue",
     status: "HUDL",
-    videoEditor: "Editor 1",
+    videoEditor: "Editor",
     assignedDate: "Feb 16, 2026",
     videoStartDate: "Feb 16, 2026",
     dueDate: "Feb 23, 2026",
@@ -237,10 +264,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "External Links",
-    videoEditor: "Editor 1",
+    videoEditor: "Editor",
     assignedDate: "Feb 12, 2026",
-    videoStartDate: "Feb 12, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 13, 2026",
+    dueDate: "Feb 20, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -249,10 +276,10 @@ const afterRecruitingRows = [
     gradYear: "2029",
     stage: "Awaiting Client",
     status: "HUDL",
-    videoEditor: "Editor 2",
+    videoEditor: "Editor",
     assignedDate: "Feb 11, 2026",
-    videoStartDate: "-",
-    dueDate: "-",
+    videoStartDate: "Feb 13, 2026",
+    dueDate: "Feb 20, 2026",
     paymentStatus: "Unpaid",
     overdue: false,
   },
@@ -261,10 +288,10 @@ const afterRecruitingRows = [
     gradYear: "2027",
     stage: "Done",
     status: "HUDL",
-    videoEditor: "Editor 2",
+    videoEditor: "Editor",
     assignedDate: "Feb 09, 2026",
-    videoStartDate: "Feb 09, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 10, 2026",
+    dueDate: "Feb 17, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -273,10 +300,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "Dropbox",
-    videoEditor: "Editor 3",
+    videoEditor: "Editor",
     assignedDate: "Feb 09, 2026",
-    videoStartDate: "Feb 09, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 11, 2026",
+    dueDate: "Feb 18, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -285,10 +312,10 @@ const afterRecruitingRows = [
     gradYear: "2027",
     stage: "Done",
     status: "HUDL",
-    videoEditor: "Editor 3",
+    videoEditor: "Editor",
     assignedDate: "Feb 09, 2026",
     videoStartDate: "Feb 09, 2026",
-    dueDate: "-",
+    dueDate: "Feb 16, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -297,10 +324,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "HUDL",
-    videoEditor: "Editor 1",
+    videoEditor: "Editor",
     assignedDate: "Feb 08, 2026",
-    videoStartDate: "Feb 08, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 10, 2026",
+    dueDate: "Feb 17, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -309,9 +336,9 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "Dropbox",
-    videoEditor: "Editor 2",
+    videoEditor: "Editor",
     assignedDate: "Feb 07, 2026",
-    videoStartDate: "Feb 07, 2026",
+    videoStartDate: "Feb 08, 2026",
     dueDate: "Feb 15, 2026",
     paymentStatus: "Paid",
     overdue: false,
@@ -321,10 +348,10 @@ const afterRecruitingRows = [
     gradYear: "2027",
     stage: "Done",
     status: "Revisions",
-    videoEditor: "Editor 3",
+    videoEditor: "Editor",
     assignedDate: "Feb 07, 2026",
-    videoStartDate: "Feb 07, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 09, 2026",
+    dueDate: "Feb 16, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -333,10 +360,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "HUDL",
-    videoEditor: "Editor 1",
+    videoEditor: "Editor",
     assignedDate: "Feb 04, 2026",
     videoStartDate: "Feb 04, 2026",
-    dueDate: "-",
+    dueDate: "Feb 11, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -345,10 +372,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "External Links",
-    videoEditor: "Editor 2",
+    videoEditor: "Editor",
     assignedDate: "Feb 04, 2026",
-    videoStartDate: "Feb 04, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 06, 2026",
+    dueDate: "Feb 13, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -357,10 +384,10 @@ const afterRecruitingRows = [
     gradYear: "2025",
     stage: "Done",
     status: "Dropbox",
-    videoEditor: "Editor 3",
+    videoEditor: "Editor",
     assignedDate: "Feb 02, 2026",
-    videoStartDate: "Feb 02, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 03, 2026",
+    dueDate: "Feb 10, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -369,10 +396,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "Dropbox",
-    videoEditor: "Editor 1",
+    videoEditor: "Editor",
     assignedDate: "Feb 01, 2026",
-    videoStartDate: "Feb 01, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 02, 2026",
+    dueDate: "Feb 09, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -381,10 +408,10 @@ const afterRecruitingRows = [
     gradYear: "2026",
     stage: "Done",
     status: "HUDL",
-    videoEditor: "Editor 2",
+    videoEditor: "Editor",
     assignedDate: "Jan 31, 2026",
-    videoStartDate: "Jan 31, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 01, 2026",
+    dueDate: "Feb 08, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -393,10 +420,10 @@ const afterRecruitingRows = [
     gradYear: "2027",
     stage: "Done",
     status: "HUDL",
-    videoEditor: "Editor 3",
+    videoEditor: "Editor",
     assignedDate: "Jan 30, 2026",
-    videoStartDate: "Jan 30, 2026",
-    dueDate: "-",
+    videoStartDate: "Feb 01, 2026",
+    dueDate: "Feb 08, 2026",
     paymentStatus: "Paid",
     overdue: false,
   },
@@ -422,24 +449,31 @@ function formatDateLabel(date: Date) {
   });
 }
 
-function getDateDueDisplay(row: (typeof afterRecruitingRows)[number]) {
-  if (row.dueDate === "-") {
-    return "-";
-  }
-
-  if (row.dueDate) {
+function getDateDueDisplay(row: AfterRecruitingRow) {
+  if (row.dueDate && row.dueDate !== "-") {
     return row.dueDate;
   }
 
-  const assigned = parseDateLabel(row.assignedDate);
-  if (!assigned) {
-    return "-";
+  if (row.videoStartDate && row.videoStartDate !== "-") {
+    const start = parseDateLabel(row.videoStartDate);
+    if (start) {
+      return formatDateLabel(addDays(start, 7));
+    }
   }
 
-  return formatDateLabel(addDays(assigned, 7));
+  const assigned = parseDateLabel(row.assignedDate);
+  if (assigned) {
+    return formatDateLabel(addDays(assigned, 7));
+  }
+
+  return "-";
 }
 
 function stageChipClass(stage: string) {
+  if (stage === "In Queue") {
+    return "border border-red-400/30 bg-red-400/10 text-red-200";
+  }
+
   if (stage === "Done") {
     return "border border-emerald-400/25 bg-emerald-400/10 text-emerald-200";
   }
@@ -453,7 +487,7 @@ function stageChipClass(stage: string) {
 
 function SportBeforeTable() {
   return (
-    <div className="rounded-xl border border-white/5 bg-zinc-950 p-2.5 shadow-2xl sm:p-3">
+    <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-2.5 shadow-[0_24px_54px_rgba(5,15,30,0.58)] sm:p-3">
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
@@ -474,7 +508,7 @@ function SportBeforeTable() {
                   {row.dueDate}{row.overdue ? " overdue" : ""}
                 </td>
                 <td className="px-2 py-1.5 text-zinc-400">{row.completionDate || "—"}</td>
-                <td className="px-2 py-1.5">Editor</td>
+                <td className="px-2 py-1.5">{row.owner}</td>
                 <td className="px-2 py-1.5">{row.contact}</td>
                 <td className="px-2 py-1.5 text-zinc-400">{row.gradYear}</td>
                 <td className="px-2 py-1.5">{row.title}</td>
@@ -490,7 +524,7 @@ function SportBeforeTable() {
 
 function SportAfterTable() {
   return (
-    <div className="rounded-xl border border-white/5 bg-zinc-950 p-2.5 shadow-2xl sm:p-3">
+    <div className="rounded-xl border border-white/10 bg-[linear-gradient(140deg,#152b52_0%,#1a3158_42%,#2a1a57_100%)] p-2.5 shadow-[0_24px_54px_rgba(5,15,30,0.58)] sm:p-3">
       <div className="overflow-x-auto">
         <table className="min-w-full text-left text-xs sm:text-[13px]">
           <thead className="text-zinc-400">
