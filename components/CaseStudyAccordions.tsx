@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities */
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
@@ -18,6 +19,10 @@ type ReferenceItem = {
 
 const transition = { duration: 0.3, ease: "easeInOut" as const };
 
+function CodeLine({ children }: { children: ReactNode }) {
+  return <div className="whitespace-pre">{children}</div>;
+}
+
 const youtubeReferences: ReferenceItem[] = [
   {
     id: "youtube-encoding",
@@ -32,31 +37,33 @@ const youtubeReferences: ReferenceItem[] = [
               <span></span>
             </div>
           </div>
-          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
-{`# lesson_sequence.txt
-file '/input/01_intro_master.mov'
-file '/input/02_concepts_master.mov'
-file '/input/03_examples_master.mov'
-file '/input/04_summary_master.mov'
-
-# 1) Standardize each source clip
-ffmpeg -i input.mov \\
-  -vf "scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,fps=24000/1001" \\
-  -c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p \\
-  -c:a aac -ar 48000 -b:a 192k \\
-  -movflags +faststart \\
-  normalized/output_standardized.mp4
-
-# 2) Ordered concat using a sequence file
-ffmpeg -f concat -safe 0 -i lesson_sequence.txt \\
-  -c copy build/lesson_concat.mp4
-
-# 3) Final master export pass
-ffmpeg -i build/lesson_concat.mp4 \\
-  -c:v libx264 -preset slow -crf 18 -profile:v high -level 4.1 \\
-  -c:a aac -ar 48000 -b:a 192k \\
-  -movflags +faststart \\
-  masters/LessonSeries_Master_1080p2398.mp4`}
+          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[14px] leading-relaxed sm:text-[16px]">
+            <code className="block text-zinc-100">
+              <CodeLine><span className="italic text-slate-400"># lesson_sequence.txt</span></CodeLine>
+              <CodeLine><span className="text-violet-300">file</span> <span className="text-sky-300">'/input/01_intro_master.mov'</span></CodeLine>
+              <CodeLine><span className="text-violet-300">file</span> <span className="text-sky-300">'/input/02_concepts_master.mov'</span></CodeLine>
+              <CodeLine><span className="text-violet-300">file</span> <span className="text-sky-300">'/input/03_examples_master.mov'</span></CodeLine>
+              <CodeLine><span className="text-violet-300">file</span> <span className="text-sky-300">'/input/04_summary_master.mov'</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine><span className="italic text-slate-400"># 1) Standardize each source clip</span></CodeLine>
+              <CodeLine><span className="text-fuchsia-400">ffmpeg</span> <span className="text-amber-300">-i</span> <span className="text-cyan-300">input.mov</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-vf</span> <span className="text-sky-300">"scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,fps=24000/1001"</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-c:v</span> <span className="text-cyan-300">libx264</span> <span className="text-amber-300">-preset</span> <span className="text-zinc-200">medium</span> <span className="text-amber-300">-crf</span> <span className="text-yellow-200">19</span> <span className="text-amber-300">-pix_fmt</span> <span className="text-cyan-300">yuv420p</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-c:a</span> <span className="text-cyan-300">aac</span> <span className="text-amber-300">-ar</span> <span className="text-yellow-200">48000</span> <span className="text-amber-300">-b:a</span> <span className="text-yellow-200">192k</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-movflags</span> <span className="text-zinc-200">+faststart</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-sky-300">normalized/output_standardized.mp4</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine><span className="italic text-slate-400"># 2) Ordered concat using a sequence file</span></CodeLine>
+              <CodeLine><span className="text-fuchsia-400">ffmpeg</span> <span className="text-amber-300">-f</span> <span className="text-cyan-300">concat</span> <span className="text-amber-300">-safe</span> <span className="text-yellow-200">0</span> <span className="text-amber-300">-i</span> <span className="text-cyan-300">lesson_sequence.txt</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-c</span> <span className="text-zinc-200">copy</span> <span className="text-sky-300">build/lesson_concat.mp4</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine><span className="italic text-slate-400"># 3) Final master export pass</span></CodeLine>
+              <CodeLine><span className="text-fuchsia-400">ffmpeg</span> <span className="text-amber-300">-i</span> <span className="text-sky-300">build/lesson_concat.mp4</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-c:v</span> <span className="text-cyan-300">libx264</span> <span className="text-amber-300">-preset</span> <span className="text-zinc-200">slow</span> <span className="text-amber-300">-crf</span> <span className="text-yellow-200">18</span> <span className="text-amber-300">-profile:v</span> <span className="text-zinc-200">high</span> <span className="text-amber-300">-level</span> <span className="text-yellow-200">4.1</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-c:a</span> <span className="text-cyan-300">aac</span> <span className="text-amber-300">-ar</span> <span className="text-yellow-200">48000</span> <span className="text-amber-300">-b:a</span> <span className="text-yellow-200">192k</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-amber-300">-movflags</span> <span className="text-zinc-200">+faststart</span> \</CodeLine>
+              <CodeLine>{"  "}<span className="text-sky-300">masters/LessonSeries_Master_1080p2398.mp4</span></CodeLine>
+            </code>
           </pre>
         </div>
       </div>
@@ -75,38 +82,32 @@ ffmpeg -i build/lesson_concat.mp4 \\
               <span></span>
             </div>
           </div>
-          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[13px] leading-relaxed text-sky-200 sm:text-[14px]">
-{`set lessonTitles to {"lesson one: intro", "lesson two: systems thinking", "lesson three: workflow qa", "lesson four: final review"}
-
-on pascalCase(rawText)
-  set parts to words of rawText
-  set outputText to ""
-
-  repeat with p in parts
-    set token to p as text
-    set token to (uppercaseText(text 1 thru 1 of token)) & (lowercaseText(text 2 thru -1 of token))
-    set outputText to outputText & token
-  end repeat
-
-  return outputText
-end pascalCase
-
-on uppercaseText(t)
-  return do shell script "printf %s " & quoted form of t & " | tr '[:lower:]' '[:upper:]'"
-end uppercaseText
-
-on lowercaseText(t)
-  return do shell script "printf %s " & quoted form of t & " | tr '[:upper:]' '[:lower:]'"
-end lowercaseText
-
-set indexCounter to 1
-repeat with lessonName in lessonTitles
-  set lessonSlug to pascalCase(lessonName as text)
-  set finalName to (indexCounter as text) & "_" & lessonSlug
-  -- Example output: 1_LessonOneIntro
-  log finalName
-  set indexCounter to indexCounter + 1
-end repeat`}
+          <pre className="overflow-x-auto px-4 pb-4 pt-3 font-mono text-[14px] leading-relaxed sm:text-[16px]">
+            <code className="block text-zinc-100">
+              <CodeLine><span className="text-violet-300">set</span> <span className="text-cyan-300">lessonTitles</span> <span className="text-violet-300">to</span> <span className="text-zinc-200">{"{\"lesson one: intro\", \"lesson two: systems thinking\", \"lesson three: workflow qa\", \"lesson four: final review\"}"}</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine><span className="text-violet-300">on</span> <span className="text-fuchsia-400">pascalCase</span><span className="text-zinc-200">(rawText)</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">set</span> <span className="text-cyan-300">parts</span> <span className="text-violet-300">to</span> <span className="text-zinc-200">words of rawText</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">set</span> <span className="text-cyan-300">outputText</span> <span className="text-violet-300">to</span> <span className="text-rose-300">""</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">repeat with</span> <span className="text-cyan-300">p</span> <span className="text-violet-300">in</span> <span className="text-cyan-300">parts</span></CodeLine>
+              <CodeLine>{"    "}<span className="text-violet-300">set</span> <span className="text-cyan-300">token</span> <span className="text-violet-300">to</span> <span className="text-zinc-200">p as text</span></CodeLine>
+              <CodeLine>{"    "}<span className="text-violet-300">set</span> <span className="text-cyan-300">token</span> <span className="text-violet-300">to</span> <span className="text-zinc-200">(uppercaseText(text 1 thru 1 of token)) & (lowercaseText(text 2 thru -1 of token))</span></CodeLine>
+              <CodeLine>{"    "}<span className="text-violet-300">set</span> <span className="text-cyan-300">outputText</span> <span className="text-violet-300">to</span> <span className="text-cyan-300">outputText</span> <span className="text-zinc-200">& token</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">end repeat</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">return</span> <span className="text-cyan-300">outputText</span></CodeLine>
+              <CodeLine><span className="text-violet-300">end</span> <span className="text-fuchsia-400">pascalCase</span></CodeLine>
+              <CodeLine>{" "}</CodeLine>
+              <CodeLine><span className="text-violet-300">set</span> <span className="text-cyan-300">indexCounter</span> <span className="text-violet-300">to</span> <span className="text-yellow-200">1</span></CodeLine>
+              <CodeLine><span className="text-violet-300">repeat with</span> <span className="text-cyan-300">lessonName</span> <span className="text-violet-300">in</span> <span className="text-cyan-300">lessonTitles</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">set</span> <span className="text-cyan-300">lessonSlug</span> <span className="text-violet-300">to</span> <span className="text-fuchsia-400">pascalCase</span><span className="text-zinc-200">(lessonName as text)</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">set</span> <span className="text-cyan-300">finalName</span> <span className="text-violet-300">to</span> <span className="text-zinc-200">(indexCounter as text) & "_" & lessonSlug</span></CodeLine>
+              <CodeLine>{"  "}<span className="italic text-slate-400">-- Example output: 1_LessonOneIntro</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">log</span> <span className="text-cyan-300">finalName</span></CodeLine>
+              <CodeLine>{"  "}<span className="text-violet-300">set</span> <span className="text-cyan-300">indexCounter</span> <span className="text-violet-300">to</span> <span className="text-cyan-300">indexCounter</span> <span className="text-zinc-200">+ </span><span className="text-yellow-200">1</span></CodeLine>
+              <CodeLine><span className="text-violet-300">end repeat</span></CodeLine>
+            </code>
           </pre>
         </div>
       </div>
