@@ -8,7 +8,7 @@ export default function CapabilitiesStrip({
   return (
     <section className="py-16 sm:py-20" aria-labelledby="capabilities-heading">
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
-        <h2 id="capabilities-heading" className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-400">
+        <h2 id="capabilities-heading" className="blue-glow text-xs font-semibold uppercase tracking-[0.18em] text-sky-400">
           What I Work With
         </h2>
         <ul className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">

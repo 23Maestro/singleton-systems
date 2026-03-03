@@ -26,12 +26,12 @@ function DetailCard({
   revealClassName: string;
 }) {
   const bg = variant === "before"
-    ? "bg-zinc-950"
-    : "bg-zinc-950";
+    ? "bg-[#1a2740]"
+    : "bg-[#1e2d47]";
 
   return (
     <article
-      className={`relative rounded-xl border border-white/5 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.42)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/15 hover:shadow-[0_30px_70px_rgba(0,0,0,0.62)] ${bg} ${revealClassName}`}
+      className={`relative rounded-xl border border-white/10 p-6 shadow-[0_18px_40px_rgba(0,0,0,0.42)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_30px_70px_rgba(0,0,0,0.62)] ${bg} ${revealClassName}`}
     >
       {/* macOS window chrome */}
       <div className="mac-dots">
@@ -42,7 +42,7 @@ function DetailCard({
 
       <h4 className="text-xl font-bold text-white">{data.title}</h4>
 
-      <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-zinc-400">
+      <ul className="mt-5 space-y-3 text-[15px] leading-relaxed text-zinc-200">
         {data.bullets.map((bullet, index) => (
           <li
             key={bullet}

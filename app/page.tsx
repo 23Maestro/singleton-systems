@@ -22,10 +22,10 @@ export default function Page() {
             >
               Video Production, Engineered.
             </h1>
-            <p className="fade-up fade-up-delay-1 mt-5 max-w-3xl text-lg leading-relaxed text-zinc-400 sm:text-xl">
-              High-volume post-production scaled by custom code.
+            <p className="fade-up fade-up-delay-1 mt-5 max-w-3xl text-xl leading-relaxed text-zinc-200 sm:text-2xl">
+              High-volume post-production scaled <span className="green-glow font-semibold text-emerald-300">3x</span> by custom code.
             </p>
-            <p className="fade-up fade-up-delay-2 mt-4 text-sm text-zinc-500">
+            <p className="fade-up fade-up-delay-2 mt-4 text-base text-zinc-300 sm:text-lg">
               Video editor and systems builder for education, sports, and media teams.
             </p>
           </div>
@@ -36,17 +36,15 @@ export default function Page() {
         kind="youtube"
         id="case-study-1"
         name="YouTube Migration"
-        outcomeHeadline="180+ videos migrated. Zero timeline babysitting."
-        subtitle="I turned 38 hours of long-form lessons into a rapid-publish system — reducing timespent in Premiere."
+        outcomeHeadline="180+ videos migrated. Driven by Automation."
+        subtitle={<>I turned <span className="green-glow font-semibold text-emerald-300">40+</span> hours of long-form lessons into an automated system.</>}
         before={{
           title: "Manual Workflow",
           label: "Before",
           bullets: [
             "Open lesson",
             "Drag into timeline",
-            "Concatenate",
             "Rename manually",
-            "Stitch transcript",
             "Re-export",
           ],
           indicators: [
@@ -81,8 +79,8 @@ export default function Page() {
         kind="sport"
         id="case-study-2"
         name="Sport Recruiting Pipeline"
-        outcomeHeadline="140+ recruiting videos delivered in 6 weeks. No hand-holding."
-        subtitle="I modernized a broken intake system to handle 4x enrollment growth — on autopilot."
+        outcomeHeadline="140+ sport highlights delivered over 6 weeks."
+        subtitle={<>I modernized a legacy intake system to handle <span className="green-glow font-semibold text-emerald-300">2x</span> enrollment growth.</>}
         before={{
           title: "Manual Workflow",
           label: "Before",
@@ -91,7 +89,6 @@ export default function Page() {
             "Copy-paste formatting",
             "Inconsistent file naming",
             "Constant QC by hand",
-            "Maxed at 30/month",
           ],
           indicators: [
             { icon: "🕐", label: "Time", value: "High", color: "status-high" },
@@ -115,7 +112,7 @@ export default function Page() {
           ],
         }}
         metrics={[
-          "Scaled from 30 to 70+/month",
+          "Scaled from 30 to 70+ month",
           "140 outputs in 6 weeks",
           "Eliminated manual data entry",
         ]}

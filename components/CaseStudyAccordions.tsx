@@ -23,8 +23,8 @@ const youtubeReferences: ReferenceItem[] = [
     id: "youtube-encoding",
     title: "Encoding Pipeline (FFmpeg)",
     content: (
-      <div className="rounded-xl border border-zinc-800 bg-[#0A0A0A] p-2.5 opacity-100 shadow-2xl sm:p-3">
-        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-400 sm:text-[13px]">
+      <div className="rounded-xl border border-[#4b6488] bg-[#1a2a44] p-2.5 opacity-100 shadow-[0_22px_44px_rgba(5,15,30,0.55)] sm:p-3">
+        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-200 sm:text-[13px]">
 {`# lesson_sequence.txt
 file '/input/01_intro_master.mov'
 file '/input/02_concepts_master.mov'
@@ -57,8 +57,8 @@ ffmpeg -i build/lesson_concat.mp4 \\
     id: "youtube-batch-rename",
     title: "Batch Rename System (AppleScript)",
     content: (
-      <div className="rounded-xl border border-zinc-800 bg-[#0A0A0A] p-2.5 opacity-100 shadow-2xl sm:p-3">
-        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-400 sm:text-[13px]">
+      <div className="rounded-xl border border-[#4b6488] bg-[#1a2a44] p-2.5 opacity-100 shadow-[0_22px_44px_rgba(5,15,30,0.55)] sm:p-3">
+        <pre className="overflow-x-auto font-mono text-[12px] leading-relaxed text-zinc-200 sm:text-[13px]">
 {`set lessonTitles to {"lesson one: intro", "lesson two: systems thinking", "lesson three: workflow qa", "lesson four: final review"}
 
 on pascalCase(rawText)
@@ -546,12 +546,12 @@ function getItems(kind: CaseStudyKind): ReferenceItem[] {
   return [
     {
       id: "sport-before-deadlines",
-      title: "Before: Auto-triggered deadlines",
+      title: "Before: Deadlines unknown",
       content: <SportBeforeTable />,
     },
     {
       id: "sport-after-deadlines",
-      title: "After: Deadlines start only when work is ready",
+      title: "After: Auto-triggered deadlines",
       content: <SportAfterTable />,
     },
   ];

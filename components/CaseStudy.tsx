@@ -1,11 +1,12 @@
 import SplitCards, { type SplitCardData } from "./SplitCards";
 import CaseStudyAccordions from "./CaseStudyAccordions";
+import type { ReactNode } from "react";
 
 export type CaseStudyProps = {
   id: string;
   name: string;
   outcomeHeadline: string;
-  subtitle: string;
+  subtitle: ReactNode;
   before: SplitCardData;
   after: SplitCardData;
   metrics: readonly [string, string, string];
@@ -27,13 +28,13 @@ export default function CaseStudy({
       <div aria-hidden className="pointer-events-none absolute left-1/2 top-28 h-64 w-64 -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[100px]" />
       <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
         <header className="fade-up mb-8 max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-400">
+          <p className="blue-glow text-xs font-semibold uppercase tracking-[0.18em] text-sky-400">
             Case Study — {name}
           </p>
           <h2 id={id} className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             {outcomeHeadline}
           </h2>
-          <p className="mt-3 text-base text-zinc-400 sm:text-lg">{subtitle}</p>
+          <p className="mt-3 text-lg leading-relaxed text-zinc-200 sm:text-xl">{subtitle}</p>
         </header>
         <CaseStudyAccordions
           kind={kind}
