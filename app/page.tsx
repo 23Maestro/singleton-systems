@@ -10,17 +10,17 @@ const capabilities = [
 ] as const;
 
 const painPoints = [
-  "Too many clicks",
-  "No shared workflow state",
-  "Follow-up depends on memory",
-  "Growth creates cleanup",
+  ["Too many clicks", "Simple work takes too many pages, tabs, and repeated actions."],
+  ["No shared workflow state", "No one can quickly tell what is new, done, waiting, or duplicated."],
+  ["Follow-up depends on memory", "Customers wait because the next step lives in someone's head."],
+  ["Growth creates cleanup", "More volume exposes every weak spot in the process."],
 ] as const;
 
 const auditDeliverables = [
-  "Workflow map",
-  "Friction report",
-  "Quick-win recommendations",
-  "Systems roadmap",
+  ["Workflow map", "How work actually moves today"],
+  ["Friction report", "Where clicks, delays, and duplicate work appear"],
+  ["Quick-win recommendations", "What can be cleaned up without rebuilding the stack"],
+  ["Systems roadmap", "What to automate, centralize, simplify, or leave alone"],
 ] as const;
 
 const methodSteps = [
@@ -29,16 +29,6 @@ const methodSteps = [
   "Define the source of truth",
   "Design the cleaner path",
   "Package the build brief",
-] as const;
-
-const bestFits = [
-  "service businesses",
-  "media teams",
-  "education teams",
-  "sports organizations",
-  "small teams using legacy software",
-  "operators buried in manual follow-up",
-  "businesses scaling faster than their workflows",
 ] as const;
 
 export default function Page() {
@@ -53,17 +43,17 @@ export default function Page() {
               id="hero-heading"
               className="fade-up max-w-5xl text-4xl font-bold tracking-tight text-white sm:text-6xl"
             >
-              Your team is not slow. Your workflow is.
+              Your team isn&apos;t slow. Your workflow is leaking time.
             </h1>
             <p className="fade-up fade-up-delay-1 mt-5 max-w-3xl text-xl leading-relaxed text-zinc-200 sm:text-2xl">
-              I help operational teams find where work gets stuck, repeated, forgotten, or manually patched, then design cleaner systems around the tools they already use.
+              I audit the messy handoffs, repeated clicks, unclear status, and manual follow-up loops that slow teams down, then design cleaner workflows around the tools they already use.
             </p>
             <div className="fade-up fade-up-delay-2 mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#beta-audit"
                 className="inline-flex items-center justify-center rounded-lg bg-emerald-400 px-5 py-3 text-sm font-bold text-black transition hover:bg-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-zinc-950"
               >
-                Request a Workflow Audit
+                Request Beta Audit
               </a>
               <a
                 href="#case-study-1"
@@ -74,9 +64,9 @@ export default function Page() {
             </div>
             <div className="fade-up fade-up-delay-2 mt-9 grid gap-3 sm:grid-cols-3">
               {[
-                ["Manual drag", "Repeated work hiding in normal days"],
-                ["Visibility gaps", "No clear answer for what is done"],
-                ["Scaling cleanup", "Growth turns small misses into backlog"],
+                ["Manual Drag", "Repeat work hiding in normal days"],
+                ["Status Gaps", "No clear answer for what is new, done, waiting, or duplicated"],
+                ["Scaling Cleanup", "Growth turns small workflow misses into backlog"],
               ].map(([title, copy]) => (
                 <div key={title} className="rounded-lg border border-white/10 bg-black/30 p-4">
                   <p className="text-sm font-bold uppercase tracking-[0.12em] text-fuchsia-300">{title}</p>
@@ -88,16 +78,41 @@ export default function Page() {
         </div>
       </section>
 
+      <section id="beta-audit" className="py-12 sm:py-16" aria-labelledby="beta-heading">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+          <div>
+            <h2 id="beta-heading" className="green-glow text-3xl font-bold tracking-tight text-white sm:text-5xl">
+              Beta Workflow Audit
+            </h2>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-zinc-300">
+              A short, practical review of where your team loses time between tools, tasks, handoffs, and customer follow-up.
+            </p>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-zinc-400">
+              A focused audit of the workflows your team touches every day, where time gets lost, status gets unclear, and manual cleanup compounds.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {auditDeliverables.map(([title, copy]) => (
+              <article key={title} className="rounded-lg border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50">
+                <h3 className="text-xl font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-300">{copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 sm:py-16" aria-labelledby="pain-heading">
         <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
           <h2 id="pain-heading" className="max-w-3xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            The pain is usually hiding in the handoffs.
+            The slowdown is usually hiding between steps.
           </h2>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {painPoints.map((point, index) => (
-              <article key={point} className="rounded-lg border border-white/5 bg-zinc-950 p-5">
+            {painPoints.map(([title, copy], index) => (
+              <article key={title} className="rounded-lg border border-white/5 bg-zinc-950 p-5">
                 <p className="metric-highlight text-3xl">{String(index + 1).padStart(2, "0")}</p>
-                <h3 className="mt-4 text-xl font-bold text-white">{point}</h3>
+                <h3 className="mt-4 text-xl font-bold text-white">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-300">{copy}</p>
               </article>
             ))}
           </div>
@@ -108,7 +123,7 @@ export default function Page() {
         kind="youtube"
         id="case-study-1"
         name="YouTube Migration"
-        outcomeHeadline="180+ education videos migrated without turning every edit into a one-off."
+        outcomeHeadline="180+ education videos migrated through a repeatable production lane."
         subtitle={<>The YouTube migration had repeat export steps and too much room for cleanup. I turned the repeat work into a cleaner production lane.</>}
         before={{
           title: "Manual Workflow",
@@ -152,7 +167,7 @@ export default function Page() {
         id="case-study-2"
         name="Sport Recruiting Pipeline"
         outcomeHeadline="140+ sport highlights delivered over 6 weeks."
-        subtitle={<>Legacy workflow drag showed up in video status, athlete lookup, and repeated operator steps. The fix was clearer state and faster shortcuts.</>}
+        subtitle={<>A legacy intake and video workflow needed clearer status, faster lookup, and fewer repeated operator steps during a volume spike.</>}
         before={{
           title: "Manual Workflow",
           label: "Before",
@@ -186,29 +201,9 @@ export default function Page() {
         metrics={[
           "140+ highlights delivered",
           "6-week delivery window",
-          "Legacy drag reduced",
+          "Manual tracking reduced",
         ]}
       />
-
-      <section className="py-16 sm:py-20" aria-labelledby="audit-heading">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8">
-          <div>
-            <h2 id="audit-heading" className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              The Workflow Audit
-            </h2>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-zinc-300">
-              A short, practical review of where work slows down, loses state, or creates cleanup.
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {auditDeliverables.map((item) => (
-              <article key={item} className="rounded-lg border border-white/10 bg-zinc-950 p-5 transition hover:border-emerald-400/50">
-                <h3 className="text-xl font-bold text-white">{item}</h3>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="py-16 sm:py-20" aria-labelledby="positioning-heading">
         <div className="mx-auto w-full max-w-6xl px-6 lg:px-8">
@@ -237,29 +232,6 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="beta-audit" className="py-16 sm:py-20" aria-labelledby="beta-heading">
-        <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
-          <div>
-            <h2 id="beta-heading" className="green-glow text-3xl font-bold tracking-tight text-white sm:text-5xl">
-              Beta audits open.
-            </h2>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-zinc-300">
-              I am taking a limited number of discounted workflow audits while building public case studies.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-zinc-950 p-6">
-            <h3 className="text-xl font-bold text-white">Best fit</h3>
-            <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-              {bestFits.map((fit) => (
-                <li key={fit} className="rounded-lg border border-white/5 bg-black/30 px-4 py-3 text-sm font-semibold text-zinc-200">
-                  {fit}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
       <CapabilitiesStrip capabilities={capabilities} />
 
       <section className="pb-20 pt-8 sm:pb-24" aria-labelledby="final-cta-heading">
@@ -268,11 +240,14 @@ export default function Page() {
             <h2 id="final-cta-heading" className="max-w-4xl text-3xl font-black tracking-tight sm:text-5xl">
               Stop asking your team to remember what the workflow should know.
             </h2>
+            <p className="mt-4 max-w-2xl text-base font-semibold leading-relaxed text-black/75">
+              Limited discounted audits available while I build public case studies.
+            </p>
             <a
               href="#beta-audit"
               className="mt-8 inline-flex items-center justify-center rounded-lg bg-black px-5 py-3 text-sm font-bold text-white transition hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-emerald-400"
             >
-              Request a Workflow Audit
+              Request Beta Audit
             </a>
           </div>
         </div>
