@@ -42,7 +42,7 @@ export default function RotatingHeroHeadline() {
   if (shouldReduceMotion) {
     return (
       <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-[-0.052em] sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem] [@media_(orientation:landscape)_and_(max-height:500px)]:max-w-[21rem] [@media_(orientation:landscape)_and_(max-height:500px)]:text-[2.04rem]">
-        Time disappears before the edit ships.
+        Time disappears before the work ships.
       </h1>
     );
   }
@@ -50,7 +50,7 @@ export default function RotatingHeroHeadline() {
   return (
     <h1
       className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-[-0.052em] sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem] [@media_(orientation:landscape)_and_(max-height:500px)]:max-w-[21rem] [@media_(orientation:landscape)_and_(max-height:500px)]:text-[2.04rem]"
-      aria-label="Time disappears before the edit ships."
+      aria-label="Time disappears before the work ships."
     >
       <motion.span
         aria-hidden="true"
@@ -113,7 +113,7 @@ export default function RotatingHeroHeadline() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
-        before the edit
+        before the work
       </motion.span>
       <motion.span
         aria-hidden="true"

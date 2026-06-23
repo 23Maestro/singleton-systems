@@ -32,10 +32,9 @@ Naming Rules
 
 ## V1 Locked Direction
 
-- Current local home hub: `/Users/singleton23/Documents/Development/pipeline-systems-audit`
-- Target repo/folder name: `singleton-systems`
+- Current local home hub: `/Users/singleton23/Documents/Development/singleton-systems`
+- Repo/folder name: `singleton-systems`
 - Current Git remote: `https://github.com/23Maestro/singleton-systems.git`
-- Pending Git/Mac folder target: `singleton-systems`
 - Companion operating doc: `docs/02_phase-one-operating-system.md`
 - Confirmed site copy doc: `docs/01_confirmed-copy.md`
 - Command layer doc: `docs/06_commands.md`
@@ -45,9 +44,187 @@ Naming Rules
 - Raycast role: action layer
 - Codex skills/hooks role: keep context aligned across surfaces
 
-Do not rename local folders, remotes, or path-based integrations until the
-rename is handled as its own focused pass. For now, docs may say Singleton
-Systems while the local path still says `pipeline-systems-audit`.
+Local folders, remotes, and path-based integrations should use
+`singleton-systems` going forward. When an external tool still points at the old
+name, update that reference directly instead of adding aliases.
+
+## Money Clock / Survival Context
+
+This system is currently being built under a real income deadline. Treat that as
+part of the routing context, not as a side note.
+
+Operating lanes:
+
+```text
+Money Clock
+  Survival jobs, Upwork proposals, applications, follow-ups, and cash-path leads.
+
+Singleton Offer
+  Website, offer copy, beta offer, proof packaging, and workflow-hub materials.
+
+System Cleanup
+  Bear review, Career HQ cleanup, Eagle capture, commands, shortcuts, and docs.
+```
+
+Balanced lanes means all three lanes move, but `Money Clock` gets a daily floor
+until income stabilizes. If a request risks becoming website-only hyperfocus,
+Codex should calmly point that out and help route one concrete cash-path action
+before continuing polish work.
+
+Do not turn this into finance automation. It is a prioritization rule for work,
+not a bank, debt, or budget system.
+
+## Focus Board V1
+
+Notion / Career HQ owns the durable priority board. Bear only captures raw
+thoughts before they are reviewed.
+
+Suggested minimal properties:
+
+```text
+Name
+Lane:  Survival Job | Upwork Cash | Singleton Offer | Proof
+State: Now | Next | Parked
+Due / Review
+```
+
+State meaning:
+
+```text
+Now
+  Active today or blocking momentum.
+
+Next
+  Important, but not the current move.
+
+Parked
+  Captured safely without forcing a fake deadline.
+```
+
+The Focus Board replaces the Eisenhower/delegate idea. Use plain timing and
+pressure, not a four-quadrant taxonomy. The board should make it obvious if the
+day has no job, proposal, or follow-up action logged.
+
+## Opportunity Log V1
+
+The Focus Board says what needs attention. The Opportunity Log records the
+money-path actions and rough effort behind them.
+
+Use this for:
+
+```text
+survival jobs
+career-aligned jobs
+Upwork jobs / proposals
+direct outreach
+Singleton offer tasks
+proof assets
+```
+
+Keep the database lean. It should answer:
+
+```text
+What is it?
+Which money lane is it in?
+What state is it in?
+How long will the next move probably take?
+```
+
+Suggested minimal properties:
+
+```text
+Name
+Lane: Survival Job | Career Job | Upwork Cash | Outreach | Singleton Offer
+State: Found | In Motion | Sent | Follow Up | Done | Parked
+Effort: 5m | 15m | 30m | 60m | 2h | 4h+
+```
+
+Optional fields only when useful:
+
+```text
+Link
+Next Action
+Related Asset
+```
+
+Do not make this a giant CRM. The first use case is simple:
+
+- log the job, lead, proposal, or offer task
+- estimate the next action
+- make sure at least one cash-path item moves each day
+- later, use the effort estimate to build time blocks
+
+If the entry is only a thought, it starts in Bear. If it has a link, deadline,
+follow-up, proposal, application, or income impact, it belongs in the
+Opportunity Log / Focus Board.
+
+## Duration Key V1
+
+Use rough effort buckets, not perfect time tracking. The goal is to stop
+underestimating big work and to keep small tasks from eating the day.
+
+Default effort assumptions:
+
+```text
+5m
+  tiny capture, quick note, open/save reference, small reply
+
+15m
+  screenshot capture, simple Eagle asset, short Bear cleanup, quick follow-up
+
+30m
+  job application pass, Upwork proposal, resume/cover note tweak, proof caption set
+
+60m
+  focused section rewrite, proof packaging pass, consultation-page block
+
+2h
+  website section build, grouped proof capture, focused workflow documentation
+
+4h+
+  video build, full page pass, larger system build, deep proof package
+```
+
+Examples:
+
+```text
+19 screenshots at 5-10m each
+  Estimate as 2h, then batch them.
+
+One short proof video
+  Estimate as 4h unless the assets are already clean.
+
+One job application with tailored resume
+  Estimate as 30m.
+
+One Upwork proposal
+  Estimate as 15-30m depending on proof needed.
+```
+
+This is a planning key, not a time-tracking promise. If a task repeatedly takes
+longer than its bucket, update the bucket later instead of adding more fields.
+
+## Focus Blocks V1
+
+Later, the system can borrow the old Prospect Pipeline calendar-export idea:
+look at today's active items, apply the Duration Key, and suggest Apple Calendar
+blocks.
+
+First-pass daily blocks:
+
+```text
+Money Clock
+  Apply, propose, follow up, or log outreach.
+
+Singleton Offer
+  Website, offer, proof, or workflow-hub build.
+
+System Cleanup
+  Bear review, Eagle capture, Career HQ cleanup, commands.
+```
+
+The rule is simple: do not schedule a full day of website work when there are no
+Money Clock actions in motion.
 
 ## Cerebral Router
 
@@ -114,6 +291,23 @@ Prompt shape:
 This is a conflict palette: choose the lane, paste or dictate the thought, then
 let the prompt help clarify where it goes without forcing a full task system on
 mobile.
+
+For Money Clock captures, the mobile shortcut should stay simple:
+
+```text
+Inbox
+  Raw thought, screenshot, lead, task, or "do not lose this."
+
+Systems
+  website, video, workflow, commands
+
+Life Ops
+  personal repeatable systems and non-business operating friction
+```
+
+If a mobile capture is job/proposal related, it should land in Bear first, then
+get promoted to the Focus Board during review. Do not make the Shortcut create
+Notion pages until the repeated action is stable.
 
 Future direction:
 
@@ -351,6 +545,9 @@ mentions: where does this go, offload, Bear, capture, route
 
 mentions: Shortcut, Karabiner, Hammerspoon, Maestro, command
   load: cerebral-router, docs/06_commands.md, then exact implementation skill
+
+mentions: money clock, job search, proposals, applications, survival, end of month
+  load: cerebral-router, singleton-systems, upwork-proposal or resume-tailor when relevant
 ```
 
 Hook rule:
@@ -454,6 +651,12 @@ commands / shortcut layers / macro ideas
 quick raw thought under ten minutes
   -> Bear #inbox
 
+survival job, income deadline, proposal count, application, follow-up
+  -> Notion / Career HQ Focus Board, cerebral-router, then the focused skill
+
+job lead, Upwork lead, outreach target, offer task with effort estimate
+  -> Notion / Career HQ Opportunity Log, then Focus Board if active today
+
 video proof
   -> Eagle 01 Video Proof, Bear #video or #video/context
 
@@ -472,6 +675,10 @@ Codex/workspace/system idea
 
 Do not force every thought into Notion. Notion is for durable structure after
 the thought earns structure.
+
+Exception: survival-critical work should not sit only in Bear. If it affects
+income timing, follow-up, applications, proposals, or end-of-month execution, it
+needs a durable Focus Board item after capture.
 
 ## Legacy ChatGPT Project Reference
 
@@ -588,7 +795,7 @@ Thought Capture -> Bear
 Durable Structure -> Notion / Career HQ
 Proof Assets -> Eagle
 Actions -> Raycast
-Home Docs -> pipeline-systems-audit now / singleton-systems target
+Home Docs -> singleton-systems now / singleton-systems target
 Reference Systems -> Prospect Pipeline
 Business Surface -> Website
 ```
@@ -628,6 +835,8 @@ automation.
   it.
 - If a capture becomes a real initiative, Career HQ should get a structured page
   instead of a loose note.
+- If a capture affects the Money Clock, Career HQ should get at least a small
+  Focus Board item so it does not disappear inside Bear.
 
 ### Raycast
 
@@ -640,7 +849,8 @@ automation.
 - Bear MCP config and direct API wrapper shape
 - Career HQ Raycast command mapping after folder/tag rewrite
 - Notion Career HQ schema alignment
+- Tally intake form shape and MCP/operator route
+- Namecheap / Vercel domain setup check for the public Singleton Systems domain
 - Prospect Pipeline reusable-logic references
 - LikeC4-inspired naming and visual logic map
 - Codex hook implementation
-- Repo rename from `pipeline-systems-audit` to `singleton-systems`

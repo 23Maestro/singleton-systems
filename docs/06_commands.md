@@ -24,6 +24,10 @@ Apple Shortcuts -> mobile choose-menu prompt palette
 Codex     -> helps name, inspect, and build the next version
 ```
 
+Commands should support the Money Clock without becoming another planning app.
+The command layer should make it easy to capture, review, and promote work into
+the right surface.
+
 ## Current Passive References
 
 These are reference surfaces, not confirmed implementation targets for every
@@ -61,6 +65,9 @@ commands/codex
 commands/karabiner
 commands/hammerspoon
 commands/maestro
+money-clock
+plan-today
+promote-bear-capture
 ```
 
 If a command idea does not fit one of these lanes, it should probably stay as a
@@ -109,6 +116,9 @@ Pending examples:
 ```text
 Bear editing layer
 Career HQ command layer
+Money Clock check-in
+Promote Bear Capture
+Plan Today
 Car inventory/log command
 RBT shortcut/support command
 Screenshot/PDF review command
@@ -136,16 +146,24 @@ keep the lane/tag language stable
 First menu:
 
 ```text
-inbox
+Inbox
+Systems
+Life Ops
+```
+
+Systems menu:
+
+```text
+website
 video
 workflow
-website
 commands
-lifeops
 ```
 
 The prompt should ask the AI chat to clarify the thought, keep it aligned with
 the selected lane, and avoid inventing new tags unless the user explicitly asks.
+If the capture is job, proposal, application, or follow-up related, it should be
+flagged for the Focus Board during review.
 
 Do not start with a custom mobile app. If a Shortcut becomes repeated and
 important, it can later become:
@@ -173,6 +191,58 @@ Is it repeated enough to earn a command?
 
 Only after those questions are obvious should the command move into Raycast,
 Karabiner, Hammerspoon, Keyboard Maestro, or Apple Shortcuts.
+
+## Money Clock Commands
+
+These are future commands, not implementation requirements yet:
+
+```text
+Plan Today
+  Open the Focus Board and make today's Now / Next / Parked split visible.
+
+Money Clock Check-In
+  Ask what job, proposal, application, or follow-up action has been logged today.
+
+Promote Bear Capture
+  Take an inbox capture and create the right Career HQ / Focus Board item.
+
+Export Focus Blocks
+  Later: turn today's Focus Board and Opportunity Log into Apple Calendar-style
+  time blocks.
+```
+
+The old Prospect Pipeline calendar exporter is the reference pattern: analyze a
+real work queue, estimate blocks, then export time to Apple Calendar. Do not
+build the exporter until the Focus Board and lane names are stable.
+
+## Duration-Aware Commands
+
+These are pending command ideas for the Money Clock layer:
+
+```text
+Log Opportunity
+  Create a lean Career HQ item with lane, state, effort, link, and next action.
+
+Estimate Next Move
+  Apply the Duration Key to a Bear capture, Focus Board item, or proof task.
+
+Plan Focus Blocks
+  Group active work into Money Clock, Singleton Offer, and System Cleanup blocks.
+```
+
+Use rough effort buckets, not fake precision:
+
+```text
+5m    quick capture, reply, or tiny cleanup
+15m   screenshot, Eagle asset, short follow-up, small proof note
+30m   job application, Upwork proposal, resume tweak, cover note
+60m   focused page section, proof package, consultation block
+2h    website section build, grouped proof capture, workflow documentation
+4h+   proof video, full page pass, larger system build
+```
+
+The command should help the user see the real size of the day before hyperfocus
+takes over.
 
 ## Examples To Keep In Mind
 

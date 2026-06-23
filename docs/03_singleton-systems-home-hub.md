@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`pipeline-systems-audit` is the current local home repo for Singleton Systems alignment.
+`singleton-systems` is the local home repo for Singleton Systems alignment.
 
 Use it as the stable place for:
 
@@ -18,10 +18,10 @@ Do not turn every connected tool into a new source of truth. Name the system onc
 ## Home Repo
 
 ```text
-/Users/singleton23/Documents/Development/pipeline-systems-audit
+/Users/singleton23/Documents/Development/singleton-systems
 ```
 
-Pending rename target:
+Current / target repo name:
 
 ```text
 singleton-systems
@@ -33,10 +33,9 @@ Current Git remote:
 https://github.com/23Maestro/singleton-systems.git
 ```
 
-The GitHub repo name or local folder may move first. Until both are renamed,
-treat `pipeline-systems-audit` as the authoritative Singleton Systems home hub
-and `singleton-systems` as the target folder/repo name. Do not rename paths as a
-side effect of another task.
+The GitHub repo has already moved to `singleton-systems`. The local folder
+should match that name so docs, skills, hooks, and external repo references do
+not keep carrying old `pipeline-systems-audit` language.
 
 Owns:
 
@@ -48,8 +47,9 @@ Owns:
 
 ## Connected Source Repos
 
-Use this repo as the current home hub. The repo may later be renamed to
-`singleton-systems`, but the operating model should not depend on that rename.
+Use this repo as the current home hub. The operating model should not depend on
+GitHub or Vercel naming being perfect, but local docs should call this
+Singleton Systems.
 
 ### Career HQ Raycast Extension
 
@@ -100,6 +100,39 @@ Prospect ID-specific names forward unless they are used as source/context
 metadata such as `npid`.
 
 ## Tool Roles
+
+### Money Clock
+
+Role:
+
+- keep near-term income actions visible
+- prevent website polish from consuming the whole day
+- balance survival work, Singleton Systems offer work, and proof building
+
+Current reality:
+
+- This operating system is being built while income is urgent.
+- Job applications, Upwork proposals, follow-ups, and survival-job leads are not
+  secondary chores until income stabilizes.
+- Website and offer work still matter, but they should not hide the daily cash
+  path.
+
+Daily lanes:
+
+```text
+Money Clock      -> job applications, Upwork proposals, follow-ups, cash-path leads
+Singleton Offer  -> website, copy, beta offer, workflow hub, proof packaging
+System Cleanup   -> Bear review, Career HQ cleanup, Eagle assets, commands
+```
+
+Default rule:
+
+```text
+No deep website polish until at least one meaningful Money Clock action is logged.
+```
+
+This is not meant to be punitive or robotic. It is the guardrail that keeps the
+system honest when hyperfocus wants to spend the whole day on the offer page.
 
 ### Cerebral Router
 
@@ -175,6 +208,61 @@ Role:
 - project/state tracking
 
 Notion answers: what is this item, where does it stand, and what happens next?
+
+For the Money Clock layer, Notion / Career HQ should own a small Focus Board.
+Keep it intentionally plain:
+
+```text
+Lane:
+  Survival Job
+  Upwork Cash
+  Singleton Offer
+  Proof
+
+State:
+  Now
+  Next
+  Parked
+```
+
+The Focus Board should answer one question quickly:
+
+```text
+What has to happen today so money, offer, and proof all keep moving?
+```
+
+Do not recreate a full Eisenhower matrix. Delegate is not part of this model.
+Use `Parked` for saved-but-not-now ideas instead of guilt or fake deadlines.
+
+Career HQ may also need a lean Opportunity Log for money-path actions:
+
+```text
+survival jobs
+career-aligned jobs
+Upwork jobs / proposals
+direct outreach
+Singleton offer tasks
+proof assets
+```
+
+The Opportunity Log should stay small:
+
+```text
+Name
+Lane
+State
+Effort
+```
+
+Use rough effort buckets instead of perfect time tracking:
+
+```text
+5m | 15m | 30m | 60m | 2h | 4h+
+```
+
+The point is to see the true size of the day. A website section, nineteen proof
+screenshots, a tailored job application, and a proof video should not all feel
+like the same size in the user's head.
 
 ### Eagle
 

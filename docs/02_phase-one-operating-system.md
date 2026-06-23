@@ -2,11 +2,13 @@
 
 ## North Star
 
-Build a structured business system around editing, AI-assisted workflows, proof, outreach, Upwork, finances, website copy, and packaged workflow cleanup offers.
+Build a structured business system around workflow cleanup, repeatable systems,
+proof, outreach, Upwork, finances, website copy, and practical AI-assisted
+implementation.
 
 The working lane:
 
-> Help creators, course teams, and small video businesses turn messy video work into a clean, repeatable system.
+> Help operators, creators, consultants, small teams, studios, and service businesses turn one messy recurring workflow into a cleaner system they can reuse.
 
 This system exists to help Jerami stay organized, use Codex and skills on purpose, ship proof, and turn lived workflow experience into paid work.
 
@@ -14,19 +16,22 @@ This system exists to help Jerami stay organized, use Codex and skills on purpos
 
 One-line offer:
 
-> I clean up messy video workflows so projects are easier to scope, edit, review, and deliver.
+> Bring one messy recurring workflow. I will help turn it into a cleaner system your team can reuse.
 
 Core promise:
 
-> I help creators, course teams, and small video businesses turn messy video work into a clean, repeatable system.
+> Repeated work can be turned into cleaner, reusable systems.
 
 Approved direction:
 
 - Not AI-first.
-- Not broad workflow consulting.
+- Not generic AI consulting.
+- Broader than video-only.
 - Trusted operator voice.
 - Practical, calm, useful.
-- AI is useful when it reduces repetitive work.
+- AI is useful when it helps compare, structure, summarize, route, or speed up
+  repeatable work.
+- Video is the wedge. Repeatable systems are the skill.
 
 ## Phase One Goal
 
@@ -106,12 +111,13 @@ Purpose:
 
 First product:
 
-> Video Workflow Cleanup Consultation
+> Workflow Cleanup Buildout
 
 The old ChatGPT project separated video editing and workflow consultation. Keep
 that separation for deliverable clarity, but do not let it split the current
-Singleton Systems offer. The public lane is video workflow cleanup: video is the
-wedge, repeatable systems are the skill.
+Singleton Systems offer. Video remains a strong proof lane and trust wedge, but
+the offer should be able to accept one messy recurring workflow from a creator,
+operator, consultant, small team, studio, or service business.
 
 Consultation should produce:
 

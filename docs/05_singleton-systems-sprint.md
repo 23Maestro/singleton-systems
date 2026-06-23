@@ -73,8 +73,8 @@ and suggest the next small action without inventing new tags.
 
 ## What Is Locked V1
 
-- `pipeline-systems-audit` is the current home hub.
-- `singleton-systems` is the pending repo/folder name.
+- `singleton-systems` is the current home hub.
+- `singleton-systems` is the repo/folder name going forward.
 - Eagle has outcome folders, not source folders.
 - Bear has lean tag lanes, not a giant dump page.
 - Notion / Career HQ holds durable structure.
@@ -84,7 +84,6 @@ and suggest the next small action without inventing new tags.
 
 ## What Is Pending
 
-- Rename the local repo folder when timing is clean.
 - Build a Bear Raycast wrapper similar to Career HQ's Notion/Eagle wrappers.
 - Add small Codex hooks only when they reduce drift.
 - Build the Singleton Systems LikeC4-style map.
@@ -97,10 +96,13 @@ and suggest the next small action without inventing new tags.
 
 Video is the wedge. Repeatable systems are the real skill.
 
-The website sells the clean video workflow offer first. Underneath that, the
-system should keep collecting proof that the same brain can clean up repeated
-work anywhere: video edits, project status, Raycast commands, Bear capture,
-Eagle proof, Notion tasks, and small personal systems.
+The website should no longer trap Singleton Systems inside video-only language.
+The public promise is workflow cleanup for operators and small teams. Video
+still matters because it gives the offer proof: course work, content delivery,
+notes/review workflows, and asset handoffs. Underneath that, the system should
+keep collecting proof that the same brain can clean up repeated work anywhere:
+project status, follow-up flows, Raycast commands, Bear capture, Eagle proof,
+Notion tasks, and small personal systems.
 
 The sprint is not to overbuild. The sprint is to keep the names stable, keep the
 surfaces clear, and make every future tool easier to place.

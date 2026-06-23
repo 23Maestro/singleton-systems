@@ -1,5 +1,5 @@
 import Image from "next/image";
-import CaseStudyShowcase, { type CaseStudyPane } from "@/components/CaseStudyShowcase";
+import ProofShowcase, { type ProofTab } from "@/components/ProofShowcase";
 import RotatingHeroHeadline from "@/components/RotatingHeroHeadline";
 
 const solutions = [
@@ -20,175 +20,77 @@ const solutions = [
   },
   {
     title: "Package & Delivery",
-    copy: "Package what worked so the next project starts faster.",
+    copy: "Package what worked so the next workflow starts cleaner.",
     tone: "green",
   },
 ] as const;
 
-const workflowSignals = [
-  "Workflow State",
-  "Operator Shortcuts",
-  "Legacy Software",
-  "Follow-Up Loops",
-  "Systems Briefs",
-] as const;
-
-const painPoints = [
-  ["01", "Too many clicks", "Simple work takes too many pages, tabs, and repeated actions."],
-  ["02", "No shared workflow state", "No one can quickly tell what is new, done, waiting, or duplicated."],
-  ["03", "Follow-up depends on memory", "Customers wait because the next step lives in someone's head."],
-  ["04", "Growth creates cleanup", "More volume exposes every weak spot in the process."],
-] as const;
-
-type CaseStudyResult = {
-  name: string;
-  context: string;
-  outcome: string;
-  accentClassName: string;
-  panes: readonly CaseStudyPane[];
-};
-
-const results: readonly CaseStudyResult[] = [
+const helpAreas = [
   {
-    name: "YouTube Migration",
-    context:
-      "The YouTube migration had repeat export steps and too much room for cleanup. I turned the repeat work into a cleaner production lane.",
-    outcome: "180+ education videos migrated through a repeatable production lane.",
-    accentClassName: "bg-[#2383e2]",
-    panes: [
-      {
-        id: "before",
-        label: "Before",
-        dotClassName: "bg-rose-400",
-        eyebrow: "Manual workflow",
-        title: "Every lesson was its own cleanup loop.",
-        body: "The migration had repeat export steps and too much room for small misses to turn into rework.",
-        bullets: [
-          "Each lesson handled as a separate edit",
-          "Titles and files checked by hand",
-          "Exports repeated one at a time",
-          "Small misses created rework",
-        ],
-        signals: [
-          { label: "Time", value: "High", tone: "red" },
-          { label: "Error rate", value: "Moderate", tone: "amber" },
-          { label: "Scalability", value: "Low", tone: "red" },
-        ],
-      },
-      {
-        id: "after",
-        label: "After",
-        dotClassName: "bg-emerald-400",
-        eyebrow: "Cleaner production lane",
-        title: "Lessons moved through one consistent path.",
-        body: "The operator got a dependable lane: organize the lesson, run the same assembly path, review the result.",
-        bullets: [
-          "Lessons followed the same path",
-          "File names stayed consistent",
-          "Transcripts and exports moved together",
-          "Review focused on quality, not cleanup",
-        ],
-        signals: [
-          { label: "Time", value: "Reduced", tone: "violet" },
-          { label: "Error rate", value: "Minimal", tone: "green" },
-          { label: "Scalability", value: "High", tone: "green" },
-        ],
-      },
-      {
-        id: "proof",
-        label: "Proof",
-        dotClassName: "bg-sky-400",
-        eyebrow: "What held up",
-        title: "180+ videos and 40+ hours organized.",
-        body: "The win was not more code. The win was fewer tiny decisions across a large migration.",
-        bullets: [
-          "180+ education videos migrated",
-          "40+ hours organized",
-          "Repeat work made consistent",
-          "Titles, files, transcripts, and exports moved together",
-        ],
-        signals: [
-          { label: "Input", value: "Source lessons", tone: "blue" },
-          { label: "Flow", value: "Same checks", tone: "violet" },
-          { label: "Output", value: "Upload masters", tone: "green" },
-        ],
-      },
-    ],
+    title: "Scattered Inputs",
+    copy: "Forms, files, notes, messages, and requests live in too many places.",
+    accent: "bg-[#2383e2]",
+    glow: "shadow-[0_0_28px_rgba(35,131,226,0.35)]",
   },
   {
-    name: "Sport Recruiting Pipeline",
-    context:
-      "A legacy intake and video workflow needed clearer status, faster lookup, and fewer repeated operator steps during a volume spike.",
-    outcome: "140+ sport highlights delivered over 6 weeks.",
-    accentClassName: "bg-[#0f9d58]",
-    panes: [
-      {
-        id: "before",
-        label: "Before",
-        dotClassName: "bg-amber-400",
-        eyebrow: "Manual workflow",
-        title: "Status was hard to trust during volume.",
-        body: "The legacy intake and video workflow made operators hunt for answers while delivery pressure kept rising.",
-        bullets: [
-          "Manual athlete lookup",
-          "Unclear video status",
-          "Repeated navigation",
-          "Follow-up tracked by memory",
-        ],
-        signals: [
-          { label: "Time", value: "High", tone: "red" },
-          { label: "Error rate", value: "High", tone: "red" },
-          { label: "Scalability", value: "Low", tone: "amber" },
-        ],
-      },
-      {
-        id: "after",
-        label: "After",
-        dotClassName: "bg-emerald-400",
-        eyebrow: "Cleaner operator workflow",
-        title: "The next action became easier to see.",
-        body: "Search, status, shortcuts, and handoffs moved closer to the work operators were already doing.",
-        bullets: [
-          "Faster athlete search",
-          "More visible video status",
-          "Operator shortcuts",
-          "Cleaner handoff points",
-        ],
-        signals: [
-          { label: "Time", value: "Minimal", tone: "green" },
-          { label: "Error rate", value: "Near zero", tone: "green" },
-          { label: "Scalability", value: "High", tone: "green" },
-        ],
-      },
-      {
-        id: "proof",
-        label: "Proof",
-        dotClassName: "bg-violet-400",
-        eyebrow: "What held up",
-        title: "140+ highlights delivered inside a 6-week window.",
-        body: "The workflow got enough state and operator leverage to reduce manual tracking while keeping delivery moving.",
-        bullets: [
-          "140+ highlights delivered",
-          "6-week delivery window",
-          "Manual tracking reduced",
-          "Repeated operator steps reduced",
-        ],
-        signals: [
-          { label: "Lookup", value: "Faster", tone: "blue" },
-          { label: "Status", value: "Clearer", tone: "violet" },
-          { label: "Handoff", value: "Cleaner", tone: "green" },
-        ],
-      },
-    ],
+    title: "Manual Follow-Up",
+    copy: "The next step depends on someone remembering who needs what.",
+    accent: "bg-[#ffc83d]",
+    glow: "shadow-[0_0_28px_rgba(255,200,61,0.3)]",
+  },
+  {
+    title: "Batch Work",
+    copy: "Repeated tasks need a cleaner way to review, approve, and ship.",
+    accent: "bg-[#ff6257]",
+    glow: "shadow-[0_0_28px_rgba(255,98,87,0.32)]",
+  },
+  {
+    title: "AI-Assisted Setup",
+    copy: "Prompts, tools, and automations only matter when they fit the real workflow.",
+    accent: "bg-[#25c266]",
+    glow: "shadow-[0_0_28px_rgba(37,194,102,0.32)]",
+  },
+] as const;
+
+const nurseHubProofTabs: readonly ProofTab[] = [
+  {
+    id: "before",
+    label: "Before",
+    eyebrow: "Unordered source folder",
+    subtitle:
+      "180+ course video files came in without a clean upload path. Order, long exports, and manual checks made the migration hard to ship.",
+    imageSrc: "/proof/nursehub-before.jpg",
+    imageAlt: "Unordered course video folder with unclear order, long videos, and a YouTube split warning.",
+    gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#ffe9a6,#f59e0b_48%,#8f4b00)]",
+  },
+  {
+    id: "build",
+    label: "Build Path",
+    eyebrow: "Structured processing lane",
+    subtitle:
+      "AI helped compare lesson order, task context, and file names. The repeat work became a cleaner rename, split, and prep lane.",
+    imageSrc: "/proof/nursehub-build.jpg",
+    imageAlt: "Structured processing lane showing lesson order, renamed files, split exports, transcripts, and upload-ready checks.",
+    gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#b9efff,#2383e2_48%,#004fa8)]",
+  },
+  {
+    id: "ready",
+    label: "Ship Ready",
+    eyebrow: "Upload-ready library",
+    subtitle:
+      "The final system handled 180+ files and 50+ hours of YouTube content with ordered names, split exports, and a clearer upload path.",
+    imageSrc: "/proof/nursehub-ready.jpg",
+    imageAlt: "Upload-ready course library with numbered lessons, ready statuses, and organized delivery notes.",
+    gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#c9ffd9,#25c266_48%,#0f7a3a)]",
   },
 ] as const;
 
 const methodSteps = [
-  "Map the workflow",
-  "Find the drag",
-  "Define the source of truth",
-  "Design the cleaner path",
-  "Package the build brief",
+  "Pick one recurring workflow.",
+  "Watch how it currently gets done.",
+  "Map the messy steps, tools, files, and follow-ups.",
+  "Build a cleaner hub, prompt, checklist, or automation path.",
+  "Review what shipped and decide the next improvement.",
 ] as const;
 
 function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
@@ -668,7 +570,7 @@ export default function Page() {
             className="h-auto w-full"
           />
         </a>
-        <nav aria-label="Primary" className="hidden items-center gap-8 text-sm font-semibold text-neutral-600 md:flex">
+        <nav aria-label="Primary" className="hidden translate-x-6 items-center gap-8 text-sm font-semibold text-neutral-600 md:flex">
           <a className="transition hover:text-black" href="#about">
             About
           </a>
@@ -716,7 +618,7 @@ export default function Page() {
           <RotatingHeroHeadline />
           <div className="mx-auto mt-6">
             <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
-              I help video teams turn loose footage, rough notes, and revision chaos into a seamless workflow.
+              I help operators and small teams turn scattered notes, repeated follow-ups, and messy handoffs into a workflow they can reuse.
             </p>
           </div>
           <div className="mx-auto mt-3">
@@ -816,15 +718,14 @@ export default function Page() {
                 </svg>
               </span>
               <p className="max-w-4xl text-[1.42rem] font-semibold leading-tight tracking-[-0.025em] text-neutral-950 sm:text-3xl">
-                The Work Before the Edit
+                Where the Work Gets Stuck
               </p>
             </div>
             <p className="mt-7 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              We&apos;ve all dealt with the headaches of video projects. The trouble usually starts{" "}
-              <strong>before the timeline opens</strong>: vague briefs, scattered files, and messy feedback.
+              Most workflow problems start before the real work begins: vague requests, scattered files, missing context, and follow-ups living in too many places.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Instead of chasing updates across tools and threads, your team gets a single{" "}
+              Instead of chasing updates across tools, threads, and memory, your team gets a single{" "}
               <span className="font-semibold text-[#005cb9]">workflow hub</span>: one place to see what matters, what&apos;s stuck, and what ships next.
             </p>
           </div>
@@ -876,39 +777,22 @@ export default function Page() {
       </section>
 
       <section className="bg-black px-6 py-20 text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="profile-heading">
-        <div className="mx-auto max-w-5xl">
-          <h2 id="profile-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Workflow Signals
-          </h2>
-          <p className="mx-auto mt-8 max-w-3xl text-center text-balance text-xl font-semibold leading-relaxed text-white/65 sm:text-2xl">
-            You do not need another dashboard. You need your workflow to tell the truth.
-          </p>
-          <div className="mt-12 divide-y divide-white/15">
-            {workflowSignals.map((signal, index) => (
-              <div key={signal} className="grid grid-cols-[3rem_1fr] gap-4 py-7 sm:grid-cols-[5rem_1fr]">
-                <p className="text-lg font-bold text-white/35">{String(index + 1).padStart(2, "0")}</p>
-                <p className="text-2xl font-semibold leading-tight tracking-[-0.04em] sm:text-3xl">{signal}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="slowdown-heading">
         <div className="mx-auto max-w-6xl">
-          <h2 id="slowdown-heading" className="mx-auto max-w-3xl text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            The slowdown is usually hiding between steps.
+          <h2 id="profile-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
+            Where I Usually Help
           </h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {painPoints.map(([number, title, copy]) => (
-              <article
-                key={title}
-                className="rounded-[2rem] border border-neutral-200/80 bg-white/90 p-8 shadow-[0_16px_42px_rgba(15,23,42,0.065)] backdrop-blur"
-              >
-                <p className="text-sm font-bold uppercase tracking-[0.2em] text-neutral-400">{number}</p>
-                <h3 className="mt-10 text-2xl font-bold tracking-[-0.02em]">{title}</h3>
-                <p className="mt-4 text-lg leading-relaxed text-neutral-600">{copy}</p>
-              </article>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
+            The work usually breaks in the handoffs: where inputs, follow-ups, repeated tasks, and tools stop matching the way the team actually works.
+          </p>
+          <div className="mt-12 divide-y divide-white/12 rounded-[2rem] border border-white/12 bg-white/[0.03] px-5 sm:px-7">
+            {helpAreas.map((area) => (
+              <div key={area.title} className="grid gap-4 py-7 sm:grid-cols-[20rem_1fr] sm:items-center sm:gap-10">
+                <div className="flex items-center gap-3">
+                  <span className={`h-3.5 w-3.5 shrink-0 rounded-full border border-white/55 ${area.accent} ${area.glow}`} aria-hidden="true" />
+                  <p className="text-2xl font-semibold leading-tight tracking-[-0.02em] sm:whitespace-nowrap sm:text-3xl">{area.title}</p>
+                </div>
+                <p className="text-lg font-semibold leading-relaxed text-white/62 sm:text-xl">{area.copy}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -917,22 +801,13 @@ export default function Page() {
       <section id="results" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="results-heading">
         <div className="mx-auto max-w-6xl">
           <h2 id="results-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Expected Results
+            Proof From Real Systems
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-lg font-medium leading-relaxed text-neutral-600">
-            Two examples with the before state, cleaner path, and proof points kept together.
+            Real examples of messy work turned into cleaner systems, with the before state, build path, and proof kept together.
           </p>
-          <div className="mt-10 space-y-8">
-            {results.map((result) => (
-              <CaseStudyShowcase
-                key={result.name}
-                name={result.name}
-                context={result.context}
-                outcome={result.outcome}
-                accentClassName={result.accentClassName}
-                panes={result.panes}
-              />
-            ))}
+          <div className="mt-10">
+            <ProofShowcase title="Course Video Migration" tabs={nurseHubProofTabs} />
           </div>
         </div>
       </section>
@@ -940,7 +815,7 @@ export default function Page() {
       <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="method-heading">
         <div className="mx-auto max-w-5xl">
           <h2 id="method-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Method
+            How The Audit Works
           </h2>
           <div className="mt-10 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-white/90 shadow-[0_16px_42px_rgba(15,23,42,0.065)] backdrop-blur">
             {methodSteps.map((step, index) => (
@@ -956,19 +831,19 @@ export default function Page() {
       <section id="pricing" className="bg-black px-6 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="pricing-heading">
         <div className="mx-auto max-w-3xl">
           <h2 id="pricing-heading" className="text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">
-            Ready for the beta audit?
+            Ready for the workflow audit?
           </h2>
           <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/55 sm:text-2xl">
             Stop asking your team to remember what the workflow should know.
           </p>
           <p className="mt-4 text-lg font-semibold leading-relaxed text-white/55">
-            Limited discounted audits available while I build public case studies.
+            Bring one messy recurring workflow. I&apos;ll help turn it into a cleaner system your team can reuse.
           </p>
           <a
             href="#beta-audit"
             className="mt-10 inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-[0.18em] text-black transition hover:bg-neutral-200"
           >
-            Request Beta Audit
+            Request Workflow Audit
           </a>
         </div>
       </section>
