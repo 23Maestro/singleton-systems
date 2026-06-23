@@ -34,7 +34,7 @@ Naming Rules
 
 - Current local home hub: `/Users/singleton23/Documents/Development/pipeline-systems-audit`
 - Target repo/folder name: `singleton-systems`
-- Current Git remote: `https://github.com/23Maestro/pipeline-systems-audit.git`
+- Current Git remote: `https://github.com/23Maestro/singleton-systems.git`
 - Pending Git/Mac folder target: `singleton-systems`
 - Companion operating doc: `docs/02_phase-one-operating-system.md`
 - Confirmed site copy doc: `docs/01_confirmed-copy.md`
@@ -97,11 +97,11 @@ iOS AI beta chat using Shortcut action language:
 ```text
 Choose Menu:
   inbox
+  website
   video
   workflow
-  website
-  codex
-  npc
+  commands
+  lifeops
 
 Prompt shape:
   Here is the raw thought.
@@ -157,8 +157,8 @@ Core tags:
 #video
 #workflow
 #website
-#codex
-#npc
+#commands
+#lifeops
 ```
 
 Optional context tags:
@@ -166,7 +166,8 @@ Optional context tags:
 ```text
 #video/npid
 #website/npid
-#npc/car-log
+#commands/codex
+#lifeops/car-log
 ```
 
 Quick command tags:
@@ -194,11 +195,11 @@ inbox    -> #inbox
 video    -> #video
 workflow -> #workflow
 website  -> #website
-codex   -> #codex
-npc      -> #npc
+commands -> #commands
+lifeops  -> #lifeops
 ```
 
-`npc` maps to Eagle `04 Personal Systems`.
+`lifeops` maps to Eagle `04 Personal Systems`. Codex/system notes live under `#commands/codex`, not as a top-level Bear lane.
 
 Do not use `#capture`, `#clarify`, `#package`, or `#ship` as Bear tags.
 
@@ -241,6 +242,24 @@ eagle
 content-creator
   Owns content strategy, proof packaging, video/page copy direction, and repurposing logic.
 
+upwork-proposal
+  Owns Upwork job-post replies, consultation pitches, and question-first proposal variants.
+
+resume-tailor
+  Owns job-post-to-resume alignment, truthful bullet swaps, keywords, and application positioning.
+
+cover-letter-casual
+  Owns short, human cover notes that avoid corporate filler and overbuilt application language.
+
+career-proof-packager
+  Owns turning Eagle assets, screenshots, repo examples, Upwork proof, and workflow demos into reusable proof blocks.
+
+content-from-proof
+  Owns turning proof assets into practical content angles, captions, posts, and light schedules.
+
+cerebral-router
+  Owns first-pass routing when a thought mixes business, website, proof, commands, Bear, Eagle, Notion, Raycast, hooks, or skills.
+
 linkedin-content-creator / instagram-curator / podcast-strategist
   Use when proof needs to become platform-specific content. Do not load these by default for ordinary website edits.
 
@@ -274,6 +293,71 @@ karabiner-config-migrator / hammerspoon-browser-automation / km-assembler-mode
 
 The goal is one Singleton Systems operating model with specialized skills around
 it, not one large skill trying to remember every possible workflow.
+
+## Opportunity And Proof Skill Stack
+
+Use this stack for career, outreach, and brand-building work:
+
+```text
+Upwork job post
+  -> upwork-proposal + sales-outreach
+
+Job post / resume tailoring
+  -> resume-tailor
+
+Cover note / casual application message
+  -> cover-letter-casual
+
+Screenshot / Eagle asset / project proof
+  -> career-proof-packager + eagle
+
+Proof asset into LinkedIn / Instagram / content
+  -> content-from-proof + platform-specific skill only when needed
+
+Mixed idea / "where does this go?"
+  -> cerebral-router
+```
+
+Research-backed build rule:
+
+- Keep skills narrow and description-led so Codex can trigger the right one without loading a giant memory file.
+- Use hooks later as trusted routing/preload helpers, not hidden automation that mutates surfaces.
+- For mobile, expose only stable, common actions. Shortcuts/App Intents should come after the repeated action is clear.
+- For Bear, prefer direct app routes (`bearcli` or x-callback-url) for reliable actions; MCP stays optional.
+
+## Hook Queue V1
+
+Future hooks should route the agent to the right docs and skills. They should not
+create tags, move assets, or write Notion pages by themselves.
+
+```text
+mentions: upwork, proposal, client post, job post
+  load: upwork-proposal, sales-outreach, singleton-systems
+
+mentions: resume, application, job description, tailor
+  load: resume-tailor, singleton-systems
+
+mentions: cover letter, cover note, application note
+  load: cover-letter-casual
+
+mentions: Eagle, proof, screenshot, reference, asset
+  load: career-proof-packager, eagle
+
+mentions: LinkedIn, Instagram, content, brand, schedule
+  load: content-from-proof, then platform skill if needed
+
+mentions: where does this go, offload, Bear, capture, route
+  load: cerebral-router, bear
+
+mentions: Shortcut, Karabiner, Hammerspoon, Maestro, command
+  load: cerebral-router, docs/06_commands.md, then exact implementation skill
+```
+
+Hook rule:
+
+```text
+Route attention first. Ask the focused skill to do the work second.
+```
 
 For the business loop, milestones, content lanes, Upwork lane, proof bank rules,
 and future skill candidates, use `docs/02_phase-one-operating-system.md` as the
@@ -380,14 +464,59 @@ site asset or reference
   -> Eagle 03 Website Assets, Bear #website or #website/context
 
 personal repeatable system
-  -> Eagle 04 Personal Systems, Bear #npc or #npc/context
+  -> Eagle 04 Personal Systems, Bear #lifeops or #lifeops/context
 
 Codex/workspace/system idea
-  -> Bear #codex or #codex/systems, then docs/04 if it becomes durable
+  -> Bear #commands/codex, then docs/04 if it becomes durable
 ```
 
 Do not force every thought into Notion. Notion is for durable structure after
 the thought earns structure.
+
+## Legacy ChatGPT Project Reference
+
+Old source:
+
+```text
+Video Editing + Workflow Offer
+```
+
+Use it as a reference for:
+
+- Upwork consultation page templates
+- short question-first proposal writing
+- proof-bank capture prompts
+- Career HQ page/task generation
+- daily execution tracking
+
+Do not use it as the current positioning source. The current Singleton Systems
+direction is:
+
+```text
+Video workflow cleanup is the entry point.
+Repeatable production systems are the deeper skill.
+AI-assisted steps are useful when they save real time.
+```
+
+When a future Shortcut, Codex prompt, or Notion connector creates a Career HQ
+item, it should borrow the old project's clean templates, not its old split-offer
+positioning.
+
+Default Career HQ page block shape:
+
+```text
+Goal
+Why it matters
+Inputs needed
+Action list
+Proof or asset links
+Next review point
+```
+
+Use this for Upwork consultations, website sections, workflow buildouts,
+proof-capture tasks, and other items that need more than quick Bear capture.
+The model is: one clean page, a small task list, and enough context to return
+later without rethinking the whole idea.
 
 ## Hook And Config Intentions
 
@@ -475,8 +604,8 @@ automation.
 - Bear has dynamic tags, not folders.
 - Bear's sidebar folder tree is created by tags and nested tags.
 - Keep core tags lean.
-- Use nested tags for context, such as `#video/npid`, `#website/npid`, `#workflow/raycast`, or `#npc/car-log`.
-- Use `#codex/systems` as the first nested test lane for Codex-system planning docs.
+- Use nested tags for context, such as `#video/npid`, `#website/npid`, `#workflow/raycast`, `#commands/codex`, or `#lifeops/car-log`.
+- Use `#commands/codex` as the nested lane for Codex-system planning docs.
 - Do not use lifecycle tags as Bear tags.
 - Use `bearcli` directly for reliable local automation.
 - Do not create a global Singleton Systems dump note by default.
@@ -495,6 +624,10 @@ automation.
 - Notion holds durable structure.
 - Career HQ is the focused action/update surface.
 - Status fields can use lifecycle concepts, but Bear should not.
+- Use "In Motion" as active-work language where the Career HQ surface supports
+  it.
+- If a capture becomes a real initiative, Career HQ should get a structured page
+  instead of a loose note.
 
 ### Raycast
 

@@ -28,6 +28,41 @@ This should not overtake the public website yet. The website should still enter 
 
 Prospect Pipeline is a passive proof reference for this thinking. The point is not to tell that story directly on the landing page. The point is that the same operator brain behind video workflow cleanup also built real workflow structure around stages, status, follow-up, contact data, message templates, hotkeys, mobile actions, and reliable task updates. That kind of repeatable system thinking is the long-term lane.
 
+## Legacy ChatGPT Project Migration
+
+Source project:
+
+```text
+Video Editing + Workflow Offer
+```
+
+Status:
+Useful reference, not current source of truth.
+
+Keep:
+
+- one-person operator positioning
+- no agency language
+- no invented scale, clients, metrics, or proof
+- short Upwork proposal style
+- proof bank structure
+- consultation page structure
+- daily execution tracker shape
+- video as the immediate trust wedge
+- workflow systems as the deeper skill
+
+Archive or rewrite:
+
+- "Do not blend video and workflow unless asked"
+- "Do not mention workflow systems unless asked"
+- workflow cleanup as only a premium differentiator
+- separate consultation pages as the main public offer structure
+- job applications as part of the Singleton Systems core lane
+
+Updated rule:
+
+Lead with video mess. Reveal the repeatable system underneath.
+
 ## Hero Voice
 Trusted operator.
 
@@ -135,11 +170,17 @@ Confirmed lanes:
 3. Notes & Reviews
    Turn feedback into decisions, tasks, and next steps without chasing threads.
 
-4. Delivery & Reuse
+4. Package & Delivery
    Package what worked so the next project starts faster.
 
 Solution card UI direction:
 Use the Solution 1 pattern as the base language. Each card gets a custom circular icon, concise lane copy, and a small embedded product UI mockup that shows the workflow becoming easier to understand.
+
+Card 3 direction:
+Notes & Reviews should show messy review input becoming decisions, tasks, next steps, and approval state. The visual lane is coral/red, with a voice note or review-sorted UI, timestamp/task tabs, and darker status chips such as Decision, Fix, Next, and Approved.
+
+Card 4 direction:
+Package & Delivery should show delivery as a reusable handoff, not just sending files. The visual lane is deeper green, with overlapping Final Handoff and Reusable Template cards, checklist rows, and tags such as Final, Shared, Saved, and Saved as template.
 
 ### How the Workflow Hub Works
 

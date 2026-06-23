@@ -30,7 +30,7 @@ singleton-systems
 Current Git remote:
 
 ```text
-https://github.com/23Maestro/pipeline-systems-audit.git
+https://github.com/23Maestro/singleton-systems.git
 ```
 
 The GitHub repo name or local folder may move first. Until both are renamed,
@@ -130,11 +130,12 @@ Bear should not become the durable operating system. It should catch thoughts qu
 Core Bear tags:
 
 ```text
+#inbox
 #video
 #workflow
 #website
-#codex
-#npc
+#commands
+#lifeops
 ```
 
 Optional Bear context tags:
@@ -143,8 +144,8 @@ Optional Bear context tags:
 #video/npid
 #website/npid
 #workflow/raycast
-#codex/systems
-#npc/car-log
+#commands/codex
+#lifeops/car-log
 ```
 
 Use Bear's nested tags to keep context under the front-facing area. For example, use `#video/npid` for Prospect ID video proof or `#website/npid` when Prospect ID is supporting the website, instead of creating loose `#npid` clutter.
@@ -152,14 +153,15 @@ Use Bear's nested tags to keep context under the front-facing area. For example,
 Bear has dynamic tags, not real folders. To make the sidebar lanes exist, create tiny title-only notes where the page title and tag match:
 
 ```text
+inbox    -> #inbox
 video    -> #video
 workflow -> #workflow
 website  -> #website
-codex   -> #codex
-npc      -> #npc
+commands -> #commands
+lifeops  -> #lifeops
 ```
 
-`npc` maps to Eagle's `04 Personal Systems` folder. It is for non-primary but useful personal-system proof like car logs, RBT shortcuts, Raycast experiments, and small repeatable builds.
+`lifeops` maps to Eagle's `04 Personal Systems` folder. It is for non-primary but useful personal-system proof like car logs, RBT shortcuts, Raycast experiments, and small repeatable builds. Codex/system notes live under `#commands/codex`, not as a top-level Bear lane.
 
 Do not use lifecycle tags like `#capture`, `#clarify`, `#package`, or `#ship` in Bear. Those are operating concepts, not dump tags.
 
@@ -262,8 +264,8 @@ Prefer a small shared label language across Bear, Eagle, and Notion, while respe
 website
 workflow
 video
-codex
-npc
+commands
+lifeops
 ```
 
 Optional source/context labels:
@@ -278,7 +280,7 @@ raycast
 career
 ```
 
-App quirk: Bear should usually express these as nested context tags under the front-facing area, such as `#video/npid`, `#website/npid`, `#workflow/raycast`, `#codex/systems`, or `#npc/car-log`. Eagle and Notion can keep plain labels as metadata because they already have folders, fields, and relations.
+App quirk: Bear should usually express these as nested context tags under the front-facing area, such as `#video/npid`, `#website/npid`, `#workflow/raycast`, `#commands/codex`, or `#lifeops/car-log`. Eagle and Notion can keep plain labels as metadata because they already have folders, fields, and relations.
 
 This is v1. Allow up to v3 refinement, then lock and use the system instead of renaming endlessly.
 

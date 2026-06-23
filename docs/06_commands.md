@@ -55,9 +55,9 @@ inbox
 video
 workflow
 website
-codex
-npc
-codex/systems
+commands
+lifeops
+commands/codex
 commands/karabiner
 commands/hammerspoon
 commands/maestro
@@ -88,9 +88,9 @@ inbox
 commands/karabiner
 commands/hammerspoon
 commands/maestro
-codex/systems
-npc/car-log
-npc/rbt-support
+commands/codex
+lifeops/car-log
+lifeops/rbt-support
 website/npid
 ```
 
@@ -140,8 +140,8 @@ inbox
 video
 workflow
 website
-codex
-npc
+commands
+lifeops
 ```
 
 The prompt should ask the AI chat to clarify the thought, keep it aligned with
@@ -183,7 +183,7 @@ actions feel instant:
 
 ```text
 capture into current lane
-append to codex/systems
+append to commands/codex
 open website lane
 open workflow lane
 send selected text to Raycast command
@@ -242,7 +242,7 @@ Better:
 ```text
 Open Career HQ
 Capture Website Proof
-Append to codex/systems
+Append to commands/codex
 Create Workflow Note
 Open Video Proof Folder
 ```

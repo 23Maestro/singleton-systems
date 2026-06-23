@@ -43,17 +43,18 @@ Hooks      -> later reminders that load the right context automatically
 Bear folders are tags. The Bear lanes are:
 
 ```text
+inbox
 video
 workflow
 website
-codex
-npc
+commands
+lifeops
 ```
 
-`npc` is the Bear version of Eagle's `04 Personal Systems`.
+`lifeops` is the Bear version of Eagle's `04 Personal Systems`.
 
-`codex/systems` is the first nested Bear test lane for planning docs that help
-Codex understand the whole Singleton Systems setup.
+`commands/codex` is the nested Bear lane for planning docs that help Codex
+understand the whole Singleton Systems setup.
 
 The first mobile beta is not a custom app. It is an Apple Shortcuts choose menu
 that uses the Bear lanes to build focused prompts for iOS AI beta chat:
@@ -63,8 +64,8 @@ inbox
 video
 workflow
 website
-codex
-npc
+commands
+lifeops
 ```
 
 The shortcut should help clarify a raw thought, keep it in the selected lane,

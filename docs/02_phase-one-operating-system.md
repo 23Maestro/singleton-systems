@@ -106,15 +106,41 @@ Purpose:
 
 First product:
 
-> Video Workflow Cleanup Audit
+> Video Workflow Cleanup Consultation
 
-Audit should produce:
+The old ChatGPT project separated video editing and workflow consultation. Keep
+that separation for deliverable clarity, but do not let it split the current
+Singleton Systems offer. The public lane is video workflow cleanup: video is the
+wedge, repeatable systems are the skill.
+
+Consultation should produce:
 
 - current workflow map
 - friction notes
 - quick wins
 - recommended cleanup plan
 - optional monthly implementation offer
+
+Consultation page template:
+
+1. Title
+2. Category/tags
+3. Description
+4. What I help with
+5. What the client should bring
+6. Gallery asset list
+
+Career HQ / Notion task template:
+
+1. Goal
+2. Why it matters
+3. Inputs needed
+4. Action list
+5. Proof or asset link
+6. Next review point
+
+Use this pattern when a Codex or mobile Shortcut capture should become a real
+Career HQ item instead of staying in Bear.
 
 Use `sales-outreach` for:
 
@@ -123,6 +149,19 @@ Use `sales-outreach` for:
 - proposal templates
 - objection handling
 - follow-up messages
+
+Default Upwork proposal shape:
+
+1. Pattern-interrupt question or observation.
+2. One sentence showing understanding.
+3. One relevant proof point.
+4. Simple next step.
+
+Proposal variants to generate when needed:
+
+1. Question-first version
+2. Warmer version
+3. Direct version under 500 characters
 
 ### 4. Outreach
 
@@ -345,6 +384,8 @@ Candidate future skills:
 - workflow-cleanup-case-study
 - social-proof-repurposer
 - finance-runway-check
+- career-hq-task-templater
+- upwork-consultation-page-builder
 
 Rule:
 

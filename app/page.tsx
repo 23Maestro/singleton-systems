@@ -19,7 +19,7 @@ const solutions = [
     tone: "coral",
   },
   {
-    title: "Delivery & Reuse",
+    title: "Package & Delivery",
     copy: "Package what worked so the next project starts faster.",
     tone: "green",
   },
@@ -324,7 +324,7 @@ function IntakePreview() {
   ] as const;
 
   return (
-    <div className="mt-8 overflow-hidden rounded-[1.35rem] border border-neutral-200 bg-[#f7f7f5] px-4 pb-0 pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:px-5">
+    <div className="-mb-7 mt-8 overflow-hidden rounded-[1.35rem] border border-neutral-200 bg-[#f7f7f5] px-4 pb-0 pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:-mb-8 sm:px-5">
       <div className="flex justify-end pr-1 sm:pr-3">
         <span className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-neutral-700 shadow-[0_8px_20px_rgba(15,23,42,0.11)]">
           New Video Project
@@ -369,7 +369,7 @@ function AssetsPreview() {
   ] as const;
 
   return (
-    <div className="mt-8 overflow-hidden rounded-[1.35rem] border border-neutral-200 bg-[#f7f7f5] px-4 pb-0 pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:px-5">
+    <div className="-mb-7 mt-8 overflow-hidden rounded-[1.35rem] border border-neutral-200 bg-[#f7f7f5] px-4 pb-0 pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:-mb-8 sm:px-5">
       <div className="flex justify-end pr-1 sm:pr-3">
         <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-neutral-800 shadow-[0_8px_20px_rgba(15,23,42,0.11)]">
           <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
@@ -412,6 +412,185 @@ function AssetsPreview() {
               <span className={`rounded-md border px-2 py-1 text-[10px] font-bold leading-none ${statusClassName}`}>{status}</span>
             </div>
           ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NotesPreview() {
+  const rows = [
+    ["02:14 - tighten intro", "Decision", "bg-blue-100 text-blue-700", "clock"],
+    ["Swap example clip", "Fix", "bg-red-100 text-red-600", "comment"],
+    ["Send revised cut", "Next", "bg-orange-100 text-orange-600", "task"],
+    ["Client approved direction", "Approved", "bg-green-100 text-green-700", "people"],
+  ] as const;
+  const waveform = [40, 80, 48, 72, 36, 64, 86, 44, 70, 52, 90, 46, 78, 58, 68, 38, 74, 50] as const;
+
+  return (
+    <div className="-mx-7 -mb-7 mt-8 flex h-[450px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#f55252] px-3 pt-8 sm:-mx-8 sm:-mb-8 sm:h-[460px] sm:px-5">
+      <div className="flex h-[480px] w-full max-w-[400px] flex-col gap-5 rounded-t-2xl bg-white p-6 shadow-2xl sm:max-w-[420px]">
+        <div className="flex items-center gap-2">
+          <div className="rounded-lg border border-neutral-200 p-1.5">
+            <svg className="h-4 w-4 text-neutral-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-5l-5 5v-5Z" />
+            </svg>
+          </div>
+          <span className="rounded-md bg-neutral-100 px-2.5 py-1 text-xs font-bold text-neutral-800">Review Sorted</span>
+        </div>
+
+        <p className="text-sm font-medium text-neutral-500">3 updates ready</p>
+
+        <div className="flex items-center gap-4 border-b border-neutral-100 pb-2 text-xs font-semibold">
+          <span className="relative z-10 -mb-[9px] border-b-2 border-black pb-2 text-black">Voice Note</span>
+          <span className="text-neutral-400">Timestamps</span>
+          <span className="text-neutral-400">Tasks</span>
+          <span className="text-neutral-400">Approved</span>
+        </div>
+
+        <div className="flex items-center gap-3 rounded-xl border border-neutral-100 bg-neutral-50 p-3">
+          <button type="button" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black" aria-label="Play client voice note">
+            <svg className="ml-0.5 h-3 w-3 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </button>
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
+            <span className="text-xs font-bold text-neutral-950">Client voice note</span>
+            <div className="flex items-center gap-2">
+              <div className="flex h-4 flex-1 items-center gap-[2px] opacity-30" aria-hidden="true">
+                {waveform.map((height, index) => (
+                  <div key={index} className="w-[3px] rounded-full bg-neutral-600" style={{ height: `${height}%` }} />
+                ))}
+              </div>
+              <span className="text-xs font-medium text-neutral-500">03:42</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-1 flex flex-col gap-3.5">
+          {rows.map(([title, status, statusClassName, icon]) => (
+            <div key={title} className="flex items-center gap-3 text-sm">
+              <div
+                className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] ${
+                  icon === "clock"
+                    ? "bg-blue-50 text-blue-500"
+                    : icon === "comment"
+                      ? "bg-red-50 text-red-500"
+                      : icon === "task"
+                        ? "bg-orange-50 text-orange-500"
+                        : "bg-green-50 text-green-500"
+                }`}
+                aria-hidden="true"
+              >
+                {icon === "clock" ? (
+                  <svg viewBox="0 0 18 18" className="h-3.5 w-3.5" fill="none">
+                    <path d="M9 3.2a5.8 5.8 0 1 1 0 11.6A5.8 5.8 0 0 1 9 3.2Zm0 3.1V9l2.1 1.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : icon === "comment" ? (
+                  <svg viewBox="0 0 18 18" className="h-3.5 w-3.5" fill="none">
+                    <path d="M3.7 4.6h10.6v6.5H8.4L5.2 14v-2.9H3.7V4.6Z" stroke="currentColor" strokeWidth="1.55" strokeLinejoin="round" />
+                  </svg>
+                ) : icon === "task" ? (
+                  <svg viewBox="0 0 18 18" className="h-3.5 w-3.5" fill="none">
+                    <path d="M5.2 4.4h7.6v9.2H5.2V4.4Zm2.2 4.5 1.2 1.2 2.3-2.5" stroke="currentColor" strokeWidth="1.55" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 18 18" className="h-3.5 w-3.5" fill="none">
+                    <path d="M6.5 8.2a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Zm5 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4ZM3.3 14c.4-2.2 1.5-3.3 3.2-3.3s2.8 1.1 3.2 3.3m.3-.5c.4-1.5 1.2-2.3 2.5-2.3 1.2 0 2.1.8 2.4 2.3" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" />
+                  </svg>
+                )}
+              </div>
+              <span className="min-w-0 flex-1 text-[13px] font-semibold leading-tight text-neutral-800 sm:text-sm">{title}</span>
+              <span className={`rounded-md px-2.5 py-1 text-[10px] font-bold ${statusClassName}`}>{status}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PackagePreview() {
+  const rows = [
+    ["Export specs", "Final", "bg-purple-100 text-purple-700"],
+    ["Final links", "Shared", "bg-blue-100 text-blue-700"],
+    ["Client notes", "Shared", "bg-orange-100 text-orange-700"],
+    ["Next project template", "Saved", "bg-green-100 text-green-700"],
+  ] as const;
+
+  return (
+    <div className="-mx-7 -mb-7 mt-8 flex h-[450px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#4eba6b] px-4 pt-10 sm:-mx-8 sm:-mb-8 sm:h-[460px] sm:px-6">
+      <div className="relative h-full w-full max-w-[390px] sm:max-w-[400px]">
+        <div className="absolute left-0 right-8 top-0 h-[430px] overflow-hidden rounded-t-xl border border-neutral-100 bg-white p-5 shadow-sm">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z" />
+              </svg>
+              <span className="text-sm font-bold text-neutral-900">Reusable Template</span>
+            </div>
+            <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-[10px] font-bold text-green-700">
+              Saved as template <span className="text-green-500">✓</span>
+            </span>
+          </div>
+          <p className="mb-5 pr-4 text-[13px] leading-snug text-neutral-500">Everything that worked, ready for next time.</p>
+
+          <ul className="space-y-4 text-sm font-medium text-neutral-600">
+            {[
+              ["Project structure", "folder"],
+              ["Assets & files", "list"],
+              ["Notes & decisions", "chat"],
+              ["Team & roles", "team"],
+              ["Tooling & setup", "tag"],
+            ].map(([item, icon]) => (
+              <li key={item} className="flex items-center gap-3">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  {icon === "folder" ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2Z" />
+                  ) : icon === "list" ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  ) : icon === "chat" ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-5l-5 5v-5Z" />
+                  ) : icon === "team" ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 1 1 0 5.292M15 21H3v-1a6 6 0 0 1 12 0v1Zm0 0h6v-1a6 6 0 0 0-9-5.197M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 0 1 0 2.828l-7 7a2 2 0 0 1-2.828 0l-7-7A1.994 1.994 0 0 1 3 12V7a4 4 0 0 1 4-4Z" />
+                  )}
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="absolute left-8 right-0 top-[138px] z-10 h-[302px] rounded-t-2xl border border-neutral-100 bg-white p-5 shadow-2xl sm:top-[110px] sm:h-[330px]">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <div className="rounded-lg border border-green-100 bg-green-50 p-1.5">
+                <svg className="h-4 w-4 text-green-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m20 7-8-4-8 4m16 0-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </div>
+              <span className="text-sm font-bold text-neutral-900">Final Handoff</span>
+            </div>
+            <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-[10px] font-bold text-green-700">
+              Ready to Ship <span className="text-green-500">✓</span>
+            </span>
+          </div>
+
+          <p className="mb-4 border-b border-neutral-50 pb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">Delivery package</p>
+
+          <div className="flex flex-col gap-4">
+            {rows.map(([title, status, statusClassName]) => (
+              <div key={title} className="grid grid-cols-[1fr_auto] items-center gap-2 text-sm">
+                <div className="flex min-w-0 items-center gap-3 font-semibold text-neutral-800">
+                  <div className="flex h-4 w-4 items-center justify-center rounded bg-green-500 text-[10px] text-white">✓</div>
+                  <span className="min-w-0 text-[13px] leading-tight sm:text-sm">{title}</span>
+                </div>
+                <span className={`shrink-0 rounded-md px-2 py-1 text-[10px] font-bold ${statusClassName}`}>{status}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -478,13 +657,13 @@ export default function Page() {
       <section className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
           <RotatingHeroHeadline />
-          <div className="mx-auto mt-6 w-fit origin-top scale-[0.9] sm:scale-[0.92] lg:scale-95">
-            <p className="max-w-[18.75rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[21.5rem] sm:text-base lg:max-w-[30rem] lg:text-lg">
+          <div className="mx-auto mt-6">
+            <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
               I help video teams turn loose footage, rough notes, and revision chaos into a seamless workflow.
             </p>
           </div>
-          <div className="mx-auto mt-2 w-fit origin-top scale-[0.82] sm:scale-[0.86] lg:scale-90">
-            <p className="flex max-w-none items-center justify-center gap-1.5 whitespace-nowrap text-left text-[9.5px] font-semibold leading-none text-neutral-600 sm:text-[10.5px] lg:text-xs">
+          <div className="mx-auto mt-3">
+            <p className="mx-auto flex max-w-[15.5rem] items-center justify-center gap-1.5 text-center text-[9.5px] font-semibold leading-none text-neutral-600 sm:max-w-[18rem] sm:text-[10.5px] lg:max-w-[24rem] lg:text-xs">
               <span
                 className="inline-flex h-[1.125rem] w-[1.125rem] shrink-0 items-center justify-center rounded-full border-[1.5px] border-black bg-[#eef6ff] text-[#2383e2] lg:h-5 lg:w-5"
                 aria-hidden="true"
@@ -617,6 +796,10 @@ export default function Page() {
                   <IntakePreview />
                 ) : index === 1 ? (
                   <AssetsPreview />
+                ) : index === 2 ? (
+                  <NotesPreview />
+                ) : index === 3 ? (
+                  <PackagePreview />
                 ) : (
                   <div className="mt-8 rounded-[1.35rem] border border-neutral-200 bg-[#f7f7f5] p-5">
                     <div className="space-y-3">
