@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LoopingProofVideo from "@/components/LoopingProofVideo";
 import ProofShowcase, { type ProofTab } from "@/components/ProofShowcase";
 import RotatingHeroHeadline from "@/components/RotatingHeroHeadline";
 
@@ -73,6 +74,27 @@ const nurseHubProofTabs: readonly ProofTab[] = [
     eyebrow: "Upload-Ready Library",
     subtitle: "Multiple course libraries assembled, named in order, and ready for YouTube upload.",
     gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#c9ffd9,#25c266_48%,#0f7a3a)]",
+  },
+] as const;
+
+const recruitingProofPanes = [
+  {
+    label: "Status",
+    eyebrow: "Manual Tracking",
+    title: "Status got blurry as volume climbed.",
+    subtitle: "Lookup, video updates, follow-up, and delivery pressure were spread across repeated steps.",
+  },
+  {
+    label: "Action",
+    eyebrow: "Operator View",
+    title: "Every athlete had a clearer next step.",
+    subtitle: "Lookup, status, shortcuts, and handoffs all lived closer to the work.",
+  },
+  {
+    label: "Output",
+    eyebrow: "Shipped Under Load",
+    title: "140+ highlights delivered in 6 weeks",
+    subtitle: "Real delivery volume moved with less manual tracking, fewer repeated clicks, and fewer memory-based follow-ups.",
   },
 ] as const;
 
@@ -576,7 +598,7 @@ export default function Page() {
           </a>
         </nav>
         <a
-          href="#beta-audit"
+          href="https://tally.so/r/obgLaX"
           className="hidden rounded-full bg-black px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800 sm:inline-flex"
         >
           Request Audit
@@ -647,7 +669,7 @@ export default function Page() {
           </div>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href="#beta-audit"
+              href="https://tally.so/r/obgLaX"
               className="inline-flex min-h-11 w-auto items-center justify-center rounded-full bg-black px-7 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
             >
               Fix the flow
@@ -772,7 +794,7 @@ export default function Page() {
           <h2 id="profile-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
             Where I Can Help
           </h2>
-          <p className="mx-auto mt-8 max-w-3xl text-center text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
+          <p className="mx-auto mt-8 max-w-3xl text-center text-balance text-xl font-medium leading-relaxed text-white/72 sm:text-2xl">
             Problems usually pop up during handoffs, when inputs, follow-ups, repeated tasks, and tools stop fitting how the team really works.
           </p>
           <div className="mt-12 divide-y divide-white/12 rounded-[2rem] border border-white/12 bg-white/[0.03] px-5 sm:px-7">
@@ -782,7 +804,7 @@ export default function Page() {
                   <span className={`h-3.5 w-3.5 shrink-0 rounded-full border border-white/55 ${area.accent} ${area.glow}`} aria-hidden="true" />
                   <p className="text-2xl font-semibold leading-tight tracking-[-0.02em] sm:whitespace-nowrap sm:text-3xl">{area.title}</p>
                 </div>
-                <p className="text-lg font-semibold leading-relaxed text-white/62 sm:text-xl">{area.copy}</p>
+                <p className="text-lg font-medium italic leading-relaxed text-white/72 sm:text-xl">{area.copy}</p>
               </div>
             ))}
           </div>
@@ -800,6 +822,44 @@ export default function Page() {
           <div className="mt-10">
             <ProofShowcase title="Course Video Migration" tabs={nurseHubProofTabs} />
           </div>
+          <article className="mt-8 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-neutral-950 text-white shadow-[0_18px_52px_rgba(15,23,42,0.12)]">
+            <div className="grid gap-0 lg:grid-cols-[0.86fr_1.14fr]">
+              <div className="flex flex-col justify-between gap-8 p-5 sm:p-7 lg:p-8">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">Proof System</p>
+                  <h3 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.045em] text-white sm:text-4xl">
+                    Recruiting Ops Command Center
+                  </h3>
+                  <p className="mt-4 text-base font-medium leading-relaxed text-white/68 sm:text-lg">
+                    A custom workflow for moving athlete video work through lookup, review, follow-up, and delivery without losing status.
+                  </p>
+                </div>
+                <div className="rounded-[1.35rem] border border-white/12 bg-white/[0.06] p-5">
+                  <p className="text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">140+ highlights delivered in 6 weeks</p>
+                  <p className="mt-3 text-sm font-semibold leading-relaxed text-white/64 sm:text-base">
+                    Athlete status, parent follow-up, send readiness, and review needs stayed visible as volume increased.
+                  </p>
+                </div>
+              </div>
+              <div className="border-t border-white/10 bg-black/35 p-3 sm:p-4 lg:border-l lg:border-t-0">
+                <LoopingProofVideo
+                  className="aspect-[12/7] w-full rounded-[1.5rem] border border-white/12 bg-black object-cover shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
+                  src="/proof-2-ssystems.mp4"
+                  poster="/proof-2-ssystems-poster.jpg"
+                  label="Recruiting Ops Command Center workflow preview"
+                />
+              </div>
+            </div>
+            <div className="grid border-t border-white/10 bg-white/[0.03] sm:grid-cols-3">
+              {recruitingProofPanes.map((pane) => (
+                <div key={pane.label} className="border-t border-white/10 p-5 first:border-t-0 sm:border-l sm:border-t-0 sm:first:border-l-0 sm:p-6">
+                  <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-white/42">{pane.eyebrow}</p>
+                  <h4 className="mt-3 text-xl font-semibold leading-tight tracking-[-0.025em] text-white sm:text-2xl">{pane.title}</h4>
+                  <p className="mt-3 text-sm font-medium leading-relaxed text-white/62 sm:text-[0.95rem]">{pane.subtitle}</p>
+                </div>
+              ))}
+            </div>
+          </article>
         </div>
       </section>
 
@@ -831,7 +891,7 @@ export default function Page() {
             Bring one messy recurring workflow. I&apos;ll help turn it into a clear system your team can use again and again.
           </p>
           <a
-            href="#beta-audit"
+            href="https://tally.so/r/obgLaX"
             className="mt-10 inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200"
           >
             Request Free Audit
