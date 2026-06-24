@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking Singleton Systems map"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking Cerebral drift guard"
+          }
+        ]
+      }
+    ]
+  }
+}

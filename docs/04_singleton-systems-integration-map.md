@@ -40,7 +40,7 @@ Naming Rules
 - Command layer doc: `docs/06_commands.md`
 - Bear role: quick capture with lean topic tags
 - Eagle role: proof and asset library
-- Notion/Career HQ / Opportunity HQ role: durable structured truth
+- Notion / Opportunity HQ role: durable structured truth
 - Raycast role: action layer
 - Codex skills/hooks role: keep context aligned across surfaces
 
@@ -432,6 +432,38 @@ money priority, link, follow-up, proof work, or project relation.
 The first Notion form should expose only `Task`, `Bucket`, `Time`, and
 `Link / Notes`. Default the rest.
 
+Mobile Notion shortcut/form behavior:
+
+```text
+Task
+  What needs to happen.
+
+Bucket
+  Cash Jobs | Career Jobs | Upwork | Offer | Proof
+
+Time
+  5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
+
+Link / Notes
+  URL, job post, context, or raw detail.
+```
+
+Defaults:
+
+```text
+Status = Queued
+Money Priority = Critical for Cash Jobs, Career Jobs, and Upwork
+Money Priority = Useful for Offer and Proof
+Project = blank unless chosen later
+Work Date = blank unless planning today
+Block = blank unless planning today
+Asset / Proof Link = blank unless proof exists
+```
+
+Use the mobile shortcut for capture, not planning. Planning happens later in
+Opportunity HQ views or Raycast: assign `Work Date`, `Block`, `Project`, and
+status changes after review.
+
 Passive shortcut and future automation ideas should usually start in Bear. This
 includes useful but later ideas such as a mobile transcript step for an existing
 share-sheet video download Shortcut. These can become Opportunity HQ tasks only
@@ -473,7 +505,7 @@ choose-menu prompt that helps put the thought in the right lane.
 
 ```text
 Eagle skill CLI route: 127.0.0.1:41596
-Career HQ Eagle API route: 127.0.0.1:41595
+Opportunity HQ Raycast / Eagle route: 127.0.0.1:41595
 Bear direct route: /Applications/Bear.app/Contents/MacOS/bearcli
 Bear MCP route: optional operator layer only
 ```
@@ -612,7 +644,8 @@ prospect-supabase-source-of-truth
   Reference only when borrowing source-of-truth patterns from Prospect Pipeline. Do not import NP-specific workflow names as the future product.
 
 raycast-extension-builder
-  Owns Career HQ command implementation, Raycast UI conventions, and local action routing.
+  Owns Opportunity HQ command implementation, Raycast UI conventions, local
+  action routing, and the native-first / Codex Assist-second command pattern.
 
 backend-architect
   Owns direct-route architecture, API contracts, reliability rules, and the rule that MCP is operator/control only.
@@ -723,7 +756,7 @@ Do not borrow:
 - stale former-work shortcuts
 - command-specific labels unless they become source/context metadata
 
-### Career HQ
+### Opportunity HQ Raycast Extension
 
 ```text
 /Users/singleton23/Raycast/career-hq
@@ -731,14 +764,15 @@ Do not borrow:
 
 Owns:
 
-- Raycast action surface for capture/update/open commands
+- Raycast action surface for Opportunity HQ capture/update/open commands
 - Eagle proof capture against outcome folders
-- durable Career HQ routing to Notion/Career surfaces
+- durable Opportunity HQ routing to Notion tasks/projects
 - practical proof operations for Singleton Systems
 
 ## Naming Once Rules
 
-Use these as the first pass for buckets:
+Use these as Eagle/proof folders or broad content lanes, not Opportunity HQ
+task buckets:
 
 ```text
 Website
@@ -835,7 +869,7 @@ Use it as a reference for:
 - Upwork consultation page templates
 - short question-first proposal writing
 - proof-bank capture prompts
-- Career HQ page/task generation
+- Opportunity HQ page/task generation
 - daily execution tracking
 
 Do not use it as the current positioning source. The current Singleton Systems
@@ -847,11 +881,11 @@ Repeatable production systems are the deeper skill.
 AI-assisted steps are useful when they save real time.
 ```
 
-When a future Shortcut, Codex prompt, or Notion connector creates a Career HQ
-item, it should borrow the old project's clean templates, not its old split-offer
-positioning.
+When a future Shortcut, Codex prompt, or Notion connector creates an Opportunity
+HQ item, it should borrow the old project's clean templates, not its old
+split-offer positioning.
 
-Default Career HQ page block shape:
+Default Opportunity HQ richer task/page block shape:
 
 ```text
 Goal
@@ -859,7 +893,7 @@ Why it matters
 Inputs needed
 Action list
 Proof or asset links
-Next review point
+Review note
 ```
 
 Use this for Upwork consultations, website sections, workflow buildouts,
@@ -883,7 +917,7 @@ before website copy edits
 before proof/library work
   load singleton-systems and eagle.
 
-before Career HQ command work
+before Opportunity HQ command work
   load raycast-extension-builder and singleton-systems.
 
 before Bear capture work
@@ -893,21 +927,28 @@ before Bear capture work
 Do not make hooks noisy. The hook should point to the right operating contract,
 not dump every connected surface into every turn.
 
-Current Codex config already has hook state references in
-`/Users/singleton23/.codex/config.toml`. Treat that as proof that hooks are a
-real option, but do not add Singleton Systems hooks until the target behavior is
-specific.
+Singleton Systems now has a small project hook in `.codex/hooks.json`.
+Its job is to keep Codex pointed at the ecosystem map and command map before
+work drifts across Bear, Opportunity HQ / Notion, Eagle, Raycast, Apple
+Shortcuts, LikeC4, docs, skills, or the public site.
+
+The hook should stay lean:
+
+```text
+review the full ecosystem map
+review the command map when actions/shortcuts/Raycast are involved
+route to the owner surface
+reuse the focused skill
+apply Ponytail: smallest working change
+```
 
 Future hook candidates:
 
 ```text
-on opening this repo
-  remind Codex this is the Singleton Systems home hub and point to this doc.
-
 on website copy work
   point to confirmed copy and singleton-systems skill.
 
-on Bear/Career HQ integration work
+on Bear/Opportunity HQ integration work
   point to Bear skill, integration map, and command doc.
 
 on command-layer work
@@ -934,7 +975,7 @@ Singleton Systems map buckets should start with:
 
 ```text
 Thought Capture -> Bear
-Durable Structure -> Notion / Career HQ
+Durable Structure -> Notion / Opportunity HQ
 Proof Assets -> Eagle
 Actions -> Raycast
 Home Docs -> singleton-systems now / singleton-systems target
@@ -958,7 +999,7 @@ automation.
 - Do not use lifecycle tags as Bear tags.
 - Use `bearcli` directly for reliable local automation.
 - Do not create a global Singleton Systems dump note by default.
-- Future Bear automation should be wrapped in the local forked Raycast extension, similar to Career HQ's Notion/Eagle wrappers, once the tag lanes are stable.
+- Future Bear automation should be wrapped in the local forked Raycast extension, similar to Opportunity HQ's Notion/Eagle wrappers, once the tag lanes are stable.
 - Future Bear wrapper commands may generate small computer-specific update templates on the fly, but template creation should stay lane-based and explicit.
 
 ### Eagle
@@ -966,16 +1007,16 @@ automation.
 - Eagle folders should be outcome folders.
 - Source names are tags or metadata.
 - The Eagle skill CLI currently uses port `41596`.
-- Career HQ currently uses port `41595`.
+- Opportunity HQ Raycast / Eagle route currently uses port `41595`.
 
-### Notion / Career HQ
+### Notion / Opportunity HQ
 
 - Notion holds durable structure.
-- Career HQ is the existing focused action/update surface.
-- Opportunity HQ is the operating name for the durable tasks/projects model.
+- Opportunity HQ is the durable tasks/projects model.
+- The local Raycast extension folder may still be named `career-hq` for
+  continuity, but visible command language should say Opportunity HQ.
 - Status fields can use lifecycle concepts, but Bear should not.
-- Use "In Motion" as active-work language where the Career HQ surface supports
-  it.
+- Use `In Motion` as active-work language.
 - If a capture becomes a real initiative, Opportunity HQ should get a project
   plus related tasks instead of one loose note.
 - If a capture affects the Money Clock, Opportunity HQ should get at least a
@@ -985,13 +1026,18 @@ automation.
 
 - Raycast is the action layer.
 - Commands should feel like shortcuts into named buckets.
-- Replace old Prospect ID leader-key ideas with Career HQ / Singleton Systems actions only after the buckets are stable.
+- Native Raycast actions should handle cheap capture, status updates, links,
+  file opening, Notion writes, and Eagle import.
+- Codex Assist is secondary: `cmd+shift+c` where available, one Raycast
+  input/review screen, then Apply, Copy, Log, or Cancel.
+- Replace old Prospect ID leader-key ideas with Opportunity HQ / Singleton
+  Systems actions only after the buckets are stable.
 
 ## Open Later
 
 - Bear MCP config and direct API wrapper shape
-- Career HQ Raycast command mapping after folder/tag rewrite
-- Notion Career HQ schema alignment
+- Opportunity HQ Raycast command mapping after schema stabilization
+- Notion Opportunity HQ schema alignment
 - Tally intake form shape and MCP/operator route
 - Namecheap / Vercel domain setup check for the public Singleton Systems domain
 - Prospect Pipeline reusable-logic references

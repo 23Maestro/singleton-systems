@@ -106,6 +106,33 @@ const methodSteps = [
   "Check what went out and choose the next fix.",
 ] as const;
 
+function RecruitingSignalIcon({ label }: { label: (typeof recruitingProofPanes)[number]["label"] }) {
+  if (label === "Status") {
+    return (
+      <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
+        <circle cx="9" cy="9" r="6.4" fill="#eef6ff" stroke="#050505" strokeWidth="1.45" />
+        <path d="M9 5.5v3.8l2.5 1.6" stroke="#2383e2" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  if (label === "Action") {
+    return (
+      <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
+        <rect x="3.2" y="3.4" width="11.6" height="11.2" rx="2" fill="#fff7d6" stroke="#050505" strokeWidth="1.45" />
+        <path d="m6.1 9.2 1.9 1.9 4-4.3" stroke="#d79500" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
+      <path d="M9 2.8 14.2 5v4.1c0 3-1.9 5.1-5.2 6.3-3.3-1.2-5.2-3.3-5.2-6.3V5L9 2.8Z" fill="#e9fff1" stroke="#050505" strokeWidth="1.45" strokeLinejoin="round" />
+      <path d="m6.5 9.2 1.6 1.6 3.6-3.9" stroke="#25c266" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
   const classes = {
     blue: "bg-[#004fa8]",
@@ -822,40 +849,57 @@ export default function Page() {
           <div className="mt-10">
             <ProofShowcase title="Course Video Migration" tabs={nurseHubProofTabs} />
           </div>
-          <article className="mt-8 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-neutral-950 text-white shadow-[0_18px_52px_rgba(15,23,42,0.12)]">
-            <div className="grid gap-0 lg:grid-cols-[0.86fr_1.14fr]">
-              <div className="flex flex-col justify-between gap-8 p-5 sm:p-7 lg:p-8">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">Proof System</p>
-                  <h3 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.045em] text-white sm:text-4xl">
-                    Recruiting Ops Command Center
-                  </h3>
-                  <p className="mt-4 text-base font-medium leading-relaxed text-white/68 sm:text-lg">
-                    A custom workflow for moving athlete video work through lookup, review, follow-up, and delivery without losing status.
-                  </p>
-                </div>
-                <div className="rounded-[1.35rem] border border-white/12 bg-white/[0.06] p-5">
-                  <p className="text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">140+ highlights delivered in 6 weeks</p>
-                  <p className="mt-3 text-sm font-semibold leading-relaxed text-white/64 sm:text-base">
-                    Athlete status, parent follow-up, send readiness, and review needs stayed visible as volume increased.
-                  </p>
-                </div>
+          <article className="mt-8 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-white shadow-[0_18px_52px_rgba(15,23,42,0.08)]">
+            <div className="grid gap-6 bg-[#f7f7f5] p-5 sm:p-7 lg:grid-cols-[1fr_21rem] lg:p-8">
+              <div>
+                <h3 className="max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.045em] text-neutral-950 sm:text-4xl">
+                  Recruiting Ops Command Center
+                </h3>
+                <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-neutral-600 sm:text-lg">
+                  A custom workflow for moving athlete video work through lookup, review, follow-up, and delivery without losing status.
+                </p>
               </div>
-              <div className="border-t border-white/10 bg-black/35 p-3 sm:p-4 lg:border-l lg:border-t-0">
+              <div className="rounded-[1.35rem] border border-neutral-200 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-neutral-400">Outcome</p>
+                <p className="mt-3 text-3xl font-black tracking-[-0.035em] text-neutral-950">140+ highlights</p>
+                <p className="mt-1 text-lg font-black tracking-[-0.02em] text-neutral-950">delivered in 6 weeks</p>
+                <p className="mt-3 text-sm font-semibold leading-relaxed text-neutral-600">
+                  Status, follow-up, send readiness, and review needs stayed visible as volume increased.
+                </p>
+              </div>
+            </div>
+            <div className="border-t border-neutral-200 bg-white p-4 sm:p-6 lg:p-7">
+              <div className="overflow-hidden rounded-[1.65rem] border border-neutral-200 bg-[#f7f7f5] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
+                <div className="mb-3 flex items-center justify-between gap-3 px-2 pt-1">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-[#ff6257]" aria-hidden="true" />
+                    <span className="h-3 w-3 rounded-full bg-[#ffc83d]" aria-hidden="true" />
+                    <span className="h-3 w-3 rounded-full bg-[#25c266]" aria-hidden="true" />
+                  </div>
+                  <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.14em] text-neutral-500 shadow-[0_8px_18px_rgba(15,23,42,0.07)]">
+                    Live workflow preview
+                  </span>
+                </div>
                 <LoopingProofVideo
-                  className="aspect-[12/7] w-full rounded-[1.5rem] border border-white/12 bg-black object-cover shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
+                  className="aspect-[12/7] w-full rounded-[1.25rem] border border-neutral-200 bg-black object-cover shadow-[0_18px_42px_rgba(15,23,42,0.16)]"
                   src="/proof-2-ssystems.mp4"
                   poster="/proof-2-ssystems-poster.jpg"
                   label="Recruiting Ops Command Center workflow preview"
                 />
               </div>
             </div>
-            <div className="grid border-t border-white/10 bg-white/[0.03] sm:grid-cols-3">
+            <div className="grid gap-3 border-t border-neutral-200 bg-[#fbfbfb] p-4 sm:grid-cols-3 sm:p-5">
               {recruitingProofPanes.map((pane) => (
-                <div key={pane.label} className="border-t border-white/10 p-5 first:border-t-0 sm:border-l sm:border-t-0 sm:first:border-l-0 sm:p-6">
-                  <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-white/42">{pane.eyebrow}</p>
-                  <h4 className="mt-3 text-xl font-semibold leading-tight tracking-[-0.025em] text-white sm:text-2xl">{pane.title}</h4>
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-white/62 sm:text-[0.95rem]">{pane.subtitle}</p>
+                <div key={pane.label} className="rounded-[1.25rem] border border-neutral-200 bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,0.045)]">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-[#fbfbfb]">
+                      <RecruitingSignalIcon label={pane.label} />
+                    </span>
+                    <span className="rounded-full border border-neutral-200 bg-white px-2.5 py-1 text-[0.65rem] font-black text-neutral-500">{pane.label}</span>
+                  </div>
+                  <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-neutral-400">{pane.eyebrow}</p>
+                  <h4 className="mt-3 text-xl font-semibold leading-tight tracking-[-0.025em] text-neutral-950 sm:text-2xl">{pane.title}</h4>
+                  <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600 sm:text-[0.95rem]">{pane.subtitle}</p>
                 </div>
               ))}
             </div>

@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net" modified="2026-06-24T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="opportunity-hq-simple-system" name="Grandma Simple System">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="My Master System" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=38;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="460" y="35" width="680" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Track my stuff. Pick what matters. Use time better. Finish more." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=20;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="360" y="88" width="880" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="capture" value="1&#xa;Catch Everything&#xa;&#xa;ideas&#xa;jobs&#xa;links&#xa;screenshots&#xa;random thoughts" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=4;fontFamily=Helvetica;fontSize=19;fontStyle=1;fontColor=#7F1D1D;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="70" y="190" width="230" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="sort" value="2&#xa;Sort The Mess&#xa;&#xa;cash jobs&#xa;career jobs&#xa;Upwork&#xa;my offer&#xa;proof" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=4;fontFamily=Helvetica;fontSize=19;fontStyle=1;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="370" y="190" width="230" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="time" value="3&#xa;Put Time On It&#xa;&#xa;5 min&#xa;30 min&#xa;90 min&#xa;today&#xa;later" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=4;fontFamily=Helvetica;fontSize=19;fontStyle=1;fontColor=#1E3A8A;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="670" y="190" width="230" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="act" value="4&#xa;Do The Work&#xa;&#xa;apply&#xa;send proposal&#xa;build page&#xa;capture proof&#xa;update status" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=4;fontFamily=Helvetica;fontSize=19;fontStyle=1;fontColor=#78350F;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="970" y="190" width="230" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="proof" value="5&#xa;Save The Proof&#xa;&#xa;assets&#xa;wins&#xa;examples&#xa;receipts&#xa;reuse later" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=4;fontFamily=Helvetica;fontSize=19;fontStyle=1;fontColor=#064E3B;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="190" width="230" height="230" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=4;strokeColor=#111827;" edge="1" parent="1" source="capture" target="sort">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=4;strokeColor=#111827;" edge="1" parent="1" source="sort" target="time">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=4;strokeColor=#111827;" edge="1" parent="1" source="time" target="act">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=4;strokeColor=#111827;" edge="1" parent="1" source="act" target="proof">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="tools-title" value="What the tools do" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=22;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="250" y="505" width="1100" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="tools" value="Bear catches it. Notion tracks it. Raycast runs it. Codex thinks with me. Eagle saves proof." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=21;fontStyle=1;fontColor=#111827;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="170" y="575" width="1260" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="goals" value="What this helps me do" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=22;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="250" y="700" width="1100" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="goal1" value="Get paid faster" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=20;fontStyle=1;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="775" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="goal2" value="Apply consistently" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=20;fontStyle=1;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="550" y="775" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="goal3" value="Build my offer" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=20;fontStyle=1;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="830" y="775" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="goal4" value="Reuse the proof" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=20;fontStyle=1;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="775" width="240" height="70" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
