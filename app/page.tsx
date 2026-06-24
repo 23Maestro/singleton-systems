@@ -56,41 +56,32 @@ const nurseHubProofTabs: readonly ProofTab[] = [
   {
     id: "before",
     label: "Before",
-    eyebrow: "Unordered source folder",
-    subtitle:
-      "180+ course video files came in without a clean upload path. Order, long exports, and manual checks made the migration hard to ship.",
-    imageSrc: "/proof/nursehub-before.jpg",
-    imageAlt: "Unordered course video folder with unclear order, long videos, and a YouTube split warning.",
+    eyebrow: "Unordered Source Folder",
+    subtitle: "Course videos received, but order and upload prep are unclear.",
     gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#ffe9a6,#f59e0b_48%,#8f4b00)]",
   },
   {
     id: "build",
     label: "Build Path",
-    eyebrow: "Structured processing lane",
-    subtitle:
-      "AI helped compare lesson order, task context, and file names. The repeat work became a cleaner rename, split, and prep lane.",
-    imageSrc: "/proof/nursehub-build.jpg",
-    imageAlt: "Structured processing lane showing lesson order, renamed files, split exports, transcripts, and upload-ready checks.",
+    eyebrow: "Structured Processing Lane",
+    subtitle: "AI helped turn the ordered project list into an ffmpeg-ready export path, skipping manual Premiere assembly during the migration.",
     gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#b9efff,#2383e2_48%,#004fa8)]",
   },
   {
     id: "ready",
     label: "Ship Ready",
-    eyebrow: "Upload-ready library",
-    subtitle:
-      "The final system handled 180+ files and 50+ hours of YouTube content with ordered names, split exports, and a clearer upload path.",
-    imageSrc: "/proof/nursehub-ready.jpg",
-    imageAlt: "Upload-ready course library with numbered lessons, ready statuses, and organized delivery notes.",
+    eyebrow: "Upload-Ready Library",
+    subtitle: "Multiple course libraries assembled, named in order, and ready for YouTube upload.",
     gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#c9ffd9,#25c266_48%,#0f7a3a)]",
   },
 ] as const;
 
 const methodSteps = [
   "Pick one recurring workflow.",
-  "Watch how it currently gets done.",
-  "Map the messy steps, tools, files, and follow-ups.",
-  "Build a cleaner hub, prompt, checklist, or automation path.",
-  "Review what shipped and decide the next improvement.",
+  "Watch how it’s done now.",
+  "List out the messy steps, tools, files, and follow-ups.",
+  "Create a simple hub, prompt, checklist, or automated path.",
+  "Check what went out and choose the next fix.",
 ] as const;
 
 function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
@@ -380,7 +371,7 @@ function NotesPreview() {
   const waveform = [40, 80, 48, 72, 36, 64, 86, 44, 70, 52, 90, 46, 78, 58, 68, 38, 74, 50] as const;
 
   return (
-    <div className="-mx-7 -mb-7 mt-8 flex h-[450px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#f55252] px-3 pt-8 sm:-mx-8 sm:-mb-8 sm:h-[460px] sm:px-4">
+    <div className="-mx-7 -mb-7 mt-8 flex h-[475px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#f55252] px-3 pt-8 sm:-mx-8 sm:-mb-8 sm:h-[460px] sm:px-4">
       <div className="flex h-[480px] w-full max-w-[420px] flex-col gap-4 rounded-t-2xl bg-white p-6 shadow-2xl sm:max-w-[480px]">
         <div className="flex items-center gap-3">
           <div className="rounded-lg border border-neutral-200 p-2">
@@ -496,11 +487,11 @@ function PackagePreview() {
 
           <ul className="space-y-4 text-sm font-medium text-neutral-600">
             {[
-              ["Project structure", "folder"],
-              ["Assets & files", "list"],
-              ["Notes & decisions", "chat"],
-              ["Team & roles", "team"],
-              ["Tooling & setup", "tag"],
+              ["Workflows", "folder"],
+              ["Assets", "list"],
+              ["Notes", "chat"],
+              ["Team Covered", "team"],
+              ["Tools", "tag"],
             ].map(([item, icon]) => (
               <li key={item} className="flex items-center gap-3">
                 <svg className="h-4 w-4 shrink-0 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -522,7 +513,7 @@ function PackagePreview() {
           </ul>
         </div>
 
-        <div className="absolute left-24 right-0 top-[136px] z-10 h-[302px] rounded-t-2xl border border-neutral-100 bg-white p-5 shadow-2xl sm:left-48 sm:top-[126px] sm:h-[330px]">
+        <div className="absolute left-[7.25rem] right-1 top-[144px] z-10 h-[294px] rounded-t-2xl border border-neutral-100 bg-white p-5 shadow-2xl sm:left-48 sm:right-0 sm:top-[126px] sm:h-[330px]">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <div className="rounded-lg border border-green-100 bg-green-50 p-1.5">
@@ -779,10 +770,10 @@ export default function Page() {
       <section className="bg-black px-6 py-20 text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="profile-heading">
         <div className="mx-auto max-w-6xl">
           <h2 id="profile-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Where I Usually Help
+            Where I Can Help
           </h2>
           <p className="mx-auto mt-8 max-w-3xl text-center text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
-            The work usually breaks in the handoffs: where inputs, follow-ups, repeated tasks, and tools stop matching the way the team actually works.
+            Problems usually pop up during handoffs, when inputs, follow-ups, repeated tasks, and tools stop fitting how the team really works.
           </p>
           <div className="mt-12 divide-y divide-white/12 rounded-[2rem] border border-white/12 bg-white/[0.03] px-5 sm:px-7">
             {helpAreas.map((area) => (
@@ -830,20 +821,20 @@ export default function Page() {
 
       <section id="pricing" className="bg-black px-6 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="pricing-heading">
         <div className="mx-auto max-w-3xl">
-          <h2 id="pricing-heading" className="text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">
-            Ready for the workflow audit?
+          <h2 id="pricing-heading" className="text-4xl font-semibold tracking-normal sm:text-5xl">
+            Ready for a free audit?
           </h2>
-          <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/55 sm:text-2xl">
-            Stop asking your team to remember what the workflow should know.
+          <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
+            Stop relying on your team to remember what the workflow should handle.
           </p>
-          <p className="mt-4 text-lg font-semibold leading-relaxed text-white/55">
-            Bring one messy recurring workflow. I&apos;ll help turn it into a cleaner system your team can reuse.
+          <p className="mt-4 text-lg font-semibold leading-relaxed text-white/72">
+            Bring one messy recurring workflow. I&apos;ll help turn it into a clear system your team can use again and again.
           </p>
           <a
             href="#beta-audit"
-            className="mt-10 inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-[0.18em] text-black transition hover:bg-neutral-200"
+            className="mt-10 inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200"
           >
-            Request Workflow Audit
+            Request Free Audit
           </a>
         </div>
       </section>

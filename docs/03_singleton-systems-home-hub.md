@@ -74,6 +74,17 @@ Current command lane:
 Career HQ should point at the active Eagle proof folders and shared labels. It
 uses the direct Eagle API route, not MCP, for reliable command behavior.
 
+Current operating name:
+
+```text
+Opportunity HQ
+```
+
+Opportunity HQ is the durable Notion layer for tasks, projects, job-search
+execution, Upwork, Singleton offer work, and proof capture tasks. Career HQ can
+remain as the existing Notion/Raycast surface name while the workflow is being
+reshaped, but the meaning is now broader than career tasks.
+
 ### Prospect Pipeline
 
 ```text
@@ -121,8 +132,21 @@ Daily lanes:
 
 ```text
 Money Clock      -> job applications, Upwork proposals, follow-ups, cash-path leads
-Singleton Offer  -> website, copy, beta offer, workflow hub, proof packaging
-System Cleanup   -> Bear review, Career HQ cleanup, Eagle assets, commands
+Offer           -> website, copy, beta offer, workflow hub, proof packaging
+System Cleanup  -> Bear review, Opportunity HQ cleanup, Eagle assets, commands
+```
+
+Until income stabilizes, treat workdays like 8-10 hour shifts. Blue collar and
+white collar job/application work should get roughly 60-70% of serious work
+time. Upwork, Singleton offer work, proof, and system cleanup share the
+remaining time.
+
+Every day through Monday, June 29, 2026 should include:
+
+```text
+1 blue collar application block
+1 white collar / resume / Upwork block
+1 Singleton proof or website block
 ```
 
 Default rule:
@@ -138,16 +162,21 @@ system honest when hyperfocus wants to spend the whole day on the offer page.
 
 Role:
 
+- official routing hook for every Singleton Systems surface
 - name the surface once
 - decide where an idea belongs
-- keep Bear, Eagle, Notion, Raycast, Codex, and skills from drifting
+- keep Bear, Eagle, Opportunity HQ, Raycast, Codex, Shortcuts, LikeC4, docs,
+  and skills from drifting
 - prevent every new idea from becoming a new folder, tag, command, or doc
 
-The Cerebral router is not a separate database yet. It is the operating logic in
-`docs/04_singleton-systems-integration-map.md`.
+The Cerebral router is not a separate database and does not mutate tools by
+itself. It is the operating hook that names the owner surface, canonical
+fields/options, and next focused skill before any surface is changed.
 
 Use it when a thought mixes business, website, proof, commands, skills, and app
-integrations in one pass.
+integrations in one pass. If a surface uses stale names/options, update the
+canonical docs and skills first, then the live surface or implementation, then
+verify.
 
 ### Bear
 
@@ -178,6 +207,7 @@ Optional Bear context tags:
 #website/npid
 #workflow/raycast
 #commands/codex
+#commands/shortcuts
 #lifeops/car-log
 ```
 
@@ -198,30 +228,94 @@ lifeops  -> #lifeops
 
 Do not use lifecycle tags like `#capture`, `#clarify`, `#package`, or `#ship` in Bear. Those are operating concepts, not dump tags.
 
+Use `#commands/shortcuts` for later/passive Apple Shortcuts, share-sheet ideas,
+shell/mobile workflow experiments, and small automations that might become
+useful proof later. Example: a future transcript step for an existing
+Twitter/YouTube/internet-video download Shortcut. These ideas stay in Bear
+until human review gives them task weight, proof value, money relevance, or a
+real next action.
+
 ### Notion
 
 Role:
 
 - durable structured truth
-- Career HQ
+- Opportunity HQ / Career HQ
 - workflow hub
 - project/state tracking
 
 Notion answers: what is this item, where does it stand, and what happens next?
 
-For the Money Clock layer, Notion / Career HQ should own a small Focus Board.
-Keep it intentionally plain:
+Opportunity HQ owns the real queue. Use it for any item with task weight,
+money pressure, a status, a time estimate, a link, proof work, or a follow-up.
+Bear can still catch raw thoughts, but focused queue items should go directly
+to Notion / Opportunity HQ.
+
+V1 task buckets:
 
 ```text
-Lane:
-  Survival Job
-  Upwork Cash
-  Singleton Offer
-  Proof
+Cash Jobs
+Career Jobs
+Upwork
+Offer
+Proof
+```
 
-State:
-  Now
-  Next
+Buckets are lanes, not projects. Projects are outcomes that need multiple
+tasks, proof, or time planning, such as:
+
+```text
+Get paid by Monday
+Blue collar resume ready
+White collar video/broadcast applications
+Upwork consultation / proposals
+Singleton proof + website
+```
+
+Suggested task properties:
+
+```text
+Task
+Bucket
+Status
+Time
+Money Priority
+Project
+Work Date
+Block
+Link
+Asset / Proof Link
+Notes
+```
+
+Use page-body checkboxes only when the checklist is tiny. If a subtask needs
+its own time estimate, create it as a related task instead.
+
+Projects and tasks are the two durable databases. Do not create a separate
+Focus Board database for v1. The Focus Board, Daily Blocks, Work Calendar,
+Applications, Upwork, Singleton, and Proof surfaces should be views of the task
+database.
+
+Use `Work Date` and `Block` to turn tasks into a rough daily schedule:
+
+```text
+Morning
+Midday
+Afternoon
+Evening
+Late
+```
+
+For the Money Clock layer, Opportunity HQ should own the Focus Board as a view,
+not a separate database. Keep it intentionally plain:
+
+```text
+Status:
+  Queued
+  Today
+  In Motion
+  Waiting
+  Done
   Parked
 ```
 
@@ -234,7 +328,7 @@ What has to happen today so money, offer, and proof all keep moving?
 Do not recreate a full Eisenhower matrix. Delegate is not part of this model.
 Use `Parked` for saved-but-not-now ideas instead of guilt or fake deadlines.
 
-Career HQ may also need a lean Opportunity Log for money-path actions:
+Opportunity HQ also acts as the lean Opportunity Log for money-path actions:
 
 ```text
 survival jobs
@@ -263,6 +357,24 @@ Use rough effort buckets instead of perfect time tracking:
 The point is to see the true size of the day. A website section, nineteen proof
 screenshots, a tailored job application, and a proof video should not all feel
 like the same size in the user's head.
+
+Opportunity HQ should also support a simple mobile form:
+
+```text
+Task
+Bucket
+Time
+Link / Notes
+```
+
+Defaults:
+
+```text
+Status = Queued
+Money Priority = Critical for Cash Jobs, Career Jobs, and Upwork
+Money Priority = Useful for Offer and Proof
+Project = blank unless obvious
+```
 
 ### Eagle
 
@@ -316,13 +428,20 @@ Raycast commands should trigger known actions against known buckets. They should
 Role:
 
 - first mobile action layer
-- quick capture into known lanes
+- quick capture into Bear or Opportunity HQ
 - simple choose-menu prompt palette for iOS AI beta chat
 - lane-aware prompt building before deeper app integrations exist
 
-The first desired mobile beta is a Shortcut that lets Jerami choose a lane,
-dictate or paste the thought, and generate a focused prompt that respects the
-Bear lanes.
+Use two mobile paths:
+
+```text
+Quick Thought -> Bear
+Log Task      -> Notion / Opportunity HQ
+```
+
+Bear is for raw, unclear, emotional, exploratory, or "do not lose this" capture.
+Opportunity HQ is for focused queue items that need status, time, bucket,
+money priority, link, follow-up, proof work, or project relation.
 
 Future App Intents or deeper App Shortcuts should come after the workflows are
 stable. Mobile should start with low-friction prompt routing, not a custom app.
@@ -343,6 +462,23 @@ Definitions:
 - Ship: publish, build, send, deploy, or archive
 
 This lifecycle can appear in docs, Notion/Career HQ status fields, or planning notes. It should not become Bear tag sprawl.
+
+## Visual Update Rule
+
+Sketches, screenshots, Excalidraw-style maps, or whiteboard images can be used
+as routing evidence. When a visual model clarifies the system, convert it into
+the written operating contract:
+
+```text
+Surface roles
+Bucket names
+Notion fields
+Command names
+Daily operating rules
+```
+
+Do not leave visual models as one-off inspiration. If the model changes routing
+or ownership, update this repo's docs and the relevant skills.
 
 ## Shared Label Direction
 

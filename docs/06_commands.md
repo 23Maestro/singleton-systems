@@ -25,8 +25,8 @@ Codex     -> helps name, inspect, and build the next version
 ```
 
 Commands should support the Money Clock without becoming another planning app.
-The command layer should make it easy to capture, review, and promote work into
-the right surface.
+The command layer should make it easy to create, open, update, clarify, rewrite,
+and route work in the right surface.
 
 ## Current Passive References
 
@@ -65,9 +65,12 @@ commands/codex
 commands/karabiner
 commands/hammerspoon
 commands/maestro
+commands/shortcuts
 money-clock
 plan-today
-promote-bear-capture
+log-opportunity-task
+capture-proof-asset
+update-opportunity-task
 ```
 
 If a command idea does not fit one of these lanes, it should probably stay as a
@@ -96,6 +99,7 @@ commands/karabiner
 commands/hammerspoon
 commands/maestro
 commands/codex
+commands/shortcuts
 lifeops/car-log
 lifeops/rbt-support
 website/npid
@@ -115,10 +119,11 @@ Pending examples:
 
 ```text
 Bear editing layer
-Career HQ command layer
+Opportunity HQ / Career HQ command layer
 Money Clock check-in
-Promote Bear Capture
+Log Opportunity Task
 Plan Today
+Update Opportunity Task
 Car inventory/log command
 RBT shortcut/support command
 Screenshot/PDF review command
@@ -162,8 +167,22 @@ commands
 
 The prompt should ask the AI chat to clarify the thought, keep it aligned with
 the selected lane, and avoid inventing new tags unless the user explicitly asks.
-If the capture is job, proposal, application, or follow-up related, it should be
-flagged for the Focus Board during review.
+
+Use two mobile capture paths:
+
+```text
+Quick Thought -> Bear
+Log Task      -> Notion / Opportunity HQ
+```
+
+Bear is for raw, unclear, emotional, exploratory, or "do not lose this"
+thoughts. Opportunity HQ is for focused queue items with status, time, bucket,
+money priority, link, follow-up, proof work, or project relation.
+
+Passive shortcut ideas belong in Bear first, especially later Apple Shortcuts,
+shell/mobile experiments, share-sheet ideas, and small automations that might
+become proof someday. Use `#commands/shortcuts` for these. Promote them to
+Opportunity HQ only after human review.
 
 Do not start with a custom mobile app. If a Shortcut becomes repeated and
 important, it can later become:
@@ -198,22 +217,29 @@ These are future commands, not implementation requirements yet:
 
 ```text
 Plan Today
-  Open the Focus Board and make today's Now / Next / Parked split visible.
+  Open Opportunity HQ's Today / Money Clock view and make today's Queued /
+  Today / In Motion split visible.
 
 Money Clock Check-In
   Ask what job, proposal, application, or follow-up action has been logged today.
 
-Promote Bear Capture
-  Take an inbox capture and create the right Career HQ / Focus Board item.
+Log Opportunity Task
+  Create a lean Opportunity HQ task with bucket, status, time, money priority,
+  link/notes, and project when obvious.
+
+Update Opportunity Task
+  Update status, notes, or proof link on an existing Opportunity HQ
+  task.
 
 Export Focus Blocks
-  Later: turn today's Focus Board and Opportunity Log into Apple Calendar-style
-  time blocks.
+  Later: turn today's Opportunity HQ tasks into Apple Calendar-style time
+  blocks.
 ```
 
 The old Prospect Pipeline calendar exporter is the reference pattern: analyze a
 real work queue, estimate blocks, then export time to Apple Calendar. Do not
-build the exporter until the Focus Board and lane names are stable.
+build the exporter until Opportunity HQ's bucket, status, time, and priority
+fields are stable.
 
 ## Duration-Aware Commands
 
@@ -221,13 +247,15 @@ These are pending command ideas for the Money Clock layer:
 
 ```text
 Log Opportunity
-  Create a lean Career HQ item with lane, state, effort, link, and next action.
+  Create a lean Opportunity HQ item with bucket, status, time, money priority,
+  link/notes, and project when useful.
 
 Estimate Next Move
-  Apply the Duration Key to a Bear capture, Focus Board item, or proof task.
+  Apply the Duration Key to a Bear capture, Opportunity HQ task, or proof task.
 
 Plan Focus Blocks
-  Group active work into Money Clock, Singleton Offer, and System Cleanup blocks.
+  Group active Opportunity HQ work into Money Clock, Offer, and
+  System Cleanup blocks.
 ```
 
 Use rough effort buckets, not fake precision:
@@ -310,7 +338,7 @@ random capture macro
 Better:
 
 ```text
-Open Career HQ
+Open Opportunity HQ
 Capture Website Proof
 Append to commands/codex
 Create Workflow Note
@@ -322,8 +350,8 @@ The action name should say what it does and where it belongs.
 ## Pending
 
 - Review old Prospect ID leader-key commands and retire what no longer belongs.
-- Replace former Prospect ID command muscle memory with Career HQ / Singleton
-  Systems commands.
+- Replace former Prospect ID command muscle memory with Opportunity HQ /
+  Singleton Systems commands.
 - Decide which commands belong in Raycast first, then only promote stable ones
   into Karabiner, Hammerspoon, or Keyboard Maestro.
 - Build future shortcuts around the same lanes used by Bear and Eagle.

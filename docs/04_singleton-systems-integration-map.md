@@ -40,7 +40,7 @@ Naming Rules
 - Command layer doc: `docs/06_commands.md`
 - Bear role: quick capture with lean topic tags
 - Eagle role: proof and asset library
-- Notion/Career HQ role: durable structured truth
+- Notion/Career HQ / Opportunity HQ role: durable structured truth
 - Raycast role: action layer
 - Codex skills/hooks role: keep context aligned across surfaces
 
@@ -59,11 +59,11 @@ Operating lanes:
 Money Clock
   Survival jobs, Upwork proposals, applications, follow-ups, and cash-path leads.
 
-Singleton Offer
+Offer
   Website, offer copy, beta offer, proof packaging, and workflow-hub materials.
 
 System Cleanup
-  Bear review, Career HQ cleanup, Eagle capture, commands, shortcuts, and docs.
+  Bear review, Opportunity HQ cleanup, Eagle capture, commands, shortcuts, and docs.
 ```
 
 Balanced lanes means all three lanes move, but `Money Clock` gets a daily floor
@@ -74,28 +74,146 @@ before continuing polish work.
 Do not turn this into finance automation. It is a prioritization rule for work,
 not a bank, debt, or budget system.
 
-## Focus Board V1
+Until income stabilizes, daily work should run like an 8-10 hour shift. Blue
+collar and white collar application work get the first 60-70% of serious work
+time. Upwork, Singleton offer work, proof capture, and system cleanup happen
+after the cash-path floor is moving.
 
-Notion / Career HQ owns the durable priority board. Bear only captures raw
-thoughts before they are reviewed.
-
-Suggested minimal properties:
+Required daily blocks through Monday, June 29, 2026:
 
 ```text
-Name
-Lane:  Survival Job | Upwork Cash | Singleton Offer | Proof
-State: Now | Next | Parked
-Due / Review
+1 blue collar application block
+1 white collar / resume / Upwork block
+1 Singleton proof or website block
 ```
+
+Start-time targets:
+
+```text
+Thursday, June 25: rolling by 11am
+Friday, June 26 onward: rolling by 10am when possible
+```
+
+Use the task database's `Time`, `Money Priority`, `Bucket`, and `Status` fields
+to build the day before polishing the website or proof library.
+
+## Opportunity HQ V1
+
+Opportunity HQ is the durable Notion queue for money
+tasks, job applications, Upwork, Singleton offer work, proof tasks, and project
+planning. Bear only owns raw capture.
+
+V1 buckets:
+
+```text
+Cash Jobs
+Career Jobs
+Upwork
+Offer
+Proof
+```
+
+Buckets are lanes, not projects. A project is an outcome that needs multiple
+tasks, proof, or time planning.
+
+Starter projects:
+
+```text
+Get paid by Monday
+Blue collar resume ready
+White collar video/broadcast applications
+Upwork consultation / proposals
+Singleton proof + website
+```
+
+Suggested task properties:
+
+```text
+Task
+Bucket
+Status
+Time
+Money Priority
+Project
+Work Date
+Block
+Link
+Asset / Proof Link
+Notes
+```
+
+Status:
+
+```text
+Queued
+Today
+In Motion
+Waiting
+Done
+Parked
+```
+
+Time:
+
+```text
+5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
+```
+
+Money Priority:
+
+```text
+Critical
+Useful
+Later
+```
+
+Default priority:
+
+```text
+Cash Jobs -> Critical
+Career Jobs -> Critical
+Upwork -> Critical
+Offer -> Useful
+Proof -> Useful
+```
+
+Use page-body checkboxes only when a checklist is tiny. If a subtask needs its
+own time estimate, create it as a related task in the task database.
+
+Projects and tasks are the two durable databases for v1. Do not create a
+separate Focus Board database yet. The Focus Board, Daily Blocks, Work Calendar,
+Applications, Upwork, Singleton, and Proof surfaces should be views of
+Opportunity Tasks.
+
+Use `Work Date` and `Block` to turn tasks into rough daily schedules:
+
+```text
+Morning
+Midday
+Afternoon
+Evening
+Late
+```
+
+## Focus Board V1
+
+The Focus Board is now a view of Opportunity HQ, not a separate source of truth.
+Use `Status` and `Money Priority` to make today's queue visible.
 
 State meaning:
 
 ```text
-Now
-  Active today or blocking momentum.
+Queued
+  Real task, but not chosen for today yet.
 
-Next
-  Important, but not the current move.
+Today
+  Selected for today's work block.
+
+In Motion
+  Actively being worked.
+
+Waiting
+  Submitted, sent, platform/person pending, or externally blocked.
 
 Parked
   Captured safely without forcing a fake deadline.
@@ -103,12 +221,12 @@ Parked
 
 The Focus Board replaces the Eisenhower/delegate idea. Use plain timing and
 pressure, not a four-quadrant taxonomy. The board should make it obvious if the
-day has no job, proposal, or follow-up action logged.
+day has no blue collar, white collar, Upwork, or follow-up action logged.
 
 ## Opportunity Log V1
 
-The Focus Board says what needs attention. The Opportunity Log records the
-money-path actions and rough effort behind them.
+The old Opportunity Log idea is folded into Opportunity HQ unless it becomes
+too crowded. For now, do not create a second database just to log leads.
 
 Use this for:
 
@@ -134,8 +252,8 @@ Suggested minimal properties:
 
 ```text
 Name
-Lane: Survival Job | Career Job | Upwork Cash | Outreach | Singleton Offer
-State: Found | In Motion | Sent | Follow Up | Done | Parked
+Bucket: Cash Jobs | Career Jobs | Upwork | Offer | Proof
+Status: Queued | Today | In Motion | Waiting | Done | Parked
 Effort: 5m | 15m | 30m | 60m | 2h | 4h+
 ```
 
@@ -143,7 +261,6 @@ Optional fields only when useful:
 
 ```text
 Link
-Next Action
 Related Asset
 ```
 
@@ -154,9 +271,9 @@ Do not make this a giant CRM. The first use case is simple:
 - make sure at least one cash-path item moves each day
 - later, use the effort estimate to build time blocks
 
-If the entry is only a thought, it starts in Bear. If it has a link, deadline,
-follow-up, proposal, application, or income impact, it belongs in the
-Opportunity Log / Focus Board.
+If the entry is only a raw thought, it starts in Bear. If it has task weight,
+money pressure, a link, deadline, follow-up, proposal, application, proof value,
+or project weight, it belongs in Opportunity HQ.
 
 ## Duration Key V1
 
@@ -216,11 +333,11 @@ First-pass daily blocks:
 Money Clock
   Apply, propose, follow up, or log outreach.
 
-Singleton Offer
+Offer
   Website, offer, proof, or workflow-hub build.
 
 System Cleanup
-  Bear review, Eagle capture, Career HQ cleanup, commands.
+  Bear review, Eagle capture, Opportunity HQ cleanup, commands.
 ```
 
 The rule is simple: do not schedule a full day of website work when there are no
@@ -228,11 +345,11 @@ Money Clock actions in motion.
 
 ## Cerebral Router
 
-This is the plain-English router for the whole system.
+This is the official plain-English router for the whole system.
 
-It is not a database yet, and it is not a giant memory file. It is a small set
-of definitions that helps Codex, Bear, Notion, Eagle, Raycast, skills, and
-future hooks agree on what each surface means.
+It is not a database and it does not mutate tools by itself. It is the hook that
+helps Codex, Bear, Opportunity HQ, Eagle, Raycast, Apple Shortcuts, LikeC4,
+skills, and future hooks agree on what each surface means.
 
 Working rule:
 
@@ -248,7 +365,16 @@ The router answers:
 - which app owns the durable version?
 - which skill should Codex load?
 - is this a command, proof asset, website idea, workflow idea, or personal system?
-- should this stay quick-capture, become a Notion/Career HQ item, or turn into code?
+- should this stay quick-capture, become an Opportunity HQ item, or turn into code?
+- does the surface use stale buckets, statuses, fields, or labels?
+
+Hook rule:
+
+```text
+If a surface drifts, update the canonical docs/skills first.
+Then update the live Notion/Raycast/Bear/Eagle/LikeC4 surface.
+Then verify the surface that users actually touch.
+```
 
 The router should stay boring on purpose. If a label needs explanation every
 time, it is not ready to become a tag, command, skill, or folder.
@@ -292,22 +418,35 @@ This is a conflict palette: choose the lane, paste or dictate the thought, then
 let the prompt help clarify where it goes without forcing a full task system on
 mobile.
 
-For Money Clock captures, the mobile shortcut should stay simple:
+For mobile capture, use two paths:
 
 ```text
-Inbox
-  Raw thought, screenshot, lead, task, or "do not lose this."
-
-Systems
-  website, video, workflow, commands
-
-Life Ops
-  personal repeatable systems and non-business operating friction
+Quick Thought -> Bear
+Log Task      -> Notion / Opportunity HQ
 ```
 
-If a mobile capture is job/proposal related, it should land in Bear first, then
-get promoted to the Focus Board during review. Do not make the Shortcut create
-Notion pages until the repeated action is stable.
+Bear receives raw, unclear, emotional, exploratory, or "do not lose this"
+thoughts. Opportunity HQ receives focused queue items with status, time, bucket,
+money priority, link, follow-up, proof work, or project relation.
+
+The first Notion form should expose only `Task`, `Bucket`, `Time`, and
+`Link / Notes`. Default the rest.
+
+Passive shortcut and future automation ideas should usually start in Bear. This
+includes useful but later ideas such as a mobile transcript step for an existing
+share-sheet video download Shortcut. These can become Opportunity HQ tasks only
+after human review, when they have task weight, money relevance, proof value, or
+a real next action.
+
+Suggested Bear lane:
+
+```text
+#commands/shortcuts
+```
+
+Use this as the holding lane for later Apple Shortcuts, shell/mobile workflow
+ideas, passive automations, and small "this could become proof later" concepts.
+Do not make every shortcut idea a Notion task.
 
 Future direction:
 
@@ -651,11 +790,14 @@ commands / shortcut layers / macro ideas
 quick raw thought under ten minutes
   -> Bear #inbox
 
-survival job, income deadline, proposal count, application, follow-up
-  -> Notion / Career HQ Focus Board, cerebral-router, then the focused skill
+passive shortcut idea / later automation / useful someday command
+  -> Bear #commands/shortcuts, then human review before Opportunity HQ
+
+survival job, blue collar job, white collar job, income deadline, proposal count, application, follow-up
+  -> Notion / Opportunity HQ, cerebral-router, then resume-tailor, cover-letter-casual, upwork-proposal, or sales-outreach
 
 job lead, Upwork lead, outreach target, offer task with effort estimate
-  -> Notion / Career HQ Opportunity Log, then Focus Board if active today
+  -> Notion / Opportunity HQ, then Focus Board view if active today
 
 video proof
   -> Eagle 01 Video Proof, Bear #video or #video/context
@@ -673,12 +815,12 @@ Codex/workspace/system idea
   -> Bear #commands/codex, then docs/04 if it becomes durable
 ```
 
-Do not force every thought into Notion. Notion is for durable structure after
-the thought earns structure.
+Do not force every thought into Notion. Notion is for durable queue work after
+the thought has task, money, proof, link, follow-up, or project weight.
 
 Exception: survival-critical work should not sit only in Bear. If it affects
 income timing, follow-up, applications, proposals, or end-of-month execution, it
-needs a durable Focus Board item after capture.
+needs a durable Opportunity HQ task.
 
 ## Legacy ChatGPT Project Reference
 
@@ -829,14 +971,15 @@ automation.
 ### Notion / Career HQ
 
 - Notion holds durable structure.
-- Career HQ is the focused action/update surface.
+- Career HQ is the existing focused action/update surface.
+- Opportunity HQ is the operating name for the durable tasks/projects model.
 - Status fields can use lifecycle concepts, but Bear should not.
 - Use "In Motion" as active-work language where the Career HQ surface supports
   it.
-- If a capture becomes a real initiative, Career HQ should get a structured page
-  instead of a loose note.
-- If a capture affects the Money Clock, Career HQ should get at least a small
-  Focus Board item so it does not disappear inside Bear.
+- If a capture becomes a real initiative, Opportunity HQ should get a project
+  plus related tasks instead of one loose note.
+- If a capture affects the Money Clock, Opportunity HQ should get at least a
+  small task so it does not disappear inside Bear.
 
 ### Raycast
 

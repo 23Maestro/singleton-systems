@@ -1,0 +1,305 @@
+specification {
+  element person
+  element browser
+  element bucket
+  element component
+  element storage
+  element document
+  element queue
+  element action
+}
+
+model {
+  operator = person 'Operator' {
+    description """
+    The working user. Uses mobile, desktop, Raycast, Codex, Notion, Bear, and
+    Eagle to move job search, Upwork, Singleton offer, and proof work without
+    repeatedly deciding where each item belongs.
+    """
+  }
+
+  capture = bucket 'Capture Surfaces' {
+    bear = document 'Bear Inbox' {
+      description """
+      Raw capture only. Use for unclear thoughts, offload notes, passive
+      shortcut ideas, and anything that is not yet a real task. Promote only
+      when the item has money weight, deadline, follow-up, proof value, or a
+      clear next action.
+      """
+    }
+
+    mobileForm = browser 'Mobile Task Form' {
+      description """
+      Fast durable capture path for task-shaped work. Minimum fields: Task,
+      Bucket, Time, and Link/Notes. Default Status should be Queued.
+      """
+    }
+  }
+
+  durable = storage 'Opportunity HQ' {
+    description """
+    Notion is durable truth. It owns projects, tasks, status, time estimates,
+    daily work blocks, links, notes, and proof attachments. Views are not new
+    databases.
+    """
+
+    projects = storage 'Opportunity Projects' {
+      description """
+      Outcomes that need multiple tasks, proof, or time planning. Buckets are
+      not projects. Example: Upwork consultation / proposals.
+      """
+    }
+
+    tasks = queue 'Opportunity Tasks' {
+      description """
+      Executable work. Fields: Task, Bucket, Status, Time, Money Priority,
+      Project, Work Date, Block, Link, Asset / Proof Link, Notes.
+      Status contract: Queued, Today, In Motion, Waiting, Done, Parked.
+      """
+    }
+
+    taskViews = browser 'Task Views' {
+      description """
+      Views over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,
+      Applications, Upwork, Singleton, and Proof. These are lenses, not sources
+      of truth.
+      """
+    }
+  }
+
+  actions = bucket 'Raycast / Codex Actions' {
+    description """
+    Action layer. It creates, updates, plans, opens, drafts, and attaches. It
+    should not invent a second task model.
+    """
+
+    logTask = action 'Log Task' {
+      description """
+      Create an Opportunity Task from selected text, clipboard link, manual
+      form input, or mobile/share context. Default Status: Queued.
+      """
+    }
+
+    updateTask = action 'Update Task' {
+      description """
+      Update Status, Work Date, Block, Money Priority, Project, Link, Notes, or
+      proof reference on an existing Opportunity Task.
+      """
+    }
+
+    planToday = action 'Plan Today' {
+      description """
+      Assign Work Date and Block. Moves selected queue items into Today without
+      changing their real bucket or project.
+      """
+    }
+
+    startApplication = action 'Start Application' {
+      description """
+      Open a job link and resume path from the selected task. Move the task to
+      In Motion while work is active.
+      """
+    }
+
+    draftProposal = action 'Draft Proposal' {
+      description """
+      Turn a copied Upwork post into a proposal draft and log the follow-up
+      state back to Opportunity HQ.
+      """
+    }
+
+    captureProof = action 'Capture Proof' {
+      description """
+      Import the selected asset to Eagle, attach the proof link or note to the
+      selected Opportunity Task, then mark that task Done when the proof item is
+      complete.
+      """
+    }
+  }
+
+  proof = storage 'Eagle Proof Library' {
+    description """
+    Evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof
+    assets. Eagle does not own task status; Opportunity HQ does.
+    """
+  }
+
+  publishing = bucket 'Publishing Surfaces' {
+    website = browser 'Singleton Website' {
+      description """
+      Public proof and offer surface. Pulls from packaged proof and clear offer
+      work, not from raw capture.
+      """
+    }
+
+    proposals = document 'Applications / Proposals' {
+      description """
+      Outbound artifacts: job applications, Upwork proposals, direct outreach,
+      cover notes, and follow-ups. Their state returns to Opportunity HQ.
+      """
+    }
+  }
+
+  operator -> capture.bear 'capture'
+  operator -> capture.mobileForm 'log'
+  capture.bear -> durable.tasks 'promote'
+  capture.mobileForm -> durable.tasks 'create'
+  durable.tasks -> durable.taskViews 'render'
+  durable.projects -> durable.tasks 'group'
+
+  operator -> actions 'trigger'
+  actions -> durable.tasks 'create/update'
+  durable.tasks -> actions 'drive'
+  actions -> proof 'capture'
+  proof -> durable.tasks 'attach'
+
+  durable.tasks -> publishing.website 'package'
+  durable.tasks -> publishing.proposals 'submit'
+  publishing.proposals -> durable.tasks 'update'
+}
+
+views {
+  view opportunity_hq_container_map {
+    title 'Opportunity HQ Container Map'
+    description """
+    Interactive C4-style map for the Singleton Systems operating layer. Click
+    each node to see the ownership rule: Bear is raw, Opportunity HQ is durable
+    truth, Eagle is proof, and Raycast/Codex are actions.
+    """
+
+    include operator
+    include capture.*
+    include durable.*
+    include actions.*
+    include proof
+    include publishing.*
+
+    style * {
+      color muted
+    }
+    style operator {
+      shape person
+      color amber
+    }
+    style capture, actions, publishing {
+      shape bucket
+      color muted
+    }
+    style capture.bear {
+      shape document
+      color red
+    }
+    style capture.mobileForm, durable.taskViews, publishing.website {
+      shape browser
+      color blue
+    }
+    style durable, durable.projects {
+      shape storage
+      color secondary
+    }
+    style durable.tasks {
+      shape queue
+      color secondary
+    }
+    style actions.* {
+      color blue
+    }
+    style proof {
+      shape storage
+      color green
+    }
+    style publishing.proposals {
+      shape document
+      color amber
+    }
+  }
+
+  view opportunity_hq_intake_contract {
+    title 'Opportunity HQ Intake Contract'
+    description """
+    Shows the routing rule from raw capture into durable work. Bear keeps raw
+    thought. Mobile form and Raycast create Queued tasks. Daily planning moves
+    selected items into Today and In Motion.
+    """
+
+    include operator
+    include capture.bear
+    include capture.mobileForm
+    include durable.tasks
+    include durable.taskViews
+    include actions.logTask
+    include actions.updateTask
+    include actions.planToday
+
+    style * {
+      color muted
+    }
+    style operator {
+      shape person
+      color amber
+    }
+    style capture.bear {
+      shape document
+      color red
+    }
+    style capture.mobileForm, durable.taskViews {
+      shape browser
+      color blue
+    }
+    style durable.tasks {
+      shape queue
+      color secondary
+    }
+    style actions.* {
+      color blue
+    }
+  }
+
+  view proof_capture_flow {
+    title 'Proof Capture Flow'
+    description """
+    Shows the replacement for legacy page-body proof checklists. Proof items
+    should become Opportunity Tasks, Raycast Capture Proof imports the asset to
+    Eagle, and the task receives the proof link/note and Done status.
+    """
+
+    include operator
+    include durable.projects
+    include durable.tasks
+    include actions.captureProof
+    include proof
+    include publishing.website
+    include publishing.proposals
+
+    style * {
+      color muted
+    }
+    style operator {
+      shape person
+      color amber
+    }
+    style durable.projects {
+      shape storage
+      color secondary
+    }
+    style durable.tasks {
+      shape queue
+      color secondary
+    }
+    style actions.captureProof {
+      color blue
+    }
+    style proof {
+      shape storage
+      color green
+    }
+    style publishing.website {
+      shape browser
+      color green
+    }
+    style publishing.proposals {
+      shape document
+      color amber
+    }
+  }
+}

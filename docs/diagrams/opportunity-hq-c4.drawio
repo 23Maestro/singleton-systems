@@ -1,0 +1,134 @@
+<mxfile host="app.diagrams.net" modified="2026-06-24T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="opportunity-hq-c4" name="Opportunity HQ C4">
+    <mxGraphModel dx="1620" dy="920" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Opportunity HQ Operating System - C4 Container Map" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=28;fontStyle=1;fontColor=#1F2937;" vertex="1" parent="1">
+          <mxGeometry x="370" y="20" width="860" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="operator" value="Operator&#xa;Singleton Systems / job search / proof capture" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#111827;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="250" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="boundary" value="Opportunity HQ System Boundary" style="swimlane;html=1;rounded=1;arcSize=8;startSize=34;horizontal=1;fillColor=#FAFAFA;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#111827;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="90" width="930" height="720" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="bear" value="Bear Inbox&#xa;Raw capture&#xa;&#xa;Unclear thoughts&#xa;Later/passive ideas&#xa;Shortcut ideas" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#7F1D1D;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="160" width="220" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="notion" value="Notion / Opportunity HQ&#xa;Durable truth&#xa;&#xa;2 databases:&#xa;Opportunity Projects&#xa;Opportunity Tasks" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="670" y="160" width="300" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="schema" value="Task | Bucket | Status | Time | Priority | Project | Work Date | Block | Link | Proof | Notes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#7C3AED;strokeWidth=1;fontFamily=Helvetica;fontSize=12;fontColor=#111827;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="640" y="350" width="360" height="48" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="statuses" value="Status contract&#xa;Queued | Today | In Motion | Waiting | Done | Parked" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#EEF2FF;strokeColor=#4F46E5;strokeWidth=1;fontFamily=Helvetica;fontSize=13;fontColor=#1E1B4B;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="410" width="360" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="buckets" value="Buckets / lanes&#xa;Cash Jobs | Career Jobs | Upwork | Offer | Proof" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#ECFEFF;strokeColor=#0891B2;strokeWidth=1;fontFamily=Helvetica;fontSize=13;fontColor=#164E63;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="492" width="360" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="views" value="Views, not databases&#xa;Focus Board | Daily Blocks | Work Calendar&#xa;Applications | Upwork | Singleton | Proof" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=1;fontFamily=Helvetica;fontSize=13;fontColor=#78350F;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="574" width="360" height="82" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eagle" value="Eagle Proof Library&#xa;Proof + assets&#xa;&#xa;Screenshots, videos, PDFs, examples, evidence" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#064E3B;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="610" y="690" width="430" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="actions" value="Raycast / Codex Actions&#xa;Touch it once. Route it right." style="swimlane;html=1;rounded=1;arcSize=8;startSize=46;horizontal=1;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=17;fontStyle=1;fontColor=#1E3A8A;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="150" width="190" height="500" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="act-log" value="Log Task&#xa;capture link, bucket, time" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="210" width="150" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="act-update" value="Update Task&#xa;status, next, block" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="274" width="150" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="act-plan" value="Plan Today&#xa;work date + block" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="338" width="150" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="act-start" value="Start Application&#xa;open link + resume" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="402" width="150" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="act-proposal" value="Draft Proposal&#xa;post to proposal" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="466" width="150" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="act-proof" value="Capture Proof&#xa;Eagle + task update" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=1.5;fontFamily=Helvetica;fontSize=13;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="530" width="150" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="mobile" value="Mobile / Share Sheet&#xa;fast form capture" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="250" height="88" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rule" value="Rule&#xa;Bear = raw&#xa;Notion = durable truth&#xa;Eagle = proof&#xa;Raycast/Codex = actions" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#111827;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="610" width="240" height="150" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="flow1" value="Capture raw" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#7F1D1D;" vertex="1" parent="1">
+          <mxGeometry x="250" y="855" width="150" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="flow2" value="Log durable" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#2E1065;" vertex="1" parent="1">
+          <mxGeometry x="450" y="855" width="150" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="flow3" value="Plan blocks" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#EEF2FF;strokeColor=#4F46E5;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#1E1B4B;" vertex="1" parent="1">
+          <mxGeometry x="650" y="855" width="150" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="flow4" value="Act" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#1E3A8A;" vertex="1" parent="1">
+          <mxGeometry x="850" y="855" width="150" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="flow5" value="Save proof" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#064E3B;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="855" width="150" height="46" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" value="raw thoughts" style="endArrow=block;html=1;rounded=0;orthogonalLoop=1;jettySize=auto;edgeStyle=orthogonalEdgeStyle;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=12;fontColor=#7F1D1D;" edge="1" parent="1" source="operator" target="bear">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="promote when real task" style="endArrow=block;html=1;rounded=0;orthogonalLoop=1;jettySize=auto;edgeStyle=orthogonalEdgeStyle;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=12;fontColor=#7F1D1D;" edge="1" parent="1" source="bear" target="notion">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="form capture" style="endArrow=block;html=1;rounded=0;orthogonalLoop=1;jettySize=auto;edgeStyle=orthogonalEdgeStyle;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=12;fontColor=#334155;" edge="1" parent="1" source="mobile" target="notion">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="create / update / plan" style="endArrow=block;startArrow=block;html=1;rounded=0;orthogonalLoop=1;jettySize=auto;edgeStyle=orthogonalEdgeStyle;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=12;fontColor=#1E3A8A;" edge="1" parent="1" source="notion" target="actions">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="capture proof" style="endArrow=block;html=1;rounded=0;orthogonalLoop=1;jettySize=auto;edgeStyle=orthogonalEdgeStyle;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=12;fontColor=#064E3B;" edge="1" parent="1" source="actions" target="eagle">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="proof link / note" style="endArrow=block;startArrow=block;html=1;rounded=0;orthogonalLoop=1;jettySize=auto;edgeStyle=orthogonalEdgeStyle;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=12;fontColor=#064E3B;" edge="1" parent="1" source="eagle" target="notion">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ef1" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#111827;strokeWidth=2;" edge="1" parent="1" source="flow1" target="flow2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ef2" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#111827;strokeWidth=2;" edge="1" parent="1" source="flow2" target="flow3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ef3" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#111827;strokeWidth=2;" edge="1" parent="1" source="flow3" target="flow4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ef4" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#111827;strokeWidth=2;" edge="1" parent="1" source="flow4" target="flow5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
