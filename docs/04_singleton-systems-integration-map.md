@@ -142,6 +142,27 @@ Asset / Proof Link
 Notes
 ```
 
+Suggested project properties:
+
+```text
+Project
+Bucket
+Status
+Goal Horizon
+Tasks
+Notes
+```
+
+Goal Horizon:
+
+```text
+Today
+This Week
+End Of Month
+August Horizon
+Long Term
+```
+
 Status:
 
 ```text
@@ -163,7 +184,7 @@ Money Priority:
 
 ```text
 Critical
-Useful
+Strategic
 Later
 ```
 
@@ -173,8 +194,8 @@ Default priority:
 Cash Jobs -> Critical
 Career Jobs -> Critical
 Upwork -> Critical
-Offer -> Useful
-Proof -> Useful
+Offer -> Strategic
+Proof -> Strategic
 ```
 
 Use page-body checkboxes only when a checklist is tiny. If a subtask needs its
@@ -379,6 +400,34 @@ Then verify the surface that users actually touch.
 The router should stay boring on purpose. If a label needs explanation every
 time, it is not ready to become a tag, command, skill, or folder.
 
+## Planning + Idea Routing
+
+Use `SS: Planning + Idea Routing` for mixed thoughts that combine task planning,
+future ideas, research links, content inspiration, dependencies, and workflow
+logic.
+
+The skill's technical name is:
+
+```text
+planning-idea-routing
+```
+
+Its default job is to route the thought before any live surface changes:
+
+```text
+Bear -> raw idea, link, transcript, someday thought
+Opportunity HQ -> durable task, project, time block, dependency
+Docs -> operating rule, research memo, naming decision
+Skill -> repeated reasoning contract
+Raycast / Shortcuts -> repeated action after the behavior is obvious
+```
+
+Current research memo:
+
+```text
+docs/09_planning-idea-routing-research-pass.md
+```
+
 ## Mobile / Apple Layer
 
 Mobile capture starts with Apple Shortcuts as a focused prompt palette, not a
@@ -453,7 +502,7 @@ Defaults:
 ```text
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Upwork
-Money Priority = Useful for Offer and Proof
+Money Priority = Strategic for Offer and Proof
 Project = blank unless chosen later
 Work Date = blank unless planning today
 Block = blank unless planning today
@@ -605,13 +654,20 @@ eagle
   Owns Eagle proof/assets actions through the local Eagle API CLI.
 
 content-creator
-  Owns content strategy, proof packaging, video/page copy direction, and repurposing logic.
+  Owns broad content strategy, editorial planning, and repurposing logic after
+  the proof/offer angle is clear.
 
-upwork-proposal
-  Owns Upwork job-post replies, consultation pitches, and question-first proposal variants.
+freelance-gig-proposals
+  Owns Upwork, Fiverr, freelance/gig replies, consultation pitches, platform
+  research notes, and question-first proposal variants.
 
-resume-tailor
-  Owns job-post-to-resume alignment, truthful bullet swaps, keywords, and application positioning.
+job-application-resume
+  Owns blue-collar and white-collar job application support, resume cleanup,
+  truthful bullet swaps, keywords, application positioning, resume source rules,
+  rendered-copy rules, and repeated field stashing. White-collar source lives in
+  `docs/resumes/white-collar_Jerami_Singleton_Resume2026.pdf`; job-specific
+  copies render to `~/Downloads`. Blue-collar resume history stays draft until
+  missing job-list fields are confirmed.
 
 cover-letter-casual
   Owns short, human cover notes that avoid corporate filler and overbuilt application language.
@@ -619,8 +675,9 @@ cover-letter-casual
 career-proof-packager
   Owns turning Eagle assets, screenshots, repo examples, Upwork proof, and workflow demos into reusable proof blocks.
 
-content-from-proof
-  Owns turning proof assets into practical content angles, captions, posts, and light schedules.
+offer-proof-content
+  Owns turning proof assets, YouTube/social references, and build progress into
+  offer-aligned content angles, captions, posts, and light schedules.
 
 cerebral-router
   Owns first-pass routing when a thought mixes business, website, proof, commands, Bear, Eagle, Notion, Raycast, hooks, or skills.
@@ -665,11 +722,11 @@ it, not one large skill trying to remember every possible workflow.
 Use this stack for career, outreach, and brand-building work:
 
 ```text
-Upwork job post
-  -> upwork-proposal + sales-outreach
+Upwork / Fiverr / freelance post
+  -> freelance-gig-proposals + sales-outreach
 
 Job post / resume tailoring
-  -> resume-tailor
+  -> job-application-resume
 
 Cover note / casual application message
   -> cover-letter-casual
@@ -678,7 +735,7 @@ Screenshot / Eagle asset / project proof
   -> career-proof-packager + eagle
 
 Proof asset into LinkedIn / Instagram / content
-  -> content-from-proof + platform-specific skill only when needed
+  -> offer-proof-content + platform-specific skill only when needed
 
 Mixed idea / "where does this go?"
   -> cerebral-router
@@ -697,11 +754,11 @@ Future hooks should route the agent to the right docs and skills. They should no
 create tags, move assets, or write Notion pages by themselves.
 
 ```text
-mentions: upwork, proposal, client post, job post
-  load: upwork-proposal, sales-outreach, singleton-systems
+mentions: upwork, fiverr, proposal, client post, freelance, gig
+  load: freelance-gig-proposals, sales-outreach, singleton-systems
 
-mentions: resume, application, job description, tailor
-  load: resume-tailor, singleton-systems
+mentions: resume, application, job description, tailor, application fields
+  load: job-application-resume, singleton-systems
 
 mentions: cover letter, cover note, application note
   load: cover-letter-casual
@@ -710,7 +767,7 @@ mentions: Eagle, proof, screenshot, reference, asset
   load: career-proof-packager, eagle
 
 mentions: LinkedIn, Instagram, content, brand, schedule
-  load: content-from-proof, then platform skill if needed
+  load: offer-proof-content, then platform skill if needed
 
 mentions: where does this go, offload, Bear, capture, route
   load: cerebral-router, bear
@@ -719,7 +776,7 @@ mentions: Shortcut, Karabiner, Hammerspoon, Maestro, command
   load: cerebral-router, docs/06_commands.md, then exact implementation skill
 
 mentions: money clock, job search, proposals, applications, survival, end of month
-  load: cerebral-router, singleton-systems, upwork-proposal or resume-tailor when relevant
+  load: cerebral-router, singleton-systems, freelance-gig-proposals or job-application-resume when relevant
 ```
 
 Hook rule:
@@ -828,7 +885,7 @@ passive shortcut idea / later automation / useful someday command
   -> Bear #commands/shortcuts, then human review before Opportunity HQ
 
 survival job, blue collar job, white collar job, income deadline, proposal count, application, follow-up
-  -> Notion / Opportunity HQ, cerebral-router, then resume-tailor, cover-letter-casual, upwork-proposal, or sales-outreach
+  -> Notion / Opportunity HQ, cerebral-router, then job-application-resume, cover-letter-casual, freelance-gig-proposals, or sales-outreach
 
 job lead, Upwork lead, outreach target, offer task with effort estimate
   -> Notion / Opportunity HQ, then Focus Board view if active today

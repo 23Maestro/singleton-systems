@@ -1,0 +1,179 @@
+<mxfile host="app.diagrams.net" modified="2026-06-24T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="opportunity-hq-goal-check-in" name="Goal Check-In">
+    <mxGraphModel dx="1600" dy="1740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1740" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Goal Check-In: turn goals into Opportunity HQ state" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=32;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="300" y="35" width="1000" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Not a new database. A simple check-in that updates how existing projects and tasks are seen today." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=18;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="260" y="88" width="1080" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ask" value="Ask the simple questions&#xa;&#xa;How many applications?&#xa;How many proposals?&#xa;What Strategic work matters?&#xa;What is actually blocked?" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#1E3A8A;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="80" y="180" width="300" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="state" value="Use existing Opportunity HQ state&#xa;&#xa;Goal Horizon&#xa;Money Priority&#xa;Status&#xa;Work Date + Block" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="470" y="180" width="300" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="today" value="Pick today's small moves&#xa;&#xa;1 Critical block first&#xa;1 Strategic block if needed&#xa;Blocked means external blocker&#xa;Parked means not now" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#78350F;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="860" y="180" width="300" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="task" value="Only then log or update tasks&#xa;&#xa;Opportunity HQ stays durable truth.&#xa;Raycast is just the button." style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#064E3B;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="180" width="270" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#111827;" edge="1" parent="1" source="ask" target="state">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#111827;" edge="1" parent="1" source="state" target="today">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#111827;" edge="1" parent="1" source="today" target="task">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="projects-title" value="Current projects this check-in should look at" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=22;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="210" y="430" width="1180" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="paid" value="Get paid by Monday&#xa;&#xa;umbrella pressure&#xa;Critical first" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#DC2626;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#7F1D1D;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="540" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="blue" value="Blue collar resume ready&#xa;&#xa;resume prep&#xa;then applications" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="540" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="white" value="White collar video / broadcast applications&#xa;&#xa;career applications&#xa;proof if useful" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#2E1065;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="670" y="540" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="upwork" value="Upwork consultation / proposals&#xa;&#xa;proposal count&#xa;follow-ups" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#059669;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#064E3B;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="960" y="540" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="site" value="Singleton proof + website&#xa;&#xa;Strategic&#xa;do not let it hide cash work" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#78350F;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="540" width="250" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="project-edge-1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#94A3B8;dashed=1;" edge="1" parent="1" source="state" target="paid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="project-edge-2" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#94A3B8;dashed=1;" edge="1" parent="1" source="state" target="blue">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="project-edge-3" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#94A3B8;dashed=1;" edge="1" parent="1" source="state" target="white">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="project-edge-4" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#94A3B8;dashed=1;" edge="1" parent="1" source="state" target="upwork">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="project-edge-5" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#94A3B8;dashed=1;" edge="1" parent="1" source="state" target="site">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="skills-title" value="Skills paired to the current goals" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=22;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="210" y="705" width="1180" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="skill-paid" value="Get paid by Monday&#xa;&#xa;singleton-systems&#xa;planning-idea-routing&#xa;opportunity-hq-updater" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#7F1D1D;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="790" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-blue" value="Blue collar resume ready&#xa;&#xa;job-application-resume&#xa;cover-letter-casual&#xa;application-detail-ledger" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#1E3A8A;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="380" y="790" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-white" value="White collar applications&#xa;&#xa;job-application-resume&#xa;career-proof-packager&#xa;offer-proof-content if proof helps" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#2E1065;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="670" y="790" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-upwork" value="Upwork / Fiverr / gigs&#xa;&#xa;freelance-gig-proposals&#xa;sales-outreach&#xa;research pending note" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#064E3B;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="960" y="790" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-site" value="Singleton proof + website&#xa;&#xa;offer-proof-content&#xa;career-proof-packager&#xa;content-creator / LinkedIn / Instagram" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#78350F;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="790" width="250" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="skill-edge-1" value="uses" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#CBD5E1;dashed=1;fontFamily=Helvetica;fontSize=12;fontColor=#475569;" edge="1" parent="1" source="paid" target="skill-paid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-edge-2" value="uses" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#CBD5E1;dashed=1;fontFamily=Helvetica;fontSize=12;fontColor=#475569;" edge="1" parent="1" source="blue" target="skill-blue">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-edge-3" value="uses" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#CBD5E1;dashed=1;fontFamily=Helvetica;fontSize=12;fontColor=#475569;" edge="1" parent="1" source="white" target="skill-white">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-edge-4" value="uses" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#CBD5E1;dashed=1;fontFamily=Helvetica;fontSize=12;fontColor=#475569;" edge="1" parent="1" source="upwork" target="skill-upwork">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="skill-edge-5" value="uses" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#CBD5E1;dashed=1;fontFamily=Helvetica;fontSize=12;fontColor=#475569;" edge="1" parent="1" source="site" target="skill-site">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="system-skills-title" value="General helpers: route first, then act" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="210" y="945" width="1180" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="system-skills" value="cerebral-router = pick the owner surface&#xa;bear = raw capture&#xa;raycast-extension-builder = command UI&#xa;hammerspoon-browser-automation = only after repeated form pain&#xa;eagle = proof assets&#xa;singleton-visualizer = maps and sketches" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#334155;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="210" y="1015" width="1180" height="130" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ss-skill-blocks-title" value="SS skill blocks: what each one does in this goal system" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="210" y="1180" width="1180" height="44" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ss-singleton" value="SS: Singleton Systems&#xa;keeps offer + money clock aligned" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#111827;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1260" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-routing" value="SS: Planning + Idea Routing&#xa;decides owner surface before action" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1260" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-opportunity" value="SS: Opportunity HQ Updater&#xa;turns thoughts into tasks/projects" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#2E1065;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1260" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-visualizer" value="SS: Visualizer&#xa;keeps maps simple and current" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="1260" width="300" height="68" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ss-job" value="SS: Job Application Resume&#xa;resumes, job params, field stash" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1360" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-cover" value="SS: Cover Letter Casual&#xa;short human application notes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1360" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-gigs" value="SS: Freelance Gig Proposals&#xa;Upwork, Fiverr, proposals, research" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#064E3B;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1360" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-sales" value="SS: Sales Outreach&#xa;offer language and follow-ups" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#064E3B;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="1360" width="300" height="68" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ss-proof" value="SS: Career Proof Packager&#xa;turns assets into proof blocks" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#78350F;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1460" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-content" value="SS: Offer Proof Content&#xa;proof, YouTube, social, offer angle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#78350F;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1460" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-command" value="SS: Raycast Extension Builder&#xa;native action first, Codex second" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#1E3A8A;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1460" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-automation" value="SS: Hammerspoon Browser Automation&#xa;only after repeated form pain" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="1460" width="300" height="68" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ss-bear" value="SS: Bear&#xa;raw capture before durable work" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1560" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-eagle" value="SS: Eagle&#xa;proof and asset library" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#064E3B;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="450" y="1560" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-content-creator" value="SS: Content Creator&#xa;broad content only after proof angle" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#78350F;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="820" y="1560" width="300" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="ss-social" value="SS: LinkedIn / Instagram&#xa;platform-specific only when needed" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#78350F;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="1560" width="300" height="68" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="bottom-rule" value="Rule: counts before due dates. Status and blocks make the goal visible. Tasks get written only when there is real work to do." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=20;fontStyle=1;fontColor=#111827;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1660" width="1200" height="78" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

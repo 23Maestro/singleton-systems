@@ -223,6 +223,10 @@ Plan Today
 Money Clock Check-In
   Ask what job, proposal, application, or follow-up action has been logged today.
 
+Goal Check-In
+  Ask weekly count/result questions, then return one or two daily implications.
+  Start as local prompt/cache if needed; do not create a new database first.
+
 Log Opportunity Task
   Create a lean Opportunity HQ task with bucket, status, time, money priority,
   link/notes, and project when obvious.

@@ -72,7 +72,7 @@ Time options:
 
 Money Priority:
 - Critical
-- Useful
+- Strategic
 - Later
 
 Block options:
@@ -86,8 +86,8 @@ Default priority:
 - Cash Jobs = Critical
 - Career Jobs = Critical
 - Upwork = Critical unless clearly optional/later
-- Offer = Useful unless tied to immediate income
-- Proof = Useful unless needed for an application/proposal
+- Offer = Strategic unless tied to immediate income
+- Proof = Strategic unless needed for an application/proposal
 - Passive shortcut/system ideas = Later unless they directly help immediate work
 
 Decide first:
@@ -185,7 +185,7 @@ Route:
 Bear
 
 Why:
-Useful future shortcut idea, but not immediate income work.
+Valuable future shortcut idea, but not immediate income work.
 
 Bear Capture:
 Suggested Bear tag: #commands/shortcuts

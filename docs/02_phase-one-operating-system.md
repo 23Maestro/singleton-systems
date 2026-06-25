@@ -384,7 +384,7 @@ Create custom skills only after a solution repeats.
 Candidate future skills:
 
 - video-workflow-audit
-- upwork-proposal-builder
+- freelance-gig-proposals
 - proof-asset-writer
 - client-hub-builder
 - workflow-cleanup-case-study

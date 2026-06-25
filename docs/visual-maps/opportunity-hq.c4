@@ -45,8 +45,9 @@ model {
 
     projects = storage 'Opportunity Projects' {
       description """
-      Outcomes that need multiple tasks, proof, or time planning. Buckets are
-      not projects. Example: Upwork consultation / proposals.
+      Outcomes that need multiple tasks, proof, or time planning. Fields:
+      Project, Bucket, Status, Goal Horizon, Tasks, Notes. Goal Horizon uses
+      Today, This Week, End Of Month, August Horizon, and Long Term.
       """
     }
 
@@ -55,6 +56,15 @@ model {
       Executable work. Fields: Task, Bucket, Status, Time, Money Priority,
       Project, Work Date, Block, Link, Asset / Proof Link, Notes.
       Status contract: Queued, Today, In Motion, Waiting, Done, Parked.
+      Money Priority contract: Critical, Strategic, Later.
+      """
+    }
+
+    dependencies = component 'Dependencies' {
+      description """
+      Real blockers only: application work can depend on resume/snippet prep;
+      website request flow depends on Tally and Notion intake; offer traction
+      depends on website, proof, outreach, and a client-ready process.
       """
     }
 
@@ -91,6 +101,14 @@ model {
       description """
       Assign Work Date and Block. Moves selected queue items into Today without
       changing their real bucket or project.
+      """
+    }
+
+    goalCheckIn = action 'Goal Check-In' {
+      description """
+      Future small command. Ask count/result questions for applications,
+      freelance proposals, Strategic work, and real blockers. Output one or two
+      daily implications, not a full plan or new database.
       """
     }
 
@@ -146,6 +164,7 @@ model {
   capture.mobileForm -> durable.tasks 'create'
   durable.tasks -> durable.taskViews 'render'
   durable.projects -> durable.tasks 'group'
+  durable.dependencies -> durable.tasks 'block'
 
   operator -> actions 'trigger'
   actions -> durable.tasks 'create/update'
@@ -230,6 +249,8 @@ views {
     include actions.logTask
     include actions.updateTask
     include actions.planToday
+    include actions.goalCheckIn
+    include durable.dependencies
 
     style * {
       color muted

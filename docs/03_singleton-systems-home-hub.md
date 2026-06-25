@@ -372,7 +372,7 @@ Defaults:
 ```text
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Upwork
-Money Priority = Useful for Offer and Proof
+Money Priority = Strategic for Offer and Proof
 Project = blank unless obvious
 ```
 
