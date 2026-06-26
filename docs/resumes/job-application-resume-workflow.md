@@ -142,6 +142,9 @@ ProductionHUB/Mandy-style creative boards, Upwork, Lifted, Fiverr, Contra, and
 direct local-business outreach targets. Do not treat Upwork and Fiverr as the
 only freelance paths.
 
+Mobile application helper comes after the desktop work-history filler covers
+roughly 80% of repeated fields. Use iOS Userscripts as the first mobile test.
+
 ## Draft Job History
 
 These entries came from the user's confirmed spoken update. Tighten exact

@@ -100,6 +100,18 @@ Subhead:
 
 Real examples of messy work turned into cleaner systems, with the before state, build path, and proof kept together.
 
+Proof rule:
+
+Concrete "show me how this works" creative beats vague trust-building alone.
+
+Immediate proof priority:
+
+workflow proof -> video proof -> AI proof -> marketing proof
+
+Meaning:
+
+Show the work moving through the system before asking people to believe the system is valuable.
+
 Current proof system:
 
 Course Video Migration

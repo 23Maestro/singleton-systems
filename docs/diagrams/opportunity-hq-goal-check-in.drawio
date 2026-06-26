@@ -39,7 +39,7 @@
           <mxGeometry x="210" y="430" width="1180" height="54" as="geometry"/>
         </mxCell>
 
-        <mxCell id="paid" value="Get paid by Monday&#xa;&#xa;umbrella pressure&#xa;Critical first" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#DC2626;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#7F1D1D;spacing=12;" vertex="1" parent="1">
+        <mxCell id="paid" value="Paid by July 1&#xa;&#xa;deadline pressure&#xa;Critical first" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#DC2626;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#7F1D1D;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="90" y="540" width="250" height="120" as="geometry"/>
         </mxCell>
         <mxCell id="blue" value="Blue collar resume ready&#xa;&#xa;resume prep&#xa;then applications" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
@@ -75,7 +75,7 @@
           <mxGeometry x="210" y="705" width="1180" height="54" as="geometry"/>
         </mxCell>
 
-        <mxCell id="skill-paid" value="Get paid by Monday&#xa;&#xa;singleton-systems&#xa;planning-idea-routing&#xa;opportunity-hq-updater" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#7F1D1D;spacing=10;" vertex="1" parent="1">
+        <mxCell id="skill-paid" value="Paid by July 1&#xa;&#xa;singleton-systems&#xa;planning-idea-routing&#xa;opportunity-hq-updater" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#7F1D1D;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="90" y="790" width="250" height="120" as="geometry"/>
         </mxCell>
         <mxCell id="skill-blue" value="Blue collar resume ready&#xa;&#xa;job-application-resume&#xa;cover-letter-casual&#xa;application-detail-ledger" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#1E3A8A;spacing=10;" vertex="1" parent="1">

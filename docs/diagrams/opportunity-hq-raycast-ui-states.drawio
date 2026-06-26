@@ -12,7 +12,7 @@
           <mxGeometry x="300" y="84" width="1200" height="34" as="geometry"/>
         </mxCell>
 
-        <mxCell id="truth" value="Durable truth: Opportunity HQ&#xa;&#xa;Projects: Get paid by Monday, Blue collar resume ready, White collar video/broadcast applications, Upwork consultation / proposals, Singleton proof + website&#xa;&#xa;Task state fields: Bucket, Status, Money Priority, Goal Horizon, Work Date, Block, Time, Link, Proof Link, Notes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
+        <mxCell id="truth" value="Durable truth: Opportunity HQ&#xa;&#xa;Projects: Paid by July 1, Blue collar resume ready, White collar video/broadcast applications, Upwork consultation / proposals, Singleton proof + website&#xa;&#xa;Task state fields: Bucket, Status, Money Priority, Goal Horizon, Work Date, Block, Time, Link, Proof Link, Notes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
           <mxGeometry x="70" y="145" width="1660" height="120" as="geometry"/>
         </mxCell>
 

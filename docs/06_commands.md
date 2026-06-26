@@ -105,7 +105,7 @@ lifeops/rbt-support
 website/npid
 ```
 
-The important part is the name. Do not make separate bucket names for the same
+The important part is the name. Do not make separate lane names for the same
 idea in Bear, Raycast, Karabiner, Hammerspoon, and Keyboard Maestro. Name the
 workflow once, then let each tool handle its role.
 
@@ -122,7 +122,7 @@ Bear editing layer
 Opportunity HQ / Career HQ command layer
 Money Clock check-in
 Log Opportunity Task
-Plan Today
+Suggest Focus Blocks
 Update Opportunity Task
 Car inventory/log command
 RBT shortcut/support command
@@ -176,8 +176,8 @@ Log Task      -> Notion / Opportunity HQ
 ```
 
 Bear is for raw, unclear, emotional, exploratory, or "do not lose this"
-thoughts. Opportunity HQ is for focused queue items with status, time, bucket,
-money priority, link, follow-up, proof work, or project relation.
+thoughts. Opportunity HQ is for focused queue items with status, time, project
+lane, money priority, link, follow-up, proof work, or project relation.
 
 Passive shortcut ideas belong in Bear first, especially later Apple Shortcuts,
 shell/mobile experiments, share-sheet ideas, and small automations that might
@@ -216,10 +216,6 @@ Karabiner, Hammerspoon, Keyboard Maestro, or Apple Shortcuts.
 These are future commands, not implementation requirements yet:
 
 ```text
-Plan Today
-  Open Opportunity HQ's Today / Money Clock view and make today's Queued /
-  Today / In Motion split visible.
-
 Money Clock Check-In
   Ask what job, proposal, application, or follow-up action has been logged today.
 
@@ -228,22 +224,22 @@ Goal Check-In
   Start as local prompt/cache if needed; do not create a new database first.
 
 Log Opportunity Task
-  Create a lean Opportunity HQ task with bucket, status, time, money priority,
-  link/notes, and project when obvious.
+  Create a lean Opportunity HQ task with project, status, time, money priority,
+  and link/notes.
 
 Update Opportunity Task
   Update status, notes, or proof link on an existing Opportunity HQ
   task.
 
 Export Focus Blocks
-  Later: turn today's Opportunity HQ tasks into Apple Calendar-style time
-  blocks.
+  Codex-owned manual run: read approved Opportunity HQ tasks, generate a small
+  `.ics` file, copy the plain-text summary, then ask before writing Work Date /
+  Block back to Notion.
 ```
 
 The old Prospect Pipeline calendar exporter is the reference pattern: analyze a
-real work queue, estimate blocks, then export time to Apple Calendar. Do not
-build the exporter until Opportunity HQ's bucket, status, time, and priority
-fields are stable.
+real work queue, estimate blocks, then export `.ics` into Downloads. Do not use
+Raycast or AppleScript as the planning owner.
 
 ## Duration-Aware Commands
 
@@ -251,15 +247,15 @@ These are pending command ideas for the Money Clock layer:
 
 ```text
 Log Opportunity
-  Create a lean Opportunity HQ item with bucket, status, time, money priority,
-  link/notes, and project when useful.
+  Create a lean Opportunity HQ item with project, status, time, money priority,
+  and link/notes.
 
 Estimate Next Move
   Apply the Duration Key to a Bear capture, Opportunity HQ task, or proof task.
 
-Plan Focus Blocks
-  Group active Opportunity HQ work into Money Clock, Offer, and
-  System Cleanup blocks.
+Suggest Focus Blocks
+  Codex groups approved Opportunity HQ work into Money Clock, Offer, and
+  System Cleanup blocks for review.
 ```
 
 Use rough effort buckets, not fake precision:
@@ -267,7 +263,7 @@ Use rough effort buckets, not fake precision:
 ```text
 5m    quick capture, reply, or tiny cleanup
 15m   screenshot, Eagle asset, short follow-up, small proof note
-30m   job application, Upwork proposal, resume tweak, cover note
+30m   job application, freelance proposal, resume tweak, cover note
 60m   focused page section, proof package, consultation block
 2h    website section build, grouped proof capture, workflow documentation
 4h+   proof video, full page pass, larger system build

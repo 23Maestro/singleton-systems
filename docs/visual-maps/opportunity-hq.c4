@@ -31,7 +31,7 @@ model {
     mobileForm = browser 'Mobile Task Form' {
       description """
       Fast durable capture path for task-shaped work. Minimum fields: Task,
-      Bucket, Time, and Link/Notes. Default Status should be Queued.
+      Project, Time, and Link/Notes. Default Status should be Queued.
       """
     }
   }
@@ -45,16 +45,15 @@ model {
 
     projects = storage 'Opportunity Projects' {
       description """
-      Outcomes that need multiple tasks, proof, or time planning. Fields:
-      Project, Bucket, Status, Goal Horizon, Tasks, Notes. Goal Horizon uses
-      Today, This Week, End Of Month, August Horizon, and Long Term.
+      Durable project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof.
+      Finishable deliverables belong as tasks/goals under these rows.
       """
     }
 
     tasks = queue 'Opportunity Tasks' {
       description """
-      Executable work. Fields: Task, Bucket, Status, Time, Money Priority,
-      Project, Work Date, Block, Link, Asset / Proof Link, Notes.
+      Executable work. Fields: Task, Project, Status, Time, Money Priority,
+      Work Date, Block, Link, Asset / Proof Link, Notes.
       Status contract: Queued, Today, In Motion, Waiting, Done, Parked.
       Money Priority contract: Critical, Strategic, Later.
       """
@@ -71,7 +70,7 @@ model {
     taskViews = browser 'Task Views' {
       description """
       Views over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,
-      Applications, Upwork, Singleton, and Proof. These are lenses, not sources
+      Applications, Freelance, Singleton, and Proof. These are lenses, not sources
       of truth.
       """
     }
@@ -79,7 +78,7 @@ model {
 
   actions = bucket 'Raycast / Codex Actions' {
     description """
-    Action layer. It creates, updates, plans, opens, drafts, and attaches. It
+    Action layer. It creates, updates, opens, drafts, and attaches. It
     should not invent a second task model.
     """
 
@@ -92,15 +91,22 @@ model {
 
     updateTask = action 'Update Task' {
       description """
-      Update Status, Work Date, Block, Money Priority, Project, Link, Notes, or
-      proof reference on an existing Opportunity Task.
+      Update Status, Money Priority, Project, Link, Notes, or proof reference
+      on an existing Opportunity Task.
       """
     }
 
-    planToday = action 'Plan Today' {
+    searchRun = action 'Opportunity Search Run' {
       description """
-      Assign Work Date and Block. Moves selected queue items into Today without
-      changing their real bucket or project.
+      Codex-owned manual workflow. Search current jobs or leads, return winners
+      for approval, then log approved tasks to Opportunity HQ.
+      """
+    }
+
+    exportBlocks = action 'Export Focus Blocks' {
+      description """
+      Codex-owned manual workflow. Read approved Opportunity Tasks, build 3-5
+      realistic time blocks, export `.ics`, and ask before Notion updates.
       """
     }
 
@@ -248,7 +254,8 @@ views {
     include durable.taskViews
     include actions.logTask
     include actions.updateTask
-    include actions.planToday
+    include actions.searchRun
+    include actions.exportBlocks
     include actions.goalCheckIn
     include durable.dependencies
 
