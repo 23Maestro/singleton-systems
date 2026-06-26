@@ -51,10 +51,11 @@ Use this repo as the current home hub. The operating model should not depend on
 GitHub or Vercel naming being perfect, but local docs should call this
 Singleton Systems.
 
-### Career HQ Raycast Extension
+### Opportunity HQ Raycast Extension
 
 ```text
-/Users/singleton23/Raycast/career-hq
+Repo source: apps/raycast-career-hq
+Raycast load path: /Users/singleton23/Raycast/career-hq
 ```
 
 Role:
@@ -71,8 +72,13 @@ Current command lane:
 - Update Opportunity Task
 - Open Proof Folder
 
-Career HQ should point at the active Eagle proof folders and shared labels. It
-uses the direct Eagle API route, not MCP, for reliable command behavior.
+The repo source lives inside `singleton-systems` because the command layer and
+Opportunity HQ model are intertwined. `/Users/singleton23/Raycast/career-hq`
+is a compatibility symlink for Raycast loading, not a separate git repo.
+
+Opportunity HQ Raycast should point at the active Eagle proof folders and
+shared labels. It uses the direct Eagle API route, not MCP, for reliable
+command behavior.
 
 Current operating name:
 
@@ -81,9 +87,7 @@ Opportunity HQ
 ```
 
 Opportunity HQ is the durable Notion layer for tasks, projects, job-search
-execution, Upwork, Singleton offer work, and proof capture tasks. Career HQ can
-remain as the existing Notion/Raycast surface name while the workflow is being
-reshaped, but the meaning is now broader than career tasks.
+execution, freelance work, Singleton offer work, and proof capture tasks.
 
 ### Prospect Pipeline
 
@@ -242,7 +246,7 @@ real next action.
 Role:
 
 - durable structured truth
-- Opportunity HQ / Career HQ
+- Opportunity HQ
 - workflow hub
 - project/state tracking
 
@@ -488,7 +492,7 @@ Definitions:
 - Package: turn it into a reusable artifact, workflow, proof item, skill, page section, command, or offer component
 - Ship: publish, build, send, deploy, or archive
 
-This lifecycle can appear in docs, Notion/Career HQ status fields, or planning notes. It should not become Bear tag sprawl.
+This lifecycle can appear in docs, Notion / Opportunity HQ status fields, or planning notes. It should not become Bear tag sprawl.
 
 ## Visual Update Rule
 
@@ -545,7 +549,7 @@ Current local routes:
 
 ```text
 Eagle skill CLI route: 127.0.0.1:41596
-Career HQ Eagle API route: 127.0.0.1:41595
+Opportunity HQ Raycast / Eagle API route: 127.0.0.1:41595
 Bear direct route: /Applications/Bear.app/Contents/MacOS/bearcli
 Bear MCP route: optional operator layer only
 ```
@@ -555,7 +559,7 @@ For app integrations, prefer the most stable direct route first:
 ```text
 Eagle -> local HTTP API / existing direct script path
 Bear  -> bearcli first, MCP optional
-Notion -> official API / Career HQ wrapper
+Notion -> official API / Opportunity HQ Raycast wrapper
 Raycast -> local extension commands
 Apple mobile -> Shortcuts first, App Intents later
 ```
@@ -563,7 +567,7 @@ Apple mobile -> Shortcuts first, App Intents later
 Bear wrapper direction:
 
 - Build future custom Bear workflows through a local forked Raycast extension when the lanes are stable.
-- Mirror the Career HQ wrapper style: small command helpers that call stable local routes.
+- Mirror the Opportunity HQ Raycast wrapper style: small command helpers that call stable local routes.
 - Prefer `bearcli` or a stable local route for dependable automation.
 - Keep MCP as a useful operator/control layer, not the dependency layer.
 - Future Bear wrapper commands can create/open lane notes, append to a lane, append with nested context, search lanes, and generate small computer-specific update templates on the fly.

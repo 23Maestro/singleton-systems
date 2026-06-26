@@ -889,7 +889,8 @@ Do not borrow:
 ### Opportunity HQ Raycast Extension
 
 ```text
-/Users/singleton23/Raycast/career-hq
+Repo source: apps/raycast-career-hq
+Raycast load path: /Users/singleton23/Raycast/career-hq
 ```
 
 Owns:
@@ -898,6 +899,10 @@ Owns:
 - Eagle proof capture against outcome folders
 - durable Opportunity HQ routing to Notion tasks/projects
 - practical proof operations for Singleton Systems
+
+The repo source lives inside `singleton-systems`. The Raycast load path is a
+compatibility symlink so Raycast can keep using the existing local extension
+path without giving the extension a separate git remote.
 
 ## Naming Once Rules
 
@@ -1143,8 +1148,8 @@ automation.
 
 - Notion holds durable structure.
 - Opportunity HQ is the durable tasks/projects model.
-- The local Raycast extension folder may still be named `career-hq` for
-  continuity, but visible command language should say Opportunity HQ.
+- The local Raycast load path may still be named `career-hq` for continuity,
+  but visible command language should say Opportunity HQ.
 - Status fields can use lifecycle concepts, but Bear should not.
 - Use `In Motion` as active-work language.
 - If a capture becomes a real initiative, Opportunity HQ should get a project
