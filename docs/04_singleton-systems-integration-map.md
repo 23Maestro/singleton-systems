@@ -12,6 +12,16 @@ MCP is an operator/control layer, not the dependency layer.
 
 If code needs reliability, build against stable local APIs, scripts, files, or env config. MCP can expose tools and shortcuts, but the system should not break because an MCP server is inactive.
 
+## Cerebral First
+
+Cerebral is the brain/front-door hook for mixed Singleton Systems work. It names
+the surface, owner, canonical fields/options, and next focused skill before
+`singleton-systems`, Opportunity HQ, Bear, Eagle, Raycast, LikeC4, website,
+copy/proof, or other downstream skills act.
+
+Cerebral does not mutate tools by itself. It routes and aligns first; then the
+owner surface changes, and the change is verified.
+
 ## Surfaces To Map
 
 ```text
@@ -42,6 +52,7 @@ Naming Rules
 - Eagle role: proof and asset library
 - Notion / Opportunity HQ role: durable structured truth
 - Raycast role: action layer
+- Cerebral role: first routing hook before Singleton Systems or downstream skills
 - Codex skills/hooks role: keep context aligned across surfaces
 
 Local folders, remotes, and path-based integrations should use
@@ -94,47 +105,100 @@ Thursday, June 25: rolling by 11am
 Friday, June 26 onward: rolling by 10am when possible
 ```
 
-Use the task database's `Time`, `Money Priority`, `Bucket`, and `Status` fields
+Use the task database's `Project`, `Time`, `Money Priority`, and `Status` fields
 to build the day before polishing the website or proof library.
+
+## Business Needs V1
+
+Singleton Systems needs the normal business foundation, but the sequence should
+not block outreach.
+
+Current order:
+
+```text
+domain -> Vercel -> outreach -> business email -> LLC -> EIN -> bank account
+```
+
+Typical pieces:
+
+```text
+domain
+public website
+business email
+LLC
+registered agent
+operating agreement
+EIN
+business bank account
+annual compliance / reports
+basic bookkeeping
+```
+
+Current findings:
+
+```text
+Namecheap / Vercel:
+  Useful now. Buy/connect the public Singleton Systems domain.
+
+Tailor Brands / LLC funnel:
+  Potentially useful later as a guided formation path, but the catch is the
+  final cart: state fees, service fees, recurring registered-agent/compliance
+  fees, EIN convenience fees, and logo/site/email bundles.
+
+Florida LLC:
+  Needed soon, not required before first outreach. Touch once when the money or
+  client path justifies it. Prefer understanding the full recurring cost before
+  paying for a formation bundle.
+
+EIN:
+  Get directly from the IRS unless convenience is worth the fee.
+```
+
+Rule:
+
+```text
+Do not dismiss LLC/domain/email research as bloat. Treat it as business setup
+research, but separate today's launch dependency from later legal/admin setup.
+```
 
 ## Opportunity HQ V1
 
 Opportunity HQ is the durable Notion queue for money
-tasks, job applications, Upwork, Singleton offer work, proof tasks, and project
+tasks, job applications, freelance work, Singleton offer work, proof tasks, and
 planning. Bear only owns raw capture.
 
-V1 buckets:
+V1 project lanes:
 
 ```text
 Cash Jobs
 Career Jobs
-Upwork
+Freelance
 Offer
 Proof
 ```
 
-Buckets are lanes, not projects. A project is an outcome that needs multiple
-tasks, proof, or time planning.
+These five `Opportunity Projects` rows are the durable lanes. Do not add a
+second lane concept beside them.
 
-Starter projects:
+Pseudo-project rows convert into tasks/goals under the five lanes:
 
 ```text
-Get paid by Monday
-Blue collar resume ready
-White collar video/broadcast applications
-Upwork consultation / proposals
-Singleton proof + website
+Cash Jobs -> Paid by July 1, Blue collar resume ready
+Career Jobs -> Career Applications
+Freelance -> Freelance proposals
+Offer -> Singleton landing page, website, outreach
+Proof -> proof tasks and assets
 ```
 
 Suggested task properties:
 
 ```text
 Task
-Bucket
 Status
 Time
 Money Priority
 Project
+Goal Horizon
 Work Date
 Block
 Link
@@ -146,9 +210,7 @@ Suggested project properties:
 
 ```text
 Project
-Bucket
-Status
-Goal Horizon
+Stage
 Tasks
 Notes
 ```
@@ -156,23 +218,29 @@ Notes
 Goal Horizon:
 
 ```text
-Today
-This Week
-End Of Month
-August Horizon
+End of W1
+End of W2
+End of W3
+End of Month
+Next Month
+6 Months
 Long Term
 ```
 
-Status:
+Goal Horizon belongs to tasks or parent tasks, not the five durable project
+lanes.
+
+Project Stage:
 
 ```text
-Queued
-Today
-In Motion
-Waiting
+To Do
+In Progress
 Done
-Parked
 ```
+
+Project `Stage` is only the lane-level state. The five durable project lanes
+should normally sit at `In Progress` because they are operating lanes, not
+finishable deliverables.
 
 Time:
 
@@ -193,20 +261,26 @@ Default priority:
 ```text
 Cash Jobs -> Critical
 Career Jobs -> Critical
-Upwork -> Critical
+Freelance -> Critical
 Offer -> Strategic
 Proof -> Strategic
 ```
+
+Long deliverables stay in Opportunity Tasks, not Opportunity Projects.
+`Singleton landing page` is a task under `Offer`; domain, Vercel, Tally, MCP,
+and similar prerequisites should become sub-tasks or dependency-linked tasks in
+the same task database when they need their own status or time estimate.
 
 Use page-body checkboxes only when a checklist is tiny. If a subtask needs its
 own time estimate, create it as a related task in the task database.
 
 Projects and tasks are the two durable databases for v1. Do not create a
 separate Focus Board database yet. The Focus Board, Daily Blocks, Work Calendar,
-Applications, Upwork, Singleton, and Proof surfaces should be views of
+Applications, Freelance, Singleton, and Proof surfaces should be views of
 Opportunity Tasks.
 
-Use `Work Date` and `Block` to turn tasks into rough daily schedules:
+Use `Work Date` as the scheduled completion date for a task, by end of that
+date. Use `Block` as the rough time slot:
 
 ```text
 Morning
@@ -242,7 +316,7 @@ Parked
 
 The Focus Board replaces the Eisenhower/delegate idea. Use plain timing and
 pressure, not a four-quadrant taxonomy. The board should make it obvious if the
-day has no blue collar, white collar, Upwork, or follow-up action logged.
+day has no blue collar, white collar, freelance, or follow-up action logged.
 
 ## Opportunity Log V1
 
@@ -254,7 +328,7 @@ Use this for:
 ```text
 survival jobs
 career-aligned jobs
-Upwork jobs / proposals
+freelance jobs / proposals
 direct outreach
 Singleton offer tasks
 proof assets
@@ -273,7 +347,7 @@ Suggested minimal properties:
 
 ```text
 Name
-Bucket: Cash Jobs | Career Jobs | Upwork | Offer | Proof
+Project: Cash Jobs | Career Jobs | Freelance | Offer | Proof
 Status: Queued | Today | In Motion | Waiting | Done | Parked
 Effort: 5m | 15m | 30m | 60m | 2h | 4h+
 ```
@@ -311,7 +385,7 @@ Default effort assumptions:
   screenshot capture, simple Eagle asset, short Bear cleanup, quick follow-up
 
 30m
-  job application pass, Upwork proposal, resume/cover note tweak, proof caption set
+  job application pass, freelance proposal, resume/cover note tweak, proof caption set
 
 60m
   focused section rewrite, proof packaging pass, consultation-page block
@@ -340,7 +414,7 @@ One Upwork proposal
 ```
 
 This is a planning key, not a time-tracking promise. If a task repeatedly takes
-longer than its bucket, update the bucket later instead of adding more fields.
+longer than its estimate, update the estimate later instead of adding more fields.
 
 ## Focus Blocks V1
 
@@ -382,12 +456,12 @@ Only automate it after the repeated action is obvious.
 
 The router answers:
 
-- what bucket does this idea belong to?
+- what project lane does this idea belong to?
 - which app owns the durable version?
 - which skill should Codex load?
 - is this a command, proof asset, website idea, workflow idea, or personal system?
 - should this stay quick-capture, become an Opportunity HQ item, or turn into code?
-- does the surface use stale buckets, statuses, fields, or labels?
+- does the surface use stale projects, statuses, fields, or labels?
 
 Hook rule:
 
@@ -475,10 +549,10 @@ Log Task      -> Notion / Opportunity HQ
 ```
 
 Bear receives raw, unclear, emotional, exploratory, or "do not lose this"
-thoughts. Opportunity HQ receives focused queue items with status, time, bucket,
-money priority, link, follow-up, proof work, or project relation.
+thoughts. Opportunity HQ receives focused queue items with status, time, project
+lane, money priority, link, follow-up, proof work, or project relation.
 
-The first Notion form should expose only `Task`, `Bucket`, `Time`, and
+The first Notion form should expose only `Task`, `Project`, `Time`, and
 `Link / Notes`. Default the rest.
 
 Mobile Notion shortcut/form behavior:
@@ -487,8 +561,8 @@ Mobile Notion shortcut/form behavior:
 Task
   What needs to happen.
 
-Bucket
-  Cash Jobs | Career Jobs | Upwork | Offer | Proof
+Project
+  Cash Jobs | Career Jobs | Freelance | Offer | Proof
 
 Time
   5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
@@ -501,17 +575,16 @@ Defaults:
 
 ```text
 Status = Queued
-Money Priority = Critical for Cash Jobs, Career Jobs, and Upwork
+Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
 Money Priority = Strategic for Offer and Proof
-Project = blank unless chosen later
-Work Date = blank unless planning today
-Block = blank unless planning today
+Work Date = blank unless approved in Codex / Notion planning as the scheduled completion date
+Block = blank unless approved in Codex / Notion planning
 Asset / Proof Link = blank unless proof exists
 ```
 
 Use the mobile shortcut for capture, not planning. Planning happens later in
-Opportunity HQ views or Raycast: assign `Work Date`, `Block`, `Project`, and
-status changes after review.
+Codex / Notion: assign `Work Date`, `Block`, `Project`, and status changes only
+after review. `Work Date` means scheduled to complete by the end of that date.
 
 Passive shortcut and future automation ideas should usually start in Bear. This
 includes useful but later ideas such as a mobile transcript step for an existing
@@ -785,7 +858,7 @@ Hook rule:
 Route attention first. Ask the focused skill to do the work second.
 ```
 
-For the business loop, milestones, content lanes, Upwork lane, proof bank rules,
+For the business loop, milestones, content lanes, Freelance lane, proof bank rules,
 and future skill candidates, use `docs/02_phase-one-operating-system.md` as the
 companion operating document. This file owns the integration map; the Phase One
 doc owns the week-to-week business mold.
@@ -829,7 +902,7 @@ Owns:
 ## Naming Once Rules
 
 Use these as Eagle/proof folders or broad content lanes, not Opportunity HQ
-task buckets:
+project lanes:
 
 ```text
 Website
@@ -857,7 +930,7 @@ Rules:
 
 - Folders answer what the item is for.
 - Tags answer where it came from or what supports it.
-- Commands open or mutate known buckets; commands do not become buckets.
+- Commands open or mutate known projects; commands do not become project lanes.
 - A repeated idea should get one plain name before it becomes a tag, folder, skill, or command.
 - If a label makes the user pause and ask where it belongs, it is probably too clever.
 
@@ -1082,9 +1155,11 @@ automation.
 ### Raycast
 
 - Raycast is the action layer.
-- Commands should feel like shortcuts into named buckets.
+- Commands should feel like shortcuts into known project lanes and tasks.
 - Native Raycast actions should handle cheap capture, status updates, links,
   file opening, Notion writes, and Eagle import.
+- Raycast should not own planning. Keep `Work Date` and `Block` visible as
+  Opportunity HQ metadata; edit them through Codex / Notion after review.
 - Codex Assist is secondary: `cmd+shift+c` where available, one Raycast
   input/review screen, then Apply, Copy, Log, or Cancel.
 - Replace old Prospect ID leader-key ideas with Opportunity HQ / Singleton
@@ -1096,7 +1171,7 @@ automation.
 - Opportunity HQ Raycast command mapping after schema stabilization
 - Notion Opportunity HQ schema alignment
 - Tally intake form shape and MCP/operator route
-- Namecheap / Vercel domain setup check for the public Singleton Systems domain
+- Namecheap / Vercel domain setup for the public Singleton Systems domain
 - Prospect Pipeline reusable-logic references
 - LikeC4-inspired naming and visual logic map
 - Codex hook implementation

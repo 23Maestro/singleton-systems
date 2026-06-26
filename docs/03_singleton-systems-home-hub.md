@@ -60,15 +60,15 @@ Singleton Systems.
 Role:
 
 - Raycast action surface
-- Career task creation and updates
+- Opportunity task creation and updates
 - Eagle proof capture
-- Notion Career HQ integration
+- Notion Opportunity HQ integration
 
 Current command lane:
 
 - Capture Proof Asset
-- Create Career Task
-- Update Career Task
+- Log Opportunity Task
+- Update Opportunity Task
 - Open Proof Folder
 
 Career HQ should point at the active Eagle proof folders and shared labels. It
@@ -162,16 +162,18 @@ system honest when hyperfocus wants to spend the whole day on the offer page.
 
 Role:
 
-- official routing hook for every Singleton Systems surface
+- first routing hook for every Singleton Systems surface
 - name the surface once
 - decide where an idea belongs
+- choose the canonical fields/options and next focused skill
 - keep Bear, Eagle, Opportunity HQ, Raycast, Codex, Shortcuts, LikeC4, docs,
   and skills from drifting
 - prevent every new idea from becoming a new folder, tag, command, or doc
 
 The Cerebral router is not a separate database and does not mutate tools by
-itself. It is the operating hook that names the owner surface, canonical
-fields/options, and next focused skill before any surface is changed.
+itself. It is the front-door operating hook that names the owner surface,
+canonical fields/options, and next focused skill before `singleton-systems` or
+any downstream skill acts.
 
 Use it when a thought mixes business, website, proof, commands, skills, and app
 integrations in one pass. If a surface uses stale names/options, update the
@@ -251,36 +253,36 @@ money pressure, a status, a time estimate, a link, proof work, or a follow-up.
 Bear can still catch raw thoughts, but focused queue items should go directly
 to Notion / Opportunity HQ.
 
-V1 task buckets:
+V1 project lanes:
 
 ```text
 Cash Jobs
 Career Jobs
-Upwork
+Freelance
 Offer
 Proof
 ```
 
-Buckets are lanes, not projects. Projects are outcomes that need multiple
-tasks, proof, or time planning, such as:
+These five `Opportunity Projects` rows are the durable lanes. Older
+pseudo-project rows should become tasks/goals under these lanes, such as:
 
 ```text
-Get paid by Monday
-Blue collar resume ready
-White collar video/broadcast applications
-Upwork consultation / proposals
-Singleton proof + website
+Cash Jobs -> Paid by July 1, Blue collar resume ready
+Career Jobs -> Career Applications
+Freelance -> Freelance proposals
+Offer -> Singleton landing page, website, outreach
+Proof -> proof tasks and assets
 ```
 
 Suggested task properties:
 
 ```text
 Task
-Bucket
 Status
 Time
 Money Priority
 Project
+Goal Horizon
 Work Date
 Block
 Link
@@ -288,15 +290,40 @@ Asset / Proof Link
 Notes
 ```
 
+Suggested project properties:
+
+```text
+Project
+Stage
+Tasks
+Notes
+```
+
+Project `Stage` options:
+
+```text
+To Do
+In Progress
+Done
+```
+
+The five durable project lanes normally stay `In Progress`. Task `Status` owns
+today/tomorrow execution; task `Goal Horizon` owns planning horizon; project
+`Stage` only describes the lane.
+
 Use page-body checkboxes only when the checklist is tiny. If a subtask needs
-its own time estimate, create it as a related task instead.
+its own time estimate, create it as a related task instead. Long deliverables
+such as `Singleton landing page` stay tasks under the right lane; their
+Namecheap, Vercel, Tally, MCP, or similar prerequisites should become sub-tasks
+or dependency-linked tasks when they need separate tracking.
 
 Projects and tasks are the two durable databases. Do not create a separate
 Focus Board database for v1. The Focus Board, Daily Blocks, Work Calendar,
-Applications, Upwork, Singleton, and Proof surfaces should be views of the task
+Applications, Freelance, Singleton, and Proof surfaces should be views of the task
 database.
 
-Use `Work Date` and `Block` to turn tasks into a rough daily schedule:
+Use `Work Date` as the scheduled completion date for a task, by end of that
+date. Use `Block` as the rough time slot:
 
 ```text
 Morning
@@ -362,7 +389,7 @@ Opportunity HQ should also support a simple mobile form:
 
 ```text
 Task
-Bucket
+Project
 Time
 Link / Notes
 ```
@@ -371,9 +398,9 @@ Defaults:
 
 ```text
 Status = Queued
-Money Priority = Critical for Cash Jobs, Career Jobs, and Upwork
+Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
 Money Priority = Strategic for Offer and Proof
-Project = blank unless obvious
+Project = one of the five lane projects
 ```
 
 ### Eagle
@@ -421,7 +448,7 @@ Role:
 - quick update
 - open the right surface
 
-Raycast commands should trigger known actions against known buckets. They should not define the business logic.
+Raycast commands should trigger known actions against known Opportunity HQ projects. They should not define the business logic.
 
 ### Apple Shortcuts / Mobile
 
@@ -440,7 +467,7 @@ Log Task      -> Notion / Opportunity HQ
 ```
 
 Bear is for raw, unclear, emotional, exploratory, or "do not lose this" capture.
-Opportunity HQ is for focused queue items that need status, time, bucket,
+Opportunity HQ is for focused queue items that need status, time, project lane,
 money priority, link, follow-up, proof work, or project relation.
 
 Future App Intents or deeper App Shortcuts should come after the workflows are
@@ -471,7 +498,7 @@ the written operating contract:
 
 ```text
 Surface roles
-Bucket names
+Project lane names
 Notion fields
 Command names
 Daily operating rules

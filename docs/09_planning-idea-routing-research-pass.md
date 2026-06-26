@@ -71,12 +71,12 @@ Strategic = website, offer, proof, workflow hub, and system hardening
 Later = real ideas that should not steal this week
 ```
 
-Default bucket priority:
+Default project-lane priority:
 
 ```text
 Cash Jobs -> Critical
 Career Jobs -> Critical
-Upwork -> Critical
+Freelance -> Critical
 Offer -> Strategic
 Proof -> Strategic
 System Cleanup -> Strategic or Later, depending on whether it unblocks execution
@@ -84,22 +84,28 @@ System Cleanup -> Strategic or Later, depending on whether it unblocks execution
 
 ## Goal Horizon Rules
 
-Use goal horizons before due dates. Due dates are only for real external dates
-or commitments; otherwise they can create fake failure.
+Use goal horizons before scheduling Work Dates. Work Date is for scheduled
+completion by end of that date; avoid separate due dates unless an external
+deadline or commitment truly exists.
 
 ```text
-Today
-  The small count or block that must move before the day is allowed to drift.
+End of W1
+  Finish by 11:59pm at the first week boundary.
 
-This Week
-  A realistic target count per critical bucket.
+End of W2
+  Finish by 11:59pm at the second week boundary.
 
-End Of Month
-  A short checkpoint for what must be true by the calendar boundary.
+End of W3
+  Finish by 11:59pm at the third week boundary.
 
-August Horizon
-  The first larger operating target: money coming in, website live enough, and
-  offer/outreach moving.
+End of Month
+  Finish by 11:59pm on the last day of this month.
+
+Next Month
+  Finish by 11:59pm on the last day of next month.
+
+6 Months
+  Medium-range operating bet.
 
 Long Term
   Singleton Systems managing paying offer clients.
@@ -118,7 +124,7 @@ near-term system is stable.
 
 ## Planning Prompt
 
-When planning a week or month, ask for counts before due dates:
+When planning a week or month, ask for counts before Work Dates:
 
 ```text
 What must be true by the end of this week?
@@ -146,7 +152,7 @@ small:
 
 ```text
 Horizon
-Bucket
+Project Lane
 Target
 Priority
 Daily implication
@@ -157,8 +163,8 @@ Evidence
 Example:
 
 ```text
-Horizon: This Week
-Bucket: Cash Jobs
+Horizon: End of W1
+Project Lane: Cash Jobs
 Target: 10-12 blue-collar applications
 Priority: Critical
 Daily implication: 1-2 applications before deep Strategic work
@@ -175,18 +181,20 @@ Current target tiers:
 Today
   Move at least one Critical cash-path action before deep Strategic work.
 
-This Week
-  Set realistic Critical action counts by bucket, starting with blue-collar,
-  career/white-collar, Upwork, and follow-up actions.
+End of W1
+  Set realistic Critical action counts by project lane, starting with blue-collar,
+  career/white-collar, freelance, and follow-up actions.
 
-End Of Month
+End of W2 / End of W3
+  Hold near-month commitments that are real but not scheduled for a specific
+  Work Date yet.
+
+End of Month
   Check whether money-path volume, website/request flow, and proof packaging
   are actually moving.
 
-August Horizon
-  Money coming in through job, contract, client, or Upwork path.
-  Singleton Systems website live enough to receive real requests.
-  Offer/outreach process active enough to produce conversations.
+Next Month
+  Hold commitments that belong to the next monthly operating window.
 
 Long Term
   Singleton Systems managing paying offer clients.
@@ -279,7 +287,8 @@ Singleton translation:
 ```text
 Bear = inbox
 Opportunity HQ = planned work and durable projects
-Work Date + Block = lightweight time slots
+Work Date = scheduled completion date
+Block = rough time slot
 Raycast / Shortcuts = capture and update buttons after repetition is obvious
 ```
 
@@ -392,6 +401,46 @@ Durable business task -> Opportunity HQ
 
 Do not make a content database yet.
 
+## Warm Offer Lead Vetting
+
+For the first 10-15 offer leads, run a short pre-vet before logging or
+messaging. This is the repeatable "automation" for now; do not build a new tool
+until the pattern proves itself.
+
+Use it when a lead has at least one strong signal:
+
+```text
+personal hook
+local relevance
+visible pricing or services
+team or multi-location signal
+existing media/proof/social assets
+obvious handoff, intake, follow-up, or content gap
+```
+
+Pre-vet shape:
+
+```text
+Confirm services, pricing, team, locations, audience paths, proof/media assets,
+likely workflow gaps, and one simple value-math reason the audit could pay off.
+```
+
+Routing:
+
+```text
+Good lead -> Opportunity HQ task under Singleton proof + website
+Offer/social angle -> offer-proof-content
+Outreach copy -> sales-outreach
+Raw maybe -> Bear
+```
+
+Task rule:
+
+```text
+Use a thin task name, blank Notes, and page content for lead context. Do not
+bury reusable rules in an individual Notion task.
+```
+
 ## Skill Created
 
 The routing skill is:
@@ -420,7 +469,7 @@ Use the new skill for mixed planning / idea-routing requests.
 Prepare to migrate Useful -> Strategic in live Opportunity HQ.
 Use `Waiting` only for real external blockers.
 Use `Parked` for intentionally saved, no-commitment items.
-Plan from Today / This Week / End Of Month / August before adding due dates.
+Plan from End of W1 / End of W2 / End of W3 / End of Month before setting Work Date.
 ```
 
 Do later, only if repeated:

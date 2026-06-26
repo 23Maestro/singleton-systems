@@ -5,14 +5,14 @@ Updated: 2026-06-22
 ## Big Idea
 
 Singleton Systems needs one simple operating map. The website, Bear, Eagle,
-Notion, Raycast, and Codex skills should all point at the same buckets instead
+Notion, Raycast, and Codex skills should all point at the same project lanes instead
 of creating a new naming system every time a good idea shows up.
 
 The rule is: name it once, then let each app do its job.
 
-## The Buckets
+## The Project Lanes
 
-These are the first clean buckets:
+These are the first clean project lanes:
 
 ```text
 Website

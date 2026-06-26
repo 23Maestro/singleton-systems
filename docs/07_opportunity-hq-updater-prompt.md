@@ -15,6 +15,91 @@ Eagle = proof/assets/evidence
 Raycast/Codex = actions and routing
 ```
 
+## Opportunity Search Run
+
+Codex owns this workflow. Raycast may open tasks, links, proof, proposals, and
+Notion pages, but it should not run the search or plan the day.
+
+```text
+Run an Opportunity Search Run.
+
+Rules:
+- Search current jobs/leads only.
+- Do not apply.
+- Do not use computer control.
+- Do not mutate Notion until I approve winners.
+- Skip or flag duplicate job links already in Opportunity HQ.
+- Link every approved task to exactly one of the five lane projects unless I
+  explicitly say it is a parked one-off.
+- Use thin task names. Put details in page content, not the title.
+- Keep Notes to a one-line scan label.
+- Do not set Work Date or Block until the planning pass.
+
+Return:
+1. Clear winners only.
+2. For each winner: title, project lane, pay if available, link, time estimate,
+   priority, and short notes.
+3. A separate "skip" list only when something looked tempting but should not be
+   logged.
+
+After I approve winners:
+- Log each approved winner to Opportunity Tasks.
+- Status: Queued unless I say Today.
+- Project: Cash Jobs, Career Jobs, Freelance, Offer, or Proof.
+- Money Priority: Critical for Cash Jobs, Career Jobs, and Freelance unless clearly
+  optional.
+- Notes: one short line only.
+- Page content: pay, why, proof angle, check-before-apply, source.
+- Do not submit applications or proposals.
+```
+
+Default project mapping:
+
+```text
+Cash Jobs -> Paid by July 1
+Career Jobs -> White collar video/broadcast applications
+Freelance -> Freelance proposals
+Offer -> Singleton proof + website
+Proof -> Singleton proof + website
+Blue collar resume prep -> Blue collar resume ready
+```
+
+Thin name examples:
+
+```text
+AutoZone driver
+Cintas route rep
+MedSpeed driver
+Care Access video editor
+NPRC video editor
+Remote video search
+```
+
+## Focus Block Export
+
+Reuse the Prospect Pipeline `.ics` export pattern from
+`/Users/singleton23/Raycast/prospect-pipeline/src/daily-call-blocks.tsx`: build
+plain text, write a dated `.ics` file to Downloads, copy the summary, and open
+the file.
+
+```text
+Build Opportunity HQ focus blocks.
+
+Input:
+- Approved Opportunity Tasks for [DAY/RANGE].
+
+Rules:
+- Build 3-5 realistic time blocks.
+- Use task Time values as rough estimates, not fake precision.
+- Include titles, times, descriptions, and sane durations.
+- Generate `.ics` into Downloads and open it.
+- Copy a plain-text plan summary to clipboard.
+- Ask before updating Notion Work Date / Block.
+- No Raycast planning command.
+- No AppleScript calendar event creation.
+- No automation until one manual run works.
+```
+
 ## Copy/Paste Prompt
 
 ```text
@@ -30,27 +115,42 @@ Opportunity HQ has two durable databases:
 1. Opportunity Projects
 2. Opportunity Tasks
 
-Do not create a separate Focus Board database. Focus Board, Daily Blocks, Work Calendar, Applications, Upwork, Singleton, and Proof are views of Opportunity Tasks.
+Do not create a separate Focus Board database. Focus Board, Daily Blocks, Work Calendar, Applications, Freelance, Singleton, and Proof are views of Opportunity Tasks.
 
-Task buckets:
+Project lanes:
 - Cash Jobs
 - Career Jobs
-- Upwork
+- Freelance
 - Offer
 - Proof
 
+Project fields:
+- Project
+- Stage
+- Tasks
+- Notes
+
+Project Stage options:
+- To Do
+- In Progress
+- Done
+
+The five project lanes are durable lanes, not finishable deliverables. Keep
+them `In Progress` unless the lane itself is being paused or retired.
+
 Task fields:
 - Task
-- Bucket
 - Status
 - Time
 - Money Priority
 - Project
+- Goal Horizon
 - Work Date
 - Block
 - Link
 - Asset / Proof Link
 - Notes
+- Page Content
 
 Status options:
 - Queued
@@ -85,7 +185,7 @@ Block options:
 Default priority:
 - Cash Jobs = Critical
 - Career Jobs = Critical
-- Upwork = Critical unless clearly optional/later
+- Freelance = Critical unless clearly optional/later
 - Offer = Strategic unless tied to immediate income
 - Proof = Strategic unless needed for an application/proposal
 - Passive shortcut/system ideas = Later unless they directly help immediate work
@@ -93,12 +193,13 @@ Default priority:
 Decide first:
 1. Should this stay in Bear, become an Opportunity HQ task, become an Opportunity HQ project, or become an Eagle proof item?
 2. If it belongs in Opportunity HQ, is it a project or a task?
-3. If it is a task, what bucket, status, time, money priority, project, link/proof link, and notes should it have?
+3. If it is a task, what project lane, status, time, money priority, link/proof link, and notes should it have?
 4. If it is a project, what outcome does it represent and what 2-6 tasks should belong under it?
 
 Project rule:
-- Buckets are not projects.
-- A project is an outcome that needs multiple tasks, proof, or time planning.
+- The five Project rows are the lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof.
+- Every real task should link to exactly one Project. Blank Project is a cleanup problem, not the default.
+- Finishable deliverables become tasks/goals under a lane project, not new lane rows.
 - If a subtask needs its own time estimate, make it a separate task.
 - Use page/body checkboxes only for tiny checklists.
 
@@ -125,7 +226,7 @@ Only include if needed.
 
 Opportunity Task:
 Task:
-Bucket:
+Project:
 Status:
 Time:
 Money Priority:
@@ -152,15 +253,16 @@ Tags:
 Asset idea:
 
 Do Not:
-List anything that should not be overbuilt, added yet, or confused with another bucket.
+List anything that should not be overbuilt, added yet, or confused with another project lane.
 
 Rules:
 - Treat me as one person, not an agency.
 - Do not use "we."
 - Do not invent proof, clients, metrics, or scale.
 - Keep video editing and workflow cleanup separate unless I explicitly connect them.
-- Prioritize blue collar jobs, white collar applications, Upwork, and immediate income before website polish.
+- Prioritize blue collar jobs, white collar applications, freelance, and immediate income before website polish.
 - Keep language concise and usable.
+- Use thin task names and short Notes.
 - Do not write generic AI business copy.
 - Do not mutate Notion unless I explicitly ask you to use the Notion tool/plugin.
 
@@ -220,10 +322,10 @@ Opportunity HQ:
 - show two related databases:
   - Opportunity Projects
   - Opportunity Tasks
-- show task fields: Task, Bucket, Status, Time, Money Priority, Project, Work Date, Block, Link, Asset / Proof Link, Notes
-- show views, not databases: Focus Board, Daily Blocks, Work Calendar, Applications, Upwork, Singleton, Proof
-- show five buckets: Cash Jobs, Career Jobs, Upwork, Offer, Proof
-- say: Projects are outcomes. Tasks are executable work. Buckets are lanes.
+- show task fields: Task, Project, Status, Time, Money Priority, Work Date, Block, Link, Asset / Proof Link, Notes
+- show views, not databases: Focus Board, Daily Blocks, Work Calendar, Applications, Freelance, Singleton, Proof
+- show five project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof
+- say: Projects are the lanes. Tasks are executable work. No second lane property.
 
 Eagle Proof Library:
 - label as Proof / Evidence
