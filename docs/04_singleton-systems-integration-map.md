@@ -1122,6 +1122,30 @@ This is the "Scouting Coordinator" equivalent for Singleton Systems: a small map
 that explains where work belongs before adding commands, tags, folders, or
 automation.
 
+### Throwaway HTML Review Surfaces
+
+Use single-file HTML when a review is too dense for linear Markdown and does
+not need to become the durable source of truth.
+
+```text
+Markdown = source notes
+LikeC4 = durable system map
+Draw.io = visual sketch
+HTML = throwaway review surface
+```
+
+Good Singleton uses:
+
+- Workflow audit viewer: messy inputs, current path, bottlenecks, proposed fixes, risk notes, sorted by impact.
+- Opportunity HQ review cockpit: Today / Waiting / Money Clock / Proof tasks with filters before mutating Notion.
+- Proof packaging board: Eagle assets, notes, and website/proposal copy angles in one scannable page.
+- PR/code review brief: files changed, risk zones, screenshots, test status, and needs-human-decision notes.
+- Website copy comparison: current section, proposed rewrite, why, and accept/reject notes.
+- Client workflow map preview: a clickable walkthrough for one messy workflow, not durable architecture.
+
+Do not make this a command, skill, or artifact system until the same review UI
+shape repeats. The first version should be a disposable local HTML file.
+
 ## App Quirks To Respect
 
 ### Bear
