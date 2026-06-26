@@ -54,8 +54,7 @@ Singleton Systems.
 ### Opportunity HQ Raycast Extension
 
 ```text
-Repo source: apps/raycast-career-hq
-Raycast load path: /Users/singleton23/Raycast/career-hq
+/Users/singleton23/Raycast/career-hq
 ```
 
 Role:
@@ -72,9 +71,9 @@ Current command lane:
 - Update Opportunity Task
 - Open Proof Folder
 
-The repo source lives inside `singleton-systems` because the command layer and
-Opportunity HQ model are intertwined. `/Users/singleton23/Raycast/career-hq`
-is a compatibility symlink for Raycast loading, not a separate git repo.
+This is an external Raycast extension path, not part of the Vercel-built
+Singleton Systems repo. Singleton Systems remains the defacto hub through docs,
+skills, and operating contracts.
 
 Opportunity HQ Raycast should point at the active Eagle proof folders and
 shared labels. It uses the direct Eagle API route, not MCP, for reliable

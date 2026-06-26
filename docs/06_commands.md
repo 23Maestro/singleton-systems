@@ -119,7 +119,7 @@ Pending examples:
 
 ```text
 Bear editing layer
-Opportunity HQ / Career HQ command layer
+Opportunity HQ Raycast command layer
 Money Clock check-in
 Log Opportunity Task
 Suggest Focus Blocks
@@ -190,7 +190,7 @@ important, it can later become:
 ```text
 Raycast command on desktop
 Bear CLI wrapper
-Notion/Career HQ action
+Notion / Opportunity HQ action
 App Intent / App Shortcut
 ```
 
