@@ -30,7 +30,7 @@ Owner surfaces:
 
 ```text
 Bear = raw capture
-Opportunity HQ = durable projects, tasks, status, Goal Horizon, Work Date, Block, dependencies, sub-tasks, proof links
+Opportunity HQ = durable projects, tasks, status, Goal Horizon, Work Date, Shift, dependencies, sub-tasks, portfolio notes
 Eagle = proof and assets
 Raycast = external action surface at /Users/singleton23/Raycast/career-hq
 Docs/skills = names, rules, review gates, and memory summaries
@@ -39,7 +39,7 @@ Docs/skills = names, rules, review gates, and memory summaries
 Harness packet:
 
 ```text
-[lane] Cash Jobs | Career Jobs | Freelance | Offer | Proof
+[lane] Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 [owner] Bear | Opportunity HQ | Eagle | Raycast | Docs/skills
 [intent] one plain sentence
 [shape] capture | task | sub-task | dependency | proof | command idea | operating rule
@@ -65,7 +65,7 @@ memory keeps the decision and next action
 Example packets:
 
 ```text
-[lane] Proof
+[lane] Portfolio
 [owner] Opportunity HQ
 [intent] Package a proof asset from an Eagle screenshot into website/outreach copy.
 [shape] task with proof link

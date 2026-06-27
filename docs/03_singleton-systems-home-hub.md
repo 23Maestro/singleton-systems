@@ -66,10 +66,10 @@ Role:
 
 Current command lane:
 
-- Capture Proof Asset
+- Capture Portfolio Asset
 - Log Opportunity Task
 - Update Opportunity Task
-- Open Proof Folder
+- Open Portfolio Folder
 
 This is an external Raycast extension path, not part of the Vercel-built
 Singleton Systems repo. Singleton Systems remains the defacto hub through docs,
@@ -294,7 +294,7 @@ Cash Jobs
 Career Jobs
 Freelance
 Offer
-Proof
+Portfolio
 ```
 
 These five `Opportunity Projects` rows are the durable lanes. Older
@@ -305,7 +305,7 @@ Cash Jobs -> Paid by July 1, Blue collar resume ready
 Career Jobs -> Career Applications
 Freelance -> Freelance proposals
 Offer -> Singleton landing page, website, outreach
-Proof -> proof tasks and assets
+Portfolio -> portfolio tasks and assets
 ```
 
 Suggested task properties:
@@ -313,14 +313,13 @@ Suggested task properties:
 ```text
 Task
 Status
-Time
+Duration
 Money Priority
 Project
 Goal Horizon
 Work Date
-Block
+Shift
 Link
-Asset / Proof Link
 Notes
 ```
 
@@ -353,11 +352,11 @@ or dependency-linked tasks when they need separate tracking.
 
 Projects and tasks are the two durable databases. Do not create a separate
 Focus Board database for v1. The Focus Board, Daily Blocks, Work Calendar,
-Applications, Freelance, Singleton, and Proof surfaces should be views of the task
+Applications, Freelance, Singleton, and Portfolio surfaces should be views of the task
 database.
 
 Use `Work Date` as the scheduled completion date for a task, by end of that
-date. Use `Block` as the rough time slot:
+date. Use `Shift` as the rough time slot:
 
 ```text
 Morning
@@ -424,7 +423,7 @@ Opportunity HQ should also support a simple mobile form:
 ```text
 Task
 Project
-Time
+Duration
 Link / Notes
 ```
 
@@ -433,7 +432,7 @@ Defaults:
 ```text
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
-Money Priority = Strategic for Offer and Proof
+Money Priority = Strategic for Offer and Portfolio
 Project = one of the five lane projects
 ```
 
@@ -452,10 +451,10 @@ Eagle answers: what does this asset prove or support?
 Preferred folder structure:
 
 ```text
-Career Proof Library
+Career Portfolio Library
   00 Inbox
-  01 Video Proof
-  02 Workflow Proof
+  01 Video Portfolio
+  02 Workflow Portfolio
   03 Website Assets
   04 Personal Systems
   99 Archive

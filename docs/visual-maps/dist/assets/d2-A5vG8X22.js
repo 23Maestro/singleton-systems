@@ -3,8 +3,8 @@ var e=e=>{switch(e){case`index`:return`direction: down
 Operator: {
   label: "Operator"
 }
-Proof: {
-  label: "Eagle Proof Library"
+PortfolioStore: {
+  label: "Eagle Portfolio Library"
 }
 Capture: {
   label: "Capture Surfaces"
@@ -25,9 +25,9 @@ Capture -> Durable: "[...]"
 Durable -> Actions: "drive"
 Durable -> Publishing: "[...]"
 Actions -> Durable: "create/update"
-Proof -> Durable: "attach"
+PortfolioStore -> Durable: "attach"
 Publishing -> Durable: "update"
-Actions -> Proof: "capture"
+Actions -> PortfolioStore: "capture"
 `;case`opportunity_hq_container_map`:return`direction: down
 
 Operator: {
@@ -40,8 +40,14 @@ ActionsLogTask: {
 ActionsUpdateTask: {
   label: "Update Task"
 }
-ActionsPlanToday: {
-  label: "Plan Today"
+ActionsSearchRun: {
+  label: "Opportunity Search Run"
+}
+ActionsExportBlocks: {
+  label: "Export Focus Blocks"
+}
+ActionsGoalCheckIn: {
+  label: "Goal Check-In"
 }
 ActionsStartApplication: {
   label: "Start Application"
@@ -49,11 +55,11 @@ ActionsStartApplication: {
 ActionsDraftProposal: {
   label: "Draft Proposal"
 }
-ActionsCaptureProof: {
-  label: "Capture Proof"
+ActionsCapturePortfolio: {
+  label: "Capture Portfolio"
 }
-Proof: {
-  label: "Eagle Proof Library"
+PortfolioStore: {
+  label: "Eagle Portfolio Library"
   shape: stored_data
 }
 Capture: {
@@ -74,6 +80,9 @@ Durable: {
   Projects: {
     label: "Opportunity Projects"
     shape: stored_data
+  }
+  Dependencies: {
+    label: "Dependencies"
   }
   Tasks: {
     label: "Opportunity Tasks"
@@ -101,7 +110,8 @@ Capture.Bear -> Durable.Tasks: "promote"
 Capture.MobileForm -> Durable.Tasks: "create"
 Durable.Projects -> Durable.Tasks: "group"
 Durable.Tasks -> Durable.TaskViews: "render"
-Proof -> Durable.Tasks: "attach"
+Durable.Dependencies -> Durable.Tasks: "block"
+PortfolioStore -> Durable.Tasks: "attach"
 Durable.Tasks -> Publishing.Website: "package"
 Durable.Tasks -> Publishing.Proposals: "submit"
 Publishing.Proposals -> Durable.Tasks: "update"
@@ -125,6 +135,9 @@ Capture: {
 Durable: {
   label: "Opportunity HQ"
 
+  Dependencies: {
+    label: "Dependencies"
+  }
   Tasks: {
     label: "Opportunity Tasks"
     shape: queue
@@ -139,8 +152,14 @@ ActionsLogTask: {
 ActionsUpdateTask: {
   label: "Update Task"
 }
-ActionsPlanToday: {
-  label: "Plan Today"
+ActionsSearchRun: {
+  label: "Opportunity Search Run"
+}
+ActionsExportBlocks: {
+  label: "Export Focus Blocks"
+}
+ActionsGoalCheckIn: {
+  label: "Goal Check-In"
 }
 
 Operator -> Capture.Bear: "capture"
@@ -148,17 +167,18 @@ Operator -> Capture.MobileForm: "log"
 Capture.Bear -> Durable.Tasks: "promote"
 Capture.MobileForm -> Durable.Tasks: "create"
 Durable.Tasks -> Durable.TaskViews: "render"
+Durable.Dependencies -> Durable.Tasks: "block"
 `;case`proof_capture_flow`:return`direction: down
 
 Operator: {
   label: "Operator"
   shape: c4-person
 }
-ActionsCaptureProof: {
-  label: "Capture Proof"
+ActionsCapturePortfolio: {
+  label: "Capture Portfolio"
 }
-Proof: {
-  label: "Eagle Proof Library"
+PortfolioStore: {
+  label: "Eagle Portfolio Library"
   shape: stored_data
 }
 Durable: {
@@ -186,7 +206,7 @@ Publishing: {
 }
 
 Durable.Projects -> Durable.Tasks: "group"
-Proof -> Durable.Tasks: "attach"
+PortfolioStore -> Durable.Tasks: "attach"
 Durable.Tasks -> Publishing.Website: "package"
 Durable.Tasks -> Publishing.Proposals: "submit"
 Publishing.Proposals -> Durable.Tasks: "update"

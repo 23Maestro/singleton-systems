@@ -37,15 +37,15 @@ Parked
 ```
 
 Do not add a duplicate task `Status` custom field. Do not add `Stage` to
-Opportunity HQ tasks. Do not add `Estimated time`; use the existing `Time`
+Opportunity HQ tasks. Do not add `Estimated time`; use the existing `Duration`
 field.
 
 Lean task fields:
 
 ```text
-Time
+Duration
 Goal Horizon
-Block
+Shift
 Money Priority
 ```
 
@@ -145,14 +145,14 @@ Created/verified:
 
 ```text
 Offer project: existing
-Proof project: created
+Portfolio project: created
 Sections on both: Queued, Today, In Motion, Waiting, Done, Parked
-Custom fields on both: Time, Money Priority, Goal Horizon, Block
+Custom fields on both: Duration, Money Priority, Goal Horizon, Shift
 Pilot parent task: Asana pilot: Singleton landing page
 Pilot parent project: Offer
 Pilot parent section: Queued
 Pilot parent due date: 2026-06-29
-Pilot parent fields: Time=2h, Money Priority=Strategic, Goal Horizon=End of W1, Block=Afternoon
+Pilot parent fields: Duration=2h, Money Priority=Strategic, Goal Horizon=End of W1, Shift=Afternoon
 Subtask dependency: Test proof-link handling depends on Map Notion task fields to Asana fields
 ```
 
@@ -170,7 +170,7 @@ Pilot decision:
 
 ```text
 Use Asana sections for execution status.
-Use custom fields for Time, Money Priority, Goal Horizon, and Block.
+Use custom fields for Duration, Money Priority, Goal Horizon, and Shift.
 Use native due dates for Work Date.
 Use project membership for the lane.
 Keep links/proof links in the task description until repeated use proves a
@@ -245,9 +245,9 @@ than cutting over this existing Notion-backed extension in place.
 Then wire commands one at a time:
 
 ```text
-1. Opportunity HQ Workbench: read-only Asana list for Offer/Proof.
+1. Opportunity HQ Workbench: read-only Asana list for Offer/Portfolio.
 2. Log Opportunity Task: create Asana task using the existing form shape.
-3. Capture Proof: append proof link/text to Asana task description or comment.
+3. Capture Portfolio: append Eagle note to Asana task description or comment.
 4. Draft Proposal: update task notes/status only after create/update is proven.
 ```
 
@@ -332,13 +332,13 @@ Opportunity Projects -> Asana projects
 Opportunity Tasks -> Asana tasks
 Project relation -> project membership
 Status -> project sections
-Time -> custom field
+Duration -> custom field
 Money Priority -> custom field
 Goal Horizon -> custom field
 Work Date -> due date
-Block -> custom field
+Shift -> custom field
 Link -> task link/body field
-Asset / Proof Link -> task link/body field
+Portfolio note -> task link/body field
 Notes -> task description, only when useful
 ```
 
@@ -354,7 +354,7 @@ Cash Jobs
 Career Jobs
 Freelance
 Offer
-Proof
+Portfolio
 ```
 
 Status:
@@ -364,17 +364,17 @@ Cash Jobs: created
 Career Jobs: created
 Freelance: created
 Offer: existing
-Proof: created
+Portfolio: created
 ```
 
 2. Create the shared sections and custom fields:
 
 ```text
 Sections: Queued | Today | In Motion | Waiting | Done | Parked
-Time: 5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
+Duration: 5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
 Money Priority: Critical | Strategic | Later
 Goal Horizon: End of W1 | End of W2 | End of W3 | End of Month | Next Month | 6 Months | Long Term
-Block: Morning | Midday | Afternoon | Evening | Late
+Shift: Morning | Midday | Afternoon | Evening | Late
 ```
 
 Status:
@@ -397,7 +397,7 @@ Cash Jobs: 10
 Career Jobs: 6
 Freelance: 4
 Offer: 5 migrated tasks plus pre-existing template tasks before cleanup
-Proof: 18
+Portfolio: 18
 ```
 
 Live readback command:
@@ -413,7 +413,7 @@ Cash Jobs: 10 tasks (Queued:10)
 Career Jobs: 6 tasks (Queued:6)
 Freelance: 4 tasks (Queued:3, Waiting:1)
 Offer: 7 tasks (Queued:5, Today:1, In Motion:1)
-Proof: 22 tasks (Queued:21, Waiting:1)
+Portfolio: 22 tasks (Queued:21, Waiting:1)
 Goal: TEST - Goal for parent task mini-project
   metric=project_task_completion
   relationships=1
@@ -430,10 +430,10 @@ Renamed Raycast Asana adapter pilot -> Raycast Asana adapter.
 Removed Estimated time from Offer.
 Removed Priority, Status, and Stage from Offer by deleting those template custom
 fields directly after project-level removal returned 403.
-All five lane projects now have only: Time, Money Priority, Goal Horizon, Block.
+All five lane projects now have only: Duration, Money Priority, Goal Horizon, Shift.
 ```
 
-Second search-backed Proof pass:
+Second search-backed Portfolio pass:
 
 ```text
 Added:
@@ -450,14 +450,14 @@ Reason:
 Third search-backed lane check:
 
 ```text
-Checked Cash Jobs, Career Jobs, Freelance, Offer, and Proof with targeted
+Checked Cash Jobs, Career Jobs, Freelance, Offer, and Portfolio with targeted
 Notion workspace search terms.
 
 Result:
   No additional clean distinct rows were found for Cash Jobs, Career Jobs,
   Freelance, or Offer beyond existing normalized Asana task names.
 
-Proof:
+Portfolio:
   AI/Audio, AI/Script, Capture System, workflow checklist, and NurseHub rows
   are represented by existing clean Asana titles.
 
@@ -512,7 +512,7 @@ Readback:
 Log Opportunity Task
 Update Opportunity Task
 Plan Today
-Capture Proof Asset
+Capture Portfolio Asset
 ```
 
 6. Cut over only when Asana can answer the same daily question:

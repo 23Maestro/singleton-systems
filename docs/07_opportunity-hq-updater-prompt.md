@@ -11,13 +11,13 @@ The model is:
 ```text
 Bear = raw capture and later/passive ideas
 Opportunity HQ = durable projects, tasks, focus, and time blocks
-Eagle = proof/assets/evidence
+Eagle = portfolio/assets/evidence
 Raycast/Codex = actions and routing
 ```
 
 ## Opportunity Search Run
 
-Codex owns this workflow. Raycast may open tasks, links, proof, proposals, and
+Codex owns this workflow. Raycast may open tasks, links, portfolio assets, proposals, and
 Notion pages, but it should not run the search or plan the day.
 
 ```text
@@ -33,11 +33,11 @@ Rules:
   explicitly say it is a parked one-off.
 - Use thin task names. Put details in page content, not the title.
 - Keep Notes to a one-line scan label.
-- Do not set Work Date or Block until the planning pass.
+- Do not set Work Date or Shift until the planning pass.
 
 Return:
 1. Clear winners only.
-2. For each winner: title, project lane, pay if available, link, time estimate,
+2. For each winner: title, project lane, pay if available, link, duration estimate,
    priority, and short notes.
 3. A separate "skip" list only when something looked tempting but should not be
    logged.
@@ -45,11 +45,11 @@ Return:
 After I approve winners:
 - Log each approved winner to Opportunity Tasks.
 - Status: Queued unless I say Today.
-- Project: Cash Jobs, Career Jobs, Freelance, Offer, or Proof.
+- Project: Cash Jobs, Career Jobs, Freelance, Offer, or Portfolio.
 - Money Priority: Critical for Cash Jobs, Career Jobs, and Freelance unless clearly
   optional.
 - Notes: one short line only.
-- Page content: pay, why, proof angle, check-before-apply, source.
+- Page content: pay, why, portfolio angle, check-before-apply, source.
 - Do not submit applications or proposals.
 ```
 
@@ -59,8 +59,8 @@ Default project mapping:
 Cash Jobs -> Paid by July 1
 Career Jobs -> White collar video/broadcast applications
 Freelance -> Freelance proposals
-Offer -> Singleton proof + website
-Proof -> Singleton proof + website
+Offer -> Singleton portfolio + website
+Portfolio -> Singleton portfolio + website
 Blue collar resume prep -> Blue collar resume ready
 ```
 
@@ -75,7 +75,7 @@ NPRC video editor
 Remote video search
 ```
 
-## Focus Block Export
+## Focus Shift Export
 
 Reuse the Prospect Pipeline `.ics` export pattern from
 `/Users/singleton23/Raycast/prospect-pipeline/src/daily-call-blocks.tsx`: build
@@ -89,12 +89,12 @@ Input:
 - Approved Opportunity Tasks for [DAY/RANGE].
 
 Rules:
-- Build 3-5 realistic time blocks.
-- Use task Time values as rough estimates, not fake precision.
+- Build 3-5 realistic time shifts.
+- Use task Duration values as rough estimates, not fake precision.
 - Include titles, times, descriptions, and sane durations.
 - Generate `.ics` into Downloads and open it.
 - Copy a plain-text plan summary to clipboard.
-- Ask before updating Notion Work Date / Block.
+- Ask before updating Notion Work Date / Shift.
 - No Raycast planning command.
 - No AppleScript calendar event creation.
 - No automation until one manual run works.
@@ -107,22 +107,22 @@ Analyze my raw input and route it into my Opportunity HQ system.
 
 Current operating model:
 - Bear is for raw capture, unclear thoughts, later ideas, passive shortcut ideas, ChatGPT/Codex questions, and things I might want to process later.
-- Opportunity HQ is Notion. It owns durable projects, tasks, status, time estimates, money priority, daily focus, and time blocks.
-- Eagle stores proof/assets/evidence.
+- Opportunity HQ is Notion. It owns durable projects, tasks, status, duration estimates, money priority, daily focus, and shifts.
+- Eagle stores portfolio/assets/evidence.
 - Raycast/Codex are the action layer for creating, opening, updating, clarifying, rewriting, and routing.
 
 Opportunity HQ has two durable databases:
 1. Opportunity Projects
 2. Opportunity Tasks
 
-Do not create a separate Focus Board database. Focus Board, Daily Blocks, Work Calendar, Applications, Freelance, Singleton, and Proof are views of Opportunity Tasks.
+Do not create a separate Focus Board database. Focus Board, Daily Blocks, Work Calendar, Applications, Freelance, Singleton, and Portfolio are views of Opportunity Tasks.
 
 Project lanes:
 - Cash Jobs
 - Career Jobs
 - Freelance
 - Offer
-- Proof
+- Portfolio
 
 Project fields:
 - Project
@@ -141,14 +141,13 @@ them `In Progress` unless the lane itself is being paused or retired.
 Task fields:
 - Task
 - Status
-- Time
+- Duration
 - Money Priority
 - Project
 - Goal Horizon
 - Work Date
-- Block
+- Shift
 - Link
-- Asset / Proof Link
 - Notes
 - Page Content
 
@@ -160,7 +159,7 @@ Status options:
 - Done
 - Parked
 
-Time options:
+Duration options:
 - 5m
 - 15m
 - 30m
@@ -175,7 +174,7 @@ Money Priority:
 - Strategic
 - Later
 
-Block options:
+Shift options:
 - Morning
 - Midday
 - Afternoon
@@ -187,26 +186,26 @@ Default priority:
 - Career Jobs = Critical
 - Freelance = Critical unless clearly optional/later
 - Offer = Strategic unless tied to immediate income
-- Proof = Strategic unless needed for an application/proposal
+- Portfolio = Strategic unless needed for an application/proposal
 - Passive shortcut/system ideas = Later unless they directly help immediate work
 
 Decide first:
-1. Should this stay in Bear, become an Opportunity HQ task, become an Opportunity HQ project, or become an Eagle proof item?
+1. Should this stay in Bear, become an Opportunity HQ task, become an Opportunity HQ project, or become an Eagle portfolio item?
 2. If it belongs in Opportunity HQ, is it a project or a task?
-3. If it is a task, what project lane, status, time, money priority, link/proof link, and notes should it have?
+3. If it is a task, what project lane, status, duration, money priority, link, and notes should it have?
 4. If it is a project, what outcome does it represent and what 2-6 tasks should belong under it?
 
 Project rule:
-- The five Project rows are the lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof.
+- The five Project rows are the lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio.
 - Every real task should link to exactly one Project. Blank Project is a cleanup problem, not the default.
 - Finishable deliverables become tasks/goals under a lane project, not new lane rows.
-- If a subtask needs its own time estimate, make it a separate task.
+- If a subtask needs its own duration estimate, make it a separate task.
 - Use page/body checkboxes only for tiny checklists.
 
 Mini-Project Plan Mode:
 - Use "mini-project" as a trigger phrase.
 - A mini-project is a parent Opportunity Task, not a new Opportunity Project row.
-- Opportunity Projects remain only the five durable lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof.
+- Opportunity Projects remain only the five durable lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio.
 - When I say "make a mini-project" or "let's make a plan," run a Plan Mode-style intake:
   1. Ask for or infer the mini-project name.
   2. Pick the Project lane.
@@ -220,7 +219,7 @@ Mini-Project Plan Mode:
   5. Compress my natural-language explanation into actionable sub-tasks.
   6. Identify blockers/dependencies.
   7. Mark the first 1-3 blocker tasks as the priority unlocks.
-  8. Suggest Goal Horizon, Work Date, Block, Status, Time, and Money Priority.
+  8. Suggest Goal Horizon, Work Date, Shift, Status, Duration, and Money Priority.
   9. Return a reviewed Notion-ready payload before any mutation.
 - Mini-Project Size is a planning label, not the task execution Status.
 - Status remains: Queued, Today, In Motion, Waiting, Done, Parked.
@@ -240,7 +239,7 @@ Shortcut/passive idea rule:
 Output in this exact format:
 
 Route:
-Bear / Opportunity Task / Opportunity Project / Eagle Proof / Split
+Bear / Opportunity Task / Opportunity Project / Eagle Portfolio / Split
 
 Why:
 One short explanation.
@@ -252,13 +251,12 @@ Opportunity Task:
 Task:
 Project:
 Status:
-Time:
+Duration:
 Money Priority:
 Project:
 Work Date:
-Block:
+Shift:
 Link:
-Asset / Proof Link:
 Notes:
 
 Suggested Subtasks:
@@ -270,7 +268,7 @@ Suggested Bear tag:
 Suggested note title:
 Cleaned note:
 
-Eagle Proof:
+Eagle Portfolio:
 Only include if there is proof/evidence to capture.
 Folder:
 Tags:
@@ -333,7 +331,7 @@ Create a clean Excalidraw-style architecture sketch for a personal operating sys
 Show four surfaces:
 1. Bear Inbox
 2. Opportunity HQ in Notion
-3. Eagle Proof Library
+3. Eagle Portfolio Library
 4. Raycast / Codex Actions
 
 Bear Inbox:
@@ -346,15 +344,15 @@ Opportunity HQ:
 - show two related databases:
   - Opportunity Projects
   - Opportunity Tasks
-- show task fields: Task, Project, Status, Time, Money Priority, Work Date, Block, Link, Asset / Proof Link, Notes
-- show views, not databases: Focus Board, Daily Blocks, Work Calendar, Applications, Freelance, Singleton, Proof
-- show five project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof
+- show task fields: Task, Project, Status, Duration, Money Priority, Work Date, Shift, Link, Notes
+- show views, not databases: Focus Board, Daily Blocks, Work Calendar, Applications, Freelance, Singleton, Portfolio
+- show five project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio
 - say: Projects are the lanes. Tasks are executable work. No second lane property.
 
-Eagle Proof Library:
-- label as Proof / Evidence
+Eagle Portfolio Library:
+- label as Portfolio / Evidence
 - include: screenshots, videos, docs, references, examples
-- connect to Proof and Offer.
+- connect to Portfolio and Offer.
 
 Raycast / Codex Actions:
 - label as Action Layer

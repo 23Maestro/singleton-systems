@@ -47,7 +47,7 @@ old noise gets compressed
 
 Opportunity HQ project lanes can act like channel boundaries. Cerebral routes
 the lane and owner first; Opportunity Tasks hold active state, sub-tasks,
-dependencies, proof links, Goal Horizon, Work Date, Block, and Status.
+dependencies, Goal Horizon, Work Date, Shift, Duration, and Status.
 
 The harness uses a small packet grammar, inspired by tag-style handoffs but kept
 as docs-only contract:
@@ -76,7 +76,7 @@ cash_jobs/harness.jsonl
 career_jobs/harness.jsonl
 freelance/harness.jsonl
 offer/harness.jsonl
-proof/harness.jsonl
+portfolio/harness.jsonl
 ```
 
 `all_buckets` is for Cerebral router and cross-lane decisions. The other folders
@@ -184,8 +184,8 @@ Thursday, June 25: rolling by 11am
 Friday, June 26 onward: rolling by 10am when possible
 ```
 
-Use the task database's `Project`, `Time`, `Money Priority`, and `Status` fields
-to build the day before polishing the website or proof library.
+Use the task database's `Project`, `Duration`, `Money Priority`, and `Status` fields
+to build the day before polishing the website or portfolio library.
 
 ## Business Needs V1
 
@@ -263,7 +263,7 @@ Cash Jobs
 Career Jobs
 Freelance
 Offer
-Proof
+Portfolio
 ```
 
 These five `Opportunity Projects` rows are the durable lanes. Do not add a
@@ -276,7 +276,7 @@ Cash Jobs -> Paid by July 1, Blue collar resume ready
 Career Jobs -> Career Applications
 Freelance -> Freelance proposals
 Offer -> Singleton landing page, website, outreach
-Proof -> proof tasks and assets
+Portfolio -> portfolio tasks and assets
 ```
 
 Suggested task properties:
@@ -284,14 +284,13 @@ Suggested task properties:
 ```text
 Task
 Status
-Time
+Duration
 Money Priority
 Project
 Goal Horizon
 Work Date
-Block
+Shift
 Link
-Asset / Proof Link
 Notes
 ```
 
@@ -331,7 +330,7 @@ Project `Stage` is only the lane-level state. The five durable project lanes
 should normally sit at `In Progress` because they are operating lanes, not
 finishable deliverables.
 
-Time:
+Duration:
 
 ```text
 5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
@@ -352,7 +351,7 @@ Cash Jobs -> Critical
 Career Jobs -> Critical
 Freelance -> Critical
 Offer -> Strategic
-Proof -> Strategic
+Portfolio -> Strategic
 ```
 
 Long deliverables stay in Opportunity Tasks, not Opportunity Projects.
@@ -365,11 +364,11 @@ own time estimate, create it as a related task in the task database.
 
 Projects and tasks are the two durable databases for v1. Do not create a
 separate Focus Board database yet. The Focus Board, Daily Blocks, Work Calendar,
-Applications, Freelance, Singleton, and Proof surfaces should be views of
+Applications, Freelance, Singleton, and Portfolio surfaces should be views of
 Opportunity Tasks.
 
 Use `Work Date` as the scheduled completion date for a task, by end of that
-date. Use `Block` as the rough time slot:
+date. Use `Shift` as the rough time slot:
 
 ```text
 Morning
@@ -436,7 +435,7 @@ Suggested minimal properties:
 
 ```text
 Name
-Project: Cash Jobs | Career Jobs | Freelance | Offer | Proof
+Project: Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 Status: Queued | Today | In Motion | Waiting | Done | Parked
 Effort: 5m | 15m | 30m | 60m | 2h | 4h+
 ```
@@ -641,7 +640,7 @@ Bear receives raw, unclear, emotional, exploratory, or "do not lose this"
 thoughts. Opportunity HQ receives focused queue items with status, time, project
 lane, money priority, link, follow-up, proof work, or project relation.
 
-The first Notion form should expose only `Task`, `Project`, `Time`, and
+The first Notion form should expose only `Task`, `Project`, `Duration`, and
 `Link / Notes`. Default the rest.
 
 Mobile Notion shortcut/form behavior:
@@ -651,9 +650,9 @@ Task
   What needs to happen.
 
 Project
-  Cash Jobs | Career Jobs | Freelance | Offer | Proof
+  Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 
-Time
+Duration
   5m | 15m | 30m | 45m | 60m | 90m | 2h | 4h+
 
 Link / Notes
@@ -665,14 +664,14 @@ Defaults:
 ```text
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
-Money Priority = Strategic for Offer and Proof
+Money Priority = Strategic for Offer and Portfolio
 Work Date = blank unless approved in Codex / Notion planning as the scheduled completion date
-Block = blank unless approved in Codex / Notion planning
-Asset / Proof Link = blank unless proof exists
+Shift = blank unless approved in Codex / Notion planning
+Eagle note = task body only, added after capture as `Added to Eagle: [asset name]`
 ```
 
 Use the mobile shortcut for capture, not planning. Planning happens later in
-Codex / Notion: assign `Work Date`, `Block`, `Project`, and status changes only
+Codex / Notion: assign `Work Date`, `Shift`, `Project`, and status changes only
 after review. `Work Date` means scheduled to complete by the end of that date.
 
 Passive shortcut and future automation ideas should usually start in Bear. This
@@ -782,10 +781,10 @@ Do not use `#capture`, `#clarify`, `#package`, or `#ship` as Bear tags.
 ## V1 Eagle Shape
 
 ```text
-Career Proof Library
+Career Portfolio Library
   00 Inbox
-  01 Video Proof
-  02 Workflow Proof
+  01 Video Portfolio
+  02 Workflow Portfolio
   03 Website Assets
   04 Personal Systems
   99 Archive
@@ -879,7 +878,7 @@ karabiner-config-migrator / hammerspoon-browser-automation / km-assembler-mode
 The goal is one Singleton Systems operating model with specialized skills around
 it, not one large skill trying to remember every possible workflow.
 
-## Opportunity And Proof Skill Stack
+## Opportunity And Portfolio Skill Stack
 
 Use this stack for career, outreach, and brand-building work:
 
@@ -896,7 +895,7 @@ Cover note / casual application message
 Screenshot / Eagle asset / project proof
   -> career-proof-packager + eagle
 
-Proof asset into LinkedIn / Instagram / content
+Portfolio asset into LinkedIn / Instagram / content
   -> offer-proof-content + platform-specific skill only when needed
 
 Mixed idea / "where does this go?"
@@ -1053,10 +1052,10 @@ job lead, Upwork lead, outreach target, offer task with effort estimate
   -> Notion / Opportunity HQ, then Focus Board view if active today
 
 video proof
-  -> Eagle 01 Video Proof, Bear #video or #video/context
+  -> Eagle 01 Video Portfolio, Bear #video or #video/context
 
 repeatable workflow proof
-  -> Eagle 02 Workflow Proof, Bear #workflow or #workflow/context
+  -> Eagle 02 Workflow Portfolio, Bear #workflow or #workflow/context
 
 site asset or reference
   -> Eagle 03 Website Assets, Bear #website or #website/context
@@ -1111,7 +1110,7 @@ Goal
 Why it matters
 Inputs needed
 Action list
-Proof or asset links
+Portfolio or asset links
 Review note
 ```
 
@@ -1195,7 +1194,7 @@ Singleton Systems map buckets should start with:
 ```text
 Thought Capture -> Bear
 Durable Structure -> Notion / Opportunity HQ
-Proof Assets -> Eagle
+Portfolio Assets -> Eagle
 Actions -> Raycast
 Home Docs -> singleton-systems now / singleton-systems target
 Reference Systems -> Prospect Pipeline
@@ -1221,8 +1220,8 @@ HTML = throwaway review surface
 Good Singleton uses:
 
 - Workflow audit viewer: messy inputs, current path, bottlenecks, proposed fixes, risk notes, sorted by impact.
-- Opportunity HQ review cockpit: Today / Waiting / Money Clock / Proof tasks with filters before mutating Notion.
-- Proof packaging board: Eagle assets, notes, and website/proposal copy angles in one scannable page.
+- Opportunity HQ review cockpit: Today / Waiting / Money Clock / Portfolio tasks with filters before mutating Notion.
+- Portfolio packaging board: Eagle assets, notes, and website/proposal copy angles in one scannable page.
 - PR/code review brief: files changed, risk zones, screenshots, test status, and needs-human-decision notes.
 - Website copy comparison: current section, proposed rewrite, why, and accept/reject notes.
 - Client workflow map preview: a clickable walkthrough for one messy workflow, not durable architecture.
@@ -1271,7 +1270,7 @@ shape repeats. The first version should be a disposable local HTML file.
 - Commands should feel like shortcuts into known project lanes and tasks.
 - Native Raycast actions should handle cheap capture, status updates, links,
   file opening, Notion writes, and Eagle import.
-- Raycast should not own planning. Keep `Work Date` and `Block` visible as
+- Raycast should not own planning. Keep `Work Date` and `Shift` visible as
   Opportunity HQ metadata; edit them through Codex / Notion after review.
 - Codex Assist is secondary: `cmd+shift+c` where available, one Raycast
   input/review screen, then Apply, Copy, Log, or Cancel.

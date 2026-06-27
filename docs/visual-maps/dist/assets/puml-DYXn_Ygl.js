@@ -18,7 +18,7 @@ skinparam rectangle<<Operator>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam rectangle<<Proof>>{
+skinparam rectangle<<PortfolioStore>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
@@ -44,10 +44,10 @@ skinparam rectangle<<Publishing>>{
   BorderColor #2563eb
 }
 rectangle "==Operator\\n\\nThe working user. Uses mobile, desktop, Raycast, Codex, Notion, Bear, and\\nEagle to move job search, Upwork, Singleton offer, and proof work without\\nrepeatedly deciding where each item belongs." <<Operator>> as Operator
-rectangle "==Eagle Proof Library\\n\\nEvidence store. Holds screenshots, videos, PDFs, reels, examples, and proof\\nassets. Eagle does not own task status; Opportunity HQ does." <<Proof>> as Proof
+rectangle "==Eagle Portfolio Library\\n\\nPortfolio/evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof\\nassets. Eagle does not own task status; Opportunity HQ does." <<PortfolioStore>> as PortfolioStore
 rectangle "==Capture Surfaces" <<Capture>> as Capture
-rectangle "==Opportunity HQ\\n\\nNotion is durable truth. It owns projects, tasks, status, time estimates,\\ndaily work blocks, links, notes, and proof attachments. Views are not new\\ndatabases." <<Durable>> as Durable
-rectangle "==Raycast / Codex Actions\\n\\nAction layer. It creates, updates, plans, opens, drafts, and attaches. It\\nshould not invent a second task model." <<Actions>> as Actions
+rectangle "==Opportunity HQ\\n\\nNotion is durable truth. It owns projects, tasks, status, duration estimates,\\ndaily work shifts, links, and notes. Views are not new\\ndatabases." <<Durable>> as Durable
+rectangle "==Raycast / Codex Actions\\n\\nAction layer. It creates, updates, opens, drafts, and attaches. It\\nshould not invent a second task model." <<Actions>> as Actions
 rectangle "==Publishing Surfaces" <<Publishing>> as Publishing
 
 Operator .[#8D8D8D,thickness=2].> Capture : <color:#8D8D8D>[...]
@@ -56,9 +56,9 @@ Capture .[#8D8D8D,thickness=2].> Durable : <color:#8D8D8D>[...]
 Durable .[#8D8D8D,thickness=2].> Actions : <color:#8D8D8D>drive
 Durable .[#8D8D8D,thickness=2].> Publishing : <color:#8D8D8D>[...]
 Actions .[#8D8D8D,thickness=2].> Durable : <color:#8D8D8D>create/update
-Proof .[#8D8D8D,thickness=2].> Durable : <color:#8D8D8D>attach
+PortfolioStore .[#8D8D8D,thickness=2].> Durable : <color:#8D8D8D>attach
 Publishing .[#8D8D8D,thickness=2].> Durable : <color:#8D8D8D>update
-Actions .[#8D8D8D,thickness=2].> Proof : <color:#8D8D8D>capture
+Actions .[#8D8D8D,thickness=2].> PortfolioStore : <color:#8D8D8D>capture
 @enduml
 `;case`opportunity_hq_container_map`:return`@startuml
 title "Opportunity HQ Container Map"
@@ -90,7 +90,17 @@ skinparam rectangle<<ActionsUpdateTask>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam rectangle<<ActionsPlanToday>>{
+skinparam rectangle<<ActionsSearchRun>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
+skinparam rectangle<<ActionsExportBlocks>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
+skinparam rectangle<<ActionsGoalCheckIn>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
@@ -105,12 +115,12 @@ skinparam rectangle<<ActionsDraftProposal>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam rectangle<<ActionsCaptureProof>>{
+skinparam rectangle<<ActionsCapturePortfolio>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam database<<Proof>>{
+skinparam database<<PortfolioStore>>{
   BackgroundColor #428a4f
   FontColor #f8fafc
   BorderColor #2d5d39
@@ -129,6 +139,11 @@ skinparam database<<DurableProjects>>{
   BackgroundColor #0284c7
   FontColor #f0f9ff
   BorderColor #0369a1
+}
+skinparam rectangle<<DurableDependencies>>{
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
 }
 skinparam queue<<DurableTasks>>{
   BackgroundColor #0284c7
@@ -152,28 +167,31 @@ skinparam rectangle<<PublishingProposals>>{
 }
 person "==Operator\\n\\nThe working user. Uses mobile, desktop, Raycast, Codex, Notion, Bear, and\\nEagle to move job search, Upwork, Singleton offer, and proof work without\\nrepeatedly deciding where each item belongs." <<Operator>> as Operator
 rectangle "==Log Task\\n\\nCreate an Opportunity Task from selected text, clipboard link, manual\\nform input, or mobile/share context. Default Status: Queued." <<ActionsLogTask>> as ActionsLogTask
-rectangle "==Update Task\\n\\nUpdate Status, Work Date, Block, Money Priority, Project, Link, Notes, or\\nproof reference on an existing Opportunity Task." <<ActionsUpdateTask>> as ActionsUpdateTask
-rectangle "==Plan Today\\n\\nAssign Work Date and Block. Moves selected queue items into Today without\\nchanging their real bucket or project." <<ActionsPlanToday>> as ActionsPlanToday
+rectangle "==Update Task\\n\\nUpdate Status, Money Priority, Project, Link, or Notes\\non an existing Opportunity Task." <<ActionsUpdateTask>> as ActionsUpdateTask
+rectangle "==Opportunity Search Run\\n\\nCodex-owned manual workflow. Search current jobs or leads, return winners\\nfor approval, then log approved tasks to Opportunity HQ." <<ActionsSearchRun>> as ActionsSearchRun
+rectangle "==Export Focus Blocks\\n\\nCodex-owned manual workflow. Read approved Opportunity Tasks, build 3-5\\nrealistic time blocks, export .ics, and ask before Notion updates." <<ActionsExportBlocks>> as ActionsExportBlocks
+rectangle "==Goal Check-In\\n\\nFuture small command. Ask count/result questions for applications,\\nfreelance proposals, Strategic work, and real blockers. Output one or two\\ndaily implications, not a full plan or new database." <<ActionsGoalCheckIn>> as ActionsGoalCheckIn
 rectangle "==Start Application\\n\\nOpen a job link and resume path from the selected task. Move the task to\\nIn Motion while work is active." <<ActionsStartApplication>> as ActionsStartApplication
 rectangle "==Draft Proposal\\n\\nTurn a copied Upwork post into a proposal draft and log the follow-up\\nstate back to Opportunity HQ." <<ActionsDraftProposal>> as ActionsDraftProposal
-rectangle "==Capture Proof\\n\\nImport the selected asset to Eagle, attach the proof link or note to the\\nselected Opportunity Task, then mark that task Done when the proof item is\\ncomplete." <<ActionsCaptureProof>> as ActionsCaptureProof
-database "==Eagle Proof Library\\n\\nEvidence store. Holds screenshots, videos, PDFs, reels, examples, and proof\\nassets. Eagle does not own task status; Opportunity HQ does." <<Proof>> as Proof
+rectangle "==Capture Portfolio\\n\\nImport the selected asset to Eagle, append an Added to Eagle note to the\\nselected Portfolio task, then mark that task Done." <<ActionsCapturePortfolio>> as ActionsCapturePortfolio
+database "==Eagle Portfolio Library\\n\\nPortfolio/evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof\\nassets. Eagle does not own task status; Opportunity HQ does." <<PortfolioStore>> as PortfolioStore
 rectangle "Capture Surfaces" <<Capture>> as Capture {
   skinparam RectangleBorderColor<<Capture>> #64748b
   skinparam RectangleFontColor<<Capture>> #64748b
   skinparam RectangleBorderStyle<<Capture>> dashed
 
   rectangle "==Bear Inbox\\n\\nRaw capture only. Use for unclear thoughts, offload notes, passive\\nshortcut ideas, and anything that is not yet a real task. Promote only\\nwhen the item has money weight, deadline, follow-up, proof value, or a\\nclear next action." <<CaptureBear>> as CaptureBear
-  rectangle "==Mobile Task Form\\n\\nFast durable capture path for task-shaped work. Minimum fields: Task,\\nBucket, Time, and Link/Notes. Default Status should be Queued." <<CaptureMobileForm>> as CaptureMobileForm
+  rectangle "==Mobile Task Form\\n\\nFast durable capture path for task-shaped work. Minimum fields: Task,\\nProject, Duration, and Link/Notes. Default Status should be Queued." <<CaptureMobileForm>> as CaptureMobileForm
 }
 rectangle "Opportunity HQ" <<Durable>> as Durable {
   skinparam RectangleBorderColor<<Durable>> #0284c7
   skinparam RectangleFontColor<<Durable>> #0284c7
   skinparam RectangleBorderStyle<<Durable>> dashed
 
-  database "==Opportunity Projects\\n\\nOutcomes that need multiple tasks, proof, or time planning. Buckets are\\nnot projects. Example: Upwork consultation / proposals." <<DurableProjects>> as DurableProjects
-  queue "==Opportunity Tasks\\n\\nExecutable work. Fields: Task, Bucket, Status, Time, Money Priority,\\nProject, Work Date, Block, Link, Asset / Proof Link, Notes.\\nStatus contract: Queued, Today, In Motion, Waiting, Done, Parked." <<DurableTasks>> as DurableTasks
-  rectangle "==Task Views\\n\\nViews over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,\\nApplications, Upwork, Singleton, and Proof. These are lenses, not sources\\nof truth." <<DurableTaskViews>> as DurableTaskViews
+  database "==Opportunity Projects\\n\\nDurable project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio.\\nFinishable deliverables belong as tasks/goals under these rows." <<DurableProjects>> as DurableProjects
+  rectangle "==Dependencies\\n\\nReal blockers only: application work can depend on resume/snippet prep;\\nwebsite request flow depends on Tally and Notion intake; offer traction\\ndepends on website, proof, outreach, and a client-ready process." <<DurableDependencies>> as DurableDependencies
+  queue "==Opportunity Tasks\\n\\nExecutable work. Fields: Task, Project, Status, Duration, Money Priority,\\nWork Date, Shift, Link, Notes.\\nStatus contract: Queued, Today, In Motion, Waiting, Done, Parked.\\nMoney Priority contract: Critical, Strategic, Later." <<DurableTasks>> as DurableTasks
+  rectangle "==Task Views\\n\\nViews over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,\\nApplications, Freelance, Singleton, and Portfolio. These are lenses, not sources\\nof truth." <<DurableTaskViews>> as DurableTaskViews
 }
 rectangle "Publishing Surfaces" <<Publishing>> as Publishing {
   skinparam RectangleBorderColor<<Publishing>> #64748b
@@ -190,7 +208,8 @@ CaptureBear .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>promote
 CaptureMobileForm .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>create
 DurableProjects .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>group
 DurableTasks .[#8D8D8D,thickness=2].> DurableTaskViews : <color:#8D8D8D>render
-Proof .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>attach
+DurableDependencies .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>block
+PortfolioStore .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>attach
 DurableTasks .[#8D8D8D,thickness=2].> PublishingWebsite : <color:#8D8D8D>package
 DurableTasks .[#8D8D8D,thickness=2].> PublishingProposals : <color:#8D8D8D>submit
 PublishingProposals .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>update
@@ -225,16 +244,6 @@ skinparam rectangle<<CaptureMobileForm>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam queue<<DurableTasks>>{
-  BackgroundColor #0284c7
-  FontColor #f0f9ff
-  BorderColor #0369a1
-}
-skinparam rectangle<<DurableTaskViews>>{
-  BackgroundColor #3b82f6
-  FontColor #eff6ff
-  BorderColor #2563eb
-}
 skinparam rectangle<<ActionsLogTask>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
@@ -245,7 +254,32 @@ skinparam rectangle<<ActionsUpdateTask>>{
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam rectangle<<ActionsPlanToday>>{
+skinparam rectangle<<ActionsSearchRun>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
+skinparam rectangle<<ActionsExportBlocks>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
+skinparam rectangle<<ActionsGoalCheckIn>>{
+  BackgroundColor #3b82f6
+  FontColor #eff6ff
+  BorderColor #2563eb
+}
+skinparam rectangle<<DurableDependencies>>{
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
+}
+skinparam queue<<DurableTasks>>{
+  BackgroundColor #0284c7
+  FontColor #f0f9ff
+  BorderColor #0369a1
+}
+skinparam rectangle<<DurableTaskViews>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
@@ -257,28 +291,32 @@ rectangle "Capture Surfaces" <<Capture>> as Capture {
   skinparam RectangleBorderStyle<<Capture>> dashed
 
   rectangle "==Bear Inbox\\n\\nRaw capture only. Use for unclear thoughts, offload notes, passive\\nshortcut ideas, and anything that is not yet a real task. Promote only\\nwhen the item has money weight, deadline, follow-up, proof value, or a\\nclear next action." <<CaptureBear>> as CaptureBear
-  rectangle "==Mobile Task Form\\n\\nFast durable capture path for task-shaped work. Minimum fields: Task,\\nBucket, Time, and Link/Notes. Default Status should be Queued." <<CaptureMobileForm>> as CaptureMobileForm
+  rectangle "==Mobile Task Form\\n\\nFast durable capture path for task-shaped work. Minimum fields: Task,\\nProject, Duration, and Link/Notes. Default Status should be Queued." <<CaptureMobileForm>> as CaptureMobileForm
 }
 rectangle "Opportunity HQ" <<Durable>> as Durable {
   skinparam RectangleBorderColor<<Durable>> #64748b
   skinparam RectangleFontColor<<Durable>> #64748b
   skinparam RectangleBorderStyle<<Durable>> dashed
 
-  queue "==Opportunity Tasks\\n\\nExecutable work. Fields: Task, Bucket, Status, Time, Money Priority,\\nProject, Work Date, Block, Link, Asset / Proof Link, Notes.\\nStatus contract: Queued, Today, In Motion, Waiting, Done, Parked." <<DurableTasks>> as DurableTasks
-  rectangle "==Task Views\\n\\nViews over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,\\nApplications, Upwork, Singleton, and Proof. These are lenses, not sources\\nof truth." <<DurableTaskViews>> as DurableTaskViews
+  rectangle "==Dependencies\\n\\nReal blockers only: application work can depend on resume/snippet prep;\\nwebsite request flow depends on Tally and Notion intake; offer traction\\ndepends on website, proof, outreach, and a client-ready process." <<DurableDependencies>> as DurableDependencies
+  queue "==Opportunity Tasks\\n\\nExecutable work. Fields: Task, Project, Status, Duration, Money Priority,\\nWork Date, Shift, Link, Notes.\\nStatus contract: Queued, Today, In Motion, Waiting, Done, Parked.\\nMoney Priority contract: Critical, Strategic, Later." <<DurableTasks>> as DurableTasks
+  rectangle "==Task Views\\n\\nViews over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,\\nApplications, Freelance, Singleton, and Portfolio. These are lenses, not sources\\nof truth." <<DurableTaskViews>> as DurableTaskViews
 }
 rectangle "==Log Task\\n\\nCreate an Opportunity Task from selected text, clipboard link, manual\\nform input, or mobile/share context. Default Status: Queued." <<ActionsLogTask>> as ActionsLogTask
-rectangle "==Update Task\\n\\nUpdate Status, Work Date, Block, Money Priority, Project, Link, Notes, or\\nproof reference on an existing Opportunity Task." <<ActionsUpdateTask>> as ActionsUpdateTask
-rectangle "==Plan Today\\n\\nAssign Work Date and Block. Moves selected queue items into Today without\\nchanging their real bucket or project." <<ActionsPlanToday>> as ActionsPlanToday
+rectangle "==Update Task\\n\\nUpdate Status, Money Priority, Project, Link, or Notes\\non an existing Opportunity Task." <<ActionsUpdateTask>> as ActionsUpdateTask
+rectangle "==Opportunity Search Run\\n\\nCodex-owned manual workflow. Search current jobs or leads, return winners\\nfor approval, then log approved tasks to Opportunity HQ." <<ActionsSearchRun>> as ActionsSearchRun
+rectangle "==Export Focus Blocks\\n\\nCodex-owned manual workflow. Read approved Opportunity Tasks, build 3-5\\nrealistic time blocks, export .ics, and ask before Notion updates." <<ActionsExportBlocks>> as ActionsExportBlocks
+rectangle "==Goal Check-In\\n\\nFuture small command. Ask count/result questions for applications,\\nfreelance proposals, Strategic work, and real blockers. Output one or two\\ndaily implications, not a full plan or new database." <<ActionsGoalCheckIn>> as ActionsGoalCheckIn
 
 Operator .[#8D8D8D,thickness=2].> CaptureBear : <color:#8D8D8D>capture
 Operator .[#8D8D8D,thickness=2].> CaptureMobileForm : <color:#8D8D8D>log
 CaptureBear .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>promote
 CaptureMobileForm .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>create
 DurableTasks .[#8D8D8D,thickness=2].> DurableTaskViews : <color:#8D8D8D>render
+DurableDependencies .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>block
 @enduml
 `;case`proof_capture_flow`:return`@startuml
-title "Proof Capture Flow"
+title "Portfolio Capture Flow"
 top to bottom direction
 
 hide stereotype
@@ -297,12 +335,12 @@ skinparam person<<Operator>>{
   FontColor #FFE0C2
   BorderColor #7E451D
 }
-skinparam rectangle<<ActionsCaptureProof>>{
+skinparam rectangle<<ActionsCapturePortfolio>>{
   BackgroundColor #3b82f6
   FontColor #eff6ff
   BorderColor #2563eb
 }
-skinparam database<<Proof>>{
+skinparam database<<PortfolioStore>>{
   BackgroundColor #428a4f
   FontColor #f8fafc
   BorderColor #2d5d39
@@ -328,15 +366,15 @@ skinparam rectangle<<PublishingProposals>>{
   BorderColor #7E451D
 }
 person "==Operator\\n\\nThe working user. Uses mobile, desktop, Raycast, Codex, Notion, Bear, and\\nEagle to move job search, Upwork, Singleton offer, and proof work without\\nrepeatedly deciding where each item belongs." <<Operator>> as Operator
-rectangle "==Capture Proof\\n\\nImport the selected asset to Eagle, attach the proof link or note to the\\nselected Opportunity Task, then mark that task Done when the proof item is\\ncomplete." <<ActionsCaptureProof>> as ActionsCaptureProof
-database "==Eagle Proof Library\\n\\nEvidence store. Holds screenshots, videos, PDFs, reels, examples, and proof\\nassets. Eagle does not own task status; Opportunity HQ does." <<Proof>> as Proof
+rectangle "==Capture Portfolio\\n\\nImport the selected asset to Eagle, append an Added to Eagle note to the\\nselected Portfolio task, then mark that task Done." <<ActionsCapturePortfolio>> as ActionsCapturePortfolio
+database "==Eagle Portfolio Library\\n\\nPortfolio/evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof\\nassets. Eagle does not own task status; Opportunity HQ does." <<PortfolioStore>> as PortfolioStore
 rectangle "Opportunity HQ" <<Durable>> as Durable {
   skinparam RectangleBorderColor<<Durable>> #64748b
   skinparam RectangleFontColor<<Durable>> #64748b
   skinparam RectangleBorderStyle<<Durable>> dashed
 
-  database "==Opportunity Projects\\n\\nOutcomes that need multiple tasks, proof, or time planning. Buckets are\\nnot projects. Example: Upwork consultation / proposals." <<DurableProjects>> as DurableProjects
-  queue "==Opportunity Tasks\\n\\nExecutable work. Fields: Task, Bucket, Status, Time, Money Priority,\\nProject, Work Date, Block, Link, Asset / Proof Link, Notes.\\nStatus contract: Queued, Today, In Motion, Waiting, Done, Parked." <<DurableTasks>> as DurableTasks
+  database "==Opportunity Projects\\n\\nDurable project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio.\\nFinishable deliverables belong as tasks/goals under these rows." <<DurableProjects>> as DurableProjects
+  queue "==Opportunity Tasks\\n\\nExecutable work. Fields: Task, Project, Status, Duration, Money Priority,\\nWork Date, Shift, Link, Notes.\\nStatus contract: Queued, Today, In Motion, Waiting, Done, Parked.\\nMoney Priority contract: Critical, Strategic, Later." <<DurableTasks>> as DurableTasks
 }
 rectangle "Publishing Surfaces" <<Publishing>> as Publishing {
   skinparam RectangleBorderColor<<Publishing>> #64748b
@@ -348,7 +386,7 @@ rectangle "Publishing Surfaces" <<Publishing>> as Publishing {
 }
 
 DurableProjects .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>group
-Proof .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>attach
+PortfolioStore .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>attach
 DurableTasks .[#8D8D8D,thickness=2].> PublishingWebsite : <color:#8D8D8D>package
 DurableTasks .[#8D8D8D,thickness=2].> PublishingProposals : <color:#8D8D8D>submit
 PublishingProposals .[#8D8D8D,thickness=2].> DurableTasks : <color:#8D8D8D>update

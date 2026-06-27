@@ -31,29 +31,29 @@ model {
     mobileForm = browser 'Mobile Task Form' {
       description """
       Fast durable capture path for task-shaped work. Minimum fields: Task,
-      Project, Time, and Link/Notes. Default Status should be Queued.
+      Project, Duration, and Link/Notes. Default Status should be Queued.
       """
     }
   }
 
   durable = storage 'Opportunity HQ' {
     description """
-    Notion is durable truth. It owns projects, tasks, status, time estimates,
-    daily work blocks, links, notes, and proof attachments. Views are not new
+    Notion is durable truth. It owns projects, tasks, status, duration estimates,
+    daily work shifts, links, and notes. Views are not new
     databases.
     """
 
     projects = storage 'Opportunity Projects' {
       description """
-      Durable project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof.
+      Durable project lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio.
       Finishable deliverables belong as tasks/goals under these rows.
       """
     }
 
     tasks = queue 'Opportunity Tasks' {
       description """
-      Executable work. Fields: Task, Project, Status, Time, Money Priority,
-      Work Date, Block, Link, Asset / Proof Link, Notes.
+      Executable work. Fields: Task, Project, Status, Duration, Money Priority,
+      Work Date, Shift, Link, Notes.
       Status contract: Queued, Today, In Motion, Waiting, Done, Parked.
       Money Priority contract: Critical, Strategic, Later.
       """
@@ -70,7 +70,7 @@ model {
     taskViews = browser 'Task Views' {
       description """
       Views over Opportunity Tasks: Focus Board, Daily Blocks, Work Calendar,
-      Applications, Freelance, Singleton, and Proof. These are lenses, not sources
+      Applications, Freelance, Singleton, and Portfolio. These are lenses, not sources
       of truth.
       """
     }
@@ -91,7 +91,7 @@ model {
 
     updateTask = action 'Update Task' {
       description """
-      Update Status, Money Priority, Project, Link, Notes, or proof reference
+      Update Status, Money Priority, Project, Link, or Notes
       on an existing Opportunity Task.
       """
     }
@@ -132,18 +132,17 @@ model {
       """
     }
 
-    captureProof = action 'Capture Proof' {
+    capturePortfolio = action 'Capture Portfolio' {
       description """
-      Import the selected asset to Eagle, attach the proof link or note to the
-      selected Opportunity Task, then mark that task Done when the proof item is
-      complete.
+      Import the selected asset to Eagle, append an Added to Eagle note to the
+      selected Portfolio task, then mark that task Done.
       """
     }
   }
 
-  proof = storage 'Eagle Proof Library' {
+  portfolioStore = storage 'Eagle Portfolio Library' {
     description """
-    Evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof
+    Portfolio/evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof
     assets. Eagle does not own task status; Opportunity HQ does.
     """
   }
@@ -175,8 +174,8 @@ model {
   operator -> actions 'trigger'
   actions -> durable.tasks 'create/update'
   durable.tasks -> actions 'drive'
-  actions -> proof 'capture'
-  proof -> durable.tasks 'attach'
+  actions -> portfolioStore 'capture'
+  portfolioStore -> durable.tasks 'attach'
 
   durable.tasks -> publishing.website 'package'
   durable.tasks -> publishing.proposals 'submit'
@@ -196,7 +195,7 @@ views {
     include capture.*
     include durable.*
     include actions.*
-    include proof
+    include portfolioStore
     include publishing.*
 
     style * {
@@ -229,7 +228,7 @@ views {
     style actions.* {
       color blue
     }
-    style proof {
+    style portfolioStore {
       shape storage
       color green
     }
@@ -284,18 +283,18 @@ views {
   }
 
   view proof_capture_flow {
-    title 'Proof Capture Flow'
+    title 'Portfolio Capture Flow'
     description """
-    Shows the replacement for legacy page-body proof checklists. Proof items
-    should become Opportunity Tasks, Raycast Capture Proof imports the asset to
-    Eagle, and the task receives the proof link/note and Done status.
+    Shows the replacement for legacy page-body proof checklists. Portfolio items
+    should become Opportunity Tasks, Raycast Capture Portfolio imports the asset to
+    Eagle, and the task receives an Added to Eagle note and Done status.
     """
 
     include operator
     include durable.projects
     include durable.tasks
-    include actions.captureProof
-    include proof
+    include actions.capturePortfolio
+    include portfolioStore
     include publishing.website
     include publishing.proposals
 
@@ -314,10 +313,10 @@ views {
       shape queue
       color secondary
     }
-    style actions.captureProof {
+    style actions.capturePortfolio {
       color blue
     }
-    style proof {
+    style portfolioStore {
       shape storage
       color green
     }

@@ -15,7 +15,7 @@ proof/workflow/offer/job lead
 Allowed outputs:
 
 ```text
-[lane] Cash Jobs | Career Jobs | Freelance | Offer | Proof
+[lane] Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 [owner] durable owner
 [intent] one plain sentence
 [shape] capture | task | sub-task | dependency | proof | command idea | operating rule

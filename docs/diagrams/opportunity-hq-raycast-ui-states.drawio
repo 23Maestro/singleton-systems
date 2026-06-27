@@ -12,25 +12,25 @@
           <mxGeometry x="300" y="84" width="1200" height="34" as="geometry"/>
         </mxCell>
 
-        <mxCell id="truth" value="Durable truth: Opportunity HQ&#xa;&#xa;Projects: Paid by July 1, Blue collar resume ready, White collar video/broadcast applications, Upwork consultation / proposals, Singleton proof + website&#xa;&#xa;Task state fields: Bucket, Status, Money Priority, Goal Horizon, Work Date, Block, Time, Link, Proof Link, Notes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
+        <mxCell id="truth" value="Durable truth: Opportunity HQ&#xa;&#xa;Projects: Paid by July 1, Blue collar resume ready, White collar video/broadcast applications, Upwork consultation / proposals, Singleton proof + website&#xa;&#xa;Task state fields: Bucket, Status, Money Priority, Goal Horizon, Work Date, Shift, Duration, Link, Portfolio Note, Notes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontColor=#2E1065;spacing=14;" vertex="1" parent="1">
           <mxGeometry x="70" y="145" width="1660" height="120" as="geometry"/>
         </mxCell>
 
-        <mxCell id="log" value="Log Task&#xa;&#xa;Raycast UI state: Form&#xa;Use when: one thing is real enough to save&#xa;&#xa;Fields shown: Task, Bucket, Time, Project, Link, Notes&#xa;&#xa;ActionPanel: Log Task, maybe Codex Assist later for suggested fields" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+        <mxCell id="log" value="Log Task&#xa;&#xa;Raycast UI state: Form&#xa;Use when: one thing is real enough to save&#xa;&#xa;Fields shown: Task, Bucket, Duration, Project, Link, Notes&#xa;&#xa;ActionPanel: Log Task, maybe Codex Assist later for suggested fields" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="70" y="320" width="340" height="190" as="geometry"/>
         </mxCell>
         <mxCell id="log-notes" value="Notes / Canva edits&#xa;&#xa;&#xa;&#xa;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#CBD5E1;strokeWidth=2;dashed=1;fontFamily=Helvetica;fontSize=15;fontColor=#64748B;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="430" y="320" width="220" height="190" as="geometry"/>
         </mxCell>
 
-        <mxCell id="update" value="Update Task&#xa;&#xa;Raycast UI state: List of tasks -&gt; Edit Form&#xa;Use when: task already exists&#xa;&#xa;Fields changed: Status, Bucket, Time, Money Priority, Project, Work Date, Block, Link, Proof Link, Notes&#xa;&#xa;ActionPanel: Edit, Set Today, Start, Waiting, Done, Park, Open links" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
+        <mxCell id="update" value="Update Task&#xa;&#xa;Raycast UI state: List of tasks -&gt; Edit Form&#xa;Use when: task already exists&#xa;&#xa;Fields changed: Status, Bucket, Duration, Money Priority, Project, Work Date, Shift, Link, Portfolio Note, Notes&#xa;&#xa;ActionPanel: Edit, Set Today, Start, Waiting, Done, Park, Open links" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EFF6FF;strokeColor=#2563EB;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#1E3A8A;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="690" y="320" width="390" height="190" as="geometry"/>
         </mxCell>
         <mxCell id="update-notes" value="Notes / Canva edits&#xa;&#xa;&#xa;&#xa;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#CBD5E1;strokeWidth=2;dashed=1;fontFamily=Helvetica;fontSize=15;fontColor=#64748B;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="1100" y="320" width="220" height="190" as="geometry"/>
         </mxCell>
 
-        <mxCell id="plan" value="Plan Today&#xa;&#xa;Raycast UI state: List now, possible Grid/Kanban later&#xa;Use when: deciding what actually gets a block today&#xa;&#xa;Natural view: lanes by Bucket or urgency&#xa;Critical first, Strategic second, Parked stays out&#xa;&#xa;ActionPanel: Assign Block, Start, Open in Notion" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#78350F;spacing=12;" vertex="1" parent="1">
+        <mxCell id="plan" value="Plan Today&#xa;&#xa;Raycast UI state: List now, possible Grid/Kanban later&#xa;Use when: deciding what actually gets a block today&#xa;&#xa;Natural view: lanes by Bucket or urgency&#xa;Critical first, Strategic second, Parked stays out&#xa;&#xa;ActionPanel: Assign Shift, Start, Open in Notion" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#78350F;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="70" y="560" width="390" height="210" as="geometry"/>
         </mxCell>
         <mxCell id="plan-notes" value="Notes / Canva edits&#xa;&#xa;Kanban idea: Bucket lanes?&#xa;Urgency lanes?&#xa;Both?" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#CBD5E1;strokeWidth=2;dashed=1;fontFamily=Helvetica;fontSize=15;fontColor=#64748B;spacing=12;" vertex="1" parent="1">
@@ -51,7 +51,7 @@
           <mxGeometry x="480" y="820" width="230" height="220" as="geometry"/>
         </mxCell>
 
-        <mxCell id="proof" value="Capture Proof&#xa;&#xa;Raycast UI state: Form with file/folder/task choices&#xa;Use when: proof exists and should attach back to work&#xa;&#xa;Shows: selected file, Eagle folder, tags, related Proof task&#xa;Does: import to Eagle, attach proof link/note, complete proof task&#xa;&#xa;ActionPanel: Capture Proof, Open Proof Folder" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F0FDF4;strokeColor=#16A34A;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#14532D;spacing=12;" vertex="1" parent="1">
+        <mxCell id="proof" value="Capture Portfolio&#xa;&#xa;Raycast UI state: Form with file/folder/task choices&#xa;Use when: proof exists and should attach back to work&#xa;&#xa;Shows: selected file, Eagle folder, tags, related Portfolio task&#xa;Does: import to Eagle, attach proof link/note, complete proof task&#xa;&#xa;ActionPanel: Capture Portfolio, Open Portfolio Folder" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F0FDF4;strokeColor=#16A34A;strokeWidth=3;fontFamily=Helvetica;fontSize=15;fontColor=#14532D;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="750" y="820" width="390" height="220" as="geometry"/>
         </mxCell>
         <mxCell id="proof-notes" value="Notes / Canva edits&#xa;&#xa;&#xa;&#xa;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#CBD5E1;strokeWidth=2;dashed=1;fontFamily=Helvetica;fontSize=15;fontColor=#64748B;spacing=12;" vertex="1" parent="1">

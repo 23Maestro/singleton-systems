@@ -234,7 +234,7 @@ Update Opportunity Task
 Export Focus Blocks
   Codex-owned manual run: read approved Opportunity HQ tasks, generate a small
   `.ics` file, copy the plain-text summary, then ask before writing Work Date /
-  Block back to Notion.
+  Shift back to Notion.
 ```
 
 The old Prospect Pipeline calendar exporter is the reference pattern: analyze a
@@ -339,10 +339,10 @@ Better:
 
 ```text
 Open Opportunity HQ
-Capture Website Proof
+Capture Website Portfolio
 Append to commands/codex
 Create Workflow Note
-Open Video Proof Folder
+Open Video Portfolio Folder
 ```
 
 The action name should say what it does and where it belongs.

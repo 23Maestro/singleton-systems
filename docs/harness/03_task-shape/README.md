@@ -39,7 +39,7 @@ Required task fields:
 Status
 Goal Horizon
 Work Date
-Block
+Shift
 Project
 ```
 
