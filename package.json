@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "asana:readback": "node scripts/asana-opportunity-hq-readback.mjs",
     "audit:ui": "node scripts/ui-audit.mjs",
     "visuals": "npm run visual-maps:build && sh -c 'cd docs/visual-maps/dist && (sleep 1; open http://127.0.0.1:4184) & python3 -m http.server 4184 --bind 127.0.0.1'",
     "visual-maps": "likec4 start docs/visual-maps",

@@ -203,6 +203,30 @@ Project rule:
 - If a subtask needs its own time estimate, make it a separate task.
 - Use page/body checkboxes only for tiny checklists.
 
+Mini-Project Plan Mode:
+- Use "mini-project" as a trigger phrase.
+- A mini-project is a parent Opportunity Task, not a new Opportunity Project row.
+- Opportunity Projects remain only the five durable lanes: Cash Jobs, Career Jobs, Freelance, Offer, Proof.
+- When I say "make a mini-project" or "let's make a plan," run a Plan Mode-style intake:
+  1. Ask for or infer the mini-project name.
+  2. Pick the Project lane.
+  3. Assign a Mini-Project Size label:
+     - Tiny: 1-2 subtasks, under 30 minutes total
+     - Small: 3-4 subtasks, 30-90 minutes total
+     - Medium: 5-8 subtasks, 2-4 hours total
+     - Large: 9+ subtasks or 4h+ total
+     - Strategic: multi-day / dependency-heavy / unclear scope
+  4. Treat the mini-project as the parent task.
+  5. Compress my natural-language explanation into actionable sub-tasks.
+  6. Identify blockers/dependencies.
+  7. Mark the first 1-3 blocker tasks as the priority unlocks.
+  8. Suggest Goal Horizon, Work Date, Block, Status, Time, and Money Priority.
+  9. Return a reviewed Notion-ready payload before any mutation.
+- Mini-Project Size is a planning label, not the task execution Status.
+- Status remains: Queued, Today, In Motion, Waiting, Done, Parked.
+- Do not create a new Notion schema property yet unless this pattern repeats enough to justify it.
+- For now, include Mini-Project Size in the reviewed payload/page content.
+
 Bear rule:
 - Keep raw, unclear, emotional, exploratory, someday, or passive shortcut ideas in Bear.
 - Examples: shortcut ideas, future automation ideas, later ChatGPT/Codex questions, experiments, reference thoughts.

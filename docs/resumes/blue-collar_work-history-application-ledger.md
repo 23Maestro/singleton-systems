@@ -62,6 +62,8 @@ Zip Code: 33619
 Phone: 727-325-2909
 Reason for Leaving: Role ended
 Responsibilities: Delivered Amazon packages on assigned routes for a logistics delivery partner, loaded and organized packages, operated a delivery vehicle, followed customer delivery notes, completed route stops, handled packages with care, and managed daily route timing and navigation.
+Reference: David Ford
+Reference phone: 813-534-9836
 Address note: Use this Tampa location if the form wants the local employer/branch address and it matches memory. Optimal's current verified legal/HQ address is 4600 140th Ave N, STE 180, Clearwater, FL 33762, Pinellas County. If a form asks where you physically reported/loaded, use the Palmetto / Amazon station context instead. "Success" search results point to Success Beyond Boundaries Enterprises LLC, a separate Amazon DSP, not confirmed as this employer.
 ```
 

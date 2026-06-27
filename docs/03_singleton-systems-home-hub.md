@@ -75,6 +75,20 @@ This is an external Raycast extension path, not part of the Vercel-built
 Singleton Systems repo. Singleton Systems remains the defacto hub through docs,
 skills, and operating contracts.
 
+Do not move this repo under `singleton-systems` just to keep the folders
+together. Singleton Systems can reference CareerHQ / Opportunity HQ as an
+external hub, but it should not own or build it.
+
+When updates cross both repos, use segmented Git checks:
+
+```bash
+git -C /Users/singleton23/Documents/Development/singleton-systems status
+git -C /Users/singleton23/Raycast/career-hq status
+```
+
+Vercel ignore rules can hide files from a deploy, but they are not the source of
+truth for repo ownership.
+
 Opportunity HQ Raycast should point at the active Eagle proof folders and
 shared labels. It uses the direct Eagle API route, not MCP, for reliable
 command behavior.
@@ -255,6 +269,23 @@ Opportunity HQ owns the real queue. Use it for any item with task weight,
 money pressure, a status, a time estimate, a link, proof work, or a follow-up.
 Bear can still catch raw thoughts, but focused queue items should go directly
 to Notion / Opportunity HQ.
+
+### Asana
+
+Role:
+
+- target durable project/task engine for Opportunity HQ
+- direct REST API route for reliable Raycast/local scripts
+- MCP operator layer after OAuth client credentials are set
+
+Asana should reuse the same Opportunity HQ model instead of creating a second
+taxonomy. Until cutover, Notion remains current truth and Asana is the target.
+
+Migration plan:
+
+```text
+docs/12_asana-opportunity-hq-migration.md
+```
 
 V1 project lanes:
 
@@ -551,6 +582,8 @@ Eagle skill CLI route: 127.0.0.1:41596
 Opportunity HQ Raycast / Eagle API route: 127.0.0.1:41595
 Bear direct route: /Applications/Bear.app/Contents/MacOS/bearcli
 Bear MCP route: optional operator layer only
+Asana REST route: https://app.asana.com/api/1.0 with ASANA_ACCESS_TOKEN
+Asana MCP route: https://mcp.asana.com/v2/mcp after ASANA_CLIENT_ID/SECRET
 ```
 
 For app integrations, prefer the most stable direct route first:
@@ -559,6 +592,7 @@ For app integrations, prefer the most stable direct route first:
 Eagle -> local HTTP API / existing direct script path
 Bear  -> bearcli first, MCP optional
 Notion -> official API / Opportunity HQ Raycast wrapper
+Asana -> official REST API first, MCP optional
 Raycast -> local extension commands
 Apple mobile -> Shortcuts first, App Intents later
 ```
@@ -585,4 +619,6 @@ Local integration settings live in:
 .env.local
 ```
 
-This file is gitignored and should contain only machine-local integration values such as Bear MCP token, repo paths, and library hints.
+This file is gitignored and should contain only machine-local integration values
+such as Bear MCP token, Asana REST token/workspace id, repo paths, and library
+hints.

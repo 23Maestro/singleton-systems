@@ -145,6 +145,56 @@ only freelance paths.
 Mobile application helper comes after the desktop work-history filler covers
 roughly 80% of repeated fields. Use iOS Userscripts as the first mobile test.
 
+## Simple Form-Fill Ledger Rule
+
+Keep one shared ledger for mobile userscripts and desktop Hammerspoon:
+
+```text
+blue-collar_work-history-application-ledger.md
+white-collar_work-history-application-ledger.md
+```
+
+The form-fill scope is intentionally small: type visible text fields and selects
+for profile, work history, and education. Do not click submit, next, apply,
+upload, save, or other workflow buttons. If the first pass fills only part of a
+page, run the same entry again after the next fields appear.
+
+When updating the iOS userscript, always return the complete userscript text in
+the final answer. The phone copy is the real install surface, so a repo diff is
+not enough.
+
+Possible later split, after addresses and contact/reference data are consistent:
+
+```text
+Main work history -> company, role, description, dates
+Address block     -> one focused employer-address fill
+Contact block     -> one focused reference/contact fill
+```
+
+Important quirks:
+
+```text
+Desktop and mobile should both match similar job-form fields by labels, names,
+ids, placeholders, and visible text. Avoid site-specific command names such as
+paylocity.* unless the script truly only supports that site.
+
+Deleting an employer-specific automation does not delete that employer from job
+history. Keep resume/application history intact unless the user explicitly asks
+to scrub the history data too.
+
+Buttons stay out of scope: no submit, next, apply, upload, save, or workflow
+button clicks from the job-history filler.
+```
+
+Default shared application answers:
+
+```text
+Work Authorization: Authorized to work in the United States; no sponsorship required.
+Availability / Start Date: As soon as possible
+Desired Pay - Cash Jobs: $21+/hour
+Desired Pay - Career Jobs: $30+/hour
+```
+
 ## Draft Job History
 
 These entries came from the user's confirmed spoken update. Tighten exact

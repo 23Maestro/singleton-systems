@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Singleton Systems Harness</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --muted: #60646c;
+      --line: #d9dde5;
+      --paper: #ffffff;
+      --wash: #f5f7fb;
+      --red: #f35b5b;
+      --purple: #8c5cff;
+      --green: #22a06b;
+      --blue: #2474ff;
+      --amber: #f1a72c;
+      --slate: #667085;
+      --shadow: 0 16px 40px rgba(16, 24, 40, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffffff 0%, var(--wash) 100%);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 44px 0 56px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 860px;
+      font-size: clamp(40px, 7vw, 84px);
+      line-height: .95;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 16px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin-top: 18px;
+      font-size: 19px;
+      color: var(--muted);
+    }
+
+    .top {
+      display: grid;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .rule {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 24px;
+      font-weight: 700;
+    }
+
+    .chip {
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+      white-space: nowrap;
+    }
+
+    .section {
+      margin-top: 34px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.78);
+      box-shadow: var(--shadow);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(118px, 1fr));
+      gap: 14px;
+      align-items: stretch;
+      margin-top: 22px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 172px;
+      padding: 16px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .step::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -19px;
+      width: 20px;
+      height: 2px;
+      background: var(--ink);
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .step:last-child::after { display: none; }
+
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--ink);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .step p, .card p, .packet p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .red { background: var(--red); }
+    .purple { background: var(--purple); }
+    .green { background: var(--green); }
+    .blue { background: var(--blue); }
+    .amber { background: var(--amber); }
+    .slate { background: var(--slate); }
+
+    .map {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(130px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .card {
+      min-height: 132px;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .packet {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: #101828;
+      color: #fff;
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    .tag {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      font-size: 14px;
+    }
+
+    .tag:last-child { border-bottom: 0; }
+
+    .tag b {
+      color: #b7ccff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+    }
+
+    .tag span { color: #fff; }
+
+    .plain-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .plain-list div {
+      padding: 14px 16px;
+      border-left: 6px solid var(--blue);
+      background: var(--paper);
+      border-radius: 6px;
+      color: var(--muted);
+    }
+
+    .plain-list b { color: var(--ink); }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #eef2ff;
+      color: #253b8f;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .92em;
+    }
+
+    @media (max-width: 920px) {
+      .flow, .cards, .map { grid-template-columns: 1fr; }
+      .step { min-height: auto; }
+      .step::after {
+        top: auto;
+        right: 50%;
+        bottom: -16px;
+        width: 2px;
+        height: 16px;
+        transform: translateX(50%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="top">
+      <div>
+        <h1>Harness, Not Headquarters.</h1>
+        <p class="lead">This is the lightweight Singleton Systems handoff visual. It shows how a messy thought becomes a routed packet, then a task, action, proof item, doc rule, or memory summary without creating agents, bots, or another app.</p>
+        <div class="rule" aria-label="Core rule">
+          <span class="chip">Name it once</span>
+          <span class="chip">Pick the owner</span>
+          <span class="chip">Use the smallest tool stack</span>
+          <span class="chip">Review before mutation</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>The Flow</h2>
+      <p class="lead">The harness is just the guardrail between raw intent and the surface that should actually own it.</p>
+      <div class="flow">
+        <article class="step">
+          <span class="num red">1</span>
+          <h3>Intake</h3>
+          <p>Catch the thought from Bear, Raycast, Shortcuts, Codex, a link, or a proof asset.</p>
+        </article>
+        <article class="step">
+          <span class="num amber">2</span>
+          <h3>Routing</h3>
+          <p>Cerebral picks the lane, owner, packet tags, next action, and do-not list.</p>
+        </article>
+        <article class="step">
+          <span class="num purple">3</span>
+          <h3>Task Shape</h3>
+          <p>Opportunity HQ gets real work: status, horizon, work date, block, dependencies, proof links.</p>
+        </article>
+        <article class="step">
+          <span class="num blue">4</span>
+          <h3>Tool Scope</h3>
+          <p>Only the tools needed for that lane are active. Raycast acts; it does not own truth.</p>
+        </article>
+        <article class="step">
+          <span class="num green">5</span>
+          <h3>Review</h3>
+          <p>Drafts, writes, proof claims, and docs changes get checked before they count.</p>
+        </article>
+        <article class="step">
+          <span class="num slate">6</span>
+          <h3>Memory</h3>
+          <p>Keep the decision, owner, evidence, verification, and next action. Drop the noise.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>The Surfaces</h2>
+      <p class="lead">Each surface gets one job. The harness keeps them from trying to become each other.</p>
+      <div class="cards">
+        <article class="card">
+          <div class="bar red"></div>
+          <strong>Bear</strong>
+          <p>Raw capture. Messy thoughts, quick links, someday ideas, and under-10-minute notes.</p>
+        </article>
+        <article class="card">
+          <div class="bar purple"></div>
+          <strong>Opportunity HQ</strong>
+          <p>Durable task/project state: lanes, statuses, goal horizons, work blocks, dependencies.</p>
+        </article>
+        <article class="card">
+          <div class="bar blue"></div>
+          <strong>Raycast</strong>
+          <p>Action surface at <code>/Users/singleton23/Raycast/career-hq</code>. Opens, logs, updates.</p>
+        </article>
+        <article class="card">
+          <div class="bar green"></div>
+          <strong>Eagle</strong>
+          <p>Proof and assets. Screenshots, references, workflow examples, and evidence.</p>
+        </article>
+        <article class="card">
+          <div class="bar slate"></div>
+          <strong>Docs + Skills</strong>
+          <p>Names, routing contracts, review gates, reusable rules, and compact memory.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>The Packet</h2>
+      <div class="map">
+        <div>
+          <p class="lead">This is the handoff shape. Think of it like a little routing label that travels with the work until the right owner takes over.</p>
+          <div class="plain-list">
+            <div><b>Not Bear tags.</b> These labels do not create sidebar clutter.</div>
+            <div><b>Not a runtime format.</b> No service reads this. It is for human/Codex clarity.</div>
+            <div><b>Not a new database.</b> Opportunity HQ still owns durable task state.</div>
+          </div>
+        </div>
+        <div class="packet" aria-label="Harness packet example">
+          <div class="tag"><b>[lane]</b><span>Proof</span></div>
+          <div class="tag"><b>[owner]</b><span>Opportunity HQ</span></div>
+          <div class="tag"><b>[intent]</b><span>Package an Eagle screenshot into website/outreach proof.</span></div>
+          <div class="tag"><b>[shape]</b><span>Task with proof link</span></div>
+          <div class="tag"><b>[tools]</b><span>career-proof-packager + Eagle + Opportunity HQ; Raycast only to open/capture/update</span></div>
+          <div class="tag"><b>[review]</b><span>Review proof claim before publishing</span></div>
+          <div class="tag"><b>[memory]</b><span>Asset, claim, changed surface, remaining next action</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>The Hardening</h2>
+      <div class="plain-list">
+        <div><b>No weak handoff:</b> every routed item says lane, owner, shape, tools, review, and memory.</div>
+        <div><b>No bloat:</b> no agents, bots, Slack, Discord, Hermes, async loops, new databases, or automation runtime.</div>
+        <div><b>No fake ownership:</b> Raycast can trigger actions, but Opportunity HQ owns real task state.</div>
+        <div><b>No stale claims:</b> docs/skills changes get checked with <code>rg</code> before they count.</div>
+      </div>
+    </section>
+
+    <p class="footer">
+      <span>Canonical contract: <code>docs/harness</code></span>
+      <span>Visual file: <code>docs/harness/index.html</code></span>
+    </p>
+  </main>
+</body>
+</html>

@@ -20,7 +20,67 @@ the surface, owner, canonical fields/options, and next focused skill before
 copy/proof, or other downstream skills act.
 
 Cerebral does not mutate tools by itself. It routes and aligns first; then the
-owner surface changes, and the change is verified.
+owner surface changes, and the change is verified. It should be inquisitive
+before it is corrective: ask which surface owns the work, whether the name is
+canonical, and what should be left alone before saying something is wrong.
+
+## Harness V1
+
+Singleton Systems uses a lightweight harness structure to keep context sound
+without building agents, Slack, Discord, Hermes, or a bot runtime.
+
+Canonical harness contract:
+
+```text
+docs/harness
+```
+
+Steal the architecture, not the infrastructure:
+
+```text
+lane decides context
+context decides tools
+task state stays isolated
+human reviews before mutation
+old noise gets compressed
+```
+
+Opportunity HQ project lanes can act like channel boundaries. Cerebral routes
+the lane and owner first; Opportunity Tasks hold active state, sub-tasks,
+dependencies, proof links, Goal Horizon, Work Date, Block, and Status.
+
+The harness uses a small packet grammar, inspired by tag-style handoffs but kept
+as docs-only contract:
+
+```text
+[lane] [owner] [intent] [shape] [tools] [review] [memory]
+```
+
+Those are routing labels, not Bear tags and not a runtime format.
+
+## HQ Harness Logs
+
+Runtime watchfulness belongs in Singleton Systems HQ logs.
+
+Root:
+
+```text
+/Users/singleton23/singleton_systems_hq/logs
+```
+
+Use five real Opportunity HQ lanes plus one router folder:
+
+```text
+all_buckets/harness.jsonl
+cash_jobs/harness.jsonl
+career_jobs/harness.jsonl
+freelance/harness.jsonl
+offer/harness.jsonl
+proof/harness.jsonl
+```
+
+`all_buckets` is for Cerebral router and cross-lane decisions. The other folders
+match the durable Opportunity HQ lanes. Do not add arbitrary folder names.
 
 ## Surfaces To Map
 
@@ -45,12 +105,14 @@ Naming Rules
 - Current local home hub: `/Users/singleton23/Documents/Development/singleton-systems`
 - Repo/folder name: `singleton-systems`
 - Current Git remote: `https://github.com/23Maestro/singleton-systems.git`
+- External Raycast action repo: `/Users/singleton23/Raycast/career-hq`
 - Companion operating doc: `docs/02_phase-one-operating-system.md`
 - Confirmed site copy doc: `docs/01_confirmed-copy.md`
 - Command layer doc: `docs/06_commands.md`
 - Bear role: quick capture with lean topic tags
 - Eagle role: proof and asset library
 - Notion / Opportunity HQ role: durable structured truth
+- Asana role: target durable Opportunity HQ project/task engine
 - Raycast role: action layer
 - Cerebral role: first routing hook before Singleton Systems or downstream skills
 - Codex skills/hooks role: keep context aligned across surfaces
@@ -58,6 +120,23 @@ Naming Rules
 Local folders, remotes, and path-based integrations should use
 `singleton-systems` going forward. When an external tool still points at the old
 name, update that reference directly instead of adding aliases.
+
+CareerHQ / Opportunity HQ Raycast is an external hub. Singleton Systems may
+reference it in docs, skills, maps, and operating contracts, but it does not own
+or build it. Do not move `/Users/singleton23/Raycast/career-hq` into the
+Vercel-built Singleton Systems repo just to make the system feel unified.
+
+Use segmented Git checks when work crosses both repos:
+
+```bash
+git -C /Users/singleton23/Documents/Development/singleton-systems status
+git -C /Users/singleton23/Raycast/career-hq status
+```
+
+If a publish/update touches both surfaces, finish and verify the Singleton
+Systems website/docs slice first, then finish and verify the CareerHQ Raycast
+slice. Vercel ignore rules are a last-mile deploy filter, not the ownership
+boundary.
 
 ## Money Clock / Survival Context
 
@@ -166,6 +245,16 @@ research, but separate today's launch dependency from later legal/admin setup.
 Opportunity HQ is the durable Notion queue for money
 tasks, job applications, freelance work, Singleton offer work, proof tasks, and
 planning. Bear only owns raw capture.
+
+Asana is the target durable engine for this same Opportunity HQ model. Do not
+create parallel lane names during migration. Until cutover, Notion stays current
+truth and Asana is the read-only/prototype target.
+
+Asana integration plan:
+
+```text
+docs/12_asana-opportunity-hq-migration.md
+```
 
 V1 project lanes:
 

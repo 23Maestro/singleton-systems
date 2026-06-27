@@ -92,6 +92,14 @@ and suggest the next small action without inventing new tags.
 - Use content, outreach, LinkedIn, Instagram, podcast, Eagle, Bear, and
   Singleton Systems skills only when the task actually needs them.
 
+## Mini-Project Setup Sprint
+
+1. Test one fake mini-project in read-only mode.
+2. Confirm parent task, subtasks, dependencies, and blocker priority shape.
+3. Decide whether Mini-Project Size stays in page content or earns a Notion property.
+4. If approved, create/update the parent task and sub-tasks.
+5. Read back the parent task and first blocker tasks.
+
 ## Why This Matters
 
 Video is the wedge. Repeatable systems are the real skill.
