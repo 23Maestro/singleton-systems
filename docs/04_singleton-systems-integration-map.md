@@ -665,6 +665,7 @@ Defaults:
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
 Money Priority = Strategic for Offer and Portfolio
+Task page icon = selected Project's icon DB source
 Work Date = blank unless approved in Codex / Notion planning as the scheduled completion date
 Shift = blank unless approved in Codex / Notion planning
 Eagle note = task body only, added after capture as `Added to Eagle: [asset name]`
@@ -673,6 +674,9 @@ Eagle note = task body only, added after capture as `Added to Eagle: [asset name
 Use the mobile shortcut for capture, not planning. Planning happens later in
 Codex / Notion: assign `Work Date`, `Shift`, `Project`, and status changes only
 after review. `Work Date` means scheduled to complete by the end of that date.
+When a task's `Project` changes, refresh the task page icon from the newly
+linked Project's icon DB source. For Cash Jobs, use
+`attachment:33d13c92-3520-4a00-ae19-414b9a47b399:5A64E250-4AC8-4CF7-B202-7572775B471D.png`.
 
 Passive shortcut and future automation ideas should usually start in Bear. This
 includes useful but later ideas such as a mobile transcript step for an existing

@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { AxeBuilder } from "@axe-core/playwright";
@@ -7,7 +7,8 @@ import { chromium } from "@playwright/test";
 const targetUrl = process.argv[2] || process.env.UI_AUDIT_URL || "http://localhost:3000";
 const startedAt = new Date();
 const runId = startedAt.toISOString().replace(/[:.]/g, "-");
-const outDir = path.join(process.cwd(), "output", "ui-audit", runId);
+const auditRoot = path.join(process.cwd(), "output", "ui-audit");
+const outDir = path.join(auditRoot, runId);
 
 const viewports = [
   { name: "desktop", width: 2048, height: 1152 },
@@ -324,6 +325,7 @@ function markdownReport(results) {
   return `${lines.join("\n")}\n`;
 }
 
+await rm(auditRoot, { force: true, recursive: true });
 await mkdir(outDir, { recursive: true });
 
 const browser = await chromium.launch();

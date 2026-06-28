@@ -184,6 +184,12 @@ shell/mobile experiments, share-sheet ideas, and small automations that might
 become proof someday. Use `#commands/shortcuts` for these. Promote them to
 Opportunity HQ only after human review.
 
+When building a Shortcut through Apple Intelligence, expect it to handle the
+native Shortcuts skeleton but not every third-party app action. If it cannot
+insert an app action, continue manually with exact block names and search terms
+inside Shortcuts, such as `Get File`, `Set Variable`, `Save File`, `Show Result`,
+and the app's own action names.
+
 Do not start with a custom mobile app. If a Shortcut becomes repeated and
 important, it can later become:
 
@@ -225,11 +231,12 @@ Goal Check-In
 
 Log Opportunity Task
   Create a lean Opportunity HQ task with project, status, time, money priority,
-  and link/notes.
+  link/notes, and the linked project's icon DB source.
 
 Update Opportunity Task
-  Update status, notes, or proof link on an existing Opportunity HQ
-  task.
+  Update status, notes, proof link, or project on an existing Opportunity HQ
+  task. When the project changes, refresh the task icon from the new project's
+  icon DB source.
 
 Export Focus Blocks
   Codex-owned manual run: read approved Opportunity HQ tasks, generate a small
@@ -248,7 +255,7 @@ These are pending command ideas for the Money Clock layer:
 ```text
 Log Opportunity
   Create a lean Opportunity HQ item with project, status, time, money priority,
-  and link/notes.
+  link/notes, and the linked project's icon DB source.
 
 Estimate Next Move
   Apply the Duration Key to a Bear capture, Opportunity HQ task, or proof task.

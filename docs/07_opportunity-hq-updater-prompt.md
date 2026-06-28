@@ -198,6 +198,10 @@ Decide first:
 Project rule:
 - The five Project rows are the lanes: Cash Jobs, Career Jobs, Freelance, Offer, Portfolio.
 - Every real task should link to exactly one Project. Blank Project is a cleanup problem, not the default.
+- Every task's page icon should come from the icon DB source for its Project.
+  Project/task pages are references, not the durable icon source.
+- Current icon DB source: Cash Jobs =
+  `attachment:33d13c92-3520-4a00-ae19-414b9a47b399:5A64E250-4AC8-4CF7-B202-7572775B471D.png`.
 - Finishable deliverables become tasks/goals under a lane project, not new lane rows.
 - If a subtask needs its own duration estimate, make it a separate task.
 - Use page/body checkboxes only for tiny checklists.
@@ -221,6 +225,8 @@ Mini-Project Plan Mode:
   7. Mark the first 1-3 blocker tasks as the priority unlocks.
   8. Suggest Goal Horizon, Work Date, Shift, Status, Duration, and Money Priority.
   9. Return a reviewed Notion-ready payload before any mutation.
+- If a mini-project is created, the parent task and any related child tasks use
+  the selected Project's icon DB source.
 - Mini-Project Size is a planning label, not the task execution Status.
 - Status remains: Queued, Today, In Motion, Waiting, Done, Parked.
 - Do not create a new Notion schema property yet unless this pattern repeats enough to justify it.
