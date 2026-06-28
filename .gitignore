@@ -5,6 +5,10 @@
 /.next
 /out
 
+# generated visual maps
+/docs/visual-maps/dist
+/docs/visual-maps/archive
+
 # production
 /build
 
@@ -21,6 +25,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+*.log
+playwright-report
+test-results
+blob-report
+coverage
 
 # local env files
 .env*.local

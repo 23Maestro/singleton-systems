@@ -16,7 +16,7 @@
     "visuals": "npm run visual-maps:build && sh -c 'cd docs/visual-maps/dist && (sleep 1; open http://127.0.0.1:4184) & python3 -m http.server 4184 --bind 127.0.0.1'",
     "visual-maps": "likec4 start docs/visual-maps",
     "visual-maps:validate": "likec4 validate docs/visual-maps",
-    "visual-maps:build": "sh -c 'mkdir -p docs/visual-maps/archive && if [ -d docs/visual-maps/dist ]; then mv docs/visual-maps/dist docs/visual-maps/archive/dist-$(date +%Y%m%d-%H%M%S); fi; likec4 build docs/visual-maps --output docs/visual-maps/dist --base ./'"
+    "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist && likec4 build docs/visual-maps --output docs/visual-maps/dist --base ./'"
   },
   "dependencies": {
     "framer-motion": "^11.11.11",
