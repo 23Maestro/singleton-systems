@@ -200,8 +200,8 @@ Project rule:
 - Every real task should link to exactly one Project. Blank Project is a cleanup problem, not the default.
 - Every task's page icon should come from the icon DB source for its Project.
   Project/task pages are references, not the durable icon source.
-- Current icon DB source: Cash Jobs =
-  `attachment:33d13c92-3520-4a00-ae19-414b9a47b399:5A64E250-4AC8-4CF7-B202-7572775B471D.png`.
+- Current icon DB source: Cash Jobs = custom icon `cash-job`
+  (`notion://custom_emoji/a3b304a1-8d81-47f4-aea9-74ce88acc795/38e4c8bd-6c26-8079-9053-007a3a48e114`).
 - Finishable deliverables become tasks/goals under a lane project, not new lane rows.
 - If a subtask needs its own duration estimate, make it a separate task.
 - Use page/body checkboxes only for tiny checklists.

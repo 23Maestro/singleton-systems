@@ -19,6 +19,7 @@
     "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist && likec4 build docs/visual-maps --output docs/visual-maps/dist --base ./'"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "framer-motion": "^11.11.11",
     "next": "^15.5.19",
     "react": "^19.2.7",

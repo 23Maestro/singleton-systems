@@ -675,8 +675,8 @@ Use the mobile shortcut for capture, not planning. Planning happens later in
 Codex / Notion: assign `Work Date`, `Shift`, `Project`, and status changes only
 after review. `Work Date` means scheduled to complete by the end of that date.
 When a task's `Project` changes, refresh the task page icon from the newly
-linked Project's icon DB source. For Cash Jobs, use
-`attachment:33d13c92-3520-4a00-ae19-414b9a47b399:5A64E250-4AC8-4CF7-B202-7572775B471D.png`.
+linked Project's icon DB source. For Cash Jobs, use custom icon `cash-job`
+(`notion://custom_emoji/a3b304a1-8d81-47f4-aea9-74ce88acc795/38e4c8bd-6c26-8079-9053-007a3a48e114`).
 
 Passive shortcut and future automation ideas should usually start in Bear. This
 includes useful but later ideas such as a mobile transcript step for an existing

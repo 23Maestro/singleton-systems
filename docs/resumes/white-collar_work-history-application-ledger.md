@@ -62,7 +62,7 @@ State: MA
 Zip Code: 02109
 Phone:
 Reason for Leaving: Contract backlog work ended
-Responsibilities: Restructured roughly 38 hours of curriculum; processed 180-200 lesson assets; led most of the migration through deterministic FFmpeg workflows; increased course assembly throughput 2-3x; eliminated export errors; standardized naming schemas; consolidated transcripts; replaced manual timelines with automated batch export pipelines; and established scalable folder architecture and encoding standards.
+Responsibilities: Restructured 60+ hours of YouTube course content across repeated course migrations; processed 180-200 lesson assets; led most of the migration through deterministic FFmpeg workflows; increased course assembly throughput 2-3x; eliminated export errors; standardized naming schemas; consolidated transcripts; replaced manual timelines with automated batch export pipelines; and established scalable folder architecture and encoding standards.
 Reference: Caroline Dobrez
 Reference email: caroline.dobrez@nursehub.com
 Reference phone:

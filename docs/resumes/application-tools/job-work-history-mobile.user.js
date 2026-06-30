@@ -81,7 +81,7 @@
       current: "No",
       reason: "Contract backlog work ended",
       responsibilities:
-        "Restructured roughly 38 hours of curriculum; processed 180-200 lesson assets; led most of the migration through deterministic FFmpeg workflows; increased course assembly throughput 2-3x; eliminated export errors; standardized naming schemas; consolidated transcripts; replaced manual timelines with automated batch export pipelines; and established scalable folder architecture and encoding standards.",
+        "Restructured 60+ hours of YouTube course content across repeated course migrations; processed 180-200 lesson assets; led most of the migration through deterministic FFmpeg workflows; increased course assembly throughput 2-3x; eliminated export errors; standardized naming schemas; consolidated transcripts; replaced manual timelines with automated batch export pipelines; and established scalable folder architecture and encoding standards.",
     },
     hsn: {
       label: "Career - HSN",

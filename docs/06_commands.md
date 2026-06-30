@@ -184,11 +184,57 @@ shell/mobile experiments, share-sheet ideas, and small automations that might
 become proof someday. Use `#commands/shortcuts` for these. Promote them to
 Opportunity HQ only after human review.
 
-When building a Shortcut through Apple Intelligence, expect it to handle the
-native Shortcuts skeleton but not every third-party app action. If it cannot
-insert an app action, continue manually with exact block names and search terms
-inside Shortcuts, such as `Get File`, `Set Variable`, `Save File`, `Show Result`,
-and the app's own action names.
+Shortcut help has two modes:
+
+```text
+Apple Intelligence instructions -> write the prompt that should build or revise the Shortcut.
+Manual Shortcut help            -> walk the user through the Shortcuts editor block by block.
+```
+
+When writing Apple Intelligence instructions, use direct action language and
+the latest visible Shortcuts or App Intents action name when known. Expect Apple
+Intelligence to handle the native Shortcuts skeleton, but not every third-party
+app action.
+
+If the user asks for manual Shortcut help, default to simple 7th-grade,
+block-by-block instructions. Think from the user's Shortcuts screen, not from
+code. Name the exact action to search, use the latest visible Shortcuts or App
+Intents action name when known, say what token or variable goes in each blank,
+and call out which existing block to delete or keep.
+
+Manual Shortcut help format:
+
+```text
+1. Search for action: [exact action name]
+2. Add it under: [existing block name]
+3. Tap: [field name]
+4. Put in: [literal value, token, or variable]
+5. Keep: [block name]
+6. Delete: [block name]
+7. Test: [what result should appear]
+```
+
+Use this manual format when Apple Intelligence is in beta, chooses the wrong
+action, cannot add a third-party action, or produces a prompt that fails.
+
+Use exact Shortcuts action names where possible:
+
+```text
+Receive Input
+Get URLs from Input
+If
+Ask for Input
+Get Item from List
+Set Variable
+Get File
+Save File
+Copy to Clipboard
+Show Result
+```
+
+For third-party actions, name the app action directly and tell the user what to
+search inside Shortcuts. Do not paraphrase app action names when the user needs
+to find the block manually.
 
 Do not start with a custom mobile app. If a Shortcut becomes repeated and
 important, it can later become:

@@ -1,5 +1,45 @@
 # Job Application Resume Workflow
 
+## Mandatory Repeated Workflow
+
+This workflow is the same every time for resume tailoring. Do not improvise a
+new resume structure unless explicitly requested.
+
+1. Open and inspect the current source resume first.
+   - White-collar: inspect the original PDF visually if text extraction fails.
+   - Blue-collar: inspect the source Markdown.
+2. Preserve the source resume's existing template, section order, and visual
+   structure.
+   - Do not add arbitrary sections such as "Selected Match", "Core Strengths",
+     or a second profile header unless the source already has them or the user
+     asks for them.
+   - Do not repeat the user's name, title, or contact header in multiple places.
+3. Read the job description and tailor the existing resume language to the job.
+   - Revise summary, skills, and relevant bullets.
+   - Add truthful power words and job keywords from the post.
+   - Include `singleton-systems.com` in the portfolio/contact link area along
+     with the user's portfolio and LinkedIn.
+   - Emphasize fit without inventing responsibilities, dates, current roles, or
+     continuous freelance history.
+4. Preserve truth over positioning.
+   - Never create a current or ongoing role unless the source/ledger confirms
+     it.
+   - Never convert older freelance/event work into "Remote | 2014-Present" or
+     any other unconfirmed continuous job.
+5. Export exactly one user-facing file: a final PDF in `~/Downloads`, unless
+   the user explicitly asks for another folder.
+   - Do not place `.docx`, `.md`, `.html`, screenshots, or source sidecars in
+     the delivery folder unless explicitly requested.
+6. For white-collar/video/content resumes, reuse the Pearson-style resume
+   builder/template unless the user explicitly asks for a different design.
+   - The Pearson-style template is the current best baseline: blue frame,
+     left rail, large name, summary, then experience.
+   - Do not rebuild the resume from scratch in ReportLab, HTML, or a new
+     template for each application.
+   - Tailoring should change copy, skills, and bullets only.
+   - After rendering, create a visual preview and inspect it before saying the
+     resume is ready.
+
 ## Source Rules
 
 White-collar source resume:
@@ -8,9 +48,10 @@ White-collar source resume:
 docs/resumes/white-collar_Jerami_Singleton_Resume2026.pdf
 ```
 
-Use this as the go-to white-collar resume. For a specific job, copy it, revise
-only the copy for that job, render the finished application version to
-`~/Downloads`, and leave the source PDF untouched.
+Use this as the go-to content baseline, but use the Pearson-style builder as
+the visual/layout baseline for job-specific white-collar variants. For a
+specific job, revise only the copy for that job, render one finished
+application PDF to `~/Downloads`, and leave the source PDF untouched.
 
 Blue-collar source resume:
 
@@ -28,7 +69,7 @@ system.
 Job-specific variants follow the same path for both lanes:
 
 ```text
-source resume -> copy for current job -> revise copy -> render PDF to ~/Downloads
+source resume -> copy for current job -> revise copy -> render one PDF to ~/Downloads
 ```
 
 Tailoring rule:
@@ -38,18 +79,42 @@ Read the job post.
 Pull the exact truthful keywords: job title, duties, tools, schedule, vehicle,
 warehouse/customer-service terms, and required experience.
 Revise the summary, skills, and top 2-3 bullets to mirror that posting.
-Render a named PDF copy to ~/Downloads.
+Render one named PDF copy to ~/Downloads.
 Never overwrite the source resume.
 ```
 
-Rendered copies:
+Final delivery rule:
 
 ```text
 ~/Downloads
 ```
 
-Downloads is only for job-specific rendered copies. It is not the source of
-truth.
+Downloads is the default destination for every job-specific resume unless the
+user explicitly asks for another folder. Deliver exactly one file: the final
+PDF. Do not put `.docx`, `.md`, `.html`, screenshots, or source sidecars in the
+delivery folder unless the user explicitly asks for editable/source files.
+Temporary working files can stay in an ignored temp folder, but the user-facing
+output is one PDF.
+
+Portfolio link rule:
+
+```text
+Always include singleton-systems.com in resume portfolio/contact links unless
+the user explicitly says to omit it.
+```
+
+White-collar builder baseline:
+
+```text
+docs/resumes/application-tools/build_white_collar_pearson_resume_pdf.py
+```
+
+Use this Pearson-style builder as the starting point for video/content/editor
+variants. Copy it to a temp/job-specific script, change the output filename,
+summary, skill list, and relevant bullets, then render and visually inspect the
+PDF. If the visual preview looks crowded, sloppy, clipped, or unlike the
+Pearson screenshots, revise inside this template instead of switching to a new
+resume system.
 
 ## Blue-Collar Resume Shape
 
