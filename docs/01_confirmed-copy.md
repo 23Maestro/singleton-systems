@@ -10,7 +10,7 @@ Operators, creators, consultants, small teams, studios, service businesses, and 
 
 ## Core Promise
 
-Bring one messy recurring workflow. I will help turn it into a cleaner system your team can reuse.
+Bring one messy recurring workflow. I will help turn it into something your team can reuse.
 
 ## One-Line Offer
 
@@ -24,11 +24,11 @@ Time [vanishes / dissolves / unravels] before the work ships.
 
 Reduced-motion headline:
 
-Time disappears before the work ships.
+Time vanishes before the work ships.
 
 Subhead:
 
-I help operators and small teams turn scattered notes, repeated follow-ups, and messy handoffs into a workflow they can reuse.
+I help operators and small teams clean up the stuff that slows work down: scattered notes, follow ups, files, and repeat steps.
 
 AI note:
 
@@ -36,7 +36,19 @@ Curious about AI? Ask me where it can save real time.
 
 Primary CTA:
 
-Fix the flow
+Book a Flow Check
+
+Secondary CTA:
+
+Send Details First
+
+Booking path:
+
+Desktop opens the Cal popup for `workflow-chat/15min`. Mobile links directly to `https://cal.com/workflow-chat/15min`.
+
+Details path:
+
+Tally link: `https://tally.so/r/obgLaX`
 
 ## About Copy
 
@@ -50,23 +62,27 @@ Where the Work Gets Stuck
 
 Body:
 
-Most workflow problems start before the real work begins: vague requests, scattered files, missing context, and follow-ups living in too many places.
+You usually know where things start to break: unclear requests, files everywhere, missing context, and follow ups nobody wants to chase.
 
-Instead of chasing updates across tools, threads, and memory, your team gets a single workflow hub: one place to see what matters, what's stuck, and what ships next.
+The goal is simple: one place to see what matters, what's stuck, and what needs to ship next.
 
-## Solutions
+## What I Fix
 
-1. Intake & Scope  
-Turn each request into a repeatable project path your team can track.
+Section title:
 
-2. Assets & Folders  
-Give every project a file structure your team does not have to rethink.
+What I Fix
 
-3. Notes & Reviews  
-Turn feedback into decisions, tasks, and next steps without chasing threads.
+1. Intake & Scope
+Make each request easier to track from the start.
 
-4. Package & Delivery  
-Package what worked so the next workflow starts cleaner.
+2. Assets & Folders
+Set up folders so nobody has to guess where things go.
+
+3. Notes & Reviews
+Turn feedback into decisions and the next thing to do.
+
+4. Package & Delivery
+Save what worked so the next project starts cleaner.
 
 ## Where I Can Help
 
@@ -76,74 +92,74 @@ Where I Can Help
 
 Subhead:
 
-Problems usually pop up during handoffs, when inputs, follow-ups, repeated tasks, and tools stop fitting how the team really works.
+We can start by reviewing the process around requests, files, follow ups, and repeat tasks.
 
-1. Scattered Inputs  
-Forms, files, notes, messages, and requests live in too many places.
+1. Too Many Places
+Forms, files, notes, messages, and requests are spread out.
 
-2. Manual Follow-Up  
+2. Manual Follow-Up
 The next step depends on someone remembering who needs what.
 
-3. Batch Work  
+3. Batch Work
 Repeated tasks need a cleaner way to review, approve, and ship.
 
-4. AI-Assisted Setup  
-Prompts, tools, and automations only matter when they fit the real workflow.
+4. AI-Assisted Setup
+AI only helps when it fits the way the work really gets done.
 
-## Proof / Examples
+## Portfolio / Examples
 
 Section title:
 
-Proof From Real Systems
+Portfolio From Real Systems
 
 Subhead:
 
-Real examples of messy work turned into cleaner systems, with the before state, build path, and proof kept together.
+Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio kept together.
 
-Proof rule:
+Portfolio rule:
 
 Concrete "show me how this works" creative beats vague trust-building alone.
 
-Immediate proof priority:
+Immediate portfolio priority:
 
-workflow proof -> video proof -> AI proof -> marketing proof
+workflow portfolio -> video portfolio -> AI portfolio -> marketing portfolio
 
 Meaning:
 
 Show the work moving through the system before asking people to believe the system is valuable.
 
-Current proof system:
+Current portfolio system:
 
 Course Video Migration
 
-Proof states:
+Portfolio states:
 
-1. Before  
+1. Before
 Unordered Source Folder
 
 Course videos received, but order and upload prep are unclear.
 
-2. Build Path  
+2. Build Path
 Structured Processing Lane
 
 AI helped turn the ordered project list into an ffmpeg-ready export path, skipping manual Premiere assembly during the migration.
 
-3. Ship Ready  
+3. Ship Ready
 Upload-Ready Library
 
 Multiple course libraries assembled, named in order, and ready for YouTube upload.
 
-## How The Audit Works
+## How It Works
 
 Section title:
 
-How The Audit Works
+How It Works
 
 Steps:
 
-1. Pick one recurring workflow.
+1. Pick one workflow that keeps coming back.
 2. Watch how it’s done now.
-3. List out the messy steps, tools, files, and follow-ups.
+3. Write down the messy parts: tools, files, and follow ups.
 4. Create a simple hub, prompt, checklist, or automated path.
 5. Check what went out and choose the next fix.
 
@@ -151,31 +167,39 @@ Steps:
 
 Section title:
 
-Ready for a free audit?
+Let's check out your flow.
 
 Subhead:
 
-Stop relying on your team to remember what the workflow should handle.
-
-Body:
-
-Bring one messy recurring workflow. I'll help turn it into a clear system your team can use again and again.
+Book a Flow Check, send a video link, or paste the details.
 
 CTA:
 
-Request Free Audit
+Book a Flow Check
+
+CTA:
+
+Send Details First
 
 ## Footer Copy
 
-Workflow audits for operational teams that need clearer state, less repeated work, and cleaner systems around the tools they already use.
+Workflow audits for teams that need less repeated work and cleaner systems around the tools they already use.
 
 ## Page Flow
 
 1. Hero
 2. How It Starts
-3. Solutions
+3. What I Fix
 4. Where I Can Help
-5. Proof From Real Systems
-6. How The Audit Works
+5. Portfolio From Real Systems
+6. How It Works
 7. Beta Offer
 8. Footer
+
+## Navigation
+
+Start | What I Fix | Portfolio | How It Works | Book
+
+Anchor mapping:
+
+`#start`, `#what-i-fix`, `#portfolio`, `#how-it-works`, `#book`

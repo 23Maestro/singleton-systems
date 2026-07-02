@@ -31,7 +31,7 @@ Useful
   Plain and calm. Weakness: can feel gray.
 
 Leverage
-  Stronger for system/proof/offer work that compounds. Weakness: more jargon.
+  Stronger for system/portfolio/offer work that compounds. Weakness: more jargon.
 
 Builder
   Fits the current build mode. Weakness: less obvious outside this system.
@@ -53,7 +53,7 @@ Critical
 
 Strategic
   Work that compounds toward the real long-term goal: Singleton Systems offer,
-  proof, website, workflows, systems, and client-ready assets.
+  portfolio, website, workflows, systems, and client-ready assets.
 
 Later
   Real idea, not fake-urgent, no current commitment.
@@ -67,7 +67,7 @@ Current reality as of June 24, 2026:
 
 ```text
 Critical = cash-path execution first
-Strategic = website, offer, proof, workflow hub, and system hardening
+Strategic = website, offer, portfolio, workflow hub, and system hardening
 Later = real ideas that should not steal this week
 ```
 
@@ -78,7 +78,7 @@ Cash Jobs -> Critical
 Career Jobs -> Critical
 Freelance -> Critical
 Offer -> Strategic
-Proof -> Strategic
+Portfolio -> Strategic
 System Cleanup -> Strategic or Later, depending on whether it unblocks execution
 ```
 
@@ -145,6 +145,143 @@ Block: Money Clock.
 
 The output is a small daily block suggestion, not a giant plan.
 
+## 2026-07-02 Social API And Supabase Spine Note
+
+This idea belongs in planning and routing first, not in a new app or database
+yet.
+
+Signal from the focus reference images:
+
+```text
+Clarity: pick the smallest useful next question.
+Importance: this supports money, offer portfolio, and future content distribution.
+Urgency: research now, automate only after posting behavior repeats.
+Flow: keep the task just above current skill level.
+Lever-moving work: one to three concrete actions, not a giant system pass.
+```
+
+Current user intent, stripped down:
+
+```text
+Research the official posting APIs for LinkedIn, X, Instagram, and TikTok.
+Use the findings to shape a soft content-posting plan.
+Evaluate whether Supabase should become the structured log for important
+outreach attempts, references, experiments, and content-distribution attempts.
+Keep Singleton Systems professional and centralized without forcing Supabase or
+creating more folders just because the idea is connected.
+```
+
+Official API research snapshot, checked July 2, 2026:
+
+```text
+LinkedIn
+  Source: https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api
+  Relevant finding: Posts API supports creation/retrieval of organic and
+  sponsored posts, with versioned headers and permission gates. Treat this as
+  possible but permission-sensitive.
+
+X
+  Source: https://docs.x.com/x-api/posts/create-post
+  Relevant finding: POST /2/tweets can create or edit posts for the
+  authenticated user. X positions the API as pay-per-use, so cost and access
+  tier matter before any build.
+
+Instagram
+  Source: https://developers.facebook.com/documentation/instagram-platform/content-publishing
+  Relevant finding: Meta's content publishing path is through the Instagram
+  platform / Graph API and supports publishing media posts, but it requires
+  eligible account/app permissions. Treat as official but account-gated.
+
+TikTok
+  Source: https://developers.tiktok.com/doc/content-posting-api-get-started
+  Source: https://developers.tiktok.com/doc/content-sharing-guidelines
+  Relevant finding: Content Posting API supports direct posting, including
+  photos, but requires a registered app, Content Posting API product, publish
+  scope approval, user authorization, and audit before public visibility is
+  unrestricted.
+```
+
+Routing decision:
+
+```text
+Bear
+  Raw social/content thoughts, screenshots, creator references, and messy
+  "what if" captures.
+
+Eagle
+  Reference screenshots, examples, portfolio assets, clips, and source visuals.
+
+Opportunity HQ
+  Durable tasks such as "Social API docs research pass", "10-post content
+  test", "Outreach attempt log design", or "Supabase read-only schema review".
+
+Docs
+  API research summaries, posting rules, naming decisions, and the operating
+  contract for what gets logged.
+
+Supabase
+  Candidate structured spine only after a read-only design pass. Do not create
+  tables until the log shape repeats in real outreach/content work.
+```
+
+Supabase candidate shape:
+
+```text
+content_references
+  platform
+  reference_set
+  source_url
+  direct_style
+  post_format
+  attack_type
+  notes
+
+outreach_attempts
+  target
+  platform
+  attempt_type
+  message_summary
+  reference_set
+  status
+  attempted_at
+  next_action_at
+
+content_posts
+  platform
+  post_format
+  direct_style
+  attack_type
+  source_asset
+  status
+  published_url
+  published_at
+```
+
+These are candidate concepts, not approved schema. Keep them in docs/page
+content until real repetition proves which fields matter.
+
+Soft plan:
+
+```text
+1. Research the four official API paths and write the constraints in this memo.
+2. Create one Opportunity HQ task under Offer or Portfolio for a 10-post manual
+   content test before building any publishing automation.
+3. If important outreach/content attempts repeat, run a read-only Supabase
+   design pass: current repo surfaces, proposed tables, writers, readers,
+   verification path, and first safe migration slice.
+```
+
+Do not do yet:
+
+```text
+No new folders.
+No new social scheduler.
+No browser automation for posting.
+No Supabase schema until the read-only contract is approved.
+No platform API implementation until the manual posting/logging rhythm proves
+the repeated shape.
+```
+
 ## Goal Log Shape
 
 If this becomes a Raycast action or local file later, keep the data shape this
@@ -190,7 +327,7 @@ End of W2 / End of W3
   Work Date yet.
 
 End of Month
-  Check whether money-path volume, website/request flow, and proof packaging
+  Check whether money-path volume, website/request flow, and portfolio packaging
   are actually moving.
 
 Next Month
@@ -217,7 +354,7 @@ August money relief
   depends on Critical applications, proposals, follow-ups, or paid work.
 
 Singleton Systems offer traction
-  depends on website/request flow, proof, outreach, and client-ready process.
+  depends on website/request flow, portfolio, outreach, and client-ready process.
 
 Website/request flow
   depends on Tally intake, Notion response handling, and a clear CTA.
@@ -345,8 +482,8 @@ Examples:
 Tally -> Notion intake connection
   Dependency for a cleaner Singleton Systems landing-page/request workflow.
 
-Upwork consultation proof capture
-  Dependency only if another task cannot happen until the proof capture exists.
+Upwork consultation portfolio capture
+  Dependency only if another task cannot happen until the portfolio capture exists.
 
 Screenshot cleanup inside one project
   Usually subtasks, not dependencies.
@@ -394,8 +531,8 @@ Default route:
 ```text
 Raw link or transcript -> Bear
 Repeated pattern worth studying -> research memo
-Proof-backed post idea -> offer-proof-content
-Platform-specific post -> LinkedIn / Instagram skill
+Portfolio-backed post idea -> offer-proof-content
+Platform-specific post -> LinkedIn / Instagram skill, or content-creator for X/TikTok until dedicated skills exist
 Durable business task -> Opportunity HQ
 ```
 
@@ -414,21 +551,21 @@ personal hook
 local relevance
 visible pricing or services
 team or multi-location signal
-existing media/proof/social assets
+existing media/portfolio/social assets
 obvious handoff, intake, follow-up, or content gap
 ```
 
 Pre-vet shape:
 
 ```text
-Confirm services, pricing, team, locations, audience paths, proof/media assets,
+Confirm services, pricing, team, locations, audience paths, portfolio/media assets,
 likely workflow gaps, and one simple value-math reason the audit could pay off.
 ```
 
 Routing:
 
 ```text
-Good lead -> Opportunity HQ task under Singleton proof + website
+Good lead -> Opportunity HQ task under Singleton portfolio + website
 Offer/social angle -> offer-proof-content
 Outreach copy -> sales-outreach
 Raw maybe -> Bear

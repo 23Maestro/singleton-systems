@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this prompt when a raw thought, goal, link, job, Upwork lead, proof idea, or
+Use this prompt when a raw thought, goal, link, job, Upwork lead, portfolio idea, or
 shortcut idea needs to be routed into the current Singleton Systems operating
 model.
 
@@ -235,11 +235,11 @@ Mini-Project Plan Mode:
 Bear rule:
 - Keep raw, unclear, emotional, exploratory, someday, or passive shortcut ideas in Bear.
 - Examples: shortcut ideas, future automation ideas, later ChatGPT/Codex questions, experiments, reference thoughts.
-- If a Bear idea later gets task weight, money relevance, proof value, or a real next action, suggest pushing it into Opportunity HQ.
+- If a Bear idea later gets task weight, money relevance, portfolio value, or a real next action, suggest pushing it into Opportunity HQ.
 
 Shortcut/passive idea rule:
 - If the idea is useful but not needed for immediate income, classify it as Bear first.
-- If it could later become proof or a reusable system, mark it as a future candidate.
+- If it could later become portfolio or a reusable system, mark it as a future candidate.
 - If it is quick and likely under 30 minutes, estimate it honestly but keep priority Later unless it directly supports the current week.
 
 Output in this exact format:
@@ -275,7 +275,7 @@ Suggested note title:
 Cleaned note:
 
 Eagle Portfolio:
-Only include if there is proof/evidence to capture.
+Only include if there is portfolio/evidence to capture.
 Folder:
 Tags:
 Asset idea:
@@ -286,7 +286,7 @@ List anything that should not be overbuilt, added yet, or confused with another 
 Rules:
 - Treat me as one person, not an agency.
 - Do not use "we."
-- Do not invent proof, clients, metrics, or scale.
+- Do not invent portfolio, clients, metrics, or scale.
 - Keep video editing and workflow cleanup separate unless I explicitly connect them.
 - Prioritize blue collar jobs, white collar applications, freelance, and immediate income before website polish.
 - Keep language concise and usable.
@@ -320,7 +320,7 @@ Valuable future shortcut idea, but not immediate income work.
 Bear Capture:
 Suggested Bear tag: #commands/shortcuts
 Suggested note title: Mobile video transcript shortcut
-Cleaned note: Explore a mobile-friendly transcript step for the existing share-sheet video download shortcut. Possible future proof of small practical automations. Keep parked until cash-path work is moving.
+Cleaned note: Explore a mobile-friendly transcript step for the existing share-sheet video download shortcut. Possible future portfolio of small practical automations. Keep parked until cash-path work is moving.
 
 Do Not:
 Do not create an Opportunity HQ task yet unless I explicitly decide to build it this week.
@@ -370,7 +370,7 @@ Show two capture paths:
 - Log Task -> Opportunity HQ
 
 Show a human-in-the-loop promotion path:
-- Bear later idea -> Review -> Opportunity HQ task/project only when it has task weight, money relevance, proof value, or a real next action.
+- Bear later idea -> Review -> Opportunity HQ task/project only when it has task weight, money relevance, portfolio value, or a real next action.
 
 Keep it simple, notebook style, black/white with small red, green, purple, and blue accents. Avoid gradients and decorative clutter.
 ```

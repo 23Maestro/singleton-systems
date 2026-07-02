@@ -8,7 +8,7 @@ Allowed inputs:
 raw thought
 research link
 selected text
-proof asset
+portfolio asset
 job/freelance/offer lead
 workflow complaint
 command idea

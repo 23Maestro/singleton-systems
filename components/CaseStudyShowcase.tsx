@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 
 export type CaseStudyPane = {
-  id: "before" | "after" | "proof";
+  id: "before" | "after" | "portfolio";
   label: string;
   dotClassName: string;
   eyebrow: string;

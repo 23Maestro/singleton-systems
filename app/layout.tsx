@@ -1,16 +1,83 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
+import { founderName, nicheKeywords, serviceName, siteDescription, siteName, siteUrl } from "./site";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "700"],
+  display: "swap",
 });
 
+const verification: Metadata["verification"] = {
+  ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+  ...(process.env.BING_SITE_VERIFICATION
+    ? {
+        other: {
+          "msvalidate.01": process.env.BING_SITE_VERIFICATION,
+        },
+      }
+    : {}),
+};
+
 export const metadata: Metadata = {
-  title: "Jerami Singleton — Workflow Audit",
-  description:
-    "Workflow audits for operational teams that need clearer state, less repeated work, and cleaner systems around the tools they already use.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${founderName} | Workflow Cleanup Consultant`,
+    template: `%s | ${siteName}`,
+  },
+  description: siteDescription,
+  applicationName: siteName,
+  authors: [{ name: founderName, url: siteUrl }],
+  creator: founderName,
+  publisher: siteName,
+  keywords: nicheKeywords,
+  category: "workflow consulting",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-icon.svg",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName,
+    title: `${founderName} | ${serviceName}`,
+    description: siteDescription,
+    images: [
+      {
+        url: "/23-hero.png",
+        width: 1254,
+        height: 1254,
+        alt: founderName,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${founderName} | ${serviceName}`,
+    description: siteDescription,
+    images: ["/23-hero.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  ...(verification && Object.keys(verification).length > 0 ? { verification } : {}),
 };
 
 export const viewport: Viewport = {
@@ -25,8 +92,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} min-h-screen bg-[#fbfbfb] text-neutral-950 antialiased`}>
+      <body className={`${poppins.className} min-h-dvh bg-[#fbfbfb] text-neutral-950 antialiased`}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );

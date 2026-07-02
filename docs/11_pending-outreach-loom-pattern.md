@@ -9,8 +9,8 @@ Use this when a warm lead might need workflow cleanup, video/content systems, or
 Marketing-data read:
 
 ```text
-People expect proof.
-Personal proof beats generic capability.
+People expect portfolio.
+Personal portfolio beats generic capability.
 Concrete "show me how this works" beats vague trust-building.
 ```
 
@@ -18,14 +18,24 @@ Rule:
 
 ```text
 Default: send a short message first. If they bite, send a 45-90 second Loom that shows the mechanism.
-Exception: send message + video together only for warm referrals, Upwork/proposal contexts, or a very high-signal lead where proof is expected.
+Exception: send message + video together only for warm referrals, Upwork/proposal contexts, or a very high-signal lead where portfolio is expected.
 ```
 
-Do not start with a long pitch video. The video is proof after curiosity exists.
+Do not start with a long pitch video. The video is portfolio after curiosity exists.
+
+## Default LinkedIn Opener
+
+```text
+Hey [Name], quick question: are you still handling video editing / repurposing manually, or do you already have a clean process for getting clips out?
+```
+
+Use this as the first-message opener when the lead has visible video,
+repurposing, course, training, social, webinar, podcast, or content operations
+signals. If they bite, then offer the audit, cleanup pass, or short Loom.
 
 ## Old Video Mold Teardown
 
-The old Upwork/course-edit script had useful proof, but the shape was too video-service-first.
+The old Upwork/course-edit script had useful portfolio, but the shape was too video-service-first.
 
 Keep:
 
@@ -42,14 +52,14 @@ Cut:
 ```text
 generic editor intro
 long list of editing services
-timeline-heavy proof with no buyer-specific gap
+timeline-heavy portfolio with no buyer-specific gap
 "I can do video" as the main claim
 ```
 
 Translate:
 
 ```text
-video editing proof -> evidence that messy production work can be organized
+video editing portfolio -> evidence that messy production work can be organized
 course edits -> evidence that long content can become repeatable modules
 sports reels -> evidence that raw assets can become decision-ready outputs
 AI mention -> small practical helper, not the headline
@@ -100,10 +110,10 @@ I’ve been building practical AI/workflow systems for messy notes, files, conte
 Send a Loom that proves one of these:
 
 ```text
-workflow proof: before -> cleaner handoff
-video proof: raw content -> reusable production path
-AI proof: messy input -> structured output
-marketing proof: content/workflow proof -> buyer-facing page or campaign
+workflow portfolio: before -> cleaner handoff
+video portfolio: raw content -> reusable production path
+AI portfolio: messy input -> structured output
+marketing portfolio: content/workflow portfolio -> buyer-facing page or campaign
 ```
 
 Keep the video focused on one mechanism. Do not explain the whole business.
@@ -117,7 +127,7 @@ Quick context:
 
 0:05-0:20
 Show the current state:
-page, folder, content path, service path, intake, handoff, or proof gap.
+page, folder, content path, service path, intake, handoff, or portfolio gap.
 
 0:20-0:35
 Show the cleaner version:
@@ -139,7 +149,7 @@ Show the messy or unclear path.
 
 0:25-0:45
 Show the likely bottleneck:
-intake, naming, content order, approvals, handoff, follow-up, publishing, or proof.
+intake, naming, content order, approvals, handoff, follow-up, publishing, or portfolio.
 
 0:45-1:10
 Show the cleaner mechanism:
@@ -188,29 +198,29 @@ The reason I’m showing it this way is because AI is only useful if it fits the
 If useful, I can do the free audit and send back the first version I’d build.
 ```
 
-## Proof Insert Options
+## Portfolio Insert Options
 
-Use one proof insert max.
+Use one portfolio insert max.
 
-Workflow proof:
+Workflow portfolio:
 
 ```text
 I have built systems where scattered notes, tasks, files, and follow-ups get turned into one reusable working path.
 ```
 
-Video proof:
+Video portfolio:
 
 ```text
 I have also handled high-volume video work: recruiting edits, course lessons, long recordings, and publish-ready libraries.
 ```
 
-AI proof:
+AI portfolio:
 
 ```text
 When AI helps, I use it to structure messy inputs, summarize, route, or prep review. I do not make it the whole offer.
 ```
 
-Combined proof:
+Combined portfolio:
 
 ```text
 The useful overlap is workflow plus content: organize the work behind the video, then the actual content gets easier to create, review, and ship.
@@ -229,7 +239,7 @@ AI assist:
 Use only when there is a clear repeated task: summaries, structure, content sorting, transcript cleanup, task extraction, or review prep.
 
 Marketing:
-Use only when workflow/content proof already connects to a page, offer, audience path, or campaign.
+Use only when workflow/content portfolio already connects to a page, offer, audience path, or campaign.
 ```
 
 ## What Not To Say

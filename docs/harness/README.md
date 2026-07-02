@@ -31,7 +31,7 @@ Owner surfaces:
 ```text
 Bear = raw capture
 Opportunity HQ = durable projects, tasks, status, Goal Horizon, Work Date, Shift, dependencies, sub-tasks, portfolio notes
-Eagle = proof and assets
+Eagle = portfolio and assets
 Raycast = external action surface at /Users/singleton23/Raycast/career-hq
 Docs/skills = names, rules, review gates, and memory summaries
 ```
@@ -42,7 +42,7 @@ Harness packet:
 [lane] Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 [owner] Bear | Opportunity HQ | Eagle | Raycast | Docs/skills
 [intent] one plain sentence
-[shape] capture | task | sub-task | dependency | proof | command idea | operating rule
+[shape] capture | task | sub-task | dependency | portfolio | command idea | operating rule
 [tools] smallest allowed stack
 [review] review gate before mutation
 [memory] decision, evidence, remaining next action
@@ -62,15 +62,30 @@ review gate protects mutation
 memory keeps the decision and next action
 ```
 
+Final Human Pass:
+
+```text
+Any Singleton Systems draft meant for outreach, LinkedIn, sales, proposals,
+applications, ads, captions, website copy, portfolio packaging, or social posts
+gets one last human pass before it is shown as final.
+```
+
+This is the final veil after the platform, sales, or content strategy has done
+its job. Keep the useful structure, urgency, and CTA, then strip anything that
+sounds like a template performing authority. Cut padding, press-release cadence,
+meta commentary, fake guru phrasing, vague AI words, and third-person insight
+voice. Use "I" and "you" when that is the natural way to say it. Be concrete.
+Let the pacing be human, not perfectly symmetrical.
+
 Example packets:
 
 ```text
 [lane] Portfolio
 [owner] Opportunity HQ
-[intent] Package a proof asset from an Eagle screenshot into website/outreach copy.
-[shape] task with proof link
+[intent] Package a portfolio asset from an Eagle screenshot into website/outreach copy.
+[shape] task with portfolio link
 [tools] career-proof-packager + Eagle + Opportunity HQ; Raycast only to open/capture/update
-[review] review proof claim before publishing
+[review] review portfolio claim before publishing
 [memory] asset, claim, changed surface, remaining next action
 ```
 

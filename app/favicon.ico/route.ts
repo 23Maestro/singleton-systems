@@ -1,0 +1,16 @@
+import { NextResponse } from "next/server";
+
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#050505"/>
+  <path d="M18 23.5c0-3 2.4-5.5 5.5-5.5H32l3.9 4.6h4.6c3 0 5.5 2.4 5.5 5.5v12.4c0 3-2.4 5.5-5.5 5.5h-17c-3 0-5.5-2.4-5.5-5.5v-17Z" fill="#35a8ff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M23 34h18M23 40h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+</svg>`;
+
+export function GET() {
+  return new NextResponse(favicon, {
+    headers: {
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=31536000, immutable",
+    },
+  });
+}

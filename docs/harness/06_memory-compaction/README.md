@@ -8,7 +8,7 @@ Allowed inputs:
 verified decision
 changed files/surfaces
 task shape
-proof links
+portfolio links
 blockers/dependencies
 remaining next action
 ```
@@ -21,7 +21,7 @@ Allowed outputs:
 [lane] canonical lane/name
 [shape] task shape
 [block] blockers/dependencies
-[evidence] proof links or verification result
+[evidence] portfolio links or verification result
 [next] remaining next action
 ```
 

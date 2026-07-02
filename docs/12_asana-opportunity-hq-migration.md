@@ -11,7 +11,7 @@ project/task tracking, without changing the operating model.
 Notion / Opportunity HQ = current durable truth
 Asana = target durable truth
 Bear = raw capture
-Eagle = proof/assets
+Eagle = portfolio/assets
 Raycast = action layer
 Codex = planning, cleanup, and reviewed mutations
 ```
@@ -94,7 +94,7 @@ This writes an ignored local cache to:
 
 The cache is for inspection speed only. Asana remains the target durable store.
 The command fails if lane sections, project custom fields, required task field
-values, exact task titles, the goal relationship, or the dependency proof chain
+values, exact task titles, the goal relationship, or the dependency portfolio chain
 drift.
 
 Current read-only probe results:
@@ -153,7 +153,7 @@ Pilot parent project: Offer
 Pilot parent section: Queued
 Pilot parent due date: 2026-06-29
 Pilot parent fields: Duration=2h, Money Priority=Strategic, Goal Horizon=End of W1, Shift=Afternoon
-Subtask dependency: Test proof-link handling depends on Map Notion task fields to Asana fields
+Subtask dependency: Test portfolio-link handling depends on Map Notion task fields to Asana fields
 ```
 
 This pilot task was deleted during cleanup. Singleton Systems landing page is
@@ -173,7 +173,7 @@ Use Asana sections for execution status.
 Use custom fields for Duration, Money Priority, Goal Horizon, and Shift.
 Use native due dates for Work Date.
 Use project membership for the lane.
-Keep links/proof links in the task description until repeated use proves a
+Keep links/portfolio links in the task description until repeated use proves a
 custom field is worth it.
 ```
 
@@ -204,7 +204,7 @@ src/lib/notion.ts exports:
   listOpportunityProjects
   createOpportunityTask
   listOpportunityTasks
-  listProofTasks
+  listPortfolioTasks
   updateOpportunityTask
   appendOpportunityTaskBodyText
 ```
@@ -443,7 +443,7 @@ Added:
   Prospect ID raw vs finished highlight comparison
 
 Reason:
-  Notion search surfaced these as distinct proof tasks that the first import
+  Notion search surfaced these as distinct portfolio tasks that the first import
   compressed too aggressively.
 ```
 
@@ -518,7 +518,7 @@ Capture Portfolio Asset
 6. Cut over only when Asana can answer the same daily question:
 
 ```text
-What has to happen today so money, offer, and proof all keep moving?
+What has to happen today so money, offer, and portfolio all keep moving?
 ```
 
 ## Stop Rules

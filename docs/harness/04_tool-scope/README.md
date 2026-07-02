@@ -9,7 +9,7 @@ routed lane
 task shape
 owner surface
 review need
-proof/link need
+portfolio/link need
 ```
 
 Allowed outputs:
@@ -38,7 +38,7 @@ Default scope:
 Bear -> capture and later review
 Opportunity HQ -> durable projects/tasks/status/Goal Horizon/Work Date/Shift/dependencies/portfolio notes
 Raycast -> external action surface at /Users/singleton23/Raycast/career-hq
-Eagle -> proof assets
+Eagle -> portfolio assets
 Docs -> operating rules and research memos
 Skills -> repeated reasoning contracts
 ```

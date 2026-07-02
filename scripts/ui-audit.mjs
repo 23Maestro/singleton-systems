@@ -107,16 +107,8 @@ function visibleClipping(root) {
 async function collectViewport(page, viewport) {
   await page.setViewportSize({ width: viewport.width, height: viewport.height });
   await page.goto(targetUrl, { waitUntil: "networkidle", timeout: 60_000 });
-  await page.waitForFunction(() => {
-    const probe = document.createElement("div");
-    probe.className = "hidden rounded-[2rem] px-7";
-    document.body.appendChild(probe);
-    const style = window.getComputedStyle(probe);
-    const cssApplied = style.display === "none" && style.paddingLeft === "28px" && style.borderTopLeftRadius === "32px";
-    probe.remove();
-    return cssApplied;
-  });
-  await page.locator("#services").scrollIntoViewIfNeeded();
+  await page.waitForSelector("#what-i-fix");
+  await page.locator("#what-i-fix").scrollIntoViewIfNeeded();
   await page.waitForTimeout(500);
 
   const screenshotPath = path.join(outDir, `${viewport.name}.png`);

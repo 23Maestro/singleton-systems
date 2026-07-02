@@ -26,7 +26,7 @@ new resume structure unless explicitly requested.
      it.
    - Never convert older freelance/event work into "Remote | 2014-Present" or
      any other unconfirmed continuous job.
-5. Export exactly one user-facing file: a final PDF in `~/Downloads`, unless
+5. Export exactly one user-facing file: a final PDF in `~/Documents`, unless
    the user explicitly asks for another folder.
    - Do not place `.docx`, `.md`, `.html`, screenshots, or source sidecars in
      the delivery folder unless explicitly requested.
@@ -69,7 +69,7 @@ system.
 Job-specific variants follow the same path for both lanes:
 
 ```text
-source resume -> copy for current job -> revise copy -> render one PDF to ~/Downloads
+source resume -> copy for current job -> revise copy -> render one PDF to ~/Documents
 ```
 
 Tailoring rule:
@@ -79,22 +79,35 @@ Read the job post.
 Pull the exact truthful keywords: job title, duties, tools, schedule, vehicle,
 warehouse/customer-service terms, and required experience.
 Revise the summary, skills, and top 2-3 bullets to mirror that posting.
-Render one named PDF copy to ~/Downloads.
+Render one named PDF copy to ~/Documents unless the user named another folder.
 Never overwrite the source resume.
 ```
 
 Final delivery rule:
 
 ```text
-~/Downloads
+~/Documents
 ```
 
-Downloads is the default destination for every job-specific resume unless the
-user explicitly asks for another folder. Deliver exactly one file: the final
-PDF. Do not put `.docx`, `.md`, `.html`, screenshots, or source sidecars in the
-delivery folder unless the user explicitly asks for editable/source files.
-Temporary working files can stay in an ignored temp folder, but the user-facing
-output is one PDF.
+Documents is the default destination for every job-specific resume unless the
+user explicitly asks for another folder, such as iCloud `_Inbox` for mobile
+upload. Deliver exactly one file: the final PDF. Do not put `.docx`, `.md`,
+`.html`, screenshots, or source sidecars in the delivery folder unless the user
+explicitly asks for editable/source files. Temporary working files can stay in
+an ignored temp folder, but the user-facing output is one PDF.
+
+Pinned resume render environment:
+
+```text
+docs/resumes/application-tools/run_resume_python.sh
+/Users/singleton23/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12
+```
+
+Use the wrapper above for ReportLab resume rendering instead of plain
+`python3`. Verified on 2026-06-30: this interpreter imports ReportLab `5.0.0`
+from `/Users/singleton23/.local/lib/python3.12/site-packages/reportlab`.
+If `/usr/bin/python3` cannot import ReportLab, do not treat ReportLab as
+missing; use the pinned wrapper/interpreter first.
 
 Portfolio link rule:
 
@@ -162,7 +175,7 @@ Problem solving under pressure
 
 Treat resume-based remote video editing, educational video, course/content
 editing, workflow cleanup, and contract media roles as white-collar even when
-they overlap with freelance work. Use the white-collar resume and proof assets
+they overlap with freelance work. Use the white-collar resume and portfolio assets
 for these.
 
 Confirmed timeline context:
@@ -179,8 +192,8 @@ NurseHub:
 Prospect ID:
   Continued after NurseHub through June 2026.
 
-Proof:
-  Prospect ID and NurseHub examples are both valid website/proof-system assets.
+Portfolio:
+  Prospect ID and NurseHub examples are both valid website/portfolio-system assets.
 ```
 
 Weekly search shape:

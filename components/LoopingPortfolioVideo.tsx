@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type LoopingProofVideoProps = {
+type LoopingPortfolioVideoProps = {
   src: string;
   poster: string;
   label: string;
   className?: string;
 };
 
-export default function LoopingProofVideo({ src, poster, label, className }: LoopingProofVideoProps) {
+export default function LoopingPortfolioVideo({ src, poster, label, className }: LoopingPortfolioVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -56,7 +56,7 @@ export default function LoopingProofVideo({ src, poster, label, className }: Loo
         type="button"
         onClick={togglePlayback}
         className="absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/72 text-white shadow-[0_10px_24px_rgba(0,0,0,0.3)] backdrop-blur transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
-        aria-label={isPaused ? "Play proof video" : "Pause proof video"}
+        aria-label={isPaused ? "Play portfolio video" : "Pause portfolio video"}
       >
         {isPaused ? (
           <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-px" fill="currentColor" aria-hidden="true">

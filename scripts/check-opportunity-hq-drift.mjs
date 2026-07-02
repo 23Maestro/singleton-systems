@@ -50,7 +50,7 @@ const checks = [
     file: "/Users/singleton23/.codex/skills/singleton-systems/SKILL.md",
     must: [
       laneList,
-      "Portfolio -> proof tasks and assets",
+      "Portfolio -> portfolio tasks and assets",
       "Money Priority = Strategic for Offer and Portfolio",
       "Applications, Freelance, Singleton, and Portfolio should be views of the task database.",
     ],
@@ -63,7 +63,7 @@ const checks = [
   },
   {
     file: "/Users/singleton23/.codex/skills/opportunity-hq-updater/SKILL.md",
-    must: [laneList, "Portfolio -> proof tasks and assets"],
+    must: [laneList, "Portfolio -> portfolio tasks and assets"],
     mustNot: ["Offer\nProof", "Proof -> proof tasks and assets"],
   },
   {

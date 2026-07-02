@@ -13,7 +13,7 @@ model {
   operator = person 'Operator' {
     description """
     The working user. Uses mobile, desktop, Raycast, Codex, Notion, Bear, and
-    Eagle to move job search, Upwork, Singleton offer, and proof work without
+    Eagle to move job search, Upwork, Singleton offer, and portfolio work without
     repeatedly deciding where each item belongs.
     """
   }
@@ -23,7 +23,7 @@ model {
       description """
       Raw capture only. Use for unclear thoughts, offload notes, passive
       shortcut ideas, and anything that is not yet a real task. Promote only
-      when the item has money weight, deadline, follow-up, proof value, or a
+      when the item has money weight, deadline, follow-up, portfolio value, or a
       clear next action.
       """
     }
@@ -63,7 +63,7 @@ model {
       description """
       Real blockers only: application work can depend on resume/snippet prep;
       website request flow depends on Tally and Notion intake; offer traction
-      depends on website, proof, outreach, and a client-ready process.
+      depends on website, portfolio, outreach, and a client-ready process.
       """
     }
 
@@ -142,7 +142,7 @@ model {
 
   portfolioStore = storage 'Eagle Portfolio Library' {
     description """
-    Portfolio/evidence store. Holds screenshots, videos, PDFs, reels, examples, and proof
+    Portfolio/evidence store. Holds screenshots, videos, PDFs, reels, examples, and portfolio
     assets. Eagle does not own task status; Opportunity HQ does.
     """
   }
@@ -150,7 +150,7 @@ model {
   publishing = bucket 'Publishing Surfaces' {
     website = browser 'Singleton Website' {
       description """
-      Public proof and offer surface. Pulls from packaged proof and clear offer
+      Public portfolio and offer surface. Pulls from packaged portfolio and clear offer
       work, not from raw capture.
       """
     }
@@ -188,7 +188,7 @@ views {
     description """
     Interactive C4-style map for the Singleton Systems operating layer. Click
     each node to see the ownership rule: Bear is raw, Opportunity HQ is durable
-    truth, Eagle is proof, and Raycast/Codex are actions.
+    truth, Eagle is portfolio, and Raycast/Codex are actions.
     """
 
     include operator
@@ -282,10 +282,10 @@ views {
     }
   }
 
-  view proof_capture_flow {
+  view portfolio_capture_flow {
     title 'Portfolio Capture Flow'
     description """
-    Shows the replacement for legacy page-body proof checklists. Portfolio items
+    Shows the replacement for legacy page-body portfolio checklists. Portfolio items
     should become Opportunity Tasks, Raycast Capture Portfolio imports the asset to
     Eagle, and the task receives an Added to Eagle note and Done status.
     """

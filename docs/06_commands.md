@@ -69,7 +69,7 @@ commands/shortcuts
 money-clock
 plan-today
 log-opportunity-task
-capture-proof-asset
+capture-portfolio-asset
 update-opportunity-task
 ```
 
@@ -78,7 +78,7 @@ raw thought until it is clearer.
 
 ## Quick Task Hubs
 
-Some command ideas are not proof assets and do not need Eagle-style folders.
+Some command ideas are not portfolio assets and do not need Eagle-style folders.
 They are small workflow helpers for personal operating friction.
 
 Use the Bear lane name once, then let the command tools point at that same lane.
@@ -177,11 +177,11 @@ Log Task      -> Notion / Opportunity HQ
 
 Bear is for raw, unclear, emotional, exploratory, or "do not lose this"
 thoughts. Opportunity HQ is for focused queue items with status, time, project
-lane, money priority, link, follow-up, proof work, or project relation.
+lane, money priority, link, follow-up, portfolio work, or project relation.
 
 Passive shortcut ideas belong in Bear first, especially later Apple Shortcuts,
 shell/mobile experiments, share-sheet ideas, and small automations that might
-become proof someday. Use `#commands/shortcuts` for these. Promote them to
+become portfolio someday. Use `#commands/shortcuts` for these. Promote them to
 Opportunity HQ only after human review.
 
 Shortcut help has two modes:
@@ -280,7 +280,7 @@ Log Opportunity Task
   link/notes, and the linked project's icon DB source.
 
 Update Opportunity Task
-  Update status, notes, proof link, or project on an existing Opportunity HQ
+  Update status, notes, portfolio link, or project on an existing Opportunity HQ
   task. When the project changes, refresh the task icon from the new project's
   icon DB source.
 
@@ -304,7 +304,7 @@ Log Opportunity
   link/notes, and the linked project's icon DB source.
 
 Estimate Next Move
-  Apply the Duration Key to a Bear capture, Opportunity HQ task, or proof task.
+  Apply the Duration Key to a Bear capture, Opportunity HQ task, or portfolio task.
 
 Suggest Focus Blocks
   Codex groups approved Opportunity HQ work into Money Clock, Offer, and
@@ -315,11 +315,11 @@ Use rough effort buckets, not fake precision:
 
 ```text
 5m    quick capture, reply, or tiny cleanup
-15m   screenshot, Eagle asset, short follow-up, small proof note
+15m   screenshot, Eagle asset, short follow-up, small portfolio note
 30m   job application, freelance proposal, resume tweak, cover note
-60m   focused page section, proof package, consultation block
-2h    website section build, grouped proof capture, workflow documentation
-4h+   proof video, full page pass, larger system build
+60m   focused page section, portfolio package, consultation block
+2h    website section build, grouped portfolio capture, workflow documentation
+4h+   portfolio video, full page pass, larger system build
 ```
 
 The command should help the user see the real size of the day before hyperfocus
@@ -368,7 +368,7 @@ real macro.
 Examples:
 
 ```text
-export a proof asset
+export a portfolio asset
 prepare a repeated message
 run a multi-app capture flow
 package a screenshot or PDF review

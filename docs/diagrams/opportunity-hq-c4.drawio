@@ -22,7 +22,7 @@
         <mxCell id="codex" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#78350F;spacing=10;" value="Codex CLI&#xa;pending handoff helper" vertex="1">
           <mxGeometry height="78" width="250" x="1080" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="eagle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#064E3B;spacing=10;" value="Eagle&#xa;proof + assets" vertex="1">
+        <mxCell id="eagle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#064E3B;spacing=10;" value="Eagle&#xa;portfolio + assets" vertex="1">
           <mxGeometry height="78" width="220" x="1440" y="120" as="geometry" />
         </mxCell>
         <mxCell id="edge-bear-notion" edge="1" parent="1" source="bear" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#991B1B;fontFamily=Helvetica;fontSize=12;fontColor=#991B1B;" target="notion" value="">
@@ -34,7 +34,7 @@
         <mxCell id="edge-raycast-codex" edge="1" parent="1" source="raycast" style="endArrow=block;html=1;rounded=0;strokeWidth=2;dashed=1;strokeColor=#D97706;fontFamily=Helvetica;fontSize=12;fontColor=#92400E;" target="codex" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="edge-raycast-eagle" edge="1" parent="1" source="raycast" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#059669;fontFamily=Helvetica;fontSize=12;fontColor=#047857;" target="eagle" value="proof only">
+        <mxCell id="edge-raycast-eagle" edge="1" parent="1" source="raycast" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#059669;fontFamily=Helvetica;fontSize=12;fontColor=#047857;" target="eagle" value="portfolio only">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="850" y="225" />
@@ -117,16 +117,16 @@
         <mxCell id="var-proposal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#0284C7;fontFamily=Helvetica;fontSize=13;fontColor=#0C4A6E;spacing=8;" value="taskId, clipboardText, selectedUrl, projectId&#xa;Targets: Codex exec + task notes + Waiting" vertex="1">
           <mxGeometry height="74" width="470" x="1240" y="730" as="geometry" />
         </mxCell>
-        <mxCell id="cmd-proof" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#1E3A8A;spacing=10;" value="6. Capture Portfolio&#xa;save proof to Eagle" vertex="1">
+        <mxCell id="cmd-portfolio" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#1E3A8A;spacing=10;" value="6. Capture Portfolio&#xa;save portfolio to Eagle" vertex="1">
           <mxGeometry height="74" width="230" x="90" y="820" as="geometry" />
         </mxCell>
-        <mxCell id="cur-proof" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#16A34A;fontFamily=Helvetica;fontSize=13;fontColor=#14532D;spacing=8;" value="Pick proof task.&#xa;Import file, Finder item, or clipboard image to Eagle.&#xa;Attach proof info. Mark Done after import." vertex="1">
+        <mxCell id="cur-portfolio" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#16A34A;fontFamily=Helvetica;fontSize=13;fontColor=#14532D;spacing=8;" value="Pick portfolio task.&#xa;Import file, Finder item, or clipboard image to Eagle.&#xa;Attach portfolio info. Mark Done after import." vertex="1">
           <mxGeometry height="74" width="430" x="340" y="820" as="geometry" />
         </mxCell>
-        <mxCell id="pen-proof" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#D97706;fontFamily=Helvetica;fontSize=13;fontColor=#78350F;spacing=8;" value="Codex Assist only after proof exists.&#xa;Turn note into page/proposal copy.&#xa;Review before publish." vertex="1">
+        <mxCell id="pen-portfolio" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#D97706;fontFamily=Helvetica;fontSize=13;fontColor=#78350F;spacing=8;" value="Codex Assist only after portfolio exists.&#xa;Turn note into page/proposal copy.&#xa;Review before publish." vertex="1">
           <mxGeometry height="74" width="430" x="790" y="820" as="geometry" />
         </mxCell>
-        <mxCell id="var-proof" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#0284C7;fontFamily=Helvetica;fontSize=13;fontColor=#0C4A6E;spacing=8;" value="taskId, portfolioFile, eagleItemId, portfolioNote&#xa;Targets: Eagle + Portfolio note + Notes" vertex="1">
+        <mxCell id="var-portfolio" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=6;fillColor=#FFFFFF;strokeColor=#0284C7;fontFamily=Helvetica;fontSize=13;fontColor=#0C4A6E;spacing=8;" value="taskId, portfolioFile, eagleItemId, portfolioNote&#xa;Targets: Eagle + Portfolio note + Notes" vertex="1">
           <mxGeometry height="74" width="470" x="1240" y="820" as="geometry" />
         </mxCell>
         <mxCell id="rule" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#111827;spacing=10;" value="Smallest useful rule: native action first. Codex Assist is Cmd Shift C into one Raycast review screen only when text needs reasoning." vertex="1">

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="Singleton Systems apple icon">
+  <rect width="180" height="180" rx="40" fill="#050505"/>
+  <path d="M50 67c0-8.8 7.2-16 16-16h23.5l11 13h13.5c8.8 0 16 7.2 16 16v33c0 8.8-7.2 16-16 16H66c-8.8 0-16-7.2-16-16V67Z" fill="#35a8ff" stroke="#fff" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M65 94h51M65 110h34" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+</svg>

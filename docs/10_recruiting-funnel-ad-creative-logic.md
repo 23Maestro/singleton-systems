@@ -43,13 +43,13 @@ The signal is:
 Concrete "show me how this works" creative beats vague trust-building alone.
 ```
 
-For Singleton Systems, this means the proof library should prioritize visible working examples:
+For Singleton Systems, this means the portfolio library should prioritize visible working examples:
 
 ```text
-workflow proof: before -> working hub -> cleaner handoff
-video proof: raw inputs -> organized production path -> usable content
-AI proof: messy input -> structured output -> time saved
-marketing proof: workflow/content proof connected to a buyer-facing page or campaign
+workflow portfolio: before -> working hub -> cleaner handoff
+video portfolio: raw inputs -> organized production path -> usable content
+AI portfolio: messy input -> structured output -> time saved
+marketing portfolio: workflow/content portfolio connected to a buyer-facing page or campaign
 ```
 
 This matters immediately for outreach and first-client conversations. Lead with the concrete working path, then mention trust, background, and strategy after the buyer can see the mechanism.
@@ -61,7 +61,7 @@ Keep the structure, not the client data.
 The reusable model:
 
 ```text
-Audience filter -> proof-backed offer -> bridge page -> lead capture -> qualification -> sales handoff -> purchase tracking -> creative refresh loop
+Audience filter -> portfolio-backed offer -> bridge page -> lead capture -> qualification -> sales handoff -> purchase tracking -> creative refresh loop
 ```
 
 The durable ad lesson:
@@ -112,7 +112,7 @@ Visible user != economic buyer
 Cheap engagement != qualified demand
 Lead volume != pipeline value
 Ad clicks != workflow readiness
-Proof assets != proof system
+Portfolio assets != portfolio system
 ```
 
 ## Core Logic
@@ -160,14 +160,14 @@ Reusable filters:
 ```text
 Direct call-out: name the buyer, role, pain, or situation.
 Contextual signal: use words only the right buyer recognizes.
-Proof cue: show credible people, assets, outcomes, or process.
+Portfolio cue: show credible people, assets, outcomes, or process.
 Workflow demo: show how the thing works, not just the promise.
 Wrong-fit repellant: make bad-fit users self-select out.
 ```
 
-### 4. Proof must match the offer
+### 4. Portfolio must match the offer
 
-Proof should answer:
+Portfolio should answer:
 
 ```text
 Why should I trust you?
@@ -177,7 +177,7 @@ Who is behind this?
 What makes this different from generic alternatives?
 ```
 
-Strong proof types:
+Strong portfolio types:
 
 ```text
 short expert/founder video
@@ -189,7 +189,7 @@ screenshots of the actual operating system
 data dashboard screenshot with sensitive values removed
 ```
 
-Priority proof rule:
+Priority portfolio rule:
 
 ```text
 Show the work moving through the system before asking people to believe the system is valuable.
@@ -204,7 +204,7 @@ Better sequence:
 ```text
 Ad promise
 Bridge page or value section
-Trust/proof
+Trust/portfolio
 Specific mechanism
 Lead capture
 Next-step expectation
@@ -253,17 +253,104 @@ Problem / solution
 Authority / expert trust
 Education / utility
 Process walkthrough
-Testimonial / proof
+Testimonial / portfolio
 Comparison / old way vs new way
 Anxiety relief
 Time-sensitive decision
+```
+
+## Social Style Reference Constants
+
+Use this section for Singleton Systems social/content attack strategy only. It
+does not turn the offer into an ads business, and it does not create a new
+database or command surface.
+
+Core constants:
+
+```text
+Per social network: choose 2 people as style references unless the user changes the rule.
+Analyze style only.
+Do not copy exact claims, offers, scripts, captions, or personal brand voice.
+Use Gary Vee language only for content attack types: Jab, Feint, Haymaker.
+Do not add other named frameworks unless the user explicitly approves them.
+```
+
+Contingencies:
+
+```text
+Platform: LinkedIn, Instagram, YouTube, etc.
+Reference set: exactly 2 people per network unless changed.
+Direct style: on-camera, UI/demo-led, copy-only, carousel, screenshot teardown,
+voiceover, or silent UI walkthrough.
+Post format: define only after a real reference is captured.
+```
+
+Current LinkedIn reference set:
+
+```text
+1. Zander Whitehurst
+   Role in strategy: LinkedIn UI/demo-led design workflow reference.
+   Captured style signals:
+   - design-system and Figma/Cursor/Claude education
+   - high-clarity UI demonstration
+   - product/workflow screen as the lead
+   - minimal talking or no talking when the UI can carry the point
+   - short visual lesson with a strong single takeaway
+
+2. Aishwarya Srinivasan
+   Role in strategy: LinkedIn AI educator / on-camera plus UI-demo reference.
+   Captured style signals:
+   - AI workflow education framed for a broad operator audience
+   - on-camera trust with screen/UI portfolio above or beside the speaker
+   - sponsored or partnership context can still feel educational when the
+     workflow is concrete
+   - captions emphasize the job-to-be-done, not abstract AI hype
+   - UI portfolio, spreadsheet/workflow examples, and simple visual list frames make
+     the mechanism legible quickly
+
+```
+
+Gary Vee rhythm for LinkedIn:
+
+```text
+Monday    Jab       on-screen tip post; one practical workflow lesson
+Tuesday   Jab       written post that points to a blog, checklist, or useful reference
+Wednesday Feint     short silent video; pattern-break UI/demo, no voiceover
+Thursday  Jab       quick how-to or AI workflow micro-lesson
+Friday    Haymaker  direct CTA, case study, offer, or book-a-call post
+```
+
+Definitions:
+
+```text
+Jab = steady low-pressure value drop
+Feint = attention shift or pattern-break demo
+Haymaker = clear ask after enough value has been delivered
+```
+
+First active LinkedIn example:
+
+```text
+Format: on-camera / UI demo.
+Lead: UI first.
+Talking: no talking when the UI/demo can carry the hook.
+Use case: show a workflow cleanup mechanism, AI-assisted step, or content system
+before explaining the offer.
+Status: active style reference.
+```
+
+Still pending:
+
+```text
+LinkedIn copy-only post style references.
+Platform reference pairs for non-LinkedIn networks.
 ```
 
 Best early test mix:
 
 ```text
 3 direct/demo ads
-2 authority/proof ads
+2 authority/portfolio ads
 2 problem/solution ads
 2 educational ads
 1 comparison ad
@@ -342,7 +429,7 @@ Marketing can become a larger bundle only when the client naturally has that sur
 workflow cleanup + video/content system + social/ad creative loop
 ```
 
-That bundle can justify a discount because the same operating context, assets, and proof system support more than one lane. It is not a discount for "ads"; it is a discount for retained, connected scope.
+That bundle can justify a discount because the same operating context, assets, and portfolio system support more than one lane. It is not a discount for "ads"; it is a discount for retained, connected scope.
 
 Possible ladder:
 
@@ -380,7 +467,7 @@ high-trust local services
 coaching/consulting offers
 course or creator businesses
 multi-location service businesses
-companies with proof assets but messy handoff
+companies with portfolio assets but messy handoff
 companies with educational/social content but no clean production path
 companies with multiple connected businesses or sister brands sharing leads, assets, or workflows
 ```
@@ -393,7 +480,7 @@ Project Lane: Offer
 Status: Queued
 Money Priority: Strategic
 Time: 45m
-Project: Singleton proof + website
+Project: Singleton portfolio + website
 ```
 
 ## What Stays Parked

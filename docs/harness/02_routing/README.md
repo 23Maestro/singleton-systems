@@ -9,7 +9,7 @@ intake note
 raw user request
 Opportunity HQ candidate
 command idea
-proof/workflow/offer/job lead
+portfolio/workflow/offer/job lead
 ```
 
 Allowed outputs:
@@ -18,7 +18,7 @@ Allowed outputs:
 [lane] Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 [owner] durable owner
 [intent] one plain sentence
-[shape] capture | task | sub-task | dependency | proof | command idea | operating rule
+[shape] capture | task | sub-task | dependency | portfolio | command idea | operating rule
 [tools] skill stack and action surface
 [review] review gate
 [next] next concrete action

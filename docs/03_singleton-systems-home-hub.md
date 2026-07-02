@@ -61,7 +61,7 @@ Role:
 
 - Raycast action surface
 - Opportunity task creation and updates
-- Eagle proof capture
+- Eagle portfolio capture
 - Notion Opportunity HQ integration
 
 Current command lane:
@@ -89,7 +89,7 @@ git -C /Users/singleton23/Raycast/career-hq status
 Vercel ignore rules can hide files from a deploy, but they are not the source of
 truth for repo ownership.
 
-Opportunity HQ Raycast should point at the active Eagle proof folders and
+Opportunity HQ Raycast should point at the active Eagle portfolio folders and
 shared labels. It uses the direct Eagle API route, not MCP, for reliable
 command behavior.
 
@@ -100,7 +100,7 @@ Opportunity HQ
 ```
 
 Opportunity HQ is the durable Notion layer for tasks, projects, job-search
-execution, freelance work, Singleton offer work, and proof capture tasks.
+execution, freelance work, Singleton offer work, and portfolio capture tasks.
 
 ### Prospect Pipeline
 
@@ -110,7 +110,7 @@ execution, freelance work, Singleton offer work, and proof capture tasks.
 
 Role:
 
-- passive proof/reference system
+- passive portfolio/reference system
 - source-of-truth pattern reference
 - Scout Prep / Scouting Coordinator map reference
 
@@ -135,7 +135,7 @@ Role:
 
 - keep near-term income actions visible
 - prevent website polish from consuming the whole day
-- balance survival work, Singleton Systems offer work, and proof building
+- balance survival work, Singleton Systems offer work, and portfolio building
 
 Current reality:
 
@@ -149,13 +149,13 @@ Daily lanes:
 
 ```text
 Money Clock      -> job applications, Upwork proposals, follow-ups, cash-path leads
-Offer           -> website, copy, beta offer, workflow hub, proof packaging
+Offer           -> website, copy, beta offer, workflow hub, portfolio packaging
 System Cleanup  -> Bear review, Opportunity HQ cleanup, Eagle assets, commands
 ```
 
 Until income stabilizes, treat workdays like 8-10 hour shifts. Blue collar and
 white collar job/application work should get roughly 60-70% of serious work
-time. Upwork, Singleton offer work, proof, and system cleanup share the
+time. Upwork, Singleton offer work, portfolio, and system cleanup share the
 remaining time.
 
 Every day through Monday, June 29, 2026 should include:
@@ -163,7 +163,7 @@ Every day through Monday, June 29, 2026 should include:
 ```text
 1 blue collar application block
 1 white collar / resume / Upwork block
-1 Singleton proof or website block
+1 Singleton portfolio or website block
 ```
 
 Default rule:
@@ -192,7 +192,7 @@ itself. It is the front-door operating hook that names the owner surface,
 canonical fields/options, and next focused skill before `singleton-systems` or
 any downstream skill acts.
 
-Use it when a thought mixes business, website, proof, commands, skills, and app
+Use it when a thought mixes business, website, portfolio, commands, skills, and app
 integrations in one pass. If a surface uses stale names/options, update the
 canonical docs and skills first, then the live surface or implementation, then
 verify.
@@ -230,7 +230,7 @@ Optional Bear context tags:
 #lifeops/car-log
 ```
 
-Use Bear's nested tags to keep context under the front-facing area. For example, use `#video/npid` for Prospect ID video proof or `#website/npid` when Prospect ID is supporting the website, instead of creating loose `#npid` clutter.
+Use Bear's nested tags to keep context under the front-facing area. For example, use `#video/npid` for Prospect ID video portfolio or `#website/npid` when Prospect ID is supporting the website, instead of creating loose `#npid` clutter.
 
 Bear has dynamic tags, not real folders. To make the sidebar lanes exist, create tiny title-only notes where the page title and tag match:
 
@@ -243,15 +243,15 @@ commands -> #commands
 lifeops  -> #lifeops
 ```
 
-`lifeops` maps to Eagle's `04 Personal Systems` folder. It is for non-primary but useful personal-system proof like car logs, RBT shortcuts, Raycast experiments, and small repeatable builds. Codex/system notes live under `#commands/codex`, not as a top-level Bear lane.
+`lifeops` maps to Eagle's `04 Personal Systems` folder. It is for non-primary but useful personal-system portfolio like car logs, RBT shortcuts, Raycast experiments, and small repeatable builds. Codex/system notes live under `#commands/codex`, not as a top-level Bear lane.
 
 Do not use lifecycle tags like `#capture`, `#clarify`, `#package`, or `#ship` in Bear. Those are operating concepts, not dump tags.
 
 Use `#commands/shortcuts` for later/passive Apple Shortcuts, share-sheet ideas,
 shell/mobile workflow experiments, and small automations that might become
-useful proof later. Example: a future transcript step for an existing
+useful portfolio later. Example: a future transcript step for an existing
 Twitter/YouTube/internet-video download Shortcut. These ideas stay in Bear
-until human review gives them task weight, proof value, money relevance, or a
+until human review gives them task weight, portfolio value, money relevance, or a
 real next action.
 
 ### Notion
@@ -266,7 +266,7 @@ Role:
 Notion answers: what is this item, where does it stand, and what happens next?
 
 Opportunity HQ owns the real queue. Use it for any item with task weight,
-money pressure, a status, a time estimate, a link, proof work, or a follow-up.
+money pressure, a status, a time estimate, a link, portfolio work, or a follow-up.
 Bear can still catch raw thoughts, but focused queue items should go directly
 to Notion / Opportunity HQ.
 
@@ -382,7 +382,7 @@ Status:
 The Focus Board should answer one question quickly:
 
 ```text
-What has to happen today so money, offer, and proof all keep moving?
+What has to happen today so money, offer, and portfolio all keep moving?
 ```
 
 Do not recreate a full Eisenhower matrix. Delegate is not part of this model.
@@ -396,7 +396,7 @@ career-aligned jobs
 Upwork jobs / proposals
 direct outreach
 Singleton offer tasks
-proof assets
+portfolio assets
 ```
 
 The Opportunity Log should stay small:
@@ -414,8 +414,8 @@ Use rough effort buckets instead of perfect time tracking:
 5m | 15m | 30m | 60m | 2h | 4h+
 ```
 
-The point is to see the true size of the day. A website section, nineteen proof
-screenshots, a tailored job application, and a proof video should not all feel
+The point is to see the true size of the day. A website section, nineteen portfolio
+screenshots, a tailored job application, and a portfolio video should not all feel
 like the same size in the user's head.
 
 Opportunity HQ should also support a simple mobile form:
@@ -440,7 +440,7 @@ Project = one of the five lane projects
 
 Role:
 
-- proof and asset library
+- portfolio and asset library
 - screenshots
 - design references
 - video/workflow evidence
@@ -501,7 +501,7 @@ Log Task      -> Notion / Opportunity HQ
 
 Bear is for raw, unclear, emotional, exploratory, or "do not lose this" capture.
 Opportunity HQ is for focused queue items that need status, time, project lane,
-money priority, link, follow-up, proof work, or project relation.
+money priority, link, follow-up, portfolio work, or project relation.
 
 Future App Intents or deeper App Shortcuts should come after the workflows are
 stable. Mobile should start with low-friction prompt routing, not a custom app.
@@ -518,7 +518,7 @@ Definitions:
 
 - Capture: raw thought, no pressure
 - Clarify: decide what it is
-- Package: turn it into a reusable artifact, workflow, proof item, skill, page section, command, or offer component
+- Package: turn it into a reusable artifact, workflow, portfolio item, skill, page section, command, or offer component
 - Ship: publish, build, send, deploy, or archive
 
 This lifecycle can appear in docs, Notion / Opportunity HQ status fields, or planning notes. It should not become Bear tag sprawl.

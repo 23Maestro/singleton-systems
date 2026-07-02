@@ -31,7 +31,7 @@ make every node mean one thing. If a map starts feeling like a mural, split it.
 
 ```text
 Bear       -> quick capture lanes
-Eagle      -> proof and visual assets
+Eagle      -> portfolio and visual assets
 Notion     -> durable structure and bigger task surface
 Raycast    -> action buttons and shortcuts
 Shortcuts  -> mobile choose-menu prompt palette
@@ -106,10 +106,10 @@ Video is the wedge. Repeatable systems are the real skill.
 
 The website should no longer trap Singleton Systems inside video-only language.
 The public promise is workflow cleanup for operators and small teams. Video
-still matters because it gives the offer proof: course work, content delivery,
+still matters because it gives the offer portfolio: course work, content delivery,
 notes/review workflows, and asset handoffs. Underneath that, the system should
-keep collecting proof that the same brain can clean up repeated work anywhere:
-project status, follow-up flows, Raycast commands, Bear capture, Eagle proof,
+keep collecting portfolio that the same brain can clean up repeated work anywhere:
+project status, follow-up flows, Raycast commands, Bear capture, Eagle portfolio,
 Notion tasks, and small personal systems.
 
 The sprint is not to overbuild. The sprint is to keep the names stable, keep the

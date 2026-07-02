@@ -17,7 +17,7 @@ If code needs reliability, build against stable local APIs, scripts, files, or e
 Cerebral is the brain/front-door hook for mixed Singleton Systems work. It names
 the surface, owner, canonical fields/options, and next focused skill before
 `singleton-systems`, Opportunity HQ, Bear, Eagle, Raycast, LikeC4, website,
-copy/proof, or other downstream skills act.
+copy/portfolio, or other downstream skills act.
 
 Cerebral does not mutate tools by itself. It routes and aligns first; then the
 owner surface changes, and the change is verified. It should be inquisitive
@@ -109,13 +109,16 @@ Naming Rules
 - Companion operating doc: `docs/02_phase-one-operating-system.md`
 - Confirmed site copy doc: `docs/01_confirmed-copy.md`
 - Command layer doc: `docs/06_commands.md`
+- Truth matrix doc: `docs/15_singleton-systems-truth-matrix.md`
 - Bear role: quick capture with lean topic tags
-- Eagle role: proof and asset library
+- Eagle role: portfolio and asset library
 - Notion / Opportunity HQ role: durable structured truth
 - Asana role: target durable Opportunity HQ project/task engine
 - Raycast role: action layer
 - Cerebral role: first routing hook before Singleton Systems or downstream skills
 - Codex skills/hooks role: keep context aligned across surfaces
+- Supabase role: durable business facts and event logs only after a read-only
+  design pass
 
 Local folders, remotes, and path-based integrations should use
 `singleton-systems` going forward. When an external tool still points at the old
@@ -150,7 +153,7 @@ Money Clock
   Survival jobs, Upwork proposals, applications, follow-ups, and cash-path leads.
 
 Offer
-  Website, offer copy, beta offer, proof packaging, and workflow-hub materials.
+  Website, offer copy, beta offer, portfolio packaging, and workflow-hub materials.
 
 System Cleanup
   Bear review, Opportunity HQ cleanup, Eagle capture, commands, shortcuts, and docs.
@@ -166,7 +169,7 @@ not a bank, debt, or budget system.
 
 Until income stabilizes, daily work should run like an 8-10 hour shift. Blue
 collar and white collar application work get the first 60-70% of serious work
-time. Upwork, Singleton offer work, proof capture, and system cleanup happen
+time. Upwork, Singleton offer work, portfolio capture, and system cleanup happen
 after the cash-path floor is moving.
 
 Required daily blocks through Monday, June 29, 2026:
@@ -174,7 +177,7 @@ Required daily blocks through Monday, June 29, 2026:
 ```text
 1 blue collar application block
 1 white collar / resume / Upwork block
-1 Singleton proof or website block
+1 Singleton portfolio or website block
 ```
 
 Start-time targets:
@@ -243,7 +246,7 @@ research, but separate today's launch dependency from later legal/admin setup.
 ## Opportunity HQ V1
 
 Opportunity HQ is the durable Notion queue for money
-tasks, job applications, freelance work, Singleton offer work, proof tasks, and
+tasks, job applications, freelance work, Singleton offer work, portfolio tasks, and
 planning. Bear only owns raw capture.
 
 Asana is the target durable engine for this same Opportunity HQ model. Do not
@@ -419,7 +422,7 @@ career-aligned jobs
 freelance jobs / proposals
 direct outreach
 Singleton offer tasks
-proof assets
+portfolio assets
 ```
 
 Keep the database lean. It should answer:
@@ -455,7 +458,7 @@ Do not make this a giant CRM. The first use case is simple:
 - later, use the effort estimate to build time blocks
 
 If the entry is only a raw thought, it starts in Bear. If it has task weight,
-money pressure, a link, deadline, follow-up, proposal, application, proof value,
+money pressure, a link, deadline, follow-up, proposal, application, portfolio value,
 or project weight, it belongs in Opportunity HQ.
 
 ## Duration Key V1
@@ -473,16 +476,16 @@ Default effort assumptions:
   screenshot capture, simple Eagle asset, short Bear cleanup, quick follow-up
 
 30m
-  job application pass, freelance proposal, resume/cover note tweak, proof caption set
+  job application pass, freelance proposal, resume/cover note tweak, portfolio caption set
 
 60m
-  focused section rewrite, proof packaging pass, consultation-page block
+  focused section rewrite, portfolio packaging pass, consultation-page block
 
 2h
-  website section build, grouped proof capture, focused workflow documentation
+  website section build, grouped portfolio capture, focused workflow documentation
 
 4h+
-  video build, full page pass, larger system build, deep proof package
+  video build, full page pass, larger system build, deep portfolio package
 ```
 
 Examples:
@@ -491,14 +494,14 @@ Examples:
 19 screenshots at 5-10m each
   Estimate as 2h, then batch them.
 
-One short proof video
+One short portfolio video
   Estimate as 4h unless the assets are already clean.
 
 One job application with tailored resume
   Estimate as 30m.
 
 One Upwork proposal
-  Estimate as 15-30m depending on proof needed.
+  Estimate as 15-30m depending on portfolio needed.
 ```
 
 This is a planning key, not a time-tracking promise. If a task repeatedly takes
@@ -517,7 +520,7 @@ Money Clock
   Apply, propose, follow up, or log outreach.
 
 Offer
-  Website, offer, proof, or workflow-hub build.
+  Website, offer, portfolio, or workflow-hub build.
 
 System Cleanup
   Bear review, Eagle capture, Opportunity HQ cleanup, commands.
@@ -547,7 +550,7 @@ The router answers:
 - what project lane does this idea belong to?
 - which app owns the durable version?
 - which skill should Codex load?
-- is this a command, proof asset, website idea, workflow idea, or personal system?
+- is this a command, portfolio asset, website idea, workflow idea, or personal system?
 - should this stay quick-capture, become an Opportunity HQ item, or turn into code?
 - does the surface use stale projects, statuses, fields, or labels?
 
@@ -638,7 +641,7 @@ Log Task      -> Notion / Opportunity HQ
 
 Bear receives raw, unclear, emotional, exploratory, or "do not lose this"
 thoughts. Opportunity HQ receives focused queue items with status, time, project
-lane, money priority, link, follow-up, proof work, or project relation.
+lane, money priority, link, follow-up, portfolio work, or project relation.
 
 The first Notion form should expose only `Task`, `Project`, `Duration`, and
 `Link / Notes`. Default the rest.
@@ -681,7 +684,7 @@ linked Project's icon DB source. For Cash Jobs, use custom icon `cash-job`
 Passive shortcut and future automation ideas should usually start in Bear. This
 includes useful but later ideas such as a mobile transcript step for an existing
 share-sheet video download Shortcut. These can become Opportunity HQ tasks only
-after human review, when they have task weight, money relevance, proof value, or
+after human review, when they have task weight, money relevance, portfolio value, or
 a real next action.
 
 Suggested Bear lane:
@@ -691,7 +694,7 @@ Suggested Bear lane:
 ```
 
 Use this as the holding lane for later Apple Shortcuts, shell/mobile workflow
-ideas, passive automations, and small "this could become proof later" concepts.
+ideas, passive automations, and small "this could become portfolio later" concepts.
 Do not make every shortcut idea a Notion task.
 
 Future direction:
@@ -810,17 +813,17 @@ Use skills as narrow operating contracts, not giant memory dumps.
 
 ```text
 singleton-systems
-  Owns the business direction, offer, website copy, proof strategy, and cross-surface alignment.
+  Owns the business direction, offer, website copy, portfolio strategy, and cross-surface alignment.
 
 bear
   Owns Bear capture rules, direct bearcli usage, nested tag discipline, and MCP-as-optional guidance.
 
 eagle
-  Owns Eagle proof/assets actions through the local Eagle API CLI.
+  Owns Eagle portfolio/assets actions through the local Eagle API CLI.
 
 content-creator
   Owns broad content strategy, editorial planning, and repurposing logic after
-  the proof/offer angle is clear.
+  the portfolio/offer angle is clear.
 
 freelance-gig-proposals
   Owns Upwork, Fiverr, freelance/gig replies, consultation pitches, platform
@@ -838,23 +841,30 @@ cover-letter-casual
   Owns short, human cover notes that avoid corporate filler and overbuilt application language.
 
 career-proof-packager
-  Owns turning Eagle assets, screenshots, repo examples, Upwork proof, and workflow demos into reusable proof blocks.
+  Owns turning Eagle assets, screenshots, repo examples, Upwork portfolio, and workflow demos into reusable portfolio blocks.
 
 offer-proof-content
-  Owns turning proof assets, YouTube/social references, and build progress into
+  Owns turning portfolio assets, YouTube/social references, and build progress into
   offer-aligned content angles, captions, posts, and light schedules.
 
 cerebral-router
-  Owns first-pass routing when a thought mixes business, website, proof, commands, Bear, Eagle, Notion, Raycast, hooks, or skills.
+  Owns first-pass routing when a thought mixes business, website, portfolio, commands, Bear, Eagle, Notion, Raycast, hooks, or skills.
 
 linkedin-content-creator / instagram-curator / podcast-strategist
-  Use when proof needs to become platform-specific content. Do not load these by default for ordinary website edits.
+  Use when portfolio needs to become platform-specific content. Do not load these by default for ordinary website edits.
 
 sales-outreach / outbound-strategist
-  Own outbound positioning, offer clarity, proof-led messaging, and target-specific outreach.
+  Own outbound positioning, offer clarity, portfolio-led messaging, and target-specific outreach.
 
 ad-creative-strategist
-  Use later for paid tests, angle generation, hooks, and creative packaging after the offer/proof base is clearer.
+  Use later for paid tests, angle generation, hooks, and creative packaging after the offer/portfolio base is clearer.
+
+Final Human Pass
+  Required as the last gate for Singleton Systems outreach, LinkedIn, sales,
+  proposals, applications, ads, captions, website copy, portfolio packaging, and
+  social posts. Run the platform or sales strategy first, then strip
+  boilerplate, fake guru cadence, vague AI words, meta commentary, and template
+  lines before showing the draft as final.
 
 backend-architect
   Use later for client hub data models, internal CRM, finance tracker, integrations, and automation architecture.
@@ -896,7 +906,7 @@ Job post / resume tailoring
 Cover note / casual application message
   -> cover-letter-casual
 
-Screenshot / Eagle asset / project proof
+Screenshot / Eagle asset / project portfolio
   -> career-proof-packager + eagle
 
 Portfolio asset into LinkedIn / Instagram / content
@@ -904,6 +914,9 @@ Portfolio asset into LinkedIn / Instagram / content
 
 Mixed idea / "where does this go?"
   -> cerebral-router
+
+Any route that produces copy for the user to send, publish, or paste ends with
+Final Human Pass.
 ```
 
 Research-backed build rule:
@@ -928,7 +941,7 @@ mentions: resume, application, job description, tailor, application fields
 mentions: cover letter, cover note, application note
   load: cover-letter-casual
 
-mentions: Eagle, proof, screenshot, reference, asset
+mentions: Eagle, portfolio, screenshot, reference, asset
   load: career-proof-packager, eagle
 
 mentions: LinkedIn, Instagram, content, brand, schedule
@@ -950,7 +963,7 @@ Hook rule:
 Route attention first. Ask the focused skill to do the work second.
 ```
 
-For the business loop, milestones, content lanes, Freelance lane, proof bank rules,
+For the business loop, milestones, content lanes, Freelance lane, portfolio bank rules,
 and future skill candidates, use `docs/02_phase-one-operating-system.md` as the
 companion operating document. This file owns the integration map; the Phase One
 doc owns the week-to-week business mold.
@@ -968,7 +981,7 @@ Borrow:
 - bucket ownership
 - source-of-truth boundaries
 - action commands as buttons
-- proof of repeatable systems
+- portfolio of repeatable systems
 - Scout Prep / Scouting Coordinator mapping discipline
 - LikeC4-style visual mapping rules
 
@@ -987,13 +1000,13 @@ Do not borrow:
 Owns:
 
 - Raycast action surface for Opportunity HQ capture/update/open commands
-- Eagle proof capture against outcome folders
+- Eagle portfolio capture against outcome folders
 - durable Opportunity HQ routing to Notion tasks/projects
-- practical proof operations for Singleton Systems
+- practical portfolio operations for Singleton Systems
 
 ## Naming Once Rules
 
-Use these as Eagle/proof folders or broad content lanes, not Opportunity HQ
+Use these as Eagle/portfolio folders or broad content lanes, not Opportunity HQ
 project lanes:
 
 ```text
@@ -1034,7 +1047,7 @@ Use this when the user drops a mixed thought in plain language:
 website copy / section wording
   -> docs/01_confirmed-copy.md, singleton-systems, content-creator, sales-outreach
 
-business loop / offer / proof / weekly path
+business loop / offer / portfolio / weekly path
   -> docs/02_phase-one-operating-system.md, singleton-systems
 
 surface ownership / app roles / repo paths / hooks / skills
@@ -1055,10 +1068,10 @@ survival job, blue collar job, white collar job, income deadline, proposal count
 job lead, Upwork lead, outreach target, offer task with effort estimate
   -> Notion / Opportunity HQ, then Focus Board view if active today
 
-video proof
+video portfolio
   -> Eagle 01 Video Portfolio, Bear #video or #video/context
 
-repeatable workflow proof
+repeatable workflow portfolio
   -> Eagle 02 Workflow Portfolio, Bear #workflow or #workflow/context
 
 site asset or reference
@@ -1072,7 +1085,7 @@ Codex/workspace/system idea
 ```
 
 Do not force every thought into Notion. Notion is for durable queue work after
-the thought has task, money, proof, link, follow-up, or project weight.
+the thought has task, money, portfolio, link, follow-up, or project weight.
 
 Exception: survival-critical work should not sit only in Bear. If it affects
 income timing, follow-up, applications, proposals, or end-of-month execution, it
@@ -1090,7 +1103,7 @@ Use it as a reference for:
 
 - Upwork consultation page templates
 - short question-first proposal writing
-- proof-bank capture prompts
+- portfolio-bank capture prompts
 - Opportunity HQ page/task generation
 - daily execution tracking
 
@@ -1119,7 +1132,7 @@ Review note
 ```
 
 Use this for Upwork consultations, website sections, workflow buildouts,
-proof-capture tasks, and other items that need more than quick Bear capture.
+portfolio-capture tasks, and other items that need more than quick Bear capture.
 The model is: one clean page, a small task list, and enough context to return
 later without rethinking the whole idea.
 
@@ -1136,7 +1149,7 @@ on repo open
 before website copy edits
   load singleton-systems and content-creator.
 
-before proof/library work
+before portfolio/library work
   load singleton-systems and eagle.
 
 before Opportunity HQ command work

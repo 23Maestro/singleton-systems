@@ -1,35 +1,143 @@
 import Image from "next/image";
-import LoopingProofVideo from "@/components/LoopingProofVideo";
-import ProofShowcase, { type ProofTab } from "@/components/ProofShowcase";
+import BookQuickChatButton from "@/components/BookQuickChatButton";
+import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
+import PortfolioShowcase, { type PortfolioTab } from "@/components/PortfolioShowcase";
 import RotatingHeroHeadline from "@/components/RotatingHeroHeadline";
+import { founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
+
+const TALLY_URL = "https://tally.so/r/obgLaX";
+const CAL_URL = "https://cal.com/workflow-chat/15min";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${siteUrl}/#person`,
+    name: founderName,
+    url: siteUrl,
+    jobTitle: "Workflow Cleanup Consultant",
+    worksFor: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    knowsAbout: [
+      "workflow cleanup consulting",
+      "AI-assisted workflow systems",
+      "video production workflows",
+      "Premiere Pro workflow systems",
+      "Notion workflow dashboards",
+      "course video migration",
+      "sports recruiting video operations",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    name: siteName,
+    url: siteUrl,
+    founder: {
+      "@id": `${siteUrl}/#person`,
+    },
+    description: siteDescription,
+    logo: `${siteUrl}/singleton-systems-official.svg`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    name: siteName,
+    url: siteUrl,
+    description: siteDescription,
+    publisher: {
+      "@id": `${siteUrl}/#organization`,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${siteUrl}/#service`,
+    name: serviceName,
+    serviceType: "Workflow cleanup consulting",
+    provider: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    areaServed: "United States",
+    description: serviceDescription,
+    audience: {
+      "@type": "Audience",
+      audienceType: "creators, coaches, course teams, small teams, and service businesses",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${siteUrl}/#faq`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What does Singleton Systems do?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Singleton Systems helps creators, coaches, small teams, and service businesses turn messy recurring workflows into cleaner reusable systems.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does Singleton Systems work with video teams?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Video workflow cleanup can cover Premiere Pro editing pipelines, footage organization, course video migrations, review links, delivery systems, and repeatable production handoffs.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does Singleton Systems build AI workflows?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes, when AI fits the real workflow. Practical AI-assisted steps can help summarize, sort, route, prep review, and turn messy inputs into usable next actions.",
+        },
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${siteUrl}/#recruiting-ops-video`,
+    name: "Recruiting Ops Command Center workflow preview",
+    description: "A workflow preview showing how athlete video work moved through lookup, review, follow-up, and delivery without losing status.",
+    thumbnailUrl: `${siteUrl}/portfolio-2-ssystems-poster.jpg`,
+    contentUrl: `${siteUrl}/portfolio-2-ssystems.mp4`,
+    uploadDate: "2026-07-02",
+  },
+];
 
 const solutions = [
   {
     title: "Intake & Scope",
-    copy: "Turn each request into a repeatable project path your team can track.",
+    copy: "Make each request easier to track from the start.",
     tone: "blue",
   },
   {
     title: "Assets & Folders",
-    copy: "Give every project a file structure your team does not have to rethink.",
+    copy: "Set up folders so nobody has to guess where things go.",
     tone: "yellow",
   },
   {
     title: "Notes & Reviews",
-    copy: "Turn feedback into decisions, tasks, and next steps without chasing threads.",
+    copy: "Turn feedback into decisions and the next thing to do.",
     tone: "coral",
   },
   {
     title: "Package & Delivery",
-    copy: "Package what worked so the next workflow starts cleaner.",
+    copy: "Save what worked so the next project starts cleaner.",
     tone: "green",
   },
 ] as const;
 
 const helpAreas = [
   {
-    title: "Scattered Inputs",
-    copy: "Forms, files, notes, messages, and requests live in too many places.",
+    title: "Too Many Places",
+    copy: "Forms, files, notes, messages, and requests are spread out.",
     accent: "bg-[#2383e2]",
     glow: "shadow-[0_0_28px_rgba(35,131,226,0.35)]",
   },
@@ -47,13 +155,13 @@ const helpAreas = [
   },
   {
     title: "AI-Assisted Setup",
-    copy: "Prompts, tools, and automations only matter when they fit the real workflow.",
+    copy: "AI only helps when it fits the way the work really gets done.",
     accent: "bg-[#25c266]",
     glow: "shadow-[0_0_28px_rgba(37,194,102,0.32)]",
   },
 ] as const;
 
-const nurseHubProofTabs: readonly ProofTab[] = [
+const nurseHubPortfolioTabs: readonly PortfolioTab[] = [
   {
     id: "before",
     label: "Before",
@@ -77,59 +185,94 @@ const nurseHubProofTabs: readonly ProofTab[] = [
   },
 ] as const;
 
-const recruitingProofPanes = [
+const recruitingPortfolioPanes = [
   {
     label: "Status",
     eyebrow: "Manual Tracking",
     title: "Status got blurry as volume climbed.",
     subtitle: "Lookup, video updates, follow-up, and delivery pressure were spread across repeated steps.",
+    tone: "warning",
   },
   {
     label: "Action",
     eyebrow: "Operator View",
     title: "Every athlete had a clearer next step.",
-    subtitle: "Lookup, status, shortcuts, and handoffs all lived closer to the work.",
+    subtitle: "Lookup, status, shortcuts, and next steps all lived closer to the work.",
+    tone: "process",
   },
   {
     label: "Output",
     eyebrow: "Shipped Under Load",
     title: "140+ highlights delivered in 6 weeks",
-    subtitle: "Real delivery volume moved with less manual tracking, fewer repeated clicks, and fewer memory-based follow-ups.",
+    subtitle: "Real delivery volume moved with less manual tracking, fewer repeated clicks, and fewer memory based follow ups.",
+    tone: "ready",
   },
 ] as const;
 
 const methodSteps = [
-  "Pick one recurring workflow.",
+  "Pick one workflow that keeps coming back.",
   "Watch how it’s done now.",
-  "List out the messy steps, tools, files, and follow-ups.",
+  "Write down the messy parts: tools, files, and follow ups.",
   "Create a simple hub, prompt, checklist, or automated path.",
   "Check what went out and choose the next fix.",
 ] as const;
 
-function RecruitingSignalIcon({ label }: { label: (typeof recruitingProofPanes)[number]["label"] }) {
+function RecruitingSignalIcon({ label }: { label: (typeof recruitingPortfolioPanes)[number]["label"] }) {
   if (label === "Status") {
     return (
-      <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
-        <circle cx="9" cy="9" r="6.4" fill="#eef6ff" stroke="#050505" strokeWidth="1.45" />
-        <path d="M9 5.5v3.8l2.5 1.6" stroke="#2383e2" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="10.6" fill="#fff8d6" stroke="#050505" strokeWidth="2.15" />
+        <path d="M18 12.1v6.3l4.1 2.6" stroke="#050505" strokeWidth="2.35" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9.4 9.6 12 7.5M26.6 9.6 24 7.5" stroke="#050505" strokeWidth="1.9" strokeLinecap="round" />
       </svg>
     );
   }
 
   if (label === "Action") {
     return (
-      <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
-        <rect x="3.2" y="3.4" width="11.6" height="11.2" rx="2" fill="#fff7d6" stroke="#050505" strokeWidth="1.45" />
-        <path d="m6.1 9.2 1.9 1.9 4-4.3" stroke="#d79500" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+      <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
+        <rect x="9.3" y="7.8" width="16.5" height="20.4" rx="2.8" fill="#f8fbff" stroke="#050505" strokeWidth="2.05" />
+        <path d="M13.2 14.2h8.3M13.2 18h6.1M13.2 21.8h4.4" stroke="#050505" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="24.7" cy="24.3" r="5.8" fill="#dff2ff" stroke="#050505" strokeWidth="1.75" />
+        <path d="m22.2 24.4 1.6 1.7 3.6-4" stroke="#050505" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
-      <path d="M9 2.8 14.2 5v4.1c0 3-1.9 5.1-5.2 6.3-3.3-1.2-5.2-3.3-5.2-6.3V5L9 2.8Z" fill="#e9fff1" stroke="#050505" strokeWidth="1.45" strokeLinejoin="round" />
-      <path d="m6.5 9.2 1.6 1.6 3.6-3.9" stroke="#25c266" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
+    <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
+      <path d="M18 6.8 26.6 10.5v7c0 5.1-3.1 8.7-8.6 10.7-5.5-2-8.6-5.6-8.6-10.7v-7L18 6.8Z" fill="#e9fff1" stroke="#050505" strokeWidth="2.05" strokeLinejoin="round" />
+      <path d="m13.8 18.2 2.6 2.8 5.9-6.6" stroke="#050505" strokeWidth="2.45" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
+  );
+}
+
+function RecruitingIconFrame({ pane, children }: { pane: (typeof recruitingPortfolioPanes)[number]; children: React.ReactNode }) {
+  const toneClass = {
+    warning: "bg-[#ffc83d]",
+    process: "bg-[#2383e2]",
+    ready: "bg-[#25c266]",
+  }[pane.tone];
+
+  return (
+    <span className={`inline-flex h-14 w-14 items-center justify-center rounded-full border-2 border-black ${toneClass} shadow-[0_8px_18px_rgba(15,23,42,0.1)]`}>
+      {children}
+    </span>
+  );
+}
+
+function RecruitingPortfolioPill({ pane }: { pane: (typeof recruitingPortfolioPanes)[number] }) {
+  const gemClass = {
+    warning: "bg-[radial-gradient(circle_at_30%_30%,#ffe9a6,#f59e0b_48%,#8f4b00)]",
+    process: "bg-[radial-gradient(circle_at_30%_30%,#b9efff,#2383e2_48%,#004fa8)]",
+    ready: "bg-[radial-gradient(circle_at_30%_30%,#c9ffd9,#25c266_48%,#0f7a3a)]",
+  }[pane.tone];
+
+  return (
+    <span className="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-[1rem] bg-white px-3 text-[0.72rem] font-semibold text-neutral-950 shadow-[0_9px_20px_rgba(15,23,42,0.13)] ring-1 ring-black/5">
+      <span className={`h-2.5 w-2.5 rounded-full ${gemClass}`} aria-hidden="true" />
+      {pane.label}
+    </span>
   );
 }
 
@@ -285,7 +428,7 @@ function IntakePreview() {
         </span>
       </div>
       <div className="mt-10 -mb-8 w-[113%] origin-top-left translate-x-1 scale-[0.92] rounded-tl-[1.1rem] border-l border-t border-neutral-200 bg-white shadow-[0_18px_36px_rgba(15,23,42,0.08)] sm:-mb-9 sm:w-[110%] sm:translate-x-2 sm:scale-[0.93]">
-        <div className="px-5 pt-5 text-xs font-semibold text-neutral-500">4 inputs found</div>
+        <div className="px-5 pt-5 text-xs font-semibold text-neutral-600">4 items found</div>
         <div className="relative mt-4 grid grid-cols-4 border-b-2 border-neutral-200 text-[9px] font-bold text-neutral-800 sm:text-xs">
           <span className="absolute bottom-[-2px] left-0 h-0.5 w-1/4 bg-black" aria-hidden="true" />
           {tabs.map((tab, index) => (
@@ -303,7 +446,7 @@ function IntakePreview() {
               <IntakeRowIcon title={title} />
               <div>
                 <p className="text-sm font-bold tracking-[-0.02em] text-neutral-950">{title}</p>
-                <p className="mt-0.5 text-xs font-medium leading-relaxed text-neutral-500">{copy}</p>
+                <p className="mt-0.5 text-xs font-medium leading-relaxed text-neutral-600">{copy}</p>
               </div>
             </div>
           ))}
@@ -363,7 +506,7 @@ function AssetsPreview() {
               </svg>
               <div className="min-w-0">
                 <p className="text-sm font-bold tracking-[-0.02em] text-neutral-950">{title}</p>
-                <p className="mt-0.5 text-xs font-medium leading-snug text-neutral-500">{copy}</p>
+                <p className="mt-0.5 text-xs font-medium leading-snug text-neutral-600">{copy}</p>
               </div>
               <span className={`rounded-md border px-2 py-1 text-[10px] font-bold leading-none ${statusClassName}`}>{status}</span>
             </div>
@@ -431,14 +574,14 @@ function NotesPreview() {
           <span className="rounded-md bg-neutral-100 px-3 py-1.5 text-sm font-bold text-neutral-800">Review Sorted</span>
         </div>
 
-        <p className="text-sm font-medium text-neutral-500">3 updates ready</p>
+        <p className="text-sm font-medium text-neutral-600">3 updates ready</p>
 
         <div className="grid grid-cols-4 gap-0.5 border-b border-neutral-100 pb-2 text-[8px] font-semibold leading-none sm:gap-1 sm:text-xs">
           {tabs.map((tab) => (
             <span
               key={tab}
               className={`flex min-w-0 items-center justify-center gap-0.5 whitespace-nowrap sm:gap-1.5 ${
-                tab === "Voice Note" ? "relative z-10 -mb-[9px] border-b-2 border-black pb-2 text-black" : "text-neutral-500"
+                tab === "Voice Note" ? "relative z-10 -mb-[9px] border-b-2 border-black pb-2 text-black" : "text-neutral-600"
               }`}
             >
               <NotesTabIcon tab={tab} />
@@ -461,7 +604,7 @@ function NotesPreview() {
                   <div key={index} className="w-[3px] rounded-full bg-neutral-600" style={{ height: `${height}%` }} />
                 ))}
               </div>
-              <span className="text-xs font-medium text-neutral-500">03:42</span>
+              <span className="text-xs font-medium text-neutral-600">03:42</span>
             </div>
           </div>
         </div>
@@ -532,7 +675,7 @@ function PackagePreview() {
               Saved as template <span className="text-green-500">✓</span>
             </span>
           </div>
-          <p className="mb-5 pr-4 text-[13px] leading-snug text-neutral-500">Everything that worked, ready for next time.</p>
+          <p className="mb-5 pr-4 text-[13px] leading-snug text-neutral-600">Everything that worked, ready for next time.</p>
 
           <ul className="space-y-4 text-sm font-medium text-neutral-600">
             {[
@@ -543,7 +686,7 @@ function PackagePreview() {
               ["Tools", "tag"],
             ].map(([item, icon]) => (
               <li key={item} className="flex items-center gap-3">
-                <svg className="h-4 w-4 shrink-0 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <svg className="h-4 w-4 shrink-0 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   {icon === "folder" ? (
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2Z" />
                   ) : icon === "list" ? (
@@ -577,7 +720,7 @@ function PackagePreview() {
             </span>
           </div>
 
-          <p className="mb-4 border-b border-neutral-50 pb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">Delivery package</p>
+          <p className="mb-4 border-b border-neutral-100 pb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600">Delivery package</p>
 
           <div className="flex flex-col gap-4">
             {rows.map(([title, status, statusClassName]) => (
@@ -598,9 +741,15 @@ function PackagePreview() {
 
 export default function Page() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-[#fbfbfb] text-[#080808]">
+    <main className="overflow-x-clip bg-[#fbfbfb] text-[#080808]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-7 py-8 sm:px-8 lg:px-10">
-        <a href="#" className="block w-24 sm:w-28" aria-label="Singleton Systems home">
+        <a href="#start" className="block w-24 sm:w-28" aria-label="Singleton Systems home">
           <Image
             src="/singleton-systems-wordmark.svg"
             alt="Singleton Systems"
@@ -611,25 +760,25 @@ export default function Page() {
           />
         </a>
         <nav aria-label="Primary" className="hidden translate-x-6 items-center gap-8 text-sm font-semibold text-neutral-600 md:flex">
-          <a className="transition hover:text-black" href="#about">
-            About
+          <a className="transition hover:text-black" href="#start">
+            Start
           </a>
-          <a className="transition hover:text-black" href="#services">
-            Services
+          <a className="transition hover:text-black" href="#what-i-fix">
+            What I Fix
           </a>
-          <a className="transition hover:text-black" href="#results">
-            Results
+          <a className="transition hover:text-black" href="#portfolio">
+            Portfolio
           </a>
-          <a className="transition hover:text-black" href="#pricing">
-            Pricing
+          <a className="transition hover:text-black" href="#how-it-works">
+            How It Works
+          </a>
+          <a className="transition hover:text-black" href="#book">
+            Book
           </a>
         </nav>
-        <a
-          href="https://tally.so/r/obgLaX"
-          className="hidden rounded-full bg-black px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800 sm:inline-flex"
-        >
-          Request Audit
-        </a>
+        <BookQuickChatButton
+          className="hidden rounded-full bg-black px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800 md:inline-flex"
+        />
         <details className="group relative md:hidden">
           <summary
             className="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full bg-black text-white marker:hidden"
@@ -645,20 +794,21 @@ export default function Page() {
             aria-label="Mobile"
             className="absolute right-0 top-14 z-20 grid min-w-44 gap-3 rounded-3xl border border-neutral-200 bg-white p-5 text-right text-sm font-bold shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
           >
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#results">Results</a>
-            <a href="#pricing">Pricing</a>
+            <a href="#start">Start</a>
+            <a href="#what-i-fix">What I Fix</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#book">Book</a>
           </nav>
         </details>
       </header>
 
-      <section className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
+      <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
           <RotatingHeroHeadline />
           <div className="mx-auto mt-6">
             <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
-              I help operators and small teams turn scattered notes, repeated follow-ups, and messy handoffs into a workflow they can reuse.
+              I help operators and small teams clean up the stuff that slows work down: scattered notes, follow ups, files, and repeat steps.
             </p>
           </div>
           <div className="mx-auto mt-3">
@@ -694,35 +844,44 @@ export default function Page() {
               <span>Curious about AI? Ask me where it can save real time.</span>
             </p>
           </div>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col items-center justify-center gap-2.5 sm:flex-row">
             <a
-              href="https://tally.so/r/obgLaX"
-              className="inline-flex min-h-11 w-auto items-center justify-center rounded-full bg-black px-7 text-xs font-bold uppercase tracking-[0.18em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
+              href={CAL_URL}
+              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:hidden"
             >
-              Fix the flow
+              Book a Flow Check
+            </a>
+            <BookQuickChatButton className="hidden min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:inline-flex" />
+            <a
+              href={TALLY_URL}
+              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full border border-neutral-300 bg-white px-6 text-xs font-bold uppercase tracking-[0.13em] text-neutral-950 transition hover:border-neutral-950 hover:bg-neutral-50"
+            >
+              Send Details First
             </a>
           </div>
         </div>
 
-        <div className="mt-12 w-full max-w-[16rem] overflow-hidden rounded-[1.45rem] border border-[#2b5f8f]/22 bg-white shadow-[0_14px_36px_rgba(35,54,79,0.08)] backdrop-blur sm:mt-16 sm:max-w-[18rem]">
+        <div className="mt-10 w-full max-w-[12rem] overflow-hidden rounded-[1.45rem] border border-[#2b5f8f]/22 bg-white shadow-[0_14px_36px_rgba(35,54,79,0.08)] backdrop-blur sm:mt-14 sm:max-w-[14rem]">
           <Image
             src="/23-hero.png"
             alt="Jerami Singleton"
             width={1254}
             height={1254}
             priority
+            fetchPriority="high"
+            sizes="(min-width: 640px) 14rem, 12rem"
             className="aspect-square w-full rounded-b-[1.18rem] object-cover"
           />
           <div className="px-3 pb-3.5 pt-2.5 text-left sm:px-4">
             <p className="text-base font-semibold tracking-[-0.04em] text-neutral-950">Jerami Singleton</p>
-            <p className="mt-1 text-xs font-medium text-neutral-500 sm:text-sm">CEO of Singleton Systems.</p>
+            <p className="mt-1 text-xs font-medium text-neutral-600 sm:text-sm">CEO of Singleton Systems.</p>
           </div>
         </div>
       </section>
 
-      <section id="about" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="about-heading">
+      <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="start-heading">
         <div className="mx-auto max-w-5xl">
-          <h2 id="about-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
+          <h2 id="start-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
             How It Starts
           </h2>
           <div
@@ -762,20 +921,19 @@ export default function Page() {
               </p>
             </div>
             <p className="mt-7 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Most workflow problems start before the real work begins: vague requests, scattered files, missing context, and follow-ups living in too many places.
+              You usually know where things start to break: unclear requests, files everywhere, missing context, and follow ups nobody wants to chase.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Instead of chasing updates across tools, threads, and memory, your team gets a single{" "}
-              <span className="font-semibold text-[#005cb9]">workflow hub</span>: one place to see what matters, what&apos;s stuck, and what ships next.
+              The goal is simple: one place to see what matters, what&apos;s stuck, and what needs to ship next.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="services" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="services-heading">
+      <section id="what-i-fix" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="what-i-fix-heading">
         <div className="mx-auto max-w-6xl">
-          <h2 id="services-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Solutions
+          <h2 id="what-i-fix-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
+            What I Fix
           </h2>
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
             {solutions.map((solution, index) => (
@@ -822,7 +980,7 @@ export default function Page() {
             Where I Can Help
           </h2>
           <p className="mx-auto mt-8 max-w-3xl text-center text-balance text-xl font-medium leading-relaxed text-white/72 sm:text-2xl">
-            Problems usually pop up during handoffs, when inputs, follow-ups, repeated tasks, and tools stop fitting how the team really works.
+            We can start by reviewing the process around requests, files, follow ups, and repeat tasks.
           </p>
           <div className="mt-12 divide-y divide-white/12 rounded-[2rem] border border-white/12 bg-white/[0.03] px-5 sm:px-7">
             {helpAreas.map((area) => (
@@ -838,16 +996,16 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="results" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="results-heading">
+      <section id="portfolio" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="portfolio-heading">
         <div className="mx-auto max-w-6xl">
-          <h2 id="results-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Proof From Real Systems
+          <h2 id="portfolio-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
+            Portfolio From Real Systems
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-lg font-medium leading-relaxed text-neutral-600">
-            Real examples of messy work turned into cleaner systems, with the before state, build path, and proof kept together.
+            Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio kept together.
           </p>
           <div className="mt-10">
-            <ProofShowcase title="Course Video Migration" tabs={nurseHubProofTabs} />
+            <PortfolioShowcase title="Course Video Migration" tabs={nurseHubPortfolioTabs} />
           </div>
           <article className="mt-8 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-white shadow-[0_18px_52px_rgba(15,23,42,0.08)]">
             <div className="grid gap-6 bg-[#f7f7f5] p-5 sm:p-7 lg:grid-cols-[1fr_21rem] lg:p-8">
@@ -860,10 +1018,10 @@ export default function Page() {
                 </p>
               </div>
               <div className="rounded-[1.35rem] border border-neutral-200 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-neutral-400">Outcome</p>
-                <p className="mt-3 text-3xl font-black tracking-[-0.035em] text-neutral-950">140+ highlights</p>
-                <p className="mt-1 text-lg font-black tracking-[-0.02em] text-neutral-950">delivered in 6 weeks</p>
-                <p className="mt-3 text-sm font-semibold leading-relaxed text-neutral-600">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-600">Outcome</p>
+                <p className="mt-3 text-3xl font-bold tracking-normal text-neutral-950">140+ highlights</p>
+                <p className="mt-1 text-lg font-semibold tracking-normal text-neutral-950">delivered in 6 weeks</p>
+                <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600">
                   Status, follow-up, send readiness, and review needs stayed visible as volume increased.
                 </p>
               </div>
@@ -876,29 +1034,29 @@ export default function Page() {
                     <span className="h-3 w-3 rounded-full bg-[#ffc83d]" aria-hidden="true" />
                     <span className="h-3 w-3 rounded-full bg-[#25c266]" aria-hidden="true" />
                   </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.14em] text-neutral-500 shadow-[0_8px_18px_rgba(15,23,42,0.07)]">
+                  <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-neutral-600 shadow-[0_8px_18px_rgba(15,23,42,0.07)]">
                     Live workflow preview
                   </span>
                 </div>
-                <LoopingProofVideo
+                <LoopingPortfolioVideo
                   className="aspect-[12/7] w-full rounded-[1.25rem] border border-neutral-200 bg-black object-cover shadow-[0_18px_42px_rgba(15,23,42,0.16)]"
-                  src="/proof-2-ssystems.mp4"
-                  poster="/proof-2-ssystems-poster.jpg"
+                  src="/portfolio-2-ssystems.mp4"
+                  poster="/portfolio-2-ssystems-poster.jpg"
                   label="Recruiting Ops Command Center workflow preview"
                 />
               </div>
             </div>
             <div className="grid gap-3 border-t border-neutral-200 bg-[#fbfbfb] p-4 sm:grid-cols-3 sm:p-5">
-              {recruitingProofPanes.map((pane) => (
+              {recruitingPortfolioPanes.map((pane) => (
                 <div key={pane.label} className="rounded-[1.25rem] border border-neutral-200 bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,0.045)]">
                   <div className="mb-4 flex items-center justify-between gap-3">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-[#fbfbfb]">
+                    <RecruitingIconFrame pane={pane}>
                       <RecruitingSignalIcon label={pane.label} />
-                    </span>
-                    <span className="rounded-full border border-neutral-200 bg-white px-2.5 py-1 text-[0.65rem] font-black text-neutral-500">{pane.label}</span>
+                    </RecruitingIconFrame>
+                    <RecruitingPortfolioPill pane={pane} />
                   </div>
-                  <p className="text-[0.68rem] font-black uppercase tracking-[0.18em] text-neutral-400">{pane.eyebrow}</p>
-                  <h4 className="mt-3 text-xl font-semibold leading-tight tracking-[-0.025em] text-neutral-950 sm:text-2xl">{pane.title}</h4>
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-neutral-600">{pane.eyebrow}</p>
+                  <h4 className="mt-3 text-xl font-semibold leading-tight tracking-normal text-neutral-950 sm:text-2xl">{pane.title}</h4>
                   <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600 sm:text-[0.95rem]">{pane.subtitle}</p>
                 </div>
               ))}
@@ -907,15 +1065,15 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="method-heading">
+      <section id="how-it-works" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="method-heading">
         <div className="mx-auto max-w-5xl">
           <h2 id="method-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            How The Audit Works
+            How It Works
           </h2>
           <div className="mt-10 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-white/90 shadow-[0_16px_42px_rgba(15,23,42,0.065)] backdrop-blur">
             {methodSteps.map((step, index) => (
               <div key={step} className="grid grid-cols-[4rem_1fr] border-b border-neutral-200 p-6 last:border-b-0 sm:grid-cols-[6rem_1fr] sm:p-8">
-                <p className="text-sm font-bold text-neutral-400">0{index + 1}</p>
+                <p className="text-sm font-bold text-neutral-600">0{index + 1}</p>
                 <p className="text-xl font-bold tracking-[-0.02em] sm:text-2xl">{step}</p>
               </div>
             ))}
@@ -923,23 +1081,29 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="pricing" className="bg-black px-6 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="pricing-heading">
+      <section id="book" className="bg-black px-6 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="book-heading">
         <div className="mx-auto max-w-3xl">
-          <h2 id="pricing-heading" className="text-4xl font-semibold tracking-normal sm:text-5xl">
-            Ready for a free audit?
+          <h2 id="book-heading" className="text-4xl font-semibold tracking-normal sm:text-5xl">
+            Let&apos;s check out <em className="font-bold text-[#25c266] drop-shadow-[0_0_12px_rgba(37,194,102,0.42)]">your</em> flow.
           </h2>
           <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
-            Stop relying on your team to remember what the workflow should handle.
+            Book a Flow Check, send a video link, or paste the details.
           </p>
-          <p className="mt-4 text-lg font-semibold leading-relaxed text-white/72">
-            Bring one messy recurring workflow. I&apos;ll help turn it into a clear system your team can use again and again.
-          </p>
-          <a
-            href="https://tally.so/r/obgLaX"
-            className="mt-10 inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200"
-          >
-            Request Free Audit
-          </a>
+          <div className="mt-10 flex flex-col items-center justify-center gap-2.5 sm:flex-row">
+            <a
+              href={CAL_URL}
+              className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:hidden"
+            >
+              Book a Flow Check
+            </a>
+            <BookQuickChatButton className="hidden min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:inline-flex" />
+            <a
+              href={TALLY_URL}
+              className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full border border-white/25 bg-transparent px-7 text-sm font-bold uppercase tracking-normal text-white transition hover:border-white/70 hover:bg-white/10"
+            >
+              Send Details First
+            </a>
+          </div>
         </div>
       </section>
 
@@ -954,21 +1118,24 @@ export default function Page() {
               className="h-auto w-44"
             />
             <p className="mt-4 max-w-xl text-base font-semibold leading-relaxed text-neutral-600">
-              Workflow audits for operational teams that need clearer state, less repeated work, and cleaner systems around the tools they already use.
+              Workflow audits for teams that need less repeated work and cleaner systems around the tools they already use.
             </p>
           </div>
           <nav aria-label="Footer" className="grid gap-3 text-lg font-bold">
-            <a href="#about" className="transition hover:text-neutral-500">
-              About
+            <a href="#start" className="transition hover:text-neutral-600">
+              Start
             </a>
-            <a href="#services" className="transition hover:text-neutral-500">
-              Services
+            <a href="#what-i-fix" className="transition hover:text-neutral-600">
+              What I Fix
             </a>
-            <a href="#results" className="transition hover:text-neutral-500">
-              Results
+            <a href="#portfolio" className="transition hover:text-neutral-600">
+              Portfolio
             </a>
-            <a href="#pricing" className="transition hover:text-neutral-500">
-              Pricing
+            <a href="#how-it-works" className="transition hover:text-neutral-600">
+              How It Works
+            </a>
+            <a href="#book" className="transition hover:text-neutral-600">
+              Book
             </a>
           </nav>
         </div>

@@ -8,7 +8,7 @@ Allowed inputs:
 routed task candidate
 project lane
 goal horizon
-link/proof asset
+link/portfolio asset
 blocker/dependency
 sub-task candidate
 ```
@@ -19,7 +19,7 @@ Allowed outputs:
 [shape] Opportunity Task
 [shape] sub-task
 [shape] dependency
-[shape] proof link placement
+[shape] portfolio link placement
 [shape] page-content summary
 ```
 
@@ -29,7 +29,7 @@ Do not:
 create pseudo-project rows
 create a new database
 use page checkboxes for trackable work
-split subtasks without separate status/time/proof value
+split subtasks without separate status/time/portfolio value
 make Raycast the durable state owner
 ```
 

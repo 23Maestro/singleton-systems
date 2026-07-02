@@ -17,8 +17,11 @@
 *.pem
 /output
 /tmp
+.tmp
 .cache
 .playwright-cli
+__pycache__/
+*.pyc
 
 # debug
 npm-debug.log*

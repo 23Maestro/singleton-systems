@@ -3,14 +3,14 @@
 ## North Star
 
 Build a structured business system around workflow cleanup, repeatable systems,
-proof, outreach, Upwork, finances, website copy, and practical AI-assisted
+portfolio, outreach, Upwork, finances, website copy, and practical AI-assisted
 implementation.
 
 The working lane:
 
 > Help operators, creators, consultants, small teams, studios, and service businesses turn one messy recurring workflow into a cleaner system they can reuse.
 
-This system exists to help Jerami stay organized, use Codex and skills on purpose, ship proof, and turn lived workflow experience into paid work.
+This system exists to help Jerami stay organized, use Codex and skills on purpose, ship portfolio, and turn lived workflow experience into paid work.
 
 ## Current Offer
 
@@ -40,7 +40,7 @@ Create the working mold before making more tools.
 Phase one is not about perfecting the final business. It is about building the repeatable system that lets us:
 
 - write and maintain website copy
-- gather proof
+- gather portfolio
 - document examples
 - prepare Upwork assets
 - run outreach
@@ -54,7 +54,7 @@ Phase one is not about perfecting the final business. It is about building the r
 Purpose:
 
 - make the offer legible
-- show proof
+- show portfolio
 - explain the workflow cleanup process
 - create a clear next step
 
@@ -65,12 +65,12 @@ Current source files:
 
 Use these skills when useful:
 
-- `content-creator` for copy, sections, proof framing, and content strategy
+- `content-creator` for copy, sections, portfolio framing, and content strategy
 - `sales-outreach` for pain, CTA, objection handling, and conversion logic
 - `ui-designer` after the message is clear
 - `frontend-developer` when implementing or polishing the site
 
-### 2. Proof Bank
+### 2. Portfolio Bank
 
 Purpose:
 
@@ -78,7 +78,7 @@ Purpose:
 - make the business believable
 - feed the website, Upwork, social posts, and outreach
 
-Every proof item should capture:
+Every portfolio item should capture:
 
 - before state
 - problem
@@ -87,7 +87,7 @@ Every proof item should capture:
 - screenshot, photo, Loom, or repo artifact
 - what it proves about the offer
 
-Proof categories:
+Portfolio categories:
 
 - video workflow cleanup
 - editing systems
@@ -96,7 +96,7 @@ Proof categories:
 - client delivery systems
 - small workflow demos
 
-Passive proof assets:
+Passive portfolio assets:
 
 - car tool inventory/mobile workflow
 
@@ -115,7 +115,7 @@ First product:
 
 The old ChatGPT project separated video editing and workflow consultation. Keep
 that separation for deliverable clarity, but do not let it split the current
-Singleton Systems offer. Video remains a strong proof lane and trust wedge, but
+Singleton Systems offer. Video remains a strong portfolio lane and trust wedge, but
 the offer should be able to accept one messy recurring workflow from a creator,
 operator, consultant, small team, studio, or service business.
 
@@ -142,7 +142,7 @@ Career HQ / Notion task template:
 2. Why it matters
 3. Inputs needed
 4. Action list
-5. Proof or asset link
+5. Portfolio or asset link
 6. Next review point
 
 Use this pattern when a Codex or mobile Shortcut capture should become a real
@@ -160,7 +160,7 @@ Default Upwork proposal shape:
 
 1. Pattern-interrupt question or observation.
 2. One sentence showing understanding.
-3. One relevant proof point.
+3. One relevant portfolio point.
 4. Simple next step.
 
 Proposal variants to generate when needed:
@@ -183,6 +183,12 @@ Rules:
 - one CTA per message
 - log every touch and next action
 
+Default LinkedIn opener:
+
+```text
+Hey [Name], quick question: are you still handling video editing / repurposing manually, or do you already have a clean process for getting clips out?
+```
+
 Use `sales-outreach` for:
 
 - ICP definition
@@ -198,7 +204,7 @@ Purpose:
 
 - build trust by documenting the work
 - show operator thinking
-- create proof before a large client base exists
+- create portfolio before a large client base exists
 
 Content lanes:
 
@@ -256,7 +262,7 @@ Use skills as working roles, not as personality decoration.
 Use when:
 
 - writing site sections
-- turning proof into case studies
+- turning portfolio into case studies
 - tightening positioning
 - making content from documented work
 
@@ -283,7 +289,7 @@ Use when:
 - implementing the page
 - improving responsive layout
 - cleaning interaction states
-- making proof sections easier to scan
+- making portfolio sections easier to scan
 
 ### Visual And Paid Media
 
@@ -316,19 +322,19 @@ Keep the loop small.
 ### Monday
 
 - choose one business priority
-- choose one proof asset to create
+- choose one portfolio asset to create
 - choose one outreach target group
 
 ### Tuesday To Thursday
 
 - build or document one concrete thing
-- capture proof
+- capture portfolio
 - send outreach
 - log responses
 
 ### Friday
 
-- update website, Upwork, or proof bank
+- update website, Upwork, or portfolio bank
 - review pipeline
 - decide what wording the market taught us
 
@@ -347,7 +353,7 @@ Done when:
 
 - hero is stable
 - offer section is clear
-- proof section has at least two examples
+- portfolio section has at least two examples
 - CTA is clear
 
 ### Milestone 2: Upwork Audit Pack
@@ -360,13 +366,13 @@ Done when:
 - discovery questions are written
 - follow-up offer is defined
 
-### Milestone 3: Proof Bank Started
+### Milestone 3: Portfolio Bank Started
 
 Done when:
 
-- at least three proof items are documented
+- at least three portfolio items are documented
 - each has before/problem/change/result
-- at least one has visual proof
+- at least one has visual portfolio
 
 ### Milestone 4: Outreach Lane Active
 
@@ -385,10 +391,10 @@ Candidate future skills:
 
 - video-workflow-audit
 - freelance-gig-proposals
-- proof-asset-writer
+- portfolio-asset-writer
 - client-hub-builder
 - workflow-cleanup-case-study
-- social-proof-repurposer
+- social-portfolio-repurposer
 - finance-runway-check
 - career-hq-task-templater
 - upwork-consultation-page-builder
@@ -399,7 +405,7 @@ Rule:
 
 ## Guardrails
 
-- Do not overbuild before proof and outreach.
+- Do not overbuild before portfolio and outreach.
 - Do not make the offer AI-first.
 - Do not make passive projects the main lane.
 - Do not rewrite everything when a small correction is enough.

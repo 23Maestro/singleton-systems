@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-export type ProofTab = {
+export type PortfolioTab = {
   id: "before" | "build" | "ready";
   label: string;
   eyebrow: string;
@@ -10,9 +10,9 @@ export type ProofTab = {
   gemClassName: string;
 };
 
-export type ProofShowcaseProps = {
+export type PortfolioShowcaseProps = {
   title: string;
-  tabs: readonly ProofTab[];
+  tabs: readonly PortfolioTab[];
 };
 
 type IconTone = "warning" | "process" | "ready";
@@ -56,7 +56,7 @@ const readyRows = [
   ["10", "Follow-Up Care", "23:44", "Ready"],
 ] as const;
 
-function ProofIcon({ tone }: { tone: IconTone }) {
+function PortfolioIcon({ tone }: { tone: IconTone }) {
   const toneClass = {
     warning: "bg-[#ffc83d]",
     process: "bg-[#2383e2]",
@@ -102,12 +102,12 @@ function Chip({ children, tone = "neutral" }: { children: React.ReactNode; tone?
   );
 }
 
-function SectionHeader({ tab, tone }: { tab: ProofTab; tone: IconTone }) {
+function SectionHeader({ tab, tone }: { tab: PortfolioTab; tone: IconTone }) {
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-      <ProofIcon tone={tone} />
+      <PortfolioIcon tone={tone} />
       <div className="min-w-0">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">{tab.eyebrow}</p>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-600">{tab.eyebrow}</p>
         <h4 className="mt-2 text-2xl font-bold tracking-[-0.025em] text-neutral-950 sm:text-3xl">{tab.label === "Before" ? "Unordered Source Folder" : tab.label === "Build Path" ? "Structured Processing Lane" : "Upload-Ready Library"}</h4>
         <p className="mt-3 max-w-3xl text-base font-semibold leading-relaxed text-neutral-600">{tab.subtitle}</p>
       </div>
@@ -115,14 +115,14 @@ function SectionHeader({ tab, tone }: { tab: ProofTab; tone: IconTone }) {
   );
 }
 
-function BeforeState({ tab }: { tab: ProofTab }) {
+function BeforeState({ tab }: { tab: PortfolioTab }) {
   return (
     <section className="bg-white p-5 sm:p-7 lg:p-8">
       <SectionHeader tab={tab} tone="warning" />
       <div className="mt-7 rounded-[1.35rem] border border-neutral-200 bg-[#f7f7f5] p-4 sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-200 pb-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-500">Folder</p>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-neutral-600">Folder</p>
             <p className="mt-1 text-lg font-bold text-neutral-950">Course_Videos (messy)</p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -138,7 +138,7 @@ function BeforeState({ tab }: { tab: ProofTab }) {
           {beforeRows.map(([file, duration]) => (
             <div key={file} className="grid grid-cols-[minmax(0,1fr)_5.5rem] gap-3 border-t border-neutral-100 px-4 py-3 text-sm font-semibold text-neutral-800">
               <span className="min-w-0 break-words">{file}</span>
-              <span className="text-right text-neutral-500">{duration}</span>
+              <span className="text-right text-neutral-600">{duration}</span>
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ function BeforeState({ tab }: { tab: ProofTab }) {
   );
 }
 
-function BuildState({ tab }: { tab: ProofTab }) {
+function BuildState({ tab }: { tab: PortfolioTab }) {
   return (
     <section className="bg-white p-5 sm:p-7 lg:p-8">
       <SectionHeader tab={tab} tone="process" />
@@ -190,7 +190,7 @@ function BuildState({ tab }: { tab: ProofTab }) {
               </div>
               <div>
                 <p className="mb-1 text-[0.68rem] font-black uppercase tracking-[0.12em] text-neutral-400 sm:hidden">Status</p>
-                <p className="text-neutral-500">{status}</p>
+                <p className="text-neutral-600">{status}</p>
               </div>
             </div>
           ))}
@@ -212,7 +212,7 @@ function BuildState({ tab }: { tab: ProofTab }) {
   );
 }
 
-function ReadyState({ tab }: { tab: ProofTab }) {
+function ReadyState({ tab }: { tab: PortfolioTab }) {
   return (
     <section className="bg-white p-5 sm:p-7 lg:p-8">
       <SectionHeader tab={tab} tone="ready" />
@@ -243,7 +243,7 @@ function ReadyState({ tab }: { tab: ProofTab }) {
               </div>
               <div className="flex items-center justify-between gap-4 sm:block">
                 <span className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-neutral-400 sm:hidden">Duration</span>
-                <span className="text-neutral-500">{duration}</span>
+                <span className="text-neutral-600">{duration}</span>
               </div>
               <div className="flex items-center justify-between gap-4 sm:block">
                 <span className="text-[0.68rem] font-black uppercase tracking-[0.12em] text-neutral-400 sm:hidden">Status</span>
@@ -266,8 +266,8 @@ function ReadyState({ tab }: { tab: ProofTab }) {
   );
 }
 
-export default function ProofShowcase({ title, tabs }: ProofShowcaseProps) {
-  const [activeTabId, setActiveTabId] = useState<ProofTab["id"]>("before");
+export default function PortfolioShowcase({ title, tabs }: PortfolioShowcaseProps) {
+  const [activeTabId, setActiveTabId] = useState<PortfolioTab["id"]>("before");
   const summary =
     "200+ course video files became ordered upload paths with cleaner names, mapped course libraries, and ready-to-ship structure.";
   const activeTab = useMemo(
@@ -280,7 +280,7 @@ export default function ProofShowcase({ title, tabs }: ProofShowcaseProps) {
       <div className="p-5 sm:p-7 lg:p-8">
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-start">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">Proof System</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-600">Portfolio System</p>
             <h3 className="mt-3 text-3xl font-semibold leading-tight tracking-[-0.045em] text-neutral-950 sm:text-4xl">
               {title}
             </h3>
@@ -292,7 +292,7 @@ export default function ProofShowcase({ title, tabs }: ProofShowcaseProps) {
           <div
             className="grid grid-cols-3 gap-2 rounded-[1.45rem] border border-black/5 bg-neutral-200/60 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] sm:min-w-[25rem]"
             role="tablist"
-            aria-label="Course video migration proof states"
+            aria-label="Course video migration portfolio states"
           >
             {tabs.map((tab) => {
               const isActive = tab.id === activeTab.id;
@@ -300,16 +300,16 @@ export default function ProofShowcase({ title, tabs }: ProofShowcaseProps) {
               return (
                 <button
                   key={tab.id}
-                  id={`proof-tab-${tab.id}`}
+                  id={`portfolio-tab-${tab.id}`}
                   type="button"
                   role="tab"
                   aria-selected={isActive}
-                  aria-controls="proof-panel"
+                  aria-controls="portfolio-panel"
                   onClick={() => setActiveTabId(tab.id)}
                   className={`flex min-h-11 items-center justify-center gap-1.5 rounded-[1rem] px-2 text-xs font-semibold transition sm:gap-2 sm:px-3 sm:text-sm ${
                     isActive
                       ? "bg-white text-neutral-950 shadow-[0_9px_20px_rgba(15,23,42,0.13)] ring-1 ring-black/5"
-                      : "text-neutral-500 hover:bg-white/55 hover:text-neutral-900"
+                      : "text-neutral-600 hover:bg-white/55 hover:text-neutral-900"
                   }`}
                 >
                   <span className={`h-3 w-3 rounded-full ${tab.gemClassName}`} aria-hidden="true" />
@@ -322,9 +322,9 @@ export default function ProofShowcase({ title, tabs }: ProofShowcaseProps) {
       </div>
 
       <div
-        id="proof-panel"
+        id="portfolio-panel"
         role="tabpanel"
-        aria-labelledby={`proof-tab-${activeTab.id}`}
+        aria-labelledby={`portfolio-tab-${activeTab.id}`}
         className="border-t border-neutral-200/80"
       >
         {activeTab.id === "before" ? (
