@@ -12,6 +12,16 @@ MCP is an operator/control layer, not the dependency layer.
 
 If code needs reliability, build against stable local APIs, scripts, files, or env config. MCP can expose tools and shortcuts, but the system should not break because an MCP server is inactive.
 
+## Repo Shape Rule
+
+Do not add more mindless numbered docs. A new idea should first go into the
+current owner doc, an owner folder such as `docs/harness` or `docs/portfolio`,
+or the truth matrix. Create a new top-level doc only when it names a durable
+surface or contract.
+
+Future cleanup should rename the existing numbered files by owner/topic instead
+of continuing the `docs/16_*`, `docs/17_*` pattern.
+
 ## Cerebral First
 
 Cerebral is the brain/front-door hook for mixed Singleton Systems work. It names

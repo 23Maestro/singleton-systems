@@ -23,6 +23,9 @@ automation.
 
 These are candidate tables, not approved migrations.
 
+Supabase is a later implementation step. Keep the table ideas here until the
+repo cleanup pass is done and the repeated facts are obvious.
+
 ```text
 content_references
   platform, reference_set, source_url, direct_style, post_format, attack_type, notes

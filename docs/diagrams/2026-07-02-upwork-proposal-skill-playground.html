@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upwork Proposal Skill Playground</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #5b6472;
+      --line: #d7dde7;
+      --paper: #ffffff;
+      --wash: #f4f6f9;
+      --blue: #2563eb;
+      --blue-soft: #dbeafe;
+      --purple: #7c3aed;
+      --purple-soft: #ede9fe;
+      --green: #15803d;
+      --green-soft: #dcfce7;
+      --amber: #b45309;
+      --amber-soft: #fef3c7;
+      --red: #b91c1c;
+      --red-soft: #fee2e2;
+      --slate: #475569;
+      --slate-soft: #e2e8f0;
+      --shadow: 0 18px 50px rgba(15, 23, 42, .11);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fff 0%, var(--wash) 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 940px;
+      font-size: clamp(38px, 6vw, 76px);
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 20px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .chip {
+      padding: 9px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(300px, .88fr) minmax(360px, 1.12fr);
+      gap: 22px;
+      margin-top: 32px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .86);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-inner {
+      padding: 22px;
+    }
+
+    .panel h2 {
+      font-size: 26px;
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+
+    .route {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+      min-height: 92px;
+      padding: 16px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .num {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid var(--ink);
+      color: #fff;
+      font-weight: 900;
+      background: var(--blue);
+    }
+
+    .step h3 {
+      font-size: 18px;
+      line-height: 1.15;
+      margin-bottom: 5px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .controls {
+      display: grid;
+      gap: 18px;
+    }
+
+    .control-group {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .control-group h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .seg {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      appearance: none;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 rgba(17, 24, 39, .18);
+    }
+
+    button.active {
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 3px 3px 0 rgba(37, 99, 235, .35);
+    }
+
+    .output {
+      display: grid;
+      gap: 18px;
+    }
+
+    .hero-card {
+      padding: 22px;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background: var(--blue-soft);
+      box-shadow: 7px 7px 0 rgba(15, 23, 42, .16);
+    }
+
+    .hero-card h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1;
+    }
+
+    .hero-card p {
+      margin-top: 12px;
+      color: #1e3a8a;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: var(--slate);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .card.blue { border-top: 8px solid var(--blue); }
+    .card.purple { border-top: 8px solid var(--purple); }
+    .card.green { border-top: 8px solid var(--green); }
+    .card.amber { border-top: 8px solid var(--amber); }
+    .card.red { border-top: 8px solid var(--red); }
+    .card.slate { border-top: 8px solid var(--slate); }
+
+    .draft {
+      padding: 22px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: #101828;
+      color: #fff;
+      box-shadow: 7px 7px 0 rgba(15, 23, 42, .22);
+    }
+
+    .draft h2 {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .draft p {
+      margin-top: 12px;
+      color: #e5e7eb;
+      font-size: 18px;
+    }
+
+    .draft .links {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.2);
+      color: #bfdbfe;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .notes {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .note {
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .note h3 {
+      font-size: 15px;
+      margin-bottom: 7px;
+    }
+
+    .note p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .mode-note {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--amber-soft);
+      color: #78350f;
+      font-size: 15px;
+    }
+
+    @media (max-width: 860px) {
+      main { width: min(100% - 22px, 680px); padding-top: 24px; }
+      .grid, .cards, .notes { grid-template-columns: 1fr; }
+      .step { min-height: auto; }
+      .hero-card h2 { font-size: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Upwork Proposal Skill Playground</h1>
+    <p class="lead">Interactive review surface for the hardened proposal path: concise query in, branch by match, questions, pricing, and links, then produce a short human draft.</p>
+    <div class="meta" aria-label="artifact metadata">
+      <span class="chip">2026-07-02</span>
+      <span class="chip">HTML review artifact</span>
+      <span class="chip">Source: freelance-gig-proposals</span>
+      <span class="chip">Durable truth stays in skill/docs</span>
+    </div>
+
+    <section class="grid" aria-label="proposal skill playground">
+      <aside class="panel">
+        <div class="panel-inner">
+          <h2>Route In</h2>
+          <div class="route">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <h3>Concise Query</h3>
+                <p>“Write an Upwork proposal for this post.” Paste brief, post, questions, or price range.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <h3>Cerebral Done</h3>
+                <p>Surface is Freelance. Owner is proposal skill. Review before send.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <h3>Harness Packet</h3>
+                <p>[freelance] [proposal] [draft] [review] [memory]</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">4</div>
+              <div>
+                <h3>Proposal Skill</h3>
+                <p>Use confirmed offer copy first. Keep it shorter than the post. No task-list echo.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mode-note">
+            Visual lane note: HTML is the working playground. LikeC4 remains best for durable maps. draw.io is now a sketch/helper lane unless it earns a specific use.
+          </div>
+        </div>
+      </aside>
+
+      <section class="output">
+        <div class="hero-card">
+          <h2 id="headline">High match, cover letter only.</h2>
+          <p id="headlineNote">Lead with one useful question. Then one proof anchor and one offer-lens sentence.</p>
+        </div>
+
+        <div class="panel">
+          <div class="panel-inner controls" aria-label="scenario controls">
+            <div class="control-group">
+              <h3>Match</h3>
+              <div class="seg" data-group="match">
+                <button class="active" data-value="high">High</button>
+                <button data-value="medium">Medium</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <h3>Post Shape</h3>
+              <div class="seg" data-group="shape">
+                <button class="active" data-value="letter">Cover only</button>
+                <button data-value="questions">Cover + questions</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <h3>Pricing</h3>
+              <div class="seg" data-group="pricing">
+                <button class="active" data-value="none">Not asked</button>
+                <button data-value="hourly">Hourly asked</button>
+                <button data-value="package">Package possible</button>
+              </div>
+            </div>
+            <div class="control-group">
+              <h3>Link Set</h3>
+              <div class="seg" data-group="links">
+                <button class="active" data-value="default">Default</button>
+                <button data-value="webinar">Webinar fit</button>
+                <button data-value="sports">Sports sample</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card blue">
+            <strong>Opening Question</strong>
+            <p id="question">Do you already have the visual style, or would you want the editor to help shape that first?</p>
+          </div>
+          <div class="card green">
+            <strong>Proof Anchor</strong>
+            <p id="proof">Recurring content systems: webinars, course production, long-form edits, and client video work.</p>
+          </div>
+          <div class="card purple">
+            <strong>Offer Lens</strong>
+            <p id="offer">Make recurring video work easier to run. Keep brand, assets, notes, and review moving in one clean path.</p>
+          </div>
+          <div class="card amber">
+            <strong>Price Logic</strong>
+            <p id="price">Leave pricing out unless asked. If asked, use $35/hr and protect the first interview from a bad flat bid.</p>
+          </div>
+        </div>
+
+        <div class="draft">
+          <h2>Draft Shape</h2>
+          <p id="draft1">Do you already have the visual style for the series, or would you want the editor to help shape that first?</p>
+          <p id="draft2">This is a strong fit for me. My best work has been recurring content where the brand needs to stay consistent across every piece. That’s the lane I’d bring here.</p>
+          <p id="draft3"></p>
+          <div class="links" id="linkBlock">Portfolio:<br>https://singleton-systems.com<br>https://JeramiSingleton.carrd.co<br><br>Jerami</div>
+        </div>
+      </section>
+    </section>
+
+    <section class="notes" aria-label="current rules">
+      <div class="note">
+        <h3>Hard No</h3>
+        <p>No “I can take X and do Y.” No repeating their deliverables. No fake authority cadence.</p>
+      </div>
+      <div class="note">
+        <h3>Brevity Rule</h3>
+        <p>The proposal should usually be shorter than the post. Default to two tight paragraphs plus links.</p>
+      </div>
+      <div class="note">
+        <h3>Next Harden</h3>
+        <p>Pricing branch: hourly first interview, then optional per-interview package once the scope is real.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      match: "high",
+      shape: "letter",
+      pricing: "none",
+      links: "default"
+    };
+
+    const copy = {
+      match: {
+        high: {
+          headline: "High match, cover letter only.",
+          note: "Lead with one useful question. Then one proof anchor and one offer-lens sentence.",
+          proof: "Recurring content systems: webinars, course production, long-form edits, and client video work.",
+          draft2: "This is a strong fit for me. My best work has been recurring content where the brand needs to stay consistent across every piece. That’s the lane I’d bring here."
+        },
+        medium: {
+          headline: "Medium match, honest bridge.",
+          note: "Name the adjacent fit without losing power. Bridge through the real pattern underneath.",
+          proof: "Adjacent portfolio, real overlap: brand consistency, narrative judgment, assets, review, and delivery.",
+          draft2: "This is adjacent to some of my portfolio, but the work pattern is familiar: keep the brand clear, the content organized, and the next edit easier than the last."
+        }
+      },
+      shape: {
+        letter: {
+          question: "Do you already have the visual style, or would you want the editor to help shape that first?",
+          offer: "Make recurring video work easier to run. Keep brand, assets, notes, and review moving in one clean path."
+        },
+        questions: {
+          question: "What part matters most here: the main edit, the clips, or keeping the whole series consistent?",
+          offer: "Shrink the cover letter. Let the supporting answers carry details on process, examples, pricing, and availability."
+        }
+      },
+      pricing: {
+        none: {
+          price: "Leave pricing out unless asked. Keep the CTA conversational.",
+          draft3: ""
+        },
+        hourly: {
+          price: "$35/hr. Use this when they ask for pricing and scope is still unknown.",
+          draft3: "My rate is $35/hr. I’d keep the first interview transparent, then we can package the rest if the scope stays consistent."
+        },
+        package: {
+          price: "Start hourly, then offer a per-interview package after the first edit defines the real scope.",
+          draft3: "I’d start hourly for the first interview, then move into a flat per-interview package once the series style is set."
+        }
+      },
+      links: {
+        default: "Portfolio:<br>https://singleton-systems.com<br>https://JeramiSingleton.carrd.co<br><br>Jerami",
+        webinar: "Portfolio:<br>https://singleton-systems.com<br><br>Webinars and course content:<br>https://JeramiSingleton.carrd.co<br><br>Jerami",
+        sports: "Portfolio:<br>https://singleton-systems.com<br>https://JeramiSingleton.carrd.co<br><br>Relevant sports sample:<br>[Prospect ID YouTube link]<br><br>Jerami"
+      }
+    };
+
+    function render() {
+      const match = copy.match[state.match];
+      const shape = copy.shape[state.shape];
+      const pricing = copy.pricing[state.pricing];
+
+      document.getElementById("headline").textContent = match.headline;
+      document.getElementById("headlineNote").textContent = match.note;
+      document.getElementById("question").textContent = shape.question;
+      document.getElementById("proof").textContent = match.proof;
+      document.getElementById("offer").textContent = shape.offer;
+      document.getElementById("price").textContent = pricing.price;
+      document.getElementById("draft1").textContent = shape.question;
+      document.getElementById("draft2").textContent = match.draft2;
+      document.getElementById("draft3").textContent = pricing.draft3;
+      document.getElementById("draft3").style.display = pricing.draft3 ? "block" : "none";
+      document.getElementById("linkBlock").innerHTML = copy.links[state.links];
+    }
+
+    document.querySelectorAll(".seg").forEach((group) => {
+      group.addEventListener("click", (event) => {
+        const button = event.target.closest("button");
+        if (!button) return;
+        const key = group.dataset.group;
+        state[key] = button.dataset.value;
+        group.querySelectorAll("button").forEach((item) => item.classList.toggle("active", item === button));
+        render();
+      });
+    });
+
+    render();
+  </script>
+</body>
+</html>

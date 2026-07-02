@@ -119,6 +119,17 @@ coding/cleanup goal for the existing Notion finance/debt database, not an
 active Money Clock operating project yet.
 ```
 
+Later research note:
+
+```text
+Casual Calvin / voice cadence system:
+  Explore a lightweight way to keep outreach, proposals, and proof copy closer
+  to the user's natural speaking style without creating fake persona bloat.
+  Possible inputs: accepted drafts, rejected lines, before/after rewrites, and
+  short examples of "I would say this / I would not say this."
+  Park as research until repeated copy work proves the shape.
+```
+
 Do not overbuild the long-term layer yet. Keep it as the north star until the
 near-term system is stable.
 
