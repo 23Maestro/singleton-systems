@@ -38,6 +38,9 @@ coverage
 .env*.local
 .env
 
+# supabase local metadata
+supabase/.temp/
+
 # vercel
 .vercel
 

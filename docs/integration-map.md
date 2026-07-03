@@ -19,8 +19,8 @@ current owner doc, an owner folder such as `docs/harness` or `docs/portfolio`,
 or the truth matrix. Create a new top-level doc only when it names a durable
 surface or contract.
 
-Future cleanup should rename the existing numbered files by owner/topic instead
-of continuing the `docs/16_*`, `docs/17_*` pattern.
+Future cleanup should rename existing numbered files by owner/topic instead of
+continuing numeric-prefix root docs.
 
 ## Cerebral First
 
@@ -116,10 +116,10 @@ Naming Rules
 - Repo/folder name: `singleton-systems`
 - Current Git remote: `https://github.com/23Maestro/singleton-systems.git`
 - External Raycast action repo: `/Users/singleton23/Raycast/career-hq`
-- Companion operating doc: `docs/02_phase-one-operating-system.md`
-- Confirmed site copy doc: `docs/01_confirmed-copy.md`
-- Command layer doc: `docs/06_commands.md`
-- Truth matrix doc: `docs/15_singleton-systems-truth-matrix.md`
+- Companion operating doc: `docs/operating-system/phase-one-operating-system.md`
+- Confirmed site copy doc: `docs/offer/confirmed-copy.md`
+- Command layer doc: `docs/commands.md`
+- Truth matrix doc: `docs/truth-matrix.md`
 - Bear role: quick capture with lean topic tags
 - Eagle role: portfolio and asset library
 - Notion / Opportunity HQ role: durable structured truth
@@ -266,7 +266,7 @@ truth and Asana is the read-only/prototype target.
 Asana integration plan:
 
 ```text
-docs/12_asana-opportunity-hq-migration.md
+docs/opportunity-hq/asana-migration.md
 ```
 
 V1 project lanes:
@@ -600,7 +600,7 @@ Raycast / Shortcuts -> repeated action after the behavior is obvious
 Current research memo:
 
 ```text
-docs/09_planning-idea-routing-research-pass.md
+docs/planning/planning-idea-routing-research-pass.md
 ```
 
 ## Mobile / Apple Layer
@@ -961,7 +961,7 @@ mentions: where does this go, offload, Bear, capture, route
   load: cerebral-router, bear
 
 mentions: Shortcut, Karabiner, Hammerspoon, Maestro, command
-  load: cerebral-router, docs/06_commands.md, then exact implementation skill
+  load: cerebral-router, docs/commands.md, then exact implementation skill
 
 mentions: money clock, job search, proposals, applications, survival, end of month
   load: cerebral-router, singleton-systems, freelance-gig-proposals or job-application-resume when relevant
@@ -974,7 +974,7 @@ Route attention first. Ask the focused skill to do the work second.
 ```
 
 For the business loop, milestones, content lanes, Freelance lane, portfolio bank rules,
-and future skill candidates, use `docs/02_phase-one-operating-system.md` as the
+and future skill candidates, use `docs/operating-system/phase-one-operating-system.md` as the
 companion operating document. This file owns the integration map; the Phase One
 doc owns the week-to-week business mold.
 
@@ -1055,16 +1055,16 @@ Use this when the user drops a mixed thought in plain language:
 
 ```text
 website copy / section wording
-  -> docs/01_confirmed-copy.md, singleton-systems, content-creator, sales-outreach
+  -> docs/offer/confirmed-copy.md, singleton-systems, content-creator, sales-outreach
 
 business loop / offer / portfolio / weekly path
-  -> docs/02_phase-one-operating-system.md, singleton-systems
+  -> docs/operating-system/phase-one-operating-system.md, singleton-systems
 
 surface ownership / app roles / repo paths / hooks / skills
-  -> docs/04_singleton-systems-integration-map.md, singleton-systems, backend-architect
+  -> docs/integration-map.md, singleton-systems, backend-architect
 
 commands / shortcut layers / macro ideas
-  -> docs/06_commands.md, bear, raycast-extension-builder, plus the exact command skill only when building
+  -> docs/commands.md, bear, raycast-extension-builder, plus the exact command skill only when building
 
 quick raw thought under ten minutes
   -> Bear #inbox
@@ -1197,7 +1197,7 @@ on Bear/Opportunity HQ integration work
   point to Bear skill, integration map, and command doc.
 
 on command-layer work
-  point to docs/06_commands.md and the exact implementation skill.
+  point to docs/commands.md and the exact implementation skill.
 ```
 
 Hook rule:

@@ -284,7 +284,7 @@ taxonomy. Until cutover, Notion remains current truth and Asana is the target.
 Migration plan:
 
 ```text
-docs/12_asana-opportunity-hq-migration.md
+docs/opportunity-hq/asana-migration.md
 ```
 
 V1 project lanes:
@@ -607,7 +607,7 @@ Bear wrapper direction:
 Future integration planning belongs in:
 
 ```text
-docs/04_singleton-systems-integration-map.md
+docs/integration-map.md
 ```
 
 ## Local Env

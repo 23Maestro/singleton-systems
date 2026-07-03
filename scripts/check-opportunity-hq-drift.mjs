@@ -26,12 +26,12 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "docs/03_singleton-systems-home-hub.md",
+    file: "docs/home-hub.md",
     must: [laneList, "Portfolio -> portfolio tasks and assets"],
     mustNot: ["Proof -> proof tasks and assets"],
   },
   {
-    file: "docs/04_singleton-systems-integration-map.md",
+    file: "docs/integration-map.md",
     must: ["portfolio/harness.jsonl"],
     mustNot: ["proof/harness.jsonl"],
   },

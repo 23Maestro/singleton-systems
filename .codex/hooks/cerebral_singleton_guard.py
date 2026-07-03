@@ -8,9 +8,9 @@ import sys
 REPO_MARKER = "Documents/Development/singleton-systems"
 
 CORE_DOCS = [
-    "docs/04_singleton-systems-integration-map.md",
-    "docs/03_singleton-systems-home-hub.md",
-    "docs/06_commands.md",
+    "docs/integration-map.md",
+    "docs/home-hub.md",
+    "docs/commands.md",
 ]
 
 SURFACE_HINTS = [
