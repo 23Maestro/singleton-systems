@@ -1,0 +1,1343 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Workflow Visual Lab</title>
+  <style>
+    :root {
+      --bg: #0d1118;
+      --panel: #121824;
+      --panel-2: #161e2d;
+      --ink: #f7f8fb;
+      --muted: #a7b0c0;
+      --line: rgba(255,255,255,.12);
+      --paper: #fbfcff;
+      --paper-2: #f3f6fb;
+      --text: #111827;
+      --subtle: #667085;
+      --blue: #2663e8;
+      --red: #c62834;
+      --green: #168451;
+      --amber: #b86b11;
+      --violet: #6d4bd3;
+      --shadow: 0 26px 70px rgba(0,0,0,.34);
+      --radius: 22px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 14% 12%, rgba(38,99,232,.22), transparent 28%),
+        radial-gradient(circle at 82% 4%, rgba(198,40,52,.14), transparent 22%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.42;
+    }
+
+    button, select, textarea { font: inherit; }
+
+    .shell {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .mast {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      padding: 18px 18px 16px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(18,24,36,.82);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .mast p {
+      max-width: 760px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .badge {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      color: #e8edf8;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .controls,
+    .preview-wrap,
+    .prompt-wrap {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(18,24,36,.9);
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      position: sticky;
+      top: 16px;
+      padding: 14px;
+    }
+
+    .control-group + .control-group {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .group-title {
+      margin: 0 0 10px;
+      color: #e9edf7;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .option-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .option {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .option strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 14px;
+    }
+
+    .option span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .option[aria-pressed="true"] {
+      border-color: rgba(111,165,255,.7);
+      background: linear-gradient(135deg, rgba(38,99,232,.25), rgba(255,255,255,.06));
+      box-shadow: 0 0 0 1px rgba(111,165,255,.12) inset;
+    }
+
+    select {
+      width: 100%;
+      min-height: 40px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0d1118;
+      color: var(--ink);
+    }
+
+    .main-col {
+      display: grid;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .preview-wrap {
+      min-height: 640px;
+      overflow: hidden;
+    }
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+
+    .preview-top h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .preview-top p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .mini-btn {
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.05);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .mini-btn[aria-pressed="true"] {
+      background: #fff;
+      color: #111827;
+    }
+
+    .preview-stage {
+      padding: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), transparent 170px),
+        rgba(255,255,255,.02);
+    }
+
+    .page-card {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      border: 1px solid #dfe5ef;
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--text);
+      box-shadow: 0 28px 65px rgba(0,0,0,.22);
+      overflow: hidden;
+    }
+
+    .page-inner { padding: 24px; }
+
+    .page-title {
+      display: grid;
+      gap: 5px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .page-title h3 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 40px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .page-title p {
+      margin: 0;
+      max-width: 770px;
+      color: var(--subtle);
+      font-size: 15px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--card-gap, 14px);
+    }
+
+    .proof-card {
+      position: relative;
+      min-height: var(--card-min, 215px);
+      padding: var(--card-pad, 20px);
+      border: 1px solid #e1e6ee;
+      border-radius: var(--card-radius, 22px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,250,253,.98)),
+        #fff;
+      box-shadow: 0 16px 35px rgba(15,23,42,.08);
+    }
+
+    .proof-card::before {
+      content: "";
+      display: block;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 16px;
+      border-radius: 13px;
+      background: var(--accent, var(--blue));
+      box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent, var(--blue)) 13%, transparent);
+      transform: rotate(45deg);
+    }
+
+    .proof-card .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 0 9px;
+      border: 1px solid #e1e6ee;
+      border-radius: 999px;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 850;
+      background: #fff;
+    }
+
+    .proof-card h4 {
+      margin: 16px 0 8px;
+      font-size: clamp(19px, 2vw, 28px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .proof-card p {
+      margin: 0;
+      color: #5d6674;
+      font-size: 15px;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 18px;
+      background: #111827;
+      color: #f9fafb;
+      font-weight: 850;
+    }
+
+    .ray-shell {
+      margin: 22px auto 0;
+      width: min(840px, 100%);
+      border: 1px solid #dce4ef;
+      border-radius: 22px;
+      background: #f8faff;
+      box-shadow: 0 22px 54px rgba(15,23,42,.12);
+      overflow: hidden;
+    }
+
+    .ray-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      min-height: 72px;
+      padding: 14px 18px;
+      border-bottom: 1px solid #dce4ef;
+      background: linear-gradient(180deg, #ffffff, #f6f8fc);
+    }
+
+    .ray-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: #111827;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .ray-back {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 10px;
+      background: #edf2f8;
+      color: #64748b;
+      font-size: 22px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .switcher {
+      display: flex;
+      gap: 8px;
+    }
+
+    .switcher button {
+      min-height: 38px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 11px;
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+      background: #83a9dc;
+    }
+
+    .switcher button[aria-pressed="true"] {
+      background: var(--red);
+    }
+
+    .ray-body {
+      padding: 16px;
+    }
+
+    .ray-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .ray-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 44px minmax(0,1fr) auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 72px;
+      padding: 12px;
+      border: 1px solid transparent;
+      border-radius: 15px;
+      background: #fff;
+      color: #152034;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 8px 22px rgba(15,23,42,.05);
+    }
+
+    .ray-row:hover,
+    .ray-row:focus {
+      outline: 0;
+      border-color: #a9c4f8;
+      background: #eff5ff;
+    }
+
+    .row-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #eef4ff;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 950;
+    }
+
+    .ray-row strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.1;
+    }
+
+    .ray-row span {
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .row-status {
+      color: #475569;
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .detail-hero {
+      padding: 14px 0 16px;
+      border-bottom: 1px solid #dce4ef;
+    }
+
+    .detail-hero h4 {
+      margin: 0 0 6px;
+      color: #111827;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .detail-hero p {
+      margin: 0;
+      color: #263246;
+      font-size: 17px;
+      font-weight: 850;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .detail-cell {
+      padding: 13px;
+      border: 1px solid #dfe6ef;
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    .detail-cell b {
+      display: block;
+      margin-bottom: 6px;
+      color: #697587;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .detail-cell span {
+      color: #111827;
+      font-size: 16px;
+      font-weight: 850;
+    }
+
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill-action {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid #d5dfeb;
+      border-radius: 999px;
+      background: #fff;
+      color: #172033;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .data-layout {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 14px;
+    }
+
+    .table-card,
+    .side-card,
+    .review-card,
+    .diff-card,
+    .map-card {
+      border: 1px solid #dfe5ee;
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      padding: 13px 14px;
+      border-bottom: 1px solid #e8edf4;
+      cursor: pointer;
+    }
+
+    .table-row:last-child { border-bottom: 0; }
+    .table-row:hover, .table-row.active { background: #edf4ff; }
+
+    .table-row b,
+    .side-card b {
+      display: block;
+      color: #111827;
+      font-size: 14px;
+    }
+
+    .table-row span,
+    .side-card span {
+      color: #667085;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .side-card {
+      padding: 18px;
+    }
+
+    .side-card h4 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 150px;
+      padding: 14px;
+      border: 1px solid #dfe5ee;
+      border-radius: 18px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .step.active {
+      border-color: #9bbcff;
+      background: #eef5ff;
+      box-shadow: 0 16px 34px rgba(38,99,232,.12);
+    }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #111827;
+      color: #fff;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .step h4 {
+      margin: 14px 0 7px;
+      font-size: 16px;
+    }
+
+    .step p {
+      margin: 0;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .review-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 14px;
+    }
+
+    .claim-list {
+      display: grid;
+      border: 1px solid #dfe5ee;
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .claim {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid #e8edf4;
+      cursor: pointer;
+    }
+
+    .claim:last-child { border-bottom: 0; }
+    .claim.active { background: #eff6ff; }
+    .line-no { color: #8a95a7; font-weight: 900; }
+    .claim strong { display: block; margin-bottom: 4px; }
+    .claim span { color: #667085; font-size: 13px; }
+
+    .review-card { padding: 16px; }
+    .review-card h4 { margin-bottom: 8px; font-size: 20px; }
+    .review-card p { margin-bottom: 12px; color: #667085; }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .status-chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eef2f7;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .diff-card {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #1f2937;
+    }
+
+    .diff-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid #dfe5ee;
+      background: #f8fafc;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-weight: 900;
+    }
+
+    .diff-line {
+      display: grid;
+      grid-template-columns: 48px 26px minmax(0, 1fr);
+      gap: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(226,232,240,.6);
+      font-size: 13px;
+    }
+
+    .diff-line.add { background: rgba(22,132,81,.11); color: #14532d; }
+    .diff-line.remove { background: rgba(198,40,52,.09); color: #7f1d1d; }
+    .diff-line.focus { outline: 2px solid rgba(38,99,232,.28); outline-offset: -2px; }
+
+    .map-canvas {
+      min-height: 430px;
+      padding: 18px;
+      border: 1px solid #dfe5ee;
+      border-radius: 18px;
+      background:
+        linear-gradient(#eef2f8 1px, transparent 1px),
+        linear-gradient(90deg, #eef2f8 1px, transparent 1px),
+        #fff;
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .node-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: center;
+    }
+
+    .node {
+      min-height: 102px;
+      padding: 14px;
+      border: 2px solid #d8e0eb;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 12px 24px rgba(15,23,42,.07);
+    }
+
+    .node.active {
+      border-color: #86aef7;
+      background: #eef5ff;
+    }
+
+    .node b { display: block; margin-bottom: 6px; }
+    .node span { color: #667085; font-size: 12px; font-weight: 760; }
+
+    .arrow {
+      height: 2px;
+      background: #94a3b8;
+      align-self: center;
+      position: relative;
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: -2px;
+      top: -5px;
+      border-left: 8px solid #94a3b8;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    .prompt-wrap {
+      padding: 14px;
+    }
+
+    .prompt-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .prompt-head h2 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .copy {
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #111827;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    #promptOutput {
+      min-height: 96px;
+      margin: 0;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #0b0f16;
+      color: #dce6f6;
+      white-space: pre-wrap;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .workspace { grid-template-columns: 1fr; }
+      .controls { position: static; }
+      .mast { grid-template-columns: 1fr; }
+      .badge-row { justify-content: flex-start; }
+      .portfolio-grid,
+      .steps,
+      .data-layout,
+      .review-layout,
+      .node-grid { grid-template-columns: 1fr; }
+      .arrow { width: 2px; height: 34px; justify-self: center; }
+      .arrow::after {
+        right: -5px;
+        top: auto;
+        bottom: -2px;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 8px solid #94a3b8;
+        border-bottom: 0;
+      }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .shell { padding: 10px; }
+      .mast, .controls, .preview-wrap, .prompt-wrap { border-radius: 18px; }
+      .preview-stage { padding: 12px; }
+      .page-inner { padding: 16px; }
+      .ray-head { align-items: flex-start; flex-direction: column; }
+      .switcher { width: 100%; }
+      .switcher button { flex: 1; }
+      .ray-row { grid-template-columns: 36px minmax(0,1fr); }
+      .row-status { grid-column: 2; white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="mast">
+      <div>
+        <h1>AI Workflow Visual Lab</h1>
+        <p>Compare lean visual patterns before changing the Bealls application page. The goal is portfolio clarity: show the workflow, the evidence, and the result without turning it into generic SaaS copy.</p>
+      </div>
+      <div class="badge-row" aria-label="Page context">
+        <span class="badge">Portfolio over proof</span>
+        <span class="badge">Standalone HTML</span>
+        <span class="badge">Vercel hosted</span>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="controls" aria-label="Visual controls">
+        <div class="control-group">
+          <p class="group-title">Visual Type</p>
+          <div class="option-list" id="variantControls"></div>
+        </div>
+        <div class="control-group">
+          <p class="group-title">Density</p>
+          <select id="densityControl">
+            <option value="tight">Tight</option>
+            <option value="balanced" selected>Balanced</option>
+            <option value="wide">Wide</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <p class="group-title">Focus</p>
+          <div class="option-list" id="focusControls"></div>
+        </div>
+      </aside>
+
+      <div class="main-col">
+        <section class="preview-wrap" aria-label="Live preview">
+          <div class="preview-top">
+            <div>
+              <h2 id="previewTitle">Portfolio Cards</h2>
+              <p id="previewSub">A tighter card system for before, during, and outcome.</p>
+            </div>
+            <div class="preview-actions" id="presetControls"></div>
+          </div>
+          <div class="preview-stage" id="previewStage"></div>
+        </section>
+
+        <section class="prompt-wrap" aria-label="Prompt output">
+          <div class="prompt-head">
+            <h2>Prompt Output</h2>
+            <button class="copy" id="copyPrompt" type="button">Copy prompt</button>
+          </div>
+          <pre id="promptOutput"></pre>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const defaults = {
+      variant: "cards",
+      density: "balanced",
+      focus: "system",
+      preset: "portfolio",
+      workflow: "video",
+      selectedAthlete: null,
+      selectedEvidence: 0,
+      selectedStep: 0,
+      selectedClaim: 0,
+      selectedNode: "command"
+    };
+
+    const state = { ...defaults };
+
+    const variants = [
+      { id: "cards", title: "Portfolio Cards", desc: "Before, during, result." },
+      { id: "data", title: "Data Explorer", desc: "Ownership, write path, audit proof." },
+      { id: "flow", title: "Process Flow", desc: "AI review loop with clear steps." },
+      { id: "review", title: "Review Cards", desc: "Claims with evidence review." },
+      { id: "diff", title: "Diff Review", desc: "Manual steps into a cleaner surface." },
+      { id: "map", title: "Code Map", desc: "Command to adapter to truth to web." },
+      { id: "raycast", title: "Raycast Surface", desc: "Operator list into action view." }
+    ];
+
+    const focuses = [
+      { id: "system", title: "System", desc: "Prospect ID workflow surface." },
+      { id: "bealls", title: "Bealls Fit", desc: "AI Specialist role match." },
+      { id: "resume", title: "Resume", desc: "Proof stack and education." }
+    ];
+
+    const presets = [
+      { id: "portfolio", title: "Portfolio" },
+      { id: "executive", title: "Executive" },
+      { id: "technical", title: "Technical" }
+    ];
+
+    const cardCopy = {
+      system: [
+        { accent: "#f2b632", tag: "Status", label: "Manual tracking", title: "Status got blurry as volume climbed.", body: "Lookup, video updates, follow-up, and delivery pressure were spread across repeated dashboard steps." },
+        { accent: "#2f80d1", tag: "Action", label: "Operator view", title: "Every athlete had a clearer next step.", body: "Raycast brought lookup, status, shortcuts, and next actions closer to the work." },
+        { accent: "#2dc46b", tag: "Output", label: "Shipped under load", title: "140+ highlights delivered in 6 weeks.", body: "Delivery volume moved with less manual tracking, fewer repeated clicks, and fewer memory-based follow-ups." }
+      ],
+      bealls: [
+        { accent: "#f2b632", tag: "Problem", label: "Business process", title: "The job asks for practical AI adoption.", body: "The strongest proof is a real workflow that needed data prep, output review, documentation, and adoption support." },
+        { accent: "#2f80d1", tag: "Method", label: "AI specialist fit", title: "Translate messy work into repeatable steps.", body: "Gather requirements, classify workflow states, draft usable outputs, review quality, and verify the result." },
+        { accent: "#2dc46b", tag: "Result", label: "Operational proof", title: "Cleaner decisions without hype.", body: "The portfolio can show responsible AI thinking through evidence, boundaries, testing, and business relevance." }
+      ],
+      resume: [
+        { accent: "#f2b632", tag: "Proof", label: "Prospect ID", title: "400+ commits on one workflow system.", body: "Command surfaces, web views, data contracts, test scripts, and cleanup work show sustained execution." },
+        { accent: "#2f80d1", tag: "Background", label: "Education", title: "Bachelor's in Communications plus CS and IT coursework.", body: "Stetson University degree, plus 1.5 years of computer programming and information technology at St. Petersburg College." },
+        { accent: "#2dc46b", tag: "Match", label: "Role fit", title: "Documentation, analysis, and implementation support.", body: "The resume should connect hands-on workflow systems to the AI Specialist duties without overstating credentials." }
+      ]
+    };
+
+    const evidenceRows = [
+      { table: "appointments", owner: "durable schedule fact", write: "booking, reschedule, confirmation", result: "Meeting state is not trapped in the UI." },
+      { table: "lifecycle_events", owner: "workflow history", write: "status changes and next actions", result: "The system can explain what changed and why." },
+      { table: "call_log", owner: "outreach evidence", write: "attempts, outcomes, readback", result: "Reports do not rely on memory or screen state." },
+      { table: "confirmation cache", owner: "message support", write: "prepared confirmation text", result: "Support data helps the workflow without becoming truth." }
+    ];
+
+    const processSteps = [
+      { title: "Gather", body: "Read the workflow, repo references, and role requirements before writing." },
+      { title: "Classify", body: "Separate command surface, adapter, data ownership, and reporting surfaces." },
+      { title: "Draft", body: "Turn the work into a portfolio page, resume bullets, and cover-letter proof." },
+      { title: "Review", body: "Check labels against the real command surface and remove weak wording." },
+      { title: "Verify", body: "Run browser checks, route checks, and text scans before publishing." }
+    ];
+
+    const claims = [
+      { line: "01", title: "Commands are buttons", body: "Raycast starts actions; domain modules own workflow meaning.", status: "Keep, but show the action flow below it." },
+      { line: "02", title: "Legacy adapter", body: "FastAPI translates dashboard behavior into stable local API calls.", status: "Keep, but phrase as repeatable behavior instead of jargon." },
+      { line: "03", title: "Supabase ownership", body: "appointments, lifecycle_events, and call_log carry durable facts.", status: "Keep, because it proves governance and reporting boundaries." },
+      { line: "04", title: "Audit before cleanup", body: "Parity tests check projected call_log shape and read-only behavior.", status: "Keep, because it shows responsible change management." }
+    ];
+
+    const diffLines = [
+      { type: "remove", no: "01", text: "Status tracked through dashboard memory and repeated clicks." },
+      { type: "add", no: "01", text: "Athlete row opens a clear action view with the next useful step." },
+      { type: "remove", no: "02", text: "Video title, folder, source, and client state checked separately." },
+      { type: "add", no: "02", text: "Copy-ready fields and update actions sit beside the athlete data." },
+      { type: "remove", no: "03", text: "Reports depend on what the operator remembers from the screen." },
+      { type: "add", no: "03", text: "Supabase tables and parity tests define what counts as durable truth." }
+    ];
+
+    const mapNodes = [
+      { id: "command", title: "Raycast command UI", body: "Operator starts lookup, video, sales, notes, and status work." },
+      { id: "adapter", title: "FastAPI bridge", body: "Dashboard behavior becomes repeatable local request shapes." },
+      { id: "truth", title: "Supabase truth layer", body: "appointments, lifecycle_events, and call_log hold durable facts." },
+      { id: "web", title: "Prospect Web", body: "Readable reporting and mobile support sit outside the command surface." }
+    ];
+
+    const athletes = {
+      video: [
+        { mark: "V", name: "Miles Hart", meta: "2026 • Football • WR | CB", status: "In Queue • HUDL", line: "Football | 2026 | WR | CB | Northview HS | Atlanta, GA | Aug 19, 2025 | In Queue | HUDL", workflow: "Video Progress", school: "Northview HS, GA", action: "Confirm title, status, and source before editing.", output: "Copy YouTube Title / Copy Approved Video Title / Copy Dropbox Folder", field: "Miles Hart Class of 2026 Senior Season", actions: ["Video Updates", "Update Status", "Update Stage", "Copy YouTube Title"] },
+        { mark: "U", name: "Jordan Vale", meta: "2027 • Basketball • PG", status: "Awaiting Client • External Links", line: "Basketball | 2027 | PG | Lakewood Prep | St. Petersburg, FL | Sep 11, 2025 | Awaiting Client | External Links", workflow: "Video Updates", school: "Lakewood Prep, FL", action: "Fill YouTube link, video type, and season/team from one review surface.", output: "Update NP video profile", field: "Jordan Vale 2027 Point Guard Highlights", actions: ["Video Updates", "Focus YouTube Link", "Edit SA Videos", "View PlayerID"] },
+        { mark: "S", name: "Camden Brooks", meta: "2028 • Football • QB-D | DE", status: "On Hold • Dropbox", line: "Football | 2028 | QB-D | DE | Crestline HS | Tampa, FL | Oct 9, 2025 | On Hold | Dropbox", workflow: "Video Progress", school: "Crestline HS, FL", action: "Check folder and keep delivery state aligned before the next edit.", output: "Copy Dropbox Folder", field: "CamdenBrooks_2028_Football_FL", actions: ["Open Dropbox", "View Notes", "Update Stage", "Copy Folder"] }
+      ],
+      sales: [
+        { mark: "C", name: "Nolan Price", meta: "2026 • Baseball • RHP", status: "Call Attempt 1", line: "Baseball | 2026 | RHP | Gulf Coast Prep | Sarasota, FL | Parent lead | Call Attempt 1", workflow: "Client Outreach", school: "Gulf Coast Prep, FL", action: "Centralize athlete context before the call starts.", output: "Call script and next status", field: "Hi, this is Jerami calling about Nolan's recruiting profile.", actions: ["Open Script", "Log Attempt", "Set Follow-Up", "View Notes"] },
+        { mark: "M", name: "Isaiah Quinn", meta: "2027 • Football • S | OLB", status: "Meeting Prep", line: "Football | 2027 | S | OLB | Bayside HS | Bradenton, FL | Meeting Prep", workflow: "Set Meetings", school: "Bayside HS, FL", action: "Select scout openings and prepare confirmation from the same context.", output: "Scout opening and confirmation", field: "Head Scout A opening, parent confirmation ready", actions: ["Scout Openings", "Prepare Confirmation", "Open Notes", "Verify Readback"] },
+        { mark: "R", name: "Eli Rivers", meta: "2026 • Basketball • SG", status: "Pending Evidence", line: "Basketball | 2026 | SG | East Ridge Prep | Orlando, FL | Pending Client Evidence", workflow: "Pending Clients", school: "East Ridge Prep, FL", action: "Review pending client evidence before changing status.", output: "Next follow-up state", field: "Evidence pending, follow-up ready", actions: ["Review Evidence", "Open Notes", "Update Status", "Log Result"] }
+      ]
+    };
+
+    function densityVars() {
+      const map = {
+        tight: ["12px", "16px", "16px", "185px"],
+        balanced: ["14px", "20px", "22px", "215px"],
+        wide: ["18px", "26px", "26px", "245px"]
+      };
+      const [gap, pad, radius, min] = map[state.density];
+      return `style="--card-gap:${gap};--card-pad:${pad};--card-radius:${radius};--card-min:${min}"`;
+    }
+
+    function renderControls() {
+      variantControls.innerHTML = variants.map(v => `
+        <button class="option" type="button" data-variant="${v.id}" aria-pressed="${state.variant === v.id}">
+          <strong>${v.title}</strong><span>${v.desc}</span>
+        </button>`).join("");
+
+      focusControls.innerHTML = focuses.map(f => `
+        <button class="option" type="button" data-focus="${f.id}" aria-pressed="${state.focus === f.id}">
+          <strong>${f.title}</strong><span>${f.desc}</span>
+        </button>`).join("");
+
+      presetControls.innerHTML = presets.map(p => `
+        <button class="mini-btn" type="button" data-preset="${p.id}" aria-pressed="${state.preset === p.id}">${p.title}</button>`).join("");
+
+      densityControl.value = state.density;
+    }
+
+    function pageFrame(inner) {
+      return `<section class="page-card"><div class="page-inner">${inner}</div></section>`;
+    }
+
+    function renderCards() {
+      const cards = cardCopy[state.focus];
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Portfolio cards</span>
+          <h3>${state.focus === "bealls" ? "AI Workflow Proof" : state.focus === "resume" ? "Resume Support" : "System View"}</h3>
+          <p>Use this when the page needs quick proof that reads cleanly before the visitor touches the interactive surface.</p>
+        </div>
+        <div class="portfolio-grid" ${densityVars()}>
+          ${cards.map(card => `
+            <article class="proof-card" style="--accent:${card.accent}">
+              <span class="tag">${card.tag}</span>
+              <h5 class="eyebrow">${card.label}</h5>
+              <h4>${card.title}</h4>
+              <p>${card.body}</p>
+            </article>`).join("")}
+        </div>`);
+    }
+
+    function renderData() {
+      const selected = evidenceRows[state.selectedEvidence] || evidenceRows[0];
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Data explorer</span>
+          <h3>Reporting Ownership</h3>
+          <p>Use this where the page needs to show what the system stores, what only supports the work, and what audit checks prove.</p>
+        </div>
+        <div class="data-layout">
+          <div class="table-card">
+            ${evidenceRows.map((row, index) => `
+              <button class="table-row ${index === state.selectedEvidence ? "active" : ""}" type="button" data-evidence="${index}">
+                <span><b>${row.table}</b><span>source</span></span>
+                <span><b>${row.owner}</b><span>ownership</span></span>
+                <span><b>${row.write}</b><span>write path</span></span>
+              </button>`).join("")}
+          </div>
+          <aside class="side-card">
+            <span class="eyebrow">Selected Result</span>
+            <h4>${selected.table}</h4>
+            <p>${selected.result}</p>
+            <div class="status-row">
+              <span class="status-chip">ownership boundary</span>
+              <span class="status-chip">audit ready</span>
+              <span class="status-chip">reporting layer</span>
+            </div>
+          </aside>
+        </div>`);
+    }
+
+    function renderFlow() {
+      const active = processSteps[state.selectedStep] || processSteps[0];
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Process flow</span>
+          <h3>AI Specialist Review Loop</h3>
+          <p>Use this for the Bealls match section: it shows analysis, prompt work, output review, documentation, and verification as one repeatable loop.</p>
+        </div>
+        <div class="steps">
+          ${processSteps.map((step, index) => `
+            <button class="step ${index === state.selectedStep ? "active" : ""}" type="button" data-step="${index}">
+              <span class="step-num">${index + 1}</span>
+              <h4>${step.title}</h4>
+              <p>${step.body}</p>
+            </button>`).join("")}
+        </div>
+        <div class="divider" style="margin-top:16px"><span>Selected step</span><span>${active.title}</span></div>`);
+    }
+
+    function renderReview() {
+      const selected = claims[state.selectedClaim] || claims[0];
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Document critique</span>
+          <h3>Claim Review</h3>
+          <p>Use this where the copy feels too broad. Each claim gets an evidence check instead of more words.</p>
+        </div>
+        <div class="review-layout">
+          <div class="claim-list">
+            ${claims.map((claim, index) => `
+              <button class="claim ${index === state.selectedClaim ? "active" : ""}" type="button" data-claim="${index}">
+                <span class="line-no">${claim.line}</span>
+                <span><strong>${claim.title}</strong><span>${claim.body}</span></span>
+              </button>`).join("")}
+          </div>
+          <aside class="review-card">
+            <span class="eyebrow">Review note</span>
+            <h4>${selected.title}</h4>
+            <p>${selected.status}</p>
+            <div class="status-row">
+              <span class="status-chip">approve</span>
+              <span class="status-chip">tighten copy</span>
+              <span class="status-chip">keep evidence</span>
+            </div>
+          </aside>
+        </div>`);
+    }
+
+    function renderDiff() {
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Diff review</span>
+          <h3>Manual Work to Centralized Surface</h3>
+          <p>Use this when the page needs to make the before and after concrete without a wall of explanation.</p>
+        </div>
+        <section class="diff-card">
+          <div class="diff-head">workflow-change.md</div>
+          ${diffLines.map((line, index) => `
+            <div class="diff-line ${line.type} ${index === state.selectedStep ? "focus" : ""}">
+              <span>${line.no}</span><span>${line.type === "add" ? "+" : "-"}</span><span>${line.text}</span>
+            </div>`).join("")}
+        </section>`);
+    }
+
+    function renderMap() {
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Code map</span>
+          <h3>Workflow Architecture</h3>
+          <p>Use this as the architecture visual when the viewer needs to understand the shape: command surface, adapter, source of truth, and web/reporting view.</p>
+        </div>
+        <div class="map-canvas">
+          <div class="node-grid">
+            ${mapNodes.map((node, index) => `
+              <button class="node ${state.selectedNode === node.id ? "active" : ""}" type="button" data-node="${node.id}">
+                <b>${node.title}</b><span>${node.body}</span>
+              </button>
+              ${index < mapNodes.length - 1 ? `<span class="arrow" aria-hidden="true"></span>` : ""}`).join("")}
+          </div>
+        </div>`);
+    }
+
+    function renderRaycast() {
+      const list = athletes[state.workflow];
+      const athlete = list[state.selectedAthlete] || list[0];
+      return pageFrame(`
+        <div class="page-title">
+          <span class="eyebrow">Raycast surface</span>
+          <h3>Operator Action View</h3>
+          <p>Use this under the dark divider when the page needs to show how a row becomes the next action.</p>
+        </div>
+        <div class="divider"><span>Prospect ID Workflow System</span><span>Interactive surface</span></div>
+        <section class="ray-shell">
+          <div class="ray-head">
+            <div class="ray-title"><button class="ray-back" type="button" data-back aria-label="Back">‹</button><span>${athlete.name}</span></div>
+            <div class="switcher">
+              <button type="button" data-workflow="video" aria-pressed="${state.workflow === "video"}">Video</button>
+              <button type="button" data-workflow="sales" aria-pressed="${state.workflow === "sales"}">Sales</button>
+            </div>
+          </div>
+          <div class="ray-body">
+            ${state.selectedAthlete === null ? `
+              <div class="ray-list">
+                ${list.map((row, index) => `
+                  <button class="ray-row" type="button" data-athlete="${index}">
+                    <span class="row-mark">${row.mark}</span>
+                    <span><strong>${row.name}</strong><span>${row.meta}</span></span>
+                    <span class="row-status">${row.status}</span>
+                  </button>`).join("")}
+              </div>` : `
+              <article>
+                <div class="detail-hero">
+                  <h4>${athlete.name}</h4>
+                  <p>${athlete.line}</p>
+                </div>
+                <div class="detail-grid">
+                  <div class="detail-cell"><b>Workflow</b><span>${athlete.workflow}</span></div>
+                  <div class="detail-cell"><b>School / Market</b><span>${athlete.school}</span></div>
+                  <div class="detail-cell"><b>Next Action</b><span>${athlete.action}</span></div>
+                  <div class="detail-cell"><b>Ready Output</b><span>${athlete.output}</span></div>
+                  <div class="detail-cell" style="grid-column:1/-1"><b>Copy-Ready Field</b><span>${athlete.field}</span></div>
+                </div>
+                <div class="action-bar">${athlete.actions.map(action => `<button class="pill-action" type="button">${action}</button>`).join("")}</div>
+              </article>`}
+          </div>
+        </section>`);
+    }
+
+    function renderPreview() {
+      const active = variants.find(v => v.id === state.variant) || variants[0];
+      previewTitle.textContent = active.title;
+      previewSub.textContent = active.desc;
+
+      if (state.variant === "cards") previewStage.innerHTML = renderCards();
+      if (state.variant === "data") previewStage.innerHTML = renderData();
+      if (state.variant === "flow") previewStage.innerHTML = renderFlow();
+      if (state.variant === "review") previewStage.innerHTML = renderReview();
+      if (state.variant === "diff") previewStage.innerHTML = renderDiff();
+      if (state.variant === "map") previewStage.innerHTML = renderMap();
+      if (state.variant === "raycast") previewStage.innerHTML = renderRaycast();
+    }
+
+    function updatePrompt() {
+      const active = variants.find(v => v.id === state.variant) || variants[0];
+      const focus = focuses.find(f => f.id === state.focus) || focuses[0];
+      const densityText = state.density === "tight" ? "compact spacing" : state.density === "wide" ? "more breathing room" : "balanced spacing";
+      const presetText = state.preset === "executive" ? "use plain business language and fewer technical labels" : state.preset === "technical" ? "keep the source-of-truth and adapter evidence visible" : "balance proof and readability";
+      promptOutput.textContent = `Use the ${active.title} visual direction for the ${focus.title} section of the AI Workflow Portfolio. Keep ${densityText}; ${presetText}. Preserve the Prospect ID facts, keep the page portfolio-first, and use the visual to show purpose, solution, and result instead of adding more explanation.`;
+    }
+
+    function updateAll() {
+      renderControls();
+      renderPreview();
+      updatePrompt();
+    }
+
+    document.addEventListener("click", (event) => {
+      const variant = event.target.closest("[data-variant]");
+      if (variant) {
+        state.variant = variant.dataset.variant;
+        updateAll();
+        return;
+      }
+
+      const focus = event.target.closest("[data-focus]");
+      if (focus) {
+        state.focus = focus.dataset.focus;
+        updateAll();
+        return;
+      }
+
+      const preset = event.target.closest("[data-preset]");
+      if (preset) {
+        state.preset = preset.dataset.preset;
+        updateAll();
+        return;
+      }
+
+      const evidence = event.target.closest("[data-evidence]");
+      if (evidence) {
+        state.selectedEvidence = Number(evidence.dataset.evidence);
+        updateAll();
+        return;
+      }
+
+      const step = event.target.closest("[data-step]");
+      if (step) {
+        state.selectedStep = Number(step.dataset.step);
+        updateAll();
+        return;
+      }
+
+      const claim = event.target.closest("[data-claim]");
+      if (claim) {
+        state.selectedClaim = Number(claim.dataset.claim);
+        updateAll();
+        return;
+      }
+
+      const node = event.target.closest("[data-node]");
+      if (node) {
+        state.selectedNode = node.dataset.node;
+        updateAll();
+        return;
+      }
+
+      const workflow = event.target.closest("[data-workflow]");
+      if (workflow) {
+        state.workflow = workflow.dataset.workflow;
+        state.selectedAthlete = null;
+        updateAll();
+        return;
+      }
+
+      const athlete = event.target.closest("[data-athlete]");
+      if (athlete) {
+        state.selectedAthlete = Number(athlete.dataset.athlete);
+        updateAll();
+        return;
+      }
+
+      if (event.target.closest("[data-back]")) {
+        state.selectedAthlete = null;
+        updateAll();
+      }
+    });
+
+    densityControl.addEventListener("change", (event) => {
+      state.density = event.target.value;
+      updateAll();
+    });
+
+    copyPrompt.addEventListener("click", async () => {
+      const text = promptOutput.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyPrompt.textContent = "Copied";
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        copyPrompt.textContent = "Copied";
+      }
+      setTimeout(() => { copyPrompt.textContent = "Copy prompt"; }, 1400);
+    });
+
+    updateAll();
+  </script>
+</body>
+</html>
