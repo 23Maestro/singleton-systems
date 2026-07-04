@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type TabId = "system" | "evidence" | "fit" | "resume" | "sources";
 type WorkflowMode = "video" | "sales";
@@ -26,6 +26,8 @@ type WorkflowItem = {
     fields: [string, string][];
     note: string;
   };
+  processDescription: string;
+  resultDescription: string;
 };
 
 const tabs: { id: TabId; label: string }[] = [
@@ -65,6 +67,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command turns the reviewed athlete row into the video update the production team needs.",
       },
+      processDescription: "Review the athlete's progress in HUDL, verify the title format, and check the stage.",
+      resultDescription: "Generates a copy-ready payload for the production team so they don't have to hunt for context.",
     },
     {
       icon: "Y",
@@ -93,6 +97,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command fills the video profile from the same athlete row, so the operator is not hunting through the dashboard.",
       },
+      processDescription: "Load the raw video link from external sources and update the athlete's profile with the correct video type and season.",
+      resultDescription: "The profile gets populated without navigating away from the current queue row.",
     },
     {
       icon: "D",
@@ -121,6 +127,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command turns the folder status into the next reminder without making the operator rebuild the context.",
       },
+      processDescription: "Check for missing Dropbox assets and trigger a targeted reminder to the athlete.",
+      resultDescription: "The reminder is logged, and the status stays 'On Hold' without losing its place in the queue.",
     },
     {
       icon: "C",
@@ -149,6 +157,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command closes the loop only after the title, status, and delivery state are ready.",
       },
+      processDescription: "Verify the final delivery title and confirm all production steps are logged.",
+      resultDescription: "Marks the workflow complete and records the exact completion date in the database.",
     },
   ],
   sales: [
@@ -179,6 +189,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command turns the booked meeting into a clean confirmation message and keeps the meeting details beside it.",
       },
+      processDescription: "Take a newly booked meeting and draft a personalized confirmation text for the parent.",
+      resultDescription: "Outputs a ready-to-send SMS with all variables (scout, time, athlete) pre-filled accurately.",
     },
     {
       icon: "I",
@@ -207,6 +219,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command pulls the athlete, parent, and next step into one call surface so the operator is not clicking around.",
       },
+      processDescription: "Load parent details and athlete history before starting the scout prep call.",
+      resultDescription: "Presents the exact call script and next-step actions right beside the context.",
     },
     {
       icon: "S",
@@ -235,6 +249,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command turns open scout availability into two clear options the operator can offer on the call.",
       },
+      processDescription: "Cross-reference head scout availability against the athlete's timezone.",
+      resultDescription: "Produces two clear meeting slots to offer on the call without calendar juggling.",
     },
     {
       icon: "P",
@@ -263,6 +279,8 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         ],
         note: "The command keeps the evidence in front of the operator before they choose the final client follow-up path.",
       },
+      processDescription: "Review post-call notes and determine whether to reschedule or confirm meeting success.",
+      resultDescription: "Updates the central lifecycle log with the confirmed outcome.",
     },
   ],
 };
@@ -499,18 +517,52 @@ function SectionHead({ title, lead }: { title: string; lead: string }) {
   );
 }
 
-function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: WorkflowItem) => void }) {
+type PanelView = "list" | "detail" | "action";
+
+function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
+  const [view, setView] = useState<PanelView>("list");
   const [mode, setMode] = useState<WorkflowMode>("video");
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [actionOpen, setActionOpen] = useState(false);
+
   const rows = workflowData[mode];
   const selected = rows[selectedIndex] ?? rows[0];
 
   function changeMode(nextMode: WorkflowMode) {
     setMode(nextMode);
     setSelectedIndex(0);
-    setActionOpen(false);
+    setView("list");
   }
+
+  function goBack() {
+    if (view === "action") setView("detail");
+    else if (view === "detail") setView("list");
+  }
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      const target = event.target;
+      if (target instanceof HTMLElement) {
+        const tagName = target.tagName.toLowerCase();
+        if (tagName === "input" || tagName === "textarea" || target.isContentEditable) return;
+      }
+
+      if (event.key === "Escape" && view !== "list") {
+        event.preventDefault();
+        setView(view === "action" ? "detail" : "list");
+        return;
+      }
+
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if (view === "list") setView("detail");
+        else if (view === "detail") setView("action");
+        else onCopy(selected);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onCopy, selected, view]);
 
   return (
     <article>
@@ -552,149 +604,229 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
 
       <Divider label="Interactive workflow surface" />
 
-      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[22px] border border-[#d7dee9] bg-[#f8fafc] shadow-[0_24px_70px_rgba(23,33,52,0.18)]" aria-label="Raycast-inspired workflow surface">
-        <div className="grid min-h-16 grid-cols-1 items-center gap-3 border-b border-[#e1e5eb] bg-[linear-gradient(180deg,#ffffff,#f8fafc)] px-4 py-3 md:grid-cols-[1fr_auto]">
-          <div className="min-w-0">
-            <div className="flex min-h-11 items-center gap-3 rounded-2xl border border-[#d8e0eb] bg-white px-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_22px_rgba(15,23,42,0.05)]">
-              <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#172033] text-xs font-black text-white">⌘</span>
-              <p className="m-0 min-w-0 flex-1 truncate text-[18px] font-black text-[#697587] md:text-[22px]">{mode === "video" ? "Video queue..." : "Sales queue..."}</p>
-              <span className="hidden text-xs font-black text-[#9aa5b5] md:inline">Ask AI</span>
-            </div>
-          </div>
-          <div className="inline-flex gap-2" aria-label="Workflow mode">
-            {(["video", "sales"] as const).map((item) => (
+      <section className="mx-auto w-full max-w-[800px]" aria-label="Raycast-inspired workflow surface">
+        <div className="flex h-[520px] flex-col overflow-hidden rounded-xl border border-[#d7dee9] bg-[#f8fafc] shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
+          {/* Top Bar */}
+          <div className="flex h-12 shrink-0 items-center justify-between border-b border-[#e8ecf2] bg-white px-3">
+            <div className="flex items-center gap-2">
               <button
-                key={item}
                 type="button"
-                aria-pressed={mode === item}
-                onClick={() => changeMode(item)}
-                className={cx(
-                  "min-h-10 min-w-[76px] rounded-xl border px-3 text-sm font-black transition shadow-[0_8px_18px_rgba(15,23,42,0.08)]",
-                  mode === item
-                    ? item === "video"
-                      ? "border-[#b62631] bg-[#b62631] text-white"
-                      : "border-[#1557b0] bg-[#1557b0] text-white"
-                    : "border-[#d8e0eb] bg-white text-[#526073] hover:bg-[#f1f6ff]",
-                )}
+                disabled={view === "list"}
+                onClick={goBack}
+                className="grid h-7 w-7 place-items-center rounded-md text-lg text-[#697587] hover:bg-[#f1f5f9] disabled:opacity-30 disabled:hover:bg-transparent"
+                aria-label="Back"
               >
-                {item === "video" ? "Video" : "Sales"}
+                ←
               </button>
-            ))}
-          </div>
-        </div>
+              <div className="text-[15px] font-semibold text-[#374151]">
+                {view === "list" ? (mode === "video" ? "Video queue..." : "Sales queue...") : view === "detail" ? selected.name : selected.actionView.title}
+              </div>
+            </div>
 
-        <div className="grid min-h-[430px] gap-3 p-3.5 lg:grid-cols-[minmax(260px,0.82fr)_minmax(0,1.5fr)]">
-          <div className="grid content-start gap-2">
-            {rows.map((item, index) => {
-              const active = selectedIndex === index;
-              return (
+            <div className="flex gap-1 rounded-md bg-[#f1f5f9] p-0.5">
+              {(["video", "sales"] as const).map((item) => (
                 <button
-                  key={item.name}
+                  key={item}
                   type="button"
-                  aria-pressed={active}
-                  onClick={() => {
-                    setSelectedIndex(index);
-                    setActionOpen(false);
-                  }}
+                  aria-pressed={mode === item}
+                  onClick={() => changeMode(item)}
                   className={cx(
-                    "grid min-h-[64px] w-full grid-cols-[38px_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border px-3 py-2 text-left shadow-[0_1px_0_rgba(17,24,39,0.04)] transition max-sm:grid-cols-[30px_minmax(0,1fr)]",
-                    active ? "border-[#b9cdf0] bg-[#eef4ff] shadow-[0_10px_26px_rgba(35,131,226,0.12)]" : "border-transparent bg-white hover:border-[#c6d4eb] hover:bg-[#f4f8ff]",
+                    "rounded px-2.5 py-1 text-[13px] font-semibold transition-colors",
+                    mode === item
+                      ? "bg-white text-[#111827] shadow-sm"
+                      : "text-[#6b7280] hover:text-[#374151]"
                   )}
                 >
-                  <span className={cx("grid h-8 w-8 place-items-center rounded-xl text-xs font-black text-white shadow-[0_8px_16px_rgba(15,23,42,0.14)]", active ? "bg-[#ff6363]" : "bg-[#172033]")}>{item.icon}</span>
-                  <span className="min-w-0">
-                    <span className="block truncate text-base font-black text-[#1f2937]">{item.name}</span>
-                    <span className="mt-0.5 block truncate text-[13px] font-bold text-[#667284]">{item.meta}</span>
-                  </span>
-                  <span className="text-right text-[13px] font-extrabold text-[#526073] max-sm:col-start-2 max-sm:text-left">{item.status} / {item.source}</span>
+                  {item === "video" ? "Video" : "Sales"}
                 </button>
-              );
-            })}
+              ))}
+            </div>
           </div>
 
-          <div className="relative grid min-h-[402px] grid-rows-[1fr_auto] rounded-[22px] border border-[#d8e2ef] bg-white p-3 shadow-[0_18px_42px_rgba(15,23,42,0.08)]">
-            <div>
-              <div className="grid gap-2 rounded-[20px] border border-[#d8e2ef] bg-[radial-gradient(circle_at_100%_0%,rgba(255,99,99,0.15),transparent_32%),linear-gradient(135deg,rgba(21,87,176,0.11),rgba(198,43,55,0.06)),#f8fbff] p-4">
-                <div className="flex flex-wrap gap-2">
-                  {[selected.status, selected.source, mode === "video" ? "Video workflow" : "Sales workflow"].map((item) => (
-                    <span key={item} className="rounded-[11px] border border-[#cfd8e7] bg-white px-3 py-2 text-xs font-extrabold text-[#27364d]">{item}</span>
-                  ))}
+          {/* Main Content Area */}
+          <div className="flex-1 overflow-y-auto">
+            {view === "list" && (
+              <div className="flex flex-col py-2">
+                <div className="px-4 pb-1 pt-2">
+                  <h3 className="text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">
+                    {mode === "video" ? "🎬 Video Queue" : "📞 Sales Queue"}
+                  </h3>
                 </div>
-                <h3 className="m-0 text-[28px] font-black leading-tight text-[#111318] md:text-[38px]">{selected.name}</h3>
-                <p className="m-0 text-base font-extrabold leading-6 text-[#344154]">{selected.line}</p>
+                <div className="flex flex-col px-2">
+                  {rows.map((item, index) => {
+                    const active = selectedIndex === index;
+                    return (
+                      <button
+                        key={item.name}
+                        type="button"
+                        aria-pressed={active}
+                        onClick={() => {
+                          setSelectedIndex(index);
+                          setView("detail");
+                        }}
+                        className={cx(
+                          "group flex h-[52px] items-center gap-3 rounded-lg px-3 text-left transition-colors",
+                          active
+                            ? "bg-[#e8eeff] border-l-[3px] border-[#3b82f6] pl-[9px]"
+                            : "border-l-[3px] border-transparent bg-transparent hover:bg-[#f1f5ff]"
+                        )}
+                      >
+                        <span className={cx("grid h-6 w-6 shrink-0 place-items-center rounded bg-[#e5e7eb] text-[11px] font-black shadow-sm", mode === "video" ? "text-[#b62631]" : "text-[#1557b0]")}>
+                          {item.icon}
+                        </span>
+                        <div className="flex min-w-0 flex-1 flex-col justify-center">
+                          <span className="truncate text-[14px] font-semibold text-[#1a1f2e]">{item.name}</span>
+                          <span className="truncate text-[12px] font-medium text-[#6b7280]">{item.meta}</span>
+                        </div>
+                        <span className="shrink-0 text-[12px] font-medium text-[#6b7280]">
+                          {item.status} / {item.source}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+            )}
 
-              <div className="mt-3 grid gap-2 md:grid-cols-3">
-                {[
-                  ["Workflow", selected.workflow, "border-[#b9cdf0] bg-gradient-to-b from-[#eef5ff] to-white"],
-                  ["School / market", selected.school, "bg-white"],
-                  ["Next action", selected.action, "border-[#e7d6c3] bg-gradient-to-b from-[#fff7ed] to-white"],
-                  ["Proof anchor", selected.proof, "border-[#e7d6c3] bg-gradient-to-b from-[#fff7ed] to-white"],
-                  ["Ready output", selected.output, "bg-white"],
-                  ["Copy-ready field", selected.asset, "bg-white md:col-span-2"],
-                ].map(([label, value, classes]) => (
-                  <div key={label} className={cx("min-h-16 rounded-[13px] border border-[#d9e3f0] p-3 shadow-[0_10px_20px_rgba(15,23,42,0.04)]", classes)}>
-                    <span className="block text-[11px] font-black uppercase text-[#697587]">{label}</span>
-                    <strong className="mt-1 block text-sm font-black text-[#172033]">{value}</strong>
+            {view === "detail" && (
+              <div className="flex flex-col">
+                <div className="border-b border-[#e8ecf2] bg-white p-5">
+                  <h2 className="text-[24px] font-bold text-[#111827]">{selected.name}</h2>
+                  <p className="mt-1 text-[13px] font-medium text-[#4b5563]">{selected.line}</p>
+                </div>
+
+                <div className="flex flex-col border-b border-[#e8ecf2] bg-[#fcfdfd] px-5 py-4">
+                  <div className="mb-4 space-y-3">
+                    <div>
+                      <span className="block text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Process</span>
+                      <p className="mt-1 text-[13px] font-medium leading-relaxed text-[#374151]">{selected.processDescription}</p>
+                    </div>
+                    <div>
+                      <span className="block text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Result</span>
+                      <p className="mt-1 text-[13px] font-medium leading-relaxed text-[#374151]">{selected.resultDescription}</p>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-3 grid gap-2 rounded-2xl border border-[#d7e1ee] bg-gradient-to-b from-[#f8fafc] to-white p-3 shadow-[0_12px_24px_rgba(15,23,42,0.05)]">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <strong className="text-[13px] font-black text-[#172033]">Action panel</strong>
-                <div className="flex flex-wrap gap-1.5 text-[11px] font-black text-[#5d687a]">
-                  <span className="rounded-md border border-[#cfd8e7] bg-white px-2 py-1">Up/Down Select</span>
-                  <span className="rounded-md border border-[#cfd8e7] bg-white px-2 py-1">Enter Preview</span>
-                  <span className="rounded-md border border-[#cfd8e7] bg-white px-2 py-1">Cmd C Copy</span>
                 </div>
-              </div>
-              <div className="grid gap-2 md:grid-cols-2">
-                {selected.actions.map((action, index) => (
-                  <button
-                    key={action}
-                    type="button"
-                    onClick={() => setActionOpen(true)}
-                    className={cx(
-                      "min-h-9 rounded-[11px] border px-3 py-2 text-left text-xs font-extrabold transition",
-                      index === 0 ? "border-[#b7c9ea] bg-[#eaf2ff] text-[#174a91]" : "border-[#cfd8e7] bg-white text-[#27364d] hover:bg-[#f1f6ff]",
-                    )}
-                  >
-                    {index === 0 ? "Enter " : ""}{action}
-                  </button>
-                ))}
-              </div>
-              <button type="button" onClick={() => onCopy(selected)} className="justify-self-start rounded-[11px] border border-[#c9d7eb] bg-[#172033] px-3 py-2 text-xs font-black text-white">
-                {copied ? "Copied proof packet" : "Copy workflow proof"}
-              </button>
-            </div>
 
-            {actionOpen ? (
-              <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-[#cbd8ea] bg-white/95 p-4 shadow-[0_18px_48px_rgba(15,23,42,0.18)] backdrop-blur">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h4 className="m-0 text-xl font-black text-[#111318]">{selected.actionView.title}</h4>
-                    <p className="mt-1 text-sm font-bold leading-5 text-[#667085]">{selected.actionView.note}</p>
-                  </div>
-                  <button type="button" onClick={() => setActionOpen(false)} className="rounded-lg border border-[#cfd8e7] bg-white px-2 py-1 text-xs font-black text-[#27364d]">Close</button>
-                </div>
-                <div className="mt-3 grid gap-2 md:grid-cols-2">
-                  {selected.actionView.fields.map(([label, value]) => (
-                    <div key={label} className="rounded-[13px] border border-[#dce4ef] bg-gradient-to-b from-white to-[#f8fafc] p-3">
-                      <span className="block text-xs font-black uppercase text-[#637086]">{label}</span>
-                      <strong className="mt-1 block text-sm font-black text-[#162033]">{value}</strong>
+                <div className="flex flex-col bg-white">
+                  {[
+                    ["Workflow", selected.workflow],
+                    ["School / Market", selected.school],
+                    ["Source Anchor", selected.proof],
+                    ["Asset", selected.asset],
+                  ].map(([label, value]) => (
+                    <div key={label} className="flex min-h-[44px] items-center justify-between border-b border-[#f3f4f6] px-5 py-2">
+                      <span className="text-[12px] font-semibold text-[#6b7280]">{label}</span>
+                      <span className="text-right text-[13px] font-semibold text-[#111827]">{value}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-                  <span className="rounded-full border border-[#cbd8ea] bg-[#f8fbff] px-3 py-1.5 text-xs font-black uppercase text-[#394a63]">{selected.actionView.eyebrow}</span>
-                  <button type="button" onClick={() => onCopy(selected)} className="rounded-[11px] border border-[#c9d7eb] bg-gradient-to-r from-[#1557b0] to-[#0f7757] px-3 py-2 text-xs font-black text-white shadow-[0_10px_22px_rgba(21,87,176,0.2)]">
-                    {selected.actionView.primary}
-                  </button>
+
+                <div className="p-3">
+                  <h3 className="mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Actions</h3>
+                  <div className="flex flex-col gap-1">
+                    {selected.actions.map((action, index) => (
+                      <button
+                        key={action}
+                        type="button"
+                        onClick={() => setView("action")}
+                        className={cx(
+                          "flex h-[40px] items-center justify-between rounded-lg px-3 text-left transition-colors",
+                          index === 0 ? "bg-[#eef4ff] text-[#1d4ed8]" : "bg-transparent text-[#374151] hover:bg-[#f3f4f6]"
+                        )}
+                      >
+                        <span className="text-[13px] font-semibold">{action}</span>
+                        {index === 0 && (
+                          <span className="grid h-5 place-items-center rounded bg-white px-1.5 text-[10px] font-bold text-[#6b7280] shadow-sm border border-[#e5e7eb]">
+                            ↵
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
-            ) : null}
+            )}
+
+            {view === "action" && (
+              <div className="flex flex-col">
+                <div className="border-b border-[#e8ecf2] bg-white p-5">
+                  <span className="mb-2 inline-block rounded border border-[#e5e7eb] bg-[#f9fafb] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#6b7280]">
+                    {selected.actionView.eyebrow}
+                  </span>
+                  <h2 className="text-[20px] font-bold text-[#111827]">{selected.actionView.title}</h2>
+                  <p className="mt-2 text-[13px] font-medium leading-relaxed text-[#4b5563]">{selected.actionView.note}</p>
+                </div>
+
+                <div className="flex flex-col bg-[#fcfdfd] p-5">
+                  <div className="grid gap-3">
+                    {selected.actionView.fields.map(([label, value]) => (
+                      <div key={label} className="flex flex-col gap-1 rounded-lg border border-[#e5e7eb] bg-white p-3 shadow-sm">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">{label}</span>
+                        <strong className="text-[13px] text-[#111827]">{value}</strong>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => onCopy(selected)}
+                      className="flex h-9 items-center gap-2 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#2563eb] px-4 text-[13px] font-semibold text-white shadow-sm hover:from-[#2563eb] hover:to-[#1d4ed8] focus:outline-none focus:ring-2 focus:ring-[#93c5fd] focus:ring-offset-2"
+                    >
+                      {selected.actionView.primary}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Footer Bar */}
+          <div className="flex h-10 shrink-0 items-center justify-between border-t border-[#e8ecf2] bg-[#f8fafc] px-3">
+            <div className="flex items-center gap-2 text-[12px] font-medium text-[#4b5563]">
+              <span className="grid h-4 w-4 place-items-center rounded-[4px] bg-[#e5e7eb] text-[9px] font-black text-[#6b7280]">⌘</span>
+              <span>{mode === "video" ? "Video Tracker" : "Sales Companion"}</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {view === "list" && (
+                <>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
+                    <span>Open</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">↵</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
+                    <span>Actions</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">⌘K</span>
+                  </div>
+                </>
+              )}
+              {view === "detail" && (
+                <>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
+                    <span>{selected.actions[0]}</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">↵</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
+                    <span>Back</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">esc</span>
+                  </div>
+                </>
+              )}
+              {view === "action" && (
+                <>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
+                    <span>{selected.actionView.primary}</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">↵</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
+                    <span>Back</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">esc</span>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -1044,7 +1176,7 @@ export default function AIWorkflowPortfolioCommand() {
         </nav>
 
         <div className="px-[14px] py-[14px] md:px-[26px] md:py-[18px]">
-          {activeTab === "system" ? <SystemPanel copied={copied} onCopy={copyWorkflowProof} /> : null}
+          {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
           {activeTab === "evidence" ? <EvidencePanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}
           {activeTab === "resume" ? <ResumePanel /> : null}
