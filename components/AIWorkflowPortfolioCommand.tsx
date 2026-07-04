@@ -446,22 +446,33 @@ function Card({
   icon: string;
   facts: string[];
 }) {
+  const panelBackground = `linear-gradient(135deg, ${accent}18 0%, #ffffff 42%, #f8fafc 100%)`;
+
   return (
-    <section className="relative min-h-[206px] rounded-[22px] border border-[#e4e5e7] bg-gradient-to-b from-[#fafbfc] to-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
-      <div className="mb-3 flex items-start justify-between gap-3">
-        <p className="m-0 text-xs font-black uppercase tracking-[0.16em]" style={{ color: accent }}>
+    <section
+      className="group relative min-h-[246px] overflow-hidden rounded-[24px] border border-[#dde3ec] p-5 shadow-[0_20px_50px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_24px_64px_rgba(15,23,42,0.12)]"
+      style={{ background: panelBackground }}
+    >
+      <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full opacity-10 blur-2xl" style={{ backgroundColor: accent }} />
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <p className="m-0 text-[11px] font-black uppercase tracking-[0.22em]" style={{ color: accent }}>
           {kicker}
         </p>
-        <span className="rounded-full border border-[#e2e5e9] bg-white/90 px-3 py-1.5 text-xs font-black text-[#1f2937] shadow-[0_12px_28px_rgba(15,23,42,0.08)]">{pill}</span>
+        <span className="grid h-9 w-9 place-items-center rounded-xl border border-white/80 bg-white/85 text-sm font-black text-[#172033] shadow-[0_12px_28px_rgba(15,23,42,0.10)] transition group-hover:translate-x-0.5">
+          →
+        </span>
       </div>
-      <span className="mb-3 inline-grid h-[34px] w-[34px] place-items-center rounded-xl border-2 border-black text-sm font-black text-black shadow-[0_8px_18px_rgba(15,23,42,0.08)]" style={{ backgroundColor: accent }}>
-        {icon}
-      </span>
-      <h3 className="m-0 max-w-[78%] text-[22px] font-black leading-tight text-[#111318] md:text-[26px]">{title}</h3>
-      <p className="mt-2 text-[15px] leading-6 text-[#667085]">{body}</p>
-      <ul className="mt-4 grid gap-2">
+      <div className="mb-4 flex items-center gap-3">
+        <span className="grid h-12 w-12 place-items-center rounded-2xl border border-black/10 text-base font-black text-white shadow-[0_12px_26px_rgba(15,23,42,0.14)]" style={{ backgroundColor: accent }}>
+          {icon}
+        </span>
+        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-3 py-1.5 text-xs font-black text-[#1f2937]">{pill}</span>
+      </div>
+      <h3 className="m-0 max-w-[82%] text-[23px] font-black leading-tight text-[#111318] md:text-[27px]">{title}</h3>
+      <p className="mt-2 text-[15px] font-semibold leading-6 text-[#5f6b7f]">{body}</p>
+      <ul className="mt-5 grid gap-2 border-t border-[#dfe6ef] pt-4">
         {facts.map((fact) => (
-          <li key={fact} className="rounded-[10px] border border-[#e2e8f1] bg-[#f8fafc] px-3 py-2 text-[13px] font-extrabold text-[#2f3746]">
+          <li key={fact} className="rounded-[12px] border border-[#dfe7f1] bg-white/78 px-3 py-2 text-[13px] font-extrabold text-[#2f3746] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
             {fact}
           </li>
         ))}
@@ -541,11 +552,15 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
 
       <Divider label="Interactive workflow surface" />
 
-      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-[#f8fafc] shadow-[0_18px_48px_rgba(23,33,52,0.16)]" aria-label="Raycast-inspired workflow surface">
-        <div className="grid min-h-14 grid-cols-1 items-center gap-3 border-b border-[#e1e5eb] bg-white px-4 py-3 md:grid-cols-[1fr_auto]">
+      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[22px] border border-[#d7dee9] bg-[#f8fafc] shadow-[0_24px_70px_rgba(23,33,52,0.18)]" aria-label="Raycast-inspired workflow surface">
+        <div className="grid min-h-16 grid-cols-1 items-center gap-3 border-b border-[#e1e5eb] bg-[linear-gradient(180deg,#ffffff,#f8fafc)] px-4 py-3 md:grid-cols-[1fr_auto]">
           <div className="min-w-0">
-            <p className="m-0 truncate text-[20px] font-extrabold text-[#697587] md:text-[25px]">{mode === "video" ? "Video queue..." : "Sales queue..."}</p>
-            <p className="m-0 truncate text-xs font-bold text-[#8a95a6]">{selected.line}</p>
+            <div className="flex min-h-11 items-center gap-3 rounded-2xl border border-[#d8e0eb] bg-white px-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_22px_rgba(15,23,42,0.05)]">
+              <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#172033] text-xs font-black text-white">⌘</span>
+              <p className="m-0 min-w-0 flex-1 truncate text-[18px] font-black text-[#697587] md:text-[22px]">{mode === "video" ? "Video queue..." : "Sales queue..."}</p>
+              <span className="hidden text-xs font-black text-[#9aa5b5] md:inline">Ask AI</span>
+            </div>
+            <p className="m-0 mt-1 truncate pl-1 text-xs font-bold text-[#8a95a6]">{selected.line}</p>
           </div>
           <div className="inline-flex gap-2" aria-label="Workflow mode">
             {(["video", "sales"] as const).map((item) => (
@@ -555,9 +570,12 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
                 aria-pressed={mode === item}
                 onClick={() => changeMode(item)}
                 className={cx(
-                  "min-h-9 min-w-[76px] rounded-[7px] border-0 px-3 text-sm font-black text-white transition",
-                  item === "video" ? "bg-[#b62631]" : "bg-[#1557b0]",
-                  mode !== item && "opacity-55",
+                  "min-h-10 min-w-[76px] rounded-xl border px-3 text-sm font-black transition shadow-[0_8px_18px_rgba(15,23,42,0.08)]",
+                  mode === item
+                    ? item === "video"
+                      ? "border-[#b62631] bg-[#b62631] text-white"
+                      : "border-[#1557b0] bg-[#1557b0] text-white"
+                    : "border-[#d8e0eb] bg-white text-[#526073] hover:bg-[#f1f6ff]",
                 )}
               >
                 {item === "video" ? "Video" : "Sales"}
@@ -566,7 +584,7 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
           </div>
         </div>
 
-        <div className="grid min-h-[430px] gap-3 p-3.5 lg:grid-cols-[minmax(260px,0.9fr)_minmax(0,1.4fr)]">
+        <div className="grid min-h-[430px] gap-3 p-3.5 lg:grid-cols-[minmax(260px,0.82fr)_minmax(0,1.5fr)]">
           <div className="grid content-start gap-2">
             {rows.map((item, index) => {
               const active = selectedIndex === index;
@@ -580,11 +598,11 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
                     setActionOpen(false);
                   }}
                   className={cx(
-                    "grid min-h-[58px] w-full grid-cols-[38px_minmax(0,1fr)_auto] items-center gap-3 rounded-[11px] border px-3 py-2 text-left shadow-[0_1px_0_rgba(17,24,39,0.04)] transition max-sm:grid-cols-[30px_minmax(0,1fr)]",
-                    active ? "border-[#aebde0] bg-[#eef4ff]" : "border-transparent bg-white hover:border-[#c6d4eb] hover:bg-[#f4f8ff]",
+                    "grid min-h-[64px] w-full grid-cols-[38px_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border px-3 py-2 text-left shadow-[0_1px_0_rgba(17,24,39,0.04)] transition max-sm:grid-cols-[30px_minmax(0,1fr)]",
+                    active ? "border-[#b9cdf0] bg-[#eef4ff] shadow-[0_10px_26px_rgba(35,131,226,0.12)]" : "border-transparent bg-white hover:border-[#c6d4eb] hover:bg-[#f4f8ff]",
                   )}
                 >
-                  <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#172033] text-xs font-black text-white">{item.icon}</span>
+                  <span className={cx("grid h-8 w-8 place-items-center rounded-xl text-xs font-black text-white shadow-[0_8px_16px_rgba(15,23,42,0.14)]", active ? "bg-[#ff6363]" : "bg-[#172033]")}>{item.icon}</span>
                   <span className="min-w-0">
                     <span className="block truncate text-base font-black text-[#1f2937]">{item.name}</span>
                     <span className="mt-0.5 block truncate text-[13px] font-bold text-[#667284]">{item.meta}</span>
@@ -595,9 +613,9 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
             })}
           </div>
 
-          <div className="relative grid min-h-[402px] grid-rows-[1fr_auto] rounded-2xl border border-[#d8e2ef] bg-white p-3 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
+          <div className="relative grid min-h-[402px] grid-rows-[1fr_auto] rounded-[22px] border border-[#d8e2ef] bg-white p-3 shadow-[0_18px_42px_rgba(15,23,42,0.08)]">
             <div>
-              <div className="grid gap-2 rounded-2xl border border-[#d8e2ef] bg-[linear-gradient(135deg,rgba(21,87,176,0.12),rgba(198,43,55,0.08)),#f8fbff] p-4">
+              <div className="grid gap-2 rounded-[20px] border border-[#d8e2ef] bg-[radial-gradient(circle_at_100%_0%,rgba(255,99,99,0.15),transparent_32%),linear-gradient(135deg,rgba(21,87,176,0.11),rgba(198,43,55,0.06)),#f8fbff] p-4">
                 <div className="flex flex-wrap gap-2">
                   {[selected.status, selected.source, mode === "video" ? "Video workflow" : "Sales workflow"].map((item) => (
                     <span key={item} className="rounded-[11px] border border-[#cfd8e7] bg-white px-3 py-2 text-xs font-extrabold text-[#27364d]">{item}</span>
