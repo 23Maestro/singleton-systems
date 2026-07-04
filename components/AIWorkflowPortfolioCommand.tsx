@@ -450,7 +450,7 @@ function Card({
 
   return (
     <section
-      className="group relative min-h-[246px] overflow-hidden rounded-[24px] border border-[#dde3ec] p-5 shadow-[0_20px_50px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_24px_64px_rgba(15,23,42,0.12)]"
+      className="group relative min-h-[232px] overflow-hidden rounded-[24px] border border-[#dde3ec] p-6 shadow-[0_20px_50px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_24px_64px_rgba(15,23,42,0.12)]"
       style={{ background: panelBackground }}
     >
       <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full opacity-10 blur-2xl" style={{ backgroundColor: accent }} />
@@ -458,17 +458,17 @@ function Card({
         <p className="m-0 text-[11px] font-black uppercase tracking-[0.22em]" style={{ color: accent }}>
           {kicker}
         </p>
-        <span className="grid h-9 w-9 place-items-center rounded-xl border border-white/80 bg-white/85 text-sm font-black text-[#172033] shadow-[0_12px_28px_rgba(15,23,42,0.10)] transition group-hover:translate-x-0.5">
+        <span className="grid h-7 w-7 place-items-center rounded-lg border border-white/80 bg-white/85 text-xs font-black text-[#172033] shadow-[0_10px_22px_rgba(15,23,42,0.08)] transition group-hover:translate-x-0.5">
           →
         </span>
       </div>
-      <div className="mb-4 flex items-center gap-3">
-        <span className="grid h-12 w-12 place-items-center rounded-2xl border border-black/10 text-base font-black text-white shadow-[0_12px_26px_rgba(15,23,42,0.14)]" style={{ backgroundColor: accent }}>
+      <div className="mb-4 flex items-center gap-2.5">
+        <span className="grid h-9 w-9 place-items-center rounded-xl border border-black/10 text-sm font-black text-white shadow-[0_10px_20px_rgba(15,23,42,0.12)]" style={{ backgroundColor: accent }}>
           {icon}
         </span>
-        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-3 py-1.5 text-xs font-black text-[#1f2937]">{pill}</span>
+        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-2.5 py-1 text-[11px] font-black text-[#1f2937]">{pill}</span>
       </div>
-      <h3 className="m-0 max-w-[82%] text-[23px] font-black leading-tight text-[#111318] md:text-[27px]">{title}</h3>
+      <h3 className="m-0 text-[23px] font-black leading-tight text-[#111318] md:text-[27px]">{title}</h3>
       <p className="mt-2 text-[15px] font-semibold leading-6 text-[#5f6b7f]">{body}</p>
       <ul className="mt-5 grid gap-2 border-t border-[#dfe6ef] pt-4">
         {facts.map((fact) => (
@@ -514,12 +514,12 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
 
   return (
     <article>
-      <div className="mx-auto max-w-[1260px]">
+      <div className="mx-auto max-w-[1320px]">
         <SectionHead
           title="System view"
           lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables."
         />
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-6 lg:grid-cols-3">
           <Card
             kicker="Command surface"
             pill="Action"
@@ -560,7 +560,6 @@ function SystemPanel({ copied, onCopy }: { copied: boolean; onCopy: (item: Workf
               <p className="m-0 min-w-0 flex-1 truncate text-[18px] font-black text-[#697587] md:text-[22px]">{mode === "video" ? "Video queue..." : "Sales queue..."}</p>
               <span className="hidden text-xs font-black text-[#9aa5b5] md:inline">Ask AI</span>
             </div>
-            <p className="m-0 mt-1 truncate pl-1 text-xs font-bold text-[#8a95a6]">{selected.line}</p>
           </div>
           <div className="inline-flex gap-2" aria-label="Workflow mode">
             {(["video", "sales"] as const).map((item) => (
@@ -1017,7 +1016,6 @@ export default function AIWorkflowPortfolioCommand() {
       <section className="mx-auto w-full max-w-[1420px] overflow-hidden border border-[#e6e6e3] bg-white shadow-[0_18px_46px_rgba(15,23,42,0.10)]" aria-label="Prospect ID workflow system case study">
         <header className="grid items-start gap-5 border-b border-[#e1e5eb] bg-[#fbfdff] px-[22px] py-[18px] md:grid-cols-[minmax(0,1fr)_auto]">
           <div>
-            <p className="m-0 mb-1 text-xs font-black text-[#2383e2]">AI workflow portfolio</p>
             <h1 className="m-0 text-[30px] font-black leading-tight text-[#111318] md:text-[36px]">AI Workflow Portfolio</h1>
             <p className="mt-2 max-w-[820px] text-[15px] leading-6 text-[#303746]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
           </div>
