@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prospect ID Workflow System</title>
+  <style>
+    :root {
+      --bg: #eef2f6;
+      --paper: #ffffff;
+      --ink: #111318;
+      --text: #303746;
+      --muted: #647083;
+      --line: #d9e0ea;
+      --soft: #f5f7fb;
+      --blue: #164c99;
+      --green: #0f6b50;
+      --orange: #944a13;
+      --navy: #101826;
+      --shadow: 0 18px 46px rgba(19, 29, 46, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.42;
+    }
+
+    main {
+      width: 100%;
+      padding: 18px;
+    }
+
+    .page {
+      width: min(1420px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: start;
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+
+    .label {
+      margin: 0 0 4px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(27px, 2.9vw, 36px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 820px;
+      margin: 8px 0 0;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      max-width: 380px;
+    }
+
+    .chip {
+      min-height: 30px;
+      padding: 6px 10px;
+      border: 1px solid #cbd5e2;
+      border-radius: 999px;
+      background: #fff;
+      color: #263044;
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #f8fafc;
+    }
+
+    button {
+      min-height: 32px;
+      padding: 0 11px;
+      border: 1px solid #c8d1df;
+      border-radius: 7px;
+      background: #fff;
+      color: #222938;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button[aria-pressed="true"] {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .stage {
+      padding: 18px 20px 22px;
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .content-wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      gap: 5px;
+      max-width: 920px;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(22px, 2.3vw, 30px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .system-grid,
+    .fit-grid,
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card,
+    .source-card,
+    .resume-block {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .card {
+      min-height: 178px;
+      border-top: 4px solid var(--accent, var(--blue));
+      box-shadow: 0 10px 24px rgba(20, 31, 48, 0.06);
+      background:
+        linear-gradient(180deg, rgba(248, 251, 255, 0.95), #fff 44%),
+        #fff;
+    }
+
+    .card::before,
+    .source-card::before,
+    .resume-block::before {
+      content: attr(data-kicker);
+      display: block;
+      min-height: 15px;
+      margin: 0 0 6px;
+      color: var(--accent, var(--blue));
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card h3,
+    .source-card h3,
+    .resume-block h3 {
+      margin: 0 0 7px;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .card p,
+    .source-card p,
+    .resume-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .card p strong,
+    .source-card p strong,
+    .resume-block p strong,
+    .lead strong {
+      color: #202a3b;
+      font-weight: 850;
+    }
+
+    .facts {
+      display: grid;
+      gap: 6px;
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .facts li {
+      padding: 7px 8px;
+      border-radius: 7px;
+      border: 1px solid #e2e8f1;
+      background: #f8fafc;
+      color: #2f3746;
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .facts li strong {
+      color: #152238;
+      font-weight: 900;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 16px auto 16px;
+      max-width: 1040px;
+      padding: 11px 14px;
+      border-radius: 9px;
+      background: var(--navy);
+      color: #eef3fb;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .divider span {
+      color: #b9c4d5;
+      font-weight: 700;
+    }
+
+    .visual-card {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 18px 48px rgba(23, 33, 52, 0.16);
+      overflow: hidden;
+    }
+
+    .ray-shell {
+      background: #f8fafc;
+    }
+
+    .ray-topbar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 56px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .ray-back {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #6f7b8d;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .ray-back:disabled {
+      opacity: 0.28;
+      cursor: default;
+    }
+
+    .ray-search {
+      min-width: 0;
+      color: #697587;
+      font-size: clamp(18px, 2.1vw, 25px);
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ray-modes {
+      display: inline-flex;
+      gap: 7px;
+    }
+
+    .ray-modes button {
+      min-width: 76px;
+      border: 0;
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .ray-modes button[data-mode="video"] { background: #b62631; }
+    .ray-modes button[data-mode="sales"] { background: #1557b0; }
+    .ray-modes button[aria-pressed="false"] { opacity: 0.54; }
+
+    .ray-screen {
+      display: none;
+      min-height: 410px;
+      padding: 14px;
+    }
+
+    .ray-screen.active {
+      display: block;
+    }
+
+    .ray-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .ray-row {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 11px;
+      min-height: 58px;
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      background: #fff;
+      color: #1f2937;
+      text-align: left;
+      box-shadow: 0 1px 0 rgba(17, 24, 39, 0.04);
+    }
+
+    .ray-row:first-child,
+    .ray-row:hover {
+      border-color: #aebde0;
+      background: #eef4ff;
+    }
+
+    .ray-icon {
+      font-size: 22px;
+    }
+
+    .ray-name {
+      display: block;
+      font-size: 16px;
+      font-weight: 880;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ray-meta {
+      display: block;
+      margin-top: 2px;
+      color: #667284;
+      font-size: 13px;
+      font-weight: 720;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ray-status {
+      color: #526073;
+      font-size: 13px;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .detail-title {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .detail-title h3 {
+      margin: 0;
+      font-size: clamp(28px, 3.3vw, 42px);
+      line-height: 1.03;
+    }
+
+    .detail-title p {
+      margin: 0;
+      color: #344154;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .detail-cell {
+      min-height: 64px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--soft);
+    }
+
+    .detail-cell.wide {
+      grid-column: span 2;
+    }
+
+    .detail-cell span {
+      display: block;
+      color: #697587;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .detail-cell strong {
+      display: block;
+      margin-top: 4px;
+      color: #172033;
+      font-size: 14px;
+    }
+
+    .action-panel {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .action-panel strong {
+      color: #172033;
+      font-size: 13px;
+    }
+
+    .action-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .action-list button,
+    .action-list span,
+    .mini-pill {
+      padding: 7px 9px;
+      border: 1px solid #cfd8e7;
+      border-radius: 999px;
+      background: #fff;
+      color: #27364d;
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    .action-list button {
+      min-height: 32px;
+    }
+
+    .output-panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .output-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .output-title h3 {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.05;
+    }
+
+    .output-title span {
+      color: #667284;
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .output-fields {
+      display: grid;
+      gap: 8px;
+    }
+
+    .output-field {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #dce4ef;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .output-field span {
+      color: #637086;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .output-field strong {
+      color: #162033;
+      font-size: 14px;
+    }
+
+    .output-submit {
+      justify-self: start;
+      min-height: 36px;
+      border-color: #c9d7eb;
+      background: #1557b0;
+      color: #fff;
+    }
+
+    .evidence-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .table {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 10px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .row:first-child { border-top: 0; }
+    .row strong { color: #1e2736; }
+    .row span { color: var(--muted); }
+
+    .data-table {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1.5fr;
+      gap: 10px;
+      padding: 11px 12px;
+      border-top: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .data-row:first-child {
+      border-top: 0;
+      background: #eef4fc;
+      color: #20304a;
+      font-weight: 880;
+    }
+
+    .data-row strong {
+      color: #172033;
+    }
+
+    .visual-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      padding: 13px 14px 11px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdff;
+    }
+
+    .visual-head strong {
+      font-size: 17px;
+    }
+
+    .visual-head span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 760;
+    }
+
+    .visual-body {
+      padding: 14px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .process-step {
+      min-height: 126px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--soft);
+      cursor: pointer;
+    }
+
+    .process-step[aria-pressed="true"] {
+      border-color: #98abd2;
+      background: #eef4ff;
+    }
+
+    .process-step span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      min-height: 26px;
+      margin-bottom: 8px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .process-step strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #172033;
+      font-size: 14px;
+    }
+
+    .process-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .process-detail {
+      margin-top: 10px;
+      padding: 11px;
+      border: 1px solid #cfd8e7;
+      border-radius: 9px;
+      background: #fff;
+      color: #243047;
+      font-size: 13px;
+      font-weight: 740;
+    }
+
+    .resume-grid,
+    .resume-proof {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .resume-block h3 {
+      color: var(--blue);
+      font-size: 16px;
+    }
+
+    .resume-proof button {
+      min-height: 118px;
+      padding: 12px;
+      text-align: left;
+      border-radius: 10px;
+      background: var(--soft);
+    }
+
+    .resume-proof button[aria-pressed="true"] {
+      background: #eef4ff;
+      color: #172033;
+      border-color: #9fb1d4;
+    }
+
+    .resume-proof span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .resume-proof strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #172033;
+      font-size: 15px;
+    }
+
+    .resume-proof em {
+      display: block;
+      color: var(--muted);
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .source-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .source-card a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      margin-top: 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 820;
+      text-decoration: none;
+    }
+
+    .source-card a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 900px) {
+      main { padding: 10px; }
+
+      .top,
+      .evidence-layout,
+      .system-grid,
+      .fit-grid,
+      .source-grid,
+      .resume-grid,
+      .resume-proof,
+      .process-grid,
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chips {
+        justify-content: flex-start;
+        max-width: none;
+      }
+
+      .stage {
+        padding: 14px;
+      }
+
+      .divider,
+      .visual-card {
+        width: 100%;
+      }
+
+      .ray-topbar {
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .ray-modes {
+        grid-column: 1 / -1;
+      }
+
+      .ray-row {
+        grid-template-columns: 28px minmax(0, 1fr);
+      }
+
+      .ray-status {
+        grid-column: 2;
+      }
+
+      .data-row,
+      .row,
+      .output-field {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-head {
+        display: grid;
+      }
+
+      .output-title {
+        display: grid;
+      }
+
+      .output-title span {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="page" aria-label="Prospect ID workflow system case study">
+      <header class="top">
+        <div>
+          <p class="label">Prospect ID case study</p>
+          <h1>Prospect ID Workflow System</h1>
+          <p class="subtitle">Raycast command UI, FastAPI legacy adapter, Supabase source-of-truth cleanup, and audit tests for a legacy operations workflow.</p>
+        </div>
+        <div class="chips" aria-label="Proof summary">
+          <span class="chip">400+ commits</span>
+          <span class="chip">Raycast</span>
+          <span class="chip">Supabase</span>
+          <span class="chip">Audit tests</span>
+        </div>
+      </header>
+
+      <nav class="tabs" aria-label="Case study sections">
+        <button type="button" data-panel="system" aria-pressed="true">System</button>
+        <button type="button" data-panel="evidence" aria-pressed="false">Evidence</button>
+        <button type="button" data-panel="fit" aria-pressed="false">AI Specialist Match</button>
+        <button type="button" data-panel="resume" aria-pressed="false">Resume</button>
+        <button type="button" data-panel="sources" aria-pressed="false">Proof Map</button>
+      </nav>
+
+      <div class="stage">
+        <article id="system" class="panel active">
+          <div class="content-wrap">
+            <div class="section-head">
+              <h2>System view</h2>
+              <p class="lead">The work connected daily operator actions to a legacy dashboard and a cleaner reporting layer.</p>
+            </div>
+            <div class="system-grid">
+              <section class="card" style="--accent: var(--blue)" data-kicker="Command surface">
+                <h3>Raycast command UI</h3>
+                <p><strong>Front-end command surface</strong> for repeated operator workflows.</p>
+                <ul class="facts">
+                  <li><strong>Scout Prep</strong></li>
+                  <li><strong>Set Meetings</strong></li>
+                  <li>Client Messages</li>
+                  <li>Video workflow commands</li>
+                </ul>
+              </section>
+              <section class="card" style="--accent: var(--orange)" data-kicker="Translation layer">
+                <h3>FastAPI legacy adapter</h3>
+                <p><strong>Local API layer</strong> that translated dashboard forms into repeatable request shapes.</p>
+                <ul class="facts">
+                  <li>Shared local session path</li>
+                  <li>Form payload handling</li>
+                  <li><strong>Legacy ID normalization</strong></li>
+                  <li>Live source-system readback</li>
+                </ul>
+              </section>
+              <section class="card" style="--accent: var(--green)" data-kicker="Reporting layer">
+                <h3>Supabase truth layer</h3>
+                <p><strong>Durable workflow facts</strong> separated from UI state and support caches.</p>
+                <ul class="facts">
+                  <li><strong>appointments</strong></li>
+                  <li><strong>lifecycle_events</strong></li>
+                  <li><strong>call_log</strong></li>
+                  <li>confirmation support cache</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+          <div class="divider">
+            <strong>Prospect ID Workflow System</strong>
+            <span>Interactive workflow surface</span>
+          </div>
+          <section class="visual-card ray-shell" aria-label="Raycast workflow surface">
+            <div class="ray-topbar">
+              <button type="button" class="ray-back" id="workflowBack" aria-label="Back" disabled>‹</button>
+              <div class="ray-search" id="workflowCrumb">Video queue...</div>
+              <div class="ray-modes" aria-label="Workflow mode">
+                <button type="button" data-mode="video" aria-pressed="true">Video</button>
+                <button type="button" data-mode="sales" aria-pressed="false">Sales</button>
+              </div>
+            </div>
+            <section class="ray-screen active" id="workflowListScreen"></section>
+            <section class="ray-screen" id="workflowDetailScreen"></section>
+            <section class="ray-screen" id="workflowActionScreen"></section>
+          </section>
+        </article>
+
+        <article id="evidence" class="panel">
+          <div class="content-wrap">
+            <div class="section-head">
+              <h2>Evidence from the repo</h2>
+              <p class="lead">The proof is in documented boundaries, adapter work, migrations, and tests.</p>
+            </div>
+            <div class="evidence-layout">
+              <div class="table">
+                <div class="row"><strong>Commands are buttons</strong><span>Raycast starts actions; domain modules own workflow meaning.</span></div>
+                <div class="row"><strong>Legacy adapter</strong><span>FastAPI translates dashboard behavior into stable local API calls.</span></div>
+                <div class="row"><strong>Supabase ownership</strong><span>appointments, lifecycle_events, and call_log carry durable facts.</span></div>
+                <div class="row"><strong>Audit before cleanup</strong><span>Parity tests check projected call_log shape and read-only behavior.</span></div>
+              </div>
+              <div class="table">
+                <div class="row"><strong>Public repo</strong><span>400+ commits on one workflow system.</span></div>
+                <div class="row"><strong>Prospect Web</strong><span>Next/Vercel support surfaces for reporting and workflow views.</span></div>
+                <div class="row"><strong>Debug template</strong><span>Legacy assignment repair pattern with verification checklist.</span></div>
+                <div class="row"><strong>Tests</strong><span>Source-of-truth and parity checks prevent UI-local fixes from becoming business truth.</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="divider">
+            <strong>Prospect ID Workflow System</strong>
+            <span>Reporting truth layer</span>
+          </div>
+          <section class="visual-card">
+            <div class="visual-head">
+              <strong>Supabase reporting shape</strong>
+              <span>Durable facts stay separate from command state and support caches.</span>
+            </div>
+            <div class="visual-body">
+              <div class="data-table">
+                <div class="data-row"><span>Table</span><span>Owner</span><span>Write path</span><span>What it proves</span></div>
+                <div class="data-row"><strong>appointments</strong><span>Meeting workflow</span><span>Set Meetings</span><span>Booked meeting lookup and confirmation readback</span></div>
+                <div class="data-row"><strong>athlete_lifecycle_events</strong><span>Stage truth</span><span>Post-call updates</span><span>Lifecycle changes are not hidden in UI state</span></div>
+                <div class="data-row"><strong>call_log</strong><span>Reporting</span><span>Audit checks</span><span>Projected shape checked before cleanup</span></div>
+                <div class="data-row"><strong>confirmation_cache</strong><span>Support cache</span><span>Message support</span><span>Useful for drafting, not durable lifecycle truth</span></div>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        <article id="fit" class="panel">
+          <div class="content-wrap">
+            <div class="section-head">
+              <h2>AI Specialist match</h2>
+              <p class="lead">Mapped to AI development support, data prep, output evaluation, documentation, pilots, and implementation.</p>
+            </div>
+            <div class="fit-grid">
+              <section class="card" style="--accent: var(--blue)">
+                <h3>Data preparation</h3>
+                <p>Organized scattered workflow facts into clearer source-of-truth contracts.</p>
+                <ul class="facts"><li>Validation gates</li><li>Migration checks</li><li>Reporting cleanup</li></ul>
+              </section>
+              <section class="card" style="--accent: var(--green)">
+                <h3>Output evaluation</h3>
+                <p>Used AI-assisted paths with review, tests, and business relevance checks.</p>
+                <ul class="facts"><li>Draft helpers</li><li>Human review</li><li>Source readback</li></ul>
+              </section>
+              <section class="card" style="--accent: var(--orange)">
+                <h3>Implementation support</h3>
+                <p>Built around the operator workflow and documented how each part behaves.</p>
+                <ul class="facts"><li>Workflow mapping</li><li>Command UI testing</li><li>Architecture docs</li></ul>
+              </section>
+            </div>
+          </div>
+          <div class="divider">
+            <strong>Prospect ID Workflow System</strong>
+            <span>AI support loop</span>
+          </div>
+          <section class="visual-card">
+            <div class="visual-head">
+              <strong>Review-first implementation loop</strong>
+              <span>Click a step to see the operating rule.</span>
+            </div>
+            <div class="visual-body">
+              <div class="process-grid" id="processGrid"></div>
+              <div class="process-detail" id="processDetail">Read the workflow, repo evidence, and current state before changing behavior.</div>
+            </div>
+          </section>
+        </article>
+
+        <article id="resume" class="panel">
+          <div class="content-wrap">
+            <div class="section-head">
+              <h2>Resume support</h2>
+              <p class="lead">Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.</p>
+            </div>
+            <div class="resume-grid">
+              <section class="resume-block"><h3>Prospect ID</h3><p>Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows.</p></section>
+              <section class="resume-block"><h3>NurseHub</h3><p>Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x.</p></section>
+              <section class="resume-block"><h3>Education</h3><p>Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College.</p></section>
+              <section class="resume-block"><h3>Positioning</h3><p>Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation.</p></section>
+            </div>
+          </div>
+          <div class="divider">
+            <strong>Prospect ID Workflow System</strong>
+            <span>Resume evidence stack</span>
+          </div>
+          <section class="visual-card">
+            <div class="visual-head">
+              <strong>Proof stack</strong>
+              <span>Click a block to focus the resume angle.</span>
+            </div>
+            <div class="visual-body">
+              <div class="resume-proof" id="resumeProof"></div>
+              <div class="process-detail" id="resumeDetail">Prospect ID is the lead proof: command UI, workflow automation, source-of-truth cleanup, and audit scripts.</div>
+            </div>
+          </section>
+        </article>
+
+        <article id="sources" class="panel">
+          <div class="content-wrap">
+            <div class="section-head">
+              <h2>Proof map</h2>
+              <p class="lead">Repo evidence connects the claims to command UI, architecture, source-of-truth rules, adapter work, audits, and web support.</p>
+            </div>
+            <div class="source-grid">
+              <section class="source-card"><h3>Command surface</h3><p>Raycast commands organize search, meetings, messages, video workflows, and task handling.</p><a href="https://github.com/23Maestro/prospect-pipeline/blob/main/README.md">Open README</a></section>
+              <section class="source-card"><h3>System map</h3><p>Architecture separates command UI, domain meaning, adapters, durable truth, and audit scripts.</p><a href="https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scouting-coordinator-system-map.md">Open system map</a></section>
+              <section class="source-card"><h3>Supabase contract</h3><p>Source-of-truth rules define allowed writers for appointments, lifecycle, confirmations, and call logs.</p><a href="https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scout-prep-supabase-source-of-truth.md">Open Supabase contract</a></section>
+              <section class="source-card"><h3>Legacy adapter</h3><p>Dashboard mutations are documented through browser-compatible payloads, IDs, and readback.</p><a href="https://github.com/23Maestro/prospect-pipeline/blob/main/docs/api-specs/legacy-assignment-debug-template.md">Open adapter template</a></section>
+              <section class="source-card"><h3>Audit checks</h3><p>Read-only parity checks verify reporting shape before cleanup changes become business truth.</p><a href="https://github.com/23Maestro/prospect-pipeline/blob/main/scripts/audit-call-tracker-live-parity.test.mjs">Open parity test</a></section>
+              <section class="source-card"><h3>Prospect Web</h3><p>Next/Vercel support surfaces show reporting, workflow views, visual maps, and evidence receipts.</p><a href="https://github.com/23Maestro/prospect-pipeline/tree/main/apps/prospect-web">Open Prospect Web</a></section>
+            </div>
+          </div>
+          <div class="divider">
+            <strong>Prospect ID Workflow System</strong>
+            <span>Evidence route</span>
+          </div>
+          <section class="visual-card">
+            <div class="visual-head">
+              <strong>Review route</strong>
+              <span>Each claim points to one reviewable repo surface.</span>
+            </div>
+            <div class="visual-body">
+              <div class="data-table">
+                <div class="data-row"><span>Claim</span><span>Review</span><span>Surface</span><span>What to inspect</span></div>
+                <div class="data-row"><strong>Command UI</strong><span>README</span><span>Raycast</span><span>Commands, workflows, and operator entry points</span></div>
+                <div class="data-row"><strong>Source-of-truth</strong><span>Supabase contract</span><span>Docs</span><span>Which tables own durable workflow facts</span></div>
+                <div class="data-row"><strong>Legacy translation</strong><span>Adapter template</span><span>API docs</span><span>Payload shape, readback, and verification checklist</span></div>
+                <div class="data-row"><strong>Cleanup proof</strong><span>Parity test</span><span>Scripts</span><span>Read-only assertions before reporting changes</span></div>
+              </div>
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const pageButtons = Array.from(document.querySelectorAll('[data-panel]'));
+    const panels = Array.from(document.querySelectorAll('.panel'));
+    const workflowData = {
+      video: [
+        { icon: '🎬', name: 'Miles Hart', meta: '2026 • Football • WR | CB', status: 'In Queue', source: 'HUDL', line: 'Football | 2026 | WR | CB | Northview HS | Atlanta, GA | Aug 19, 2025 | In Queue | HUDL', workflow: 'Video Progress', school: 'Northview HS, GA', action: 'View Details, then confirm the title and progress status before editing.', proof: 'src/video-progress.tsx', asset: 'Miles Hart Class of 2026 Senior Season', output: 'Copy YouTube Title / Copy Approved Video Title / Copy Dropbox Folder', actions: ['Video Updates', 'Update Status', 'Update Stage', 'Copy YouTube Title'], actionView: { title: 'Video Updates', eyebrow: 'Update NPID Video Profile', primary: 'Submit video update', fields: [['Student Athlete', 'Miles Hart'], ['YouTube Link', 'https://youtu.be/video-ready'], ['Video Type', 'Full Season Highlight'], ['Season/Team', '2025 Varsity Football'], ['Approved Video Title', 'MILES HART Class of 2026 - WR | CB']], note: 'The command keeps the title, folder, status, and update payload in one review surface.' } },
+        { icon: '✏️', name: 'Jordan Vale', meta: '2027 • Basketball • PG', status: 'Awaiting Client', source: 'External Links', line: 'Basketball | 2027 | PG | Lakewood Prep | St. Petersburg, FL | Sep 11, 2025 | Awaiting Client | External Links', workflow: 'Video Updates', school: 'Lakewood Prep, FL', action: 'Open Video Updates and fill YouTube link, video type, and season/team.', proof: 'src/features/athlete-workflows/video-updates-view.tsx', asset: 'Jordan Vale 2027 Point Guard Highlights', output: 'Update NPID Video Profile', actions: ['Video Updates', 'Focus YouTube Link', 'Edit SA Videos', 'View PlayerID'], actionView: { title: 'Edit SA Videos', eyebrow: 'Video edit form', primary: 'Update video link', fields: [['Student Athlete', 'Jordan Vale'], ['YouTube Link', 'https://youtu.be/revision-ready'], ['Video Type', 'Partial Season Highlight'], ['Season/Team', '2026 Travel Basketball'], ['Source', 'youtube']], note: 'The form preserves existing video form data while updating the link and source fields.' } },
+        { icon: '📦', name: 'Camden Brooks', meta: '2028 • Football • QB-D | DE', status: 'On Hold', source: 'Dropbox', line: 'Football | 2028 | QB-D | DE | Cedar Ridge HS | Austin, TX | Oct 9, 2025 | On Hold | Dropbox', workflow: 'Dropbox Folder Reminder', school: 'Cedar Ridge HS, TX', action: 'Copy the folder name, send the reminder, and keep the task in the right stage.', proof: 'src/video-progress.tsx', asset: 'CamdenBrooks_2028_Football_TX', output: 'Dropbox Folder Reminders', actions: ['Dropbox Folder Reminders', 'Copy Dropbox Folder', 'Update Stage', 'View PlayerID'], actionView: { title: 'Dropbox Folder Reminder', eyebrow: 'Reminder helper', primary: 'Queue reminder', fields: [['Student Athlete', 'Camden Brooks'], ['Dropbox Folder', 'CamdenBrooks_2028_Football_TX'], ['Video Stage', 'On Hold'], ['Video Status', 'Dropbox'], ['Reminder Type', 'dropbox-folder']], note: 'Folder naming and stage handling stay visible before the operator sends the reminder.' } },
+        { icon: '✅', name: 'Eli Rivers', meta: '2026 • Baseball • RHP | SS', status: 'Done', source: 'HUDL', line: 'Baseball | 2026 | RHP | SS | Eastline HS | Raleigh, NC | Nov 19, 2025 | Done | HUDL', workflow: 'Completion Review', school: 'Eastline HS, NC', action: 'Set completion date after title, status, and PlayerID review are clean.', proof: 'src/video-progress.tsx', asset: 'ELI RIVERS Class of 2026 - RHP | SS', output: 'Set Completion Date', actions: ['Set Completion Date', 'View PlayerID', 'Copy Approved Video Title', 'Reload Tasks'], actionView: { title: 'Set Completion Date', eyebrow: 'Completion gate', primary: 'Save completion date', fields: [['Student Athlete', 'Eli Rivers'], ['Video Stage', 'Done'], ['Video Status', 'HUDL'], ['Completion Date', 'Nov 19, 2025'], ['Approved Video Title', 'ELI RIVERS Class of 2026 - RHP | SS']], note: 'The Done view exposes the completion action only after the task is in the right stage.' } }
+      ],
+      sales: [
+        { icon: '📅', name: 'Malik Stone', meta: '2026 • Football • OLB | WR', status: 'Set Meetings', source: 'Confirmation 1', line: 'Football | 2026 | OLB | WR | Westfield HS | Columbus, OH | Set Meetings | Head Scout Patrick', workflow: 'Set Meetings', school: 'Westfield HS, OH', action: 'Send Confirmation, then copy the booked meeting for readback.', proof: 'src/head-scout-schedules.tsx', asset: 'Parent confirmation text for Head Scout Patrick', output: 'Send Confirmation / Copy Booked Meeting', actions: ['Send Confirmation', 'Meeting Details', 'Copy Booked Meeting', 'Open Athlete Task Tab'], actionView: { title: 'Send Confirmation', eyebrow: 'Confirmation 1', primary: 'Copy message', fields: [['Student Athlete', 'Malik Stone'], ['Recipient', 'Parent A'], ['Head Scout', 'Head Scout Patrick'], ['Meeting', 'Thu 6:00 PM ET'], ['Message', 'Confirming the call with Head Scout Patrick for Malik.']], note: 'The command keeps the confirmation text, booked meeting, and task tab together for review.' } },
+        { icon: '☎️', name: 'Isaiah Quinn', meta: '2027 • Football • S | OLB', status: 'Scout Prep', source: 'Parent Intro', line: 'Football | 2027 | S | OLB | Ridgeview HS | Denver, CO | Scout Prep | Parent Intro', workflow: 'Scout Prep Call Path', school: 'Ridgeview HS, CO', action: 'Review contact context and keep the call script ready before outreach.', proof: 'src/features/scout-prep/content.ts', asset: 'Hey Parent A, this is Scouting Coordinator at Prospect ID.', output: 'Parent script with athlete context and next-step prompt', actions: ['Review athlete data', 'Open contact context', 'Copy Parent 1 Phone', 'Update task stage'], actionView: { title: 'Parent Intro', eyebrow: 'Scout Prep', primary: 'Copy call opener', fields: [['Student Athlete', 'Isaiah Quinn'], ['Parent', 'Parent A'], ['Stage', 'Parent Intro'], ['Opener', 'Hey Parent A, this is Scouting Coordinator at Prospect ID.'], ['Next Step', 'Confirm interest and route the task stage.']], note: 'The operator gets context, opener, and task-stage decision in one place.' } },
+        { icon: '🧭', name: 'Noah Bennett', meta: '2028 • Basketball • SG', status: 'Scout Openings', source: 'Open Slots', line: 'Basketball | 2028 | SG | Southgate Prep | Phoenix, AZ | Scout Openings | 4 open', workflow: 'Scout Openings', school: 'Southgate Prep, AZ', action: 'View open slots, select two times, and sync them into the call script.', proof: 'src/head-scout-schedules.tsx', asset: 'Head Scout Taylor • Thu 6:00 PM / Sat 11:30 AM', output: 'Sync to Notion / Copy Slot', actions: ['View Open Slots', 'Select Slot', 'Sync to Notion', 'Next Week'], actionView: { title: 'View Open Slots', eyebrow: 'Scout Openings', primary: 'Sync selected slots', fields: [['Head Scout', 'Head Scout Taylor'], ['Slot 1', 'Thu 6:00 PM MT'], ['Slot 2', 'Sat 11:30 AM MT'], ['Athlete timezone', 'Mountain'], ['Sync Target', 'Call script toggle']], note: 'The grid view becomes a slot-selection flow when launched from Scout Prep context.' } },
+        { icon: '🧾', name: 'Theo Parker', meta: '2026 • Baseball • C | 3B', status: 'Pending Clients', source: 'Review queue', line: 'Baseball | 2026 | C | 3B | Harbor Christian | Charleston, SC | Pending Clients | Review queue', workflow: 'Pending Clients', school: 'Harbor Christian, SC', action: 'Review pending client evidence, then route to confirmation or post-call update.', proof: 'src/head-scout-schedules.tsx', asset: 'Needs confirmation text and meeting readback', output: 'Pending Clients / Post-Call Update', actions: ['Pending Clients', 'Reschedule Pending', 'Meeting Set - Rescheduled', 'Refresh Live'], actionView: { title: 'Post-Call Update', eyebrow: 'Pending Clients', primary: 'Open update form', fields: [['Student Athlete', 'Theo Parker'], ['Queue', 'Pending Clients'], ['Review', 'Meeting evidence and current task'], ['Route', 'Reschedule Pending or Meeting Set - Rescheduled'], ['Readback', 'Refresh Live after save']], note: 'The queue keeps evidence review separate from the final lifecycle update.' } }
+      ]
+    };
+    const processData = [
+      ['Gather', 'Read the workflow, repo evidence, and current state before changing behavior.'],
+      ['Classify', 'Separate lifecycle truth, support cache, command UI, and adapter work.'],
+      ['Draft', 'Use AI for prompts, message support, mapping, and implementation options.'],
+      ['Review', 'Human approval stays before mutation, sending, or source-of-truth writes.'],
+      ['Verify', 'Run parity checks, readback, or UI tests before treating the change as real.']
+    ];
+    const resumeData = [
+      ['Lead proof', 'Prospect ID', 'Command UI, workflow automation, source-of-truth cleanup, and audit scripts.'],
+      ['Throughput proof', 'NurseHub', 'Course migration, repeatable FFmpeg process, and 2-3x assembly speed.'],
+      ['Education', 'Stetson + SPC', 'Communications degree plus programming and information technology coursework.'],
+      ['Role match', 'AI Specialist', 'Data prep, output review, documentation, responsible use, and implementation support.']
+    ];
+    let workflowMode = 'video';
+    let workflowScreen = 'list';
+    let workflowIndex = 0;
+
+    pageButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.panel;
+        pageButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        panels.forEach((panel) => panel.classList.toggle('active', panel.id === id));
+      });
+    });
+
+    function setWorkflowScreen(screen) {
+      workflowScreen = screen;
+      document.getElementById('workflowListScreen').classList.toggle('active', screen === 'list');
+      document.getElementById('workflowDetailScreen').classList.toggle('active', screen === 'detail');
+      document.getElementById('workflowActionScreen').classList.toggle('active', screen === 'action');
+      document.getElementById('workflowBack').disabled = screen === 'list';
+      const item = workflowData[workflowMode][workflowIndex];
+      document.getElementById('workflowCrumb').textContent = screen === 'list'
+        ? `${workflowMode === 'video' ? 'Video' : 'Sales'} queue...`
+        : screen === 'detail'
+          ? item.name
+          : item.actionView.title;
+    }
+
+    function renderWorkflowList() {
+      const rows = workflowData[workflowMode];
+      document.getElementById('workflowListScreen').innerHTML = `<div class="ray-list">${rows.map((item, index) => `
+        <button type="button" class="ray-row" data-workflow-index="${index}">
+          <span class="ray-icon">${item.icon}</span>
+          <span><span class="ray-name">${item.name}</span><span class="ray-meta">${item.meta}</span></span>
+          <span class="ray-status">${item.status} • ${item.source}</span>
+        </button>
+      `).join('')}</div>`;
+      document.querySelectorAll('[data-workflow-index]').forEach((item) => {
+        item.addEventListener('click', () => {
+          workflowIndex = Number(item.dataset.workflowIndex);
+          renderWorkflowDetail();
+          setWorkflowScreen('detail');
+        });
+      });
+    }
+
+    function renderWorkflowDetail() {
+      const item = workflowData[workflowMode][workflowIndex];
+      document.getElementById('workflowDetailScreen').innerHTML = `
+        <div class="detail-title"><h3>${item.name}</h3><p>${item.line}</p></div>
+        <div class="detail-grid">
+          <div class="detail-cell"><span>Workflow</span><strong>${item.workflow}</strong></div>
+          <div class="detail-cell"><span>School / market</span><strong>${item.school}</strong></div>
+          <div class="detail-cell"><span>Next action</span><strong>${item.action}</strong></div>
+          <div class="detail-cell"><span>Proof anchor</span><strong>${item.proof}</strong></div>
+          <div class="detail-cell"><span>Ready output</span><strong>${item.output}</strong></div>
+          <div class="detail-cell wide"><span>Copy-ready field</span><strong>${item.asset}</strong></div>
+        </div>
+        <div class="action-panel"><strong>Action panel</strong><div class="action-list">${item.actions.map((action) => `<button type="button" data-action-view>${action}</button>`).join('')}</div></div>
+      `;
+      document.querySelectorAll('[data-action-view]').forEach((button) => {
+        button.addEventListener('click', () => {
+          renderWorkflowAction();
+          setWorkflowScreen('action');
+        });
+      });
+    }
+
+    function renderWorkflowAction() {
+      const item = workflowData[workflowMode][workflowIndex];
+      const action = item.actionView;
+      document.getElementById('workflowActionScreen').innerHTML = `
+        <div class="output-panel">
+          <div class="output-title">
+            <div><h3>${action.title}</h3><p>${action.note}</p></div>
+            <span>${action.eyebrow}</span>
+          </div>
+          <div class="output-fields">
+            ${action.fields.map(([label, value]) => `<div class="output-field"><span>${label}</span><strong>${value}</strong></div>`).join('')}
+          </div>
+          <button type="button" class="output-submit">${action.primary}</button>
+        </div>
+      `;
+    }
+
+    function renderWorkflow() {
+      renderWorkflowList();
+      renderWorkflowDetail();
+      setWorkflowScreen(workflowScreen);
+    }
+
+    document.getElementById('workflowBack').addEventListener('click', () => {
+      if (workflowScreen === 'action') {
+        setWorkflowScreen('detail');
+      } else {
+        setWorkflowScreen('list');
+      }
+    });
+    document.querySelectorAll('[data-mode]').forEach((button) => {
+      button.addEventListener('click', () => {
+        workflowMode = button.dataset.mode;
+        workflowIndex = 0;
+        workflowScreen = 'list';
+        document.querySelectorAll('[data-mode]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        renderWorkflow();
+      });
+    });
+
+    function renderProcess(selected = 0) {
+      document.getElementById('processGrid').innerHTML = processData.map(([title, body], index) => `
+        <button type="button" class="process-step" data-process-index="${index}" aria-pressed="${index === selected}">
+          <span>${index + 1}</span><strong>${title}</strong><p>${body}</p>
+        </button>
+      `).join('');
+      document.getElementById('processDetail').textContent = processData[selected][1];
+      document.querySelectorAll('[data-process-index]').forEach((button) => {
+        button.addEventListener('click', () => renderProcess(Number(button.dataset.processIndex)));
+      });
+    }
+
+    function renderResume(selected = 0) {
+      document.getElementById('resumeProof').innerHTML = resumeData.map(([label, title, body], index) => `
+        <button type="button" data-resume-index="${index}" aria-pressed="${index === selected}">
+          <span>${label}</span><strong>${title}</strong><em>${body}</em>
+        </button>
+      `).join('');
+      document.getElementById('resumeDetail').textContent = resumeData[selected][2];
+      document.querySelectorAll('[data-resume-index]').forEach((button) => {
+        button.addEventListener('click', () => renderResume(Number(button.dataset.resumeIndex)));
+      });
+    }
+
+    renderWorkflow();
+    renderProcess();
+    renderResume();
+  </script>
+</body>
+</html>
