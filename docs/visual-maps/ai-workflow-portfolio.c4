@@ -65,6 +65,42 @@ model {
         description 'Enrollments and follow-up'
       }
     }
+
+    resumeTimeline = component 'Resume Timeline' {
+      stetsonStart = component '2012 Stetson' {
+        description 'Started the communications path at Stetson.'
+      }
+      stetsonGrad = component '2016 Graduated' {
+        description 'Finished the Stetson degree.'
+      }
+      spcIt = component '2021 SPC / IT' {
+        description 'Added computer programming and IT coursework.'
+      }
+      productionSystems = component '2024 Production Systems' {
+        description 'Built repeatable video, course, and workflow systems.'
+      }
+      aiSpecialistFit = component '2026 AI Specialist Fit' {
+        description 'Positioned practical AI workflow support around prep, review, and implementation.'
+      }
+    }
+
+    implementationLoop = component 'Review-first Loop' {
+      gather = component 'Gather' {
+        description 'Collect the real workflow and source evidence.'
+      }
+      classify = component 'Classify' {
+        description 'Separate owners, facts, support state, and commands.'
+      }
+      draft = component 'Draft' {
+        description 'Turn the classified workflow into useful working material.'
+      }
+      review = component 'Review' {
+        description 'Keep human judgment before mutation, sending, or publishing.'
+      }
+      verify = component 'Verify' {
+        description 'Use readback, tests, or source review before calling it real.'
+      }
+    }
   }
 
   portfolioOperator -> aiWorkflowSystem.raycastCommands 'triggers workflow action'
@@ -76,6 +112,15 @@ model {
   aiWorkflowSystem.scoutingCoordinator.bucket2 -> aiWorkflowSystem.scoutingCoordinator.bucket3
   aiWorkflowSystem.scoutingCoordinator.bucket3 -> aiWorkflowSystem.scoutingCoordinator.bucket4
   aiWorkflowSystem.scoutingCoordinator.bucket4 -> aiWorkflowSystem.scoutingCoordinator.bucket5
+  aiWorkflowSystem.resumeTimeline.stetsonStart -> aiWorkflowSystem.resumeTimeline.stetsonGrad 'advance'
+  aiWorkflowSystem.resumeTimeline.stetsonGrad -> aiWorkflowSystem.resumeTimeline.spcIt 'add'
+  aiWorkflowSystem.resumeTimeline.spcIt -> aiWorkflowSystem.resumeTimeline.productionSystems 'build'
+  aiWorkflowSystem.resumeTimeline.productionSystems -> aiWorkflowSystem.resumeTimeline.aiSpecialistFit 'fit'
+  aiWorkflowSystem.implementationLoop.gather -> aiWorkflowSystem.implementationLoop.classify 'collect'
+  aiWorkflowSystem.implementationLoop.classify -> aiWorkflowSystem.implementationLoop.draft 'separate'
+  aiWorkflowSystem.implementationLoop.draft -> aiWorkflowSystem.implementationLoop.review 'draft'
+  aiWorkflowSystem.implementationLoop.review -> aiWorkflowSystem.implementationLoop.verify 'review'
+  aiWorkflowSystem.implementationLoop.verify -> aiWorkflowSystem.implementationLoop.gather 'verify'
 }
 
 views {
@@ -103,19 +148,28 @@ views {
       color amber
     }
     style aiWorkflowSystem.raycastCommands {
+    	shape component
       color red
     }
     style aiWorkflowSystem.fastApiBridge {
-      color amber
+    	shape browser
+      color secondary
     }
     style aiWorkflowSystem.legacyLaravel {
-      color red
+    	shape mobile
+      color amber
     }
     style aiWorkflowSystem.supabaseTruth {
+    	shape storage
       color green
     }
     style aiWorkflowSystem.prospectWeb {
+    	shape browser
       color blue
+    }
+    style aiWorkflowSystem {
+    	border dashed
+      opacity 5%
     }
   }
 
@@ -123,7 +177,7 @@ views {
     title 'Scouting Coordinator System Map'
 
     include aiWorkflowSystem.scoutingCoordinator.*
-    autoLayout LeftRight 80 120
+    autoLayout LeftRight 40 32
 
     style * {
       color muted
@@ -132,6 +186,7 @@ views {
       color amber
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket1 {
+    	shape person
       color blue
       icon bootstrap:calendar-event
       iconSize xl
@@ -142,6 +197,7 @@ views {
       iconSize xl
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket3 {
+    	border none
       color green
       icon bootstrap:chat-left-text
       iconSize xl
@@ -154,6 +210,95 @@ views {
     style aiWorkflowSystem.scoutingCoordinator.bucket5 {
       color red
       icon bootstrap:trophy
+      iconSize xl
+    }
+  }
+
+  view resume_timeline_map {
+    title 'Resume Timeline Map'
+
+    include aiWorkflowSystem.resumeTimeline.*
+    autoLayout LeftRight 40 32
+
+    style * {
+      color muted
+    }
+    style aiWorkflowSystem.resumeTimeline {
+      color amber
+    }
+    style aiWorkflowSystem.resumeTimeline.stetsonStart {
+    	border solid
+    	shape document
+      color blue
+      icon bootstrap:book
+      iconSize xl
+    }
+    style aiWorkflowSystem.resumeTimeline.stetsonGrad {
+    	shape person
+      color green
+      icon bootstrap:mortarboard
+      iconSize xl
+    }
+    style aiWorkflowSystem.resumeTimeline.spcIt {
+    	shape browser
+      color secondary
+      icon bootstrap:cpu
+      iconSize xl
+    }
+    style aiWorkflowSystem.resumeTimeline.productionSystems {
+    	shape mobile
+      color amber
+      icon bootstrap:gear-wide-connected
+      iconSize xl
+    }
+    style aiWorkflowSystem.resumeTimeline.aiSpecialistFit {
+    	shape component
+      color red
+      icon bootstrap:check2-circle
+      iconSize xl
+    }
+  }
+
+  view review_first_implementation_loop {
+    title 'Review-first Implementation Loop'
+
+    include aiWorkflowSystem.implementationLoop.*
+    autoLayout LeftRight 80 120
+
+    style * {
+      color muted
+    }
+    style aiWorkflowSystem.implementationLoop {
+      color amber
+    }
+    style aiWorkflowSystem.implementationLoop.gather {
+    	shape bucket
+      color blue
+      icon bootstrap:inboxes
+      iconSize xl
+    }
+    style aiWorkflowSystem.implementationLoop.classify {
+    	shape person
+      color secondary
+      icon bootstrap:diagram-3
+      iconSize xl
+    }
+    style aiWorkflowSystem.implementationLoop.draft {
+    	shape document
+      color amber
+      icon bootstrap:pencil-square
+      iconSize xl
+    }
+    style aiWorkflowSystem.implementationLoop.review {
+    	shape component
+      color red
+      icon bootstrap:person-check
+      iconSize xl
+    }
+    style aiWorkflowSystem.implementationLoop.verify {
+    	shape queue
+      color green
+      icon bootstrap:patch-check
       iconSize xl
     }
   }

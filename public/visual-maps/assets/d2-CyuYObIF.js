@@ -58,6 +58,7 @@ AiWorkflowSystem: {
   }
   SupabaseTruth: {
     label: "Supabase PostgreSQL"
+    shape: stored_data
   }
 }
 
@@ -70,6 +71,7 @@ AiWorkflowSystem.ProspectWeb -> AiWorkflowSystem.SupabaseTruth: "reads cleaned d
 
 AiWorkflowSystemScoutingCoordinatorBucket1: {
   label: "1. Meetings"
+  shape: c4-person
 }
 AiWorkflowSystemScoutingCoordinatorBucket2: {
   label: "2. Prep"
@@ -88,6 +90,56 @@ AiWorkflowSystemScoutingCoordinatorBucket1 -> AiWorkflowSystemScoutingCoordinato
 AiWorkflowSystemScoutingCoordinatorBucket2 -> AiWorkflowSystemScoutingCoordinatorBucket3
 AiWorkflowSystemScoutingCoordinatorBucket3 -> AiWorkflowSystemScoutingCoordinatorBucket4
 AiWorkflowSystemScoutingCoordinatorBucket4 -> AiWorkflowSystemScoutingCoordinatorBucket5
+`;case`resume_timeline_map`:return`direction: right
+
+AiWorkflowSystemResumeTimelineStetsonStart: {
+  label: "2012 Stetson"
+  shape: document
+}
+AiWorkflowSystemResumeTimelineStetsonGrad: {
+  label: "2016 Graduated"
+  shape: c4-person
+}
+AiWorkflowSystemResumeTimelineSpcIt: {
+  label: "2021 SPC / IT"
+}
+AiWorkflowSystemResumeTimelineProductionSystems: {
+  label: "2024 Production Systems"
+}
+AiWorkflowSystemResumeTimelineAiSpecialistFit: {
+  label: "2026 AI Specialist Fit"
+}
+
+AiWorkflowSystemResumeTimelineStetsonStart -> AiWorkflowSystemResumeTimelineStetsonGrad: "advance"
+AiWorkflowSystemResumeTimelineStetsonGrad -> AiWorkflowSystemResumeTimelineSpcIt: "add"
+AiWorkflowSystemResumeTimelineSpcIt -> AiWorkflowSystemResumeTimelineProductionSystems: "build"
+AiWorkflowSystemResumeTimelineProductionSystems -> AiWorkflowSystemResumeTimelineAiSpecialistFit: "fit"
+`;case`review_first_implementation_loop`:return`direction: right
+
+AiWorkflowSystemImplementationLoopVerify: {
+  label: "Verify"
+  shape: queue
+}
+AiWorkflowSystemImplementationLoopGather: {
+  label: "Gather"
+}
+AiWorkflowSystemImplementationLoopClassify: {
+  label: "Classify"
+  shape: c4-person
+}
+AiWorkflowSystemImplementationLoopDraft: {
+  label: "Draft"
+  shape: document
+}
+AiWorkflowSystemImplementationLoopReview: {
+  label: "Review"
+}
+
+AiWorkflowSystemImplementationLoopGather -> AiWorkflowSystemImplementationLoopClassify: "collect"
+AiWorkflowSystemImplementationLoopVerify -> AiWorkflowSystemImplementationLoopGather: "verify"
+AiWorkflowSystemImplementationLoopClassify -> AiWorkflowSystemImplementationLoopDraft: "separate"
+AiWorkflowSystemImplementationLoopDraft -> AiWorkflowSystemImplementationLoopReview: "draft"
+AiWorkflowSystemImplementationLoopReview -> AiWorkflowSystemImplementationLoopVerify: "review"
 `;case`opportunity_hq_container_map`:return`direction: down
 
 Operator: {

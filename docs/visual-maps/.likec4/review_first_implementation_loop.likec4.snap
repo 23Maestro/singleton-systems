@@ -1,0 +1,474 @@
+{
+  _type: 'element',
+  tags: null,
+  links: null,
+  _stage: 'layouted',
+  sourcePath: 'ai-workflow-portfolio.c4',
+  description: null,
+  title: 'Review-first Implementation Loop',
+  id: 'review_first_implementation_loop',
+  autoLayout: {
+    direction: 'LR',
+    nodeSep: 120,
+    rankSep: 80,
+  },
+  hash: '1oneg2UzUSdL49ZhUkPpxgGt5IxogjSde3mQyLELYmw',
+  bounds: {
+    x: 222,
+    y: -82,
+    width: 1855,
+    height: 589,
+  },
+  nodes: [
+    {
+      id: 'aiWorkflowSystem.implementationLoop.verify',
+      parent: null,
+      level: 0,
+      children: [],
+      inEdges: [
+        'zk46sn',
+      ],
+      outEdges: [
+        'n8h3ow',
+      ],
+      title: 'Verify',
+      modelRef: 'aiWorkflowSystem.implementationLoop.verify',
+      shape: 'queue',
+      color: 'green',
+      style: {
+        opacity: 15,
+        size: 'md',
+        iconSize: 'xl',
+      },
+      description: {
+        txt: 'Use readback, tests, or source review before calling it real.',
+      },
+      tags: [],
+      kind: 'component',
+      icon: 'bootstrap:patch-check',
+      x: 242,
+      y: 228,
+      width: 377,
+      height: 172,
+      labelBBox: {
+        x: 71,
+        y: 52,
+        width: 291,
+        height: 65,
+      },
+      drifts: null,
+    },
+    {
+      id: 'aiWorkflowSystem.implementationLoop.gather',
+      parent: null,
+      level: 0,
+      children: [],
+      inEdges: [
+        'n8h3ow',
+      ],
+      outEdges: [
+        '14ybpnj',
+      ],
+      title: 'Gather',
+      modelRef: 'aiWorkflowSystem.implementationLoop.gather',
+      shape: 'bucket',
+      color: 'blue',
+      style: {
+        opacity: 15,
+        size: 'md',
+        iconSize: 'xl',
+      },
+      description: {
+        txt: 'Collect the real workflow and source evidence.',
+      },
+      tags: [],
+      kind: 'component',
+      icon: 'bootstrap:inboxes',
+      x: 524,
+      y: -43,
+      width: 345,
+      height: 180,
+      labelBBox: {
+        x: 61,
+        y: 56,
+        width: 269,
+        height: 65,
+      },
+      drifts: null,
+    },
+    {
+      id: 'aiWorkflowSystem.implementationLoop.classify',
+      parent: null,
+      level: 0,
+      children: [],
+      inEdges: [
+        '14ybpnj',
+      ],
+      outEdges: [
+        'p4vntj',
+      ],
+      title: 'Classify',
+      modelRef: 'aiWorkflowSystem.implementationLoop.classify',
+      shape: 'person',
+      color: 'secondary',
+      style: {
+        opacity: 15,
+        size: 'md',
+        iconSize: 'xl',
+      },
+      description: {
+        txt: 'Separate owners, facts, support state, and commands.',
+      },
+      tags: [],
+      kind: 'component',
+      icon: 'bootstrap:diagram-3',
+      x: 967,
+      y: -62,
+      width: 365,
+      height: 180,
+      labelBBox: {
+        x: 61,
+        y: 56,
+        width: 288,
+        height: 65,
+      },
+      drifts: null,
+    },
+    {
+      id: 'aiWorkflowSystem.implementationLoop.draft',
+      parent: null,
+      level: 0,
+      children: [],
+      inEdges: [
+        'p4vntj',
+      ],
+      outEdges: [
+        'njuomt',
+      ],
+      title: 'Draft',
+      modelRef: 'aiWorkflowSystem.implementationLoop.draft',
+      shape: 'document',
+      color: 'amber',
+      style: {
+        opacity: 15,
+        size: 'md',
+        iconSize: 'xl',
+      },
+      description: {
+        txt: 'Turn the classified workflow into useful working material.',
+      },
+      tags: [],
+      kind: 'component',
+      icon: 'bootstrap:pencil-square',
+      x: 1475,
+      y: -53,
+      width: 366,
+      height: 180,
+      labelBBox: {
+        x: 61,
+        y: 56,
+        width: 290,
+        height: 65,
+      },
+      drifts: null,
+    },
+    {
+      id: 'aiWorkflowSystem.implementationLoop.review',
+      parent: null,
+      level: 0,
+      children: [],
+      inEdges: [
+        'njuomt',
+      ],
+      outEdges: [
+        'zk46sn',
+      ],
+      title: 'Review',
+      modelRef: 'aiWorkflowSystem.implementationLoop.review',
+      shape: 'component',
+      color: 'red',
+      style: {
+        opacity: 15,
+        size: 'md',
+        iconSize: 'xl',
+      },
+      description: {
+        txt: 'Keep human judgment before mutation, sending, or publishing.',
+      },
+      tags: [],
+      kind: 'component',
+      icon: 'bootstrap:person-check',
+      x: 1648,
+      y: 239,
+      width: 409,
+      height: 180,
+      labelBBox: {
+        x: 81,
+        y: 56,
+        width: 293,
+        height: 65,
+      },
+      drifts: null,
+    },
+  ],
+  edges: [
+    {
+      id: '14ybpnj',
+      source: 'aiWorkflowSystem.implementationLoop.gather',
+      target: 'aiWorkflowSystem.implementationLoop.classify',
+      label: 'collect',
+      points: [
+        [
+          843,
+          90,
+        ],
+        [
+          880,
+          90,
+        ],
+        [
+          920,
+          90,
+        ],
+        [
+          958,
+          90,
+        ],
+      ],
+      labelBBox: {
+        x: 895,
+        y: 11,
+        width: 44,
+        height: 18,
+      },
+      parent: null,
+      relations: [
+        '3x84y9',
+      ],
+      color: 'gray',
+      line: 'dashed',
+      head: 'normal',
+      controlPoints: [
+        {
+          x: 908,
+          y: 33,
+        },
+      ],
+      drifts: null,
+      isLabelCustomized: false,
+    },
+    {
+      id: 'n8h3ow',
+      source: 'aiWorkflowSystem.implementationLoop.verify',
+      target: 'aiWorkflowSystem.implementationLoop.gather',
+      label: 'verify',
+      points: [
+        [
+          377,
+          198,
+        ],
+        [
+          414,
+          185,
+        ],
+        [
+          452,
+          171,
+        ],
+        [
+          488,
+          157,
+        ],
+      ],
+      labelBBox: {
+        x: 522,
+        y: 170,
+        width: 37,
+        height: 18,
+      },
+      parent: null,
+      relations: [
+        '1nyd5v6',
+      ],
+      color: 'gray',
+      line: 'dashed',
+      head: 'normal',
+      controlPoints: [
+        {
+          x: 509,
+          y: 185,
+        },
+      ],
+      drifts: null,
+      isLabelCustomized: false,
+    },
+    {
+      id: 'p4vntj',
+      source: 'aiWorkflowSystem.implementationLoop.classify',
+      target: 'aiWorkflowSystem.implementationLoop.draft',
+      label: 'separate',
+      points: [
+        [
+          1334,
+          90,
+        ],
+        [
+          1377,
+          90,
+        ],
+        [
+          1422,
+          90,
+        ],
+        [
+          1465,
+          90,
+        ],
+      ],
+      labelBBox: {
+        x: 1371,
+        y: 7,
+        width: 58,
+        height: 18,
+      },
+      parent: null,
+      relations: [
+        's3554q',
+      ],
+      color: 'gray',
+      line: 'dashed',
+      head: 'normal',
+      controlPoints: [
+        {
+          x: 1396,
+          y: 30,
+        },
+      ],
+      drifts: null,
+      isLabelCustomized: false,
+    },
+    {
+      id: 'njuomt',
+      source: 'aiWorkflowSystem.implementationLoop.draft',
+      target: 'aiWorkflowSystem.implementationLoop.review',
+      label: 'draft',
+      points: [
+        [
+          1842,
+          158,
+        ],
+        [
+          1876,
+          170,
+        ],
+        [
+          1912,
+          184,
+        ],
+        [
+          1946,
+          196,
+        ],
+      ],
+      labelBBox: {
+        x: 1817,
+        y: 170,
+        width: 32,
+        height: 18,
+      },
+      parent: null,
+      relations: [
+        '12a7j95',
+      ],
+      color: 'gray',
+      line: 'dashed',
+      head: 'normal',
+      controlPoints: [
+        {
+          x: 1831,
+          y: 190,
+        },
+      ],
+      drifts: null,
+      isLabelCustomized: false,
+    },
+    {
+      id: 'zk46sn',
+      source: 'aiWorkflowSystem.implementationLoop.review',
+      target: 'aiWorkflowSystem.implementationLoop.verify',
+      label: 'review',
+      points: [
+        [
+          1956,
+          321,
+        ],
+        [
+          1867,
+          342,
+        ],
+        [
+          1758,
+          361,
+        ],
+        [
+          1659,
+          361,
+        ],
+        [
+          669,
+          361,
+        ],
+        [
+          669,
+          361,
+        ],
+        [
+          669,
+          361,
+        ],
+        [
+          575,
+          361,
+        ],
+        [
+          473,
+          344,
+        ],
+        [
+          387,
+          324,
+        ],
+      ],
+      labelBBox: {
+        x: 1128,
+        y: 469,
+        width: 44,
+        height: 18,
+      },
+      parent: null,
+      relations: [
+        'd7r04k',
+      ],
+      color: 'gray',
+      line: 'dashed',
+      head: 'normal',
+      controlPoints: [
+        {
+          x: 1591,
+          y: 400,
+        },
+        {
+          x: 1148,
+          y: 474,
+        },
+        {
+          x: 667,
+          y: 394,
+        },
+      ],
+      drifts: null,
+      isLabelCustomized: false,
+    },
+  ],
+  _layout: 'manual',
+}

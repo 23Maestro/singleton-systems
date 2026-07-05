@@ -4,11 +4,13 @@ import Image from "next/image";
 import Script from "next/script";
 import { createElement } from "react";
 import type { CSSProperties, ReactNode } from "react";
+import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
 export type PortfolioTabTarget = "System" | "Evidence" | "AI Specialist" | "Resume" | "Source Map";
 export type PortfolioSlice = "Top" | "Bottom";
 export type PortfolioVisualType = "Cards" | "Data Table" | "Flowchart" | "Review Panel" | "Diff View" | "Code Map";
 export type SliceElementKind = "section" | "card" | "row" | "detail" | "action";
+type LikeC4FrameVariant = "portfolioArtifact";
 
 export type SliceElement = {
   id: string;
@@ -54,12 +56,17 @@ export type SourceRouteItem = {
   likec4ViewId?: string;
 };
 
-const likec4EmbedStyle: CSSProperties = {
+const likec4BaseStyle: CSSProperties = {
   display: "block",
-  width: "100%",
   height: "100%",
   minHeight: "100%",
+  width: "100%",
 };
+
+const likec4PortfolioFrameClass =
+  "source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden rounded-[16px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.07)] md:aspect-[1.62/1]";
+
+const likec4ViewsScriptSrc = "/visual-maps/likec4-views.js";
 
 export const tabTargets: PortfolioTabTarget[] = ["System", "Evidence", "AI Specialist", "Resume", "Source Map"];
 export const visualTypes: PortfolioVisualType[] = ["Cards", "Data Table", "Flowchart", "Review Panel", "Diff View", "Code Map"];
@@ -593,18 +600,52 @@ function DiffLine({ marker, tone, children }: { marker: string; tone: "add" | "r
   );
 }
 
-function LikeC4Preview({ viewId, dynamicVariant }: { viewId: string; dynamicVariant?: "diagram" | "sequence" }) {
-  return (
+function LikeC4Preview({
+  viewId,
+  dynamicVariant,
+  frameVariant,
+}: {
+  viewId: string;
+  dynamicVariant?: "diagram" | "sequence";
+  frameVariant?: LikeC4FrameVariant;
+}) {
+  const embed = (
     <>
-      <Script id="likec4-views-script" src="/visual-maps/likec4-views.js" type="module" strategy="afterInteractive" />
+      <Script id="likec4-views-script" src={likec4ViewsScriptSrc} type="module" strategy="afterInteractive" />
       {createElement("likec4-view", {
         "view-id": viewId,
         browser: "true",
         ...(dynamicVariant ? { "dynamic-variant": dynamicVariant } : {}),
-        style: likec4EmbedStyle,
+        style: likec4BaseStyle,
       })}
     </>
   );
+
+  if (frameVariant === "portfolioArtifact") {
+    return (
+      <section
+        className={likec4PortfolioFrameClass}
+        aria-live="polite"
+        data-likec4-artifact={viewId}
+      >
+        <div className="absolute inset-0 h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out] p-2">
+          {embed}
+        </div>
+        <style jsx>{`
+          @keyframes sourceMapPreviewFade {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+        `}</style>
+      </section>
+    );
+  }
+
+  return embed;
 }
 
 export function EvidenceBottomSlice() {
@@ -639,148 +680,81 @@ export function AISpecialistTopSlice({ selectedId, onSelect }: { selectedId?: st
   );
 }
 
-export function AISpecialistBottomSlice({ selectedIndex, onSelect }: { selectedIndex: number; onSelect: (index: number) => void }) {
-  const selected = processData[selectedIndex] ?? processData[0];
-
-  return (
-    <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
-      <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-        <strong className="text-[17px] font-black text-[#111318]">Review-first implementation loop</strong>
-        <span className="text-[13px] font-bold text-[#667085]">Click a step to see the operating rule.</span>
-      </div>
-      <div className="p-3.5">
-        <div className="grid gap-2.5 lg:grid-cols-5">
-          {processData.map((step, index) => (
-            <button
-              key={step.title}
-              type="button"
-              aria-pressed={selectedIndex === index}
-              onClick={() => onSelect(index)}
-              className={cx(
-                "min-h-[126px] rounded-[9px] border p-3 text-left transition",
-                selectedIndex === index ? "border-[#98abd2] bg-[#eef4ff]" : "border-[#e1e5eb] bg-[#f8f9fb] hover:bg-white",
-              )}
-            >
-              <span className="mb-2 inline-grid min-h-[26px] min-w-[26px] place-items-center rounded-full bg-[#2383e2] text-xs font-black text-white">{index + 1}</span>
-              <strong className="mb-1 block text-sm font-black text-[#172033]">{step.title}</strong>
-              <p className="m-0 text-xs leading-5 text-[#667085]">{step.solution}</p>
-            </button>
-          ))}
-        </div>
-        <div className="mt-2.5 rounded-[9px] border border-[#cfd8e7] bg-white p-3">
-          <div className="grid gap-2.5 md:grid-cols-3">
-            {[
-              ["Problem", selected.problem],
-              ["AI support", selected.solution],
-              ["Result", selected.result],
-            ].map(([label, body]) => (
-              <div key={label} className="min-h-[94px] rounded-[13px] border border-[#dce4ef] bg-white p-3">
-                <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.08em] text-[#667284]">{label}</span>
-                <p className="m-0 text-sm font-bold leading-5 text-[#1f2937]">{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+export function AISpecialistBottomSlice() {
+  return <LikeC4Preview viewId="review_first_implementation_loop" dynamicVariant="sequence" frameVariant="portfolioArtifact" />;
 }
 
-export function ResumeBottomSlice({ selectedIndex, onSelect }: { selectedIndex: number; onSelect: (index: number) => void }) {
+export function ResumeBottomSlice() {
+  return <LikeC4Preview viewId="resume_timeline_map" dynamicVariant="sequence" frameVariant="portfolioArtifact" />;
+}
+
+function CodeArtifactPreview({
+  artifact,
+}: {
+  artifact: NonNullable<HighlightedCodeArtifactMap[string]>;
+}) {
   return (
-    <section className="mx-auto w-full max-w-[1120px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.14)]">
+    <section className="source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden rounded-[16px] border border-[#dfe7f1] bg-[#fbfcfd] shadow-[0_18px_44px_rgba(15,23,42,0.07)]" aria-live="polite">
+      <div key={artifact.key} className="absolute inset-0 flex animate-[sourceMapPreviewFade_240ms_ease-out] items-center justify-center p-5 md:p-8">
+        <div className="flex h-full max-h-[430px] w-full max-w-[800px] flex-col overflow-hidden rounded-[18px] border border-[#dde5ef] bg-white shadow-[0_22px_60px_rgba(15,23,42,0.10)]">
+          <div className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b border-[#e2e8f0] bg-[#fbfcfd] px-4">
+            <div className="flex items-center gap-2" aria-hidden="true">
+              <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
+              <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
+              <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
+            </div>
+            <strong className="text-[13px] font-black text-[#667085]">{artifact.title}</strong>
+            <span className="justify-self-end rounded-md border border-[#e4e8ef] bg-white px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#98a2b3]">
+              {artifact.language}
+            </span>
+          </div>
+          <div className="code-artifact-body min-h-0 flex-1 overflow-auto px-4 py-4 md:px-6" dangerouslySetInnerHTML={{ __html: artifact.html }} />
+        </div>
+      </div>
       <style jsx>{`
-        @keyframes beallsTimelineFade {
+        .code-artifact-body :global(pre) {
+          margin: 0;
+          min-width: max-content;
+          background: transparent !important;
+          font-size: 13px;
+          line-height: 1.7;
+          font-weight: 700;
+          letter-spacing: 0;
+        }
+        .code-artifact-body :global(code) {
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+        }
+        @media (min-width: 768px) {
+          .code-artifact-body :global(pre) {
+            font-size: 14px;
+          }
+        }
+        @keyframes sourceMapPreviewFade {
           from {
             opacity: 0;
-            transform: translate(-50%, 8px) scale(0.98);
           }
           to {
             opacity: 1;
-            transform: translate(-50%, 0) scale(1);
           }
         }
       `}</style>
-      <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-        <strong className="text-[17px] font-black text-[#111318]">Resume timeline</strong>
-        <span className="text-[13px] font-bold text-[#667085]">Work history and education, not repeated proof cards.</span>
-      </div>
-      <div className="p-3.5">
-        <div className="relative grid gap-3">
-          <div className="absolute bottom-8 left-1/2 top-8 hidden w-px -translate-x-1/2 bg-[#cfd8e7] lg:block" aria-hidden="true" />
-          {resumeTimelineData.map((item, index) => {
-            const isBeallsStop = item.year === "2026";
-            const isActive = selectedIndex === index;
-            const accent = isBeallsStop ? "#c60c35" : "#2383e2";
-
-            return (
-              <button
-                key={`${item.year}-${item.title}`}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => onSelect(index)}
-                className={cx(
-                  "relative grid min-h-[92px] gap-3 rounded-[12px] border p-3 text-left transition lg:w-[calc(50%-28px)]",
-                  index % 2 === 0 ? "lg:justify-self-start" : "lg:justify-self-end",
-                  isActive
-                    ? isBeallsStop
-                      ? "border-[#c60c35] bg-[#fff1f3]"
-                      : "border-[#2383e2] bg-[#eef4ff]"
-                    : isBeallsStop
-                      ? "border-[#c60c35]/50 bg-white hover:bg-[#fff7f8]"
-                      : "border-[#d8e2ef] bg-[#f8f9fb] hover:bg-white",
-                )}
-              >
-                {isBeallsStop ? (
-                  <span
-                    className="pointer-events-none absolute left-1/2 top-[-34px] z-20 inline-flex h-7 min-w-[92px] items-center justify-center rounded-full border border-[#c60c35]/20 bg-white px-3 text-[18px] font-black leading-none text-[#c60c35] shadow-[0_8px_18px_rgba(198,12,53,0.14)]"
-                    style={{ animation: "beallsTimelineFade 650ms ease-out 180ms both" }}
-                    aria-hidden="true"
-                  >
-                    bealls
-                  </span>
-                ) : null}
-                <span className={cx("absolute top-5 hidden h-px w-7 lg:block", isBeallsStop ? "bg-[#c60c35]/45" : "bg-[#cfd8e7]")} style={index % 2 === 0 ? { right: "-28px" } : { left: "-28px" }} />
-                <span className={cx("absolute top-3 hidden h-4 w-4 rounded-full border-[3px] bg-white lg:block", isActive ? (isBeallsStop ? "border-[#c60c35]" : "border-[#2383e2]") : (isBeallsStop ? "border-[#c60c35]/60" : "border-[#a9b7cc]"), index % 2 === 0 ? "right-[-36px]" : "left-[-36px]")} />
-                <span className="grid gap-2 sm:grid-cols-[88px_minmax(0,1fr)]">
-                  <span
-                    className={cx("grid h-14 place-items-center rounded-[10px] border text-xl font-black", isActive ? "text-white" : "bg-white")}
-                    style={{
-                      borderColor: isActive || isBeallsStop ? accent : "#c9d7eb",
-                      backgroundColor: isActive ? accent : "#ffffff",
-                      color: isActive ? "#ffffff" : accent,
-                    }}
-                  >
-                    {item.year}
-                  </span>
-                  <span className="min-w-0">
-                    <strong className="block text-[16px] font-black leading-tight text-[#172033]">{item.title}</strong>
-                    <span className="mt-1 block text-[11px] font-black uppercase tracking-[0.12em]" style={{ color: accent }}>{item.meta}</span>
-                    <span className="mt-1.5 block text-[12px] font-semibold leading-5 text-[#667085]">{item.body}</span>
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
     </section>
   );
 }
 
 export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: string; onSelect?: (id: string) => void }) {
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {sourceRouteData.map((route) => {
         const className = cx(
-          "relative rounded-[22px] border bg-white p-[17px] text-left shadow-[0_18px_42px_rgba(15,23,42,0.07)] transition",
-          selectedId === route.key ? "border-[#2383e2] ring-2 ring-[#2383e2]/20" : "border-[#e4e5e7]",
+          "relative rounded-[14px] border bg-white p-3.5 text-left shadow-[0_12px_28px_rgba(15,23,42,0.045)] transition",
+          selectedId === route.key ? "border-[#2383e2] ring-2 ring-[#2383e2]/15" : "border-[#e4e8ef]",
         );
         const content = (
           <>
-            <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#2383e2]">{route.source}</p>
-            <h3 className="m-0 mb-2 text-[22px] font-black leading-tight text-[#111318]">{route.title}</h3>
-            <p className="m-0 text-[15px] leading-6 text-[#667085]">{route.inspect}</p>
+            <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#2383e2]">{route.source}</p>
+            <h3 className="m-0 mb-1.5 text-[18px] font-black leading-tight text-[#111318]">{route.title}</h3>
+            <p className="m-0 text-[13px] font-semibold leading-5 text-[#667085]">{route.inspect}</p>
           </>
         );
 
@@ -790,7 +764,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
               <button type="button" aria-pressed={selectedId === route.key} onClick={() => onSelect(route.key)} className="block w-full text-left">
                 {content}
               </button>
-              <a className="mt-2 inline-flex min-h-[30px] items-center text-[13px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
+              <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
                 Open {route.source}
               </a>
             </section>
@@ -800,7 +774,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
         return (
           <section key={route.key} className={className}>
             {content}
-            <a className="mt-2 inline-flex min-h-[30px] items-center text-[13px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
+            <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
               Open {route.source}
             </a>
           </section>
@@ -810,16 +784,33 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
   );
 }
 
-export function SourceMapBottomSlice({ selectedKey }: { selectedKey: string; onSelect?: (key: string) => void }) {
+export function SourceMapBottomSlice({
+  selectedKey,
+  codeArtifacts,
+}: {
+  selectedKey: string;
+  onSelect?: (key: string) => void;
+  codeArtifacts?: HighlightedCodeArtifactMap;
+}) {
   const selected = sourceRouteData.find((route) => route.key === selectedKey) ?? sourceRouteData[0];
-  const isSystemBucketMap = selected.likec4ViewId === "scouting_coordinator_bucket_map";
+  if (selected.likec4ViewId) {
+    return (
+      <LikeC4Preview
+        viewId={selected.likec4ViewId}
+        dynamicVariant="sequence"
+        frameVariant="portfolioArtifact"
+      />
+    );
+  }
+
+  const codeArtifact = selected.previewFrame === "code" ? codeArtifacts?.[selected.key] : undefined;
+  if (codeArtifact) {
+    return <CodeArtifactPreview artifact={codeArtifact} />;
+  }
+
   const frameClass = cx(
     "source-map-preview-frame relative mx-auto w-full overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)]",
-    isSystemBucketMap
-      ? "max-w-[1240px] h-[190px] md:h-[180px]"
-      : selected.likec4ViewId
-      ? "max-w-[1120px] aspect-[1.58/1] min-h-[520px]"
-      : selected.previewFrame === "product"
+    selected.previewFrame === "product"
       ? "max-w-[900px] aspect-[1.2/1] md:aspect-[1.42/1]"
       : selected.previewFrame === "diagram"
         ? "max-w-[860px] aspect-[1.58/1]"
@@ -831,53 +822,21 @@ export function SourceMapBottomSlice({ selectedKey }: { selectedKey: string; onS
   return (
     <section className={frameClass} aria-live="polite">
       <div key={selected.key} className="absolute inset-0 origin-center">
-        {selected.likec4ViewId ? (
-          <div
-            className={cx(
-              "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
-              isSystemBucketMap ? "source-map-likec4-system" : "p-2",
-            )}
-          >
-            <LikeC4Preview viewId={selected.likec4ViewId} dynamicVariant={isSystemBucketMap ? "sequence" : undefined} />
-          </div>
-        ) : (
-          <Image
-            src={selected.previewImageSrc}
-            alt={selected.previewImageAlt}
-            width={selected.previewImageWidth}
-            height={selected.previewImageHeight}
-            sizes="(min-width: 900px) 900px, 100vw"
-            className={cx(
-              "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
-              selected.previewFit === "cover" ? "object-cover" : "object-contain",
-              imagePositionClass,
-            )}
-          />
-        )}
+        <Image
+          src={selected.previewImageSrc}
+          alt={selected.previewImageAlt}
+          width={selected.previewImageWidth}
+          height={selected.previewImageHeight}
+          sizes="(min-width: 900px) 900px, 100vw"
+          className={cx(
+            "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
+            selected.previewFit === "cover" ? "object-cover" : "object-contain",
+            imagePositionClass,
+          )}
+        />
       </div>
-      {selected.likec4ViewId ? null : <div className="source-map-preview-blur" aria-hidden="true" />}
+      <div className="source-map-preview-blur" aria-hidden="true" />
       <style jsx>{`
-        .source-map-likec4-system {
-          position: absolute;
-          inset: 0;
-          overflow: hidden;
-        }
-        .source-map-likec4-system :global(likec4-view) {
-          display: block;
-          width: 120% !important;
-          height: 120% !important;
-          min-height: 120% !important;
-          transform: translate(-8%, -4%);
-          transform-origin: top center;
-        }
-        @media (max-width: 768px) {
-          .source-map-likec4-system :global(likec4-view) {
-            width: 150% !important;
-            height: 150% !important;
-            min-height: 150% !important;
-            transform: translate(-16%, -5%);
-          }
-        }
         .source-map-preview-blur {
           position: absolute;
           inset: auto 0 0;
@@ -1021,11 +980,8 @@ export function SliceRawPreview({
   if (tab === "Evidence" && slice === "Top") return <EvidenceTopSlice selectedKey={selectedId} onSelect={onSelect} />;
   if (tab === "Evidence") return <EvidenceBottomSlice />;
   if (tab === "AI Specialist" && slice === "Top") return <AISpecialistTopSlice selectedId={selectedId} onSelect={onSelect} />;
-  if (tab === "AI Specialist") return <AISpecialistBottomSlice selectedIndex={Math.max(0, processData.findIndex((step) => step.title.toLowerCase() === selectedId))} onSelect={(index) => onSelect(processData[index].title.toLowerCase())} />;
-  if (tab === "Resume") {
-    const index = Math.max(0, resumeData.findIndex(([, title]) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-") === selectedId));
-    return <ResumeBottomSlice selectedIndex={index} onSelect={(nextIndex) => onSelect(resumeData[nextIndex][1].toLowerCase().replace(/[^a-z0-9]+/g, "-"))} />;
-  }
+  if (tab === "AI Specialist") return <AISpecialistBottomSlice />;
+  if (tab === "Resume") return <ResumeBottomSlice />;
   if (tab === "Source Map" && slice === "Top") return <SourceMapTopSlice selectedId={selectedId} onSelect={onSelect} />;
   return <SourceMapBottomSlice selectedKey={selectedId} onSelect={onSelect} />;
 }

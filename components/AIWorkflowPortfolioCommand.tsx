@@ -11,6 +11,7 @@ import {
   SourceMapTopSlice,
   SystemTopSlice,
 } from "./PortfolioSlices";
+import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
 type TabId = "system" | "evidence" | "fit" | "resume" | "sources";
 type WorkflowMode = "video" | "sales";
@@ -833,23 +834,18 @@ function EvidencePanel() {
 }
 
 function FitPanel() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const selected = processData[selectedIndex];
-
   return (
     <TabShell title="AI Specialist match" lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption.">
       <AISpecialistTopSlice />
 
       <Divider label="AI support loop" />
 
-      <AISpecialistBottomSlice selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
+      <AISpecialistBottomSlice />
     </TabShell>
   );
 }
 
 function ResumePanel() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-
   return (
     <TabShell title="Resume support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
         <div className="grid gap-2.5 lg:grid-cols-4">
@@ -864,26 +860,29 @@ function ResumePanel() {
 
       <Divider label="Resume evidence stack" />
 
-      <ResumeBottomSlice selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
+      <ResumeBottomSlice />
     </TabShell>
   );
 }
 
-function ProofMapPanel() {
+function ProofMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifactMap }) {
   const [selectedKey, setSelectedKey] = useState(proofRouteData[0].key);
 
   return (
     <TabShell title="Source Map" lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support.">
       <SourceMapTopSlice selectedId={selectedKey} onSelect={setSelectedKey} />
 
-      <Divider label="Verification route" />
+      <div className="my-4 flex items-center justify-between border-t border-[#e5e8ef] pt-3 text-[12px] font-black uppercase tracking-[0.12em] text-[#667085]">
+        <span>Prospect ID Workflow System</span>
+        <span className="text-[#2383e2]">Verification route</span>
+      </div>
 
-      <SourceMapBottomSlice selectedKey={selectedKey} />
+      <SourceMapBottomSlice selectedKey={selectedKey} codeArtifacts={codeArtifacts} />
     </TabShell>
   );
 }
 
-export default function AIWorkflowPortfolioCommand() {
+export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifactMap }) {
   const [activeTab, setActiveTab] = useState<TabId>("system");
   const [copied, setCopied] = useState(false);
   const activeLabel = useMemo(() => tabs.find((tab) => tab.id === activeTab)?.label ?? "System", [activeTab]);
@@ -900,16 +899,17 @@ export default function AIWorkflowPortfolioCommand() {
   }
 
   return (
-    <main className="min-h-dvh bg-[#f4f5f4] p-[10px] text-[#111318] md:p-[18px]">
-      <section className="mx-auto w-full max-w-[1420px] overflow-hidden border border-[#e6e6e3] bg-white shadow-[0_18px_46px_rgba(15,23,42,0.10)]" aria-label="Prospect ID workflow system case study">
-        <header className="border-b border-[#e1e5eb] bg-[#fbfdff] px-[22px] py-[18px]">
+    <main className="min-h-dvh bg-[#f4f5f4] p-3 text-[#111318] md:p-6">
+      <section className="mx-auto w-full max-w-[1180px] overflow-hidden border border-[#e3e6ea] bg-white shadow-[0_18px_46px_rgba(15,23,42,0.08)]" aria-label="Prospect ID workflow system case study">
+        <header className="border-b border-[#e4e8ef] bg-[#fbfcfd] px-5 py-5 md:px-7">
           <div>
-            <h1 className="m-0 text-[30px] font-black leading-tight text-[#111318] md:text-[36px]">AI Workflow Portfolio</h1>
-            <p className="mt-2 max-w-[820px] text-[15px] leading-6 text-[#303746]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
+            <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#98a2b3]">Singleton Systems · Jerami Singleton</p>
+            <h1 className="m-0 text-[27px] font-black leading-tight text-[#111318] md:text-[31px]">AI Workflow Portfolio</h1>
+            <p className="mt-2 max-w-[760px] text-[14px] font-semibold leading-6 text-[#596579]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
           </div>
         </header>
 
-        <nav className="flex flex-wrap gap-1.5 border-b border-[#e1e5eb] bg-[#f8fafc] px-4 py-2.5" aria-label="Case study sections">
+        <nav className="flex flex-wrap gap-1.5 border-b border-[#e4e8ef] bg-[#f8fafc] px-5 py-2.5 md:px-7" aria-label="Case study sections">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -917,8 +917,8 @@ export default function AIWorkflowPortfolioCommand() {
               aria-pressed={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cx(
-                "min-h-8 rounded-[7px] border px-3 text-[13px] font-extrabold transition",
-                activeTab === tab.id ? "border-[#2383e2] bg-[#2383e2] text-white" : "border-[#c8d1df] bg-white text-[#222938] hover:bg-[#eef4ff]",
+                "min-h-8 rounded-[8px] border px-3 text-[12px] font-extrabold transition",
+                activeTab === tab.id ? "border-[#111827] bg-[#111827] text-white" : "border-[#d8dee8] bg-white text-[#596579] hover:border-[#aeb9ca] hover:text-[#111827]",
               )}
             >
               {tab.label}
@@ -926,12 +926,12 @@ export default function AIWorkflowPortfolioCommand() {
           ))}
         </nav>
 
-        <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out] px-[14px] py-[14px] md:px-[26px] md:py-[18px]">
+        <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out] px-5 py-5 md:px-7">
           {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
           {activeTab === "evidence" ? <EvidencePanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}
           {activeTab === "resume" ? <ResumePanel /> : null}
-          {activeTab === "sources" ? <ProofMapPanel /> : null}
+          {activeTab === "sources" ? <ProofMapPanel codeArtifacts={codeArtifacts} /> : null}
         </div>
         <style jsx>{`
           @keyframes portfolioTabFade {
