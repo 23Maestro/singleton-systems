@@ -468,20 +468,20 @@ var e=e=>{switch(e){case`index`:return`digraph {
         penwidth=2,
         style=""
     ];
-    verify [color="#475569",
-        fillcolor="#64748b",
+    verify [color="#2d5d39",
+        fillcolor="#428a4f",
         fontcolor="#f8fafc",
         height=2.389,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="126"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Verify</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#cbd5e1">Use readback, tests, or source<BR/>review before calling it real.</FONT></TD></TR></TABLE>>,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="126"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Verify</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#c2f0c2">Use readback, tests, or source<BR/>review before calling it real.</FONT></TD></TR></TABLE>>,
         likec4_id="aiWorkflowSystem.implementationLoop.verify",
         likec4_level=0,
         margin="0.112,0.223",
         width=4.445];
-    gather [color="#475569",
-        fillcolor="#64748b",
-        fontcolor="#f8fafc",
+    gather [color="#853A2D",
+        fillcolor="#AC4D39",
+        fontcolor="#FBD3CB",
         height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Gather</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#cbd5e1">Collect the real workflow and<BR/>source evidence.</FONT></TD></TR></TABLE>>,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Gather</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#f5b2a3">Collect the real workflow and<BR/>source evidence.</FONT></TD></TR></TABLE>>,
         likec4_id="aiWorkflowSystem.implementationLoop.gather",
         likec4_level=0,
         margin="0.112,0.223",
@@ -490,11 +490,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">verify</FONT></TD></TR></TABLE>>,
         likec4_id=n8h3ow,
         style=dashed];
-    classify [color="#475569",
-        fillcolor="#64748b",
-        fontcolor="#f8fafc",
+    classify [color="#0369a1",
+        fillcolor="#0284c7",
+        fontcolor="#f0f9ff",
         height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Classify</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#cbd5e1">Separate owners, facts, support<BR/>state, and commands.</FONT></TD></TR></TABLE>>,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Classify</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#B6ECF7">Separate owners, facts, support<BR/>state, and commands.</FONT></TD></TR></TABLE>>,
         likec4_id="aiWorkflowSystem.implementationLoop.classify",
         likec4_level=0,
         margin="0.112,0.223",
@@ -503,11 +503,8 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">collect</FONT></TD></TR></TABLE>>,
         likec4_id="14ybpnj",
         style=dashed];
-    draft [color="#475569",
-        fillcolor="#64748b",
-        fontcolor="#f8fafc",
-        height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Draft</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#cbd5e1">Turn the classified workflow into<BR/>useful working material.</FONT></TD></TR></TABLE>>,
+    draft [height=2.5,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Draft</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#bfdbfe">Turn the classified workflow into<BR/>useful working material.</FONT></TD></TR></TABLE>>,
         likec4_id="aiWorkflowSystem.implementationLoop.draft",
         likec4_level=0,
         margin="0.112,0.223",
@@ -516,11 +513,11 @@ var e=e=>{switch(e){case`index`:return`digraph {
         label=<<TABLE BORDER="0" CELLPADDING="3" CELLSPACING="0" BGCOLOR="#18191BA0"><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="14">separate</FONT></TD></TR></TABLE>>,
         likec4_id=p4vntj,
         style=dashed];
-    review [color="#475569",
-        fillcolor="#64748b",
-        fontcolor="#f8fafc",
+    review [color="#7E451D",
+        fillcolor="#A35829",
+        fontcolor="#FFE0C2",
         height=2.5,
-        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Review</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#cbd5e1">Keep human judgment before<BR/>mutation, sending, or publishing.</FONT></TD></TR></TABLE>>,
+        label=<<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="4"><TR><TD ROWSPAN="2" WIDTH="106"> </TD><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="20">Review</FONT></TD><TD ROWSPAN="2" WIDTH="16"> </TD></TR><TR><TD ALIGN="TEXT" BALIGN="LEFT"><FONT POINT-SIZE="15" COLOR="#f9b27c">Keep human judgment before<BR/>mutation, sending, or publishing.</FONT></TD></TR></TABLE>>,
         likec4_id="aiWorkflowSystem.implementationLoop.review",
         likec4_level=0,
         margin="0.389,0.223",
@@ -1577,52 +1574,52 @@ var e=e=>{switch(e){case`index`:return`digraph {
 <!-- verify -->
 <g id="node1" class="node">
 <title>verify</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="377.55,-179 0,-179 0,-7 377.55,-7 377.55,-179"/>
+<polygon fill="#428a4f" stroke="#2d5d39" stroke-width="0" points="377.55,-179 0,-179 0,-7 377.55,-7 377.55,-179"/>
 <text xml:space="preserve" text-anchor="start" x="73.12" y="-87.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
 <text xml:space="preserve" text-anchor="start" x="142.06" y="-105" font-family="Arial" font-size="20.00" fill="#f8fafc">Verify</text>
 <text xml:space="preserve" text-anchor="start" x="355.54" y="-87.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="142.06" y="-82" font-family="Arial" font-size="15.00" fill="#cbd5e1">Use readback, tests, or source</text>
-<text xml:space="preserve" text-anchor="start" x="142.06" y="-64" font-family="Arial" font-size="15.00" fill="#cbd5e1">review before calling it real.</text>
+<text xml:space="preserve" text-anchor="start" x="142.06" y="-82" font-family="Arial" font-size="15.00" fill="#c2f0c2">Use readback, tests, or source</text>
+<text xml:space="preserve" text-anchor="start" x="142.06" y="-64" font-family="Arial" font-size="15.00" fill="#c2f0c2">review before calling it real.</text>
 </g>
 <!-- gather -->
 <g id="node2" class="node">
 <title>gather</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="842.88,-361 497,-361 497,-181 842.88,-181 842.88,-361"/>
-<text xml:space="preserve" text-anchor="start" x="560.12" y="-265.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="619.06" y="-283" font-family="Arial" font-size="20.00" fill="#f8fafc">Gather</text>
-<text xml:space="preserve" text-anchor="start" x="820.87" y="-265.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="619.06" y="-260" font-family="Arial" font-size="15.00" fill="#cbd5e1">Collect the real workflow and</text>
-<text xml:space="preserve" text-anchor="start" x="619.06" y="-242" font-family="Arial" font-size="15.00" fill="#cbd5e1">source evidence.</text>
+<polygon fill="#ac4d39" stroke="#853a2d" stroke-width="0" points="842.88,-361 497,-361 497,-181 842.88,-181 842.88,-361"/>
+<text xml:space="preserve" text-anchor="start" x="560.12" y="-265.4" font-family="Arial" font-size="14.00" fill="#fbd3cb"> </text>
+<text xml:space="preserve" text-anchor="start" x="619.06" y="-283" font-family="Arial" font-size="20.00" fill="#fbd3cb">Gather</text>
+<text xml:space="preserve" text-anchor="start" x="820.87" y="-265.4" font-family="Arial" font-size="14.00" fill="#fbd3cb"> </text>
+<text xml:space="preserve" text-anchor="start" x="619.06" y="-260" font-family="Arial" font-size="15.00" fill="#f5b2a3">Collect the real workflow and</text>
+<text xml:space="preserve" text-anchor="start" x="619.06" y="-242" font-family="Arial" font-size="15.00" fill="#f5b2a3">source evidence.</text>
 </g>
 <!-- classify -->
 <g id="node3" class="node">
 <title>classify</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1334.47,-361 968.57,-361 968.57,-181 1334.47,-181 1334.47,-361"/>
-<text xml:space="preserve" text-anchor="start" x="1031.68" y="-265.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="1090.63" y="-283" font-family="Arial" font-size="20.00" fill="#f8fafc">Classify</text>
-<text xml:space="preserve" text-anchor="start" x="1312.46" y="-265.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="1090.63" y="-260" font-family="Arial" font-size="15.00" fill="#cbd5e1">Separate owners, facts, support</text>
-<text xml:space="preserve" text-anchor="start" x="1090.63" y="-242" font-family="Arial" font-size="15.00" fill="#cbd5e1">state, and commands.</text>
+<polygon fill="#0284c7" stroke="#0369a1" stroke-width="0" points="1334.47,-361 968.57,-361 968.57,-181 1334.47,-181 1334.47,-361"/>
+<text xml:space="preserve" text-anchor="start" x="1031.68" y="-265.4" font-family="Arial" font-size="14.00" fill="#f0f9ff"> </text>
+<text xml:space="preserve" text-anchor="start" x="1090.63" y="-283" font-family="Arial" font-size="20.00" fill="#f0f9ff">Classify</text>
+<text xml:space="preserve" text-anchor="start" x="1312.46" y="-265.4" font-family="Arial" font-size="14.00" fill="#f0f9ff"> </text>
+<text xml:space="preserve" text-anchor="start" x="1090.63" y="-260" font-family="Arial" font-size="15.00" fill="#b6ecf7">Separate owners, facts, support</text>
+<text xml:space="preserve" text-anchor="start" x="1090.63" y="-242" font-family="Arial" font-size="15.00" fill="#b6ecf7">state, and commands.</text>
 </g>
 <!-- draft -->
 <g id="node4" class="node">
 <title>draft</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="1841.67,-361 1474.96,-361 1474.96,-181 1841.67,-181 1841.67,-361"/>
-<text xml:space="preserve" text-anchor="start" x="1538.07" y="-265.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="1597.02" y="-283" font-family="Arial" font-size="20.00" fill="#f8fafc">Draft</text>
-<text xml:space="preserve" text-anchor="start" x="1819.66" y="-265.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="1597.02" y="-260" font-family="Arial" font-size="15.00" fill="#cbd5e1">Turn the classified workflow into</text>
-<text xml:space="preserve" text-anchor="start" x="1597.02" y="-242" font-family="Arial" font-size="15.00" fill="#cbd5e1">useful working material.</text>
+<polygon fill="#3b82f6" stroke="#2563eb" stroke-width="0" points="1841.67,-361 1474.96,-361 1474.96,-181 1841.67,-181 1841.67,-361"/>
+<text xml:space="preserve" text-anchor="start" x="1538.07" y="-265.4" font-family="Arial" font-size="14.00" fill="#eff6ff"> </text>
+<text xml:space="preserve" text-anchor="start" x="1597.02" y="-283" font-family="Arial" font-size="20.00" fill="#eff6ff">Draft</text>
+<text xml:space="preserve" text-anchor="start" x="1819.66" y="-265.4" font-family="Arial" font-size="14.00" fill="#eff6ff"> </text>
+<text xml:space="preserve" text-anchor="start" x="1597.02" y="-260" font-family="Arial" font-size="15.00" fill="#bfdbfe">Turn the classified workflow into</text>
+<text xml:space="preserve" text-anchor="start" x="1597.02" y="-242" font-family="Arial" font-size="15.00" fill="#bfdbfe">useful working material.</text>
 </g>
 <!-- review -->
 <g id="node5" class="node">
 <title>review</title>
-<polygon fill="#64748b" stroke="#475569" stroke-width="0" points="2365.67,-183 1955.68,-183 1955.68,-3 2365.67,-3 2365.67,-183"/>
-<text xml:space="preserve" text-anchor="start" x="2038.75" y="-87.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="2097.69" y="-105" font-family="Arial" font-size="20.00" fill="#f8fafc">Review</text>
-<text xml:space="preserve" text-anchor="start" x="2323.71" y="-87.4" font-family="Arial" font-size="14.00" fill="#f8fafc"> </text>
-<text xml:space="preserve" text-anchor="start" x="2097.69" y="-82" font-family="Arial" font-size="15.00" fill="#cbd5e1">Keep human judgment before</text>
-<text xml:space="preserve" text-anchor="start" x="2097.69" y="-64" font-family="Arial" font-size="15.00" fill="#cbd5e1">mutation, sending, or publishing.</text>
+<polygon fill="#a35829" stroke="#7e451d" stroke-width="0" points="2365.67,-183 1955.68,-183 1955.68,-3 2365.67,-3 2365.67,-183"/>
+<text xml:space="preserve" text-anchor="start" x="2038.75" y="-87.4" font-family="Arial" font-size="14.00" fill="#ffe0c2"> </text>
+<text xml:space="preserve" text-anchor="start" x="2097.69" y="-105" font-family="Arial" font-size="20.00" fill="#ffe0c2">Review</text>
+<text xml:space="preserve" text-anchor="start" x="2323.71" y="-87.4" font-family="Arial" font-size="14.00" fill="#ffe0c2"> </text>
+<text xml:space="preserve" text-anchor="start" x="2097.69" y="-82" font-family="Arial" font-size="15.00" fill="#f9b27c">Keep human judgment before</text>
+<text xml:space="preserve" text-anchor="start" x="2097.69" y="-64" font-family="Arial" font-size="15.00" fill="#f9b27c">mutation, sending, or publishing.</text>
 </g>
 <!-- verify&#45;&gt;gather -->
 <g id="edge1" class="edge">

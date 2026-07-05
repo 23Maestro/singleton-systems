@@ -101,60 +101,60 @@ export const defaultSliceByTab: Record<PortfolioTabTarget, PortfolioSlice> = {
 export const sliceTitles: Record<PortfolioTabTarget, Record<PortfolioSlice, { title: string; lead: string; route: string }>> = {
   System: {
     Top: {
-      title: "System view cards",
+      title: "System View Cards",
       lead: "The three portfolio system cards above the divider: command surface, adapter, and reporting layer.",
       route: "components/AIWorkflowPortfolioCommand.tsx:SystemPanel > SystemTopSlice",
     },
     Bottom: {
-      title: "System workflow panel",
+      title: "System Workflow Panel",
       lead: "Locked out in the lab. System focuses on the top cards only.",
       route: "components/AIWorkflowPortfolioCommand.tsx:SystemPanel",
     },
   },
   Evidence: {
     Top: {
-      title: "Evidence diff surface",
+      title: "Evidence Diff Surface",
       lead: "The evidence list and git-diff readback area above the reporting divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:EvidencePanel > EvidenceTopSlice",
     },
     Bottom: {
-      title: "Reporting truth layer",
+      title: "Reporting Truth Layer",
       lead: "The Supabase reporting table below the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:EvidencePanel > EvidenceBottomSlice",
     },
   },
   "AI Specialist": {
     Top: {
-      title: "AI Specialist cards",
+      title: "AI Specialist Cards",
       lead: "The data preparation, output review, and implementation support cards above the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:FitPanel > AISpecialistTopSlice",
     },
     Bottom: {
-      title: "Review-first implementation loop",
+      title: "Review-First Implementation Loop",
       lead: "The Gather, Classify, Draft, Review, Verify loop below the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:FitPanel > AISpecialistBottomSlice",
     },
   },
   Resume: {
     Top: {
-      title: "Resume top cards",
+      title: "Resume Top Cards",
       lead: "Locked out in the lab. Resume focuses on the verification stack only.",
       route: "components/AIWorkflowPortfolioCommand.tsx:ResumePanel",
     },
     Bottom: {
-      title: "Resume verification stack",
+      title: "Resume Verification Stack",
       lead: "The selectable resume verification stack below the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:ResumePanel > ResumeBottomSlice",
     },
   },
   "Source Map": {
     Top: {
-      title: "Source map cards",
+      title: "Source Map Cards",
       lead: "The source cards above the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapTopSlice",
     },
     Bottom: {
-      title: "Review route panel",
+      title: "Review Route Panel",
       lead: "The route list and readback panel below the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapBottomSlice",
     },
@@ -164,7 +164,7 @@ export const sliceTitles: Record<PortfolioTabTarget, Record<PortfolioSlice, { ti
 export const evidenceData: EvidenceItem[] = [
   {
     key: "commands",
-    title: "Commands are buttons",
+    title: "Commands Are Buttons",
     summary: "Repeated dashboard actions start from Raycast, while domain modules keep the workflow meaning.",
     problem: "Operators had to remember where the right athlete, task, message, and status lived inside the dashboard.",
     solution: "Raycast became the command surface. It starts the workflow, then domain modules decide what the action means.",
@@ -172,7 +172,7 @@ export const evidenceData: EvidenceItem[] = [
   },
   {
     key: "adapter",
-    title: "Legacy adapter",
+    title: "Legacy Adapter",
     summary: "Browser form behavior becomes stable local API calls with repeatable request shapes.",
     problem: "The source system worked through browser forms and session-bound dashboard behavior.",
     solution: "FastAPI translated that behavior into stable local calls with normalized IDs, payload handling, and readback checks.",
@@ -180,7 +180,7 @@ export const evidenceData: EvidenceItem[] = [
   },
   {
     key: "supabase",
-    title: "Supabase ownership",
+    title: "Supabase Ownership",
     summary: "appointments, lifecycle_events, and call_log carry the durable workflow facts.",
     problem: "Useful facts were mixed with UI state, support caches, and one-off reporting projections.",
     solution: "appointments, lifecycle_events, and call_log became the durable places for meeting, stage, and reporting truth.",
@@ -188,7 +188,7 @@ export const evidenceData: EvidenceItem[] = [
   },
   {
     key: "audit",
-    title: "Audit before cleanup",
+    title: "Audit Before Cleanup",
     summary: "Parity checks prove the reporting shape before cleanup changes what counts as truth.",
     problem: "Cleanup could break reporting if old projections were deleted before the new shape was proven.",
     solution: "Parity tests checked the projected call_log shape and read-only behavior before cleanup became real.",
@@ -196,7 +196,7 @@ export const evidenceData: EvidenceItem[] = [
   },
   {
     key: "repo",
-    title: "Public repo",
+    title: "Public Repo",
     summary: "400+ commits show one sustained workflow system, not a throwaway sample.",
     problem: "A resume line alone cannot prove sustained system thinking.",
     solution: "The public repo shows one workflow system built through 400+ commits, docs, tests, and app surfaces.",
@@ -212,7 +212,7 @@ export const evidenceData: EvidenceItem[] = [
   },
   {
     key: "debug",
-    title: "Debug template",
+    title: "Debug Template",
     summary: "Legacy repair work is documented as a repeatable verification checklist.",
     problem: "Legacy dashboard repairs can turn into one-off troubleshooting with no repeatable path.",
     solution: "The debug template captured request shape, IDs, browser constraints, and verification steps.",
@@ -262,10 +262,10 @@ export const processData: ProcessItem[] = [
 ];
 
 export const resumeData = [
-  ["Lead evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
-  ["Throughput evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
+  ["Lead Evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
+  ["Throughput Evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
   ["Education", "Stetson + SPC", "Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College."],
-  ["Role match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
+  ["Role Match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
 ] as const;
 
 const resumeTimelineData = [
@@ -289,13 +289,13 @@ const resumeTimelineData = [
   },
   {
     year: "2024",
-    title: "Production systems",
+    title: "Production Systems",
     meta: "NurseHub + Prospect ID",
     body: "Scaled repeatable video, course, and workflow delivery systems.",
   },
   {
     year: "2026",
-    title: "AI Specialist fit",
+    title: "AI Specialist Fit",
     meta: "Data prep / review / support",
     body: "Positioned practical AI workflow work around preparation, review, and implementation support.",
   },
@@ -320,7 +320,7 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "map",
-    title: "System map",
+    title: "System Map",
     source: "Architecture",
     inspect: "Buckets for meetings, pre-meeting tasks, client communication, lifecycle truth, outcomes, and contacts.",
     result: "Shows where workflow meaning lives before code or cleanup changes are made.",
@@ -336,7 +336,7 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "supabase",
-    title: "Source-of-truth",
+    title: "Source-of-Truth",
     source: "Supabase contract",
     inspect: "Allowed writers for appointments, lifecycle_events, call_log, and confirmation support cache.",
     result: "Shows how durable reporting truth was separated from support state.",
@@ -351,7 +351,7 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "adapter",
-    title: "Legacy adapter",
+    title: "Legacy Adapter",
     source: "API template",
     inspect: "Browser-compatible payload shape, legacy IDs, request constraints, and readback.",
     result: "Shows the old dashboard workflow becoming repeatable adapter work.",
@@ -366,7 +366,7 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "audit",
-    title: "Audit evidence",
+    title: "Audit Evidence",
     source: "Parity test",
     inspect: "Read-only assertions that prove call_log/reporting shape before cleanup.",
     result: "Shows cleanup protected by verification instead of broad deletion.",
@@ -381,7 +381,7 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "web",
-    title: "Web support",
+    title: "Web Support",
     source: "Prospect Web",
     inspect: "Mobile command surface, call tracker, reporting views, and visual maps.",
     result: "Shows the workflow becoming readable outside Raycast.",
@@ -409,7 +409,7 @@ const systemCards = [
     id: "raycast-card",
     kicker: "Command surface",
     pill: "Action",
-    title: "Raycast command UI",
+    title: "Raycast Command UI",
     body: "Front-end command surface for repeated operator workflows.",
     accent: "#ff6257",
     icon: "R",
@@ -419,7 +419,7 @@ const systemCards = [
     id: "adapter-card",
     kicker: "Workflow support",
     pill: "Adapter",
-    title: "FastAPI legacy adapter",
+    title: "FastAPI Legacy Adapter",
     body: "Local API layer that translated dashboard forms into repeatable request shapes.",
     accent: "#b86013",
     icon: "A",
@@ -429,7 +429,7 @@ const systemCards = [
     id: "truth-card",
     kicker: "Reporting layer",
     pill: "Source",
-    title: "Supabase truth layer",
+    title: "Supabase Truth Layer",
     body: "Durable workflow facts separated from UI state and support caches.",
     accent: "#25c266",
     icon: "S",
@@ -440,9 +440,9 @@ const systemCards = [
 const aiCards = [
   {
     id: "data-prep-card",
-    kicker: "Data preparation",
+    kicker: "Data Preparation",
     pill: "Gather",
-    title: "Data preparation",
+    title: "Data Preparation",
     body: "Turned scattered workflow facts into source-of-truth contracts that people and AI tools could both follow.",
     accent: "#ff6257",
     icon: "D",
@@ -450,9 +450,9 @@ const aiCards = [
   },
   {
     id: "output-review-card",
-    kicker: "Output review",
+    kicker: "Output Review",
     pill: "Evaluate",
-    title: "Output evaluation",
+    title: "Output Evaluation",
     body: "Used AI-assisted drafts, then checked outputs against repo evidence, operator needs, and source readback.",
     accent: "#25c266",
     icon: "O",
@@ -462,7 +462,7 @@ const aiCards = [
     id: "implementation-card",
     kicker: "Implementation",
     pill: "Support",
-    title: "Implementation support",
+    title: "Implementation Support",
     body: "Built around the operator workflow so pilots could be tested, explained, and improved without guessing.",
     accent: "#b86013",
     icon: "I",
@@ -504,15 +504,15 @@ function PortfolioCard({
           <span className="grid h-7 w-7 place-items-center rounded-lg border border-black/10 text-[11px] font-black text-white shadow-sm" style={{ backgroundColor: accent }}>
             {icon}
           </span>
-          <p className="m-0 text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: accent }}>
+          <p className="m-0 text-[11px] font-black uppercase tracking-[0.18em]" style={{ color: accent }}>
             {kicker}
           </p>
         </div>
-        <span className="portfolio-card-status rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[10px] font-black text-[#1f2937] shadow-sm">{pill}</span>
+        <span className="portfolio-card-status rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[11px] font-black text-[#1f2937] shadow-sm">{pill}</span>
       </div>
       <h3 className="m-0 text-[20px] font-black leading-tight text-[#111318]">{title}</h3>
-      <p className="mt-2 line-clamp-3 text-[14px] font-semibold leading-5 text-[#5f6b7f]">{body}</p>
-      <ul className="mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[12px] font-bold leading-5 text-[#2f3746]">
+      <p className="mt-2 line-clamp-3 text-[15px] font-semibold leading-6 text-[#5f6b7f]">{body}</p>
+      <ul className="mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[14px] font-bold leading-6 text-[#2f3746]">
         {facts.map((fact) => (
           <li key={fact}>
             {fact}
@@ -566,7 +566,7 @@ export function EvidenceTopSlice({ selectedKey, onSelect }: { selectedKey: strin
               aria-pressed={item.key === selectedKey}
               onClick={() => onSelect(item.key)}
               className={cx(
-                "grid min-h-[92px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[12px] transition-colors",
+                "grid min-h-[98px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[13px] transition-colors",
                 item.key === selectedKey ? "border-[#2383e2] bg-[#f1f6ff]" : "border-[#e1e5eb] bg-white hover:bg-[#f8fafc]",
               )}
             >
@@ -683,11 +683,11 @@ export function EvidenceBottomSlice() {
     <section className="mx-auto w-full max-w-[880px] overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
       <div className="grid gap-2 border-b border-[#e2e8f0] bg-[#fbfdff] px-4 py-3 md:grid-cols-[minmax(0,240px)_1fr] md:items-center md:px-5">
         <strong className="text-[16px] font-black leading-tight text-[#111318]">Supabase reporting shape</strong>
-        <span className="max-w-[520px] text-[13px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
+        <span className="max-w-[520px] text-[14px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
       </div>
       <div className="p-3 md:p-4">
         <div className="overflow-x-auto rounded-[12px] border border-[#e1e7f0] bg-white">
-          <table className="w-full min-w-[720px] table-fixed border-collapse text-left text-[13px] leading-relaxed">
+          <table className="w-full min-w-[720px] table-fixed border-collapse text-left text-[14px] leading-relaxed">
             <caption className="sr-only">Supabase reporting source-of-truth verification table</caption>
             <colgroup>
               <col className="w-[24%]" />

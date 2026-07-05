@@ -299,7 +299,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
 const evidenceData = [
   {
     key: "commands",
-    title: "Commands are buttons",
+    title: "Commands Are Buttons",
     summary: "Repeated dashboard actions start from Raycast, while domain modules keep the workflow meaning.",
     problem: "Operators had to remember where the right athlete, task, message, and status lived inside the dashboard.",
     solution: "Raycast became the command surface. It starts the workflow, then domain modules decide what the action means.",
@@ -307,7 +307,7 @@ const evidenceData = [
   },
   {
     key: "adapter",
-    title: "Legacy adapter",
+    title: "Legacy Adapter",
     summary: "Browser form behavior becomes stable local API calls with repeatable request shapes.",
     problem: "The source system worked through browser forms and session-bound dashboard behavior.",
     solution: "FastAPI translated that behavior into stable local calls with normalized IDs, payload handling, and readback checks.",
@@ -315,7 +315,7 @@ const evidenceData = [
   },
   {
     key: "supabase",
-    title: "Supabase ownership",
+    title: "Supabase Ownership",
     summary: "appointments, lifecycle_events, and call_log carry the durable workflow facts.",
     problem: "Useful facts were mixed with UI state, support caches, and one-off reporting projections.",
     solution: "appointments, lifecycle_events, and call_log became the durable places for meeting, stage, and reporting truth.",
@@ -323,7 +323,7 @@ const evidenceData = [
   },
   {
     key: "audit",
-    title: "Audit before cleanup",
+    title: "Audit Before Cleanup",
     summary: "Parity checks prove the reporting shape before cleanup changes what counts as truth.",
     problem: "Cleanup could break reporting if old projections were deleted before the new shape was proven.",
     solution: "Parity tests checked the projected call_log shape and read-only behavior before cleanup became real.",
@@ -331,7 +331,7 @@ const evidenceData = [
   },
   {
     key: "repo",
-    title: "Public repo",
+    title: "Public Repo",
     summary: "400+ commits show one sustained workflow system, not a throwaway sample.",
     problem: "A resume line alone cannot prove sustained system thinking.",
     solution: "The public repo shows one workflow system built through 400+ commits, docs, tests, and app surfaces.",
@@ -347,7 +347,7 @@ const evidenceData = [
   },
   {
     key: "debug",
-    title: "Debug template",
+    title: "Debug Template",
     summary: "Legacy repair work is documented as a repeatable verification checklist.",
     problem: "Legacy dashboard repairs can turn into one-off troubleshooting with no repeatable path.",
     solution: "The debug template captured request shape, IDs, browser constraints, and verification steps.",
@@ -397,10 +397,10 @@ const processData = [
 ];
 
 const resumeData = [
-  ["Lead evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
-  ["Throughput evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
+  ["Lead Evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
+  ["Throughput Evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
   ["Education", "Stetson + SPC", "Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College."],
-  ["Role match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
+  ["Role Match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
 ] as const;
 
 const proofRouteData = [
@@ -414,7 +414,7 @@ const proofRouteData = [
   },
   {
     key: "map",
-    title: "System map",
+    title: "System Map",
     source: "Architecture",
     inspect: "Buckets for meetings, pre-meeting tasks, client communication, lifecycle truth, outcomes, and contacts.",
     result: "Shows where workflow meaning lives before code or cleanup changes are made.",
@@ -422,7 +422,7 @@ const proofRouteData = [
   },
   {
     key: "supabase",
-    title: "Source-of-truth",
+    title: "Source-of-Truth",
     source: "Supabase contract",
     inspect: "Allowed writers for appointments, lifecycle_events, call_log, and confirmation support cache.",
     result: "Shows how durable reporting truth was separated from support state.",
@@ -430,7 +430,7 @@ const proofRouteData = [
   },
   {
     key: "adapter",
-    title: "Legacy adapter",
+    title: "Legacy Adapter",
     source: "API template",
     inspect: "Browser-compatible payload shape, legacy IDs, request constraints, and readback.",
     result: "Shows the old dashboard workflow becoming repeatable adapter work.",
@@ -438,7 +438,7 @@ const proofRouteData = [
   },
   {
     key: "audit",
-    title: "Audit proof",
+    title: "Audit Proof",
     source: "Parity test",
     inspect: "Read-only assertions that prove call_log/reporting shape before cleanup.",
     result: "Shows cleanup protected by verification instead of broad deletion.",
@@ -446,7 +446,7 @@ const proofRouteData = [
   },
   {
     key: "web",
-    title: "Web support",
+    title: "Web Support",
     source: "Prospect Web",
     inspect: "Mobile command surface, call tracker, reporting views, and visual maps.",
     result: "Shows the workflow becoming readable outside Raycast.",
@@ -771,12 +771,12 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
   }, [actions, goBack, onCopy, openAction, selected, view]);
 
   return (
-    <TabShell title="System view" lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables.">
+    <TabShell title="System View" lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables.">
       <div className="mx-auto max-w-[1320px]">
         <SystemTopSlice />
       </div>
 
-      <Divider label="Interactive workflow surface" />
+      <Divider label="Interactive Workflow Surface" />
 
       <section className="mx-auto w-full max-w-[800px]" aria-label="Raycast-inspired workflow surface">
         <div className="raycast-command-frame relative flex h-[520px] w-full max-w-full flex-col overflow-hidden rounded-xl border border-[#d7dee9] bg-[#f8fafc] shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
@@ -862,18 +862,18 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
               <div className="flex flex-col">
                 <div className="border-b border-[#e8ecf2] bg-white p-5 sm:pr-40">
                   <h2 className="text-[24px] font-bold text-[#111827]">{selected.name}</h2>
-                  <p className="mt-1 text-[13px] font-medium text-[#4b5563]">{selected.line}</p>
+                  <p className="mt-1 text-[14px] font-medium text-[#4b5563]">{selected.line}</p>
                 </div>
 
                 <div className="flex flex-col border-b border-[#e8ecf2] bg-[#fcfdfd] px-5 py-4">
                   <div className="grid gap-3 md:grid-cols-2">
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Process</span>
-                      <p className="mt-1 text-[13px] font-medium leading-relaxed text-[#374151]">{selected.processDescription}</p>
+                      <p className="mt-1 text-[14px] font-medium leading-relaxed text-[#374151]">{selected.processDescription}</p>
                     </div>
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Result</span>
-                      <p className="mt-1 text-[13px] font-medium leading-relaxed text-[#374151]">{selected.resultDescription}</p>
+                      <p className="mt-1 text-[14px] font-medium leading-relaxed text-[#374151]">{selected.resultDescription}</p>
                     </div>
                   </div>
                 </div>
@@ -911,7 +911,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                     {currentAction === "Update Progress" || currentAction === "Update Task" ? "Static command form" : selected.actionView.eyebrow}
                   </span>
                   <h2 className="text-[20px] font-bold text-[#111827]">{currentAction}</h2>
-                  <p className="mt-2 text-[13px] font-medium leading-relaxed text-[#4b5563]">
+                  <p className="mt-2 text-[14px] font-medium leading-relaxed text-[#4b5563]">
                     {currentAction === "Update Progress"
                       ? "Review the selected video status and production stage before saving progress."
                       : currentAction === "Update Task"
@@ -928,7 +928,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                       {selected.actionView.fields.map(([label, value]) => (
                         <div key={label} className="flex flex-col gap-1 rounded-lg border border-[#e5e7eb] bg-white p-3 shadow-sm">
                           <span className="text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">{label}</span>
-                          <strong className="text-[13px] text-[#111827]">{value}</strong>
+                          <strong className="text-[14px] text-[#111827]">{value}</strong>
                         </div>
                       ))}
                     </div>
@@ -1006,12 +1006,12 @@ function EvidencePanel() {
 
   return (
     <TabShell
-      title="Evidence from the repo"
+      title="Evidence From the Repo"
       lead="Each verification point ties a manual workflow issue to a clearer command surface, data boundary, or verification step."
     >
       <EvidenceTopSlice selectedKey={selectedKey} onSelect={setSelectedKey} />
 
-      <Divider label="Reporting truth layer" />
+      <Divider label="Reporting Truth Layer" />
 
       <EvidenceBottomSlice />
     </TabShell>
@@ -1020,10 +1020,10 @@ function EvidencePanel() {
 
 function FitPanel() {
   return (
-    <TabShell title="AI Specialist match" lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption.">
+    <TabShell title="AI Specialist Match" lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption.">
       <AISpecialistTopSlice />
 
-      <Divider label="AI support loop" />
+      <Divider label="AI Support Loop" />
 
       <AISpecialistBottomSlice />
     </TabShell>
@@ -1032,7 +1032,7 @@ function FitPanel() {
 
 function ResumePanel() {
   return (
-    <TabShell title="Resume support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
+    <TabShell title="Resume Support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
         <div className="grid gap-2.5 lg:grid-cols-4">
           {resumeData.map(([kicker, title, body]) => (
             <section key={title} className="relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
@@ -1043,7 +1043,7 @@ function ResumePanel() {
           ))}
         </div>
 
-      <Divider label="Resume evidence stack" />
+      <Divider label="Resume Evidence Stack" />
 
       <ResumeBottomSlice />
     </TabShell>
@@ -1057,7 +1057,7 @@ function ProofMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifa
     <TabShell title="Source Map" lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support.">
       <SourceMapTopSlice selectedId={selectedKey} onSelect={setSelectedKey} />
 
-      <Divider label="Verification route" />
+      <Divider label="Verification Route" />
 
       <SourceMapBottomSlice selectedKey={selectedKey} codeArtifacts={codeArtifacts} />
     </TabShell>
@@ -1087,7 +1087,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           <div>
             <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#98a2b3]">Singleton Systems · Jerami Singleton</p>
             <h1 className="m-0 text-[27px] font-black leading-tight text-[#111318] md:text-[31px]">AI Workflow Portfolio</h1>
-            <p className="mt-2 max-w-[760px] text-[14px] font-semibold leading-6 text-[#596579]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
+            <p className="mt-2 max-w-[760px] text-[15px] font-semibold leading-6 text-[#596579]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
           </div>
         </header>
 
