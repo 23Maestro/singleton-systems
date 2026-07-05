@@ -20,7 +20,7 @@
     "visuals": "npm run visual-maps:build && sh -c 'cd docs/visual-maps/dist && (sleep 1; open http://127.0.0.1:4184) & python3 -m http.server 4184 --bind 127.0.0.1'",
     "visual-maps": "likec4 start docs/visual-maps",
     "visual-maps:validate": "likec4 validate docs/visual-maps",
-    "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist && likec4 build docs/visual-maps --output docs/visual-maps/dist --base ./'"
+    "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist public/visual-maps && likec4 build docs/visual-maps --output docs/visual-maps/dist --base /visual-maps/ && cp -R docs/visual-maps/dist public/visual-maps'"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

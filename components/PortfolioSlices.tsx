@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import type { ReactNode } from "react";
+import Script from "next/script";
+import { createElement } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 export type PortfolioTabTarget = "System" | "Evidence" | "AI Specialist" | "Resume" | "Source Map";
 export type PortfolioSlice = "Top" | "Bottom";
@@ -49,6 +51,14 @@ export type SourceRouteItem = {
   previewFit?: "cover" | "contain";
   previewPosition?: "center" | "top" | "left-top";
   previewFrame?: "diagram" | "code" | "product";
+  likec4ViewId?: string;
+};
+
+const likec4EmbedStyle: CSSProperties = {
+  display: "block",
+  width: "100%",
+  height: "100%",
+  minHeight: "100%",
 };
 
 export const tabTargets: PortfolioTabTarget[] = ["System", "Evidence", "AI Specialist", "Resume", "Source Map"];
@@ -288,6 +298,7 @@ export const sourceRouteData: SourceRouteItem[] = [
     previewFit: "contain",
     previewPosition: "center",
     previewFrame: "diagram",
+    likec4ViewId: "ai_workflow_readme_map",
   },
   {
     key: "map",
@@ -303,6 +314,7 @@ export const sourceRouteData: SourceRouteItem[] = [
     previewFit: "contain",
     previewPosition: "center",
     previewFrame: "diagram",
+    likec4ViewId: "scouting_coordinator_bucket_map",
   },
   {
     key: "supabase",
@@ -581,6 +593,20 @@ function DiffLine({ marker, tone, children }: { marker: string; tone: "add" | "r
   );
 }
 
+function LikeC4Preview({ viewId, dynamicVariant }: { viewId: string; dynamicVariant?: "diagram" | "sequence" }) {
+  return (
+    <>
+      <Script id="likec4-views-script" src="/visual-maps/likec4-views.js" type="module" strategy="afterInteractive" />
+      {createElement("likec4-view", {
+        "view-id": viewId,
+        browser: "true",
+        ...(dynamicVariant ? { "dynamic-variant": dynamicVariant } : {}),
+        style: likec4EmbedStyle,
+      })}
+    </>
+  );
+}
+
 export function EvidenceBottomSlice() {
   return (
     <section className="mx-auto w-full overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
@@ -786,9 +812,14 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
 
 export function SourceMapBottomSlice({ selectedKey }: { selectedKey: string; onSelect?: (key: string) => void }) {
   const selected = sourceRouteData.find((route) => route.key === selectedKey) ?? sourceRouteData[0];
+  const isSystemBucketMap = selected.likec4ViewId === "scouting_coordinator_bucket_map";
   const frameClass = cx(
     "source-map-preview-frame relative mx-auto w-full overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)]",
-    selected.previewFrame === "product"
+    isSystemBucketMap
+      ? "max-w-[1240px] h-[190px] md:h-[180px]"
+      : selected.likec4ViewId
+      ? "max-w-[1120px] aspect-[1.58/1] min-h-[520px]"
+      : selected.previewFrame === "product"
       ? "max-w-[900px] aspect-[1.2/1] md:aspect-[1.42/1]"
       : selected.previewFrame === "diagram"
         ? "max-w-[860px] aspect-[1.58/1]"
@@ -800,21 +831,53 @@ export function SourceMapBottomSlice({ selectedKey }: { selectedKey: string; onS
   return (
     <section className={frameClass} aria-live="polite">
       <div key={selected.key} className="absolute inset-0 origin-center">
-        <Image
-          src={selected.previewImageSrc}
-          alt={selected.previewImageAlt}
-          width={selected.previewImageWidth}
-          height={selected.previewImageHeight}
-          sizes="(min-width: 900px) 900px, 100vw"
-          className={cx(
-            "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
-            selected.previewFit === "cover" ? "object-cover" : "object-contain",
-            imagePositionClass,
-          )}
-        />
+        {selected.likec4ViewId ? (
+          <div
+            className={cx(
+              "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
+              isSystemBucketMap ? "source-map-likec4-system" : "p-2",
+            )}
+          >
+            <LikeC4Preview viewId={selected.likec4ViewId} dynamicVariant={isSystemBucketMap ? "sequence" : undefined} />
+          </div>
+        ) : (
+          <Image
+            src={selected.previewImageSrc}
+            alt={selected.previewImageAlt}
+            width={selected.previewImageWidth}
+            height={selected.previewImageHeight}
+            sizes="(min-width: 900px) 900px, 100vw"
+            className={cx(
+              "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
+              selected.previewFit === "cover" ? "object-cover" : "object-contain",
+              imagePositionClass,
+            )}
+          />
+        )}
       </div>
-      <div className="source-map-preview-blur" aria-hidden="true" />
+      {selected.likec4ViewId ? null : <div className="source-map-preview-blur" aria-hidden="true" />}
       <style jsx>{`
+        .source-map-likec4-system {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        .source-map-likec4-system :global(likec4-view) {
+          display: block;
+          width: 120% !important;
+          height: 120% !important;
+          min-height: 120% !important;
+          transform: translate(-8%, -4%);
+          transform-origin: top center;
+        }
+        @media (max-width: 768px) {
+          .source-map-likec4-system :global(likec4-view) {
+            width: 150% !important;
+            height: 150% !important;
+            min-height: 150% !important;
+            transform: translate(-16%, -5%);
+          }
+        }
         .source-map-preview-blur {
           position: absolute;
           inset: auto 0 0;

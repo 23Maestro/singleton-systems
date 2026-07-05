@@ -49,11 +49,21 @@ model {
     }
 
     scoutingCoordinator = component 'Scouting Coordinator' {
-      bucket1 = component '1. Meetings & Scheduling'
-      bucket2 = component '2. Pre-Meeting Work'
-      bucket3 = component '3. Client Communication'
-      bucket4 = component '4. Lifecycle & Reporting'
-      bucket5 = component '5. Outcomes & Enrollments'
+      bucket1 = component '1. Meetings' {
+        description 'Scheduling and confirmation'
+      }
+      bucket2 = component '2. Prep' {
+        description 'Pre-meeting work'
+      }
+      bucket3 = component '3. Client Comms' {
+        description 'Messages and calls'
+      }
+      bucket4 = component '4. Lifecycle' {
+        description 'Stage and reporting truth'
+      }
+      bucket5 = component '5. Outcomes' {
+        description 'Enrollments and follow-up'
+      }
     }
   }
 
@@ -62,10 +72,10 @@ model {
   aiWorkflowSystem.fastApiBridge -> aiWorkflowSystem.legacyLaravel 'translates dashboard behavior'
   aiWorkflowSystem.fastApiBridge -> aiWorkflowSystem.supabaseTruth 'writes durable facts'
   aiWorkflowSystem.prospectWeb -> aiWorkflowSystem.supabaseTruth 'reads cleaned data'
-  aiWorkflowSystem.scoutingCoordinator.bucket1 -> aiWorkflowSystem.scoutingCoordinator.bucket2 'next'
-  aiWorkflowSystem.scoutingCoordinator.bucket2 -> aiWorkflowSystem.scoutingCoordinator.bucket3 'next'
-  aiWorkflowSystem.scoutingCoordinator.bucket3 -> aiWorkflowSystem.scoutingCoordinator.bucket4 'next'
-  aiWorkflowSystem.scoutingCoordinator.bucket4 -> aiWorkflowSystem.scoutingCoordinator.bucket5 'next'
+  aiWorkflowSystem.scoutingCoordinator.bucket1 -> aiWorkflowSystem.scoutingCoordinator.bucket2
+  aiWorkflowSystem.scoutingCoordinator.bucket2 -> aiWorkflowSystem.scoutingCoordinator.bucket3
+  aiWorkflowSystem.scoutingCoordinator.bucket3 -> aiWorkflowSystem.scoutingCoordinator.bucket4
+  aiWorkflowSystem.scoutingCoordinator.bucket4 -> aiWorkflowSystem.scoutingCoordinator.bucket5
 }
 
 views {
@@ -113,6 +123,7 @@ views {
     title 'Scouting Coordinator System Map'
 
     include aiWorkflowSystem.scoutingCoordinator.*
+    autoLayout LeftRight 80 120
 
     style * {
       color muted
@@ -122,18 +133,28 @@ views {
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket1 {
       color blue
+      icon bootstrap:calendar-event
+      iconSize xl
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket2 {
-      color blue
+      color amber
+      icon bootstrap:clipboard-check
+      iconSize xl
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket3 {
       color green
+      icon bootstrap:chat-left-text
+      iconSize xl
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket4 {
-      color green
+      color secondary
+      icon bootstrap:bar-chart-line
+      iconSize xl
     }
     style aiWorkflowSystem.scoutingCoordinator.bucket5 {
-      color amber
+      color red
+      icon bootstrap:trophy
+      iconSize xl
     }
   }
 }
