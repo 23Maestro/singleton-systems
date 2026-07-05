@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTML Playground"
+  short_description: "Build self-contained interactive HTML review surfaces"
+  default_prompt: "Use $html-playground to create a self-contained interactive HTML review surface."

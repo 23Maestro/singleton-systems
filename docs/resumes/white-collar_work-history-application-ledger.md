@@ -150,6 +150,20 @@ Reference email: jefft7@gmail.com
 Reference phone: 407-766-9381
 ```
 
+## St. Petersburg College
+
+```text
+School: St. Petersburg College
+Degree: Coursework
+Field of Study: Computer Programming / Information Technology
+City: St. Petersburg
+State: FL
+Start Year: 2021
+End Year: 2023
+Credential note: Coursework completed; no degree awarded.
+Application wording: Completed computer programming and information technology coursework from 2021-2023.
+```
+
 ## Sources Checked
 
 ```text

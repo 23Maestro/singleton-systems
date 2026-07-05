@@ -1,6 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import {
+  AISpecialistBottomSlice,
+  AISpecialistTopSlice,
+  EvidenceBottomSlice,
+  EvidenceTopSlice,
+  ResumeBottomSlice,
+  SourceMapBottomSlice,
+  SourceMapTopSlice,
+  SystemTopSlice,
+} from "./PortfolioSlices";
 
 type TabId = "system" | "evidence" | "fit" | "resume" | "sources";
 type WorkflowMode = "video" | "sales";
@@ -35,7 +45,7 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "evidence", label: "Evidence" },
   { id: "fit", label: "AI Specialist Match" },
   { id: "resume", label: "Resume" },
-  { id: "sources", label: "Proof Map" },
+  { id: "sources", label: "Source Map" },
 ];
 
 const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
@@ -386,8 +396,8 @@ const processData = [
 ];
 
 const resumeData = [
-  ["Lead proof", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
-  ["Throughput proof", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
+  ["Lead evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
+  ["Throughput evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
   ["Education", "Stetson + SPC", "Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College."],
   ["Role match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
 ] as const;
@@ -464,33 +474,32 @@ function Card({
   icon: string;
   facts: string[];
 }) {
-  const panelBackground = `linear-gradient(135deg, ${accent}18 0%, #ffffff 42%, #f8fafc 100%)`;
+  const panelBackground = `linear-gradient(135deg, ${accent}12 0%, #ffffff 42%, #f8fafc 100%)`;
 
   return (
     <section
-      className="group relative min-h-[232px] overflow-hidden rounded-[24px] border border-[#dde3ec] p-6 shadow-[0_20px_50px_rgba(15,23,42,0.08)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_24px_64px_rgba(15,23,42,0.12)]"
+      className="group relative flex flex-col overflow-hidden rounded-[16px] border border-[#dde3ec] p-5 shadow-[0_12px_24px_rgba(15,23,42,0.04)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_16px_32px_rgba(15,23,42,0.08)]"
       style={{ background: panelBackground }}
     >
-      <div className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full opacity-10 blur-2xl" style={{ backgroundColor: accent }} />
-      <div className="mb-4 flex items-start justify-between gap-3">
-        <p className="m-0 text-[11px] font-black uppercase tracking-[0.22em]" style={{ color: accent }}>
-          {kicker}
-        </p>
-        <span className="grid h-7 w-7 place-items-center rounded-lg border border-white/80 bg-white/85 text-xs font-black text-[#172033] shadow-[0_10px_22px_rgba(15,23,42,0.08)] transition group-hover:translate-x-0.5">
-          →
-        </span>
+      <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-10 blur-xl" style={{ backgroundColor: accent }} />
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="grid h-7 w-7 place-items-center rounded-lg border border-black/10 text-[11px] font-black text-white shadow-sm" style={{ backgroundColor: accent }}>
+            {icon}
+          </span>
+          <p className="m-0 text-[10px] font-black uppercase tracking-[0.2em]" style={{ color: accent }}>
+            {kicker}
+          </p>
+        </div>
+        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[10px] font-black text-[#1f2937] shadow-sm">{pill}</span>
       </div>
-      <div className="mb-4 flex items-center gap-2.5">
-        <span className="grid h-9 w-9 place-items-center rounded-xl border border-black/10 text-sm font-black text-white shadow-[0_10px_20px_rgba(15,23,42,0.12)]" style={{ backgroundColor: accent }}>
-          {icon}
-        </span>
-        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-2.5 py-1 text-[11px] font-black text-[#1f2937]">{pill}</span>
-      </div>
-      <h3 className="m-0 text-[23px] font-black leading-tight text-[#111318] md:text-[27px]">{title}</h3>
-      <p className="mt-2 text-[15px] font-semibold leading-6 text-[#5f6b7f]">{body}</p>
-      <ul className="mt-5 grid gap-2 border-t border-[#dfe6ef] pt-4">
+
+      <h3 className="m-0 text-[19px] font-black leading-tight text-[#111318]">{title}</h3>
+      <p className="mt-1.5 text-[14px] font-semibold leading-5 text-[#5f6b7f]">{body}</p>
+
+      <ul className="mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[12px] font-bold leading-5 text-[#2f3746]">
         {facts.map((fact) => (
-          <li key={fact} className="rounded-[12px] border border-[#dfe7f1] bg-white/78 px-3 py-2 text-[13px] font-extrabold text-[#2f3746] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+          <li key={fact}>
             {fact}
           </li>
         ))}
@@ -508,12 +517,15 @@ function Divider({ label }: { label: string }) {
   );
 }
 
-function SectionHead({ title, lead }: { title: string; lead: string }) {
+function TabShell({ title, lead, children }: { title: string; lead: string; children: React.ReactNode }) {
   return (
-    <div className="mb-3.5 grid max-w-[920px] gap-1">
-      <h2 className="m-0 text-[24px] font-black leading-tight text-[#111318] md:text-[30px]">{title}</h2>
-      <p className="m-0 text-sm leading-6 text-[#667085]">{lead}</p>
-    </div>
+    <article className="mx-auto w-full max-w-[1320px]">
+      <div className="mb-6 grid max-w-[920px] gap-1.5 min-h-[72px]">
+        <h2 className="m-0 text-[24px] font-black leading-tight text-[#111318] md:text-[30px]">{title}</h2>
+        <p className="m-0 text-[14px] leading-6 text-[#667085]">{lead}</p>
+      </div>
+      {children}
+    </article>
   );
 }
 
@@ -565,41 +577,9 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
   }, [onCopy, selected, view]);
 
   return (
-    <article>
+    <TabShell title="System view" lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables.">
       <div className="mx-auto max-w-[1320px]">
-        <SectionHead
-          title="System view"
-          lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables."
-        />
-        <div className="grid gap-6 lg:grid-cols-3">
-          <Card
-            kicker="Command surface"
-            pill="Action"
-            title="Raycast command UI"
-            body="Front-end command surface for repeated operator workflows."
-            accent="#2383e2"
-            icon="◆"
-            facts={["Scout Prep", "Set Meetings", "Client Messages", "Video workflow commands"]}
-          />
-          <Card
-            kicker="Workflow support"
-            pill="Adapter"
-            title="FastAPI legacy adapter"
-            body="Local API layer that translated dashboard forms into repeatable request shapes."
-            accent="#b86013"
-            icon="↔"
-            facts={["Shared local session path", "Form payload handling", "Legacy ID normalization", "Live source-system readback"]}
-          />
-          <Card
-            kicker="Reporting layer"
-            pill="Proof"
-            title="Supabase truth layer"
-            body="Durable workflow facts separated from UI state and support caches."
-            accent="#25c266"
-            icon="✓"
-            facts={["appointments", "lifecycle_events", "call_log", "confirmation support cache"]}
-          />
-        </div>
+        <SystemTopSlice />
       </div>
 
       <Divider label="Interactive workflow surface" />
@@ -667,7 +647,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                         className={cx(
                           "group flex h-[52px] items-center gap-3 rounded-lg px-3 text-left transition-colors",
                           active
-                            ? "bg-[#e8eeff] border-l-[3px] border-[#3b82f6] pl-[9px]"
+                            ? "bg-[#e8eeff] border-l-[3px] border-[#1d4ed8] pl-[9px]"
                             : "border-l-[3px] border-transparent bg-transparent hover:bg-[#f1f5ff]"
                         )}
                       >
@@ -676,9 +656,9 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                         </span>
                         <div className="flex min-w-0 flex-1 flex-col justify-center">
                           <span className="truncate text-[14px] font-semibold text-[#1a1f2e]">{item.name}</span>
-                          <span className="truncate text-[12px] font-medium text-[#6b7280]">{item.meta}</span>
+                          <span className={cx("truncate text-[12px] font-medium", active ? "text-[#374151]" : "text-[#6b7280]")}>{item.meta}</span>
                         </div>
-                        <span className="shrink-0 text-[12px] font-medium text-[#6b7280]">
+                        <span className={cx("shrink-0 text-[12px] font-medium", active ? "text-[#374151]" : "text-[#6b7280]")}>
                           {item.status} / {item.source}
                         </span>
                       </button>
@@ -830,86 +810,25 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
           </div>
         </div>
       </section>
-    </article>
+    </TabShell>
   );
 }
 
 function EvidencePanel() {
   const [selectedKey, setSelectedKey] = useState(evidenceData[0].key);
   const selected = evidenceData.find((item) => item.key === selectedKey) ?? evidenceData[0];
-  const columns = [evidenceData.slice(0, 4), evidenceData.slice(4)];
 
   return (
-    <article>
-      <div className="mx-auto max-w-[1260px]">
-        <SectionHead
-          title="Evidence from the repo"
-          lead="Each proof point ties a manual workflow issue to a clearer command surface, data boundary, or verification step."
-        />
-        <div className="grid gap-4 lg:grid-cols-2">
-          {columns.map((column, index) => (
-            <div key={index} className="overflow-hidden rounded-[22px] border border-[#e4e5e7] bg-white shadow-[0_18px_42px_rgba(15,23,42,0.06)]">
-              {column.map((item) => (
-                <button
-                  key={item.key}
-                  type="button"
-                  aria-pressed={item.key === selectedKey}
-                  onClick={() => setSelectedKey(item.key)}
-                  className={cx(
-                    "grid w-full grid-cols-[190px_minmax(0,1fr)] gap-3 border-t border-[#e1e5eb] px-4 py-3.5 text-left text-sm first:border-t-0 max-sm:grid-cols-1",
-                    item.key === selectedKey ? "bg-[#f1f6ff]" : "bg-white hover:bg-[#f8fafc]",
-                  )}
-                >
-                  <strong className="font-black text-[#1e2736]">{item.title}</strong>
-                  <span className="leading-5 text-[#667085]">{item.summary}</span>
-                </button>
-              ))}
-            </div>
-          ))}
-        </div>
-        <section className="mt-4 grid gap-3 rounded-[18px] border border-[#d8e2ef] bg-[radial-gradient(circle_at_top_right,rgba(35,131,226,0.10),transparent_32%),#fff] p-4 shadow-[0_18px_38px_rgba(15,23,42,0.07)]" aria-live="polite">
-          <h3 className="m-0 text-xl font-black text-[#111318]">{selected.title}</h3>
-          <div className="grid gap-2.5 md:grid-cols-3">
-            {[
-              ["Problem", selected.problem],
-              ["Centralized solution", selected.solution],
-              ["Result", selected.result],
-            ].map(([label, body]) => (
-              <div key={label} className="min-h-[108px] rounded-[13px] border border-[#dce4ef] bg-[#f8fafc] p-3">
-                <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.08em] text-[#667284]">{label}</span>
-                <p className="m-0 text-sm font-bold leading-5 text-[#1f2937]">{body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
+    <TabShell
+      title="Evidence from the repo"
+      lead="Each verification point ties a manual workflow issue to a clearer command surface, data boundary, or verification step."
+    >
+      <EvidenceTopSlice selectedKey={selectedKey} onSelect={setSelectedKey} />
 
       <Divider label="Reporting truth layer" />
 
-      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
-        <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-          <strong className="text-[17px] font-black text-[#111318]">Supabase reporting shape</strong>
-          <span className="text-[13px] font-bold text-[#667085]">Durable facts stay separate from command state and support caches.</span>
-        </div>
-        <div className="p-3.5">
-          <div className="overflow-hidden rounded-[9px] border border-[#e1e5eb]">
-            {[
-              ["Table", "Owner", "Write path", "What it proves"],
-              ["appointments", "Meeting workflow", "Set Meetings", "Booked meeting lookup and confirmation readback"],
-              ["athlete_lifecycle_events", "Stage truth", "Post-call updates", "Lifecycle changes are not hidden in UI state"],
-              ["call_log", "Reporting", "Audit checks", "Projected shape checked before cleanup"],
-              ["confirmation_cache", "Support cache", "Message support", "Useful for drafting, not durable lifecycle truth"],
-            ].map((row, index) => (
-              <div key={row[0]} className={cx("grid grid-cols-[1fr_1fr_1fr_1.5fr] gap-3 border-t border-[#e1e5eb] px-3 py-2.5 text-[13px] first:border-t-0 max-md:grid-cols-1", index === 0 ? "bg-[#eef4fc] font-black text-[#20304a]" : "text-[#303746]")}>
-                {row.map((cell, cellIndex) => (
-                  <span key={cell} className={cellIndex === 0 && index > 0 ? "font-black text-[#172033]" : ""}>{cell}</span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </article>
+      <EvidenceBottomSlice />
+    </TabShell>
   );
 }
 
@@ -918,86 +837,13 @@ function FitPanel() {
   const selected = processData[selectedIndex];
 
   return (
-    <article>
-      <div className="mx-auto max-w-[1260px]">
-        <SectionHead
-          title="AI Specialist match"
-          lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption."
-        />
-        <div className="grid gap-4 lg:grid-cols-3">
-          <Card
-            kicker="Data preparation"
-            pill="Gather"
-            title="Data preparation"
-            body="Turned scattered workflow facts into source-of-truth contracts that people and AI tools could both follow."
-            accent="#2383e2"
-            icon="⌘"
-            facts={["Validation gates", "Migration checks", "Reporting cleanup"]}
-          />
-          <Card
-            kicker="Output review"
-            pill="Evaluate"
-            title="Output evaluation"
-            body="Used AI-assisted drafts, then checked outputs against repo evidence, operator needs, and source readback."
-            accent="#25c266"
-            icon="◷"
-            facts={["Draft helpers", "Human review", "Source readback"]}
-          />
-          <Card
-            kicker="Implementation"
-            pill="Support"
-            title="Implementation support"
-            body="Built around the operator workflow so pilots could be tested, explained, and improved without guessing."
-            accent="#b86013"
-            icon="▦"
-            facts={["Workflow mapping", "Command UI testing", "Architecture docs"]}
-          />
-        </div>
-      </div>
+    <TabShell title="AI Specialist match" lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption.">
+      <AISpecialistTopSlice />
 
       <Divider label="AI support loop" />
 
-      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
-        <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-          <strong className="text-[17px] font-black text-[#111318]">Review-first implementation loop</strong>
-          <span className="text-[13px] font-bold text-[#667085]">Click a step to see the operating rule.</span>
-        </div>
-        <div className="p-3.5">
-          <div className="grid gap-2.5 lg:grid-cols-5">
-            {processData.map((step, index) => (
-              <button
-                key={step.title}
-                type="button"
-                aria-pressed={selectedIndex === index}
-                onClick={() => setSelectedIndex(index)}
-                className={cx(
-                  "min-h-[126px] rounded-[9px] border p-3 text-left transition",
-                  selectedIndex === index ? "border-[#98abd2] bg-[#eef4ff]" : "border-[#e1e5eb] bg-[#f8f9fb] hover:bg-white",
-                )}
-              >
-                <span className="mb-2 inline-grid min-h-[26px] min-w-[26px] place-items-center rounded-full bg-[#2383e2] text-xs font-black text-white">{index + 1}</span>
-                <strong className="mb-1 block text-sm font-black text-[#172033]">{step.title}</strong>
-                <p className="m-0 text-xs leading-5 text-[#667085]">{step.solution}</p>
-              </button>
-            ))}
-          </div>
-          <div className="mt-2.5 rounded-[9px] border border-[#cfd8e7] bg-white p-3">
-            <div className="grid gap-2.5 md:grid-cols-3">
-              {[
-                ["Problem", selected.problem],
-                ["AI support", selected.solution],
-                ["Result", selected.result],
-              ].map(([label, body]) => (
-                <div key={label} className="min-h-[94px] rounded-[13px] border border-[#dce4ef] bg-white p-3">
-                  <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.08em] text-[#667284]">{label}</span>
-                  <p className="m-0 text-sm font-bold leading-5 text-[#1f2937]">{body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    </article>
+      <AISpecialistBottomSlice selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
+    </TabShell>
   );
 }
 
@@ -1005,12 +851,7 @@ function ResumePanel() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <article>
-      <div className="mx-auto max-w-[1260px]">
-        <SectionHead
-          title="Resume support"
-          lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems."
-        />
+    <TabShell title="Resume support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
         <div className="grid gap-2.5 lg:grid-cols-4">
           {resumeData.map(([kicker, title, body]) => (
             <section key={title} className="relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
@@ -1020,110 +861,25 @@ function ResumePanel() {
             </section>
           ))}
         </div>
-      </div>
 
       <Divider label="Resume evidence stack" />
 
-      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
-        <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-          <strong className="text-[17px] font-black text-[#111318]">Proof stack</strong>
-          <span className="text-[13px] font-bold text-[#667085]">Click a block to focus the resume angle.</span>
-        </div>
-        <div className="p-3.5">
-          <div className="grid gap-2.5 lg:grid-cols-4">
-            {resumeData.map(([label, title, body], index) => (
-              <button
-                key={title}
-                type="button"
-                aria-pressed={selectedIndex === index}
-                onClick={() => setSelectedIndex(index)}
-                className={cx(
-                  "min-h-[118px] rounded-[10px] border p-3 text-left transition",
-                  selectedIndex === index ? "border-[#9fb1d4] bg-[#eef4ff]" : "border-[#c8d1df] bg-[#f8f9fb] hover:bg-white",
-                )}
-              >
-                <span className="mb-1 block text-xs font-black uppercase text-[#2383e2]">{label}</span>
-                <strong className="mb-1.5 block text-[15px] font-black text-[#172033]">{title}</strong>
-                <em className="block text-xs not-italic font-semibold leading-5 text-[#667085]">{body}</em>
-              </button>
-            ))}
-          </div>
-          <div className="mt-2.5 rounded-[9px] border border-[#cfd8e7] bg-white p-3 text-[13px] font-bold leading-6 text-[#243047]">
-            {resumeData[selectedIndex][2]}
-          </div>
-        </div>
-      </section>
-    </article>
+      <ResumeBottomSlice selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
+    </TabShell>
   );
 }
 
 function ProofMapPanel() {
   const [selectedKey, setSelectedKey] = useState(proofRouteData[0].key);
-  const selected = proofRouteData.find((route) => route.key === selectedKey) ?? proofRouteData[0];
 
   return (
-    <article>
-      <div className="mx-auto max-w-[1260px]">
-        <SectionHead
-          title="Proof map"
-          lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support."
-        />
-        <div className="grid gap-4 lg:grid-cols-3">
-          {proofRouteData.map((route) => (
-            <section key={route.key} className="relative rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#2383e2]">{route.source}</p>
-              <h3 className="m-0 mb-2 text-[22px] font-black leading-tight text-[#111318]">{route.title}</h3>
-              <p className="m-0 text-[15px] leading-6 text-[#667085]">{route.inspect}</p>
-              <a className="mt-2 inline-flex min-h-[30px] items-center text-[13px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
-                Open {route.source}
-              </a>
-            </section>
-          ))}
-        </div>
-      </div>
+    <TabShell title="Source Map" lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support.">
+      <SourceMapTopSlice selectedId={selectedKey} onSelect={setSelectedKey} />
 
-      <Divider label="Evidence route" />
+      <Divider label="Verification route" />
 
-      <section className="mx-auto w-full max-w-[1080px] overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
-        <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-          <strong className="text-[17px] font-black text-[#111318]">Review route</strong>
-          <span className="text-[13px] font-bold text-[#667085]">Each claim points to one reviewable repo surface.</span>
-        </div>
-        <div className="grid gap-3.5 p-3.5 lg:grid-cols-[280px_minmax(0,1fr)]">
-          <div className="grid content-start gap-2">
-            {proofRouteData.map((route) => (
-              <button
-                key={route.key}
-                type="button"
-                aria-pressed={route.key === selectedKey}
-                onClick={() => setSelectedKey(route.key)}
-                className={cx(
-                  "grid min-h-[58px] gap-1 rounded-xl border p-3 text-left transition",
-                  route.key === selectedKey ? "border-[#aebde0] bg-[#eef4ff]" : "border-[#d9e3f0] bg-white hover:bg-[#f8fafc]",
-                )}
-              >
-                <strong className="text-[13px] font-black text-[#172033]">{route.title}</strong>
-                <span className="text-xs font-bold text-[#667085]">{route.source}</span>
-              </button>
-            ))}
-          </div>
-          <section className="grid gap-3 rounded-[14px] border border-[#d8e2ef] bg-white p-3.5 shadow-[0_14px_30px_rgba(15,23,42,0.06)]" aria-live="polite">
-            <h3 className="m-0 text-[22px] font-black text-[#111318]">{selected.title}</h3>
-            <div>
-              <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.08em] text-[#667284]">Claim to check</span>
-              <p className="m-0 text-sm font-bold leading-5 text-[#1f2937]">{selected.inspect}</p>
-            </div>
-            <div>
-              <span className="mb-2 block text-[11px] font-black uppercase tracking-[0.08em] text-[#667284]">Evidence readback</span>
-              <p className="m-0 text-sm font-bold leading-5 text-[#1f2937]">{selected.result}</p>
-            </div>
-            <a href={selected.href} className="inline-flex min-h-[34px] w-fit items-center rounded-full border border-[#c9d7eb] px-3 py-1.5 text-[13px] font-black text-[#2383e2] hover:bg-[#eef4ff]">
-              Open {selected.source}
-            </a>
-          </section>
-        </div>
-      </section>
-    </article>
+      <SourceMapBottomSlice selectedKey={selectedKey} />
+    </TabShell>
   );
 }
 
@@ -1146,15 +902,10 @@ export default function AIWorkflowPortfolioCommand() {
   return (
     <main className="min-h-dvh bg-[#f4f5f4] p-[10px] text-[#111318] md:p-[18px]">
       <section className="mx-auto w-full max-w-[1420px] overflow-hidden border border-[#e6e6e3] bg-white shadow-[0_18px_46px_rgba(15,23,42,0.10)]" aria-label="Prospect ID workflow system case study">
-        <header className="grid items-start gap-5 border-b border-[#e1e5eb] bg-[#fbfdff] px-[22px] py-[18px] md:grid-cols-[minmax(0,1fr)_auto]">
+        <header className="border-b border-[#e1e5eb] bg-[#fbfdff] px-[22px] py-[18px]">
           <div>
             <h1 className="m-0 text-[30px] font-black leading-tight text-[#111318] md:text-[36px]">AI Workflow Portfolio</h1>
             <p className="mt-2 max-w-[820px] text-[15px] leading-6 text-[#303746]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
-          </div>
-          <div className="flex max-w-[380px] flex-wrap gap-2 md:justify-end" aria-label="Proof summary">
-            {["400+ commits", "Raycast", "Supabase", "Audit tests"].map((chip) => (
-              <span key={chip} className="min-h-[30px] rounded-full border border-[#cbd5e2] bg-white px-3 py-1.5 text-[13px] font-extrabold text-[#263044]">{chip}</span>
-            ))}
           </div>
         </header>
 
@@ -1175,13 +926,25 @@ export default function AIWorkflowPortfolioCommand() {
           ))}
         </nav>
 
-        <div className="px-[14px] py-[14px] md:px-[26px] md:py-[18px]">
+        <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out] px-[14px] py-[14px] md:px-[26px] md:py-[18px]">
           {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
           {activeTab === "evidence" ? <EvidencePanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}
           {activeTab === "resume" ? <ResumePanel /> : null}
           {activeTab === "sources" ? <ProofMapPanel /> : null}
         </div>
+        <style jsx>{`
+          @keyframes portfolioTabFade {
+            from {
+              opacity: 0;
+              transform: translateY(4px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
       </section>
       <div aria-live="polite" className="sr-only">{copied ? `${activeLabel} proof copied` : ""}</div>
     </main>

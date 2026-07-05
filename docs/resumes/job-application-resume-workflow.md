@@ -8,8 +8,9 @@ new resume structure unless explicitly requested.
 1. Open and inspect the current source resume first.
    - White-collar: inspect the original PDF visually if text extraction fails.
    - Blue-collar: inspect the source Markdown.
-2. Preserve the source resume's existing template, section order, and visual
-   structure.
+2. Preserve the source resume's role history, section order, truth, and
+   Pearson-style structure unless the user explicitly asks for a different
+   layout.
    - Do not add arbitrary sections such as "Selected Match", "Core Strengths",
      or a second profile header unless the source already has them or the user
      asks for them.
@@ -30,15 +31,62 @@ new resume structure unless explicitly requested.
    the user explicitly asks for another folder.
    - Do not place `.docx`, `.md`, `.html`, screenshots, or source sidecars in
      the delivery folder unless explicitly requested.
-6. For white-collar/video/content resumes, reuse the Pearson-style resume
-   builder/template unless the user explicitly asks for a different design.
-   - The Pearson-style template is the current best baseline: blue frame,
-     left rail, large name, summary, then experience.
-   - Do not rebuild the resume from scratch in ReportLab, HTML, or a new
-     template for each application.
-   - Tailoring should change copy, skills, and bullets only.
-   - After rendering, create a visual preview and inspect it before saying the
+6. For serious white-collar applications, default to Reactive Resume:
+   confirmed source data -> tailored copy -> Reactive Resume v5 JSON ->
+   Reactive template -> PDF export.
+   - Keep Reactive API config in ignored `.env.local`; never commit API keys or
+     generated private resume JSON.
+   - Use `docs/resumes/application-tools/build_reactive_resume.py --job bealls-ai-specialist`
+     as the first confirmed reusable Reactive workflow example. The older
+     Bealls-specific script remains a compatibility wrapper only.
+   - After export, extract text and create a visual preview before saying the
      resume is ready.
+7. A single-column ATS-max version is optional only when explicitly requested.
+   Blue-collar copy can be simpler, but it should still use clean formatting,
+   plain text, consistent bullets, and no heavy design.
+
+## ATS Formatting Findings
+
+Use these findings when updating either blue-collar or white-collar resume
+templates:
+
+- Jobscan warns that ATS parsers commonly read left-to-right/top-to-bottom, so
+  sidebars, tables, columns, grids, text boxes, graphics, and heavy design can
+  scramble or hide resume content.
+- Harvard's resume guidance emphasizes clean professional writing, standard
+  resume conventions, no personal pronouns, no photos, no references unless
+  requested, and considering both human readers and ATS systems.
+- Reactive Resume is the preferred serious-application rendering path when API
+  access is available because the template, typography, and export surface can
+  stay stable while Codex only swaps truthful structured copy.
+- ReportLab remains the fallback path for fully custom PDFs or when Reactive
+  hosted/self-hosted export is unavailable.
+- Use `/Users/singleton23/Documents/Development/singleton-systems/skills/resume-professional-standards/SKILL.md`
+  for resume PDF typography, layout, and verification standards.
+
+Clean Pearson-style builder rules:
+
+```text
+left stats rail plus thin divider
+standard headings: Summary, Skills, Experience, Education, Portfolio
+plain paragraphs and hyphen bullets
+no tables, text boxes, grids, icons, graphics, outer frames, or background blocks
+small text-only color accents are allowed for the name or section headings
+extract PDF text after rendering and confirm reading order
+visual preview after rendering before calling it ready
+```
+
+Professional typography default:
+
+```text
+body: 11-12 pt
+bullets: 10.5-11 pt
+metadata/date lines: 10 pt
+role titles: 11.5-12 pt
+section headings: 13-15 pt
+name: 28-30 pt
+leading: about 120% of font size
+```
 
 ## Source Rules
 
@@ -48,10 +96,11 @@ White-collar source resume:
 docs/resumes/white-collar_Jerami_Singleton_Resume2026.pdf
 ```
 
-Use this as the go-to content baseline, but use the Pearson-style builder as
-the visual/layout baseline for job-specific white-collar variants. For a
-specific job, revise only the copy for that job, render one finished
-application PDF to `~/Downloads`, and leave the source PDF untouched.
+Use this as the go-to content baseline, but use the clean Pearson-style builder
+as the default layout for job-specific white-collar variants submitted through
+portals.
+For a specific job, revise only the copy for that job, render one finished
+application PDF to `~/Documents`, and leave the source PDF untouched.
 
 Blue-collar source resume:
 
@@ -62,9 +111,9 @@ docs/resumes/blue-collar_Jerami_Singleton_Resume2026.md
 Build this from confirmed job-history details. Use `Job List.pdf` only as
 starter evidence.
 
-Use the white-collar PDF as the clean visual reference for blue-collar exports:
-simple header, clean section spacing, direct bullets, and no extra design
-system.
+Use the clean Pearson-style resume shape as the visual reference for blue-collar
+exports when a designed resume is wanted: simple header, clean section spacing,
+direct bullets, and no heavy design system.
 
 Job-specific variants follow the same path for both lanes:
 
@@ -116,18 +165,59 @@ Always include singleton-systems.com in resume portfolio/contact links unless
 the user explicitly says to omit it.
 ```
 
-White-collar builder baseline:
+Reactive Resume white-collar builder baseline:
+
+```text
+docs/resumes/application-tools/build_reactive_resume.py --job bealls-ai-specialist
+```
+
+This is the first confirmed reusable Reactive Resume workflow. It builds a
+complete v5 resume JSON payload, validates it against
+`https://rxresu.me/schema.json`, imports it with `POST /resumes/import`, and
+downloads the PDF with `GET /resumes/{id}/pdf`.
+
+For a new job variant, add the job-specific headline, summary, notes, output
+filenames, skills, and truthful bullet swaps in the builder's job config first.
+Keep the shared API, schema-validation, import, and PDF-download code unchanged
+unless Reactive Resume itself changes. `build_reactive_bealls_resume.py` exists
+only so the original Bealls command still works.
+
+Local config:
+
+```text
+.env.local
+REACTIVE_RESUME_BASE_URL=https://rxresu.me/api/openapi
+REACTIVE_RESUME_API_KEY=<local only>
+```
+
+Do not run Reactive AI endpoints unless a separate provider key is configured.
+The Reactive API key is used as the `x-api-key` header for Reactive Resume, not
+as an OpenAI/Anthropic/Gemini provider key.
+
+White-collar clean Pearson-style ReportLab fallback:
+
+```text
+docs/resumes/application-tools/build_white_collar_pearson_clean_resume_pdf.py
+```
+
+Use this builder only as a fallback or comparison artifact. It keeps the left
+stats rail and divider while applying the direct ATS-formatting feedback: no
+heavy frame, no colored background block, no tables, no text boxes, no graphics,
+no oversized name, consistent headings, and plain bullets. Preserve full
+confirmed work history unless the user explicitly asks for a shorter targeted
+resume.
+
+Single-column ATS-max copies are optional only when the user explicitly asks for
+that layout. Do not make single-column the default.
+
+Older Pearson reference builder:
 
 ```text
 docs/resumes/application-tools/build_white_collar_pearson_resume_pdf.py
 ```
 
-Use this Pearson-style builder as the starting point for video/content/editor
-variants. Copy it to a temp/job-specific script, change the output filename,
-summary, skill list, and relevant bullets, then render and visually inspect the
-PDF. If the visual preview looks crowded, sloppy, clipped, or unlike the
-Pearson screenshots, revise inside this template instead of switching to a new
-resume system.
+Keep this as a historical/reference builder. Do not use its heavy blue frame as
+the default.
 
 ## Blue-Collar Resume Shape
 

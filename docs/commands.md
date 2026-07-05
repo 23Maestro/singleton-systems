@@ -7,7 +7,7 @@ Updated: 2026-06-22
 This is the early naming page for the command layer around Singleton Systems.
 
 The goal is not to build every shortcut now. The goal is to name the desire
-early so Bear, Raycast, Karabiner, Hammerspoon, Keyboard Maestro, and Codex can
+early so Obsidian, Raycast, Karabiner, Hammerspoon, Keyboard Maestro, and Codex can
 eventually feel like one cohesive system instead of a pile of clever one-offs.
 
 ## Core Idea
@@ -15,7 +15,7 @@ eventually feel like one cohesive system instead of a pile of clever one-offs.
 Commands are the hands of the system.
 
 ```text
-Bear      -> where the thought lands
+Obsidian  -> where the thought lands
 Raycast   -> where the action starts
 Karabiner -> keyboard layers and mode switches
 Hammerspoon -> window clicks, app glue, and Mac quirks
@@ -52,20 +52,13 @@ Keyboard Maestro app data:
 
 ## Desired Command Shape
 
-Keep the naming close to the Bear lanes and Eagle folders:
+Keep the naming close to the Obsidian folders and Eagle folders:
 
 ```text
 inbox
-video
-workflow
-website
-commands
-lifeops
-commands/codex
-commands/karabiner
-commands/hammerspoon
-commands/maestro
-commands/shortcuts
+command-ops
+production-ops
+business-ops
 money-clock
 plan-today
 log-opportunity-task
@@ -81,10 +74,10 @@ raw thought until it is clearer.
 Some command ideas are not portfolio assets and do not need Eagle-style folders.
 They are small workflow helpers for personal operating friction.
 
-Use the Bear lane name once, then let the command tools point at that same lane.
+Use the Obsidian folder name once, then let the command tools point at that same lane.
 
 ```text
-Bear tag/note name -> quick task hub
+Obsidian folder/note -> quick capture hub
 Raycast            -> launcher and wrapper
 Karabiner          -> keyboard layer
 Hammerspoon        -> window/click/app glue
@@ -95,21 +88,16 @@ This is the model for future personal workflow commands:
 
 ```text
 inbox
-commands/karabiner
-commands/hammerspoon
-commands/maestro
-commands/codex
-commands/shortcuts
-lifeops/car-log
-lifeops/rbt-support
-website/npid
+command-ops
+production-ops
+business-ops
 ```
 
 The important part is the name. Do not make separate lane names for the same
-idea in Bear, Raycast, Karabiner, Hammerspoon, and Keyboard Maestro. Name the
+idea in Obsidian, Raycast, Karabiner, Hammerspoon, and Keyboard Maestro. Name the
 workflow once, then let each tool handle its role.
 
-Raycast is implied as the launcher/wrapper. Do not create a Bear tag just to
+Raycast is implied as the launcher/wrapper. Do not create an Obsidian folder just to
 say Raycast unless the note is specifically about the Raycast extension.
 
 Use `inbox` for raw under-10-minute tasks or unclear captures. If choosing the
@@ -118,7 +106,7 @@ right lane takes more than a few seconds, put it in `inbox` and clean it later.
 Pending examples:
 
 ```text
-Bear editing layer
+Obsidian capture layer
 Opportunity HQ Raycast command layer
 Money Clock check-in
 Log Opportunity Task
@@ -130,7 +118,7 @@ Screenshot/PDF review command
 Window click/focus helper
 ```
 
-These can start as Bear notes or Raycast commands. Only promote them into
+These can start as Obsidian notes or Raycast commands. Only promote them into
 Karabiner, Hammerspoon, or Keyboard Maestro after the repeated action is obvious.
 
 ## Mobile Command Layer
@@ -141,7 +129,7 @@ choose-menu prompt palette for iOS AI beta chat.
 Use it for:
 
 ```text
-choose a Bear lane
+choose an Obsidian folder
 paste or dictate the raw thought
 build a focused AI chat prompt
 ask for the next small action
@@ -151,18 +139,10 @@ keep the lane/tag language stable
 First menu:
 
 ```text
-Inbox
-Systems
-Life Ops
-```
-
-Systems menu:
-
-```text
-website
-video
-workflow
-commands
+_Inbox
+Command Ops
+Production Ops
+Business Ops
 ```
 
 The prompt should ask the AI chat to clarify the thought, keep it aligned with
@@ -171,17 +151,17 @@ the selected lane, and avoid inventing new tags unless the user explicitly asks.
 Use two mobile capture paths:
 
 ```text
-Quick Thought -> Bear
+Quick Thought -> Obsidian
 Log Task      -> Notion / Opportunity HQ
 ```
 
-Bear is for raw, unclear, emotional, exploratory, or "do not lose this"
+Obsidian is for raw, unclear, emotional, exploratory, or "do not lose this"
 thoughts. Opportunity HQ is for focused queue items with status, time, project
 lane, money priority, link, follow-up, portfolio work, or project relation.
 
-Passive shortcut ideas belong in Bear first, especially later Apple Shortcuts,
+Passive shortcut ideas belong in Obsidian first, especially later Apple Shortcuts,
 shell/mobile experiments, share-sheet ideas, and small automations that might
-become portfolio someday. Use `#commands/shortcuts` for these. Promote them to
+become real commands someday. Use `Command Ops` for these. Promote them to
 Opportunity HQ only after human review.
 
 Shortcut help has two modes:
@@ -236,12 +216,42 @@ For third-party actions, name the app action directly and tell the user what to
 search inside Shortcuts. Do not paraphrase app action names when the user needs
 to find the block manually.
 
+## Shortcut Capture Lock
+
+Before replacing a working mobile Shortcut, capture the existing Shortcut
+exactly from screenshots. Do not design the Obsidian or Notion variant from
+memory.
+
+Use this for the old Bear inbox shortcut, Obsidian `_Inbox` replacement, and
+Notion / Opportunity HQ logging shortcut:
+
+```text
+1. Screenshot every visible block from top to bottom.
+2. Transcribe the exact action names in order.
+3. Record every variable name, menu label, URL, and destination.
+4. Mark which blocks are proven working.
+5. Only then write the replacement Shortcut.
+```
+
+Replacement direction:
+
+```text
+Bear inbox shortcut -> Obsidian `_Inbox` via Advanced URI first
+Raw thought         -> Obsidian
+Task/log/status     -> Notion / Opportunity HQ
+Credential storage  -> review before Data Jar, Shortcuts dictionary, or app token storage
+```
+
+For Notion capture, do not lock credentials into a Shortcut until the logging
+shape is stable. If credentials are needed, review the smallest storage option
+first and prefer a revocable token with the narrowest useful scope.
+
 Do not start with a custom mobile app. If a Shortcut becomes repeated and
 important, it can later become:
 
 ```text
 Raycast command on desktop
-Bear CLI wrapper
+Obsidian MCP / Advanced URI wrapper
 Notion / Opportunity HQ action
 App Intent / App Shortcut
 ```
@@ -304,7 +314,7 @@ Log Opportunity
   link/notes, and the linked project's icon DB source.
 
 Estimate Next Move
-  Apply the Duration Key to a Bear capture, Opportunity HQ task, or portfolio task.
+  Apply the Duration Key to an Obsidian capture, Opportunity HQ task, or portfolio task.
 
 Suggest Focus Blocks
   Codex groups approved Opportunity HQ work into Money Clock, Offer, and
@@ -327,16 +337,16 @@ takes over.
 
 ## Examples To Keep In Mind
 
-### Bear Editing Layer
+### Obsidian Capture Layer
 
-When editing or capturing in Bear, a future Karabiner layer could make common
+When capturing in Obsidian, a future Raycast or Shortcut layer could make common
 actions feel instant:
 
 ```text
-capture into current lane
-append to commands/codex
-open website lane
-open workflow lane
+capture into _Inbox
+append to Command Ops
+open Production Ops
+open Business Ops
 send selected text to Raycast command
 ```
 
@@ -351,7 +361,7 @@ or UI glue than durable business logic.
 Examples:
 
 ```text
-focus Bear capture window
+focus Obsidian capture window
 move a floating utility window
 click a stubborn UI control
 route a browser/tool window to the right place
@@ -407,6 +417,6 @@ The action name should say what it does and where it belongs.
   Singleton Systems commands.
 - Decide which commands belong in Raycast first, then only promote stable ones
   into Karabiner, Hammerspoon, or Keyboard Maestro.
-- Build future shortcuts around the same lanes used by Bear and Eagle.
+- Build future shortcuts around the same folders used by Obsidian and Eagle.
 - Keep this cerebral, but lean: name it once, test it, then decide if it earns a
   permanent shortcut.

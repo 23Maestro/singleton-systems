@@ -35,7 +35,7 @@ make Raycast own business logic
 Default scope:
 
 ```text
-Bear -> capture and later review
+Obsidian -> capture and later review
 Opportunity HQ -> durable projects/tasks/status/Goal Horizon/Work Date/Shift/dependencies/portfolio notes
 Raycast -> external action surface at /Users/singleton23/Raycast/career-hq
 Eagle -> portfolio assets

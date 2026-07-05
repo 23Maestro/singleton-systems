@@ -35,4 +35,4 @@ rename surfaces
 route around Opportunity HQ for durable task state
 ```
 
-Next action rule: if it has task weight, send it to `03_task-shape`; if not, keep it in Bear or docs.
+Next action rule: if it has task weight, send it to `03_task-shape`; if not, keep it in Obsidian or docs.

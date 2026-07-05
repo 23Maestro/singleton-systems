@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resume Professional Standards"
+  short_description: "Review resume typography, layout, and PDF checks"
+  default_prompt: "Use $resume-professional-standards to review resume typography, layout, and PDF verification."

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-label="README architecture node diagram">
+  <rect width="1200" height="760" fill="#ffffff"/>
+  <defs>
+    <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- compact dotted routing -->
+  <path d="M320 210 C382 210 408 210 470 210" fill="none" stroke="#c8d3df" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>
+  <path d="M730 210 C792 210 818 210 880 210" fill="none" stroke="#c8d3df" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>
+  <path d="M600 310 C600 345 600 368 600 398" fill="none" stroke="#c8d3df" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>
+  <path d="M600 548 C600 580 600 602 600 632" fill="none" stroke="#c8d3df" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12"/>
+
+  <!-- Raycast -->
+  <g filter="url(#nodeShadow)">
+    <rect x="86" y="110" width="236" height="200" rx="30" fill="#ffffff" stroke="#fecaca" stroke-width="4"/>
+    <rect x="177" y="138" width="54" height="54" rx="15" fill="#fee2e2"/>
+    <path d="M190 165 h28 M204 151 v28" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <text x="204" y="235" text-anchor="middle" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="850">Raycast</text>
+    <text x="204" y="270" text-anchor="middle" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="6">COMMANDS</text>
+  </g>
+
+  <!-- FastAPI -->
+  <g filter="url(#nodeShadow)" transform="translate(600 210) rotate(45)">
+    <rect x="-104" y="-104" width="208" height="208" rx="30" fill="#ffffff" stroke="#facc15" stroke-width="4"/>
+  </g>
+  <g>
+    <circle cx="600" cy="156" r="28" fill="#fef3c7"/>
+    <path d="M607 132 L584 165 h17 l-7 27 25-38 h-18 z" fill="#d97706"/>
+    <text x="600" y="225" text-anchor="middle" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="850">Local FastAPI</text>
+    <text x="600" y="258" text-anchor="middle" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" letter-spacing="4">BRIDGE</text>
+  </g>
+
+  <!-- Laravel -->
+  <g filter="url(#nodeShadow)">
+    <rect x="878" y="110" width="236" height="200" rx="30" fill="#ffffff" stroke="#fecaca" stroke-width="4"/>
+    <rect x="969" y="138" width="54" height="54" rx="15" fill="#fee2e2"/>
+    <path d="M982 156 h28 M982 169 h28 M982 182 h28" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
+    <text x="996" y="232" text-anchor="middle" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="850">Legacy Laravel</text>
+    <text x="996" y="267" text-anchor="middle" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" letter-spacing="5">DASHBOARD</text>
+  </g>
+
+  <!-- Supabase -->
+  <g filter="url(#nodeShadow)">
+    <circle cx="600" cy="474" r="78" fill="#ffffff" stroke="#86efac" stroke-width="4"/>
+    <circle cx="600" cy="428" r="24" fill="#dcfce7"/>
+    <ellipse cx="600" cy="421" rx="16" ry="7" fill="none" stroke="#16a34a" stroke-width="4"/>
+    <path d="M584 421 v21 c0 5 7 8 16 8s16-3 16-8v-21" fill="none" stroke="#16a34a" stroke-width="4"/>
+    <path d="M584 432 c0 5 7 8 16 8s16-3 16-8" fill="none" stroke="#16a34a" stroke-width="4"/>
+    <text x="600" y="486" text-anchor="middle" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="850">Supabase</text>
+    <text x="600" y="517" text-anchor="middle" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="800" letter-spacing="4">POSTGRESQL</text>
+  </g>
+
+  <!-- Vercel -->
+  <g filter="url(#nodeShadow)">
+    <rect x="486" y="632" width="228" height="96" rx="30" fill="#ffffff" stroke="#7dd3fc" stroke-width="4"/>
+    <rect x="574" y="648" width="52" height="52" rx="14" fill="#f8fafc" stroke="#dbe4ef" stroke-width="2"/>
+    <path d="M600 664 L617 692 H583 Z" fill="#111827"/>
+    <text x="600" y="722" text-anchor="middle" fill="#111827" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="850">Vercel</text>
+  </g>
+</svg>

@@ -29,7 +29,7 @@ Contracts:
 Owner surfaces:
 
 ```text
-Bear = raw capture
+Obsidian = raw capture
 Opportunity HQ = durable projects, tasks, status, Goal Horizon, Work Date, Shift, dependencies, sub-tasks, portfolio notes
 Eagle = portfolio and assets
 Raycast = external action surface at /Users/singleton23/Raycast/career-hq
@@ -40,7 +40,7 @@ Harness packet:
 
 ```text
 [lane] Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
-[owner] Bear | Opportunity HQ | Eagle | Raycast | Docs/skills
+[owner] Obsidian | Opportunity HQ | Eagle | Raycast | Docs/skills
 [intent] one plain sentence
 [shape] capture | task | sub-task | dependency | portfolio | command idea | operating rule
 [tools] smallest allowed stack
@@ -48,7 +48,7 @@ Harness packet:
 [memory] decision, evidence, remaining next action
 ```
 
-These tags are the routing grammar, not Bear tags and not a runtime format. Use
+These tags are the routing grammar, not Obsidian tags and not a runtime format. Use
 them when a request needs a clean handoff between Codex, docs, Opportunity HQ,
 Raycast, Eagle, or memory.
 

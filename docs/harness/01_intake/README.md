@@ -1,6 +1,6 @@
 # 01 Intake
 
-Owner: Bear for raw capture, Raycast/Shortcuts for action entry, Codex chat for reasoning.
+Owner: Obsidian for raw capture, Raycast/Shortcuts for action entry, Codex chat for reasoning.
 
 Allowed inputs:
 
@@ -17,7 +17,7 @@ command idea
 Allowed outputs:
 
 ```text
-Bear note
+Obsidian note
 Opportunity HQ candidate
 Raycast action request
 Eagle asset candidate

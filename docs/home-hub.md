@@ -13,7 +13,7 @@ Use it as the stable place for:
 - integration decisions
 - source repo references
 
-Do not turn every connected tool into a new source of truth. Name the system once here, then let Bear, Notion, Eagle, Raycast, and Codex serve their specific roles.
+Do not turn every connected tool into a new source of truth. Name the system once here, then let Obsidian, Notion, Eagle, Raycast, and Codex serve their specific roles.
 
 ## Home Repo
 
@@ -150,7 +150,7 @@ Daily lanes:
 ```text
 Money Clock      -> job applications, Upwork proposals, follow-ups, cash-path leads
 Offer           -> website, copy, beta offer, workflow hub, portfolio packaging
-System Cleanup  -> Bear review, Opportunity HQ cleanup, Eagle assets, commands
+System Cleanup  -> Obsidian review, Opportunity HQ cleanup, Eagle assets, commands
 ```
 
 Until income stabilizes, treat workdays like 8-10 hour shifts. Blue collar and
@@ -183,7 +183,7 @@ Role:
 - name the surface once
 - decide where an idea belongs
 - choose the canonical fields/options and next focused skill
-- keep Bear, Eagle, Opportunity HQ, Raycast, Codex, Shortcuts, LikeC4, docs,
+- keep Obsidian, Eagle, Opportunity HQ, Raycast, Codex, Shortcuts, LikeC4, docs,
   and skills from drifting
 - prevent every new idea from becoming a new folder, tag, command, or doc
 
@@ -197,62 +197,54 @@ integrations in one pass. If a surface uses stale names/options, update the
 canonical docs and skills first, then the live surface or implementation, then
 verify.
 
-### Bear
+### Obsidian _Inbox
 
 Role:
 
 - raw capture
-- low-friction mobile/desktop thinking
-- quick mobile and desktop mind dump
+- low-friction mobile and desktop thinking
+- quick notes, research links, command ideas, production workflow scratch, and business ops notes
 - temporary holding place before work becomes durable
 
-Bear should not become the durable operating system. It should catch thoughts quickly with a small topic tag set.
+Obsidian should not become the durable operating system. It should catch thoughts quickly with a small folder set and tiny templates.
 
-Core Bear tags:
-
-```text
-#inbox
-#video
-#workflow
-#website
-#commands
-#lifeops
-```
-
-Optional Bear context tags:
+Core folders:
 
 ```text
-#video/npid
-#website/npid
-#workflow/raycast
-#commands/codex
-#commands/shortcuts
-#lifeops/car-log
+_Inbox
+Command Ops
+Production Ops
+Business Ops
+Templates
 ```
 
-Use Bear's nested tags to keep context under the front-facing area. For example, use `#video/npid` for Prospect ID video portfolio or `#website/npid` when Prospect ID is supporting the website, instead of creating loose `#npid` clutter.
-
-Bear has dynamic tags, not real folders. To make the sidebar lanes exist, create tiny title-only notes where the page title and tag match:
+Templates:
 
 ```text
-inbox    -> #inbox
-video    -> #video
-workflow -> #workflow
-website  -> #website
-commands -> #commands
-lifeops  -> #lifeops
+_Inbox         -> raw / next
+Command Ops    -> tool / next
+Production Ops -> workflow / next
+Business Ops   -> thing / next
 ```
 
-`lifeops` maps to Eagle's `04 Personal Systems` folder. It is for non-primary but useful personal-system portfolio like car logs, RBT shortcuts, Raycast experiments, and small repeatable builds. Codex/system notes live under `#commands/codex`, not as a top-level Bear lane.
+Use Obsidian for raw, unclear, exploratory, reference, or "do not lose this" notes. Keep Bear as a readable archive/import source until touched notes are promoted.
 
-Do not use lifecycle tags like `#capture`, `#clarify`, `#package`, or `#ship` in Bear. Those are operating concepts, not dump tags.
+Middle-ground mapping from the old Bear lanes:
 
-Use `#commands/shortcuts` for later/passive Apple Shortcuts, share-sheet ideas,
-shell/mobile workflow experiments, and small automations that might become
-useful portfolio later. Example: a future transcript step for an existing
-Twitter/YouTube/internet-video download Shortcut. These ideas stay in Bear
-until human review gives them task weight, portfolio value, money relevance, or a
-real next action.
+```text
+inbox    -> _Inbox
+video    -> Production Ops
+workflow -> Production Ops or Command Ops
+website  -> Production Ops
+commands -> Command Ops
+lifeops  -> Business Ops
+```
+
+Job/application links go to Opportunity HQ or stay in the old Bear export until purged. Proof assets go to Eagle. Codex/system rules go to `Command Ops` first, then repo docs/skills if repeated.
+
+Do not rebuild tag sprawl in Obsidian. If a note needs date, status, follow-up, money priority, or project relation, it belongs in Opportunity HQ.
+
+Use `Command Ops` for later/passive Apple Shortcuts, share-sheet ideas, shell/mobile workflow experiments, and small automations that might become useful later. Promote them only after review.
 
 ### Notion
 
@@ -267,7 +259,7 @@ Notion answers: what is this item, where does it stand, and what happens next?
 
 Opportunity HQ owns the real queue. Use it for any item with task weight,
 money pressure, a status, a time estimate, a link, portfolio work, or a follow-up.
-Bear can still catch raw thoughts, but focused queue items should go directly
+Obsidian can still catch raw thoughts, but focused queue items should go directly
 to Notion / Opportunity HQ.
 
 ### Asana
@@ -452,7 +444,7 @@ Preferred folder structure:
 
 ```text
 Career Portfolio Library
-  00 Inbox
+  00 _Inbox
   01 Video Portfolio
   02 Workflow Portfolio
   03 Website Assets
@@ -488,18 +480,18 @@ Raycast commands should trigger known actions against known Opportunity HQ proje
 Role:
 
 - first mobile action layer
-- quick capture into Bear or Opportunity HQ
+- quick capture into Obsidian or Opportunity HQ
 - simple choose-menu prompt palette for iOS AI beta chat
 - lane-aware prompt building before deeper app integrations exist
 
 Use two mobile paths:
 
 ```text
-Quick Thought -> Bear
+Quick Thought -> Obsidian
 Log Task      -> Notion / Opportunity HQ
 ```
 
-Bear is for raw, unclear, emotional, exploratory, or "do not lose this" capture.
+Obsidian is for raw, unclear, emotional, exploratory, or "do not lose this" capture.
 Opportunity HQ is for focused queue items that need status, time, project lane,
 money priority, link, follow-up, portfolio work, or project relation.
 
@@ -521,7 +513,7 @@ Definitions:
 - Package: turn it into a reusable artifact, workflow, portfolio item, skill, page section, command, or offer component
 - Ship: publish, build, send, deploy, or archive
 
-This lifecycle can appear in docs, Notion / Opportunity HQ status fields, or planning notes. It should not become Bear tag sprawl.
+This lifecycle can appear in docs, Notion / Opportunity HQ status fields, or planning notes. It should not become Obsidian folder/tag sprawl.
 
 ## Visual Update Rule
 
@@ -542,7 +534,7 @@ or ownership, update this repo's docs and the relevant skills.
 
 ## Shared Label Direction
 
-Prefer a small shared label language across Bear, Eagle, and Notion, while respecting each app's quirks:
+Prefer a small shared label language across Obsidian, Eagle, and Notion, while respecting each app's quirks:
 
 ```text
 website
@@ -564,7 +556,7 @@ raycast
 career
 ```
 
-App quirk: Bear should usually express these as nested context tags under the front-facing area, such as `#video/npid`, `#website/npid`, `#workflow/raycast`, `#commands/codex`, or `#lifeops/car-log`. Eagle and Notion can keep plain labels as metadata because they already have folders, fields, and relations.
+App quirk: Obsidian should express these as plain note context, not a new tag tree. Eagle and Notion can keep plain labels as metadata because they already have folders, fields, and relations.
 
 This is v1. Allow up to v3 refinement, then lock and use the system instead of renaming endlessly.
 
@@ -579,8 +571,8 @@ Current local routes:
 ```text
 Eagle skill CLI route: 127.0.0.1:41596
 Opportunity HQ Raycast / Eagle API route: 127.0.0.1:41595
-Bear direct route: /Applications/Bear.app/Contents/MacOS/bearcli
-Bear MCP route: optional operator layer only
+Obsidian MCP route: https://127.0.0.1:27124/mcp with OBSIDIAN_MCP_TOKEN
+Bear archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
 Asana REST route: https://app.asana.com/api/1.0 with ASANA_ACCESS_TOKEN
 Asana MCP route: https://mcp.asana.com/v2/mcp after ASANA_CLIENT_ID/SECRET
 ```
@@ -589,20 +581,20 @@ For app integrations, prefer the most stable direct route first:
 
 ```text
 Eagle -> local HTTP API / existing direct script path
-Bear  -> bearcli first, MCP optional
+Obsidian -> Local REST API MCP for create/search/update notes
 Notion -> official API / Opportunity HQ Raycast wrapper
 Asana -> official REST API first, MCP optional
 Raycast -> local extension commands
 Apple mobile -> Shortcuts first, App Intents later
 ```
 
-Bear wrapper direction:
+Obsidian wrapper direction:
 
-- Build future custom Bear workflows through a local forked Raycast extension when the lanes are stable.
+- Build future custom Obsidian workflows through Raycast only after capture repeats.
 - Mirror the Opportunity HQ Raycast wrapper style: small command helpers that call stable local routes.
-- Prefer `bearcli` or a stable local route for dependable automation.
+- Prefer Obsidian Local REST API / Advanced URI for dependable automation.
 - Keep MCP as a useful operator/control layer, not the dependency layer.
-- Future Bear wrapper commands can create/open lane notes, append to a lane, append with nested context, search lanes, and generate small computer-specific update templates on the fly.
+- Future Obsidian wrapper commands can create/open notes, append to a folder, search notes, and apply the tiny templates.
 
 Future integration planning belongs in:
 
@@ -619,5 +611,5 @@ Local integration settings live in:
 ```
 
 This file is gitignored and should contain only machine-local integration values
-such as Bear MCP token, Asana REST token/workspace id, repo paths, and library
+such as Obsidian MCP token, Asana REST token/workspace id, repo paths, and library
 hints.

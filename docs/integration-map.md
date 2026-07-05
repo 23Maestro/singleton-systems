@@ -26,13 +26,21 @@ continuing numeric-prefix root docs.
 
 Cerebral is the brain/front-door hook for mixed Singleton Systems work. It names
 the surface, owner, canonical fields/options, and next focused skill before
-`singleton-systems`, Opportunity HQ, Bear, Eagle, Raycast, LikeC4, website,
+`singleton-systems`, Opportunity HQ, Obsidian, Eagle, Raycast, LikeC4, website,
 copy/portfolio, or other downstream skills act.
 
 Cerebral does not mutate tools by itself. It routes and aligns first; then the
 owner surface changes, and the change is verified. It should be inquisitive
 before it is corrective: ask which surface owns the work, whether the name is
 canonical, and what should be left alone before saying something is wrong.
+
+For content-reference and hook-framework inputs, keep the durable rule in
+skills, not a new database or command. `planning-idea-routing` should classify
+the reference, then `offer-proof-content` should translate it into Singleton
+Systems proof using real case studies, the current social variables
+(`platform`, `reference_set`, `direct_style`, `post_format`, `attack_type`),
+and the Psychology-Led Proof Attacks contract. Raycast may later expose a
+review action only after the workflow repeats.
 
 ## Harness V1
 
@@ -103,7 +111,7 @@ Local APIs
 Raycast Commands
 Command Layer
 Notion Surfaces
-Bear Capture
+Obsidian Capture
 Eagle Assets
 Env Vars
 Hooks
@@ -120,7 +128,10 @@ Naming Rules
 - Confirmed site copy doc: `docs/offer/confirmed-copy.md`
 - Command layer doc: `docs/commands.md`
 - Truth matrix doc: `docs/truth-matrix.md`
-- Bear role: quick capture with lean topic tags
+- Obsidian role: quick capture with lean folders and tiny templates
+- Obsidian folders: `_Inbox`, `Command Ops`, `Production Ops`, `Business Ops`,
+  `Templates`
+- Bear role: readable archive/import source only
 - Eagle role: portfolio and asset library
 - Notion / Opportunity HQ role: durable structured truth
 - Asana role: target durable Opportunity HQ project/task engine
@@ -166,7 +177,7 @@ Offer
   Website, offer copy, beta offer, portfolio packaging, and workflow-hub materials.
 
 System Cleanup
-  Bear review, Opportunity HQ cleanup, Eagle capture, commands, shortcuts, and docs.
+  Obsidian review, Opportunity HQ cleanup, Eagle capture, commands, shortcuts, and docs.
 ```
 
 Balanced lanes means all three lanes move, but `Money Clock` gets a daily floor
@@ -257,7 +268,7 @@ research, but separate today's launch dependency from later legal/admin setup.
 
 Opportunity HQ is the durable Notion queue for money
 tasks, job applications, freelance work, Singleton offer work, portfolio tasks, and
-planning. Bear only owns raw capture.
+planning. Obsidian owns raw capture.
 
 Asana is the target durable engine for this same Opportunity HQ model. Do not
 create parallel lane names during migration. Until cutover, Notion stays current
@@ -467,7 +478,7 @@ Do not make this a giant CRM. The first use case is simple:
 - make sure at least one cash-path item moves each day
 - later, use the effort estimate to build time blocks
 
-If the entry is only a raw thought, it starts in Bear. If it has task weight,
+If the entry is only a raw thought, it starts in Obsidian. If it has task weight,
 money pressure, a link, deadline, follow-up, proposal, application, portfolio value,
 or project weight, it belongs in Opportunity HQ.
 
@@ -483,7 +494,7 @@ Default effort assumptions:
   tiny capture, quick note, open/save reference, small reply
 
 15m
-  screenshot capture, simple Eagle asset, short Bear cleanup, quick follow-up
+  screenshot capture, simple Eagle asset, short Obsidian cleanup, quick follow-up
 
 30m
   job application pass, freelance proposal, resume/cover note tweak, portfolio caption set
@@ -533,7 +544,7 @@ Offer
   Website, offer, portfolio, or workflow-hub build.
 
 System Cleanup
-  Bear review, Eagle capture, Opportunity HQ cleanup, commands.
+  Obsidian review, Eagle capture, Opportunity HQ cleanup, commands.
 ```
 
 The rule is simple: do not schedule a full day of website work when there are no
@@ -544,7 +555,7 @@ Money Clock actions in motion.
 This is the official plain-English router for the whole system.
 
 It is not a database and it does not mutate tools by itself. It is the hook that
-helps Codex, Bear, Opportunity HQ, Eagle, Raycast, Apple Shortcuts, LikeC4,
+helps Codex, Obsidian, Opportunity HQ, Eagle, Raycast, Apple Shortcuts, LikeC4,
 skills, and future hooks agree on what each surface means.
 
 Working rule:
@@ -568,7 +579,7 @@ Hook rule:
 
 ```text
 If a surface drifts, update the canonical docs/skills first.
-Then update the live Notion/Raycast/Bear/Eagle/LikeC4 surface.
+Then update the live Notion/Raycast/Obsidian/Eagle/LikeC4 surface.
 Then verify the surface that users actually touch.
 ```
 
@@ -590,7 +601,7 @@ planning-idea-routing
 Its default job is to route the thought before any live surface changes:
 
 ```text
-Bear -> raw idea, link, transcript, someday thought
+Obsidian -> raw idea, link, transcript, someday thought
 Opportunity HQ -> durable task, project, time block, dependency
 Docs -> operating rule, research memo, naming decision
 Skill -> repeated reasoning contract
@@ -612,7 +623,7 @@ Current direction:
 
 ```text
 Apple Shortcuts -> choose-menu prompt palette
-Bear            -> fast mobile text capture
+Obsidian        -> fast mobile text capture
 Notion          -> durable structured destination
 Raycast         -> desktop action layer
 Codex           -> naming, implementation, and system review
@@ -645,11 +656,11 @@ mobile.
 For mobile capture, use two paths:
 
 ```text
-Quick Thought -> Bear
+Quick Thought -> Obsidian
 Log Task      -> Notion / Opportunity HQ
 ```
 
-Bear receives raw, unclear, emotional, exploratory, or "do not lose this"
+Obsidian receives raw, unclear, emotional, exploratory, or "do not lose this"
 thoughts. Opportunity HQ receives focused queue items with status, time, project
 lane, money priority, link, follow-up, portfolio work, or project relation.
 
@@ -691,16 +702,16 @@ When a task's `Project` changes, refresh the task page icon from the newly
 linked Project's icon DB source. For Cash Jobs, use custom icon `cash-job`
 (`notion://custom_emoji/a3b304a1-8d81-47f4-aea9-74ce88acc795/38e4c8bd-6c26-8079-9053-007a3a48e114`).
 
-Passive shortcut and future automation ideas should usually start in Bear. This
+Passive shortcut and future automation ideas should usually start in Obsidian. This
 includes useful but later ideas such as a mobile transcript step for an existing
 share-sheet video download Shortcut. These can become Opportunity HQ tasks only
 after human review, when they have task weight, money relevance, portfolio value, or
 a real next action.
 
-Suggested Bear lane:
+Suggested Obsidian folder:
 
 ```text
-#commands/shortcuts
+Command Ops
 ```
 
 Use this as the holding lane for later Apple Shortcuts, shell/mobile workflow
@@ -733,73 +744,66 @@ choose-menu prompt that helps put the thought in the right lane.
 ```text
 Eagle skill CLI route: 127.0.0.1:41596
 Opportunity HQ Raycast / Eagle route: 127.0.0.1:41595
-Bear direct route: /Applications/Bear.app/Contents/MacOS/bearcli
-Bear MCP route: optional operator layer only
+Obsidian MCP route: https://127.0.0.1:27124/mcp with OBSIDIAN_MCP_TOKEN
+Bear archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
 ```
 
 MCP can expose tools for operator convenience. Reliable code should call stable
 local APIs, scripts, files, or env config directly.
 
-## V1 Bear Tags
+## V1 Obsidian Capture
 
-Core tags:
-
-```text
-#inbox
-#video
-#workflow
-#website
-#commands
-#lifeops
-```
-
-Optional context tags:
+Vault:
 
 ```text
-#video/npid
-#website/npid
-#commands/codex
-#lifeops/car-log
+/Users/singleton23/Library/Mobile Documents/iCloud~md~obsidian/Documents/Singleton Systems
 ```
 
-Quick command tags:
+Folders:
 
 ```text
-#commands/karabiner
-#commands/hammerspoon
-#commands/maestro
+_Inbox
+Command Ops
+Production Ops
+Business Ops
+Templates
 ```
 
-Use Bear's nested tags for support context. The first segment should name the front-facing area; the second segment should name the support source or channel.
+Templates:
 
-Use `#inbox` for raw under-10-minute tasks or unclear captures. Do not rely on
-Bear's app-level Inbox/Notes view as a durable automation target. The explicit
-`#inbox` tag is searchable and scriptable through `bearcli`.
+```text
+_Inbox         -> raw / next
+Command Ops    -> tool / next
+Production Ops -> workflow / next
+Business Ops   -> thing / next
+```
+
+Use folders for broad shape only. Do not rebuild the old Bear tag tree inside Obsidian.
+
+Use `_Inbox` for raw under-10-minute tasks or unclear captures.
 
 Raycast is the action layer and is implied in command workflows. Do not create a
-Bear tag just to say Raycast unless the specific note is about the Raycast
+folder just to say Raycast unless the specific note is about the Raycast
 extension itself.
 
-Bear's visible folders are tags. Seed Bear with title-only notes where note title and tag match:
+Middle-ground mapping from the old Bear lanes:
 
 ```text
-inbox    -> #inbox
-video    -> #video
-workflow -> #workflow
-website  -> #website
-commands -> #commands
-lifeops  -> #lifeops
+inbox    -> _Inbox
+video    -> Production Ops
+workflow -> Production Ops or Command Ops
+website  -> Production Ops
+commands -> Command Ops
+lifeops  -> Business Ops
 ```
 
-`lifeops` maps to Eagle `04 Personal Systems`. Codex/system notes live under `#commands/codex`, not as a top-level Bear lane.
-
-Do not use `#capture`, `#clarify`, `#package`, or `#ship` as Bear tags.
+Do not use `capture`, `clarify`, `package`, or `ship` as folders or tags.
 
 ## V1 Eagle Shape
 
 ```text
 Career Portfolio Library
-  00 Inbox
+  00 _Inbox
   01 Video Portfolio
   02 Workflow Portfolio
   03 Website Assets
@@ -825,8 +829,8 @@ Use skills as narrow operating contracts, not giant memory dumps.
 singleton-systems
   Owns the business direction, offer, website copy, portfolio strategy, and cross-surface alignment.
 
-bear
-  Owns Bear capture rules, direct bearcli usage, nested tag discipline, and MCP-as-optional guidance.
+obsidian
+  Owns Obsidian capture rules, Local REST API MCP usage, Advanced URI links, and tiny templates.
 
 eagle
   Owns Eagle portfolio/assets actions through the local Eagle API CLI.
@@ -844,7 +848,7 @@ job-application-resume
   truthful bullet swaps, keywords, application positioning, resume source rules,
   rendered-copy rules, and repeated field stashing. White-collar source lives in
   `docs/resumes/white-collar_Jerami_Singleton_Resume2026.pdf`; job-specific
-  copies render to `~/Downloads`. Blue-collar resume history stays draft until
+  copies render to `~/Documents`. Blue-collar resume history stays draft until
   missing job-list fields are confirmed.
 
 cover-letter-casual
@@ -858,7 +862,7 @@ offer-proof-content
   offer-aligned content angles, captions, posts, and light schedules.
 
 cerebral-router
-  Owns first-pass routing when a thought mixes business, website, portfolio, commands, Bear, Eagle, Notion, Raycast, hooks, or skills.
+  Owns first-pass routing when a thought mixes business, website, portfolio, commands, Obsidian, Eagle, Notion, Raycast, hooks, or skills.
 
 linkedin-content-creator / instagram-curator / podcast-strategist
   Use when portfolio needs to become platform-specific content. Do not load these by default for ordinary website edits.
@@ -896,7 +900,7 @@ build-ios-apps:ios-app-intents
   Future reference for App Intents and Apple Shortcuts once mobile actions are ready to become a real app or app-facing integration.
 
 karabiner-config-migrator / hammerspoon-browser-automation / km-assembler-mode
-  Own command-layer implementation only after the command name and lane are stable in docs/Bear.
+  Own command-layer implementation only after the command name and lane are stable in docs/Obsidian.
 ```
 
 The goal is one Singleton Systems operating model with specialized skills around
@@ -934,7 +938,7 @@ Research-backed build rule:
 - Keep skills narrow and description-led so Codex can trigger the right one without loading a giant memory file.
 - Use hooks later as trusted routing/preload helpers, not hidden automation that mutates surfaces.
 - For mobile, expose only stable, common actions. Shortcuts/App Intents should come after the repeated action is clear.
-- For Bear, prefer direct app routes (`bearcli` or x-callback-url) for reliable actions; MCP stays optional.
+- For Obsidian, prefer Local REST API MCP and Advanced URI for reliable capture/open/search actions.
 
 ## Hook Queue V1
 
@@ -957,8 +961,8 @@ mentions: Eagle, portfolio, screenshot, reference, asset
 mentions: LinkedIn, Instagram, content, brand, schedule
   load: offer-proof-content, then platform skill if needed
 
-mentions: where does this go, offload, Bear, capture, route
-  load: cerebral-router, bear
+mentions: where does this go, offload, Obsidian, Bear, capture, route
+  load: cerebral-router
 
 mentions: Shortcut, Karabiner, Hammerspoon, Maestro, command
   load: cerebral-router, docs/commands.md, then exact implementation skill
@@ -1064,13 +1068,13 @@ surface ownership / app roles / repo paths / hooks / skills
   -> docs/integration-map.md, singleton-systems, backend-architect
 
 commands / shortcut layers / macro ideas
-  -> docs/commands.md, bear, raycast-extension-builder, plus the exact command skill only when building
+  -> docs/commands.md, raycast-extension-builder, plus the exact command skill only when building
 
 quick raw thought under ten minutes
-  -> Bear #inbox
+  -> Obsidian _Inbox
 
 passive shortcut idea / later automation / useful someday command
-  -> Bear #commands/shortcuts, then human review before Opportunity HQ
+  -> Obsidian Command Ops, then human review before Opportunity HQ
 
 survival job, blue collar job, white collar job, income deadline, proposal count, application, follow-up
   -> Notion / Opportunity HQ, cerebral-router, then job-application-resume, cover-letter-casual, freelance-gig-proposals, or sales-outreach
@@ -1079,25 +1083,25 @@ job lead, Upwork lead, outreach target, offer task with effort estimate
   -> Notion / Opportunity HQ, then Focus Board view if active today
 
 video portfolio
-  -> Eagle 01 Video Portfolio, Bear #video or #video/context
+  -> Eagle 01 Video Portfolio, Obsidian Production Ops
 
 repeatable workflow portfolio
-  -> Eagle 02 Workflow Portfolio, Bear #workflow or #workflow/context
+  -> Eagle 02 Workflow Portfolio, Obsidian Production Ops or Command Ops
 
 site asset or reference
-  -> Eagle 03 Website Assets, Bear #website or #website/context
+  -> Eagle 03 Website Assets, Obsidian Production Ops
 
 personal repeatable system
-  -> Eagle 04 Personal Systems, Bear #lifeops or #lifeops/context
+  -> Eagle 04 Personal Systems, Obsidian Business Ops
 
 Codex/workspace/system idea
-  -> Bear #commands/codex, then docs/04 if it becomes durable
+  -> Obsidian Command Ops, then docs/skills if it becomes durable
 ```
 
 Do not force every thought into Notion. Notion is for durable queue work after
 the thought has task, money, portfolio, link, follow-up, or project weight.
 
-Exception: survival-critical work should not sit only in Bear. If it affects
+Exception: survival-critical work should not sit only in Obsidian. If it affects
 income timing, follow-up, applications, proposals, or end-of-month execution, it
 needs a durable Opportunity HQ task.
 
@@ -1142,7 +1146,7 @@ Review note
 ```
 
 Use this for Upwork consultations, website sections, workflow buildouts,
-portfolio-capture tasks, and other items that need more than quick Bear capture.
+portfolio-capture tasks, and other items that need more than quick Obsidian capture.
 The model is: one clean page, a small task list, and enough context to return
 later without rethinking the whole idea.
 
@@ -1165,8 +1169,8 @@ before portfolio/library work
 before Opportunity HQ command work
   load raycast-extension-builder and singleton-systems.
 
-before Bear capture work
-  load bear and singleton-systems.
+before Obsidian capture work
+  load cerebral-router and singleton-systems.
 ```
 
 Do not make hooks noisy. The hook should point to the right operating contract,
@@ -1174,7 +1178,7 @@ not dump every connected surface into every turn.
 
 Singleton Systems now has a small project hook in `.codex/hooks.json`.
 Its job is to keep Codex pointed at the ecosystem map and command map before
-work drifts across Bear, Opportunity HQ / Notion, Eagle, Raycast, Apple
+work drifts across Obsidian, Opportunity HQ / Notion, Eagle, Raycast, Apple
 Shortcuts, LikeC4, docs, skills, or the public site.
 
 The hook should stay lean:
@@ -1193,8 +1197,8 @@ Future hook candidates:
 on website copy work
   point to confirmed copy and singleton-systems skill.
 
-on Bear/Opportunity HQ integration work
-  point to Bear skill, integration map, and command doc.
+on Obsidian/Opportunity HQ integration work
+  point to integration map and command doc.
 
 on command-layer work
   point to docs/commands.md and the exact implementation skill.
@@ -1219,7 +1223,7 @@ Use Scout Prep visual-map rules as the design reference:
 Singleton Systems map buckets should start with:
 
 ```text
-Thought Capture -> Bear
+Thought Capture -> Obsidian
 Durable Structure -> Notion / Opportunity HQ
 Portfolio Assets -> Eagle
 Actions -> Raycast
@@ -1258,18 +1262,15 @@ shape repeats. The first version should be a disposable local HTML file.
 
 ## App Quirks To Respect
 
-### Bear
+### Obsidian
 
-- Bear has dynamic tags, not folders.
-- Bear's sidebar folder tree is created by tags and nested tags.
-- Keep core tags lean.
-- Use nested tags for context, such as `#video/npid`, `#website/npid`, `#workflow/raycast`, `#commands/codex`, or `#lifeops/car-log`.
-- Use `#commands/codex` as the nested lane for Codex-system planning docs.
-- Do not use lifecycle tags as Bear tags.
-- Use `bearcli` directly for reliable local automation.
+- Obsidian has real folders; keep them broad and few.
+- Use `_Inbox`, `Command Ops`, `Production Ops`, `Business Ops`, and `Templates`.
+- Keep templates tiny: `raw/next`, `tool/next`, `workflow/next`, and `thing/next`.
+- Do not use lifecycle tags as Obsidian tags or folders.
+- Use Local REST API MCP for create/search/update and Advanced URI for opening notes.
 - Do not create a global Singleton Systems dump note by default.
-- Future Bear automation should be wrapped in the local forked Raycast extension, similar to Opportunity HQ's Notion/Eagle wrappers, once the tag lanes are stable.
-- Future Bear wrapper commands may generate small computer-specific update templates on the fly, but template creation should stay lane-based and explicit.
+- Bear remains a readable archive/import source until migrated notes are touched.
 
 ### Eagle
 
@@ -1284,12 +1285,12 @@ shape repeats. The first version should be a disposable local HTML file.
 - Opportunity HQ is the durable tasks/projects model.
 - The local Raycast extension folder may still be named `career-hq` for
   continuity, but visible command language should say Opportunity HQ.
-- Status fields can use lifecycle concepts, but Bear should not.
+- Status fields can use lifecycle concepts, but Obsidian should not.
 - Use `In Motion` as active-work language.
 - If a capture becomes a real initiative, Opportunity HQ should get a project
   plus related tasks instead of one loose note.
 - If a capture affects the Money Clock, Opportunity HQ should get at least a
-  small task so it does not disappear inside Bear.
+  small task so it does not disappear inside Obsidian.
 
 ### Raycast
 
@@ -1306,7 +1307,7 @@ shape repeats. The first version should be a disposable local HTML file.
 
 ## Open Later
 
-- Bear MCP config and direct API wrapper shape
+- Obsidian MCP and Advanced URI wrapper shape
 - Opportunity HQ Raycast command mapping after schema stabilization
 - Notion Opportunity HQ schema alignment
 - Tally intake form shape and MCP/operator route
