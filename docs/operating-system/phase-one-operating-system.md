@@ -146,7 +146,7 @@ Career HQ / Notion task template:
 6. Next review point
 
 Use this pattern when a Codex or mobile Shortcut capture should become a real
-Career HQ item instead of staying in Bear.
+Career HQ item instead of staying in Obsidian.
 
 Use `sales-outreach` for:
 

@@ -1,6 +1,6 @@
 # Commands
 
-Updated: 2026-06-22
+Updated: 2026-07-05
 
 ## Purpose
 
@@ -15,16 +15,17 @@ eventually feel like one cohesive system instead of a pile of clever one-offs.
 Commands are the hands of the system.
 
 ```text
-Obsidian  -> where the thought lands
-Raycast   -> where the action starts
+Obsidian  -> raw quick capture only
+Opportunity HQ / Notion -> durable task and job-hunt state
+Raycast   -> desktop action surface
 Karabiner -> keyboard layers and mode switches
 Hammerspoon -> window clicks, app glue, and Mac quirks
 Keyboard Maestro -> durable macros and multi-step automations
-Apple Shortcuts -> mobile choose-menu prompt palette
+Apple Shortcuts -> mobile/share-sheet action surface
 Codex     -> helps name, inspect, and build the next version
 ```
 
-Commands should support the Money Clock without becoming another planning app.
+Commands should support the work without becoming another planning app.
 The command layer should make it easy to create, open, update, clarify, rewrite,
 and route work in the right surface.
 
@@ -50,103 +51,41 @@ Keyboard Maestro app data:
 /Users/singleton23/Library/Application Support/Keyboard Maestro
 ```
 
-## Desired Command Shape
+## Current Command Split
 
-Keep the naming close to the Obsidian folders and Eagle folders:
+Use the owner surface as the first naming check:
 
 ```text
-inbox
-command-ops
-production-ops
-business-ops
-money-clock
-plan-today
-log-opportunity-task
-capture-portfolio-asset
-update-opportunity-task
+Raw thought / unclear note      -> Obsidian
+Job hunt / task-shaped capture  -> Opportunity HQ / Notion
+Proof or asset capture          -> Eagle
+Desktop action                  -> Raycast
+Mobile/share-sheet action       -> Apple Shortcuts
+Reasoning or cleanup            -> Codex Assist after review
 ```
 
-If a command idea does not fit one of these lanes, it should probably stay as a
-raw thought until it is clearer.
+Do not name command lanes after Obsidian folders unless the command really writes
+raw notes into Obsidian. Job-search and task-shaped flows should use Opportunity
+HQ project lanes, not Obsidian folder names.
 
-## Quick Task Hubs
-
-Some command ideas are not portfolio assets and do not need Eagle-style folders.
-They are small workflow helpers for personal operating friction.
-
-Use the Obsidian folder name once, then let the command tools point at that same lane.
+Current command names should stay plain:
 
 ```text
-Obsidian folder/note -> quick capture hub
-Raycast            -> launcher and wrapper
-Karabiner          -> keyboard layer
-Hammerspoon        -> window/click/app glue
-Keyboard Maestro   -> durable repeated macro
-```
-
-This is the model for future personal workflow commands:
-
-```text
-inbox
-command-ops
-production-ops
-business-ops
-```
-
-The important part is the name. Do not make separate lane names for the same
-idea in Obsidian, Raycast, Karabiner, Hammerspoon, and Keyboard Maestro. Name the
-workflow once, then let each tool handle its role.
-
-Raycast is implied as the launcher/wrapper. Do not create an Obsidian folder just to
-say Raycast unless the note is specifically about the Raycast extension.
-
-Use `inbox` for raw under-10-minute tasks or unclear captures. If choosing the
-right lane takes more than a few seconds, put it in `inbox` and clean it later.
-
-Pending examples:
-
-```text
-Obsidian capture layer
-Opportunity HQ Raycast command layer
-Money Clock check-in
 Log Opportunity Task
-Suggest Focus Blocks
 Update Opportunity Task
-Car inventory/log command
-RBT shortcut/support command
-Screenshot/PDF review command
-Window click/focus helper
+Capture Portfolio Asset
+Open Opportunity HQ
+Notion Job Hunt Start
 ```
 
-These can start as Obsidian notes or Raycast commands. Only promote them into
-Karabiner, Hammerspoon, or Keyboard Maestro after the repeated action is obvious.
+Planning the day belongs in Codex + Opportunity HQ review. Raycast and Apple
+Shortcuts should trigger capture/update actions against known tasks and project
+lanes; they should not become the planning brain.
 
 ## Mobile Command Layer
 
-Apple Shortcuts is the first mobile command layer. The immediate beta is a
-choose-menu prompt palette for iOS AI beta chat.
-
-Use it for:
-
-```text
-choose an Obsidian folder
-paste or dictate the raw thought
-build a focused AI chat prompt
-ask for the next small action
-keep the lane/tag language stable
-```
-
-First menu:
-
-```text
-_Inbox
-Command Ops
-Production Ops
-Business Ops
-```
-
-The prompt should ask the AI chat to clarify the thought, keep it aligned with
-the selected lane, and avoid inventing new tags unless the user explicitly asks.
+Apple Shortcuts is the first mobile/share-sheet action layer. It currently has
+two different jobs, and they should not be mixed:
 
 Use two mobile capture paths:
 
@@ -159,10 +98,42 @@ Obsidian is for raw, unclear, emotional, exploratory, or "do not lose this"
 thoughts. Opportunity HQ is for focused queue items with status, time, project
 lane, money priority, link, follow-up, portfolio work, or project relation.
 
-Passive shortcut ideas belong in Obsidian first, especially later Apple Shortcuts,
-shell/mobile experiments, share-sheet ideas, and small automations that might
-become real commands someday. Use `Command Ops` for these. Promote them to
-Opportunity HQ only after human review.
+The screenshot with `Select Project`, `Cash Jobs`, and `Career Jobs` is the
+Notion / Opportunity HQ job-hunt logging shortcut. It is not Bear capture and it
+is not an Obsidian folder picker.
+
+Passive shortcut ideas can still be captured as raw notes, but working shortcuts
+should be documented by the action they perform and the owner surface they write
+to.
+
+## Mobile + Desktop Unison
+
+Mobile and desktop should use the same owner names and fields. The device only
+changes the trigger.
+
+```text
+Phone / Share Sheet -> quick capture or job link intake
+Mac / Raycast       -> review, update, open, and repeat actions
+Codex Assist        -> cleanup, routing, drafting, and review
+Owner surface       -> Obsidian, Opportunity HQ, or Eagle
+```
+
+For Opportunity HQ work, both mobile Shortcuts and desktop Raycast should speak
+the same small field language:
+
+```text
+Task
+Link
+Project
+Status
+Duration
+Work Date
+Money Priority
+```
+
+Do not create mobile-only lane names, Obsidian folder aliases, or Raycast-only
+status names. If a shortcut writes `Cash Jobs`, `Career Jobs`, `Today`, or
+`Queued`, those names should match Opportunity HQ.
 
 Shortcut help has two modes:
 
@@ -222,8 +193,8 @@ Before replacing a working mobile Shortcut, capture the existing Shortcut
 exactly from screenshots. Do not design the Obsidian or Notion variant from
 memory.
 
-Use this for the old Bear inbox shortcut, Obsidian `_Inbox` replacement, and
-Notion / Opportunity HQ logging shortcut:
+Use this for Notion / Opportunity HQ logging shortcuts and any Obsidian
+raw-capture replacement:
 
 ```text
 1. Screenshot every visible block from top to bottom.
@@ -236,28 +207,96 @@ Notion / Opportunity HQ logging shortcut:
 Replacement direction:
 
 ```text
-Bear inbox shortcut -> Obsidian `_Inbox` via Advanced URI first
-Raw thought         -> Obsidian
-Task/log/status     -> Notion / Opportunity HQ
-Credential storage  -> review before Data Jar, Shortcuts dictionary, or app token storage
+Notion Job Hunt Start -> Opportunity HQ / Notion
+Raw thought           -> Obsidian
+Credential storage    -> review before Data Jar, Shortcuts dictionary, or app token storage
 ```
 
-For Notion capture, do not lock credentials into a Shortcut until the logging
-shape is stable. If credentials are needed, review the smallest storage option
-first and prefer a revocable token with the narrowest useful scope.
+### Notion Job Hunt Start
 
-Do not start with a custom mobile app. If a Shortcut becomes repeated and
-important, it can later become:
+The current screenshots show the `Notion Job Hunt Start` Apple Shortcut. This
+is an Opportunity HQ / Notion task creation shortcut for job-search links from
+the share sheet.
+
+Captured working shape:
 
 ```text
-Raycast command on desktop
-Obsidian MCP / Advanced URI wrapper
-Notion / Opportunity HQ action
-App Intent / App Shortcut
+Receive Apps and 18 more from Share Sheet
+If no input: Continue
+Get URLs from Shortcut Input
+Get first item from URLs
+Get name of Shortcut Input
+Get first item from Name
 ```
 
-App Intents are future-facing. They should expose stable actions after the
-workflow names are already clear.
+The shortcut then asks for the Opportunity HQ lane:
+
+```text
+Choose from menu: Select Project
+  Cash Jobs
+  Career Jobs
+
+Cash Jobs branch:
+  Text = [Cash Jobs project id]
+  Set variable project_id to Text
+
+Career Jobs branch:
+  Text = [Career Jobs project id]
+  Set variable project_id to Text
+```
+
+The shortcut then asks for initial task status:
+
+```text
+Choose from menu: Select Status
+  Today
+  Queued
+
+Today branch:
+  Text = Today
+  Current Date
+  Format Date
+  Get first item from Formatted Date
+  Text = formatted date
+  Set variable work_date to Text
+
+Queued branch:
+  Text = Queued
+```
+
+If the status menu result is `Today`, the Notion page create payload includes
+`Work Date` set to the current formatted date. Otherwise it creates the page
+without a work date.
+
+The Notion API write is:
+
+```text
+POST https://api.notion.com/v1/pages
+
+Headers:
+  Notion-Version: 2026-03-11
+  Content-Type: application/json
+  Authorization: Bearer [token]
+
+Request body:
+  parent.data_source_id = [Opportunity Tasks data source id]
+  properties.Status.status.name = [Menu Result]
+  properties.Task.title[0].text.content = [shared item name]
+  properties.Link.url = [shared URL]
+  properties.Project.relation[0].id = [project_id]
+  properties.Work Date.date.start = [work_date] when status is Today
+  properties.Money Priority.select.name = Critical
+  properties.Duration.select.name = 30m
+```
+
+This shortcut does not plan the day. It creates a job-hunt Opportunity Task from
+a shared link, assigns it to `Cash Jobs` or `Career Jobs`, and marks it `Today`
+or `Queued`. Any broader daily planning belongs in Codex + Opportunity HQ
+review after capture.
+
+Do not lock new credentials, project IDs, or data source IDs into a replacement
+shortcut without first verifying the live Notion surface and using the smallest
+revocable token scope available.
 
 ## Cerebral Command Rule
 
@@ -273,118 +312,21 @@ Is it repeated enough to earn a command?
 Only after those questions are obvious should the command move into Raycast,
 Karabiner, Hammerspoon, Keyboard Maestro, or Apple Shortcuts.
 
-## Money Clock Commands
+## Command Growth Rule
 
-These are future commands, not implementation requirements yet:
-
-```text
-Money Clock Check-In
-  Ask what job, proposal, application, or follow-up action has been logged today.
-
-Goal Check-In
-  Ask weekly count/result questions, then return one or two daily implications.
-  Start as local prompt/cache if needed; do not create a new database first.
-
-Log Opportunity Task
-  Create a lean Opportunity HQ task with project, status, time, money priority,
-  link/notes, and the linked project's icon DB source.
-
-Update Opportunity Task
-  Update status, notes, portfolio link, or project on an existing Opportunity HQ
-  task. When the project changes, refresh the task icon from the new project's
-  icon DB source.
-
-Export Focus Blocks
-  Codex-owned manual run: read approved Opportunity HQ tasks, generate a small
-  `.ics` file, copy the plain-text summary, then ask before writing Work Date /
-  Shift back to Notion.
-```
-
-The old Prospect Pipeline calendar exporter is the reference pattern: analyze a
-real work queue, estimate blocks, then export `.ics` into Downloads. Do not use
-Raycast or AppleScript as the planning owner.
-
-## Duration-Aware Commands
-
-These are pending command ideas for the Money Clock layer:
+Start with the smallest action surface that fits:
 
 ```text
-Log Opportunity
-  Create a lean Opportunity HQ item with project, status, time, money priority,
-  link/notes, and the linked project's icon DB source.
-
-Estimate Next Move
-  Apply the Duration Key to an Obsidian capture, Opportunity HQ task, or portfolio task.
-
-Suggest Focus Blocks
-  Codex groups approved Opportunity HQ work into Money Clock, Offer, and
-  System Cleanup blocks for review.
+Apple Shortcuts -> mobile/share-sheet capture
+Raycast         -> desktop command UI and hotkeys
+Codex Assist    -> reviewed text/routing help
+Hammerspoon     -> Mac window/app quirks
+Keyboard Maestro -> repeated multi-app desktop macro
+Karabiner       -> keyboard layer only after the action is stable
 ```
 
-Use rough effort buckets, not fake precision:
-
-```text
-5m    quick capture, reply, or tiny cleanup
-15m   screenshot, Eagle asset, short follow-up, small portfolio note
-30m   job application, freelance proposal, resume tweak, cover note
-60m   focused page section, portfolio package, consultation block
-2h    website section build, grouped portfolio capture, workflow documentation
-4h+   portfolio video, full page pass, larger system build
-```
-
-The command should help the user see the real size of the day before hyperfocus
-takes over.
-
-## Examples To Keep In Mind
-
-### Obsidian Capture Layer
-
-When capturing in Obsidian, a future Raycast or Shortcut layer could make common
-actions feel instant:
-
-```text
-capture into _Inbox
-append to Command Ops
-open Production Ops
-open Business Ops
-send selected text to Raycast command
-```
-
-This should stay simple. The shortcut should help the thought land, not force a
-big taxonomy decision.
-
-### Hammerspoon Quirk Layer
-
-Use Hammerspoon for odd Mac behavior that is more about windows, clicks, focus,
-or UI glue than durable business logic.
-
-Examples:
-
-```text
-focus Obsidian capture window
-move a floating utility window
-click a stubborn UI control
-route a browser/tool window to the right place
-```
-
-Hammerspoon should solve Mac friction. It should not become the main system of
-record.
-
-### Keyboard Maestro Durable Macro Layer
-
-Use Keyboard Maestro when a repeated desktop workflow has enough shape to be a
-real macro.
-
-Examples:
-
-```text
-export a portfolio asset
-prepare a repeated message
-run a multi-app capture flow
-package a screenshot or PDF review
-```
-
-Keyboard Maestro is for useful repeatability after the workflow is obvious.
+Do not promote an idea into Hammerspoon, Keyboard Maestro, or Karabiner until the
+same action has repeated enough to make the extra layer worth it.
 
 ## Naming Rule
 
@@ -402,10 +344,10 @@ Better:
 
 ```text
 Open Opportunity HQ
-Capture Website Portfolio
-Append to commands/codex
-Create Workflow Note
-Open Video Portfolio Folder
+Notion Job Hunt Start
+Log Opportunity Task
+Update Opportunity Task
+Capture Portfolio Asset
 ```
 
 The action name should say what it does and where it belongs.
@@ -415,8 +357,7 @@ The action name should say what it does and where it belongs.
 - Review old Prospect ID leader-key commands and retire what no longer belongs.
 - Replace former Prospect ID command muscle memory with Opportunity HQ /
   Singleton Systems commands.
-- Decide which commands belong in Raycast first, then only promote stable ones
-  into Karabiner, Hammerspoon, or Keyboard Maestro.
-- Build future shortcuts around the same folders used by Obsidian and Eagle.
+- Keep mobile Shortcuts and desktop Raycast aligned to the same owner names,
+  fields, and statuses.
 - Keep this cerebral, but lean: name it once, test it, then decide if it earns a
   permanent shortcut.

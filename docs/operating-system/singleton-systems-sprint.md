@@ -4,7 +4,7 @@ Updated: 2026-06-22
 
 ## Big Idea
 
-Singleton Systems needs one simple operating map. The website, Bear, Eagle,
+Singleton Systems needs one simple operating map. The website, Obsidian, Eagle,
 Notion, Raycast, and Codex skills should all point at the same project lanes instead
 of creating a new naming system every time a good idea shows up.
 
@@ -30,7 +30,7 @@ make every node mean one thing. If a map starts feeling like a mural, split it.
 ## The App Jobs
 
 ```text
-Bear       -> quick capture lanes
+Obsidian   -> quick capture folders
 Eagle      -> portfolio and visual assets
 Notion     -> durable structure and bigger task surface
 Raycast    -> action buttons and shortcuts
@@ -40,32 +40,29 @@ Skills     -> focused helpers for the exact lane being worked
 Hooks      -> later reminders that load the right context automatically
 ```
 
-Bear folders are tags. The Bear lanes are:
+Obsidian has real folders. The active capture folders are:
 
 ```text
-inbox
-video
-workflow
-website
-commands
-lifeops
+_Inbox
+Command Ops
+Production Ops
+Business Ops
+Templates
 ```
 
-`lifeops` is the Bear version of Eagle's `04 Personal Systems`.
+`Business Ops` is the Obsidian lane for personal-system and business-operation thoughts.
 
-`commands/codex` is the nested Bear lane for planning docs that help Codex
+`Command Ops` is the Obsidian lane for planning docs that help Codex
 understand the whole Singleton Systems setup.
 
 The first mobile beta is not a custom app. It is an Apple Shortcuts choose menu
-that uses the Bear lanes to build focused prompts for iOS AI beta chat:
+that uses the Obsidian folders to build focused prompts for iOS AI beta chat:
 
 ```text
-inbox
-video
-workflow
-website
-commands
-lifeops
+_Inbox
+Command Ops
+Production Ops
+Business Ops
 ```
 
 The shortcut should help clarify a raw thought, keep it in the selected lane,
@@ -76,7 +73,7 @@ and suggest the next small action without inventing new tags.
 - `singleton-systems` is the current home hub.
 - `singleton-systems` is the repo/folder name going forward.
 - Eagle has outcome folders, not source folders.
-- Bear has lean tag lanes, not a giant dump page.
+- Obsidian has lean folders, not a rebuilt Bear tag tree.
 - Notion / Career HQ holds durable structure.
 - Raycast is the action layer.
 - MCP is useful for operators, but stable code should use local APIs, files,
@@ -84,12 +81,12 @@ and suggest the next small action without inventing new tags.
 
 ## What Is Pending
 
-- Build a Bear Raycast wrapper similar to Career HQ's Notion/Eagle wrappers.
+- Build future Obsidian wrappers only after capture repeats enough to justify them.
 - Add small Codex hooks only when they reduce drift.
 - Build the Singleton Systems LikeC4-style map.
 - Reference Prospect Pipeline for source-of-truth discipline, not old company
   language.
-- Use content, outreach, LinkedIn, Instagram, podcast, Eagle, Bear, and
+- Use content, outreach, LinkedIn, Instagram, podcast, Eagle, Obsidian, and
   Singleton Systems skills only when the task actually needs them.
 
 ## Mini-Project Setup Sprint
@@ -109,7 +106,7 @@ The public promise is workflow cleanup for operators and small teams. Video
 still matters because it gives the offer portfolio: course work, content delivery,
 notes/review workflows, and asset handoffs. Underneath that, the system should
 keep collecting portfolio that the same brain can clean up repeated work anywhere:
-project status, follow-up flows, Raycast commands, Bear capture, Eagle portfolio,
+project status, follow-up flows, Raycast commands, Obsidian capture, Eagle portfolio,
 Notion tasks, and small personal systems.
 
 The sprint is not to overbuild. The sprint is to keep the names stable, keep the

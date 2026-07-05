@@ -10,7 +10,7 @@ project/task tracking, without changing the operating model.
 ```text
 Notion / Opportunity HQ = current durable truth
 Asana = target durable truth
-Bear = raw capture
+Obsidian = raw capture
 Eagle = portfolio/assets
 Raycast = action layer
 Codex = planning, cleanup, and reviewed mutations

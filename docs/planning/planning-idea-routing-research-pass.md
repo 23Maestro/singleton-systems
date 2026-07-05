@@ -433,7 +433,7 @@ Time slots as containers
 Singleton translation:
 
 ```text
-Bear = inbox
+Obsidian = inbox
 Opportunity HQ = planned work and durable projects
 Work Date = scheduled completion date
 Block = rough time slot
@@ -464,7 +464,7 @@ Singleton translation:
 ```text
 Today is not the same as Later.
 Queued is not the same as Parked.
-Bear is not the durable planner.
+Obsidian is not the durable planner.
 Opportunity HQ must show the next move, not just the project name.
 ```
 
@@ -519,7 +519,7 @@ Singleton translation:
 ```text
 Draw.io / LikeC4 ideas -> singleton-visualizer
 Ponytail ideas -> already active as the build restraint
-Repo ideas -> Bear first, then research memo or skill only if repeated
+Repo ideas -> Obsidian first, then research memo or skill only if repeated
 ```
 
 ## Content And Source Scouting Lane
@@ -540,7 +540,7 @@ AI workflow examples
 Default route:
 
 ```text
-Raw link or transcript -> Bear
+Raw link or transcript -> Obsidian
 Repeated pattern worth studying -> research memo
 Portfolio-backed post idea -> offer-proof-content
 Platform-specific post -> LinkedIn / Instagram skill, or content-creator for X/TikTok until dedicated skills exist
@@ -579,7 +579,7 @@ Routing:
 Good lead -> Opportunity HQ task under Singleton portfolio + website
 Offer/social angle -> offer-proof-content
 Outreach copy -> sales-outreach
-Raw maybe -> Bear
+Raw maybe -> Obsidian
 ```
 
 Task rule:

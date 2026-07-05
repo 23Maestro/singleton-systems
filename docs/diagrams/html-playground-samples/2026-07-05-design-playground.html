@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Design Playground</title>
+  <style>
+    :root { color-scheme: dark; --bg: #101216; --panel: #171b22; --panel-2: #202631; --text: #edf1f7; --muted: #a9b4c3; --line: #303846; --accent: #5ee0a0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 20% 0%, #1d2632, transparent 30%), var(--bg); color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input, select { font: inherit; }
+    main { min-height: 100vh; display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; gap: 16px; padding: 18px; }
+    section { border: 1px solid var(--line); background: color-mix(in srgb, var(--panel) 90%, black); border-radius: 8px; }
+    [data-controls-panel] { padding: 16px; overflow: auto; }
+    [data-preview-panel] { min-width: 0; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+    [data-prompt-panel] { grid-column: 1 / -1; padding: 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; }
+    h1 { margin: 0 0 4px; font-size: clamp(24px, 3vw, 36px); letter-spacing: 0; }
+    h2 { margin: 0 0 10px; font-size: 14px; color: var(--muted); font-weight: 600; letter-spacing: 0; text-transform: uppercase; }
+    p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0; }
+    .preset-grid button, [data-copy-prompt] { min-height: 38px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--text); cursor: pointer; }
+    .preset-grid button.active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+    label { display: grid; gap: 8px; margin: 14px 0; color: var(--text); font-size: 14px; }
+    input, select { width: 100%; border: 1px solid var(--line); border-radius: 6px; background: #10141b; color: var(--text); padding: 8px; }
+    input[type="range"] { padding: 0; accent-color: var(--accent); }
+    [data-preview] { min-height: 420px; border: 1px solid var(--line); border-radius: 8px; background: linear-gradient(145deg, #141922, #0e1117); padding: 18px; overflow: hidden; }
+    .preview-shell { display: grid; gap: 14px; height: 100%; align-content: start; }
+    .hero-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .badge { color: #0b1016; background: var(--accent); border-radius: 999px; padding: 5px 10px; font-size: 13px; font-weight: 700; }
+    .cards { display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: var(--gap); }
+    .card { min-width: 0; border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); background: color-mix(in srgb, var(--panel-2) 80%, var(--accent)); border-radius: var(--radius); padding: var(--pad); }
+    .card strong { display: block; margin-bottom: 6px; overflow-wrap: anywhere; }
+    .card span { color: var(--muted); font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+    pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); line-height: 1.45; }
+    [data-copy-prompt] { padding: 0 14px; white-space: nowrap; }
+    @media (max-width: 780px) {
+      main { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding: 12px; }
+      [data-prompt-panel] { grid-column: 1; grid-template-columns: 1fr; }
+      [data-preview] { min-height: 320px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main data-playground data-playground-lane="design-playground">
+  <section data-controls-panel>
+    <h1>Design Playground</h1>
+    <p>Tune a work-surface card and copy the direction.</p>
+    <div class="preset-grid" aria-label="Presets">
+      <button type="button" data-preset="balanced" data-preset-index="0">Balanced</button><button type="button" data-preset="compact" data-preset-index="1">Compact</button><button type="button" data-preset="review" data-preset-index="2">Review</button><button type="button" data-preset="quiet" data-preset-index="3">Quiet</button>
+    </div>
+    <h2>Controls</h2>
+    <label>Density<input data-control="density" type="range" min="1" max="3" step="1"></label><label>Accent<select data-control="accent"><option value="green">green</option><option value="blue">blue</option><option value="amber">amber</option><option value="slate">slate</option></select></label><label>Focus<select data-control="focus"><option value="scan">scan</option><option value="speed">speed</option><option value="detail">detail</option><option value="calm">calm</option></select></label>
+  </section>
+  <section data-preview-panel>
+    <h2>Live Preview</h2>
+    <div data-preview aria-live="polite"></div>
+  </section>
+  <section data-prompt-panel>
+    <pre data-prompt-output></pre>
+    <button type="button" data-copy-prompt>Copy Prompt</button>
+  </section>
+</main>
+<script>
+const defaults = {"density":2,"accent":"green","focus":"scan"};
+const state = { ...defaults };
+const presets = [{"name":"Balanced","values":{"density":2,"accent":"green","focus":"scan"}},{"name":"Compact","values":{"density":1,"accent":"blue","focus":"speed"}},{"name":"Review","values":{"density":3,"accent":"amber","focus":"detail"}},{"name":"Quiet","values":{"density":2,"accent":"slate","focus":"calm"}}];
+const items = ["Task header","Primary action","Evidence row","Prompt drawer"];
+const accentMap = {"amber":"#f2b84b","blue":"#6aa8ff","green":"#5ee0a0","slate":"#a9b4c3"};
+const promptOutput = document.querySelector("[data-prompt-output]");
+const copyButton = document.querySelector("[data-copy-prompt]");
+
+function renderControls() {
+  document.documentElement.style.setProperty("--accent", accentMap[state.accent] || accentMap.blue);
+  document.querySelectorAll("[data-control]").forEach((control) => {
+    control.value = state[control.dataset.control];
+  });
+  document.querySelectorAll("[data-preset]").forEach((button, index) => {
+    button.classList.toggle("active", JSON.stringify(presets[index].values) === JSON.stringify(state));
+  });
+}
+
+function renderPreview() {
+  const preview = document.querySelector("[data-preview]");
+  const density = Number(state.density);
+  preview.style.setProperty("--columns", String(Math.min(3, Math.max(1, density))));
+  preview.style.setProperty("--gap", density === 1 ? "10px" : density === 2 ? "14px" : "18px");
+  preview.style.setProperty("--pad", density === 1 ? "12px" : density === 2 ? "16px" : "22px");
+  preview.style.setProperty("--radius", density === 1 ? "4px" : density === 2 ? "7px" : "8px");
+  const visible = items.slice(0, density + 1);
+  preview.innerHTML = '<div class="preview-shell">' +
+    '<div class="hero-row"><div><h1>Design Playground</h1><p>Tune a work-surface card and copy the direction.</p></div><span class="badge">' + state.focus + '</span></div>' +
+    '<div class="cards">' + visible.map((item, index) => '<article class="card"><strong>' + item + '</strong><span>' + describeItem(item, index) + '</span></article>').join('') + '</div>' +
+    '</div>';
+}
+
+function describeItem(item, index) {
+  const tone = state.accent === "amber" ? "Review this with caution." : state.accent === "green" ? "Treat this as approved direction." : state.accent === "slate" ? "Keep this quiet and structural." : "Use this as the active focus.";
+  return tone + " " + item + " is shown for " + state.focus + ".";
+}
+
+function updatePrompt() {
+  const parts = [];
+  if (Number(state.density) !== Number(defaults.density)) {
+    parts.push("show " + (state.density === "1" || state.density === 1 ? "a compact" : "a more detailed") + " preview");
+  }
+  if (state.accent !== defaults.accent) {
+    parts.push("use the " + state.accent + " emphasis");
+  }
+  if (state.focus !== defaults.focus) {
+    parts.push("focus on " + state.focus);
+  }
+  promptOutput.textContent = parts.length
+    ? "For the Design Playground, " + parts.join(", ") + ". Keep the output as a single self-contained playground with controls, live preview, presets, and copyable prompt text."
+    : "Keep the balanced Design Playground default: controls on the left, live preview on the right, useful presets, and copyable prompt output.";
+}
+
+function updateAll() {
+  renderControls();
+  renderPreview();
+  updatePrompt();
+}
+
+document.querySelectorAll("[data-control]").forEach((control) => {
+  control.addEventListener("input", () => {
+    state[control.dataset.control] = control.value;
+    updateAll();
+  });
+  control.addEventListener("change", () => {
+    state[control.dataset.control] = control.value;
+    updateAll();
+  });
+});
+
+document.querySelectorAll("[data-preset]").forEach((button) => {
+  button.addEventListener("click", () => {
+    Object.assign(state, presets[Number(button.dataset.presetIndex)].values);
+    updateAll();
+  });
+});
+
+copyButton.addEventListener("click", async () => {
+  const text = promptOutput.textContent.trim();
+  try {
+    await navigator.clipboard?.writeText(text);
+  } catch (error) {
+    window.__lastCopyText = text;
+  }
+  copyButton.textContent = "Copied";
+  copyButton.dataset.copied = "true";
+  setTimeout(() => { copyButton.textContent = "Copy Prompt"; }, 1200);
+});
+
+updateAll();
+</script>
+</body>
+</html>

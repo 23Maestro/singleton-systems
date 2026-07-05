@@ -12,14 +12,14 @@ specification {
 model {
   operator = person 'Operator' {
     description """
-    The working user. Uses mobile, desktop, Raycast, Codex, Notion, Bear, and
+    The working user. Uses mobile, desktop, Raycast, Codex, Notion, Obsidian, and
     Eagle to move job search, Upwork, Singleton offer, and portfolio work without
     repeatedly deciding where each item belongs.
     """
   }
 
   capture = bucket 'Capture Surfaces' {
-    bear = document 'Bear Inbox' {
+    obsidian = document 'Obsidian _Inbox' {
       description """
       Raw capture only. Use for unclear thoughts, offload notes, passive
       shortcut ideas, and anything that is not yet a real task. Promote only
@@ -163,9 +163,9 @@ model {
     }
   }
 
-  operator -> capture.bear 'capture'
+  operator -> capture.obsidian 'capture'
   operator -> capture.mobileForm 'log'
-  capture.bear -> durable.tasks 'promote'
+  capture.obsidian -> durable.tasks 'promote'
   capture.mobileForm -> durable.tasks 'create'
   durable.tasks -> durable.taskViews 'render'
   durable.projects -> durable.tasks 'group'
@@ -187,7 +187,7 @@ views {
     title 'Opportunity HQ Container Map'
     description """
     Interactive C4-style map for the Singleton Systems operating layer. Click
-    each node to see the ownership rule: Bear is raw, Opportunity HQ is durable
+    each node to see the ownership rule: Obsidian is raw, Opportunity HQ is durable
     truth, Eagle is portfolio, and Raycast/Codex are actions.
     """
 
@@ -209,7 +209,7 @@ views {
       shape bucket
       color muted
     }
-    style capture.bear {
+    style capture.obsidian {
       shape document
       color red
     }
@@ -241,13 +241,13 @@ views {
   view opportunity_hq_intake_contract {
     title 'Opportunity HQ Intake Contract'
     description """
-    Shows the routing rule from raw capture into durable work. Bear keeps raw
+    Shows the routing rule from raw capture into durable work. Obsidian keeps raw
     thought. Mobile form and Raycast create Queued tasks. Daily planning moves
     selected items into Today and In Motion.
     """
 
     include operator
-    include capture.bear
+    include capture.obsidian
     include capture.mobileForm
     include durable.tasks
     include durable.taskViews
@@ -265,7 +265,7 @@ views {
       shape person
       color amber
     }
-    style capture.bear {
+    style capture.obsidian {
       shape document
       color red
     }

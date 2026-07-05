@@ -110,7 +110,7 @@
         <mxCell id="system-skills-title" value="General helpers: route first, then act" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=18;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="210" y="945" width="1180" height="44" as="geometry"/>
         </mxCell>
-        <mxCell id="system-skills" value="cerebral-router = pick the owner surface&#xa;bear = raw capture&#xa;raycast-extension-builder = command UI&#xa;hammerspoon-browser-automation = only after repeated form pain&#xa;eagle = portfolio assets&#xa;singleton-visualizer = maps and sketches" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#334155;spacing=14;" vertex="1" parent="1">
+        <mxCell id="system-skills" value="cerebral-router = pick the owner surface&#xa;obsidian = raw capture&#xa;raycast-extension-builder = command UI&#xa;hammerspoon-browser-automation = only after repeated form pain&#xa;eagle = portfolio assets&#xa;singleton-visualizer = maps and sketches" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#334155;spacing=14;" vertex="1" parent="1">
           <mxGeometry x="210" y="1015" width="1180" height="130" as="geometry"/>
         </mxCell>
 
@@ -157,7 +157,7 @@
           <mxGeometry x="1190" y="1460" width="300" height="68" as="geometry"/>
         </mxCell>
 
-        <mxCell id="ss-bear" value="SS: Bear&#xa;raw capture before durable work" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
+        <mxCell id="ss-bear" value="SS: Obsidian&#xa;raw capture before durable work" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="80" y="1560" width="300" height="68" as="geometry"/>
         </mxCell>
         <mxCell id="ss-eagle" value="SS: Eagle&#xa;portfolio and asset library" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#064E3B;spacing=8;" vertex="1" parent="1">

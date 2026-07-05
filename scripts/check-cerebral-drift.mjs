@@ -27,11 +27,22 @@ const checks = [
   {
     file: "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/tool-harness/SKILL.md",
     must: [
+      "Obsidian = raw capture",
+      "Bear remains archive/import only",
       "## Triggerable Containers",
       "project/bucket -> context packet -> selected skills/tools -> review gate -> verified output",
       "isolated triggerable states per project/bucket",
     ],
-    mustNot: ["background automation"],
+    mustNot: ["background automation", "Bear = raw capture"],
+  },
+  {
+    file: "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/cerebral-router/SKILL.md",
+    must: [
+      "Obsidian capture/offload",
+      "Obsidian is quick capture, not durable truth. Bear is archive/import only.",
+      "raw thought / unclear / under 10 minutes\n  -> Obsidian `_Inbox`",
+    ],
+    mustNot: ["Bear #inbox", "Bear capture/offload", "Bear is quick capture"],
   },
   {
     file: "/Users/singleton23/.codex/skills/singleton-visualizer/SKILL.md",

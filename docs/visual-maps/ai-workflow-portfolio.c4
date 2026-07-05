@@ -1,0 +1,139 @@
+model {
+  portfolioOperator = person 'Operator' {
+    description """
+    The working user. Uses the command surface to move practical operations
+    workflow steps without repeatedly clicking through scattered dashboard
+    screens.
+    """
+  }
+
+  aiWorkflowSystem = component 'Prospect ID Workflow System' {
+    description """
+    Command UI, legacy-system adapter work, source-of-truth cleanup, and audit
+    tests for a practical operations workflow.
+    """
+
+    raycastCommands = action 'Raycast Commands' {
+      description """
+      Command UI for Scout Prep, Set Meetings, Client Messages, and video
+      workflow commands. Commands are buttons.
+      """
+    }
+
+    fastApiBridge = component 'Local FastAPI Bridge' {
+      description """
+      Adapter layer that turns legacy dashboard form behavior into repeatable
+      request shapes and readback checks.
+      """
+    }
+
+    legacyLaravel = browser 'Legacy Laravel Dashboard' {
+      description """
+      Existing dashboard surface. The bridge translates behavior here instead
+      of pretending the old system disappeared.
+      """
+    }
+
+    supabaseTruth = storage 'Supabase PostgreSQL' {
+      description """
+      Source-of-truth layer for appointments, lifecycle events, call log rows,
+      and reporting facts.
+      """
+    }
+
+    prospectWeb = browser 'Vercel / Prospect Web' {
+      description """
+      Public and mobile review surface that reads cleaned workflow data outside
+      the Raycast command window.
+      """
+    }
+
+    scoutingCoordinator = component 'Scouting Coordinator' {
+      bucket1 = component '1. Meetings & Scheduling'
+      bucket2 = component '2. Pre-Meeting Work'
+      bucket3 = component '3. Client Communication'
+      bucket4 = component '4. Lifecycle & Reporting'
+      bucket5 = component '5. Outcomes & Enrollments'
+    }
+  }
+
+  portfolioOperator -> aiWorkflowSystem.raycastCommands 'triggers workflow action'
+  aiWorkflowSystem.raycastCommands -> aiWorkflowSystem.fastApiBridge 'sends command payload'
+  aiWorkflowSystem.fastApiBridge -> aiWorkflowSystem.legacyLaravel 'translates dashboard behavior'
+  aiWorkflowSystem.fastApiBridge -> aiWorkflowSystem.supabaseTruth 'writes durable facts'
+  aiWorkflowSystem.prospectWeb -> aiWorkflowSystem.supabaseTruth 'reads cleaned data'
+  aiWorkflowSystem.scoutingCoordinator.bucket1 -> aiWorkflowSystem.scoutingCoordinator.bucket2 'next'
+  aiWorkflowSystem.scoutingCoordinator.bucket2 -> aiWorkflowSystem.scoutingCoordinator.bucket3 'next'
+  aiWorkflowSystem.scoutingCoordinator.bucket3 -> aiWorkflowSystem.scoutingCoordinator.bucket4 'next'
+  aiWorkflowSystem.scoutingCoordinator.bucket4 -> aiWorkflowSystem.scoutingCoordinator.bucket5 'next'
+}
+
+views {
+  view ai_workflow_readme_map {
+    title 'AI Workflow Portfolio README Map'
+    description """
+    C4-language version of the README/source-map image: Raycast starts the
+    command, FastAPI bridges the legacy dashboard, Supabase owns durable truth,
+    and Prospect Web shows the cleaned workflow.
+    """
+
+    include portfolioOperator
+    include aiWorkflowSystem
+    include aiWorkflowSystem.raycastCommands
+    include aiWorkflowSystem.fastApiBridge
+    include aiWorkflowSystem.legacyLaravel
+    include aiWorkflowSystem.supabaseTruth
+    include aiWorkflowSystem.prospectWeb
+
+    style * {
+      color muted
+    }
+    style portfolioOperator {
+      shape person
+      color amber
+    }
+    style aiWorkflowSystem.raycastCommands {
+      color red
+    }
+    style aiWorkflowSystem.fastApiBridge {
+      color amber
+    }
+    style aiWorkflowSystem.legacyLaravel {
+      color red
+    }
+    style aiWorkflowSystem.supabaseTruth {
+      color green
+    }
+    style aiWorkflowSystem.prospectWeb {
+      color blue
+    }
+  }
+
+  view scouting_coordinator_bucket_map {
+    title 'Scouting Coordinator System Map'
+
+    include aiWorkflowSystem.scoutingCoordinator.*
+
+    style * {
+      color muted
+    }
+    style aiWorkflowSystem.scoutingCoordinator {
+      color amber
+    }
+    style aiWorkflowSystem.scoutingCoordinator.bucket1 {
+      color blue
+    }
+    style aiWorkflowSystem.scoutingCoordinator.bucket2 {
+      color blue
+    }
+    style aiWorkflowSystem.scoutingCoordinator.bucket3 {
+      color green
+    }
+    style aiWorkflowSystem.scoutingCoordinator.bucket4 {
+      color green
+    }
+    style aiWorkflowSystem.scoutingCoordinator.bucket5 {
+      color amber
+    }
+  }
+}

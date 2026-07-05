@@ -9,7 +9,7 @@ model.
 The model is:
 
 ```text
-Bear = raw capture and later/passive ideas
+Obsidian = raw capture and later/passive ideas
 Opportunity HQ = durable projects, tasks, focus, and time blocks
 Eagle = portfolio/assets/evidence
 Raycast/Codex = actions and routing
@@ -106,7 +106,7 @@ Rules:
 Analyze my raw input and route it into my Opportunity HQ system.
 
 Current operating model:
-- Bear is for raw capture, unclear thoughts, later ideas, passive shortcut ideas, ChatGPT/Codex questions, and things I might want to process later.
+- Obsidian is for raw capture, unclear thoughts, later ideas, passive shortcut ideas, ChatGPT/Codex questions, and things I might want to process later.
 - Opportunity HQ is Notion. It owns durable projects, tasks, status, duration estimates, money priority, daily focus, and shifts.
 - Eagle stores portfolio/assets/evidence.
 - Raycast/Codex are the action layer for creating, opening, updating, clarifying, rewriting, and routing.
@@ -190,7 +190,7 @@ Default priority:
 - Passive shortcut/system ideas = Later unless they directly help immediate work
 
 Decide first:
-1. Should this stay in Bear, become an Opportunity HQ task, become an Opportunity HQ project, or become an Eagle portfolio item?
+1. Should this stay in Obsidian, become an Opportunity HQ task, become an Opportunity HQ project, or become an Eagle portfolio item?
 2. If it belongs in Opportunity HQ, is it a project or a task?
 3. If it is a task, what project lane, status, duration, money priority, link, and notes should it have?
 4. If it is a project, what outcome does it represent and what 2-6 tasks should belong under it?
@@ -232,20 +232,20 @@ Mini-Project Plan Mode:
 - Do not create a new Notion schema property yet unless this pattern repeats enough to justify it.
 - For now, include Mini-Project Size in the reviewed payload/page content.
 
-Bear rule:
-- Keep raw, unclear, emotional, exploratory, someday, or passive shortcut ideas in Bear.
+Obsidian rule:
+- Keep raw, unclear, emotional, exploratory, someday, or passive shortcut ideas in Obsidian.
 - Examples: shortcut ideas, future automation ideas, later ChatGPT/Codex questions, experiments, reference thoughts.
-- If a Bear idea later gets task weight, money relevance, portfolio value, or a real next action, suggest pushing it into Opportunity HQ.
+- If an Obsidian idea later gets task weight, money relevance, portfolio value, or a real next action, suggest pushing it into Opportunity HQ.
 
 Shortcut/passive idea rule:
-- If the idea is useful but not needed for immediate income, classify it as Bear first.
+- If the idea is useful but not needed for immediate income, classify it as Obsidian first.
 - If it could later become portfolio or a reusable system, mark it as a future candidate.
 - If it is quick and likely under 30 minutes, estimate it honestly but keep priority Later unless it directly supports the current week.
 
 Output in this exact format:
 
 Route:
-Bear / Opportunity Task / Opportunity Project / Eagle Portfolio / Split
+Obsidian / Opportunity Task / Opportunity Project / Eagle Portfolio / Split
 
 Why:
 One short explanation.
@@ -268,9 +268,9 @@ Notes:
 Suggested Subtasks:
 Only include if needed. If any subtask needs its own time estimate, mark it as a separate task.
 
-Bear Capture:
+Obsidian Capture:
 Only include if this should stay raw or later.
-Suggested Bear tag:
+Suggested Obsidian folder:
 Suggested note title:
 Cleaned note:
 
@@ -312,13 +312,13 @@ Expected route:
 
 ```text
 Route:
-Bear
+Obsidian
 
 Why:
 Valuable future shortcut idea, but not immediate income work.
 
-Bear Capture:
-Suggested Bear tag: #commands/shortcuts
+Obsidian Capture:
+Suggested Obsidian folder: Command Ops
 Suggested note title: Mobile video transcript shortcut
 Cleaned note: Explore a mobile-friendly transcript step for the existing share-sheet video download shortcut. Possible future portfolio of small practical automations. Keep parked until cash-path work is moving.
 
@@ -335,15 +335,15 @@ refinement:
 Create a clean Excalidraw-style architecture sketch for a personal operating system called Opportunity HQ.
 
 Show four surfaces:
-1. Bear Inbox
+1. Obsidian _Inbox
 2. Opportunity HQ in Notion
 3. Eagle Portfolio Library
 4. Raycast / Codex Actions
 
-Bear Inbox:
+Obsidian _Inbox:
 - label as Raw Capture
 - include: unclear thoughts, later ideas, passive shortcut ideas, ChatGPT/Codex questions, someday experiments
-- say: Bear is raw. No durable queue here.
+- say: Obsidian is raw. No durable queue here.
 
 Opportunity HQ:
 - label as Durable Truth
@@ -366,11 +366,11 @@ Raycast / Codex Actions:
 - connect to Opportunity HQ and Eagle.
 
 Show two capture paths:
-- Quick Thought -> Bear
+- Quick Thought -> Obsidian
 - Log Task -> Opportunity HQ
 
 Show a human-in-the-loop promotion path:
-- Bear later idea -> Review -> Opportunity HQ task/project only when it has task weight, money relevance, portfolio value, or a real next action.
+- Obsidian later idea -> Review -> Opportunity HQ task/project only when it has task weight, money relevance, portfolio value, or a real next action.
 
 Keep it simple, notebook style, black/white with small red, green, purple, and blue accents. Avoid gradients and decorative clutter.
 ```

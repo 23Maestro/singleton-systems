@@ -44,7 +44,7 @@
         <mxCell id="tools-title" value="What the tools do" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=22;fontStyle=1;fontColor=#111827;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="250" y="505" width="1100" height="54" as="geometry"/>
         </mxCell>
-        <mxCell id="tools" value="Bear catches it. Notion tracks it. Raycast runs it. Codex thinks with me. Eagle saves portfolio." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=21;fontStyle=1;fontColor=#111827;spacing=14;" vertex="1" parent="1">
+        <mxCell id="tools" value="Obsidian catches it. Notion tracks it. Raycast runs it. Codex thinks with me. Eagle saves portfolio." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=2;fontFamily=Helvetica;fontSize=21;fontStyle=1;fontColor=#111827;spacing=14;" vertex="1" parent="1">
           <mxGeometry x="170" y="575" width="1260" height="80" as="geometry"/>
         </mxCell>
 
