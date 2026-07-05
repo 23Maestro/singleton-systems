@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Script from "next/script";
-import { createElement } from "react";
+import { createElement, useEffect, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
@@ -11,6 +11,7 @@ export type PortfolioSlice = "Top" | "Bottom";
 export type PortfolioVisualType = "Cards" | "Data Table" | "Flowchart" | "Review Panel" | "Diff View" | "Code Map";
 export type SliceElementKind = "section" | "card" | "row" | "detail" | "action";
 type LikeC4FrameVariant = "portfolioArtifact";
+type LikeC4ColorScheme = "light" | "dark";
 
 export type SliceElement = {
   id: string;
@@ -58,15 +59,25 @@ export type SourceRouteItem = {
 
 const likec4BaseStyle: CSSProperties = {
   display: "block",
+  background: "transparent",
   height: "100%",
   minHeight: "100%",
   width: "100%",
 };
 
 const likec4PortfolioFrameClass =
-  "source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden rounded-[16px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.07)] md:aspect-[1.62/1]";
+  "source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden bg-transparent md:aspect-[1.62/1]";
 
 const likec4ViewsScriptSrc = "/visual-maps/likec4-views.js";
+
+const likec4PortfolioOffsetByView: Record<string, string> = {
+  ai_workflow_readme_map: "translate-y-0",
+  resume_timeline_map: "translate-y-[19%]",
+};
+
+function getLikeC4PortfolioOffset(viewId: string) {
+  return likec4PortfolioOffsetByView[viewId] ?? "translate-y-[12%]";
+}
 
 export const tabTargets: PortfolioTabTarget[] = ["System", "Evidence", "AI Specialist", "Resume", "Source Map"];
 export const visualTypes: PortfolioVisualType[] = ["Cards", "Data Table", "Flowchart", "Review Panel", "Diff View", "Code Map"];
@@ -400,7 +411,7 @@ const systemCards = [
     pill: "Action",
     title: "Raycast command UI",
     body: "Front-end command surface for repeated operator workflows.",
-    accent: "#2383e2",
+    accent: "#ff6257",
     icon: "R",
     facts: ["Scout Prep", "Set Meetings", "Client Messages", "Video workflow commands"],
   },
@@ -433,7 +444,7 @@ const aiCards = [
     pill: "Gather",
     title: "Data preparation",
     body: "Turned scattered workflow facts into source-of-truth contracts that people and AI tools could both follow.",
-    accent: "#2383e2",
+    accent: "#ff6257",
     icon: "D",
     facts: ["Validation gates", "Migration checks", "Reporting cleanup"],
   },
@@ -497,7 +508,7 @@ function PortfolioCard({
             {kicker}
           </p>
         </div>
-        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[10px] font-black text-[#1f2937] shadow-sm">{pill}</span>
+        <span className="portfolio-card-status rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[10px] font-black text-[#1f2937] shadow-sm">{pill}</span>
       </div>
       <h3 className="m-0 text-[20px] font-black leading-tight text-[#111318]">{title}</h3>
       <p className="mt-2 line-clamp-3 text-[14px] font-semibold leading-5 text-[#5f6b7f]">{body}</p>
@@ -600,6 +611,21 @@ function DiffLine({ marker, tone, children }: { marker: string; tone: "add" | "r
   );
 }
 
+function useSystemColorScheme(): LikeC4ColorScheme {
+  const [scheme, setScheme] = useState<LikeC4ColorScheme>("light");
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const updateScheme = () => setScheme(media.matches ? "dark" : "light");
+
+    updateScheme();
+    media.addEventListener("change", updateScheme);
+    return () => media.removeEventListener("change", updateScheme);
+  }, []);
+
+  return scheme;
+}
+
 function LikeC4Preview({
   viewId,
   dynamicVariant,
@@ -609,12 +635,14 @@ function LikeC4Preview({
   dynamicVariant?: "diagram" | "sequence";
   frameVariant?: LikeC4FrameVariant;
 }) {
+  const colorScheme = useSystemColorScheme();
   const embed = (
     <>
       <Script id="likec4-views-script" src={likec4ViewsScriptSrc} type="module" strategy="afterInteractive" />
       {createElement("likec4-view", {
         "view-id": viewId,
         browser: "true",
+        "color-scheme": colorScheme,
         ...(dynamicVariant ? { "dynamic-variant": dynamicVariant } : {}),
         style: likec4BaseStyle,
       })}
@@ -628,7 +656,7 @@ function LikeC4Preview({
         aria-live="polite"
         data-likec4-artifact={viewId}
       >
-        <div className="absolute inset-0 h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out] p-2">
+        <div className={`absolute inset-0 h-full w-full ${getLikeC4PortfolioOffset(viewId)} animate-[sourceMapPreviewFade_240ms_ease-out] p-2`}>
           {embed}
         </div>
         <style jsx>{`
@@ -649,21 +677,45 @@ function LikeC4Preview({
 }
 
 export function EvidenceBottomSlice() {
+  const [header, ...rows] = reportingRows;
+
   return (
-    <section className="mx-auto w-full overflow-hidden rounded-[14px] border border-[#e1e5eb] bg-white shadow-[0_18px_48px_rgba(23,33,52,0.16)]">
-      <div className="flex items-baseline justify-between gap-3 border-b border-[#e1e5eb] bg-[#fbfdff] px-4 py-3">
-        <strong className="text-[17px] font-black text-[#111318]">Supabase reporting shape</strong>
-        <span className="text-[13px] font-bold text-[#667085]">Durable facts stay separate from command state and support caches.</span>
+    <section className="mx-auto w-full max-w-[880px] overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
+      <div className="grid gap-2 border-b border-[#e2e8f0] bg-[#fbfdff] px-4 py-3 md:grid-cols-[minmax(0,240px)_1fr] md:items-center md:px-5">
+        <strong className="text-[16px] font-black leading-tight text-[#111318]">Supabase reporting shape</strong>
+        <span className="max-w-[520px] text-[13px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
       </div>
-      <div className="p-3.5">
-        <div className="overflow-hidden rounded-[9px] border border-[#e1e5eb]">
-          {reportingRows.map((row, index) => (
-            <div key={row[0]} className={cx("grid grid-cols-[1fr_1fr_1fr_1.5fr] gap-3 border-t border-[#e1e5eb] px-3 py-2.5 text-[13px] first:border-t-0 max-md:grid-cols-1", index === 0 ? "bg-[#eef4fc] font-black text-[#20304a]" : "text-[#303746]")}>
-              {row.map((cell, cellIndex) => (
-                <span key={cell} className={cellIndex === 0 && index > 0 ? "font-black text-[#172033]" : ""}>{cell}</span>
+      <div className="p-3 md:p-4">
+        <div className="overflow-x-auto rounded-[12px] border border-[#e1e7f0] bg-white">
+          <table className="w-full min-w-[720px] table-fixed border-collapse text-left text-[13px] leading-relaxed">
+            <caption className="sr-only">Supabase reporting source-of-truth verification table</caption>
+            <colgroup>
+              <col className="w-[24%]" />
+              <col className="w-[20%]" />
+              <col className="w-[20%]" />
+              <col className="w-[36%]" />
+            </colgroup>
+            <thead className="bg-[#eef4fc] text-[#20304a]">
+              <tr>
+                {header.map((cell) => (
+                  <th key={cell} scope="col" className="border-b border-[#dce5f0] px-3 py-3 font-black">
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="text-[#303746]">
+              {rows.map((row) => (
+                <tr key={row[0]} className="border-t border-[#e6ebf2]">
+                  {row.map((cell, cellIndex) => (
+                    <td key={cell} className={cx("align-top px-3 py-3", cellIndex === 0 ? "font-black text-[#172033]" : "font-semibold text-[#465062]")}>
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
               ))}
-            </div>
-          ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -693,40 +745,78 @@ function CodeArtifactPreview({
 }: {
   artifact: NonNullable<HighlightedCodeArtifactMap[string]>;
 }) {
+  const tone =
+    artifact.key === "supabase"
+      ? {
+          label: "json",
+          code: "#9f1239",
+          badge: "border-[#fecdd3] bg-[#fff1f2] text-[#9f1239]",
+          chrome: "#fff7f8",
+        }
+      : artifact.key === "adapter"
+        ? {
+            label: "json",
+            code: "#9a3412",
+            badge: "border-[#fed7aa] bg-[#fff7ed] text-[#9a3412]",
+            chrome: "#fff8f1",
+          }
+        : {
+            label: "test",
+            code: "#0f766e",
+            badge: "border-[#99f6e4] bg-[#f0fdfa] text-[#0f766e]",
+            chrome: "#f3fffc",
+          };
+
   return (
-    <section className="source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden rounded-[16px] border border-[#dfe7f1] bg-[#fbfcfd] shadow-[0_18px_44px_rgba(15,23,42,0.07)]" aria-live="polite">
+    <section className="source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden bg-transparent" aria-live="polite">
       <div key={artifact.key} className="absolute inset-0 flex animate-[sourceMapPreviewFade_240ms_ease-out] items-center justify-center p-5 md:p-8">
-        <div className="flex h-full max-h-[430px] w-full max-w-[800px] flex-col overflow-hidden rounded-[18px] border border-[#dde5ef] bg-white shadow-[0_22px_60px_rgba(15,23,42,0.10)]">
-          <div className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b border-[#e2e8f0] bg-[#fbfcfd] px-4">
+        <div className="flex h-full max-h-[410px] w-full max-w-[720px] flex-col overflow-hidden rounded-[18px] border border-[#dde5ef] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
+          <div className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b border-[#e2e8f0] px-4" style={{ backgroundColor: tone.chrome }}>
             <div className="flex items-center gap-2" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
             </div>
             <strong className="text-[13px] font-black text-[#667085]">{artifact.title}</strong>
-            <span className="justify-self-end rounded-md border border-[#e4e8ef] bg-white px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-[#98a2b3]">
-              {artifact.language}
+            <span className={`justify-self-end rounded-md border px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] ${tone.badge}`}>
+              {tone.label}
             </span>
           </div>
-          <div className="code-artifact-body min-h-0 flex-1 overflow-auto px-4 py-4 md:px-6" dangerouslySetInnerHTML={{ __html: artifact.html }} />
+          <div className="relative min-h-0 flex-1">
+            <div className="code-artifact-body h-full overflow-y-auto overflow-x-hidden px-4 py-4 pb-16 md:px-6" style={{ "--artifact-code": tone.code } as CSSProperties} dangerouslySetInnerHTML={{ __html: artifact.html }} />
+            <div
+              className="pointer-events-none absolute inset-x-px bottom-px h-16 backdrop-blur-[1px]"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.42) 66%, rgba(255,255,255,0) 100%)",
+              }}
+              aria-hidden="true"
+            />
+          </div>
         </div>
       </div>
       <style jsx>{`
         .code-artifact-body :global(pre) {
           margin: 0;
-          min-width: max-content;
+          min-width: 0;
           background: transparent !important;
-          font-size: 13px;
-          line-height: 1.7;
+          color: #243041 !important;
+          font-size: 12px;
+          line-height: 1.72;
           font-weight: 700;
           letter-spacing: 0;
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+        }
+        .code-artifact-body :global(span[style]) {
+          color: var(--artifact-code) !important;
         }
         .code-artifact-body :global(code) {
           font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         }
         @media (min-width: 768px) {
           .code-artifact-body :global(pre) {
-            font-size: 14px;
+            font-size: 13px;
           }
         }
         @keyframes sourceMapPreviewFade {

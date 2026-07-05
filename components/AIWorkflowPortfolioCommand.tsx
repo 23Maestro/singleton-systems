@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   AISpecialistBottomSlice,
   AISpecialistTopSlice,
@@ -492,7 +492,7 @@ function Card({
             {kicker}
           </p>
         </div>
-        <span className="rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[10px] font-black text-[#1f2937] shadow-sm">{pill}</span>
+        <span className="portfolio-card-status rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[10px] font-black text-[#1f2937] shadow-sm">{pill}</span>
       </div>
 
       <h3 className="m-0 text-[19px] font-black leading-tight text-[#111318]">{title}</h3>
@@ -511,9 +511,12 @@ function Card({
 
 function Divider({ label }: { label: string }) {
   return (
-    <div className="-mx-[14px] my-[22px] flex items-center justify-between gap-3 bg-[#101826] px-[14px] py-3.5 text-sm font-black text-[#eef3fb] md:-mx-[26px] md:px-[26px]">
-      <strong>Prospect ID Workflow System</strong>
-      <span className="font-bold text-[#b9c4d5]">{label}</span>
+    <div className="relative my-4 rounded-[14px] border border-white/70 bg-white/58 px-3 py-3 shadow-[0_12px_34px_rgba(15,23,42,0.04)] backdrop-blur-md supports-[backdrop-filter]:bg-white/45">
+      <span className="pointer-events-none absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-[#dbe3ef]/80 to-transparent" aria-hidden="true" />
+      <div className="flex items-center justify-between gap-4 font-mono text-[12px] font-black uppercase tracking-[0.14em] text-[#667085]">
+        <strong className="font-black">Prospect ID Workflow System</strong>
+        <span className="text-right font-black text-[#2383e2]">{label}</span>
+      </div>
     </div>
   );
 }
@@ -531,25 +534,215 @@ function TabShell({ title, lead, children }: { title: string; lead: string; chil
 }
 
 type PanelView = "list" | "detail" | "action";
+type ProgressGroup = {
+  label: string;
+  selected: string;
+  options: string[];
+};
+
+const videoStatusOptions = ["Revisions", "HUDL", "Dropbox", "Not Approved", "External Links"];
+const videoStageOptions = ["In Queue", "Awaiting Client", "On Hold", "Done"];
+const salesCallStatusOptions = ["Call Attempt 1", "Call Attempt 2", "Call Attempt 3", "Confirmation Call", "Follow Up"];
+const salesStageOptions = [
+  "New Opportunity",
+  "Left Voice Mail 1",
+  "Left Voice Mail 2",
+  "Never Spoke To",
+  "Called - Unable to Leave VM",
+  "Spoke to - Not Interested",
+  "Spoke to - Athlete, not Parent",
+  "Spoke to - Too Young",
+  "Spoke to - I Need To Follow Up",
+  "Meeting Set",
+  "Actual Meeting - Follow Up",
+  "Actual Meeting - Close Lost",
+  "Actual Meeting - Close Won",
+  "Meeting Result - Res. Pending",
+  "Meeting Result - Rescheduled",
+  "Meeting Result - Canceled",
+  "Meeting Result - No Show",
+];
+
+function getWindowActions(item: WorkflowItem, mode: WorkflowMode) {
+  if (mode === "video") return ["Video Updates", "Update Progress", "Copy YouTube Title"];
+
+  const copyAction = item.actions.find((action) => action.toLowerCase().startsWith("copy")) ?? "Copy Action Value";
+  return [item.actionView.title, "Update Task", copyAction];
+}
+
+function isCopyAction(action: string) {
+  return action.toLowerCase().startsWith("copy");
+}
+
+function getCopyValue(item: WorkflowItem, action: string) {
+  if (action === "Copy Booked Meeting") return `${item.name} / ${item.asset}`;
+  if (action === "Copy Action Value") return item.asset;
+  return item.asset;
+}
+
+function getCopyToastLabel(action: string) {
+  if (action === "Copy YouTube Title") return "Copied YouTube title";
+  if (action === "Copy Booked Meeting") return "Copied booked meeting";
+  if (action === "Copy Parent 1 Phone") return "Copied parent phone";
+  return "Copied command value";
+}
+
+function withSelectedOption(options: string[], selected: string) {
+  return options.includes(selected) ? options : [selected, ...options];
+}
+
+function getProgressGroups(item: WorkflowItem, mode: WorkflowMode): ProgressGroup[] {
+  if (mode === "video") {
+    return [
+      {
+        label: "Video status",
+        selected: item.source,
+        options: withSelectedOption(videoStatusOptions, item.source),
+      },
+      {
+        label: "Video stage",
+        selected: item.status,
+        options: withSelectedOption(videoStageOptions, item.status),
+      },
+    ];
+  }
+
+  return [
+    {
+      label: "Official Sales Stage",
+      selected: item.status,
+      options: withSelectedOption(salesStageOptions, item.status),
+    },
+    {
+      label: "Call status",
+      selected: item.source,
+      options: withSelectedOption(salesCallStatusOptions, item.source),
+    },
+  ];
+}
+
+function RaycastBackButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex h-7 items-center gap-1.5 rounded-md border border-[#d9e1ec] bg-white/85 px-2 text-[11px] font-bold text-[#536173] shadow-sm transition hover:border-[#c2ccdb] hover:bg-[#f8fafc] focus:outline-none focus:ring-2 focus:ring-[#93c5fd]"
+      aria-label="Back"
+    >
+      <span className="grid h-4 min-w-5 place-items-center rounded-[4px] border border-[#d1d5db] bg-[#f8fafc] px-1 font-sans text-[9px] text-[#64748b] shadow-sm">Esc</span>
+      <span>Back</span>
+    </button>
+  );
+}
+
+function RaycastPinnedPill({ label }: { label: string }) {
+  return (
+    <div className="raycast-light-pill pointer-events-none absolute right-3 top-[56px] z-20 rounded-full border border-white/70 bg-white/70 px-3 py-1.5 text-[11px] font-black text-[#1d4ed8] shadow-[0_10px_28px_rgba(29,78,216,0.16)] backdrop-blur-md">
+      {label}
+    </div>
+  );
+}
+
+function RaycastToast({ label }: { label: string }) {
+  return (
+    <div
+      role="status"
+      className="raycast-light-pill pointer-events-none absolute left-1/2 top-[62px] z-30 flex min-h-11 max-w-[min(84vw,360px)] -translate-x-1/2 animate-[raycastToast_1450ms_ease-in-out_forwards] items-center gap-2.5 rounded-xl border border-white/80 bg-white/82 px-4 text-[13px] font-black text-[#172033] shadow-[0_18px_36px_rgba(15,23,42,0.18)] backdrop-blur-md"
+    >
+      <span className="h-2 w-2 rounded-full bg-[#17b26a] shadow-[0_0_14px_rgba(34,197,94,0.54)]" aria-hidden="true" />
+      {label}
+    </div>
+  );
+}
+
+function ProgressCommandForm({ groups }: { groups: ProgressGroup[] }) {
+  return (
+    <div className="grid gap-4">
+      {groups.map((group) => (
+        <fieldset key={group.label} className="rounded-lg border border-[#e5e7eb] bg-white p-3 shadow-sm">
+          <legend className="mb-2 text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">{group.label}</legend>
+          <div className="flex flex-wrap gap-2">
+            {group.options.map((option) => {
+              const id = `${group.label}-${option}`.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
+              return (
+                <label
+                  key={option}
+                  htmlFor={id}
+                  className={cx(
+                    "flex min-h-8 cursor-default items-center gap-2 rounded-full border px-2.5 text-[12px] font-bold transition",
+                    option === group.selected
+                      ? "border-[#1d4ed8] bg-[#eff6ff] text-[#1d4ed8]"
+                      : "border-[#d8dee8] bg-[#f8fafc] text-[#475467]"
+                  )}
+                >
+                  <input
+                    id={id}
+                    name={group.label}
+                    type="radio"
+                    defaultChecked={option === group.selected}
+                    className="h-3.5 w-3.5 accent-[#1d4ed8]"
+                  />
+                  {option}
+                </label>
+              );
+            })}
+          </div>
+        </fieldset>
+      ))}
+    </div>
+  );
+}
 
 function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
   const [view, setView] = useState<PanelView>("list");
   const [mode, setMode] = useState<WorkflowMode>("video");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [activeAction, setActiveAction] = useState<string | null>(null);
+  const [raycastToast, setRaycastToast] = useState<string | null>(null);
 
   const rows = workflowData[mode];
   const selected = rows[selectedIndex] ?? rows[0];
+  const actions = getWindowActions(selected, mode);
+  const currentAction = activeAction ?? actions[0];
 
   function changeMode(nextMode: WorkflowMode) {
     setMode(nextMode);
     setSelectedIndex(0);
+    setActiveAction(null);
     setView("list");
   }
 
-  function goBack() {
-    if (view === "action") setView("detail");
-    else if (view === "detail") setView("list");
-  }
+  const goBack = useCallback(() => {
+    if (view === "action") {
+      setActiveAction(null);
+      setView("detail");
+    } else if (view === "detail") {
+      setActiveAction(null);
+      setView("list");
+    }
+  }, [view]);
+
+  const showCopyToast = useCallback(async (action: string) => {
+    const value = getCopyValue(selected, action);
+    try {
+      await navigator.clipboard.writeText(value);
+    } catch {
+      // Clipboard can be blocked in local preview contexts; the visible toast still confirms the copy intent.
+    }
+
+    setRaycastToast(getCopyToastLabel(action));
+    window.setTimeout(() => setRaycastToast(null), 1500);
+  }, [selected]);
+
+  const openAction = useCallback((action: string) => {
+    if (isCopyAction(action)) {
+      void showCopyToast(action);
+      return;
+    }
+
+    setActiveAction(action);
+    setView("action");
+  }, [showCopyToast]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -561,21 +754,21 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
 
       if (event.key === "Escape" && view !== "list") {
         event.preventDefault();
-        setView(view === "action" ? "detail" : "list");
+        goBack();
         return;
       }
 
       if (event.key === "Enter") {
         event.preventDefault();
         if (view === "list") setView("detail");
-        else if (view === "detail") setView("action");
+        else if (view === "detail") openAction(actions[0]);
         else onCopy(selected);
       }
     }
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onCopy, selected, view]);
+  }, [actions, goBack, onCopy, openAction, selected, view]);
 
   return (
     <TabShell title="System view" lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables.">
@@ -586,25 +779,17 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
       <Divider label="Interactive workflow surface" />
 
       <section className="mx-auto w-full max-w-[800px]" aria-label="Raycast-inspired workflow surface">
-        <div className="flex h-[520px] flex-col overflow-hidden rounded-xl border border-[#d7dee9] bg-[#f8fafc] shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
+        <div className="raycast-command-frame relative flex h-[520px] w-full max-w-full flex-col overflow-hidden rounded-xl border border-[#d7dee9] bg-[#f8fafc] shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
           {/* Top Bar */}
-          <div className="flex h-12 shrink-0 items-center justify-between border-b border-[#e8ecf2] bg-white px-3">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                disabled={view === "list"}
-                onClick={goBack}
-                className="grid h-7 w-7 place-items-center rounded-md text-lg text-[#697587] hover:bg-[#f1f5f9] disabled:opacity-30 disabled:hover:bg-transparent"
-                aria-label="Back"
-              >
-                ←
-              </button>
-              <div className="text-[15px] font-semibold text-[#374151]">
-                {view === "list" ? (mode === "video" ? "Video queue..." : "Sales queue...") : view === "detail" ? selected.name : selected.actionView.title}
+          <div className="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-[#e8ecf2] bg-white px-3">
+            <div className="flex min-w-0 items-center gap-2">
+              {view === "list" ? null : <RaycastBackButton onClick={goBack} />}
+              <div className="min-w-0 truncate text-[15px] font-semibold text-[#374151]">
+                {view === "list" ? (mode === "video" ? "Video queue..." : "Sales queue...") : view === "detail" ? selected.name : currentAction}
               </div>
             </div>
 
-            <div className="flex gap-1 rounded-md bg-[#f1f5f9] p-0.5">
+            <div className="flex shrink-0 gap-1 rounded-md bg-[#f1f5f9] p-0.5">
               {(["video", "sales"] as const).map((item) => (
                 <button
                   key={item}
@@ -623,6 +808,9 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
               ))}
             </div>
           </div>
+
+          {view !== "list" ? <RaycastPinnedPill label={selected.workflow} /> : null}
+          {raycastToast ? <RaycastToast label={raycastToast} /> : null}
 
           {/* Main Content Area */}
           <div className="flex-1 overflow-y-auto">
@@ -643,6 +831,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                         aria-pressed={active}
                         onClick={() => {
                           setSelectedIndex(index);
+                          setActiveAction(null);
                           setView("detail");
                         }}
                         className={cx(
@@ -659,7 +848,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                           <span className="truncate text-[14px] font-semibold text-[#1a1f2e]">{item.name}</span>
                           <span className={cx("truncate text-[12px] font-medium", active ? "text-[#374151]" : "text-[#6b7280]")}>{item.meta}</span>
                         </div>
-                        <span className={cx("shrink-0 text-[12px] font-medium", active ? "text-[#374151]" : "text-[#6b7280]")}>
+                        <span className={cx("hidden shrink-0 text-[12px] font-medium sm:inline", active ? "text-[#374151]" : "text-[#6b7280]")}>
                           {item.status} / {item.source}
                         </span>
                       </button>
@@ -671,13 +860,13 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
 
             {view === "detail" && (
               <div className="flex flex-col">
-                <div className="border-b border-[#e8ecf2] bg-white p-5">
+                <div className="border-b border-[#e8ecf2] bg-white p-5 sm:pr-40">
                   <h2 className="text-[24px] font-bold text-[#111827]">{selected.name}</h2>
                   <p className="mt-1 text-[13px] font-medium text-[#4b5563]">{selected.line}</p>
                 </div>
 
                 <div className="flex flex-col border-b border-[#e8ecf2] bg-[#fcfdfd] px-5 py-4">
-                  <div className="mb-4 space-y-3">
+                  <div className="grid gap-3 md:grid-cols-2">
                     <div>
                       <span className="block text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Process</span>
                       <p className="mt-1 text-[13px] font-medium leading-relaxed text-[#374151]">{selected.processDescription}</p>
@@ -689,28 +878,14 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                   </div>
                 </div>
 
-                <div className="flex flex-col bg-white">
-                  {[
-                    ["Workflow", selected.workflow],
-                    ["School / Market", selected.school],
-                    ["Source Anchor", selected.proof],
-                    ["Asset", selected.asset],
-                  ].map(([label, value]) => (
-                    <div key={label} className="flex min-h-[44px] items-center justify-between border-b border-[#f3f4f6] px-5 py-2">
-                      <span className="text-[12px] font-semibold text-[#6b7280]">{label}</span>
-                      <span className="text-right text-[13px] font-semibold text-[#111827]">{value}</span>
-                    </div>
-                  ))}
-                </div>
-
                 <div className="p-3">
                   <h3 className="mb-2 px-2 text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">Actions</h3>
                   <div className="flex flex-col gap-1">
-                    {selected.actions.map((action, index) => (
+                    {actions.map((action, index) => (
                       <button
                         key={action}
                         type="button"
-                        onClick={() => setView("action")}
+                        onClick={() => openAction(action)}
                         className={cx(
                           "flex h-[40px] items-center justify-between rounded-lg px-3 text-left transition-colors",
                           index === 0 ? "bg-[#eef4ff] text-[#1d4ed8]" : "bg-transparent text-[#374151] hover:bg-[#f3f4f6]"
@@ -731,31 +906,41 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
 
             {view === "action" && (
               <div className="flex flex-col">
-                <div className="border-b border-[#e8ecf2] bg-white p-5">
+                <div className="border-b border-[#e8ecf2] bg-white p-5 sm:pr-40">
                   <span className="mb-2 inline-block rounded border border-[#e5e7eb] bg-[#f9fafb] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#6b7280]">
-                    {selected.actionView.eyebrow}
+                    {currentAction === "Update Progress" || currentAction === "Update Task" ? "Static command form" : selected.actionView.eyebrow}
                   </span>
-                  <h2 className="text-[20px] font-bold text-[#111827]">{selected.actionView.title}</h2>
-                  <p className="mt-2 text-[13px] font-medium leading-relaxed text-[#4b5563]">{selected.actionView.note}</p>
+                  <h2 className="text-[20px] font-bold text-[#111827]">{currentAction}</h2>
+                  <p className="mt-2 text-[13px] font-medium leading-relaxed text-[#4b5563]">
+                    {currentAction === "Update Progress"
+                      ? "Review the selected video status and production stage before saving progress."
+                      : currentAction === "Update Task"
+                        ? "Route the task to the correct sales stage after the call evidence is reviewed."
+                        : selected.actionView.note}
+                  </p>
                 </div>
 
                 <div className="flex flex-col bg-[#fcfdfd] p-5">
-                  <div className="grid gap-3">
-                    {selected.actionView.fields.map(([label, value]) => (
-                      <div key={label} className="flex flex-col gap-1 rounded-lg border border-[#e5e7eb] bg-white p-3 shadow-sm">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">{label}</span>
-                        <strong className="text-[13px] text-[#111827]">{value}</strong>
-                      </div>
-                    ))}
-                  </div>
+                  {currentAction === "Update Progress" || currentAction === "Update Task" ? (
+                    <ProgressCommandForm groups={getProgressGroups(selected, mode)} />
+                  ) : (
+                    <div className="grid gap-3">
+                      {selected.actionView.fields.map(([label, value]) => (
+                        <div key={label} className="flex flex-col gap-1 rounded-lg border border-[#e5e7eb] bg-white p-3 shadow-sm">
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#6b7280]">{label}</span>
+                          <strong className="text-[13px] text-[#111827]">{value}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-6 flex justify-end">
                     <button
                       type="button"
                       onClick={() => onCopy(selected)}
-                      className="flex h-9 items-center gap-2 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#2563eb] px-4 text-[13px] font-semibold text-white shadow-sm hover:from-[#2563eb] hover:to-[#1d4ed8] focus:outline-none focus:ring-2 focus:ring-[#93c5fd] focus:ring-offset-2"
+                      className="workflow-primary-action flex h-9 items-center gap-2 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#2563eb] px-4 text-[13px] font-semibold text-white shadow-sm hover:from-[#2563eb] hover:to-[#1d4ed8] focus:outline-none focus:ring-2 focus:ring-[#93c5fd] focus:ring-offset-2"
                     >
-                      {selected.actionView.primary}
+                      {currentAction === "Update Progress" || currentAction === "Update Task" ? "Save reviewed state" : selected.actionView.primary}
                     </button>
                   </div>
                 </div>
@@ -764,13 +949,13 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
           </div>
 
           {/* Footer Bar */}
-          <div className="flex h-10 shrink-0 items-center justify-between border-t border-[#e8ecf2] bg-[#f8fafc] px-3">
+          <div className="flex h-10 shrink-0 items-center justify-between gap-3 border-t border-[#e8ecf2] bg-[#f8fafc] px-3">
             <div className="flex items-center gap-2 text-[12px] font-medium text-[#4b5563]">
               <span className="grid h-4 w-4 place-items-center rounded-[4px] bg-[#e5e7eb] text-[9px] font-black text-[#6b7280]">⌘</span>
               <span>{mode === "video" ? "Video Tracker" : "Sales Companion"}</span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="hidden items-center gap-3 sm:flex">
               {view === "list" && (
                 <>
                   <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
@@ -786,24 +971,24 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
               {view === "detail" && (
                 <>
                   <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
-                    <span>{selected.actions[0]}</span>
+                    <span>{actions[0]}</span>
                     <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">↵</span>
                   </div>
                   <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
-                    <span>Back</span>
-                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">esc</span>
+                    <span>Actions</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">⌘K</span>
                   </div>
                 </>
               )}
               {view === "action" && (
                 <>
                   <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
-                    <span>{selected.actionView.primary}</span>
+                    <span>{currentAction === "Update Progress" || currentAction === "Update Task" ? "Save reviewed state" : selected.actionView.primary}</span>
                     <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">↵</span>
                   </div>
                   <div className="flex items-center gap-1 text-[11px] font-medium text-[#6b7280]">
-                    <span>Back</span>
-                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">esc</span>
+                    <span>Actions</span>
+                    <span className="grid h-4 min-w-[16px] place-items-center rounded-[4px] border border-[#d1d5db] bg-white px-1 font-sans text-[9px] shadow-sm">⌘K</span>
                   </div>
                 </>
               )}
@@ -872,10 +1057,7 @@ function ProofMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifa
     <TabShell title="Source Map" lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support.">
       <SourceMapTopSlice selectedId={selectedKey} onSelect={setSelectedKey} />
 
-      <div className="my-4 flex items-center justify-between border-t border-[#e5e8ef] pt-3 text-[12px] font-black uppercase tracking-[0.12em] text-[#667085]">
-        <span>Prospect ID Workflow System</span>
-        <span className="text-[#2383e2]">Verification route</span>
-      </div>
+      <Divider label="Verification route" />
 
       <SourceMapBottomSlice selectedKey={selectedKey} codeArtifacts={codeArtifacts} />
     </TabShell>
@@ -899,9 +1081,9 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
   }
 
   return (
-    <main className="min-h-dvh bg-[#f4f5f4] p-3 text-[#111318] md:p-6">
-      <section className="mx-auto w-full max-w-[1180px] overflow-hidden border border-[#e3e6ea] bg-white shadow-[0_18px_46px_rgba(15,23,42,0.08)]" aria-label="Prospect ID workflow system case study">
-        <header className="border-b border-[#e4e8ef] bg-[#fbfcfd] px-5 py-5 md:px-7">
+    <main className="theme-aware-portfolio min-h-dvh bg-white text-[#111318]">
+      <section className="mx-auto w-full max-w-[1180px] px-4 py-6 md:px-6 md:py-9" aria-label="Prospect ID workflow system case study">
+        <header className="mb-5">
           <div>
             <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#98a2b3]">Singleton Systems · Jerami Singleton</p>
             <h1 className="m-0 text-[27px] font-black leading-tight text-[#111318] md:text-[31px]">AI Workflow Portfolio</h1>
@@ -909,7 +1091,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           </div>
         </header>
 
-        <nav className="flex flex-wrap gap-1.5 border-b border-[#e4e8ef] bg-[#f8fafc] px-5 py-2.5 md:px-7" aria-label="Case study sections">
+        <nav className="mb-5 flex flex-wrap gap-1.5" aria-label="Case study sections">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -918,7 +1100,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
               onClick={() => setActiveTab(tab.id)}
               className={cx(
                 "min-h-8 rounded-[8px] border px-3 text-[12px] font-extrabold transition",
-                activeTab === tab.id ? "border-[#111827] bg-[#111827] text-white" : "border-[#d8dee8] bg-white text-[#596579] hover:border-[#aeb9ca] hover:text-[#111827]",
+                activeTab === tab.id ? "border-[#111111] bg-[#111111] text-white" : "border-[#d8dee8] bg-white text-[#596579] hover:border-[#aeb9ca] hover:text-[#111827]",
               )}
             >
               {tab.label}
@@ -926,7 +1108,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           ))}
         </nav>
 
-        <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out] px-5 py-5 md:px-7">
+        <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out]">
           {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
           {activeTab === "evidence" ? <EvidencePanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}
@@ -942,6 +1124,21 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
             to {
               opacity: 1;
               transform: translateY(0);
+            }
+          }
+          @keyframes raycastToast {
+            0% {
+              opacity: 0;
+              transform: translate3d(-50%, -8px, 0) scale(0.98);
+            }
+            12%,
+            82% {
+              opacity: 1;
+              transform: translate3d(-50%, 0, 0) scale(1);
+            }
+            100% {
+              opacity: 0;
+              transform: translate3d(-50%, -8px, 0) scale(0.98);
             }
           }
         `}</style>

@@ -255,29 +255,29 @@ skinparam {
 }
 
 skinparam queue<<AiWorkflowSystemImplementationLoopVerify>>{
-  BackgroundColor #428a4f
+  BackgroundColor #64748b
   FontColor #f8fafc
-  BorderColor #2d5d39
+  BorderColor #475569
 }
 skinparam rectangle<<AiWorkflowSystemImplementationLoopGather>>{
-  BackgroundColor #3b82f6
-  FontColor #eff6ff
-  BorderColor #2563eb
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
 }
 skinparam person<<AiWorkflowSystemImplementationLoopClassify>>{
-  BackgroundColor #0284c7
-  FontColor #f0f9ff
-  BorderColor #0369a1
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
 }
 skinparam rectangle<<AiWorkflowSystemImplementationLoopDraft>>{
-  BackgroundColor #A35829
-  FontColor #FFE0C2
-  BorderColor #7E451D
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
 }
 skinparam component<<AiWorkflowSystemImplementationLoopReview>>{
-  BackgroundColor #AC4D39
-  FontColor #FBD3CB
-  BorderColor #853A2D
+  BackgroundColor #64748b
+  FontColor #f8fafc
+  BorderColor #475569
 }
 queue "==Verify\\n\\nUse readback, tests, or source review before calling it real." <<AiWorkflowSystemImplementationLoopVerify>> as AiWorkflowSystemImplementationLoopVerify
 rectangle "==Gather\\n\\nCollect the real workflow and source evidence." <<AiWorkflowSystemImplementationLoopGather>> as AiWorkflowSystemImplementationLoopGather

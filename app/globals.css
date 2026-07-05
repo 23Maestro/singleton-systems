@@ -3,7 +3,18 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
+  --site-bg: #ffffff;
+  --site-panel: #ffffff;
+  --site-panel-soft: #f8fafc;
+  --site-panel-raised: #ffffff;
+  --site-text: #111318;
+  --site-heading: #111318;
+  --site-muted: #667085;
+  --site-subtle: #98a2b3;
+  --site-border: #d8dee8;
+  --site-border-soft: #e4e8ef;
+  --site-accent: #2383e2;
 }
 
 * {
@@ -16,14 +27,143 @@ html {
   max-width: 100%;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  background: #ffffff;
 }
 
 body {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  background: #fbfbfb;
+  background: #ffffff;
   overflow-x: hidden;
+}
+
+body.site-theme .theme-aware-portfolio {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --site-bg: #07080a;
+    --site-panel: #111214;
+    --site-panel-soft: #0c0d0f;
+    --site-panel-raised: #151619;
+    --site-text: #e8e8ea;
+    --site-heading: #ffffff;
+    --site-muted: #b7b7bc;
+    --site-subtle: #8c8d93;
+    --site-border: #292a2f;
+    --site-border-soft: #202126;
+    --site-accent: #ff6257;
+    --site-accent-soft: rgba(255, 98, 87, 0.14);
+    --site-success: #25c266;
+  }
+
+  body.site-theme .theme-aware-portfolio {
+    color-scheme: dark;
+    background: var(--site-bg) !important;
+    color: var(--site-text) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where(section, article, aside, header, nav, footer, table, thead, tbody, tr, td, th, div, fieldset, button) {
+    border-color: var(--site-border) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="bg-white"], [class*="bg-neutral"], [class*="bg-slate"], [class*="bg-gray"]) {
+    background-color: var(--site-panel) !important;
+    background-image: none !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="bg-[#f"], [class*="bg-[#e"], [class*="bg-[#d"], [class*="bg-[#c"]) {
+    background-color: var(--site-panel) !important;
+    background-image: none !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where(section, article, button)[style*="background"] {
+    background: var(--site-panel) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="border"], [class*="ring"]) {
+    border-color: var(--site-border) !important;
+    --tw-ring-color: rgba(255, 98, 87, 0.22) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where(h1, h2, h3, h4, h5, h6, strong, b) {
+    color: var(--site-heading) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where(p, li, td, th, small, legend) {
+    color: var(--site-muted) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="text-black"], [class*="text-neutral-950"], [class*="text-[#111"], [class*="text-[#1a"], [class*="text-[#1e"]) {
+    color: var(--site-heading) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="text-[#172"], [class*="text-[#203"], [class*="text-[#242"], [class*="text-[#2f"], [class*="text-[#303"], [class*="text-[#374"], [class*="text-[#465"]) {
+    color: var(--site-text) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="text-neutral"], [class*="text-slate"], [class*="text-gray"], [class*="text-[#4"], [class*="text-[#5"], [class*="text-[#6"], [class*="text-[#7"], [class*="text-[#8"], [class*="text-[#9"]) {
+    color: var(--site-muted) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="text-[#2383e2"], [class*="text-[#1d4ed8"], [class*="text-[#1557b0"], [class*="text-[#b62631"]) {
+    color: var(--site-accent) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio :where([class*="shadow-"], [class*="shadow_"]) {
+    --tw-shadow-color: rgba(0, 0, 0, 0.45) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .raycast-command-frame {
+    background:
+      radial-gradient(circle at 18% 0%, rgba(255, 98, 87, 0.08), transparent 30%),
+      linear-gradient(180deg, #151619 0%, #101113 100%) !important;
+    border-color: #303137 !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .raycast-command-frame button:focus-visible,
+  body.site-theme .theme-aware-portfolio button:focus-visible,
+  body.site-theme .theme-aware-portfolio a:focus-visible,
+  body.site-theme .theme-aware-portfolio input:focus-visible {
+    outline: 2px solid var(--site-accent) !important;
+    outline-offset: 2px;
+  }
+
+  body.site-theme .theme-aware-portfolio .raycast-command-frame :where([aria-pressed="true"]) {
+    background-color: var(--site-accent-soft) !important;
+    color: #ffffff !important;
+    border-color: rgba(255, 98, 87, 0.36) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .workflow-primary-action {
+    background: linear-gradient(180deg, #ff756c 0%, #ff6257 100%) !important;
+    color: #111111 !important;
+    box-shadow: 0 12px 32px rgba(255, 98, 87, 0.18) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .raycast-light-pill {
+    background: rgba(21, 22, 25, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    color: #ffffff !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-card-status {
+    background: rgba(255, 255, 255, 0.055) !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
+    color: #f4f4f5 !important;
+  }
+
+  body.site-theme .theme-aware-portfolio table thead,
+  body.site-theme .theme-aware-portfolio .source-map-preview-frame {
+    background-color: var(--site-panel-soft) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio likec4-view {
+    color-scheme: dark;
+  }
 }
 
 ::selection {

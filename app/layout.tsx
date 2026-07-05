@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { founderName, nicheKeywords, serviceName, siteDescription, siteName, siteUrl } from "./site";
@@ -91,8 +93,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.className} min-h-dvh bg-[#fbfbfb] text-neutral-950 antialiased`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className={`${poppins.className} site-theme min-h-dvh bg-white text-neutral-950 antialiased`}>
         {children}
         <SpeedInsights />
       </body>

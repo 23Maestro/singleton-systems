@@ -269,35 +269,35 @@ views {
       color muted
     }
     style aiWorkflowSystem.implementationLoop {
-      color amber
+      color muted
     }
     style aiWorkflowSystem.implementationLoop.gather {
     	shape bucket
-      color blue
+      color muted
       icon bootstrap:inboxes
       iconSize xl
     }
     style aiWorkflowSystem.implementationLoop.classify {
     	shape person
-      color secondary
+      color muted
       icon bootstrap:diagram-3
       iconSize xl
     }
     style aiWorkflowSystem.implementationLoop.draft {
     	shape document
-      color amber
+      color muted
       icon bootstrap:pencil-square
       iconSize xl
     }
     style aiWorkflowSystem.implementationLoop.review {
     	shape component
-      color red
+      color muted
       icon bootstrap:person-check
       iconSize xl
     }
     style aiWorkflowSystem.implementationLoop.verify {
     	shape queue
-      color green
+      color muted
       icon bootstrap:patch-check
       iconSize xl
     }
