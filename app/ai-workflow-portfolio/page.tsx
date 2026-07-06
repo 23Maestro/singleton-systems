@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AIWorkflowPortfolioCommand from "@/components/AIWorkflowPortfolioCommand";
+import { getPortfolioCodeArtifacts } from "@/lib/portfolio-code-artifacts";
 
 export const metadata: Metadata = {
   title: "AI Workflow Portfolio",
@@ -9,6 +10,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AIWorkflowPortfolioPage() {
-  return <AIWorkflowPortfolioCommand />;
+export default async function AIWorkflowPortfolioPage() {
+  const codeArtifacts = await getPortfolioCodeArtifacts();
+
+  return <AIWorkflowPortfolioCommand codeArtifacts={codeArtifacts} />;
 }
