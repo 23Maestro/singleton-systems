@@ -531,7 +531,7 @@ function PortfolioCard({
 
   const className = cx(
     "portfolio-card-surface group relative flex min-h-[300px] w-full max-w-[400px] flex-col overflow-hidden rounded-[16px] border p-5 text-left shadow-[0_10px_20px_rgba(15,23,42,0.04)] transition duration-200",
-    selected ? "border-[#2383e2] ring-2 ring-[#2383e2]/20" : "border-[#dde3ec] hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_16px_32px_rgba(15,23,42,0.08)]",
+    selected ? "portfolio-option-card-selected border-[#ef8a82]" : "border-[#dde3ec] hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_16px_32px_rgba(15,23,42,0.08)]",
   );
 
   if (onClick) {
@@ -564,7 +564,7 @@ export function EvidenceTopSlice({ selectedKey, onSelect }: { selectedKey: strin
 
   return (
     <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-[minmax(0,680px)_minmax(0,1fr)]">
-      <div className="portfolio-artifact-surface overflow-hidden bg-white p-2">
+      <div className="min-w-0 overflow-visible bg-transparent p-0">
         <div className="grid gap-2 sm:grid-cols-2">
           {evidenceData.map((item) => (
             <button
@@ -573,12 +573,12 @@ export function EvidenceTopSlice({ selectedKey, onSelect }: { selectedKey: strin
               aria-pressed={item.key === selectedKey}
               onClick={() => onSelect(item.key)}
               className={cx(
-                "portfolio-card-surface grid min-h-[98px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[13px] transition-colors",
-                item.key === selectedKey ? "border-[#2383e2] bg-[#f1f6ff]" : "border-[#e1e5eb] bg-white hover:bg-[#f8fafc]",
+                "portfolio-card-surface grid min-h-[98px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[13px] transition-[background-color,border-color,box-shadow,opacity] duration-200",
+                item.key === selectedKey ? "portfolio-option-card-selected border-[#ef8a82] bg-[#fff8f7]" : "border-[#e1e5eb] bg-white hover:bg-[#f8fafc]",
               )}
             >
               <strong className="font-black leading-tight text-[#1e2736]">{item.title}</strong>
-              <span className="line-clamp-3 leading-5 text-[#667085]">{item.summary}</span>
+              <span className="portfolio-muted-copy line-clamp-3 leading-5 text-[#667085]">{item.summary}</span>
             </button>
           ))}
         </div>
@@ -658,7 +658,7 @@ export function EvidenceBottomSlice() {
     <section className="portfolio-artifact-surface mx-auto w-full max-w-[880px] overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
       <div className="portfolio-artifact-header grid gap-2 border-b border-[#e2e8f0] bg-[#fbfdff] px-4 py-3 md:grid-cols-[minmax(0,240px)_1fr] md:items-center md:px-5">
         <strong className="text-[16px] font-black leading-tight text-[#111318]">Supabase reporting shape</strong>
-        <span className="max-w-[520px] text-[14px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
+        <span className="portfolio-muted-copy max-w-[520px] text-[14px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
       </div>
       <div className="p-3 md:p-4">
         <div className="portfolio-artifact-surface overflow-hidden rounded-[12px] border border-[#e1e7f0] bg-white">
@@ -724,49 +724,46 @@ function CodeArtifactPreview({
     artifact.key === "supabase"
       ? {
           label: "json",
-          code: "#9f1239",
-          badge: "border-[#fecdd3] bg-[#fff1f2] text-[#9f1239]",
-          chrome: "#fff7f8",
+          codeLight: "#8f4b24",
+          codeDark: "#c76f43",
+          badge: "border-[#fed7aa] bg-[#fff7ed] text-[#c2410c]",
         }
       : artifact.key === "adapter"
         ? {
             label: "json",
-            code: "#9a3412",
-            badge: "border-[#fed7aa] bg-[#fff7ed] text-[#9a3412]",
-            chrome: "#fff8f1",
+            codeLight: "#8f4b24",
+            codeDark: "#c76f43",
+            badge: "border-[#fed7aa] bg-[#fff7ed] text-[#c2410c]",
           }
         : {
             label: "test",
-            code: "#0f766e",
+            codeLight: "#0f766e",
+            codeDark: "#64d6c5",
             badge: "border-[#99f6e4] bg-[#f0fdfa] text-[#0f766e]",
-            chrome: "#f3fffc",
           };
 
   return (
-    <section className="source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden bg-transparent" aria-live="polite">
-      <div key={artifact.key} className="absolute inset-0 flex animate-[sourceMapPreviewFade_240ms_ease-out] items-center justify-center p-5 md:p-8">
-        <div className="portfolio-artifact-surface flex h-full max-h-[410px] w-full max-w-[720px] flex-col overflow-hidden rounded-[18px] border border-[#dde5ef] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
-          <div className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b border-[#e2e8f0] px-4" style={{ backgroundColor: tone.chrome }}>
+    <section className="source-map-preview-frame relative mx-auto h-[430px] min-h-[430px] w-full max-w-[1040px] overflow-hidden bg-transparent" aria-live="polite">
+      <div key={artifact.key} className="absolute inset-0 flex animate-[sourceMapPreviewFade_240ms_ease-out] items-center justify-center p-4 md:p-6">
+        <div className="portfolio-code-artifact-shell flex h-full max-h-[350px] w-full max-w-[720px] flex-col overflow-hidden rounded-[18px] border shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
+          <div className="portfolio-code-artifact-header grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b px-4">
             <div className="flex items-center gap-2" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
             </div>
-            <strong className="text-[13px] font-black text-[#667085]">{artifact.title}</strong>
+            <strong className="portfolio-code-artifact-title text-[13px] font-black">{artifact.title}</strong>
             <span className={`justify-self-end rounded-md border px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] ${tone.badge}`}>
               {tone.label}
             </span>
           </div>
           <div className="relative min-h-0 flex-1">
-            <div className="code-artifact-body h-full overflow-y-auto overflow-x-hidden px-4 py-4 pb-16 md:px-6" style={{ "--artifact-code": tone.code } as CSSProperties} dangerouslySetInnerHTML={{ __html: artifact.html }} />
             <div
-              className="pointer-events-none absolute inset-x-px bottom-px h-16 backdrop-blur-[1px]"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 30%, rgba(255,255,255,0.42) 66%, rgba(255,255,255,0) 100%)",
-              }}
-              aria-hidden="true"
+              className="code-artifact-body h-full overflow-hidden px-3.5 py-3 pb-12 md:px-5 md:py-4"
+              style={{ "--artifact-code-light": tone.codeLight, "--artifact-code-dark": tone.codeDark } as CSSProperties}
+              dangerouslySetInnerHTML={{ __html: artifact.html }}
             />
+            <div className="portfolio-code-artifact-fade pointer-events-none absolute inset-x-px bottom-px h-14" aria-hidden="true" />
           </div>
         </div>
       </div>
@@ -775,9 +772,9 @@ function CodeArtifactPreview({
           margin: 0;
           min-width: 0;
           background: transparent !important;
-          color: #243041 !important;
-          font-size: 12px;
-          line-height: 1.72;
+          color: var(--artifact-code) !important;
+          font-size: 11.5px;
+          line-height: 1.52;
           font-weight: 700;
           letter-spacing: 0;
           white-space: pre-wrap;
@@ -791,7 +788,7 @@ function CodeArtifactPreview({
         }
         @media (min-width: 768px) {
           .code-artifact-body :global(pre) {
-            font-size: 13px;
+            font-size: 12.5px;
           }
         }
         @keyframes sourceMapPreviewFade {
@@ -812,14 +809,14 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {sourceRouteData.map((route) => {
         const className = cx(
-          "portfolio-card-surface relative rounded-[14px] border bg-white p-3.5 text-left shadow-[0_12px_28px_rgba(15,23,42,0.045)] transition",
-          selectedId === route.key ? "border-[#2383e2] ring-2 ring-[#2383e2]/15" : "border-[#e4e8ef]",
+          "portfolio-card-surface relative rounded-[14px] border bg-white p-3.5 text-left shadow-[0_12px_28px_rgba(15,23,42,0.045)] transition-[background-color,border-color,box-shadow,opacity] duration-200",
+          selectedId === route.key ? "portfolio-option-card-selected border-[#ef8a82]" : "border-[#e4e8ef]",
         );
         const content = (
           <>
-            <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#2383e2]">{route.source}</p>
+            <p className="source-map-card-kicker mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#e5484d]">{route.source}</p>
             <h3 className="m-0 mb-1.5 text-[18px] font-black leading-tight text-[#111318]">{route.title}</h3>
-            <p className="m-0 text-[13px] font-semibold leading-5 text-[#667085]">{route.inspect}</p>
+            <p className="portfolio-muted-copy m-0 text-[13px] font-semibold leading-5 text-[#667085]">{route.inspect}</p>
           </>
         );
 

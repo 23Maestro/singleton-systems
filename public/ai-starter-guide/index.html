@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Starter Lab</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #37352f;
+      --muted: #787774;
+      --soft: #f7f7f5;
+      --line: #e9e9e7;
+      --radius: 4px;
+      
+      /* Notion-style subtle accents */
+      --tag-blue-bg: #e8f3fb;
+      --tag-blue-text: #0b6e99;
+      --tag-purple-bg: #f4f0f7;
+      --tag-purple-text: #6940a5;
+      --tag-orange-bg: #faebdd;
+      --tag-orange-text: #d9730d;
+      --tag-green-bg: #edf3ec;
+      --tag-green-text: #0f7b6c;
+      --tag-red-bg: #fbe4e4;
+      --tag-red-text: #e03e3e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .hero {
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0;
+      max-width: 600px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    /* Skills changed to mimic Notion callouts/cards */
+    .skill {
+      padding: 16px;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skill .label {
+      align-self: flex-start;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    .skill:nth-child(1) .label { background: var(--tag-blue-bg); color: var(--tag-blue-text); }
+    .skill:nth-child(2) .label { background: var(--tag-purple-bg); color: var(--tag-purple-text); }
+    .skill:nth-child(3) .label { background: var(--tag-orange-bg); color: var(--tag-orange-text); }
+    .skill:nth-child(4) .label { background: var(--tag-green-bg); color: var(--tag-green-text); }
+
+    .skill h2 {
+      font-size: 16px;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .skill p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 40px;
+    }
+
+    .section-title {
+      margin: 0 0 16px 0;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .section-title p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
+    }
+
+    .tab {
+      background: transparent;
+      border: none;
+      padding: 4px 8px;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: var(--radius);
+      transition: background 0.2s;
+    }
+
+    .tab:hover {
+      background: var(--soft);
+    }
+
+    .tab.active {
+      color: var(--ink);
+      font-weight: 600;
+      background: var(--soft);
+    }
+
+    .panel {
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .step {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 8px 0;
+    }
+
+    .num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--soft);
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .step strong {
+      display: block;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .step span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 16px 0 8px;
+    }
+
+    textarea,
+    select,
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    select:focus,
+    input:focus {
+      border-color: #0ea5e9;
+    }
+
+    .btns {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 6px 12px;
+      cursor: pointer;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: var(--soft);
+    }
+
+    /* Fixed the selector to exclude .tab */
+    button:not(.secondary):not(.tab) {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    button:not(.secondary):not(.tab):hover {
+      background: #2f2f2f;
+    }
+
+    /* Notion-style code/quote block */
+    .output {
+      white-space: pre-wrap;
+      background: var(--soft);
+      color: #eb5757; /* Notion code text color */
+      font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      min-height: 80px;
+      border: 1px solid var(--line);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ink);
+      padding: 4px 0;
+    }
+
+    .pill::before {
+      content: "•";
+      color: var(--muted);
+    }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .check {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 4px 0;
+    }
+
+    .check input {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      accent-color: var(--ink);
+      cursor: pointer;
+    }
+
+    .check label {
+      margin: 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .check small {
+      display: block;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .privacy {
+      background: var(--tag-red-bg);
+      border-color: #f3d1d1;
+    }
+
+    .privacy .section-title {
+      border-bottom-color: #f3d1d1;
+    }
+
+    .privacy h2 {
+      color: var(--tag-red-text);
+    }
+
+    .footer {
+      text-align: left;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 60px;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">AI Starter Lab</div>
+      <h1>Simple AI Skills</h1>
+      <p class="sub">
+        A simple practice guide for customer support, service appointments, account notes, sales follow-up, and wellness ideas.
+      </p>
+    </section>
+
+    <section class="grid grid-4">
+      <div class="card skill">
+        <div class="label">Skill 1</div>
+        <h2>Clean up messy info</h2>
+        <p>Turn notes, timelines, account details, and questions into clear next steps.</p>
+      </div>
+
+      <div class="card skill">
+        <div class="label">Skill 2</div>
+        <h2>Ask better prompts</h2>
+        <p>Tell AI what you need, who it is for, and what tone it should use.</p>
+      </div>
+
+      <div class="card skill">
+        <div class="label">Skill 3</div>
+        <h2>Review the answer</h2>
+        <p>Check if the response is accurate, useful, warm, and safe before using it.</p>
+      </div>
+
+      <div class="card skill">
+        <div class="label">Skill 4</div>
+        <h2>Build small habits</h2>
+        <p>Practice with low-risk tasks until AI feels normal, not technical.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Pick a lane</h2>
+        <p>Start with one small task. Do not try to learn everything at once.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showPanel('support', this)">Customer Support</button>
+        <button class="tab" onclick="showPanel('sales', this)">Sales Follow-Up</button>
+        <button class="tab" onclick="showPanel('wellness', this)">Wellness Ideas</button>
+        <button class="tab" onclick="showPanel('personal', this)">Personal Admin</button>
+      </div>
+
+      <div id="support" class="panel active">
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Paste rough notes.</strong>
+              <span>Use fake names. Example: Customer A, Vehicle A, Account A.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Ask for a clean summary.</strong>
+              <span>Turn messy account or appointment details into a short update.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Check before sending.</strong>
+              <span>Make sure the appointment time, service issue, and next step are correct.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="sales" class="panel">
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Give the goal.</strong>
+              <span>Example: remind them, confirm interest, answer a question, or ask for a time.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Ask for 3 versions.</strong>
+              <span>Short, warmer, and more direct. Pick the one that sounds natural.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Remove anything fake.</strong>
+              <span>Never let AI invent details about pricing, promises, timing, or policy.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="wellness" class="panel">
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Use AI for ideas, not medical claims.</strong>
+              <span>Good for names, flyer copy, class themes, captions, and client-friendly wording.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Ask for a vibe.</strong>
+              <span>Warm, grounded, peaceful, simple, inviting, soft, natural.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Keep the final version human.</strong>
+              <span>Use your own taste. AI gives clay, you shape it.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="personal" class="panel">
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Use it for boring stuff.</strong>
+              <span>Meal ideas, appointment reminders, packing lists, budget notes, or email drafts.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Ask for simple formatting.</strong>
+              <span>Clean list, checklist, short text, calendar plan, or step-by-step instructions.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Save the best prompts.</strong>
+              <span>Reuse what works instead of starting over every time.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section grid grid-2">
+      <div class="card">
+        <div class="section-title">
+          <h2>Prompt Builder</h2>
+          <p>Fill this out, then copy the prompt.</p>
+        </div>
+
+        <label for="task">What do you need help with?</label>
+        <textarea id="task" placeholder="Example: Organize these service appointment notes into a clean customer update."></textarea>
+
+        <label for="tone">Tone</label>
+        <select id="tone">
+          <option>Warm and professional</option>
+          <option>Short and direct</option>
+          <option>Friendly and calm</option>
+          <option>Simple and beginner-friendly</option>
+          <option>Grounded and wellness-focused</option>
+        </select>
+
+        <label for="format">Format</label>
+        <select id="format">
+          <option>Clean bullet list</option>
+          <option>Short text message</option>
+          <option>Email draft</option>
+          <option>Step-by-step plan</option>
+          <option>3 options to choose from</option>
+        </select>
+
+        <div class="btns">
+          <button onclick="buildPrompt()">Build Prompt</button>
+          <button class="secondary" onclick="copyOutput('promptOutput')">Copy</button>
+        </div>
+
+        <div id="promptOutput" class="output">Your prompt will appear here.</div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>Review Checklist</h2>
+          <p>Use before sending anything.</p>
+        </div>
+
+        <div class="checklist">
+          <div class="check">
+            <input type="checkbox" id="c1" />
+            <label for="c1">
+              No private customer info
+              <small>No real names, phone numbers, addresses, account numbers, VINs, or payment details.</small>
+            </label>
+          </div>
+
+          <div class="check">
+            <input type="checkbox" id="c2" />
+            <label for="c2">
+              Facts are correct
+              <small>Appointment time, vehicle issue, account status, pricing, and policy are verified.</small>
+            </label>
+          </div>
+
+          <div class="check">
+            <input type="checkbox" id="c3" />
+            <label for="c3">
+              It sounds like a real person
+              <small>Remove stiff, robotic, or overly fancy wording.</small>
+            </label>
+          </div>
+
+          <div class="check">
+            <input type="checkbox" id="c4" />
+            <label for="c4">
+              The next step is clear
+              <small>The customer knows what to do next.</small>
+            </label>
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="secondary" onclick="resetChecks()">Reset Checklist</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>Copy-ready starter prompts</h2>
+        <p>Use placeholders. Replace details after AI helps.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showPrompt('p1', this)">Service Notes</button>
+        <button class="tab" onclick="showPrompt('p2', this)">Customer Text</button>
+        <button class="tab" onclick="showPrompt('p3', this)">Wellness Flyer</button>
+        <button class="tab" onclick="showPrompt('p4', this)">Learn AI</button>
+      </div>
+
+      <div id="p1" class="panel active">
+        <div class="output" id="starter1">Organize these rough notes into a clean summary. Use short bullets. Separate what happened, what the customer needs, and the next step. Do not invent any details.
+
+Notes:
+[Paste notes here]</div>
+        <div class="btns"><button class="secondary" onclick="copyOutput('starter1')">Copy Text</button></div>
+      </div>
+
+      <div id="p2" class="panel">
+        <div class="output" id="starter2">Draft a short, warm customer text message based on these notes. Keep it professional, simple, and under 80 words. End with one clear next step.
+
+Notes:
+[Paste notes here]</div>
+        <div class="btns"><button class="secondary" onclick="copyOutput('starter2')">Copy Text</button></div>
+      </div>
+
+      <div id="p3" class="panel">
+        <div class="output" id="starter3">Give me 5 simple flyer title ideas for a wellness session. The vibe should feel warm, peaceful, grounded, and not corporate.
+
+Session:
+[Reiki, massage, yoga, essential oils, etc.]</div>
+        <div class="btns"><button class="secondary" onclick="copyOutput('starter3')">Copy Text</button></div>
+      </div>
+
+      <div id="p4" class="panel">
+        <div class="output" id="starter4">Teach me this AI concept like I am brand new. Use plain language, one example from customer support, and one example from wellness.
+
+Concept:
+[Prompting, checking AI output, privacy, automation, data cleanup]</div>
+        <div class="btns"><button class="secondary" onclick="copyOutput('starter4')">Copy Text</button></div>
+      </div>
+    </section>
+
+    <section class="section grid grid-2">
+      <div class="card">
+        <div class="section-title">
+          <h2>The simple AI loop</h2>
+          <p>Use this every time.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Start small</strong>
+              <span>Pick one tiny task with no sensitive information.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Give context</strong>
+              <span>Tell AI the goal, audience, tone, and format.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Correct it</strong>
+              <span>Say what is wrong: too long, too cold, too vague, too salesy.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">4</div>
+            <div>
+              <strong>Save what works</strong>
+              <span>Keep your best prompts in Notes, Notion, or a simple doc.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card privacy">
+        <div class="section-title">
+          <h2>Privacy rule</h2>
+          <p>Easy rule. No exceptions.</p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">✓</div>
+            <div>
+              <strong>Use placeholders</strong>
+              <span>Customer A, Account A, Vehicle A, Appointment A.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">×</div>
+            <div>
+              <strong>Do not paste private details</strong>
+              <span>No names, phones, addresses, account numbers, VINs, payment info, or internal-only records.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">!</div>
+            <div>
+              <strong>Verify before using</strong>
+              <span>AI can sound confident and still be wrong.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-title">
+        <h2>7-day starter plan</h2>
+        <p>Low maintenance. One small rep per day.</p>
+      </div>
+
+      <div class="pill-row">
+        <div class="pill">Day 1: Make a free AI account</div>
+        <div class="pill">Day 2: Clean up messy notes</div>
+        <div class="pill">Day 3: Draft one customer text</div>
+        <div class="pill">Day 4: Ask for 3 better versions</div>
+        <div class="pill">Day 5: Make wellness flyer titles</div>
+        <div class="pill">Day 6: Save 3 favorite prompts</div>
+        <div class="pill">Day 7: Teach back what worked</div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Keep it simple: paste less, ask clearly, check the answer, save what works.
+    </div>
+  </main>
+
+  <script>
+    function showPanel(id, el) {
+      const parent = el.closest(".section");
+      parent.querySelectorAll(".panel").forEach(panel => panel.classList.remove("active"));
+      parent.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      el.classList.add("active");
+    }
+
+    function showPrompt(id, el) {
+      showPanel(id, el);
+    }
+
+    function buildPrompt() {
+      const task = document.getElementById("task").value.trim();
+      const tone = document.getElementById("tone").value;
+      const format = document.getElementById("format").value;
+
+      const prompt = `Help me with this task:
+
+${task || "[Describe the task here]"}
+
+Tone: ${tone}
+Format: ${format}
+
+Rules:
+- Keep it simple.
+- Do not invent details.
+- Ask one clarifying question only if something important is missing.
+- Use placeholders for private information.
+- Make the final answer easy to copy and use.`;
+
+      document.getElementById("promptOutput").textContent = prompt;
+    }
+
+    function copyOutput(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const box = document.getElementById(id);
+        const old = box.textContent;
+        box.textContent = "Copied.";
+        setTimeout(() => box.textContent = old, 700);
+      });
+    }
+
+    function resetChecks() {
+      document.querySelectorAll(".check input").forEach(box => box.checked = false);
+    }
+  </script>
+</body>
+</html>
