@@ -511,7 +511,7 @@ function Card({
 
 function Divider({ label }: { label: string }) {
   return (
-    <div className="relative my-4 rounded-[14px] border border-white/70 bg-white/58 px-3 py-3 shadow-[0_12px_34px_rgba(15,23,42,0.04)] backdrop-blur-md supports-[backdrop-filter]:bg-white/45">
+    <div className="portfolio-divider relative my-4 rounded-[14px] border border-white/70 bg-white/58 px-3 py-3 shadow-[0_12px_34px_rgba(15,23,42,0.04)] backdrop-blur-md supports-[backdrop-filter]:bg-white/45">
       <span className="pointer-events-none absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-[#dbe3ef]/80 to-transparent" aria-hidden="true" />
       <div className="flex items-center justify-between gap-4 font-mono text-[12px] font-black uppercase tracking-[0.14em] text-[#667085]">
         <strong className="font-black">Prospect ID Workflow System</strong>
@@ -1035,7 +1035,7 @@ function ResumePanel() {
     <TabShell title="Resume Support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
         <div className="grid gap-2.5 lg:grid-cols-4">
           {resumeData.map(([kicker, title, body]) => (
-            <section key={title} className="relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
+            <section key={title} className="portfolio-card-surface relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
               <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#2383e2]">{kicker}</p>
               <h3 className="m-0 mb-2 max-w-[78%] text-base font-black leading-tight text-[#2383e2]">{title}</h3>
               <p className="m-0 text-[15px] leading-6 text-[#667085]">{body}</p>
@@ -1082,7 +1082,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
 
   return (
     <main className="theme-aware-portfolio portfolio-route-root min-h-dvh overflow-x-clip bg-white text-[#111318]">
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-6 md:px-6 md:py-9" aria-label="Prospect ID workflow system case study">
+      <section className="mx-auto w-full max-w-[1180px] min-w-0 overflow-x-clip px-4 py-6 md:px-6 md:py-9" aria-label="Prospect ID workflow system case study">
         <header className="mb-5">
           <div>
             <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#98a2b3]">Singleton Systems · Jerami Singleton</p>
@@ -1091,7 +1091,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           </div>
         </header>
 
-        <nav className="mb-5 flex flex-wrap gap-1.5" aria-label="Case study sections">
+        <nav className="portfolio-tab-nav mb-5 flex max-w-full flex-wrap gap-1.5" aria-label="Case study sections">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -1108,7 +1108,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           ))}
         </nav>
 
-        <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out]">
+        <div key={activeTab} className="min-w-0 animate-[portfolioTabFade_180ms_ease-out]">
           {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
           {activeTab === "evidence" ? <EvidencePanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}

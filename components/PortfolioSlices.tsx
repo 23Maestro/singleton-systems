@@ -66,17 +66,28 @@ const likec4BaseStyle: CSSProperties = {
 };
 
 const likec4PortfolioFrameClass =
-  "source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden bg-transparent md:aspect-[1.62/1]";
+  "source-map-preview-frame relative mx-auto h-[240px] min-h-[240px] w-full max-w-[1040px] overflow-hidden bg-transparent sm:h-[360px] sm:min-h-[360px] md:h-[500px] md:min-h-[500px] md:aspect-[1.62/1]";
 
 const likec4ViewsScriptSrc = "/visual-maps/likec4-views.js";
 
 const likec4PortfolioOffsetByView: Record<string, string> = {
   ai_workflow_readme_map: "translate-y-0",
-  resume_timeline_map: "translate-y-[19%]",
+  resume_timeline_map: "translate-y-0 md:translate-y-[19%]",
+  review_first_implementation_loop: "translate-y-0 md:translate-y-[12%]",
 };
 
 function getLikeC4PortfolioOffset(viewId: string) {
-  return likec4PortfolioOffsetByView[viewId] ?? "translate-y-[12%]";
+  return likec4PortfolioOffsetByView[viewId] ?? "translate-y-0 md:translate-y-[12%]";
+}
+
+const likec4PortfolioScaleByView: Record<string, string> = {
+  ai_workflow_readme_map: "scale-[1.22] sm:scale-100",
+  resume_timeline_map: "scale-[1.55] sm:scale-[1.18] md:scale-100",
+  review_first_implementation_loop: "scale-[1.45] sm:scale-[1.12] md:scale-100",
+};
+
+function getLikeC4PortfolioScale(viewId: string) {
+  return likec4PortfolioScaleByView[viewId] ?? "scale-[1.2] sm:scale-100";
 }
 
 export const tabTargets: PortfolioTabTarget[] = ["System", "Evidence", "AI Specialist", "Resume", "Source Map"];
@@ -556,8 +567,8 @@ export function EvidenceTopSlice({ selectedKey, onSelect }: { selectedKey: strin
   const selected = evidenceData.find((item) => item.key === selectedKey) ?? evidenceData[0];
 
   return (
-    <div className="grid items-stretch gap-4 lg:grid-cols-[minmax(0,680px)_minmax(0,1fr)]">
-      <div className="overflow-hidden bg-white p-2">
+    <div className="grid min-w-0 items-stretch gap-4 lg:grid-cols-[minmax(0,680px)_minmax(0,1fr)]">
+      <div className="portfolio-artifact-surface overflow-hidden bg-white p-2">
         <div className="grid gap-2 sm:grid-cols-2">
           {evidenceData.map((item) => (
             <button
@@ -566,7 +577,7 @@ export function EvidenceTopSlice({ selectedKey, onSelect }: { selectedKey: strin
               aria-pressed={item.key === selectedKey}
               onClick={() => onSelect(item.key)}
               className={cx(
-                "grid min-h-[98px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[13px] transition-colors",
+                "portfolio-card-surface grid min-h-[98px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[13px] transition-colors",
                 item.key === selectedKey ? "border-[#2383e2] bg-[#f1f6ff]" : "border-[#e1e5eb] bg-white hover:bg-[#f8fafc]",
               )}
             >
@@ -656,7 +667,7 @@ function LikeC4Preview({
         aria-live="polite"
         data-likec4-artifact={viewId}
       >
-        <div className={`absolute inset-0 h-full w-full ${getLikeC4PortfolioOffset(viewId)} animate-[sourceMapPreviewFade_240ms_ease-out] p-2`}>
+        <div className={`absolute inset-0 h-full w-full origin-center ${getLikeC4PortfolioOffset(viewId)} ${getLikeC4PortfolioScale(viewId)} animate-[sourceMapPreviewFade_240ms_ease-out] p-2`}>
           {embed}
         </div>
         <style jsx>{`
@@ -680,25 +691,25 @@ export function EvidenceBottomSlice() {
   const [header, ...rows] = reportingRows;
 
   return (
-    <section className="mx-auto w-full max-w-[880px] overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
-      <div className="grid gap-2 border-b border-[#e2e8f0] bg-[#fbfdff] px-4 py-3 md:grid-cols-[minmax(0,240px)_1fr] md:items-center md:px-5">
+    <section className="portfolio-artifact-surface mx-auto w-full max-w-[880px] overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
+      <div className="portfolio-artifact-header grid gap-2 border-b border-[#e2e8f0] bg-[#fbfdff] px-4 py-3 md:grid-cols-[minmax(0,240px)_1fr] md:items-center md:px-5">
         <strong className="text-[16px] font-black leading-tight text-[#111318]">Supabase reporting shape</strong>
         <span className="max-w-[520px] text-[14px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
       </div>
       <div className="p-3 md:p-4">
-        <div className="overflow-x-auto rounded-[12px] border border-[#e1e7f0] bg-white">
-          <table className="w-full min-w-[720px] table-fixed border-collapse text-left text-[14px] leading-relaxed">
+        <div className="portfolio-artifact-surface overflow-hidden rounded-[12px] border border-[#e1e7f0] bg-white">
+          <table className="w-full min-w-0 table-fixed border-collapse text-left text-[11px] leading-snug sm:min-w-[720px] sm:text-[14px] sm:leading-relaxed">
             <caption className="sr-only">Supabase reporting source-of-truth verification table</caption>
             <colgroup>
-              <col className="w-[24%]" />
-              <col className="w-[20%]" />
-              <col className="w-[20%]" />
-              <col className="w-[36%]" />
+              <col className="w-[27%] sm:w-[24%]" />
+              <col className="w-[22%] sm:w-[20%]" />
+              <col className="w-[21%] sm:w-[20%]" />
+              <col className="w-[30%] sm:w-[36%]" />
             </colgroup>
             <thead className="bg-[#eef4fc] text-[#20304a]">
               <tr>
                 {header.map((cell) => (
-                  <th key={cell} scope="col" className="border-b border-[#dce5f0] px-3 py-3 font-black">
+                  <th key={cell} scope="col" className="break-words border-b border-[#dce5f0] px-1.5 py-2 font-black sm:px-3 sm:py-3">
                     {cell}
                   </th>
                 ))}
@@ -708,7 +719,7 @@ export function EvidenceBottomSlice() {
               {rows.map((row) => (
                 <tr key={row[0]} className="border-t border-[#e6ebf2]">
                   {row.map((cell, cellIndex) => (
-                    <td key={cell} className={cx("align-top px-3 py-3", cellIndex === 0 ? "font-black text-[#172033]" : "font-semibold text-[#465062]")}>
+                    <td key={cell} className={cx("break-words align-top px-1.5 py-2 sm:px-3 sm:py-3", cellIndex === 0 ? "font-black text-[#172033]" : "font-semibold text-[#465062]")}>
                       {cell}
                     </td>
                   ))}
@@ -770,7 +781,7 @@ function CodeArtifactPreview({
   return (
     <section className="source-map-preview-frame relative mx-auto h-[500px] min-h-[500px] w-full max-w-[1040px] overflow-hidden bg-transparent" aria-live="polite">
       <div key={artifact.key} className="absolute inset-0 flex animate-[sourceMapPreviewFade_240ms_ease-out] items-center justify-center p-5 md:p-8">
-        <div className="flex h-full max-h-[410px] w-full max-w-[720px] flex-col overflow-hidden rounded-[18px] border border-[#dde5ef] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
+        <div className="portfolio-artifact-surface flex h-full max-h-[410px] w-full max-w-[720px] flex-col overflow-hidden rounded-[18px] border border-[#dde5ef] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
           <div className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center border-b border-[#e2e8f0] px-4" style={{ backgroundColor: tone.chrome }}>
             <div className="flex items-center gap-2" aria-hidden="true">
               <span className="h-3 w-3 rounded-full bg-[#cbd5e1]" />
@@ -837,7 +848,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {sourceRouteData.map((route) => {
         const className = cx(
-          "relative rounded-[14px] border bg-white p-3.5 text-left shadow-[0_12px_28px_rgba(15,23,42,0.045)] transition",
+          "portfolio-card-surface relative rounded-[14px] border bg-white p-3.5 text-left shadow-[0_12px_28px_rgba(15,23,42,0.045)] transition",
           selectedId === route.key ? "border-[#2383e2] ring-2 ring-[#2383e2]/15" : "border-[#e4e8ef]",
         );
         const content = (
@@ -899,7 +910,7 @@ export function SourceMapBottomSlice({
   }
 
   const frameClass = cx(
-    "source-map-preview-frame relative mx-auto w-full overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)]",
+    "source-map-preview-frame portfolio-artifact-surface relative mx-auto w-full overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)]",
     selected.previewFrame === "product"
       ? "max-w-[900px] aspect-[1.2/1] md:aspect-[1.42/1]"
       : selected.previewFrame === "diagram"

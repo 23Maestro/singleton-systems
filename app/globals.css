@@ -115,10 +115,46 @@ body.site-theme .theme-aware-portfolio {
     border-color: var(--site-border-soft) !important;
   }
 
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface {
+    background: var(--site-panel-raised) !important;
+    border-color: var(--site-border) !important;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface table,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface thead,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface tbody,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface tr,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface th,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface td {
+    background-color: transparent !important;
+    border-color: var(--site-border-soft) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface strong,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface th,
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-surface td {
+    color: var(--site-heading) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-header {
+    background: rgba(18, 19, 21, 0.94) !important;
+    border-color: var(--site-border-soft) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-artifact-header span {
+    color: var(--site-muted) !important;
+  }
+
   body.site-theme .theme-aware-portfolio .portfolio-divider {
-    background: rgba(17, 18, 20, 0.74) !important;
+    background: rgba(21, 22, 25, 0.94) !important;
     border-color: var(--site-border) !important;
     box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-divider strong,
+  body.site-theme .theme-aware-portfolio .portfolio-divider span {
+    color: var(--site-heading) !important;
   }
 
   body.site-theme .theme-aware-portfolio .portfolio-tab-nav button {
