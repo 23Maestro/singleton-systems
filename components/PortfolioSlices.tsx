@@ -407,33 +407,33 @@ const reportingRows = [
 const systemCards = [
   {
     id: "raycast-card",
-    kicker: "Command surface",
+    kicker: "Command Menu",
     pill: "Action",
-    title: "Raycast Command UI",
-    body: "Front-end command surface for repeated operator workflows.",
+    title: "Raycast Command Menu",
+    body: "A command center for opening key workflows, drafting messages, and moving through video tasks faster.",
     accent: "#ff6257",
     icon: "R",
-    facts: ["Scout Prep", "Set Meetings", "Client Messages", "Video workflow commands"],
+    facts: ["Open athlete work faster", "Start video tasks", "Draft client messages", "Jump to the right page"],
   },
   {
     id: "adapter-card",
-    kicker: "Workflow support",
-    pill: "Adapter",
-    title: "FastAPI Legacy Adapter",
-    body: "Local API layer that translated dashboard forms into repeatable request shapes.",
+    kicker: "Workflow Bridge",
+    pill: "Bridge",
+    title: "Website Workflow Bridge",
+    body: "A powerful way to update tasks directly instead of repeating clicks.",
     accent: "#b86013",
     icon: "A",
-    facts: ["Shared local session path", "Form payload handling", "Legacy ID normalization", "Live source-system readback"],
+    facts: ["Use the active login", "Send cleaner updates", "Check the live site first", "Reduce extra steps"],
   },
   {
     id: "truth-card",
-    kicker: "Reporting layer",
-    pill: "Source",
-    title: "Supabase Truth Layer",
-    body: "Durable workflow facts separated from UI state and support caches.",
+    kicker: "Task Tracker",
+    pill: "Tracker",
+    title: "Video Task Tracker",
+    body: "A clearer way to manage athlete readiness, video status, due dates, and follow-up.",
     accent: "#25c266",
     icon: "S",
-    facts: ["appointments", "lifecycle_events", "call_log", "confirmation support cache"],
+    facts: ["Ready for film", "Not ready yet", "Video due soon", "In progress", "Follow-up needed"],
   },
 ];
 
@@ -523,7 +523,7 @@ function PortfolioCard({
   );
 
   const className = cx(
-    "group relative flex min-h-[300px] w-full max-w-[400px] flex-col overflow-hidden rounded-[16px] border p-5 text-left shadow-[0_10px_20px_rgba(15,23,42,0.04)] transition duration-200",
+    "portfolio-card-surface group relative flex min-h-[300px] w-full max-w-[400px] flex-col overflow-hidden rounded-[16px] border p-5 text-left shadow-[0_10px_20px_rgba(15,23,42,0.04)] transition duration-200",
     selected ? "border-[#2383e2] ring-2 ring-[#2383e2]/20" : "border-[#dde3ec] hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_16px_32px_rgba(15,23,42,0.08)]",
   );
 

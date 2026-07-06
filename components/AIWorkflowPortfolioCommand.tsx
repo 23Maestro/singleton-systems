@@ -2,16 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  AISpecialistBottomSlice,
-  AISpecialistTopSlice,
-  EvidenceBottomSlice,
-  EvidenceTopSlice,
-  ResumeBottomSlice,
-  SourceMapBottomSlice,
-  SourceMapTopSlice,
   SystemTopSlice,
 } from "./PortfolioSlices";
-import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
 type TabId = "system" | "evidence" | "fit" | "resume" | "sources";
 type WorkflowMode = "video" | "sales";
@@ -43,10 +35,10 @@ type WorkflowItem = {
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "system", label: "System" },
-  { id: "evidence", label: "Evidence" },
-  { id: "fit", label: "AI Specialist Match" },
+  { id: "evidence", label: "Workflow" },
+  { id: "fit", label: "AI Fit" },
   { id: "resume", label: "Resume" },
-  { id: "sources", label: "Source Map" },
+  { id: "sources", label: "Build Map" },
 ];
 
 const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
@@ -296,161 +288,161 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
   ],
 };
 
-const evidenceData = [
+type CopyCard = {
+  kicker: string;
+  pill: string;
+  title: string;
+  body: string;
+  accent: string;
+  icon: string;
+  facts?: string[];
+};
+
+const workflowCards: CopyCard[] = [
   {
-    key: "commands",
-    title: "Commands Are Buttons",
-    summary: "Repeated dashboard actions start from Raycast, while domain modules keep the workflow meaning.",
-    problem: "Operators had to remember where the right athlete, task, message, and status lived inside the dashboard.",
-    solution: "Raycast became the command surface. It starts the workflow, then domain modules decide what the action means.",
-    result: "Repeated clicks became a smaller set of reviewable actions: Scout Prep, Set Meetings, Client Messages, and video workflow commands.",
+    kicker: "Starting Point",
+    pill: "Start",
+    title: "Starting Point",
+    body: "The site had the athlete information and video progress data. The missing piece was a smoother way to connect those updates into daily work.",
+    accent: "#ff6257",
+    icon: "S",
   },
   {
-    key: "adapter",
-    title: "Legacy Adapter",
-    summary: "Browser form behavior becomes stable local API calls with repeatable request shapes.",
-    problem: "The source system worked through browser forms and session-bound dashboard behavior.",
-    solution: "FastAPI translated that behavior into stable local calls with normalized IDs, payload handling, and readback checks.",
-    result: "The workflow could be tested and repeated without rebuilding the same form mutation by hand.",
+    kicker: "Operating Flow",
+    pill: "Flow",
+    title: "Operating Flow",
+    body: "The workflow brings the important actions closer together: check the athlete, update the task, track the status, and know what needs follow-up.",
+    accent: "#25c266",
+    icon: "O",
   },
   {
-    key: "supabase",
-    title: "Supabase Ownership",
-    summary: "appointments, lifecycle_events, and call_log carry the durable workflow facts.",
-    problem: "Useful facts were mixed with UI state, support caches, and one-off reporting projections.",
-    solution: "appointments, lifecycle_events, and call_log became the durable places for meeting, stage, and reporting truth.",
-    result: "Prospect Web and audits could read the same reporting facts instead of trusting whatever a screen happened to show.",
+    kicker: "First Breakthrough",
+    pill: "Stages",
+    title: "First Breakthrough",
+    body: "I added clearer video stages so the workflow could reflect what was actually happening: ready, not ready, in progress, due soon, and follow-up needed.",
+    accent: "#b86013",
+    icon: "B",
   },
   {
-    key: "audit",
-    title: "Audit Before Cleanup",
-    summary: "Parity checks prove the reporting shape before cleanup changes what counts as truth.",
-    problem: "Cleanup could break reporting if old projections were deleted before the new shape was proven.",
-    solution: "Parity tests checked the projected call_log shape and read-only behavior before cleanup became real.",
-    result: "The repo shows cleanup as a verified migration path, not a blind delete.",
-  },
-  {
-    key: "repo",
-    title: "Public Repo",
-    summary: "400+ commits show one sustained workflow system, not a throwaway sample.",
-    problem: "A resume line alone cannot prove sustained system thinking.",
-    solution: "The public repo shows one workflow system built through 400+ commits, docs, tests, and app surfaces.",
-    result: "Reviewers can inspect the work instead of taking the claim on faith.",
-  },
-  {
-    key: "web",
-    title: "Prospect Web",
-    summary: "Mobile and reporting surfaces let cleaned data support review outside Raycast.",
-    problem: "Raycast handled operator action, but reporting and mobile review needed a separate readable surface.",
-    solution: "Prospect Web added mobile command views, call tracking, visual maps, and reporting screens on top of cleaned data.",
-    result: "The workflow became reviewable outside the desktop command window.",
-  },
-  {
-    key: "debug",
-    title: "Debug Template",
-    summary: "Legacy repair work is documented as a repeatable verification checklist.",
-    problem: "Legacy dashboard repairs can turn into one-off troubleshooting with no repeatable path.",
-    solution: "The debug template captured request shape, IDs, browser constraints, and verification steps.",
-    result: "Repair work became easier to repeat, review, and sanitize for public proof.",
-  },
-  {
-    key: "tests",
-    title: "Tests",
-    summary: "Source-of-truth checks prevent UI-local fixes from becoming business truth.",
-    problem: "UI-local fixes can look correct while corrupting the source-of-truth contract.",
-    solution: "Source-of-truth and parity checks lock the expected behavior around lifecycle, call-log, and cleanup paths.",
-    result: "Changes have proof before they become business truth.",
+    kicker: "What Changed",
+    pill: "AI",
+    title: "What Changed",
+    body: "AI helped me map the process, compare options, and shape a workflow that made the daily video work easier to manage.",
+    accent: "#8b5cf6",
+    icon: "W",
   },
 ];
 
-const processData = [
+const aiFitCards: CopyCard[] = [
   {
-    title: "Gather",
-    problem: "The workflow starts as scattered dashboard steps, notes, and operator memory.",
-    solution: "Collect the current command path, repo evidence, and source-system behavior before changing anything.",
-    result: "The AI work starts from the real workflow, not from a generic automation idea.",
+    kicker: "Prompt Development",
+    pill: "Prompt",
+    title: "Prompt Development",
+    body: "Used prompts to break down workflow problems, clean up process steps, and turn rough ideas into clear actions.",
+    accent: "#ff6257",
+    icon: "P",
   },
   {
-    title: "Classify",
-    problem: "Everything looks connected until ownership is named.",
-    solution: "Separate command UI, lifecycle truth, support cache, adapter behavior, and reporting facts.",
-    result: "Each change has a clear owner and less chance of drifting into the wrong table or helper.",
+    kicker: "AI Output Testing",
+    pill: "Test",
+    title: "AI Output Testing",
+    body: "Tested AI answers against the real workflow to see what was accurate, useful, and worth keeping.",
+    accent: "#25c266",
+    icon: "T",
   },
   {
-    title: "Draft",
-    problem: "AI output can be fast but vague if it is not tied to the system shape.",
-    solution: "Use AI to draft prompts, mappings, message support, and implementation options against the classified workflow.",
-    result: "Drafts become useful working material instead of loose copy.",
+    kicker: "Workflow Improvement",
+    pill: "Improve",
+    title: "Workflow Improvement",
+    body: "Identified repeated steps in the video process and built a cleaner way to manage them.",
+    accent: "#b86013",
+    icon: "W",
   },
   {
-    title: "Review",
-    problem: "A generated answer can sound right while missing operator context.",
-    solution: "Keep human review before mutation, sending, source-of-truth writes, or public-facing proof.",
-    result: "The workflow stays responsible and business-relevant.",
-  },
-  {
-    title: "Verify",
-    problem: "A screen working once is not the same as a system being correct.",
-    solution: "Use parity checks, readback, UI tests, or source review before treating the change as real.",
-    result: "The final claim has evidence behind it.",
+    kicker: "Practical Adoption",
+    pill: "Adopt",
+    title: "Practical Adoption",
+    body: "Focused on AI that supports the actual work: task flow, updates, follow-up, documentation, and operator decisions.",
+    accent: "#8b5cf6",
+    icon: "A",
   },
 ];
 
-const resumeData = [
-  ["Lead Evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
-  ["Throughput Evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
-  ["Education", "Stetson + SPC", "Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College."],
-  ["Role Match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
-] as const;
+const resumeCards: CopyCard[] = [
+  {
+    kicker: "AI Development Support",
+    pill: "AI",
+    title: "AI Development Support",
+    body: "Built and tested AI-assisted prompts, automations, and workflow tools around real business tasks.",
+    accent: "#ff6257",
+    icon: "A",
+  },
+  {
+    kicker: "Business Process Improvement",
+    pill: "Process",
+    title: "Business Process Improvement",
+    body: "Improved how video tasks, athlete updates, status changes, and follow-up were tracked.",
+    accent: "#25c266",
+    icon: "B",
+  },
+  {
+    kicker: "Testing and Feedback",
+    pill: "Test",
+    title: "Testing and Feedback",
+    body: "Tested ideas inside the real workflow, kept what worked, and refined what needed to be clearer or more reliable.",
+    accent: "#b86013",
+    icon: "T",
+  },
+  {
+    kicker: "Cross-Team Translation",
+    pill: "Translate",
+    title: "Cross-Team Translation",
+    body: "Turned technical findings into clear process updates a business user could understand and use.",
+    accent: "#8b5cf6",
+    icon: "C",
+  },
+];
 
-const proofRouteData = [
+const buildMapCards: CopyCard[] = [
   {
-    key: "readme",
-    title: "Command UI",
-    source: "README",
-    inspect: "Raycast commands, workflow entry points, and how operator actions start.",
-    result: "Shows that commands were built as a practical control surface, not just described in prose.",
-    href: "https://github.com/23Maestro/prospect-pipeline/blob/main/README.md",
+    kicker: "Existing Site",
+    pill: "Source",
+    title: "Existing Site",
+    body: "The source for athlete information, video progress, task updates, and status changes.",
+    accent: "#ff6257",
+    icon: "E",
   },
   {
-    key: "map",
-    title: "System Map",
-    source: "Architecture",
-    inspect: "Buckets for meetings, pre-meeting tasks, client communication, lifecycle truth, outcomes, and contacts.",
-    result: "Shows where workflow meaning lives before code or cleanup changes are made.",
-    href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scouting-coordinator-system-map.md",
+    kicker: "Workflow Need",
+    pill: "Need",
+    title: "Workflow Need",
+    body: "A stronger way to connect status, timing, reminders, and follow-up into the daily video process.",
+    accent: "#25c266",
+    icon: "N",
   },
   {
-    key: "supabase",
-    title: "Source-of-Truth",
-    source: "Supabase contract",
-    inspect: "Allowed writers for appointments, lifecycle_events, call_log, and confirmation support cache.",
-    result: "Shows how durable reporting truth was separated from support state.",
-    href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scout-prep-supabase-source-of-truth.md",
+    kicker: "AI Discovery",
+    pill: "AI",
+    title: "AI Discovery",
+    body: "Used AI to study the workflow, understand repeated actions, and shape cleaner ways to move through the work.",
+    accent: "#b86013",
+    icon: "D",
   },
   {
-    key: "adapter",
-    title: "Legacy Adapter",
-    source: "API template",
-    inspect: "Browser-compatible payload shape, legacy IDs, request constraints, and readback.",
-    result: "Shows the old dashboard workflow becoming repeatable adapter work.",
-    href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/api-specs/legacy-assignment-debug-template.md",
+    kicker: "Workflow Layer",
+    pill: "Layer",
+    title: "Workflow Layer",
+    body: "A layer around the site for faster updates, better task tracking, and fewer repeated steps.",
+    accent: "#8b5cf6",
+    icon: "L",
   },
   {
-    key: "audit",
-    title: "Audit Proof",
-    source: "Parity test",
-    inspect: "Read-only assertions that prove call_log/reporting shape before cleanup.",
-    result: "Shows cleanup protected by verification instead of broad deletion.",
-    href: "https://github.com/23Maestro/prospect-pipeline/blob/main/scripts/audit-call-tracker-live-parity.test.mjs",
-  },
-  {
-    key: "web",
-    title: "Web Support",
-    source: "Prospect Web",
-    inspect: "Mobile command surface, call tracker, reporting views, and visual maps.",
-    result: "Shows the workflow becoming readable outside Raycast.",
-    href: "https://github.com/23Maestro/prospect-pipeline/tree/main/apps/prospect-web",
+    kicker: "Operator View",
+    pill: "View",
+    title: "Operator View",
+    body: "A simple view of what needs attention, what changed, and what should happen next.",
+    accent: "#8b5cf6",
+    icon: "O",
   },
 ];
 
@@ -473,13 +465,13 @@ function Card({
   body: string;
   accent: string;
   icon: string;
-  facts: string[];
+  facts?: string[];
 }) {
   const panelBackground = `linear-gradient(135deg, ${accent}12 0%, #ffffff 42%, #f8fafc 100%)`;
 
   return (
     <section
-      className="group relative flex flex-col overflow-hidden rounded-[16px] border border-[#dde3ec] p-5 shadow-[0_12px_24px_rgba(15,23,42,0.04)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_16px_32px_rgba(15,23,42,0.08)]"
+      className="portfolio-card-surface group relative flex min-w-0 flex-col overflow-hidden rounded-[16px] border border-[#dde3ec] p-5 shadow-[0_12px_24px_rgba(15,23,42,0.04)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c8d3e2] hover:shadow-[0_16px_32px_rgba(15,23,42,0.08)]"
       style={{ background: panelBackground }}
     >
       <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-10 blur-xl" style={{ backgroundColor: accent }} />
@@ -496,26 +488,38 @@ function Card({
       </div>
 
       <h3 className="m-0 text-[19px] font-black leading-tight text-[#111318]">{title}</h3>
-      <p className="mt-1.5 text-[14px] font-semibold leading-5 text-[#5f6b7f]">{body}</p>
+      <p className="mt-2 text-[15px] font-semibold leading-6 text-[#5f6b7f]">{body}</p>
 
-      <ul className="mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[12px] font-bold leading-5 text-[#2f3746]">
-        {facts.map((fact) => (
-          <li key={fact}>
-            {fact}
-          </li>
-        ))}
-      </ul>
+      {facts?.length ? (
+        <ul className="mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[14px] font-bold leading-6 text-[#2f3746]">
+          {facts.map((fact) => (
+            <li key={fact}>
+              {fact}
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </section>
+  );
+}
+
+function CopyCardGrid({ cards }: { cards: CopyCard[] }) {
+  return (
+    <div className="grid min-w-0 justify-items-center gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {cards.map((card) => (
+        <Card key={card.title} {...card} />
+      ))}
+    </div>
   );
 }
 
 function Divider({ label }: { label: string }) {
   return (
-    <div className="relative my-4 rounded-[14px] border border-white/70 bg-white/58 px-3 py-3 shadow-[0_12px_34px_rgba(15,23,42,0.04)] backdrop-blur-md supports-[backdrop-filter]:bg-white/45">
+    <div className="portfolio-divider relative my-4 rounded-[14px] border border-white/70 bg-white/58 px-3 py-3 shadow-[0_12px_34px_rgba(15,23,42,0.04)] backdrop-blur-md supports-[backdrop-filter]:bg-white/45">
       <span className="pointer-events-none absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-[#dbe3ef]/80 to-transparent" aria-hidden="true" />
       <div className="flex items-center justify-between gap-4 font-mono text-[12px] font-black uppercase tracking-[0.14em] text-[#667085]">
-        <strong className="font-black">Prospect ID Workflow System</strong>
-        <span className="text-right font-black text-[#2383e2]">{label}</span>
+        <strong className="font-black">Video Workflow System</strong>
+        <span className="text-right font-black text-[#8b5cf6]">{label}</span>
       </div>
     </div>
   );
@@ -523,8 +527,8 @@ function Divider({ label }: { label: string }) {
 
 function TabShell({ title, lead, children }: { title: string; lead: string; children: React.ReactNode }) {
   return (
-    <article className="mx-auto w-full max-w-[1320px]">
-      <div className="mb-6 grid max-w-[920px] gap-1.5 min-h-[72px]">
+    <article className="mx-auto w-full min-w-0 max-w-[1320px]">
+      <div className="mb-6 grid min-h-[72px] max-w-[920px] min-w-0 gap-1.5">
         <h2 className="m-0 text-[24px] font-black leading-tight text-[#111318] md:text-[30px]">{title}</h2>
         <p className="m-0 text-[14px] leading-6 text-[#667085]">{lead}</p>
       </div>
@@ -771,7 +775,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
   }, [actions, goBack, onCopy, openAction, selected, view]);
 
   return (
-    <TabShell title="System View" lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables.">
+    <TabShell title="What I Built" lead="This project connects the daily video workflow around the existing site, so athlete updates, task progress, and follow-up are easier to manage from one place.">
       <div className="mx-auto max-w-[1320px]">
         <SystemTopSlice />
       </div>
@@ -1000,71 +1004,42 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
   );
 }
 
-function EvidencePanel() {
-  const [selectedKey, setSelectedKey] = useState(evidenceData[0].key);
-  const selected = evidenceData.find((item) => item.key === selectedKey) ?? evidenceData[0];
-
+function WorkflowPanel() {
   return (
     <TabShell
-      title="Evidence From the Repo"
-      lead="Each verification point ties a manual workflow issue to a clearer command surface, data boundary, or verification step."
+      title="Workflow"
+      lead="This shows how the video process moves: athlete status, video readiness, task updates, reminders, and follow-up."
     >
-      <EvidenceTopSlice selectedKey={selectedKey} onSelect={setSelectedKey} />
-
-      <Divider label="Reporting Truth Layer" />
-
-      <EvidenceBottomSlice />
+      <CopyCardGrid cards={workflowCards} />
     </TabShell>
   );
 }
 
 function FitPanel() {
   return (
-    <TabShell title="AI Specialist Match" lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption.">
-      <AISpecialistTopSlice />
-
-      <Divider label="AI Support Loop" />
-
-      <AISpecialistBottomSlice />
+    <TabShell title="Why This Fits an AI Specialist Role" lead="My strength is practical AI adoption: understanding the workflow, spotting repeatable patterns, testing better paths, and making the result useful inside real operations.">
+      <CopyCardGrid cards={aiFitCards} />
     </TabShell>
   );
 }
 
 function ResumePanel() {
   return (
-    <TabShell title="Resume Support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
-        <div className="grid gap-2.5 lg:grid-cols-4">
-          {resumeData.map(([kicker, title, body]) => (
-            <section key={title} className="relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#2383e2]">{kicker}</p>
-              <h3 className="m-0 mb-2 max-w-[78%] text-base font-black leading-tight text-[#2383e2]">{title}</h3>
-              <p className="m-0 text-[15px] leading-6 text-[#667085]">{body}</p>
-            </section>
-          ))}
-        </div>
-
-      <Divider label="Resume Evidence Stack" />
-
-      <ResumeBottomSlice />
+    <TabShell title="Resume Match" lead="This project connects directly to AI support, workflow testing, automation, documentation, and business process improvement.">
+      <CopyCardGrid cards={resumeCards} />
     </TabShell>
   );
 }
 
-function ProofMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifactMap }) {
-  const [selectedKey, setSelectedKey] = useState(proofRouteData[0].key);
-
+function BuildMapPanel() {
   return (
-    <TabShell title="Source Map" lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support.">
-      <SourceMapTopSlice selectedId={selectedKey} onSelect={setSelectedKey} />
-
-      <Divider label="Verification Route" />
-
-      <SourceMapBottomSlice selectedKey={selectedKey} codeArtifacts={codeArtifacts} />
+    <TabShell title="Build Map" lead="How the pieces connect around the video workflow.">
+      <CopyCardGrid cards={buildMapCards} />
     </TabShell>
   );
 }
 
-export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifactMap }) {
+export default function AIWorkflowPortfolioCommand() {
   const [activeTab, setActiveTab] = useState<TabId>("system");
   const [copied, setCopied] = useState(false);
   const activeLabel = useMemo(() => tabs.find((tab) => tab.id === activeTab)?.label ?? "System", [activeTab]);
@@ -1081,17 +1056,17 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
   }
 
   return (
-    <main className="theme-aware-portfolio min-h-dvh bg-white text-[#111318]">
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-6 md:px-6 md:py-9" aria-label="Prospect ID workflow system case study">
+    <main className="theme-aware-portfolio portfolio-route-root min-h-dvh overflow-x-clip bg-white text-[#111318]">
+      <section className="mx-auto w-full max-w-[1180px] overflow-x-clip px-4 py-6 md:px-6 md:py-9" aria-label="AI workflow portfolio case study">
         <header className="mb-5">
           <div>
             <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#98a2b3]">Singleton Systems · Jerami Singleton</p>
             <h1 className="m-0 text-[27px] font-black leading-tight text-[#111318] md:text-[31px]">AI Workflow Portfolio</h1>
-            <p className="mt-2 max-w-[760px] text-[15px] font-semibold leading-6 text-[#596579]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
+            <p className="mt-2 max-w-[760px] text-[15px] font-semibold leading-6 text-[#596579]">I used AI and automation to connect the work around an existing website: video tasks, athlete updates, follow-up, reminders, and progress tracking.</p>
           </div>
         </header>
 
-        <nav className="mb-5 flex flex-wrap gap-1.5" aria-label="Case study sections">
+        <nav className="portfolio-tab-nav mb-5 flex max-w-full flex-wrap gap-1.5" aria-label="Case study sections">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -1110,10 +1085,10 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
 
         <div key={activeTab} className="animate-[portfolioTabFade_180ms_ease-out]">
           {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
-          {activeTab === "evidence" ? <EvidencePanel /> : null}
+          {activeTab === "evidence" ? <WorkflowPanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}
           {activeTab === "resume" ? <ResumePanel /> : null}
-          {activeTab === "sources" ? <ProofMapPanel codeArtifacts={codeArtifacts} /> : null}
+          {activeTab === "sources" ? <BuildMapPanel /> : null}
         </div>
         <style jsx>{`
           @keyframes portfolioTabFade {
