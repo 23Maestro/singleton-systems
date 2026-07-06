@@ -20,7 +20,9 @@
     "visuals": "npm run visual-maps:build && sh -c 'cd docs/visual-maps/dist && (sleep 1; open http://127.0.0.1:4184) & python3 -m http.server 4184 --bind 127.0.0.1'",
     "visual-maps": "likec4 start docs/visual-maps",
     "visual-maps:validate": "likec4 validate docs/visual-maps",
-    "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist public/visual-maps && likec4 build docs/visual-maps --output docs/visual-maps/dist --base /visual-maps/ && cp -R docs/visual-maps/dist public/visual-maps'"
+    "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist public/visual-maps && likec4 build docs/visual-maps --output docs/visual-maps/dist --base /visual-maps/ && cp -R docs/visual-maps/dist public/visual-maps'",
+    "visual-maps:export-portfolio": "sh -c 'rm -rf public/portfolio/likec4-light public/portfolio/likec4-dark && mkdir -p public/portfolio/likec4-light public/portfolio/likec4-dark && likec4 export png docs/visual-maps --light --flat -o public/portfolio/likec4-light -f ai_workflow_readme_map -f scouting_coordinator_bucket_map -f resume_timeline_map -f review_first_implementation_loop -t 45 --max-attempts 3 && likec4 export png docs/visual-maps --dark --flat -o public/portfolio/likec4-dark -f ai_workflow_readme_map -f scouting_coordinator_bucket_map -f resume_timeline_map -f review_first_implementation_loop -t 45 --max-attempts 3 && node scripts/generate-likec4-artifact-svgs.mjs'",
+    "verify:ai-workflow-mobile": "node scripts/check-ai-workflow-mobile.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -31,6 +33,7 @@
     "next": "^15.5.19",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "satori": "^0.26.0",
     "shiki": "^4.3.1"
   },
   "devDependencies": {
@@ -43,6 +46,7 @@
     "eslint": "8.57.1",
     "eslint-config-next": "^15.5.19",
     "likec4": "^1.58.0",
+    "pngjs": "^7.0.0",
     "postcss": "8.4.49",
     "tailwindcss": "3.4.16",
     "typescript": "5.7.2",

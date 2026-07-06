@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Script from "next/script";
-import { createElement, useEffect, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
@@ -10,8 +8,6 @@ export type PortfolioTabTarget = "System" | "Evidence" | "AI Specialist" | "Resu
 export type PortfolioSlice = "Top" | "Bottom";
 export type PortfolioVisualType = "Cards" | "Data Table" | "Flowchart" | "Review Panel" | "Diff View" | "Code Map";
 export type SliceElementKind = "section" | "card" | "row" | "detail" | "action";
-type LikeC4FrameVariant = "portfolioArtifact";
-type LikeC4ColorScheme = "light" | "dark";
 
 export type SliceElement = {
   id: string;
@@ -57,38 +53,38 @@ export type SourceRouteItem = {
   likec4ViewId?: string;
 };
 
-const likec4BaseStyle: CSSProperties = {
-  display: "block",
-  background: "transparent",
-  height: "100%",
-  minHeight: "100%",
-  width: "100%",
-};
-
 const likec4PortfolioFrameClass =
-  "source-map-preview-frame relative mx-auto h-[240px] min-h-[240px] w-full max-w-[1040px] overflow-hidden bg-transparent sm:h-[360px] sm:min-h-[360px] md:h-[500px] md:min-h-[500px] md:aspect-[1.62/1]";
+  "source-map-preview-frame static-likec4-artifact relative mx-auto w-full overflow-hidden rounded-[18px] bg-transparent";
 
-const likec4ViewsScriptSrc = "/visual-maps/likec4-views.js";
-
-const likec4PortfolioOffsetByView: Record<string, string> = {
-  ai_workflow_readme_map: "translate-y-0",
-  resume_timeline_map: "translate-y-0 md:translate-y-[19%]",
-  review_first_implementation_loop: "translate-y-0 md:translate-y-[12%]",
+const likec4ArtifactConfig: Record<string, { width: number; height: number; maxWidthClass: string }> = {
+  ai_workflow_readme_map: {
+    width: 1200,
+    height: 1544,
+    maxWidthClass: "max-w-[720px]",
+  },
+  scouting_coordinator_bucket_map: {
+    width: 1600,
+    height: 980,
+    maxWidthClass: "max-w-[1040px]",
+  },
+  resume_timeline_map: {
+    width: 1600,
+    height: 980,
+    maxWidthClass: "max-w-[1040px]",
+  },
+  review_first_implementation_loop: {
+    width: 1600,
+    height: 980,
+    maxWidthClass: "max-w-[1040px]",
+  },
 };
 
-function getLikeC4PortfolioOffset(viewId: string) {
-  return likec4PortfolioOffsetByView[viewId] ?? "translate-y-0 md:translate-y-[12%]";
-}
-
-const likec4PortfolioScaleByView: Record<string, string> = {
-  ai_workflow_readme_map: "scale-[1.22] sm:scale-100",
-  resume_timeline_map: "scale-[1.55] sm:scale-[1.18] md:scale-100",
-  review_first_implementation_loop: "scale-[1.45] sm:scale-[1.12] md:scale-100",
+const likec4ArtifactLabels: Record<string, string> = {
+  ai_workflow_readme_map: "AI workflow portfolio README map",
+  scouting_coordinator_bucket_map: "Scouting coordinator system map",
+  resume_timeline_map: "Resume timeline map",
+  review_first_implementation_loop: "Review-first implementation loop map",
 };
-
-function getLikeC4PortfolioScale(viewId: string) {
-  return likec4PortfolioScaleByView[viewId] ?? "scale-[1.2] sm:scale-100";
-}
 
 export const tabTargets: PortfolioTabTarget[] = ["System", "Evidence", "AI Specialist", "Resume", "Source Map"];
 export const visualTypes: PortfolioVisualType[] = ["Cards", "Data Table", "Flowchart", "Review Panel", "Diff View", "Code Map"];
@@ -622,69 +618,37 @@ function DiffLine({ marker, tone, children }: { marker: string; tone: "add" | "r
   );
 }
 
-function useSystemColorScheme(): LikeC4ColorScheme {
-  const [scheme, setScheme] = useState<LikeC4ColorScheme>("light");
+function LikeC4Artifact({ viewId }: { viewId: string }) {
+  const config = likec4ArtifactConfig[viewId] ?? {
+    width: 1600,
+    height: 980,
+    maxWidthClass: "max-w-[1040px]",
+  };
+  const label = likec4ArtifactLabels[viewId] ?? "LikeC4 architecture map";
+  const lightSrc = `/portfolio/likec4-static/light/${viewId}.svg`;
+  const darkSrc = `/portfolio/likec4-static/dark/${viewId}.svg`;
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const updateScheme = () => setScheme(media.matches ? "dark" : "light");
-
-    updateScheme();
-    media.addEventListener("change", updateScheme);
-    return () => media.removeEventListener("change", updateScheme);
-  }, []);
-
-  return scheme;
-}
-
-function LikeC4Preview({
-  viewId,
-  dynamicVariant,
-  frameVariant,
-}: {
-  viewId: string;
-  dynamicVariant?: "diagram" | "sequence";
-  frameVariant?: LikeC4FrameVariant;
-}) {
-  const colorScheme = useSystemColorScheme();
-  const embed = (
-    <>
-      <Script id="likec4-views-script" src={likec4ViewsScriptSrc} type="module" strategy="afterInteractive" />
-      {createElement("likec4-view", {
-        "view-id": viewId,
-        browser: "true",
-        "color-scheme": colorScheme,
-        ...(dynamicVariant ? { "dynamic-variant": dynamicVariant } : {}),
-        style: likec4BaseStyle,
-      })}
-    </>
+  return (
+    <section
+      className={`${likec4PortfolioFrameClass} ${config.maxWidthClass}`}
+      style={{ aspectRatio: `${config.width} / ${config.height}` }}
+      aria-live="polite"
+      data-likec4-artifact={viewId}
+    >
+      <picture className="block h-full w-full">
+        <source srcSet={darkSrc} media="(prefers-color-scheme: dark)" />
+        <img
+          src={lightSrc}
+          alt={label}
+          width={config.width}
+          height={config.height}
+          className="h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    </section>
   );
-
-  if (frameVariant === "portfolioArtifact") {
-    return (
-      <section
-        className={likec4PortfolioFrameClass}
-        aria-live="polite"
-        data-likec4-artifact={viewId}
-      >
-        <div className={`absolute inset-0 h-full w-full origin-center ${getLikeC4PortfolioOffset(viewId)} ${getLikeC4PortfolioScale(viewId)} animate-[sourceMapPreviewFade_240ms_ease-out] p-2`}>
-          {embed}
-        </div>
-        <style jsx>{`
-          @keyframes sourceMapPreviewFade {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-        `}</style>
-      </section>
-    );
-  }
-
-  return embed;
 }
 
 export function EvidenceBottomSlice() {
@@ -744,11 +708,11 @@ export function AISpecialistTopSlice({ selectedId, onSelect }: { selectedId?: st
 }
 
 export function AISpecialistBottomSlice() {
-  return <LikeC4Preview viewId="review_first_implementation_loop" dynamicVariant="sequence" frameVariant="portfolioArtifact" />;
+  return <LikeC4Artifact viewId="review_first_implementation_loop" />;
 }
 
 export function ResumeBottomSlice() {
-  return <LikeC4Preview viewId="resume_timeline_map" dynamicVariant="sequence" frameVariant="portfolioArtifact" />;
+  return <LikeC4Artifact viewId="resume_timeline_map" />;
 }
 
 function CodeArtifactPreview({
@@ -895,13 +859,7 @@ export function SourceMapBottomSlice({
 }) {
   const selected = sourceRouteData.find((route) => route.key === selectedKey) ?? sourceRouteData[0];
   if (selected.likec4ViewId) {
-    return (
-      <LikeC4Preview
-        viewId={selected.likec4ViewId}
-        dynamicVariant="sequence"
-        frameVariant="portfolioArtifact"
-      />
-    );
+    return <LikeC4Artifact viewId={selected.likec4ViewId} />;
   }
 
   const codeArtifact = selected.previewFrame === "code" ? codeArtifacts?.[selected.key] : undefined;
