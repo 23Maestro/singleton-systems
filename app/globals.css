@@ -51,6 +51,44 @@ body.site-theme .theme-aware-portfolio p.source-map-card-kicker {
   color: #e5484d;
 }
 
+body.site-theme .theme-aware-portfolio .portfolio-top-card-title,
+body.site-theme .theme-aware-portfolio .portfolio-resume-title {
+  color: #111318 !important;
+}
+
+body.site-theme .theme-aware-portfolio .portfolio-top-card-body,
+body.site-theme .theme-aware-portfolio .portfolio-top-card-facts,
+body.site-theme .theme-aware-portfolio .portfolio-top-card-facts li,
+body.site-theme .theme-aware-portfolio .portfolio-resume-body {
+  color: #475467 !important;
+}
+
+body.site-theme .theme-aware-portfolio p.portfolio-tab-lead,
+body.site-theme .theme-aware-portfolio .portfolio-tab-lead {
+  color: #475467 !important;
+}
+
+body.site-theme .theme-aware-portfolio .source-map-likec4-layer {
+  backface-visibility: hidden;
+  contain: paint;
+  will-change: opacity, transform;
+}
+
+body.site-theme .theme-aware-portfolio .source-map-likec4-layer img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+body.site-theme .theme-aware-portfolio .portfolio-resume-kicker {
+  color: #2383e2 !important;
+}
+
+body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link,
+body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link span,
+body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link svg {
+  color: #2383e2 !important;
+}
+
 body.site-theme .theme-aware-portfolio .portfolio-card-surface,
 body.site-theme .theme-aware-portfolio .portfolio-artifact-surface,
 body.site-theme .theme-aware-portfolio .portfolio-code-artifact-shell,
@@ -73,6 +111,17 @@ body.site-theme .theme-aware-portfolio .portfolio-option-card-selected {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes sourceMapPreviewFade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -168,10 +217,42 @@ body.site-theme .theme-aware-portfolio .portfolio-code-artifact-fade {
     color: var(--site-heading) !important;
   }
 
+  body.site-theme .theme-aware-portfolio .portfolio-top-card-title,
+  body.site-theme .theme-aware-portfolio .portfolio-resume-title {
+    color: var(--site-heading) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-top-card-body,
+  body.site-theme .theme-aware-portfolio .portfolio-top-card-facts,
+  body.site-theme .theme-aware-portfolio .portfolio-top-card-facts li,
+  body.site-theme .theme-aware-portfolio .portfolio-resume-body {
+    color: #d2d5dc !important;
+  }
+
+  body.site-theme .theme-aware-portfolio p.portfolio-tab-lead,
+  body.site-theme .theme-aware-portfolio .portfolio-tab-lead {
+    color: #d2d5dc !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-resume-kicker {
+    color: #ff6b5f !important;
+  }
+
   body.site-theme .theme-aware-portfolio .portfolio-card-surface p,
   body.site-theme .theme-aware-portfolio .portfolio-card-surface .portfolio-muted-copy,
   body.site-theme .theme-aware-portfolio .portfolio-card-surface li {
     color: var(--site-muted) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-card-surface .portfolio-top-card-body,
+  body.site-theme .theme-aware-portfolio .portfolio-card-surface .portfolio-top-card-facts,
+  body.site-theme .theme-aware-portfolio .portfolio-card-surface .portfolio-top-card-facts li,
+  body.site-theme .theme-aware-portfolio .portfolio-card-surface .portfolio-resume-body {
+    color: #d2d5dc !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-card-surface .portfolio-resume-kicker {
+    color: #ff6b5f !important;
   }
 
   body.site-theme .theme-aware-portfolio .portfolio-card-surface ul {
@@ -254,6 +335,12 @@ body.site-theme .theme-aware-portfolio .portfolio-code-artifact-fade {
   body.site-theme .theme-aware-portfolio .portfolio-divider strong,
   body.site-theme .theme-aware-portfolio .portfolio-divider span {
     color: var(--site-heading) !important;
+  }
+
+  body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link,
+  body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link span,
+  body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link svg {
+    color: #6ab7ff !important;
   }
 
   body.site-theme .theme-aware-portfolio .portfolio-tab-nav button {

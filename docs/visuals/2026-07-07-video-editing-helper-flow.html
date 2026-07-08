@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Editing Helper Flow</title>
+  <style>
+    :root {
+      --ink: #161616;
+      --muted: #5f646d;
+      --line: #d7dce5;
+      --paper: #ffffff;
+      --wash: #f6f8fb;
+      --risk: #f35b5b;
+      --truth: #7c3aed;
+      --proof: #22a06b;
+      --action: #2474ff;
+      --review: #f1a72c;
+      --slate: #687385;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #fff 0%, var(--wash) 100%);
+    }
+
+    main {
+      width: min(1440px, calc(100% - 44px));
+      margin: 0 auto;
+      padding: 36px 0 48px;
+    }
+
+    h1, h2, p { margin: 0; }
+
+    h1 {
+      font-size: clamp(42px, 5vw, 78px);
+      line-height: .94;
+      letter-spacing: 0;
+      max-width: 980px;
+    }
+
+    .lead {
+      margin-top: 14px;
+      max-width: 880px;
+      font-size: 20px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .chart {
+      margin-top: 30px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.86);
+      overflow-x: auto;
+    }
+
+    .skill-row {
+      min-width: 1240px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .skill-card {
+      position: relative;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 16px;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .skill-card:not(:last-child)::after {
+      content: "routes";
+      position: absolute;
+      top: 50%;
+      right: -44px;
+      width: 76px;
+      height: 28px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 850;
+      z-index: 3;
+    }
+
+    .tool-label {
+      min-width: 1240px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .tool-label::before,
+    .tool-label::after {
+      content: "";
+      height: 2px;
+      background: var(--line);
+      flex: 1;
+    }
+
+    .lanes {
+      min-width: 1240px;
+      display: grid;
+      grid-template-columns: 1.25fr 1.1fr 1fr 1fr 1fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .lane {
+      position: relative;
+      min-height: 440px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 5px 5px 0 var(--ink);
+      padding: 16px;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .lane:not(:last-child)::after {
+      content: ">";
+      position: absolute;
+      top: 50%;
+      right: -23px;
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      font-weight: 900;
+      z-index: 2;
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--slate);
+    }
+
+    .risk { background: var(--risk); }
+    .truth { background: var(--truth); }
+    .proof { background: var(--proof); }
+    .action { background: var(--action); }
+    .review { background: var(--review); }
+
+    .lane h2,
+    .skill-card h2 {
+      font-size: 27px;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .lane > p,
+    .skill-card > p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+      padding: 12px;
+    }
+
+    .box strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+
+    .box span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.32;
+    }
+
+    .primary {
+      border-color: var(--ink);
+      border-width: 2px;
+      background: #f4fff8;
+    }
+
+    .path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.35;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .callout {
+      border-left: 8px solid var(--review);
+      border-radius: 8px;
+      background: #fffaf0;
+      padding: 16px;
+    }
+
+    .callout.good {
+      border-left-color: var(--proof);
+      background: #f2fbf7;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .callout p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 900px) {
+      main { width: min(100% - 24px, 1440px); }
+      .chart { padding: 14px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Pending video editing helper flow</h1>
+    <p class="lead">Top row: the skills that interpret the query and choose the stack. Bottom row: the actual tool/folder flow from left to right for the pending video editing helper.</p>
+
+    <section class="chart" aria-label="Flow chart from Cerebral to video editing helper tools">
+      <div class="skill-row" aria-label="Skills that handle the initial query">
+        <article class="skill-card">
+          <div class="kicker"><span class="dot risk"></span>front door</div>
+          <h2>Cerebral</h2>
+          <p>Names the owner surface before anything mutates.</p>
+          <div class="box">
+            <strong>Classify</strong>
+            <span>Video edit helper request</span>
+          </div>
+          <div class="box">
+            <strong>Route</strong>
+            <span>Portfolio or Freelance lane</span>
+          </div>
+          <div class="box">
+            <strong>Protect</strong>
+            <span>Ask what should stay in Eagle, Remotion, Premiere, or Opportunity HQ</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="kicker"><span class="dot truth"></span>plugin layer</div>
+          <h2>SSystems</h2>
+          <p>Loads the focused skills and review gates.</p>
+          <div class="box primary">
+            <strong>s-systems:eagle</strong>
+            <span>Asset library, folder placement, Eagle API/plugin decisions</span>
+          </div>
+          <div class="box">
+            <strong>tool-harness</strong>
+            <span>Smallest stack, review before mutation</span>
+          </div>
+          <div class="box">
+            <strong>singleton-visualizer</strong>
+            <span>Human-facing map, not the source of truth</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="kicker"><span class="dot review"></span>review gate</div>
+          <h2>Tool Harness</h2>
+          <p>Converts the route into a packet before tools act.</p>
+          <div class="box">
+            <strong>Packet</strong>
+            <span>lane, owner, intent, shape, tools, review, memory</span>
+          </div>
+          <div class="box">
+            <strong>Review before mutation</strong>
+            <span>Plugin build, Eagle changes, Premiere edits, delivery exports</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="kicker"><span class="dot proof"></span>selected stack</div>
+          <h2>Video helper stack</h2>
+          <p>The skills hand off to concrete tools and folders.</p>
+          <div class="box primary">
+            <strong>Active path</strong>
+            <span>Eagle + Remotion + Premiere MCP + Opportunity HQ</span>
+          </div>
+          <div class="box">
+            <strong>Blocked drift</strong>
+            <span>No Movies folder tree, no MCP dependency, no new database</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="tool-label">Tools and folders used left to right</div>
+
+      <div class="lanes">
+        <article class="lane">
+          <div class="kicker"><span class="dot proof"></span>asset owner</div>
+          <h2>Eagle</h2>
+          <p>Only destination for client edit asset files.</p>
+          <div class="box primary">
+            <strong>Video Projects</strong>
+            <span>Known SSystems location for future video project assets</span>
+          </div>
+          <div class="box">
+            <strong>Markdown editor plugin</strong>
+            <span>Asset-side notes: client notes, source/license notes, edit-map excerpts</span>
+          </div>
+          <div class="box">
+            <strong>Eagle Web API</strong>
+            <span>Reliable external automation path when Eagle is running</span>
+          </div>
+          <div class="box">
+            <strong>Eagle Plugin API</strong>
+            <span>Only for in-app UI/plugin behavior after reviewed spec</span>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="kicker"><span class="dot review"></span>motion kit</div>
+          <h2>Remotion</h2>
+          <p>Reusable brand motion assets stay in the development repo.</p>
+          <div class="box primary">
+            <strong>choose-courage-motion-kit</strong>
+            <span class="path">/Users/singleton23/Documents/Development/choose-courage-motion-kit</span>
+          </div>
+          <div class="box">
+            <strong>Rendered previews</strong>
+            <span class="path">renders/motion-kit-showcase.mp4</span>
+          </div>
+          <div class="box">
+            <strong>Promotion rule</strong>
+            <span>Only move into Eagle when it becomes a client edit asset</span>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="kicker"><span class="dot action"></span>edit control</div>
+          <h2>Premiere MCP</h2>
+          <p>Controls Premiere, but does not own files or task truth.</p>
+          <div class="box primary">
+            <strong>Premiere project</strong>
+            <span>Timeline, bins, pacing, exports</span>
+          </div>
+          <div class="box">
+            <strong>Read-only first</strong>
+            <span>Project info, sequence list, item list, active sequence, bins</span>
+          </div>
+          <div class="box">
+            <strong>MCP repo</strong>
+            <span class="path">/Users/singleton23/Documents/Development/Adobe_Premiere_Pro_MCP</span>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="kicker"><span class="dot truth"></span>task truth</div>
+          <h2>Opportunity HQ</h2>
+          <p>Only for project/task state, never asset storage.</p>
+          <div class="box primary">
+            <strong>Task state</strong>
+            <span>Status, work date, follow-up, blockers, notes</span>
+          </div>
+          <div class="box">
+            <strong>Proof link</strong>
+            <span>Attach Eagle asset/project link when needed</span>
+          </div>
+          <div class="box">
+            <strong>Review gate</strong>
+            <span>Before plugin build, destructive Eagle changes, Premiere edits, or delivery export</span>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="kicker"><span class="dot slate"></span>output</div>
+          <h2>Client review</h2>
+          <p>Final review assets are deliberately promoted into Eagle.</p>
+          <div class="box primary">
+            <strong>Review/final assets</strong>
+            <span>Stored in Eagle under the project asset set</span>
+          </div>
+          <div class="box">
+            <strong>System memory</strong>
+            <span>Decision, evidence, and next action only</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="footer-grid" aria-label="routing notes">
+      <div class="callout good">
+        <strong>Locked rule</strong>
+        <p>Video project asset files go to Eagle under Video Projects. Remotion renders stay in the Remotion development repo until deliberately promoted.</p>
+      </div>
+      <div class="callout">
+        <strong>Blocked drift</strong>
+        <p>No Movies client-edit folder tree. No MCP dependency layer. No new database. No background automation.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

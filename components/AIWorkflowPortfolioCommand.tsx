@@ -43,10 +43,10 @@ type WorkflowItem = {
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "system", label: "System" },
-  { id: "evidence", label: "Evidence" },
-  { id: "fit", label: "AI Specialist Match" },
+  { id: "evidence", label: "Workflow" },
+  { id: "fit", label: "AI Fit" },
   { id: "resume", label: "Resume" },
-  { id: "sources", label: "Source Map" },
+  { id: "sources", label: "Build Map" },
 ];
 
 const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
@@ -397,10 +397,10 @@ const processData = [
 ];
 
 const resumeData = [
-  ["Lead Evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
-  ["Throughput Evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
-  ["Education", "Stetson + SPC", "Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College."],
-  ["Role Match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
+  ["LEAD CASE STUDY", "Prospect ID", "Built AI-assisted workflows for video tasks and appointment setting, connecting Raycast commands, API calls, task updates, reporting views, and operator support."],
+  ["PRODUCTION SYSTEMS", "NurseHub", "Built repeatable course production folders and editing workflows to speed up full-course video assembly for the NurseHub YouTube channel."],
+  ["EDUCATION", "Stetson + SPC", "Bachelor of Communications, Stetson University. Additional Computer Programming and Information Technology coursework at St. Petersburg College."],
+  ["ROLE MATCH", "AI Specialist", "Hands-on AI workflow builder focused on practical adoption, automation support, documentation, testing, and cleaner business processes."],
 ] as const;
 
 const proofRouteData = [
@@ -408,47 +408,53 @@ const proofRouteData = [
     key: "readme",
     title: "Command UI",
     source: "README",
-    inspect: "Raycast commands, workflow entry points, and how operator actions start.",
+    linkLabel: "Open README",
+    inspect: "Raycast commands that start video tasks, appointment work, client messages, and scouting workflows from one command surface.",
     result: "Shows that commands were built as a practical control surface, not just described in prose.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/README.md",
   },
   {
     key: "map",
     title: "System Map",
-    source: "Architecture",
-    inspect: "Buckets for meetings, pre-meeting tasks, client communication, lifecycle truth, outcomes, and contacts.",
+    source: "ARCHITECTURE",
+    linkLabel: "Open Architecture",
+    inspect: "How meetings, tasks, client communication, athlete stages, outcomes, contacts, and video work connect across the workflow.",
     result: "Shows where workflow meaning lives before code or cleanup changes are made.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scouting-coordinator-system-map.md",
   },
   {
     key: "supabase",
-    title: "Source-of-Truth",
-    source: "Supabase contract",
-    inspect: "Allowed writers for appointments, lifecycle_events, call_log, and confirmation support cache.",
+    title: "Source Rules",
+    source: "SUPABASE CONTRACT",
+    linkLabel: "Open Supabase contract",
+    inspect: "Rules for keeping meeting data, status updates, call activity, and message support aligned across the team.",
     result: "Shows how durable reporting truth was separated from support state.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scout-prep-supabase-source-of-truth.md",
   },
   {
     key: "adapter",
-    title: "Legacy Adapter",
-    source: "API template",
-    inspect: "Browser-compatible payload shape, legacy IDs, request constraints, and readback.",
+    title: "Website Bridge",
+    source: "API TEMPLATE",
+    linkLabel: "Open API template",
+    inspect: "API call patterns that update the existing site directly, instead of repeating searches, page clicks, and manual status changes.",
     result: "Shows the old dashboard workflow becoming repeatable adapter work.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/api-specs/legacy-assignment-debug-template.md",
   },
   {
     key: "audit",
-    title: "Audit Proof",
-    source: "Parity test",
-    inspect: "Read-only assertions that prove call_log/reporting shape before cleanup.",
+    title: "Audit Checks",
+    source: "PARITY TEST",
+    linkLabel: "Open Parity test",
+    inspect: "Checks that confirm reporting data is shaped correctly before cleanup, sync, or workflow changes.",
     result: "Shows cleanup protected by verification instead of broad deletion.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/scripts/audit-call-tracker-live-parity.test.mjs",
   },
   {
     key: "web",
-    title: "Web Support",
-    source: "Prospect Web",
-    inspect: "Mobile command surface, call tracker, reporting views, and visual maps.",
+    title: "Always-On Web Tools",
+    source: "PROSPECT WEB",
+    linkLabel: "Open Prospect Web",
+    inspect: "Mobile web views that let me keep working on the go: send confirmation texts, offer reschedule slots, update sales stages, and keep the team aligned.",
     result: "Shows the workflow becoming readable outside Raycast.",
     href: "https://github.com/23Maestro/prospect-pipeline/tree/main/apps/prospect-web",
   },
@@ -509,24 +515,85 @@ function Card({
   );
 }
 
-function Divider({ label }: { label: string }) {
+type DividerIcon = "arrow-down" | "database" | "spark" | "badge" | "map";
+
+function DividerGlyph({ icon }: { icon: DividerIcon }) {
+  if (icon === "database") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
+        <ellipse cx="12" cy="5" rx="7" ry="3" />
+        <path d="M5 5v6c0 1.66 3.13 3 7 3s7-1.34 7-3V5" />
+        <path d="M5 11v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6" />
+      </svg>
+    );
+  }
+
+  if (icon === "spark") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
+        <path d="m12 3 1.6 5.1L19 10l-5.4 1.9L12 17l-1.6-5.1L5 10l5.4-1.9L12 3Z" />
+        <path d="M19 15v4" />
+        <path d="M17 17h4" />
+      </svg>
+    );
+  }
+
+  if (icon === "badge") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
+        <path d="M12 3 20 7v6c0 4.5-3.2 7-8 8-4.8-1-8-3.5-8-8V7l8-4Z" />
+        <path d="m8.5 12 2.2 2.2 4.8-5" />
+      </svg>
+    );
+  }
+
+  if (icon === "map") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
+        <path d="m8 5-5 2v13l5-2 8 2 5-2V5l-5 2-8-2Z" />
+        <path d="M8 5v13" />
+        <path d="M16 7v13" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
+      <path d="M12 4v14" />
+      <path d="m6 12 6 6 6-6" />
+    </svg>
+  );
+}
+
+function Divider({ label, icon }: { label: string; icon: DividerIcon }) {
   return (
     <div className="portfolio-divider relative my-4 rounded-[14px] border border-white/70 bg-white/58 px-3 py-3 shadow-[0_12px_34px_rgba(15,23,42,0.04)] backdrop-blur-md supports-[backdrop-filter]:bg-white/45">
       <span className="pointer-events-none absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-[#dbe3ef]/80 to-transparent" aria-hidden="true" />
-      <div className="flex items-center justify-between gap-4 font-mono text-[12px] font-black uppercase tracking-[0.14em] text-[#667085]">
-        <strong className="font-black">Prospect ID Workflow System</strong>
-        <span className="text-right font-black text-[#2383e2]">{label}</span>
+      <div className="flex items-center justify-between gap-2 font-mono text-[11px] font-black uppercase tracking-[0.08em] text-[#667085] sm:text-[12px] sm:tracking-[0.14em]">
+        <a
+          className="portfolio-divider-repo-link inline-flex min-h-7 min-w-0 items-center gap-1.5 whitespace-nowrap font-black italic text-[#2383e2] hover:underline sm:gap-2"
+          href="https://github.com/23Maestro/prospect-pipeline"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-current">
+            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.16c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.13v3.17c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+          </svg>
+          <span>Open GitHub Repo</span>
+        </a>
+        <span className="portfolio-divider-label inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-right font-black text-[#2383e2] sm:gap-2">
+          <span>{label}</span>
+          <DividerGlyph icon={icon} />
+        </span>
       </div>
     </div>
   );
 }
 
-function TabShell({ title, lead, children }: { title: string; lead: string; children: React.ReactNode }) {
+function TabShell({ title, lead, children }: { title: string; lead: React.ReactNode; children: React.ReactNode }) {
   return (
     <article className="mx-auto w-full max-w-[1320px]">
       <div className="mb-6 grid max-w-[920px] gap-1.5 min-h-[72px]">
         <h2 className="m-0 text-[24px] font-black leading-tight text-[#111318] md:text-[30px]">{title}</h2>
-        <p className="m-0 text-[14px] leading-6 text-[#667085]">{lead}</p>
+        <p className="portfolio-tab-lead m-0 text-[16px] leading-7 text-[#475467]">{lead}</p>
       </div>
       {children}
     </article>
@@ -771,12 +838,19 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
   }, [actions, goBack, onCopy, openAction, selected, view]);
 
   return (
-    <TabShell title="System View" lead="The work moved repeated operator steps out of scattered dashboard clicking and into command surfaces, source adapters, and durable reporting tables.">
+    <TabShell
+      title="System"
+      lead={
+        <>
+          Over the last 2.5 years, I went from video editing tasks to appointment-setting outreach; it started with using AI to see what stuck, then learning how to <strong className="font-black text-current">automate</strong> and <strong className="font-black text-current">modernize</strong> a legacy system.
+        </>
+      }
+    >
       <div className="mx-auto max-w-[1320px]">
         <SystemTopSlice />
       </div>
 
-      <Divider label="Interactive Workflow Surface" />
+      <Divider label="Try Out Raycast" icon="arrow-down" />
 
       <section className="mx-auto w-full max-w-[800px]" aria-label="Raycast-inspired workflow surface">
         <div className="raycast-command-frame relative flex h-[520px] w-full max-w-full flex-col overflow-hidden rounded-xl border border-[#d7dee9] bg-[#f8fafc] shadow-[0_20px_40px_rgba(15,23,42,0.08)]">
@@ -1006,12 +1080,12 @@ function EvidencePanel() {
 
   return (
     <TabShell
-      title="Evidence From the Repo"
-      lead="Each verification point ties a manual workflow issue to a clearer command surface, data boundary, or verification step."
+      title="Workflow From the Repo"
+      lead="Each item shows how a real workflow issue became a cleaner command, data rule, or verification step."
     >
       <EvidenceTopSlice selectedKey={selectedKey} onSelect={setSelectedKey} />
 
-      <Divider label="Reporting Truth Layer" />
+      <Divider label="Supabase Reports" icon="database" />
 
       <EvidenceBottomSlice />
     </TabShell>
@@ -1020,10 +1094,10 @@ function EvidencePanel() {
 
 function FitPanel() {
   return (
-    <TabShell title="AI Specialist Match" lead="Mapped to the job duties: gather messy workflow requirements, classify ownership, draft AI-supported paths, review outputs, and verify before adoption.">
+    <TabShell title="AI Specialist Match" lead="Mapped to the role: workflow requirements, data cleanup, prompt support, output review, user testing, documentation, and practical implementation.">
       <AISpecialistTopSlice />
 
-      <Divider label="AI Support Loop" />
+      <Divider label="AI Reviews" icon="spark" />
 
       <AISpecialistBottomSlice />
     </TabShell>
@@ -1032,18 +1106,18 @@ function FitPanel() {
 
 function ResumePanel() {
   return (
-    <TabShell title="Resume Support" lead="Prospect ID leads the case study. NurseHub supports throughput and repeatable production systems.">
+    <TabShell title="Resume Support" lead="Prospect ID shows the main AI workflow case study. NurseHub shows production systems, speed, and repeatable media operations.">
         <div className="grid gap-2.5 lg:grid-cols-4">
           {resumeData.map(([kicker, title, body]) => (
             <section key={title} className="portfolio-card-surface relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
-              <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#2383e2]">{kicker}</p>
-              <h3 className="m-0 mb-2 max-w-[78%] text-base font-black leading-tight text-[#2383e2]">{title}</h3>
-              <p className="m-0 text-[15px] leading-6 text-[#667085]">{body}</p>
+              <p className="portfolio-resume-kicker mb-3 text-[13px] font-black uppercase tracking-[0.16em] text-[#2383e2]">{kicker}</p>
+              <h3 className="portfolio-resume-title m-0 mb-2 max-w-[78%] text-[19px] font-black leading-tight text-[#111318]">{title}</h3>
+              <p className="portfolio-top-card-body portfolio-resume-body m-0 text-[17px] leading-7 text-[#475467]">{body}</p>
             </section>
           ))}
         </div>
 
-      <Divider label="Resume Evidence Stack" />
+      <Divider label="Resume Details" icon="badge" />
 
       <ResumeBottomSlice />
     </TabShell>
@@ -1054,10 +1128,10 @@ function ProofMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifa
   const [selectedKey, setSelectedKey] = useState(proofRouteData[0].key);
 
   return (
-    <TabShell title="Source Map" lead="Repo evidence connects each claim to the surface a reviewer can inspect: command UI, architecture, source-of-truth rules, adapter work, audits, and web support.">
+    <TabShell title="Build Map" lead="Each card points to the repo area behind the workflow: commands, architecture, source rules, API calls, server support, checks, and web views.">
       <SourceMapTopSlice selectedId={selectedKey} onSelect={setSelectedKey} />
 
-      <Divider label="Verification Route" />
+      <Divider label="Repo Map" icon="map" />
 
       <SourceMapBottomSlice selectedKey={selectedKey} codeArtifacts={codeArtifacts} />
     </TabShell>
@@ -1087,7 +1161,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           <div>
             <p className="mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#98a2b3]">Singleton Systems · Jerami Singleton</p>
             <h1 className="m-0 text-[27px] font-black leading-tight text-[#111318] md:text-[31px]">AI Workflow Portfolio</h1>
-            <p className="mt-2 max-w-[760px] text-[15px] font-semibold leading-6 text-[#596579]">Command UI, legacy-system adapter work, source-of-truth cleanup, and audit tests for a practical operations workflow.</p>
+            <p className="mt-2 max-w-[760px] text-[15px] font-semibold leading-6 text-[#596579]">AI and automation work built around real operations: video tasks, appointment setting, website workflow support, API discovery, and cleaner tracking.</p>
           </div>
         </header>
 

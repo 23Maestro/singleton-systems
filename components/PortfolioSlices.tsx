@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
-export type PortfolioTabTarget = "System" | "Evidence" | "AI Specialist" | "Resume" | "Source Map";
+export type PortfolioTabTarget = "System" | "Workflow" | "AI Fit" | "Resume" | "Build Map";
 export type PortfolioSlice = "Top" | "Bottom";
 export type PortfolioVisualType = "Cards" | "Data Table" | "Flowchart" | "Review Panel" | "Diff View" | "Code Map";
 export type SliceElementKind = "section" | "card" | "row" | "detail" | "action";
@@ -40,6 +41,7 @@ export type SourceRouteItem = {
   key: string;
   title: string;
   source: string;
+  linkLabel: string;
   inspect: string;
   result: string;
   href: string;
@@ -86,23 +88,38 @@ const likec4ArtifactLabels: Record<string, string> = {
   review_first_implementation_loop: "Review-first implementation loop map",
 };
 
-export const tabTargets: PortfolioTabTarget[] = ["System", "Evidence", "AI Specialist", "Resume", "Source Map"];
+function usePreloadLikeC4Artifacts() {
+  useEffect(() => {
+    const urls = Object.keys(likec4ArtifactConfig).flatMap((id) => [
+      `/portfolio/likec4-static/light/${id}.svg`,
+      `/portfolio/likec4-static/dark/${id}.svg`,
+    ]);
+
+    urls.forEach((src) => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = src;
+    });
+  }, []);
+}
+
+export const tabTargets: PortfolioTabTarget[] = ["System", "Workflow", "AI Fit", "Resume", "Build Map"];
 export const visualTypes: PortfolioVisualType[] = ["Cards", "Data Table", "Flowchart", "Review Panel", "Diff View", "Code Map"];
 
 export const sliceOptionsByTab: Record<PortfolioTabTarget, PortfolioSlice[]> = {
   System: ["Top"],
-  Evidence: ["Top", "Bottom"],
-  "AI Specialist": ["Top", "Bottom"],
+  Workflow: ["Top", "Bottom"],
+  "AI Fit": ["Top", "Bottom"],
   Resume: ["Bottom"],
-  "Source Map": ["Top", "Bottom"],
+  "Build Map": ["Top", "Bottom"],
 };
 
 export const defaultSliceByTab: Record<PortfolioTabTarget, PortfolioSlice> = {
   System: "Top",
-  Evidence: "Top",
-  "AI Specialist": "Top",
+  Workflow: "Top",
+  "AI Fit": "Top",
   Resume: "Bottom",
-  "Source Map": "Top",
+  "Build Map": "Top",
 };
 
 export const sliceTitles: Record<PortfolioTabTarget, Record<PortfolioSlice, { title: string; lead: string; route: string }>> = {
@@ -118,19 +135,19 @@ export const sliceTitles: Record<PortfolioTabTarget, Record<PortfolioSlice, { ti
       route: "components/AIWorkflowPortfolioCommand.tsx:SystemPanel",
     },
   },
-  Evidence: {
+  Workflow: {
     Top: {
       title: "Evidence Diff Surface",
       lead: "The evidence list and git-diff readback area above the reporting divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:EvidencePanel > EvidenceTopSlice",
     },
     Bottom: {
-      title: "Reporting Truth Layer",
+      title: "Supabase Reports",
       lead: "The Supabase reporting table below the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:EvidencePanel > EvidenceBottomSlice",
     },
   },
-  "AI Specialist": {
+  "AI Fit": {
     Top: {
       title: "AI Specialist Cards",
       lead: "The data preparation, output review, and implementation support cards above the divider.",
@@ -149,15 +166,15 @@ export const sliceTitles: Record<PortfolioTabTarget, Record<PortfolioSlice, { ti
       route: "components/AIWorkflowPortfolioCommand.tsx:ResumePanel",
     },
     Bottom: {
-      title: "Resume Verification Stack",
+      title: "Resume Details",
       lead: "The selectable resume verification stack below the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:ResumePanel > ResumeBottomSlice",
     },
   },
-  "Source Map": {
+  "Build Map": {
     Top: {
-      title: "Source Map Cards",
-      lead: "The source cards above the divider.",
+      title: "Build Map Cards",
+      lead: "The build map cards above the divider.",
       route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapTopSlice",
     },
     Bottom: {
@@ -172,7 +189,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "commands",
     title: "Commands Are Buttons",
-    summary: "Repeated dashboard actions start from Raycast, while domain modules keep the workflow meaning.",
+    summary: "Repeated actions start from Raycast, so video tasks, scout prep, appointment work, and client messages can move faster.",
     problem: "Operators had to remember where the right athlete, task, message, and status lived inside the dashboard.",
     solution: "Raycast became the command surface. It starts the workflow, then domain modules decide what the action means.",
     result: "Repeated clicks became a smaller set of reviewable actions: Scout Prep, Set Meetings, Client Messages, and video workflow commands.",
@@ -180,7 +197,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "adapter",
     title: "Legacy Adapter",
-    summary: "Browser form behavior becomes stable local API calls with repeatable request shapes.",
+    summary: "Browser form behavior becomes direct local API calls with repeatable request shapes.",
     problem: "The source system worked through browser forms and session-bound dashboard behavior.",
     solution: "FastAPI translated that behavior into stable local calls with normalized IDs, payload handling, and readback checks.",
     result: "The workflow could be tested and repeated without rebuilding the same form mutation by hand.",
@@ -188,7 +205,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "supabase",
     title: "Supabase Ownership",
-    summary: "appointments, lifecycle_events, and call_log carry the durable workflow facts.",
+    summary: "Appointments, lifecycle events, call logs, and video progress data stay in the right place.",
     problem: "Useful facts were mixed with UI state, support caches, and one-off reporting projections.",
     solution: "appointments, lifecycle_events, and call_log became the durable places for meeting, stage, and reporting truth.",
     result: "Prospect Web and audits could read the same reporting facts instead of trusting whatever a screen happened to show.",
@@ -196,7 +213,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "audit",
     title: "Audit Before Cleanup",
-    summary: "Parity checks prove the reporting shape before cleanup changes what counts as truth.",
+    summary: "Checks confirm the reporting shape before cleanup changes what counts as truth.",
     problem: "Cleanup could break reporting if old projections were deleted before the new shape was proven.",
     solution: "Parity tests checked the projected call_log shape and read-only behavior before cleanup became real.",
     result: "The repo shows cleanup as a verified migration path, not a blind delete.",
@@ -204,7 +221,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "repo",
     title: "Public Repo",
-    summary: "400+ commits show one sustained workflow system, not a throwaway sample.",
+    summary: "400+ commits show a sustained workflow system, not a sample project.",
     problem: "A resume line alone cannot prove sustained system thinking.",
     solution: "The public repo shows one workflow system built through 400+ commits, docs, tests, and app surfaces.",
     result: "Reviewers can inspect the work instead of taking the claim on faith.",
@@ -212,7 +229,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "web",
     title: "Prospect Web",
-    summary: "Mobile and reporting surfaces let cleaned data support review outside Raycast.",
+    summary: "Web views let cleaned data support review outside Raycast.",
     problem: "Raycast handled operator action, but reporting and mobile review needed a separate readable surface.",
     solution: "Prospect Web added mobile command views, call tracking, visual maps, and reporting screens on top of cleaned data.",
     result: "The workflow became reviewable outside the desktop command window.",
@@ -220,7 +237,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "debug",
     title: "Debug Template",
-    summary: "Legacy repair work is documented as a repeatable verification checklist.",
+    summary: "Repair work is documented as a repeatable checklist.",
     problem: "Legacy dashboard repairs can turn into one-off troubleshooting with no repeatable path.",
     solution: "The debug template captured request shape, IDs, browser constraints, and verification steps.",
     result: "Repair work became easier to repeat, review, and sanitize for public reference.",
@@ -228,7 +245,7 @@ export const evidenceData: EvidenceItem[] = [
   {
     key: "tests",
     title: "Tests",
-    summary: "Source-of-truth checks prevent UI-local fixes from becoming business truth.",
+    summary: "Source-of-truth checks keep quick fixes from becoming business truth.",
     problem: "UI-local fixes can look correct while corrupting the source-of-truth contract.",
     solution: "Source-of-truth and parity checks lock the expected behavior around lifecycle, call-log, and cleanup paths.",
     result: "Changes have verification before they become business truth.",
@@ -269,10 +286,10 @@ export const processData: ProcessItem[] = [
 ];
 
 export const resumeData = [
-  ["Lead Evidence", "Prospect ID", "Built a workflow system connecting Raycast commands, FastAPI middleware, Supabase reporting tables, web views, audit scripts, and AI-assisted operator workflows."],
-  ["Throughput Evidence", "NurseHub", "Restructured 60+ hours of course content, processed 180-200 lesson assets, and used deterministic FFmpeg workflows to increase assembly throughput 2-3x."],
-  ["Education", "Stetson + SPC", "Bachelor of Communications, Stetson University; 1.5 years Computer Programming / Information Technology coursework, St. Petersburg College."],
-  ["Role Match", "AI Specialist", "Hands-on AI workflow specialist focused on legacy systems, data organization, automation support, documentation, and practical implementation."],
+  ["LEAD CASE STUDY", "Prospect ID", "Built AI-assisted workflows for video tasks and appointment setting, connecting Raycast commands, API calls, task updates, reporting views, and operator support."],
+  ["PRODUCTION SYSTEMS", "NurseHub", "Built repeatable course production folders and editing workflows to speed up full-course video assembly for the NurseHub YouTube channel."],
+  ["EDUCATION", "Stetson + SPC", "Bachelor of Communications, Stetson University. Additional Computer Programming and Information Technology coursework at St. Petersburg College."],
+  ["ROLE MATCH", "AI Specialist", "Hands-on AI workflow builder focused on practical adoption, automation support, documentation, testing, and cleaner business processes."],
 ] as const;
 
 const resumeTimelineData = [
@@ -313,7 +330,8 @@ export const sourceRouteData: SourceRouteItem[] = [
     key: "readme",
     title: "Command UI",
     source: "README",
-    inspect: "Raycast commands, workflow entry points, and how operator actions start.",
+    linkLabel: "Open README",
+    inspect: "Raycast commands that start video tasks, appointment work, client messages, and scouting workflows from one command surface.",
     result: "Shows that commands were built as a practical control surface, not just described in prose.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/README.md",
     previewImageSrc: "/portfolio/source-map/readme-c4.png",
@@ -328,8 +346,9 @@ export const sourceRouteData: SourceRouteItem[] = [
   {
     key: "map",
     title: "System Map",
-    source: "Architecture",
-    inspect: "Buckets for meetings, pre-meeting tasks, client communication, lifecycle truth, outcomes, and contacts.",
+    source: "ARCHITECTURE",
+    linkLabel: "Open Architecture",
+    inspect: "How meetings, tasks, client communication, athlete stages, outcomes, contacts, and video work connect across the workflow.",
     result: "Shows where workflow meaning lives before code or cleanup changes are made.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scouting-coordinator-system-map.md",
     previewImageSrc: "/portfolio/source-map/system-map-c4.png",
@@ -343,9 +362,10 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "supabase",
-    title: "Source-of-Truth",
-    source: "Supabase contract",
-    inspect: "Allowed writers for appointments, lifecycle_events, call_log, and confirmation support cache.",
+    title: "Source Rules",
+    source: "SUPABASE CONTRACT",
+    linkLabel: "Open Supabase contract",
+    inspect: "Rules for keeping meeting data, status updates, call activity, and message support aligned across the team.",
     result: "Shows how durable reporting truth was separated from support state.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scout-prep-supabase-source-of-truth.md",
     previewImageSrc: "/portfolio/source-map/supabase-contract.png",
@@ -358,9 +378,10 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "adapter",
-    title: "Legacy Adapter",
-    source: "API template",
-    inspect: "Browser-compatible payload shape, legacy IDs, request constraints, and readback.",
+    title: "Website Bridge",
+    source: "API TEMPLATE",
+    linkLabel: "Open API template",
+    inspect: "API call patterns that update the existing site directly, instead of repeating searches, page clicks, and manual status changes.",
     result: "Shows the old dashboard workflow becoming repeatable adapter work.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/api-specs/legacy-assignment-debug-template.md",
     previewImageSrc: "/portfolio/source-map/legacy-api.svg",
@@ -373,9 +394,10 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "audit",
-    title: "Audit Evidence",
-    source: "Parity test",
-    inspect: "Read-only assertions that prove call_log/reporting shape before cleanup.",
+    title: "Audit Checks",
+    source: "PARITY TEST",
+    linkLabel: "Open Parity test",
+    inspect: "Checks that confirm reporting data is shaped correctly before cleanup, sync, or workflow changes.",
     result: "Shows cleanup protected by verification instead of broad deletion.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/scripts/audit-call-tracker-live-parity.test.mjs",
     previewImageSrc: "/portfolio/source-map/live-parity-test.svg",
@@ -388,9 +410,10 @@ export const sourceRouteData: SourceRouteItem[] = [
   },
   {
     key: "web",
-    title: "Web Support",
-    source: "Prospect Web",
-    inspect: "Mobile command surface, call tracker, reporting views, and visual maps.",
+    title: "Always-On Web Tools",
+    source: "PROSPECT WEB",
+    linkLabel: "Open Prospect Web",
+    inspect: "Mobile web views that let me keep working on the go: send confirmation texts, offer reschedule slots, update sales stages, and keep the team aligned.",
     result: "Shows the workflow becoming readable outside Raycast.",
     href: "https://github.com/23Maestro/prospect-pipeline/tree/main/apps/prospect-web",
     previewImageSrc: "/portfolio/source-map/prospect-web-enhanced.png",
@@ -405,75 +428,75 @@ export const sourceRouteData: SourceRouteItem[] = [
 
 const reportingRows = [
   ["Table", "Owner", "Write path", "What it verifies"],
-  ["appointments", "Meeting workflow", "Set Meetings", "Booked meeting lookup and confirmation readback"],
-  ["athlete_lifecycle_events", "Stage truth", "Post-call updates", "Lifecycle changes are not hidden in UI state"],
-  ["call_log", "Reporting", "Audit checks", "Projected shape checked before cleanup"],
-  ["confirmation_cache", "Support cache", "Message support", "Useful for drafting, not durable lifecycle truth"],
+  ["Booked Meetings", "Meeting workflow", "Set meeting actions", "Meetings can be found, checked, and confirmed"],
+  ["Athlete Status Updates", "Stage tracking", "Post-call updates", "Sales Stage changes stay clear after each athlete or parent conversation"],
+  ["Call History", "Reporting", "Audit checks", "Call activity can be reviewed before cleanup"],
+  ["Message Support Notes", "Draft support", "Message helpers", "Notes can help with messages without becoming the main status record"],
 ];
 
 const systemCards = [
   {
     id: "raycast-card",
-    kicker: "Command surface",
+    kicker: "COMMAND SURFACE",
     pill: "Action",
-    title: "Raycast Command UI",
-    body: "Front-end command surface for repeated operator workflows.",
+    title: "Raycast Command Menu",
+    body: "A command center for video tasks, scouting workflows, messages, and appointment actions.",
     accent: "#ff6257",
     icon: "R",
-    facts: ["Scout Prep", "Set Meetings", "Client Messages", "Video workflow commands"],
+    facts: ["Scout prep", "Set meetings", "Client messages", "Video workflow commands"],
   },
   {
     id: "adapter-card",
-    kicker: "Workflow support",
+    kicker: "WORKFLOW SUPPORT",
     pill: "Adapter",
-    title: "FastAPI Legacy Adapter",
-    body: "Local API layer that translated dashboard forms into repeatable request shapes.",
+    title: "Website Workflow Bridge",
+    body: "A powerful way to update tasks directly instead of repeating searches, clicks, and page changes.",
     accent: "#b86013",
     icon: "A",
-    facts: ["Shared local session path", "Form payload handling", "Legacy ID normalization", "Live source-system readback"],
+    facts: ["Active login session", "Dynamic API calls", "Cleaner task updates", "Live site checks"],
   },
   {
     id: "truth-card",
-    kicker: "Reporting layer",
+    kicker: "REPORTING LAYER",
     pill: "Source",
-    title: "Supabase Truth Layer",
-    body: "Durable workflow facts separated from UI state and support caches.",
+    title: "Supabase Tracking Layer",
+    body: "A cleaner place to track the workflow facts that need to stay reliable across video tasks and appointment work.",
     accent: "#25c266",
     icon: "S",
-    facts: ["appointments", "lifecycle_events", "call_log", "confirmation support cache"],
+    facts: ["Appointments", "Status changes", "Call activity", "Video progress data"],
   },
 ];
 
 const aiCards = [
   {
     id: "data-prep-card",
-    kicker: "Data Preparation",
+    kicker: "DATA PREPARATION",
     pill: "Gather",
     title: "Data Preparation",
-    body: "Turned scattered workflow facts into source-of-truth contracts that people and AI tools could both follow.",
+    body: "Turned scattered workflow details into cleaner task, status, meeting, and reporting records.",
     accent: "#ff6257",
     icon: "D",
-    facts: ["Validation gates", "Migration checks", "Reporting cleanup"],
+    facts: ["Workflow cleanup", "Status rules", "Reporting checks"],
   },
   {
     id: "output-review-card",
-    kicker: "Output Review",
+    kicker: "OUTPUT REVIEW",
     pill: "Evaluate",
     title: "Output Evaluation",
-    body: "Used AI-assisted drafts, then checked outputs against repo evidence, operator needs, and source readback.",
+    body: "Used AI-assisted drafts and checked them against the real workflow, source data, and operator needs.",
     accent: "#25c266",
     icon: "O",
-    facts: ["Draft helpers", "Human review", "Source readback"],
+    facts: ["Prompt testing", "Human review", "Source checks"],
   },
   {
     id: "implementation-card",
-    kicker: "Implementation",
+    kicker: "IMPLEMENTATION",
     pill: "Support",
     title: "Implementation Support",
-    body: "Built around the operator workflow so pilots could be tested, explained, and improved without guessing.",
+    body: "Built the workflow so it could be tested, explained, adjusted, and used inside daily operations.",
     accent: "#b86013",
     icon: "I",
-    facts: ["Workflow mapping", "Command UI testing", "Architecture docs"],
+    facts: ["Workflow mapping", "Command testing", "Process docs"],
   },
 ];
 
@@ -511,15 +534,15 @@ function PortfolioCard({
           <span className="grid h-7 w-7 place-items-center rounded-lg border border-black/10 text-[11px] font-black text-white shadow-sm" style={{ backgroundColor: accent }}>
             {icon}
           </span>
-          <p className="m-0 text-[11px] font-black uppercase tracking-[0.18em]" style={{ color: accent }}>
+          <p className="portfolio-top-card-kicker m-0 text-[13px] font-black uppercase tracking-[0.18em]" style={{ color: accent }}>
             {kicker}
           </p>
         </div>
         <span className="portfolio-card-status rounded-full border border-[#d8e0ea] bg-white/80 px-2 py-0.5 text-[11px] font-black text-[#1f2937] shadow-sm">{pill}</span>
       </div>
-      <h3 className="m-0 text-[20px] font-black leading-tight text-[#111318]">{title}</h3>
-      <p className="mt-2 line-clamp-3 text-[15px] font-semibold leading-6 text-[#5f6b7f]">{body}</p>
-      <ul className="mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[14px] font-bold leading-6 text-[#2f3746]">
+      <h3 className="portfolio-top-card-title m-0 text-[22px] font-black leading-tight text-[#111318]">{title}</h3>
+      <p className="portfolio-top-card-body mt-2 line-clamp-3 text-[17px] font-semibold leading-7 text-[#475467]">{body}</p>
+      <ul className="portfolio-top-card-facts mt-4 list-disc space-y-1.5 border-t border-[#dfe6ef] pl-5 pt-3 text-[16px] font-bold leading-7 text-[#2f3746]">
         {facts.map((fact) => (
           <li key={fact}>
             {fact}
@@ -573,12 +596,12 @@ export function EvidenceTopSlice({ selectedKey, onSelect }: { selectedKey: strin
               aria-pressed={item.key === selectedKey}
               onClick={() => onSelect(item.key)}
               className={cx(
-                "portfolio-card-surface grid min-h-[98px] w-full gap-1 rounded-[11px] border px-3 py-2.5 text-left text-[13px] transition-[background-color,border-color,box-shadow,opacity] duration-200",
+                "portfolio-card-surface grid min-h-[112px] w-full gap-1 rounded-[11px] border px-3 py-3 text-left transition-[background-color,border-color,box-shadow,opacity] duration-200",
                 item.key === selectedKey ? "portfolio-option-card-selected border-[#ef8a82] bg-[#fff8f7]" : "border-[#e1e5eb] bg-white hover:bg-[#f8fafc]",
               )}
             >
-              <strong className="font-black leading-tight text-[#1e2736]">{item.title}</strong>
-              <span className="portfolio-muted-copy line-clamp-3 leading-5 text-[#667085]">{item.summary}</span>
+              <strong className="portfolio-top-card-title text-[17px] font-black leading-tight text-[#1e2736]">{item.title}</strong>
+              <span className="portfolio-top-card-body portfolio-muted-copy line-clamp-3 text-[15px] leading-6 text-[#475467]">{item.summary}</span>
             </button>
           ))}
         </div>
@@ -618,7 +641,9 @@ function DiffLine({ marker, tone, children }: { marker: string; tone: "add" | "r
   );
 }
 
-function LikeC4Artifact({ viewId }: { viewId: string }) {
+function LikeC4Artifact({ viewId, stableFrame = false }: { viewId: string; stableFrame?: boolean }) {
+  usePreloadLikeC4Artifacts();
+
   const config = likec4ArtifactConfig[viewId] ?? {
     width: 1600,
     height: 980,
@@ -627,6 +652,38 @@ function LikeC4Artifact({ viewId }: { viewId: string }) {
   const label = likec4ArtifactLabels[viewId] ?? "LikeC4 architecture map";
   const lightSrc = `/portfolio/likec4-static/light/${viewId}.svg`;
   const darkSrc = `/portfolio/likec4-static/dark/${viewId}.svg`;
+  const image = (
+    <picture className="block h-full w-full">
+      <source srcSet={darkSrc} media="(prefers-color-scheme: dark)" />
+      <img
+        src={lightSrc}
+        alt={label}
+        width={config.width}
+        height={config.height}
+        className={cx("h-full w-full", stableFrame ? "object-contain" : "object-cover")}
+        loading="lazy"
+        decoding="async"
+      />
+    </picture>
+  );
+
+  if (stableFrame) {
+    return (
+      <section
+        className="source-map-preview-frame portfolio-artifact-surface static-likec4-artifact relative mx-auto flex h-[460px] min-h-[460px] w-full max-w-[1040px] items-center justify-center overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white p-3 md:h-[560px] md:min-h-[560px] md:p-5"
+        aria-live="polite"
+        data-likec4-artifact={viewId}
+      >
+        <div
+          key={viewId}
+          className={`${config.maxWidthClass} source-map-likec4-layer h-full w-full animate-[sourceMapPreviewFade_220ms_ease-out]`}
+          style={{ aspectRatio: `${config.width} / ${config.height}` }}
+        >
+          {image}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -635,18 +692,9 @@ function LikeC4Artifact({ viewId }: { viewId: string }) {
       aria-live="polite"
       data-likec4-artifact={viewId}
     >
-      <picture className="block h-full w-full">
-        <source srcSet={darkSrc} media="(prefers-color-scheme: dark)" />
-        <img
-          src={lightSrc}
-          alt={label}
-          width={config.width}
-          height={config.height}
-          className="h-full w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-      </picture>
+      <div key={viewId} className="source-map-likec4-layer h-full w-full animate-[sourceMapPreviewFade_220ms_ease-out]">
+        {image}
+      </div>
     </section>
   );
 }
@@ -658,7 +706,7 @@ export function EvidenceBottomSlice() {
     <section className="portfolio-artifact-surface mx-auto w-full max-w-[880px] overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_52px_rgba(15,23,42,0.09)]">
       <div className="portfolio-artifact-header grid gap-2 border-b border-[#e2e8f0] bg-[#fbfdff] px-4 py-3 md:grid-cols-[minmax(0,240px)_1fr] md:items-center md:px-5">
         <strong className="text-[16px] font-black leading-tight text-[#111318]">Supabase reporting shape</strong>
-        <span className="portfolio-muted-copy max-w-[520px] text-[14px] font-bold leading-relaxed text-[#667085]">Durable facts stay separate from command state and support caches.</span>
+        <span className="portfolio-muted-copy max-w-[520px] text-[14px] font-bold leading-relaxed text-[#667085]">Important workflow facts stay separate from temporary command data and message support.</span>
       </div>
       <div className="p-3 md:p-4">
         <div className="portfolio-artifact-surface overflow-hidden rounded-[12px] border border-[#e1e7f0] bg-white">
@@ -814,9 +862,9 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
         );
         const content = (
           <>
-            <p className="source-map-card-kicker mb-2 text-[11px] font-black uppercase tracking-[0.16em] text-[#e5484d]">{route.source}</p>
-            <h3 className="m-0 mb-1.5 text-[18px] font-black leading-tight text-[#111318]">{route.title}</h3>
-            <p className="portfolio-muted-copy m-0 text-[13px] font-semibold leading-5 text-[#667085]">{route.inspect}</p>
+            <p className="portfolio-top-card-kicker source-map-card-kicker mb-2 text-[13px] font-black uppercase tracking-[0.16em] text-[#e5484d]">{route.source}</p>
+            <h3 className="portfolio-top-card-title m-0 mb-1.5 text-[20px] font-black leading-tight text-[#111318]">{route.title}</h3>
+            <p className="portfolio-top-card-body portfolio-muted-copy m-0 text-[15px] font-semibold leading-6 text-[#475467]">{route.inspect}</p>
           </>
         );
 
@@ -827,7 +875,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
                 {content}
               </button>
               <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
-                Open {route.source}
+                {route.linkLabel}
               </a>
             </section>
           );
@@ -837,7 +885,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
           <section key={route.key} className={className}>
             {content}
             <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
-              Open {route.source}
+              {route.linkLabel}
             </a>
           </section>
         );
@@ -856,7 +904,7 @@ export function SourceMapBottomSlice({
 }) {
   const selected = sourceRouteData.find((route) => route.key === selectedKey) ?? sourceRouteData[0];
   if (selected.likec4ViewId) {
-    return <LikeC4Artifact viewId={selected.likec4ViewId} />;
+    return <LikeC4Artifact viewId={selected.likec4ViewId} stableFrame />;
   }
 
   const codeArtifact = selected.previewFrame === "code" ? codeArtifacts?.[selected.key] : undefined;
@@ -931,7 +979,7 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
     }));
   }
 
-  if (tab === "Evidence" && slice === "Top") {
+  if (tab === "Workflow" && slice === "Top") {
     return evidenceData.map((item) => ({
       id: item.key,
       label: item.title,
@@ -944,7 +992,7 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
     }));
   }
 
-  if (tab === "Evidence") {
+  if (tab === "Workflow") {
     return reportingRows.slice(1).map((row) => ({
       id: row[0],
       label: row[0],
@@ -957,7 +1005,7 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
     }));
   }
 
-  if (tab === "AI Specialist" && slice === "Top") {
+  if (tab === "AI Fit" && slice === "Top") {
     return aiCards.map((card) => ({
       id: card.id,
       label: card.title,
@@ -970,7 +1018,7 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
     }));
   }
 
-  if (tab === "AI Specialist") {
+  if (tab === "AI Fit") {
     return processData.map((step) => ({
       id: step.title.toLowerCase(),
       label: step.title,
@@ -996,14 +1044,14 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
     }));
   }
 
-  if (tab === "Source Map" && slice === "Top") {
+  if (tab === "Build Map" && slice === "Top") {
     return sourceRouteData.map((route) => ({
       id: route.key,
       label: route.title,
       eyebrow: route.source,
       body: route.inspect,
-      before: "Portfolio claim routing was represented by a mock map instead of the source cards.",
-      after: `Render the real ${route.title} source card and route it to ${route.source}.`,
+      before: "Portfolio claim routing was represented by a mock map instead of the build map cards.",
+      after: `Render the real ${route.title} build map card and route it to ${route.source}.`,
       route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapTopSlice",
       kind: "card" as const,
     }));
@@ -1033,11 +1081,11 @@ export function SliceRawPreview({
   onSelect: (id: string) => void;
 }) {
   if (tab === "System") return <SystemTopSlice selectedId={selectedId} onSelect={onSelect} />;
-  if (tab === "Evidence" && slice === "Top") return <EvidenceTopSlice selectedKey={selectedId} onSelect={onSelect} />;
-  if (tab === "Evidence") return <EvidenceBottomSlice />;
-  if (tab === "AI Specialist" && slice === "Top") return <AISpecialistTopSlice selectedId={selectedId} onSelect={onSelect} />;
-  if (tab === "AI Specialist") return <AISpecialistBottomSlice />;
+  if (tab === "Workflow" && slice === "Top") return <EvidenceTopSlice selectedKey={selectedId} onSelect={onSelect} />;
+  if (tab === "Workflow") return <EvidenceBottomSlice />;
+  if (tab === "AI Fit" && slice === "Top") return <AISpecialistTopSlice selectedId={selectedId} onSelect={onSelect} />;
+  if (tab === "AI Fit") return <AISpecialistBottomSlice />;
   if (tab === "Resume") return <ResumeBottomSlice />;
-  if (tab === "Source Map" && slice === "Top") return <SourceMapTopSlice selectedId={selectedId} onSelect={onSelect} />;
+  if (tab === "Build Map" && slice === "Top") return <SourceMapTopSlice selectedId={selectedId} onSelect={onSelect} />;
   return <SourceMapBottomSlice selectedKey={selectedId} onSelect={onSelect} />;
 }
