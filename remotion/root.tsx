@@ -1,6 +1,6 @@
 import { Composition } from "remotion";
 import { ClinicalSetup1944 } from "./scenes/ClinicalSetup1944";
-import { FoodManiaTextLayer } from "./scenes/FoodManiaAssets";
+import { FoodManiaLabelTexture, FoodManiaTextLayer } from "./scenes/FoodManiaAssets";
 import { CalendarMonthTexture, StarvationGridLayer } from "./scenes/StarvationPhaseAssets";
 
 export const RemotionRoot = () => {
@@ -42,6 +42,18 @@ export const RemotionRoot = () => {
         width={1920}
         height={1080}
       />
+      {(["hoarded", "hid", "recipes"] as const).map((label) => (
+        <Composition
+          key={label}
+          id={`FoodManiaLabel-${label}`}
+          component={FoodManiaLabelTexture}
+          defaultProps={{ label }}
+          durationInFrames={1}
+          fps={30}
+          width={640}
+          height={220}
+        />
+      ))}
     </>
   );
 };

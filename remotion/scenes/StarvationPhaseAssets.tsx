@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 
 const subjects = Array.from({ length: 36 }, (_, index) => index + 1);
 
@@ -11,6 +11,9 @@ const palette = {
   paper: "#cfc1a4",
   paperLight: "#ded2b9",
 };
+
+const numberFont = '"Georgia", "Times New Roman", Times, serif';
+const humanIconSrc = staticFile("remotion-assets/human-reference-icon.png");
 
 const fade = (frame: number, start: number, duration: number) =>
   interpolate(frame, [start, start + duration], [0, 1], {
@@ -34,58 +37,55 @@ function SubjectCard({ index }: { index: number }) {
       <div
         style={{
           position: "absolute",
-          top: 10,
+          top: 4,
           left: 0,
           right: 0,
           textAlign: "center",
-          fontSize: 18,
+          fontFamily: numberFont,
+          fontSize: 27,
           lineHeight: 1,
-          fontWeight: 700,
-          color: palette.charcoal,
+          fontWeight: 500,
+          color: "#070707",
+          letterSpacing: 0,
+          textShadow: [
+            "0 1px 0 rgba(255,255,255,0.24)",
+            "2px 3px 3px rgba(0,0,0,0.22)",
+            "0 0 1px rgba(0,0,0,0.35)",
+          ].join(", "),
         }}
       >
         {String(index).padStart(2, "0")}
       </div>
       <div
         style={{
-          position: "relative",
-          width: 88,
-          height: 76,
-          marginTop: 14,
-          border: `1px solid ${palette.slateSoft}`,
-          background: "rgba(58, 63, 65, 0.08)",
+          position: "absolute",
+          top: 45,
+          bottom: 0,
+          left: "50%",
+          width: 106,
+          transform: "translateX(-50%)",
+          borderTop: `1px solid ${palette.slateSoft}`,
+          borderLeft: `1px solid ${palette.slateSoft}`,
+          borderRight: `1px solid ${palette.slateSoft}`,
+          borderBottom: 0,
+          background: "rgba(58, 63, 65, 0.045)",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-end",
           justifyContent: "center",
+          paddingBottom: 1,
+          boxShadow:
+            "inset 1px 0 0 rgba(255,255,255,0.1), inset -1px 0 0 rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)",
         }}
       >
-        <div
+        <img
+          src={humanIconSrc}
           style={{
-            position: "absolute",
-            top: 12,
-            width: 24,
-            height: 24,
-            borderRadius: "50%",
-            background: palette.charcoal,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: 34,
-            width: 16,
-            height: 12,
-            background: palette.charcoal,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: 46,
-            width: 56,
-            height: 26,
-            borderRadius: "28px 28px 3px 3px",
-            background: palette.charcoal,
+            width: 57,
+            height: 56,
+            objectFit: "contain",
+            display: "block",
+            transform: "translateY(2px)",
+            filter: "drop-shadow(4px 5px 4px rgba(0, 0, 0, 0.24))",
           }}
         />
       </div>

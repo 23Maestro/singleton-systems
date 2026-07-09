@@ -368,10 +368,10 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "Rules for keeping meeting data, status updates, call activity, and message support aligned across the team.",
     result: "Shows how durable reporting truth was separated from support state.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scout-prep-supabase-source-of-truth.md",
-    previewImageSrc: "/portfolio/source-map/supabase-contract.png",
-    previewImageAlt: "Supabase contract code artifact",
-    previewImageWidth: 3680,
-    previewImageHeight: 3656,
+    previewImageSrc: "/portfolio/source-map/supabase-contract-satori.svg",
+    previewImageAlt: "Supabase source rules code artifact",
+    previewImageWidth: 1200,
+    previewImageHeight: 760,
     previewFit: "contain",
     previewPosition: "top",
     previewFrame: "code",
@@ -384,10 +384,10 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "API call patterns that update the existing site directly, instead of repeating searches, page clicks, and manual status changes.",
     result: "Shows the old dashboard workflow becoming repeatable adapter work.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/api-specs/legacy-assignment-debug-template.md",
-    previewImageSrc: "/portfolio/source-map/legacy-api.svg",
+    previewImageSrc: "/portfolio/source-map/legacy-api-ray.svg",
     previewImageAlt: "Legacy API JSON adapter artifact",
-    previewImageWidth: 1200,
-    previewImageHeight: 760,
+    previewImageWidth: 579,
+    previewImageHeight: 447,
     previewFit: "contain",
     previewPosition: "top",
     previewFrame: "code",
@@ -400,10 +400,10 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "Checks that confirm reporting data is shaped correctly before cleanup, sync, or workflow changes.",
     result: "Shows cleanup protected by verification instead of broad deletion.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/scripts/audit-call-tracker-live-parity.test.mjs",
-    previewImageSrc: "/portfolio/source-map/live-parity-test.svg",
+    previewImageSrc: "/portfolio/source-map/live-parity-test-satori.svg",
     previewImageAlt: "Live parity test code artifact",
-    previewImageWidth: 852,
-    previewImageHeight: 644,
+    previewImageWidth: 1200,
+    previewImageHeight: 760,
     previewFit: "contain",
     previewPosition: "top",
     previewFrame: "code",
@@ -416,11 +416,11 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "Mobile web views that let me keep working on the go: send confirmation texts, offer reschedule slots, update sales stages, and keep the team aligned.",
     result: "Shows the workflow becoming readable outside Raycast.",
     href: "https://github.com/23Maestro/prospect-pipeline/tree/main/apps/prospect-web",
-    previewImageSrc: "/portfolio/source-map/prospect-web-enhanced.png",
-    previewImageAlt: "Prospect Web command surface artifact",
-    previewImageWidth: 1280,
-    previewImageHeight: 1280,
-    previewFit: "cover",
+    previewImageSrc: "/portfolio/source-map/prospect-web-ray.svg",
+    previewImageAlt: "Prospect Web command surface variants",
+    previewImageWidth: 450,
+    previewImageHeight: 920,
+    previewFit: "contain",
     previewPosition: "top",
     previewFrame: "product",
   },
@@ -907,7 +907,7 @@ export function SourceMapBottomSlice({
     return <LikeC4Artifact viewId={selected.likec4ViewId} stableFrame />;
   }
 
-  const codeArtifact = selected.previewFrame === "code" ? codeArtifacts?.[selected.key] : undefined;
+  const codeArtifact = selected.previewFrame === "code" && !selected.previewImageSrc ? codeArtifacts?.[selected.key] : undefined;
   if (codeArtifact) {
     return <CodeArtifactPreview artifact={codeArtifact} />;
   }
@@ -915,29 +915,52 @@ export function SourceMapBottomSlice({
   const frameClass = cx(
     "source-map-preview-frame portfolio-artifact-surface relative mx-auto w-full overflow-hidden rounded-[18px] border border-[#dfe7f1] bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)]",
     selected.previewFrame === "product"
-      ? "max-w-[900px] aspect-[1.2/1] md:aspect-[1.42/1]"
+      ? "max-w-[900px] aspect-[1.2/1]"
       : selected.previewFrame === "diagram"
         ? "max-w-[860px] aspect-[1.58/1]"
         : "max-w-[820px] aspect-[1.34/1] md:aspect-[1.54/1]",
   );
   const imagePositionClass =
     selected.previewPosition === "left-top" ? "object-left-top" : selected.previewPosition === "top" ? "object-top" : "object-center";
+  const webVariantImages =
+    selected.key === "web"
+      ? [
+          { src: "/portfolio/source-map/prospect-web-ray.svg", alt: "Prospect Web light command surface" },
+          { src: "/portfolio/source-map/prospect-web-2-ray.svg", alt: "Prospect Web dark command surface" },
+        ]
+      : null;
 
   return (
     <section className={frameClass} aria-live="polite">
       <div key={selected.key} className="absolute inset-0 origin-center">
-        <Image
-          src={selected.previewImageSrc}
-          alt={selected.previewImageAlt}
-          width={selected.previewImageWidth}
-          height={selected.previewImageHeight}
-          sizes="(min-width: 900px) 900px, 100vw"
-          className={cx(
-            "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
-            selected.previewFit === "cover" ? "object-cover" : "object-contain",
-            imagePositionClass,
-          )}
-        />
+        {webVariantImages ? (
+          <div className="flex h-full w-full items-start justify-center gap-8 px-10 py-6 md:gap-10 md:px-14 md:py-8">
+            {webVariantImages.map((image) => (
+              <Image
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                width={450}
+                height={920}
+                sizes="(min-width: 900px) 390px, 42vw"
+                className="h-full min-w-0 max-w-[44%] animate-[sourceMapPreviewFade_240ms_ease-out] object-contain object-top"
+              />
+            ))}
+          </div>
+        ) : (
+          <Image
+            src={selected.previewImageSrc}
+            alt={selected.previewImageAlt}
+            width={selected.previewImageWidth}
+            height={selected.previewImageHeight}
+            sizes="(min-width: 900px) 900px, 100vw"
+            className={cx(
+              "h-full w-full animate-[sourceMapPreviewFade_240ms_ease-out]",
+              selected.previewFit === "cover" ? "object-cover" : "object-contain",
+              imagePositionClass,
+            )}
+          />
+        )}
       </div>
       <div className="source-map-preview-blur" aria-hidden="true" />
       <style jsx>{`

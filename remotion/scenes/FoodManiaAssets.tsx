@@ -19,6 +19,12 @@ const words = [
   { text: "RECIPES", top: 654, left: 86, size: 190, rotate: -2, delay: 18 },
 ];
 
+const labelWords = {
+  hoarded: "HOARDED",
+  hid: "HID",
+  recipes: "RECIPES",
+} as const;
+
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
 function ManiaWord({
@@ -115,6 +121,63 @@ export function FoodManiaTextLayer() {
       {words.map((word) => (
         <ManiaWord key={word.text} {...word} />
       ))}
+    </AbsoluteFill>
+  );
+}
+
+export function FoodManiaLabelTexture({
+  label,
+}: {
+  label: keyof typeof labelWords;
+}) {
+  const [fontHandle] = React.useState(() => delayRender("Loading Gotham Typekit font"));
+
+  React.useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = typekitUrl;
+    document.head.appendChild(link);
+
+    document.fonts
+      .load(`700 88px "gotham"`)
+      .then(() => document.fonts.ready)
+      .then(() => continueRender(fontHandle))
+      .catch((error) => cancelRender(error));
+
+    return () => {
+      link.remove();
+    };
+  }, [fontHandle]);
+
+  return (
+    <AbsoluteFill
+      style={{
+        background: "transparent",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px 34px 18px",
+          border: "3px solid rgba(102, 29, 22, 0.72)",
+          background: "rgba(232, 214, 151, 0.32)",
+          color: "rgba(75, 20, 17, 0.92)",
+          fontFamily: fontStack,
+          fontSize: 88,
+          fontWeight: 700,
+          lineHeight: 1,
+          letterSpacing: 0,
+          textTransform: "uppercase",
+          mixBlendMode: "multiply",
+          boxShadow: "0 14px 26px rgba(45, 24, 13, 0.18)",
+        }}
+      >
+        {labelWords[label]}
+      </div>
     </AbsoluteFill>
   );
 }

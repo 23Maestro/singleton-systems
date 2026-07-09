@@ -2,32 +2,31 @@ import math
 from pathlib import Path
 
 import bpy
+from mathutils import Vector
 
 ROOT = Path("/Users/singleton23/Documents/Development/singleton-systems")
 SCENE_2_OUTPUT = ROOT / "output" / "scene-2"
 SCENE_3_OUTPUT = ROOT / "output" / "scene-3"
 GRID_DIR = SCENE_2_OUTPUT / "grid-sequence"
-TEXT_DIR = SCENE_3_OUTPUT / "food-mania-text-sequence"
+LABEL_DIR = SCENE_3_OUTPUT / "labels"
+ASSET_DIR = ROOT / "assets" / "polyhaven"
+
 BLEND_PATH = SCENE_3_OUTPUT / "scene-3-food-mania.blend"
 PROOF_PATH = SCENE_3_OUTPUT / "blender-scene-3-proof.png"
+CAMERA_PROOF_PATH = SCENE_3_OUTPUT / "blender-scene-3-camera-start-proof.png"
 
-COLLECTION_NAME = "SS_Scene_3_Food_Mania"
-
-
-def remove_default_scene_objects():
-    for name in ("Cube", "Camera", "Light"):
-        obj = bpy.data.objects.get(name)
-        if obj:
-            bpy.data.objects.remove(obj, do_unlink=True)
+COLLECTION_NAME = "SS_Scene_3_Return_Food_Mania"
 
 
-def clear_owned_collection():
-    existing = bpy.data.collections.get(COLLECTION_NAME)
-    if existing:
-        for obj in list(existing.objects):
-            bpy.data.objects.remove(obj, do_unlink=True)
-        bpy.data.collections.remove(existing)
+def reset_scene():
+    bpy.ops.object.select_all(action="SELECT")
+    bpy.ops.object.delete()
+    for collection in list(bpy.data.collections):
+        if collection.name.startswith("SS_Scene_3"):
+            bpy.data.collections.remove(collection)
 
+
+def make_collection():
     collection = bpy.data.collections.new(COLLECTION_NAME)
     bpy.context.scene.collection.children.link(collection)
     return collection
@@ -40,63 +39,158 @@ def link_to_collection(obj, collection):
             source.objects.unlink(obj)
 
 
-def make_material(name, color, roughness=0.75):
+def look_at(obj, target):
+    direction = Vector(target) - obj.location
+    obj.rotation_euler = direction.to_track_quat("-Z", "Y").to_euler()
+
+
+def set_ease_out(obj):
+    if not obj.animation_data or not obj.animation_data.action:
+        return
+    fcurves = getattr(obj.animation_data.action, "fcurves", None)
+    if fcurves is None:
+        return
+    for fcurve in fcurves:
+        for key in fcurve.keyframe_points:
+            key.interpolation = "BEZIER"
+            key.easing = "EASE_OUT"
+
+
+def make_principled_material(name, color, roughness=0.8, alpha=1.0):
     mat = bpy.data.materials.new(name)
     mat.use_nodes = True
+    mat.blend_method = "BLEND" if alpha < 1 else "OPAQUE"
+    mat.show_transparent_back = True
     bsdf = mat.node_tree.nodes.get("Principled BSDF")
     bsdf.inputs["Base Color"].default_value = color
     bsdf.inputs["Roughness"].default_value = roughness
+    bsdf.inputs["Alpha"].default_value = alpha
     return mat
 
 
-def make_yellow_backplate_material():
-    mat = bpy.data.materials.new("SS_Mania_Textured_Yellow_Backplate")
+def make_paper_material(name, base=(0.68, 0.61, 0.45, 1), accent=(0.86, 0.79, 0.58, 1)):
+    mat = bpy.data.materials.new(name)
     mat.use_nodes = True
     nodes = mat.node_tree.nodes
     bsdf = nodes.get("Principled BSDF")
     noise = nodes.new("ShaderNodeTexNoise")
-    noise.inputs["Scale"].default_value = 22
-    noise.inputs["Detail"].default_value = 9
-    noise.inputs["Roughness"].default_value = 0.62
-    color_ramp = nodes.new("ShaderNodeValToRGB")
-    color_ramp.color_ramp.elements[0].position = 0.12
-    color_ramp.color_ramp.elements[0].color = (0.68, 0.6, 0.1, 1)
-    color_ramp.color_ramp.elements[1].position = 1
-    color_ramp.color_ramp.elements[1].color = (0.92, 0.84, 0.24, 1)
-    mat.node_tree.links.new(noise.outputs["Fac"], color_ramp.inputs["Fac"])
-    mat.node_tree.links.new(color_ramp.outputs["Color"], bsdf.inputs["Base Color"])
-    bsdf.inputs["Roughness"].default_value = 0.88
+    noise.inputs["Scale"].default_value = 30
+    noise.inputs["Detail"].default_value = 12
+    noise.inputs["Roughness"].default_value = 0.58
+    ramp = nodes.new("ShaderNodeValToRGB")
+    ramp.color_ramp.elements[0].position = 0.18
+    ramp.color_ramp.elements[0].color = base
+    ramp.color_ramp.elements[1].position = 1.0
+    ramp.color_ramp.elements[1].color = accent
+    mat.node_tree.links.new(noise.outputs["Fac"], ramp.inputs["Fac"])
+    mat.node_tree.links.new(ramp.outputs["Color"], bsdf.inputs["Base Color"])
+    bsdf.inputs["Roughness"].default_value = 0.91
     return mat
 
 
-def create_yellow_backplate(collection):
-    bpy.ops.mesh.primitive_plane_add(size=1, location=(2.05, -0.06, 0.045), rotation=(0, 0, math.radians(-0.8)))
-    plate = bpy.context.object
-    plate.name = "SS_Mania_Textured_Yellow_Backplate"
-    plate.dimensions = (5.65, 3.28, 0)
-    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
-    plate.data.materials.append(make_yellow_backplate_material())
-    link_to_collection(plate, collection)
-    return plate
+def create_crumpled_plane(name, width, height, loc, collection, cuts=42, z_scale=0.035):
+    verts = []
+    faces = []
+    uvs = []
+    for y in range(cuts + 1):
+        for x in range(cuts + 1):
+            u = x / cuts
+            v = y / cuts
+            px = (u - 0.5) * width
+            py = (v - 0.5) * height
+            wave = math.sin(u * 23.0) * math.sin(v * 17.0) * 0.45
+            wrinkle = math.sin((u + v) * 47.0) * 0.22 + math.cos((u - v) * 31.0) * 0.16
+            edge_lift = (abs(u - 0.5) ** 2 + abs(v - 0.5) ** 2) * 0.08
+            pz = (wave + wrinkle) * z_scale + edge_lift
+            verts.append((px, py, pz))
+            uvs.append((u, v))
+    for y in range(cuts):
+        for x in range(cuts):
+            a = y * (cuts + 1) + x
+            faces.append((a, a + 1, a + cuts + 2, a + cuts + 1))
+
+    mesh = bpy.data.meshes.new(f"{name}_Mesh")
+    mesh.from_pydata(verts, [], faces)
+    mesh.update()
+    uv_layer = mesh.uv_layers.new(name="UVMap")
+    for poly in mesh.polygons:
+        for loop_index in poly.loop_indices:
+            uv_layer.data[loop_index].uv = uvs[mesh.loops[loop_index].vertex_index]
+
+    obj = bpy.data.objects.new(name, mesh)
+    obj.location = loc
+    collection.objects.link(obj)
+    return obj
 
 
-def import_image_plane(
-    *,
-    name,
-    directory,
-    filenames,
-    height,
-    location,
-    collection,
-    image_sequence=False,
-):
+def make_image_material(name, image_path, alpha=True):
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    mat.blend_method = "BLEND" if alpha else "OPAQUE"
+    mat.show_transparent_back = True
+
+    nodes = mat.node_tree.nodes
+    links = mat.node_tree.links
+    nodes.clear()
+
+    output = nodes.new("ShaderNodeOutputMaterial")
+    bsdf = nodes.new("ShaderNodeBsdfPrincipled")
+    tex = nodes.new("ShaderNodeTexImage")
+    tex.image = bpy.data.images.load(str(image_path), check_existing=True)
+    tex.interpolation = "Linear"
+
+    bsdf.inputs["Roughness"].default_value = 0.86
+    links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
+    if alpha:
+        links.new(tex.outputs["Alpha"], bsdf.inputs["Alpha"])
+    links.new(bsdf.outputs["BSDF"], output.inputs["Surface"])
+    return mat
+
+
+def create_grid_board(collection):
+    base = create_crumpled_plane(
+        "SS_Physical_Starvation_Grid_Paper_Board",
+        width=3.95,
+        height=2.55,
+        loc=(-1.52, -0.05, 0.075),
+        collection=collection,
+        cuts=28,
+        z_scale=0.018,
+    )
+    base.rotation_euler = (math.radians(1.8), math.radians(-5.2), math.radians(-1.8))
+    base.data.materials.append(make_paper_material("SS_Grid_Board_Aged_Paper"))
+
+    grid_frame = sorted(GRID_DIR.glob("element-*.png"))[96]
+    grid = create_crumpled_plane(
+        "SS_Remotion_Grid_Inked_On_Board",
+        width=3.82,
+        height=2.38,
+        loc=(-1.52, -0.05, 0.105),
+        collection=collection,
+        cuts=28,
+        z_scale=0.006,
+    )
+    grid.rotation_euler = base.rotation_euler
+    grid.data.materials.append(make_image_material("SS_Remotion_Grid_Frame_Material", grid_frame, alpha=True))
+
+    for obj in (base, grid):
+        obj.keyframe_insert("location", frame=1)
+        obj.location.x -= 0.12
+        obj.location.y += 0.04
+        obj.keyframe_insert("location", frame=64)
+        set_ease_out(obj)
+
+    return base, grid
+
+
+def import_image_plane(name, image_path, height, location, rotation, collection):
     bpy.ops.object.select_all(action="DESELECT")
     result = bpy.ops.image.import_as_mesh_planes(
-        files=[{"name": filename} for filename in filenames],
-        directory=str(directory) + "/",
+        files=[{"name": image_path.name}],
+        directory=str(image_path.parent) + "/",
         relative=False,
         force_reload=True,
-        image_sequence=image_sequence,
+        image_sequence=False,
         shader="SHADELESS",
         use_transparency=True,
         render_method="BLENDED",
@@ -113,219 +207,245 @@ def import_image_plane(
     )
     if result != {"FINISHED"}:
         raise RuntimeError(f"Image plane import failed for {name}: {result}")
+    obj = bpy.context.object
+    obj.name = name
+    obj.location = location
+    obj.rotation_euler = rotation
+    link_to_collection(obj, collection)
+    return obj
 
-    plane = bpy.context.object
-    plane.name = name
-    plane.data.name = f"{name}_Mesh"
-    plane.location = location
-    link_to_collection(plane, collection)
-    return plane
+
+def create_labels(collection):
+    label_specs = [
+        ("hoarded", "SS_Label_HOARDED", (1.06, -0.78, 0.42), (math.radians(63), 0, math.radians(-7)), 0.18, 54),
+        ("hid", "SS_Label_HID", (1.86, -0.12, 0.48), (math.radians(60), 0, math.radians(5)), 0.15, 68),
+        ("recipes", "SS_Label_RECIPES", (1.42, 0.48, 0.44), (math.radians(64), 0, math.radians(-3)), 0.17, 82),
+    ]
+    labels = []
+    for key, name, final_loc, rot, height, start_frame in label_specs:
+        path = LABEL_DIR / f"{key}.png"
+        if not path.exists():
+            raise FileNotFoundError(f"Missing label texture: {path}")
+        label = import_image_plane(name, path, height, final_loc, rot, collection)
+        label.location = (final_loc[0] + 0.18, final_loc[1] + 0.04, final_loc[2] - 0.18)
+        label.scale = (0.88, 0.88, 0.88)
+        label.keyframe_insert("location", frame=start_frame)
+        label.keyframe_insert("scale", frame=start_frame)
+        label.location = final_loc
+        label.scale = (1, 1, 1)
+        label.keyframe_insert("location", frame=start_frame + 18)
+        label.keyframe_insert("scale", frame=start_frame + 18)
+        set_ease_out(label)
+        labels.append(label)
+    return labels
 
 
-def import_sequence_layer(collection, directory, pattern, name, height, location):
-    frames = sorted(path.name for path in directory.glob(pattern))
-    if not frames:
-        raise FileNotFoundError(f"No frames matching {pattern} in {directory}")
-    return import_image_plane(
-        name=name,
-        directory=directory,
-        filenames=frames,
-        height=height,
-        location=location,
+def import_gltf_group(asset_path, collection, name, final_location, target_width, final_rotation=(0, 0, 0), start_offset=(1.2, -0.2, 0.75), start_frame=42):
+    before = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=str(asset_path))
+    objects = [obj for obj in bpy.data.objects if obj not in before]
+    if not objects:
+        raise RuntimeError(f"No objects imported from {asset_path}")
+
+    empty = bpy.data.objects.new(name, None)
+    collection.objects.link(empty)
+    for obj in objects:
+        link_to_collection(obj, collection)
+        obj.parent = empty
+
+    bpy.context.view_layer.update()
+    mins, maxs = bounds_for_objects(objects)
+    center = (mins + maxs) / 2
+    size = max(maxs.x - mins.x, maxs.y - mins.y, maxs.z - mins.z)
+    scale = target_width / size if size else 1
+
+    for obj in objects:
+        obj.location = (obj.location - center) * scale
+        obj.scale = obj.scale * scale
+
+    bpy.context.view_layer.update()
+    mins, _ = bounds_for_objects(objects)
+    for obj in objects:
+        obj.location.z += -mins.z
+
+    empty.rotation_euler = final_rotation
+    empty.location = Vector(final_location) + Vector(start_offset)
+    empty.keyframe_insert("location", frame=start_frame)
+    empty.keyframe_insert("rotation_euler", frame=start_frame)
+    empty.location = final_location
+    empty.rotation_euler = (final_rotation[0] + math.radians(5), final_rotation[1] - math.radians(3), final_rotation[2])
+    empty.keyframe_insert("location", frame=start_frame + 48)
+    empty.keyframe_insert("rotation_euler", frame=start_frame + 48)
+    set_ease_out(empty)
+    return empty, objects
+
+
+def bounds_for_objects(objects):
+    mins = Vector((1e9, 1e9, 1e9))
+    maxs = Vector((-1e9, -1e9, -1e9))
+    for obj in objects:
+        if not hasattr(obj, "bound_box"):
+            continue
+        for corner in obj.bound_box:
+            world = obj.matrix_world @ Vector(corner)
+            mins.x = min(mins.x, world.x)
+            mins.y = min(mins.y, world.y)
+            mins.z = min(mins.z, world.z)
+            maxs.x = max(maxs.x, world.x)
+            maxs.y = max(maxs.y, world.y)
+            maxs.z = max(maxs.z, world.z)
+    return mins, maxs
+
+
+def create_table_surface(collection):
+    table = create_crumpled_plane(
+        "SS_Crumpled_Aged_Paper_Table_Surface",
+        width=6.7,
+        height=3.7,
+        loc=(0.42, 0.02, 0),
         collection=collection,
-        image_sequence=True,
+        cuts=56,
+        z_scale=0.032,
     )
+    table.data.materials.append(make_paper_material("SS_Table_Crumpled_Paper", base=(0.54, 0.48, 0.35, 1), accent=(0.78, 0.71, 0.52, 1)))
+    return table
 
 
-def create_ground(collection):
-    mat = make_material("SS_Mania_Dark_Floor", (0.12, 0.105, 0.08, 1), roughness=0.95)
-    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 0, -0.42))
-    ground = bpy.context.object
-    ground.name = "SS_Mania_Physics_Floor"
-    ground.dimensions = (8.8, 4.9, 0)
-    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
-    ground.data.materials.append(mat)
-    link_to_collection(ground, collection)
-    bpy.ops.rigidbody.object_add()
-    ground.rigid_body.type = "PASSIVE"
-    ground.rigid_body.friction = 0.72
-    return ground
-
-
-def create_low_poly_can(collection, index, location, rotation):
-    metal = make_material(f"SS_Can_{index:02d}_Dull_Metal", (0.55, 0.53, 0.47, 1), roughness=0.62)
-    label = make_material(f"SS_Can_{index:02d}_Faded_Label", (0.76, 0.17 + index * 0.02, 0.1, 1), roughness=0.8)
-    bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=0.16, depth=0.44, location=location, rotation=rotation)
-    can = bpy.context.object
-    can.name = f"SS_Tumbling_Tin_Can_{index:02d}"
-    can.data.materials.append(metal)
-    can.data.materials.append(label)
-    for poly in can.data.polygons:
-        if abs(poly.normal.z) < 0.2:
-            poly.material_index = 1
-    link_to_collection(can, collection)
-    bpy.ops.rigidbody.object_add()
-    can.rigid_body.type = "ACTIVE"
-    can.rigid_body.mass = 0.28
-    can.rigid_body.friction = 0.48
-    can.rigid_body.restitution = 0.42
-    can.rigid_body.linear_damping = 0.12
-    can.rigid_body.angular_damping = 0.08
-    return can
-
-
-def create_cans(collection):
-    placements = [
-        ((2.92, -1.1, 1.35), (1.2, 0.1, 0.4)),
-        ((3.22, -0.42, 1.65), (0.7, 0.8, -0.2)),
-        ((2.55, 0.22, 1.42), (1.4, -0.4, 0.8)),
-        ((3.56, 0.72, 1.85), (0.3, 1.2, 0.1)),
-        ((2.18, 1.0, 1.55), (0.9, -0.9, 0.5)),
-        ((3.74, -1.45, 1.8), (1.1, 0.6, -0.7)),
-    ]
-    return [create_low_poly_can(collection, i + 1, loc, rot) for i, (loc, rot) in enumerate(placements)]
-
-
-def create_cookbook_page(collection, index, location, rotation):
-    page_mat = make_material(f"SS_Cookbook_Page_{index:02d}_Paper", (0.83, 0.77, 0.58, 1), roughness=0.9)
-    bpy.ops.mesh.primitive_plane_add(size=1, location=location, rotation=rotation)
-    page = bpy.context.object
-    page.name = f"SS_Fluttering_Cookbook_Page_{index:02d}"
-    page.dimensions = (0.72, 0.48, 0)
-    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
-    page.data.materials.append(page_mat)
-    link_to_collection(page, collection)
-
-    bpy.context.view_layer.objects.active = page
-    page.select_set(True)
-    bpy.ops.object.mode_set(mode="EDIT")
-    bpy.ops.mesh.select_all(action="SELECT")
-    bpy.ops.mesh.subdivide(number_cuts=8)
-    bpy.ops.object.mode_set(mode="OBJECT")
-
-    cloth = page.modifiers.new("Recipe page cloth flutter", "CLOTH")
-    cloth.settings.quality = 5
-    cloth.settings.mass = 0.08
-    cloth.settings.tension_stiffness = 3
-    cloth.settings.compression_stiffness = 3
-    cloth.settings.shear_stiffness = 2
-    cloth.settings.air_damping = 2
-
-    return page
-
-
-def create_cookbook_pages(collection):
-    placements = [
-        ((1.0, -1.18, 0.2), (0.2, -0.35, 0.24)),
-        ((1.72, -0.5, 0.28), (-0.42, 0.28, -0.18)),
-        ((2.35, 0.72, 0.22), (0.36, -0.22, 0.58)),
-        ((0.82, 0.9, 0.32), (-0.32, 0.16, -0.42)),
-    ]
-    return [create_cookbook_page(collection, i + 1, loc, rot) for i, (loc, rot) in enumerate(placements)]
-
-
-def add_turbulence(collection):
-    bpy.ops.object.effector_add(type="TURBULENCE", location=(1.95, 0.1, 0.85))
-    turbulence = bpy.context.object
-    turbulence.name = "SS_Recipe_Page_Turbulence"
-    turbulence.field.strength = 18
-    turbulence.field.size = 1.35
-    turbulence.field.flow = 1.4
-    link_to_collection(turbulence, collection)
-    return turbulence
+def create_food_assets(collection):
+    cans, _ = import_gltf_group(
+        ASSET_DIR / "russian_food_cans_01" / "russian_food_cans_01_1k.gltf",
+        collection,
+        "SS_Real_Pantry_Cans_Drift_Group",
+        final_location=(1.66, -0.58, 0.12),
+        target_width=0.95,
+        final_rotation=(math.radians(7), math.radians(-4), math.radians(-18)),
+        start_offset=(1.25, -0.36, 0.65),
+        start_frame=38,
+    )
+    food, _ = import_gltf_group(
+        ASSET_DIR / "long_life_food" / "long_life_food_1k.gltf",
+        collection,
+        "SS_Real_Long_Life_Food_Drift_Group",
+        final_location=(2.16, 0.34, 0.1),
+        target_width=0.88,
+        final_rotation=(math.radians(3), math.radians(5), math.radians(13)),
+        start_offset=(1.08, 0.18, 0.58),
+        start_frame=52,
+    )
+    return [cans, food]
 
 
 def add_lighting(collection):
+    world = bpy.context.scene.world or bpy.data.worlds.new("World")
+    bpy.context.scene.world = world
+    world.color = (0.07, 0.055, 0.04)
+
     lights = [
-        ("SS_Harsh_Yellow_Key", (2.3, -1.4, 3.2), (1.0, 0.78, 0.18), 430),
-        ("SS_Harsh_Red_Side", (-2.4, 0.7, 2.4), (1.0, 0.12, 0.05), 270),
-        ("SS_Cold_Overhead_Slash", (0.3, 1.8, 3.6), (0.6, 0.72, 1.0), 210),
+        ("SS_Warm_Paper_Key", "AREA", (-1.6, -2.0, 3.2), (1.0, 0.93, 0.78), 520, 4.2),
+        ("SS_Yellow_Mania_Wash", "AREA", (2.7, -1.2, 2.3), (1.0, 0.78, 0.18), 250, 2.1),
+        ("SS_Cool_Editorial_Fill", "AREA", (-2.6, 1.8, 2.5), (0.65, 0.76, 1.0), 110, 3.5),
     ]
-    for name, location, color, energy in lights:
-        bpy.ops.object.light_add(type="POINT", location=location)
+    for name, light_type, loc, color, energy, size in lights:
+        bpy.ops.object.light_add(type=light_type, location=loc)
         light = bpy.context.object
         light.name = name
-        light.data.color = color
         light.data.energy = energy
-        light.data.shadow_soft_size = 1.1
+        light.data.color = color
+        light.data.size = size
+        look_at(light, (0.7, 0.0, 0.0))
         link_to_collection(light, collection)
 
 
 def add_camera(collection):
-    bpy.ops.object.camera_add(location=(0, -0.24, 5.6), rotation=(0, 0, 0))
-    camera = bpy.context.object
-    camera.name = "SS_Scene_3_Shaking_Overhead_Camera"
-    camera.data.type = "ORTHO"
-    camera.data.ortho_scale = 4.65
-    bpy.context.scene.camera = camera
-    link_to_collection(camera, collection)
+    cam_data = bpy.data.cameras.new("SS_Scene_3_Truck_Right_Camera_Data")
+    cam = bpy.data.objects.new("SS_Scene_3_Truck_Right_Camera", cam_data)
+    collection.objects.link(cam)
+    cam_data.type = "PERSP"
+    cam_data.lens = 46
+    cam_data.dof.use_dof = True
+    cam_data.dof.focus_distance = 4.7
+    cam_data.dof.aperture_fstop = 5.6
 
-    shake_degrees = [-0.35, 0.22, -0.08, 0.42, -0.18, 0.31, -0.28, 0.16, -0.22, 0.3]
-    for index, frame in enumerate(range(1, 151, 16)):
-        camera.rotation_euler.z = math.radians(shake_degrees[index % len(shake_degrees)])
-        camera.keyframe_insert(data_path="rotation_euler", frame=frame)
-    return camera
+    scene = bpy.context.scene
+    scene.camera = cam
+
+    keyframes = [
+        (1, (-1.15, -4.25, 3.05), (-1.55, -0.05, 0.08)),
+        (72, (0.3, -4.55, 3.18), (-0.24, -0.02, 0.08)),
+        (126, (1.22, -4.28, 3.0), (1.18, -0.02, 0.12)),
+        (150, (1.42, -4.12, 2.92), (1.48, -0.04, 0.12)),
+    ]
+    for frame, loc, target in keyframes:
+        scene.frame_set(frame)
+        cam.location = loc
+        look_at(cam, target)
+        cam.keyframe_insert("location", frame=frame)
+        cam.keyframe_insert("rotation_euler", frame=frame)
+    set_ease_out(cam)
+    return cam
 
 
 def configure_scene():
     scene = bpy.context.scene
     scene.frame_start = 1
     scene.frame_end = 150
-    scene.frame_set(80)
+    scene.frame_set(108)
     scene.render.fps = 30
     scene.render.resolution_x = 1920
     scene.render.resolution_y = 1080
+    scene.render.resolution_percentage = 100
     scene.render.engine = "BLENDER_EEVEE"
-    if hasattr(scene, "eevee"):
-        scene.eevee.taa_render_samples = 64
-    scene.world.color = (0.07, 0.055, 0.035)
-    scene.view_settings.view_transform = "Filmic"
-    scene.view_settings.look = "High Contrast"
-    scene.view_settings.exposure = -0.08
-    scene.view_settings.gamma = 1
-    if not scene.rigidbody_world:
-        bpy.ops.rigidbody.world_add()
-    scene.rigidbody_world.point_cache.frame_start = 1
-    scene.rigidbody_world.point_cache.frame_end = 150
+    scene.render.film_transparent = False
+    scene.view_settings.view_transform = "AgX"
+    scene.view_settings.look = "AgX - Medium High Contrast"
+    scene.view_settings.exposure = -0.1
+    scene.view_settings.gamma = 1.0
+
+
+def audit_scene():
+    print("=== SCENE 3 AUDIT ===")
+    print(f"Objects: {len(bpy.context.scene.objects)}")
+    print(f"Camera: {bpy.context.scene.camera.name if bpy.context.scene.camera else 'NONE'}")
+    print(f"Engine: {bpy.context.scene.render.engine}")
+    for obj in bpy.context.scene.objects:
+        print(f"{obj.name} | {obj.type} | hide_render={obj.hide_render}")
 
 
 def build_scene():
-    remove_default_scene_objects()
+    if not LABEL_DIR.exists():
+        raise FileNotFoundError(f"Missing Scene 3 label textures. Run npm run remotion:scene-three:assets first: {LABEL_DIR}")
+
+    SCENE_3_OUTPUT.mkdir(parents=True, exist_ok=True)
+    reset_scene()
     configure_scene()
-    collection = clear_owned_collection()
-    create_ground(collection)
-    import_sequence_layer(
-        collection,
-        GRID_DIR,
-        "element-*.png",
-        "SS_Scene_2_Grid_Left_Remotion_Sequence",
-        3.0,
-        (-1.92, -0.08, 0.02),
-    )
-    create_yellow_backplate(collection)
-    import_sequence_layer(
-        collection,
-        TEXT_DIR,
-        "food-mania-*.png",
-        "SS_Food_Mania_Gotham_Text_Sequence",
-        3.0,
-        (2.05, -0.06, 0.12),
-    )
-    # Real food props should come from licensed/CC0 assets; the old procedural cans read as placeholders.
-    create_cookbook_pages(collection)
-    add_turbulence(collection)
+    collection = make_collection()
+
+    create_table_surface(collection)
+    create_grid_board(collection)
+    create_food_assets(collection)
+    create_labels(collection)
     add_lighting(collection)
     add_camera(collection)
 
-    SCENE_3_OUTPUT.mkdir(parents=True, exist_ok=True)
+    audit_scene()
+
     bpy.ops.wm.save_as_mainfile(filepath=str(BLEND_PATH))
-    bpy.context.scene.render.filepath = str(PROOF_PATH)
+
+    scene = bpy.context.scene
+    scene.frame_set(1)
+    scene.render.filepath = str(CAMERA_PROOF_PATH)
     bpy.ops.render.render(write_still=True)
+
+    scene.frame_set(108)
+    scene.render.filepath = str(PROOF_PATH)
+    bpy.ops.render.render(write_still=True)
+
     return {
         "collection": COLLECTION_NAME,
         "blend_path": str(BLEND_PATH),
+        "camera_start_proof": str(CAMERA_PROOF_PATH),
         "proof_path": str(PROOF_PATH),
-        "text_sequence": str(TEXT_DIR),
+        "labels": str(LABEL_DIR),
     }
 
 

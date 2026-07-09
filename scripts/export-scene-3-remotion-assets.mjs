@@ -1,15 +1,16 @@
-import { mkdir, readdir, rename, rm } from "node:fs/promises";
+import { mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { bundle } from "@remotion/bundler";
-import { renderFrames, selectComposition } from "@remotion/renderer";
+import { renderStill, selectComposition } from "@remotion/renderer";
 
 const root = process.cwd();
 const entryPoint = path.join(root, "remotion/index.ts");
 const outputRoot = path.join(root, "output/scene-3");
-const textDir = path.join(outputRoot, "food-mania-text-sequence");
+const labelsDir = path.join(outputRoot, "labels");
+const labels = ["hoarded", "hid", "recipes"];
 
-await rm(outputRoot, { recursive: true, force: true });
-await mkdir(textDir, { recursive: true });
+await rm(labelsDir, { recursive: true, force: true });
+await mkdir(labelsDir, { recursive: true });
 
 console.log("Bundling Remotion project...");
 const serveUrl = await bundle({
@@ -19,40 +20,23 @@ const serveUrl = await bundle({
   },
 });
 
-const composition = await selectComposition({
-  serveUrl,
-  id: "FoodManiaTextLayer",
-  inputProps: {},
-});
+for (const label of labels) {
+  const composition = await selectComposition({
+    serveUrl,
+    id: `FoodManiaLabel-${label}`,
+    inputProps: {},
+  });
 
-console.log("Rendering Scene 3 food mania text sequence...");
-await renderFrames({
-  serveUrl,
-  composition,
-  outputDir: textDir,
-  inputProps: {},
-  imageFormat: "png",
-  frameRange: [0, 149],
-  concurrency: 5,
-  onStart: ({ frameCount }) => console.log(`Rendering ${frameCount} text frames...`),
-  onFrameUpdate: (framesRendered) => {
-    if (framesRendered % 30 === 0 || framesRendered === 150) {
-      console.log(`Rendered ${framesRendered}/150 text frames`);
-    }
-  },
-});
+  const output = path.join(labelsDir, `${label}.png`);
+  console.log(`Rendering Scene 3 label texture: ${label}`);
+  await renderStill({
+    serveUrl,
+    composition,
+    inputProps: {},
+    output,
+    imageFormat: "png",
+    frame: 0,
+  });
+}
 
-const renderedFrames = await readdir(textDir);
-await Promise.all(
-  renderedFrames
-    .filter((frame) => frame.startsWith("element-") && frame.endsWith(".png"))
-    .map((frame) => {
-      const number = frame.match(/\d+/)?.[0] ?? "0";
-      return rename(
-        path.join(textDir, frame),
-        path.join(textDir, `food-mania-${number.padStart(3, "0")}.png`),
-      );
-    }),
-);
-
-console.log(`Scene 3 Remotion assets exported to ${outputRoot}`);
+console.log(`Scene 3 Remotion label textures exported to ${labelsDir}`);
