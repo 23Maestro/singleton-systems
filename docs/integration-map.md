@@ -53,6 +53,17 @@ Canonical harness contract:
 docs/harness
 ```
 
+Foundation Pass:
+
+```text
+docs/harness/foundation-pass.md
+```
+
+Use this when an AI-assisted build needs foundation naming before implementation:
+route first, name durable structures, name interfaces, map the change, run or
+describe a trial implementation, state invariants, then implement only the
+approved slice.
+
 Steal the architecture, not the infrastructure:
 
 ```text

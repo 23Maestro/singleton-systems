@@ -26,6 +26,13 @@ Contracts:
 06_memory-compaction -> keep only the decision, owner, evidence, and next action
 ```
 
+Foundation Pass:
+
+```text
+foundation-pass.md -> name structures, interfaces, change map,
+trial report, invariants, and smallest implementation slice before editing
+```
+
 Owner surfaces:
 
 ```text

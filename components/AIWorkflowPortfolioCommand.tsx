@@ -43,7 +43,7 @@ type WorkflowItem = {
 
 const tabs: { id: TabId; label: string }[] = [
   { id: "system", label: "System" },
-  { id: "evidence", label: "Workflow" },
+  { id: "evidence", label: "Portfolio" },
   { id: "fit", label: "AI Fit" },
   { id: "resume", label: "Resume" },
   { id: "sources", label: "Build Map" },
@@ -272,7 +272,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       line: "Baseball | 2026 | C | 3B | Harbor Christian | Charleston, SC | Pending Clients | Review queue",
       workflow: "Pending Clients",
       school: "Harbor Christian, SC",
-      action: "Review pending client evidence, then route to confirmation or post-call update.",
+      action: "Review pending client context, then route to confirmation or post-call update.",
       proof: "src/head-scout-schedules.tsx",
       asset: "Needs confirmation text and meeting readback",
       output: "Pending Clients / Post-Call Update",
@@ -284,11 +284,11 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
         fields: [
           ["Student Athlete", "Theo Parker"],
           ["Queue", "Pending Clients"],
-          ["Review", "Meeting evidence and current task"],
+          ["Review", "Meeting details and current task"],
           ["Route", "Reschedule Pending or Meeting Set - Rescheduled"],
           ["Readback", "Refresh Live after save"],
         ],
-        note: "The command keeps the evidence in front of the operator before they choose the final client follow-up path.",
+        note: "The command keeps the relevant details in front of the operator before they choose the final client follow-up path.",
       },
       processDescription: "Review post-call notes and determine whether to reschedule or confirm meeting success.",
       resultDescription: "Updates the central lifecycle log with the confirmed outcome.",
@@ -351,7 +351,7 @@ const evidenceData = [
     summary: "Legacy repair work is documented as a repeatable verification checklist.",
     problem: "Legacy dashboard repairs can turn into one-off troubleshooting with no repeatable path.",
     solution: "The debug template captured request shape, IDs, browser constraints, and verification steps.",
-    result: "Repair work became easier to repeat, review, and sanitize for public proof.",
+    result: "Repair work became easier to repeat, review, and present in the portfolio.",
   },
   {
     key: "tests",
@@ -359,7 +359,7 @@ const evidenceData = [
     summary: "Source-of-truth checks prevent UI-local fixes from becoming business truth.",
     problem: "UI-local fixes can look correct while corrupting the source-of-truth contract.",
     solution: "Source-of-truth and parity checks lock the expected behavior around lifecycle, call-log, and cleanup paths.",
-    result: "Changes have proof before they become business truth.",
+    result: "Changes are verified before they become business truth.",
   },
 ];
 
@@ -367,7 +367,7 @@ const processData = [
   {
     title: "Gather",
     problem: "The workflow starts as scattered dashboard steps, notes, and operator memory.",
-    solution: "Collect the current command path, repo evidence, and source-system behavior before changing anything.",
+    solution: "Collect the current command path, repo context, and source-system behavior before changing anything.",
     result: "The AI work starts from the real workflow, not from a generic automation idea.",
   },
   {
@@ -385,14 +385,14 @@ const processData = [
   {
     title: "Review",
     problem: "A generated answer can sound right while missing operator context.",
-    solution: "Keep human review before mutation, sending, source-of-truth writes, or public-facing proof.",
+    solution: "Keep human review before mutation, sending, source-of-truth writes, or public-facing work.",
     result: "The workflow stays responsible and business-relevant.",
   },
   {
     title: "Verify",
     problem: "A screen working once is not the same as a system being correct.",
     solution: "Use parity checks, readback, UI tests, or source review before treating the change as real.",
-    result: "The final claim has evidence behind it.",
+    result: "The final claim is grounded in the work.",
   },
 ];
 
@@ -989,7 +989,7 @@ function SystemPanel({ onCopy }: { onCopy: (item: WorkflowItem) => void }) {
                     {currentAction === "Update Progress"
                       ? "Review the selected video status and production stage before saving progress."
                       : currentAction === "Update Task"
-                        ? "Route the task to the correct sales stage after the call evidence is reviewed."
+                        ? "Route the task to the correct sales stage after the call details are reviewed."
                         : selected.actionView.note}
                   </p>
                 </div>
@@ -1080,7 +1080,7 @@ function EvidencePanel() {
 
   return (
     <TabShell
-      title="Workflow From the Repo"
+      title="Portfolio From the Repo"
       lead="Each item shows how a real workflow issue became a cleaner command, data rule, or verification step."
     >
       <EvidenceTopSlice selectedKey={selectedKey} onSelect={setSelectedKey} />
@@ -1144,7 +1144,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
   const activeLabel = useMemo(() => tabs.find((tab) => tab.id === activeTab)?.label ?? "System", [activeTab]);
 
   async function copyWorkflowProof(item: WorkflowItem) {
-    const text = `${item.name}\n${item.line}\n\nWorkflow: ${item.workflow}\nAction: ${item.action}\nProof: ${item.proof}\nOutput: ${item.output}`;
+    const text = `${item.name}\n${item.line}\n\nWorkflow: ${item.workflow}\nAction: ${item.action}\nSource: ${item.proof}\nOutput: ${item.output}`;
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -1217,7 +1217,7 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
           }
         `}</style>
       </section>
-      <div aria-live="polite" className="sr-only">{copied ? `${activeLabel} proof copied` : ""}</div>
+      <div aria-live="polite" className="sr-only">{copied ? `${activeLabel} source copied` : ""}</div>
     </main>
   );
 }

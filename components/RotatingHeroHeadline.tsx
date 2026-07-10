@@ -24,20 +24,23 @@ const words = [
   },
 ] as const;
 
+const playbackSequence = [0, 1, 2, 0, 1] as const;
+const finalPlaybackStep = playbackSequence.length - 1;
+
 export default function RotatingHeroHeadline() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [playbackStep, setPlaybackStep] = useState(0);
   const shouldReduceMotion = useReducedMotion();
-  const activeWord = words[activeIndex];
+  const activeWord = words[playbackSequence[playbackStep]];
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion || playbackStep >= finalPlaybackStep) return;
 
-    const interval = window.setInterval(() => {
-      setActiveIndex((index) => (index + 1) % words.length);
+    const timeout = window.setTimeout(() => {
+      setPlaybackStep((step) => Math.min(step + 1, finalPlaybackStep));
     }, 2600);
 
-    return () => window.clearInterval(interval);
-  }, [shouldReduceMotion]);
+    return () => window.clearTimeout(timeout);
+  }, [playbackStep, shouldReduceMotion]);
 
   if (shouldReduceMotion) {
     return (

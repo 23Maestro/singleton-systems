@@ -46,6 +46,7 @@ export type SourceRouteItem = {
   result: string;
   href: string;
   previewImageSrc: string;
+  previewImageDarkSrc?: string;
   previewImageAlt: string;
   previewImageWidth: number;
   previewImageHeight: number;
@@ -368,10 +369,11 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "Rules for keeping meeting data, status updates, call activity, and message support aligned across the team.",
     result: "Shows how durable reporting truth was separated from support state.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/architecture/scout-prep-supabase-source-of-truth.md",
-    previewImageSrc: "/portfolio/source-map/supabase-contract-satori.svg",
+    previewImageSrc: "/portfolio/source-map/light_supabase-contract.svg",
+    previewImageDarkSrc: "/portfolio/source-map/dark_supabase-contract.svg",
     previewImageAlt: "Supabase source rules code artifact",
-    previewImageWidth: 1200,
-    previewImageHeight: 760,
+    previewImageWidth: 920,
+    previewImageHeight: 972,
     previewFit: "contain",
     previewPosition: "top",
     previewFrame: "code",
@@ -384,7 +386,8 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "API call patterns that update the existing site directly, instead of repeating searches, page clicks, and manual status changes.",
     result: "Shows the old dashboard workflow becoming repeatable adapter work.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/docs/api-specs/legacy-assignment-debug-template.md",
-    previewImageSrc: "/portfolio/source-map/legacy-api-ray.svg",
+    previewImageSrc: "/portfolio/source-map/light_legacy-api.svg",
+    previewImageDarkSrc: "/portfolio/source-map/dark_legacy-api.svg",
     previewImageAlt: "Legacy API JSON adapter artifact",
     previewImageWidth: 579,
     previewImageHeight: 447,
@@ -400,10 +403,11 @@ export const sourceRouteData: SourceRouteItem[] = [
     inspect: "Checks that confirm reporting data is shaped correctly before cleanup, sync, or workflow changes.",
     result: "Shows cleanup protected by verification instead of broad deletion.",
     href: "https://github.com/23Maestro/prospect-pipeline/blob/main/scripts/audit-call-tracker-live-parity.test.mjs",
-    previewImageSrc: "/portfolio/source-map/live-parity-test-satori.svg",
+    previewImageSrc: "/portfolio/source-map/light_live-parity-test.svg",
+    previewImageDarkSrc: "/portfolio/source-map/dark_live-parity-test.svg",
     previewImageAlt: "Live parity test code artifact",
-    previewImageWidth: 1200,
-    previewImageHeight: 760,
+    previewImageWidth: 772,
+    previewImageHeight: 654,
     previewFit: "contain",
     previewPosition: "top",
     previewFrame: "code",
@@ -902,6 +906,24 @@ export function SourceMapBottomSlice({
   onSelect?: (key: string) => void;
   codeArtifacts?: HighlightedCodeArtifactMap;
 }) {
+  useEffect(() => {
+    const images = sourceRouteData
+      .filter((route) => route.previewFrame === "code")
+      .flatMap((route) => [route.previewImageSrc, route.previewImageDarkSrc].filter(Boolean) as string[])
+      .map((src) => {
+        const image = new window.Image();
+        image.decoding = "async";
+        image.src = src;
+        return image;
+      });
+
+    return () => {
+      images.forEach((image) => {
+        image.src = "";
+      });
+    };
+  }, []);
+
   const selected = sourceRouteData.find((route) => route.key === selectedKey) ?? sourceRouteData[0];
   if (selected.likec4ViewId) {
     return <LikeC4Artifact viewId={selected.likec4ViewId} stableFrame />;
@@ -929,6 +951,29 @@ export function SourceMapBottomSlice({
           { src: "/portfolio/source-map/prospect-web-2-ray.svg", alt: "Prospect Web dark command surface" },
         ]
       : null;
+
+  if (selected.previewFrame === "code") {
+    const codeMaxWidth =
+      selected.key === "supabase" ? "max-w-[680px]" : selected.key === "adapter" ? "max-w-[650px]" : "max-w-[760px]";
+
+    return (
+      <section className={cx("source-map-preview-frame mx-auto w-full", codeMaxWidth)} aria-live="polite">
+        {/* Ray exports are large foreignObject SVGs; plain img avoids Next image optimizer flicker while switching cards. */}
+        <picture>
+          {selected.previewImageDarkSrc ? <source srcSet={selected.previewImageDarkSrc} media="(prefers-color-scheme: dark)" /> : null}
+          <img
+            src={selected.previewImageSrc}
+            alt={selected.previewImageAlt}
+            width={selected.previewImageWidth}
+            height={selected.previewImageHeight}
+            loading="eager"
+            decoding="sync"
+            className="h-auto w-full drop-shadow-[0_22px_36px_rgba(15,23,42,0.18)]"
+          />
+        </picture>
+      </section>
+    );
+  }
 
   return (
     <section className={frameClass} aria-live="polite">
@@ -962,19 +1007,7 @@ export function SourceMapBottomSlice({
           />
         )}
       </div>
-      <div className="source-map-preview-blur" aria-hidden="true" />
       <style jsx>{`
-        .source-map-preview-blur {
-          position: absolute;
-          inset: auto 0 0;
-          height: 10%;
-          pointer-events: none;
-          background: linear-gradient(to top, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0));
-          -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
-          -webkit-mask-image: linear-gradient(to top, #000 8%, transparent 100%);
-          mask-image: linear-gradient(to top, #000 8%, transparent 100%);
-        }
         @keyframes sourceMapPreviewFade {
           from {
             opacity: 0;

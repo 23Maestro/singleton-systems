@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import BookQuickChatButton from "@/components/BookQuickChatButton";
 import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
 import PortfolioShowcase, { type PortfolioTab } from "@/components/PortfolioShowcase";
@@ -759,10 +760,13 @@ export default function Page() {
             className="h-auto w-full"
           />
         </a>
-        <nav aria-label="Primary" className="hidden translate-x-6 items-center gap-8 text-sm font-semibold text-neutral-600 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-5 text-xs font-semibold text-neutral-600 md:flex lg:gap-7 lg:text-sm">
           <a className="transition hover:text-black" href="#start">
             Start
           </a>
+          <Link className="transition hover:text-black" href="/links">
+            Links
+          </Link>
           <a className="transition hover:text-black" href="#what-i-fix">
             What I Fix
           </a>
@@ -795,6 +799,7 @@ export default function Page() {
             className="absolute right-0 top-14 z-20 grid min-w-44 gap-3 rounded-3xl border border-neutral-200 bg-white p-5 text-right text-sm font-bold shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
           >
             <a href="#start">Start</a>
+            <Link href="/links">Links</Link>
             <a href="#what-i-fix">What I Fix</a>
             <a href="#portfolio">Portfolio</a>
             <a href="#how-it-works">How It Works</a>
@@ -1125,6 +1130,9 @@ export default function Page() {
             <a href="#start" className="transition hover:text-neutral-600">
               Start
             </a>
+            <Link href="/links" className="transition hover:text-neutral-600">
+              Links
+            </Link>
             <a href="#what-i-fix" className="transition hover:text-neutral-600">
               What I Fix
             </a>
