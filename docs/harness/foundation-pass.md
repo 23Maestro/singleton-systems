@@ -10,6 +10,13 @@ This is a reasoning contract first. Do not turn it into a Raycast command,
 Shortcut, database, or automation until the workflow repeats enough to deserve
 one.
 
+If the idea is still too fuzzy, branching, or too large for one agent session,
+run `wayfinder` first. Wayfinder owns the pre-spec route map in GitHub:
+research tickets, grilling tickets, prototype tickets, task tickets, and their
+blocking order. Foundation Pass begins after the route is clear enough to name
+the structures, interfaces, change map, invariants, and smallest approved
+implementation slice.
+
 ## Core Rule
 
 ```text

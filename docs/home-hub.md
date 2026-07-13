@@ -262,23 +262,6 @@ money pressure, a status, a time estimate, a link, portfolio work, or a follow-u
 Obsidian can still catch raw thoughts, but focused queue items should go directly
 to Notion / Opportunity HQ.
 
-### Asana
-
-Role:
-
-- target durable project/task engine for Opportunity HQ
-- direct REST API route for reliable Raycast/local scripts
-- MCP operator layer after OAuth client credentials are set
-
-Asana should reuse the same Opportunity HQ model instead of creating a second
-taxonomy. Until cutover, Notion remains current truth and Asana is the target.
-
-Migration plan:
-
-```text
-docs/opportunity-hq/asana-migration.md
-```
-
 V1 project lanes:
 
 ```text
@@ -424,7 +407,8 @@ Defaults:
 ```text
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
-Money Priority = Strategic for Offer and Portfolio
+Money Priority = Later for Offer and Portfolio unless tied to immediate income
+Money Priority = Someday for passive system ideas and uncommitted experiments
 Project = one of the five lane projects
 ```
 
@@ -573,8 +557,6 @@ Eagle skill CLI route: 127.0.0.1:41596
 Opportunity HQ Raycast / Eagle API route: 127.0.0.1:41595
 Obsidian MCP route: https://127.0.0.1:27124/mcp with OBSIDIAN_MCP_TOKEN
 Bear archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
-Asana REST route: https://app.asana.com/api/1.0 with ASANA_ACCESS_TOKEN
-Asana MCP route: https://mcp.asana.com/v2/mcp after ASANA_CLIENT_ID/SECRET
 ```
 
 For app integrations, prefer the most stable direct route first:
@@ -583,7 +565,6 @@ For app integrations, prefer the most stable direct route first:
 Eagle -> local HTTP API / existing direct script path
 Obsidian -> Local REST API MCP for create/search/update notes
 Notion -> official API / Opportunity HQ Raycast wrapper
-Asana -> official REST API first, MCP optional
 Raycast -> local extension commands
 Apple mobile -> Shortcuts first, App Intents later
 ```
@@ -611,5 +592,4 @@ Local integration settings live in:
 ```
 
 This file is gitignored and should contain only machine-local integration values
-such as Obsidian MCP token, Asana REST token/workspace id, repo paths, and library
-hints.
+such as Obsidian MCP token, repo paths, and library hints.

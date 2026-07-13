@@ -2,6 +2,9 @@
 // This keeps imported assets and unrelated scene layers untouched.
 
 var generatedNames = {
+    "Scene 0 tabletop field": true,
+    "Scene 0 paper contact shadow": true,
+    "Scene 0 lower paper edge": true,
     "Archive card background": true,
     "Top rule": true,
     "Bottom rule": true,

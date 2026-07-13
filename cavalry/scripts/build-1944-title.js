@@ -1,28 +1,28 @@
 // Cavalry UI Script: build Scene 0, "1940s -> 1944".
 //
-// The composition is an institutional archive card, not a logo sting. It keeps
-// the composition deliberately spare so the actual researcher photographs can
-// arrive as printed archival material in a later pass.
+// The composition is an institutional archive card, not a logo sting. This
+// Cavalry-only version owns the full shot: flat paper depth, typography,
+// researcher plates, and a clean editorial hold for Premiere.
 //
 // Install: Help > Show Scripts Folder, copy this file into that folder, then
 // run it from Window > Scripts. Set Gotham Book/Bold in the Attribute Editor
 // after it runs if the Adobe activation is not available to Cavalry yet.
 
 var beat = {
-    // Global 10-second opener at 25 fps. Blender owns the room POV from
-    // frames 0-35; this paper graphic begins its editorial reveal at frame 40.
-    headerIn: 40,
-    headerSettled: 55,
-    titleIn: 62,
-    titleSettled: 90,
-    decadeOut: 138,
-    decadeGone: 148,
-    yearIn: 150,
-    yearSettled: 164,
-    researcher01In: 150,
-    researcher04In: 180,
-    researcher02In: 198,
-    researcher03In: 218,
+    paperIn: 0,
+    paperSettled: 28,
+    headerIn: 16,
+    headerSettled: 34,
+    titleIn: 40,
+    titleSettled: 72,
+    decadeOut: 118,
+    decadeGone: 130,
+    yearIn: 132,
+    yearSettled: 148,
+    researcher01In: 142,
+    researcher04In: 168,
+    researcher02In: 188,
+    researcher03In: 208,
     finalHold: 250,
     reviewFrame: 235
 };
@@ -32,6 +32,8 @@ var width = api.get(compId, "resolution.x");
 var height = api.get(compId, "resolution.y");
 var ink = "#171717";
 var paper = "#f2f0ec";
+var deck = "#e8e4dc";
+var shadow = "#171717";
 var margin = Math.round(width * 0.045);
 var headerY = -height * 0.5 + Math.round(height * 0.07);
 var footerY = height * 0.5 - Math.round(height * 0.07);
@@ -80,6 +82,25 @@ function makeAccent(name, dimensions, position) {
     return id;
 }
 
+function animatePaperLayer(id, startOpacity, endOpacity, startY, endY, startScale, endScale) {
+    api.keyframe(id, beat.paperIn, {
+        "opacity": startOpacity,
+        "position.y": startY,
+        "scale.x": startScale,
+        "scale.y": startScale
+    });
+    api.keyframe(id, beat.paperSettled, {
+        "opacity": endOpacity,
+        "position.y": endY,
+        "scale.x": endScale,
+        "scale.y": endScale
+    });
+    api.magicEasing(id, "opacity", beat.paperIn, "SlowOut");
+    api.magicEasing(id, "position.y", beat.paperIn, "SlowOut");
+    api.magicEasing(id, "scale.x", beat.paperIn, "SlowOut");
+    api.magicEasing(id, "scale.y", beat.paperIn, "SlowOut");
+}
+
 function makeResearcher(name, filePath, position, scale, rotation, startFrame) {
     var assetId = api.loadAsset(filePath, false);
     var footageId = api.addAssetToComp(assetId);
@@ -113,15 +134,50 @@ function makeResearcher(name, filePath, position, scale, rotation, startFrame) {
     return footageId;
 }
 
-// Card surface and institutional frame.
-var backdrop = api.primitive("rectangle", "Archive card background");
+// Cavalry-only paper deck. The offset layers and shadows replace the Blender
+// room with a controlled, editorial tabletop read.
+var backdrop = api.primitive("rectangle", "Scene 0 tabletop field");
 api.set(backdrop, {
     "generator.dimensions": [width, height],
     "position": [0, 0],
-    "material.materialColor": paper
+    "material.materialColor": deck
 });
 api.select([backdrop]);
 api.moveToBack();
+
+var paperShadow = api.primitive("rectangle", "Scene 0 paper contact shadow");
+api.set(paperShadow, {
+    "generator.dimensions": [width * 0.87, height * 0.76],
+    "position": [18, 42],
+    "rotation": -0.45,
+    "material.materialColor": shadow,
+    "opacity": 0,
+    "scale": [0.97, 0.97]
+});
+
+var paperUnderlay = api.primitive("rectangle", "Scene 0 lower paper edge");
+api.set(paperUnderlay, {
+    "generator.dimensions": [width * 0.89, height * 0.78],
+    "position": [-12, 28],
+    "rotation": 0.7,
+    "material.materialColor": "#ded9cf",
+    "opacity": 0,
+    "scale": [0.985, 0.985]
+});
+
+var cardSurface = api.primitive("rectangle", "Archive card background");
+api.set(cardSurface, {
+    "generator.dimensions": [width * 0.91, height * 0.8],
+    "position": [0, 18],
+    "rotation": -0.18,
+    "material.materialColor": paper,
+    "opacity": 0,
+    "scale": [0.98, 0.98]
+});
+
+animatePaperLayer(paperShadow, 0, 16, 58, 42, 0.95, 1);
+animatePaperLayer(paperUnderlay, 0, 100, 42, 28, 0.965, 1);
+animatePaperLayer(cardSurface, 0, 100, 34, 18, 0.965, 1);
 
 var topRule = makeRule("Top rule", headerY + 28);
 var bottomRule = makeRule("Bottom rule", footerY - 25);
@@ -201,10 +257,23 @@ api.keyframe(replacementFour, beat.yearSettled, {"opacity": 100, "position.y": 0
 api.magicEasing(replacementFour, "opacity", beat.yearIn, "SlowOut");
 api.magicEasing(replacementFour, "position.y", beat.yearIn, "SlowOut");
 
-// Hold the completed archive graphic. Scene 1 fades onto this same paper at
-// the end of the hold; Blender then owns the calendar flip and room pullback.
-[backdrop, topRule, bottomRule, archiveLabel, footerLabel, markTop, markSide, markBottom, markBottomSide].forEach(function (id) {
-    api.keyframe(id, beat.reviewFrame, {"opacity": id === markTop || id === markSide || id === markBottom || id === markBottomSide ? 30 : 100});
+// Hold the completed archive graphic. Scene 1 cuts onto the same Cavalry paper
+// language, so Premiere can assemble without a Blender bridge.
+[
+    [backdrop, 100],
+    [paperShadow, 16],
+    [paperUnderlay, 100],
+    [cardSurface, 100],
+    [topRule, 100],
+    [bottomRule, 100],
+    [archiveLabel, 100],
+    [footerLabel, 100],
+    [markTop, 30],
+    [markSide, 30],
+    [markBottom, 30],
+    [markBottomSide, 30]
+].forEach(function (item) {
+    api.keyframe(item[0], beat.reviewFrame, {"opacity": item[1]});
 });
 api.keyframe(yearPrefix, beat.reviewFrame, {"opacity": 100, "position.y": 0});
 api.keyframe(replacementFour, beat.reviewFrame, {"opacity": 100, "position.y": 0});
@@ -215,4 +284,4 @@ api.select([backdrop]);
 api.moveToBack();
 api.select([yearPrefix, decadeZero, decadeSuffix, replacementFour]);
 api.setFrame(beat.reviewFrame);
-console.info("Built Scene 0: 10-second 1940s -> 1944 opener with staggered researcher plates and a Blender handoff hold.");
+console.info("Built Scene 0: Cavalry-only 1940s -> 1944 opener with paper depth and a Premiere handoff hold.");

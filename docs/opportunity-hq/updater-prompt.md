@@ -171,8 +171,8 @@ Duration options:
 
 Money Priority:
 - Critical
-- Strategic
 - Later
+- Someday
 
 Shift options:
 - Morning
@@ -184,10 +184,10 @@ Shift options:
 Default priority:
 - Cash Jobs = Critical
 - Career Jobs = Critical
-- Freelance = Critical unless clearly optional/later
-- Offer = Strategic unless tied to immediate income
-- Portfolio = Strategic unless needed for an application/proposal
-- Passive shortcut/system ideas = Later unless they directly help immediate work
+- Freelance = Critical unless clearly optional
+- Offer = Later unless tied to immediate income
+- Portfolio = Later unless needed for an application or proposal
+- Passive shortcut/system ideas = Someday unless they directly help immediate work
 
 Decide first:
 1. Should this stay in Obsidian, become an Opportunity HQ task, become an Opportunity HQ project, or become an Eagle portfolio item?
@@ -218,7 +218,7 @@ Mini-Project Plan Mode:
      - Small: 3-4 subtasks, 30-90 minutes total
      - Medium: 5-8 subtasks, 2-4 hours total
      - Large: 9+ subtasks or 4h+ total
-     - Strategic: multi-day / dependency-heavy / unclear scope
+     - Later: multi-day / dependency-heavy / valid future-horizon work
   4. Treat the mini-project as the parent task.
   5. Compress my natural-language explanation into actionable sub-tasks.
   6. Identify blockers/dependencies.
@@ -240,7 +240,7 @@ Obsidian rule:
 Shortcut/passive idea rule:
 - If the idea is useful but not needed for immediate income, classify it as Obsidian first.
 - If it could later become portfolio or a reusable system, mark it as a future candidate.
-- If it is quick and likely under 30 minutes, estimate it honestly but keep priority Later unless it directly supports the current week.
+- If it is quick and likely under 30 minutes, estimate it honestly but keep priority Someday unless it directly supports the current week.
 
 Output in this exact format:
 

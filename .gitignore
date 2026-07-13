@@ -38,6 +38,11 @@ coverage
 .env*.local
 .env
 
+# Google Workspace local OAuth
+.google-workspace/
+config/google-workspace/*.json
+!config/google-workspace/*.example.json
+
 # supabase local metadata
 supabase/.temp/
 

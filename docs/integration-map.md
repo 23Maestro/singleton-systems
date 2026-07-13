@@ -145,7 +145,6 @@ Naming Rules
 - Bear role: readable archive/import source only
 - Eagle role: portfolio and asset library
 - Notion / Opportunity HQ role: durable structured truth
-- Asana role: target durable Opportunity HQ project/task engine
 - Raycast role: action layer
 - Cerebral role: first routing hook before Singleton Systems or downstream skills
 - Codex skills/hooks role: keep context aligned across surfaces
@@ -281,16 +280,6 @@ Opportunity HQ is the durable Notion queue for money
 tasks, job applications, freelance work, Singleton offer work, portfolio tasks, and
 planning. Obsidian owns raw capture.
 
-Asana is the target durable engine for this same Opportunity HQ model. Do not
-create parallel lane names during migration. Until cutover, Notion stays current
-truth and Asana is the read-only/prototype target.
-
-Asana integration plan:
-
-```text
-docs/opportunity-hq/asana-migration.md
-```
-
 V1 project lanes:
 
 ```text
@@ -375,8 +364,8 @@ Money Priority:
 
 ```text
 Critical
-Strategic
 Later
+Someday
 ```
 
 Default priority:
@@ -385,8 +374,8 @@ Default priority:
 Cash Jobs -> Critical
 Career Jobs -> Critical
 Freelance -> Critical
-Offer -> Strategic
-Portfolio -> Strategic
+Offer -> Later
+Portfolio -> Later
 ```
 
 Long deliverables stay in Opportunity Tasks, not Opportunity Projects.
@@ -699,7 +688,8 @@ Defaults:
 ```text
 Status = Queued
 Money Priority = Critical for Cash Jobs, Career Jobs, and Freelance
-Money Priority = Strategic for Offer and Portfolio
+Money Priority = Later for Offer and Portfolio unless tied to immediate income
+Money Priority = Someday for passive system ideas and uncommitted experiments
 Task page icon = selected Project's icon DB source
 Work Date = blank unless approved in Codex / Notion planning as the scheduled completion date
 Shift = blank unless approved in Codex / Notion planning
