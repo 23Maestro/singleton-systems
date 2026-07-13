@@ -47,16 +47,24 @@ function setupPersonalOpsChores() {
     EDIT_URL: form.getEditUrl(),
   });
 
-  ScriptApp.newTrigger("syncLatestFormResponse")
-    .forSpreadsheet(spreadsheet)
-    .onFormSubmit()
-    .create();
+  ensureFormSubmitTrigger_(spreadsheet);
 
   return {
     formUrl: form.getPublishedUrl(),
     editUrl: form.getEditUrl(),
     spreadsheetUrl: spreadsheet.getUrl(),
   };
+}
+
+function ensureFormSubmitTrigger_(spreadsheet) {
+  ScriptApp.getProjectTriggers()
+    .filter((trigger) => trigger.getHandlerFunction() === "syncLatestFormResponse")
+    .forEach((trigger) => ScriptApp.deleteTrigger(trigger));
+
+  ScriptApp.newTrigger("syncLatestFormResponse")
+    .forSpreadsheet(spreadsheet)
+    .onFormSubmit()
+    .create();
 }
 
 function createChoresForm_() {
