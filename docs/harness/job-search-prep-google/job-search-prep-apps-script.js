@@ -9,6 +9,7 @@ const SHEETS = {
 };
 
 const DEFAULT_RECENCY_DAYS = 7;
+const DEFAULT_WEEKLY_CAP_PER_ROLE_FAMILY = 25;
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const SPREADSHEET_TITLE = 'Job Search Prep Engine';
 const SPREADSHEET_ID_PROPERTY = 'JOB_SEARCH_PREP_SPREADSHEET_ID';
@@ -73,31 +74,32 @@ const HEADERS = {
 const DEFAULT_CONFIG = [
   ['RECENCY_DAYS', String(DEFAULT_RECENCY_DAYS), 'Reject posts older than this many days.'],
   ['REMOTE_STRICT', 'TRUE', 'Reject hybrid/on-site/travel/local-preference remote claims.'],
+  ['WEEKLY_CAP_PER_ROLE_FAMILY', String(DEFAULT_WEEKLY_CAP_PER_ROLE_FAMILY), 'Cap accepted findings per role family across remote/local sources in the rolling recency window.'],
   ['COUNTRY', 'United States', 'Preferred remote market.'],
   ['LOCATION_HOME', 'Riverview, FL', 'Used only for Tampa-area review notes.'],
   ['GEMINI_MODEL', GEMINI_MODEL, 'Scoring model used by scoreUnscoredLeads.'],
 ];
 
 const DEFAULT_TERMS = [
-  ['TRUE', 'AI Workflow Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'ATS_GOOGLE', 'boards.greenhouse.io', 'site:boards.greenhouse.io "{role}" remote -senior -lead -manager', 'Bealls-style AI specialist lane.'],
-  ['TRUE', 'AI Workflow Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'ATS_GOOGLE', 'jobs.lever.co', 'site:jobs.lever.co "{role}" remote -senior -lead -manager', 'Practical automation/workflow roles.'],
-  ['TRUE', 'AI Workflow Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'ATS_GOOGLE', 'jobs.ashbyhq.com', 'site:jobs.ashbyhq.com "{role}" remote -senior -lead -manager', 'Avoid senior/manager drift.'],
-  ['TRUE', 'AI Workflow Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'ATS_GOOGLE', '*myworkdayjobs.com', 'site:*myworkdayjobs.com "{role}" remote -senior -lead -manager', 'Coordinator lane for AI operations.'],
-  ['TRUE', 'Creative Operations', 'White collar - media operations', 'creative operations coordinator', 'REMOTIVE', 'remotive.com', '', 'Remote-first ops search.'],
-  ['TRUE', 'Creative Operations', 'White collar - media operations', 'content operations coordinator', 'REMOTIVE', 'remotive.com', '', 'Remote-first content ops search.'],
-  ['TRUE', 'Creative Operations', 'White collar - media operations', 'media operations coordinator', 'REMOTEOK', 'remoteok.com', '', 'RemoteOK API, verify remote restrictions.'],
-  ['TRUE', 'Video / Course Content', 'White collar - video/content', 'video editor', 'REMOTIVE', 'remotive.com', '', 'Remote video editing lane.'],
-  ['TRUE', 'Video / Course Content', 'White collar - video/content', 'post production coordinator', 'ATS_GOOGLE', 'jobs.ashbyhq.com', 'site:jobs.ashbyhq.com "{role}" remote -senior -lead -manager', 'Course/content/video adjacent.'],
-  ['TRUE', 'Video / Course Content', 'White collar - video/content', 'digital asset manager', 'ATS_GOOGLE', 'boards.greenhouse.io', 'site:boards.greenhouse.io "{role}" remote -senior -lead -manager', 'DAM and workflow assets.'],
-  ['TRUE', 'Local AI Workflow', 'White collar - AI workflow systems', 'AI workflow specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview AI specialist lane.'],
-  ['TRUE', 'Local AI Workflow', 'White collar - AI workflow systems', 'workflow automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview workflow automation lane.'],
-  ['TRUE', 'Local AI Workflow', 'White collar - AI workflow systems', 'business process automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview process automation lane.'],
-  ['TRUE', 'Local Video / Content', 'White collar - video/content', 'video editor', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview video lane.'],
-  ['TRUE', 'Local Video / Content', 'White collar - video/content', 'post production coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview post-production lane.'],
-  ['TRUE', 'Local Creative Operations', 'White collar - media operations', 'creative operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview creative ops lane.'],
-  ['TRUE', 'Local Creative Operations', 'White collar - media operations', 'content operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview content ops lane.'],
-  ['TRUE', 'Remote Reference', 'White collar - review only', 'creative operations', 'SEARCH_URL', 'weworkremotely.com', 'https://weworkremotely.com/remote-jobs/search?term={role}', 'Manual remote-first board review.'],
-  ['TRUE', 'Remote Reference', 'White collar - review only', 'content operations', 'SEARCH_URL', 'weworkremotely.com', 'https://weworkremotely.com/remote-jobs/search?term={role}', 'Manual remote-first board review.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'ATS_GOOGLE', 'boards.greenhouse.io', 'site:boards.greenhouse.io "{role}" remote -senior -lead -manager', 'Remote/direct ATS AI specialist lane.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'ATS_GOOGLE', 'jobs.lever.co', 'site:jobs.lever.co "{role}" remote -senior -lead -manager', 'Remote/direct workflow automation roles.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'ATS_GOOGLE', 'jobs.ashbyhq.com', 'site:jobs.ashbyhq.com "{role}" remote -senior -lead -manager', 'Remote/direct process automation roles.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'ATS_GOOGLE', '*myworkdayjobs.com', 'site:*myworkdayjobs.com "{role}" remote -senior -lead -manager', 'Coordinator lane for AI operations.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview AI specialist lane.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview workflow automation lane.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview process automation lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'REMOTIVE', 'remotive.com', '', 'Remote video editing lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'ATS_GOOGLE', 'jobs.ashbyhq.com', 'site:jobs.ashbyhq.com "{role}" remote -senior -lead -manager', 'Remote/direct post-production lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'digital asset manager', 'ATS_GOOGLE', 'boards.greenhouse.io', 'site:boards.greenhouse.io "{role}" remote -senior -lead -manager', 'DAM and workflow assets.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'REMOTIVE', 'remotive.com', '', 'Remote creative ops support term.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'REMOTIVE', 'remotive.com', '', 'Remote content ops support term.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'media operations coordinator', 'REMOTEOK', 'remoteok.com', '', 'RemoteOK API, verify remote restrictions.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview video lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview post-production lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview creative ops lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview content ops lane.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'creative operations', 'SEARCH_URL', 'weworkremotely.com', 'https://weworkremotely.com/remote-jobs/search?term={role}', 'Manual remote-first board review.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'content operations', 'SEARCH_URL', 'weworkremotely.com', 'https://weworkremotely.com/remote-jobs/search?term={role}', 'Manual remote-first board review.'],
 ];
 
 function onOpen() {
@@ -108,6 +110,7 @@ function onOpen() {
     .addItem('Build Search URLs', 'buildSearchUrls')
     .addItem('Send Selected Rows to Prep Queue', 'sendSelectedLeadsToPrepQueue')
     .addSeparator()
+    .addItem('Refresh Default Search Terms', 'refreshDefaultSearchTerms')
     .addItem('Setup / Repair Sheet', 'setupJobSearchPrep')
     .addToUi();
 }
@@ -127,6 +130,15 @@ function setupJobSearchPrep() {
   installSpreadsheetMenuTrigger_(spreadsheet);
   Logger.log('Job Search Prep Sheet: ' + spreadsheet.getUrl());
   return spreadsheet.getUrl();
+}
+
+function refreshDefaultSearchTerms() {
+  const spreadsheet = jobSearchSpreadsheet_();
+  const termsSheet = spreadsheet.getSheetByName(SHEETS.terms);
+  resetHeader_(termsSheet, HEADERS[SHEETS.terms]);
+  appendRows_(termsSheet, DEFAULT_TERMS);
+  buildSearchUrls();
+  toast_(spreadsheet, 'Default search terms refreshed.', 'Job Search Prep');
 }
 
 function runRecentJobSearch() {
@@ -332,6 +344,8 @@ function runGoogleCseTerm_(spreadsheet, term) {
 function ingestJobs_(spreadsheet, term, jobs) {
   const sheet = spreadsheet.getSheetByName(SHEETS.leads);
   const existing = existingUrls_(sheet);
+  const weeklyCounts = weeklyAcceptedCountsByRoleFamily_(spreadsheet);
+  const weeklyCap = weeklyCapPerRoleFamily_(spreadsheet);
   const rows = [];
   let rejected = 0;
   const now = new Date();
@@ -342,6 +356,14 @@ function ingestJobs_(spreadsheet, term, jobs) {
       return;
     }
     const gate = gateJob_(spreadsheet, job, term);
+    if (gate.overallGate !== 'REJECT' && weeklyCap > 0 && (weeklyCounts[term.roleFamily] || 0) >= weeklyCap) {
+      rejected += 1;
+      existing[job.url] = true;
+      return;
+    }
+    if (gate.overallGate !== 'REJECT') {
+      weeklyCounts[term.roleFamily] = (weeklyCounts[term.roleFamily] || 0) + 1;
+    }
     if (gate.overallGate === 'REJECT') {
       rejected += 1;
     }
@@ -501,6 +523,35 @@ function queryForTerm_(term) {
 
 function recencyDays_(spreadsheet) {
   return Number(configValue_(spreadsheet, 'RECENCY_DAYS') || DEFAULT_RECENCY_DAYS);
+}
+
+function weeklyCapPerRoleFamily_(spreadsheet) {
+  return Number(configValue_(spreadsheet, 'WEEKLY_CAP_PER_ROLE_FAMILY') || DEFAULT_WEEKLY_CAP_PER_ROLE_FAMILY);
+}
+
+function weeklyAcceptedCountsByRoleFamily_(spreadsheet) {
+  const sheet = spreadsheet.getSheetByName(SHEETS.leads);
+  const values = sheet.getDataRange().getValues();
+  if (values.length < 2) {
+    return {};
+  }
+  const headers = values[0];
+  const index = headerIndex_(headers);
+  const maxAgeDays = recencyDays_(spreadsheet);
+  const counts = {};
+  for (let row = 1; row < values.length; row += 1) {
+    const foundAt = parseDate_(values[row][index['Found At']]);
+    const roleFamily = values[row][index['Role Family']];
+    const gate = values[row][index['Overall Gate']];
+    if (!foundAt || !roleFamily || gate === 'REJECT') {
+      continue;
+    }
+    const ageDays = Math.floor((new Date() - foundAt) / 86400000);
+    if (ageDays <= maxAgeDays) {
+      counts[roleFamily] = (counts[roleFamily] || 0) + 1;
+    }
+  }
+  return counts;
 }
 
 function configValue_(spreadsheet, key) {

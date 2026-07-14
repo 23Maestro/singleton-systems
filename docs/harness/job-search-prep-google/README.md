@@ -17,10 +17,12 @@ database.
 The sheet is for:
 
 - recent remote-first job leads
-- Tampa / Riverview-area local leads for both white-collar lanes
+- Tampa / Riverview-area local leads when they naturally fit the same role lanes
 - direct ATS search URLs
 - strict remote verification
 - 7-day recency review
+- two weekly role caps: 25 AI Specialist findings and 25 Video Editor /
+  Content Ops findings
 - Gemini 2.5 Flash scoring when a Gemini API key is available
 - manual apply prep only
 
@@ -204,11 +206,16 @@ Job Search Prep -> Build Search URLs
 ## Search Policy
 
 - Default recency gate: posted within 7 days.
+- Weekly cap is by role lane, not by location: up to 25 accepted `AI
+  Specialist` findings and up to 25 accepted `Video Editor / Content Ops`
+  findings.
+- Remote/local mix is discovery-driven. Do not force 25 remote or 25 local
+  leads if the actual market does not support it.
 - Remote means truly remote, not hybrid, relocation, travel-heavy, or local
   preference hidden inside a remote label.
-- Local means Tampa / Riverview-area roles for either AI workflow systems or
-  video/content/media operations. These skip the remote gate but still keep the
-  7-day recency and seniority gates.
+- Local means Tampa / Riverview-area roles that fit either the AI Specialist
+  lane or the Video Editor / Content Ops lane. These skip the remote gate but
+  still keep the 7-day recency and seniority gates.
 - State/country restrictions are flagged for review instead of silently treated
   as fully remote.
 - Senior, lead, principal, manager, director, and VP roles are rejected unless a
