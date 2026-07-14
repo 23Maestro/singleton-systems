@@ -81,13 +81,13 @@ const DEFAULT_CONFIG = [
 ];
 
 const DEFAULT_TERMS = [
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US Google Jobs lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated workflow automation lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated process automation lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated AI operations lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview AI specialist lane.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview workflow automation lane.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview process automation lane.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI systems', 'AI specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US Google Jobs lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - automation systems', 'automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated automation lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - automation systems', 'business automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated business automation lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI systems', 'AI operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated AI operations lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI systems', 'AI specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview AI specialist lane.'],
+  ['TRUE', 'AI Specialist', 'White collar - automation systems', 'automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview automation lane.'],
+  ['TRUE', 'AI Specialist', 'White collar - automation systems', 'business automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview business automation lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US video editing lane through SerpAPI.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US post-production lane through SerpAPI.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'digital asset manager', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US DAM lane through SerpAPI.'],
@@ -97,8 +97,8 @@ const DEFAULT_TERMS = [
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview post-production lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview creative ops lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview content ops lane.'],
-  ['TRUE', 'AI Specialist', 'White collar - review only', 'AI workflow specialist', 'SEARCH_URL', 'Indeed US Remote', 'https://www.google.com/search?q=site%3Aindeed.com%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Indeed review, past week.'],
-  ['TRUE', 'AI Specialist', 'White collar - review only', 'workflow automation specialist', 'SEARCH_URL', 'Built In US Remote', 'https://www.google.com/search?q=site%3Abuiltin.com%2Fjobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Built In review, past week.'],
+  ['TRUE', 'AI Specialist', 'White collar - review only', 'AI specialist', 'SEARCH_URL', 'Indeed US Remote', 'https://www.google.com/search?q=site%3Aindeed.com%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Indeed review, past week.'],
+  ['TRUE', 'AI Specialist', 'White collar - review only', 'automation specialist', 'SEARCH_URL', 'Built In US Remote', 'https://www.google.com/search?q=site%3Abuiltin.com%2Fjobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Built In review, past week.'],
   ['TRUE', 'AI Specialist', 'White collar - review only', 'AI operations coordinator', 'SEARCH_URL', 'Wellfound US Remote', 'https://www.google.com/search?q=site%3Awellfound.com%2Fjobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual Wellfound/startup review, past week.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'video editor', 'SEARCH_URL', 'Indeed US Remote', 'https://www.google.com/search?q=site%3Aindeed.com%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Indeed review, past week.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'creative operations coordinator', 'SEARCH_URL', 'Remote.co US Review', 'https://www.google.com/search?q=site%3Aremote.co%2Fremote-jobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual Remote.co review, past week.'],
@@ -516,7 +516,7 @@ function laneRelevanceGate_(term, titleText, text) {
     return 'PASS';
   }
   if (term.roleFamily === 'AI Specialist') {
-    return /(ai|artificial intelligence|automation|workflow|process automation|operations coordinator|prompt|llm|systems)/i.test(titleText)
+    return /(ai|artificial intelligence|automation|process automation|operations coordinator|prompt|llm|systems)/i.test(titleText)
       ? 'PASS'
       : 'REJECT';
   }
@@ -534,8 +534,8 @@ function scoreLeadWithGemini_(apiKey, model, record) {
   const prompt = [
     'Score this job lead for Jerami Singleton.',
     'Return strict JSON only with fitScore number 0-100, fitReason, resumeAngle, coverAngle, keywords array, nextAction.',
-    'Resume facts: AI-assisted workflow systems, Raycast command surfaces, FastAPI adapters, Supabase source-of-truth contracts, prompt/output review, audit scripts, high-volume video editing, course migration, FFmpeg, broadcast production.',
-    'Avoid inventing experience. Favor AI workflow specialist, creative operations, content operations, media operations, educational video, post production coordinator, and digital asset management roles.',
+    'Resume facts: AI-assisted systems, automation cleanup, Raycast command surfaces, FastAPI adapters, Supabase source-of-truth contracts, prompt/output review, audit scripts, high-volume video editing, course migration, FFmpeg, broadcast production.',
+    'Avoid inventing experience. Favor AI specialist, automation specialist, creative operations, content operations, media operations, educational video, post production coordinator, and digital asset management roles.',
     'Reject or lower score if not truly remote, older than 7 days, senior/lead/manager, or unrelated.',
     JSON.stringify(record),
   ].join('\n');

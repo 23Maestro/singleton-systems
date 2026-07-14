@@ -117,6 +117,18 @@ editor for run verification. The repo scripts still work for push/open/deploy
 through the local `@google/clasp` binary, but bare `clasp` is not exposed on the
 shell PATH in this environment.
 
+First `clasp run` fix to check:
+
+```text
+https://script.google.com/home/usersettings
+```
+
+Turn `Google Apps Script API` on for `flow@singleton-systems.com`. Google's
+current clasp docs list that dashboard toggle as a prerequisite and map "Script
+API not enabled" to the same settings page. If that is already on and `clasp
+run` still fails, then inspect the script's Cloud project/API executable/OAuth
+path.
+
 6. Get the Sheet URL:
 
 ```bash
@@ -247,8 +259,11 @@ Job Search Prep -> Set SerpAPI Key
 - API-fed remote results must also match the lane in the title. Video/Content
   Ops titles must mention video, editing, post production, content operations,
   creative/media operations, digital asset management, or course production. AI
-  Specialist titles must mention AI, automation, workflow, process automation,
-  prompt/LLM, systems, or operations coordination.
+  Specialist titles must mention AI, automation, process automation, prompt/LLM,
+  systems, or operations coordination.
+- Do not use `workflow specialist` as a default search term unless resume/result
+  evidence proves it beats the cleaner `AI specialist` and `automation
+  specialist` searches.
 - The original UK-derived source list is only a reference. The working defaults
   should prefer US Google Jobs plus free public US remote review surfaces. Avoid
   hidden-paywall sources such as membership-only remote boards, and do not target
