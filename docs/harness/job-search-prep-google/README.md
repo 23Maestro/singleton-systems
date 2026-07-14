@@ -101,9 +101,12 @@ Unable to run script function. Please make sure you have permission to run the s
 ```
 
 That means the original "not API executable" blocker is fixed, and the remaining
-blocker is Google execution permission/OAuth for the `flow` clasp account. Run
-`setupJobSearchPrep` once in the Apps Script editor to grant the scopes, then
-retry `npm run gas:setup:jobs`.
+blocker is the Apps Script Execution API caller setup. Google's current
+Execution API docs require the script project and calling application to share a
+standard Google Cloud project, enable the Apps Script API there, configure OAuth
+consent/credentials, then log `clasp` in with that client. Editor runs and Sheet
+menu runs are authorized and work; CLI-only `clasp run` still needs that Cloud
+project/OAuth-client fix.
 
 6. Get the Sheet URL:
 
@@ -199,6 +202,7 @@ In the sheet menu:
 
 ```text
 Job Search Prep -> Run Recent Search
+Job Search Prep -> Report Focused Job Leads
 Job Search Prep -> Score Unscored Leads
 Job Search Prep -> Build Search URLs
 ```
@@ -213,12 +217,23 @@ Job Search Prep -> Build Search URLs
   leads if the actual market does not support it.
 - Remote means truly remote, not hybrid, relocation, travel-heavy, or local
   preference hidden inside a remote label.
+- Remote sources are biased to US remote. Direct ATS queries include United
+  States/US/USA terms. API-fed remote boards must pass the remote gate before
+  they count as accepted findings.
 - Local means Tampa / Riverview-area roles that fit either the AI Specialist
   lane or the Video Editor / Content Ops lane. These skip the remote gate but
   still keep the 7-day recency and seniority gates.
 - State/country restrictions are flagged for review instead of silently treated
   as fully remote.
-- Senior, lead, principal, manager, director, and VP roles are rejected unless a
-  term is explicitly changed.
-- UK-derived search terms are treated as reference input only and paired against
-  the white-collar resume lanes here.
+- UK/EU/EMEA/APAC/Canada-only/Latin-America-only remote language is rejected.
+- Generic worldwide remote language is held for verification unless US,
+  USA, United States, North America, Americas, or US timezone fit is explicit.
+- Senior, staff, lead, principal, manager, director, and VP roles are rejected
+  unless a term is explicitly changed.
+- API-fed remote results must also match the lane in the title. Video/Content
+  Ops titles must mention video, editing, post production, content operations,
+  creative/media operations, digital asset management, or course production. AI
+  Specialist titles must mention AI, automation, workflow, process automation,
+  prompt/LLM, systems, or operations coordination.
+- The original UK-derived source list is only a reference. The working search
+  defaults should prefer US direct ATS results and US-compatible remote gates.
