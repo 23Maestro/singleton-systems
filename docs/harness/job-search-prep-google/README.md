@@ -134,11 +134,12 @@ GOOGLE_CSE_API_KEY
 GOOGLE_CSE_CX
 ```
 
-`SERPAPI_API_KEY` enables the automated Google Jobs fetch. It can also be set
-from the Sheet menu with `Job Search Prep -> Set SerpAPI Key`. `GEMINI_API_KEY`
-enables scoring rows. `GOOGLE_CSE_API_KEY` and `GOOGLE_CSE_CX` are legacy
-fallbacks for Google Programmable Search; the preferred automated job source is
-SerpAPI Google Jobs.
+`SERPAPI_API_KEY` enables the automated Google Jobs fetch. It can be set from
+the Sheet menu with `Job Search Prep -> Set SerpAPI Key` or placed in the
+private Sheet `Config` tab when the `clasp run`/Execution API path is blocked.
+`GEMINI_API_KEY` enables scoring rows. `GOOGLE_CSE_API_KEY` and `GOOGLE_CSE_CX`
+are legacy fallbacks for Google Programmable Search; the preferred automated job
+source is SerpAPI Google Jobs.
 
 The default model is `gemini-2.5-flash`. Change `GEMINI_MODEL` in the Config
 sheet to `gemini-2.5-pro` only when the key/project has Pro quota available.

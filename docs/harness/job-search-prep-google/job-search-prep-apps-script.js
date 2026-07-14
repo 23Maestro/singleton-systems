@@ -81,18 +81,18 @@ const DEFAULT_CONFIG = [
 ];
 
 const DEFAULT_TERMS = [
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US Google Jobs lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated workflow automation lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated process automation lane through SerpAPI.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated AI operations lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US Google Jobs lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated workflow automation lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated process automation lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated AI operations lane through SerpAPI.'],
   ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview AI specialist lane.'],
   ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview workflow automation lane.'],
   ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview process automation lane.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US video editing lane through SerpAPI.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US post-production lane through SerpAPI.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'digital asset manager', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US DAM lane through SerpAPI.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US creative ops lane through SerpAPI.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US content ops lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US video editing lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US post-production lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'digital asset manager', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US DAM lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US creative ops lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '{role} remote United States', 'Primary automated US content ops lane through SerpAPI.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview video lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview post-production lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview creative ops lane.'],
@@ -311,7 +311,7 @@ function openJobSearchPrepSpreadsheet() {
 }
 
 function runSerpApiGoogleJobsTerm_(spreadsheet, term) {
-  const apiKey = PropertiesService.getScriptProperties().getProperty('SERPAPI_API_KEY');
+  const apiKey = scriptPropertyOrConfig_(spreadsheet, 'SERPAPI_API_KEY');
   if (!apiKey) {
     return { seen: 0, added: 0, rejected: 0, notes: 'No SERPAPI_API_KEY. Search URL generated for manual review.' };
   }
@@ -630,6 +630,10 @@ function configValue_(spreadsheet, key) {
     }
   }
   return '';
+}
+
+function scriptPropertyOrConfig_(spreadsheet, key) {
+  return PropertiesService.getScriptProperties().getProperty(key) || configValue_(spreadsheet, key);
 }
 
 function getOrCreateSheet_(spreadsheet, name) {
