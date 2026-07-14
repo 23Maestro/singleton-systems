@@ -32,6 +32,7 @@
     "gas:setup:jobs": "clasp -u flow -P docs/harness/job-search-prep-google run setupJobSearchPrep",
     "gas:url:jobs": "clasp -u flow -P docs/harness/job-search-prep-google run openJobSearchPrepSpreadsheet",
     "jobs:gemini-handoff": "node scripts/gemini-job-prep-handoff.mjs",
+    "jobs:ollama-handoff": "node scripts/ollama-job-prep-handoff.mjs",
     "gws": "node scripts/google-workspace-cli.mjs",
     "gws:auth": "node scripts/google-workspace-cli.mjs auth",
     "gws:whoami": "node scripts/google-workspace-cli.mjs whoami",

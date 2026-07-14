@@ -48,6 +48,8 @@ For this setup:
 - Gemini scores fit, resume angle, cover angle, keywords, and next action.
 - Gemini CLI is a local handoff agent for deeper prep packets when the CLI is
   authenticated and supported.
+- Ollama Cloud with `gemma4:31b-cloud` is the preferred local handoff when the
+  goal is low-maintenance weekly prep without relying on Gemini Pro quota.
 - Opportunity HQ only receives selected work after review.
 - Gmail remains optional later for status logging, not application sending.
 
@@ -124,6 +126,26 @@ review.
 
 The default model is `gemini-2.5-flash`. Change `GEMINI_MODEL` in the Config
 sheet to `gemini-2.5-pro` only when the key/project has Pro quota available.
+
+## Ollama Cloud Handoff
+
+Use this for the slower, more thoughtful prep pass after a lead is already
+gated in Sheets. The default model is `gemma4:31b-cloud`, which avoids local
+model downloads and worked in the current Ollama free-tier smoke test.
+
+```bash
+npm run jobs:ollama-handoff -- --lead-file /path/to/exported-lead.json
+```
+
+Override the model only when needed:
+
+```bash
+npm run jobs:ollama-handoff -- --model gemma4:31b-cloud --lead-file /path/to/exported-lead.json
+```
+
+Current verification note: `gemma4:31b-cloud` and `gpt-oss:120b-cloud` worked
+through Ollama Cloud. `glm-5.2:cloud` and `minimax-m2.7:cloud` reached Ollama
+Cloud but returned subscription-required errors.
 
 ## Gemini CLI Handoff
 
