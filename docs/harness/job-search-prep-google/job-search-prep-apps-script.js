@@ -81,25 +81,28 @@ const DEFAULT_CONFIG = [
 ];
 
 const DEFAULT_TERMS = [
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'ATS_GOOGLE', 'boards.greenhouse.io', 'site:boards.greenhouse.io "{role}" remote ("United States" OR "US" OR "USA") -senior -lead -manager', 'US remote/direct ATS AI specialist lane.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'ATS_GOOGLE', 'jobs.lever.co', 'site:jobs.lever.co "{role}" remote ("United States" OR "US" OR "USA") -senior -lead -manager', 'US remote/direct workflow automation roles.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'ATS_GOOGLE', 'jobs.ashbyhq.com', 'site:jobs.ashbyhq.com "{role}" remote ("United States" OR "US" OR "USA") -senior -lead -manager', 'US remote/direct process automation roles.'],
-  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'ATS_GOOGLE', '*myworkdayjobs.com', 'site:*myworkdayjobs.com "{role}" remote ("United States" OR "US" OR "USA") -senior -lead -manager', 'US remote coordinator lane for AI operations.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US Google Jobs lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated workflow automation lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated process automation lane through SerpAPI.'],
+  ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated AI operations lane through SerpAPI.'],
   ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'AI workflow specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview AI specialist lane.'],
   ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'workflow automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview workflow automation lane.'],
   ['TRUE', 'AI Specialist', 'White collar - AI workflow systems', 'business process automation specialist', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview process automation lane.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'REMOTIVE', 'remotive.com', '', 'Remote video editing lane; gate must confirm US/Americas fit.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'ATS_GOOGLE', 'jobs.ashbyhq.com', 'site:jobs.ashbyhq.com "{role}" remote ("United States" OR "US" OR "USA") -senior -lead -manager', 'US remote/direct post-production lane.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'digital asset manager', 'ATS_GOOGLE', 'boards.greenhouse.io', 'site:boards.greenhouse.io "{role}" remote ("United States" OR "US" OR "USA") -senior -lead -manager', 'US remote DAM and workflow assets.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'REMOTIVE', 'remotive.com', '', 'Remote creative ops support term; gate must confirm US/Americas fit.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'REMOTIVE', 'remotive.com', '', 'Remote content ops support term; gate must confirm US/Americas fit.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'media operations coordinator', 'REMOTEOK', 'remoteok.com', '', 'RemoteOK API; reject UK/EU/non-US restrictions.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US video editing lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US post-production lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'digital asset manager', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US DAM lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US creative ops lane through SerpAPI.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'SERPAPI_GOOGLE_JOBS', 'United States', '"{role}" remote United States posted in the last week -senior -lead -manager -director', 'Primary automated US content ops lane through SerpAPI.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'video editor', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview video lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - video/content', 'post production coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview post-production lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'creative operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview creative ops lane.'],
   ['TRUE', 'Video Editor / Content Ops', 'White collar - media operations', 'content operations coordinator', 'LOCAL_GOOGLE', 'Tampa / Riverview', '"{role}" ("Tampa" OR "Riverview") Florida -senior -lead -manager', 'Local Tampa/Riverview content ops lane.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'creative operations', 'SEARCH_URL', 'Google ATS', 'https://www.google.com/search?q={role}%20remote%20(%22United%20States%22%20OR%20US%20OR%20USA)%20-site%3Alinkedin.com&tbs=qdr:w', 'Manual US remote review, past week.'],
-  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'content operations', 'SEARCH_URL', 'Google ATS', 'https://www.google.com/search?q={role}%20remote%20(%22United%20States%22%20OR%20US%20OR%20USA)%20-site%3Alinkedin.com&tbs=qdr:w', 'Manual US remote review, past week.'],
+  ['TRUE', 'AI Specialist', 'White collar - review only', 'AI workflow specialist', 'SEARCH_URL', 'Indeed US Remote', 'https://www.google.com/search?q=site%3Aindeed.com%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Indeed review, past week.'],
+  ['TRUE', 'AI Specialist', 'White collar - review only', 'workflow automation specialist', 'SEARCH_URL', 'Built In US Remote', 'https://www.google.com/search?q=site%3Abuiltin.com%2Fjobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Built In review, past week.'],
+  ['TRUE', 'AI Specialist', 'White collar - review only', 'AI operations coordinator', 'SEARCH_URL', 'Wellfound US Remote', 'https://www.google.com/search?q=site%3Awellfound.com%2Fjobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual Wellfound/startup review, past week.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'video editor', 'SEARCH_URL', 'Indeed US Remote', 'https://www.google.com/search?q=site%3Aindeed.com%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual US Indeed review, past week.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'creative operations coordinator', 'SEARCH_URL', 'Remote.co US Review', 'https://www.google.com/search?q=site%3Aremote.co%2Fremote-jobs%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free manual Remote.co review, past week.'],
+  ['TRUE', 'Video Editor / Content Ops', 'White collar - review only', 'content operations coordinator', 'SEARCH_URL', 'NoDesk Free Remote', 'https://www.google.com/search?q=site%3Anodesk.co%20{role}%20remote%20%22United%20States%22%20-senior%20-lead%20-manager&tbs=qdr:w', 'Free no-signup NoDesk review, past week.'],
 ];
 
 function onOpen() {
@@ -109,6 +112,7 @@ function onOpen() {
     .addItem('Report Focused Job Leads', 'reportFocusedJobLeads')
     .addItem('Score Unscored Leads', 'scoreUnscoredLeads')
     .addItem('Build Search URLs', 'buildSearchUrls')
+    .addItem('Set SerpAPI Key', 'setSerpApiKey')
     .addItem('Send Selected Rows to Prep Queue', 'sendSelectedLeadsToPrepQueue')
     .addSeparator()
     .addItem('Refresh Default Search Terms', 'refreshDefaultSearchTerms')
@@ -152,10 +156,8 @@ function runRecentJobSearch() {
 
   terms.forEach(function (term) {
     let result = { seen: 0, added: 0, rejected: 0, notes: 'Search URL only.' };
-    if (term.sourceType === 'REMOTIVE') {
-      result = runRemotiveTerm_(spreadsheet, term);
-    } else if (term.sourceType === 'REMOTEOK') {
-      result = runRemoteOkTerm_(spreadsheet, term);
+    if (term.sourceType === 'SERPAPI_GOOGLE_JOBS') {
+      result = runSerpApiGoogleJobsTerm_(spreadsheet, term);
     } else if (term.sourceType === 'ATS_GOOGLE' || term.sourceType === 'LOCAL_GOOGLE') {
       result = runGoogleCseTerm_(spreadsheet, term);
     }
@@ -216,6 +218,20 @@ function scoreUnscoredLeads() {
   }
 
   toast_(spreadsheet, 'Scored ' + scored + ' leads.', 'Job Search Prep');
+}
+
+function setSerpApiKey() {
+  const ui = SpreadsheetApp.getUi();
+  const response = ui.prompt('Set SerpAPI Key', 'Paste the SerpAPI key for Google Jobs searches.', ui.ButtonSet.OK_CANCEL);
+  if (response.getSelectedButton() !== ui.Button.OK) {
+    return;
+  }
+  const key = response.getResponseText().trim();
+  if (!key) {
+    throw new Error('SerpAPI key was empty.');
+  }
+  PropertiesService.getScriptProperties().setProperty('SERPAPI_API_KEY', key);
+  toast_(activeOrJobSearchSpreadsheet_(), 'SerpAPI key saved.', 'Job Search Prep');
 }
 
 function reportFocusedJobLeads() {
@@ -294,52 +310,39 @@ function openJobSearchPrepSpreadsheet() {
   return url;
 }
 
-function runRemotiveTerm_(spreadsheet, term) {
-  const url = 'https://remotive.com/api/remote-jobs?search=' + encodeURIComponent(term.searchTerm);
+function runSerpApiGoogleJobsTerm_(spreadsheet, term) {
+  const apiKey = PropertiesService.getScriptProperties().getProperty('SERPAPI_API_KEY');
+  if (!apiKey) {
+    return { seen: 0, added: 0, rejected: 0, notes: 'No SERPAPI_API_KEY. Search URL generated for manual review.' };
+  }
+  const query = queryForTerm_(term);
+  const url = 'https://serpapi.com/search.json?engine=google_jobs' +
+    '&api_key=' + encodeURIComponent(apiKey) +
+    '&google_domain=google.com' +
+    '&gl=us' +
+    '&hl=en' +
+    '&location=' + encodeURIComponent(term.site || 'United States') +
+    '&q=' + encodeURIComponent(query);
   const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
   if (response.getResponseCode() >= 300) {
-    return { seen: 0, added: 0, rejected: 0, notes: 'Remotive fetch failed: ' + response.getResponseCode() };
+    return { seen: 0, added: 0, rejected: 0, notes: 'SerpAPI Google Jobs failed: ' + response.getResponseCode() };
   }
   const payload = JSON.parse(response.getContentText());
-  const jobs = payload.jobs || [];
+  const jobs = payload.jobs_results || [];
   return ingestJobs_(spreadsheet, term, jobs.map(function (job) {
+    const detected = job.detected_extensions || {};
+    const extensions = job.extensions || [];
+    const postedText = detected.posted_at || firstPostedExtension_(extensions);
     return {
-      source: 'Remotive',
-      sourceQuery: term.searchTerm,
+      source: 'SerpAPI Google Jobs' + (job.via ? ' / ' + job.via : ''),
+      sourceQuery: query,
       title: job.title,
       company: job.company_name,
-      location: job.candidate_required_location || 'Remote',
-      remoteText: job.candidate_required_location || 'Remote',
-      postedAt: job.publication_date,
-      url: job.url,
-      snippet: stripHtml_(job.description || ''),
-    };
-  }));
-}
-
-function runRemoteOkTerm_(spreadsheet, term) {
-  const url = 'https://remoteok.com/api?tags=' + encodeURIComponent(term.searchTerm);
-  const response = UrlFetchApp.fetch(url, {
-    muteHttpExceptions: true,
-    headers: { 'User-Agent': 'Singleton Systems Job Search Prep' },
-  });
-  if (response.getResponseCode() >= 300) {
-    return { seen: 0, added: 0, rejected: 0, notes: 'RemoteOK fetch failed: ' + response.getResponseCode() };
-  }
-  const payload = JSON.parse(response.getContentText()).filter(function (item) {
-    return item && item.position;
-  });
-  return ingestJobs_(spreadsheet, term, payload.map(function (job) {
-    return {
-      source: 'RemoteOK',
-      sourceQuery: term.searchTerm,
-      title: job.position,
-      company: job.company,
-      location: job.location || 'Remote',
-      remoteText: job.location || 'Remote',
-      postedAt: job.date,
-      url: job.url,
-      snippet: stripHtml_(job.description || ''),
+      location: job.location || 'Needs review',
+      remoteText: [job.location, extensions.join(' ')].join(' '),
+      postedAt: postedText,
+      url: bestApplyUrl_(job),
+      snippet: stripHtml_([job.description, job.via, extensions.join(' ')].join(' ')),
     };
   }));
 }
@@ -712,8 +715,52 @@ function parseDate_(value) {
   if (!value) {
     return null;
   }
+  const relativeDate = parseRelativeDate_(String(value));
+  if (relativeDate) {
+    return relativeDate;
+  }
   const date = new Date(value);
   return isNaN(date.getTime()) ? null : date;
+}
+
+function parseRelativeDate_(value) {
+  const text = value.toLowerCase().trim();
+  const now = new Date();
+  if (/today|just posted|just now|\d+\s*(hour|hr)s?\s+ago|minute|min/.test(text)) {
+    return now;
+  }
+  if (/yesterday/.test(text)) {
+    return new Date(now.getTime() - 86400000);
+  }
+  const days = text.match(/(\d+)\s+days?\s+ago/);
+  if (days) {
+    return new Date(now.getTime() - (Number(days[1]) * 86400000));
+  }
+  const weeks = text.match(/(\d+)\s+weeks?\s+ago/);
+  if (weeks) {
+    return new Date(now.getTime() - (Number(weeks[1]) * 7 * 86400000));
+  }
+  return null;
+}
+
+function firstPostedExtension_(extensions) {
+  for (let i = 0; i < extensions.length; i += 1) {
+    if (/(today|yesterday|ago|just posted|just now)/i.test(extensions[i])) {
+      return extensions[i];
+    }
+  }
+  return '';
+}
+
+function bestApplyUrl_(job) {
+  const options = job.apply_options || [];
+  if (!options.length) {
+    return job.share_link || '';
+  }
+  const direct = options.filter(function (option) {
+    return !/linkedin/i.test(option.title || option.link || '');
+  })[0];
+  return (direct || options[0]).link || job.share_link || '';
 }
 
 function stripHtml_(value) {

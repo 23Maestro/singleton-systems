@@ -93,20 +93,18 @@ builds search URLs, and installs a Sheet-open menu trigger when Apps Script
 allows it. If remote setup is blocked, run `setupJobSearchPrep` once from the
 Apps Script editor and approve the OAuth prompt there.
 
-Current verification note: the project is deployed as an API executable, but
-`clasp run setupJobSearchPrep` still returns:
+Current verification note: the Sheet/editor/mobile path is authorized and works.
+The remaining failure is only the local Execution API path used by
+`clasp run`/`npm run gas:url:jobs`:
 
 ```text
 Unable to run script function. Please make sure you have permission to run the script function.
 ```
 
-That means the original "not API executable" blocker is fixed, and the remaining
-blocker is the Apps Script Execution API caller setup. Google's current
-Execution API docs require the script project and calling application to share a
-standard Google Cloud project, enable the Apps Script API there, configure OAuth
-consent/credentials, then log `clasp` in with that client. Editor runs and Sheet
-menu runs are authorized and work; CLI-only `clasp run` still needs that Cloud
-project/OAuth-client fix.
+Do not treat that as a Sheet auth failure. Use the Sheet menu or Apps Script
+editor for run verification. The repo scripts still work for push/open/deploy
+through the local `@google/clasp` binary, but bare `clasp` is not exposed on the
+shell PATH in this environment.
 
 6. Get the Sheet URL:
 
@@ -119,15 +117,17 @@ npm run gas:url:jobs
 Set these in Apps Script Project Settings if available:
 
 ```text
+SERPAPI_API_KEY
 GEMINI_API_KEY
 GOOGLE_CSE_API_KEY
 GOOGLE_CSE_CX
 ```
 
-`GEMINI_API_KEY` enables scoring rows. `GOOGLE_CSE_API_KEY` and
-`GOOGLE_CSE_CX` enable Google Programmable Search for ATS pages. Without CSE,
-the sheet still generates clickable Google search URLs for manual past-week
-review.
+`SERPAPI_API_KEY` enables the automated Google Jobs fetch. It can also be set
+from the Sheet menu with `Job Search Prep -> Set SerpAPI Key`. `GEMINI_API_KEY`
+enables scoring rows. `GOOGLE_CSE_API_KEY` and `GOOGLE_CSE_CX` are legacy
+fallbacks for Google Programmable Search; the preferred automated job source is
+SerpAPI Google Jobs.
 
 The default model is `gemini-2.5-flash`. Change `GEMINI_MODEL` in the Config
 sheet to `gemini-2.5-pro` only when the key/project has Pro quota available.
@@ -205,6 +205,7 @@ Job Search Prep -> Run Recent Search
 Job Search Prep -> Report Focused Job Leads
 Job Search Prep -> Score Unscored Leads
 Job Search Prep -> Build Search URLs
+Job Search Prep -> Set SerpAPI Key
 ```
 
 ## Search Policy
@@ -217,9 +218,10 @@ Job Search Prep -> Build Search URLs
   leads if the actual market does not support it.
 - Remote means truly remote, not hybrid, relocation, travel-heavy, or local
   preference hidden inside a remote label.
-- Remote sources are biased to US remote. Direct ATS queries include United
-  States/US/USA terms. API-fed remote boards must pass the remote gate before
-  they count as accepted findings.
+- Remote sources are biased to US remote. The automated source is SerpAPI
+  Google Jobs with `gl=us`, `hl=en`, `google.com`, and `location=United States`.
+  Manual review sources are free public searches for Indeed, Built In,
+  Wellfound, Remote.co, and NoDesk.
 - Local means Tampa / Riverview-area roles that fit either the AI Specialist
   lane or the Video Editor / Content Ops lane. These skip the remote gate but
   still keep the 7-day recency and seniority gates.
@@ -235,5 +237,7 @@ Job Search Prep -> Build Search URLs
   creative/media operations, digital asset management, or course production. AI
   Specialist titles must mention AI, automation, workflow, process automation,
   prompt/LLM, systems, or operations coordination.
-- The original UK-derived source list is only a reference. The working search
-  defaults should prefer US direct ATS results and US-compatible remote gates.
+- The original UK-derived source list is only a reference. The working defaults
+  should prefer US Google Jobs plus free public US remote review surfaces. Avoid
+  hidden-paywall sources such as membership-only remote boards, and do not target
+  retired ATS-brand sources as job boards.
