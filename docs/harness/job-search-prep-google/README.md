@@ -8,6 +8,17 @@ Owner account:
 flow@singleton-systems.com
 ```
 
+CLI source:
+
+```text
+Homebrew prefix: /opt/homebrew
+Working clasp binary: node_modules/.bin/clasp
+Version: @google/clasp 3.3.0
+```
+
+Use `npm run gas:*:jobs` or `npm exec -- clasp ...` from the repo. Do not assume
+bare `clasp` is on the shell `PATH`.
+
 ## Purpose
 
 This creates a Google Sheet that helps find and review jobs before manual

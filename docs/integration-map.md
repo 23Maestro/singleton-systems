@@ -12,6 +12,28 @@ MCP is an operator/control layer, not the dependency layer.
 
 If code needs reliability, build against stable local APIs, scripts, files, or env config. MCP can expose tools and shortcuts, but the system should not break because an MCP server is inactive.
 
+## Tool Binary Rule
+
+Before diagnosing a CLI failure, resolve the binary source first. On this Mac,
+Homebrew lives at:
+
+```text
+/opt/homebrew
+```
+
+Check tools in this order:
+
+```bash
+brew --prefix
+command -v <tool>
+npm exec -- which <tool>
+ls -l node_modules/.bin/<tool>
+```
+
+Do not assume a package binary is global just because the repo scripts can run
+it. Repo npm scripts may be using `node_modules/.bin`, while the interactive
+shell may not expose the same command on `PATH`.
+
 ## Repo Shape Rule
 
 Do not add more mindless numbered docs. A new idea should first go into the
