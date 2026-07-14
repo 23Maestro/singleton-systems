@@ -147,7 +147,7 @@ function refreshDefaultSearchTerms() {
 }
 
 function runRecentJobSearch() {
-  setupJobSearchPrep();
+  ensureJobSearchPrep_();
   const spreadsheet = jobSearchSpreadsheet_();
   const terms = enabledTerms_(spreadsheet);
   let totalSeen = 0;
@@ -172,6 +172,19 @@ function runRecentJobSearch() {
     'Seen ' + totalSeen + ', added ' + totalAdded + ', rejected ' + totalRejected,
     'Job Search Prep'
   );
+}
+
+function ensureJobSearchPrep_() {
+  const spreadsheet = jobSearchSpreadsheet_();
+  Object.keys(SHEETS).forEach(function (key) {
+    const name = SHEETS[key];
+    const sheet = getOrCreateSheet_(spreadsheet, name);
+    ensureHeader_(sheet, HEADERS[name]);
+  });
+  seedIfEmpty_(spreadsheet.getSheetByName(SHEETS.config), DEFAULT_CONFIG);
+  seedIfEmpty_(spreadsheet.getSheetByName(SHEETS.terms), DEFAULT_TERMS);
+  applyFormatting_(spreadsheet);
+  installSpreadsheetMenuTrigger_(spreadsheet);
 }
 
 function buildSearchUrls() {
@@ -644,6 +657,17 @@ function resetHeader_(sheet, headers) {
   sheet.clear();
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
   sheet.setFrozenRows(1);
+}
+
+function ensureHeader_(sheet, headers) {
+  const current = sheet.getRange(1, 1, 1, headers.length).getValues()[0];
+  const hasHeader = headers.every(function (header, index) {
+    return current[index] === header;
+  });
+  if (!hasHeader) {
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.setFrozenRows(1);
+  }
 }
 
 function seedIfEmpty_(sheet, rows) {

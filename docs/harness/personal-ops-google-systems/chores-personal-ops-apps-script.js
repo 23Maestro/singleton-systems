@@ -1,7 +1,9 @@
 const SPREADSHEET_ID = "1WixNN_PjxflMoxCjQDfupXVsAJGKZrkiwGzTzXL63go";
 const EXISTING_FORM_ID = "19YUeduBb_ip7xFDHxtws-KeKAqSDFQnf2x0Qy9VumJU";
 const TASKS_SHEET = "Chores";
+const TASK_OPTIONS_SHEET = "Task Options";
 const TASK_HEADERS = ["Task ID", "Room", "Task", "Duration", "Plan", "Notes"];
+const TASK_OPTION_HEADERS = ["Room", "Task", "Duration", "Notes"];
 
 const ROOMS = [
   "Auto",
@@ -19,6 +21,7 @@ const PLAN_OPTIONS = ["Pending", "Today"];
 function setupPersonalOpsChores() {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
   const choresSheet = ensureSheet_(spreadsheet, TASKS_SHEET, TASK_HEADERS);
+  ensureSheet_(spreadsheet, TASK_OPTIONS_SHEET, TASK_OPTION_HEADERS);
   ensureSheet_(spreadsheet, "Kanban", ROOMS);
   ensureSheet_(spreadsheet, "Daily Plan", TASK_HEADERS);
   ensureSheet_(spreadsheet, "Form Fields", ["Field", "Input", "Values"]);

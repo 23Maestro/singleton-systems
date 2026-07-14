@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 2048" role="img" aria-label="Home Tasks launch image">
+  <rect width="1536" height="2048" fill="#101820"/>
+  <rect x="458" y="646" width="620" height="620" rx="138" fill="#14202A"/>
+  <path d="M566 913 768 750l202 163v248a43 43 0 0 1-43 43H609a43 43 0 0 1-43-43V913Z" fill="#F7F8FA"/>
+  <path d="M768 750 970 913v54L768 804 566 967v-54l202-163Z" fill="#D9474F"/>
+  <rect x="650" y="1026" width="236" height="34" rx="17" fill="#14202A"/>
+  <rect x="650" y="1090" width="164" height="34" rx="17" fill="#14202A"/>
+  <circle cx="604" cy="789" r="25" fill="#D9474F"/>
+  <circle cx="654" cy="789" r="25" fill="#2F80ED"/>
+  <circle cx="704" cy="789" r="25" fill="#27AE60"/>
+  <path d="m928 1084 38 38 92-108" fill="none" stroke="#2F80ED" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="458" y="1472" fill="#F7F8FA" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="800">Home Tasks</text>
+  <text x="458" y="1534" fill="#B8C4CF" font-family="Arial, Helvetica, sans-serif" font-size="44">Pending to Today</text>
+  <rect x="542" y="1650" width="92" height="28" rx="14" fill="#D9474F"/>
+  <rect x="664" y="1650" width="92" height="28" rx="14" fill="#2F80ED"/>
+  <rect x="786" y="1650" width="92" height="28" rx="14" fill="#27AE60"/>
+  <rect x="908" y="1650" width="92" height="28" rx="14" fill="#F2A93B"/>
+</svg>

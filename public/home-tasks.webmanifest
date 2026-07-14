@@ -1,0 +1,18 @@
+{
+  "name": "Home Tasks",
+  "short_name": "Tasks",
+  "description": "Room tasks, pending and today.",
+  "start_url": "/home-tasks",
+  "scope": "/home-tasks",
+  "display": "standalone",
+  "background_color": "#f6f7f2",
+  "theme_color": "#101820",
+  "icons": [
+    {
+      "src": "/home-tasks-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
