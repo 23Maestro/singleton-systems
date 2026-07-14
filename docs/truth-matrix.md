@@ -10,7 +10,7 @@ automation.
 
 | Truth type | Owner | Notes |
 | --- | --- | --- |
-| Raw thoughts, rough links, messy captures | Obsidian | Fast capture only. Promote after review. Bear stays archive/import. |
+| Raw thoughts, rough links, messy captures | Obsidian | Fast capture only. Promote after review. Legacy exports stay outside active folders until needed. |
 | Active work, status, dates, dependencies | Opportunity HQ | Durable task/project queue. |
 | Portfolio assets, screenshots, clips, examples | Eagle | Files and visual evidence live here. |
 | Operating rules, prompts, routing contracts | Repo docs and skills | Versioned text stays in Git. |

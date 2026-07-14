@@ -99,7 +99,7 @@ thoughts. Opportunity HQ is for focused queue items with status, time, project
 lane, money priority, link, follow-up, portfolio work, or project relation.
 
 The screenshot with `Select Project`, `Cash Jobs`, and `Career Jobs` is the
-Notion / Opportunity HQ job-hunt logging shortcut. It is not Bear capture and it
+Notion / Opportunity HQ job-hunt logging shortcut. It is not raw capture and it
 is not an Obsidian folder picker.
 
 Passive shortcut ideas can still be captured as raw notes, but working shortcuts

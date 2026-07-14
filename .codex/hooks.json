@@ -12,6 +12,19 @@
         ]
       }
     ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Loading Singleton Systems map"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "apply_patch|Edit|Write|Bash",
@@ -21,6 +34,19 @@
             "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Checking Cerebral drift guard"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10,
+            "statusMessage": "Scanning Singleton Systems drift"
           }
         ]
       }

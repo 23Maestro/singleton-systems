@@ -227,9 +227,9 @@ Production Ops -> workflow / next
 Business Ops   -> thing / next
 ```
 
-Use Obsidian for raw, unclear, exploratory, reference, or "do not lose this" notes. Keep Bear as a readable archive/import source until touched notes are promoted.
+Use Obsidian for raw, unclear, exploratory, reference, or "do not lose this" notes. Keep legacy Markdown exports outside the active folders until touched notes are promoted.
 
-Middle-ground mapping from the old Bear lanes:
+Middle-ground mapping from legacy capture lanes:
 
 ```text
 inbox    -> _Inbox
@@ -240,7 +240,7 @@ commands -> Command Ops
 lifeops  -> Business Ops
 ```
 
-Job/application links go to Opportunity HQ or stay in the old Bear export until purged. Proof assets go to Eagle. Codex/system rules go to `Command Ops` first, then repo docs/skills if repeated.
+Job/application links go to Opportunity HQ or stay in the legacy export until purged. Proof assets go to Eagle. Codex/system rules go to `Command Ops` first, then repo docs/skills if repeated.
 
 Do not rebuild tag sprawl in Obsidian. If a note needs date, status, follow-up, money priority, or project relation, it belongs in Opportunity HQ.
 
@@ -556,7 +556,7 @@ Current local routes:
 Eagle skill CLI route: 127.0.0.1:41596
 Opportunity HQ Raycast / Eagle API route: 127.0.0.1:41595
 Obsidian MCP route: https://127.0.0.1:27124/mcp with OBSIDIAN_MCP_TOKEN
-Bear archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
+Legacy Markdown archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
 ```
 
 For app integrations, prefer the most stable direct route first:

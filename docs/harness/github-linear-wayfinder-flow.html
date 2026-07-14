@@ -45,13 +45,13 @@
 <body>
   <main>
     <header>
-      <div><p class="eyebrow">Wayfinder operating map</p><h1>Linear decides. GitHub remembers.</h1><p class="sub">A mobile-first decision flow that keeps research, evidence, and implementation history in the code-facing record.</p></div>
+      <div><p class="eyebrow">Wayfinder operating map</p><h1>Linear decides. GitHub remembers.</h1><p class="sub">A mobile-first decision flow that keeps research, evidence, blocker relationships, and implementation history in the code-facing record.</p></div>
       <aside class="status"><strong>Live check</strong><div class="state"><i class="dot"></i>GitHub and Linear integrated</div><div class="state"><i class="dot"></i>GitHub target: Singleton Systems</div><div class="state"><i class="dot"></i>Native PR and commit linking available</div></aside>
     </header>
 
     <section aria-labelledby="flow-title"><h2 id="flow-title">Operating process</h2>
       <div class="flow">
-        <div class="node github"><strong>Wayfinder</strong><p>Map research, decisions, prototypes, and setup blockers.</p></div>
+        <div class="node github"><strong>Wayfinder</strong><p>Map research, decisions, prototypes, setup blockers, and ticket dependencies.</p></div>
         <div class="node linear"><strong>Spec</strong><p>Define the agreed destination.</p></div>
         <div class="node codex"><strong>Tickets</strong><p>Split the spec into focused work.</p></div>
         <div class="node review"><strong>Foundation Pass</strong><p>Check structures, interfaces, and invariants.</p></div>
@@ -65,23 +65,25 @@
       <div class="panel"><h2>How a real item moves</h2><ol>
         <li>Start a GitHub map when the route is too foggy or large for one session.</li>
         <li>Add children only where research, grilling, a prototype, or manual setup reveals a real branch.</li>
+        <li>Record <code>Blocked by</code>, <code>Blocks</code>, and <code>Next unblocked ticket</code> on the map and child issue.</li>
         <li>Link a concise Linear item when the work needs a decision, priority, ownership, or an active next move.</li>
-        <li>On mobile, write <code>Decision</code> and <code>Next</code> in Linear.</li>
+        <li>On mobile, write <code>Blocked by</code>, <code>Decision</code>, and <code>Next</code> in Linear.</li>
         <li>Assign it to Codex. Codex adds <code>Decision / Status / Reason / Next ticket or PR</code> to GitHub.</li>
+        <li>Close or update the child issue, return to the map, and choose the next unblocked ticket.</li>
         <li>When building starts, link Linear to the branch or pull request.</li>
       </ol></div>
       <div class="panel"><h2>Ownership boundary</h2><div class="contract"><div><strong>Linear</strong><span>Decision cockpit</span></div><div><strong>GitHub</strong><span>Evidence record</span></div><div><strong>HTML</strong><span>Review snapshot</span></div></div><h3 style="margin-top:18px">Wayfinder labels</h3><div class="labels" style="margin-top:9px"><span class="label research">Wayfinder: Research</span><span class="label grilling">Wayfinder: Grilling</span><span class="label prototype">Wayfinder: Prototype</span><span class="label task">Wayfinder: Manual Setup</span></div></div>
     </section>
 
     <section class="detail">
-      <div class="panel"><h2>Lean guardrails</h2><ol><li>Use normal professional sentences, not a Caveman persona.</li><li>State outcome, needed reason, and next action.</li><li>Cut filler, hedging, pleasantries, and repeated ticket context.</li><li>Keep full sentences when sequence, safety, or ambiguity needs clarity.</li><li>No webhook, polling job, database, or custom sync service.</li></ol></div>
+      <div class="panel"><h2>Lean guardrails</h2><ol><li>Use normal professional sentences, not a Caveman persona.</li><li>State outcome, needed reason, blocker, and next action.</li><li>Cut filler, hedging, pleasantries, and repeated ticket context.</li><li>Keep blocker history in GitHub; Linear shows only what blocks the current decision.</li><li>Keep full sentences when sequence, safety, or ambiguity needs clarity.</li><li>No webhook, polling job, database, or custom sync service.</li></ol></div>
       <div class="setup"><h2>Integration boundary</h2><p>GitHub and Linear are connected for Singleton Systems. Use native PR and commit linking. Leave broad GitHub Issues Sync off so GitHub remains the full research and evidence record.</p><p style="margin-top:14px">HTML is a scanable review surface. It does not replace the map issue.</p><button type="button" id="copy" style="margin-top:18px">Copy pilot request</button><span class="copy-note" id="copied" aria-live="polite"></span></div>
     </section>
     <footer>First pilot: choose one real idea that needs research or a decision. Do not create an unrelated issue inventory.</footer>
   </main>
   <script>
     document.getElementById('copy').addEventListener('click', async () => {
-      const text = 'Run Wayfinder for this idea. Map only the real branches, use Linear for active decisions or ownership, and keep GitHub as the evidence record. Draft first; do not mutate until approved.';
+      const text = 'Run Wayfinder for this idea. Map only real branches, record blockers, pick the next unblocked ticket, use Linear for active decisions or ownership, and keep GitHub as the evidence record. Draft first; do not mutate until approved.';
       try { await navigator.clipboard.writeText(text); document.getElementById('copied').textContent = 'Copied.'; } catch { document.getElementById('copied').textContent = text; }
     });
   </script>

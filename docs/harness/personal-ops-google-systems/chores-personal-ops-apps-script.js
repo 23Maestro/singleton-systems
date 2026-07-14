@@ -1,36 +1,26 @@
 const SPREADSHEET_ID = "1WixNN_PjxflMoxCjQDfupXVsAJGKZrkiwGzTzXL63go";
 const EXISTING_FORM_ID = "19YUeduBb_ip7xFDHxtws-KeKAqSDFQnf2x0Qy9VumJU";
+const TASKS_SHEET = "Chores";
+const TASK_HEADERS = ["Task ID", "Room", "Task", "Duration", "Plan", "Notes"];
 
 const ROOMS = [
-  "Office",
-  "Bathroom",
-  "Laundry",
   "Auto",
-  "Kitchen",
-  "Living Room",
+  "Bathroom",
   "Garage",
+  "Kitchen",
+  "Laundry",
+  "Living Room",
+  "Office",
 ];
 
-const DURATIONS = ["10m", "15m", "30m", "45m", "60m", "90m", "2h", "4h+"];
+const DURATIONS = ["5m", "10m", "15m", "30m", "45m", "60m", "90m", "2h", "4h+"];
 const PLAN_OPTIONS = ["Pending", "Today"];
 
 function setupPersonalOpsChores() {
   const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const choresSheet = ensureSheet_(spreadsheet, "Chores", [
-    "Room",
-    "Task",
-    "Duration",
-    "Plan",
-    "Notes",
-  ]);
+  const choresSheet = ensureSheet_(spreadsheet, TASKS_SHEET, TASK_HEADERS);
   ensureSheet_(spreadsheet, "Kanban", ROOMS);
-  ensureSheet_(spreadsheet, "Daily Plan", [
-    "Room",
-    "Task",
-    "Duration",
-    "Plan",
-    "Notes",
-  ]);
+  ensureSheet_(spreadsheet, "Daily Plan", TASK_HEADERS);
   ensureSheet_(spreadsheet, "Form Fields", ["Field", "Input", "Values"]);
 
   applyChoresValidation_(choresSheet);
@@ -90,8 +80,9 @@ function syncLatestFormResponse(event) {
 }
 
 function appendChore_(chore) {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName("Chores");
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(TASKS_SHEET);
   sheet.appendRow([
+    makeTaskId_(),
     chore.room,
     chore.task,
     chore.duration,
@@ -102,7 +93,7 @@ function appendChore_(chore) {
 
 function doGet() {
   const rows = SpreadsheetApp.openById(SPREADSHEET_ID)
-    .getSheetByName("Chores")
+    .getSheetByName(TASKS_SHEET)
     .getDataRange()
     .getValues();
   const headers = rows.shift();
@@ -134,19 +125,19 @@ function buildDerivedTabs_(spreadsheet) {
   kanban.getRange(1, 1, 1, ROOMS.length).setValues([ROOMS]).setFontWeight("bold");
   ROOMS.forEach((room, index) => {
     const col = index + 1;
-    const formula = `=IFERROR(FILTER(Chores!$B$2:$B,Chores!$A$2:$A=${columnLetter_(col)}$1),"")`;
+    const formula = `=IFERROR(FILTER(${TASKS_SHEET}!$C$2:$C,${TASKS_SHEET}!$B$2:$B=${columnLetter_(col)}$1),"")`;
     kanban.getRange(2, col).setFormula(formula);
   });
 
   const dailyPlan = spreadsheet.getSheetByName("Daily Plan");
   dailyPlan.clear();
   dailyPlan
-    .getRange(1, 1, 1, 5)
-    .setValues([["Room", "Task", "Duration", "Plan", "Notes"]])
+    .getRange(1, 1, 1, TASK_HEADERS.length)
+    .setValues([TASK_HEADERS])
     .setFontWeight("bold");
   dailyPlan
     .getRange(2, 1)
-    .setFormula('=IFERROR(FILTER(Chores!A2:E,Chores!D2:D="Today"),"")');
+    .setFormula(`=IFERROR(FILTER(${TASKS_SHEET}!A2:F,${TASKS_SHEET}!E2:E="Today"),"")`);
 
   const fields = spreadsheet.getSheetByName("Form Fields");
   fields.clear();
@@ -182,9 +173,9 @@ function applyChoresValidation_(sheet) {
     .setAllowInvalid(false)
     .build();
 
-  sheet.getRange("A2:A200").setDataValidation(roomRule);
-  sheet.getRange("C2:C200").setDataValidation(durationRule);
-  sheet.getRange("D2:D200").setDataValidation(planRule);
+  sheet.getRange("B2:B200").setDataValidation(roomRule);
+  sheet.getRange("D2:D200").setDataValidation(durationRule);
+  sheet.getRange("E2:E200").setDataValidation(planRule);
 }
 
 function first_(value) {
@@ -199,4 +190,10 @@ function columnLetter_(columnNumber) {
     columnNumber = Math.floor((columnNumber - 1) / 26);
   }
   return column;
+}
+
+function makeTaskId_() {
+  const stamp = Utilities.formatDate(new Date(), "Etc/UTC", "yyyyMMddHHmmss");
+  const suffix = Utilities.getUuid().slice(0, 8);
+  return `task_${stamp}_${suffix}`;
 }

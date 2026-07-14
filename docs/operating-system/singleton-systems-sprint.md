@@ -73,7 +73,7 @@ and suggest the next small action without inventing new tags.
 - `singleton-systems` is the current home hub.
 - `singleton-systems` is the repo/folder name going forward.
 - Eagle has outcome folders, not source folders.
-- Obsidian has lean folders, not a rebuilt Bear tag tree.
+- Obsidian has lean folders, not rebuilt tag sprawl.
 - Notion / Career HQ holds durable structure.
 - Raycast is the action layer.
 - MCP is useful for operators, but stable code should use local APIs, files,

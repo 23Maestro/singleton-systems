@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Excalidraw Setup Pass</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #5c687c;
+      --line: #d8deea;
+      --excalidraw: #6d44d9;
+      --template: #23835f;
+      --cli: #2f73d8;
+      --guard: #c87515;
+      --warn: #a53f3f;
+      --shadow: 0 18px 50px rgba(23, 32, 51, .08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101622;
+        --panel: #172033;
+        --ink: #edf2fb;
+        --muted: #aab5c7;
+        --line: #344056;
+        --shadow: 0 18px 50px rgba(0, 0, 0, .24);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 20px 44px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(28px, 5vw, 46px); line-height: 1.04; letter-spacing: -.01em; }
+    h2 { font-size: 17px; margin-bottom: 12px; }
+    h3 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 7px; }
+    .subtitle { color: var(--muted); max-width: 680px; margin-top: 10px; }
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+    .issue {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px 14px;
+      min-width: 205px;
+      box-shadow: var(--shadow);
+    }
+    .issue strong { display: block; }
+    .issue span { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .grid { display: grid; gap: 16px; }
+    .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 15px;
+      box-shadow: var(--shadow);
+    }
+    .metric { border-top: 5px solid var(--accent); min-height: 110px; }
+    .metric strong { display: block; font-size: 26px; line-height: 1.05; }
+    .metric span { display: block; color: var(--muted); font-size: 13px; margin-top: 7px; }
+    .metric.ex { --accent: var(--excalidraw); }
+    .metric.cli { --accent: var(--cli); }
+    .metric.tpl { --accent: var(--template); }
+    .metric.guard { --accent: var(--guard); }
+    .map {
+      grid-template-columns: .92fr 1.2fr .92fr;
+      align-items: stretch;
+    }
+    .stack { display: grid; gap: 12px; }
+    .lane {
+      min-height: 118px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lane::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      background: var(--accent);
+    }
+    .lane strong, .lane small, .lane p { display: block; padding-left: 8px; }
+    .lane strong { font-size: 18px; }
+    .lane small { color: var(--muted); margin-top: 3px; }
+    .lane p { color: var(--muted); margin-top: 10px; }
+    .script { --accent: var(--excalidraw); }
+    .template { --accent: var(--template); }
+    .verify { --accent: var(--cli); }
+    .guardrail { --accent: var(--guard); }
+    .visual {
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .ring {
+      position: absolute;
+      inset: 34px;
+      border: 1px dashed var(--line);
+      border-radius: 999px;
+      pointer-events: none;
+    }
+    .core {
+      width: min(310px, 86%);
+      aspect-ratio: 1;
+      border: 3px solid var(--excalidraw);
+      border-radius: 28px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 22px;
+      background: color-mix(in srgb, var(--excalidraw) 10%, var(--panel));
+    }
+    .core strong { display: block; font-size: 24px; }
+    .core span { display: block; color: var(--muted); margin-top: 7px; }
+    .orbit {
+      position: absolute;
+      width: 142px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 9px 10px;
+      box-shadow: var(--shadow);
+      font-size: 13px;
+    }
+    .orbit b { display: block; }
+    .orbit span { display: block; color: var(--muted); margin-top: 2px; }
+    .orbit.one { top: 25px; left: 22px; border-left: 5px solid var(--excalidraw); }
+    .orbit.two { top: 25px; right: 22px; border-left: 5px solid var(--template); }
+    .orbit.three { bottom: 26px; left: 22px; border-left: 5px solid var(--cli); }
+    .orbit.four { bottom: 26px; right: 22px; border-left: 5px solid var(--guard); }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 13px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 84%, var(--ink));
+      padding: 6px 9px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .chip.ex { background: color-mix(in srgb, var(--excalidraw) 20%, var(--panel)); }
+    .chip.tpl { background: color-mix(in srgb, var(--template) 20%, var(--panel)); }
+    .chip.cli { background: color-mix(in srgb, var(--cli) 20%, var(--panel)); }
+    .chip.warn { background: color-mix(in srgb, var(--warn) 16%, var(--panel)); }
+    .scripts {
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      margin-top: 16px;
+    }
+    .script-card {
+      min-height: 112px;
+      border-top: 5px solid var(--excalidraw);
+    }
+    .script-card strong { display: block; font-size: 14px; }
+    .script-card span { display: block; color: var(--muted); font-size: 12px; margin-top: 7px; }
+    .steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top: 16px;
+    }
+    .step {
+      border-top: 5px solid var(--accent);
+      min-height: 128px;
+    }
+    .step strong { display: block; font-size: 16px; }
+    .step p { color: var(--muted); margin-top: 8px; }
+    .step.one { --accent: var(--excalidraw); }
+    .step.two { --accent: var(--template); }
+    .step.three { --accent: var(--cli); }
+    .step.four { --accent: var(--guard); }
+    .footer {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .decision-flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .decision {
+      display: grid;
+      grid-template-columns: 74px minmax(0, 1fr) 220px;
+      gap: 16px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      position: relative;
+    }
+    .decision + .decision::before {
+      content: "";
+      position: absolute;
+      left: 51px;
+      top: -13px;
+      width: 2px;
+      height: 12px;
+      background: var(--line);
+    }
+    .num {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--accent);
+      font-size: 24px;
+      font-weight: 800;
+    }
+    .decision strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.12;
+    }
+    .decision p {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .result {
+      border-left: 5px solid var(--accent);
+      padding-left: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .decision.ready { --accent: var(--excalidraw); }
+    .decision.test { --accent: var(--template); }
+    .decision.contract { --accent: var(--cli); }
+    .decision.capture { --accent: var(--guard); }
+    .decision.hold { --accent: var(--warn); }
+    .decision-grid {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 16px;
+    }
+    .callout {
+      border-top: 5px solid var(--accent);
+      min-height: 155px;
+    }
+    .callout.next { --accent: var(--cli); }
+    .callout.no { --accent: var(--warn); }
+    .callout strong { display: block; font-size: 20px; }
+    .callout p { color: var(--muted); margin-top: 8px; }
+    ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    li + li { margin-top: 6px; }
+    @media (max-width: 900px) {
+      .top, .map, .footer { grid-template-columns: 1fr; }
+      .stats, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .scripts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .visual { min-height: 430px; }
+      .decision { grid-template-columns: 58px minmax(0, 1fr); }
+      .result { grid-column: 2; }
+    }
+    @media (max-width: 560px) {
+      main { padding: 22px 14px 34px; }
+      .stats, .steps, .scripts { grid-template-columns: 1fr; }
+      .issue { min-width: 0; }
+      .orbit { position: static; width: auto; margin: 8px; }
+      .ring { display: none; }
+      .visual {
+        min-height: auto;
+        display: block;
+      }
+      .core {
+        width: 100%;
+        aspect-ratio: auto;
+        min-height: 190px;
+        margin-bottom: 8px;
+      }
+      .decision { grid-template-columns: 1fr; }
+      .decision + .decision::before { display: none; }
+      .result { grid-column: auto; }
+      .decision-grid { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; color: #111; }
+      main { max-width: none; padding: 18px; }
+      .card, .issue { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="top">
+      <div>
+        <h1>Excalidraw Setup Pass</h1>
+        <p class="subtitle">Decision path for what the setup unlocked and what must happen before this becomes a trusted daily planning system.</p>
+      </div>
+      <div class="issue" aria-label="Task reference">
+        <strong>Issue #3</strong>
+        <span>Manual setup surface</span>
+      </div>
+    </header>
+
+    <section class="grid stats" aria-label="Setup status">
+      <div class="card metric ex"><strong>Ready</strong><span>Scripts and hook are installed.</span></div>
+      <div class="card metric tpl"><strong>Manual</strong><span>Next proof is an iPad drawing test.</span></div>
+      <div class="card metric cli"><strong>Decide</strong><span>Daily board contract comes next.</span></div>
+      <div class="card metric guard"><strong>Hold</strong><span>No writeback until board works.</span></div>
+    </section>
+
+    <section class="decision-flow" aria-label="Decision path">
+      <div class="decision ready">
+        <div class="num">1</div>
+        <div>
+          <strong>Setup is done</strong>
+          <p>Excalidraw scripts, command IDs, and Templater startup hook are in place.</p>
+        </div>
+        <div class="result">Do not keep deciding setup. Move to usage proof.</div>
+      </div>
+      <div class="decision test">
+        <div class="num">2</div>
+        <div>
+          <strong>Run one manual drawing test</strong>
+          <p>On iPad: draw blocks, align text, link one real file, use pen flow.</p>
+        </div>
+        <div class="result">Outcome: know what feels natural before changing system rules.</div>
+      </div>
+      <div class="decision contract">
+        <div class="num">3</div>
+        <div>
+          <strong>Lock daily board contract</strong>
+          <p>Choose what appears globally: today lanes, weekly counts, queued pull-forward, admin chores.</p>
+        </div>
+        <div class="result">Outcome: one board shape that can be trusted.</div>
+      </div>
+      <div class="decision capture">
+        <div class="num">4</div>
+        <div>
+          <strong>Keep Capture Note narrow</strong>
+          <p>One manual production note type. No taxonomy, no routing, no auto task creation.</p>
+        </div>
+        <div class="result">Outcome: capture helps drawing instead of becoming another system.</div>
+      </div>
+      <div class="decision hold">
+        <div class="num">5</div>
+        <div>
+          <strong>Only then consider automation</strong>
+          <p>Notion and Google writeback wait until the visual planner works manually.</p>
+        </div>
+        <div class="result">Outcome: automation follows behavior, not theory.</div>
+      </div>
+    </section>
+
+    <section class="grid scripts" aria-label="Installed command surface">
+      <div class="card script-card"><strong>Add Link to Existing File</strong><span>Real vault file links.</span></div>
+      <div class="card script-card"><strong>Auto Draw for Pen</strong><span>Official repo history.</span></div>
+      <div class="card script-card"><strong>Capture Note</strong><span>Installed, still lean.</span></div>
+      <div class="card script-card"><strong>Repeat Texts</strong><span>Fast repeated labels.</span></div>
+      <div class="card script-card"><strong>Scribble Helper</strong><span>iPad text entry.</span></div>
+      <div class="card script-card"><strong>Set Grid</strong><span>Cleaner block layout.</span></div>
+      <div class="card script-card"><strong>Set Text Alignment</strong><span>Readable node text.</span></div>
+    </section>
+
+    <section class="grid decision-grid" aria-label="Current decision">
+      <div class="card callout next">
+        <strong>Next decision</strong>
+        <p>Should the first planner board show only today’s active lanes plus weekly application counters, or also show queued/admin pull-forward items?</p>
+      </div>
+      <div class="card callout no">
+        <strong>Not yet</strong>
+        <p>No Notion writeback. No Google writeback. No automatic task creation. No new Obsidian task database.</p>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="card">
+        <h2>Manual test checklist</h2>
+        <ul>
+          <li>Create three project blocks.</li>
+          <li>Set grid and align text.</li>
+          <li>Link one block to an existing file.</li>
+          <li>Try pen flow on iPad.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Installed helpers</h2>
+        <div class="chips">
+          <span class="chip ex">Add Link</span>
+          <span class="chip ex">Auto Draw</span>
+          <span class="chip ex">Capture Note</span>
+          <span class="chip ex">Repeat Texts</span>
+          <span class="chip ex">Scribble Helper</span>
+          <span class="chip ex">Set Grid</span>
+          <span class="chip ex">Set Text Alignment</span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -38,12 +38,6 @@ const linkGroups = [
         icon: "note",
         iconClassName: "text-[#2563eb] drop-shadow-[0_3px_7px_rgba(37,99,235,0.2)] dark:text-[#8bbcf8] dark:drop-shadow-[0_3px_7px_rgba(139,188,248,0.42)]",
       },
-      {
-        label: "Decision Maps",
-        href: "/decision-maps",
-        icon: "map",
-        iconClassName: "text-[#6d44d9] drop-shadow-[0_3px_7px_rgba(109,68,217,0.2)] dark:text-[#c9b8ff] dark:drop-shadow-[0_3px_7px_rgba(201,184,255,0.42)]",
-      },
     ],
   },
   {
@@ -146,15 +140,6 @@ function LinkIcon({ name }: { name: LinkIconName }) {
     );
   }
 
-  if (name === "map") {
-    return (
-      <svg viewBox="0 0 24 24" className={iconClassName} fill="none" aria-hidden="true">
-        <path d="M5 5.5 9.5 4l5 1.5L19 4v14.5L14.5 20l-5-1.5L5 20z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-        <path d="M9.5 4v14.5M14.5 5.5V20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    );
-  }
-
   if (name === "portfolio") {
     return (
       <svg viewBox="0 0 24 24" className={iconClassName} fill="none" aria-hidden="true">
@@ -203,7 +188,7 @@ export default function LinksPage() {
               className="h-auto w-full dark:invert"
             />
           </Link>
-          <p className="mx-auto mt-6 max-w-sm rounded-full border border-black/15 bg-white/70 px-4 py-2 text-center text-sm font-bold leading-tight text-neutral-700 shadow-sm dark:border-white/15 dark:bg-white/[0.06] dark:text-neutral-100 sm:text-base">
+          <p className="mx-auto mt-6 max-w-sm text-center text-sm font-bold leading-tight text-neutral-700 dark:text-neutral-100 sm:text-base">
             Website | Portfolio | Booking | Socials | GitHub
           </p>
         </header>

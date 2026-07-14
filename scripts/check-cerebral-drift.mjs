@@ -2,6 +2,12 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+const staleBearRawCapture = ["Bear", "raw capture"].join(" ");
+const staleBearQuickCapture = ["Bear is", "quick capture"].join(" ");
+const staleBearRemainsArchive = ["Bear remains", "archive/import only"].join(" ");
+const staleBearEqualsRawCapture = ["Bear =", "raw capture"].join(" ");
+const staleBearCaptureOffload = ["Bear", "capture/offload"].join(" ");
+const staleBearInbox = ["Bear", "#inbox"].join(" ");
 
 const checks = [
   {
@@ -12,8 +18,11 @@ const checks = [
       "use Cerebral tags",
       "HTML comps should be readable human review surfaces",
       "triggerable project/bucket context packets",
+      "Current owners: Obsidian raw capture/offload",
+      "Legacy capture/archive language is not an active owner",
+      "Opportunity HQ task pages must use the selected Project's icon DB source",
     ],
-    mustNot: [],
+    mustNot: [staleBearRawCapture, staleBearQuickCapture],
   },
   {
     file: "/Users/singleton23/.codex/skills/cerebral-router/SKILL.md",
@@ -28,21 +37,21 @@ const checks = [
     file: "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/tool-harness/SKILL.md",
     must: [
       "Obsidian = raw capture",
-      "Bear remains archive/import only",
+      "Legacy Markdown exports = archive/import reference only",
       "## Triggerable Containers",
       "project/bucket -> context packet -> selected skills/tools -> review gate -> verified output",
       "isolated triggerable states per project/bucket",
     ],
-    mustNot: ["background automation", "Bear = raw capture"],
+    mustNot: ["background automation", staleBearEqualsRawCapture, staleBearRemainsArchive],
   },
   {
     file: "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/cerebral-router/SKILL.md",
     must: [
       "Obsidian capture/offload",
-      "Obsidian is quick capture, not durable truth. Bear is archive/import only.",
+      "Obsidian is quick capture, not durable truth.",
       "raw thought / unclear / under 10 minutes\n  -> Obsidian `_Inbox`",
     ],
-    mustNot: ["Bear #inbox", "Bear capture/offload", "Bear is quick capture"],
+    mustNot: [staleBearInbox, staleBearCaptureOffload, staleBearQuickCapture],
   },
   {
     file: "/Users/singleton23/.codex/skills/singleton-visualizer/SKILL.md",

@@ -215,7 +215,7 @@ TikTok
 Routing decision:
 
 ```text
-Bear
+Obsidian
   Raw social/content thoughts, screenshots, creator references, and messy
   "what if" captures.
 
@@ -404,7 +404,7 @@ Waiting = check back, follow up, or unblock.
 Parked = leave alone until review.
 ```
 
-Do not use `Waiting` for ideas that simply are not urgent. Use `Parked` or Bear.
+Do not use `Waiting` for ideas that simply are not urgent. Use `Parked` or Obsidian.
 
 ## What Akiflow Gets Right
 

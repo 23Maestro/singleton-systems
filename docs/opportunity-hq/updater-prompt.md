@@ -46,6 +46,8 @@ After I approve winners:
 - Log each approved winner to Opportunity Tasks.
 - Status: Queued unless I say Today.
 - Project: Cash Jobs, Career Jobs, Freelance, Offer, or Portfolio.
+- Page icon: immediately copy the selected Project's icon DB source onto the
+  task page, then verify the created task shows that icon.
 - Money Priority: Critical for Cash Jobs, Career Jobs, and Freelance unless clearly
   optional.
 - Notes: one short line only.
@@ -200,6 +202,11 @@ Project rule:
 - Every real task should link to exactly one Project. Blank Project is a cleanup problem, not the default.
 - Every task's page icon should come from the icon DB source for its Project.
   Project/task pages are references, not the durable icon source.
+- When creating a task through any path, set the icon in the same pass as the
+  Project relation. If the tool cannot set both at once, update the icon
+  immediately after creation before calling the task done.
+- When changing a task's Project, refresh the task icon from the new Project in
+  the same update and verify it afterward.
 - Current icon DB source: Cash Jobs = custom icon `cash-job`
   (`notion://custom_emoji/a3b304a1-8d81-47f4-aea9-74ce88acc795/38e4c8bd-6c26-8079-9053-007a3a48e114`).
 - Finishable deliverables become tasks/goals under a lane project, not new lane rows.

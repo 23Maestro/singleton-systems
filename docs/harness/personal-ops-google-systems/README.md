@@ -11,7 +11,7 @@ flow@singleton-systems.com
 Live spreadsheet:
 
 ```text
-https://docs.google.com/spreadsheets/d/1Iv_4UHMIBtd0BZmD5lAeDbLKBHzDVuRoTUmt9DhAMJQ/edit
+https://docs.google.com/spreadsheets/d/1WixNN_PjxflMoxCjQDfupXVsAJGKZrkiwGzTzXL63go/edit
 ```
 
 ## First-Time Setup
@@ -47,6 +47,15 @@ sets validation, and stores the form URLs in script properties.
 
 ## Normal Update Loop
 
+Repair the live Sheet/Form source contract after schema edits:
+
+```bash
+npm run gws:chores:repair
+```
+
+This keeps the user-facing AppSheet table label `Home Tasks` mapped to the
+Google Sheet source tab `Chores`.
+
 ```bash
 npm run gas:push:chores
 ```
@@ -68,3 +77,14 @@ npm run gas:deploy:chores
 The script includes `doGet()`, which returns JSON from the `Chores` tab for a
 future Excalidraw review surface. The visual surface should read from this feed;
 it should not silently write changes.
+
+## AppSheet Build Log
+
+The current AppSheet implementation notes live here:
+
+```text
+docs/harness/personal-ops-google-systems/appsheet-chores-build-log-2026-07-14.md
+```
+
+Use that log as the replayable script for showing how AI plus Google Workspace
+can turn a small personal workflow into a usable mobile app.

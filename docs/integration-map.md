@@ -85,7 +85,7 @@ as docs-only contract:
 [lane] [owner] [intent] [shape] [tools] [review] [memory]
 ```
 
-Those are routing labels, not Bear tags and not a runtime format.
+Those are routing labels, not app tags and not a runtime format.
 
 ## HQ Harness Logs
 
@@ -142,7 +142,7 @@ Naming Rules
 - Obsidian role: quick capture with lean folders and tiny templates
 - Obsidian folders: `_Inbox`, `Command Ops`, `Production Ops`, `Business Ops`,
   `Templates`
-- Bear role: readable archive/import source only
+- Legacy Markdown exports role: readable archive/import source only
 - Eagle role: portfolio and asset library
 - Notion / Opportunity HQ role: durable structured truth
 - Raycast role: action layer
@@ -746,7 +746,7 @@ choose-menu prompt that helps put the thought in the right lane.
 Eagle skill CLI route: 127.0.0.1:41596
 Opportunity HQ Raycast / Eagle route: 127.0.0.1:41595
 Obsidian MCP route: https://127.0.0.1:27124/mcp with OBSIDIAN_MCP_TOKEN
-Bear archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
+Legacy Markdown archive route: exported Markdown stays outside the active Obsidian folders until a manual import is needed
 ```
 
 MCP can expose tools for operator convenience. Reliable code should call stable
@@ -779,7 +779,7 @@ Production Ops -> workflow / next
 Business Ops   -> thing / next
 ```
 
-Use folders for broad shape only. Do not rebuild the old Bear tag tree inside Obsidian.
+Use folders for broad shape only. Do not rebuild old tag sprawl inside Obsidian.
 
 Use `_Inbox` for raw under-10-minute tasks or unclear captures.
 
@@ -787,7 +787,7 @@ Raycast is the action layer and is implied in command workflows. Do not create a
 folder just to say Raycast unless the specific note is about the Raycast
 extension itself.
 
-Middle-ground mapping from the old Bear lanes:
+Middle-ground mapping from legacy capture lanes:
 
 ```text
 inbox    -> _Inbox
@@ -962,7 +962,7 @@ mentions: Eagle, portfolio, screenshot, reference, asset
 mentions: LinkedIn, Instagram, content, brand, schedule
   load: offer-proof-content, then platform skill if needed
 
-mentions: where does this go, offload, Obsidian, Bear, capture, route
+mentions: where does this go, offload, Obsidian, capture, route
   load: cerebral-router
 
 mentions: Shortcut, Karabiner, Hammerspoon, Maestro, command
@@ -1042,7 +1042,7 @@ jason-larkins
 upwork
 raycast
 notion
-bear
+obsidian
 eagle
 ```
 
@@ -1271,7 +1271,7 @@ shape repeats. The first version should be a disposable local HTML file.
 - Do not use lifecycle tags as Obsidian tags or folders.
 - Use Local REST API MCP for create/search/update and Advanced URI for opening notes.
 - Do not create a global Singleton Systems dump note by default.
-- Bear remains a readable archive/import source until migrated notes are touched.
+- Legacy Markdown exports remain readable archive/import sources until migrated notes are touched.
 
 ### Eagle
 

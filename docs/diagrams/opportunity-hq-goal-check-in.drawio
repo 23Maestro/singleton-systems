@@ -157,7 +157,7 @@
           <mxGeometry x="1190" y="1460" width="300" height="68" as="geometry"/>
         </mxCell>
 
-        <mxCell id="ss-bear" value="SS: Obsidian&#xa;raw capture before durable work" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
+        <mxCell id="ss-obsidian" value="SS: Obsidian&#xa;raw capture before durable work" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#334155;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="80" y="1560" width="300" height="68" as="geometry"/>
         </mxCell>
         <mxCell id="ss-eagle" value="SS: Eagle&#xa;portfolio and asset library" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=14;fontStyle=1;fontColor=#064E3B;spacing=8;" vertex="1" parent="1">

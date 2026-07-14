@@ -23,6 +23,12 @@ const decisionMaps = [
     tags: ["Wayfinder", "Opportunity HQ", "Excalidraw"],
     accent: "border-[#6d44d9] text-[#6d44d9] dark:text-[#c9b8ff]",
   },
+  {
+    label: "Excalidraw Setup Pass",
+    href: "/decision-maps/excalidraw-setup-pass/",
+    tags: ["Obsidian", "Scripts", "Templater"],
+    accent: "border-[#23835f] text-[#23835f] dark:text-[#8fd8b6]",
+  },
 ] as const;
 
 export default function DecisionMapsPage() {
@@ -40,7 +46,7 @@ export default function DecisionMapsPage() {
               className="h-auto w-full dark:invert"
             />
           </Link>
-          <p className="mx-auto mt-6 max-w-sm rounded-full border border-black/15 bg-white/70 px-4 py-2 text-center text-sm font-bold leading-tight text-neutral-700 shadow-sm dark:border-white/15 dark:bg-white/[0.06] dark:text-neutral-100 sm:text-base">
+          <p className="mx-auto mt-6 max-w-sm text-center text-sm font-bold leading-tight text-neutral-700 dark:text-neutral-100 sm:text-base">
             Decision Maps
           </p>
         </header>

@@ -10,7 +10,7 @@
         <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=15;fontColor=#475569;" value="draw.io helper sketch. LikeC4 stays canonical." vertex="1">
           <mxGeometry height="28" width="620" x="580" y="66" as="geometry" />
         </mxCell>
-        <mxCell id="bear" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#7F1D1D;spacing=10;" value="Obsidian&#xa;raw thoughts" vertex="1">
+        <mxCell id="obsidian" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FEF2F2;strokeColor=#DC2626;strokeWidth=2;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#7F1D1D;spacing=10;" value="Obsidian&#xa;raw thoughts" vertex="1">
           <mxGeometry height="78" width="190" x="80" y="120" as="geometry" />
         </mxCell>
         <mxCell id="notion" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#2E1065;spacing=10;" value="Opportunity HQ&#xa;durable tasks + projects" vertex="1">
@@ -25,7 +25,7 @@
         <mxCell id="eagle" parent="1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=3;fontFamily=Helvetica;fontSize=16;fontStyle=1;fontColor=#064E3B;spacing=10;" value="Eagle&#xa;portfolio + assets" vertex="1">
           <mxGeometry height="78" width="220" x="1440" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="edge-bear-notion" edge="1" parent="1" source="bear" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#991B1B;fontFamily=Helvetica;fontSize=12;fontColor=#991B1B;" target="notion" value="">
+        <mxCell id="edge-obsidian-notion" edge="1" parent="1" source="obsidian" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#991B1B;fontFamily=Helvetica;fontSize=12;fontColor=#991B1B;" target="notion" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="edge-notion-raycast" edge="1" parent="1" source="notion" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#2563EB;fontFamily=Helvetica;fontSize=12;fontColor=#1D4ED8;" target="raycast" value="">
