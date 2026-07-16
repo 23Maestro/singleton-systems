@@ -1,0 +1,55 @@
+{
+  "version": 2,
+  "source_revision": "2026-07-16",
+  "plugin": {
+    "id": "s-systems@singleton23-local",
+    "source_path": "/Users/singleton23/plugins/s-systems",
+    "verification_command": "/Applications/ChatGPT.app/Contents/Resources/codex plugin list | rg 's-systems@singleton23-local.*installed, enabled'"
+  },
+  "routes": [
+    {"route_key":"systems-tool-harness","trigger_patterns":["SSystems","s-systems","tool[- ]harness","singleton23-local","plugin://s-systems","skill.*path","hook contract"],"surface":"skill / hook routing","lane":"Offer","owner":"Docs/skills","intent":"Route SSystems plugin, skill, hook, and harness work through the canonical contract.","shape":"operating rule","required_tools":["s-systems:tool-harness","s-systems:cerebral-router"],"review_gate":"Run registry and hook checks before completion.","priority":10,"enabled":true},
+    {"route_key":"freelance-proposal","trigger_patterns":["upwork","fiverr","contra","freelance","client post","paid client","gig proposal"],"surface":"proposal","lane":"Freelance","owner":"Opportunity HQ","intent":"Turn a marketplace opportunity into a reviewed proposal or next action.","shape":"task","required_tools":["s-systems:freelance-gig-proposals"],"review_gate":"Final Human Pass before showing or sending a proposal.","priority":20,"enabled":true},
+    {"route_key":"agency-growth","trigger_patterns":["cold email","outbound","prospecting","ICP","ideal customer","objection","direct lead","sales sequence"],"surface":"outreach","lane":"Offer","owner":"Opportunity HQ","intent":"Plan or execute direct B2B client acquisition from real signals and proof.","shape":"task","required_tools":["s-systems:agency-growth"],"review_gate":"Final Human Pass before showing copy as final.","priority":30,"enabled":true},
+    {"route_key":"job-application","trigger_patterns":["job application","resume","job post","survival job","blue collar job","white collar job"],"surface":"application","lane":"Career Jobs","owner":"Opportunity HQ","intent":"Tailor a truthful application or resume angle.","shape":"task","required_tools":["s-systems:job-application-resume"],"review_gate":"Verify claims against source proof before final.","priority":40,"enabled":true},
+    {"route_key":"cover-note","trigger_patterns":["cover letter","cover note","application message"],"surface":"application","lane":"Career Jobs","owner":"Opportunity HQ","intent":"Write a short, human note for an application or reply.","shape":"task","required_tools":["s-systems:cover-letter-casual"],"review_gate":"Final Human Pass before final.","priority":45,"enabled":true},
+    {"route_key":"proof-packaging","trigger_patterns":["eagle proof","portfolio asset","proof asset","project screenshot","workflow demo"],"surface":"proof","lane":"Portfolio","owner":"Eagle","intent":"Turn a real asset into a proof block or claim.","shape":"proof","required_tools":["s-systems:career-proof-packager","s-systems:eagle"],"review_gate":"Verify the asset and claim source before publishing.","priority":50,"enabled":true},
+    {"route_key":"offer-content","trigger_patterns":["linkedin post","instagram","content idea","social post","content calendar","proof content"],"surface":"content","lane":"Offer","owner":"Docs/skills","intent":"Turn real proof into useful offer-aligned content.","shape":"proof","required_tools":["s-systems:offer-proof-content"],"review_gate":"Final Human Pass before final.","priority":55,"enabled":true},
+    {"route_key":"opportunity-hq","trigger_patterns":["opportunity hq","career hq","notion task","notion project","plan today","work date","goal horizon"],"surface":"task","lane":"all_buckets","owner":"Opportunity HQ","intent":"Shape durable project or task work before mutation.","shape":"task","required_tools":["s-systems:opportunity-hq-updater"],"review_gate":"Show task shape before mutation unless directly requested.","priority":60,"enabled":true},
+    {"route_key":"planning-routing","trigger_patterns":["raw idea","someday","dependency","time block","planning logic","research lead","workflow idea"],"surface":"task","lane":"all_buckets","owner":"Docs/skills","intent":"Classify a mixed idea and choose its owner surface.","shape":"operating rule","required_tools":["s-systems:planning-idea-routing"],"review_gate":"Do not mutate a live surface until owner and next action are clear.","priority":65,"enabled":true},
+    {"route_key":"visualization","trigger_patterns":["likec4","architecture map","visual map","draw.io","diagram"],"surface":"visual","lane":"Offer","owner":"LikeC4","intent":"Create or update a reviewed visual system map.","shape":"HTML comp","required_tools":["s-systems:singleton-visualizer"],"review_gate":"Validate the source map and human-readable output.","priority":70,"enabled":true},
+    {"route_key":"website-offer","trigger_patterns":["website","landing page","hero","offer wording","workflow cleanup offer"],"surface":"content","lane":"Offer","owner":"Docs/skills","intent":"Make an offer or site decision from the Singleton Systems business model.","shape":"operating rule","required_tools":["s-systems:singleton-systems"],"review_gate":"Use real proof and Final Human Pass for publishable copy.","priority":75,"enabled":true},
+    {"route_key":"eagle-library","trigger_patterns":["eagle library","eagle tag","eagle folder","find image","organize asset"],"surface":"proof","lane":"Portfolio","owner":"Eagle","intent":"Operate the Eagle asset library.","shape":"proof","required_tools":["s-systems:eagle"],"review_gate":"Verify the selected asset before changing metadata.","priority":80,"enabled":true}
+  ],
+  "skills": [
+    {"skill_key":"ad-creative-strategist","activation":"disabled","reason":"Generic Agency wrapper; offer-proof-content owns SSystems proof content."},
+    {"skill_key":"agency-growth","activation":"core","reason":"Direct B2B acquisition and outbound."},
+    {"skill_key":"auto-logger","activation":"disabled","reason":"Internal logging helper, not a prompt-facing route."},
+    {"skill_key":"bear","activation":"disabled","reason":"Archive/import only."},
+    {"skill_key":"career-proof-packager","activation":"core","reason":"Proof and portfolio packaging."},
+    {"skill_key":"cerebral-router","activation":"core","reason":"Front-door route selection."},
+    {"skill_key":"content-creator","activation":"disabled","reason":"Generic Agency wrapper; offer-proof-content owns SSystems content."},
+    {"skill_key":"cover-letter-casual","activation":"core","reason":"Short application notes."},
+    {"skill_key":"eagle-skill","activation":"core","reason":"Eagle operator contract; exposed as s-systems:eagle."},
+    {"skill_key":"foundation-pass","activation":"disabled","reason":"Wayfinder owns the active broad-build route."},
+    {"skill_key":"freelance-gig-proposals","activation":"core","reason":"Marketplace proposals."},
+    {"skill_key":"instagram-curator","activation":"disabled","reason":"Generic Agency wrapper; offer-proof-content owns SSystems social proof."},
+    {"skill_key":"job-application-resume","activation":"core","reason":"Application and resume work."},
+    {"skill_key":"linkedin-content-creator","activation":"disabled","reason":"Generic Agency wrapper; offer-proof-content owns SSystems LinkedIn proof."},
+    {"skill_key":"offer-proof-content","activation":"core","reason":"Proof-led content."},
+    {"skill_key":"opportunity-hq-updater","activation":"core","reason":"Durable task and project shaping."},
+    {"skill_key":"outbound-strategist","activation":"disabled","reason":"Consolidated into agency-growth."},
+    {"skill_key":"planning-idea-routing","activation":"core","reason":"Idea ownership and next action."},
+    {"skill_key":"podcast-strategist","activation":"disabled","reason":"Preserved Agency wrapper for Chinese podcast work; outside normal SSystems routing."},
+    {"skill_key":"sales-outreach","activation":"disabled","reason":"Consolidated into agency-growth."},
+    {"skill_key":"singleton-systems","activation":"core","reason":"Business and offer-level cross-surface decisions."},
+    {"skill_key":"singleton-visualizer","activation":"core","reason":"Visual system maps."},
+    {"skill_key":"tool-harness","activation":"core","reason":"Tool scope, review, and verification selection."},
+    {"skill_key":"wayfinder","activation":"core","reason":"Fuzzy or multi-session build direction."}
+  ],
+  "capabilities": [
+    {"capability_key":"s-systems-plugin","capability_type":"plugin","canonical_name":"s-systems@singleton23-local","installed":true,"status":"verified","path":"/Users/singleton23/plugins/s-systems","command":"/Applications/ChatGPT.app/Contents/Resources/codex plugin list","verification_command":"/Applications/ChatGPT.app/Contents/Resources/codex plugin list | rg 's-systems@singleton23-local.*installed, enabled'","evidence":"The local SSystems plugin is installed and enabled from its canonical source path.","source_revision":"2026-07-16"},
+    {"capability_key":"pdf-skill","capability_type":"skill","canonical_name":"pdf:pdf","installed":null,"status":"verify-on-use","path":null,"command":"/Applications/ChatGPT.app/Contents/Resources/codex plugin list","verification_command":"/Applications/ChatGPT.app/Contents/Resources/codex plugin list | rg 'pdf@openai-primary-runtime.*installed, enabled'","evidence":"The PDF runtime path is versioned and must be discovered from the live plugin list before a path claim.","source_revision":"2026-07-16"},
+    {"capability_key":"homebrew","capability_type":"tool","canonical_name":"Homebrew","installed":null,"status":"verify-on-use","path":null,"command":"brew --prefix","verification_command":"brew --prefix","evidence":"Homebrew prefix is machine-specific; discover it on use rather than storing a fixed path.","source_revision":"2026-07-16"},
+    {"capability_key":"repo-npm-binary","capability_type":"tool","canonical_name":"repo-local npm binary","installed":null,"status":"verify-on-use","path":"node_modules/.bin","command":"npm exec -- <tool>","verification_command":"ls -l node_modules/.bin/<tool>","evidence":"Package binaries may be repo-local rather than global PATH commands.","source_revision":"2026-07-16"}
+  ]
+}

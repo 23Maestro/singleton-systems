@@ -84,7 +84,7 @@
         <mxCell id="skill-white" value="White collar applications&#xa;&#xa;job-application-resume&#xa;career-proof-packager&#xa;offer-proof-content if portfolio helps" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#F5F3FF;strokeColor=#6D28D9;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#2E1065;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="670" y="790" width="250" height="120" as="geometry"/>
         </mxCell>
-        <mxCell id="skill-upwork" value="Upwork / Fiverr / gigs&#xa;&#xa;freelance-gig-proposals&#xa;sales-outreach&#xa;research pending note" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#064E3B;spacing=10;" vertex="1" parent="1">
+        <mxCell id="skill-upwork" value="Upwork / Fiverr / gigs&#xa;&#xa;freelance-gig-proposals&#xa;agency-growth when direct B2B&#xa;Final Human Pass gate" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#ECFDF5;strokeColor=#059669;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#064E3B;spacing=10;" vertex="1" parent="1">
           <mxGeometry x="960" y="790" width="250" height="120" as="geometry"/>
         </mxCell>
         <mxCell id="skill-site" value="Singleton portfolio + website&#xa;&#xa;offer-proof-content&#xa;career-proof-packager&#xa;content-creator / LinkedIn / Instagram" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;fontFamily=Helvetica;fontSize=15;fontStyle=1;fontColor=#78350F;spacing=10;" vertex="1" parent="1">

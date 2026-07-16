@@ -65,8 +65,8 @@ Current source files:
 
 Use these skills when useful:
 
-- `content-creator` for copy, sections, portfolio framing, and content strategy
-- `sales-outreach` for pain, CTA, objection handling, and conversion logic
+- `offer-proof-content` for copy, sections, portfolio framing, and proof-led content strategy
+- `agency-growth` for direct B2B pain, CTA, objection handling, and conversion logic
 - `ui-designer` after the message is clear
 - `frontend-developer` when implementing or polishing the site
 
@@ -148,7 +148,7 @@ Career HQ / Notion task template:
 Use this pattern when a Codex or mobile Shortcut capture should become a real
 Career HQ item instead of staying in Obsidian.
 
-Use `sales-outreach` for:
+Use `agency-growth` for:
 
 - consultation positioning
 - profile language
@@ -189,7 +189,7 @@ Default LinkedIn opener:
 Hey [Name], quick question: are you still handling video editing / repurposing manually, or do you already have a clean process for getting clips out?
 ```
 
-Use `sales-outreach` for:
+Use `agency-growth` for:
 
 - ICP definition
 - prospect list criteria
@@ -217,10 +217,8 @@ Content lanes:
 
 Use these skills when useful:
 
-- `content-creator`
-- `linkedin-content-creator`
-- `instagram-curator`
-- `podcast-strategist`
+- `offer-proof-content`
+- `podcast-strategist` is preserved for its specialist Chinese-podcast workflow and disabled from normal SSystems routing
 
 Default content shape:
 
@@ -256,8 +254,8 @@ Use skills as working roles, not as personality decoration.
 
 ### Offer And Copy
 
-- primary: `content-creator`
-- secondary: `sales-outreach`
+- primary: `offer-proof-content`
+- secondary: `agency-growth`
 
 Use when:
 
@@ -268,8 +266,7 @@ Use when:
 
 ### Sales And Pipeline
 
-- primary: `sales-outreach`
-- secondary: `outbound-strategist`
+- primary: `agency-growth`
 
 Use when:
 
