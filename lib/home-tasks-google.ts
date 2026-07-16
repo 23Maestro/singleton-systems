@@ -125,6 +125,48 @@ export async function updateHomeTask(taskId: string, input: Partial<HomeTask>) {
   return next;
 }
 
+export async function deleteHomeTask(taskId: string) {
+  const sheets = await getSheetsClient();
+  const spreadsheetId = await getSpreadsheetId();
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `${TASKS_SHEET}!A1:F`,
+  });
+  const rows = response.data.values || [];
+  const [, ...taskRows] = rows;
+  const rowOffset = taskRows.findIndex((row) => row[0] === taskId);
+  if (rowOffset === -1) {
+    throw new Error(`Task not found: ${taskId}`);
+  }
+
+  const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
+  const sheetId = spreadsheet.data.sheets?.find((sheet) => sheet.properties?.title === TASKS_SHEET)?.properties?.sheetId;
+  if (sheetId === undefined || sheetId === null) {
+    throw new Error(`Sheet not found: ${TASKS_SHEET}`);
+  }
+
+  const rowIndex = rowOffset + 1;
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          deleteDimension: {
+            range: {
+              sheetId,
+              dimension: "ROWS",
+              startIndex: rowIndex,
+              endIndex: rowIndex + 1,
+            },
+          },
+        },
+      ],
+    },
+  });
+
+  return { taskId };
+}
+
 function rowToTask(headers: unknown[], row: unknown[]) {
   const byHeader = Object.fromEntries(headers.map((header, index) => [String(header), String(row[index] || "")]));
   const taskId = byHeader["Task ID"] || String(row[0] || "");

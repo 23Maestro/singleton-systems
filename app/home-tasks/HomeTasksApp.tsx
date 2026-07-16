@@ -7,6 +7,7 @@ import {
   ArrowsClockwise,
   Bathtub,
   BuildingOffice,
+  Check,
   CookingPot,
   Garage,
   PencilSimple,
@@ -87,6 +88,7 @@ export default function HomeTasksApp() {
   const [view, setView] = useState<"Today" | "Rooms">("Today");
   const [form, setForm] = useState<TaskForm>(emptyForm);
   const [editing, setEditing] = useState(false);
+  const [completingTaskId, setCompletingTaskId] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -200,6 +202,23 @@ export default function HomeTasksApp() {
     }
   }
 
+  async function completeTask(task: HomeTask) {
+    setCompletingTaskId(task.taskId);
+    setError("");
+    setTasks((current) => current.filter((item) => item.taskId !== task.taskId));
+    try {
+      await request("/api/home-tasks", {
+        method: "DELETE",
+        body: JSON.stringify({ taskId: task.taskId }),
+      });
+    } catch (err) {
+      setTasks((current) => [...current, task]);
+      setError(err instanceof Error ? err.message : "Could not complete task.");
+    } finally {
+      setCompletingTaskId("");
+    }
+  }
+
   function editTask(task: HomeTask) {
     setForm({ ...task, saveAsOption: false });
     setEditing(true);
@@ -305,14 +324,14 @@ export default function HomeTasksApp() {
           </div>
         ) : null}
 
-        {loading ? <LoadingState /> : view === "Today" ? <TaskList tasks={todayTasks} empty="No Today tasks." onToggle={togglePlan} onEdit={editTask} /> : null}
+        {loading ? <LoadingState /> : view === "Today" ? <TaskList tasks={todayTasks} empty="No Today tasks." onToggle={togglePlan} onEdit={editTask} onComplete={completeTask} completingTaskId={completingTaskId} /> : null}
 
         {!loading && view === "Rooms" ? (
           <div className="space-y-3">
             {rooms.map((room) => {
               const roomTasks = tasks.filter((task) => task.room === room);
               return (
-                <RoomSection key={room} room={room} tasks={roomTasks} onToggle={togglePlan} onEdit={editTask} onAdd={addTask} />
+                <RoomSection key={room} room={room} tasks={roomTasks} onToggle={togglePlan} onEdit={editTask} onComplete={completeTask} completingTaskId={completingTaskId} onAdd={addTask} />
               );
             })}
           </div>
@@ -467,12 +486,16 @@ function RoomSection({
   tasks,
   onToggle,
   onEdit,
+  onComplete,
+  completingTaskId,
   onAdd,
 }: {
   room: Room;
   tasks: HomeTask[];
   onToggle: (task: HomeTask) => void;
   onEdit: (task: HomeTask) => void;
+  onComplete: (task: HomeTask) => void;
+  completingTaskId: string;
   onAdd: (room: Room) => void;
 }) {
   const style = roomStyles[room];
@@ -489,7 +512,7 @@ function RoomSection({
           {tasks.length}
         </span>
       </div>
-      <TaskList tasks={tasks} empty="No tasks." onToggle={onToggle} onEdit={onEdit} />
+      <TaskList tasks={tasks} empty="No tasks." onToggle={onToggle} onEdit={onEdit} onComplete={onComplete} completingTaskId={completingTaskId} />
       <button
         type="button"
         onClick={() => onAdd(room)}
@@ -502,7 +525,21 @@ function RoomSection({
   );
 }
 
-function TaskList({ tasks, empty, onToggle, onEdit }: { tasks: HomeTask[]; empty: string; onToggle: (task: HomeTask) => void; onEdit: (task: HomeTask) => void }) {
+function TaskList({
+  tasks,
+  empty,
+  onToggle,
+  onEdit,
+  onComplete,
+  completingTaskId,
+}: {
+  tasks: HomeTask[];
+  empty: string;
+  onToggle: (task: HomeTask) => void;
+  onEdit: (task: HomeTask) => void;
+  onComplete: (task: HomeTask) => void;
+  completingTaskId: string;
+}) {
   if (!tasks.length) {
     return <div className="rounded-[24px] border border-black/8 bg-white/70 p-5 text-center text-sm font-medium text-[#394856] backdrop-blur-xl dark:border-white/10 dark:bg-[#1f2934] dark:text-white">{empty}</div>;
   }
@@ -522,9 +559,21 @@ function TaskList({ tasks, empty, onToggle, onEdit }: { tasks: HomeTask[]; empty
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
                   <h3 className="break-words text-base font-semibold leading-snug">{task.task}</h3>
-                  <button type="button" onClick={() => onEdit(task)} className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-black/5 dark:bg-white/10" aria-label="Edit task">
-                    <EditIcon />
-                  </button>
+                  <div className="flex shrink-0 gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => onComplete(task)}
+                      disabled={completingTaskId === task.taskId}
+                      className="grid h-9 w-9 place-items-center rounded-xl bg-[#25C266] text-[#06140B] shadow-sm transition active:scale-95 disabled:opacity-60"
+                      aria-label={`Complete ${task.task}`}
+                      title="Complete"
+                    >
+                      <CheckIcon />
+                    </button>
+                    <button type="button" onClick={() => onEdit(task)} className="grid h-9 w-9 place-items-center rounded-xl bg-black/5 dark:bg-white/10" aria-label="Edit task">
+                      <EditIcon />
+                    </button>
+                  </div>
                 </div>
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <span className="rounded-full px-3 py-1 text-xs font-semibold" style={{ background: style.bg, color: style.color }}>
@@ -609,6 +658,10 @@ function RoomIcon({ name }: { name: (typeof roomStyles)[Room]["icon"] }) {
 
 function PlusIcon() {
   return <Plus size={22} weight="bold" />;
+}
+
+function CheckIcon() {
+  return <Check size={18} weight="bold" />;
 }
 
 function EditIcon() {
