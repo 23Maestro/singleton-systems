@@ -36,7 +36,7 @@ const checks = [
     mustNot: ["proof/harness.jsonl"],
   },
   {
-    file: "/Users/singleton23/.codex/skills/cerebral-router/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
     must: [
       "Opportunity HQ owns the five durable project lanes: `Cash Jobs`, `Career Jobs`,\n  `Freelance`, `Offer`, `Portfolio`.",
       "Applications, Freelance, Singleton, and Portfolio should be",
@@ -47,23 +47,19 @@ const checks = [
     ],
   },
   {
-    file: "/Users/singleton23/.codex/skills/singleton-systems/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/singleton-systems/SKILL.md",
     must: [
-      laneList,
-      "Portfolio -> portfolio tasks and assets",
-      "Money Priority = Strategic for Offer and Portfolio",
-      "Applications, Freelance, Singleton, and Portfolio should be views of the task database.",
+      "opportunity-hq-updater shape durable project and task work",
+      "Do not repeat their procedures here.",
     ],
     mustNot: [
-      "Offer\nProof",
       "Proof -> proof tasks and assets",
-      "Money Priority = Strategic for Offer and Proof",
       "Applications, Freelance, Singleton, and Proof should be views of the task database.",
     ],
   },
   {
-    file: "/Users/singleton23/.codex/skills/opportunity-hq-updater/SKILL.md",
-    must: [laneList, "Portfolio -> portfolio tasks and assets"],
+    file: "/Users/singleton23/plugins/s-systems/skills/opportunity-hq-updater/SKILL.md",
+    must: [laneList, "Portfolio -> proof tasks and assets"],
     mustNot: ["Offer\nProof", "Proof -> proof tasks and assets"],
   },
   {

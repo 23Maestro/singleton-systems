@@ -543,7 +543,7 @@ Default route:
 Raw link or transcript -> Obsidian
 Repeated pattern worth studying -> research memo
 Portfolio-backed post idea -> offer-proof-content
-Platform-specific post -> LinkedIn / Instagram skill, or content-creator for X/TikTok until dedicated skills exist
+Platform-specific post -> offer-proof-content; an explicitly requested specialist wrapper may be used only when its focused workflow is needed
 Durable business task -> Opportunity HQ
 ```
 
@@ -578,7 +578,7 @@ Routing:
 ```text
 Good lead -> Opportunity HQ task under Singleton portfolio + website
 Offer/social angle -> offer-proof-content
-Outreach copy -> sales-outreach
+Direct B2B outreach copy -> agency-growth
 Raw maybe -> Obsidian
 ```
 

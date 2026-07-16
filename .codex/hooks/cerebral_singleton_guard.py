@@ -3,15 +3,11 @@ import json
 import os
 import re
 import sys
+import urllib.parse
+import urllib.request
 
 
 REPO_MARKER = "Documents/Development/singleton-systems"
-
-CORE_DOCS = [
-    "docs/integration-map.md",
-    "docs/home-hub.md",
-    "docs/commands.md",
-]
 
 ROUTING_SURFACES = [
     "docs/integration-map.md",
@@ -22,8 +18,8 @@ ROUTING_SURFACES = [
     "docs/operating-system/singleton-systems-sprint.md",
     "docs/planning/planning-idea-routing-research-pass.md",
     ".codex/hooks/cerebral_singleton_guard.py",
-    "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/cerebral-router/SKILL.md",
-    "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/planning-idea-routing/SKILL.md",
+    "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
+    "/Users/singleton23/plugins/s-systems/skills/planning-idea-routing/SKILL.md",
 ]
 
 STALE_OWNER_PATTERNS = [
@@ -42,35 +38,12 @@ STALE_OWNER_PATTERNS = [
     ]
 ]
 
-KNOWN_DRIFT_REPLACEMENTS = [
-    ("Current owners: Bear " + "raw capture;", "Current owners: Obsidian raw capture/offload;"),
-    ("- Bear role: readable archive/import source only", "- Legacy Markdown exports role: readable archive/import source only"),
-    ("Bear archive route:", "Legacy Markdown archive route:"),
-    ("Bear remains a readable archive/import source", "Legacy Markdown exports remain readable archive/import sources"),
-    ("Bear stays archive/import", "Legacy exports stay outside active folders until needed"),
-    ("Bear capture", "raw capture"),
-    ("Bear " + "raw capture", "Obsidian raw capture/offload"),
-    ("old Bear lanes", "legacy capture lanes"),
-    ("old Bear tag tree", "old tag sprawl"),
-    ("old Bear export", "legacy export"),
-    ("Use `Parked` or Bear", "Use `Parked` or Obsidian"),
-]
-
-SURFACE_HINTS = [
-    ("website / offer copy", r"website|landing|copy|offer|hero|portfolio|case study"),
-    ("Opportunity HQ / Notion", r"opportunity hq|career hq|notion|task|project|plan today|money clock"),
-    ("Raycast command layer", r"raycast|command|shortcut|hotkey|plan-today|codex assist"),
-    ("Obsidian raw capture", r"\bbear\b|obsidian|capture|offload|inbox"),
-    ("Eagle portfolio", r"\beagle\b|asset|screenshot|portfolio"),
-    ("Apple / mobile", r"shortcut|share sheet|mobile|app intent"),
-    ("LikeC4 / maps", r"likec4|diagram|map|architecture|ecosystem"),
-    ("skill / hook routing", r"skill|hook|cerebral|router|drift|surface"),
-]
-
-COPY_RE = re.compile(
-    r"copy|outreach|linkedin|sales|proposal|application|cover note|caption|post|ad|dm|email",
+CAPABILITY_RE = re.compile(
+    r"not installed|missing.*path|\bpath\b|tool installed|plugin.*(missing|installed)|pdf tool|pdf skill|homebrew|/opt/homebrew|node_modules/.bin|npm exec",
     re.I,
 )
+
+REGISTRY_PATH = "config/cerebral-registry.json"
 
 DOCS_SKILLS_RE = re.compile(r"docs/|\.codex/|skills?/|SKILL\.md|hooks?", re.I)
 HTML_VISUAL_RE = re.compile(r"html comp|html artifact|playground|visualizer|diagram|map|png|draw\.io", re.I)
@@ -93,28 +66,82 @@ def tool_text(payload):
     return json.dumps(tool_input) if isinstance(tool_input, dict) else str(tool_input)
 
 
-def surfaces(text):
-    found = [name for name, pattern in SURFACE_HINTS if re.search(pattern, text, re.I)]
-    return ", ".join(found[:4]) if found else "classify from Cerebral map"
+def repo_root_from(cwd=None):
+    base = cwd or os.getcwd()
+    parts = base.split(os.sep)
+    marker = ["Users", "singleton23", "Documents", "Development", "singleton-systems"]
+    for index in range(len(parts)):
+        if parts[index:index + len(marker)] == marker:
+            return os.sep + os.path.join(*parts[:index + len(marker)])
+    return base
+
+
+def load_local_registry():
+    path = os.path.join(repo_root_from(), REGISTRY_PATH)
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            return json.load(handle)
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return {"routes": [], "capabilities": []}
+
+
+def load_runtime_registry():
+    base_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
+    anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
+    if not base_url or not anon_key:
+        return None
+
+    headers = {"apikey": anon_key, "Authorization": f"Bearer {anon_key}"}
+    try:
+        routes_url = base_url + "/rest/v1/cerebral_routes?enabled=eq.true&select=*"
+        capabilities_url = base_url + "/rest/v1/harness_capabilities?select=*"
+        def fetch(url):
+            request = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(request, timeout=1.5) as response:
+                return json.loads(response.read().decode("utf-8"))
+        return {"routes": fetch(routes_url), "capabilities": fetch(capabilities_url)}
+    except (OSError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def registry_for_prompt(text):
+    runtime = load_runtime_registry()
+    return (runtime, "Supabase runtime registry") if runtime is not None else (load_local_registry(), "local registry fallback")
+
+
+def registry_matches(text):
+    registry, source = registry_for_prompt(text)
+    matched_routes = []
+    for route in registry.get("routes", []):
+        triggers = route.get("trigger_patterns") or []
+        if any(re.search(trigger, text, re.I) for trigger in triggers):
+            matched_routes.append(route)
+
+    capabilities = []
+    if CAPABILITY_RE.search(text) or any(route.get("route_key") == "systems-tool-harness" for route in matched_routes):
+        capabilities = registry.get("capabilities", [])
+    return matched_routes, capabilities, source
 
 
 def context(reason, text):
-    surface_line = surfaces(text)
-    lines = [
-        "Cerebral / Singleton Systems drift guard:",
-        f"- Reason: {reason}",
-        f"- Surface(s): {surface_line}",
-        f"- Review first: {', '.join(CORE_DOCS)}.",
-        "- Official rule: name it once, put it in the owner surface, automate only after repetition is obvious.",
-        "- Current owners: Obsidian raw capture/offload; Opportunity HQ durable tasks/projects; Eagle portfolio/assets; Raycast actions; Codex docs/skills naming; LikeC4 maps.",
-        "- Legacy capture/archive language is not an active owner. Treat it as export/archive drift and update the owner surface before continuing.",
-        "- Opportunity HQ task pages must use the selected Project's icon DB source; set or refresh the icon in the same pass as Project creation/change and verify it.",
-        "- Raycast command work lives in /Users/singleton23/Raycast/career-hq; visible language should say Opportunity HQ when possible.",
-        "- Native Raycast action first. Codex Assist second, review before write/send.",
-        "- Ponytail rule: smallest working change, reuse existing docs/skills/surfaces, no new abstraction or database unless the prompt explicitly earns it.",
-    ]
-    if COPY_RE.search(text):
-        lines.append("- Copy/outreach rule: run Final Human Pass before showing any draft as final.")
+    routes, capabilities, registry_source = registry_matches(text)
+    lines = ["Cerebral route:", f"- [reason] {reason}"]
+    if routes:
+        for route in sorted(routes, key=lambda item: item.get("priority", 100))[:2]:
+            lines.extend([
+                f"- [surface] {route.get('surface') or 'task'}",
+                f"- [lane] {route.get('lane')} | [owner] {route.get('owner')}",
+                f"- [tools] {' + '.join(route.get('required_tools') or [])}",
+                f"- [review] {route.get('review_gate') or 'review before mutation'}",
+            ])
+    else:
+        lines.append("- [next] No specialized route matched; use normal task flow.")
+    if CAPABILITY_RE.search(text):
+        lines.append("- [preflight] Check registry, Homebrew, and repo-local npm facts before reporting a missing tool or path.")
+        if not capabilities:
+            lines.append("- [do-not] Do not assert absence without verification evidence.")
+        else:
+            lines.append(f"- [registry] {registry_source}; use recorded path and verification command.")
     lines.extend(drift_warnings(text))
     return "\n".join(lines)
 
@@ -149,13 +176,7 @@ def emit(text, event_name):
 
 
 def repo_root():
-    cwd = os.getcwd()
-    parts = cwd.split(os.sep)
-    marker = ["Users", "singleton23", "Documents", "Development", "singleton-systems"]
-    for index in range(len(parts)):
-        if parts[index:index + len(marker)] == marker:
-            return os.sep + os.path.join(*parts[:index + len(marker)])
-    return cwd
+    return repo_root_from()
 
 
 def stale_owner_hits():
@@ -173,31 +194,6 @@ def stale_owner_hits():
         except FileNotFoundError:
             continue
     return hits[:20]
-
-
-def repair_known_drift():
-    root = repo_root()
-    changed = []
-    for path in ROUTING_SURFACES:
-        full_path = path if path.startswith(os.sep) else os.path.join(root, path)
-        if os.path.basename(full_path) == "cerebral_singleton_guard.py":
-            continue
-        try:
-            with open(full_path, "r", encoding="utf-8") as handle:
-                original = handle.read()
-        except FileNotFoundError:
-            continue
-
-        updated = original
-        for old, new in KNOWN_DRIFT_REPLACEMENTS:
-            updated = updated.replace(old, new)
-
-        if updated != original:
-            with open(full_path, "w", encoding="utf-8") as handle:
-                handle.write(updated)
-            changed.append(full_path)
-
-    return changed
 
 
 def emit_block(message):
@@ -224,7 +220,6 @@ def main():
         return
 
     if event == "PostToolUse":
-        repaired = repair_known_drift()
         hits = stale_owner_hits()
         if hits:
             details = "\n".join(hits)
@@ -233,11 +228,6 @@ def main():
                 "Update the owner surface to Obsidian raw capture / legacy export before continuing.\n"
                 + details
             )
-        elif repaired:
-            print(json.dumps({
-                "systemMessage": "Singleton Systems drift guard repaired stale owner language in: "
-                + ", ".join(repaired)
-            }))
 
 
 if __name__ == "__main__":

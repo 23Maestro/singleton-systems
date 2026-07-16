@@ -13,28 +13,29 @@ const checks = [
   {
     file: ".codex/hooks/cerebral_singleton_guard.py",
     must: [
-      "Cerebral / Singleton Systems drift guard",
       "drift_warnings",
+      "Cerebral route:",
+      "[preflight] Check registry, Homebrew, and repo-local npm facts",
+      "Do not assert absence without verification evidence",
       "use Cerebral tags",
       "HTML comps should be readable human review surfaces",
       "triggerable project/bucket context packets",
-      "Current owners: Obsidian raw capture/offload",
-      "Legacy capture/archive language is not an active owner",
-      "Opportunity HQ task pages must use the selected Project's icon DB source",
+      "ROUTING_SURFACES",
+      "STALE_OWNER_PATTERNS",
     ],
     mustNot: [staleBearRawCapture, staleBearQuickCapture],
   },
   {
-    file: "/Users/singleton23/.codex/skills/cerebral-router/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
     must: [
       "## Cerebral Tags",
-      "[shape] capture | task | sub-task | dependency | portfolio | command idea | operating rule | HTML comp",
+      "[shape] capture | task | sub-task | dependency | proof | command idea | operating rule | HTML comp",
       "project/bucket context like a container for attention",
     ],
     mustNot: ["## Clause Tags"],
   },
   {
-    file: "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/tool-harness/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/tool-harness/SKILL.md",
     must: [
       "Obsidian = raw capture",
       "Legacy Markdown exports = archive/import reference only",
@@ -45,16 +46,16 @@ const checks = [
     mustNot: ["background automation", staleBearEqualsRawCapture, staleBearRemainsArchive],
   },
   {
-    file: "/Users/singleton23/.codex/plugins/cache/singleton23-local/s-systems/0.1.0+codex.20260628005625/skills/cerebral-router/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
     must: [
       "Obsidian capture/offload",
-      "Obsidian is quick capture, not durable truth.",
       "raw thought / unclear / under 10 minutes\n  -> Obsidian `_Inbox`",
+      "direct B2B lead / cold email / outbound sequence / ICP / objection\n  -> Opportunity HQ, agency-growth",
     ],
     mustNot: [staleBearInbox, staleBearCaptureOffload, staleBearQuickCapture],
   },
   {
-    file: "/Users/singleton23/.codex/skills/singleton-visualizer/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/singleton-visualizer/SKILL.md",
     must: [
       "## HTML Comps / Playground Pattern",
       "https://github.com/christophschoeni/agent-html-artifacts",
@@ -65,7 +66,7 @@ const checks = [
     mustNot: ["## Clause Tags"],
   },
   {
-    file: "/Users/singleton23/.codex/skills/offer-proof-content/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/offer-proof-content/SKILL.md",
     must: [
       "## Social Reference Variables",
       "reference_set = exactly 2 people per network",
@@ -78,7 +79,7 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "/Users/singleton23/.codex/skills/linkedin-content-creator/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/linkedin-content-creator/SKILL.md",
     must: [
       "platform`, `reference_set`, `direct_style`, `post_format`, and `attack_type",
       "Zander Whitehurst and Aishwarya Srinivasan",
@@ -88,7 +89,7 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "/Users/singleton23/.codex/skills/instagram-curator/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/instagram-curator/SKILL.md",
     must: [
       "platform`, `reference_set`, `direct_style`, `post_format",
       "2 style references per network",
@@ -96,7 +97,7 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "/Users/singleton23/.codex/skills/ad-creative-strategist/SKILL.md",
+    file: "/Users/singleton23/plugins/s-systems/skills/ad-creative-strategist/SKILL.md",
     must: [
       "distinguish social/style references\nfrom ad claims",
       "platform`, `reference_set`, `direct_style`, `post_format",

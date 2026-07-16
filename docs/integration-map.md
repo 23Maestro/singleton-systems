@@ -887,11 +887,11 @@ offer-proof-content
 cerebral-router
   Owns first-pass routing when a thought mixes business, website, portfolio, commands, Obsidian, Eagle, Notion, Raycast, hooks, or skills.
 
-linkedin-content-creator / instagram-curator / podcast-strategist
-  Use when portfolio needs to become platform-specific content. Do not load these by default for ordinary website edits.
+offer-proof-content
+  Owns active SSystems proof-led social/content work. Platform-specific Agency wrappers are preserved but disabled from normal routing.
 
-sales-outreach / outbound-strategist
-  Own outbound positioning, offer clarity, portfolio-led messaging, and target-specific outreach.
+agency-growth
+  Owns direct B2B positioning, offer clarity, portfolio-led messaging, target-specific outreach, and objections.
 
 ad-creative-strategist
   Use later for paid tests, angle generation, hooks, and creative packaging after the offer/portfolio base is clearer.
@@ -935,7 +935,10 @@ Use this stack for career, outreach, and brand-building work:
 
 ```text
 Upwork / Fiverr / freelance post
-  -> freelance-gig-proposals + sales-outreach
+  -> freelance-gig-proposals
+
+Direct B2B lead / cold email / prospecting
+  -> agency-growth
 
 Job post / resume tailoring
   -> job-application-resume
@@ -970,7 +973,10 @@ create tags, move assets, or write Notion pages by themselves.
 
 ```text
 mentions: upwork, fiverr, proposal, client post, freelance, gig
-  load: freelance-gig-proposals, sales-outreach, singleton-systems
+  load: freelance-gig-proposals
+
+mentions: direct lead, cold email, outbound, ICP, objection
+  load: agency-growth
 
 mentions: resume, application, job description, tailor, application fields
   load: job-application-resume, singleton-systems
@@ -1082,7 +1088,7 @@ Use this when the user drops a mixed thought in plain language:
 
 ```text
 website copy / section wording
-  -> docs/offer/confirmed-copy.md, singleton-systems, content-creator, sales-outreach
+  -> docs/offer/confirmed-copy.md, singleton-systems, offer-proof-content
 
 business loop / offer / portfolio / weekly path
   -> docs/operating-system/phase-one-operating-system.md, singleton-systems
@@ -1100,7 +1106,7 @@ passive shortcut idea / later automation / useful someday command
   -> Obsidian Command Ops, then human review before Opportunity HQ
 
 survival job, blue collar job, white collar job, income deadline, proposal count, application, follow-up
-  -> Notion / Opportunity HQ, cerebral-router, then job-application-resume, cover-letter-casual, freelance-gig-proposals, or sales-outreach
+  -> Notion / Opportunity HQ, cerebral-router, then job-application-resume, cover-letter-casual, freelance-gig-proposals, or agency-growth
 
 job lead, Upwork lead, outreach target, offer task with effort estimate
   -> Notion / Opportunity HQ, then Focus Board view if active today
@@ -1184,7 +1190,7 @@ on repo open
   remind agent this repo is the Singleton Systems home hub.
 
 before website copy edits
-  load singleton-systems and content-creator.
+  load singleton-systems and offer-proof-content.
 
 before portfolio/library work
   load singleton-systems and eagle.
