@@ -17,23 +17,29 @@ const expectedRevision = expected.source_revision;
 assert.ok(expectedRevision, "config/cerebral-registry.json is missing source_revision");
 
 const timeoutMs = Number(process.env.CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS || 10_000);
+if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
+  console.error("CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS must be a positive number.");
+  process.exit(1);
+}
 
 async function fetchWithTimeout(endpoint, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(endpoint, { ...options, signal: controller.signal });
+    const response = await fetch(endpoint, { ...options, signal: controller.signal });
+    const body = await response.text();
+    return { response, body };
   } finally {
     clearTimeout(timeout);
   }
 }
 
 async function select(table) {
-  const response = await fetchWithTimeout(`${url}/rest/v1/${table}?select=*`, {
+  const { response, body } = await fetchWithTimeout(`${url}/rest/v1/${table}?select=*`, {
     headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
   });
-  if (!response.ok) throw new Error(`${table}: ${response.status} ${await response.text()}`);
-  return response.json();
+  if (!response.ok) throw new Error(`${table}: ${response.status} ${body}`);
+  return JSON.parse(body);
 }
 
 const [routes, skills, capabilities] = await Promise.all([

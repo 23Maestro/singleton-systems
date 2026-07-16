@@ -19,19 +19,25 @@ if (!sourceRevision) {
   process.exit(1);
 }
 const timeoutMs = Number(process.env.CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS || 10_000);
+if (!Number.isFinite(timeoutMs) || timeoutMs <= 0) {
+  console.error("CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS must be a positive number.");
+  process.exit(1);
+}
 
 async function fetchWithTimeout(endpoint, options = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    return await fetch(endpoint, { ...options, signal: controller.signal });
+    const response = await fetch(endpoint, { ...options, signal: controller.signal });
+    const body = await response.text();
+    return { response, body };
   } finally {
     clearTimeout(timeout);
   }
 }
 
 async function seedRegistry() {
-  const response = await fetchWithTimeout(`${url}/rest/v1/rpc/seed_cerebral_registry`, {
+  const { response, body } = await fetchWithTimeout(`${url}/rest/v1/rpc/seed_cerebral_registry`, {
     method: "POST",
     headers: {
       apikey: serviceKey,
@@ -47,9 +53,9 @@ async function seedRegistry() {
     }),
   });
   if (!response.ok) {
-    throw new Error(`seed_cerebral_registry: ${response.status} ${await response.text()}`);
+    throw new Error(`seed_cerebral_registry: ${response.status} ${body}`);
   }
-  return response.json();
+  return JSON.parse(body);
 }
 
 const [seeded] = await seedRegistry();

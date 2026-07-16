@@ -113,6 +113,22 @@ security invoker
 set search_path = public
 as $$
 begin
+  if p_routes is null
+     or jsonb_typeof(p_routes) is distinct from 'array'
+     or p_skills is null
+     or jsonb_typeof(p_skills) is distinct from 'array'
+     or p_capabilities is null
+     or jsonb_typeof(p_capabilities) is distinct from 'array'
+  then
+    raise exception 'Registry payloads must be JSON arrays';
+  end if;
+
+  if nullif(btrim(p_source_revision), '') is null then
+    raise exception 'Source revision must not be blank';
+  end if;
+
+  perform pg_advisory_xact_lock(hashtextextended('public.seed_cerebral_registry', 0));
+
   insert into public.cerebral_routes (
     route_key,
     trigger_patterns,
