@@ -20,7 +20,8 @@ begin
     raise exception 'Registry payloads must be JSON arrays';
   end if;
 
-  if nullif(btrim(p_source_revision), '') is null then
+  p_source_revision := btrim(p_source_revision);
+  if nullif(p_source_revision, '') is null then
     raise exception 'Source revision must not be blank';
   end if;
 
