@@ -2,6 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
+const pluginRoot = process.env.SSYSTEMS_PLUGIN_ROOT || registry.plugin?.source_path || "/Users/singleton23/plugins/s-systems";
+const skillPath = (skill) => path.join(pluginRoot, "skills", skill, "SKILL.md");
 const staleBearRawCapture = ["Bear", "raw capture"].join(" ");
 const staleBearQuickCapture = ["Bear is", "quick capture"].join(" ");
 const staleBearRemainsArchive = ["Bear remains", "archive/import only"].join(" ");
@@ -26,7 +29,8 @@ const checks = [
     mustNot: [staleBearRawCapture, staleBearQuickCapture],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
+    file: skillPath("cerebral-router"),
+    optionalExternal: true,
     must: [
       "## Cerebral Tags",
       "[shape] capture | task | sub-task | dependency | proof | command idea | operating rule | HTML comp",
@@ -35,7 +39,8 @@ const checks = [
     mustNot: ["## Clause Tags"],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/tool-harness/SKILL.md",
+    file: skillPath("tool-harness"),
+    optionalExternal: true,
     must: [
       "Obsidian = raw capture",
       "Legacy Markdown exports = archive/import reference only",
@@ -46,7 +51,8 @@ const checks = [
     mustNot: ["background automation", staleBearEqualsRawCapture, staleBearRemainsArchive],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
+    file: skillPath("cerebral-router"),
+    optionalExternal: true,
     must: [
       "Obsidian capture/offload",
       "raw thought / unclear / under 10 minutes\n  -> Obsidian `_Inbox`",
@@ -55,7 +61,8 @@ const checks = [
     mustNot: [staleBearInbox, staleBearCaptureOffload, staleBearQuickCapture],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/singleton-visualizer/SKILL.md",
+    file: skillPath("singleton-visualizer"),
+    optionalExternal: true,
     must: [
       "## HTML Comps / Playground Pattern",
       "https://github.com/christophschoeni/agent-html-artifacts",
@@ -66,7 +73,8 @@ const checks = [
     mustNot: ["## Clause Tags"],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/offer-proof-content/SKILL.md",
+    file: skillPath("offer-proof-content"),
+    optionalExternal: true,
     must: [
       "## Social Reference Variables",
       "reference_set = exactly 2 people per network",
@@ -79,7 +87,8 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/linkedin-content-creator/SKILL.md",
+    file: skillPath("linkedin-content-creator"),
+    optionalExternal: true,
     must: [
       "platform`, `reference_set`, `direct_style`, `post_format`, and `attack_type",
       "Zander Whitehurst and Aishwarya Srinivasan",
@@ -89,7 +98,8 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/instagram-curator/SKILL.md",
+    file: skillPath("instagram-curator"),
+    optionalExternal: true,
     must: [
       "platform`, `reference_set`, `direct_style`, `post_format",
       "2 style references per network",
@@ -97,7 +107,8 @@ const checks = [
     mustNot: [],
   },
   {
-    file: "/Users/singleton23/plugins/s-systems/skills/ad-creative-strategist/SKILL.md",
+    file: skillPath("ad-creative-strategist"),
+    optionalExternal: true,
     must: [
       "distinguish social/style references\nfrom ad claims",
       "platform`, `reference_set`, `direct_style`, `post_format",
@@ -122,6 +133,9 @@ for (const check of checks) {
   try {
     text = fs.readFileSync(filePath, "utf8");
   } catch (error) {
+    if (check.optionalExternal && error.code === "ENOENT") {
+      continue;
+    }
     errors.push(`${check.file}: cannot read (${error.message})`);
     continue;
   }

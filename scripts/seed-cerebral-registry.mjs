@@ -13,33 +13,43 @@ const registry = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "config/cerebral-registry.json"), "utf8"),
 );
 
-async function upsert(table, rows, conflictKey) {
-  const response = await fetch(`${url}/rest/v1/${table}?on_conflict=${conflictKey}`, {
+const sourceRevision = "2026-07-16";
+const timeoutMs = Number(process.env.CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS || 10_000);
+
+async function fetchWithTimeout(endpoint, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(endpoint, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function seedRegistry() {
+  const response = await fetchWithTimeout(`${url}/rest/v1/rpc/seed_cerebral_registry`, {
     method: "POST",
     headers: {
       apikey: serviceKey,
       Authorization: `Bearer ${serviceKey}`,
       "Content-Type": "application/json",
-      Prefer: "resolution=merge-duplicates,return=representation",
+      Prefer: "return=representation",
     },
-    body: JSON.stringify(rows),
+    body: JSON.stringify({
+      p_routes: registry.routes.map(({ surface, ...route }) => route),
+      p_skills: registry.skills,
+      p_capabilities: registry.capabilities,
+      p_source_revision: sourceRevision,
+    }),
   });
   if (!response.ok) {
-    throw new Error(`${table}: ${response.status} ${await response.text()}`);
+    throw new Error(`seed_cerebral_registry: ${response.status} ${await response.text()}`);
   }
   return response.json();
 }
 
-const routes = registry.routes.map(({ surface, ...route }) => ({ ...route, source_revision: "2026-07-16" }));
-const skills = registry.skills.map((skill) => ({ ...skill, source_revision: "2026-07-16" }));
-const capabilities = registry.capabilities;
-
-const [seededRoutes, seededSkills, seededCapabilities] = await Promise.all([
-  upsert("cerebral_routes", routes, "route_key"),
-  upsert("harness_skills", skills, "skill_key"),
-  upsert("harness_capabilities", capabilities, "capability_key"),
-]);
+const [seeded] = await seedRegistry();
 
 console.log(
-  `Seeded Cerebral registry: ${seededRoutes.length} routes, ${seededSkills.length} skills, ${seededCapabilities.length} capabilities.`,
+  `Seeded Cerebral registry: ${seeded.routes_count} routes, ${seeded.skills_count} skills, ${seeded.capabilities_count} capabilities.`,
 );

@@ -4,6 +4,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const hook = path.join(root, ".codex/hooks/cerebral_singleton_guard.py");
+const python = process.env.PYTHON || "python3";
 
 const cases = [
   {
@@ -49,7 +50,7 @@ const cases = [
 ];
 
 for (const testCase of cases) {
-  const result = spawnSync("/usr/bin/python3", [hook], {
+  const result = spawnSync(python, [hook], {
     cwd: root,
     input: JSON.stringify({ hook_event_name: "UserPromptSubmit", cwd: root, prompt: testCase.prompt }),
     encoding: "utf8",
@@ -60,7 +61,7 @@ for (const testCase of cases) {
   }
 }
 
-const unrelated = spawnSync("/usr/bin/python3", [hook], {
+const unrelated = spawnSync(python, [hook], {
   cwd: root,
   input: JSON.stringify({ hook_event_name: "UserPromptSubmit", cwd: root, prompt: "Review the site typography." }),
   encoding: "utf8",

@@ -882,13 +882,12 @@ career-proof-packager
 
 offer-proof-content
   Owns turning portfolio assets, YouTube/social references, and build progress into
-  offer-aligned content angles, captions, posts, and light schedules.
+  offer-aligned content angles, captions, posts, and light schedules. Also owns
+  active SSystems proof-led social/content work. Platform-specific Agency wrappers
+  are preserved but disabled from normal routing.
 
 cerebral-router
   Owns first-pass routing when a thought mixes business, website, portfolio, commands, Obsidian, Eagle, Notion, Raycast, hooks, or skills.
-
-offer-proof-content
-  Owns active SSystems proof-led social/content work. Platform-specific Agency wrappers are preserved but disabled from normal routing.
 
 agency-growth
   Owns direct B2B positioning, offer clarity, portfolio-led messaging, target-specific outreach, and objections.

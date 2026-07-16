@@ -7,7 +7,7 @@ import urllib.parse
 import urllib.request
 
 
-REPO_MARKER = "Documents/Development/singleton-systems"
+REPO_MARKER = os.environ.get("SINGLETON_SYSTEMS_REPO_MARKER", "singleton-systems")
 
 ROUTING_SURFACES = [
     "docs/integration-map.md",
@@ -58,7 +58,8 @@ def read_input():
 
 
 def in_repo(payload):
-    return REPO_MARKER in (payload.get("cwd") or os.getcwd())
+    cwd = payload.get("cwd") or os.getcwd()
+    return REPO_MARKER in cwd or os.path.exists(os.path.join(repo_root_from(cwd), REGISTRY_PATH))
 
 
 def tool_text(payload):
@@ -68,12 +69,14 @@ def tool_text(payload):
 
 def repo_root_from(cwd=None):
     base = cwd or os.getcwd()
-    parts = base.split(os.sep)
-    marker = ["Users", "singleton23", "Documents", "Development", "singleton-systems"]
-    for index in range(len(parts)):
-        if parts[index:index + len(marker)] == marker:
-            return os.sep + os.path.join(*parts[:index + len(marker)])
-    return base
+    current = os.path.abspath(base)
+    while True:
+        if os.path.exists(os.path.join(current, REGISTRY_PATH)):
+            return current
+        parent = os.path.dirname(current)
+        if parent == current:
+            return os.path.abspath(base)
+        current = parent
 
 
 def load_local_registry():
@@ -85,7 +88,7 @@ def load_local_registry():
         return {"routes": [], "capabilities": []}
 
 
-def load_runtime_registry():
+def load_runtime_routes():
     base_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
     anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
     if not base_url or not anon_key:
@@ -94,33 +97,35 @@ def load_runtime_registry():
     headers = {"apikey": anon_key, "Authorization": f"Bearer {anon_key}"}
     try:
         routes_url = base_url + "/rest/v1/cerebral_routes?enabled=eq.true&select=*"
-        capabilities_url = base_url + "/rest/v1/harness_capabilities?select=*"
-        def fetch(url):
-            request = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(request, timeout=1.5) as response:
-                return json.loads(response.read().decode("utf-8"))
-        return {"routes": fetch(routes_url), "capabilities": fetch(capabilities_url)}
+        request = urllib.request.Request(routes_url, headers=headers)
+        with urllib.request.urlopen(request, timeout=1.5) as response:
+            return json.loads(response.read().decode("utf-8"))
     except (OSError, ValueError, json.JSONDecodeError):
         return None
 
 
-def registry_for_prompt(text):
-    runtime = load_runtime_registry()
-    return (runtime, "Supabase runtime registry") if runtime is not None else (load_local_registry(), "local registry fallback")
+def routes_for_prompt():
+    runtime_routes = load_runtime_routes()
+    if runtime_routes is not None:
+        return runtime_routes, "Supabase runtime registry"
+    return load_local_registry().get("routes", []), "local registry fallback"
 
 
 def registry_matches(text):
-    registry, source = registry_for_prompt(text)
+    routes, route_source = routes_for_prompt()
     matched_routes = []
-    for route in registry.get("routes", []):
+    for route in routes:
+        if route.get("enabled") is not True:
+            continue
         triggers = route.get("trigger_patterns") or []
         if any(re.search(trigger, text, re.I) for trigger in triggers):
             matched_routes.append(route)
 
     capabilities = []
+    capability_source = "local registry fallback"
     if CAPABILITY_RE.search(text) or any(route.get("route_key") == "systems-tool-harness" for route in matched_routes):
-        capabilities = registry.get("capabilities", [])
-    return matched_routes, capabilities, source
+        capabilities = load_local_registry().get("capabilities", [])
+    return matched_routes, capabilities, capability_source if capabilities else route_source
 
 
 def context(reason, text):
