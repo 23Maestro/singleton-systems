@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "source_revision": "2026-07-16",
   "plugin": {
     "id": "s-systems@singleton23-local",
     "source_path": "/Users/singleton23/plugins/s-systems",

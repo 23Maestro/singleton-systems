@@ -8,6 +8,7 @@ const pluginRoot = process.env.SSYSTEMS_PLUGIN_ROOT || registry.plugin?.source_p
 const pluginSkillsRoot = path.join(pluginRoot, "skills");
 const codexConfigPath = process.env.CODEX_CONFIG_PATH || "/Users/singleton23/.codex/config.toml";
 assert.equal(registry.version, 2);
+assert.ok(registry.source_revision, "registry must declare source_revision");
 assert.ok(Array.isArray(registry.routes) && registry.routes.length >= 12);
 assert.ok(Array.isArray(registry.skills));
 assert.ok(Array.isArray(registry.capabilities) && registry.capabilities.length >= 4);

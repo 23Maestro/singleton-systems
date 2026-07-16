@@ -90,6 +90,16 @@ begin
     source_revision = excluded.source_revision,
     updated_at = excluded.updated_at;
 
+  update public.cerebral_routes
+  set
+    enabled = false,
+    source_revision = p_source_revision,
+    updated_at = now()
+  where route_key not in (
+    select route_key
+    from jsonb_to_recordset(p_routes) as route_row(route_key text)
+  );
+
   insert into public.harness_skills (
     skill_key,
     activation,
@@ -113,6 +123,16 @@ begin
     reason = excluded.reason,
     source_revision = excluded.source_revision,
     updated_at = excluded.updated_at;
+
+  update public.harness_skills
+  set
+    activation = 'disabled',
+    source_revision = p_source_revision,
+    updated_at = now()
+  where skill_key not in (
+    select skill_key
+    from jsonb_to_recordset(p_skills) as skill_row(skill_key text)
+  );
 
   insert into public.harness_capabilities (
     capability_key,
@@ -169,6 +189,17 @@ begin
     last_verified_at = excluded.last_verified_at,
     source_revision = excluded.source_revision,
     updated_at = excluded.updated_at;
+
+  update public.harness_capabilities
+  set
+    installed = false,
+    status = 'retired',
+    source_revision = p_source_revision,
+    updated_at = now()
+  where capability_key not in (
+    select capability_key
+    from jsonb_to_recordset(p_capabilities) as capability_row(capability_key text)
+  );
 
   routes_count := jsonb_array_length(p_routes);
   skills_count := jsonb_array_length(p_skills);

@@ -81,6 +81,7 @@ const checks = [
 ];
 
 const errors = [];
+const skipped = [];
 
 for (const check of checks) {
   const filePath = path.isAbsolute(check.file)
@@ -92,6 +93,7 @@ for (const check of checks) {
     text = fs.readFileSync(filePath, "utf8");
   } catch (error) {
     if (check.optionalExternal && error.code === "ENOENT") {
+      skipped.push(check.file);
       continue;
     }
     errors.push(`${check.file}: cannot read (${error.message})`);
@@ -108,6 +110,15 @@ for (const check of checks) {
     if (text.includes(snippet)) {
       errors.push(`${check.file}: stale ${JSON.stringify(snippet)}`);
     }
+  }
+}
+
+if (skipped.length) {
+  const message = `Skipped optional external Opportunity HQ checks: ${skipped.join(", ")}`;
+  if (process.env.CI || process.env.CEREBRAL_STRICT_EXTERNAL_CHECKS === "1") {
+    errors.push(message);
+  } else {
+    console.warn(message);
   }
 }
 

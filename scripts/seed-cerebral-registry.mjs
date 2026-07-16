@@ -13,7 +13,11 @@ const registry = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "config/cerebral-registry.json"), "utf8"),
 );
 
-const sourceRevision = "2026-07-16";
+const sourceRevision = registry.source_revision;
+if (!sourceRevision) {
+  console.error("config/cerebral-registry.json is missing source_revision.");
+  process.exit(1);
+}
 const timeoutMs = Number(process.env.CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS || 10_000);
 
 async function fetchWithTimeout(endpoint, options = {}) {

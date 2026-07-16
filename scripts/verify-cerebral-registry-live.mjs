@@ -13,6 +13,8 @@ if (!url || !serviceKey) {
 const expected = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "config/cerebral-registry.json"), "utf8"),
 );
+const expectedRevision = expected.source_revision;
+assert.ok(expectedRevision, "config/cerebral-registry.json is missing source_revision");
 
 const timeoutMs = Number(process.env.CEREBRAL_REGISTRY_FETCH_TIMEOUT_MS || 10_000);
 
@@ -70,5 +72,5 @@ for (const capability of expected.capabilities) {
 
 const expectedCoreCount = expected.skills.filter((row) => row.activation === "core").length;
 assert.equal(skills.filter((row) => row.activation === "core").length, expectedCoreCount);
-assert.equal(new Set([...routes, ...skills, ...capabilities].map((row) => row.source_revision)).size, 1);
+assert.deepEqual(new Set([...routes, ...skills, ...capabilities].map((row) => row.source_revision)), new Set([expectedRevision]));
 console.log(`Live Cerebral registry verified: ${routes.length} routes, ${skills.length} skills, ${capabilities.length} capabilities.`);
