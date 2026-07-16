@@ -128,6 +128,56 @@ begin
     raise exception 'Source revision must not be blank';
   end if;
 
+  if jsonb_array_length(p_routes) = 0
+     or jsonb_array_length(p_skills) = 0
+     or jsonb_array_length(p_capabilities) = 0
+  then
+    raise exception 'Registry payload arrays must not be empty';
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(p_routes) as item(value)
+    where nullif(btrim(item.value ->> 'route_key'), '') is null
+       or item.value -> 'trigger_patterns' is null
+       or jsonb_typeof(item.value -> 'trigger_patterns') is distinct from 'array'
+       or item.value -> 'required_tools' is null
+       or jsonb_typeof(item.value -> 'required_tools') is distinct from 'array'
+       or nullif(btrim(item.value ->> 'lane'), '') is null
+       or nullif(btrim(item.value ->> 'owner'), '') is null
+       or nullif(btrim(item.value ->> 'intent'), '') is null
+       or nullif(btrim(item.value ->> 'shape'), '') is null
+       or nullif(btrim(item.value ->> 'review_gate'), '') is null
+       or item.value -> 'priority' is null
+       or item.value -> 'enabled' is null
+       or jsonb_typeof(item.value -> 'enabled') is distinct from 'boolean'
+  ) then
+    raise exception 'Route payload rows are malformed';
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(p_skills) as item(value)
+    where nullif(btrim(item.value ->> 'skill_key'), '') is null
+       or (item.value ->> 'activation') not in ('core', 'disabled')
+       or nullif(btrim(item.value ->> 'reason'), '') is null
+  ) then
+    raise exception 'Skill payload rows are malformed';
+  end if;
+
+  if exists (
+    select 1
+    from jsonb_array_elements(p_capabilities) as item(value)
+    where nullif(btrim(item.value ->> 'capability_key'), '') is null
+       or nullif(btrim(item.value ->> 'capability_type'), '') is null
+       or nullif(btrim(item.value ->> 'canonical_name'), '') is null
+       or nullif(btrim(item.value ->> 'status'), '') is null
+       or nullif(btrim(item.value ->> 'verification_command'), '') is null
+       or nullif(btrim(item.value ->> 'evidence'), '') is null
+  ) then
+    raise exception 'Capability payload rows are malformed';
+  end if;
+
   perform pg_advisory_xact_lock(hashtextextended('public.seed_cerebral_registry', 0));
 
   insert into public.cerebral_routes (
