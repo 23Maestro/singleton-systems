@@ -149,6 +149,8 @@ begin
        or nullif(btrim(item.value ->> 'shape'), '') is null
        or nullif(btrim(item.value ->> 'review_gate'), '') is null
        or item.value -> 'priority' is null
+       or jsonb_typeof(item.value -> 'priority') is distinct from 'number'
+       or (item.value ->> 'priority') !~ '^-?[0-9]+$'
        or item.value -> 'enabled' is null
        or jsonb_typeof(item.value -> 'enabled') is distinct from 'boolean'
   ) then
@@ -159,7 +161,7 @@ begin
     select 1
     from jsonb_array_elements(p_skills) as item(value)
     where nullif(btrim(item.value ->> 'skill_key'), '') is null
-       or (item.value ->> 'activation') not in ('core', 'disabled')
+       or coalesce(item.value ->> 'activation', '') not in ('core', 'disabled')
        or nullif(btrim(item.value ->> 'reason'), '') is null
   ) then
     raise exception 'Skill payload rows are malformed';
@@ -171,6 +173,7 @@ begin
     where nullif(btrim(item.value ->> 'capability_key'), '') is null
        or nullif(btrim(item.value ->> 'capability_type'), '') is null
        or nullif(btrim(item.value ->> 'canonical_name'), '') is null
+       or coalesce(jsonb_typeof(item.value -> 'installed'), 'missing') not in ('boolean', 'null')
        or nullif(btrim(item.value ->> 'status'), '') is null
        or nullif(btrim(item.value ->> 'verification_command'), '') is null
        or nullif(btrim(item.value ->> 'evidence'), '') is null
