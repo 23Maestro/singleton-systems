@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "npm run decision-maps:sync && npm run check:cerebral",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,6 +12,8 @@
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
     "check:cerebral:hook-routing": "node scripts/check-cerebral-hook-routing.mjs",
     "check:cerebral:registry": "node scripts/check-cerebral-registry.mjs",
+    "cerebral:helper": "node scripts/cerebral-helper.mjs --html",
+    "decision-maps:sync": "node scripts/sync-decision-maps.mjs",
     "seed:cerebral:registry": "node scripts/seed-cerebral-registry.mjs",
     "verify:cerebral:registry": "node scripts/verify-cerebral-registry-live.mjs",
     "audit:lighthouse": "node scripts/lighthouse-audit.mjs",

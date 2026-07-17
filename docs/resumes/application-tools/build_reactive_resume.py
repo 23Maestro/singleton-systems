@@ -38,7 +38,7 @@ JOBS: dict[str, dict[str, Any]] = {
                 "Developed prompts, evaluated outputs, documented edge cases, and wrote parity/audit scripts to validate cleanup logic and handoff quality.",
             ],
             "nursehub": [
-                "Used AI-assisted planning to centralize course migration requirements across 60+ hours of curriculum and 180-200 lesson assets.",
+                "Managed over 50 hours of curriculum and 180-200 lesson assets through AI-assisted planning and course migration workflows.",
                 "Built deterministic FFmpeg workflows that increased assembly throughput 2-3x and reduced avoidable export errors.",
                 "Standardized transcript handling, naming schemas, encoding rules, upload paths, and quality control across repeated course libraries.",
                 "Converted scattered source material into organized, learner-ready modules with clear order, consistent formatting, and reliable review paths.",

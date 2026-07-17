@@ -577,11 +577,14 @@ Obsidian wrapper direction:
 - Keep MCP as a useful operator/control layer, not the dependency layer.
 - Future Obsidian wrapper commands can create/open notes, append to a folder, search notes, and apply the tiny templates.
 
-Future integration planning belongs in:
+Use the integration map as a lean owner index:
 
 ```text
 docs/integration-map.md
 ```
+
+Put detailed rules in the named owner doc or skill. Cerebral drift enforces the
+integration-map line budget so it cannot become a second memory file.
 
 ## Local Env
 

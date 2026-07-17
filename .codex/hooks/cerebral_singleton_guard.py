@@ -44,6 +44,11 @@ CAPABILITY_RE = re.compile(
 )
 
 REGISTRY_PATH = "config/cerebral-registry.json"
+EXPLICIT_ROUTE_RE = re.compile(
+    r"^\s*(?:\[route\]|route(?:\s+cerebral)?\s*:)\s*([a-z0-9-]+)\s*$",
+    re.I | re.M,
+)
+TAG_RE = re.compile(r"^\s*\[(route|shape|tools|query)\]\s*(.+?)\s*$", re.I | re.M)
 
 DOCS_SKILLS_RE = re.compile(r"docs/|\.codex/|skills?/|SKILL\.md|hooks?", re.I)
 HTML_VISUAL_RE = re.compile(r"html comp|html artifact|playground|visualizer|diagram|map|png|draw\.io", re.I)
@@ -111,34 +116,67 @@ def routes_for_prompt():
     return load_local_registry().get("routes", []), "local registry fallback"
 
 
+def packet_tags(text):
+    tags = {}
+    for key, value in TAG_RE.findall(text):
+        tags[key.lower()] = value.strip()
+    if "tools" in tags:
+        tags["tools"] = [
+            item.strip()
+            for item in re.split(r"\s*(?:,|\+)\s*", tags["tools"])
+            if item.strip()
+        ]
+    return tags
+
+
 def registry_matches(text):
     routes, route_source = routes_for_prompt()
-    matched_routes = []
-    for route in routes:
-        if route.get("enabled") is not True:
-            continue
-        triggers = route.get("trigger_patterns") or []
-        if any(re.search(trigger, text, re.I) for trigger in triggers):
-            matched_routes.append(route)
+    enabled_routes = [route for route in routes if route.get("enabled") is True]
+    tags = packet_tags(text)
+    explicit_match = EXPLICIT_ROUTE_RE.search(text)
+    explicit_route = (tags.get("route") or (explicit_match.group(1) if explicit_match else "")).lower()
+    if explicit_route:
+        matched_routes = [route for route in enabled_routes if route.get("route_key") == explicit_route]
+    else:
+        matched_routes = [
+            route
+            for route in enabled_routes
+            if any(re.search(trigger, text, re.I) for trigger in route.get("trigger_patterns") or [])
+        ]
 
     capabilities = []
     capability_source = "local registry fallback"
     if CAPABILITY_RE.search(text) or any(route.get("route_key") == "systems-tool-harness" for route in matched_routes):
         capabilities = load_local_registry().get("capabilities", [])
-    return matched_routes, capabilities, capability_source if capabilities else route_source
+    return matched_routes, capabilities, capability_source if capabilities else route_source, explicit_route, tags
 
 
 def context(reason, text):
-    routes, capabilities, registry_source = registry_matches(text)
+    routes, capabilities, registry_source, explicit_route, tags = registry_matches(text)
     lines = ["Cerebral route:", f"- [reason] {reason}"]
     if routes:
         for route in sorted(routes, key=lambda item: item.get("priority", 100))[:2]:
+            requested_tools = tags.get("tools") or []
+            allowed_tools = route.get("required_tools") or []
             lines.extend([
+                f"- [route] {route.get('route_key')}",
                 f"- [surface] {route.get('surface') or 'task'}",
                 f"- [lane] {route.get('lane')} | [owner] {route.get('owner')}",
+                f"- [shape] {tags.get('shape') or route.get('shape') or 'task'}",
                 f"- [tools] {' + '.join(route.get('required_tools') or [])}",
                 f"- [review] {route.get('review_gate') or 'review before mutation'}",
             ])
+            if tags.get("query"):
+                lines.append(f"- [query] {tags.get('query')}")
+            unknown_tools = [tool for tool in requested_tools if tool not in allowed_tools]
+            if unknown_tools:
+                lines.append(
+                    f"- [route-error] Requested tool does not belong to {route.get('route_key')}: {', '.join(unknown_tools)}"
+                )
+            elif requested_tools:
+                lines.append("- [tool-check] Requested tool belongs to this route.")
+    elif explicit_route:
+        lines.append(f"- [route-error] Unknown or disabled route: {explicit_route}")
     else:
         lines.append("- [next] No specialized route matched; use normal task flow.")
     if CAPABILITY_RE.search(text):

@@ -17,6 +17,7 @@ Commands are the hands of the system.
 ```text
 Obsidian  -> raw quick capture only
 Opportunity HQ / Notion -> durable task and job-hunt state
+Linear    -> durable Command Ops issues ready for Codex
 Raycast   -> desktop action surface
 Karabiner -> keyboard layers and mode switches
 Hammerspoon -> window clicks, app glue, and Mac quirks
@@ -91,6 +92,7 @@ Use two mobile capture paths:
 
 ```text
 Quick Thought -> Obsidian
+Command Ops   -> Linear
 Log Task      -> Notion / Opportunity HQ
 ```
 
@@ -105,6 +107,21 @@ is not an Obsidian folder picker.
 Passive shortcut ideas can still be captured as raw notes, but working shortcuts
 should be documented by the action they perform and the owner surface they write
 to.
+
+`S.System Inbox` uses one explicit exception to its Obsidian destination menu:
+
+```text
+New -> Command Ops
+  -> open a prefilled Linear draft
+  -> Team: 23Maestro
+  -> Project: Command Ops
+  -> Status: Backlog
+```
+
+The draft uses exactly three headers: `Intent`, `Context`, and `Done when`.
+Linear remains the human review gate; the Shortcut does not create an issue
+silently and stores no Linear API key. `Update` does not offer `Command Ops`;
+existing work is updated on its Linear issue.
 
 ## Mobile + Desktop Unison
 

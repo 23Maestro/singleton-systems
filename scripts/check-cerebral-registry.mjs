@@ -14,7 +14,7 @@ assert.ok(Array.isArray(registry.skills));
 assert.ok(Array.isArray(registry.capabilities) && registry.capabilities.length >= 4);
 
 for (const route of registry.routes) {
-  for (const field of ["route_key", "trigger_patterns", "lane", "owner", "required_tools", "review_gate", "priority"]) {
+    for (const field of ["route_key", "trigger_patterns", "example_prompt", "lane", "owner", "required_tools", "review_gate", "priority"]) {
     assert.ok(route[field] !== undefined, `route missing ${field}`);
   }
   assert.ok(route.trigger_patterns.length > 0);

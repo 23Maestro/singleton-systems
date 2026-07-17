@@ -14,6 +14,25 @@ const staleBearInbox = ["Bear", "#inbox"].join(" ");
 
 const checks = [
   {
+    file: "docs/integration-map.md",
+    maxLines: 220,
+    must: [
+      "Lean index for where work belongs",
+      "config/cerebral-registry.json",
+      "docs/visual-system-contract.md",
+      "docs/truth-matrix.md",
+      "Platform -> Artist -> Attack -> Proof -> Post",
+      "portfolio/harness.jsonl",
+      "https://singleton-systems.com/decision-maps",
+    ],
+    mustNot: [
+      "## Money Clock / Survival Context",
+      "## Legacy ChatGPT Project Reference",
+      "## App Quirks To Respect",
+      "## Open Later",
+    ],
+  },
+  {
     file: ".codex/hooks/cerebral_singleton_guard.py",
     must: [
       "drift_warnings",
@@ -120,6 +139,27 @@ const checks = [
     must: ["2026-07-01 Cerebral System", "HTML Review Surface", "Triggerable States"],
     mustNot: ["clause", "Codex Brain"],
   },
+  {
+    file: "app/decision-maps/page.tsx",
+    must: [
+      'canonical: "/decision-maps"',
+      'href: "/decision-maps/visual-daily-planning-wayfinder/"',
+      'href: "/decision-maps/excalidraw-setup-pass/"',
+    ],
+    mustNot: [],
+  },
+  {
+    file: "public/decision-maps/visual-daily-planning-wayfinder/index.html",
+    sameAs: "docs/harness/visual-daily-planning-wayfinder.html",
+    must: [],
+    mustNot: [],
+  },
+  {
+    file: "public/decision-maps/excalidraw-setup-pass/index.html",
+    sameAs: "docs/harness/excalidraw-setup-pass.html",
+    must: [],
+    mustNot: [],
+  },
 ];
 
 const errors = [];
@@ -151,6 +191,21 @@ for (const check of checks) {
   for (const snippet of check.mustNot) {
     if (text.includes(snippet)) {
       errors.push(`${check.file}: stale ${JSON.stringify(snippet)}`);
+    }
+  }
+
+  if (check.maxLines) {
+    const lines = text.split(/\r?\n/).length;
+    if (lines > check.maxLines) {
+      errors.push(`${check.file}: ${lines} lines exceeds ${check.maxLines}-line Cerebral gate`);
+    }
+  }
+
+  if (check.sameAs) {
+    const sourcePath = path.join(root, check.sameAs);
+    const sourceText = fs.readFileSync(sourcePath, "utf8");
+    if (text !== sourceText) {
+      errors.push(`${check.file}: drifted from ${check.sameAs}; run npm run decision-maps:sync`);
     }
   }
 }
