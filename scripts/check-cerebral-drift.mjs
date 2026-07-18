@@ -212,7 +212,9 @@ for (const check of checks) {
 
 if (skipped.length) {
   const message = `Skipped optional external Cerebral checks: ${skipped.join(", ")}`;
-  if (process.env.CI || process.env.CEREBRAL_STRICT_EXTERNAL_CHECKS === "1") {
+  // Optional plugin skills are not in the Vercel deploy bundle. Only fail when
+  // explicitly strict (local monorepo CI with plugins mounted).
+  if (process.env.CEREBRAL_STRICT_EXTERNAL_CHECKS === "1") {
     errors.push(message);
   } else {
     console.warn(message);
