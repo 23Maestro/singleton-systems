@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "source_revision": "2026-07-16-route-intent",
+  "source_revision": "2026-07-17-client-video-storyboard",
   "plugin": {
     "id": "s-systems@singleton23-local",
     "source_path": "/Users/singleton23/plugins/s-systems",
@@ -26,6 +26,7 @@
     {"skill_key":"auto-logger","activation":"disabled","reason":"Internal logging helper, not a prompt-facing route."},
     {"skill_key":"bear","activation":"disabled","reason":"Archive/import only."},
     {"skill_key":"career-proof-packager","activation":"core","reason":"Proof and portfolio packaging."},
+    {"skill_key":"client-video-storyboard","activation":"core","reason":"Client video job storyboard prep with Eagle assets, transcript decisions, and Premiere MCP bin setup."},
     {"skill_key":"cerebral-router","activation":"core","reason":"Front-door route selection."},
     {"skill_key":"content-creator","activation":"disabled","reason":"Generic Agency wrapper; offer-proof-content owns SSystems content."},
     {"skill_key":"cover-letter-casual","activation":"core","reason":"Short application notes."},

@@ -41,7 +41,7 @@ if (fs.existsSync(pluginSkillsRoot)) {
     .sort();
   assert.deepEqual(catalogSkills, pluginSkills, "registry must classify every bundled SSystems skill");
 }
-assert.equal(registry.skills.filter((skill) => skill.activation === "core").length, 14);
+assert.equal(registry.skills.filter((skill) => skill.activation === "core").length, 15);
 assert.ok(registry.skills.every((skill) => skill.activation === "core" || skill.activation === "disabled"));
 
 const disabledNames = [

@@ -28,6 +28,7 @@ insert into public.harness_skills (skill_key, activation, reason, source_revisio
   ('auto-logger', 'disabled', 'Internal logging helper, not a prompt-facing route.', '2026-07-16'),
   ('bear', 'disabled', 'Archive/import only.', '2026-07-16'),
   ('career-proof-packager', 'core', 'Proof and portfolio packaging.', '2026-07-16'),
+  ('client-video-storyboard', 'core', 'Client video job storyboard prep with Eagle assets, transcript decisions, and Premiere MCP bin setup.', '2026-07-17-client-video-storyboard'),
   ('cerebral-router', 'core', 'Front-door route selection.', '2026-07-16'),
   ('content-creator', 'disabled', 'Generic Agency wrapper; offer-proof-content owns SSystems content.', '2026-07-16'),
   ('cover-letter-casual', 'core', 'Short application notes.', '2026-07-16'),
