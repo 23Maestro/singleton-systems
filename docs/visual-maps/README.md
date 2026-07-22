@@ -1,14 +1,12 @@
 # Visual Maps
 
-This folder is the durable LikeC4 home for Singleton Systems and Opportunity HQ
-architecture maps.
+This folder is the durable LikeC4 home for reviewed Singleton Systems maps.
 
 Use LikeC4 when the question is about stable system shape:
 
-- which surface owns raw capture, durable truth, portfolio, or action
-- how Opportunity HQ tasks/projects feed daily execution
-- how Raycast/Codex commands should read and update Notion
-- where Eagle portfolio attaches back to tasks, offers, proposals, and website work
+- which active surface owns a workflow
+- how Linear, GitHub, Supabase, Next/Vercel, and LikeC4 relate
+- where portfolio proof attaches back to offers, proposals, and website work
 
 Use generated images or draw.io drafts only as style/callout references. The
 source of truth for interactive maps lives here.

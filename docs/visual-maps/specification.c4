@@ -1,0 +1,10 @@
+specification {
+  element person
+  element browser
+  element bucket
+  element component
+  element storage
+  element document
+  element queue
+  element action
+}

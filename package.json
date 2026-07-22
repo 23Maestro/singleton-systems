@@ -22,7 +22,6 @@
     "clean:generated": "node scripts/clean-generated-artifacts.mjs",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "asana:readback": "node scripts/asana-opportunity-hq-readback.mjs",
     "gas:login": "clasp -u flow login",
     "gas:create:chores": "clasp -u flow create --type standalone --title \"Personal Ops Chores\" --rootDir docs/harness/personal-ops-google-systems",
     "gas:status:chores": "clasp -u flow -P docs/harness/personal-ops-google-systems status",
@@ -62,7 +61,6 @@
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
-    "@joint/core": "^4.2.5",
     "@phosphor-icons/react": "^2.1.10",
     "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^11.11.11",

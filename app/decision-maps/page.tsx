@@ -18,18 +18,6 @@ export const metadata: Metadata = {
 
 const decisionMaps = [
   {
-    label: "Visual Daily Planning",
-    href: "/decision-maps/visual-daily-planning-wayfinder/",
-    tags: ["Wayfinder", "Opportunity HQ", "Excalidraw"],
-    accent: "border-[#6d44d9] text-[#6d44d9] dark:text-[#c9b8ff]",
-  },
-  {
-    label: "Excalidraw Setup Pass",
-    href: "/decision-maps/excalidraw-setup-pass/",
-    tags: ["Obsidian", "Scripts", "Templater"],
-    accent: "border-[#23835f] text-[#23835f] dark:text-[#8fd8b6]",
-  },
-  {
     label: "Wemby Edit Map",
     href: "/decision-maps/wemby-shot-selection-storyboard/",
     tags: ["2:00", "Tab 2", "Tab 3"],

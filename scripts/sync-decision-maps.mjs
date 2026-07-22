@@ -3,8 +3,6 @@ import path from "node:path";
 
 const root = process.cwd();
 const maps = [
-  "visual-daily-planning-wayfinder",
-  "excalidraw-setup-pass",
   "wemby-shot-selection-storyboard",
 ];
 
