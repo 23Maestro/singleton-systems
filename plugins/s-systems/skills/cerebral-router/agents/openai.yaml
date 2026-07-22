@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Cerebral Router"
+  short_description: "Route mixed ideas to the right surface."
+  default_prompt: "Use $cerebral-router to decide which Singleton Systems surface should own this before acting."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agency Growth"
+  short_description: "Signal-based outbound strategy and concise client outreach."
+  default_prompt: "Build a focused outbound plan for this offer or lead."

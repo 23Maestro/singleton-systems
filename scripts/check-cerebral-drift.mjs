@@ -4,7 +4,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
-const pluginRoot = process.env.SSYSTEMS_PLUGIN_ROOT || registry.plugin?.source_path || "/Users/singleton23/plugins/s-systems";
+const pluginRoot = registry.plugin.source_path;
 const skillPath = (skill) => path.join(pluginRoot, "skills", skill, "SKILL.md");
 const retiredOwners = ["Ob" + "sidian", "Mi" + "ro"];
 
@@ -31,44 +31,29 @@ const checks = [
   },
   {
     file: skillPath("cerebral-router"),
-    optionalExternal: true,
     must: ["## Cerebral Tags", "Linear Command + Ideas", "23M-89", "Linear GraphQL gateway"],
   },
   {
-    file: skillPath("tool-harness"),
-    optionalExternal: true,
-    must: ["## Owner Surfaces", "23M-88", "23M-89"],
-  },
-  {
     file: skillPath("planning-idea-routing"),
-    optionalExternal: true,
     must: ["Linear Command + Ideas = raw capture"],
   },
   {
     file: skillPath("opportunity-hq-updater"),
-    optionalExternal: true,
     must: ["## Linear Intake Rules", "Linear Intake:"],
   },
   {
     file: skillPath("singleton-visualizer"),
-    optionalExternal: true,
     must: ["Next/Vercel       = active-week review dashboard", "Supabase          = queryable facts and routing registry"],
   },
 ];
 
 const errors = [];
-const skipped = [];
-
 for (const check of checks) {
-  const filePath = path.isAbsolute(check.file) ? check.file : path.join(root, check.file);
+  const filePath = path.join(root, check.file);
   let text = "";
   try {
     text = fs.readFileSync(filePath, "utf8");
   } catch (error) {
-    if (check.optionalExternal && error.code === "ENOENT") {
-      skipped.push(check.file);
-      continue;
-    }
     errors.push(`${check.file}: cannot read (${error.message})`);
     continue;
   }
@@ -83,10 +68,6 @@ for (const check of checks) {
 
 assert.ok(registry.routes.some((route) => route.route_key === "system-dashboard"));
 assert.ok(registry.routes.some((route) => route.route_key === "linear-action-gateway"));
-
-if (skipped.length && process.env.CEREBRAL_STRICT_EXTERNAL_CHECKS === "1") {
-  errors.push(`Skipped optional external Cerebral checks: ${skipped.join(", ")}`);
-}
 
 if (errors.length) {
   console.error("Cerebral drift check failed:");

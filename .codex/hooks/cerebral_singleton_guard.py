@@ -15,11 +15,10 @@ ROUTING_SURFACES = [
     "docs/truth-matrix.md",
     "docs/visual-system-contract.md",
     ".codex/hooks/cerebral_singleton_guard.py",
-    "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
-    "/Users/singleton23/plugins/s-systems/skills/planning-idea-routing/SKILL.md",
-    "/Users/singleton23/plugins/s-systems/skills/tool-harness/SKILL.md",
-    "/Users/singleton23/plugins/s-systems/skills/opportunity-hq-updater/SKILL.md",
-    "/Users/singleton23/plugins/s-systems/skills/singleton-visualizer/SKILL.md",
+    "plugins/s-systems/skills/cerebral-router/SKILL.md",
+    "plugins/s-systems/skills/planning-idea-routing/SKILL.md",
+    "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md",
+    "plugins/s-systems/skills/singleton-visualizer/SKILL.md",
 ]
 
 STALE_OWNER_PATTERNS = [

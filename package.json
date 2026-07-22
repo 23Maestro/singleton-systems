@@ -12,6 +12,8 @@
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
     "check:cerebral:hook-routing": "node scripts/check-cerebral-hook-routing.mjs",
     "check:cerebral:registry": "node scripts/check-cerebral-registry.mjs",
+    "plugins:sync": "node scripts/sync-s-systems-mirrors.mjs",
+    "plugins:sync:apply": "node scripts/sync-s-systems-mirrors.mjs --apply",
     "cerebral:helper": "node scripts/cerebral-helper.mjs --html",
     "decision-maps:sync": "node scripts/sync-decision-maps.mjs",
     "seed:cerebral:registry": "node scripts/seed-cerebral-registry.mjs",

@@ -1,0 +1,27 @@
+{
+  "name": "s-systems",
+  "version": "0.2.1",
+  "description": "Lean Singleton Systems routing, career, proof, and offer workflows.",
+  "author": {
+    "name": "Jerami Singleton"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "SSystems",
+    "shortDescription": "Singleton Systems routing, career, proof, and offer workflows.",
+    "longDescription": "Routes Singleton Systems work to one durable owner: Linear for active decisions, GitHub for engineering proof, Supabase for runtime facts, Opportunity HQ for career workflow, Eagle for assets, and Next/Vercel for review.",
+    "developerName": "Jerami Singleton",
+    "category": "Productivity",
+    "capabilities": [
+      "Planning",
+      "Writing",
+      "Workflow",
+      "Assets"
+    ],
+    "defaultPrompt": [
+      "Use S Systems to route this idea.",
+      "Route this work to its durable owner.",
+      "Use S Systems for Opportunity HQ."
+    ]
+  }
+}

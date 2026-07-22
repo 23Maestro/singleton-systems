@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Career Proof Packager"
+  short_description: "Package real proof for site, resume, and offers."
+  default_prompt: "Use $career-proof-packager to turn this real proof into a concise Singleton Systems proof block."

@@ -18,7 +18,7 @@ Track blockers in GitHub so the map always shows which ticket can move next.
 
 Operating process:
 
-`Wayfinder -> Spec -> Tickets -> Foundation Pass -> Implement -> Code Review`
+`Wayfinder -> Spec -> Tickets -> Implement -> Code Review`
 
 Linear status progression:
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Singleton Systems"
+  short_description: "Align offer, site, proof, and workflows."
+  default_prompt: "Use $singleton-systems to keep this offer, website, copy, proof asset, workflow hub, or automation decision focused and consistent."

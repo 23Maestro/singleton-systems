@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Singleton Visualizer"
+  short_description: "Map Singleton Systems architecture and flows."
+  default_prompt: "Use $singleton-visualizer to turn this Singleton Systems routing or architecture decision into a clear visual map."

@@ -1,0 +1,15 @@
+{
+  "name": "s-systems-dev",
+  "description": "Lean local Singleton Systems workflow skills.",
+  "owner": {
+    "name": "Jerami Singleton"
+  },
+  "plugins": [
+    {
+      "name": "s-systems",
+      "description": "Lean Singleton Systems routing, career, proof, and offer workflows.",
+      "version": "0.2.1",
+      "source": "./"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Offer Proof Content"
+  short_description: "Turn proof and build progress into offer-aligned content."
+  default_prompt: "Use $offer-proof-content to turn this proof or build progress into offer-aligned brand content."

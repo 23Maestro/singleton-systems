@@ -58,8 +58,30 @@ async function seedRegistry() {
   return JSON.parse(body);
 }
 
+async function deleteRetired(table, key, activeKeys) {
+  const filter = `not.in.(${activeKeys.join(",")})`;
+  const { response, body } = await fetchWithTimeout(
+    `${url}/rest/v1/${table}?${key}=${encodeURIComponent(filter)}`,
+    {
+      method: "DELETE",
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        Prefer: "return=representation",
+      },
+    },
+  );
+  if (!response.ok) throw new Error(`${table} prune: ${response.status} ${body}`);
+  return JSON.parse(body).length;
+}
+
 const [seeded] = await seedRegistry();
+const [routesRemoved, skillsRemoved, capabilitiesRemoved] = await Promise.all([
+  deleteRetired("cerebral_routes", "route_key", registry.routes.map((route) => route.route_key)),
+  deleteRetired("harness_skills", "skill_key", registry.skills.map((skill) => skill.skill_key)),
+  deleteRetired("harness_capabilities", "capability_key", registry.capabilities.map((capability) => capability.capability_key)),
+]);
 
 console.log(
-  `Seeded Cerebral registry: ${seeded.routes_count} routes, ${seeded.skills_count} skills, ${seeded.capabilities_count} capabilities.`,
+  `Seeded Cerebral registry: ${seeded.routes_count} routes, ${seeded.skills_count} skills, ${seeded.capabilities_count} capabilities; pruned ${routesRemoved}/${skillsRemoved}/${capabilitiesRemoved}.`,
 );
