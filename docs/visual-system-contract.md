@@ -3,200 +3,149 @@
 ## Locked Surface Names
 
 ```text
-1. Obsidian + Excalidraw - Preview & Thinking
-2. LikeC4 - System Map
-3A. Miro - Active Week
-3B. Linear - Command Ops
+1. Cerebral - Routing
+2. Linear - Decisions and Active System Work
+3. GitHub - Research, Specs, and Implementation Evidence
+4. Supabase - Queryable Cross-Surface Facts
+5. Next/Vercel - Active Week Dashboard
+6. LikeC4 - Reviewed System Map
 ```
 
 Each surface has one job. Links may cross surfaces, but state ownership does not.
 
-## 1. Obsidian + Excalidraw - Preview & Thinking
+## 1. Cerebral - Routing
 
-Intent: catch and shape work before it becomes a commitment.
-
-Allowed inputs:
-
-- `S.System Inbox` captures for `_Inbox`, `Business Ops`, `Production Ops`, and `Personal Ops`
-- mobile and desktop share-sheet context
-- screenshots, source links, rough notes, sketches, and relationships
-- preview, loading, passive, and early thinking states
-
-Promotion path:
+Intent: choose the owner, tool stack, review gate, and next action from natural
+language. The live route registry is stored in Supabase and has a checked-in
+fallback at `config/cerebral-registry.json`.
 
 ```text
-capture -> review or sketch -> decide the owner -> link or promote
+request -> Cerebral route -> owner surface -> reviewed mutation -> verification
 ```
 
-Promote actionable command work to `Linear - Command Ops`. Promote durable
-business tasks to Opportunity HQ. Promote architecture truth to LikeC4.
+Cerebral never becomes a task database, background worker, or hidden writer.
 
-Default views and templates:
+## 2. Linear - Decisions and Active System Work
 
-- `Break It Down`
-- `How It Works`
-- `Make a Choice`
-- `Daily Planning` only for a temporary thinking pass, not the active weekly calendar
+Intent: provide the mobile-friendly decision cockpit for system ideas, command
+work, projects, assignments, and active next moves.
 
-What stays out:
+Canonical placements:
 
-- durable task status
-- active weekly time blocking
-- command bugs and implementation commitments
-- canonical repo architecture
+```text
+Team: 23Maestro
+Project: Command + Ideas  -> capture, commands, small decisions
+Project: Singleton Systems -> system plans, dashboard, GraphQL gateway
+Default issue status: Backlog
+```
 
-## 2. LikeC4 - System Map
+Use this template for a new issue:
 
-Intent: make the repo and its connected systems understandable as durable visual truth.
+```markdown
+## Intent
+<one sentence>
 
-Allowed inputs:
+## Context
+<link, source, constraint, or current state>
 
-- repos, apps, skills, hooks, commands, APIs, Supabase, Vercel, Notion, and external systems
-- direct links to files, docs, domains, dashboards, and owner surfaces
-- short plain-language descriptions of purpose and relationships
+## Done
+<one observable result>
+```
 
-Promotion path:
+Existing issues receive a short comment or independently actionable subissue;
+do not rewrite their full body.
+
+## 3. GitHub - Research, Specs, and Implementation Evidence
+
+Intent: retain durable engineering context that is too detailed for active
+decision tracking.
+
+Wayfinder starts here when a build is fuzzy or branches. GitHub holds the map,
+research, prototype evidence, spec, dependencies, and PR history. Linear holds
+only the current decision, priority, owner, blocker, and next action.
+
+```text
+Wayfinder map -> blocking decisions -> session-sized tickets -> spec -> PR proof
+```
+
+## 4. Supabase - Queryable Cross-Surface Facts
+
+Intent: hold facts that need reporting, joins, multiple readers, or dashboard
+queries. It is not a scratchpad or copy of every ticket body.
+
+Current durable facts:
+
+```text
+cerebral_routes / harness_skills / harness_capabilities -> live routing registry
+outreach_attempts / contacts -> outreach and follow-up events
+content_references / content_posts / portfolio_assets -> proof and content metadata
+```
+
+The dashboard reads queryable facts and owner links. New tables require a
+read-only design pass, confirmed writer/reader list, and a verification path.
+
+## 5. Next/Vercel - Active Week Dashboard
+
+Intent: run a seven-day review surface without becoming another task database.
+
+Inputs:
+
+- current system decisions and owner links from Linear
+- active career, cash, and outreach events from Supabase-backed owner flows
+- active Personal Ops home tasks from Apps Script while the list remains small
+- weekly goals, time cues, and follow-up dates
+
+Top half:
+
+- week selector, refresh action, and seven-day rail
+- category filters for `Cash Jobs`, `Career Jobs`, `Freelance`, `Offer`, and `Home`
+- compact metrics for applications, outreach, follow-ups due, replies, and money
+- active blocks that open their owner instead of duplicating status
+
+Bottom half:
+
+- follow-up tracker with `When`, `Target`, `Category`, `Channel`, `Status`, and `Next`
+- filters for `Due`, `Waiting`, `Replied`, `Closed`, and `No Follow-up`
+- direct owner links for Gmail, LinkedIn, the job source, Linear, or the relevant task system
+
+The screenshot reference establishes a dark operational tone, compact filters,
+a week dropdown, refresh control, and a readable event table. It does not define
+the data model.
+
+Pending implementation cards:
+
+```text
+23M-88 -> Paper wireframe and dashboard contract
+23M-89 -> authenticated Linear GraphQL action gateway
+```
+
+`23M-89` must settle the server-side authentication and payload contract before
+Shortcut Playground creates a mobile client. Raycast and Codex use the same
+gateway contract when that task is ready.
+
+## 6. LikeC4 - Reviewed System Map
+
+Intent: make verified repositories, apps, APIs, and handoffs understandable.
 
 ```text
 reviewed architecture fact -> LikeC4 source -> validate -> publish static map
 ```
 
-Default views:
+What stays out across all surfaces:
 
-- `Ecosystem`
-- `Repo and Skills`
-- `Data and Integrations`
-- `Commands and Intake`
-- `Deploy and Publish`
-
-What stays out:
-
-- daily planning
-- passive captures
-- speculative relationships presented as fact
-- full file inventories with no operator value
-
-## 3A. Miro - Active Week
-
-Intent: run the active week as movable time blocks without becoming another task database.
-
-Allowed inputs:
-
-- Opportunity HQ tasks with Status `Today` or `In Motion`
-- all active Personal Ops home tasks from Apps Script while the list remains small
-- duration, weekly count goals, and cue-based placement
-
-Promotion path:
-
-```text
-Raycast: Queued -> Today
-Miro: place and move the active block
-owner system: confirm status or completion
-```
-
-Default views:
-
-- `Day`
-- `3 Day`
-- `Week`
-- `Home Tasks`
-
-The same task identity and time placement should persist when changing views.
-`Queued` remains in Opportunity HQ by default. A non-default queue panel may be
-added later only if promotion from Miro proves necessary.
-
-What stays out:
-
-- passive ideas
-- architecture truth
-- the full Opportunity HQ backlog
-- command implementation packets
-
-## 3B. Linear - Command Ops
-
-Intent: hold concise, assignable command and tooling work that is ready for Codex.
-
-Exact Linear placement:
-
-```text
-Team: 23Maestro
-Project: Command Ops
-Default issue status: Backlog
-```
-
-Allowed inputs:
-
-- Hammerspoon
-- Keyboard Maestro
-- Karabiner
-- Apple Shortcuts
-- Hazel
-- Raycast
-- shell scripts and related operating-system workflows
-- links, posts, transcripts, or examples that imply a specific command-system change
-
-Issue template:
-
-```markdown
-## Intent
-[one sentence]
-
-## Context
-[app, link, error, or behavior]
-
-## Done when
-[one observable result]
-```
-
-Promotion path:
-
-```text
-S.System Inbox: New -> Command Ops
-  -> prefilled Linear draft
-  -> human review
-  -> create in Project: Command Ops / Status: Backlog
-  -> assign to Codex when ready
-```
-
-`S.System Inbox: Update` does not offer `Command Ops`. Existing command work is
-updated on its Linear issue.
-
-What stays out:
-
-- vague visual thinking with no requested change
-- weekly time blocks
-- architecture diagrams
-- duplicate notes that merely restate an existing issue
-
-## Project Colors
-
-Reuse these colors wherever a surface represents Opportunity HQ project lanes:
-
-```text
-Cash Jobs   = yellow
-Career Jobs = blue
-Offer       = red
-Freelance   = green
-Portfolio   = gray
-```
-
-Surface colors remain separate:
-
-```text
-Red    = raw capture or risk
-Purple = durable Opportunity HQ / Notion truth
-Green  = proof or evidence
-Blue   = action and command layers
-Amber  = human review or ambiguity
-Slate  = passive reference or UI shell
-```
+- passive ideas without a decision or next move
+- raw message bodies in dashboard tables
+- duplicate task status
+- unverified architecture claims
+- secret keys or personal tokens in client apps, Shortcuts, Raycast, or docs
 
 ## Review Rhythm
 
 ```text
-During capture  -> Obsidian + Excalidraw
-During the week -> Miro active blocks
-Command review  -> Linear Command Ops backlog
-System changes  -> LikeC4 validation and publish
-Weekly closeout -> clear stale visual copies and confirm owner-system state
+Capture / decide -> Linear
+Research / build -> GitHub
+During the week -> Next/Vercel dashboard
+Queryable event -> Supabase
+System change -> LikeC4 validation and publish
+Weekly closeout -> clear stale dashboard cues and confirm owner-system state
 ```

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Canvas"
+  short_description: "Plan focused UI canvases before implementation"
+  default_prompt: "Use $design-canvas to create a focused UI design canvas and copyable implementation prompt."

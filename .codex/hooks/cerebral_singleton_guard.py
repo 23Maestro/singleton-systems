@@ -11,30 +11,22 @@ REPO_MARKER = os.environ.get("SINGLETON_SYSTEMS_REPO_MARKER", "singleton-systems
 
 ROUTING_SURFACES = [
     "docs/integration-map.md",
-    "docs/home-hub.md",
     "docs/commands.md",
     "docs/truth-matrix.md",
-    "docs/opportunity-hq/updater-prompt.md",
-    "docs/operating-system/singleton-systems-sprint.md",
-    "docs/planning/planning-idea-routing-research-pass.md",
+    "docs/visual-system-contract.md",
     ".codex/hooks/cerebral_singleton_guard.py",
     "/Users/singleton23/plugins/s-systems/skills/cerebral-router/SKILL.md",
     "/Users/singleton23/plugins/s-systems/skills/planning-idea-routing/SKILL.md",
+    "/Users/singleton23/plugins/s-systems/skills/tool-harness/SKILL.md",
+    "/Users/singleton23/plugins/s-systems/skills/opportunity-hq-updater/SKILL.md",
+    "/Users/singleton23/plugins/s-systems/skills/singleton-visualizer/SKILL.md",
 ]
 
 STALE_OWNER_PATTERNS = [
     re.compile(pattern, re.I)
     for pattern in [
-        r"Current owners:\s*Bear",
-        r"Bear\s+raw capture",
-        r"Bear capture",
-        r"Bear role:",
-        r"Bear remains",
-        r"Bear stays",
-        r"old Bear",
-        r"old Bear lanes",
-        r"Bear archive route",
-        r"Use `Parked` or Bear",
+        r"\bOb" + r"sidian\b",
+        r"\bMi" + r"ro\b",
     ]
 ]
 
@@ -230,8 +222,6 @@ def stale_owner_hits():
         try:
             with open(full_path, "r", encoding="utf-8") as handle:
                 for line_number, line in enumerate(handle, 1):
-                    if os.path.basename(full_path) == "cerebral_singleton_guard.py" and '"- Current owners:' not in line:
-                        continue
                     if any(pattern.search(line) for pattern in STALE_OWNER_PATTERNS):
                         hits.append(f"{full_path}:{line_number}: {line.strip()}")
         except FileNotFoundError:
@@ -268,7 +258,7 @@ def main():
             details = "\n".join(hits)
             emit_block(
                 "Singleton Systems drift guard found stale legacy owner language after a tool ran. "
-                "Update the owner surface to Obsidian raw capture / legacy export before continuing.\n"
+                "Update the active contract to the Linear, GitHub, Supabase, and dashboard model before continuing.\n"
                 + details
             )
 

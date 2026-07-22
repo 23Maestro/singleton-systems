@@ -39,15 +39,15 @@ const checks = [
   },
   {
     file: "docs/integration-map.md",
-    must: ["portfolio/harness.jsonl"],
+    must: ["Career tasks and job workflow state", "Opportunity HQ"],
     mustNot: ["proof/harness.jsonl"],
   },
   {
     file: skillPath("cerebral-router"),
     optionalExternal: true,
     must: [
-      "Opportunity HQ owns the five durable project lanes: `Cash Jobs`, `Career Jobs`,\n  `Freelance`, `Offer`, `Portfolio`.",
-      "Applications, Freelance, Singleton, and Portfolio should be",
+      "career or job workflow state -> Opportunity HQ",
+      "The dashboard reads owner state and opens owner links.",
     ],
     mustNot: [
       "`Freelance`, `Offer`, `Proof`.",
