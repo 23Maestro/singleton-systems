@@ -2,7 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const maps = ["visual-daily-planning-wayfinder", "excalidraw-setup-pass"];
+const maps = [
+  "visual-daily-planning-wayfinder",
+  "excalidraw-setup-pass",
+  "wemby-shot-selection-storyboard",
+];
 
 for (const slug of maps) {
   const source = path.join(root, "docs", "harness", `${slug}.html`);

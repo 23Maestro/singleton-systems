@@ -29,6 +29,12 @@ const decisionMaps = [
     tags: ["Obsidian", "Scripts", "Templater"],
     accent: "border-[#23835f] text-[#23835f] dark:text-[#8fd8b6]",
   },
+  {
+    label: "Wemby Edit Map",
+    href: "/decision-maps/wemby-shot-selection-storyboard/",
+    tags: ["2:00", "Tab 2", "Tab 3"],
+    accent: "border-[#15985d] text-[#15985d] dark:text-[#62f2aa]",
+  },
 ] as const;
 
 export default function DecisionMapsPage() {

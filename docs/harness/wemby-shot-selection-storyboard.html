@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Wemby Edit Map</title>
+  <style>
+    :root {
+      --bg: #090a0c;
+      --panel: #101217;
+      --line: #292d36;
+      --text: #f5f7fa;
+      --muted: #9ba3b2;
+      --green: #2df18b;
+      --red: #ff4d67;
+      --gold: #e8c273;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 75% -10%, rgba(45, 241, 139, .08), transparent 35rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      width: min(1500px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 72px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4.6rem);
+      line-height: .95;
+      letter-spacing: -.055em;
+    }
+
+    .runtime {
+      flex: 0 0 auto;
+      color: var(--green);
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      margin: 0;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 0 16px;
+      border-left: 1px solid var(--line);
+    }
+
+    .metric:first-child { border-left: 0; padding-left: 0; }
+    .metric:last-child { padding-right: 0; }
+
+    .metric strong {
+      display: block;
+      color: var(--green);
+      font-size: clamp(1.35rem, 2.5vw, 2.25rem);
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .timeline {
+      margin-top: 34px;
+      border-top: 1px solid var(--line);
+    }
+
+    .labels,
+    .beat {
+      display: grid;
+      grid-template-columns: 9rem 1.25fr 1.35fr .9fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .labels {
+      padding: 12px 18px;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .beat {
+      padding: 24px 18px;
+      border-bottom: 1px solid var(--line);
+      transition: background .18s ease;
+    }
+
+    .beat:hover { background: rgba(255,255,255,.025); }
+
+    .time {
+      color: var(--gold);
+      font-size: 1.15rem;
+      font-weight: 850;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .words {
+      font-size: .98rem;
+      font-weight: 650;
+    }
+
+    .picture {
+      color: #dce1e9;
+    }
+
+    .get {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .shot {
+      color: var(--green);
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .miss { color: var(--red); }
+
+    .finish {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding-top: 36px;
+    }
+
+    .finish h2 {
+      margin: 0 0 14px;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+    }
+
+    .finish ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px 24px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .finish li {
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700;
+    }
+
+    @media (max-width: 980px) {
+      .metrics { grid-template-columns: repeat(3, 1fr); gap: 20px 0; }
+      .metric:nth-child(4) { border-left: 0; padding-left: 0; }
+      .labels { display: none; }
+      .beat {
+        grid-template-columns: 7rem 1fr;
+        gap: 14px 20px;
+      }
+      .words, .picture, .get { grid-column: 2; }
+      .finish { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      main { width: min(100% - 24px, 1500px); padding-top: 28px; }
+      header { align-items: start; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(3),
+      .metric:nth-child(5) { border-left: 0; padding-left: 0; }
+      .metric:nth-child(4) { border-left: 1px solid var(--line); padding-left: 16px; }
+      .beat { grid-template-columns: 1fr; padding: 20px 4px; }
+      .words, .picture, .get { grid-column: 1; }
+      .get::before {
+        content: "GET  ";
+        color: var(--gold);
+        font-size: .68rem;
+        letter-spacing: .1em;
+      }
+      .finish ul { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      main { width: 100%; padding: 0; }
+      .metric span, .labels, .get, .finish h2 { color: #555; }
+      .picture { color: #222; }
+      .timeline, .labels, .beat, header, .metrics, .metric, .finish li { border-color: #ccc; }
+      .beat { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Wemby Edit Map</h1>
+      <div class="runtime">2:00 MAX</div>
+    </header>
+
+    <section class="metrics" aria-label="Approved metrics">
+      <div class="metric"><strong>68.6%</strong><span>Shots are twos</span></div>
+      <div class="metric"><strong>31.4%</strong><span>Shots are threes</span></div>
+      <div class="metric"><strong>48.1%</strong><span>Points come inside</span></div>
+      <div class="metric"><strong>4.2%</strong><span>Points from mid-range</span></div>
+      <div class="metric"><strong>60.6%</strong><span>Paint attempts</span></div>
+      <div class="metric"><strong>39.4%</strong><span>Three-point attempts</span></div>
+    </section>
+
+    <section class="timeline" aria-label="Edit timeline">
+      <div class="labels" aria-hidden="true">
+        <div>Time</div><div>Words</div><div>Picture</div><div>Get</div>
+      </div>
+
+      <article class="beat">
+        <div class="time">0:00–0:10</div>
+        <div class="words">No words.</div>
+        <div class="picture">BasketballGod intro.</div>
+        <div class="get">Brand intro</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">0:10–0:27</div>
+        <div class="words">“Is WemBEMyama's playing style too perimeter-oriented?” → “size, length, touch, and dexterity around the rim.”</div>
+        <div class="picture">Wemby PNG. Perimeter clip, then rim finish. Question hits once.</div>
+        <div class="get">Wemby PNG · perimeter clip · rim clip · Kinetic Text</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">0:27–0:47</div>
+        <div class="words">“This observation touches on the central tension…” → “a tactical necessity that the Spurs are still learning to optimize.”</div>
+        <div class="picture">Tab 3 full map, then defender-in-space B-roll. Show <span class="shot">68.6% twos / 31.4% threes</span>.</div>
+        <div class="get">Defender clip · Sports Graphics</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">0:47–1:04</div>
+        <div class="words">“If he camps in the low block…” → “bail-out threes early in the shot clock.”</div>
+        <div class="picture">Low-block crowding clip, then Tab 2 <span class="shot miss">shots 1–5</span>.</div>
+        <div class="get">Double-team clip · early three</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">1:04–1:18</div>
+        <div class="words">“When he operates on the perimeter…” → “space-defense scenarios they are biologically unequipped to handle.”</div>
+        <div class="picture">Defender-in-space clip, then Tab 2 <span class="shot">shots 6–9</span>.</div>
+        <div class="get">Defender clip · HUD</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">1:18–1:37</div>
+        <div class="words">“When it comes to his touch, length, and dexterity around the rim…” → “paint finishes, lobs, and put-backs.”</div>
+        <div class="picture">Tab 2 <span class="shot">shots 10–18</span>, then Tab 3 Paint. Show <span class="shot">48.1% points inside / 60.6% paint attempts</span>.</div>
+        <div class="get">Rim montage · Sports Graphics</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">1:37–1:51</div>
+        <div class="words">“In the mid-range and on the perimeter, his efficiency fluctuates.” → “contested thirty-footers… allows the defense to breathe.”</div>
+        <div class="picture">Tab 2 <span class="shot miss">shots 19–25</span>, then Tab 3 Perimeter. Show <span class="shot">4.2% mid-range / 39.4% three-point attempts</span>.</div>
+        <div class="get">Missed jumper · contested three · Kinetic Text</div>
+      </article>
+
+      <article class="beat">
+        <div class="time">1:51–2:00</div>
+        <div class="words">“The justification is that the Spurs' developmental staff is playing the long game.” → “They are building a point-center.”</div>
+        <div class="picture">Tab 2 <span class="shot">shots 26–29</span>, then future-facing Spurs clip.</div>
+        <div class="get">Spurs close · Freeze Frame</div>
+      </article>
+    </section>
+
+    <section class="finish">
+      <div>
+        <h2>Capture</h2>
+        <ul>
+          <li>Tab 2: shots 1–29</li>
+          <li>Tab 3: full map</li>
+          <li>Tab 3: Paint</li>
+          <li>Tab 3: Perimeter</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Still Needed</h2>
+        <ul>
+          <li>Wemby PNG</li>
+          <li>Perimeter + rim clips</li>
+          <li>Double-team + early three</li>
+          <li>Defender in space</li>
+          <li>Rim montage</li>
+          <li>Contested three</li>
+          <li>Spurs close</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
