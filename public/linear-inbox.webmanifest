@@ -1,0 +1,27 @@
+{
+  "name": "Linear Inbox",
+  "short_name": "Linear",
+  "description": "Create or update Linear issues from desktop or mobile.",
+  "start_url": "/linear-inbox",
+  "scope": "/linear-inbox",
+  "display": "standalone",
+  "background_color": "#eef3f7",
+  "theme_color": "#101820",
+  "icons": [],
+  "share_target": {
+    "action": "/api/linear/inbox/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["image/*", "application/pdf", ".doc", ".docx", ".txt"]
+        }
+      ]
+    }
+  }
+}
