@@ -444,14 +444,16 @@ function compactWords(value: string, maxWords: number) {
 }
 
 async function linearGraphql<T>(query: string, variables?: Record<string, unknown>): Promise<T> {
-  const apiKey = process.env.LINEAR_API_KEY || process.env.LINEAR_DEVELOPER_TOKEN;
-  if (!apiKey) throw new Error("LINEAR_API_KEY or LINEAR_DEVELOPER_TOKEN is required.");
+  // Personal API key only — no OAuth fallback. Linear sends personal keys raw
+  // in the Authorization header, unlike OAuth tokens which need "Bearer ".
+  const apiKey = process.env.LINEAR_API_KEY;
+  if (!apiKey) throw new Error("LINEAR_API_KEY is required.");
 
   const response = await fetch("https://api.linear.app/graphql", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: apiKey.startsWith("Bearer ") ? apiKey : `Bearer ${apiKey}`,
+      Authorization: apiKey,
     },
     body: JSON.stringify({ query, variables }),
   });
