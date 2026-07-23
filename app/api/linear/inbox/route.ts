@@ -1,12 +1,21 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { linearInboxProjectNames, linearInboxProjects } from "@/lib/linear-inbox-projects";
+import { getLinearInboxDraft } from "@/lib/linear-inbox-drafts";
+import { recordLinearInboxSubmission } from "@/lib/linear-inbox-submissions";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const projectNames = ["Singleton Systems", "Command + Ideas", "K. Macro Builds", "Personal Ops", "XSpoon"] as const;
+const projectNames = linearInboxProjectNames;
 const templateIds = ["quick_task", "mini_project", "working_brief"] as const;
 const actionIds = ["new", "update"] as const;
+
+const templateScaffolds: Record<(typeof templateIds)[number], string[]> = {
+  quick_task: [],
+  mini_project: ["", "## Shape", "One durable next action, one owner surface."],
+  working_brief: ["", "## Constraints", "None noted.", "", "## Done", "One observable result."],
+};
 
 const sourceSchema = z.object({
   webLink: z.union([
@@ -39,6 +48,8 @@ const inboxEntrySchema = z
     dueDate: z.string().date().nullable().optional().default(null),
     delegateToAgent: z.boolean().optional().default(true),
     issue: z.string().trim().optional(),
+    labelIds: z.array(z.string()).optional().default([]),
+    draftId: z.string().trim().optional(),
     sources: sourceSchema,
   })
   .superRefine((entry, context) => {
@@ -65,12 +76,14 @@ type LinearTeam = {
   key: string;
   name: string;
   states: { nodes: { id: string; name: string; type?: string | null }[] };
+  labels?: { nodes: { id: string; name: string; color: string }[] };
 };
 
 type LinearProject = {
   id: string;
   name: string;
   teams: { nodes: LinearTeam[] };
+  initiatives: { nodes: { id: string; name: string }[] };
 };
 
 type LinearLookup = {
@@ -78,10 +91,40 @@ type LinearLookup = {
   projects: { nodes: LinearProject[] };
 };
 
+export async function GET() {
+  try {
+    const lookup = await linearGraphql<LinearLookup>(lookupQuery, { names: linearInboxProjectNames });
+    const projects = linearInboxProjects.map((configured) => {
+      const project = lookup.projects.nodes.find((candidate) => candidate.name === configured.name);
+      const team = project?.teams.nodes[0];
+      return {
+        name: configured.name,
+        icon: configured.icon,
+        states: team?.states.nodes.map((state) => state.name) || [],
+        labels: team?.labels?.nodes.map((label) => ({ id: label.id, name: label.name, color: label.color })) || [],
+        initiatives: project?.initiatives.nodes.map((initiative) => initiative.name) || [],
+      };
+    });
+
+    return NextResponse.json({
+      projects,
+      templates: templateIds.map((id) => ({ id, label: templateLabel(id) })),
+      actions: actionIds,
+    });
+  } catch (error) {
+    return NextResponse.json({ error: messageFrom(error) }, { status: 500 });
+  }
+}
+
 export async function POST(request: Request) {
   try {
-    const entry = inboxEntrySchema.parse(await request.json());
-    const lookup = await linearGraphql<LinearLookup>(lookupQuery);
+    let entry = inboxEntrySchema.parse(await request.json());
+    if (entry.draftId) {
+      const draft = await getLinearInboxDraft(entry.draftId);
+      if (draft) entry = { ...entry, sources: mergeSources(entry.sources, draft.sources) };
+    }
+
+    const lookup = await linearGraphql<LinearLookup>(lookupQuery, { names: linearInboxProjectNames });
     const target = resolveTarget(lookup, entry.project, entry.status);
 
     const result =
@@ -96,14 +139,29 @@ export async function POST(request: Request) {
   }
 }
 
+function templateLabel(id: (typeof templateIds)[number]) {
+  if (id === "quick_task") return "Quick task";
+  if (id === "mini_project") return "Mini project";
+  return "Working brief";
+}
+
+function mergeSources(entrySources: InboxEntry["sources"], draftSources: InboxEntry["sources"]) {
+  return {
+    webLink: entrySources.webLink.present ? entrySources.webLink : draftSources.webLink,
+    image: entrySources.image.present ? entrySources.image : draftSources.image,
+  };
+}
+
+// Filtered to the curated project names — an unfiltered projects(first: 100)
+// with this much nested depth exceeds Linear's query complexity cap (10000).
 const lookupQuery = `
-  query LinearInboxLookup {
-    teams(first: 100) {
+  query LinearInboxLookup($names: [String!]) {
+    teams(first: 25) {
       nodes {
         id
         key
         name
-        states(first: 100) {
+        states(first: 20) {
           nodes {
             id
             name
@@ -112,20 +170,33 @@ const lookupQuery = `
         }
       }
     }
-    projects(first: 100) {
+    projects(filter: { name: { in: $names } }, first: 10) {
       nodes {
         id
         name
-        teams(first: 10) {
+        initiatives(first: 3) {
+          nodes {
+            id
+            name
+          }
+        }
+        teams(first: 3) {
           nodes {
             id
             key
             name
-            states(first: 100) {
+            states(first: 20) {
               nodes {
                 id
                 name
                 type
+              }
+            }
+            labels(first: 30) {
+              nodes {
+                id
+                name
+                color
               }
             }
           }
@@ -143,6 +214,7 @@ async function createLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
     description: renderEntryMarkdown(entry, "new"),
     stateId: target.stateId,
     dueDate: entry.dueDate,
+    labelIds: entry.labelIds.length > 0 ? entry.labelIds : undefined,
   });
 
   const data = await linearGraphql<{ issueCreate: { success: boolean; issue: LinearIssue } }>(
@@ -162,6 +234,8 @@ async function createLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
     { input },
   );
 
+  await trackSubmission(data.issueCreate.issue);
+
   return {
     action: "new",
     updateShape: "issue",
@@ -170,11 +244,20 @@ async function createLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
   };
 }
 
+async function trackSubmission(issue: LinearIssue) {
+  try {
+    await recordLinearInboxSubmission(issue);
+  } catch (error) {
+    console.error("linear-inbox: failed to record submission for status tracking", error);
+  }
+}
+
 async function updateLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
   const issueId = normalizeIssueReference(entry.issue || "");
   const updateInput = stripUndefined({
     stateId: target.stateId,
     dueDate: entry.dueDate,
+    labelIds: entry.labelIds.length > 0 ? entry.labelIds : undefined,
   });
 
   if (Object.keys(updateInput).length > 0) {
@@ -222,9 +305,12 @@ async function updateLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
           description: renderEntryMarkdown(entry, "update"),
           stateId: target.stateId,
           dueDate: entry.dueDate,
+          labelIds: entry.labelIds.length > 0 ? entry.labelIds : undefined,
         }),
       },
     );
+
+    await trackSubmission(data.issueCreate.issue);
 
     return {
       action: "update",
@@ -321,6 +407,7 @@ function renderEntryMarkdown(entry: InboxEntry, mode: "new" | "update") {
     "",
     "## Context",
     context || entry.title,
+    ...templateScaffolds[entry.template],
   ];
 
   const sources = renderSources(entry.sources);
