@@ -15,5 +15,7 @@ map issue -> blockers -> session-sized tickets -> spec -> PR proof
 ```
 
 Keep GitHub as the evidence record and Linear as the active decision ledger.
+When creating or updating Linear ledger items, include status and due-date
+intent from `docs/harness/wayfinder.md`.
 Do not create a flat ticket inventory, a background sync, or a visual unless it
 clarifies a real handoff.

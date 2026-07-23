@@ -31,7 +31,7 @@ its execution state; they are not the same taxonomy.
 
 | Surface | Owns | Does not own |
 | --- | --- | --- |
-| Linear | priority, status, owner, current decision, next move | research body or decision history |
+| Linear | priority, status, due date, owner, current decision, next move | research body or decision history |
 | GitHub | map issue, blockers, findings, case studies, prototypes, specs, ticket history | mobile triage |
 | Codex | reads linked pair, writes approved decision ledger, builds approved work | autonomous background sync |
 | Pull request | implementation proof and review link | discovery or prioritization |
@@ -42,7 +42,7 @@ its execution state; they are not the same taxonomy.
 1. Start a GitHub map issue when a loose idea is too large or foggy for one session.
 2. Add child issues only where research, a grilling decision, a prototype, or manual setup reveals a real branch in the route.
 3. Record `Blocked by`, `Blocks`, and `Next unblocked ticket` on the map and child issue. Use native GitHub relationships when available.
-4. Link a concise Linear item only when the item needs a mobile decision, priority, ownership, or an active next move.
+4. Link a concise Linear item only when the item needs a mobile decision, priority, status, due date, ownership, or an active next move.
 5. If the Linear item is blocked, include only the blocker and the action that clears it.
 6. Make the decision in Linear on mobile:
    `GitHub: URL`, `Blocked by: URL or none`, `Decision: sentence`, `Next: action`.
@@ -60,6 +60,7 @@ its execution state; they are not the same taxonomy.
 - Keep full sentences where sequence, safety, or ambiguity needs clarity.
 - Evidence can be long, but link it instead of pasting it into Linear or chat.
 - Blocker history belongs in GitHub; Linear shows only what blocks the current decision.
+- Status and due dates must be intentional. Use `Backlog` for capture, `Todo` for accepted work, `In Progress` for active work, `In Review` for review/handoff, and `Done` only after the observable result is complete. Set due dates only for real deadlines, scheduled reviews, or dashboard-visible follow-ups.
 - Create an HTML snapshot when it makes the route, current state, or linked decisions easier to scan.
 - Add a C4-style context visual only when three or more system handoffs need explanation.
 - No webhook, database, polling job, or custom sync service.
