@@ -9,13 +9,17 @@ Use the repeatable workflow in
 `docs/resumes/job-application-resume-workflow.md` in the Singleton Systems
 repository.
 
-1. Read the source resume and actual post. Tailor only truthful summary, skills,
-   and relevant bullets; never mutate the source resume.
-2. Use Reactive Resume for serious white-collar applications when available;
-   otherwise use the documented clean, single-column-safe approach.
+1. Start with the canonical Reactive Resume JSON for resume, experience, or
+   career-reference requests. Do not require PDF extraction when that JSON is
+   available. Tailor only truthful summary, skills, and relevant bullets;
+   never mutate the source resume.
+2. Read the actual post only when the request is job-specific. Use Reactive
+   Resume for serious white-collar applications when available; otherwise use
+   the documented clean, single-column-safe approach.
 3. Verify remote claims against the post. Surface paywalls, subscriptions,
    location constraints, and vehicle requirements.
-4. Extract text and visually inspect every exported PDF before calling it ready.
+4. Extract text and visually inspect an exported PDF only when an export is
+   requested before calling that export ready.
 5. Read [references/application-detail-ledger.md](references/application-detail-ledger.md)
    only for repeated form fields or upload conflicts. Do not automate a browser
    until the repeated pain and target behavior are concrete.

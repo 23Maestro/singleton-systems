@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 260" role="img" aria-labelledby="title desc">
+  <title id="title">Singleton Systems wordmark</title>
+  <desc id="desc">A stacked black wordmark reading Singleton Systems.</desc>
+  <g fill="#050505" font-family="Poppins, Inter, Avenir Next, Helvetica Neue, Arial, sans-serif" font-weight="500" letter-spacing="-6">
+    <text x="68" y="104" font-size="116">Singleton</text>
+    <text x="118" y="214" font-size="116">Systems.</text>
+  </g>
+</svg>

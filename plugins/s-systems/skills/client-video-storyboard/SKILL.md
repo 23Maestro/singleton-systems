@@ -17,6 +17,8 @@ Codex     -> source mapping, storyboard, checklist
    aspect ratio, captions, and delivery requirements.
 2. Create the packet from `docs/portfolio/client-video-storyboard.md` in the
    Singleton Systems repository.
+   Use `references/storyboard-template.md` when the packet needs asset intake,
+   decision labels, or a fuller Premiere handoff table.
 3. Keep each storyboard row to one meaningful screen change.
 4. Use `s-systems:eagle` for asset operations.
 5. Before Premiere mutation, inspect project info, sequences, items, active

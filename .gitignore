@@ -29,6 +29,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 *.log
+.claude/
 playwright-report
 test-results
 blob-report

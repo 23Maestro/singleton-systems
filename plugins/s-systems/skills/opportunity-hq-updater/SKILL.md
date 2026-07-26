@@ -1,6 +1,6 @@
 ---
 name: opportunity-hq-updater
-description: Shape a selected Content Editor, AI Consultant, or Portfolio task for Opportunity HQ without duplicating Linear decisions or dashboard state.
+description: Shape a selected career, cash, freelance, or proof task for Opportunity HQ without duplicating Linear decisions or dashboard state.
 ---
 
 # Opportunity HQ Updater
@@ -11,13 +11,13 @@ Linear; fuzzy implementation belongs in GitHub Wayfinder.
 ## Input
 
 ```text
-lane: Content Editor | AI Consultant | Portfolio
+lane: Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
 intent: one sentence
 next: one action
-owner link: Linear, GitHub, job source, or portfolio asset
+owner link: Linear, GitHub, job source, or proof asset
 ```
 
-Portfolio -> portfolio tasks and assets
+Portfolio -> proof tasks and assets
 
 ## Task Sizing (before creating)
 
@@ -35,7 +35,7 @@ pre-tagged `4h+` — split first, always.
 ## Linear Intake Rules
 
 Linear Intake: keep raw capture, system decisions, and unselected work in
-Linear. Promote only selected client or delivery work that needs durable
+Linear. Promote only selected career or delivery work that needs durable
 workflow state.
 
 ## Output
