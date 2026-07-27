@@ -11,7 +11,7 @@
   --site-text: #111318;
   --site-heading: #111318;
   --site-muted: #667085;
-  --site-subtle: #98a2b3;
+  --site-subtle: #68758d; /* WCAG-safe text variant; #98a2b3 fails contrast on white (2.58:1) */
   --site-border: #d8dee8;
   --site-border-soft: #e4e8ef;
   --site-accent: #2383e2;
@@ -43,12 +43,9 @@ body {
   overscroll-behavior-x: none;
 }
 
-body.site-theme .theme-aware-portfolio {
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
 body.site-theme .theme-aware-portfolio p.source-map-card-kicker {
-  color: #e5484d;
+  color: #e12d33;
+  font-family: var(--font-geist-mono);
 }
 
 body.site-theme .theme-aware-portfolio .portfolio-top-card-title,
@@ -80,13 +77,14 @@ body.site-theme .theme-aware-portfolio .source-map-likec4-layer img {
 }
 
 body.site-theme .theme-aware-portfolio .portfolio-resume-kicker {
-  color: #2383e2 !important;
+  color: #1b76d0 !important;
+  font-family: var(--font-geist-mono);
 }
 
 body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link,
 body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link span,
 body.site-theme .theme-aware-portfolio .portfolio-divider-repo-link svg {
-  color: #2383e2 !important;
+  color: #1b76d0 !important;
 }
 
 body.site-theme .theme-aware-portfolio .portfolio-card-surface,

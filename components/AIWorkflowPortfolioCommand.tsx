@@ -11,6 +11,7 @@ import {
   SourceMapTopSlice,
   SystemTopSlice,
 } from "./PortfolioSlices";
+import { ArrowDown, Database, GithubLogo, MapTrifold, ShieldCheck, Sparkle } from "@phosphor-icons/react";
 import type { HighlightedCodeArtifactMap } from "@/lib/portfolio-code-artifact-types";
 
 type TabId = "system" | "evidence" | "fit" | "resume" | "sources";
@@ -519,50 +520,22 @@ type DividerIcon = "arrow-down" | "database" | "spark" | "badge" | "map";
 
 function DividerGlyph({ icon }: { icon: DividerIcon }) {
   if (icon === "database") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
-        <ellipse cx="12" cy="5" rx="7" ry="3" />
-        <path d="M5 5v6c0 1.66 3.13 3 7 3s7-1.34 7-3V5" />
-        <path d="M5 11v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6" />
-      </svg>
-    );
+    return <Database size={16} weight="bold" aria-hidden="true" />;
   }
 
   if (icon === "spark") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
-        <path d="m12 3 1.6 5.1L19 10l-5.4 1.9L12 17l-1.6-5.1L5 10l5.4-1.9L12 3Z" />
-        <path d="M19 15v4" />
-        <path d="M17 17h4" />
-      </svg>
-    );
+    return <Sparkle size={16} weight="bold" aria-hidden="true" />;
   }
 
   if (icon === "badge") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
-        <path d="M12 3 20 7v6c0 4.5-3.2 7-8 8-4.8-1-8-3.5-8-8V7l8-4Z" />
-        <path d="m8.5 12 2.2 2.2 4.8-5" />
-      </svg>
-    );
+    return <ShieldCheck size={16} weight="bold" aria-hidden="true" />;
   }
 
   if (icon === "map") {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
-        <path d="m8 5-5 2v13l5-2 8 2 5-2V5l-5 2-8-2Z" />
-        <path d="M8 5v13" />
-        <path d="M16 7v13" />
-      </svg>
-    );
+    return <MapTrifold size={16} weight="bold" aria-hidden="true" />;
   }
 
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[2.4]">
-      <path d="M12 4v14" />
-      <path d="m6 12 6 6 6-6" />
-    </svg>
-  );
+  return <ArrowDown size={16} weight="bold" aria-hidden="true" />;
 }
 
 function Divider({ label, icon }: { label: string; icon: DividerIcon }) {
@@ -571,15 +544,13 @@ function Divider({ label, icon }: { label: string; icon: DividerIcon }) {
       <span className="pointer-events-none absolute left-3 right-3 top-0 h-px bg-gradient-to-r from-transparent via-[#dbe3ef]/80 to-transparent" aria-hidden="true" />
       <div className="flex items-center justify-between gap-2 font-mono text-[11px] font-black uppercase tracking-[0.08em] text-[#667085] sm:text-[12px] sm:tracking-[0.14em]">
         <a
-          className="portfolio-divider-repo-link inline-flex min-h-7 min-w-0 items-center gap-1.5 whitespace-nowrap font-black italic text-[#2383e2] hover:underline sm:gap-2"
+          className="portfolio-divider-repo-link inline-flex min-h-7 min-w-0 items-center gap-1.5 whitespace-nowrap font-black italic text-brand-text-blue hover:underline sm:gap-2"
           href="https://github.com/23Maestro/prospect-pipeline"
         >
-          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-current">
-            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.16c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.13v3.17c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-          </svg>
+          <GithubLogo size={16} weight="fill" aria-hidden="true" />
           <span>Open GitHub Repo</span>
         </a>
-        <span className="portfolio-divider-label inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-right font-black text-[#2383e2] sm:gap-2">
+        <span className="portfolio-divider-label inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-right font-black text-brand-text-blue sm:gap-2">
           <span>{label}</span>
           <DividerGlyph icon={icon} />
         </span>
@@ -1110,7 +1081,7 @@ function ResumePanel() {
         <div className="grid gap-2.5 lg:grid-cols-4">
           {resumeData.map(([kicker, title, body]) => (
             <section key={title} className="portfolio-card-surface relative min-h-full rounded-[22px] border border-[#e4e5e7] bg-white p-[17px] shadow-[0_18px_42px_rgba(15,23,42,0.07)]">
-              <p className="portfolio-resume-kicker mb-3 text-[13px] font-black uppercase tracking-[0.16em] text-[#2383e2]">{kicker}</p>
+              <p className="portfolio-resume-kicker mb-3 text-[13px] font-black uppercase tracking-[0.16em] text-brand-text-blue">{kicker}</p>
               <h3 className="portfolio-resume-title m-0 mb-2 max-w-[78%] text-[19px] font-black leading-tight text-[#111318]">{title}</h3>
               <p className="portfolio-top-card-body portfolio-resume-body m-0 text-[17px] leading-7 text-[#475467]">{body}</p>
             </section>

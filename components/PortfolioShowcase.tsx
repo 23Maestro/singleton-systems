@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { CheckCircle, GearSix, Warning } from "@phosphor-icons/react";
 
 export type PortfolioTab = {
   id: "before" | "build" | "ready";
@@ -66,22 +67,11 @@ function PortfolioIcon({ tone }: { tone: IconTone }) {
   return (
     <span className={`inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-black ${toneClass}`}>
       {tone === "warning" ? (
-        <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
-          <path d="M18 7.3 30 28.1H6L18 7.3Z" fill="#fff8d6" stroke="#050505" strokeWidth="2.2" strokeLinejoin="round" />
-          <path d="M18 14.4v7.2" stroke="#050505" strokeWidth="2.4" strokeLinecap="round" />
-          <circle cx="18" cy="25.1" r="1.45" fill="#050505" />
-        </svg>
+        <Warning size={28} weight="bold" color="#050505" aria-hidden="true" />
       ) : tone === "process" ? (
-        <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
-          <circle cx="18" cy="18" r="6.1" fill="#f8fbff" stroke="#050505" strokeWidth="2.1" />
-          <path d="M18 6.4v4M18 25.6v4M6.4 18h4M25.6 18h4M9.8 9.8l2.8 2.8M23.4 23.4l2.8 2.8M26.2 9.8l-2.8 2.8M12.6 23.4l-2.8 2.8" stroke="#050505" strokeWidth="2" strokeLinecap="round" />
-          <path d="m15.5 18.2 1.7 1.8 3.5-4" stroke="#2383e2" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <GearSix size={28} weight="bold" color="#050505" aria-hidden="true" />
       ) : (
-        <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
-          <circle cx="18" cy="18" r="11.4" fill="#f4fff7" stroke="#050505" strokeWidth="2.2" />
-          <path d="m12.8 18.4 3.6 3.8 7.2-8.1" stroke="#25c266" strokeWidth="3.1" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <CheckCircle size={28} weight="bold" color="#050505" aria-hidden="true" />
       )}
     </span>
   );

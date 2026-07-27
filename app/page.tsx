@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Clock, ClipboardText, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import BookQuickChatButton from "@/components/BookQuickChatButton";
 import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
 import PortfolioShowcase, { type PortfolioTab } from "@/components/PortfolioShowcase";
 import RotatingHeroHeadline from "@/components/RotatingHeroHeadline";
 import { founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
 
-const TALLY_URL = "https://tally.so/r/obgLaX";
+const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
 const CAL_URL = "https://cal.com/workflow-chat/15min";
 
 const jsonLd = [
@@ -220,32 +221,14 @@ const methodSteps = [
 
 function RecruitingSignalIcon({ label }: { label: (typeof recruitingPortfolioPanes)[number]["label"] }) {
   if (label === "Status") {
-    return (
-      <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
-        <circle cx="18" cy="18" r="10.6" fill="#fff8d6" stroke="#050505" strokeWidth="2.15" />
-        <path d="M18 12.1v6.3l4.1 2.6" stroke="#050505" strokeWidth="2.35" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M9.4 9.6 12 7.5M26.6 9.6 24 7.5" stroke="#050505" strokeWidth="1.9" strokeLinecap="round" />
-      </svg>
-    );
+    return <Clock size={28} weight="bold" color="#050505" aria-hidden="true" />;
   }
 
   if (label === "Action") {
-    return (
-      <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
-        <rect x="9.3" y="7.8" width="16.5" height="20.4" rx="2.8" fill="#f8fbff" stroke="#050505" strokeWidth="2.05" />
-        <path d="M13.2 14.2h8.3M13.2 18h6.1M13.2 21.8h4.4" stroke="#050505" strokeWidth="1.8" strokeLinecap="round" />
-        <circle cx="24.7" cy="24.3" r="5.8" fill="#dff2ff" stroke="#050505" strokeWidth="1.75" />
-        <path d="m22.2 24.4 1.6 1.7 3.6-4" stroke="#050505" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
+    return <ClipboardText size={28} weight="bold" color="#050505" aria-hidden="true" />;
   }
 
-  return (
-    <svg viewBox="0 0 36 36" className="h-11 w-11" fill="none" aria-hidden="true">
-      <path d="M18 6.8 26.6 10.5v7c0 5.1-3.1 8.7-8.6 10.7-5.5-2-8.6-5.6-8.6-10.7v-7L18 6.8Z" fill="#e9fff1" stroke="#050505" strokeWidth="2.05" strokeLinejoin="round" />
-      <path d="m13.8 18.2 2.6 2.8 5.9-6.6" stroke="#050505" strokeWidth="2.45" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+  return <ShieldCheck size={28} weight="bold" color="#050505" aria-hidden="true" />;
 }
 
 function RecruitingIconFrame({ pane, children }: { pane: (typeof recruitingPortfolioPanes)[number]; children: React.ReactNode }) {
@@ -858,10 +841,10 @@ export default function Page() {
             </a>
             <BookQuickChatButton className="hidden min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:inline-flex" />
             <a
-              href={TALLY_URL}
+              href={AI_WORKFLOW_SESSION_URL}
               className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full border border-neutral-300 bg-white px-6 text-xs font-bold uppercase tracking-[0.13em] text-neutral-950 transition hover:border-neutral-950 hover:bg-neutral-50"
             >
-              Send Details First
+              AI Workflow Session
             </a>
           </div>
         </div>
@@ -890,7 +873,7 @@ export default function Page() {
             How It Starts
           </h2>
           <div
-            id="beta-audit"
+            id="beta-session"
             className="mt-10 rounded-[2rem] border border-neutral-200/80 bg-white/90 p-7 shadow-[0_18px_48px_rgba(15,23,42,0.075)] backdrop-blur sm:p-12"
           >
             <div className="flex items-center gap-3 sm:gap-4">
@@ -1023,7 +1006,7 @@ export default function Page() {
                 </p>
               </div>
               <div className="rounded-[1.35rem] border border-neutral-200 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-600">Outcome</p>
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-neutral-600">Outcome</p>
                 <p className="mt-3 text-3xl font-bold tracking-normal text-neutral-950">140+ highlights</p>
                 <p className="mt-1 text-lg font-semibold tracking-normal text-neutral-950">delivered in 6 weeks</p>
                 <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600">
@@ -1060,7 +1043,7 @@ export default function Page() {
                     </RecruitingIconFrame>
                     <RecruitingPortfolioPill pane={pane} />
                   </div>
-                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-neutral-600">{pane.eyebrow}</p>
+                  <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.18em] text-neutral-600">{pane.eyebrow}</p>
                   <h4 className="mt-3 text-xl font-semibold leading-tight tracking-normal text-neutral-950 sm:text-2xl">{pane.title}</h4>
                   <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600 sm:text-[0.95rem]">{pane.subtitle}</p>
                 </div>
@@ -1089,10 +1072,10 @@ export default function Page() {
       <section id="book" className="bg-black px-6 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="book-heading">
         <div className="mx-auto max-w-3xl">
           <h2 id="book-heading" className="text-4xl font-semibold tracking-normal sm:text-5xl">
-            Let&apos;s check out <em className="font-bold text-[#25c266] drop-shadow-[0_0_12px_rgba(37,194,102,0.42)]">your</em> flow.
+            Let&apos;s check out <em className="font-bold text-brand-text-green drop-shadow-[0_0_12px_rgba(37,194,102,0.42)]">your</em> flow.
           </h2>
           <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
-            Book a Flow Check, send a video link, or paste the details.
+            Book a Flow Check or tell me what you wish AI could help you do.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-2.5 sm:flex-row">
             <a
@@ -1103,10 +1086,10 @@ export default function Page() {
             </a>
             <BookQuickChatButton className="hidden min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:inline-flex" />
             <a
-              href={TALLY_URL}
+              href={AI_WORKFLOW_SESSION_URL}
               className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full border border-white/25 bg-transparent px-7 text-sm font-bold uppercase tracking-normal text-white transition hover:border-white/70 hover:bg-white/10"
             >
-              Send Details First
+              AI Workflow Session
             </a>
           </div>
         </div>
@@ -1123,7 +1106,7 @@ export default function Page() {
               className="h-auto w-44"
             />
             <p className="mt-4 max-w-xl text-base font-semibold leading-relaxed text-neutral-600">
-              Workflow audits for teams that need less repeated work and cleaner systems around the tools they already use.
+              Workflow sessions for teams that need less repeated work and cleaner systems around the tools they already use.
             </p>
           </div>
           <nav aria-label="Footer" className="grid gap-3 text-lg font-bold">

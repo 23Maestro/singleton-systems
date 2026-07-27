@@ -1,16 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { founderName, nicheKeywords, serviceName, siteDescription, siteName, siteUrl } from "./site";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
 
 const verification: Metadata["verification"] = {
   ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
@@ -99,7 +92,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className={`${poppins.className} site-theme min-h-dvh bg-white text-neutral-950 antialiased`}>
+      <body className={`${GeistSans.className} site-theme min-h-dvh bg-white text-neutral-950 antialiased`}>
         {children}
         <SpeedInsights />
       </body>

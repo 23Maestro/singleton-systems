@@ -878,7 +878,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
               <button type="button" aria-pressed={selectedId === route.key} onClick={() => onSelect(route.key)} className="block w-full text-left">
                 {content}
               </button>
-              <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
+              <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-brand-text-blue hover:underline" href={route.href}>
                 {route.linkLabel}
               </a>
             </section>
@@ -888,7 +888,7 @@ export function SourceMapTopSlice({ selectedId, onSelect }: { selectedId?: strin
         return (
           <section key={route.key} className={className}>
             {content}
-            <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-[#2383e2] hover:underline" href={route.href}>
+            <a className="mt-2 inline-flex min-h-[26px] items-center text-[12px] font-extrabold text-brand-text-blue hover:underline" href={route.href}>
               {route.linkLabel}
             </a>
           </section>
