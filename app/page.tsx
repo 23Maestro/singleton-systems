@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, ClipboardText, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
+import { CheckCircle, Clock, ClipboardText, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import BookQuickChatButton from "@/components/BookQuickChatButton";
 import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
 import PortfolioShowcase, { type PortfolioTab } from "@/components/PortfolioShowcase";
@@ -225,7 +225,16 @@ function RecruitingSignalIcon({ label }: { label: (typeof recruitingPortfolioPan
   }
 
   if (label === "Action") {
-    return <ClipboardText size={28} weight="bold" color="#050505" aria-hidden="true" />;
+    // Compound glyph: base ClipboardText + nested status badge, matching the
+    // notion-style corner-badge detail used across the "what I fix" icons.
+    return (
+      <span className="relative inline-flex h-7 w-7" aria-hidden="true">
+        <ClipboardText size={28} weight="bold" color="#050505" />
+        <span className="absolute -bottom-1 -right-1.5 inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border-[1.75px] border-black bg-[#dff2ff]">
+          <CheckCircle size={11} weight="fill" color="#050505" />
+        </span>
+      </span>
+    );
   }
 
   return <ShieldCheck size={28} weight="bold" color="#050505" aria-hidden="true" />;
