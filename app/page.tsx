@@ -41,7 +41,7 @@ const jsonLd = [
       "@id": `${siteUrl}/#person`,
     },
     description: siteDescription,
-    logo: `${siteUrl}/singleton-systems-official.svg`,
+    logo: `${siteUrl}/brand/ssystems-logo-wordmark-black-2640x1040.png`,
   },
   {
     "@context": "https://schema.org",
@@ -846,7 +846,7 @@ export default function Page() {
               href={CAL_URL}
               className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:hidden"
             >
-              Book a Flow Check
+              Book a Workflow Session
             </a>
             <BookQuickChatButton className="hidden min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:inline-flex" />
             <a
@@ -1084,14 +1084,14 @@ export default function Page() {
             Let&apos;s check out <em className="font-bold text-brand-text-green drop-shadow-[0_0_12px_rgba(37,194,102,0.42)]">your</em> flow.
           </h2>
           <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
-            Book a Flow Check or tell me what you wish AI could help you do.
+            Book a Workflow Session or tell me what you wish AI could help you do.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-2.5 sm:flex-row">
             <a
               href={CAL_URL}
               className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:hidden"
             >
-              Book a Flow Check
+              Book a Workflow Session
             </a>
             <BookQuickChatButton className="hidden min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:inline-flex" />
             <a

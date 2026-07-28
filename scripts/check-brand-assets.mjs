@@ -80,4 +80,48 @@ assert.ok(
   `${REFERENCE_PNG} is missing — it is the reference render for the wordmark`
 );
 
-console.log(`brand assets OK — ${WORDMARKS.length} wordmarks are outlined, font-free, and locked to ${EXPECTED_VIEWBOX}`);
+/**
+ * Every logo reference in the app must resolve to an approved asset.
+ *
+ * public/singleton-systems-official.svg was a 374 KB file with 8 embedded
+ * raster images, removed 2026-07-28. A page was repointed at it during the same
+ * window the wordmark drifted, which is how a second, unguarded logo ended up
+ * on a live surface. Only the assets listed here are allowed.
+ */
+const APPROVED = new Set([
+  "/singleton-systems-wordmark.svg",
+  "/brand/ssystems-logo-wordmark-black-2640x1040.png",
+  "/brand/ssystems-logo-wordmark-white-2640x1040.png",
+]);
+
+function walk(dir) {
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...walk(full));
+    else if (/\.(tsx?|jsx?)$/.test(entry.name)) out.push(full);
+  }
+  return out;
+}
+
+const sources = [path.join(root, "app"), path.join(root, "components")]
+  .filter((d) => fs.existsSync(d))
+  .flatMap(walk);
+
+let referenceCount = 0;
+for (const file of sources) {
+  const code = fs.readFileSync(file, "utf8");
+  for (const [, ref] of code.matchAll(/["'`](\/[\w./-]*(?:logo|wordmark|singleton-systems)[\w./-]*\.(?:svg|png))["'`]/gi)) {
+    referenceCount += 1;
+    assert.ok(
+      APPROVED.has(ref),
+      `${path.relative(root, file)} references "${ref}", which is not an approved logo asset.\n` +
+        `  Approved: ${[...APPROVED].join(", ")}`
+    );
+  }
+}
+
+console.log(
+  `brand assets OK — ${WORDMARKS.length} wordmarks outlined, font-free, locked to ${EXPECTED_VIEWBOX}; ` +
+    `${referenceCount} logo references all resolve to approved assets`
+);
