@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "npm run decision-maps:sync && npm run check:cerebral",
+    "prebuild": "npm run decision-maps:sync && npm run check:cerebral && npm run check:brand",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "npm run check:drift && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:cerebral:registry",
+    "test": "npm run check:drift && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:cerebral:registry && npm run check:brand",
     "check:drift": "node scripts/check-opportunity-hq-drift.mjs",
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
     "check:cerebral:hook-routing": "node scripts/check-cerebral-hook-routing.mjs",
@@ -59,7 +59,8 @@
     "remotion:scene-two:assets": "node scripts/export-scene-2-remotion-assets.mjs",
     "blender:scene-two:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_2_starvation_phase.py",
     "remotion:scene-three:assets": "node scripts/export-scene-3-remotion-assets.mjs",
-    "blender:scene-three:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_3_food_mania.py"
+    "blender:scene-three:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_3_food_mania.py",
+    "check:brand": "node scripts/check-brand-assets.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
