@@ -27,14 +27,14 @@ const linkGroups = [
         iconClassName: "text-[#8a6d3b] drop-shadow-[0_3px_7px_rgba(138,109,59,0.2)] dark:text-[#e4d5bd] dark:drop-shadow-[0_3px_7px_rgba(228,213,189,0.42)]",
       },
       {
-        label: "Book a Flow Check",
+        label: "Book a Workflow Session",
         href: "https://cal.com/workflow-chat/15min",
         icon: "calendar",
         iconClassName: "text-[#4d7c0f] drop-shadow-[0_3px_7px_rgba(77,124,15,0.2)] dark:text-[#b7e36f] dark:drop-shadow-[0_3px_7px_rgba(183,227,111,0.42)]",
       },
       {
-        label: "Send Details First",
-        href: "https://tally.so/r/obgLaX",
+        label: "AI Workflow Session Form",
+        href: "/ai-workflow-session",
         icon: "note",
         iconClassName: "text-[#2563eb] drop-shadow-[0_3px_7px_rgba(37,99,235,0.2)] dark:text-[#8bbcf8] dark:drop-shadow-[0_3px_7px_rgba(139,188,248,0.42)]",
       },
@@ -188,8 +188,8 @@ export default function LinksPage() {
               className="h-auto w-full dark:invert"
             />
           </Link>
-          <p className="mx-auto mt-6 max-w-sm text-center text-sm font-bold leading-tight text-neutral-700 dark:text-neutral-100 sm:text-base">
-            Website | Portfolio | Booking | Socials | GitHub
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm font-bold leading-tight text-neutral-700 dark:text-neutral-100 sm:text-base">
+            Website | Booking | AI Workflow Session Form | Portfolio | Socials | GitHub
           </p>
         </header>
 

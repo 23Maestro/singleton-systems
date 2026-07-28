@@ -24,7 +24,7 @@ export default function BookQuickChatButton({ className }: BookQuickChatButtonPr
         cal("modal", { calLink: CAL_LINK });
       }}
     >
-      Book a Flow Check
+      Book a Workflow Session
     </button>
   );
 }
