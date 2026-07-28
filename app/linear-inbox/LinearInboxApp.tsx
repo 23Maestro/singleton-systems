@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   ArrowSquareUpRight,
   Check,
@@ -8,7 +9,6 @@ import {
   House,
   Keyboard,
   Lightbulb,
-  Link as LinkIcon,
   Paperclip,
   Stack,
   Wrench,
@@ -196,17 +196,17 @@ export default function LinearInboxApp() {
   return (
     <main className="min-h-dvh bg-[#eef3f7] text-[#101820] [color-scheme:light_dark] dark:bg-black dark:text-[#f7f8fa]">
       <section className="relative mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-3 pb-24 pt-[max(16px,env(safe-area-inset-top))] sm:px-6">
-        <header className="sticky top-0 z-10 -mx-3 mb-4 flex items-center gap-3 border-b border-black/5 bg-white/70 px-3 py-3 backdrop-blur-2xl dark:border-white/10 dark:bg-black/50 sm:mx-0 sm:rounded-[24px] sm:border">
-          <Stack size={26} weight="duotone" />
-          <h1 className="text-lg font-semibold">Linear inbox</h1>
+        <header className="sticky top-0 z-10 -mx-3 mb-4 flex items-center gap-3 border-b border-black/10 bg-white px-3 py-3 dark:border-white/10 dark:bg-black sm:mx-0">
+          <Image src="/linear-inbox-icon.svg" alt="" width={26} height={21} priority />
+          <h1 className="font-mono text-lg font-semibold">Linear inbox</h1>
         </header>
 
         {error ? (
-          <div className="mb-4 rounded-2xl border border-[#D9474F]/25 bg-[#D9474F]/10 p-3 text-sm text-[#9f2f36] dark:text-[#ffb6bb]">{error}</div>
+          <div className="mb-4 rounded-xl border border-brand-coral/30 bg-brand-coral/10 p-3 text-sm text-brand-text-coral">{error}</div>
         ) : null}
 
         {loading ? (
-          <div className="h-40 animate-pulse rounded-[24px] border border-white/60 bg-white/55 dark:border-white/10 dark:bg-white/8" />
+          <div className="h-40 animate-pulse rounded-xl border border-black/10 bg-black/5 dark:border-white/10 dark:bg-white/5" />
         ) : (
           <form onSubmit={submit} className="space-y-4">
             <div className="grid grid-cols-2 gap-2">
@@ -215,8 +215,10 @@ export default function LinearInboxApp() {
                   key={action}
                   type="button"
                   onClick={() => setForm({ ...form, action })}
-                  className={`h-11 rounded-2xl text-sm font-semibold capitalize transition ${
-                    form.action === action ? "bg-[#111820] text-white dark:bg-white dark:text-[#101820]" : "border border-black/10 bg-white/60 text-[#607080] dark:border-white/10 dark:bg-white/8 dark:text-[#aeb8c2]"
+                  className={`h-11 rounded-full text-sm font-semibold capitalize transition ${
+                    form.action === action
+                      ? "bg-brand-blue text-white"
+                      : "border-[1.5px] border-black/80 bg-transparent text-[#101820] dark:border-white/80 dark:text-white"
                   }`}
                 >
                   {action}
@@ -232,8 +234,10 @@ export default function LinearInboxApp() {
                     key={candidate.name}
                     type="button"
                     onClick={() => setForm({ ...form, project: candidate.name, labelIds: [] })}
-                    className={`flex items-center gap-2 rounded-2xl border px-3 py-2.5 text-left text-sm transition ${
-                      form.project === candidate.name ? "border-[#2F80ED] bg-[#2F80ED]/10" : "border-black/10 bg-white/60 dark:border-white/10 dark:bg-white/8"
+                    className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 text-left text-sm transition ${
+                      form.project === candidate.name
+                        ? "border-brand-blue bg-brand-blue/10 text-brand-text-blue"
+                        : "border-black/10 bg-white dark:border-white/10 dark:bg-black"
                     }`}
                   >
                     <ProjectIcon icon={candidate.icon} />
@@ -253,7 +257,9 @@ export default function LinearInboxApp() {
                       type="button"
                       onClick={() => setForm({ ...form, template: template.id })}
                       className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-                        form.template === template.id ? "bg-[#2F80ED] text-white" : "border border-black/10 text-[#607080] dark:border-white/10 dark:text-[#aeb8c2]"
+                        form.template === template.id
+                          ? "bg-brand-blue text-white"
+                          : "border-[1.5px] border-black/80 text-[#101820] dark:border-white/80 dark:text-white"
                       }`}
                     >
                       {template.label}
@@ -270,7 +276,7 @@ export default function LinearInboxApp() {
                   value={form.issue}
                   onChange={(event) => setForm({ ...form, issue: event.target.value })}
                   placeholder="23M-142"
-                  className="h-11 w-full rounded-2xl border border-black/10 bg-white px-3 dark:border-white/10 dark:bg-[#0d1624]"
+                  className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 dark:border-white/10 dark:bg-black"
                 />
               </label>
             ) : null}
@@ -280,7 +286,7 @@ export default function LinearInboxApp() {
               <input
                 value={form.title}
                 onChange={(event) => setForm({ ...form, title: event.target.value })}
-                className="h-11 w-full rounded-2xl border border-black/10 bg-white px-3 dark:border-white/10 dark:bg-[#0d1624]"
+                className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 dark:border-white/10 dark:bg-black"
                 autoFocus
               />
             </label>
@@ -291,7 +297,7 @@ export default function LinearInboxApp() {
                 value={form.context}
                 onChange={(event) => setForm({ ...form, context: event.target.value })}
                 rows={3}
-                className="w-full resize-none rounded-2xl border border-black/10 bg-white px-3 py-2 dark:border-white/10 dark:bg-[#0d1624]"
+                className="w-full resize-none rounded-xl border border-black/10 bg-white px-3 py-2 dark:border-white/10 dark:bg-black"
               />
             </label>
 
@@ -301,7 +307,7 @@ export default function LinearInboxApp() {
                 <select
                   value={form.status}
                   onChange={(event) => setForm({ ...form, status: event.target.value })}
-                  className="h-11 w-full rounded-2xl border border-black/10 bg-white px-2 dark:border-white/10 dark:bg-[#0d1624]"
+                  className="h-11 w-full rounded-xl border border-black/10 bg-white px-2 dark:border-white/10 dark:bg-black"
                 >
                   {statuses.map((status) => (
                     <option key={status}>{status}</option>
@@ -314,7 +320,7 @@ export default function LinearInboxApp() {
                   type="date"
                   value={form.dueDate}
                   onChange={(event) => setForm({ ...form, dueDate: event.target.value })}
-                  className="h-11 w-full rounded-2xl border border-black/10 bg-white px-2 dark:border-white/10 dark:bg-[#0d1624]"
+                  className="h-11 w-full rounded-xl border border-black/10 bg-white px-2 dark:border-white/10 dark:bg-black"
                 />
               </label>
             </div>
@@ -336,7 +342,7 @@ export default function LinearInboxApp() {
                           })
                         }
                         className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
-                          active ? "border-[#2F80ED] bg-[#2F80ED]/10 text-[#2F80ED]" : "border-black/10 text-[#607080] dark:border-white/10 dark:text-[#aeb8c2]"
+                          active ? "border-brand-blue bg-brand-blue text-white" : "border-black/10 text-[#607080] dark:border-white/10 dark:text-[#aeb8c2]"
                         }`}
                       >
                         {label.name}
@@ -354,17 +360,14 @@ export default function LinearInboxApp() {
             {draftSources ? <DraftSourcesChip sources={draftSources} /> : null}
 
             <div className="grid grid-cols-2 gap-2">
-              <label className="flex h-11 items-center gap-2 rounded-2xl border border-black/10 bg-white px-3 dark:border-white/10 dark:bg-[#0d1624]">
-                <LinkIcon size={16} />
-                <input
-                  value={form.webLinkUrl}
-                  onChange={(event) => setForm({ ...form, webLinkUrl: event.target.value })}
-                  placeholder="Paste a link"
-                  className="w-full bg-transparent text-sm outline-none"
-                />
-              </label>
-              <label className="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-2xl border border-black/10 bg-white text-sm dark:border-white/10 dark:bg-[#0d1624]">
-                <Paperclip size={16} />
+              <input
+                value={form.webLinkUrl}
+                onChange={(event) => setForm({ ...form, webLinkUrl: event.target.value })}
+                placeholder="Paste a link"
+                className="h-11 w-full rounded-xl border border-black/10 bg-white px-3 text-sm outline-none dark:border-white/10 dark:bg-black"
+              />
+              <label className="flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border-[1.5px] border-black/80 px-3 text-sm dark:border-white/80">
+                <Paperclip size={16} weight="bold" />
                 {file ? file.name : "Attach file"}
                 <input type="file" className="hidden" onChange={(event) => setFile(event.target.files?.[0] || null)} />
               </label>
@@ -372,7 +375,7 @@ export default function LinearInboxApp() {
 
             <button
               disabled={submitting || !form.title.trim() || !form.project}
-              className="h-12 w-full rounded-2xl bg-[#111820] text-sm font-semibold text-white transition disabled:bg-[#9aa1a8] dark:bg-white dark:text-[#101820]"
+              className="h-12 w-full rounded-full bg-[#111820] text-sm font-semibold text-white transition disabled:bg-[#9aa1a8] dark:bg-white dark:text-[#101820]"
             >
               {submitting ? "Creating" : form.action === "new" ? "Create issue" : "Update issue"}
             </button>
