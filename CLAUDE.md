@@ -135,6 +135,15 @@ holds the LikeC4 source (`*.c4` files); `docs/harness/` holds Google Apps
 Script projects managed via `clasp` (see the `gas:*` npm scripts) and are
 their own semi-independent codebases, not part of the Next.js build.
 
+## Writing Rules
+
+Apply to every artifact written from this repo — Linear, GitHub, Notion,
+Supabase, memory, markdown, code comments, filenames, commit messages.
+Canonical source: `docs/harness/README.md` → Writing Rules (drift-checked).
+
+- Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
+- No process commentary in deliverables. State facts and results only.
+
 ## Conventions
 
 - No test framework (Jest/Vitest/etc.) is configured. "Tests" in this repo

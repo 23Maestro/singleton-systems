@@ -39,7 +39,15 @@ const checks = [
   },
   {
     file: skillPath("opportunity-hq-updater"),
-    must: ["## Linear Intake Rules", "Linear Intake:"],
+    must: ["## Linear Intake Rules", "Linear Intake:", "Correction = edit instruction", "No process commentary in deliverables"],
+  },
+  {
+    file: skillPath("wayfinder"),
+    must: ["Correction = edit instruction", "No process commentary in deliverables"],
+  },
+  {
+    file: "docs/harness/README.md",
+    must: ["## Writing Rules", "Correction = edit instruction", "No process commentary in deliverables"],
   },
   {
     file: skillPath("singleton-visualizer"),

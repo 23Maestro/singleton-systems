@@ -27,6 +27,27 @@ LikeC4       -> reviewed architecture
 - Linear holds the active decision and links; GitHub holds durable engineering proof.
 - Supabase stores runtime facts only. It never stores full skill text, templates, or ticket bodies.
 
+## Writing Rules
+
+Apply to every artifact: Linear, GitHub, Notion, Supabase, memory, markdown,
+code comments, filenames, commit messages.
+
+- Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
+- No process commentary in deliverables. State facts and results only.
+
+## Repeatable Skill Source Contract
+
+For SSystems skill or route work:
+
+1. Work from `/Users/singleton23/Documents/Development/singleton-systems`.
+2. Treat `plugins/s-systems` as the canonical source for all registered
+   SSystems skills.
+3. Treat installed Codex and Claude plugin copies as generated outputs only.
+4. Keep Linear work in the `Singleton Systems` project, assigned to Jerami and
+   delegated to Codex when Codex owns the next implementation action.
+5. Run `npm run check:cerebral:registry` before completion. It verifies that the
+   registry and all versioned SSystems skill folders still match.
+
 ## Change Gate
 
 Before adding or changing an artifact, answer:

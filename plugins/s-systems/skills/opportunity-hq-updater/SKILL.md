@@ -38,6 +38,12 @@ Linear Intake: keep raw capture, system decisions, and unselected work in
 Linear. Promote only selected career or delivery work that needs durable
 workflow state.
 
+## Writing Rules
+
+Correction = edit instruction. A correction fixes the artifact silently. Never
+log, quote, or restate the correction itself in output.
+No process commentary in deliverables. State facts and results only.
+
 ## Output
 
 Create or update the smallest task shape needed for the selected work. Keep
