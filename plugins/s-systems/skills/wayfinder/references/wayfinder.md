@@ -1,6 +1,12 @@
-# Wayfinder
+# Wayfinder Reference
 
-Use Wayfinder when a build is too fuzzy or branching for one session.
+Owner: `singleton-systems`
+Canonical source: `plugins/s-systems/skills/wayfinder/SKILL.md`
+Reference: `plugins/s-systems/skills/wayfinder/references/wayfinder.md`
+Generated outputs: installed Codex and Claude copies. Do not edit them as the
+source of truth.
+Validation: `npm run plugins:sync`, `npm run check:cerebral`,
+`npm run check:cerebral:hook-routing`, and `npm run check:cerebral:registry`.
 
 ```text
 GitHub -> map, research, blockers, specs, implementation evidence
@@ -48,16 +54,6 @@ Due: <YYYY-MM-DD or none>
 Next: <one action>
 ```
 
-Use status deliberately:
-
-```text
-Backlog     -> raw capture or parked decision
-Todo        -> accepted next work
-In Progress -> active agent or user work
-In Review   -> waiting for review, proof, or handoff acceptance
-Done        -> observable result is complete
-```
-
 Set a due date only for a real deadline, scheduled review, or dashboard-visible
 follow-up. Do not invent due dates for research or parked ideas.
 
@@ -67,5 +63,4 @@ Do not enable broad GitHub Issues Sync.
 ## Close
 
 Update the child with its outcome, return to the map, then select the next
-unblocked ticket. Create a visual only when it clarifies three or more systems
-or handoffs.
+unblocked ticket. Do not create a visual as part of this workflow.

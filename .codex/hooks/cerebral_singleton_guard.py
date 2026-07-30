@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.parse
 import urllib.request
@@ -42,6 +43,10 @@ EXPLICIT_ROUTE_RE = re.compile(
 TAG_RE = re.compile(r"^\s*\[(route|shape|tools|query)\]\s*(.+?)\s*$", re.I | re.M)
 
 DOCS_SKILLS_RE = re.compile(r"docs/|\.codex/|skills?/|SKILL\.md|hooks?", re.I)
+SHELL_MUTATION_RE = re.compile(
+    r"\b(?:apply_patch|sed\s+-i|perl\s+-pi|cp|mv|tee|truncate)\b|(?:^|\s)(?:>|>>)(?:\s|$)",
+    re.I,
+)
 HTML_VISUAL_RE = re.compile(r"html comp|html artifact|playground|visualizer|diagram|map|png|draw\.io", re.I)
 AUTOMATION_RE = re.compile(r"daemon|background worker|scheduled automation|async loop|runtime container|docker|new database", re.I)
 SOCIAL_RE = re.compile(r"linkedin|instagram|youtube|social|reference|creator|jab|feint|haymaker|zander|aishwarya|gary vee", re.I)
@@ -228,6 +233,34 @@ def stale_owner_hits():
     return hits[:20]
 
 
+def should_run_drift_check(payload):
+    text = tool_text(payload)
+    if not DOCS_SKILLS_RE.search(text):
+        return False
+
+    tool_name = str(payload.get("tool_name") or "")
+    if tool_name in {"apply_patch", "Edit", "Write"}:
+        return True
+    return tool_name == "Bash" and bool(SHELL_MUTATION_RE.search(text))
+
+
+def run_drift_check():
+    root = repo_root()
+    script = os.path.join(root, "scripts/check-opportunity-hq-drift.mjs")
+    result = subprocess.run(
+        [os.environ.get("NODE_BINARY", "node"), script],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        timeout=8,
+        check=False,
+    )
+    if result.returncode == 0:
+        return None
+    details = (result.stderr or result.stdout or "Unknown drift-check failure").strip()
+    return f"Opportunity HQ drift check failed after the write:\n{details}"
+
+
 def emit_block(message):
     print(json.dumps({"continue": False, "stopReason": message, "systemMessage": message}))
 
@@ -252,6 +285,15 @@ def main():
         return
 
     if event == "PostToolUse":
+        if should_run_drift_check(payload):
+            try:
+                drift_error = run_drift_check()
+            except (OSError, subprocess.SubprocessError) as error:
+                drift_error = f"Opportunity HQ drift check could not run after the write: {error}"
+            if drift_error:
+                emit_block(drift_error)
+                return
+
         hits = stale_owner_hits()
         if hits:
             details = "\n".join(hits)

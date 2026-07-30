@@ -18,6 +18,15 @@ function runHook(prompt) {
   });
 }
 
+function runPostTool(toolName, toolInput, env = {}) {
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({ hook_event_name: "PostToolUse", cwd: root, tool_name: toolName, tool_input: toolInput }),
+    encoding: "utf8",
+    env: { ...process.env, ...env },
+  });
+}
+
 for (const route of routes) {
   for (const prompt of [route.example_prompt, `[route] ${route.route_key}\nHandle this request.`]) {
     const result = runHook(prompt);
@@ -66,4 +75,17 @@ assert.doesNotMatch(unrelated.stdout, /s-systems:freelance-gig-proposals/);
 assert.match(unrelated.stdout, /\[next\] No specialized route matched/);
 assert.ok(unrelated.stdout.length < 500, "unmatched prompts must not receive a large policy block");
 
-console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 4 guards.`);
+const enforcedDrift = runPostTool("Edit", {
+  file_path: path.join(root, "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md"),
+});
+assert.equal(enforcedDrift.status, 0, `post-write drift guard exited ${enforcedDrift.status}: ${enforcedDrift.stderr}`);
+
+const blockedDrift = runPostTool(
+  "Edit",
+  { file_path: path.join(root, "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md") },
+  { NODE_BINARY: "/usr/bin/false" },
+);
+assert.match(blockedDrift.stdout, /"continue": false/);
+assert.match(blockedDrift.stdout, /Opportunity HQ drift check failed after the write/);
+
+console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 6 guards.`);

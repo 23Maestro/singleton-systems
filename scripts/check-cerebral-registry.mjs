@@ -8,6 +8,9 @@ const pluginRoot = registry.plugin.source_path;
 const pluginSkillsRoot = path.join(pluginRoot, "skills");
 assert.equal(registry.version, 2);
 assert.ok(registry.source_revision, "registry must declare source_revision");
+assert.equal(pluginRoot, "plugins/s-systems", "SSystems plugin source must stay repo-relative");
+assert.equal(registry.plugin.id, "s-systems@singleton23-local");
+assert.match(registry.plugin.verification_command, /s-systems@singleton23-local/);
 assert.ok(Array.isArray(registry.routes) && registry.routes.length >= 12);
 assert.ok(Array.isArray(registry.skills));
 assert.ok(Array.isArray(registry.capabilities) && registry.capabilities.length >= 4);
@@ -40,12 +43,51 @@ if (fs.existsSync(pluginSkillsRoot)) {
     .sort();
   assert.deepEqual(catalogSkills, pluginSkills, "registry must classify every bundled SSystems skill");
 }
+assert.equal(catalogSkills.length, 14, "registry must classify the 14 active SSystems skills");
 assert.ok(registry.skills.every((skill) => skill.activation === "core"));
+
+const skillNames = new Set(catalogSkills);
+const allowedExternalTools = new Set([
+  "design-canvas",
+  "linear:linear",
+  "paper-desktop:code-to-design",
+  "supabase:supabase",
+]);
+for (const route of registry.routes) {
+  for (const tool of route.required_tools) {
+    if (tool.startsWith("s-systems:")) {
+      const skillName = tool.replace(/^s-systems:/, "") === "eagle"
+        ? "eagle-skill"
+        : tool.replace(/^s-systems:/, "");
+      assert.ok(skillNames.has(skillName), `${route.route_key} requires missing SSystems skill ${tool}`);
+    } else {
+      assert.ok(allowedExternalTools.has(tool), `${route.route_key} requires unclassified external tool ${tool}`);
+    }
+  }
+}
 
 for (const skill of catalogSkills) {
   const text = fs.readFileSync(path.join(pluginSkillsRoot, skill, "SKILL.md"), "utf8");
   assert.doesNotMatch(text, /\]\(\.\.\/\.\.\/\.\.\/docs\//, `${skill} must reference repo docs by canonical path`);
 }
+
+const sourceContractFiles = [
+  "config/cerebral-registry.json",
+  "docs/harness/README.md",
+  "docs/integration-map.md",
+  "plugins/s-systems/README.md",
+  ...catalogSkills.map((skill) => path.join(pluginSkillsRoot, skill, "SKILL.md")),
+];
+for (const file of sourceContractFiles) {
+  const text = fs.readFileSync(path.join(root, file), "utf8");
+  assert.doesNotMatch(text, /\/Users\/singleton23\/plugins\/s-systems/, `${file} must not point at the legacy machine-local source`);
+  assert.doesNotMatch(text, /Prospect Pipeline.*canonical|canonical.*Prospect Pipeline/i, `${file} must not make Prospect Pipeline canonical for SSystems`);
+}
+
+const pluginCapability = registry.capabilities.find((item) => item.capability_key === "s-systems-plugin");
+assert.equal(pluginCapability.path, "plugins/s-systems", "SSystems capability path must stay canonical");
+assert.equal(pluginCapability.status, "verify-on-use", "SSystems plugin install must be verified on use");
+assert.match(pluginCapability.evidence, /versioned repo source is canonical/);
 
 const migration = fs.readFileSync(path.join(root, "supabase/migrations/20260715000000_cerebral_registry.sql"), "utf8");
 for (const table of ["cerebral_routes", "harness_capabilities", "harness_skills", "harness_verification_events"]) {

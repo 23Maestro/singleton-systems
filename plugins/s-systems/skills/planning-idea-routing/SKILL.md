@@ -16,6 +16,9 @@ proof asset -> Eagle
 queryable repeated event -> Supabase only after a read-only design pass
 ```
 
-Return the owner, one-sentence intent, next action, and what must not be
-created. Do not create a project, template, database row, or automation for an
-unclear idea.
+Return only:
+
+```text
+Intent: <one sentence>
+Next: <one action>
+```

@@ -33,7 +33,7 @@
             "type": "command",
             "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
-            "statusMessage": "Checking Cerebral drift guard"
+            "statusMessage": "Checking Cerebral route"
           }
         ]
       }

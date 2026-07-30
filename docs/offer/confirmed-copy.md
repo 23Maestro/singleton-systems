@@ -36,11 +36,11 @@ Curious about AI? Ask me where it can save real time.
 
 Primary CTA:
 
-Book a Flow Check
+Book a Workflow Session
 
 Secondary CTA:
 
-Send Details First
+AI Workflow Session
 
 Booking path:
 
@@ -48,7 +48,7 @@ Desktop opens the Cal popup for `workflow-chat/15min`. Mobile links directly to 
 
 Details path:
 
-Tally link: `https://tally.so/r/obgLaX`
+Native page: `/ai-workflow-session`
 
 ## About Copy
 
@@ -171,15 +171,15 @@ Let's check out your flow.
 
 Subhead:
 
-Book a Flow Check, send a video link, or paste the details.
+Book a Workflow Session, send a video link, or paste the details.
 
 CTA:
 
-Book a Flow Check
+Book a Workflow Session
 
 CTA:
 
-Send Details First
+AI Workflow Session Form
 
 ## Footer Copy
 
