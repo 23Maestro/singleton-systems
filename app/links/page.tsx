@@ -33,7 +33,7 @@ const linkGroups = [
         iconClassName: "text-[#4d7c0f] drop-shadow-[0_3px_7px_rgba(77,124,15,0.2)] dark:text-[#b7e36f] dark:drop-shadow-[0_3px_7px_rgba(183,227,111,0.42)]",
       },
       {
-        label: "AI Workflow Session Form",
+        label: "AI Workflow Session",
         href: "/ai-workflow-session",
         icon: "note",
         iconClassName: "text-[#2563eb] drop-shadow-[0_3px_7px_rgba(37,99,235,0.2)] dark:text-[#8bbcf8] dark:drop-shadow-[0_3px_7px_rgba(139,188,248,0.42)]",
@@ -189,7 +189,7 @@ export default function LinksPage() {
             />
           </Link>
           <p className="mx-auto mt-6 max-w-2xl text-center text-sm font-bold leading-tight text-neutral-700 dark:text-neutral-100 sm:text-base">
-            Website | Booking | AI Workflow Session Form | Portfolio | Socials | GitHub
+            Website | Booking | AI Workflow Session | Portfolio | Socials | GitHub
           </p>
         </header>
 

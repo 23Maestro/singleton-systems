@@ -5,7 +5,7 @@ export const siteName = "Singleton Systems";
 export const founderName = "Jerami Singleton";
 
 export const siteDescription =
-  "Workflow cleanup consulting for creators, coaches, small teams, and service businesses that need clearer systems for files, follow-up, review, delivery, video workflows, and practical AI-assisted work.";
+  "Practical AI workflow consulting for solo operators who want to improve one recurring task at a time.";
 
 export const nicheKeywords = [
   "workflow cleanup consultant",
@@ -21,7 +21,7 @@ export const nicheKeywords = [
   "delivery system cleanup",
 ];
 
-export const serviceName = "Workflow Cleanup and AI-Assisted Video Workflow Consulting";
+export const serviceName = "AI Workflow Consulting for Solo Operators";
 
 export const serviceDescription =
-  "Singleton Systems helps operators, creators, coaches, course teams, and small service businesses turn messy recurring workflows into cleaner reusable systems across intake, files, review, follow-up, delivery, video production, and practical AI-assisted workflow steps.";
+  "Singleton Systems helps solo operators improve one recurring workflow at a time with practical AI-assisted systems for intake, files, review, follow-up, delivery, and repeat work.";

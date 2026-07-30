@@ -4,7 +4,6 @@ import { CheckCircle, Clock, ClipboardText, ShieldCheck } from "@phosphor-icons/
 import BookQuickChatButton from "@/components/BookQuickChatButton";
 import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
 import PortfolioShowcase, { type PortfolioTab } from "@/components/PortfolioShowcase";
-import RotatingHeroHeadline from "@/components/RotatingHeroHeadline";
 import { founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
 
 const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
@@ -768,13 +767,7 @@ export default function Page() {
           <a className="transition hover:text-black" href="#how-it-works">
             How It Works
           </a>
-          <a className="transition hover:text-black" href="#book">
-            Book
-          </a>
         </nav>
-        <BookQuickChatButton
-          className="hidden rounded-full bg-black px-5 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-neutral-800 md:inline-flex"
-        />
         <details className="group relative md:hidden">
           <summary
             className="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full bg-black text-white marker:hidden"
@@ -795,17 +788,18 @@ export default function Page() {
             <a href="#what-i-fix">What I Fix</a>
             <a href="#portfolio">Portfolio</a>
             <a href="#how-it-works">How It Works</a>
-            <a href="#book">Book</a>
           </nav>
         </details>
       </header>
 
       <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
-          <RotatingHeroHeadline />
+          <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem]">
+            Next time should be easier.
+          </h1>
           <div className="mx-auto mt-6">
             <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
-              I help operators and small teams clean up the stuff that slows work down: scattered notes, follow ups, files, and repeat steps.
+              That thing you do the same way every time? I&apos;ll help you get AI on it. We start small on purpose.
             </p>
           </div>
           <div className="mx-auto mt-3">
@@ -838,23 +832,16 @@ export default function Page() {
                   />
                 </svg>
               </span>
-              <span>Curious about AI? Ask me where it can save real time.</span>
+              <span>One repeatable workflow at a time.</span>
             </p>
           </div>
-          <div className="mt-8 flex flex-col items-center justify-center gap-2.5 sm:flex-row">
-            <a
-              href={CAL_URL}
-              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:hidden"
-            >
-              Book a Workflow Session
-            </a>
-            <BookQuickChatButton className="hidden min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800 md:inline-flex" />
-            <a
+          <div className="mt-8 flex items-center justify-center">
+            <Link
               href={AI_WORKFLOW_SESSION_URL}
-              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full border border-neutral-300 bg-white px-6 text-xs font-bold uppercase tracking-[0.13em] text-neutral-950 transition hover:border-neutral-950 hover:bg-neutral-50"
+              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
             >
               AI Workflow Session
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -871,7 +858,9 @@ export default function Page() {
           />
           <div className="px-3 pb-3.5 pt-2.5 text-left sm:px-4">
             <p className="text-base font-semibold tracking-[-0.04em] text-neutral-950">Jerami Singleton</p>
-            <p className="mt-1 text-xs font-medium text-neutral-600 sm:text-sm">CEO of Singleton Systems.</p>
+            <p className="mt-1 text-xs font-medium text-neutral-600 sm:text-sm">
+              1.5 years of computer programming. Self-taught video editor since 2023. Building with AI since 2024.
+            </p>
           </div>
         </div>
       </section>
@@ -1086,7 +1075,7 @@ export default function Page() {
           <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
             Book a Workflow Session or tell me what you wish AI could help you do.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-2.5 sm:flex-row">
+          <div className="mt-10 flex items-center justify-center">
             <a
               href={CAL_URL}
               className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:hidden"
@@ -1094,12 +1083,6 @@ export default function Page() {
               Book a Workflow Session
             </a>
             <BookQuickChatButton className="hidden min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:inline-flex" />
-            <a
-              href={AI_WORKFLOW_SESSION_URL}
-              className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full border border-white/25 bg-transparent px-7 text-sm font-bold uppercase tracking-normal text-white transition hover:border-white/70 hover:bg-white/10"
-            >
-              AI Workflow Session
-            </a>
           </div>
         </div>
       </section>
