@@ -15,6 +15,9 @@ const skillRoots = [
 ];
 
 const allowedResourceDirectories = new Set(["agents", "assets", "references", "scripts"]);
+const skillSpecificResourceDirectories = new Map([
+  ["eagle-skill", new Set(["clients"])],
+]);
 const ignoredNames = new Set([".DS_Store"]);
 
 function walk(directory) {
@@ -47,6 +50,8 @@ function resourcePaths(markdown) {
 
 function checkSkill(skillRoot) {
   const skillFile = path.join(skillRoot, "SKILL.md");
+  const skillName = path.basename(skillRoot);
+  const skillSpecificDirectories = skillSpecificResourceDirectories.get(skillName) ?? new Set();
   assert.ok(fs.existsSync(skillFile), `${skillRoot}: missing SKILL.md`);
   const markdown = fs.readFileSync(skillFile, "utf8");
 
@@ -57,7 +62,7 @@ function checkSkill(skillRoot) {
   for (const entry of fs.readdirSync(skillRoot, { withFileTypes: true })) {
     if (entry.isDirectory()) {
       assert.ok(
-        allowedResourceDirectories.has(entry.name),
+        allowedResourceDirectories.has(entry.name) || skillSpecificDirectories.has(entry.name),
         `${skillRoot}: unsupported resource directory ${entry.name}; use references/, scripts/, or assets/`,
       );
     }
