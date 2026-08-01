@@ -1,0 +1,14 @@
+{
+  "clientSlug": "jacob-hill",
+  "clientCode": "JH",
+  "eagleLibrary": "Content Editor.library",
+  "eagleRootFolderId": "MRU6NJQTDX0YA",
+  "skillsFile": "jacob-hill-lax-skills.jsonl",
+  "driveFolderId": null,
+  "stagingDir": "~/EagleIngestStaging/jacob-hill",
+  "jobs": {
+    "Bulldog Brawl": { "eagleFolderId": "MRU6OOXU3G6IK", "jobCode": "BB" },
+    "Mid-Summer Classic": { "eagleFolderId": "MS90BVEBV6A4E", "jobCode": "MSC" },
+    "Delivery": { "eagleFolderId": "MRUE2KY49FNNF", "jobCode": "DELIVERY", "ingest": false, "note": "client-facing reply drafts, not a play-clip ingest target" }
+  }
+}

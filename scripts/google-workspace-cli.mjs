@@ -22,12 +22,13 @@ const SCOPES = [
   "https://www.googleapis.com/auth/forms.body",
   "https://www.googleapis.com/auth/forms.responses.readonly",
   "https://www.googleapis.com/auth/spreadsheets",
-  "https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/drive.readonly",
   "https://www.googleapis.com/auth/userinfo.email",
   "https://www.googleapis.com/auth/userinfo.profile",
 ];
 
 const command = process.argv[2] || "help";
+const flags = parseFlags(process.argv.slice(3));
 
 async function main() {
   switch (command) {
@@ -44,11 +45,29 @@ async function main() {
     case "chores:repair":
       await repairChores();
       break;
+    case "drive:list-folder":
+      await driveListFolder(flags);
+      break;
+    case "drive:download":
+      await driveDownload(flags);
+      break;
     case "help":
     default:
       printHelp();
       break;
   }
+}
+
+function parseFlags(argv) {
+  const out = {};
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i].startsWith("--")) {
+      const key = argv[i].slice(2);
+      const value = argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[++i] : true;
+      out[key] = value;
+    }
+  }
+  return out;
 }
 
 async function getAuthClient({ forceLogin = false } = {}) {
@@ -82,6 +101,51 @@ async function getAuthClient({ forceLogin = false } = {}) {
   await fs.mkdir(TOKEN_DIR, { recursive: true });
   await fs.writeFile(TOKEN_FILE, JSON.stringify(authedClient.credentials, null, 2));
   return authedClient;
+}
+
+async function driveListFolder(flags) {
+  if (!flags["folder-id"]) {
+    throw new Error("drive:list-folder requires --folder-id <id>");
+  }
+  const auth = await getAuthClient();
+  const drive = google.drive({ version: "v3", auth });
+  const files = [];
+  let pageToken;
+  do {
+    const { data } = await drive.files.list({
+      q: `'${flags["folder-id"]}' in parents and trashed = false`,
+      fields: "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
+      pageSize: 200,
+      pageToken,
+    });
+    files.push(...(data.files ?? []));
+    pageToken = data.nextPageToken;
+  } while (pageToken);
+  console.log(JSON.stringify({ files }, null, 2));
+}
+
+async function driveDownload(flags) {
+  if (!flags["file-id"] || !flags.dest) {
+    throw new Error("drive:download requires --file-id <id> --dest <localPath>");
+  }
+  const auth = await getAuthClient();
+  const drive = google.drive({ version: "v3", auth });
+  const { data: meta } = await drive.files.get({
+    fileId: flags["file-id"],
+    fields: "id, name, mimeType",
+  });
+  if (meta.mimeType?.startsWith("application/vnd.google-apps.")) {
+    throw new Error(
+      `File "${meta.name}" is a native Google Doc/Sheet/Slide (${meta.mimeType}) - export it manually, this command only downloads binary media files.`
+    );
+  }
+  const res = await drive.files.get(
+    { fileId: flags["file-id"], alt: "media" },
+    { responseType: "arraybuffer" }
+  );
+  await fs.mkdir(path.dirname(flags.dest), { recursive: true });
+  await fs.writeFile(flags.dest, Buffer.from(res.data));
+  console.log(JSON.stringify({ downloaded: flags.dest, name: meta.name }, null, 2));
 }
 
 async function printWhoami() {
@@ -645,6 +709,10 @@ Commands:
   npm run gws:whoami        Print the authenticated Google user
   npm run gws:chores:setup  Create Personal Ops Chores Sheet and Form
   npm run gws:chores:repair Repair the existing Chores/Home Tasks source contract
+  node scripts/google-workspace-cli.mjs drive:list-folder --folder-id <id>
+                            List files in a Drive folder (read-only, id/name/mimeType/modifiedTime/size)
+  node scripts/google-workspace-cli.mjs drive:download --file-id <id> --dest <path>
+                            Download a binary Drive file to a local path (read-only, never mutates Drive)
 
 Before auth:
   1. Enable Google Forms API, Google Sheets API, and Google Drive API.

@@ -1,8 +1,8 @@
 # Wayfinder Reference
 
 Owner: `singleton-systems`
-Canonical source: `plugins/s-systems/skills/wayfinder/SKILL.md`
-Reference: `plugins/s-systems/skills/wayfinder/references/wayfinder.md`
+Canonical source: this bundled skill folder
+Reference: `references/wayfinder.md`
 Generated outputs: installed Codex and Claude copies. Do not edit them as the
 source of truth.
 Validation: `npm run plugins:sync`, `npm run check:cerebral`,

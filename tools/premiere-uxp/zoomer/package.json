@@ -1,0 +1,12 @@
+{
+  "name": "singleton-premiere-zoomer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Premiere Pro UXP panel for designed talking-head zoom presets.",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --format=iife --platform=browser --external:premierepro --outfile=dist/main.js",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": { "esbuild": "0.25.8" }
+}

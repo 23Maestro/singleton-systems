@@ -1,76 +1,29 @@
 ---
 name: html-playground
-description: Creates interactive HTML playgrounds — self-contained single-file explorers that let users configure something visually through controls, see a live preview, and copy out a prompt. Use when the user asks to make a playground, explorer, or interactive tool for a topic.
+description: Create a self-contained interactive HTML explorer with controls, live preview, and a review prompt.
 ---
 
-# Playground Builder
+# HTML Playground
 
-A playground is a self-contained HTML file with interactive controls on one side, a live preview on the other, and a prompt output at the bottom with a copy button. The user adjusts controls, explores visually, then copies the generated prompt back into Claude.
+Use for an interactive playground, explorer, or visual review surface.
 
-## When to use this skill
+1. Read `references/base-playground-scaffold.md`.
+2. Read the closest lane reference:
+   - `references/design-playground.md`
+   - `references/data-explorer.md`
+   - `references/concept-map.md`
+   - `references/document-critique.md`
+   - `references/diff-review.md`
+   - `references/code-map.md`
+3. Adapt the lane to the request and write one dated, self-contained HTML file.
+4. Open the result in the browser after verification.
 
-When the user asks for an interactive playground, explorer, or visual tool for a topic — especially when the input space is large, visual, or structural and hard to express as plain text.
+Every playground must use inline CSS and JavaScript, a useful first-load state,
+3-5 cohesive presets, immediate control-to-preview updates, natural-language
+prompt output, and a copy button with visible feedback. Keep the review surface
+readable: large type, few meaningful nodes, and no crowded inventory.
 
-## How to use this skill
+Keep one state object and one defaults object. Every control updates state and
+calls one render path that refreshes controls, preview, and prompt output.
 
-1. **Identify the playground type** from the user's request
-2. **Load the matching template** from `templates/`:
-   - `templates/design-playground.md` — Visual design decisions (components, layouts, spacing, color, typography)
-   - `templates/data-explorer.md` — Data and query building (SQL, APIs, pipelines, regex)
-   - `templates/concept-map.md` — Learning and exploration (concept maps, knowledge gaps, scope mapping)
-   - `templates/document-critique.md` — Document review (suggestions with approve/reject/comment workflow)
-   - `templates/diff-review.md` — Code review (git diffs, commits, PRs with line-by-line commenting)
-   - `templates/code-map.md` — Codebase architecture (component relationships, data flow, layer diagrams)
-3. **Follow the template** to build the playground. If the topic doesn't fit any template cleanly, use the one closest and adapt.
-4. **Open in browser.** After writing the HTML file, run `open <filename>.html` to launch it in the user's default browser.
-
-## Core requirements (every playground)
-
-- **Single HTML file.** Inline all CSS and JS. No external dependencies.
-- **Live preview.** Updates instantly on every control change. No "Apply" button.
-- **Prompt output.** Natural language, not a value dump. Only mentions non-default choices. Includes enough context to act on without seeing the playground. Updates live.
-- **Copy button.** Clipboard copy with brief "Copied!" feedback.
-- **Sensible defaults + presets.** Looks good on first load. Include 3-5 named presets that snap all controls to a cohesive combination.
-- **Dark theme.** System font for UI, monospace for code/values. Minimal chrome.
-
-## State management pattern
-
-Keep a single state object. Every control writes to it, every render reads from it.
-
-```javascript
-const state = { /* all configurable values */ };
-
-function updateAll() {
-  renderPreview(); // update the visual
-  updatePrompt();  // rebuild the prompt text
-}
-// Every control calls updateAll() on change
-```
-
-## Prompt output pattern
-
-```javascript
-function updatePrompt() {
-  const parts = [];
-
-  // Only mention non-default values
-  if (state.borderRadius !== DEFAULTS.borderRadius) {
-    parts.push(`border-radius of ${state.borderRadius}px`);
-  }
-
-  // Use qualitative language alongside numbers
-  if (state.shadowBlur > 16) parts.push('a pronounced shadow');
-  else if (state.shadowBlur > 0) parts.push('a subtle shadow');
-
-  prompt.textContent = `Update the card to use ${parts.join(', ')}.`;
-}
-```
-
-## Common mistakes to avoid
-
-- Prompt output is just a value dump → write it as a natural instruction
-- Too many controls at once → group by concern, hide advanced in a collapsible section
-- Preview doesn't update instantly → every control change must trigger immediate re-render
-- No defaults or presets → starts empty or broken on load
-- External dependencies → if CDN is down, playground is dead
-- Prompt lacks context → include enough that it's actionable without the playground
+Use a repository-local HTML verifier when the working repository provides one.

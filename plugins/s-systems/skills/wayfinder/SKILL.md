@@ -8,9 +8,8 @@ description: Map a fuzzy or branching build into GitHub evidence, concise Linear
 Use when the destination is unclear, research blocks a decision, or the work
 needs more than one focused session.
 
-Wayfinder is owned by `singleton-systems`. The canonical source is this
-versioned skill folder in `plugins/s-systems`; installed Codex and Claude copies
-are generated outputs, not sources of truth.
+Wayfinder is owned by `singleton-systems`. This bundled skill folder is the
+canonical source; installed Codex and Claude copies are generated outputs.
 
 Read `references/wayfinder.md` for the map, ledger, and closeout shapes.
 
@@ -30,5 +29,6 @@ intent from `references/wayfinder.md`.
 Do not create a flat ticket inventory, a background sync, or a visual unless it
 clarifies a real handoff.
 
-Validate source and mirror changes with `npm run plugins:sync`, then the
-Cerebral checks listed in `docs/harness/README.md`.
+Validate source and mirror changes with `npm run plugins:sync`, then run
+`npm run check:cerebral`, `npm run check:cerebral:hook-routing`, and
+`npm run check:cerebral:registry` from the source repository.

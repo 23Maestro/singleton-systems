@@ -1,0 +1,17 @@
+{
+  "id": "com.singletonsystems.premiere.zoomer",
+  "name": "Zoom Motion",
+  "version": "0.1.0",
+  "manifestVersion": 5,
+  "main": "index.html",
+  "host": { "app": "premierepro", "minVersion": "25.6.0" },
+  "entrypoints": [{
+    "id": "zoomer-panel",
+    "type": "panel",
+    "label": { "default": "Zoom Motion" },
+    "minimumSize": { "width": 320, "height": 420 },
+    "preferredDockedSize": { "width": 390, "height": 680 },
+    "preferredFloatingSize": { "width": 440, "height": 720 }
+  }],
+  "requiredPermissions": { "localFileSystem": "request" }
+}

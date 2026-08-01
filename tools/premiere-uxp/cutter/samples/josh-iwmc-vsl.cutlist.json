@@ -1,0 +1,1240 @@
+{
+ "version": 1,
+ "source": {
+  "name": "2026-07-29_josh-sayer_vsl_Descript.mp4",
+  "duration": 1571.836938,
+  "fps": 29.97002997002997
+ },
+ "removals": [
+  {
+   "start": 58.766,
+   "end": 73.31,
+   "kind": "gap",
+   "note": "dead air 15.32s -> 0.78s"
+  },
+  {
+   "start": 80.13,
+   "end": 81.3,
+   "kind": "gap",
+   "note": "dead air 1.51s -> 0.34s"
+  },
+  {
+   "start": 89.76,
+   "end": 90.829,
+   "kind": "gap",
+   "note": "dead air 1.41s -> 0.34s"
+  },
+  {
+   "start": 98.085,
+   "end": 102.395,
+   "kind": "gap",
+   "note": "dead air 4.86s -> 0.55s"
+  },
+  {
+   "start": 109.32,
+   "end": 119.208,
+   "kind": "gap",
+   "note": "dead air 10.67s -> 0.78s"
+  },
+  {
+   "start": 129.607,
+   "end": 130.838,
+   "kind": "gap",
+   "note": "dead air 1.57s -> 0.34s"
+  },
+  {
+   "start": 135.213,
+   "end": 140.217,
+   "kind": "gap",
+   "note": "dead air 5.55s -> 0.55s"
+  },
+  {
+   "start": 140.288,
+   "end": 142.144,
+   "kind": "cue",
+   "note": "Here's, here's the problem."
+  },
+  {
+   "start": 142.292,
+   "end": 142.931,
+   "kind": "gap",
+   "note": "dead air 0.98s -> 0.34s"
+  },
+  {
+   "start": 142.976,
+   "end": 143.68,
+   "kind": "span",
+   "note": "Here's the p- | in: Here's the p- here's the problem that I "
+  },
+  {
+   "start": 153.951,
+   "end": 155.141,
+   "kind": "gap",
+   "note": "dead air 1.53s -> 0.34s"
+  },
+  {
+   "start": 166.836,
+   "end": 168.486,
+   "kind": "gap",
+   "note": "dead air 2.20s -> 0.55s"
+  },
+  {
+   "start": 168.64,
+   "end": 169.856,
+   "kind": "span",
+   "note": "everything s- | in: everything s- everything stops."
+  },
+  {
+   "start": 171.461,
+   "end": 172.161,
+   "kind": "gap",
+   "note": "dead air 1.04s -> 0.34s"
+  },
+  {
+   "start": 177.152,
+   "end": 179.264,
+   "kind": "span",
+   "note": "close a lead into a deal, | in: close a lead into a deal, close a lead i"
+  },
+  {
+   "start": 196.544,
+   "end": 200.32,
+   "kind": "span",
+   "note": ", to produce one qualified real listing | in: of dialing to produce one listing, to pr"
+  },
+  {
+   "start": 205.687,
+   "end": 207.195,
+   "kind": "gap",
+   "note": "dead air 2.06s -> 0.55s"
+  },
+  {
+   "start": 210.785,
+   "end": 212.795,
+   "kind": "gap",
+   "note": "dead air 2.56s -> 0.55s"
+  },
+  {
+   "start": 223.659,
+   "end": 224.67,
+   "kind": "gap",
+   "note": "dead air 1.35s -> 0.34s"
+  },
+  {
+   "start": 227.904,
+   "end": 229.568,
+   "kind": "cue",
+   "note": "They, they really don't, I promise you."
+  },
+  {
+   "start": 229.7,
+   "end": 230.17,
+   "kind": "gap",
+   "note": "dead air 0.81s -> 0.34s"
+  },
+  {
+   "start": 234.432,
+   "end": 236.769,
+   "kind": "cue",
+   "note": "\"Well, Facebook ads, they just don't work."
+  },
+  {
+   "start": 238.694,
+   "end": 240.451,
+   "kind": "gap",
+   "note": "dead air 2.31s -> 0.55s"
+  },
+  {
+   "start": 246.464,
+   "end": 246.976,
+   "kind": "span",
+   "note": "and, | in: If you've tried online leads before and,"
+  },
+  {
+   "start": 251.584,
+   "end": 253.184,
+   "kind": "cue",
+   "note": "The setup failed."
+  },
+  {
+   "start": 260.861,
+   "end": 264.259,
+   "kind": "gap",
+   "note": "dead air 3.95s -> 0.55s"
+  },
+  {
+   "start": 267.939,
+   "end": 269.439,
+   "kind": "gap",
+   "note": "dead air 2.05s -> 0.55s"
+  },
+  {
+   "start": 274.454,
+   "end": 278.016,
+   "kind": "gap",
+   "note": "dead air 1.81s -> 0.34s"
+  },
+  {
+   "start": 285.864,
+   "end": 286.693,
+   "kind": "gap",
+   "note": "dead air 1.17s -> 0.34s"
+  },
+  {
+   "start": 293.888,
+   "end": 294.272,
+   "kind": "span",
+   "note": "back- | in: back- with a branded backdrop."
+  },
+  {
+   "start": 300.013,
+   "end": 300.614,
+   "kind": "gap",
+   "note": "dead air 0.94s -> 0.34s"
+  },
+  {
+   "start": 303.488,
+   "end": 304.163,
+   "kind": "span",
+   "note": ", so he did so | in: From the beginning, I told him he needed"
+  },
+  {
+   "start": 323.854,
+   "end": 324.463,
+   "kind": "gap",
+   "note": "dead air 0.95s -> 0.34s"
+  },
+  {
+   "start": 331.664,
+   "end": 332.843,
+   "kind": "gap",
+   "note": "dead air 1.52s -> 0.34s"
+  },
+  {
+   "start": 340.908,
+   "end": 343.859,
+   "kind": "gap",
+   "note": "dead air 3.50s -> 0.55s"
+  },
+  {
+   "start": 343.936,
+   "end": 345.728,
+   "kind": "span",
+   "note": "a house that needs work that they don't, | in: a house that needs work that they don't,"
+  },
+  {
+   "start": 363.84,
+   "end": 366.033,
+   "kind": "cue",
+   "note": "Motivated sellers will price"
+  },
+  {
+   "start": 366.423,
+   "end": 373.576,
+   "kind": "gap",
+   "note": "dead air 7.93s -> 0.78s"
+  },
+  {
+   "start": 390.675,
+   "end": 391.236,
+   "kind": "gap",
+   "note": "dead air 0.90s -> 0.34s"
+  },
+  {
+   "start": 395.331,
+   "end": 396.997,
+   "kind": "gap",
+   "note": "dead air 2.22s -> 0.55s"
+  },
+  {
+   "start": 402.152,
+   "end": 411.592,
+   "kind": "gap",
+   "note": "dead air 10.22s -> 0.78s"
+  },
+  {
+   "start": 417.217,
+   "end": 419.451,
+   "kind": "gap",
+   "note": "dead air 2.78s -> 0.55s"
+  },
+  {
+   "start": 419.648,
+   "end": 420.096,
+   "kind": "span",
+   "note": "So m- | in: So m- so I'm gonna actually teach it to "
+  },
+  {
+   "start": 428.946,
+   "end": 430.445,
+   "kind": "gap",
+   "note": "dead air 1.84s -> 0.34s"
+  },
+  {
+   "start": 436.135,
+   "end": 437.695,
+   "kind": "gap",
+   "note": "dead air 1.90s -> 0.34s"
+  },
+  {
+   "start": 442.77,
+   "end": 447.744,
+   "kind": "gap",
+   "note": "dead air 2.22s -> 0.55s"
+  },
+  {
+   "start": 447.786,
+   "end": 448.345,
+   "kind": "gap",
+   "note": "dead air 0.90s -> 0.34s"
+  },
+  {
+   "start": 453.504,
+   "end": 454.528,
+   "kind": "span",
+   "note": "If they're not, | in: If they're not, if they're not the owner"
+  },
+  {
+   "start": 459.136,
+   "end": 459.456,
+   "kind": "span",
+   "note": "What-- | in: What-- If their timeline is more than si"
+  },
+  {
+   "start": 463.872,
+   "end": 464.704,
+   "kind": "cue",
+   "note": "Are you\u2026"
+  },
+  {
+   "start": 471.545,
+   "end": 472.055,
+   "kind": "gap",
+   "note": "dead air 0.85s -> 0.34s"
+  },
+  {
+   "start": 474.048,
+   "end": 476.935,
+   "kind": "cue",
+   "note": "You know, that could be an ethics lawsuit."
+  },
+  {
+   "start": 487.426,
+   "end": 488.516,
+   "kind": "gap",
+   "note": "dead air 1.43s -> 0.34s"
+  },
+  {
+   "start": 495.808,
+   "end": 498.368,
+   "kind": "cue",
+   "note": "At question three, the person who answers"
+  },
+  {
+   "start": 498.685,
+   "end": 504.411,
+   "kind": "gap",
+   "note": "dead air 6.51s -> 0.78s"
+  },
+  {
+   "start": 504.64,
+   "end": 506.048,
+   "kind": "span",
+   "note": "quit at question thr- | in: quit at question thr- quit at question t"
+  },
+  {
+   "start": 514.011,
+   "end": 515.191,
+   "kind": "gap",
+   "note": "dead air 1.52s -> 0.34s"
+  },
+  {
+   "start": 520.487,
+   "end": 525.238,
+   "kind": "gap",
+   "note": "dead air 5.30s -> 0.55s"
+  },
+  {
+   "start": 537.664,
+   "end": 540.083,
+   "kind": "cue",
+   "note": "numbers and Mickey Mouse."
+  },
+  {
+   "start": 551.753,
+   "end": 552.683,
+   "kind": "gap",
+   "note": "dead air 1.27s -> 0.34s"
+  },
+  {
+   "start": 554.338,
+   "end": 556.347,
+   "kind": "gap",
+   "note": "dead air 2.56s -> 0.55s"
+  },
+  {
+   "start": 564.757,
+   "end": 568.386,
+   "kind": "gap",
+   "note": "dead air 4.18s -> 0.55s"
+  },
+  {
+   "start": 570.944,
+   "end": 573.568,
+   "kind": "cue",
+   "note": "He said, \"If I answer all those call\u2026\""
+  },
+  {
+   "start": 573.632,
+   "end": 574.442,
+   "kind": "gap",
+   "note": "dead air 1.15s -> 0.34s"
+  },
+  {
+   "start": 582.757,
+   "end": 584.603,
+   "kind": "gap",
+   "note": "dead air 2.40s -> 0.55s"
+  },
+  {
+   "start": 588.736,
+   "end": 590.208,
+   "kind": "span",
+   "note": "you already n- | in: So when a lead hits your phone, you alre"
+  },
+  {
+   "start": 592.832,
+   "end": 595.072,
+   "kind": "span",
+   "note": "it's a property type you can sell, | in: the property, it's a property type you c"
+  },
+  {
+   "start": 612.957,
+   "end": 623.504,
+   "kind": "gap",
+   "note": "dead air 11.33s -> 0.78s"
+  },
+  {
+   "start": 627.712,
+   "end": 631.232,
+   "kind": "span",
+   "note": "it's worth more than everything else I'll say, and | in: it's worth more than everything else I'l"
+  },
+  {
+   "start": 643.839,
+   "end": 646.331,
+   "kind": "gap",
+   "note": "dead air 3.04s -> 0.55s"
+  },
+  {
+   "start": 653.356,
+   "end": 654.336,
+   "kind": "gap",
+   "note": "dead air 1.32s -> 0.34s"
+  },
+  {
+   "start": 660.096,
+   "end": 664.384,
+   "kind": "cue",
+   "note": "And then, and then you need all these other tools to work those leads "
+  },
+  {
+   "start": 672.226,
+   "end": 673.205,
+   "kind": "gap",
+   "note": "dead air 1.32s -> 0.34s"
+  },
+  {
+   "start": 673.216,
+   "end": 675.52,
+   "kind": "span",
+   "note": "Every unqualified person who get-- | in: Every unqualified person who get-- every"
+  },
+  {
+   "start": 682.506,
+   "end": 683.816,
+   "kind": "gap",
+   "note": "dead air 1.65s -> 0.34s"
+  },
+  {
+   "start": 688.156,
+   "end": 689.296,
+   "kind": "gap",
+   "note": "dead air 1.48s -> 0.34s"
+  },
+  {
+   "start": 689.408,
+   "end": 690.048,
+   "kind": "span",
+   "note": "This is c- | in: This is c- this is called pixel conditio"
+  },
+  {
+   "start": 696.321,
+   "end": 697.851,
+   "kind": "gap",
+   "note": "dead air 2.08s -> 0.55s"
+  },
+  {
+   "start": 718.855,
+   "end": 719.776,
+   "kind": "gap",
+   "note": "dead air 1.26s -> 0.34s"
+  },
+  {
+   "start": 726.826,
+   "end": 728.335,
+   "kind": "gap",
+   "note": "dead air 1.85s -> 0.34s"
+  },
+  {
+   "start": 730.24,
+   "end": 733.12,
+   "kind": "span",
+   "note": ", although you will get | in: We're not chasing the cheapest lead, alt"
+  },
+  {
+   "start": 740.43,
+   "end": 742.593,
+   "kind": "gap",
+   "note": "dead air 2.71s -> 0.55s"
+  },
+  {
+   "start": 742.72,
+   "end": 745.388,
+   "kind": "cue",
+   "note": "And your ad account keeps that intelligence."
+  },
+  {
+   "start": 745.558,
+   "end": 746.228,
+   "kind": "gap",
+   "note": "dead air 1.01s -> 0.34s"
+  },
+  {
+   "start": 753.248,
+   "end": 760.559,
+   "kind": "gap",
+   "note": "dead air 8.09s -> 0.78s"
+  },
+  {
+   "start": 767.854,
+   "end": 769.41,
+   "kind": "gap",
+   "note": "dead air 2.11s -> 0.55s"
+  },
+  {
+   "start": 772.141,
+   "end": 776.847,
+   "kind": "gap",
+   "note": "dead air 5.26s -> 0.55s"
+  },
+  {
+   "start": 783.642,
+   "end": 784.762,
+   "kind": "gap",
+   "note": "dead air 1.46s -> 0.34s"
+  },
+  {
+   "start": 790.331,
+   "end": 791.412,
+   "kind": "gap",
+   "note": "dead air 1.42s -> 0.34s"
+  },
+  {
+   "start": 794.531,
+   "end": 796.012,
+   "kind": "gap",
+   "note": "dead air 1.82s -> 0.34s"
+  },
+  {
+   "start": 799.576,
+   "end": 801.635,
+   "kind": "gap",
+   "note": "dead air 2.61s -> 0.55s"
+  },
+  {
+   "start": 807.45,
+   "end": 808.43,
+   "kind": "gap",
+   "note": "dead air 1.32s -> 0.34s"
+  },
+  {
+   "start": 814.505,
+   "end": 817.051,
+   "kind": "gap",
+   "note": "dead air 3.10s -> 0.55s"
+  },
+  {
+   "start": 821.831,
+   "end": 823.803,
+   "kind": "gap",
+   "note": "dead air 2.52s -> 0.55s"
+  },
+  {
+   "start": 829.898,
+   "end": 830.558,
+   "kind": "gap",
+   "note": "dead air 1.00s -> 0.34s"
+  },
+  {
+   "start": 834.223,
+   "end": 836.251,
+   "kind": "gap",
+   "note": "dead air 2.58s -> 0.55s"
+  },
+  {
+   "start": 842.161,
+   "end": 844.611,
+   "kind": "gap",
+   "note": "dead air 3.00s -> 0.55s"
+  },
+  {
+   "start": 848.64,
+   "end": 853.12,
+   "kind": "cue",
+   "note": "I say on camera that I'll go over every option."
+  },
+  {
+   "start": 856.32,
+   "end": 858.425,
+   "kind": "cue",
+   "note": "So nobody feels switched."
+  },
+  {
+   "start": 862.045,
+   "end": 862.506,
+   "kind": "gap",
+   "note": "dead air 0.80s -> 0.34s"
+  },
+  {
+   "start": 865.85,
+   "end": 867.43,
+   "kind": "gap",
+   "note": "dead air 2.13s -> 0.55s"
+  },
+  {
+   "start": 870.156,
+   "end": 871.086,
+   "kind": "gap",
+   "note": "dead air 1.27s -> 0.34s"
+  },
+  {
+   "start": 873.98,
+   "end": 877.376,
+   "kind": "gap",
+   "note": "dead air 2.53s -> 0.55s"
+  },
+  {
+   "start": 881.968,
+   "end": 883.278,
+   "kind": "gap",
+   "note": "dead air 1.65s -> 0.34s"
+  },
+  {
+   "start": 884.608,
+   "end": 885.248,
+   "kind": "span",
+   "note": "put it or | in: You can wholesale it, put it or put it u"
+  },
+  {
+   "start": 889.588,
+   "end": 891.167,
+   "kind": "gap",
+   "note": "dead air 1.92s -> 0.34s"
+  },
+  {
+   "start": 894.363,
+   "end": 897.023,
+   "kind": "gap",
+   "note": "dead air 3.21s -> 0.55s"
+  },
+  {
+   "start": 901.993,
+   "end": 903.963,
+   "kind": "gap",
+   "note": "dead air 2.52s -> 0.55s"
+  },
+  {
+   "start": 906.088,
+   "end": 907.348,
+   "kind": "gap",
+   "note": "dead air 1.60s -> 0.34s"
+  },
+  {
+   "start": 912.118,
+   "end": 913.618,
+   "kind": "gap",
+   "note": "dead air 1.84s -> 0.34s"
+  },
+  {
+   "start": 920.047,
+   "end": 921.277,
+   "kind": "gap",
+   "note": "dead air 1.57s -> 0.34s"
+  },
+  {
+   "start": 925.467,
+   "end": 926.707,
+   "kind": "gap",
+   "note": "dead air 1.58s -> 0.34s"
+  },
+  {
+   "start": 926.784,
+   "end": 928.576,
+   "kind": "span",
+   "note": "and earned the money that you get ma-- | in: and earned the money that you get ma-- a"
+  },
+  {
+   "start": 930.397,
+   "end": 932.48,
+   "kind": "gap",
+   "note": "dead air 1.08s -> 0.34s"
+  },
+  {
+   "start": 932.663,
+   "end": 937.275,
+   "kind": "gap",
+   "note": "dead air 5.16s -> 0.55s"
+  },
+  {
+   "start": 942.685,
+   "end": 945.275,
+   "kind": "gap",
+   "note": "dead air 3.14s -> 0.55s"
+  },
+  {
+   "start": 954.234,
+   "end": 957.952,
+   "kind": "gap",
+   "note": "dead air 2.19s -> 0.55s"
+  },
+  {
+   "start": 958.08,
+   "end": 958.68,
+   "kind": "gap",
+   "note": "dead air 0.94s -> 0.34s"
+  },
+  {
+   "start": 963.46,
+   "end": 964.52,
+   "kind": "gap",
+   "note": "dead air 1.40s -> 0.34s"
+  },
+  {
+   "start": 970.705,
+   "end": 973.059,
+   "kind": "gap",
+   "note": "dead air 2.90s -> 0.55s"
+  },
+  {
+   "start": 976.429,
+   "end": 978.989,
+   "kind": "gap",
+   "note": "dead air 3.11s -> 0.55s"
+  },
+  {
+   "start": 989.118,
+   "end": 990.843,
+   "kind": "gap",
+   "note": "dead air 2.28s -> 0.55s"
+  },
+  {
+   "start": 991.04,
+   "end": 996.032,
+   "kind": "cue",
+   "note": "That's a, that's a return most agents won't believe until I show them "
+  },
+  {
+   "start": 1003.373,
+   "end": 1008.118,
+   "kind": "gap",
+   "note": "dead air 5.30s -> 0.55s"
+  },
+  {
+   "start": 1016.084,
+   "end": 1016.534,
+   "kind": "gap",
+   "note": "dead air 0.79s -> 0.34s"
+  },
+  {
+   "start": 1032.568,
+   "end": 1034.587,
+   "kind": "gap",
+   "note": "dead air 2.57s -> 0.55s"
+  },
+  {
+   "start": 1038.482,
+   "end": 1040.704,
+   "kind": "gap",
+   "note": "dead air 1.67s -> 0.34s"
+  },
+  {
+   "start": 1042.757,
+   "end": 1045.243,
+   "kind": "gap",
+   "note": "dead air 3.04s -> 0.55s"
+  },
+  {
+   "start": 1046.958,
+   "end": 1047.688,
+   "kind": "gap",
+   "note": "dead air 1.07s -> 0.34s"
+  },
+  {
+   "start": 1057.408,
+   "end": 1061.696,
+   "kind": "cue",
+   "note": "With one move in your business, you've now raised your compensation 60"
+  },
+  {
+   "start": 1066.368,
+   "end": 1069.696,
+   "kind": "span",
+   "note": "need to nearly double their transaction count, wou | in: need to nearly double their transaction "
+  },
+  {
+   "start": 1076.928,
+   "end": 1089.923,
+   "kind": "gap",
+   "note": "dead air 13.78s -> 0.78s"
+  },
+  {
+   "start": 1096.293,
+   "end": 1097.123,
+   "kind": "gap",
+   "note": "dead air 1.17s -> 0.34s"
+  },
+  {
+   "start": 1099.783,
+   "end": 1109.744,
+   "kind": "gap",
+   "note": "dead air 10.74s -> 0.78s"
+  },
+  {
+   "start": 1109.888,
+   "end": 1112.768,
+   "kind": "cue",
+   "note": "Now here's what ex- now here's exactly what I do for you"
+  },
+  {
+   "start": 1113.004,
+   "end": 1121.336,
+   "kind": "gap",
+   "note": "dead air 9.11s -> 0.78s"
+  },
+  {
+   "start": 1127.391,
+   "end": 1129.531,
+   "kind": "gap",
+   "note": "dead air 2.69s -> 0.55s"
+  },
+  {
+   "start": 1129.728,
+   "end": 1130.56,
+   "kind": "span",
+   "note": "your ad, | in: your ad, your ad campaign inside your ow"
+  },
+  {
+   "start": 1134.784,
+   "end": 1136.256,
+   "kind": "span",
+   "note": "your nine-question, | in: your nine-question, your nine-question a"
+  },
+  {
+   "start": 1144.576,
+   "end": 1147.264,
+   "kind": "span",
+   "note": ", your CRM with automated follow, | in: if you want it, with phone validation, y"
+  },
+  {
+   "start": 1149.184,
+   "end": 1149.568,
+   "kind": "span",
+   "note": "every integra- | in: your CRM with automated follow-up, every"
+  },
+  {
+   "start": 1161.851,
+   "end": 1164.781,
+   "kind": "gap",
+   "note": "dead air 3.48s -> 0.55s"
+  },
+  {
+   "start": 1168.511,
+   "end": 1170.523,
+   "kind": "gap",
+   "note": "dead air 2.56s -> 0.55s"
+  },
+  {
+   "start": 1170.624,
+   "end": 1171.584,
+   "kind": "span",
+   "note": "If you already run, | in: If you already run, if you already have "
+  },
+  {
+   "start": 1174.328,
+   "end": 1174.778,
+   "kind": "gap",
+   "note": "dead air 0.79s -> 0.34s"
+  },
+  {
+   "start": 1180.8,
+   "end": 1181.952,
+   "kind": "span",
+   "note": "with 22-- | in: My AI role play bot with 22-- with 60 pl"
+  },
+  {
+   "start": 1185.92,
+   "end": 1186.88,
+   "kind": "span",
+   "note": "My library of, | in: My library of, my library of over 80 wor"
+  },
+  {
+   "start": 1190.727,
+   "end": 1192.247,
+   "kind": "gap",
+   "note": "dead air 1.86s -> 0.34s"
+  },
+  {
+   "start": 1197.12,
+   "end": 1199.488,
+   "kind": "cue",
+   "note": "the cash offer and the listing option."
+  },
+  {
+   "start": 1199.597,
+   "end": 1200.407,
+   "kind": "gap",
+   "note": "dead air 1.15s -> 0.34s"
+  },
+  {
+   "start": 1203.456,
+   "end": 1204.416,
+   "kind": "span",
+   "note": "A weekly, | in: A weekly, a weekly group coaching call, "
+  },
+  {
+   "start": 1206.72,
+   "end": 1208.704,
+   "kind": "span",
+   "note": "a private Slack channel with a d- | in: A weekly, a weekly group coaching call, "
+  },
+  {
+   "start": 1215.853,
+   "end": 1217.523,
+   "kind": "gap",
+   "note": "dead air 2.22s -> 0.55s"
+  },
+  {
+   "start": 1220.747,
+   "end": 1221.297,
+   "kind": "gap",
+   "note": "dead air 0.89s -> 0.34s"
+  },
+  {
+   "start": 1224.972,
+   "end": 1226.841,
+   "kind": "gap",
+   "note": "dead air 2.42s -> 0.55s"
+  },
+  {
+   "start": 1228.896,
+   "end": 1233.088,
+   "kind": "gap",
+   "note": "dead air 1.66s -> 0.34s"
+  },
+  {
+   "start": 1242.22,
+   "end": 1244.155,
+   "kind": "gap",
+   "note": "dead air 2.49s -> 0.55s"
+  },
+  {
+   "start": 1249.41,
+   "end": 1250.94,
+   "kind": "gap",
+   "note": "dead air 1.87s -> 0.34s"
+  },
+  {
+   "start": 1260.259,
+   "end": 1261.899,
+   "kind": "gap",
+   "note": "dead air 1.98s -> 0.34s"
+  },
+  {
+   "start": 1269.26,
+   "end": 1285.559,
+   "kind": "gap",
+   "note": "dead air 17.08s -> 0.78s"
+  },
+  {
+   "start": 1287.329,
+   "end": 1288.68,
+   "kind": "gap",
+   "note": "dead air 1.69s -> 0.34s"
+  },
+  {
+   "start": 1288.704,
+   "end": 1291.328,
+   "kind": "span",
+   "note": "Brandy in Dallas-Fort Worth set-- | in: Brandy in Dallas-Fort Worth set-- Brandy"
+  },
+  {
+   "start": 1297.639,
+   "end": 1298.569,
+   "kind": "gap",
+   "note": "dead air 1.27s -> 0.34s"
+  },
+  {
+   "start": 1308.679,
+   "end": 1309.279,
+   "kind": "gap",
+   "note": "dead air 0.94s -> 0.34s"
+  },
+  {
+   "start": 1312.512,
+   "end": 1315.072,
+   "kind": "cue",
+   "note": "dollar property in about three days"
+  },
+  {
+   "start": 1315.104,
+   "end": 1316.795,
+   "kind": "gap",
+   "note": "dead air 2.24s -> 0.55s"
+  },
+  {
+   "start": 1319.559,
+   "end": 1323.62,
+   "kind": "gap",
+   "note": "dead air 0.77s -> 0.34s"
+  },
+  {
+   "start": 1329.04,
+   "end": 1330.4,
+   "kind": "gap",
+   "note": "dead air 1.70s -> 0.34s"
+  },
+  {
+   "start": 1333.696,
+   "end": 1333.952,
+   "kind": "span",
+   "note": "a- | in: Or three thousand dollars to get started"
+  },
+  {
+   "start": 1339.305,
+   "end": 1341.548,
+   "kind": "gap",
+   "note": "dead air 2.79s -> 0.55s"
+  },
+  {
+   "start": 1341.696,
+   "end": 1346.073,
+   "kind": "cue",
+   "note": "On the split option, half of my payment"
+  },
+  {
+   "start": 1361.216,
+   "end": 1363.136,
+   "kind": "span",
+   "note": "There are no monthly f- | in: close or not There are no monthly f- the"
+  },
+  {
+   "start": 1368.384,
+   "end": 1368.896,
+   "kind": "span",
+   "note": "You-- | in: You-- Your ad spend, usually $30 to $35 "
+  },
+  {
+   "start": 1376.169,
+   "end": 1377.836,
+   "kind": "gap",
+   "note": "dead air 2.22s -> 0.55s"
+  },
+  {
+   "start": 1384.512,
+   "end": 1385.536,
+   "kind": "span",
+   "note": "and you'll keep, | in: and you'll keep, and you'll keep everyth"
+  },
+  {
+   "start": 1388.791,
+   "end": 1399.814,
+   "kind": "gap",
+   "note": "dead air 11.80s -> 0.78s"
+  },
+  {
+   "start": 1401.856,
+   "end": 1406.4,
+   "kind": "cue",
+   "note": "My refund r- my refund rate across every single client is three point "
+  },
+  {
+   "start": 1406.523,
+   "end": 1407.234,
+   "kind": "gap",
+   "note": "dead air 1.05s -> 0.34s"
+  },
+  {
+   "start": 1411.094,
+   "end": 1421.104,
+   "kind": "gap",
+   "note": "dead air 10.79s -> 0.78s"
+  },
+  {
+   "start": 1421.312,
+   "end": 1429.504,
+   "kind": "cue",
+   "note": "My refund rate across every single client I've ever had is three point"
+  },
+  {
+   "start": 1429.644,
+   "end": 1431.034,
+   "kind": "gap",
+   "note": "dead air 1.73s -> 0.34s"
+  },
+  {
+   "start": 1431.168,
+   "end": 1433.664,
+   "kind": "cue",
+   "note": "Now, the-- for the or waiting in the future."
+  },
+  {
+   "start": 1434.112,
+   "end": 1435.2,
+   "kind": "span",
+   "note": "Not because of some, | in: Not because of some, not because of some"
+  },
+  {
+   "start": 1444.343,
+   "end": 1445.493,
+   "kind": "gap",
+   "note": "dead air 1.49s -> 0.34s"
+  },
+  {
+   "start": 1450.193,
+   "end": 1451.723,
+   "kind": "gap",
+   "note": "dead air 1.87s -> 0.34s"
+  },
+  {
+   "start": 1453.318,
+   "end": 1454.888,
+   "kind": "gap",
+   "note": "dead air 2.12s -> 0.55s"
+  },
+  {
+   "start": 1458.843,
+   "end": 1462.513,
+   "kind": "gap",
+   "note": "dead air 1.34s -> 0.34s"
+  },
+  {
+   "start": 1462.784,
+   "end": 1468.736,
+   "kind": "cue",
+   "note": "Right now, right now, almost nobody in your market is-- why"
+  },
+  {
+   "start": 1475.213,
+   "end": 1476.793,
+   "kind": "gap",
+   "note": "dead air 1.92s -> 0.34s"
+  },
+  {
+   "start": 1476.928,
+   "end": 1478.72,
+   "kind": "span",
+   "note": "The same lay-- the same way, | in: The same lay-- the same way, the same wa"
+  },
+  {
+   "start": 1486.353,
+   "end": 1487.173,
+   "kind": "gap",
+   "note": "dead air 1.16s -> 0.34s"
+  },
+  {
+   "start": 1495.764,
+   "end": 1497.6,
+   "kind": "gap",
+   "note": "dead air 1.16s -> 0.34s"
+  },
+  {
+   "start": 1501.309,
+   "end": 1503.963,
+   "kind": "gap",
+   "note": "dead air 3.20s -> 0.55s"
+  },
+  {
+   "start": 1504.192,
+   "end": 1505.088,
+   "kind": "span",
+   "note": "Your choice is, | in: Your choice is, your choice is not wheth"
+  },
+  {
+   "start": 1510.363,
+   "end": 1512.219,
+   "kind": "gap",
+   "note": "dead air 2.41s -> 0.55s"
+  },
+  {
+   "start": 1516.544,
+   "end": 1517.888,
+   "kind": "span",
+   "note": "It asks about your-- | in: It asks about your-- It will ask you abo"
+  },
+  {
+   "start": 1522.049,
+   "end": 1525.005,
+   "kind": "gap",
+   "note": "dead air 3.51s -> 0.55s"
+  },
+  {
+   "start": 1525.056,
+   "end": 1525.888,
+   "kind": "span",
+   "note": "And it takes, uh, | in: And it takes, uh, and it takes about two"
+  },
+  {
+   "start": 1531.456,
+   "end": 1533.44,
+   "kind": "span",
+   "note": "call with, a forty-fi- a | in: call with, a forty-fi- a forty-five minu"
+  },
+  {
+   "start": 1544.194,
+   "end": 1546.54,
+   "kind": "gap",
+   "note": "dead air 2.90s -> 0.55s"
+  },
+  {
+   "start": 1546.752,
+   "end": 1548.672,
+   "kind": "span",
+   "note": "We'll pull up my real a- we'll pull up, | in: We'll pull up my real a- we'll pull up, "
+  },
+  {
+   "start": 1553.746,
+   "end": 1555.385,
+   "kind": "gap",
+   "note": "dead air 1.98s -> 0.34s"
+  },
+  {
+   "start": 1556.864,
+   "end": 1561.205,
+   "kind": "cue",
+   "note": "If you're tired of renting leads and ready to own\u2026"
+  },
+  {
+   "start": 1564.251,
+   "end": 1567.547,
+   "kind": "gap",
+   "note": "dead air 3.85s -> 0.55s"
+  },
+  {
+   "start": 1570.661,
+   "end": 1571.8369,
+   "kind": "tail",
+   "note": "post-roll"
+  }
+ ]
+}

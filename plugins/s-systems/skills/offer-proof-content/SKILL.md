@@ -5,7 +5,7 @@ description: Turn a real proof asset or operator lesson into a concise, offer-al
 
 # Offer Proof Content
 
-Use only with real proof. Read `docs/offer/proof-content-playbook.md` for the
+Use only with real proof. Read `references/proof-content-playbook.md` for the
 working shape and Final Human Pass.
 
 Return:

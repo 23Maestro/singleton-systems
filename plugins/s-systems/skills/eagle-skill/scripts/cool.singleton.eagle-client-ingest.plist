@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>cool.singleton.eagle-client-ingest</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/singleton23/Documents/Development/singleton-systems/plugins/s-systems/skills/eagle-skill/scripts/run-all-clients-ingest.sh</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>900</integer>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>/Users/singleton23/Library/Logs/eagle-client-ingest.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/singleton23/Library/Logs/eagle-client-ingest.log</string>
+</dict>
+</plist>

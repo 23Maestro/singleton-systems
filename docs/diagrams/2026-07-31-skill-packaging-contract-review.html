@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skill Packaging Contract Review · 2026-07-31</title>
+  <style>
+    :root { color-scheme: dark; --bg:#090b10; --panel:#121620; --line:#273044; --text:#f5f7fb; --muted:#aab4c6; --green:#72e6a2; --blue:#79b8ff; --amber:#ffd37a; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:0; background:radial-gradient(circle at 85% 0%,#14243a 0,transparent 34rem),var(--bg); color:var(--text); font:16px/1.5 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    button,select,input { font:inherit; }
+    button,select { color:var(--text); background:#171d29; border:1px solid var(--line); border-radius:10px; }
+    button { padding:.62rem .82rem; cursor:pointer; }
+    button:hover,button:focus-visible,select:focus-visible,input:focus-visible { border-color:var(--blue); outline:none; }
+    main { width:min(1180px,calc(100% - 32px)); margin:24px auto 42px; display:grid; grid-template-columns:260px minmax(0,1fr); gap:18px; }
+    header { grid-column:1/-1; padding:clamp(24px,5vw,56px); border:1px solid var(--line); border-radius:24px; background:linear-gradient(135deg,rgba(18,22,32,.96),rgba(11,15,23,.88)); }
+    .eyebrow { margin:0 0 10px; color:var(--green); text-transform:uppercase; letter-spacing:.14em; font-size:.78rem; font-weight:750; }
+    h1 { margin:0; max-width:850px; padding-bottom:.12em; font-size:clamp(2.25rem,6vw,5.2rem); line-height:1.05; letter-spacing:-.055em; }
+    .lede { max-width:720px; margin:20px 0 0; color:var(--muted); font-size:clamp(1rem,2vw,1.22rem); }
+    .panel { min-width:0; border:1px solid var(--line); border-radius:18px; background:rgba(18,22,32,.92); padding:18px; }
+    .controls { align-self:start; position:sticky; top:18px; }
+    .controls h2,.preview h2,.prompt h2 { margin:0 0 14px; font-size:1rem; letter-spacing:.02em; }
+    label { display:grid; gap:7px; color:var(--muted); font-size:.86rem; margin:0 0 16px; }
+    select { width:100%; padding:.7rem; }
+    input[type="range"] { width:100%; accent-color:var(--green); }
+    .presets { display:grid; gap:8px; }
+    .preset-active { border-color:var(--green); color:var(--green); }
+    .scope-lock { margin:18px 0 0; padding:12px; border-left:3px solid var(--amber); background:#1d1a13; color:#f5dfad; font-size:.85rem; overflow-wrap:anywhere; }
+    .preview { min-height:450px; }
+    .summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+    .metric { min-width:0; padding:14px; border:1px solid var(--line); border-radius:14px; background:#0d1119; }
+    .metric strong { display:block; color:var(--green); font-size:1.55rem; }
+    .metric span { color:var(--muted); font-size:.8rem; overflow-wrap:anywhere; }
+    .cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--gap,12px); }
+    .card { min-width:0; padding:var(--pad,18px); border:1px solid var(--line); border-radius:15px; background:#0d1119; }
+    .card-top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .card h3 { margin:0; font-size:1.02rem; }
+    .status { flex:none; color:var(--green); border:1px solid #2c6f48; background:#102419; padding:3px 8px; border-radius:999px; font-size:.72rem; font-weight:750; text-transform:uppercase; }
+    .card p { margin:10px 0 0; color:var(--muted); overflow-wrap:anywhere; }
+    code { color:#c8ddff; font:0.82em/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; overflow-wrap:anywhere; }
+    .prompt { grid-column:1/-1; }
+    pre { margin:0 0 14px; padding:15px; border:1px solid var(--line); border-radius:12px; background:#090c12; color:#dfe8f7; white-space:pre-wrap; overflow-wrap:anywhere; font:0.88rem/1.55 ui-monospace,SFMono-Regular,Menlo,monospace; }
+    .hidden { display:none; }
+    @media (max-width:760px) { main { grid-template-columns:1fr; width:min(100% - 20px,680px); margin-top:10px; } header,.prompt { grid-column:1; } .controls { position:static; } .summary,.cards { grid-template-columns:1fr; } h1 { font-size:clamp(2.4rem,14vw,4.4rem); } }
+  </style>
+</head>
+<body>
+<main data-playground data-playground-lane="document-critique">
+  <header>
+    <p class="eyebrow">Review surface · 2026-07-31</p>
+    <h1>Skill packaging contract repaired.</h1>
+    <p class="lede">Canonical repo skills now carry their own references. Global, Claude-development, and Codex-cache copies are generated mirrors with parity checks.</p>
+  </header>
+
+  <section class="panel controls" data-controls-panel>
+    <h2>Review controls</h2>
+    <label>Focus
+      <select id="focus" data-control>
+        <option value="all">Everything</option>
+        <option value="html">HTML playground</option>
+        <option value="plugin">SSystems plugin</option>
+        <option value="checks">Verification</option>
+      </select>
+    </label>
+    <label>Density <span id="densityLabel">Balanced</span>
+      <input id="density" data-control type="range" min="1" max="3" value="2" />
+    </label>
+    <div class="presets">
+      <button data-preset="overview">Overview</button>
+      <button data-preset="packaging">Packaging</button>
+      <button data-preset="proof">Proof</button>
+    </div>
+    <p class="scope-lock"><strong>Scope lock:</strong> the client workflow board was not resumed. This file reviews only the packaging repair.</p>
+  </section>
+
+  <section class="panel preview" data-preview-panel>
+    <h2>Release readback</h2>
+    <div data-preview>
+      <div class="summary">
+        <div class="metric"><strong>15</strong><span>canonical skills validated</span></div>
+        <div class="metric"><strong>4</strong><span>generated parity targets</span></div>
+        <div class="metric"><strong>14 + 14</strong><span>Cerebral routes and skills</span></div>
+      </div>
+      <div class="cards" id="cards">
+        <article class="card" data-topic="html">
+          <div class="card-top"><h3>HTML lanes flattened</h3><span class="status">Pass</span></div>
+          <p>Six lane guides and the base scaffold now live directly under <code>references/</code>. The installed skill no longer depends on nested <code>templates/claude-playground/</code>.</p>
+        </article>
+        <article class="card" data-topic="plugin">
+          <div class="card-top"><h3>Bundled references</h3><span class="status">Pass</span></div>
+          <p>Seven SSystems skills stopped pointing at repo-only docs. Wayfinder stays lean and loads <code>references/wayfinder.md</code> beside its installed skill.</p>
+        </article>
+        <article class="card" data-topic="plugin">
+          <div class="card-top"><h3>Fresh cache release</h3><span class="status">Pass</span></div>
+          <p>Codex reinstalled <code>0.2.1+codex.20260731064912</code>. Repo source, local marketplace source, Claude development copy, and installed cache are byte-parity checked.</p>
+        </article>
+        <article class="card" data-topic="checks">
+          <div class="card-top"><h3>Missing-resource validator</h3><span class="status">Pass</span></div>
+          <p>The validator rejects missing skill-relative resources, <code>templates/</code> lanes, machine-local paths, repo-doc dependencies, and canonical-to-installed drift.</p>
+        </article>
+        <article class="card" data-topic="checks">
+          <div class="card-top"><h3>Cerebral guardrails</h3><span class="status">Pass</span></div>
+          <p>Drift, hook routing, registry, Opportunity HQ, stale-name, and installed parity checks passed after synchronization.</p>
+        </article>
+        <article class="card" data-topic="checks">
+          <div class="card-top"><h3>Fresh-session proof</h3><span class="status">Pass</span></div>
+          <p>New Codex sessions loaded the global HTML skill and the cachebusted Wayfinder path, including both first reference files.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel prompt" data-prompt-panel>
+    <h2>Review prompt</h2>
+    <pre data-prompt-output id="promptOutput"></pre>
+    <button data-copy-prompt id="copyButton">Copy review prompt</button>
+  </section>
+</main>
+<script>
+  const defaults = { focus: "all", density: 2 };
+  const state = { ...defaults };
+  const presets = [
+    { name: "Overview", values: { focus: "all", density: 2 } },
+    { name: "Packaging", values: { focus: "plugin", density: 3 } },
+    { name: "Proof", values: { focus: "checks", density: 1 } }
+  ];
+  const focus = document.getElementById("focus");
+  const density = document.getElementById("density");
+  const promptOutput = document.getElementById("promptOutput");
+  const copyButton = document.getElementById("copyButton");
+
+  function renderControls() {
+    focus.value = state.focus;
+    density.value = String(state.density);
+    document.getElementById("densityLabel").textContent = ["Compact", "Balanced", "Detailed"][state.density - 1];
+    document.querySelectorAll("[data-preset]").forEach((button, index) => {
+      const values = presets[index].values;
+      button.classList.toggle("preset-active", values.focus === state.focus && values.density === state.density);
+    });
+  }
+
+  function renderPreview() {
+    document.querySelectorAll("[data-topic]").forEach((card) => {
+      card.classList.toggle("hidden", state.focus !== "all" && card.dataset.topic !== state.focus);
+    });
+    const spacing = { 1:["10px","13px"], 2:["12px","18px"], 3:["16px","24px"] }[state.density];
+    document.getElementById("cards").style.setProperty("--gap", spacing[0]);
+    document.getElementById("cards").style.setProperty("--pad", spacing[1]);
+  }
+
+  function updatePrompt() {
+    const focusName = { all:"the complete repair", html:"the HTML playground flattening", plugin:"the SSystems plugin release", checks:"the verification evidence" }[state.focus];
+    const densityName = ["compact", "balanced", "detailed"][state.density - 1];
+    promptOutput.textContent = `Review ${focusName} at ${densityName} detail. Confirm that the repo copy remains canonical, every installed resource is skill-relative, generated mirrors stay at parity, and the client workflow board remains out of scope.`;
+  }
+
+  function updateAll() { renderControls(); renderPreview(); updatePrompt(); }
+  focus.addEventListener("change", () => { state.focus = focus.value; updateAll(); });
+  density.addEventListener("input", () => { state.density = Number(density.value); updateAll(); });
+  document.querySelectorAll("[data-preset]").forEach((button, index) => button.addEventListener("click", () => { Object.assign(state, presets[index].values); updateAll(); }));
+  copyButton.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(promptOutput.textContent); } catch {}
+    copyButton.dataset.copied = "true";
+    copyButton.textContent = "Copied!";
+    setTimeout(() => { copyButton.textContent = "Copy review prompt"; copyButton.dataset.copied = "false"; }, 1200);
+  });
+  updateAll();
+</script>
+</body>
+</html>

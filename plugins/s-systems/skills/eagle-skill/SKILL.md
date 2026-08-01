@@ -18,5 +18,5 @@ Use `list` to discover tools and `help <tool>` for the exact parameters.
 
 Before a mutation, identify the selected asset and intended metadata change.
 Never use Eagle as task state or a code runtime. For client video asset placement,
-Premiere boundaries, review staging, or Remotion handoff, use
-`docs/portfolio/eagle-client-edit.md` in the Singleton Systems repository.
+Premiere boundaries, review staging, or Remotion handoff, read
+`references/client-edit-boundaries.md`.

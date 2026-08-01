@@ -7,8 +7,7 @@ description: Use for a freelance marketplace post, paid client reply, gig propos
 
 Write like a solo operator: short, specific, and human.
 
-1. Read the post and `docs/offer/freelance-proposal-contract.md` in the
-   Singleton Systems repository.
+1. Read the post and `references/proposal-contract.md`.
 2. Use one direct question, one or two truthful proof anchors, and one clear
    next step. Never restate the post or invent results.
 3. If the job is adjacent, say so and bridge through the real underlying work.

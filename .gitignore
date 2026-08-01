@@ -20,6 +20,7 @@
 .tmp
 .cache
 .playwright-cli
+.playwright-mcp/
 __pycache__/
 *.pyc
 

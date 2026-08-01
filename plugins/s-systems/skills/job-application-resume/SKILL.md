@@ -5,9 +5,7 @@ description: Use for blue-collar or white-collar applications, resume tailoring,
 
 # Job Application Resume
 
-Use the repeatable workflow in
-`docs/resumes/job-application-resume-workflow.md` in the Singleton Systems
-repository.
+Read `references/resume-workflow.md` for the repeatable workflow.
 
 1. Start with the canonical Reactive Resume JSON for resume, experience, or
    career-reference requests. Do not require PDF extraction when that JSON is

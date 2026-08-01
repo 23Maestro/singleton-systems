@@ -8,7 +8,7 @@ description: Create or review a small, verified Singleton Systems map when a vis
 Use LikeC4 for reviewed architecture. Use an HTML comp only for a human review
 that cannot be understood as a short document.
 
-Read `docs/visual-system-contract.md` and `docs/visual-maps/README.md` first.
+Read `references/visual-contract.md` first.
 
 ```text
 Next/Vercel       = active-week review dashboard
