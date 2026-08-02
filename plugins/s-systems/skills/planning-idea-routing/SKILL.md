@@ -10,7 +10,7 @@ Use after capture and before creating work.
 ```text
 Linear Command + Ideas = raw capture, links, and unselected thoughts
 active system plan -> Linear Singleton Systems
-fuzzy or branching build -> GitHub Wayfinder
+fuzzy or branching build -> Linear Wayfinder map
 career task or application state -> Opportunity HQ
 proof asset -> Eagle
 queryable repeated event -> Supabase only after a read-only design pass

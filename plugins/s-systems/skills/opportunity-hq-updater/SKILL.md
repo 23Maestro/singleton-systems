@@ -5,8 +5,8 @@ description: Shape selected client delivery, AI consulting, or portfolio work fo
 
 # Opportunity HQ Updater
 
-Use only after the work is selected. Raw thoughts and system decisions stay in
-Linear; fuzzy implementation belongs in GitHub Wayfinder.
+Use only after the work is selected. Raw thoughts, system decisions, and
+Wayfinder maps stay in Linear; implementation evidence belongs in GitHub.
 
 ## Runtime Route
 

@@ -6,7 +6,7 @@ harder to understand in prose.
 ## Owner Semantics
 
 - Linear: active decision, priority, owner, due date, next move.
-- GitHub: research, blockers, implementation evidence, and specs.
+- GitHub: branches, commits, pull requests, and implementation evidence.
 - Supabase: queryable runtime facts and routing registry.
 - Eagle: proof and client assets.
 - Next/Vercel: active-week review surfaces.

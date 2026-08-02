@@ -5,7 +5,7 @@
 ```text
 unselected thought       -> Linear Command + Ideas
 active system plan       -> Linear Singleton Systems
-fuzzy multi-session work -> GitHub Wayfinder
+fuzzy multi-session work -> Linear Wayfinder map
 runtime/dashboard fact   -> Supabase
 career workflow state    -> Opportunity HQ
 proof or client asset    -> Eagle

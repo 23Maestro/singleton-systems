@@ -5,7 +5,7 @@
 ```text
 1. Cerebral - Routing
 2. Linear - Decisions and Active System Work
-3. GitHub - Research, Specs, and Implementation Evidence
+3. GitHub - Implementation Evidence
 4. Supabase - Queryable Cross-Surface Facts
 5. Next/Vercel - Active Week Dashboard
 6. LikeC4 - Reviewed System Map
@@ -55,18 +55,25 @@ Use this template for a new issue:
 Existing issues receive a short comment or independently actionable subissue;
 do not rewrite their full body.
 
-## 3. GitHub - Research, Specs, and Implementation Evidence
-
-Intent: retain durable engineering context that is too detailed for active
-decision tracking.
-
-Wayfinder starts here when a build is fuzzy or branches. GitHub holds the map,
-research, prototype evidence, spec, dependencies, and PR history. Linear holds
-only the current decision, priority, owner, blocker, and next action.
+Wayfinder maps also live here. A map is one Linear issue, and its named
+decision tickets are sub-issues connected by native blockers. Linear owns the
+map, frontier, assignment, status, priority, and resolution.
 
 ```text
-Wayfinder map -> blocking decisions -> session-sized tickets -> spec -> PR proof
+Wayfinder map -> blocking decisions -> clear route -> implementation handoff
 ```
+
+## 3. GitHub - Implementation Evidence
+
+Intent: retain the code history and review evidence produced after a Linear
+decision reaches implementation.
+
+```text
+Linear issue -> branch / commit / pull request -> verified implementation
+```
+
+GitHub does not own Wayfinder ticket state. Link evidence back to the named
+Linear issue; a backlink does not migrate ownership.
 
 ## 4. Supabase - Queryable Cross-Surface Facts
 
@@ -142,8 +149,8 @@ What stays out across all surfaces:
 ## Review Rhythm
 
 ```text
-Capture / decide -> Linear
-Research / build -> GitHub
+Capture / decide / Wayfind -> Linear
+Implement / review code -> GitHub
 During the week -> Next/Vercel dashboard
 Queryable event -> Supabase
 System change -> LikeC4 validation and publish

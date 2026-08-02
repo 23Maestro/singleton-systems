@@ -15,7 +15,7 @@ const checks = [
   },
   {
     file: "docs/visual-system-contract.md",
-    must: ["Linear - Decisions and Active System Work", "GitHub - Research, Specs, and Implementation Evidence", "23M-88", "23M-89"],
+    must: ["Linear - Decisions and Active System Work", "GitHub - Implementation Evidence", "23M-88", "23M-89"],
   },
   {
     file: "docs/truth-matrix.md",
@@ -43,7 +43,7 @@ const checks = [
   },
   {
     file: skillPath("wayfinder"),
-    must: ["Correction = edit instruction", "No process commentary in deliverables"],
+    must: ["Correction = edit instruction", "No process commentary in deliverables", "wayfinder:map", "Never launch or delegate to a sub-agent"],
   },
   {
     file: "docs/harness/README.md",
@@ -56,6 +56,11 @@ const checks = [
 ];
 
 const errors = [];
+const wayfinder = fs.readFileSync(path.join(root, skillPath("wayfinder")), "utf8");
+for (const stale of ["Fire the research subagents", "Research (AFK)", "`/research` subagent", "research/<name>", "Linear ledger"]) {
+  if (wayfinder.includes(stale)) errors.push(`${skillPath("wayfinder")}: stale autonomous or ledger behavior ${JSON.stringify(stale)}`);
+}
+
 for (const check of checks) {
   const filePath = path.join(root, check.file);
   let text = "";

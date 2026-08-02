@@ -6,7 +6,8 @@
 | --- | --- | --- |
 | System capture, decisions, commands, active next moves | Linear | `Command + Ideas` for intake; `Singleton Systems` for larger work. |
 | Career task state and job workflow | Opportunity HQ | Keep its durable lane/status model until a separately approved migration. |
-| Research, specs, dependencies, implementation history | GitHub | Wayfinder map, tickets, PRs, and durable evidence. |
+| Wayfinder maps, decisions, dependencies, and active work | Linear | The map and its sub-issues own planning state. |
+| Branches, commits, pull requests, and implementation history | GitHub | Link evidence to the owning Linear issue; do not mirror status. |
 | Queryable events, routing registry, cross-surface reporting | Supabase | Facts only; never copy whole ticket bodies or prompt templates. |
 | Portfolio assets, screenshots, clips, examples | Eagle | Files and visual evidence live here. |
 | Home-task state | Apps Script | Keep home operations separate while the task list remains small. |
