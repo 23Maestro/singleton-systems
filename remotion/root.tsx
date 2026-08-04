@@ -4,6 +4,12 @@ import { FoodManiaLabelTexture, FoodManiaTextLayer } from "./scenes/FoodManiaAss
 import { CalendarMonthTexture, StarvationGridLayer } from "./scenes/StarvationPhaseAssets";
 import { SectionTitle, type SectionTitleProps } from "./josh-vsl/SectionTitle";
 import { EmphasisCallout, type EmphasisCalloutProps } from "./josh-vsl/EmphasisCallout";
+import { ColdCallingProductStory } from "./josh-vsl/ColdCallingProductStory";
+import { PixelConditioningEngine } from "./josh-vsl/PixelConditioningEngine";
+import { CashOfferDecisionEngine } from "./josh-vsl/CashOfferDecisionEngine";
+import { FourFulfillmentPaths } from "./josh-vsl/FourFulfillmentPaths";
+import { CampaignEconomics } from "./josh-vsl/CampaignEconomics";
+import { SystemDeployment } from "./josh-vsl/SystemDeployment";
 
 const joshSections: SectionTitleProps[] = [
   { number: "01", title: "The Cold Open" },
@@ -69,6 +75,54 @@ export const RemotionRoot = () => {
           height={1080}
         />
       ))}
+      <Composition
+        id="JoshColdCallingProductStory"
+        component={ColdCallingProductStory}
+        durationInFrames={240}
+        fps={29.97}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="JoshPixelConditioningEngine"
+        component={PixelConditioningEngine}
+        durationInFrames={450}
+        fps={29.97}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="JoshCashOfferDecisionEngine"
+        component={CashOfferDecisionEngine}
+        durationInFrames={450}
+        fps={29.97}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="JoshFourFulfillmentPaths"
+        component={FourFulfillmentPaths}
+        durationInFrames={510}
+        fps={29.97}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="JoshCampaignEconomics"
+        component={CampaignEconomics}
+        durationInFrames={390}
+        fps={29.97}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="JoshSystemDeployment"
+        component={SystemDeployment}
+        durationInFrames={510}
+        fps={29.97}
+        width={1920}
+        height={1080}
+      />
       <Composition
         id="ClinicalSetup1944"
         component={ClinicalSetup1944}
