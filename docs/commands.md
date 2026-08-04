@@ -8,7 +8,7 @@ owner-owned work without becoming another planning app.
 ```text
 Linear           -> system capture, commands, decisions, active next moves
 Opportunity HQ   -> career and job workflow state
-GitHub           -> research, specs, implementation evidence
+GitHub           -> branches, commits, pull requests, implementation evidence
 Supabase         -> queryable facts and live Cerebral registry
 Raycast          -> desktop action surface
 Apple Shortcuts  -> mobile and share-sheet action surface

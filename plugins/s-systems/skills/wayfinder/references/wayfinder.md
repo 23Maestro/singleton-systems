@@ -1,66 +1,107 @@
-# Wayfinder Reference
+# Linear Wayfinder Operations
 
 Owner: `singleton-systems`
-Canonical source: this bundled skill folder
-Reference: `references/wayfinder.md`
-Generated outputs: installed Codex and Claude copies. Do not edit them as the
-source of truth.
-Validation: `npm run plugins:sync`, `npm run check:cerebral`,
-`npm run check:cerebral:hook-routing`, and `npm run check:cerebral:registry`.
+
+Upstream reviewed: Matt Pocock's `skills/engineering/wayfinder/SKILL.md`
+at commit `260225724133c4a204489599f04642aa089259a0`.
+
+Intentional deviations:
+
+- Linear is the issue tracker.
+- Jerami remains present for every ticket.
+- No sub-agent, AFK ticket, automatic research dispatch, or research branch.
+- No dependency on `/research`, `/prototype`, `/domain-modeling`, or
+  `/setup-matt-pocock-skills`.
+
+## Hierarchy Contract
 
 ```text
-GitHub -> map, research, blockers, specs, implementation evidence
-Linear -> current decision, priority, owner, status, due date, next move
-PR -> implementation proof
+Initiative -> durable business lane
+Project    -> finite engagement, delivery outcome, development effort, or packaging effort
+Map issue  -> one foggy route inside that project
+Sub-issue  -> one decision or prerequisite
+GitHub     -> linked implementation evidence only
 ```
 
-## Map Shape
-
-Create a map issue with the destination, known facts, open decisions, and the
-next unblocked ticket. Add a child issue only for a real research, decision,
-prototype, or manual-setup branch.
-
-Use native GitHub parent and blocker relationships. If unavailable, write:
+The locked initiative names are:
 
 ```text
-Blocked by: #123
-Blocks: #125
-Next unblocked ticket: #126
+Development
+Content Editor
+AI Consultant
+Portfolio
 ```
 
-Use the shared labels only when they fit:
+The planned Development project name is exactly `S.Systems`. Creating or
+renaming initiatives and projects belongs to a separately reviewed Linear
+configuration pass. Do not silently substitute `Singleton Systems` or create
+missing records while using this skill.
+
+Use one shared Wayfinder skill. Put lane-specific context in the map's `Notes`;
+never copy or fork the skill per initiative.
+
+## Labels
 
 ```text
-Wayfinder: Research
-Wayfinder: Grilling
-Wayfinder: Prototype
-Wayfinder: Manual Setup
+wayfinder:map
+wayfinder:research
+wayfinder:prototype
+wayfinder:grilling
+wayfinder:task
 ```
 
-## Linear Ledger
+Do not normalize case, spacing, or punctuation.
 
-Link a Linear issue only when work needs a mobile decision, priority, owner,
-status, due date, or active next move. Keep evidence in GitHub.
+## Linear Operations
 
-```markdown
-## GitHub
-<issue URL>
+1. Read the initiative, project, team workflow, labels, and existing issues.
+2. Stop if the intended initiative, project, or label is missing. Report the
+   exact missing name; do not invent it.
+3. Create the map as a project issue with `wayfinder:map`.
+4. Create precise decision tickets as map sub-issues with one type label.
+5. Add native Linear blocker relationships after all issue identities exist.
+   If the available GraphQL operation cannot create the relationship, stop and
+   provide the exact manual Linear step. Do not replace native blockers with a
+   quiet body convention.
+6. Leave open tickets unassigned and not `In Progress` until claimed.
+7. Claim one ticket by assigning it to Jerami and setting `In Progress`.
+8. Resolve it with a concise answer comment. Move it to `Done` only after the
+   answer or prerequisite is observable, then update the map index.
 
-## Ledger
-Decision: <one sentence>
-Blocks: <blocker or none>
-Status: <Backlog | Todo | In Progress | In Review | Done>
-Due: <YYYY-MM-DD or none>
-Next: <one action>
+Prefer the server-side Linear GraphQL gateway over the connector for reads and
+writes. Keep credentials server-side and read the result back through GraphQL.
+Use the connector only when GraphQL lacks the required operation, and state the
+fallback before mutation.
+
+Status contract:
+
+```text
+Backlog    -> captured, not accepted
+Todo       -> accepted and currently unclaimed
+In Progress -> claimed in the current session
+In Review  -> answer or artifact awaiting Jerami's review
+Done       -> reviewed resolution is observable
 ```
 
-Set a due date only for a real deadline, scheduled review, or dashboard-visible
-follow-up. Do not invent due dates for research or parked ideas.
+Set a due date only for a real deadline or scheduled review. Never invent one
+for research, fog, or parked work.
 
-When implementation begins, include the Linear identifier in the branch or PR.
-Do not enable broad GitHub Issues Sync.
+## GitHub Boundary
 
-## Close
+Linear owns map state, tickets, blockers, status, priority, assignment, and
+resolution. GitHub may hold a linked branch, commit, pull request, spec, or
+artifact produced after a decision. A backlink is evidence, not state
+ownership. Never mirror a Linear decision ticket as a GitHub Issue.
 
-Update the child with its outcome, return to the map, then select the next
-unblocked ticket. Do not create a visual as part of this workflow.
+When implementation begins, include the Linear identifier in the branch and
+pull request. Keep broad GitHub Issues Sync disabled.
+
+## Verification
+
+```text
+npm run plugins:sync
+npm run check:skills
+npm run check:cerebral
+npm run check:cerebral:hook-routing
+npm run check:cerebral:registry
+```

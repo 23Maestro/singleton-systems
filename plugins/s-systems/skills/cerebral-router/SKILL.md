@@ -13,7 +13,7 @@ Raycast, Shortcuts, Next/Vercel, docs, or LikeC4.
 ```text
 unselected thought -> Linear Command + Ideas
 active system plan -> Linear Singleton Systems
-fuzzy or branching build -> GitHub Wayfinder
+fuzzy or branching build -> Linear Wayfinder map
 queryable event or dashboard fact -> Supabase
 career workflow state -> Opportunity HQ
 proof asset -> Eagle

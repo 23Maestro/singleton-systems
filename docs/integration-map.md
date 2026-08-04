@@ -12,7 +12,8 @@ not repeat their logic.
 | Natural-language routing | Cerebral + Supabase registry | `config/cerebral-registry.json` + hook |
 | System ideas, commands, active decisions | Linear | `Command + Ideas` and `Singleton Systems` |
 | Career tasks and job workflow state | Opportunity HQ | `opportunity-hq-updater` |
-| Research, specs, dependencies, implementation proof | GitHub | `wayfinder` |
+| Wayfinder maps, decisions, dependencies, active work | Linear | `wayfinder` |
+| Branches, commits, pull requests, implementation proof | GitHub | repository workflow |
 | Queryable events and cross-surface facts | Supabase | `docs/truth-matrix.md` |
 | Proof files and screenshots | Eagle | `career-proof-packager` + `eagle` |
 | Home-task truth | Apps Script | Personal Ops contract |
@@ -47,7 +48,7 @@ npm run check:cerebral:registry
 
 ```text
 idea / command / decision -> Linear
-fuzzy or branching build  -> GitHub Wayfinder map
+fuzzy or branching build  -> Linear Wayfinder map
 queryable event           -> Supabase
 active-week review        -> Next/Vercel dashboard
 reviewed architecture     -> LikeC4
