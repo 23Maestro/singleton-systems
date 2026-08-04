@@ -240,48 +240,6 @@
   } catch {
     ppro = null;
   }
-  function describe(value) {
-    if (typeof value === "function") return "function";
-    if (value == null) return String(value);
-    if (typeof value === "object") return `object{${Object.keys(value).slice(0, 7).join(",")}}`;
-    return String(value);
-  }
-  async function probe() {
-    const rows = [];
-    const check = async (label, fn) => {
-      try {
-        const value = await fn();
-        rows.push({ label, ok: value != null, detail: describe(value) });
-      } catch (error) {
-        rows.push({ label, ok: false, detail: error.message });
-      }
-    };
-    if (!ppro) return [{ label: 'require("premierepro")', ok: false, detail: "not available" }];
-    await check('require("premierepro")', () => "loaded");
-    await check("Project.getActiveProject", () => ppro.Project?.getActiveProject);
-    await check("TickTime.createWithFrameAndFrameRate", () => ppro.TickTime?.createWithFrameAndFrameRate);
-    await check("PointF", () => ppro.PointF);
-    await check("Constants.InterpolationMode.BEZIER", () => ppro.Constants?.InterpolationMode?.BEZIER);
-    await check("VideoFilterFactory.createComponent", () => ppro.VideoFilterFactory?.createComponent);
-    const ctx = await activeContext();
-    await check("active project lockedAccess", () => ctx.project?.lockedAccess);
-    await check("sequence.getSelection", () => ctx.sequence?.getSelection);
-    await check(
-      "sequence frame size",
-      () => Number.isFinite(ctx.frameSize?.width) && Number.isFinite(ctx.frameSize?.height) ? `${ctx.frameSize.width}x${ctx.frameSize.height}` : null
-    );
-    await check("sequence video frame rate", () => ctx.frameRate);
-    const targetContext = ctx.error ? ctx : await getTargets();
-    const target = targetContext.targets?.[0];
-    await check("video target at selection/playhead", () => target?.item);
-    const component = target ? await findTransform(target.item) : null;
-    const prepared = component ? await transformParams(component) : null;
-    await check("Transform filter match name", () => resolveTransformMatchName());
-    await check("existing Transform component (apply can add it)", () => component || "not present");
-    await check("Transform Scale parameter", () => component ? prepared?.scaleParam : "available after insert");
-    await check("Transform Position parameter", () => component ? prepared?.positionParam : "available after insert");
-    return rows;
-  }
   function seconds(value) {
     if (typeof value === "number") return value;
     if (typeof value?.seconds === "number") return value.seconds;
@@ -330,8 +288,10 @@
   async function isVideoItem(item) {
     try {
       const chain = await item.getComponentChain();
-      for (let index = 0; index < chain.getComponentCount(); index++) {
-        const matchName = await chain.getComponentAtIndex(index).getMatchName();
+      const count = await chain.getComponentCount();
+      for (let index = 0; index < count; index++) {
+        const component = await chain.getComponentAtIndex(index);
+        const matchName = await component.getMatchName();
         if (matchName === "AE.ADBE Motion" || matchName === "AE.ADBE Opacity") return true;
       }
     } catch {
@@ -366,36 +326,55 @@
     }
     return { ...ctx, targets, skipped };
   }
+  var TRANSFORM_MATCH_NAME = "AE.ADBE Geometry2";
   var transformMatchName = null;
+  async function paramName(param) {
+    if (!param) return null;
+    if (typeof param.getDisplayName === "function") return await param.getDisplayName();
+    return param.displayName ?? null;
+  }
   async function resolveTransformMatchName() {
     if (transformMatchName) return transformMatchName;
-    const displayNames = await ppro.VideoFilterFactory.getDisplayNames();
     const matchNames = await ppro.VideoFilterFactory.getMatchNames();
+    if (matchNames.includes(TRANSFORM_MATCH_NAME)) {
+      transformMatchName = TRANSFORM_MATCH_NAME;
+      return transformMatchName;
+    }
+    const displayNames = await ppro.VideoFilterFactory.getDisplayNames();
     const index = displayNames.findIndex((name) => name === "Transform");
     if (index < 0 || !matchNames[index]) throw new Error("Premiere Transform effect is unavailable");
     transformMatchName = matchNames[index];
     return transformMatchName;
   }
   async function transformParams(component) {
-    let scaleParam = null;
+    let scaleHeightParam = null;
+    let scaleWidthParam = null;
     let positionParam = null;
-    for (let index = 0; index < component.getParamCount(); index++) {
-      const param = component.getParam(index);
-      if (param?.displayName === "Scale") scaleParam = param;
-      if (param?.displayName === "Position") positionParam = param;
+    const count = await component.getParamCount();
+    for (let index = 0; index < count; index++) {
+      const param = await component.getParam(index);
+      const name = await paramName(param);
+      if (name === "Scale Height") scaleHeightParam = param;
+      if (name === "Scale Width") scaleWidthParam = param;
+      if (name === "Position") positionParam = param;
     }
-    if (!scaleParam || !positionParam) return { error: "Transform Scale/Position parameters not found" };
-    return { scaleParam, positionParam };
+    if (!scaleHeightParam || !scaleWidthParam || !positionParam) {
+      const found = [
+        scaleHeightParam && "Scale Height",
+        scaleWidthParam && "Scale Width",
+        positionParam && "Position"
+      ].filter(Boolean).join(", ") || "none";
+      return { error: `Transform is missing Scale Height/Scale Width/Position (found: ${found})` };
+    }
+    return { scaleParams: [scaleHeightParam, scaleWidthParam], positionParam };
   }
   async function findTransform(item) {
+    const wanted = await resolveTransformMatchName();
     const chain = await item.getComponentChain();
-    for (let index = 0; index < chain.getComponentCount(); index++) {
-      const component = chain.getComponentAtIndex(index);
-      const displayName = await component.getDisplayName();
-      if (displayName === "Transform") {
-        transformMatchName = await component.getMatchName();
-        return component;
-      }
+    const count = await chain.getComponentCount();
+    for (let index = 0; index < count; index++) {
+      const component = await chain.getComponentAtIndex(index);
+      if (await component.getMatchName() === wanted) return component;
     }
     return null;
   }
@@ -487,7 +466,7 @@
         if (!component) throw new Error("Transform was not available after insertion");
         const params = await transformParams(component);
         if (params.error) throw new Error(params.error);
-        const scaleStart = await params.scaleParam.getStartValue();
+        const scaleStart = await params.scaleParams[0].getStartValue();
         const positionStart = await params.positionParam.getStartValue();
         prepared.push({ target, params, scaleStart, positionStart, preset: presetForTarget(target, index) });
       } catch (error) {
@@ -499,24 +478,26 @@
     try {
       execute(ctx, "Zoom Motion: reset Transform animation", (compound) => {
         for (const { params } of prepared) {
-          for (const param of [params.scaleParam, params.positionParam]) {
+          for (const param of [...params.scaleParams, params.positionParam]) {
             if (param.isTimeVarying()) {
               for (const time of param.getKeyframeListAsTickTimes()) {
                 compound.addAction(param.createRemoveKeyframeAction(time, true));
               }
             }
+            compound.addAction(param.createSetTimeVaryingAction(true));
           }
-          compound.addAction(params.scaleParam.createSetTimeVaryingAction(true));
-          compound.addAction(params.positionParam.createSetTimeVaryingAction(true));
         }
       });
       execute(ctx, `Zoom Motion: ${prepared[0].preset.name} keyframes`, (compound) => {
         for (const { target, params, preset, scaleStart, positionStart } of prepared) {
           for (const scaleKey of preset.scaleKeys) {
             const scaleTime = keyTime(target, scaleStart, scaleKey.frame, ctx.frameRate);
-            const scaleFrame = params.scaleParam.createKeyframe(scaleForParam(scaleKey.value, startValue(scaleStart)));
-            scaleFrame.position = scaleTime;
-            compound.addAction(params.scaleParam.createAddKeyframeAction(scaleFrame));
+            const value = scaleForParam(scaleKey.value, startValue(scaleStart));
+            for (const param of params.scaleParams) {
+              const scaleFrame = param.createKeyframe(value);
+              scaleFrame.position = scaleTime;
+              compound.addAction(param.createAddKeyframeAction(scaleFrame));
+            }
           }
           for (const key of positionPlan(preset, ctx.frameSize)) {
             const positionFrame = params.positionParam.createKeyframe(
@@ -530,11 +511,14 @@
       execute(ctx, "Zoom Motion: keyframe interpolation", (compound) => {
         for (const { target, params, preset, scaleStart, positionStart } of prepared) {
           for (const scaleKey of preset.scaleKeys) {
-            compound.addAction(params.scaleParam.createSetInterpolationAtKeyframeAction(
-              keyTime(target, scaleStart, scaleKey.frame, ctx.frameRate),
-              interpolation(scaleKey.ease),
-              true
-            ));
+            const at = keyTime(target, scaleStart, scaleKey.frame, ctx.frameRate);
+            for (const param of params.scaleParams) {
+              compound.addAction(param.createSetInterpolationAtKeyframeAction(
+                at,
+                interpolation(scaleKey.ease),
+                true
+              ));
+            }
           }
           for (const key of positionPlan(preset, ctx.frameSize)) {
             compound.addAction(params.positionParam.createSetInterpolationAtKeyframeAction(
@@ -560,16 +544,10 @@
   var el = (id) => document.getElementById(id);
   var mode = "selection";
   var busy = false;
-  function log(message, kind = "") {
-    const row = document.createElement("div");
-    row.className = kind;
-    row.textContent = message;
-    el("log").appendChild(row);
-    el("log").scrollTop = el("log").scrollHeight;
-  }
-  function rgba(hex, alpha) {
-    const n = parseInt(hex.slice(1), 16);
-    return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${alpha})`;
+  function say(message, kind = "") {
+    const node = el("status");
+    node.className = kind;
+    node.textContent = message;
   }
   function add(parent, tag, className, text) {
     const node = document.createElement(tag);
@@ -579,53 +557,48 @@
     return node;
   }
   function addSparkline(parent, name, color) {
-    const { samples } = samplePreset(name, 16);
-    const values = samples.map((s) => s.scale);
+    const { samples } = samplePreset(name, 14);
+    const values = samples.map((sample) => sample.scale);
     const min = Math.min(...values, 100);
     const max = Math.max(...values, 100);
     const range = Math.max(0.5, max - min);
     const strip = add(parent, "div", "spark");
     for (const value of values) {
-      const bar = add(strip, "div", "sb");
-      bar.style.height = `${3 + (value - min) / range * 13}px`;
+      const bar = add(strip, "div", "bar");
+      bar.style.height = `${2 + (value - min) / range * 15}px`;
       bar.style.backgroundColor = color;
     }
   }
-  function buildCard(preset) {
-    const { preset: resolved } = resolvePreset(preset.name);
-    const keys = resolved.scaleKeys.length + positionKeyFrames(resolved).length;
-    const card = document.createElement("div");
-    card.className = "p";
-    card.style.borderLeftColor = preset.color;
-    add(card, "div", "kf", `${keys} kf`);
-    add(card, "div", "name", preset.label);
-    addSparkline(card, preset.name, preset.color);
-    const badge = add(card, "div", "badge", preset.badge);
-    badge.style.color = preset.color;
-    badge.style.backgroundColor = rgba(preset.color, 0.16);
-    badge.style.borderColor = rgba(preset.color, 0.4);
-    card.onclick = () => apply(preset.name);
-    return card;
+  function buildRow(preset) {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.style.borderLeftColor = preset.color;
+    const copy = add(row, "div", "copy");
+    add(copy, "div", "name", preset.label);
+    add(copy, "div", "desc", preset.description);
+    addSparkline(row, preset.name, preset.color);
+    add(row, "div", "badge", preset.badge);
+    row.onclick = () => apply(preset.name);
+    return row;
   }
-  function renderGrid() {
-    const grid = el("grid");
-    grid.textContent = "";
+  function renderList() {
+    const list = el("list");
+    list.textContent = "";
     try {
-      for (const preset of PRESETS) grid.appendChild(buildCard(preset));
+      for (const preset of PRESETS) list.appendChild(buildRow(preset));
     } catch (error) {
-      log(`Preset grid failed: ${error.message}`, "err");
-      el("status").textContent = `Preset grid failed: ${error.message}`;
+      say(`Preset list failed: ${error.message}`, "err");
     }
   }
   function setBusy(state) {
     busy = state;
-    el("grid").className = state ? "grid busy" : "grid";
+    el("list").className = state ? "list busy" : "list";
   }
   async function apply(name) {
     if (busy) return;
     setBusy(true);
     const base = PRESETS.find((preset) => preset.name === name);
-    el("status").textContent = `Applying ${base.label}\u2026`;
+    say(`Applying ${base.label}\u2026`);
     try {
       const ctx = await getTargets(mode);
       if (ctx.error) throw new Error(ctx.error);
@@ -640,38 +613,26 @@
         warnings.push(...resolved.warnings);
         return resolved.preset;
       });
-      [...new Set(warnings)].forEach((warning) => log(warning, "warn"));
-      ctx.skipped.forEach((skip) => log(`Skipped: ${skip.reason}`, "warn"));
-      result.failed.forEach((failure) => log(`Clip ${failure.index + 1}: ${failure.reason}`, "warn"));
       if (result.error) throw new Error(result.error);
       const plural = result.applied === 1 ? "" : "s";
-      log(`${base.label} \u2192 ${result.applied} clip${plural}` + (result.addedEffects ? ` (added Transform to ${result.addedEffects})` : ""), "ok");
-      el("status").textContent = `${base.label} applied to ${result.applied} clip${plural}.`;
+      const skipped = ctx.skipped.length + result.failed.length;
+      let message = `${base.label} \u2192 ${result.applied} clip${plural}`;
+      if (result.addedEffects) message += `, Transform added to ${result.addedEffects}`;
+      if (skipped) message += ` \xB7 ${skipped} skipped`;
+      say(message, skipped || warnings.length ? "warn" : "");
     } catch (error) {
-      const message = error.message || String(error);
-      log(message, "err");
-      el("status").textContent = message;
+      say(error.message || String(error), "err");
     } finally {
       setBusy(false);
     }
   }
-  el("scope").querySelectorAll("button").forEach((button) => {
-    button.onclick = () => {
-      mode = button.dataset.mode;
-      el("scope").querySelectorAll("button").forEach((b) => b.classList.remove("on"));
-      button.classList.add("on");
-      el("status").textContent = mode === "all" ? "Will apply to every video clip in the sequence." : "Will apply to the selected clip, or the one under the playhead.";
+  el("scope").querySelectorAll(".opt").forEach((option) => {
+    option.onclick = () => {
+      mode = option.dataset.mode;
+      el("scope").querySelectorAll(".opt").forEach((other) => other.classList.remove("on"));
+      option.classList.add("on");
+      say(mode === "all" ? "Will apply to every video clip in the sequence." : "Will apply to the selected clip, or the one under the playhead.");
     };
   });
-  el("probe").onclick = async () => {
-    log("\u2014 API probe \u2014", "dim");
-    const rows = await probe();
-    rows.forEach((row) => log(`${row.ok ? "\u2713" : "\u2717"} ${row.label}: ${row.detail}`, row.ok ? "ok" : "err"));
-    const failed = rows.filter((row) => !row.ok);
-    el("status").textContent = failed.length ? `Probe ${rows.length - failed.length}/${rows.length} \u2014 failed: ${failed.map((r) => r.label).join(", ")}` : `Probe ${rows.length}/${rows.length} \u2014 all good.`;
-  };
-  el("clear").onclick = () => {
-    el("log").textContent = "";
-  };
-  renderGrid();
+  renderList();
 })();

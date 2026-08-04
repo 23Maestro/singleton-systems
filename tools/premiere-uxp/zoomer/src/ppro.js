@@ -41,8 +41,12 @@ export async function probe() {
   const prepared = component ? await transformParams(component) : null;
   await check("Transform filter match name", () => resolveTransformMatchName());
   await check("existing Transform component (apply can add it)", () => component || "not present");
-  await check("Transform Scale parameter", () => component ? prepared?.scaleParam : "available after insert");
-  await check("Transform Position parameter", () => component ? prepared?.positionParam : "available after insert");
+  await check("Transform Scale Height parameter", () =>
+    component ? (prepared?.error ?? prepared?.scaleParams?.[0]) : "available after insert");
+  await check("Transform Scale Width parameter", () =>
+    component ? (prepared?.error ?? prepared?.scaleParams?.[1]) : "available after insert");
+  await check("Transform Position parameter", () =>
+    component ? (prepared?.error ?? prepared?.positionParam) : "available after insert");
   return rows;
 }
 
@@ -96,8 +100,10 @@ async function itemAt(sequence, atSeconds) {
 async function isVideoItem(item) {
   try {
     const chain = await item.getComponentChain();
-    for (let index = 0; index < chain.getComponentCount(); index++) {
-      const matchName = await chain.getComponentAtIndex(index).getMatchName();
+    const count = await chain.getComponentCount();
+    for (let index = 0; index < count; index++) {
+      const component = await chain.getComponentAtIndex(index);
+      const matchName = await component.getMatchName();
       if (matchName === "AE.ADBE Motion" || matchName === "AE.ADBE Opacity") return true;
     }
   } catch { /* not a clip with a readable video component chain */ }
@@ -133,39 +139,72 @@ export async function getTargets(mode = "selection") {
   return { ...ctx, targets, skipped };
 }
 
+/**
+ * Premiere 26.3 registers TWO effects whose display name is "Transform", so a
+ * display-name lookup is a coin flip. The one we want is AE's Transform
+ * (Anchor Point / Position / Uniform Scale / Scale Height / Scale Width / Skew
+ * / Rotation / Opacity / Shutter Angle / Sampling) — verified against the
+ * user's own .prfpset, which stores it as AE.ADBE Geometry2.
+ */
+const TRANSFORM_MATCH_NAME = "AE.ADBE Geometry2";
+
 let transformMatchName = null;
+
+/** displayName is a property on some builds and a getter on others. */
+async function paramName(param) {
+  if (!param) return null;
+  if (typeof param.getDisplayName === "function") return await param.getDisplayName();
+  return param.displayName ?? null;
+}
 
 async function resolveTransformMatchName() {
   if (transformMatchName) return transformMatchName;
-  const displayNames = await ppro.VideoFilterFactory.getDisplayNames();
   const matchNames = await ppro.VideoFilterFactory.getMatchNames();
+  if (matchNames.includes(TRANSFORM_MATCH_NAME)) {
+    transformMatchName = TRANSFORM_MATCH_NAME;
+    return transformMatchName;
+  }
+  // Fall back to the display name only if this build renamed the match name.
+  const displayNames = await ppro.VideoFilterFactory.getDisplayNames();
   const index = displayNames.findIndex((name) => name === "Transform");
   if (index < 0 || !matchNames[index]) throw new Error("Premiere Transform effect is unavailable");
   transformMatchName = matchNames[index];
   return transformMatchName;
 }
 
+/**
+ * The Transform effect has no parameter called "Scale" — that name belongs to
+ * the intrinsic Motion component. Transform scales through Scale Height and
+ * Scale Width, and its Uniform Scale flag defaults to false. Rather than depend
+ * on that flag linking the two, drive both axes with identical values.
+ */
 async function transformParams(component) {
-  let scaleParam = null;
+  let scaleHeightParam = null;
+  let scaleWidthParam = null;
   let positionParam = null;
-  for (let index = 0; index < component.getParamCount(); index++) {
-    const param = component.getParam(index);
-    if (param?.displayName === "Scale") scaleParam = param;
-    if (param?.displayName === "Position") positionParam = param;
+  const count = await component.getParamCount();
+  for (let index = 0; index < count; index++) {
+    const param = await component.getParam(index);
+    const name = await paramName(param);
+    if (name === "Scale Height") scaleHeightParam = param;
+    if (name === "Scale Width") scaleWidthParam = param;
+    if (name === "Position") positionParam = param;
   }
-  if (!scaleParam || !positionParam) return { error: "Transform Scale/Position parameters not found" };
-  return { scaleParam, positionParam };
+  if (!scaleHeightParam || !scaleWidthParam || !positionParam) {
+    const found = [scaleHeightParam && "Scale Height", scaleWidthParam && "Scale Width",
+      positionParam && "Position"].filter(Boolean).join(", ") || "none";
+    return { error: `Transform is missing Scale Height/Scale Width/Position (found: ${found})` };
+  }
+  return { scaleParams: [scaleHeightParam, scaleWidthParam], positionParam };
 }
 
 async function findTransform(item) {
+  const wanted = await resolveTransformMatchName();
   const chain = await item.getComponentChain();
-  for (let index = 0; index < chain.getComponentCount(); index++) {
-    const component = chain.getComponentAtIndex(index);
-    const displayName = await component.getDisplayName();
-    if (displayName === "Transform") {
-      transformMatchName = await component.getMatchName();
-      return component;
-    }
+  const count = await chain.getComponentCount();
+  for (let index = 0; index < count; index++) {
+    const component = await chain.getComponentAtIndex(index);
+    if (await component.getMatchName() === wanted) return component;
   }
   return null;
 }
@@ -278,7 +317,7 @@ export async function applyPreset(ctx, presetForTarget) {
       if (!component) throw new Error("Transform was not available after insertion");
       const params = await transformParams(component);
       if (params.error) throw new Error(params.error);
-      const scaleStart = await params.scaleParam.getStartValue();
+      const scaleStart = await params.scaleParams[0].getStartValue();
       const positionStart = await params.positionParam.getStartValue();
       prepared.push({ target, params, scaleStart, positionStart, preset: presetForTarget(target, index) });
     } catch (error) {
@@ -291,15 +330,14 @@ export async function applyPreset(ctx, presetForTarget) {
   try {
     execute(ctx, "Zoom Motion: reset Transform animation", (compound) => {
       for (const { params } of prepared) {
-        for (const param of [params.scaleParam, params.positionParam]) {
+        for (const param of [...params.scaleParams, params.positionParam]) {
           if (param.isTimeVarying()) {
             for (const time of param.getKeyframeListAsTickTimes()) {
               compound.addAction(param.createRemoveKeyframeAction(time, true));
             }
           }
+          compound.addAction(param.createSetTimeVaryingAction(true));
         }
-        compound.addAction(params.scaleParam.createSetTimeVaryingAction(true));
-        compound.addAction(params.positionParam.createSetTimeVaryingAction(true));
       }
     });
 
@@ -307,9 +345,14 @@ export async function applyPreset(ctx, presetForTarget) {
       for (const { target, params, preset, scaleStart, positionStart } of prepared) {
         for (const scaleKey of preset.scaleKeys) {
           const scaleTime = keyTime(target, scaleStart, scaleKey.frame, ctx.frameRate);
-          const scaleFrame = params.scaleParam.createKeyframe(scaleForParam(scaleKey.value, startValue(scaleStart)));
-          scaleFrame.position = scaleTime;
-          compound.addAction(params.scaleParam.createAddKeyframeAction(scaleFrame));
+          const value = scaleForParam(scaleKey.value, startValue(scaleStart));
+          // Both axes carry the same value, so the zoom stays uniform without
+          // relying on the Uniform Scale flag to link them.
+          for (const param of params.scaleParams) {
+            const scaleFrame = param.createKeyframe(value);
+            scaleFrame.position = scaleTime;
+            compound.addAction(param.createAddKeyframeAction(scaleFrame));
+          }
         }
         for (const key of positionPlan(preset, ctx.frameSize)) {
           const positionFrame = params.positionParam.createKeyframe(
@@ -324,9 +367,12 @@ export async function applyPreset(ctx, presetForTarget) {
     execute(ctx, "Zoom Motion: keyframe interpolation", (compound) => {
       for (const { target, params, preset, scaleStart, positionStart } of prepared) {
         for (const scaleKey of preset.scaleKeys) {
-          compound.addAction(params.scaleParam.createSetInterpolationAtKeyframeAction(
-            keyTime(target, scaleStart, scaleKey.frame, ctx.frameRate), interpolation(scaleKey.ease), true,
-          ));
+          const at = keyTime(target, scaleStart, scaleKey.frame, ctx.frameRate);
+          for (const param of params.scaleParams) {
+            compound.addAction(param.createSetInterpolationAtKeyframeAction(
+              at, interpolation(scaleKey.ease), true,
+            ));
+          }
         }
         for (const key of positionPlan(preset, ctx.frameSize)) {
           compound.addAction(params.positionParam.createSetInterpolationAtKeyframeAction(
