@@ -1,58 +1,83 @@
 ---
 name: opportunity-hq-updater
-description: Shape selected client delivery, AI consulting, or portfolio work for Opportunity HQ without duplicating Linear decisions or dashboard state.
+description: Shape selected client delivery, AI consulting, development, or portfolio work into Linear without duplicating decisions or dashboard state.
 ---
 
-# Opportunity HQ Updater
+# Task Updater
 
 Use only after the work is selected. Raw thoughts, system decisions, and
 Wayfinder maps stay in Linear; implementation evidence belongs in GitHub.
 
+Linear owns task, status, completion, priority, assignment, dependency, and
+project state. Nothing else does.
+
 ## Runtime Route
 
-All Opportunity HQ reads and mutations must use the Homebrew Notion CLI at
-`/opt/homebrew/bin/ntn`. Run `ntn doctor` before mutation. Use `ntn pages` and
-`ntn datasources` for ordinary content and queries, and `ntn api` when the full
-schema, property, view, or database API is required.
+All task reads and mutations go through Linear GraphQL at
+`https://api.linear.app/graphql`, using `LINEAR_API_KEY` from `.env.local`
+server-side. Send the key raw — it is not `Bearer`-prefixed. Read every mutation
+back through GraphQL before reporting it done.
 
-Do not use the Notion MCP connector, browser automation, direct HTTP calls, or
-an ad hoc Notion script for Opportunity HQ. `ntn` is the sole runtime route.
+Linear enforces a query complexity cap. A four-level nested query
+(initiative -> project -> issue -> state) fails with `Query too complex`. Split
+it into two flat queries.
+
+Notion retains only the Clients and Portfolio surfaces. Reads and mutations
+there must use the Homebrew Notion CLI at `/opt/homebrew/bin/ntn`. Run
+`ntn doctor` before mutation. Do not use the Notion MCP connector, browser
+automation, direct HTTP calls, or an ad hoc script — for Notion, `ntn` is the
+sole runtime route.
 
 ## Input
 
 ```text
-project: Content Editor | AI Consultant | Portfolio
-client: existing Client relation for client work; omit only for Portfolio
+initiative: Development | Content Editor | AI Consultant | Portfolio
+project: existing Linear project; for Content Editor this is the client
+client: Notion Client backlink for client work; omit for Development
 intent: one sentence
 next: one action
 owner link: Linear, GitHub, job source, or proof asset
 ```
 
-## Clients and Projects
+## Initiatives and Projects
 
-The only Opportunity HQ projects are `Content Editor`, `AI Consultant`, and
-`Portfolio`.
+Initiative is the durable business lane. Project is a finite engagement,
+outcome, development effort, or packaging effort.
 
-- Content editing clients and deliverables -> `Content Editor`
-- AI consulting clients and deliverables -> `AI Consultant`
-- Proof packaging and owned case-study work -> `Portfolio`
+- Client editing work -> `Content Editor`, one project per client
+- AI consulting and outreach -> `AI Consultant`
+- Repo, tooling, plugin, and website work -> `Development`
+- Anything whose purpose is proving capability -> `Portfolio`
 
-Keep contacts in the Clients database as `Active` or `Lead`. A lead does not
+The routing test is purpose, not subject matter. If a record exists to show
+someone you can do what you say, it is Portfolio even when the subject is a
+client.
+
+## Clients
+
+Clients live in the Notion Clients database and are backlinked from Linear
+issues. A Client record never carries task status — status lives in Linear only.
+
+Keep contacts as `Active` or `Lead`. A lead does not
 receive a Task until real delivery work is selected. Lead page content stays at
 exactly three blocks: one `Lead context` heading and two bullets covering the
 source/need and next action.
 
-Every client delivery Task must relate to the existing Client and exactly one
-of the three projects. Never create a client page as a Project.
+## Portfolio
+
+Portfolio records still live in Notion pending migration. The `Portfolio`
+initiative exists in Linear and is intentionally empty until that move runs.
+Do not create Portfolio issues in Linear ahead of the migration — it would
+split the same set across two systems.
 
 ## Task Sizing (before creating)
 
 Apply the 4-hour test before shaping the task:
 
 ```text
-duration >= 4h -> this is a project, not a task. Split into 2-4 child tasks
-                  (Parent Task / Sub-tasks relation), then size each one again.
-duration <= 2h -> create as a single task.
+duration >= 4h -> this is a project, not a task. Split into 2-4 sub-issues,
+                  then size each one again.
+duration <= 2h -> create as a single issue.
 ```
 
 Stop splitting once every piece fits inside `2h` or less. Never create a task
@@ -60,8 +85,9 @@ pre-tagged `4h+` — split first, always.
 
 ## Linear Intake Rules
 
-Linear Intake: keep raw capture, system decisions, and unselected work in
-Linear. Promote only selected career or delivery work that needs durable
+Linear Intake: keep raw capture, system decisions, and unselected work in the
+`Command + Ideas` project. Promote only selected delivery, consulting,
+development, or proof work into an initiative project that needs durable
 workflow state.
 
 ## Writing Rules
@@ -72,13 +98,11 @@ No process commentary in deliverables. State facts and results only.
 
 ## Output
 
-Create or update the smallest task shape needed for the selected work. Keep
-status and completion in Opportunity HQ. Keep the associated decision in
-Linear and evidence in GitHub or Eagle.
+Create or update the smallest issue shape needed for the selected work. Keep
+status and completion in Linear. Keep evidence in GitHub or Eagle.
 
-Do not create a task from an unclear idea, copy templates into Supabase, or
+Do not create an issue from an unclear idea, copy templates into Supabase, or
 write duplicate task state into the dashboard.
 
-When an agent completes a Task through `ntn`, move the page to Notion Trash
-instead of leaving a persistent `Done` row. Never trash a parent Task until all
-required subtasks are complete.
+Completion is a Linear state change, not a deletion. Never mark a parent issue
+Done until all required sub-issues are complete.

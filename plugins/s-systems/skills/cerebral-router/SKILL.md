@@ -15,7 +15,7 @@ unselected thought -> Linear Command + Ideas
 active system plan -> Linear Singleton Systems
 fuzzy or branching build -> Linear Wayfinder map
 queryable event or dashboard fact -> Supabase
-career workflow state -> Opportunity HQ
+task and project state -> Linear
 proof asset -> Eagle
 desktop/mobile action -> Raycast or Shortcuts
 active-week review -> Next/Vercel

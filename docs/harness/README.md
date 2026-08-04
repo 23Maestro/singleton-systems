@@ -16,7 +16,7 @@ LikeC4       -> reviewed architecture
 ```
 
 ```text
-[lane] Cash Jobs | Career Jobs | Freelance | Offer | Portfolio
+[lane] Development | Content Editor | AI Consultant | Portfolio
 ```
 
 ## Source Rules
