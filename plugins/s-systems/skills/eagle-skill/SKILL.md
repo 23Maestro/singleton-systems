@@ -18,5 +18,6 @@ Use `list` to discover tools and `help <tool>` for the exact parameters.
 
 Before a mutation, identify the selected asset and intended metadata change.
 Never use Eagle as task state or a code runtime. For client video asset placement,
-Premiere boundaries, review staging, or Remotion handoff, read
-`references/client-edit-boundaries.md`.
+Premiere boundaries, or review staging, read `references/client-edit-boundaries.md`.
+To pick the motion engine for a beat and record the delivery envelope, read
+`references/motion-engine-routing.md`.

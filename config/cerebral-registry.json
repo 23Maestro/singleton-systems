@@ -339,6 +339,32 @@
       "review_gate": "Verify the selected asset before changing metadata.",
       "priority": 80,
       "enabled": true
+    },
+    {
+      "route_key": "client-video",
+      "trigger_patterns": [
+        "client video",
+        "storyboard",
+        "test edit",
+        "transcript decision",
+        "premiere handoff",
+        "short[- ]form edit",
+        "long[- ]form edit",
+        "motion engine"
+      ],
+      "example_prompt": "Build the storyboard packet for this client video job.",
+      "surface": "proof",
+      "lane": "Content Editor",
+      "owner": "Eagle",
+      "intent": "Turn a client video job into an edit-ready packet with a recorded delivery envelope and one primary motion engine per beat.",
+      "shape": "proof",
+      "required_tools": [
+        "s-systems:client-video-storyboard",
+        "s-systems:eagle"
+      ],
+      "review_gate": "Record the delivery envelope and name one primary engine per beat before Premiere mutation.",
+      "priority": 78,
+      "enabled": true
     }
   ],
   "skills": [
