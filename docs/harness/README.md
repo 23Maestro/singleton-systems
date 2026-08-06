@@ -29,11 +29,15 @@ LikeC4       -> reviewed architecture
 
 ## Writing Rules
 
-Apply to every artifact: Linear, GitHub, Notion, Supabase, memory, markdown,
-code comments, filenames, commit messages.
+Applies to artifacts that leave the chat: Linear, GitHub, Notion, Supabase,
+memory, markdown, code comments, filenames, commit messages, emails,
+proposals, site copy. Not to conversation.
 
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
+- Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
+
+Full deny-list and the client-repo hook payload: `docs/harness/writing-rules.md`.
 
 ## Repeatable Skill Source Contract
 

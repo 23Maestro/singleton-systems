@@ -137,12 +137,19 @@ their own semi-independent codebases, not part of the Next.js build.
 
 ## Writing Rules
 
-Apply to every artifact written from this repo — Linear, GitHub, Notion,
-Supabase, memory, markdown, code comments, filenames, commit messages.
-Canonical source: `docs/harness/README.md` → Writing Rules (drift-checked).
+Applies to artifacts that leave the chat — Linear, GitHub, Notion, Supabase,
+memory, markdown, code comments, filenames, commit messages, emails, proposals,
+site copy. Not to conversation.
+
+Canonical source: `docs/harness/writing-rules.md` (full deny-list, voice, and
+the client-repo hook payload). Pinned summary in `docs/harness/README.md` →
+Writing Rules.
 
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
+- Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
+- Banned: delve, showcase, leverage, utilize, robust, seamless, elevate, streamline, pivotal, crucial, foster, landscape, empower, unlock, additionally, enhance, facilitate, demonstrate.
+- Banned: "not just X but Y", "X rather than Y", "serves as", "features" (write is, has), hedging, three-item rhythm, `**Bold**:` list headers, Title Case Headings.
 
 ## Conventions
 

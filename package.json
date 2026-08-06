@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "npm run check:drift && npm run check:skills && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:cerebral:registry && npm run check:brand",
+    "test": "npm run check:drift && npm run check:skills && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:cerebral:registry && npm run check:tells && npm run check:brand",
     "check:drift": "node scripts/check-opportunity-hq-drift.mjs",
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
     "check:cerebral:hook-routing": "node scripts/check-cerebral-hook-routing.mjs",
@@ -64,7 +64,8 @@
     "blender:scene-two:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_2_starvation_phase.py",
     "remotion:scene-three:assets": "node scripts/export-scene-3-remotion-assets.mjs",
     "blender:scene-three:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_3_food_mania.py",
-    "check:brand": "node scripts/check-brand-assets.mjs"
+    "check:brand": "node scripts/check-brand-assets.mjs",
+    "check:tells": "node scripts/check-tells.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
