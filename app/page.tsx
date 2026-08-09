@@ -797,6 +797,44 @@ export default function Page() {
           <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem]">
             Next time should be easier.
           </h1>
+          <div className="mx-auto mt-6">
+            <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
+              That thing you do the same way every time? I&apos;ll help you get AI on it. We start small on purpose.
+            </p>
+          </div>
+          <div className="mx-auto mt-3">
+            <p className="mx-auto flex max-w-[15.5rem] items-center justify-center gap-1.5 text-center text-[9.5px] font-semibold leading-none text-neutral-600 sm:max-w-[18rem] sm:text-[10.5px] lg:max-w-[24rem] lg:text-xs">
+              <span
+                className="inline-flex h-[1.125rem] w-[1.125rem] shrink-0 items-center justify-center rounded-full border-[1.5px] border-black bg-[#eef6ff] text-[#2383e2] lg:h-5 lg:w-5"
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+                  <path
+                    d="M8 2.5L8.8 5.4L11.5 6.2L8.8 7L8 9.8L7.2 7L4.5 6.2L7.2 5.4L8 2.5Z"
+                    fill="currentColor"
+                    stroke="#050505"
+                    strokeWidth="0.45"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M4 10.2L4.4 11.4L5.6 11.8L4.4 12.2L4 13.5L3.6 12.2L2.4 11.8L3.6 11.4L4 10.2Z"
+                    fill="currentColor"
+                    stroke="#050505"
+                    strokeWidth="0.35"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12 9.2L12.4 10.4L13.6 10.8L12.4 11.2L12 12.5L11.6 11.2L10.4 10.8L11.6 10.4L12 9.2Z"
+                    fill="currentColor"
+                    stroke="#050505"
+                    strokeWidth="0.35"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <span>One repeatable workflow at a time.</span>
+            </p>
+          </div>
           <div className="mt-8 flex items-center justify-center">
             <Link
               href={AI_WORKFLOW_SESSION_URL}

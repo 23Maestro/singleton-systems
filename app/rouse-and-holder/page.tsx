@@ -6,28 +6,24 @@ export const metadata: Metadata = {
   description: "Seven steps to set up the brief pipeline. Copy, paste, done.",
 };
 
-const steps: { title: string; body: string; label: string; code: string }[] = [
+const steps: { title: string; label: string; code: string }[] = [
   {
     title: "Install Claude Code",
-    body: "Open Terminal. Paste this line, press Enter, wait for it to finish.",
     label: "TERMINAL",
     code: "npm install -g @anthropic-ai/claude-code",
   },
   {
     title: "Make the project folder",
-    body: "This is where your work lives. Paste all three lines at once.",
     label: "TERMINAL",
     code: "mkdir -p ~/Documents/rouse-and-holder\ncd ~/Documents/rouse-and-holder\ngit init",
   },
   {
     title: "Start Claude Code",
-    body: "Same Terminal window. Type this, press Enter. A prompt appears and you are in.",
     label: "TERMINAL",
     code: "claude",
   },
   {
     title: "Paste the setup prompt",
-    body: "Your first message to Claude. It builds the writing rules and the hook that keeps output clean. This goes in Claude, not Terminal.",
     label: "PASTE INTO CLAUDE",
     code: `Set up this repo for a brief-generation project.
 
@@ -41,13 +37,11 @@ Confirm both files exist when done.`,
   },
   {
     title: "Install Grill Me and Wayfinder",
-    body: "Same Terminal window as step 1-3. Paste both lines.",
     label: "TERMINAL",
     code: "npx -y skills add mattpocock/skills --skill wayfinder --agent claude-code\nnpx -y skills add mattpocock/skills --skill grill-me --agent claude-code",
   },
   {
     title: "Run the interview",
-    body: "Back in Claude. Paste this. Answer everything it asks — real prompts, real transcripts, no summaries.",
     label: "PASTE INTO CLAUDE",
     code: `I need to nail down the exact spec for an AI pipeline that generates
 sales briefs, before it gets built. Interview me until you have:
@@ -64,7 +58,6 @@ follow-up questions.`,
   },
   {
     title: "Turn it into a build plan",
-    body: "After the interview finishes. Paste this last.",
     label: "PASTE INTO CLAUDE",
     code: `Turn the interview findings into a phased build plan: URL in,
 sales brief out. Stack is Firecrawl (scrape), Claude (generate),
@@ -88,17 +81,11 @@ export default function RouseAndHolderPage() {
           <h1 className="mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">
             Set up your brief pipeline
           </h1>
-          <p className="mt-4 text-lg leading-relaxed text-neutral-400">
-            Seven steps. Copy, paste, done. About 20 minutes.
-            <br />
-            You do not need to understand the code. You only need to paste it.
-          </p>
         </div>
       </header>
 
       <div className="border-b border-neutral-200 bg-white px-6 py-6 sm:px-10">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-3">
-          <span className="mr-auto text-sm font-medium text-neutral-500">Grab both files first</span>
+        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-end gap-3">
           <a
             href="/rouse-and-holder/writing-rules.md"
             download
@@ -125,7 +112,6 @@ export default function RouseAndHolderPage() {
               </span>
               <div className="flex flex-1 flex-col gap-2.5">
                 <h2 className="text-xl font-semibold">{step.title}</h2>
-                <p className="text-[15px] leading-relaxed text-neutral-500">{step.body}</p>
                 <div className="mt-1">
                   <CopyBlock label={step.label} code={step.code} />
                 </div>
@@ -140,11 +126,7 @@ export default function RouseAndHolderPage() {
           </span>
           <div className="flex flex-1 flex-col gap-2.5">
             <h2 className="text-xl font-semibold">Gather access before you send everything back</h2>
-            <p className="text-[15px] leading-relaxed text-neutral-500">
-              The interview gets Jerami your words. The pipeline needs accounts too. Have these ready when
-              you send the findings:
-            </p>
-            <ul className="mt-1 flex flex-col gap-1.5 text-[15px] leading-relaxed text-neutral-700">
+            <ul className="flex flex-col gap-1.5 text-[15px] leading-relaxed text-neutral-700">
               {accessItems.map((item) => (
                 <li key={item} className="flex gap-2">
                   <span className="text-brand-text-blue">-</span>
@@ -153,11 +135,6 @@ export default function RouseAndHolderPage() {
               ))}
             </ul>
           </div>
-        </div>
-
-        <div className="mt-6 rounded-lg bg-brand-text-green/10 px-6 py-5 text-[15px] font-medium leading-relaxed text-brand-text-green">
-          Done. Send Jerami the interview findings, the build plan output, and the access above. He takes it
-          from here.
         </div>
       </div>
     </main>
