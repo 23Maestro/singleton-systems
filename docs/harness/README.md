@@ -29,9 +29,10 @@ LikeC4       -> reviewed architecture
 
 ## Writing Rules
 
-Applies to artifacts that leave the chat: Linear, GitHub, Notion, Supabase,
-memory, markdown, code comments, filenames, commit messages, emails,
-proposals, site copy. Not to conversation.
+Applies to every reviewable non-code artifact: Markdown, Linear, GitHub,
+Notion, memory, emails, cover letters, proposals, briefs, handoffs, captions,
+site copy, public HTML/pages, visual/source notes, and review docs. Not to
+source code, generated bundles, code blocks, or conversation.
 
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.

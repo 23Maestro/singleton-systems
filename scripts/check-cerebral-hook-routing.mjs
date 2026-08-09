@@ -27,6 +27,20 @@ function runPostTool(toolName, toolInput, env = {}) {
   });
 }
 
+function runStop(prompt, lastAssistantMessage, stopHookActive = false) {
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({
+      hook_event_name: "Stop",
+      cwd: root,
+      prompt,
+      stop_hook_active: stopHookActive,
+      last_assistant_message: lastAssistantMessage,
+    }),
+    encoding: "utf8",
+  });
+}
+
 for (const route of routes) {
   for (const prompt of [route.example_prompt, `[route] ${route.route_key}\nHandle this request.`]) {
     const result = runHook(prompt);
@@ -62,6 +76,12 @@ for (const snippet of [
 ]) {
   assert.match(offerPacket.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `offer packet: missing ${snippet}`);
 }
+assert.match(offerPacket.stdout, /Writing rules for reviewable artifacts/, "offer packet: missing writing rules");
+
+const socialPrompt = runHook("Write a LinkedIn post I can publish about AI hooks.");
+assert.equal(socialPrompt.status, 0);
+assert.match(socialPrompt.stdout, /\[route\] offer-content/);
+assert.match(socialPrompt.stdout, /Writing rules for reviewable artifacts/);
 
 const wrongToolPacket = runHook(`[route] offer-content
 [tools] s-systems:freelance-gig-proposals
@@ -88,4 +108,80 @@ const blockedDrift = runPostTool(
 assert.match(blockedDrift.stdout, /"continue": false/);
 assert.match(blockedDrift.stdout, /Opportunity HQ drift check failed after the write/);
 
-console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 6 guards.`);
+const blockedWriting = runStop(
+  "Write a LinkedIn post I can publish about AI hooks.",
+  "The unlock is a robust workflow that can additionally streamline your process.",
+);
+assert.equal(blockedWriting.status, 0);
+assert.match(blockedWriting.stdout, /"decision": "block"/);
+assert.match(blockedWriting.stdout, /Outbound writing gate blocked/);
+assert.match(blockedWriting.stdout, /banned word/);
+
+const cleanWriting = runStop(
+  "Write a LinkedIn post I can publish about AI hooks.",
+  "AI output gets better when standards become checks.\n\nPrompts help. Plans help. Hooks force review.",
+);
+assert.equal(cleanWriting.status, 0);
+assert.equal(cleanWriting.stdout.trim(), "");
+
+const markdownWriting = runStop(
+  "Create a Markdown Linear document for review.",
+  "This is a robust plan.",
+);
+assert.equal(markdownWriting.status, 0);
+assert.match(markdownWriting.stdout, /"decision": "block"/);
+assert.match(markdownWriting.stdout, /banned word/);
+
+const htmlWriting = runStop(
+  "Build a public HTML page for review.",
+  "This is a robust page.",
+);
+assert.equal(htmlWriting.status, 0);
+assert.match(htmlWriting.stdout, /"decision": "block"/);
+
+const ordinaryChat = runStop(
+  "What does the word robust mean?",
+  "This is a robust answer.",
+);
+assert.equal(ordinaryChat.status, 0);
+assert.equal(ordinaryChat.stdout.trim(), "", "ordinary chat must not invoke the writing gate");
+
+const cleanArtifact = runPostTool("Edit", {
+  file_path: path.join(root, "docs/visuals/2026-08-04-ai-upgrade-wayfinder.html"),
+});
+assert.equal(cleanArtifact.status, 0, `clean artifact check exited ${cleanArtifact.status}: ${cleanArtifact.stderr}`);
+assert.doesNotMatch(cleanArtifact.stdout, /"continue": false/);
+
+const tempDir = fs.mkdtempSync(path.join(root, ".writing-tells-test-"));
+try {
+  const blockedArtifactPath = path.join(tempDir, "review.md");
+  fs.writeFileSync(blockedArtifactPath, "This is a robust plan.\n", "utf8");
+  const blockedArtifact = runPostTool("Edit", { file_path: blockedArtifactPath });
+  assert.equal(blockedArtifact.status, 0);
+  assert.match(blockedArtifact.stdout, /"continue": false/);
+  assert.match(blockedArtifact.stdout, /AI writing-tells check failed after the write/);
+
+  const blockedPatch = runPostTool("apply_patch", {
+    input: `*** Begin Patch\n*** Update File: ${blockedArtifactPath}\n@@\n`,
+  });
+  assert.equal(blockedPatch.status, 0);
+  assert.match(blockedPatch.stdout, /"continue": false/);
+  assert.match(blockedPatch.stdout, /AI writing-tells check failed after the write/);
+
+  const blockedHtmlPath = path.join(tempDir, "review.html");
+  fs.writeFileSync(blockedHtmlPath, "<p>This is a robust page.</p><script>const robust = true;</script>\n", "utf8");
+  const blockedHtml = runPostTool("Write", { file_path: blockedHtmlPath });
+  assert.equal(blockedHtml.status, 0);
+  assert.match(blockedHtml.stdout, /"continue": false/);
+  assert.match(blockedHtml.stdout, /AI writing-tells check failed after the write/);
+
+  const sourceCodePath = path.join(tempDir, "source.tsx");
+  fs.writeFileSync(sourceCodePath, "export const copy = 'robust';\n", "utf8");
+  const sourceCode = runPostTool("Write", { file_path: sourceCodePath });
+  assert.equal(sourceCode.status, 0);
+  assert.equal(sourceCode.stdout.trim(), "", "source code must stay outside the writing gate");
+} finally {
+  fs.rmSync(tempDir, { recursive: true, force: true });
+}
+
+console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 17 guards.`);

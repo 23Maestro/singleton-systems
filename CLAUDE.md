@@ -137,9 +137,10 @@ their own semi-independent codebases, not part of the Next.js build.
 
 ## Writing Rules
 
-Applies to artifacts that leave the chat — Linear, GitHub, Notion, Supabase,
-memory, markdown, code comments, filenames, commit messages, emails, proposals,
-site copy. Not to conversation.
+Applies to every reviewable non-code artifact — Markdown, Linear, GitHub,
+Notion, memory, emails, cover letters, proposals, briefs, handoffs, captions,
+site copy, public HTML/pages, visual/source notes, and review docs. Not to
+source code, generated bundles, code blocks, or conversation.
 
 Canonical source: `docs/harness/writing-rules.md` (full deny-list, voice, and
 the client-repo hook payload). Pinned summary in `docs/harness/README.md` →

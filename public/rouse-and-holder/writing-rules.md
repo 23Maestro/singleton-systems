@@ -1,7 +1,9 @@
 # Writing rules
 
-Applies to every artifact leaving this chat: docs, issues, commits, emails,
-code comments, filenames. Not to conversation.
+Applies to every reviewable non-code artifact: Markdown, Linear docs, GitHub
+and Notion copy, memory, emails, cover letters, proposals, briefs, handoffs,
+captions, site copy, public HTML/pages, and visual/source notes. Not to source
+code, generated bundles, code blocks, or conversation.
 
 Correction = edit instruction. Fix the artifact silently. Never restate the
 correction.

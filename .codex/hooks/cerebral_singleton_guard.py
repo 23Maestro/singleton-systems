@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import urllib.parse
@@ -51,6 +52,35 @@ HTML_VISUAL_RE = re.compile(r"html comp|html artifact|playground|visualizer|diag
 AUTOMATION_RE = re.compile(r"daemon|background worker|scheduled automation|async loop|runtime container|docker|new database", re.I)
 SOCIAL_RE = re.compile(r"linkedin|instagram|youtube|social|reference|creator|jab|feint|haymaker|zander|aishwarya|gary vee", re.I)
 CLAUSE_RE = re.compile(r"\bclause\b|claude-specific|claude naming|claude code", re.I)
+ARTIFACT_KIND_RE = (
+    r"(?:markdown|mdx|linear(?:\s+(?:issue|doc|document))?|documents?|"
+    r"emails?|cover\s+(?:letters?|notes?)|proposals?|briefs?|handoffs?|"
+    r"(?:public\s+)?(?:html|pages?|sites?|websites?)|captions?|bios?|"
+    r"(?:source\s+)?notes?|reports?|memos?|visuals?|canvases?|maps?|"
+    r"artifacts?|copy|posts?|comments?|case\s+stud(?:y|ies)|client\s+notes?|"
+    r"front-facing|outbound|communications?|commit\s+messages?|pull\s+requests?)"
+)
+ARTIFACT_INTENT_RE = re.compile(
+    rf"(?:"
+    rf"\b(?:write|writing|draft|create|make|making|build|edit|rewrite|update|prepare|produce|generate|compose|design|evolve|turn|package)\b"
+    rf"[\s\S]{{0,160}}\b{ARTIFACT_KIND_RE}\b"
+    rf"|\b{ARTIFACT_KIND_RE}\b[\s\S]{{0,80}}\b(?:for|to)\s+(?:me\s+to\s+)?review\b"
+    rf")",
+    re.I,
+)
+PUBLIC_DELIVERY_RE = re.compile(
+    rf"\b(?:publish|send|post|deliver|reuse)\b[\s\S]{{0,120}}\b{ARTIFACT_KIND_RE}\b",
+    re.I,
+)
+WRITING_RULES_PATH = "docs/harness/writing-rules.md"
+WRITING_CONTEXT = """Writing rules for reviewable artifacts:
+- Apply to every non-code artifact you will review or reuse: Markdown, Linear documents, GitHub and Notion copy, memory, emails, cover letters, proposals, briefs, handoffs, captions, site copy, public HTML, and visual/source notes.
+- Do not apply to source code, generated bundles, code blocks, or normal conversation unless you ask for copy to send, publish, post, or reuse.
+- Correction means edit silently. Deliver the artifact only.
+- Short sentences. Plain verbs. Concrete claims. Cut filler.
+- Banned words: delve, tapestry, testament, underscore, pivotal, crucial, meticulous, intricate, showcase, foster, garner, landscape, vibrant, robust, seamless, unlock, empower, elevate, streamline, leverage, utilize, facilitate, commence, demonstrate, additionally, enhance.
+- Banned patterns: "not just X but Y", "not X but Y", "X rather than Y", "serves as", numbered/copula "features", hedging, three-item rhythm, vague attribution, puffery, bold inline list headers, Title Case Headings.
+"""
 
 
 def read_input():
@@ -182,6 +212,9 @@ def context(reason, text):
         else:
             lines.append(f"- [registry] {registry_source}; use recorded path and verification command.")
     lines.extend(drift_warnings(text))
+    if public_output_requested(text, routes):
+        lines.append("")
+        lines.append(WRITING_CONTEXT)
     return "\n".join(lines)
 
 
@@ -261,8 +294,275 @@ def run_drift_check():
     return f"Opportunity HQ drift check failed after the write:\n{details}"
 
 
+REVIEWABLE_EXTENSIONS = {
+    ".md",
+    ".mdx",
+    ".txt",
+    ".rst",
+    ".adoc",
+    ".eml",
+    ".html",
+    ".htm",
+}
+GENERATED_ARTIFACT_PATH_RE = re.compile(r"(^|/)(node_modules|vendor|dist|build|coverage|\.next|out)(/|$)", re.I)
+DIRECT_PATH_KEYS = {"file_path", "filepath", "filePath", "path", "filename", "file", "paths", "files"}
+SHELL_KEYS = {"command", "cmd", "script"}
+
+
+def _flatten_strings(value):
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, (list, tuple)):
+        for item in value:
+            yield from _flatten_strings(item)
+
+
+def _path_from_candidate(candidate, root):
+    candidate = str(candidate).strip().strip("'\"")
+    if not candidate or candidate.startswith("-"):
+        return None
+    if candidate.startswith("file://"):
+        candidate = urllib.parse.unquote(urllib.parse.urlparse(candidate).path)
+    path = os.path.abspath(candidate if os.path.isabs(candidate) else os.path.join(root, candidate))
+    try:
+        if os.path.commonpath([root, path]) != root:
+            return None
+    except ValueError:
+        return None
+    relative_path = os.path.relpath(path, root).replace(os.sep, "/")
+    if GENERATED_ARTIFACT_PATH_RE.search(relative_path):
+        return None
+    if os.path.splitext(path)[1].lower() not in REVIEWABLE_EXTENSIONS:
+        return None
+    return path
+
+
+def artifact_path_candidates(payload):
+    root = repo_root()
+    tool_input = payload.get("tool_input") or {}
+    direct_values = []
+    patch_values = []
+    shell_values = []
+
+    def collect(value, key=""):
+        if isinstance(value, dict):
+            for child_key, child_value in value.items():
+                lowered = str(child_key)
+                if lowered in DIRECT_PATH_KEYS:
+                    direct_values.extend(_flatten_strings(child_value))
+                elif lowered == "patch":
+                    patch_values.extend(_flatten_strings(child_value))
+                elif lowered in SHELL_KEYS:
+                    shell_values.extend(_flatten_strings(child_value))
+                else:
+                    if isinstance(child_value, str) and re.search(r"\*\*\*\s+(?:Begin Patch|Update|Add|Delete)\s+", child_value, re.I):
+                        patch_values.append(child_value)
+                    collect(child_value, lowered)
+        elif isinstance(value, str) and key in DIRECT_PATH_KEYS:
+            direct_values.append(value)
+
+    if isinstance(tool_input, str):
+        if re.search(r"\*\*\*\s+(?:Begin Patch|Update|Add|Delete)\s+", tool_input, re.I):
+            patch_values.append(tool_input)
+        else:
+            shell_values.append(tool_input)
+    else:
+        collect(tool_input)
+
+    candidates = list(direct_values)
+    for patch in patch_values:
+        candidates.extend(
+            match.group(1).strip()
+            for match in re.finditer(
+                r"^\*\*\*\s+(?:Update|Add|Delete)\s+File:\s*(.+?)\s*$",
+                patch,
+                re.I | re.M,
+            )
+        )
+
+    for command in shell_values:
+        try:
+            tokens = shlex.split(command)
+        except ValueError:
+            tokens = []
+        candidates.extend(
+            token
+            for token in tokens
+            if os.path.splitext(token.strip("'\""))[1].lower() in REVIEWABLE_EXTENSIONS
+        )
+
+    paths = []
+    for candidate in candidates:
+        path = _path_from_candidate(candidate, root)
+        if path and os.path.isfile(path) and path not in paths:
+            paths.append(path)
+    return paths
+
+
+def should_run_artifact_check(payload):
+    tool_name = str(payload.get("tool_name") or "")
+    return tool_name in {"apply_patch", "Edit", "Write", "Bash"} and bool(artifact_path_candidates(payload))
+
+
+def run_artifact_check(payload):
+    paths = artifact_path_candidates(payload)
+    if not paths:
+        return None
+    root = repo_root()
+    script = os.path.join(root, "scripts/check-tells.mjs")
+    result = subprocess.run(
+        [os.environ.get("NODE_BINARY", "node"), script, "--strict", *paths],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        timeout=8,
+        check=False,
+    )
+    if result.returncode == 0:
+        return None
+    details = (result.stderr or result.stdout or "Unknown writing-tells check failure").strip()
+    return f"AI writing-tells check failed after the write:\n{details}"
+
+
 def emit_block(message):
     print(json.dumps({"continue": False, "stopReason": message, "systemMessage": message}))
+
+
+def public_output_requested(text, routes=None):
+    public_routes = {"offer-content", "agency-growth", "freelance-proposal", "cover-note", "website-offer"}
+    if any((route.get("route_key") or "") in public_routes for route in routes or []):
+        return True
+    text = text or ""
+    return bool(ARTIFACT_INTENT_RE.search(text) or PUBLIC_DELIVERY_RE.search(text))
+
+
+def writing_words():
+    path = os.path.join(repo_root(), WRITING_RULES_PATH)
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            doc = handle.read()
+    except OSError:
+        return []
+    match = re.search(r"\*\*Words\.\*\*([\s\S]*?)\n\n", doc)
+    if not match:
+        return []
+    return [
+        word.strip().rstrip(".")
+        for word in re.sub(r"\s+", " ", match.group(1)).split(",")
+        if word.strip()
+    ]
+
+
+def writing_rules():
+    words = writing_words()
+    word_re = r"\b(" + "|".join(re.escape(word) for word in words) + r")\b" if words else r"$^"
+    return [
+        (re.compile(word_re, re.I), "banned word"),
+        (re.compile(r"\bnot just\b[^.!?]{1,60}?\bbut\b", re.I), "negative parallelism"),
+        (re.compile(r"\bnot\b[^.!?]{1,40}?,\s*but\b", re.I), "negative parallelism"),
+        (re.compile(r"\brather than\b", re.I), "negative parallelism"),
+        (re.compile(r"\bserves as\b", re.I), 'copula dodge: write "is"'),
+        (re.compile(r"\bfeatures\s+(a|an|the|\d+|two|three|four|five|six|seven|eight|nine|ten)\b", re.I), 'copula dodge: write "has"'),
+        (re.compile(r"\b(experts|observers|analysts|critics)\s+(argue|say|note|have)\b", re.I), "vague attribution"),
+        (re.compile(r"\b(industry )?reports?\s+suggest\b", re.I), "vague attribution"),
+        (re.compile(r"\befforts are ongoing\b", re.I), "vague attribution"),
+        (re.compile(r"\bnestled in the\b|\bmarking a pivotal\b|\brich cultural\b", re.I), "puffery"),
+        (re.compile(r"^\s*[-*]\s*\*\*[^*]+\*\*:", re.I | re.M), "bold inline list header"),
+    ]
+
+
+def title_case_heading_hits(text):
+    hits = []
+    for line_number, line in enumerate(text.splitlines(), 1):
+        match = re.match(r"^#{1,6}\s+(.*)$", line)
+        if not match:
+            continue
+        words = [word for word in match.group(1).split() if re.match(r"^[A-Za-z]", word)]
+        caps = [word for word in words if re.match(r"^[A-Z]", word)]
+        if len(words) >= 3 and len(caps) == len(words):
+            hits.append((line_number, "Title Case Heading", match.group(1)))
+    return hits
+
+
+def _blank_non_newline(match):
+    return re.sub(r"[^\n]", " ", match.group(0))
+
+
+def strip_writing_code(text):
+    clean = re.sub(r"```[\s\S]*?```", _blank_non_newline, text)
+    clean = re.sub(r"<(script|style|pre|code)\b[\s\S]*?</\1\s*>", _blank_non_newline, clean, flags=re.I)
+    return re.sub(r"`[^`\n]+`", _blank_non_newline, clean)
+
+
+def writing_hits(text):
+    text = strip_writing_code(text)
+    hits = []
+    for pattern, label in writing_rules():
+        for match in pattern.finditer(text):
+            line_number = text[: match.start()].count("\n") + 1
+            hits.append((line_number, label, match.group(0).strip()[:80]))
+    hits.extend(title_case_heading_hits(text))
+    return sorted(hits, key=lambda item: item[0])
+
+
+def last_user_prompt_from_transcript(payload):
+    transcript_path = payload.get("transcript_path")
+    if not transcript_path:
+        return ""
+    transcript_path = os.path.expanduser(str(transcript_path))
+    try:
+        with open(transcript_path, "r", encoding="utf-8") as handle:
+            lines = handle.readlines()[-80:]
+    except OSError:
+        return ""
+    for line in reversed(lines):
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        message = record.get("message") or record
+        if message.get("role") != "user":
+            continue
+        content = message.get("content") or record.get("content") or ""
+        if isinstance(content, str):
+            return content
+        if isinstance(content, list):
+            parts = []
+            for item in content:
+                if isinstance(item, dict) and item.get("type") == "text":
+                    parts.append(str(item.get("text") or ""))
+            return "\n".join(parts)
+    return ""
+
+
+def stop_prompt(payload):
+    return (
+        str(payload.get("prompt") or "")
+        or str(payload.get("user_prompt") or "")
+        or last_user_prompt_from_transcript(payload)
+    )
+
+
+def run_writing_stop_gate(payload):
+    prompt = stop_prompt(payload)
+    if not public_output_requested(prompt):
+        return None
+    if payload.get("stop_hook_active") is True:
+        return None
+    message = str(payload.get("last_assistant_message") or "")
+    if not message.strip():
+        return None
+    hits = writing_hits(message)
+    if not hits:
+        return None
+    details = "\n".join(
+        f"- line {line}: {label} -> {snippet}"
+        for line, label, snippet in hits[:10]
+    )
+    return (
+        "Outbound writing gate blocked the final answer. Rewrite the artifact with the AI writing pass before stopping.\n"
+        + details
+    )
 
 
 def main():
@@ -284,6 +584,12 @@ def main():
         emit(context("session should start from canonical Singleton Systems routing", ""), event)
         return
 
+    if event == "Stop":
+        writing_error = run_writing_stop_gate(payload)
+        if writing_error:
+            print(json.dumps({"decision": "block", "reason": writing_error}))
+        return
+
     if event == "PostToolUse":
         if should_run_drift_check(payload):
             try:
@@ -292,6 +598,15 @@ def main():
                 drift_error = f"Opportunity HQ drift check could not run after the write: {error}"
             if drift_error:
                 emit_block(drift_error)
+                return
+
+        if should_run_artifact_check(payload):
+            try:
+                artifact_error = run_artifact_check(payload)
+            except (OSError, subprocess.SubprocessError) as error:
+                artifact_error = f"AI writing-tells check could not run after the write: {error}"
+            if artifact_error:
+                emit_block(artifact_error)
                 return
 
         hits = stale_owner_hits()

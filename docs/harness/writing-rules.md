@@ -5,17 +5,15 @@ repo hooks. Never hand-edit a copy.
 
 ## Scope
 
-Applies strictly to artifacts that leave the chat:
+Applies to every reviewable non-code artifact created here:
 
-Linear issues and docs, GitHub commits and PR bodies, Notion, memory files,
-emails, proposals, site copy, client handoffs.
+Markdown and MDX, Linear issues and docs, GitHub commit and PR bodies, Notion,
+memory files, emails, cover letters, proposals, briefs, client handoffs,
+captions, site copy, public HTML/pages, visual/source notes, and review docs.
 
-Applies as judgment, not checker output, to internal repo documents:
-
-planning notes, skill instructions, harness docs, examples, review boards,
-visual maps, source notes, and files that explain or quote the rules.
-
-Does not apply to conversation. Talk normally in chat.
+The checker scans Markdown everywhere, plus plain-text, email, and HTML review
+artifacts. It does not scan source code, generated bundles, code blocks, or
+conversation. Talk normally in chat.
 
 ## Edit instructions
 
@@ -66,8 +64,11 @@ Copy this block verbatim into a client repo at `.claude/writing-rules.md`.
 Fires on `UserPromptSubmit` via `cat`. Keep it near 150 tokens.
 
 ```text
-Writing rules — apply to every artifact leaving this chat (docs, issues,
-commits, emails, code comments, filenames). Not to conversation.
+Writing rules — apply to every reviewable non-code artifact created here:
+Markdown, Linear docs, GitHub and Notion copy, memory, emails, cover letters,
+proposals, briefs, handoffs, captions, site copy, public HTML/pages, and
+visual/source notes. Not to source code, generated bundles, code blocks, or
+conversation.
 
 Correction = edit instruction. Fix the artifact silently. Never restate the
 correction.

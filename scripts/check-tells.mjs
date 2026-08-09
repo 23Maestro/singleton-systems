@@ -1,36 +1,39 @@
 #!/usr/bin/env node
-// Greps changed markdown for AI writing tells.
+// Greps reviewable non-code artifacts for AI writing tells.
 // Source of truth for the word list: docs/harness/writing-rules.md
-// Usage: node scripts/check-tells.mjs [file.md ...] | --all | --strict | --self-test
-// Default: outward-facing artifact paths fail; internal repo docs are skipped.
+// Usage: node scripts/check-tells.mjs [file ...] | --all | --strict | --self-test
+// Markdown is always scanned. HTML and text artifacts are scanned too.
 
 import { execSync } from "node:child_process";
 import { readFileSync, existsSync } from "node:fs";
+import { extname, relative, sep } from "node:path";
 
 const RULES = "docs/harness/writing-rules.md";
-const STRICT_PATHS = [
-  /^docs\/outreach\//,
-  /^docs\/offer\//,
-  /^docs\/resumes\//,
-  /^docs\/handoffs\//,
-  /^docs\/portfolio\//,
-  /^public\//,
-  /^app\//,
-];
+const MARKDOWN_EXTENSIONS = new Set([".md", ".mdx"]);
+const TEXT_EXTENSIONS = new Set([".txt", ".rst", ".adoc", ".eml"]);
+const HTML_EXTENSIONS = new Set([".html", ".htm"]);
+const GENERATED_PATH_RE = /(^|\/)(node_modules|vendor|dist|build|coverage|\.next|out)(\/|$)/;
 
 // Files that legitimately contain the banned words because they define or mirror them.
 const EXEMPT = new Set([RULES, "CLAUDE.md", "scripts/check-tells.mjs"]);
 
+function repoPath(file) {
+  return relative(process.cwd(), file).split(sep).join("/");
+}
+
 function isExempt(file) {
-  return EXEMPT.has(file) || /(^|\/)writing-rules\.md$/.test(file);
+  const normalized = repoPath(file);
+  return EXEMPT.has(normalized) || /(^|\/)writing-rules\.md$/.test(normalized);
 }
 
-function isStrictArtifact(file, forceStrict = false) {
-  return forceStrict || STRICT_PATHS.some((re) => re.test(file));
+function isReviewable(file) {
+  if (GENERATED_PATH_RE.test(repoPath(file))) return false;
+  const extension = extname(file).toLowerCase();
+  return MARKDOWN_EXTENSIONS.has(extension) || TEXT_EXTENSIONS.has(extension) || HTML_EXTENSIONS.has(extension);
 }
 
-function isScanned(file, forceStrict = false) {
-  return isStrictArtifact(file, forceStrict);
+function isScanned(file) {
+  return isReviewable(file);
 }
 
 function bannedWords() {
@@ -60,9 +63,28 @@ function phraseRules(words) {
   ];
 }
 
-// Strips fenced code blocks so code identifiers don't trip the word list.
-function stripCode(text) {
-  return text.replace(/^```[\s\S]*?^```/gm, (block) => block.replace(/[^\n]/g, " "));
+function blankNonNewline(text) {
+  return text.replace(/[^\n]/g, " ");
+}
+
+// Strips code and markup that should not be judged as reader-facing prose.
+function stripReviewCode(text, file) {
+  const extension = extname(file).toLowerCase();
+  let clean = text;
+
+  if (MARKDOWN_EXTENSIONS.has(extension)) {
+    clean = clean.replace(/^```[\s\S]*?^```/gm, blankNonNewline);
+    clean = clean.replace(/`[^`\n]+`/g, blankNonNewline);
+    return clean;
+  }
+
+  if (HTML_EXTENSIONS.has(extension) || TEXT_EXTENSIONS.has(extension)) {
+    clean = clean.replace(/<(script|style|pre|code)\b[\s\S]*?<\/\1\s*>/gi, blankNonNewline);
+    clean = clean.replace(/<!--[\s\S]*?-->/g, blankNonNewline);
+    if (HTML_EXTENSIONS.has(extension)) clean = clean.replace(/<[^>]+>/g, " ");
+  }
+
+  return clean;
 }
 
 function titleCaseHeadings(text) {
@@ -89,7 +111,7 @@ function emDashDensity(text) {
 
 function scan(file, rules, options = {}) {
   const raw = readFileSync(file, "utf8");
-  const text = stripCode(raw);
+  const text = stripReviewCode(raw, file);
   const lines = text.split("\n");
   const hits = [];
   const level = "fail";
@@ -113,14 +135,14 @@ function scan(file, rules, options = {}) {
 
 function targets(argv) {
   if (argv.includes("--all")) {
-    return execSync("git ls-files '*.md'", { encoding: "utf8" }).trim().split("\n");
+    return execSync("git ls-files --cached --others --exclude-standard", { encoding: "utf8" }).trim().split("\n");
   }
-  const explicit = argv.filter((a) => a.endsWith(".md"));
+  const explicit = argv.filter((a) => !a.startsWith("--"));
   if (explicit.length) return explicit;
   const changed = execSync("git diff --name-only HEAD; git ls-files --others --exclude-standard", {
     encoding: "utf8",
   });
-  return [...new Set(changed.trim().split("\n"))].filter((f) => f.endsWith(".md"));
+  return [...new Set(changed.trim().split("\n"))];
 }
 
 function selfTest() {
@@ -139,8 +161,12 @@ function selfTest() {
   console.assert(titleCaseHeadings("## The Big Red Dog").length === 1, "title case missed");
   console.assert(titleCaseHeadings("## The build gate").length === 0, "title case false positive");
 
-  const code = stripCode("```\ndelve\n```\nclean");
+  const code = stripReviewCode("```\ndelve\n```\nclean", "probe.md");
   console.assert(!/delve/.test(code), "code fence not stripped");
+
+  const html = stripReviewCode("<p>robust</p><script>const robust = true;</script>", "probe.html");
+  console.assert(/robust/.test(html), "visible HTML copy was stripped");
+  console.assert(!/const robust/.test(html), "HTML script was not stripped");
 
   console.log("check-tells self-test passed");
 }
@@ -170,7 +196,7 @@ for (const h of warns) {
 }
 
 if (!fails.length) {
-  console.log(`tells check passed: ${files.length} markdown file(s), ${warns.length} warning(s)`);
+  console.log(`tells check passed: ${files.length} reviewable artifact(s), ${warns.length} warning(s)`);
   process.exit(0);
 }
 
