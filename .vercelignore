@@ -1,0 +1,14 @@
+# Unreferenced by any route/component; 224MB kills CLI + git-integration uploads.
+public/remotion-assets/v3_CloserOS_Slack_conformed.mov
+
+# Local build/development artifacts.
+.next
+node_modules
+out
+output
+tmp
+tsconfig.tsbuildinfo
+
+# Local generated motion workspaces; source docs and public assets are enough for the site.
+hyperframes
+docs/visuals/2026-08-04-ai-upgrade-wayfinder.html
