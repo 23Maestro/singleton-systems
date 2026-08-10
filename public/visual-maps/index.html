@@ -3,192 +3,250 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Live links — Sunday, August 9, 2026</title>
+    <meta name="description" content="Dated Singleton Systems visual maps and working canvases." />
+    <title>Visual maps — Singleton Systems</title>
     <style>
       :root {
+        --paper: #f7f7f5;
         --ink: #111318;
-        --muted: #68717d;
-        --canvas: #eef1f4;
-        --column: #dfe4e9;
+        --muted: #667085;
+        --line: rgba(17, 19, 24, 0.16);
         --blue: #2383e2;
-        --green: #25c266;
+        --yellow: #ffc83d;
         --coral: #ff6257;
-        --yellow: #f3b91f;
+        --green: #25c266;
       }
 
       * { box-sizing: border-box; }
+      html { background: var(--paper); }
 
       body {
         margin: 0;
-        background: var(--canvas);
+        min-height: 100vh;
+        background: var(--paper);
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.35;
       }
 
       a { color: inherit; text-decoration: none; }
 
-      .shell { max-width: 1500px; margin: 0 auto; padding: 20px 16px 36px; }
+      .shell {
+        width: min(68rem, calc(100% - 2.5rem));
+        margin: 0 auto;
+        padding: 2.25rem 0 4rem;
+      }
 
-      .hero {
+      .masthead {
         display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 24px;
-        padding: 22px 28px 24px;
-        border-radius: 18px;
-        background: var(--ink);
-        color: white;
-        box-shadow: 0 16px 40px rgba(17, 19, 24, 0.16);
-      }
-
-      .eyebrow, .column-eyebrow, .state, .card-foot {
-        font-size: 10px;
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-
-      .date-row { display: flex; align-items: center; gap: 10px; color: #8fc7ff; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-      .date-icon { display: inline-grid; width: 19px; height: 19px; place-items: center; border: 1px solid rgba(143,199,255,0.55); border-radius: 50%; font-size: 10px; line-height: 1; }
-      .date-row em { color: rgba(255,255,255,0.78); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
-      .date-rule { height: 1px; flex: 1; min-width: 24px; background: rgba(255,255,255,0.22); }
-      .date-link { color: white; font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
-      h1 { margin: 8px 0 0; font-size: clamp(30px, 4vw, 48px); line-height: 1; letter-spacing: -0.045em; }
-
-      .count {
-        display: inline-flex;
         align-items: center;
-        gap: 8px;
-        padding: 9px 12px;
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 999px;
-        color: rgba(255,255,255,0.82);
-        white-space: nowrap;
+        justify-content: space-between;
+        gap: 2rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 1px solid var(--line);
       }
 
-      .count::before {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #46dc78;
-        box-shadow: 0 0 12px rgba(70, 220, 120, 0.9);
+      .brand { display: inline-flex; width: 8.8rem; transition: opacity 160ms ease; }
+      .brand:hover { opacity: .66; }
+      .brand:focus-visible, .map-row:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+      .brand img { display: block; width: 100%; height: auto; }
+
+      .color-mark {
+        display: inline-grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 5.5rem;
+        height: .45rem;
+        gap: .3rem;
+      }
+
+      .color-mark span:nth-child(1) { background: var(--blue); }
+      .color-mark span:nth-child(2) { background: var(--yellow); }
+      .color-mark span:nth-child(3) { background: var(--coral); }
+      .color-mark span:nth-child(4) { background: var(--green); }
+
+      .intro { padding: 4.8rem 0 2.2rem; }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(3.2rem, 10vw, 7.5rem);
+        font-weight: 650;
+        letter-spacing: -.075em;
+        line-height: .86;
+      }
+
+      .intro-mark {
+        display: inline-block;
+        margin: 0 0 .16em .12em;
+        color: var(--blue);
+        font-size: .38em;
+        vertical-align: top;
+      }
+
+      .map-list {
+        position: relative;
+        border-top: 2px solid var(--ink);
+      }
+
+      .map-list::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 1.45rem;
+        width: 1px;
+        background: var(--line);
         content: "";
       }
 
-      .board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
-
-      .column { padding: 14px; border: 1px solid rgba(17,19,24,0.08); border-radius: 18px; background: rgba(223,228,233,0.76); }
-
-      .column-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 4px 12px; }
-      .column-eyebrow { color: #7b838c; }
-      h2 { margin: 5px 0 0; font-size: 19px; line-height: 1.1; letter-spacing: -0.025em; }
-      .dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
-      .column-blue .dot { background: var(--blue); }
-      .column-green .dot { background: var(--green); }
-      .column-coral .dot { background: var(--coral); }
-      .column-yellow .dot { background: var(--yellow); }
-
-      .cards { display: grid; gap: 12px; }
-
-      .card {
-        display: block;
-        padding: 16px;
-        border: 1px solid rgba(17,19,24,0.1);
-        border-radius: 12px;
-        background: white;
-        box-shadow: 0 8px 20px rgba(20,31,48,0.06);
-        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      .map-row {
+        position: relative;
+        display: grid;
+        grid-template-columns: 3rem minmax(0, 1fr);
+        gap: 1.25rem;
+        align-items: center;
+        min-height: 9rem;
+        padding: 1.75rem 0;
+        border-bottom: 1px solid var(--line);
+        transition: background 160ms ease, padding 160ms ease;
       }
 
-      .card:hover { transform: translateY(-2px); border-color: rgba(17,19,24,0.25); box-shadow: 0 12px 26px rgba(20,31,48,0.1); }
-      .card:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-      .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-      h3 { margin: 0; font-size: 15px; line-height: 1.2; }
-      .state { padding: 5px 8px; border: 1px solid; border-radius: 999px; font-size: 9px; letter-spacing: 0.12em; white-space: nowrap; }
-      .live { border-color: #b8e7c5; background: #e9f9ed; color: #176b36; }
-      .restricted { border-color: #f2d58a; background: #fff7dc; color: #835d00; }
-      .redirect { border-color: #c9d9ef; background: #eef5fd; color: #245b92; }
-      .download { border-color: #f3c3bd; background: #fff0ee; color: #a23b31; }
-      .url { margin: 12px 0 0; color: var(--muted); font-size: 11px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
-      .card-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(17,19,24,0.08); color: #8b929b; font-size: 10px; letter-spacing: 0.1em; }
-      .open { color: var(--ink); }
+      .map-row:hover { padding-right: .75rem; padding-left: .75rem; background: rgba(255,255,255,.58); }
 
-      @media (max-width: 1180px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      @media (max-width: 700px) {
-        .shell { padding: 12px 10px 24px; }
-        .hero { align-items: flex-start; flex-direction: column; padding: 18px; }
-        .board { grid-template-columns: 1fr; gap: 14px; }
-        .column { padding: 12px; }
+      .map-node {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        width: 2.9rem;
+        height: 2.9rem;
+        place-items: center;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        background: var(--paper);
+        font-size: .82rem;
+        font-weight: 800;
+      }
+
+      .map-row:nth-child(1) .map-node { box-shadow: inset 0 0 0 .45rem #dceeff; }
+      .map-row:nth-child(2) .map-node { box-shadow: inset 0 0 0 .45rem #fff1bf; }
+      .map-row:nth-child(3) .map-node { box-shadow: inset 0 0 0 .45rem #dcf7e5; }
+      .map-row:nth-child(4) .map-node { box-shadow: inset 0 0 0 .45rem #ffe2df; }
+      .map-row:nth-child(5) .map-node { box-shadow: inset 0 0 0 .45rem #e9ddff; }
+
+      .map-copy { min-width: 0; }
+
+      .map-title {
+        display: block;
+        font-size: clamp(1.35rem, 3.4vw, 2.35rem);
+        font-weight: 650;
+        letter-spacing: -.045em;
+        line-height: 1;
+      }
+
+      .date-row {
+        display: flex;
+        align-items: center;
+        gap: .7rem;
+        margin-top: 1.1rem;
+        color: var(--muted);
+        font-size: .74rem;
+        font-weight: 700;
+        letter-spacing: .02em;
+      }
+
+      .date-icon {
+        display: inline-grid;
+        width: 1.35rem;
+        height: 1.35rem;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid var(--ink);
+        border-radius: 50%;
+        color: var(--ink);
+        font-size: .7rem;
+      }
+
+      .date-row em { color: var(--ink); font-size: .86rem; font-weight: 600; letter-spacing: 0; }
+      .date-rule { height: 1px; min-width: 2rem; flex: 1; background: var(--line); }
+      .date-link { color: var(--ink); font-size: .7rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+      .date-link::after { content: " ↗"; color: var(--blue); }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-top: 1.2rem;
+        color: var(--muted);
+        font-size: .74rem;
+        font-weight: 700;
+      }
+
+      .footer a:hover { color: var(--ink); }
+
+      @media (max-width: 600px) {
+        .shell { width: min(100% - 1.5rem, 68rem); padding-top: 1.4rem; }
+        .masthead { padding-bottom: 1rem; }
+        .brand { width: 7.4rem; }
+        .intro { padding: 3.7rem 0 1.7rem; }
+        .map-row { grid-template-columns: 2.5rem minmax(0, 1fr); gap: .9rem; min-height: 8.4rem; padding: 1.4rem 0; }
+        .map-list::before { left: 1.2rem; }
+        .map-node { width: 2.4rem; height: 2.4rem; font-size: .74rem; }
+        .date-row { gap: .45rem; flex-wrap: wrap; }
+        .date-rule { min-width: 1rem; }
+        .date-link { margin-left: auto; }
       }
     </style>
   </head>
   <body>
     <main class="shell">
-      <header class="hero">
-        <div>
-          <div class="date-row"><span class="date-icon" aria-hidden="true">✦</span><em>Sunday — August 9, 2026</em><span class="date-rule" aria-hidden="true"></span><a class="date-link" href="./2026-08-09-live-links.html">Link ↗</a></div>
-          <h1>Live links</h1>
-        </div>
-        <div class="count">31 link records</div>
+      <header class="masthead">
+        <a class="brand" href="/" aria-label="Singleton Systems home">
+          <img src="/singleton-systems-wordmark.svg" alt="Singleton Systems" width="660" height="260" />
+        </a>
+        <span class="color-mark" aria-label="Singleton Systems color mark"><span></span><span></span><span></span><span></span></span>
       </header>
 
-      <div class="board">
-        <section class="column column-blue" aria-labelledby="singleton-systems-heading">
-          <div class="column-head"><div><div class="column-eyebrow">Production site</div><h2 id="singleton-systems-heading">Singleton Systems</h2></div><span class="dot" aria-hidden="true"></span></div>
-          <div class="cards">
-            <a class="card" href="https://singleton-systems.com" target="_blank" rel="noreferrer"><div class="card-head"><h3>Homepage</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com</p><div class="card-foot"><span>Primary site</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/ai-workflow-portfolio" target="_blank" rel="noreferrer"><div class="card-head"><h3>AI Workflow Portfolio</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/ai-workflow-portfolio</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/ai-workflow-session" target="_blank" rel="noreferrer"><div class="card-head"><h3>AI Workflow Session</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/ai-workflow-session</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/decision-maps" target="_blank" rel="noreferrer"><div class="card-head"><h3>Decision Maps</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/decision-maps</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/home-tasks" target="_blank" rel="noreferrer"><div class="card-head"><h3>Home Tasks</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/home-tasks</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/linear-inbox" target="_blank" rel="noreferrer"><div class="card-head"><h3>Linear Inbox</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/linear-inbox</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/portfolio-c4-plan" target="_blank" rel="noreferrer"><div class="card-head"><h3>Portfolio C4 Plan</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/portfolio-c4-plan</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/rouse-and-holder" target="_blank" rel="noreferrer"><div class="card-head"><h3>Rouse and Holder</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/rouse-and-holder</p><div class="card-foot"><span>Public page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/links" target="_blank" rel="noreferrer"><div class="card-head"><h3>Client Links</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/links</p><div class="card-foot"><span>Client-facing page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/visual-maps" target="_blank" rel="noreferrer"><div class="card-head"><h3>Visual Maps</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/visual-maps</p><div class="card-foot"><span>Passive review page</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/wemby-shot-lab" target="_blank" rel="noreferrer"><div class="card-head"><h3>Wemby Shot Lab</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/wemby-shot-lab</p><div class="card-foot"><span>Production route</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/c4" target="_blank" rel="noreferrer"><div class="card-head"><h3>C4</h3><span class="state redirect">Redirect</span></div><p class="url">singleton-systems.com/c4</p><div class="card-foot"><span>To Visual Maps</span><span class="open">Open ↗</span></div></a>
-          </div>
-        </section>
+      <section class="intro" aria-labelledby="page-title">
+        <h1 id="page-title">Visual maps<span class="intro-mark" aria-hidden="true">✦</span></h1>
+      </section>
 
-        <section class="column column-green" aria-labelledby="live-builds-heading">
-          <div class="column-head"><div><div class="column-eyebrow">Vercel projects</div><h2 id="live-builds-heading">Live builds</h2></div><span class="dot" aria-hidden="true"></span></div>
-          <div class="cards">
-            <a class="card" href="https://wemby-shot-lab.vercel.app/wemby-shot-lab" target="_blank" rel="noreferrer"><div class="card-head"><h3>Wemby Shot Lab</h3><span class="state live">Live</span></div><p class="url">wemby-shot-lab.vercel.app/wemby-shot-lab</p><div class="card-foot"><span>Direct project path</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://flowzone-23maestros-projects.vercel.app" target="_blank" rel="noreferrer"><div class="card-head"><h3>Flowzone</h3><span class="state restricted">Restricted</span></div><p class="url">flowzone-23maestros-projects.vercel.app</p><div class="card-foot"><span>Login required</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://prospect-web.vercel.app" target="_blank" rel="noreferrer"><div class="card-head"><h3>Prospect Web</h3><span class="state live">Live</span></div><p class="url">prospect-web.vercel.app</p><div class="card-foot"><span>Project site</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://diy-car-maintenance.vercel.app" target="_blank" rel="noreferrer"><div class="card-head"><h3>DIY Car Maintenance</h3><span class="state live">Live</span></div><p class="url">diy-car-maintenance.vercel.app</p><div class="card-foot"><span>Project site</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://nextjs-phi-flax-76.vercel.app" target="_blank" rel="noreferrer"><div class="card-head"><h3>Next.js Starter</h3><span class="state live">Live</span></div><p class="url">nextjs-phi-flax-76.vercel.app</p><div class="card-foot"><span>Project site</span><span class="open">Open ↗</span></div></a>
-          </div>
-        </section>
+      <section class="map-list" aria-label="Dated visual maps">
+        <a class="map-row" href="/visual-maps/2026-08-04-ai-upgrade-wayfinder.html">
+          <span class="map-node" aria-hidden="true">01</span>
+          <span class="map-copy">
+            <strong class="map-title">Gary&apos;s Client Canvas</strong>
+            <span class="date-row"><span class="date-icon" aria-hidden="true">✦</span><em>Tuesday — August 4, 2026</em><span class="date-rule" aria-hidden="true"></span><span class="date-link">Link</span></span>
+          </span>
+        </a>
+        <a class="map-row" href="/decision-maps">
+          <span class="map-node" aria-hidden="true">02</span>
+          <span class="map-copy">
+            <strong class="map-title">Decision Maps</strong>
+            <span class="date-row"><span class="date-icon" aria-hidden="true">✦</span><em>Wednesday — July 22, 2026</em><span class="date-rule" aria-hidden="true"></span><span class="date-link">Link</span></span>
+          </span>
+        </a>
+        <a class="map-row" href="/portfolio-c4-plan">
+          <span class="map-node" aria-hidden="true">03</span>
+          <span class="map-copy">
+            <strong class="map-title">Portfolio C4 Plan</strong>
+            <span class="date-row"><span class="date-icon" aria-hidden="true">✦</span><em>Saturday — July 5, 2026</em><span class="date-rule" aria-hidden="true"></span><span class="date-link">Link</span></span>
+          </span>
+        </a>
+        <a class="map-row" href="/wemby-shot-lab">
+          <span class="map-node" aria-hidden="true">04</span>
+          <span class="map-copy">
+            <strong class="map-title">Wemby Shot Lab</strong>
+            <span class="date-row"><span class="date-icon" aria-hidden="true">✦</span><em>Friday — July 17, 2026</em><span class="date-rule" aria-hidden="true"></span><span class="date-link">Link</span></span>
+          </span>
+        </a>
+        <a class="map-row" href="/ai-starter-guide/">
+          <span class="map-node" aria-hidden="true">05</span>
+          <span class="map-copy">
+            <strong class="map-title">AI Starter Lab</strong>
+            <span class="date-row"><span class="date-icon" aria-hidden="true">✦</span><em>Monday — July 6, 2026</em><span class="date-rule" aria-hidden="true"></span><span class="date-link">Link</span></span>
+          </span>
+        </a>
+      </section>
 
-        <section class="column column-coral" aria-labelledby="artifacts-heading">
-          <div class="column-head"><div><div class="column-eyebrow">HTML + resources</div><h2 id="artifacts-heading">Public artifacts</h2></div><span class="dot" aria-hidden="true"></span></div>
-          <div class="cards">
-            <a class="card" href="https://singleton-systems.com/ai-starter-guide/" target="_blank" rel="noreferrer"><div class="card-head"><h3>AI Starter Lab</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/ai-starter-guide/</p><div class="card-foot"><span>HTML artifact</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/decision-maps/wemby-shot-selection-storyboard/" target="_blank" rel="noreferrer"><div class="card-head"><h3>Wemby Edit Map</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/decision-maps/wemby-shot-selection-storyboard/</p><div class="card-foot"><span>HTML artifact</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/visual-maps/" target="_blank" rel="noreferrer"><div class="card-head"><h3>LikeC4 Visual Maps</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/visual-maps/</p><div class="card-foot"><span>Map surface</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/ai-workflow-portfolio/index.html" target="_blank" rel="noreferrer"><div class="card-head"><h3>AI Workflow Portfolio HTML</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/ai-workflow-portfolio/index.html</p><div class="card-foot"><span>Static artifact</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/email-signatures/jerami-singleton.html" target="_blank" rel="noreferrer"><div class="card-head"><h3>Email Signature</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/email-signatures/jerami-singleton.html</p><div class="card-foot"><span>HTML artifact</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/email-signatures/jerami-singleton-v2-phosphor.html" target="_blank" rel="noreferrer"><div class="card-head"><h3>Email Signature — Phosphor</h3><span class="state live">Live</span></div><p class="url">singleton-systems.com/email-signatures/jerami-singleton-v2-phosphor.html</p><div class="card-foot"><span>HTML artifact</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/rouse-and-holder/writing-rules.md" target="_blank" rel="noreferrer"><div class="card-head"><h3>Writing Rules</h3><span class="state download">Download</span></div><p class="url">singleton-systems.com/rouse-and-holder/writing-rules.md</p><div class="card-foot"><span>Markdown file</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://singleton-systems.com/rouse-and-holder/interview-prompt.md" target="_blank" rel="noreferrer"><div class="card-head"><h3>Interview Prompt</h3><span class="state download">Download</span></div><p class="url">singleton-systems.com/rouse-and-holder/interview-prompt.md</p><div class="card-foot"><span>Markdown file</span><span class="open">Open ↗</span></div></a>
-          </div>
-        </section>
-
-        <section class="column column-yellow" aria-labelledby="profiles-heading">
-          <div class="column-head"><div><div class="column-eyebrow">Public presence</div><h2 id="profiles-heading">Booking + profiles</h2></div><span class="dot" aria-hidden="true"></span></div>
-          <div class="cards">
-            <a class="card" href="https://cal.com/workflow-chat/15min" target="_blank" rel="noreferrer"><div class="card-head"><h3>Book a Workflow Session</h3><span class="state live">Live</span></div><p class="url">cal.com/workflow-chat/15min</p><div class="card-foot"><span>Booking</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://jeramisingleton.carrd.co/" target="_blank" rel="noreferrer"><div class="card-head"><h3>Educational Content</h3><span class="state live">Live</span></div><p class="url">jeramisingleton.carrd.co</p><div class="card-foot"><span>Public profile</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://www.linkedin.com/in/jeramisingleton/" target="_blank" rel="noreferrer"><div class="card-head"><h3>LinkedIn</h3><span class="state live">Live</span></div><p class="url">linkedin.com/in/jeramisingleton</p><div class="card-foot"><span>Public profile</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://github.com/23Maestro" target="_blank" rel="noreferrer"><div class="card-head"><h3>GitHub</h3><span class="state live">Live</span></div><p class="url">github.com/23Maestro</p><div class="card-foot"><span>Code profile</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://www.upwork.com/freelancers/~01376b12599102b2cc" target="_blank" rel="noreferrer"><div class="card-head"><h3>Upwork</h3><span class="state live">Live</span></div><p class="url">upwork.com/freelancers/~01376b12599102b2cc</p><div class="card-foot"><span>Public profile</span><span class="open">Open ↗</span></div></a>
-            <a class="card" href="https://www.instagram.com/singleton.systems" target="_blank" rel="noreferrer"><div class="card-head"><h3>Instagram</h3><span class="state live">Live</span></div><p class="url">instagram.com/singleton.systems</p><div class="card-foot"><span>Public profile</span><span class="open">Open ↗</span></div></a>
-          </div>
-        </section>
-      </div>
+      <footer class="footer"><span>Singleton Systems</span><a href="/">Home ↗</a></footer>
     </main>
   </body>
 </html>

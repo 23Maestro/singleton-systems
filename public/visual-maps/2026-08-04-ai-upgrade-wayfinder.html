@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gary's Client Canvas proof: a guided visual path from a company URL to a checked campaign brief.">
+  <title>Gary's Client Canvas · A reliable campaign brief</title>
+  <!-- JointJS supplies geometry and relationships. The visible cards remain custom presentation. -->
+  <script src="../../node_modules/@joint/core/dist/joint.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f7fb;
+      --muted: #a7b0bf;
+      --subtle: #758095;
+      --paper: #080b10;
+      --panel: #0f141c;
+      --panel-raised: #151c26;
+      --panel-soft: #111823;
+      --line: #2a3443;
+      --line-soft: rgba(149, 165, 188, .16);
+      --lime: #c4f36a;
+      --lime-soft: rgba(196, 243, 106, .13);
+      --blue: #8fa8ff;
+      --blue-soft: rgba(143, 168, 255, .13);
+      --amber: #f5bf70;
+      --amber-soft: rgba(245, 191, 112, .13);
+      --rose: #ff8580;
+      --rose-soft: rgba(255, 133, 128, .12);
+      --violet: #c8a8ff;
+      --violet-soft: rgba(200, 168, 255, .12);
+      --shadow: 0 22px 60px rgba(0, 0, 0, .28);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-width: 320px; background: var(--paper); scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 86% -8%, rgba(143, 168, 255, .16), transparent 30rem),
+        radial-gradient(circle at 10% 25%, rgba(196, 243, 106, .06), transparent 24rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    button, select, input { font: inherit; }
+    button { color: inherit; }
+    button:focus-visible, select:focus-visible, input:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--lime);
+      outline-offset: 3px;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { letter-spacing: -.045em; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .app-shell {
+      width: min(1440px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 0 0 72px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 68px;
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(8, 11, 16, .88);
+      backdrop-filter: blur(16px);
+    }
+    .brand-lockup, .topbar-meta, .topbar-state, .control-actions, .preset-row, .legend, .legend-item, .canvas-panel-head, .canvas-hint, .inspector-top, .inspector-meta, .inspector-actions, .copy-row {
+      display: flex;
+      align-items: center;
+    }
+    .brand-lockup { gap: 12px; min-width: 0; }
+    .brand-mark {
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(196, 243, 106, .65);
+      border-radius: 8px;
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .brand { font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .topbar-meta { gap: 10px; color: var(--subtle); font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+    .topbar-state { gap: 7px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
+    .topbar-state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 12px var(--lime); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: end;
+      padding: 38px 0 22px;
+    }
+    .eyebrow {
+      margin-bottom: 13px;
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+    .hero h1 { max-width: 980px; padding-bottom: 10px; font-size: clamp(44px, 5.4vw, 70px); line-height: .98; }
+    .hero h1 em { color: var(--lime); font-style: normal; }
+    .hero-note {
+      padding: 18px;
+      border: 1px solid rgba(196, 243, 106, .36);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(196, 243, 106, .12), rgba(15, 20, 28, .9) 62%);
+      box-shadow: var(--shadow);
+    }
+    .hero-note-label { color: var(--lime); font-family: var(--mono); font-size: 11px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+    .hero-note strong { display: block; margin-top: 12px; font-size: 22px; line-height: 1.08; }
+    .hero-note p { margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.45; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 650px; margin-top: 14px; }
+    .hero-stat { padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(15, 20, 28, .7); }
+    .hero-stat strong { display: block; color: var(--ink); font-size: 17px; letter-spacing: -.03em; }
+    .hero-stat span { display: block; margin-top: 2px; color: var(--subtle); font-size: 11px; line-height: 1.2; }
+
+    [data-controls-panel] {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(15, 20, 28, .78);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .16);
+    }
+    .control-copy { min-width: 150px; }
+    .control-copy strong { display: block; font-size: 13px; }
+    .control-copy span { display: block; margin-top: 3px; color: var(--subtle); font-size: 12px; }
+    .preset-row { gap: 6px; flex-wrap: wrap; }
+    .preset, .icon-button, .reset-button, .copy-button {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel-soft);
+      cursor: pointer;
+      transition: border-color .16s ease, background .16s ease, color .16s ease, transform .16s ease;
+    }
+    .preset { min-height: 34px; padding: 0 12px; color: var(--muted); font-size: 12px; font-weight: 750; }
+    .preset:hover, .icon-button:hover, .reset-button:hover, .copy-button:hover { border-color: rgba(196, 243, 106, .62); color: var(--ink); }
+    .preset[aria-pressed="true"] { border-color: rgba(196, 243, 106, .72); background: var(--lime-soft); color: var(--lime); }
+    .control-actions { justify-content: flex-end; gap: 9px; flex-wrap: wrap; }
+    .control-select, .tech-toggle { color: var(--muted); font-size: 12px; }
+    .control-select { display: flex; align-items: center; gap: 7px; }
+    select { min-height: 34px; padding: 0 28px 0 10px; border: 1px solid var(--line); border-radius: 9px; color: var(--ink); background: var(--panel-soft); }
+    .tech-toggle { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; white-space: nowrap; }
+    .tech-toggle input { accent-color: var(--blue); }
+    .zoom-controls { display: inline-flex; align-items: center; gap: 4px; padding-left: 5px; border-left: 1px solid var(--line); }
+    .icon-button { width: 31px; height: 31px; display: grid; place-items: center; font-size: 16px; line-height: 1; }
+    .zoom-value { min-width: 46px; color: var(--subtle); font-family: var(--mono); font-size: 11px; text-align: center; }
+    .reset-button { min-height: 31px; padding: 0 9px; color: var(--subtle); font-size: 11px; }
+
+    .canvas-panel { margin-top: 30px; }
+    .canvas-panel-head { justify-content: space-between; gap: 22px; margin-bottom: 13px; }
+    .canvas-panel-head h2 { font-size: clamp(28px, 4vw, 45px); line-height: 1.08; }
+    .canvas-panel-head .eyebrow { margin-bottom: 8px; color: var(--blue); }
+    .gesture-note { max-width: 360px; color: var(--subtle); font-size: 13px; line-height: 1.45; text-align: right; }
+    .legend { flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+    .legend-item { gap: 6px; min-height: 25px; padding: 0 8px; border: 1px solid var(--line); border-radius: 999px; color: var(--subtle); font-family: var(--mono); font-size: 10px; letter-spacing: .02em; }
+    .legend-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .state-confirmed { color: var(--lime); }
+    .state-fuzzy { color: var(--amber); }
+    .state-unknown { color: var(--violet); }
+    .state-proposed { color: var(--blue); }
+    .state-locked { color: var(--rose); }
+
+    .canvas-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .canvas-viewport {
+      position: relative;
+      min-height: 655px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px),
+        linear-gradient(145deg, rgba(143, 168, 255, .055), transparent 44%),
+        var(--panel);
+      background-size: 28px 28px, 28px 28px, auto, auto;
+      box-shadow: var(--shadow);
+      cursor: grab;
+      touch-action: none;
+    }
+    .canvas-viewport.is-dragging { cursor: grabbing; }
+    .canvas-stage { position: relative; width: 100%; height: 655px; transform-origin: 50% 50%; will-change: transform; }
+    .canvas-stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(8, 11, 16, .28)); }
+    .lane-label { position: absolute; z-index: 0; display: flex; align-items: center; gap: 10px; color: var(--subtle); font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; pointer-events: none; }
+    .lane-label::after { content: ""; width: 56px; height: 1px; background: currentColor; opacity: .45; }
+    .lane-label.workflow { color: rgba(196, 243, 106, .8); }
+    .lane-label.foundation { color: rgba(143, 168, 255, .8); }
+    .lane-label span { color: var(--subtle); font-family: Inter, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0; text-transform: none; }
+    #jointLayer { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: visible; }
+    #jointLayer svg { overflow: visible; }
+    #cardsLayer { position: absolute; inset: 0; z-index: 2; }
+    .mobile-lane-title { display: none; }
+    .canvas-node {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
+      padding: 15px;
+      border: 1px solid rgba(149, 165, 188, .24);
+      border-radius: 16px;
+      color: var(--ink);
+      background: rgba(21, 28, 38, .94);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color .16s ease, background .16s ease, box-shadow .16s ease, opacity .16s ease, transform .16s ease;
+    }
+    .canvas-node::before { content: ""; position: absolute; top: 0; left: 15px; right: 15px; height: 2px; border-radius: 0 0 4px 4px; background: var(--node-accent, var(--blue)); opacity: .7; }
+    .canvas-node:hover { border-color: rgba(245, 247, 251, .55); transform: translateY(-3px); }
+    .canvas-node.is-active { border-color: var(--node-accent, var(--lime)); background: linear-gradient(145deg, rgba(255, 255, 255, .08), rgba(21, 28, 38, .97)); box-shadow: 0 0 0 2px rgba(196, 243, 106, .2), 0 16px 34px rgba(0, 0, 0, .3); transform: translateY(-3px); }
+    .canvas-node.is-dim { opacity: .52; }
+    .canvas-node.is-next { border-color: rgba(196, 243, 106, .45); }
+    .canvas-node.lane-workflow { --node-accent: var(--lime); }
+    .canvas-node.lane-foundation { --node-accent: var(--blue); }
+    .node-top { display: flex; align-items: center; justify-content: space-between; gap: 7px; min-width: 0; }
+    .node-step { color: var(--node-accent, var(--blue)); font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+    .node-state { display: inline-flex; align-items: center; gap: 5px; max-width: 100%; padding: 4px 6px; border: 1px solid currentColor; border-radius: 999px; color: var(--node-state-color, var(--blue)); font-family: var(--mono); font-size: 9px; font-weight: 800; letter-spacing: .04em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+    .node-state::before { content: ""; width: 5px; height: 5px; flex: 0 0 auto; border-radius: 50%; background: currentColor; }
+    .node-state.state-confirmed { --node-state-color: var(--lime); }
+    .node-state.state-fuzzy { --node-state-color: var(--amber); }
+    .node-state.state-unknown { --node-state-color: var(--violet); }
+    .node-state.state-proposed { --node-state-color: var(--blue); }
+    .node-state.state-locked { --node-state-color: var(--rose); }
+    .node-title { display: block; max-width: 100%; margin-top: 18px; font-size: clamp(17px, 1.7vw, 23px); font-weight: 780; line-height: 1.02; overflow-wrap: anywhere; }
+    .node-summary { display: block; margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.38; overflow-wrap: anywhere; }
+    .node-technical { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line-soft); color: var(--subtle); font-family: var(--mono); font-size: 9px; line-height: 1.35; overflow-wrap: anywhere; }
+    .show-technical .node-technical { display: block; }
+    .node-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; min-width: 0; margin-top: auto; padding-top: 12px; color: var(--subtle); font-size: 10px; line-height: 1.25; }
+    .node-owner { overflow-wrap: anywhere; }
+    .node-owner strong { color: var(--muted); font-weight: 650; }
+    .node-later { max-width: 90px; color: var(--violet); font-family: var(--mono); font-size: 8px; line-height: 1.25; text-align: right; text-transform: uppercase; }
+    .node-output { display: inline-flex; align-items: center; gap: 5px; margin-top: 9px; padding: 6px 7px; border-radius: 8px; color: var(--ink); background: var(--lime-soft); font-size: 10px; font-weight: 750; }
+    .node-output::before { content: "→"; color: var(--lime); font-family: var(--mono); }
+    .canvas-hint { position: absolute; right: 16px; bottom: 14px; z-index: 4; gap: 7px; padding: 7px 9px; border: 1px solid var(--line-soft); border-radius: 9px; color: var(--subtle); background: rgba(8, 11, 16, .72); font-family: var(--mono); font-size: 9px; pointer-events: none; }
+    .canvas-hint kbd { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); }
+
+    .inspector {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr);
+      gap: 14px;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+    }
+    .inspector-main { min-width: 0; }
+    .inspector-top { gap: 9px; flex-wrap: wrap; }
+    .inspector-kicker { color: var(--subtle); font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .inspector h3 { margin-top: 11px; font-size: clamp(25px, 3vw, 34px); line-height: .98; }
+    .inspector-lead { max-width: 760px; margin-top: 10px; color: var(--muted); font-size: 15px; line-height: 1.48; }
+    .inspector-meta { align-items: stretch; gap: 9px; flex-wrap: wrap; margin-top: 15px; }
+    .meta-block { min-width: 150px; padding: 10px 11px; border: 1px solid var(--line-soft); border-radius: 10px; background: var(--panel-soft); }
+    .meta-block span { display: block; color: var(--subtle); font-family: var(--mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    .meta-block strong { display: block; margin-top: 5px; color: var(--ink); font-size: 12px; line-height: 1.3; }
+    .inspector-technical { margin-top: 12px; padding: 10px 11px; border-left: 2px solid var(--blue); color: var(--subtle); font-family: var(--mono); font-size: 11px; line-height: 1.45; }
+    .inspector-call { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; min-width: 0; padding: 14px; border: 1px solid rgba(196, 243, 106, .28); border-radius: 13px; background: linear-gradient(145deg, var(--lime-soft), rgba(21, 28, 38, .7)); }
+    .inspector-call-label { color: var(--lime); font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .inspector-call strong { display: block; margin-top: 9px; font-size: 19px; line-height: 1.12; }
+    .inspector-call p { margin-top: 9px; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .inspector-next { padding-top: 12px; border-top: 1px solid rgba(196, 243, 106, .18); color: var(--subtle); font-size: 11px; line-height: 1.4; }
+    .inspector-next strong { display: inline; margin: 0; color: var(--ink); font-size: inherit; }
+
+    [data-prompt-panel] { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--line-soft); border-radius: 14px; background: rgba(15, 20, 28, .56); }
+    .prompt-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .prompt-head strong { font-size: 12px; }
+    .prompt-head span { margin-left: 7px; color: var(--subtle); font-size: 11px; }
+    .prompt-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; margin-top: 10px; }
+    [data-prompt-output] { margin: 0; padding: 10px 11px; border: 1px solid var(--line-soft); border-radius: 9px; color: var(--muted); background: var(--paper); font-family: var(--mono); font-size: 10px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .copy-button { min-height: 36px; padding: 0 12px; color: var(--muted); font-size: 11px; font-weight: 750; white-space: nowrap; }
+    .copy-button[data-copied="true"] { border-color: rgba(196, 243, 106, .62); color: var(--lime); }
+    .review-boundary { margin-top: 13px; color: var(--subtle); font-size: 11px; line-height: 1.45; }
+    .review-boundary strong { color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 58px; }
+      .hero-note { max-width: 560px; }
+      [data-controls-panel] { align-items: flex-start; flex-direction: column; }
+      .control-actions { justify-content: flex-start; }
+      .canvas-panel-head { align-items: flex-start; flex-direction: column; }
+      .gesture-note { max-width: 560px; text-align: left; }
+      .inspector { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .app-shell { width: min(100% - 24px, 560px); }
+      .topbar { min-height: 58px; }
+      .topbar-meta { display: none; }
+      .hero { padding: 46px 0 30px; }
+      .hero h1 { font-size: clamp(43px, 13vw, 68px); }
+      .hero-stats { grid-template-columns: 1fr; gap: 7px; }
+      .hero-stat { display: flex; align-items: baseline; gap: 8px; }
+      .hero-stat span { margin-top: 0; }
+      .preset-row { width: 100%; }
+      .preset { flex: 1 1 calc(50% - 6px); }
+      .control-actions { width: 100%; }
+      .control-select { flex: 1 1 100%; justify-content: space-between; }
+      select { flex: 1; }
+      .tech-toggle { flex: 1 1 100%; }
+      .zoom-controls { margin-left: 0; padding-left: 0; border-left: 0; }
+      .canvas-viewport { min-height: 0; overflow: visible; cursor: default; touch-action: auto; }
+      .canvas-stage { height: auto !important; min-height: 0; transform: none !important; }
+      .canvas-stage::after { display: none; }
+      .lane-label { display: none; }
+      #jointLayer { position: absolute; inset: 0; }
+      #cardsLayer { position: relative; inset: auto; display: grid; grid-template-columns: 1fr; gap: 12px; padding: 15px 13px 22px; }
+      .mobile-lane-title { display: flex; align-items: center; gap: 9px; min-height: 29px; margin-top: 3px; color: var(--lime); font-family: var(--mono); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      .mobile-lane-title::after { content: ""; height: 1px; flex: 1; background: currentColor; opacity: .35; }
+      .mobile-lane-title.foundation-title { margin-top: 10px; color: var(--blue); }
+      .canvas-node { position: relative !important; left: auto !important; top: auto !important; width: auto !important; min-height: 230px; transform: none !important; }
+      .canvas-node:hover, .canvas-node.is-active { transform: none !important; }
+      .canvas-hint { position: relative; right: auto; bottom: auto; justify-content: center; margin: 10px 13px 13px; }
+      .prompt-body { grid-template-columns: 1fr; }
+      .copy-button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell" data-playground data-playground-lane="concept-map">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">SS</span>
+        <span class="brand">Wayfinder / Client Canvas</span>
+      </div>
+      <div class="topbar-meta">
+        <span>08.09.26</span>
+        <span class="topbar-state">content source: existing Wayfinder</span>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">A first Client Canvas proof for Gary</p>
+        <h1 id="page-title">Make the brief reliable before you <em>automate it.</em></h1>
+        <div class="hero-stats" aria-label="Current brief friction">
+          <div class="hero-stat"><strong>70–80%</strong><span>there on the first pass</span></div>
+          <div class="hero-stat"><strong>3–4</strong><span>Claude rewrites today</span></div>
+          <div class="hero-stat"><strong>15–30 min</strong><span>fixing each brief</span></div>
+        </div>
+      </div>
+      <aside class="hero-note">
+        <span class="hero-note-label">The useful boundary</span>
+        <strong>AI can do the repeatable work. Gary still makes the calls.</strong>
+        <p>He chooses the buyer, locks what is true, decides what is useful, and gives the brief its final yes. The canvas makes those handoffs visible.</p>
+      </aside>
+    </section>
+
+    <section data-controls-panel aria-label="Canvas controls">
+      <div class="control-copy">
+        <strong>Choose a lens</strong>
+        <span>Start guided, then explore.</span>
+      </div>
+      <div class="preset-row" role="group" aria-label="Canvas presets">
+        <button class="preset" type="button" data-preset="guided" aria-pressed="true">Guided path</button>
+        <button class="preset" type="button" data-preset="workflow" aria-pressed="false">Workflow first</button>
+        <button class="preset" type="button" data-preset="foundation" aria-pressed="false">Foundation</button>
+        <button class="preset" type="button" data-preset="explore" aria-pressed="false">Explore all</button>
+      </div>
+      <div class="control-actions">
+        <label class="control-select" for="modeControl">View
+          <select id="modeControl" data-control="mode" aria-label="Canvas view">
+            <option value="guided">Guided path</option>
+            <option value="workflow">Workflow first</option>
+            <option value="foundation">Foundation</option>
+            <option value="explore">Explore all</option>
+          </select>
+        </label>
+        <label class="tech-toggle"><input id="technicalControl" data-control="technical" type="checkbox"> Show technical notes</label>
+        <div class="zoom-controls" aria-label="Canvas zoom">
+          <button class="icon-button" id="zoomOut" type="button" aria-label="Zoom out">−</button>
+          <span class="zoom-value" id="zoomValue">100%</span>
+          <button class="icon-button" id="zoomIn" type="button" aria-label="Zoom in">+</button>
+        </div>
+        <button class="reset-button" id="resetView" type="button">Reset view</button>
+      </div>
+    </section>
+
+    <section class="canvas-panel" data-preview-panel aria-labelledby="canvas-title">
+      <div class="canvas-panel-head">
+        <div>
+          <p class="eyebrow">The canvas / click a card to open the explanation</p>
+          <h2 id="canvas-title">One checked path, two connected stories.</h2>
+        </div>
+        <p class="gesture-note">The top lane is the workflow Gary already understands. The lower lane is the small foundation that makes it repeatable. Drag the canvas to explore; use + / − to zoom.</p>
+      </div>
+
+      <div class="legend" aria-label="Canvas state legend">
+        <span class="legend-item state-confirmed"><i class="legend-dot"></i>confirmed</span>
+        <span class="legend-item state-fuzzy"><i class="legend-dot"></i>fuzzy</span>
+        <span class="legend-item state-unknown"><i class="legend-dot"></i>unknown / later</span>
+        <span class="legend-item state-proposed"><i class="legend-dot"></i>proposed</span>
+        <span class="legend-item state-locked"><i class="legend-dot"></i>locked</span>
+      </div>
+
+      <div class="canvas-layout">
+        <div class="canvas-viewport" id="canvasViewport" tabindex="0" aria-label="Interactive Client Canvas. Select a card for details or drag to pan.">
+          <div class="canvas-stage" id="canvasStage" data-preview>
+            <div class="lane-label workflow" id="workflowLaneLabel">Workflow <span>the brief Gary wants to trust</span></div>
+            <div class="lane-label foundation" id="foundationLaneLabel">Foundation <span>the repeatable layer underneath</span></div>
+            <div id="jointLayer" aria-hidden="true"></div>
+            <div id="cardsLayer"></div>
+          </div>
+          <div class="canvas-hint"><kbd>click</kbd> details <kbd>drag</kbd> pan <kbd>← →</kbd> guided step</div>
+        </div>
+
+        <aside class="inspector" id="inspector" aria-live="polite" aria-label="Selected card explanation"></aside>
+      </div>
+    </section>
+
+    <section data-prompt-panel aria-label="Review prompt">
+      <div class="prompt-head">
+        <div><strong>Review lens</strong><span>Use this to discuss the proof with Gary.</span></div>
+      </div>
+      <div class="prompt-body">
+        <pre data-prompt-output></pre>
+        <button class="copy-button" data-copy-prompt type="button">Copy review prompt</button>
+      </div>
+      <p class="review-boundary"><strong>Deliberately out of this proof:</strong> no C4 replacement, no generalized <code>/client/[slug]</code>, and no HeyReach sender automation. The existing Wayfinder stays the source; this canvas is learning what the reusable surface wants to become.</p>
+    </section>
+  </main>
+
+  <script>
+    const nodes = [
+      {
+        id: "intake",
+        lane: "workflow",
+        step: "W01",
+        title: "URL + buyer",
+        summary: "Start with the company and the person Gary actually wants to reach.",
+        business: "The brief begins with a real target, not a blank prompt. Gary supplies the company URL and names the buyer.",
+        technical: "Input contract: company URL + target person. No open-ended chat history.",
+        state: "confirmed",
+        owner: "Gary chooses the target",
+        call: "Which company and buyer are we researching?",
+        proof: "A brief has a named target before research starts.",
+      },
+      {
+        id: "research",
+        lane: "workflow",
+        step: "W02",
+        title: "Research → lock facts",
+        summary: "Pull public facts, then separate what is true from what still needs a call.",
+        business: "Research is useful only when Gary can see what came from the source, what is missing, and what should not be guessed.",
+        technical: "Research references stay beside the run. Unknowns become explicit gaps instead of prompt context.",
+        state: "fuzzy",
+        owner: "Shared: source facts + Gary gaps",
+        call: "What is confirmed, and what needs Gary's answer?",
+        proof: "Facts and gaps are visible before copy is generated.",
+      },
+      {
+        id: "campaign",
+        lane: "workflow",
+        step: "W03",
+        title: "Campaign-brief skill",
+        summary: "Gary's existing brief workflow becomes one repeatable job.",
+        business: "This is where the current workflow becomes a skill: same useful sequence, same boundaries, less re-prompting from scratch.",
+        technical: "Thin instruction layer points to deep references; the skill receives only the approved inputs.",
+        state: "proposed",
+        owner: "Shared build; Gary sets the bar",
+        call: "What makes this brief useful enough to send?",
+        proof: "The same job can be run again without old chat memory leaking in.",
+      },
+      {
+        id: "checks",
+        lane: "workflow",
+        step: "W04",
+        title: "Checks before the send",
+        summary: "Check facts, usefulness, and the call-to-action before the work moves on.",
+        business: "A green-looking answer is not finished. The checks make the quality bar visible before anyone treats the brief as ready.",
+        technical: "Hooks guard input and output; the tool harness limits what the campaign skill can touch.",
+        state: "locked",
+        owner: "Shared proof gate",
+        call: "Did the brief pass the agreed checks?",
+        proof: "Bad input or bad output stops before the client-facing step.",
+        later: "Unknown later: sender automation",
+      },
+      {
+        id: "review",
+        lane: "workflow",
+        step: "W05",
+        title: "Gary review",
+        summary: "Gary makes the important final call, then the checked brief is finished.",
+        business: "The system prepares and checks the work. Gary decides whether it sounds right, is worth sending, and is ready to represent him.",
+        technical: "Human review remains the final state transition; sender automation is intentionally outside this proof.",
+        state: "locked",
+        owner: "Gary owns the final yes",
+        call: "Is this brief ready to send?",
+        proof: "Finished brief: facts checked, useful CTA, Gary approved.",
+        output: "Finished brief",
+      },
+      {
+        id: "claude",
+        lane: "foundation",
+        step: "F01",
+        title: "Claude setup",
+        summary: "Keep Claude useful, but stop asking the chat to be the system.",
+        business: "The answer is not another longer prompt. Claude can still help; the repeatable path needs a home outside a single conversation.",
+        technical: "Claude is an execution surface. Source, skills, references, and proof checks live in the shared setup.",
+        state: "confirmed",
+        owner: "Existing starting point",
+        call: "What work should remain in Claude, and what should become durable?",
+        proof: "The workflow survives a new chat without relying on hidden memory.",
+      },
+      {
+        id: "repo",
+        lane: "foundation",
+        step: "F02",
+        title: "Repo / source of truth",
+        summary: "One inspectable place for the current instructions and references.",
+        business: "When the source is visible and shared, Gary can review what the system is using instead of trusting whichever chat happened last.",
+        technical: "Canonical repo directory owns the skill package and its deep references; no parallel chat-only copy.",
+        state: "locked",
+        owner: "Shared source of truth",
+        call: "Which files are allowed to define this job?",
+        proof: "A new run can point to the same reviewed source.",
+      },
+      {
+        id: "skills",
+        lane: "foundation",
+        step: "F03",
+        title: "Thin skills + deep references",
+        summary: "Keep the repeatable instruction small; keep the context close by.",
+        business: "The skill says what to do. The references hold the detail. That keeps each run focused without flattening Gary's know-how.",
+        technical: "Skill entrypoint routes to only the references needed for the selected job; no architecture inventory.",
+        state: "proposed",
+        owner: "Shared design; Gary supplies judgment",
+        call: "Which parts of Gary's workflow repeat exactly?",
+        proof: "The instruction can stay short without losing the useful detail.",
+      },
+      {
+        id: "harness",
+        lane: "foundation",
+        step: "F04",
+        title: "Tool harness",
+        summary: "Give the campaign skill the few tools it needs—and no mystery access.",
+        business: "Reliability improves when the skill has a small, understandable set of moves instead of reaching for anything nearby.",
+        technical: "Harness exposes scoped tools and gives hooks a place to enforce the proof contract.",
+        state: "proposed",
+        owner: "Singleton Systems implementation",
+        call: "What can this job read, write, and prove?",
+        proof: "The skill's allowed moves are clear before it runs.",
+      },
+    ];
+
+    const defaults = {
+      mode: "guided",
+      technical: false,
+      zoom: 1,
+      panX: 0,
+      panY: 0,
+      activeId: "intake",
+    };
+    const state = { ...defaults };
+    const presets = [
+      { key: "guided", values: { mode: "guided", technical: false, zoom: 1, panX: 0, panY: 0, activeId: "intake" } },
+      { key: "workflow", values: { mode: "workflow", technical: false, zoom: 1, panX: 0, panY: 0, activeId: "intake" } },
+      { key: "foundation", values: { mode: "foundation", technical: true, zoom: 1, panX: 0, panY: 0, activeId: "claude" } },
+      { key: "explore", values: { mode: "explore", technical: false, zoom: 1.06, panX: 0, panY: 0, activeId: "campaign" } },
+    ];
+    const guidedOrder = ["intake", "research", "campaign", "checks", "review", "claude", "repo", "skills", "harness"];
+    const edgeDefinitions = [
+      { id: "workflow-intake-research", source: "intake", target: "research", lane: "workflow", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "workflow-research-campaign", source: "research", target: "campaign", lane: "workflow", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "workflow-campaign-checks", source: "campaign", target: "checks", lane: "workflow", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "workflow-checks-review", source: "checks", target: "review", lane: "workflow", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "foundation-claude-repo", source: "claude", target: "repo", lane: "foundation", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "foundation-repo-skills", source: "repo", target: "skills", lane: "foundation", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "foundation-skills-harness", source: "skills", target: "harness", lane: "foundation", sourceAnchor: "right", targetAnchor: "left" },
+      { id: "bridge-skills-campaign", source: "skills", target: "campaign", lane: "bridge", sourceAnchor: "top", targetAnchor: "bottom" },
+      { id: "bridge-harness-checks", source: "harness", target: "checks", lane: "bridge", sourceAnchor: "top", targetAnchor: "bottom" },
+    ];
+    const stage = document.getElementById("canvasStage");
+    const viewport = document.getElementById("canvasViewport");
+    const cardsLayer = document.getElementById("cardsLayer");
+    const jointLayer = document.getElementById("jointLayer");
+    const inspector = document.getElementById("inspector");
+    const promptOutput = document.querySelector("[data-prompt-output]");
+    const modeControl = document.getElementById("modeControl");
+    const technicalControl = document.getElementById("technicalControl");
+    const zoomValue = document.getElementById("zoomValue");
+    let currentPaper = null;
+    let currentLayout = null;
+
+    function findNode(id) {
+      return nodes.find((node) => node.id === id) || nodes[0];
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function isCompact() {
+      return window.matchMedia("(max-width: 760px)").matches;
+    }
+
+    function calculateLayout() {
+      const compact = isCompact();
+      const width = Math.max(320, Math.round(stage.clientWidth || viewport.clientWidth || 320));
+      const layout = { compact, width, height: 655, nodes: [], byId: new Map() };
+      const workflow = nodes.filter((node) => node.lane === "workflow");
+      const foundation = nodes.filter((node) => node.lane === "foundation");
+
+      if (compact) {
+        const padding = 13;
+        const cardWidth = width - padding * 2;
+        const cardHeight = 230;
+        const rowGap = 12;
+        const headingHeight = 29;
+        let y = 15 + headingHeight + rowGap;
+        for (const node of workflow) {
+          layout.nodes.push({ id: node.id, x: padding, y, width: cardWidth, height: cardHeight });
+          y += cardHeight + rowGap;
+        }
+        y += 10 + headingHeight + rowGap;
+        for (const node of foundation) {
+          layout.nodes.push({ id: node.id, x: padding, y, width: cardWidth, height: cardHeight });
+          y += cardHeight + rowGap;
+        }
+        layout.height = y - rowGap + 22;
+      } else {
+        const inset = 26;
+        const gap = clamp(Math.round(width * .014), 12, 18);
+        const cardWidth = (width - inset * 2 - gap * 4) / 5;
+        const cardHeight = 230;
+        const workflowY = 88;
+        const foundationY = 397;
+        workflow.forEach((node, index) => layout.nodes.push({ id: node.id, x: inset + index * (cardWidth + gap), y: workflowY, width: cardWidth, height: cardHeight }));
+        foundation.forEach((node, index) => layout.nodes.push({ id: node.id, x: inset + index * (cardWidth + gap), y: foundationY, width: cardWidth, height: cardHeight }));
+      }
+
+      for (const node of layout.nodes) layout.byId.set(node.id, node);
+      return layout;
+    }
+
+    function stateClass(status) {
+      return `state-${status}`;
+    }
+
+    function nodeMarkup(node, layout) {
+      const active = state.activeId === node.id;
+      const activeIndex = guidedOrder.indexOf(state.activeId);
+      const nodeIndex = guidedOrder.indexOf(node.id);
+      const guidedNext = state.mode === "guided" && nodeIndex === activeIndex + 1;
+      const focused = state.mode === "explore" || state.mode === node.lane || active || guidedNext;
+      const geometry = layout.byId.get(node.id);
+      const style = layout.compact ? "" : `left:${geometry.x}px;top:${geometry.y}px;width:${geometry.width}px;height:${geometry.height}px;`;
+      const technical = state.technical ? `<span class="node-technical">${node.technical}</span>` : "";
+      const output = node.output ? `<span class="node-output">${node.output}</span>` : "";
+      const later = node.later ? `<span class="node-later">${node.later}</span>` : "";
+      return `<button class="canvas-node lane-${node.lane} ${active ? "is-active" : ""} ${guidedNext ? "is-next" : ""} ${focused ? "" : "is-dim"}" style="${style}" data-node-id="${node.id}" type="button" aria-pressed="${active}" aria-label="${node.title}. ${node.summary}">
+        <span class="node-top"><span class="node-step">${node.step}</span><span class="node-state ${stateClass(node.state)}">${node.state}</span></span>
+        <span class="node-title">${node.title}</span>
+        <span class="node-summary">${node.summary}</span>
+        ${technical}
+        ${output}
+        <span class="node-foot"><span class="node-owner"><strong>Owner</strong> · ${node.owner}</span>${later}</span>
+      </button>`;
+    }
+
+    function renderCards(layout) {
+      const workflow = nodes.filter((node) => node.lane === "workflow");
+      const foundation = nodes.filter((node) => node.lane === "foundation");
+      cardsLayer.classList.toggle("show-technical", state.technical);
+      cardsLayer.innerHTML = `<div class="mobile-lane-title workflow-title">Workflow <span>the brief Gary wants to trust</span></div>${workflow.map((node) => nodeMarkup(node, layout)).join("")}<div class="mobile-lane-title foundation-title">Foundation <span>the repeatable layer underneath</span></div>${foundation.map((node) => nodeMarkup(node, layout)).join("")}`;
+      if (!layout.compact) {
+        document.getElementById("workflowLaneLabel").style.cssText = `left:26px;top:34px;`;
+        document.getElementById("foundationLaneLabel").style.cssText = `left:26px;top:343px;`;
+      }
+    }
+
+    function anchorPoint(node, anchor) {
+      if (anchor === "top") return { x: node.x + node.width / 2, y: node.y };
+      if (anchor === "bottom") return { x: node.x + node.width / 2, y: node.y + node.height };
+      if (anchor === "left") return { x: node.x, y: node.y + node.height / 2 };
+      return { x: node.x + node.width, y: node.y + node.height / 2 };
+    }
+
+    function edgeIsActive(edge) {
+      if (state.mode === "explore") return true;
+      if (state.mode === "workflow") return edge.lane === "workflow" || edge.lane === "bridge";
+      if (state.mode === "foundation") return edge.lane === "foundation" || edge.lane === "bridge";
+      const activeIndex = guidedOrder.indexOf(state.activeId);
+      const sourceIndex = guidedOrder.indexOf(edge.source);
+      const targetIndex = guidedOrder.indexOf(edge.target);
+      return Math.abs(sourceIndex - activeIndex) <= 1 || Math.abs(targetIndex - activeIndex) <= 1;
+    }
+
+    function edgeColor(edge) {
+      const active = edgeIsActive(edge);
+      if (edge.lane === "workflow") return active ? "rgba(196,243,106,.82)" : "rgba(196,243,106,.15)";
+      if (edge.lane === "foundation") return active ? "rgba(143,168,255,.76)" : "rgba(143,168,255,.13)";
+      return active ? "rgba(200,168,255,.64)" : "rgba(200,168,255,.1)";
+    }
+
+    function bridgeVertices(edge, source, target, layout) {
+      if (layout.compact) return undefined;
+      const sourcePoint = anchorPoint(source, edge.sourceAnchor);
+      const targetPoint = anchorPoint(target, edge.targetAnchor);
+      const middleY = (sourcePoint.y + targetPoint.y) / 2;
+      return [{ x: sourcePoint.x, y: middleY }, { x: targetPoint.x, y: middleY }];
+    }
+
+    function renderFallbackEdges(layout) {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("width", layout.width);
+      svg.setAttribute("height", layout.height);
+      svg.setAttribute("viewBox", `0 0 ${layout.width} ${layout.height}`);
+      svg.setAttribute("aria-hidden", "true");
+      for (const edge of edgeDefinitions) {
+        const source = layout.byId.get(edge.source);
+        const target = layout.byId.get(edge.target);
+        if (!source || !target) continue;
+        const start = anchorPoint(source, layout.compact ? "bottom" : edge.sourceAnchor);
+        const end = anchorPoint(target, layout.compact ? "top" : edge.targetAnchor);
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const bend = layout.compact ? `M ${start.x} ${start.y} L ${start.x} ${end.y} L ${end.x} ${end.y}` : `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+        path.setAttribute("d", bend);
+        path.setAttribute("fill", "none");
+        path.setAttribute("stroke", edgeColor(edge));
+        path.setAttribute("stroke-width", edge.lane === "bridge" ? "1.5" : "2.2");
+        if (edge.lane === "bridge") path.setAttribute("stroke-dasharray", "5 5");
+        svg.appendChild(path);
+      }
+      jointLayer.appendChild(svg);
+    }
+
+    function renderJoint(layout) {
+      if (currentPaper) {
+        currentPaper.remove();
+        currentPaper = null;
+      }
+      jointLayer.innerHTML = "";
+      if (!window.joint || !window.joint.dia || !window.joint.shapes) {
+        renderFallbackEdges(layout);
+        return;
+      }
+
+      const { dia, shapes } = window.joint;
+      const graph = new dia.Graph({}, { cellNamespace: shapes });
+      const paper = new dia.Paper({
+        el: jointLayer,
+        model: graph,
+        width: layout.width,
+        height: layout.height,
+        cellViewNamespace: shapes,
+        interactive: false,
+        async: false,
+        frozen: true,
+        background: { color: "transparent" },
+      });
+      // JointJS styles its paper host as a normal flow element; keep the geometry layer underneath the custom card layer.
+      jointLayer.style.setProperty("position", "absolute", "important");
+      jointLayer.style.setProperty("inset", "0", "important");
+      jointLayer.style.setProperty("z-index", "1", "important");
+      const cells = [];
+      for (const geometry of layout.nodes) {
+        cells.push(new shapes.standard.Rectangle({
+          id: geometry.id,
+          position: { x: geometry.x, y: geometry.y },
+          size: { width: geometry.width, height: geometry.height },
+          attrs: { body: { fill: "transparent", stroke: "none" }, label: { display: "none" } },
+        }));
+      }
+      for (const edge of edgeDefinitions) {
+        const source = layout.byId.get(edge.source);
+        const target = layout.byId.get(edge.target);
+        if (!source || !target) continue;
+        const compactAnchor = layout.compact ? "bottom" : edge.sourceAnchor;
+        const compactTarget = layout.compact ? "top" : edge.targetAnchor;
+        const color = edgeColor(edge);
+        cells.push(new shapes.standard.Link({
+          id: edge.id,
+          source: anchorPoint(source, compactAnchor),
+          target: anchorPoint(target, compactTarget),
+          vertices: bridgeVertices(edge, source, target, layout),
+          router: bridgeVertices(edge, source, target, layout) ? { name: "normal" } : { name: layout.compact ? "orthogonal" : "manhattan", args: { padding: 8, step: 8 } },
+          connector: { name: "rounded", args: { radius: 12 } },
+          attrs: {
+            line: {
+              fill: "none",
+              stroke: color,
+              strokeWidth: edge.lane === "bridge" ? 1.5 : 2.2,
+              strokeDasharray: edge.lane === "bridge" ? "5 5" : "none",
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              sourceMarker: { type: "none" },
+              targetMarker: { type: "path", d: "M 8 -4 0 0 8 4 z" },
+            },
+          },
+        }));
+      }
+      graph.resetCells(cells);
+      paper.unfreeze();
+      currentPaper = paper;
+    }
+
+    function applyViewTransform() {
+      stage.style.transform = `translate3d(${state.panX}px, ${state.panY}px, 0) scale(${state.zoom})`;
+      zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+    }
+
+    function renderInspector() {
+      const selected = findNode(state.activeId);
+      const index = guidedOrder.indexOf(selected.id);
+      const next = guidedOrder[(index + 1) % guidedOrder.length];
+      const nextNode = findNode(next);
+      const technical = state.technical ? `<div class="inspector-technical">${selected.technical}</div>` : "";
+      inspector.innerHTML = `<div class="inspector-main"><div class="inspector-top"><span class="inspector-kicker">${selected.lane} · ${selected.step}</span><span class="node-state ${stateClass(selected.state)}">${selected.state}</span></div><h3>${selected.title}</h3><p class="inspector-lead">${selected.business}</p><div class="inspector-meta"><div class="meta-block"><span>What proves it</span><strong>${selected.proof}</strong></div><div class="meta-block"><span>Current owner</span><strong>${selected.owner}</strong></div></div>${technical}</div><div class="inspector-call"><div><span class="inspector-call-label">The important call</span><strong>${selected.call}</strong><p>AI can prepare the answer. This is where the workflow waits for the person who owns the decision.</p></div><div class="inspector-next"><strong>Next in the guided path:</strong> ${nextNode.title}</div></div>`;
+    }
+
+    function renderPrompt() {
+      const selected = findNode(state.activeId);
+      const lens = state.mode === "guided" ? "guided path" : `${state.mode} lens`;
+      promptOutput.textContent = `Review Gary's Client Canvas (${lens}). Keep the existing Wayfinder workflow and judge whether “${selected.title}” makes the reliability story clearer: what fails today, what the foundation fixes, and where Gary still makes the final call. Do not generalize the canvas yet.`;
+    }
+
+    function renderControls() {
+      modeControl.value = state.mode;
+      technicalControl.checked = state.technical;
+      zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+      document.querySelectorAll("[data-preset]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.preset === state.mode)));
+    }
+
+    function updateAll() {
+      const layout = calculateLayout();
+      currentLayout = layout;
+      if (layout.compact) stage.style.removeProperty("height");
+      else stage.style.height = `${layout.height}px`;
+      renderControls();
+      renderCards(layout);
+      renderJoint(layout);
+      renderInspector();
+      renderPrompt();
+      applyViewTransform();
+    }
+
+    function applyPreset(key) {
+      const preset = presets.find((item) => item.key === key);
+      if (!preset) return;
+      Object.assign(state, preset.values);
+      updateAll();
+    }
+
+    function selectNode(id, focus = false) {
+      state.activeId = id;
+      updateAll();
+      if (focus) document.querySelector(`[data-node-id="${id}"]`)?.focus();
+    }
+
+    function shiftGuided(direction) {
+      const current = Math.max(0, guidedOrder.indexOf(state.activeId));
+      const next = (current + direction + guidedOrder.length) % guidedOrder.length;
+      state.mode = "guided";
+      selectNode(guidedOrder[next], true);
+    }
+
+    document.querySelectorAll("[data-preset]").forEach((button) => button.addEventListener("click", () => applyPreset(button.dataset.preset)));
+    modeControl.addEventListener("change", () => { state.mode = modeControl.value; updateAll(); });
+    technicalControl.addEventListener("change", () => { state.technical = technicalControl.checked; updateAll(); });
+    cardsLayer.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-node-id]");
+      if (button) selectNode(button.dataset.nodeId);
+    });
+    document.getElementById("zoomOut").addEventListener("click", () => { state.zoom = clamp(Math.round((state.zoom - .1) * 10) / 10, .7, 1.35); updateAll(); });
+    document.getElementById("zoomIn").addEventListener("click", () => { state.zoom = clamp(Math.round((state.zoom + .1) * 10) / 10, .7, 1.35); updateAll(); });
+    document.getElementById("resetView").addEventListener("click", () => { state.zoom = 1; state.panX = 0; state.panY = 0; updateAll(); });
+
+    let dragStart = null;
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("button, a, input, select")) return;
+      dragStart = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, panX: state.panX, panY: state.panY };
+      viewport.classList.add("is-dragging");
+      viewport.setPointerCapture(event.pointerId);
+    });
+    viewport.addEventListener("pointermove", (event) => {
+      if (!dragStart || dragStart.pointerId !== event.pointerId) return;
+      state.panX = dragStart.panX + event.clientX - dragStart.x;
+      state.panY = dragStart.panY + event.clientY - dragStart.y;
+      applyViewTransform();
+    });
+    function endDrag(event) {
+      if (!dragStart || dragStart.pointerId !== event.pointerId) return;
+      dragStart = null;
+      viewport.classList.remove("is-dragging");
+    }
+    viewport.addEventListener("pointerup", endDrag);
+    viewport.addEventListener("pointercancel", endDrag);
+    viewport.addEventListener("wheel", (event) => {
+      if (isCompact()) return;
+      event.preventDefault();
+      state.zoom = clamp(Math.round((state.zoom - event.deltaY * .001) * 20) / 20, .7, 1.35);
+      applyViewTransform();
+    }, { passive: false });
+
+    document.addEventListener("keydown", (event) => {
+      if (["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
+      if (event.key === "ArrowRight") { event.preventDefault(); shiftGuided(1); }
+      if (event.key === "ArrowLeft") { event.preventDefault(); shiftGuided(-1); }
+      if (event.key === "r" || event.key === "R") { state.zoom = 1; state.panX = 0; state.panY = 0; updateAll(); }
+      if (event.key === "+" || event.key === "=") { state.zoom = clamp(Math.round((state.zoom + .1) * 10) / 10, .7, 1.35); updateAll(); }
+      if (event.key === "-" || event.key === "_") { state.zoom = clamp(Math.round((state.zoom - .1) * 10) / 10, .7, 1.35); updateAll(); }
+    });
+
+    let resizeFrame = null;
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(updateAll);
+    });
+
+    document.querySelector("[data-copy-prompt]").addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      try {
+        await navigator.clipboard.writeText(promptOutput.textContent);
+      } catch {
+        const helper = document.createElement("textarea");
+        helper.value = promptOutput.textContent;
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+      }
+      button.dataset.copied = "true";
+      button.textContent = "Copied";
+      window.setTimeout(() => { button.dataset.copied = "false"; button.textContent = "Copy review prompt"; }, 1400);
+    });
+
+    updateAll();
+  </script>
+</body>
+</html>
