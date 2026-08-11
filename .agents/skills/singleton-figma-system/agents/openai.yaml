@@ -1,0 +1,4 @@
+interface:
+  display_name: "Singleton Figma System"
+  short_description: "Structure repeatable Singleton Figma design systems"
+  default_prompt: "Use $singleton-figma-system to organize this Figma file as a reusable client design system."
