@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matt Pocock skills check · 2026-08-09</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070907;
+      --panel: #101410;
+      --panel-2: #151a15;
+      --ink: #f4f6ef;
+      --muted: #9ba69a;
+      --line: #293329;
+      --green: #b8ff52;
+      --blue: #76c7ff;
+      --amber: #ffc857;
+      --red: #ff8279;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 90% 0%, rgba(184, 255, 82, 0.10), transparent 28rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 80px;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--green);
+      font: 700 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(42px, 7vw, 84px);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+    }
+
+    .lede {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2.1vw, 24px);
+      line-height: 1.45;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 42px 0 20px;
+    }
+
+    .stat, .panel {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(16, 20, 16, 0.92);
+    }
+
+    .stat { padding: 22px; }
+    .stat strong { display: block; font-size: 38px; line-height: 1; }
+    .stat span { display: block; margin-top: 8px; color: var(--muted); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .panel { padding: 28px; }
+    .panel.wide { grid-column: 1 / -1; }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .note {
+      margin: -8px 0 20px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .skill-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .skill {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: start;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .skill:first-child { border-top: 0; padding-top: 0; }
+    .skill:last-child { padding-bottom: 0; }
+    .skill code { color: var(--ink); font-size: 15px; }
+    .skill p { margin: 0; color: var(--muted); line-height: 1.45; }
+
+    .installed h2 { color: var(--green); }
+    .next h2 { color: var(--blue); }
+    .hold h2 { color: var(--amber); }
+
+    .decision {
+      margin-top: 16px;
+      border-color: rgba(184, 255, 82, 0.44);
+      background: linear-gradient(135deg, rgba(184, 255, 82, 0.10), rgba(16, 20, 16, 0.96) 45%);
+    }
+
+    .decision p {
+      max-width: 850px;
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.5;
+    }
+
+    details {
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    summary { color: var(--muted); cursor: pointer; }
+    .all-missing { margin: 16px 0 0; color: var(--muted); line-height: 1.8; }
+
+    .inventory-tools {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .inventory-tools input {
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #090c09;
+      color: var(--ink);
+      font: inherit;
+      padding: 12px 14px;
+    }
+
+    .skill-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font: 600 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 8px 10px;
+    }
+
+    .chip.match {
+      border-color: rgba(184, 255, 82, 0.42);
+      color: var(--green);
+    }
+
+    .count-label { color: var(--muted); font-size: 14px; }
+
+    .sources {
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    a { color: var(--blue); }
+
+    @media (max-width: 760px) {
+      main { padding-top: 34px; }
+      .stats, .grid { grid-template-columns: 1fr; }
+      .panel.wide { grid-column: auto; }
+      .skill { grid-template-columns: 1fr; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">skill check · 2026-08-09</p>
+    <h1>Portable across both models.</h1>
+    <p class="lede">Matt’s current repo has 35 skill folders. Thirty-three are now installed for Codex and Claude. Two were left out because they violate your no-background-agent and no-blocking-hook rules.</p>
+
+    <section class="stats" aria-label="Skill totals">
+      <div class="stat"><strong>35</strong><span>Matt skill folders</span></div>
+      <div class="stat"><strong>33</strong><span>Installed in both models</span></div>
+      <div class="stat"><strong>2</strong><span>Intentionally omitted</span></div>
+      <div class="stat"><strong>296</strong><span>Other unique skills</span></div>
+    </section>
+
+    <section class="grid">
+      <article class="panel installed">
+        <h2>You have these</h2>
+        <p class="note">These are the five core planning skills. Twenty-eight more were added today.</p>
+        <ul class="skill-list">
+          <li class="skill"><code>grill-me</code><p>Sharpens a plan through questions.</p></li>
+          <li class="skill"><code>grilling</code><p>Runs the deeper interview loop.</p></li>
+          <li class="skill"><code>wayfinder</code><p>Maps work that spans several sessions.</p></li>
+          <li class="skill"><code>grill-with-docs</code><p>Grills while recording terms and decisions.</p></li>
+          <li class="skill"><code>domain-modeling</code><p>Maintains the glossary and rare ADRs.</p></li>
+        </ul>
+      </article>
+
+      <article class="panel next">
+        <h2>Strong additions now installed</h2>
+        <ul class="skill-list">
+          <li class="skill"><code>handoff</code><p>Fits your Codex, Claude, Figma, and editing transfers.</p></li>
+          <li class="skill"><code>resolving-merge-conflicts</code><p>Useful while Git and worktrees are still new.</p></li>
+          <li class="skill"><code>tdd</code><p>Adds a clear test-first loop for plugin and app work.</p></li>
+          <li class="skill"><code>teach</code><p>Turns unfamiliar setup into a saved learning record.</p></li>
+        </ul>
+      </article>
+
+      <article class="panel hold wide">
+        <h2>Intentionally omitted</h2>
+        <ul class="skill-list">
+          <li class="skill"><code>claude-handoff</code><p>Its only job is launching a background Claude agent. Your model-neutral <code>handoff</code> covers the useful part.</p></li>
+          <li class="skill"><code>git-guardrails-claude-code</code><p>Its only job is installing Claude hooks that block Git commands. Your worktree router stays advisory.</p></li>
+        </ul>
+      </article>
+
+      <article class="panel wide">
+        <h2>All 35 Matt skills</h2>
+        <p class="note">Green means the exact skill name is available in your current setup.</p>
+        <div class="skill-cloud" id="matt-skills" aria-label="All Matt Pocock skills"></div>
+      </article>
+
+      <article class="panel wide">
+        <h2>Your other 296 skills</h2>
+        <p class="note">This is the deduplicated inventory across Codex, agent, Claude, plugin, and repo skill roots. Matt’s five exact matches are excluded here.</p>
+        <details>
+          <summary>Open the full inventory</summary>
+          <div class="inventory-tools">
+            <input id="skill-search" type="search" placeholder="Filter skills, for example: figma, video, git" aria-label="Filter other skills">
+            <span class="count-label" id="visible-count">296 shown</span>
+          </div>
+          <div class="skill-cloud" id="other-skills" aria-live="polite"></div>
+        </details>
+      </article>
+    </section>
+
+    <section class="panel decision">
+      <h2>My call</h2>
+      <p>Use the skills by name. They remain in the current session, recommend related skills without launching them, and leave hooks, model settings, and Git actions alone until you explicitly request them.</p>
+    </section>
+
+    <p class="sources">Sources: <a href="https://github.com/mattpocock/skills">Matt’s current repository</a> · <a href="https://code.claude.com/docs/en/worktrees">Claude Code worktree docs</a></p>
+  </main>
+  <script>
+    const mattInstalled = new Set(['ask-matt', 'code-review', 'codebase-design', 'diagnosing-bugs', 'domain-modeling', 'grill-me', 'grill-with-docs', 'grilling', 'handoff', 'implement', 'improve-codebase-architecture', 'loop-me', 'migrate-to-shoehorn', 'prototype', 'research', 'resolving-merge-conflicts', 'scaffold-exercises', 'setup-matt-pocock-skills', 'setup-pre-commit', 'setup-ts-deep-modules', 'tdd', 'teach', 'to-questionnaire', 'to-spec', 'to-tickets', 'triage', 'wait-what', 'wayfinder', 'wizard', 'writing-beats', 'writing-for-agents', 'writing-fragments', 'writing-shape']);
+    const mattSkills = 'ask-matt · claude-handoff · code-review · codebase-design · diagnosing-bugs · domain-modeling · git-guardrails-claude-code · grill-me · grill-with-docs · grilling · handoff · implement · improve-codebase-architecture · loop-me · migrate-to-shoehorn · prototype · research · resolving-merge-conflicts · scaffold-exercises · setup-matt-pocock-skills · setup-pre-commit · setup-ts-deep-modules · tdd · teach · to-questionnaire · to-spec · to-tickets · triage · wait-what · wayfinder · wizard · writing-beats · writing-for-agents · writing-fragments · writing-shape'.split(' · ');
+    const otherSkills = 'Presentations · Spreadsheets · aerospace-config · agency-growth · agent-browser · agent-browser-verify · ai-elements · ai-gateway · ai-generation-persistence · ai-sdk · appkit-interop · artifact-template-analytics-dashboard · artifact-template-business-review · artifact-template-design-report · artifact-template-experiment-analysis · artifact-template-financial-budget · artifact-template-investment-committee-memo · artifact-template-legal-memorandum · artifact-template-market-trends-report · artifact-template-minimal-letterhead · artifact-template-operating-calendar · artifact-template-operating-review · artifact-template-project-kickoff · artifact-template-project-tracker · artifact-template-sales-pipeline · artifact-template-simple-dark-mode · artifact-template-simple-light-mode · artifact-template-strategy-memorandum · artifact-template-system-design · artifact-template-team-alignment · artifact-template-three-statement-forecast · attack-path-analysis · auth · backend-architect · blender-motion · blender-superskill · bootstrap · brainstorming · build-run-debug · canva-branded-presentation · canva-resize-for-all-social-media · canva-translate-design · capture-nba-event-clips · career-proof-packager · cavalry-motion · caveman · cdn-caching · cerebral-router · chat-sdk · client-video-storyboard · cms · code-to-design · compress · computer-use · control-chrome · control-in-app-browser · cover-letter-casual · cron-jobs · deep-security-scan · define-goal · define-security-policy · deployments-cicd · design-canvas · design-to-code · dispatching-parallel-agents · documents · eagle · email · embedded-captions · env-vars · eve · excalidraw-diagram-design · excel-live-control · executing-plans · external-paths · faceless-explainer · figma · figma-code-connect · figma-create-new-file · figma-design-to-code · figma-generate-design · figma-generate-diagram · figma-generate-library · figma-implement-motion · figma-swiftui · figma-use · figma-use-figjam · figma-use-motion · figma-use-slides · file-organizer · finding-discovery · finishing-a-development-branch · fix-finding · freelance-gig-proposals · frontend-app-builder · frontend-developer · frontend-testing-debugging · geist · geistdocs · general-video · gh-address-comments · gh-fix-ci · github · gmail · google-calendar · google-calendar-daily-brief · google-calendar-free-up-time · google-calendar-group-scheduler · google-calendar-meeting-prep · google-docs · google-drive · google-drive-comments · google-sheets · google-slides · hammerspoon-browser-automation · hazel-bloat · hf-cli · higgsfield-game-generation · higgsfield-generate · higgsfield-marketplace-cards · higgsfield-product-photoshoot · higgsfield-soul-id · higgsfield-video-explainer · higgsfield-websites · html-playground · html-reports · huggingface-community-evals · huggingface-datasets · huggingface-gradio · huggingface-jobs · huggingface-llm-trainer · huggingface-paper-publisher · huggingface-papers · huggingface-trackio · huggingface-vision-trainer · hyperframes · hyperframes-animation · hyperframes-cli · hyperframes-core · hyperframes-creative · hyperframes-keyframes · hyperframes-registry · imagegen · investigation-mode · ios-app-intents · ios-debugger-agent · ios-ettrace-performance · ios-memgraph-leaks · ios-simulator-browser · job-application-resume · json-canvas · json-render · karabiner-config-migrator · kiro-troubleshooting · km-assembler-mode · knowledge-update · likec4 · linear · liquid-glass · marketing-content-creator · marketplace · media-use · micro · microfrontends · motion-design · motion-design-critique · motion-graphics · music-to-video · n8n-local · ncc · netlify-ai-gateway · netlify-blobs · netlify-caching · netlify-cli-and-deploy · netlify-config · netlify-deploy · netlify-edge-functions · netlify-forms · netlify-frameworks · netlify-functions · netlify-identity · netlify-image-cdn · next-cache-components · next-forge · next-upgrade · nextjs · notion-knowledge-capture · notion-meeting-intelligence · notion-research-documentation · notion-spec-to-implementation · npid-fastapi-commands · npid-fastapi-skill · observability · obsidian-23-dev-docs · obsidian-bases · obsidian-cli · obsidian-gf · obsidian-hq · obsidian-markdown · offer-proof-content · openai-docs · opportunity-hq-updater · packaging-notarization · payments · pdf · planning-idea-routing · playwright · playwright-interactive · plugin-creator · ponytail · ponytail-audit · ponytail-debt · ponytail-gain · ponytail-help · ponytail-review · pr-to-video · product-launch-video · propose-security-hardening · prospect-supabase-source-of-truth · raycast-extension-builder · react-best-practices · receiving-code-review · remotion-to-hyperframes · requesting-code-review · review-agent · routing-middleware · runtime-cache · satori · scoutprep-business-logic · security-diff-scan · security-scan · security-threat-model · shadcn · shortcuts-playground · sign-in-with-vercel · signing-entitlements · singleton-figma-system · singleton-systems · singleton-visualizer · sites-building · sites-hosting · skill-creator · skill-installer · slideshow · ss-deploy · stripe-best-practices · subagent-driven-development · supabase · supabase-postgres-best-practices · swiftpm-macos · swiftui-liquid-glass · swiftui-patterns · swiftui-performance-audit · swiftui-ui-patterns · swiftui-view-refactor · swr · systematic-debugging · talking-head-recut · telemetry · template-creator · test-driven-development · test-triage · threat-model · track-findings · transformers-js · triage-finding · turbopack · turborepo · ui-designer · using-git-worktrees · using-superpowers · v0-dev · validation · vercel-agent · vercel-api · vercel-cli · vercel-connect · vercel-deploy · vercel-firewall · vercel-flags · vercel-functions · vercel-queues · vercel-sandbox · vercel-services · vercel-storage · verification · verification-before-completion · vet-and-install · view-refactor · visualize · vulnerability-writeup · window-management · workflow · writing-plans · writing-skills · yeet'.split(' · ');
+
+    const chip = (name, matched = false) => {
+      const node = document.createElement('span');
+      node.className = `chip${matched ? ' match' : ''}`;
+      node.textContent = name;
+      return node;
+    };
+
+    const mattRoot = document.querySelector('#matt-skills');
+    mattSkills.forEach((name) => mattRoot.append(chip(name, mattInstalled.has(name))));
+
+    const otherRoot = document.querySelector('#other-skills');
+    const search = document.querySelector('#skill-search');
+    const visibleCount = document.querySelector('#visible-count');
+    const renderOther = () => {
+      const query = search.value.trim().toLowerCase();
+      const visible = otherSkills.filter((name) => name.toLowerCase().includes(query));
+      otherRoot.replaceChildren(...visible.map((name) => chip(name)));
+      visibleCount.textContent = `${visible.length} shown`;
+    };
+    search.addEventListener('input', renderOther);
+    renderOther();
+  </script>
+</body>
+</html>
