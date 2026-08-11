@@ -1,0 +1,4 @@
+interface:
+  display_name: "Upwork Hourly Rubric"
+  short_description: "Evidence-backed hours for Upwork video work"
+  default_prompt: "Use $upwork-hourly-rubric to plan the billable hours for this active Upwork video contract."

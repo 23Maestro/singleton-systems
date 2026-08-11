@@ -150,6 +150,21 @@ for (const snippet of [
   assert.match(pricing.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `pricing route: missing ${snippet}`);
 }
 
+const hourlyEvidence = runHook("Build an hours plan for this active Upwork hourly video contract.");
+assert.equal(hourlyEvidence.status, 0);
+for (const snippet of [
+  "[route] upwork-hourly-evidence",
+  "[lane] AI Consultant",
+  "[owner] Upwork",
+  "[tools] s-systems:upwork-hourly-rubric",
+]) {
+  assert.match(
+    hourlyEvidence.stdout,
+    new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    `hourly evidence route: missing ${snippet}`,
+  );
+}
+
 for (const prompt of [
   "Use client video storyboard for this Lineups football edit.",
   "Build the Catena Media college football edit from the transcript.",
