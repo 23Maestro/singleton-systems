@@ -96,6 +96,11 @@ Correction = edit instruction. A correction fixes the artifact silently. Never
 log, quote, or restate the correction itself in output.
 No process commentary in deliverables. State facts and results only.
 
+Keep a Linear task to the outcome, current truth, next action, and done check.
+Link the owning workflow or proof. Do not paste the workflow into the issue.
+Use a dated interactive Decision Map when Jerami's review needs more than 500
+words.
+
 ## Output
 
 Create or update the smallest issue shape needed for the selected work. Keep

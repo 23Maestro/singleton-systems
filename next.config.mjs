@@ -21,6 +21,10 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
+          source: "/futurevoices",
+          destination: "/decision-maps/2026-08-14-future-voices-storyboard/index.html",
+        },
+        {
           source: "/wemby-shot-lab",
           destination: `${wemby}/wemby-shot-lab`,
         },

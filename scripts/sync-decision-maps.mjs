@@ -4,6 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const maps = [
   "wemby-shot-selection-storyboard",
+  "2026-08-14-future-voices-storyboard",
 ];
 
 for (const slug of maps) {

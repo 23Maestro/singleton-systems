@@ -9,6 +9,10 @@
 /docs/visual-maps/dist
 /docs/visual-maps/archive
 
+# Understand Anything local graph data; keep the scan boundary
+/.ua/*
+!/.ua/.understandignore
+
 # production
 /build
 

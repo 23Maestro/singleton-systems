@@ -35,6 +35,13 @@ CAPABILITY_RE = re.compile(
     r"not installed|missing.*path|\bpath\b|tool installed|plugin.*(missing|installed)|pdf tool|pdf skill|homebrew|/opt/homebrew|node_modules/.bin|npm exec",
     re.I,
 )
+TOOL_FAILURE_RE = re.compile(
+    r"(?:tool|plugin|cli|viewer|surface|connector|command|oauth|authentication|path)"
+    r"[\s\S]{0,80}(?:fail|failed|failing|missing|unavailable|not working|expired|cannot|can't|blocked)"
+    r"|(?:fail|failed|failing|missing|unavailable|not working|expired|cannot|can't|blocked)"
+    r"[\s\S]{0,80}(?:tool|plugin|cli|viewer|surface|connector|command|oauth|authentication|path)",
+    re.I,
+)
 
 REGISTRY_PATH = "config/cerebral-registry.json"
 EXPLICIT_ROUTE_RE = re.compile(
@@ -172,9 +179,13 @@ def registry_matches(text):
 
     capabilities = []
     capability_source = "local registry fallback"
-    if CAPABILITY_RE.search(text) or any(route.get("route_key") == "systems-tool-harness" for route in matched_routes):
+    if needs_tool_preflight(text) or any(route.get("route_key") == "systems-tool-harness" for route in matched_routes):
         capabilities = load_local_registry().get("capabilities", [])
     return matched_routes, capabilities, capability_source if capabilities else route_source, explicit_route, tags
+
+
+def needs_tool_preflight(text):
+    return bool(CAPABILITY_RE.search(text) or TOOL_FAILURE_RE.search(text))
 
 
 def context(reason, text):
@@ -205,12 +216,15 @@ def context(reason, text):
         lines.append(f"- [route-error] Unknown or disabled route: {explicit_route}")
     else:
         lines.append("- [next] No specialized route matched; use normal task flow.")
-    if CAPABILITY_RE.search(text):
+    if needs_tool_preflight(text):
         lines.append("- [preflight] Check registry, Homebrew, and repo-local npm facts before reporting a missing tool or path.")
         if not capabilities:
             lines.append("- [do-not] Do not assert absence without verification evidence.")
         else:
             lines.append(f"- [registry] {registry_source}; use recorded path and verification command.")
+        lines.append("- [repair] A safe repair inside the requested tool and surface is normal task work: verify the target, repair it, and continue.")
+        lines.append("- [substitution-gate] Changing the requested tool or surface requires explicit user approval.")
+        lines.append("- [pause] Stop for substitution, destructive repair, new authentication or cost, or an unresolved blocker.")
     lines.extend(drift_warnings(text))
     if public_output_requested(text, routes):
         lines.append("")

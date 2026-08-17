@@ -18,6 +18,12 @@ export const metadata: Metadata = {
 
 const decisionMaps = [
   {
+    label: "Future Voices — Michelle Short",
+    href: "/decision-maps/2026-08-14-future-voices-storyboard/index.html",
+    tags: ["0:30", "Facebook", "LinkedIn"],
+    accent: "border-[#ed1c24] text-[#ed1c24] dark:text-[#ff696e]",
+  },
+  {
     label: "Wemby Edit Map",
     href: "/decision-maps/wemby-shot-selection-storyboard/",
     tags: ["2:00", "Tab 2", "Tab 3"],

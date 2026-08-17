@@ -1,0 +1,63 @@
+# Keep this graph focused on the Singleton Systems operating system.
+# Website implementation is represented only by selected boundary surfaces.
+
+# Website and presentation implementation
+app/*
+!app/api/
+!app/api/**
+!app/decision-maps/
+!app/decision-maps/page.tsx
+!app/linear-inbox/
+!app/linear-inbox/**
+!app/visual-maps/
+!app/visual-maps/page.tsx
+components/**
+public/**
+email-signatures/**
+
+# Media production and generated deliverables
+.agents/**
+assets/**
+cavalry/**
+hyperframes/**
+remotion/**
+skills/**
+output/**
+out/**
+tmp/**
+tools/premiere-uxp/**
+scripts/blender_*.py
+scripts/export-scene-*.mjs
+scripts/extract-reference-human-icon.mjs
+scripts/prepare-cavalry-researchers.mjs
+scripts/proof_polyhaven_food_assets.py
+
+# Website, marketing, portfolio, and archived documentation
+docs/archive/**
+docs/content/**
+docs/diagrams/html-playground-samples/**
+docs/handoffs/**
+docs/offer/**
+docs/outreach/**
+docs/portfolio/**
+docs/refactors/**
+docs/resumes/**
+docs/ui-reference/**
+docs/website/**
+docs/visuals/**
+docs/harness/job-search-prep-google/**
+docs/harness/personal-ops-google-systems/**
+docs/harness/*storyboard.html
+docs/harness/*storyboard.source.md
+docs/planning/2026-07-12-personal-ops-finance-followup.md
+
+# Binary planning exports; retain their Markdown sources
+docs/operating-system/*.pdf
+
+# Local and generated framework state
+.next/**
+.vercel/**
+.playwright-cli/**
+.playwright-mcp/**
+.google-workspace/**
+node_modules/**

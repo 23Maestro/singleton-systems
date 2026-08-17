@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/decision-maps/2026-08-14-future-voices-storyboard/" />
+  <title>Michelle Stroy short-form concept</title>
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <style>
+    @font-face{font-family:Geist;src:url("assets/Geist-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+    @font-face{font-family:"Geist Mono";src:url("assets/GeistMono-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+    :root{color-scheme:light;--white:#fff;--wash:#f8fafc;--warm:#f7f7f5;--ink:#111318;--body:#475467;--muted:#667085;--line:#d8dee8}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--white)}body{margin:0;background:var(--white);color:var(--body);font-family:Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit}.shell{width:min(1060px,calc(100% - 32px));margin:auto}
+    header{padding:72px 0 44px;border-bottom:1px solid var(--line);background:var(--white)}.brand-row{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:48px}.brand-row img{width:124px;height:auto}.format{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);background:var(--wash);font:600 12px/1 "Geist Mono",monospace}h1{max-width:780px;margin:0;color:var(--ink);font-size:clamp(40px,7vw,72px);line-height:1;letter-spacing:-.055em}.subtitle{max-width:680px;margin:22px 0 0;font-size:clamp(18px,2.3vw,24px);line-height:1.45;color:var(--body)}
+    .audio-wrap{position:sticky;top:0;z-index:20;background:#ffffffed;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.audio{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:13px 0}.play{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:10px;background:var(--white);color:var(--ink);cursor:pointer}.play i{font-size:18px}.track{height:4px;border-radius:999px;background:#e9edf2;overflow:hidden}.progress{height:100%;width:0;background:var(--ink)}.time,.meta{font-family:"Geist Mono",monospace;font-variant-numeric:tabular-nums}.time{font-size:12px;color:var(--muted)}
+    main{background:var(--warm);padding:64px 0 96px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.section-head h2,.approval h2{margin:0;color:var(--ink);font-size:clamp(28px,4vw,42px);letter-spacing:-.035em}.section-head p{margin:0;color:var(--muted)}.layout{display:grid;grid-template-columns:176px 1fr;gap:28px}.nav{position:sticky;top:84px;align-self:start;display:grid;border:1px solid var(--line);border-radius:12px;background:var(--white);overflow:hidden}.nav button{display:flex;align-items:center;gap:8px;border:0;border-bottom:1px solid var(--line);padding:12px 14px;background:transparent;color:var(--muted);text-align:left;font:600 12px/1.2 "Geist Mono",monospace;cursor:pointer}.nav button:last-child{border:0}.nav button.active{background:var(--wash);color:var(--ink)}.nav i{font-size:14px}.sequences{display:grid;gap:16px}.sequence{scroll-margin-top:96px;display:grid;grid-template-columns:minmax(220px,.8fr) 1.2fr;min-height:330px;border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden;box-shadow:0 1px 2px #1018280a}.sequence.active{border-color:#aeb8c8}.preview{display:grid;place-items:center;position:relative;overflow:hidden;min-height:310px;background:var(--wash);border-right:1px solid var(--line);padding:30px;text-align:center}.preview img.person{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}.preview img.logo{width:min(220px,72%)}.preview .statement{color:var(--ink);font-size:clamp(27px,4vw,46px);font-weight:750;letter-spacing:-.045em;line-height:1.02}.preview .large{display:block;font-size:1.45em}.silhouette{width:112px;height:112px;border:1px solid var(--line);border-radius:50%;position:relative;background:var(--white)}.silhouette:before{content:"";position:absolute;left:42px;top:24px;width:28px;height:28px;border-radius:50%;background:#98a2b3}.silhouette:after{content:"";position:absolute;left:27px;bottom:19px;width:58px;height:37px;border-radius:36px 36px 12px 12px;background:#98a2b3}.credential{border:1px solid var(--line);border-radius:12px;background:var(--white);padding:24px;color:var(--ink);font-size:20px;font-weight:700;box-shadow:0 8px 22px #1018280d}.copy{display:flex;flex-direction:column;justify-content:center;padding:36px}.metadata{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.meta{border:1px solid var(--line);border-radius:8px;background:var(--wash);padding:6px 8px;color:var(--muted);font-size:11px}.quote{margin:0;color:var(--ink);font-size:clamp(20px,2.6vw,30px);font-weight:620;letter-spacing:-.025em;line-height:1.28}.summary{margin:0;color:var(--body);font-size:18px;line-height:1.5}.proposed{display:inline-flex;align-items:center;gap:6px;margin-top:18px;color:var(--muted);font:600 12px/1 "Geist Mono",monospace}.proposed i{font-size:15px}
+    .approval{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;border:1px solid var(--line);border-radius:16px;background:var(--white);padding:clamp(28px,5vw,52px)}.approval p{margin:14px 0 0;line-height:1.55}.checks{display:grid;gap:0}.check{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid var(--line);color:var(--ink);font-weight:600}.check:last-child{border:0}.check i{font-size:20px;color:var(--muted)}
+    @media(max-width:760px){header{padding:40px 0 32px}.brand-row{margin-bottom:34px;align-items:flex-start}.layout{grid-template-columns:1fr}.nav{top:67px;z-index:12;display:flex;overflow:auto;border-radius:10px}.nav button{min-width:max-content;border-bottom:0;border-right:1px solid var(--line)}.sequence{grid-template-columns:1fr}.preview{min-height:290px;border-right:0;border-bottom:1px solid var(--line)}.copy{padding:26px}.approval{grid-template-columns:1fr;gap:20px}.time{display:none}.audio{grid-template-columns:auto 1fr}.section-head{display:block}.section-head p{margin-top:10px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="brand-row"><img src="assets/future-voices-logo.png" alt="Future Voices"><div class="format"><span class="chip">00:30</span><span class="chip">Facebook</span><span class="chip">LinkedIn</span></div></div>
+      <h1>Michelle Stroy short-form concept</h1>
+      <p class="subtitle">Proposed 30-second social video for Facebook and LinkedIn.</p>
+    </div>
+  </header>
+
+  <div class="audio-wrap"><div class="audio shell"><button class="play" id="audioPlay" aria-label="Play audio"><i class="ph ph-play"></i></button><div class="track"><div class="progress" id="progress"></div></div><div class="time"><span id="current">0:00</span> / 0:30</div></div></div>
+
+  <main><div class="shell">
+    <div class="section-head"><h2>Proposed sequence</h2><p>Source excerpts from the interview</p></div>
+    <div class="layout">
+      <nav class="nav" aria-label="Sequence navigation">
+        <button class="active" data-target="sequence-1"><i class="ph ph-play-circle"></i>00:00</button>
+        <button data-target="sequence-2"><i class="ph ph-user-circle"></i>00:02</button>
+        <button data-target="sequence-3"><i class="ph ph-quotes"></i>00:04</button>
+        <button data-target="sequence-4"><i class="ph ph-globe-hemisphere-west"></i>00:07</button>
+        <button data-target="sequence-5"><i class="ph ph-magnifying-glass"></i>00:13</button>
+        <button data-target="sequence-6"><i class="ph ph-graduation-cap"></i>00:19</button>
+        <button data-target="sequence-7"><i class="ph ph-microphone"></i>00:23</button>
+        <button data-target="sequence-8"><i class="ph ph-check-circle"></i>00:28</button>
+      </nav>
+
+      <div class="sequences">
+        <section class="sequence active" id="sequence-1" data-start="0"><div class="preview"><div class="statement">I did lose <span class="large">two jobs</span> in 30 minutes.</div></div><div class="copy"><div class="metadata"><span class="meta">Video 00:00–00:02</span><span class="meta">Source 02:43</span></div><blockquote class="quote">“I did lose two jobs in 30 minutes.”</blockquote></div></section>
+
+        <section class="sequence" id="sequence-2" data-start="2"><div class="preview"><img class="person" src="assets/michelle.jpg" alt="Michelle Stroy"></div><div class="copy"><div class="metadata"><span class="meta">Video 00:02–00:04</span><span class="meta">Source 02:43</span></div><blockquote class="quote">“I did lose two jobs in 30 minutes.”</blockquote></div></section>
+
+        <section class="sequence" id="sequence-3" data-start="3.8"><div class="preview"><div class="silhouette" aria-hidden="true"></div></div><div class="copy"><div class="metadata"><span class="meta">Video 00:04–00:07</span><span class="meta">Source 02:54</span></div><blockquote class="quote">“My oldest daughter looked defeated.”</blockquote></div></section>
+
+        <section class="sequence" id="sequence-4" data-start="7"><div class="preview"><div class="statement">Carbon emissions could be out of control.</div></div><div class="copy"><div class="metadata"><span class="meta">Video 00:07–00:13</span><span class="meta">Source 03:04</span></div><p class="summary">By the time her daughter’s generation could act, carbon emissions could be out of control and it could be too late.</p></div></section>
+
+        <section class="sequence" id="sequence-5" data-start="12.5"><div class="preview"><div class="statement">I’ll go find out.</div></div><div class="copy"><div class="metadata"><span class="meta">Video 00:13–00:19</span><span class="meta">Source 03:14</span></div><blockquote class="quote">“I don’t know if that’s true or not, but I’ll go find out.”</blockquote></div></section>
+
+        <section class="sequence" id="sequence-6" data-start="18.5"><div class="preview"><div class="credential">Six years later<br>Degree completed</div></div><div class="copy"><div class="metadata"><span class="meta">Video 00:19–00:23</span><span class="meta">Source 03:36</span></div><blockquote class="quote">“Fast-forward six years later, I’ve completed my degree.”</blockquote></div></section>
+
+        <section class="sequence" id="sequence-7" data-start="22.5"><div class="preview"><img class="person" src="assets/stuart.jpg" alt="Stuart Thomas"></div><div class="copy"><div class="metadata"><span class="meta">Video 00:23–00:28</span><span class="meta">Source 00:10</span></div><blockquote class="quote">“Younger generations inherit the world that we create.”</blockquote></div></section>
+
+        <section class="sequence" id="sequence-8" data-start="27.5"><div class="preview"><img class="logo" src="assets/future-voices-logo.png" alt="Future Voices"></div><div class="copy"><div class="metadata"><span class="meta">Video 00:28–00:30</span><span class="meta">End card</span></div><p class="summary">Follow the conversation.</p><span class="proposed"><i class="ph ph-clock"></i>Proposed pending approval</span></div></section>
+      </div>
+    </div>
+
+    <section class="approval"><div><h2>Approval</h2><p>Confirm the sequence and closing text before the sample is produced.</p></div><div class="checks"><div class="check"><i class="ph ph-square"></i>Story sequence</div><div class="check"><i class="ph ph-square"></i>Future Voices logo</div><div class="check"><i class="ph ph-square"></i>Proposed closing text</div></div></section>
+  </div></main>
+
+  <audio id="audio" preload="metadata" src="assets/future-voices-rough-cut.mp3"></audio>
+  <script>
+    const audio=document.querySelector('#audio'),play=document.querySelector('#audioPlay'),icon=play.querySelector('i'),progress=document.querySelector('#progress'),current=document.querySelector('#current'),sections=[...document.querySelectorAll('.sequence')],buttons=[...document.querySelectorAll('.nav button')];
+    const format=seconds=>`0:${String(Math.floor(seconds)).padStart(2,'0')}`;
+    function setActive(time){let selected=sections[0];for(const section of sections){if(time>=Number(section.dataset.start))selected=section}sections.forEach(section=>section.classList.toggle('active',section===selected));buttons.forEach(button=>button.classList.toggle('active',button.dataset.target===selected.id));}
+    play.addEventListener('click',()=>audio.paused?audio.play():audio.pause());
+    audio.addEventListener('play',()=>{icon.className='ph ph-pause'});audio.addEventListener('pause',()=>{icon.className='ph ph-play'});audio.addEventListener('ended',()=>{audio.currentTime=0});audio.addEventListener('timeupdate',()=>{progress.style.width=`${audio.currentTime/30.245*100}%`;current.textContent=format(audio.currentTime);setActive(audio.currentTime)});
+    buttons.forEach(button=>button.addEventListener('click',()=>{const section=document.querySelector(`#${button.dataset.target}`);section.scrollIntoView({behavior:'smooth',block:'center'});audio.currentTime=Number(section.dataset.start);setActive(audio.currentTime)}));
+    const observer=new IntersectionObserver(entries=>{if(audio.paused){const visible=entries.find(entry=>entry.isIntersecting);if(visible)setActive(Number(visible.target.dataset.start))}},{threshold:.55});sections.forEach(section=>observer.observe(section));
+  </script>
+</body>
+</html>

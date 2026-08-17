@@ -54,6 +54,7 @@
     "visuals": "npm run visual-maps:build && sh -c 'cd docs/visual-maps/dist && (sleep 1; open http://127.0.0.1:4184) & python3 -m http.server 4184 --bind 127.0.0.1'",
     "visual-maps": "likec4 start docs/visual-maps",
     "visual-maps:validate": "likec4 validate docs/visual-maps",
+    "visual-maps:build-ua": "node scripts/build-public-ua-map.mjs",
     "visual-maps:build": "sh -c 'rm -rf docs/visual-maps/dist public/visual-maps/likec4 && likec4 build docs/visual-maps --output docs/visual-maps/dist --base /visual-maps/likec4/ && mkdir -p public/visual-maps/likec4 && cp -R docs/visual-maps/dist/. public/visual-maps/likec4'",
     "visual-maps:export-portfolio": "sh -c 'rm -rf public/portfolio/likec4-light public/portfolio/likec4-dark && mkdir -p public/portfolio/likec4-light public/portfolio/likec4-dark && likec4 export png docs/visual-maps --light --flat -o public/portfolio/likec4-light -f ai_workflow_readme_map -f scouting_coordinator_bucket_map -f resume_timeline_map -f review_first_implementation_loop -t 45 --max-attempts 3 && likec4 export png docs/visual-maps --dark --flat -o public/portfolio/likec4-dark -f ai_workflow_readme_map -f scouting_coordinator_bucket_map -f resume_timeline_map -f review_first_implementation_loop -t 45 --max-attempts 3 && node scripts/generate-likec4-artifact-svgs.mjs'",
     "verify:ai-workflow-mobile": "node scripts/check-ai-workflow-mobile.mjs",

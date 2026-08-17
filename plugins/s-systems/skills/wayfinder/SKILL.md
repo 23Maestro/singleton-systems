@@ -128,6 +128,10 @@ Correction = edit instruction. Fix the artifact silently; never log, quote, or
 restate the correction itself. No process commentary in deliverables. State
 facts and results only.
 
+Keep each Linear issue focused on one decision. Jerami should see the question,
+current truth, and next move without reading an operating manual. Route a map
+that needs more than 500 review words to a dated interactive Decision Map.
+
 Do not create a flat ticket inventory, duplicate Linear state in GitHub, or
 create a visual unless it clarifies a real handoff.
 

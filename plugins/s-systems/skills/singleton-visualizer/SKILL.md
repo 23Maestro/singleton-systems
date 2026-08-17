@@ -8,6 +8,10 @@ description: Create or review a small, verified Singleton Systems map when a vis
 Use LikeC4 for reviewed architecture. Use an HTML comp only for a human review
 that cannot be understood as a short document.
 
+When Jerami's review would exceed 500 words, use a dated interactive HTML comp
+on the Decision Maps page. Keep the written entry point short. The map must
+reduce reading load through sequence, hierarchy, or disclosure.
+
 Read `references/visual-contract.md` first.
 
 ```text

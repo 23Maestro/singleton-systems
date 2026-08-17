@@ -5,6 +5,7 @@ import { google } from "googleapis";
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { createReadStream } from "node:fs";
 
 const ROOT = process.cwd();
 const DEFAULT_CLIENT_FILE = path.join(ROOT, "config/google-workspace/oauth-client.json");
@@ -23,6 +24,7 @@ const SCOPES = [
   "https://www.googleapis.com/auth/forms.responses.readonly",
   "https://www.googleapis.com/auth/spreadsheets",
   "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/drive.file",
   "https://www.googleapis.com/auth/userinfo.email",
   "https://www.googleapis.com/auth/userinfo.profile",
 ];
@@ -50,6 +52,9 @@ async function main() {
       break;
     case "drive:download":
       await driveDownload(flags);
+      break;
+    case "drive:upload":
+      await driveUpload(flags);
       break;
     case "help":
     default:
@@ -146,6 +151,140 @@ async function driveDownload(flags) {
   await fs.mkdir(path.dirname(flags.dest), { recursive: true });
   await fs.writeFile(flags.dest, Buffer.from(res.data));
   console.log(JSON.stringify({ downloaded: flags.dest, name: meta.name }, null, 2));
+}
+
+async function driveUpload(flags) {
+  if (!flags.file) {
+    throw new Error("drive:upload requires --file <localPath> [--dest <folderId>] [--name <name>]");
+  }
+  const auth = await getAuthClient();
+  const localPath = path.resolve(flags.file);
+  await assertExists(localPath, `Missing local file: ${localPath}`);
+  const name = flags.name || path.basename(localPath);
+  const fileStat = await fs.stat(localPath);
+  const totalBytes = fileStat.size;
+  const sessionFile = path.join(TOKEN_DIR, "drive-upload-session.json");
+  const existingSession = await readUploadSession(sessionFile);
+  let session = existingSession && existingSession.localPath === localPath &&
+    existingSession.totalBytes === totalBytes && existingSession.name === name
+    ? existingSession
+    : null;
+
+  const accessToken = (await auth.getAccessToken()).token;
+  if (!accessToken) throw new Error("Google auth did not return an access token.");
+
+  if (!session) {
+    const metadata = { name };
+    if (flags.dest) metadata.parents = [flags.dest];
+    const response = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json; charset=UTF-8",
+        "X-Upload-Content-Type": mimeTypeFor(name),
+        "X-Upload-Content-Length": String(totalBytes),
+      },
+      body: JSON.stringify(metadata),
+    });
+    if (!response.ok) throw new Error(`Could not start Drive upload (${response.status}): ${await response.text()}`);
+    session = {
+      uploadUrl: response.headers.get("location"),
+      localPath,
+      totalBytes,
+      name,
+      nextByte: 0,
+    };
+    if (!session.uploadUrl) throw new Error("Drive did not return a resumable upload URL.");
+    await fs.mkdir(TOKEN_DIR, { recursive: true });
+    await fs.writeFile(sessionFile, JSON.stringify(session, null, 2));
+  }
+
+  const chunkSize = 8 * 1024 * 1024;
+  const handle = await fs.open(localPath, "r");
+  const startedAt = Date.now();
+  try {
+    while (session.nextByte < totalBytes) {
+      const offset = session.nextByte;
+      const length = Math.min(chunkSize, totalBytes - offset);
+      const buffer = Buffer.allocUnsafe(length);
+      const { bytesRead } = await handle.read(buffer, 0, length, offset);
+      const end = offset + bytesRead - 1;
+      let response;
+      for (let attempt = 0; ; attempt++) {
+        try {
+          response = await fetch(session.uploadUrl, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Length": String(bytesRead),
+              "Content-Range": `bytes ${offset}-${end}/${totalBytes}`,
+            },
+            body: buffer.subarray(0, bytesRead),
+          });
+          if (![408, 429, 500, 502, 503, 504].includes(response.status) || attempt >= 8) break;
+          await delay(Math.min(30000, 1000 * 2 ** attempt));
+        } catch (error) {
+          if (attempt >= 8) throw error;
+          console.log(`Network drop at ${formatBytes(offset)}; retrying in ${Math.min(30, 2 ** attempt)}s...`);
+          await delay(Math.min(30000, 1000 * 2 ** attempt));
+        }
+      }
+
+      if (response.status === 308) {
+        const range = response.headers.get("range");
+        const match = range && range.match(/bytes=0-(\\d+)/);
+        session.nextByte = match ? Number(match[1]) + 1 : offset + bytesRead;
+        await fs.writeFile(sessionFile, JSON.stringify(session, null, 2));
+        const elapsed = Math.max(1, (Date.now() - startedAt) / 1000);
+        const speed = session.nextByte / elapsed;
+        const remaining = (totalBytes - session.nextByte) / Math.max(1, speed);
+        console.log(`Uploaded ${formatBytes(session.nextByte)} / ${formatBytes(totalBytes)} (${((session.nextByte / totalBytes) * 100).toFixed(1)}%) — ${formatBytes(speed)}/s — ETA ${formatDuration(remaining)}`);
+        continue;
+      }
+      if (![200, 201].includes(response.status)) {
+        throw new Error(`Drive upload failed at ${formatBytes(offset)} (${response.status}): ${await response.text()}`);
+      }
+      const data = await response.json();
+      await fs.rm(sessionFile, { force: true });
+      console.log(JSON.stringify({ uploaded: data }, null, 2));
+      return;
+    }
+  } finally {
+    await handle.close();
+  }
+}
+
+async function readUploadSession(file) {
+  if (!(await exists(file))) return null;
+  try { return JSON.parse(await fs.readFile(file, "utf8")); } catch { return null; }
+}
+
+function delay(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function formatBytes(value) {
+  const units = ["B", "KB", "MB", "GB"];
+  let number = value;
+  let index = 0;
+  while (number >= 1024 && index < units.length - 1) { number /= 1024; index++; }
+  return `${number.toFixed(index ? 1 : 0)} ${units[index]}`;
+}
+
+function formatDuration(seconds) {
+  if (!Number.isFinite(seconds)) return "unknown";
+  const minutes = Math.floor(seconds / 60);
+  const remainder = Math.round(seconds % 60);
+  return minutes ? `${minutes}m ${remainder}s` : `${remainder}s`;
+}
+
+function mimeTypeFor(fileName) {
+  const extension = path.extname(fileName).toLowerCase();
+  return {
+    ".mp4": "video/mp4",
+    ".mov": "video/quicktime",
+    ".webm": "video/webm",
+  }[extension] || "application/octet-stream";
 }
 
 async function printWhoami() {
@@ -713,6 +852,8 @@ Commands:
                             List files in a Drive folder (read-only, id/name/mimeType/modifiedTime/size)
   node scripts/google-workspace-cli.mjs drive:download --file-id <id> --dest <path>
                             Download a binary Drive file to a local path (read-only, never mutates Drive)
+  node scripts/google-workspace-cli.mjs drive:upload --file <path> [--dest <folder-id>] [--name <name>]
+                            Upload a local binary file to Drive (root if no folder is given)
 
 Before auth:
   1. Enable Google Forms API, Google Sheets API, and Google Drive API.

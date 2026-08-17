@@ -37,6 +37,10 @@ source code, generated bundles, code blocks, or conversation.
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
 - Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
+- Jerami review surfaces usually stay between 300 and 500 words. Use fewer
+  when the decision is simple.
+- Route a longer review to a dated interactive HTML Decision Map. Keep Linear
+  task bodies short and move operating rules to their owner.
 
 Full deny-list and the client-repo hook payload: `docs/harness/writing-rules.md`.
 

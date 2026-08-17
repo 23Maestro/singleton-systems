@@ -149,6 +149,11 @@ Writing Rules.
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
 - Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
+- Jerami review surfaces usually stay between 300 and 500 words. Use fewer
+  when the decision is simple.
+- If the review truly needs more, create a dated interactive HTML Decision Map
+  and keep the written entry point short. Do not put operating manuals in
+  Linear issues.
 - Banned: delve, showcase, leverage, utilize, robust, seamless, elevate, streamline, pivotal, crucial, foster, landscape, empower, unlock, additionally, enhance, facilitate, demonstrate.
 - Banned: "not just X but Y", "X rather than Y", "serves as", "features" (write is, has), hedging, three-item rhythm, `**Bold**:` list headers, Title Case Headings.
 

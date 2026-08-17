@@ -58,6 +58,20 @@ for (const snippet of ["[preflight]", "[registry]"]) {
   assert.match(preflight.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `preflight: missing ${snippet}`);
 }
 
+const sameToolRepair = runHook("The official Understand Anything viewer is missing its compiled dashboard. Build that same viewer and continue.");
+assert.equal(sameToolRepair.status, 0);
+for (const snippet of ["[repair]", "[substitution-gate]", "[pause]"]) {
+  assert.match(sameToolRepair.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `same-tool repair: missing ${snippet}`);
+}
+assert.match(sameToolRepair.stdout, /safe repair inside the requested tool and surface is normal task work/i);
+assert.match(sameToolRepair.stdout, /Changing the requested tool or surface requires explicit user approval/);
+
+const failingCliPath = runHook("The Google CLI path is failing. Verify the installed command and fix the same CLI.");
+assert.equal(failingCliPath.status, 0);
+assert.match(failingCliPath.stdout, /\[preflight\]/);
+assert.match(failingCliPath.stdout, /\[repair\]/);
+assert.match(failingCliPath.stdout, /\[substitution-gate\]/);
+
 const unknownRoute = runHook("[route] imaginary-route\nDo something.");
 assert.equal(unknownRoute.status, 0);
 assert.match(unknownRoute.stdout, /\[route-error\] Unknown or disabled route: imaginary-route/);

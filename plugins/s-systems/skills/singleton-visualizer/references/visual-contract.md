@@ -18,5 +18,10 @@ Use 5-9 meaningful nodes, short edge labels, current owner names, large readable
 type, and explicit uncertainty. A dated HTML comp is for human review; LikeC4
 is for durable architecture. Never turn either into another task database.
 
+Use a dated interactive HTML comp when Jerami's review would exceed 500 words.
+Publish it under `public/decision-maps/<date>-<slug>/index.html` and add its
+preview to the Decision Maps page. Keep the page intuitive for a tired reader.
+Reveal one step at a time. Do not bury the same long document inside cards.
+
 Validate the source and visible output. Check mobile readability, text overflow,
 and generated artifacts before calling the map complete.

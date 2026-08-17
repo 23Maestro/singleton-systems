@@ -27,6 +27,26 @@ conversation. Talk normally in chat.
 Caveman brevity, full grammar. Short sentences. Plain verbs. Concrete numbers.
 Second person when addressing a reader.
 
+## Human review limit
+
+Jerami's review surface should usually stay between 300 and 500 words. This is
+a judgment check, not a word-filling target. Use fewer words when the decision
+is simple.
+
+If a review artifact truly needs more than 500 words, keep its written entry
+point short and create a dated interactive HTML map under
+`public/decision-maps/<date>-<slug>/index.html`. Add it to the Decision Maps
+page for preview. Use large type, few nodes, and step-by-step disclosure. The
+map must compress the work. Do not hide a long memo inside panels.
+
+Raw transcripts, source records, and machine contracts may stay long. Keep
+them behind links. Jerami should see the decision, current truth, next action,
+and review gate first.
+
+For Linear, keep an issue body short enough to scan without scrolling when
+possible. Store the workflow in its owning skill or linked proof. Do not copy
+an operating manual into a task.
+
 Rhythm target, from the Ginain transcript:
 
 - "You go to school, you get one job, you work at that company forever."
@@ -84,6 +104,9 @@ Banned: hedging, three-item rhythm lists, vague attribution, `**Bold**:` list
 headers, Title Case Headings.
 
 Short sentences. Plain verbs. Concrete numbers. Take the stance.
+Jerami review: aim for 300-500 words maximum. Use fewer when possible.
+If more is needed, create a dated interactive Decision Map and keep the written
+entry point short. Do not paste an operating manual into Linear.
 ```
 
 ## Sources

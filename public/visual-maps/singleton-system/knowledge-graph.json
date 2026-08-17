@@ -1,0 +1,516 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Singleton Systems",
+    "languages": [],
+    "frameworks": [],
+    "description": "How requests move through routing, verified tools, work lanes, and delivery checks.",
+    "analyzedAt": "2026-08-15T00:32:31.606Z",
+    "gitCommitHash": ""
+  },
+  "nodes": [
+    {
+      "id": "concept:singleton-operating-system",
+      "type": "concept",
+      "name": "Singleton operating system",
+      "summary": "The non-website system connecting requests, routes, tools, work lanes, and delivery checks.",
+      "tags": [
+        "system",
+        "owner-map"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:cerebral-router",
+      "type": "service",
+      "name": "Cerebral router",
+      "summary": "Chooses one owner, the smallest tool set, a review gate, and proof before cross-surface work.",
+      "tags": [
+        "routing",
+        "contract"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:lifecycle-hook",
+      "type": "pipeline",
+      "name": "Lifecycle hook",
+      "summary": "Injects routing and preflight rules before work and checks selected output after work.",
+      "tags": [
+        "hook",
+        "runtime"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:route-registry",
+      "type": "config",
+      "name": "Route and capability registry",
+      "summary": "Checked-in routes, skills, tool facts, verification commands, and fallback paths.",
+      "tags": [
+        "registry",
+        "preflight"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "concept:tool-preflight",
+      "type": "concept",
+      "name": "Tool preflight",
+      "summary": "Checks recorded paths, Homebrew, and repository-local tools before declaring anything missing.",
+      "tags": [
+        "verification",
+        "path"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "concept:substitution-gate",
+      "type": "concept",
+      "name": "Substitution gate",
+      "summary": "Safe repair stays inside the requested tool. Switching tools or surfaces requires Jerami's approval.",
+      "tags": [
+        "pending-gate",
+        "human-review"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "concept:tool-harness",
+      "type": "concept",
+      "name": "Tool harness",
+      "summary": "Organizes skills and tools by work lane without becoming another task database.",
+      "tags": [
+        "skills",
+        "lanes"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:linear-owner",
+      "type": "service",
+      "name": "Linear task owner",
+      "summary": "Owns active projects, tasks, ideas, and Wayfinder planning state.",
+      "tags": [
+        "linear",
+        "task-state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:supabase-facts",
+      "type": "service",
+      "name": "Supabase fact layer",
+      "summary": "Stores queryable route and capability facts without copying full task or document bodies.",
+      "tags": [
+        "supabase",
+        "facts"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:planning-lane",
+      "type": "pipeline",
+      "name": "Planning and Wayfinder lane",
+      "summary": "Turns an unclear idea into an owner, decision, dependency, or next action.",
+      "tags": [
+        "planning",
+        "wayfinder"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:client-video-lane",
+      "type": "pipeline",
+      "name": "Client video lane",
+      "summary": "Moves client footage from ingest and source limits into a reviewable edit plan and storyboard.",
+      "tags": [
+        "client",
+        "video"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:eagle-assets",
+      "type": "service",
+      "name": "Eagle proof and asset owner",
+      "summary": "Owns verified client assets and proof instead of duplicating them into planning systems.",
+      "tags": [
+        "eagle",
+        "assets"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:linear-update-lane",
+      "type": "pipeline",
+      "name": "Linear update lane",
+      "summary": "Shapes compact task updates while keeping operating manuals outside project-manager records.",
+      "tags": [
+        "linear",
+        "updates"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:writing-gate",
+      "type": "pipeline",
+      "name": "Say-less writing gate",
+      "summary": "Checks front-facing writing for length, filler, AI phrasing, and internal production language.",
+      "tags": [
+        "writing",
+        "delivery-gate"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:visual-gate",
+      "type": "pipeline",
+      "name": "Visual artifact gate",
+      "summary": "Turns dense review material into a readable visual surface without leaking edit instructions.",
+      "tags": [
+        "visual",
+        "artifact"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "pipeline:verification-suite",
+      "type": "pipeline",
+      "name": "Cerebral verification suite",
+      "summary": "Executable checks prove routing, registry alignment, and hook behavior before completion.",
+      "tags": [
+        "tests",
+        "proof"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:ua-codex-adapter",
+      "type": "service",
+      "name": "Understand Anything Codex adapter",
+      "summary": "Runs the official UA scanner and viewer while Codex creates the semantic graph.",
+      "tags": [
+        "architecture",
+        "official-viewer"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "concept:legacy-review",
+      "type": "concept",
+      "name": "Legacy document review",
+      "summary": "A review queue for older commands, integration maps, truth matrices, and planning documents. Nothing is assumed obsolete.",
+      "tags": [
+        "legacy",
+        "review"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:website-boundary",
+      "type": "service",
+      "name": "Website boundary",
+      "summary": "The website can display approved outputs but its implementation is intentionally outside this map.",
+      "tags": [
+        "boundary",
+        "excluded"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "concept:singleton-operating-system",
+      "target": "service:cerebral-router",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "concept:singleton-operating-system",
+      "target": "concept:tool-harness",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "concept:singleton-operating-system",
+      "target": "service:linear-owner",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "concept:singleton-operating-system",
+      "target": "service:supabase-facts",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "service:cerebral-router",
+      "target": "pipeline:lifecycle-hook",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "config:route-registry",
+      "target": "service:cerebral-router",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "pipeline:lifecycle-hook",
+      "target": "concept:tool-preflight",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "concept:tool-preflight",
+      "target": "config:route-registry",
+      "type": "reads_from",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "concept:tool-preflight",
+      "target": "concept:substitution-gate",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "service:cerebral-router",
+      "target": "concept:tool-harness",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "concept:tool-harness",
+      "target": "pipeline:planning-lane",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "concept:tool-harness",
+      "target": "pipeline:client-video-lane",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "concept:tool-harness",
+      "target": "pipeline:linear-update-lane",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "pipeline:planning-lane",
+      "target": "service:linear-owner",
+      "type": "writes_to",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "pipeline:linear-update-lane",
+      "target": "service:linear-owner",
+      "type": "writes_to",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "service:cerebral-router",
+      "target": "service:supabase-facts",
+      "type": "reads_from",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "pipeline:client-video-lane",
+      "target": "service:eagle-assets",
+      "type": "reads_from",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "pipeline:client-video-lane",
+      "target": "pipeline:writing-gate",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "pipeline:client-video-lane",
+      "target": "pipeline:visual-gate",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "pipeline:lifecycle-hook",
+      "target": "pipeline:writing-gate",
+      "type": "triggers",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "pipeline:verification-suite",
+      "target": "pipeline:lifecycle-hook",
+      "type": "tested_by",
+      "direction": "backward",
+      "weight": 1
+    },
+    {
+      "source": "pipeline:verification-suite",
+      "target": "config:route-registry",
+      "type": "validates",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "pipeline:writing-gate",
+      "target": "service:website-boundary",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "pipeline:visual-gate",
+      "target": "service:website-boundary",
+      "type": "routes",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:ua-codex-adapter",
+      "target": "concept:singleton-operating-system",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "service:ua-codex-adapter",
+      "target": "concept:substitution-gate",
+      "type": "exemplifies",
+      "direction": "forward",
+      "weight": 0.9
+    },
+    {
+      "source": "concept:legacy-review",
+      "target": "service:cerebral-router",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:operating-core",
+      "name": "Operating core",
+      "description": "Routing, hooks, verified tool facts, and durable owners.",
+      "nodeIds": [
+        "concept:singleton-operating-system",
+        "service:cerebral-router",
+        "pipeline:lifecycle-hook",
+        "config:route-registry",
+        "concept:tool-preflight",
+        "concept:substitution-gate",
+        "concept:tool-harness",
+        "service:linear-owner",
+        "service:supabase-facts"
+      ]
+    },
+    {
+      "id": "layer:work-lanes",
+      "name": "Work lanes",
+      "description": "Focused paths for planning, client video, assets, and Linear updates.",
+      "nodeIds": [
+        "pipeline:planning-lane",
+        "pipeline:client-video-lane",
+        "service:eagle-assets",
+        "pipeline:linear-update-lane"
+      ]
+    },
+    {
+      "id": "layer:delivery-gates",
+      "name": "Delivery gates",
+      "description": "Checks that shape writing, visuals, and completion proof.",
+      "nodeIds": [
+        "pipeline:writing-gate",
+        "pipeline:visual-gate",
+        "pipeline:verification-suite",
+        "concept:substitution-gate"
+      ]
+    },
+    {
+      "id": "layer:architecture-review",
+      "name": "Architecture review",
+      "description": "The official UA viewer, legacy review queue, and website boundary.",
+      "nodeIds": [
+        "service:ua-codex-adapter",
+        "concept:legacy-review",
+        "service:website-boundary"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Start with the router",
+      "description": "Every cross-surface request should resolve to one owner and one smallest tool set.",
+      "nodeIds": [
+        "concept:singleton-operating-system",
+        "service:cerebral-router",
+        "pipeline:lifecycle-hook"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Verify the requested tool",
+      "description": "Check real paths and capabilities. Repair the same tool when safe; ask before substitution.",
+      "nodeIds": [
+        "concept:tool-preflight",
+        "config:route-registry",
+        "concept:substitution-gate"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Enter one work lane",
+      "description": "The harness routes planning, client video, assets, and project updates without duplicating ownership.",
+      "nodeIds": [
+        "concept:tool-harness",
+        "pipeline:planning-lane",
+        "pipeline:client-video-lane",
+        "pipeline:linear-update-lane"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Gate the delivery",
+      "description": "Writing, visual, and executable checks catch drift before another person sees the result.",
+      "nodeIds": [
+        "pipeline:writing-gate",
+        "pipeline:visual-gate",
+        "pipeline:verification-suite"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Review the architecture",
+      "description": "Use this UA surface to inspect the current system and decide which legacy documents still matter.",
+      "nodeIds": [
+        "service:ua-codex-adapter",
+        "concept:legacy-review",
+        "service:website-boundary"
+      ]
+    }
+  ]
+}
