@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpCircle, Check, Circle, Pencil, TrendingDown, TrendingUp, X } from "lucide-react";
 import {
   FINANCE_CATEGORIES,
@@ -10,28 +12,33 @@ import {
 } from "@/lib/finance-entries";
 import { cycleProgress, daysLeftInCycle, getCycleForDate } from "@/lib/finance-cycle";
 
-const INK = "#121212";
-const SURFACE = "#1C1B18";
-const SURFACE_2 = "#242220";
-const BORDER = "#332F29";
-const GOLD = "#C99A3B";
-const GREEN = "#5C9575";
-const RUST = "#B5533C";
-const TEXT = "#F2EFE9";
-const MUTED = "#9C958A";
-
-const CAT_COLOR: Record<FinanceCategory, string> = {
-  Income: GREEN,
-  Bill: RUST,
-  Debt: "#C0724F",
-  "Child Support": GOLD,
-  Food: GREEN,
-  Gas: "#7C9BC9",
-  Other: MUTED,
-};
-
 const EXPENSE_CATEGORIES: FinanceCategory[] = ["Food", "Gas", "Child Support", "Other"];
 const BILL_CATEGORIES: FinanceCategory[] = ["Bill", "Child Support"];
+
+// Read-only tinted badge shown on a log row.
+const CAT_CHIP: Record<FinanceCategory, string> = {
+  Income: "text-brand-text-green dark:text-brand-green",
+  Bill: "text-brand-text-coral dark:text-brand-coral",
+  Debt: "text-brand-text-yellow dark:text-brand-yellow",
+  "Child Support": "text-brand-text-blue dark:text-brand-blue",
+  Food: "text-brand-text-green dark:text-brand-green",
+  Gas: "text-brand-text-blue dark:text-brand-blue",
+  Other: "text-[#607080] dark:text-[#b8c4cf]",
+};
+
+// Solid fill used for a selected category chip in the add/edit forms.
+const CAT_SOLID: Record<FinanceCategory, string> = {
+  Income: "bg-brand-green text-white",
+  Bill: "bg-brand-coral text-white",
+  Debt: "bg-brand-yellow text-[#101820]",
+  "Child Support": "bg-brand-blue text-white",
+  Food: "bg-brand-green text-white",
+  Gas: "bg-brand-blue text-white",
+  Other: "bg-[#111820] text-white dark:bg-[#f7f8fa] dark:text-[#101820]",
+};
+
+const NEUTRAL_PILL = "text-[#607080] dark:text-[#b8c4cf]";
+const NEUTRAL_SOLID = "bg-[#111820] text-white dark:bg-[#f7f8fa] dark:text-[#101820]";
 
 function fmt(n: number): string {
   const neg = n < 0;
@@ -191,79 +198,96 @@ export default function FinancesApp() {
 
   if (!loaded) {
     return (
-      <div style={{ backgroundColor: INK, color: MUTED, minHeight: "100vh" }} className="flex items-center justify-center font-sans">
+      <main className="flex min-h-dvh items-center justify-center bg-[#eef3f7] text-[#607080] dark:bg-black dark:text-[#b8c4cf]">
         Loading ledger…
-      </div>
+      </main>
     );
   }
 
   return (
-    <div style={{ backgroundColor: INK, color: TEXT, minHeight: "100vh" }} className="font-sans">
-      <div className="max-w-5xl mx-auto px-4 md:px-8 pt-6 pb-24">
-        <div className="flex items-baseline justify-between mb-1">
-          <h1 className="text-2xl font-bold tracking-tight" style={{ color: TEXT }}>Ledger</h1>
-          <span className="text-xs uppercase tracking-widest" style={{ color: MUTED }}>Singleton Systems</span>
-        </div>
-        <p className="text-sm mb-4" style={{ color: MUTED }}>Pay cycle · {cycle.label}</p>
+    <main className="min-h-dvh bg-[#eef3f7] text-[#101820] [color-scheme:light_dark] dark:bg-black dark:text-[#f7f8fa]">
+      <section className="relative mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-3 pb-24 pt-[max(12px,env(safe-area-inset-top))] sm:px-6">
+        <header className="sticky top-0 z-10 -mx-3 mb-4 flex items-center justify-between gap-3 border-b border-black/10 bg-white px-3 py-3 dark:border-white/10 dark:bg-black sm:mx-0">
+          <div className="flex min-w-0 items-center gap-3">
+            <Link href="/" className="block w-8 shrink-0" aria-label="Singleton Systems home">
+              <Image
+                src="/singleton-systems-wordmark.svg"
+                alt="Singleton Systems"
+                width={660}
+                height={260}
+                className="h-auto w-full dark:invert"
+              />
+            </Link>
+            <div className="min-w-0">
+              <h1 className="truncate text-[22px] font-semibold tracking-normal">Ledger</h1>
+              <p className="text-sm text-[#607080] dark:text-[#aeb8c2]">Pay cycle · {cycle.label}</p>
+            </div>
+          </div>
+        </header>
 
-        <div className="mb-5 pt-3 pb-4 px-1" style={{ borderTop: `2px dashed ${BORDER}` }}>
-          <div className="flex justify-between text-xs mb-2" style={{ color: MUTED }}>
+        <div className="mb-5 pt-3 pb-4" style={{ borderTop: "2px dashed rgba(0,0,0,0.1)" }}>
+          <div className="mb-2 flex justify-between text-xs text-[#607080] dark:text-[#aeb8c2]">
             <span>{daysLeft} days left in cycle</span>
           </div>
-          <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: SURFACE_2 }}>
-            <div className="h-1.5 rounded-full transition-all" style={{ width: `${progress}%`, backgroundColor: GOLD }} />
+          <div className="h-1.5 w-full rounded-full bg-black/10 dark:bg-white/10">
+            <div
+              className="h-1.5 rounded-full bg-[#111820] transition-all dark:bg-[#f7f8fa]"
+              style={{ width: `${progress}%` }}
+            />
           </div>
         </div>
 
-        <div className="rounded-2xl p-5 mb-5" style={{ backgroundColor: SURFACE, border: `1px solid ${BORDER}` }}>
-          <div className="text-xs uppercase tracking-widest mb-1" style={{ color: MUTED }}>Available right now</div>
-          <div className="text-4xl font-bold tabular-nums mb-4" style={{ color: available >= 0 ? TEXT : RUST }}>
+        <div className="mb-5 rounded-xl border border-black/10 bg-white p-5 dark:border-white/10 dark:bg-black">
+          <div className="mb-1 text-xs uppercase tracking-widest text-[#607080] dark:text-[#aeb8c2]">
+            Available right now
+          </div>
+          <div
+            className={`mb-4 text-4xl font-bold tabular-nums ${
+              available >= 0 ? "" : "text-brand-text-coral dark:text-brand-coral"
+            }`}
+          >
             {fmt(available)}
           </div>
           <div className="grid grid-cols-3 gap-3 text-xs">
             <div>
-              <div style={{ color: MUTED }}>Confirmed in</div>
-              <div className="tabular-nums font-semibold" style={{ color: GREEN }}>{fmt(confirmedIncome)}</div>
+              <div className="text-[#607080] dark:text-[#aeb8c2]">Confirmed in</div>
+              <div className="font-semibold tabular-nums text-brand-text-green dark:text-brand-green">{fmt(confirmedIncome)}</div>
             </div>
             <div>
-              <div style={{ color: MUTED }}>Logged spend</div>
-              <div className="tabular-nums font-semibold" style={{ color: RUST }}>{fmt(loggedSpend)}</div>
+              <div className="text-[#607080] dark:text-[#aeb8c2]">Logged spend</div>
+              <div className="font-semibold tabular-nums text-brand-text-coral dark:text-brand-coral">{fmt(loggedSpend)}</div>
             </div>
             <div>
-              <div style={{ color: MUTED }}>Pending bills</div>
-              <div className="tabular-nums font-semibold" style={{ color: GOLD }}>{fmt(pendingBillsTotal)}</div>
+              <div className="text-[#607080] dark:text-[#aeb8c2]">Pending bills</div>
+              <div className="font-semibold tabular-nums text-brand-text-yellow dark:text-brand-yellow">{fmt(pendingBillsTotal)}</div>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 mb-6 md:max-w-sm">
+        <div className="mb-6 grid grid-cols-2 gap-3 md:max-w-sm">
           <button
             onClick={() => openPanel("income")}
-            className="flex items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-sm"
-            style={{ backgroundColor: GREEN, color: INK }}
+            className="flex items-center justify-center gap-2 rounded-xl bg-brand-green py-3.5 text-sm font-semibold text-white"
           >
             <TrendingUp size={16} strokeWidth={2.5} /> Log income
           </button>
           <button
             onClick={() => openPanel("expense")}
-            className="flex items-center justify-center gap-2 rounded-xl py-3.5 font-semibold text-sm"
-            style={{ backgroundColor: GOLD, color: INK }}
+            className="flex items-center justify-center gap-2 rounded-xl bg-brand-coral py-3.5 text-sm font-semibold text-white"
           >
             <TrendingDown size={16} strokeWidth={2.5} /> Log spend
           </button>
         </div>
 
         {panel && (
-          <div className="rounded-2xl p-4 mb-6" style={{ backgroundColor: SURFACE_2, border: `1px solid ${BORDER}` }}>
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold" style={{ color: TEXT }}>
-                {panel === "income" ? "New income" : "New spend"}
-              </span>
-              <button onClick={() => setPanel(null)} style={{ color: MUTED }}><X size={18} /></button>
+          <div className="mb-6 rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-sm font-semibold">{panel === "income" ? "New income" : "New spend"}</span>
+              <button onClick={() => setPanel(null)} className="text-[#607080] dark:text-[#aeb8c2]"><X size={18} /></button>
             </div>
 
             {panel === "expense" && (
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="mb-3 flex flex-wrap gap-2">
                 {(["expense", "bill", "debt"] as AddKind[]).map((k) => (
                   <button
                     key={k}
@@ -271,12 +295,9 @@ export default function FinancesApp() {
                       setAddKind(k);
                       setCategory(k === "bill" ? "Bill" : k === "debt" ? "Debt" : "Food");
                     }}
-                    className="text-xs px-3 py-1.5 rounded-full font-medium capitalize"
-                    style={{
-                      backgroundColor: addKind === k ? GOLD : "transparent",
-                      color: addKind === k ? INK : MUTED,
-                      border: `1px solid ${addKind === k ? GOLD : BORDER}`,
-                    }}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium capitalize ${
+                      addKind === k ? `border-transparent ${NEUTRAL_SOLID}` : `border-black/10 dark:border-white/10 ${NEUTRAL_PILL}`
+                    }`}
                   >
                     {k}
                   </button>
@@ -290,30 +311,25 @@ export default function FinancesApp() {
               placeholder="0.00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full text-2xl font-bold tabular-nums bg-transparent outline-none mb-3"
-              style={{ color: TEXT, borderBottom: `1px solid ${BORDER}`, paddingBottom: "8px" }}
+              className="mb-3 w-full border-b border-black/10 bg-transparent pb-2 text-2xl font-bold tabular-nums outline-none dark:border-white/10"
             />
 
             <input
               placeholder={panel === "income" ? "Source (e.g. Catena Media)" : "Name"}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full text-sm bg-transparent outline-none mb-3"
-              style={{ color: TEXT, borderBottom: `1px solid ${BORDER}`, paddingBottom: "8px" }}
+              className="mb-3 w-full border-b border-black/10 bg-transparent pb-2 text-sm outline-none dark:border-white/10"
             />
 
             {panel === "expense" && addKind !== "debt" && (
-              <div className="flex flex-wrap gap-2 mb-3">
+              <div className="mb-3 flex flex-wrap gap-2">
                 {(addKind === "bill" ? BILL_CATEGORIES : EXPENSE_CATEGORIES).map((c) => (
                   <button
                     key={c}
                     onClick={() => setCategory(c)}
-                    className="text-xs px-3 py-1.5 rounded-full font-medium"
-                    style={{
-                      backgroundColor: category === c ? CAT_COLOR[c] : "transparent",
-                      color: category === c ? INK : MUTED,
-                      border: `1px solid ${category === c ? CAT_COLOR[c] : BORDER}`,
-                    }}
+                    className={`rounded-full border px-3 py-1.5 text-xs font-medium ${
+                      category === c ? `border-transparent ${CAT_SOLID[c]}` : `border-black/10 dark:border-white/10 ${NEUTRAL_PILL}`
+                    }`}
                   >
                     {c}
                   </button>
@@ -322,7 +338,7 @@ export default function FinancesApp() {
             )}
 
             {addKind === "debt" && (
-              <label className="flex items-center gap-2 text-xs mb-3" style={{ color: MUTED }}>
+              <label className="mb-3 flex items-center gap-2 text-xs text-[#607080] dark:text-[#aeb8c2]">
                 <input type="checkbox" checked={hasNoDate} onChange={(e) => setHasNoDate(e.target.checked)} />
                 No payment plan yet (open balance)
               </label>
@@ -333,12 +349,11 @@ export default function FinancesApp() {
                 type="date"
                 value={entryDate}
                 onChange={(e) => setEntryDate(e.target.value)}
-                className="w-full text-sm bg-transparent outline-none mb-4"
-                style={{ color: TEXT, borderBottom: `1px solid ${BORDER}`, paddingBottom: "8px", colorScheme: "dark" }}
+                className="mb-4 w-full border-b border-black/10 bg-transparent pb-2 text-sm outline-none [color-scheme:light] dark:border-white/10 dark:[color-scheme:dark]"
               />
             )}
 
-            <button onClick={submitEntry} className="w-full rounded-xl py-3 font-semibold text-sm" style={{ backgroundColor: GOLD, color: INK }}>
+            <button onClick={submitEntry} className={`w-full rounded-xl py-3 text-sm font-semibold ${NEUTRAL_SOLID}`}>
               Add entry
             </button>
           </div>
@@ -346,7 +361,7 @@ export default function FinancesApp() {
 
         {incomeEntries.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-sm font-bold uppercase tracking-widest mb-3" style={{ color: MUTED }}>Income</h2>
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-widest text-[#607080] dark:text-[#aeb8c2]">Income</h2>
             <div className="flex flex-wrap gap-3">
               {incomeEntries.map((entry) => (
                 <IncomeCard key={entry.id} entry={entry} onDelete={() => removeEntry(entry.id)} />
@@ -360,20 +375,17 @@ export default function FinancesApp() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className="text-xs px-3 py-1.5 rounded-full font-medium capitalize"
-              style={{
-                backgroundColor: filter === f ? GOLD : "transparent",
-                color: filter === f ? INK : MUTED,
-                border: `1px solid ${filter === f ? GOLD : BORDER}`,
-              }}
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium capitalize ${
+                filter === f ? `border-transparent ${NEUTRAL_SOLID}` : `border-black/10 dark:border-white/10 ${NEUTRAL_PILL}`
+              }`}
             >
               {f}
             </button>
           ))}
         </div>
 
-        <div className="space-y-2 mb-6">
-          {logEntries.length === 0 && <p className="text-sm italic" style={{ color: MUTED }}>Nothing here.</p>}
+        <div className="mb-6 space-y-2">
+          {logEntries.length === 0 && <p className="text-sm italic text-[#607080] dark:text-[#aeb8c2]">Nothing here.</p>}
           {logEntries.map((entry) => (
             <LogRow
               key={entry.id}
@@ -396,19 +408,19 @@ export default function FinancesApp() {
             />
           ))}
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
 function IncomeCard({ entry, onDelete }: { entry: FinanceEntry; onDelete: () => void }) {
   return (
-    <div className="rounded-xl px-4 py-3 min-w-[160px]" style={{ backgroundColor: SURFACE, border: `1px solid ${BORDER}` }}>
-      <div className="text-lg font-bold tabular-nums" style={{ color: GREEN }}>{fmt(entry.amount)}</div>
-      <div className="text-sm truncate" style={{ color: TEXT }}>{entry.name}</div>
-      <div className="flex items-center justify-between text-xs mt-1" style={{ color: MUTED }}>
+    <div className="min-w-[160px] rounded-xl border border-black/10 bg-white px-4 py-3 dark:border-white/10 dark:bg-black">
+      <div className="text-lg font-bold tabular-nums text-brand-text-green dark:text-brand-green">{fmt(entry.amount)}</div>
+      <div className="truncate text-sm">{entry.name}</div>
+      <div className="mt-1 flex items-center justify-between text-xs text-[#607080] dark:text-[#aeb8c2]">
         <span>{entry.entryDate || "—"}</span>
-        <button onClick={onDelete} style={{ color: MUTED }}>remove</button>
+        <button onClick={onDelete} className="text-[#607080] dark:text-[#aeb8c2]">remove</button>
       </div>
     </div>
   );
@@ -446,24 +458,20 @@ function LogRow(props: LogRowProps) {
 
   if (editing) {
     return (
-      <div className="rounded-xl px-4 py-3" style={{ backgroundColor: SURFACE_2, border: `1px solid ${GOLD}` }}>
+      <div className="rounded-xl border border-black/80 bg-white px-4 py-3 dark:border-white/80 dark:bg-black">
         <input
           value={draftName}
           onChange={(e) => setDraftName(e.target.value)}
-          className="w-full text-sm bg-transparent outline-none mb-2"
-          style={{ color: TEXT, borderBottom: `1px solid ${BORDER}` }}
+          className="mb-2 w-full border-b border-black/10 bg-transparent text-sm outline-none dark:border-white/10"
         />
-        <div className="flex flex-wrap gap-2 mb-2">
+        <div className="mb-2 flex flex-wrap gap-2">
           {FINANCE_CATEGORIES.filter((c) => c !== "Income").map((c) => (
             <button
               key={c}
               onClick={() => setDraftCategory(c)}
-              className="text-xs px-2.5 py-1 rounded-full"
-              style={{
-                backgroundColor: draftCategory === c ? CAT_COLOR[c] : "transparent",
-                color: draftCategory === c ? INK : MUTED,
-                border: `1px solid ${draftCategory === c ? CAT_COLOR[c] : BORDER}`,
-              }}
+              className={`rounded-full border px-2.5 py-1 text-xs ${
+                draftCategory === c ? `border-transparent ${CAT_SOLID[c]}` : `border-black/10 dark:border-white/10 ${NEUTRAL_PILL}`
+              }`}
             >
               {c}
             </button>
@@ -473,40 +481,36 @@ function LogRow(props: LogRowProps) {
           inputMode="decimal"
           value={draftAmount}
           onChange={(e) => setDraftAmount(e.target.value)}
-          className="w-full text-sm bg-transparent outline-none mb-2"
-          style={{ color: TEXT, borderBottom: `1px solid ${BORDER}` }}
+          className="mb-2 w-full border-b border-black/10 bg-transparent text-sm outline-none dark:border-white/10"
         />
         <input
           type="date"
           value={draftDate}
           onChange={(e) => setDraftDate(e.target.value)}
-          className="w-full text-sm bg-transparent outline-none mb-3"
-          style={{ color: TEXT, borderBottom: `1px solid ${BORDER}`, colorScheme: "dark" }}
+          className="mb-3 w-full border-b border-black/10 bg-transparent text-sm outline-none [color-scheme:light] dark:border-white/10 dark:[color-scheme:dark]"
         />
 
         {promoting ? (
-          <div className="flex gap-2 mb-2">
+          <div className="mb-2 flex gap-2">
             <input
               autoFocus
               inputMode="decimal"
               placeholder="Amount to promote"
               value={promoteAmount}
               onChange={(e) => props.onPromoteAmountChange(e.target.value)}
-              className="flex-1 text-sm bg-transparent outline-none"
-              style={{ color: TEXT, borderBottom: `1px solid ${GREEN}` }}
+              className="flex-1 border-b border-brand-green bg-transparent text-sm outline-none"
             />
-            <button onClick={props.onPromoteConfirm} className="text-xs px-3 py-1.5 rounded-full font-semibold" style={{ backgroundColor: GREEN, color: INK }}>
+            <button onClick={props.onPromoteConfirm} className="rounded-full bg-brand-green px-3 py-1.5 text-xs font-semibold text-white">
               Confirm
             </button>
-            <button onClick={props.onPromoteCancel} className="text-xs px-3 py-1.5 rounded-full" style={{ color: MUTED, border: `1px solid ${BORDER}` }}>
+            <button onClick={props.onPromoteCancel} className={`rounded-full border border-black/10 px-3 py-1.5 text-xs dark:border-white/10 ${NEUTRAL_PILL}`}>
               Cancel
             </button>
           </div>
         ) : props.onPromoteStart ? (
           <button
             onClick={props.onPromoteStart}
-            className="w-full mb-2 flex items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-semibold"
-            style={{ backgroundColor: "transparent", color: GREEN, border: `1px solid ${GREEN}` }}
+            className="mb-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-green py-2 text-xs font-semibold text-brand-text-green dark:text-brand-green"
           >
             <ArrowUpCircle size={14} /> Promote extra payment
           </button>
@@ -522,15 +526,14 @@ function LogRow(props: LogRowProps) {
                 entryDate: draftDate || null,
               })
             }
-            className="flex-1 rounded-lg py-2 text-xs font-semibold"
-            style={{ backgroundColor: GOLD, color: INK }}
+            className={`flex-1 rounded-lg py-2 text-xs font-semibold ${NEUTRAL_SOLID}`}
           >
             Save
           </button>
-          <button onClick={props.onCancelEdit} className="flex-1 rounded-lg py-2 text-xs" style={{ color: MUTED, border: `1px solid ${BORDER}` }}>
+          <button onClick={props.onCancelEdit} className={`flex-1 rounded-lg border border-black/10 py-2 text-xs dark:border-white/10 ${NEUTRAL_PILL}`}>
             Cancel
           </button>
-          <button onClick={props.onDelete} className="rounded-lg py-2 px-3 text-xs" style={{ color: RUST, border: `1px solid ${BORDER}` }}>
+          <button onClick={props.onDelete} className="rounded-lg border border-black/10 px-3 py-2 text-xs text-brand-text-coral dark:border-white/10 dark:text-brand-coral">
             Remove
           </button>
         </div>
@@ -539,25 +542,25 @@ function LogRow(props: LogRowProps) {
   }
 
   return (
-    <div className="flex items-center justify-between rounded-xl px-4 py-3" style={{ backgroundColor: SURFACE, border: `1px solid ${BORDER}` }}>
+    <div className="flex items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-3 dark:border-white/10 dark:bg-black">
       {props.onTogglePaid ? (
-        <button onClick={props.onTogglePaid} className="shrink-0" style={{ color: CAT_COLOR[entry.category] }}>
+        <button onClick={props.onTogglePaid} className={`shrink-0 ${CAT_CHIP[entry.category]}`}>
           {entry.paid ? <Check size={20} /> : <Circle size={20} strokeWidth={2} />}
         </button>
       ) : (
-        <span className="shrink-0" style={{ color: CAT_COLOR[entry.category] }}>
-          <Circle size={20} strokeWidth={2} fill={entry.kind === "expense" ? CAT_COLOR[entry.category] : "none"} />
+        <span className={`shrink-0 ${CAT_CHIP[entry.category]}`}>
+          <Circle size={20} strokeWidth={2} fill={entry.kind === "expense" ? "currentColor" : "none"} />
         </span>
       )}
-      <div className="flex-1 min-w-0 px-3">
-        <div className="text-sm font-medium truncate" style={{ color: TEXT }}>{entry.name}</div>
-        <div className="text-xs" style={{ color: MUTED }}>
-          <span style={{ color: CAT_COLOR[entry.category] }}>{entry.category}</span> · {entry.entryDate || "no date"}
+      <div className="min-w-0 flex-1 px-3">
+        <div className="truncate text-sm font-medium">{entry.name}</div>
+        <div className="text-xs text-[#607080] dark:text-[#aeb8c2]">
+          <span className={CAT_CHIP[entry.category]}>{entry.category}</span> · {entry.entryDate || "no date"}
         </div>
       </div>
-      <div className="text-right shrink-0 flex items-center gap-2">
-        <div className="text-sm font-semibold tabular-nums" style={{ color: TEXT }}>{fmt(entry.amount)}</div>
-        <button onClick={props.onEdit} style={{ color: MUTED }}><Pencil size={14} /></button>
+      <div className="flex shrink-0 items-center gap-2 text-right">
+        <div className="text-sm font-semibold tabular-nums">{fmt(entry.amount)}</div>
+        <button onClick={props.onEdit} className="text-[#607080] dark:text-[#aeb8c2]"><Pencil size={14} /></button>
       </div>
     </div>
   );
