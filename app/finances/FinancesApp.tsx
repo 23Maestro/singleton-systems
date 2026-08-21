@@ -209,7 +209,7 @@ export default function FinancesApp() {
       <section className="relative mx-auto flex min-h-dvh w-full max-w-3xl flex-col px-3 pb-24 pt-[max(12px,env(safe-area-inset-top))] sm:px-6">
         <header className="sticky top-0 z-10 -mx-3 mb-4 flex items-center justify-between gap-3 border-b border-black/10 bg-white px-3 py-3 dark:border-white/10 dark:bg-black sm:mx-0">
           <div className="flex min-w-0 items-center gap-3">
-            <Link href="/" className="block w-8 shrink-0" aria-label="Singleton Systems home">
+            <Link href="/" className="block w-24 shrink-0 sm:w-28" aria-label="Singleton Systems home">
               <Image
                 src="/singleton-systems-wordmark.svg"
                 alt="Singleton Systems"
