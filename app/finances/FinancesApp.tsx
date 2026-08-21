@@ -327,7 +327,7 @@ export default function FinancesApp() {
             />
 
             <input
-              placeholder={panel === "income" ? "Source (e.g. Catena Media)" : "Name"}
+              placeholder={panel === "income" ? "Source" : "Name"}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="mb-3 w-full border-b border-black/10 bg-transparent pb-2 text-sm outline-none dark:border-white/10"
