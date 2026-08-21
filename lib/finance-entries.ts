@@ -10,7 +10,7 @@ export const FINANCE_CATEGORIES = [
   "Child Support",
   "Food",
   "Gas",
-  "Other",
+  "Misc.",
 ] as const;
 export type FinanceCategory = (typeof FINANCE_CATEGORIES)[number];
 

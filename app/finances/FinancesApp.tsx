@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpCircle, Check, Circle, Pencil, TrendingDown, TrendingUp, X } from "lucide-react";
+import { ArrowCircleUp, Check, Circle, PencilSimple, Receipt, TrendDown, TrendUp, X } from "@phosphor-icons/react";
 import {
   FINANCE_CATEGORIES,
   type FinanceCategory,
@@ -12,7 +12,7 @@ import {
 } from "@/lib/finance-entries";
 import { cycleProgress, daysLeftInCycle, getCycleForDate } from "@/lib/finance-cycle";
 
-const EXPENSE_CATEGORIES: FinanceCategory[] = ["Food", "Gas", "Child Support", "Other"];
+const EXPENSE_CATEGORIES: FinanceCategory[] = ["Food", "Gas", "Child Support", "Misc."];
 const BILL_CATEGORIES: FinanceCategory[] = ["Bill", "Child Support"];
 
 // Read-only tinted badge shown on a log row.
@@ -23,7 +23,7 @@ const CAT_CHIP: Record<FinanceCategory, string> = {
   "Child Support": "text-brand-text-blue dark:text-brand-blue",
   Food: "text-brand-text-green dark:text-brand-green",
   Gas: "text-brand-text-blue dark:text-brand-blue",
-  Other: "text-[#607080] dark:text-[#b8c4cf]",
+  "Misc.": "text-[#607080] dark:text-[#b8c4cf]",
 };
 
 // Solid fill used for a selected category chip in the add/edit forms.
@@ -34,7 +34,7 @@ const CAT_SOLID: Record<FinanceCategory, string> = {
   "Child Support": "bg-brand-blue text-white",
   Food: "bg-brand-green text-white",
   Gas: "bg-brand-blue text-white",
-  Other: "bg-[#111820] text-white dark:bg-[#f7f8fa] dark:text-[#101820]",
+  "Misc.": "bg-[#111820] text-white dark:bg-[#f7f8fa] dark:text-[#101820]",
 };
 
 const NEUTRAL_PILL = "text-[#607080] dark:text-[#b8c4cf]";
@@ -52,11 +52,12 @@ function todayISO(): string {
 
 type LogFilter = "all" | "bill" | "debt";
 type AddKind = "income" | "expense" | "bill" | "debt";
+type Panel = "income" | "spend" | "billDebt" | null;
 
 export default function FinancesApp() {
   const [entries, setEntries] = useState<FinanceEntry[]>([]);
   const [loaded, setLoaded] = useState(false);
-  const [panel, setPanel] = useState<"income" | "expense" | null>(null);
+  const [panel, setPanel] = useState<Panel>(null);
   const [addKind, setAddKind] = useState<AddKind>("expense");
   const [amount, setAmount] = useState("");
   const [name, setName] = useState("");
@@ -115,7 +116,7 @@ export default function FinancesApp() {
     });
   }, [filter, billEntries, debtEntries, expenseEntries]);
 
-  function openPanel(type: "income" | "expense") {
+  function openPanel(type: Exclude<Panel, null>) {
     setPanel(type);
     setAmount("");
     setName("");
@@ -124,6 +125,9 @@ export default function FinancesApp() {
     if (type === "income") {
       setAddKind("income");
       setCategory("Income");
+    } else if (type === "billDebt") {
+      setAddKind("bill");
+      setCategory("Bill");
     } else {
       setAddKind("expense");
       setCategory("Food");
@@ -264,36 +268,44 @@ export default function FinancesApp() {
           </div>
         </div>
 
-        <div className="mb-6 grid grid-cols-2 gap-3 md:max-w-sm">
+        <div className="mb-6 grid grid-cols-3 gap-3 md:max-w-lg">
           <button
             onClick={() => openPanel("income")}
             className="flex items-center justify-center gap-2 rounded-xl bg-brand-green py-3.5 text-sm font-semibold text-white"
           >
-            <TrendingUp size={16} strokeWidth={2.5} /> Log income
+            <TrendUp size={18} weight="bold" /> Income
           </button>
           <button
-            onClick={() => openPanel("expense")}
+            onClick={() => openPanel("spend")}
             className="flex items-center justify-center gap-2 rounded-xl bg-brand-coral py-3.5 text-sm font-semibold text-white"
           >
-            <TrendingDown size={16} strokeWidth={2.5} /> Log spend
+            <TrendDown size={18} weight="bold" /> Spend
+          </button>
+          <button
+            onClick={() => openPanel("billDebt")}
+            className="flex items-center justify-center gap-2 rounded-xl bg-brand-yellow py-3.5 text-sm font-semibold text-[#101820]"
+          >
+            <Receipt size={18} weight="bold" /> Bill/Debt
           </button>
         </div>
 
         {panel && (
           <div className="mb-6 rounded-xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-black">
             <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-semibold">{panel === "income" ? "New income" : "New spend"}</span>
-              <button onClick={() => setPanel(null)} className="text-[#607080] dark:text-[#aeb8c2]"><X size={18} /></button>
+              <span className="text-sm font-semibold">
+                {panel === "income" ? "New income" : panel === "spend" ? "New spend" : addKind === "debt" ? "New debt" : "New bill"}
+              </span>
+              <button onClick={() => setPanel(null)} className="text-[#607080] dark:text-[#aeb8c2]"><X size={18} weight="bold" /></button>
             </div>
 
-            {panel === "expense" && (
+            {panel === "billDebt" && (
               <div className="mb-3 flex flex-wrap gap-2">
-                {(["expense", "bill", "debt"] as AddKind[]).map((k) => (
+                {(["bill", "debt"] as const).map((k) => (
                   <button
                     key={k}
                     onClick={() => {
                       setAddKind(k);
-                      setCategory(k === "bill" ? "Bill" : k === "debt" ? "Debt" : "Food");
+                      setCategory(k === "bill" ? "Bill" : "Debt");
                     }}
                     className={`rounded-full border px-3 py-1.5 text-xs font-medium capitalize ${
                       addKind === k ? `border-transparent ${NEUTRAL_SOLID}` : `border-black/10 dark:border-white/10 ${NEUTRAL_PILL}`
@@ -321,9 +333,9 @@ export default function FinancesApp() {
               className="mb-3 w-full border-b border-black/10 bg-transparent pb-2 text-sm outline-none dark:border-white/10"
             />
 
-            {panel === "expense" && addKind !== "debt" && (
+            {((panel === "spend") || (panel === "billDebt" && addKind === "bill")) && (
               <div className="mb-3 flex flex-wrap gap-2">
-                {(addKind === "bill" ? BILL_CATEGORIES : EXPENSE_CATEGORIES).map((c) => (
+                {(panel === "billDebt" ? BILL_CATEGORIES : EXPENSE_CATEGORIES).map((c) => (
                   <button
                     key={c}
                     onClick={() => setCategory(c)}
@@ -512,7 +524,7 @@ function LogRow(props: LogRowProps) {
             onClick={props.onPromoteStart}
             className="mb-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-green py-2 text-xs font-semibold text-brand-text-green dark:text-brand-green"
           >
-            <ArrowUpCircle size={14} /> Promote extra payment
+            <ArrowCircleUp size={14} weight="bold" /> Promote extra payment
           </button>
         ) : null}
 
@@ -545,11 +557,11 @@ function LogRow(props: LogRowProps) {
     <div className="flex items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-3 dark:border-white/10 dark:bg-black">
       {props.onTogglePaid ? (
         <button onClick={props.onTogglePaid} className={`shrink-0 ${CAT_CHIP[entry.category]}`}>
-          {entry.paid ? <Check size={20} /> : <Circle size={20} strokeWidth={2} />}
+          {entry.paid ? <Check size={20} weight="bold" /> : <Circle size={20} />}
         </button>
       ) : (
         <span className={`shrink-0 ${CAT_CHIP[entry.category]}`}>
-          <Circle size={20} strokeWidth={2} fill={entry.kind === "expense" ? "currentColor" : "none"} />
+          <Circle size={20} weight={entry.kind === "expense" ? "fill" : "regular"} />
         </span>
       )}
       <div className="min-w-0 flex-1 px-3">
@@ -560,7 +572,7 @@ function LogRow(props: LogRowProps) {
       </div>
       <div className="flex shrink-0 items-center gap-2 text-right">
         <div className="text-sm font-semibold tabular-nums">{fmt(entry.amount)}</div>
-        <button onClick={props.onEdit} className="text-[#607080] dark:text-[#aeb8c2]"><Pencil size={14} /></button>
+        <button onClick={props.onEdit} className="text-[#607080] dark:text-[#aeb8c2]"><PencilSimple size={14} weight="bold" /></button>
       </div>
     </div>
   );
