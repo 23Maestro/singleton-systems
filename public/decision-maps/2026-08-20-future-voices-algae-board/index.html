@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Future Voices — algae short storyboard</title>
+  <style>
+    @font-face{font-family:Geist;src:url('./assets/Geist-Variable.woff2') format('woff2');font-weight:100 900}
+    @font-face{font-family:Geist Mono;src:url('./assets/GeistMono-Variable.woff2') format('woff2');font-weight:100 900}
+    :root{--ink:#111318;--body:#475467;--muted:#667085;--line:#d8dee8;--paper:#fff;--wash:#f7f7f5;--cyan:#11ace8;--algae:#84b85a;--radius:16px;--shadow:0 18px 50px rgba(17,19,24,.10)}
+    *{box-sizing:border-box}
+    html{background:#eceff2;color:var(--ink);font-family:Geist,system-ui,sans-serif}
+    body{margin:0;min-height:100vh}
+    button{font:inherit}
+    .shell{width:min(1480px,calc(100% - 32px));margin:16px auto 48px;background:var(--paper);border:1px solid #cfd6df;border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+    header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:28px 32px;border-bottom:1px solid var(--line)}
+    .eyebrow,.mono{font-family:"Geist Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+    .eyebrow{color:#087fae;margin-bottom:8px}
+    h1{font-size:clamp(28px,4vw,48px);line-height:1.02;letter-spacing:-.04em;margin:0 0 10px;max-width:780px}
+    header p{margin:0;color:var(--body);font-size:16px;max-width:700px}
+    .brand{width:150px;height:auto;margin-top:3px}
+    .workspace{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:720px}
+    aside{padding:24px;border-right:1px solid var(--line);background:var(--wash)}
+    aside h2,.board h2{font-size:15px;margin:0 0 14px;letter-spacing:-.01em}
+    .facts{display:grid;gap:1px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--line)}
+    .fact{background:#fff;padding:12px 13px}
+    .fact span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+    .fact strong{font-size:13px;line-height:1.35;display:block}
+    .decision{margin-top:18px;border-left:3px solid var(--cyan);padding:2px 0 2px 13px}
+    .decision p{font-size:13px;line-height:1.45;margin:4px 0;color:var(--body)}
+    .decision strong{font-size:13px}
+    .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .controls button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;padding:9px 11px;cursor:pointer;font-size:12px;font-weight:650}
+    .controls button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+    .board{padding:24px 26px 30px;min-width:0}
+    .stage{display:grid;grid-template-columns:minmax(280px,430px) minmax(300px,1fr);gap:30px;align-items:center;min-height:520px;padding:12px 0 26px}
+    .phone-wrap{display:grid;place-items:center;position:relative}
+    .phone{width:min(100%,330px);aspect-ratio:9/16;background:#111;border:8px solid #111;border-radius:30px;overflow:hidden;box-shadow:0 18px 35px rgba(17,19,24,.18);position:relative;transition:aspect-ratio .25s,width .25s}
+    .phone.four-five{aspect-ratio:4/5;width:min(100%,420px);border-radius:24px}
+    .frame{position:absolute;inset:0;background:#dce5e8 center/cover no-repeat;overflow:hidden}
+    .frame::after{content:"";position:absolute;inset:0;background:rgba(6,13,16,var(--shade,.20));pointer-events:none}
+    .frame .hook{position:absolute;z-index:2;left:22px;right:22px;bottom:84px;color:#fff;font-size:clamp(27px,4vw,46px);font-weight:820;line-height:.92;letter-spacing:-.055em;text-transform:uppercase;text-wrap:balance}
+    .frame .hook em{font-style:normal;color:#81ddff}
+    .speaker{position:absolute;z-index:2;top:18px;left:18px;padding:7px 9px;background:rgba(255,255,255,.92);border-radius:8px;font:600 11px "Geist Mono";text-transform:uppercase}
+    .caption{position:absolute;z-index:3;left:24px;right:24px;bottom:24px;color:#fff;background:rgba(0,0,0,.84);padding:9px 11px;border-radius:8px;text-align:center;font-size:13px;line-height:1.25}
+    .caption.off{display:none}
+    .science{position:absolute;z-index:2;inset:0;pointer-events:none}
+    .science i{position:absolute;border:1px solid rgba(255,255,255,.70);border-radius:50%;box-shadow:0 0 0 5px rgba(132,184,90,.14)}
+    .science i:nth-child(1){width:30px;height:30px;left:18%;top:24%}.science i:nth-child(2){width:18px;height:18px;left:58%;top:34%}.science i:nth-child(3){width:44px;height:44px;right:14%;bottom:28%}.science i:nth-child(4){width:13px;height:13px;left:35%;bottom:18%}
+    .scene-copy{max-width:620px}
+    .count{font:600 12px "Geist Mono";color:#087fae;margin-bottom:12px}
+    .scene-copy h2{font-size:clamp(27px,3.3vw,48px);line-height:1.02;letter-spacing:-.045em;margin:0 0 14px}
+    blockquote{font-size:19px;line-height:1.4;margin:0 0 18px;padding-left:17px;border-left:3px solid var(--cyan);color:var(--ink)}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+    .detail{background:#fff;padding:12px}
+    .detail span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.055em;margin-bottom:4px}
+    .detail strong{font-size:13px;line-height:1.4;display:block}
+    .note{margin:16px 0 0;color:var(--body);font-size:14px;line-height:1.5}
+    .timeline-head{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:10px 0 12px}
+    .timeline-head p{margin:0;color:var(--muted);font-size:12px}
+    .timeline{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin}
+    .scene-card{min-width:150px;border:1px solid var(--line);border-radius:12px;padding:8px;background:#fff;text-align:left;cursor:pointer;color:var(--ink);transition:transform .16s,border-color .16s,box-shadow .16s}
+    .scene-card:hover{transform:translateY(-2px)}
+    .scene-card.active{border-color:#0799d0;box-shadow:0 0 0 2px rgba(17,172,232,.15)}
+    .thumb{aspect-ratio:9/12;border-radius:8px;background:#dce5e8 center/cover no-repeat;position:relative;overflow:hidden;margin-bottom:8px}
+    .thumb::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.18)}
+    .thumb b{position:absolute;z-index:2;left:9px;right:9px;bottom:9px;color:#fff;font-size:16px;line-height:.95;letter-spacing:-.035em;text-transform:uppercase}
+    .scene-card .meta{font:600 10px "Geist Mono";color:var(--muted)}
+    .scene-card .label{font-size:12px;font-weight:720;margin:4px 0 5px}
+    .engine{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px 7px;font:600 9px "Geist Mono";text-transform:uppercase;color:#344054;background:var(--wash)}
+    .lower{border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr}
+    .lower section{padding:24px 30px}
+    .lower section+section{border-left:1px solid var(--line)}
+    .lower h2{font-size:18px;margin:0 0 12px}
+    .lower p,.lower li{font-size:13px;color:var(--body);line-height:1.5}
+    .lower ul{margin:0;padding-left:18px}
+    .tool-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .tool{border:1px solid var(--line);border-radius:12px;padding:13px}
+    .tool strong{display:block;font-size:14px;margin-bottom:5px}
+    .tool small{color:var(--body);font-size:12px;line-height:1.4;display:block}
+    .tool a{color:var(--ink);text-decoration-color:var(--cyan);text-underline-offset:3px}
+    details{border-top:1px solid var(--line);padding:22px 30px;background:var(--wash)}
+    summary{font-weight:700;cursor:pointer}
+    pre{white-space:pre-wrap;font:12px/1.55 "Geist Mono";color:#344054;background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px;margin:14px 0 0}
+    .source-links{margin-top:15px;font-size:11px;color:var(--muted)}
+    .source-links a{color:#087fae}
+    @media(max-width:900px){.workspace{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line)}.stage{grid-template-columns:1fr;gap:24px}.scene-copy{max-width:none}.lower{grid-template-columns:1fr}.lower section+section{border-left:0;border-top:1px solid var(--line)}.timeline{grid-template-columns:repeat(6,170px)}header{padding:23px}.brand{width:110px}.board{padding:20px}}
+    @media(max-width:560px){.shell{width:100%;margin:0;border-radius:0;border-left:0;border-right:0}header{display:block}.brand{margin-top:18px}.detail-grid,.tool-choice{grid-template-columns:1fr}.phone{width:250px}.frame .hook{font-size:30px}.lower section,details{padding:20px}.timeline-head{display:block}.timeline-head p{margin-top:4px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <div class="eyebrow">Internal edit board · 20 Aug 2026</div>
+        <h1>Algae clip: six-scene social cut</h1>
+        <p>A 29-second direction for Facebook and LinkedIn. Michelle’s exact audio stays intact. One optional AI beat earns its place by showing the hidden system behind the visible pool.</p>
+      </div>
+      <img class="brand" src="./assets/future-voices-logo.png" alt="Future Voices">
+    </header>
+
+    <div class="workspace">
+      <aside>
+        <h2>Delivery envelope</h2>
+        <div class="facts">
+          <div class="fact"><span>Master</span><strong>1080 × 1920 · 9:16 · 29.97 fps</strong></div>
+          <div class="fact"><span>Reframe</span><strong>1080 × 1350 · 4:5 safe crop</strong></div>
+          <div class="fact"><span>Runtime</span><strong>29 seconds</strong></div>
+          <div class="fact"><span>Captions</span><strong>Clean MP4 + synchronized SRT</strong></div>
+          <div class="fact"><span>Review</span><strong>Jerami first · Stuart approves CTA</strong></div>
+        </div>
+        <div class="decision">
+          <strong>Locked direction</strong>
+          <p>Open on the environmental scale. Keep Michelle visible early. Use one generated science shot at most.</p>
+        </div>
+        <div class="decision">
+          <strong>CTA behavior</strong>
+          <p>The video card cannot carry a clickable link. The post or platform button carries the Substack URL.</p>
+        </div>
+        <div class="controls" aria-label="Preview controls">
+          <button id="play" type="button">Play sequence</button>
+          <button id="ratio" type="button" aria-pressed="false">Preview 4:5</button>
+          <button id="captions" type="button" aria-pressed="true">SRT preview on</button>
+        </div>
+      </aside>
+
+      <section class="board">
+        <div class="stage">
+          <div class="phone-wrap">
+            <div class="phone" id="phone">
+              <div class="frame" id="frame">
+                <span class="speaker" id="speaker">Michelle Stroy</span>
+                <div class="science" id="science" hidden><i></i><i></i><i></i><i></i></div>
+                <div class="hook" id="hook">Bigger than <em>one</em> reflecting pool.</div>
+                <div class="caption" id="caption">Algae in the reflecting pool. That one’s big for me.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scene-copy">
+            <div class="count" id="count">SCENE 01 / 06 · 00:00–00:03.4</div>
+            <h2 id="title">Make the topic feel larger immediately.</h2>
+            <blockquote id="quote">“Algae in the reflecting pool. That one’s big for me.”</blockquote>
+            <div class="detail-grid">
+              <div class="detail"><span>Source</span><strong id="source">Interview 04:42.510–04:45.779</strong></div>
+              <div class="detail"><span>Primary owner</span><strong id="owner">Remotion</strong></div>
+              <div class="detail"><span>Visual</span><strong id="visual">Reflecting Pool reference + transparent hook plate</strong></div>
+              <div class="detail"><span>Status</span><strong id="status">Proposed · source image needs license</strong></div>
+            </div>
+            <p class="note" id="note">The spoken line names the object. The first-frame text supplies the tension. No logo animation before the hook.</p>
+          </div>
+        </div>
+
+        <div class="timeline-head">
+          <h2>Scene rail</h2>
+          <p>Click a frame to inspect the quote, visual job, and engine owner.</p>
+        </div>
+        <div class="timeline" id="timeline" aria-label="Storyboard scenes"></div>
+      </section>
+    </div>
+
+    <div class="lower">
+      <section>
+        <h2>What to source</h2>
+        <ul>
+          <li>One licensed Reflecting Pool algae shot.</li>
+          <li>One slow Colorado lake clip with room for a 4:5 crop.</li>
+          <li>One 4–5 second scientific motion test. Abstract algae growth, nutrient flow, or water-system spread.</li>
+          <li>The supplied Michelle end card. Rebuild only the CTA layer for motion.</li>
+        </ul>
+        <div class="source-links">Visual references only: <a href="https://abcnews.com/Politics/algae-marred-reflecting-pool-draws-tourists-reasons-trump/story?id=134044120">Reflecting Pool</a> · <a href="https://dareful.com/free-4k-stock-video-aerial-drone-shot-of-a-lake-in-colorado-rocky-mountains-stock-footage/">Colorado lake</a> · <a href="https://www.fau.edu/newsdesk/articles/lake-okeechobee-harmful-algae-study">Microscopic algae</a></div>
+      </section>
+      <section>
+        <h2>Tool choice</h2>
+        <div class="tool-choice">
+          <div class="tool"><strong><a href="https://www.freepik.com/pricing/7881279">Freepik / Magnific first</a></strong><small>Premium is currently $20 monthly, or $14.50 per month billed annually. It covers stock, AI video models, and Magnific upscaling.</small></div>
+          <div class="tool"><strong><a href="https://higgsfield.ai/create/video/select?for=motion&model=seedance1_5">Higgsfield as the test</a></strong><small>Basic starts at $9 with selected models. Full model access starts at Pro: $29 monthly or $23 per month billed annually.</small></div>
+        </div>
+      </section>
+    </div>
+
+    <details>
+      <summary>Copy implementation prompt</summary>
+      <pre>Build a 29-second Future Voices social cut from Stuart’s supplied 23.4-second algae clip. Master 1080x1920 at 29.97 fps with a center-safe 4:5 reframe. Use the six-scene timing and exact quotes on this board. Keep the source audio natural. Use one licensed Reflecting Pool shot, one slow Colorado lake shot, and at most one 4–5 second AI-generated scientific insert. Remotion owns the transparent hook and end-card plates. Premiere owns dialogue timing, stock movement, sound, assembly, and export. Deliver a clean H.264 MP4 plus synchronized SRT. Hold the supplied end card long enough to read. Treat “Watch the full conversation on Substack” as proposed until Stuart approves it.</pre>
+    </details>
+  </main>
+
+  <script>
+    const scenes = [
+      {
+        time:'00:00–00:03.4', title:'Make the topic feel larger immediately.',
+        quote:'“Algae in the reflecting pool. That one’s big for me.”',
+        source:'Interview 04:42.510–04:45.779', owner:'Remotion',
+        visual:'Reflecting Pool reference + transparent hook plate', status:'Proposed · source image needs license',
+        note:'The spoken line names the object. The first-frame text supplies the tension. No logo animation before the hook.',
+        hook:'Bigger than <em>one</em> reflecting pool.', caption:'Algae in the reflecting pool. That one’s big for me.', speaker:'Michelle Stroy',
+        image:'./assets/reflecting-pool-reference.jpg', shade:'.32', science:false
+      },
+      {
+        time:'00:03.4–00:07.4', title:'Let Michelle establish authority and intent.',
+        quote:'“That one has a huge cycle that we could talk about…”',
+        source:'Interview 04:45.830–04:49.800', owner:'Premiere',
+        visual:'Verified source frame · restrained slow crop', status:'Locked source · crop needs review',
+        note:'Michelle appears before any generated image. Her face gives the environmental claim a real speaker and keeps the piece from feeling synthetic.',
+        hook:'A <em>huge cycle</em> sits behind it.', caption:'That one has a huge cycle that we could talk about.', speaker:'Michelle Stroy',
+        image:'./assets/michelle-source.jpg', shade:'.12', science:false
+      },
+      {
+        time:'00:07.4–00:11.4', title:'Show the hidden system once.',
+        quote:'“…there’s a way that we can fix it, and it’s bigger than just ending up in one reflecting pool.”',
+        source:'Interview 04:49.800–04:53.810', owner:'Premiere',
+        visual:'4–5 second generated algae or nutrient-flow insert', status:'Optional test · Higgsfield source asset',
+        note:'This is the only scene that needs AI generation. Aim for scientific intimacy: suspended algae cells, nutrient flow, or a spreading water network. Avoid disaster imagery.',
+        hook:'The visible pool is <em>one node.</em>', caption:'There’s a way that we can fix it, and it’s bigger than one reflecting pool.', speaker:'System view',
+        image:'https://www.fau.edu/newsdesk/images/microcystis-microscope-newsdek.jpg', shade:'.34', science:true
+      },
+      {
+        time:'00:11.4–00:14.5', title:'Open the scale from one pool to shared water.',
+        quote:'“We’re talking about all of our lakes and our oceans.”',
+        source:'Interview 04:53.810–04:56.442', owner:'Premiere',
+        visual:'Licensed Colorado lake B-roll · one slow push', status:'Proposed · stock search',
+        note:'Use one calm shot with natural movement. No montage. The line supplies the scale change, so the picture only needs to let it land.',
+        hook:'All our <em>lakes</em> and oceans.', caption:'We’re talking about all of our lakes and our oceans.', speaker:'Michelle Stroy',
+        image:'./assets/colorado-lake-reference.webp', shade:'.22', science:false
+      },
+      {
+        time:'00:14.5–00:23.4', title:'Return to Michelle for the payoff.',
+        quote:'“…it can bring the conversation to the table, because I think it’s a lot bigger problem than most people even realize.”',
+        source:'Interview 04:56.912–05:04.952', owner:'Remotion',
+        visual:'Michelle source + transparent phrase plate', status:'Proposed · exact crop locked after review',
+        note:'Keep the plate quiet. One phrase enters, holds, and leaves. Her delivery carries the close; motion only marks “bigger problem.”',
+        hook:'A bigger problem than most people <em>realize.</em>', caption:'It can bring the conversation to the table. It’s a bigger problem than most people realize.', speaker:'Michelle Stroy',
+        image:'./assets/michelle-payoff.jpg', shade:'.14', science:false
+      },
+      {
+        time:'00:23.4–00:29.0', title:'Give the supplied end card one clear job.',
+        quote:'Proposed: “Watch the full conversation on Substack.”',
+        source:'Supplied OutroInterview01 graphic', owner:'Remotion',
+        visual:'End-card rebuild with a single CTA reveal', status:'Needs Stuart CTA approval',
+        note:'The graphic is a visual prompt. The clickable destination lives in the LinkedIn or Facebook post. Keep this frame still enough to read.',
+        hook:'Watch the full conversation.', caption:'Full conversation on Substack.', speaker:'Future Voices',
+        image:'./assets/outro-interview-01.png', shade:'.02', science:false
+      }
+    ];
+
+    const timeline = document.querySelector('#timeline');
+    const frame = document.querySelector('#frame');
+    const caption = document.querySelector('#caption');
+    const science = document.querySelector('#science');
+    let selected = 0;
+    let playTimer;
+
+    scenes.forEach((scene,index)=>{
+      const button=document.createElement('button');
+      button.className='scene-card'+(index===0?' active':'');
+      button.type='button';
+      button.innerHTML=`<div class="thumb" style="background-image:url('${scene.image}')"><b>${scene.hook}</b></div><div class="meta">${String(index+1).padStart(2,'0')} · ${scene.time}</div><div class="label">${scene.title}</div><span class="engine">${scene.owner}</span>`;
+      button.addEventListener('click',()=>selectScene(index));
+      timeline.appendChild(button);
+    });
+
+    function selectScene(index){
+      selected=index;
+      const scene=scenes[index];
+      document.querySelectorAll('.scene-card').forEach((card,i)=>card.classList.toggle('active',i===index));
+      document.querySelector('#count').textContent=`SCENE ${String(index+1).padStart(2,'0')} / 06 · ${scene.time}`;
+      document.querySelector('#title').textContent=scene.title;
+      document.querySelector('#quote').textContent=scene.quote;
+      document.querySelector('#source').textContent=scene.source;
+      document.querySelector('#owner').textContent=scene.owner;
+      document.querySelector('#visual').textContent=scene.visual;
+      document.querySelector('#status').textContent=scene.status;
+      document.querySelector('#note').textContent=scene.note;
+      document.querySelector('#hook').innerHTML=scene.hook;
+      caption.textContent=scene.caption;
+      document.querySelector('#speaker').textContent=scene.speaker;
+      frame.style.backgroundImage=`url('${scene.image}')`;
+      frame.style.setProperty('--shade',scene.shade);
+      science.hidden=!scene.science;
+      document.querySelectorAll('.scene-card')[index].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    }
+
+    document.querySelector('#ratio').addEventListener('click',event=>{
+      const active=event.currentTarget.getAttribute('aria-pressed')!=='true';
+      event.currentTarget.setAttribute('aria-pressed',String(active));
+      event.currentTarget.textContent=active?'Preview 9:16':'Preview 4:5';
+      document.querySelector('#phone').classList.toggle('four-five',active);
+    });
+
+    document.querySelector('#captions').addEventListener('click',event=>{
+      const active=event.currentTarget.getAttribute('aria-pressed')!=='true';
+      event.currentTarget.setAttribute('aria-pressed',String(active));
+      event.currentTarget.textContent=active?'SRT preview on':'SRT preview off';
+      caption.classList.toggle('off',!active);
+    });
+
+    document.querySelector('#play').addEventListener('click',event=>{
+      clearInterval(playTimer);
+      let next=selected;
+      event.currentTarget.textContent='Playing…';
+      selectScene(next);
+      playTimer=setInterval(()=>{
+        next+=1;
+        if(next>=scenes.length){clearInterval(playTimer);event.currentTarget.textContent='Play sequence';return;}
+        selectScene(next);
+      },1700);
+    });
+
+    selectScene(0);
+  </script>
+</body>
+</html>
