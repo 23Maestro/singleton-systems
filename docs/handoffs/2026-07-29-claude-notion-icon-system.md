@@ -63,10 +63,6 @@ family.
 Each active client receives one locked palette in the registry. Parent tasks
 use duotone; their subtasks use fill from that same palette.
 
-For Josh Sayre, use royal blue as the primary and a compatible brighter blue
-or cyan as the secondary. His VSL and Thank-You package must be visually
-distinct by glyph, but unmistakably part of his client palette.
-
 Query the live Clients and Tasks databases with `ntn` before assigning other
 clients. Status drives the client icon:
 
@@ -115,7 +111,7 @@ that bypasses the registry.
 ## Work order and stop point
 
 1. Inspect the installed Phosphor components and the optional references.
-2. Produce a compact contact/project/Josh preview sheet.
+2. Produce a compact contact/project preview sheet.
 3. Show the preview and proposed manifest to Jerami.
 4. Stop. Do not mutate Notion before explicit approval.
 5. After approval, implement the registry, generator, `ntn` apply path, and

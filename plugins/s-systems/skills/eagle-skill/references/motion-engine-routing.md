@@ -68,5 +68,4 @@ for ordinary cards, lists, charts, or decorative lines. In Remotion, JointJS
 must never control real-time animation or parent layout; keep it inside a
 contained geometry layer and drive all visible progress from the current frame.
 
-Current proof: `remotion/josh-vsl/JointFlowLayer.tsx`, first used by Four
-Fulfillment Paths.
+Keep reusable diagram proof client-neutral and independently testable.

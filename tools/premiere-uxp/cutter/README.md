@@ -53,8 +53,6 @@ npm test
 `gap` (dead air), `head`, `tail`, `manual`. A bare array of removals, and
 array-form entries `[start, end, kind, note]`, are both accepted.
 
-`samples/josh-iwmc-vsl.cutlist.json` is a real 205-removal list.
-
 ## Install
 
 ```bash

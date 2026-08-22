@@ -55,10 +55,6 @@ Path: `tools/premiere-uxp/cutter/`
   handled as data with reasons — never thrown.
 - Cuts are ordered **last-first** because a ripple delete shortens the timeline;
   earliest-first would invalidate every later timecode. Do not "fix" this.
-- `samples/josh-iwmc-vsl.cutlist.json` — a real 205-removal list.
-- `engine/cut_engine.py` — the Whisper/FFmpeg pass that produces cut lists. It
-  emits `cutlist.plugin.json` in the panel's format. Working; leave it alone
-  unless asked.
 - `index.html` — panel UI, renders correctly.
 
 **Not done, in priority order:**
@@ -113,11 +109,11 @@ function `focalPosition(focal, scale, frameSize)` and unit-test it: at `s = 1`
 position must equal frame centre for any focal; at `focal = (0.5, 0.5)` position
 must equal centre for any scale.
 
-**Default focal point is his eyeline, not frame centre: `(0.50, 0.38)`.**
+**Default focal point is the subject's eyeline: `(0.50, 0.38)`.**
 
 For the recompose presets below, `focal` is itself a function of time — animate
 scale and focal together, then derive position per keyframe. This is the move
-that makes them feel designed rather than mechanical.
+that makes them feel designed and intentional.
 
 **Cap scale at 112% on 1080p source.** Beyond that softness shows.
 
@@ -190,9 +186,7 @@ sans no effects.
 
 Font: **Geist** (already the suite's face). Do not add a second family.
 
-Design tokens for the accent styles are in
-`docs/portfolio/2026-07-30_josh-vsl-motion-handoff.md` — reuse them rather than
-inventing colours.
+Keep caption design tokens project-neutral and define them beside the preset.
 
 ## Working agreement
 
