@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worktree Router"
+  short_description: "Suggest safe Git worktree isolation"
+  default_prompt: "Use $worktree-router to decide whether this task belongs in a new worktree and guide me without forcing it."

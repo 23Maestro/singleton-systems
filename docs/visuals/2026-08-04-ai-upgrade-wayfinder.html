@@ -103,6 +103,7 @@
       font-weight: 800;
     }
     .brand { font-family: var(--mono); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .brand-sub { color: var(--subtle); font-size: 13px; white-space: nowrap; }
     .topbar-meta { gap: 10px; color: var(--subtle); font-family: var(--mono); font-size: 11px; white-space: nowrap; }
     .topbar-state { gap: 7px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
     .topbar-state::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 12px var(--lime); }
@@ -126,6 +127,7 @@
     }
     .hero h1 { max-width: 980px; padding-bottom: 10px; font-size: clamp(44px, 5.4vw, 70px); line-height: .98; }
     .hero h1 em { color: var(--lime); font-style: normal; }
+    .hero-lead { max-width: 760px; margin-top: 13px; color: var(--muted); font-size: clamp(17px, 1.55vw, 19px); line-height: 1.38; }
     .hero-note {
       padding: 18px;
       border: 1px solid rgba(196, 243, 106, .36);
@@ -315,9 +317,10 @@
     @media (max-width: 760px) {
       .app-shell { width: min(100% - 24px, 560px); }
       .topbar { min-height: 58px; }
-      .topbar-meta { display: none; }
+      .brand-sub, .topbar-meta { display: none; }
       .hero { padding: 46px 0 30px; }
       .hero h1 { font-size: clamp(43px, 13vw, 68px); }
+      .hero-lead { font-size: 17px; }
       .hero-stats { grid-template-columns: 1fr; gap: 7px; }
       .hero-stat { display: flex; align-items: baseline; gap: 8px; }
       .hero-stat span { margin-top: 0; }
@@ -355,6 +358,7 @@
       <div class="brand-lockup">
         <span class="brand-mark" aria-hidden="true">SS</span>
         <span class="brand">Wayfinder / Client Canvas</span>
+        <span class="brand-sub">Gary's proof</span>
       </div>
       <div class="topbar-meta">
         <span>08.09.26</span>
@@ -366,6 +370,7 @@
       <div>
         <p class="eyebrow">A first Client Canvas proof for Gary</p>
         <h1 id="page-title">Make the brief reliable before you <em>automate it.</em></h1>
+        <p class="hero-lead">Gary already has the judgment. The missing piece is a path that keeps facts, tools, and checks in the same place—so another Claude rewrite is not the quality-control system.</p>
         <div class="hero-stats" aria-label="Current brief friction">
           <div class="hero-stat"><strong>70–80%</strong><span>there on the first pass</span></div>
           <div class="hero-stat"><strong>3–4</strong><span>Claude rewrites today</span></div>

@@ -1,0 +1,18 @@
+{
+  "name": "@singleton-systems/lineups-topic-builder",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/code.ts --bundle --format=iife --platform=browser --target=es2020 --outfile=dist/code.js",
+    "check": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "verify": "npm run check && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.121.0",
+    "@types/node": "^20.19.43",
+    "esbuild": "^0.25.8",
+    "tsx": "^4.20.3",
+    "typescript": "^5.7.2"
+  }
+}

@@ -3,7 +3,7 @@
 Owner: `singleton-systems`
 
 Upstream reviewed: Matt Pocock's `skills/engineering/wayfinder/SKILL.md`
-at commit `260225724133c4a204489599f04642aa089259a0`.
+at commit `38d62e71ed01fc05d5ae63b0807172e9546049d5` (2026-07-29).
 
 Intentional deviations:
 
@@ -12,6 +12,7 @@ Intentional deviations:
 - No sub-agent, AFK ticket, automatic research dispatch, or research branch.
 - No dependency on `/research`, `/prototype`, `/domain-modeling`, or
   `/setup-matt-pocock-skills`.
+- No local-Markdown tracker fallback; stop if the Linear setup is unavailable.
 
 ## Hierarchy Contract
 
