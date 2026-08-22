@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dev Storage"
+  short_description: "Audit and clean rebuildable development bloat"
+  default_prompt: "Audit my development storage, protect source work, and clean only verified rebuildable bloat."
