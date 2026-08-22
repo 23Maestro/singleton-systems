@@ -49,18 +49,25 @@ export async function POST(request: Request) {
       await updateAiIntakeAudio(draft.id, { audio_object_path: audioObjectPath, audio_file_name: audio.name, audio_content_type: audio.type || null });
     }
 
+    let notionDeliveryState: "delivered" | "failed" = "delivered";
     try {
       const notionPageId = await createNotionAiIntakePage(saved);
       await updateAiIntakeNotionDelivery(draft.id, { notion_page_id: notionPageId, notion_delivery_state: "delivered", notion_delivery_error: null });
     } catch (error) {
+      notionDeliveryState = "failed";
+      const notionDeliveryError = error instanceof Error ? error.message.slice(0, 500) : "Unknown Notion delivery error.";
+      console.error("[ai-intake] Notion delivery failed", { requestId: draft.id, error: notionDeliveryError });
       await updateAiIntakeNotionDelivery(draft.id, {
         notion_page_id: null,
         notion_delivery_state: "failed",
-        notion_delivery_error: error instanceof Error ? error.message.slice(0, 500) : "Unknown Notion delivery error.",
+        notion_delivery_error: notionDeliveryError,
       });
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json(
+      { ok: true, deliveryState: notionDeliveryState },
+      { status: notionDeliveryState === "delivered" ? 201 : 202 },
+    );
   } catch (error) {
     if (error instanceof z.ZodError) return NextResponse.json({ error: "Please complete the required fields with a valid email." }, { status: 400 });
     console.error("[ai-intake] failed", error);
