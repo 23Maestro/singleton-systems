@@ -6,22 +6,35 @@ const root = process.cwd();
 const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
 const pluginRoot = registry.plugin.source_path;
 const pluginSkillsRoot = path.join(pluginRoot, "skills");
-assert.equal(registry.version, 2);
+assert.equal(registry.version, 3);
 assert.ok(registry.source_revision, "registry must declare source_revision");
 assert.equal(pluginRoot, "plugins/s-systems", "SSystems plugin source must stay repo-relative");
 assert.equal(registry.plugin.id, "s-systems@singleton23-local");
 assert.match(registry.plugin.verification_command, /s-systems@singleton23-local/);
-assert.ok(Array.isArray(registry.routes) && registry.routes.length >= 12);
+assert.ok(Array.isArray(registry.routes) && registry.routes.length >= 16);
 assert.ok(Array.isArray(registry.skills));
 assert.ok(Array.isArray(registry.capabilities) && registry.capabilities.length >= 4);
 
+const initiativeLanes = ["Development", "Content Editor", "AI Consultant", "Portfolio"];
+const systemLanes = ["Writing Review", "System Maintenance"];
+assert.deepEqual(registry.vocabulary.initiatives, initiativeLanes);
+assert.deepEqual(registry.vocabulary.system_lanes, systemLanes);
+const allowedLanes = new Set([...initiativeLanes, ...systemLanes]);
+assert.deepEqual(registry.gate.review_states, ["not_required", "pending", "approved", "blocked"]);
+assert.deepEqual(registry.gate.delivery_states, ["pending", "delivered", "failed"]);
+assert.deepEqual(registry.gate.receipt_states, ["not_required", "recorded", "failed"]);
+assert.deepEqual(registry.gate.required_delivery_fields, ["state", "owner", "recordId", "recordUrl", "error"]);
+
 for (const route of registry.routes) {
-    for (const field of ["route_key", "trigger_patterns", "example_prompt", "lane", "owner", "required_tools", "review_gate", "priority"]) {
+  for (const field of ["route_key", "bucket", "trigger_patterns", "example_prompt", "lane", "owner", "required_tools", "review_gate", "priority"]) {
     assert.ok(route[field] !== undefined, `route missing ${field}`);
   }
   assert.ok(route.trigger_patterns.length > 0);
   assert.ok(route.required_tools.length > 0);
+  assert.ok(allowedLanes.has(route.lane), `${route.route_key} uses unknown Lane ${route.lane}`);
+  assert.notEqual(route.lane, "all_buckets", `${route.route_key} still uses Bucket vocabulary as a Lane`);
 }
+assert.equal(new Set(registry.routes.map((route) => route.bucket)).size, registry.routes.length, "route buckets must be unique");
 
 for (const capability of registry.capabilities) {
   for (const field of ["capability_key", "capability_type", "canonical_name", "status", "verification_command", "evidence"]) {
@@ -97,5 +110,22 @@ for (const table of ["cerebral_routes", "harness_capabilities", "harness_skills"
 }
 assert.match(migration, /for select/);
 assert.doesNotMatch(migration, /for insert|for update|for delete/);
+
+const laneMigration = fs.readFileSync(path.join(root, "supabase/migrations/20260822222607_harden_cerebral_lane_vocabulary.sql"), "utf8");
+for (const lane of allowedLanes) assert.match(laneMigration, new RegExp(lane));
+assert.match(laneMigration, /'writing-review'/);
+assert.doesNotMatch(laneMigration, /all_buckets/);
+
+const deliveryOutcome = fs.readFileSync(path.join(root, "lib/delivery-outcome.ts"), "utf8");
+for (const state of [...registry.gate.delivery_states, ...registry.gate.receipt_states]) {
+  assert.match(deliveryOutcome, new RegExp(`"${state}"`), `delivery outcome missing ${state}`);
+}
+for (const field of registry.gate.required_delivery_fields) {
+  assert.match(deliveryOutcome, new RegExp(`${field}:`), `delivery outcome missing ${field}`);
+}
+for (const file of ["app/api/ai-intake/route.ts", "app/api/linear/inbox/route.ts"]) {
+  const text = fs.readFileSync(path.join(root, file), "utf8");
+  assert.match(text, /@\/lib\/delivery-outcome/, `${file} must use the shared delivery outcome`);
+}
 
 console.log(`Cerebral registry check passed: ${registry.routes.length} routes, ${registry.skills.length} skills, ${registry.capabilities.length} capabilities.`);

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createAiIntakeRequest, createNotionAiIntakePage, saveAiIntakeAudio, updateAiIntakeAudio, updateAiIntakeNotionDelivery } from "@/lib/ai-intake";
+import { delivered, deliveryFailed, deliveryHttpStatus, recordedReceipt, type DeliveryOutcome } from "@/lib/delivery-outcome";
 
 const MAX_AUDIO_BYTES = 25 * 1024 * 1024;
 
@@ -49,12 +50,17 @@ export async function POST(request: Request) {
       await updateAiIntakeAudio(draft.id, { audio_object_path: audioObjectPath, audio_file_name: audio.name, audio_content_type: audio.type || null });
     }
 
-    let notionDeliveryState: "delivered" | "failed" = "delivered";
+    let delivery: DeliveryOutcome;
     try {
       const notionPageId = await createNotionAiIntakePage(saved);
       await updateAiIntakeNotionDelivery(draft.id, { notion_page_id: notionPageId, notion_delivery_state: "delivered", notion_delivery_error: null });
+      delivery = delivered({
+        owner: "Notion",
+        recordId: notionPageId,
+        recordUrl: `https://app.notion.com/p/${notionPageId.replaceAll("-", "")}`,
+        receipt: recordedReceipt(draft.id),
+      });
     } catch (error) {
-      notionDeliveryState = "failed";
       const notionDeliveryError = error instanceof Error ? error.message.slice(0, 500) : "Unknown Notion delivery error.";
       console.error("[ai-intake] Notion delivery failed", { requestId: draft.id, error: notionDeliveryError });
       await updateAiIntakeNotionDelivery(draft.id, {
@@ -62,11 +68,16 @@ export async function POST(request: Request) {
         notion_delivery_state: "failed",
         notion_delivery_error: notionDeliveryError,
       });
+      delivery = deliveryFailed({
+        owner: "Notion",
+        error: notionDeliveryError,
+        receipt: recordedReceipt(draft.id),
+      });
     }
 
     return NextResponse.json(
-      { ok: true, deliveryState: notionDeliveryState },
-      { status: notionDeliveryState === "delivered" ? 201 : 202 },
+      { ok: true, deliveryState: delivery.state, delivery },
+      { status: deliveryHttpStatus(delivery) },
     );
   } catch (error) {
     if (error instanceof z.ZodError) return NextResponse.json({ error: "Please complete the required fields with a valid email." }, { status: 400 });

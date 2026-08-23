@@ -48,7 +48,11 @@ EXPLICIT_ROUTE_RE = re.compile(
     r"^\s*(?:\[route\]|route(?:\s+cerebral)?\s*:)\s*([a-z0-9-]+)\s*$",
     re.I | re.M,
 )
-TAG_RE = re.compile(r"^\s*\[(route|shape|tools|query)\]\s*(.+?)\s*$", re.I | re.M)
+EXPLICIT_BUCKET_RE = re.compile(
+    r"^\s*(?:\[bucket\]|bucket\s*:)\s*([a-z0-9-]+)\s*$",
+    re.I | re.M,
+)
+TAG_RE = re.compile(r"^\s*\[(route|bucket|shape|tools|query)\]\s*(.+?)\s*$", re.I | re.M)
 
 DOCS_SKILLS_RE = re.compile(r"docs/|\.codex/|skills?/|SKILL\.md|hooks?", re.I)
 SHELL_MUTATION_RE = re.compile(
@@ -80,14 +84,6 @@ PUBLIC_DELIVERY_RE = re.compile(
     re.I,
 )
 WRITING_RULES_PATH = "docs/harness/writing-rules.md"
-WRITING_CONTEXT = """Writing rules for reviewable artifacts:
-- Apply to every non-code artifact you will review or reuse: Markdown, Linear documents, GitHub and Notion copy, memory, emails, cover letters, proposals, briefs, handoffs, captions, site copy, public HTML, and visual/source notes.
-- Do not apply to source code, generated bundles, code blocks, or normal conversation unless you ask for copy to send, publish, post, or reuse.
-- Correction means edit silently. Deliver the artifact only.
-- Short sentences. Plain verbs. Concrete claims. Cut filler.
-- Banned words: delve, tapestry, testament, underscore, pivotal, crucial, meticulous, intricate, showcase, foster, garner, landscape, vibrant, robust, seamless, unlock, empower, elevate, streamline, leverage, utilize, facilitate, commence, demonstrate, additionally, enhance.
-- Banned patterns: "not just X but Y", "not X but Y", "X rather than Y", "serves as", numbered/copula "features", hedging, three-item rhythm, vague attribution, puffery, bold inline list headers, Title Case Headings.
-"""
 
 
 def read_input():
@@ -167,9 +163,19 @@ def registry_matches(text):
     enabled_routes = [route for route in routes if route.get("enabled") is True]
     tags = packet_tags(text)
     explicit_match = EXPLICIT_ROUTE_RE.search(text)
-    explicit_route = (tags.get("route") or (explicit_match.group(1) if explicit_match else "")).lower()
+    explicit_bucket_match = EXPLICIT_BUCKET_RE.search(text)
+    explicit_route = (
+        tags.get("route")
+        or tags.get("bucket")
+        or (explicit_match.group(1) if explicit_match else "")
+        or (explicit_bucket_match.group(1) if explicit_bucket_match else "")
+    ).lower()
     if explicit_route:
-        matched_routes = [route for route in enabled_routes if route.get("route_key") == explicit_route]
+        matched_routes = [
+            route
+            for route in enabled_routes
+            if route.get("route_key") == explicit_route or (route.get("bucket") or route.get("route_key")) == explicit_route
+        ]
     else:
         matched_routes = [
             route
@@ -199,6 +205,7 @@ def context(reason, text):
                 f"- [route] {route.get('route_key')}",
                 f"- [surface] {route.get('surface') or 'task'}",
                 f"- [lane] {route.get('lane')} | [owner] {route.get('owner')}",
+                f"- [bucket] {route.get('bucket') or route.get('route_key')}",
                 f"- [shape] {tags.get('shape') or route.get('shape') or 'task'}",
                 f"- [tools] {' + '.join(route.get('required_tools') or [])}",
                 f"- [review] {route.get('review_gate') or 'review before mutation'}",
@@ -228,7 +235,7 @@ def context(reason, text):
     lines.extend(drift_warnings(text))
     if public_output_requested(text, routes):
         lines.append("")
-        lines.append(WRITING_CONTEXT)
+        lines.append(writing_context())
     return "\n".join(lines)
 
 
@@ -450,13 +457,25 @@ def public_output_requested(text, routes=None):
     return bool(ARTIFACT_INTENT_RE.search(text) or PUBLIC_DELIVERY_RE.search(text))
 
 
-def writing_words():
+def writing_rules_doc():
     path = os.path.join(repo_root(), WRITING_RULES_PATH)
     try:
         with open(path, "r", encoding="utf-8") as handle:
-            doc = handle.read()
+            return handle.read()
     except OSError:
-        return []
+        return ""
+
+
+def writing_context():
+    doc = writing_rules_doc()
+    match = re.search(r"## Hook payload[\s\S]*?```text\n([\s\S]*?)\n```", doc)
+    if match:
+        return "Writing rules for reviewable artifacts:\n" + match.group(1).strip()
+    return f"Writing rules for reviewable artifacts: read {WRITING_RULES_PATH} before delivery."
+
+
+def writing_words():
+    doc = writing_rules_doc()
     match = re.search(r"\*\*Words\.\*\*([\s\S]*?)\n\n", doc)
     if not match:
         return []

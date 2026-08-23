@@ -1,6 +1,43 @@
 {
-  "version": 2,
-  "source_revision": "2026-08-09-client-video-reconciliation",
+  "version": 3,
+  "source_revision": "2026-08-22-shared-delivery-gate",
+  "vocabulary": {
+    "initiatives": [
+      "Development",
+      "Content Editor",
+      "AI Consultant",
+      "Portfolio"
+    ],
+    "system_lanes": [
+      "Writing Review",
+      "System Maintenance"
+    ]
+  },
+  "gate": {
+    "review_states": [
+      "not_required",
+      "pending",
+      "approved",
+      "blocked"
+    ],
+    "delivery_states": [
+      "pending",
+      "delivered",
+      "failed"
+    ],
+    "receipt_states": [
+      "not_required",
+      "recorded",
+      "failed"
+    ],
+    "required_delivery_fields": [
+      "state",
+      "owner",
+      "recordId",
+      "recordUrl",
+      "error"
+    ]
+  },
   "plugin": {
     "id": "s-systems@singleton23-local",
     "source_path": "plugins/s-systems",
@@ -9,6 +46,7 @@
   "routes": [
     {
       "route_key": "systems-tool-harness",
+      "bucket": "systems-tool-harness",
       "trigger_patterns": [
         "SSystems",
         "s-systems",
@@ -20,7 +58,7 @@
       ],
       "example_prompt": "Check the SSystems plugin and routing contract before changing this workflow.",
       "surface": "skill / hook routing",
-      "lane": "all_buckets",
+      "lane": "System Maintenance",
       "owner": "Docs/skills",
       "intent": "Route SSystems plugin, skill, hook, and contract work through the canonical contract.",
       "shape": "operating rule",
@@ -33,6 +71,7 @@
     },
     {
       "route_key": "freelance-proposal",
+      "bucket": "freelance-proposal",
       "trigger_patterns": [
         "upwork",
         "fiverr",
@@ -45,7 +84,7 @@
       ],
       "example_prompt": "Write an Upwork freelance proposal for this client post.",
       "surface": "proposal",
-      "lane": "all_buckets",
+      "lane": "AI Consultant",
       "owner": "Linear",
       "intent": "Turn a marketplace opportunity into a reviewed proposal or next action.",
       "shape": "task",
@@ -58,6 +97,7 @@
     },
     {
       "route_key": "agency-growth",
+      "bucket": "agency-growth",
       "trigger_patterns": [
         "cold email",
         "outbound",
@@ -70,7 +110,7 @@
       ],
       "example_prompt": "Build a cold email sequence for this direct B2B lead.",
       "surface": "outreach",
-      "lane": "all_buckets",
+      "lane": "AI Consultant",
       "owner": "Linear",
       "intent": "Plan or execute direct B2B client acquisition from real signals and proof.",
       "shape": "task",
@@ -83,6 +123,7 @@
     },
     {
       "route_key": "job-application",
+      "bucket": "job-application",
       "trigger_patterns": [
         "job application",
         "resume",
@@ -100,7 +141,7 @@
       ],
       "example_prompt": "Use my Reactive Resume JSON to tailor a resume, experience summary, or career-reference response.",
       "surface": "application",
-      "lane": "all_buckets",
+      "lane": "Portfolio",
       "owner": "Linear",
       "intent": "Use canonical resume JSON to give a truthful resume, experience, or career-reference angle without requiring PDF extraction.",
       "shape": "task",
@@ -113,6 +154,7 @@
     },
     {
       "route_key": "cover-note",
+      "bucket": "cover-note",
       "trigger_patterns": [
         "cover letter",
         "cover note",
@@ -120,7 +162,7 @@
       ],
       "example_prompt": "Write a casual cover note for this application.",
       "surface": "application",
-      "lane": "all_buckets",
+      "lane": "Writing Review",
       "owner": "Linear",
       "intent": "Write a short, human note for an application or reply.",
       "shape": "task",
@@ -132,7 +174,34 @@
       "enabled": true
     },
     {
+      "route_key": "writing-review",
+      "bucket": "writing-review",
+      "trigger_patterns": [
+        "writing review",
+        "say less pass",
+        "rewrite.*email",
+        "rewrite.*client",
+        "edit.*client update",
+        "tighten.*linear issue",
+        "tighten.*notion",
+        "compress.*handoff"
+      ],
+      "example_prompt": "Run a writing review and compress this client update to the useful next action.",
+      "surface": "reviewable writing",
+      "lane": "Writing Review",
+      "owner": "Docs/skills",
+      "intent": "Compress a reviewable artifact to the current truth, useful context, and next action required by its audience.",
+      "shape": "review result",
+      "required_tools": [
+        "s-systems:cerebral-router"
+      ],
+      "review_gate": "Keep source detail behind a link; show only the information the reader needs to act or decide.",
+      "priority": 47,
+      "enabled": true
+    },
+    {
       "route_key": "proof-packaging",
+      "bucket": "proof-packaging",
       "trigger_patterns": [
         "eagle proof",
         "portfolio asset",
@@ -156,6 +225,7 @@
     },
     {
       "route_key": "offer-content",
+      "bucket": "offer-content",
       "trigger_patterns": [
         "linkedin post",
         "instagram",
@@ -166,7 +236,7 @@
       ],
       "example_prompt": "Turn this project screenshot into a LinkedIn proof content idea.",
       "surface": "content",
-      "lane": "all_buckets",
+      "lane": "Content Editor",
       "owner": "Docs/skills",
       "intent": "Turn real proof into useful offer-aligned content.",
       "shape": "proof",
@@ -179,6 +249,7 @@
     },
     {
       "route_key": "opportunity-hq",
+      "bucket": "opportunity-hq",
       "trigger_patterns": [
         "opportunity hq",
         "career hq",
@@ -190,7 +261,7 @@
       ],
       "example_prompt": "Add this as an Opportunity HQ task and choose the right page shape.",
       "surface": "task",
-      "lane": "all_buckets",
+      "lane": "System Maintenance",
       "owner": "Linear",
       "intent": "Shape durable project or task work before mutation.",
       "shape": "task",
@@ -203,6 +274,7 @@
     },
     {
       "route_key": "planning-routing",
+      "bucket": "planning-routing",
       "trigger_patterns": [
         "raw idea",
         "someday",
@@ -214,7 +286,7 @@
       ],
       "example_prompt": "Route this raw workflow idea before turning it into a task.",
       "surface": "task",
-      "lane": "all_buckets",
+      "lane": "System Maintenance",
       "owner": "Docs/skills",
       "intent": "Classify a mixed idea and choose its owner surface.",
       "shape": "operating rule",
@@ -227,6 +299,7 @@
     },
     {
       "route_key": "system-dashboard",
+      "bucket": "system-dashboard",
       "trigger_patterns": [
         "career tracker",
         "outreach dashboard",
@@ -237,7 +310,7 @@
       ],
       "example_prompt": "Plan the focused outreach dashboard for the active week.",
       "surface": "dashboard",
-      "lane": "all_buckets",
+      "lane": "Development",
       "owner": "Next/Vercel",
       "intent": "Define the seven-day review surface and its owner-backed dashboard contract.",
       "shape": "prototype",
@@ -251,6 +324,7 @@
     },
     {
       "route_key": "linear-action-gateway",
+      "bucket": "linear-action-gateway",
       "trigger_patterns": [
         "linear graphql",
         "linear api gateway",
@@ -262,7 +336,7 @@
       ],
       "example_prompt": "Wire a new project, label, or template into the Linear inbox web form.",
       "surface": "integration",
-      "lane": "all_buckets",
+      "lane": "Development",
       "owner": "Linear",
       "intent": "Serve /linear-inbox as the shared desktop and mobile create-or-update surface, backed by one server-side GraphQL gateway; the iOS Shortcut and Android share_target are thin capture pipes into it, not separate clients.",
       "shape": "prototype",
@@ -276,6 +350,7 @@
     },
     {
       "route_key": "visualization",
+      "bucket": "visualization",
       "trigger_patterns": [
         "likec4",
         "architecture map",
@@ -285,7 +360,7 @@
       ],
       "example_prompt": "Update the LikeC4 architecture map for this workflow.",
       "surface": "visual",
-      "lane": "all_buckets",
+      "lane": "Development",
       "owner": "LikeC4",
       "intent": "Create or update a reviewed visual system map.",
       "shape": "HTML comp",
@@ -298,6 +373,7 @@
     },
     {
       "route_key": "website-offer",
+      "bucket": "website-offer",
       "trigger_patterns": [
         "website",
         "landing page",
@@ -307,7 +383,7 @@
       ],
       "example_prompt": "Tighten the offer wording on the Singleton Systems landing page.",
       "surface": "content",
-      "lane": "all_buckets",
+      "lane": "AI Consultant",
       "owner": "Docs/skills",
       "intent": "Make an offer or site decision from the Singleton Systems business model.",
       "shape": "operating rule",
@@ -320,6 +396,7 @@
     },
     {
       "route_key": "eagle-library",
+      "bucket": "eagle-library",
       "trigger_patterns": [
         "eagle library",
         "eagle tag",
@@ -342,6 +419,7 @@
     },
     {
       "route_key": "client-video",
+      "bucket": "client-video",
       "trigger_patterns": [
         "client video",
         "storyboard",

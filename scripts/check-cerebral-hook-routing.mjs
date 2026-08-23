@@ -45,11 +45,17 @@ for (const route of routes) {
   for (const prompt of [route.example_prompt, `[route] ${route.route_key}\nHandle this request.`]) {
     const result = runHook(prompt);
     assert.equal(result.status, 0, `${route.route_key}: hook exited ${result.status}: ${result.stderr}`);
-    const must = [`[route] ${route.route_key}`, `[lane] ${route.lane}`, `[owner] ${route.owner}`, ...route.required_tools];
+    const must = [`[route] ${route.route_key}`, `[lane] ${route.lane}`, `[bucket] ${route.bucket}`, `[owner] ${route.owner}`, ...route.required_tools];
     for (const snippet of must) {
       assert.match(result.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `${route.route_key}: missing ${snippet}`);
     }
   }
+}
+
+const explicitBucket = runHook("[bucket] writing-review\nCompress this client update.");
+assert.equal(explicitBucket.status, 0);
+for (const snippet of ["[route] writing-review", "[lane] Writing Review", "[bucket] writing-review"]) {
+  assert.match(explicitBucket.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `explicit bucket: missing ${snippet}`);
 }
 
 const preflight = runHook("Can you use the PDF tool to inspect this file?");
@@ -91,6 +97,7 @@ for (const snippet of [
   assert.match(offerPacket.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `offer packet: missing ${snippet}`);
 }
 assert.match(offerPacket.stdout, /Writing rules for reviewable artifacts/, "offer packet: missing writing rules");
+assert.match(offerPacket.stdout, /Jerami review: aim for 300-500 words maximum/, "offer packet: hook did not read the canonical payload");
 
 const socialPrompt = runHook("Write a LinkedIn post I can publish about AI hooks.");
 assert.equal(socialPrompt.status, 0);

@@ -17,6 +17,8 @@ LikeC4       -> reviewed architecture
 
 ```text
 [lane] Development | Content Editor | AI Consultant | Portfolio
+[system lane] Writing Review | System Maintenance
+[bucket] canonical route key; trigger patterns are accepted aliases
 ```
 
 ## Source Rules

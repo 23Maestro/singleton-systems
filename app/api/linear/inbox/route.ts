@@ -3,6 +3,7 @@ import { z } from "zod";
 import { linearInboxProjectNames, linearInboxProjects } from "@/lib/linear-inbox-projects";
 import { getLinearInboxDraft } from "@/lib/linear-inbox-drafts";
 import { recordLinearInboxSubmission } from "@/lib/linear-inbox-submissions";
+import { delivered, failedReceipt, receiptNotRequired, recordedReceipt, type ReceiptOutcome } from "@/lib/delivery-outcome";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -234,21 +235,29 @@ async function createLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
     { input },
   );
 
-  await trackSubmission(data.issueCreate.issue);
+  const receipt = await trackSubmission(data.issueCreate.issue);
 
   return {
     action: "new",
     updateShape: "issue",
     issue: data.issueCreate.issue,
     url: data.issueCreate.issue.url,
+    delivery: delivered({
+      owner: "Linear",
+      recordId: data.issueCreate.issue.id,
+      recordUrl: data.issueCreate.issue.url,
+      receipt,
+    }),
   };
 }
 
-async function trackSubmission(issue: LinearIssue) {
+async function trackSubmission(issue: LinearIssue): Promise<ReceiptOutcome> {
   try {
     await recordLinearInboxSubmission(issue);
+    return recordedReceipt(issue.id);
   } catch (error) {
-    console.error("linear-inbox: failed to record submission for status tracking", error);
+    console.error("linear-inbox: failed to record submission for status tracking", { issueId: issue.id, error });
+    return failedReceipt("Supabase receipt failed.");
   }
 }
 
@@ -310,13 +319,19 @@ async function updateLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
       },
     );
 
-    await trackSubmission(data.issueCreate.issue);
+    const receipt = await trackSubmission(data.issueCreate.issue);
 
     return {
       action: "update",
       updateShape,
       issue: data.issueCreate.issue,
       url: data.issueCreate.issue.url,
+      delivery: delivered({
+        owner: "Linear",
+        recordId: data.issueCreate.issue.id,
+        recordUrl: data.issueCreate.issue.url,
+        receipt,
+      }),
     };
   }
 
@@ -345,6 +360,12 @@ async function updateLinearIssue(entry: InboxEntry, target: ResolvedTarget) {
     updateShape,
     comment: data.commentCreate.comment,
     url: data.commentCreate.comment.url,
+    delivery: delivered({
+      owner: "Linear",
+      recordId: data.commentCreate.comment.id,
+      recordUrl: data.commentCreate.comment.url,
+      receipt: receiptNotRequired(),
+    }),
   };
 }
 

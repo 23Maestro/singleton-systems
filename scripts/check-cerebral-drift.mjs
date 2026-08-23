@@ -27,7 +27,11 @@ const checks = [
   },
   {
     file: ".codex/hooks/cerebral_singleton_guard.py",
-    must: ["ROUTING_SURFACES", "STALE_OWNER_PATTERNS", "Supabase runtime registry", "Linear, GitHub, Supabase, and dashboard model"],
+    must: ["ROUTING_SURFACES", "STALE_OWNER_PATTERNS", "Supabase runtime registry", "Linear, GitHub, Supabase, and dashboard model", "writing_context()"],
+  },
+  {
+    file: "CONTEXT.md",
+    must: ["Writing Review and System Maintenance", "trigger patterns are accepted aliases", "`all_buckets` is retired as a Lane value", "A receipt uses `not_required`, `recorded`, or `failed`"],
   },
   {
     file: skillPath("cerebral-router"),

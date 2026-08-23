@@ -8,10 +8,13 @@ const pluginRoot = process.env.SYSTEMS_PLUGIN_ROOT || registry.plugin.source_pat
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 const skill = (name) => read(path.join(pluginRoot, "skills", name, "SKILL.md"));
 const initiatives = "Development | Content Editor | AI Consultant | Portfolio";
+const systemLanes = "Writing Review | System Maintenance";
 const updater = skill("opportunity-hq-updater");
 
 // Lane vocabulary is the initiative set: initiative = durable business lane.
 assert.match(read("docs/harness/README.md"), new RegExp(`\\[lane\\] ${initiatives}`));
+assert.match(read("docs/harness/README.md"), new RegExp(`\\[system lane\\] ${systemLanes}`));
+assert.ok(registry.routes.every((route) => route.lane !== "all_buckets"));
 
 // Linear owns task state. No route may point at the retired Opportunity HQ owner.
 const retired = registry.routes.filter((route) => /opportunity hq/i.test(route.owner ?? ""));

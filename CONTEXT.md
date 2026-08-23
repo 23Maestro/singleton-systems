@@ -7,14 +7,18 @@ Notion, and Supabase delivery.
 
 ## Glossary
 
-- Lane: the front-facing work category.
-- Bucket: a trigger word and tool-harness destination. It does not replace
-  Lane in user-facing language.
+- Lane: the front-facing work category. Valid values are the four initiatives
+  plus Writing Review and System Maintenance.
+- Bucket: the internal tool-harness destination. Its route key is canonical;
+  trigger patterns are accepted aliases. It does not replace Lane in
+  user-facing language.
 - Gate: the shared contract that resolves routing, applies review rules, and
   records delivery results.
 - Owner: the system that holds the durable business record.
 - Delivery outcome: the result of a delivery attempt, including a visible
   failure and a link to the owning record when one exists.
+- Receipt: the Supabase record of an integration attempt when that workflow
+  needs one.
 
 ## Locked decisions
 
@@ -26,9 +30,12 @@ Notion, and Supabase delivery.
   needs them.
 - Repo docs and skills own policy.
 - `config/cerebral-registry.json` is the machine-readable gate contract.
+- A delivery outcome uses `pending`, `delivered`, or `failed`. It names the
+  owner and includes the record ID, record URL, and error fields.
+- A receipt uses `not_required`, `recorded`, or `failed`.
+- `all_buckets` is retired as a Lane value.
 - The Raycast Linear fork stays outside this pass.
 
-## Open decisions
+## Open decision
 
-- Whether `all_buckets` remains a Lane value or becomes Bucket metadata.
-- Which client flow proves the first end-to-end slice.
+- Which client flow proves the first audience-specific writing mold.

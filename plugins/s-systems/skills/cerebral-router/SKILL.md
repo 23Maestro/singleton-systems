@@ -27,6 +27,8 @@ reviewed architecture -> LikeC4
 ```text
 [owner] one durable surface
 [intent] one sentence
+[lane] one initiative or system Lane
+[bucket] one internal harness destination
 [tools] smallest stack
 [review] mutation gate
 [verify] proof command or readback
@@ -51,6 +53,8 @@ The dashboard reads owner state and opens owner links.
 ```text
 Owner:
 Intent:
+Lane:
+Bucket:
 Tools:
 Review:
 Verify:
