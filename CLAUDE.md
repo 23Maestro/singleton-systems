@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This is the secondary Claude Code entrypoint. Read `CODEX.md` first. It is the
+canonical shared repository guide and wins when these files disagree. The
+remaining notes mirror the shared architecture for Claude Code.
 
 ## What this repo is
 

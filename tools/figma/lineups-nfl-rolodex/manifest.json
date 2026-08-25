@@ -1,0 +1,15 @@
+{
+  "name": "Lineups NFL Rolodex",
+  "id": "1673573331262482658",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "src/ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"],
+    "devAllowedDomains": [
+      "http://localhost:41723"
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+start,end,duration,base_visual,overlays,transition,purpose,reusable_pattern,likely_engine,audio_note
+00:00.000,00:14.181,14.181,B-roll,Keeper & Kin logo,fade from black then dissolve,brand and emotional open,branded live-action opener,Premiere,music bed begins; exact mix change needs ear check
+00:14.181,00:23.500,9.319,speaker,topic lower third,dissolve from opener,establish subject and speaker,wide speaker plus topic bar,Premiere,dialogue over music bed
+00:23.500,00:28.487,4.987,speaker,none,lower third exits,hold trust through the premise,clean wide speaker hold,Premiere,dialogue over music bed
+00:28.487,00:33.367,4.880,speaker,none,direct punch-in,stress the human comparison,editorial punch-in,Premiere,dialogue over music bed
+00:33.367,00:37.079,3.712,speaker,none,direct reset wide,reset before the next claim,wide reset,Premiere,dialogue over music bed
+00:37.079,00:41.458,4.379,speaker,none,direct punch-in,raise concern around pain,editorial punch-in,Premiere,dialogue over music bed
+00:41.458,00:45.546,4.088,B-roll,none,direct cut,show a veterinary check,claim-specific evidence insert,Premiere,dialogue continues under insert
+00:45.546,00:49.633,4.087,B-roll,none,direct cut,show physical discomfort,dog detail evidence insert,Premiere,dialogue continues under insert
+00:49.633,00:53.136,3.503,speaker,none,direct cut,return authority to speaker,short speaker bridge,Premiere,dialogue over music bed
+00:53.136,00:58.767,5.631,full-screen graphic,DOGS HIDE PAIN REALLY WELL,graphic build then wipe,land the core claim,black-bar claim card,Remotion,graphic accent needs ear check
+00:58.767,01:04.000,5.233,speaker,Dogs Are Incredibly Resilient lower third,direct return,reframe a common assumption,blue statement bar,Premiere,dialogue over music bed
+01:04.000,01:10.821,6.821,speaker,none,lower third exits,extend the proof,clean speaker hold,Premiere,dialogue over music bed
+01:10.821,01:18.579,7.758,B-roll,none,circular wipe in and direct cut out,show hands-on veterinary care,circle-wipe evidence insert,Premiere,dialogue continues under insert; transition accent needs ear check
+01:18.579,01:23.458,4.879,speaker,none,direct cut,introduce the Buddy case,short speaker bridge,Premiere,dialogue over music bed
+01:23.458,01:27.379,3.921,still image,Buddy label,direct cut,name the case subject,labeled client still,Premiere,dialogue continues
+01:27.379,01:39.933,12.554,vertical footage,Buddy label; blurred side fill,direct cut,show Buddy's behavior,labeled vertical evidence footage,Premiere,dialogue continues
+01:39.933,01:54.906,14.973,speaker,none,direct cut,explain the case pattern,wide speaker explanation,Premiere,dialogue over music bed
+01:54.906,02:00.662,5.756,speaker,none,direct punch-in,stress the vet-check recommendation,editorial punch-in,Premiere,dialogue over music bed
+02:00.662,02:09.212,8.550,speaker,none,direct reset wide,describe the finding,wide reset,Premiere,dialogue over music bed
+02:09.212,02:13.383,4.171,speaker,none,direct punch-in,land the diagnosis,editorial punch-in,Premiere,dialogue over music bed
+02:13.383,02:32.569,19.186,speaker,none,direct reset wide,connect pain to behavior,long speaker explanation,Premiere,dialogue over music bed
+02:32.569,02:44.373,11.804,vertical footage,blurred side fill,direct cut,show at-home behavior,vertical evidence insert,Premiere,dialogue continues
+02:44.373,02:54.000,9.627,full-screen graphic,NEUROLOGICAL HEALTH; SEIZURES; SUNDOWNERS; supporting caption,graphic build and wipe,open a new medical section,stacked section explainer,Remotion,graphic accents need ear check
+02:54.000,02:59.000,5.000,speaker,Focal Seizures; Staring Episodes; Sudden Neurological Events,graphic slides in,translate symptoms into scanable points,speaker-side bullet stack,Remotion,dialogue over music bed; reveal accents need ear check
+02:59.000,03:04.017,5.017,speaker,none,direct punch-in,finish the seizure explanation,clean close speaker hold,Premiere,dialogue over music bed
+03:04.017,03:14.611,10.594,still image,SUNDOWNERS; Increased Confusion & Anxiety Later In The Day,direct cut then staged callout,define sundowners,full-screen still explainer,Remotion,dialogue continues; reveal accent needs ear check
+03:14.611,03:20.575,5.964,speaker,none,direct cut,return to explanation,close speaker bridge,Premiere,dialogue over music bed
+03:20.575,03:30.293,9.718,speaker,none,direct reset wide,connect the condition to training,wide speaker explanation,Premiere,dialogue over music bed
+03:30.293,03:36.299,6.006,B-roll,none,direct cut,visualize evening sensitivity,night dog evidence insert,Premiere,dialogue continues
+03:36.299,03:39.000,2.701,speaker,none,direct cut,introduce Guinness,short speaker bridge,Premiere,dialogue over music bed
+03:39.000,03:41.888,2.888,vertical footage,Guinness label; blurred side fill,direct cut,name the case subject,labeled vertical case footage,Premiere,dialogue continues
+03:41.888,03:45.225,3.337,speaker,none,direct cut,set up the case problem,close speaker bridge,Premiere,dialogue over music bed
+03:45.225,03:51.523,6.298,vertical footage,Recording from his house; blurred side fill,direct cut,show confinement behavior,labeled home-recording evidence,Premiere,dialogue continues
+03:51.523,04:08.707,17.184,speaker,none,direct cut,explain the emerging pattern,wide speaker explanation,Premiere,dialogue over music bed
+04:08.707,04:13.211,4.504,vertical footage,Recording from his house; blurred side fill,rapid blur transition,show the episode starting,home-recording evidence continuation,Premiere,dialogue continues
+04:13.211,04:16.298,3.087,vertical footage,Recording from his house; Labored Breathing pointer,direct cut within footage,identify the symptom,evidence footage with pointer label,Premiere,dialogue continues; pointer accent needs ear check
+04:16.298,04:21.094,4.796,vertical footage,Recording from his house; blurred side fill,direct cut within footage,show disorientation,evidence continuation,Premiere,dialogue continues
+04:21.094,04:24.723,3.629,speaker,none,direct cut,interpret the evidence,short speaker bridge,Premiere,dialogue over music bed
+04:24.723,04:30.395,5.672,vertical footage,blurred side fill,direct cut,show the dog confined,vertical case insert,Premiere,dialogue continues
+04:30.395,04:53.376,22.981,speaker,none,direct cut,explain the medical root cause,long speaker explanation,Premiere,dialogue over music bed
+04:53.376,05:13.897,20.521,speaker,none,direct punch-in,land the case lesson,long close speaker hold,Premiere,dialogue over music bed
+05:13.897,05:18.527,4.630,full-screen graphic,MEDICAL EVENT arrow EMOTIONAL EVENT,graphic build,compress the causal lesson,icon equation explainer,Remotion,graphic accents need ear check
+05:18.527,05:24.658,6.131,vertical footage,blurred side fill,direct cut,show Guinness after the event,vertical case insert,Premiere,dialogue continues
+05:24.658,05:36.294,11.636,speaker,none,direct cut,move from cases to common causes,wide speaker explanation,Premiere,dialogue over music bed
+05:36.294,05:45.595,9.301,speaker,none,direct punch-in,stress common medical factors,editorial punch-in,Premiere,dialogue over music bed
+05:45.595,05:48.265,2.670,speaker,none,direct reset wide,prepare the list,wide reset,Premiere,dialogue over music bed
+05:48.265,05:53.000,4.735,speaker,THYROID ISSUES with supporting line,lower third slides in,name the first common cause,white label and dark caption bed,Premiere,dialogue over music bed
+05:53.000,05:55.313,2.313,speaker,SKIN AND FUR ISSUES with supporting line,lower-third swap,name the second common cause,white label and dark caption bed,Premiere,dialogue over music bed
+05:55.313,06:01.403,6.090,B-roll,SKIN AND FUR ISSUES then VISION AND HEARING CHANGES,direct cuts,show physical examples,labeled evidence montage,Premiere,dialogue continues
+06:01.403,06:04.000,2.597,speaker,VISION AND HEARING CHANGES with supporting line,direct cut,finish the sensory point,labeled speaker return,Premiere,dialogue over music bed
+06:04.000,06:09.369,5.369,speaker,EMOTIONAL SENSITIVITY with supporting line,lower-third swap,open the emotional-health point,white label and dark caption bed,Premiere,dialogue over music bed
+06:09.369,06:15.750,6.381,vertical footage,EMOTIONAL SENSITIVITY; blurred side fill,direct cut,show touch sensitivity,labeled vertical evidence insert,Premiere,dialogue continues
+06:15.750,06:23.508,7.758,full-screen graphic,PILLARS THAT SUPPORT HEALTH; Physical Health; Mental Health,white wipe then staged build,define the two support pillars,pillar-system explainer,Remotion,graphic accents need ear check
+06:23.508,06:27.888,4.380,speaker,none,direct cut,bridge to exercise balance,short speaker bridge,Premiere,dialogue over music bed
+06:27.888,06:36.021,8.133,full-screen graphic,Exercise claim; BALANCE; Physical Exercise; Mental Exercise,white wipe then staged build,show the exercise equation,balance-system explainer,Remotion,graphic accents need ear check
+06:36.021,06:38.899,2.878,B-roll,none,direct cut,show a lick mat,claim-specific product insert,Premiere,dialogue continues
+06:38.899,06:51.000,12.101,speaker,none,direct cut,explain mental energy needs,wide speaker explanation,Premiere,dialogue over music bed
+06:51.000,06:54.247,3.247,B-roll,NUTRITION label,direct cut,name the next basic need,labeled food insert,Premiere,dialogue continues
+06:54.247,07:05.133,10.886,speaker,none,direct cut,explain diet effects,wide speaker explanation,Premiere,dialogue over music bed
+07:05.133,07:09.095,3.962,speaker,SLEEP & REST lower third,direct punch-in,name the final basic need,blue statement bar,Premiere,dialogue over music bed
+07:09.095,07:21.441,12.346,vertical footage,Dogs need 16-20 hours of rest a day; blurred side fill,direct cut,make the rest requirement concrete,vertical evidence plus statistic caption,Premiere,dialogue continues
+07:21.441,07:30.909,9.468,B-roll,none,direct cut,show overstimulating daycare activity,claim-specific evidence insert,Premiere,dialogue continues
+07:30.909,07:50.512,19.603,speaker,none,direct cut,deliver the main takeaway,wide speaker close,Premiere,dialogue over music bed
+07:50.512,08:44.190,53.679,full-screen graphic,MAIN POINTS TO REMEMBER; three numbered rows,white wipe then staged rows,recap the lesson,progressive numbered recap,Remotion,voice-over and music bed; row accents need ear check
+08:44.190,08:51.605,7.415,end card,Keeper & Kin logo,circular wipe then hold,close the lesson,branded end card,Remotion,music resolves; exact tail needs ear check

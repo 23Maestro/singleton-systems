@@ -28,6 +28,9 @@ engines merely to use a newly available tool.
 
 For a new beat:
 
+- **Figma Motion:** approved Figma component states, phrase-timed 2D reveals,
+  title scenes, and transparent speaker overlays. Keep one top-level timeline
+  frame per beat and animate its descendants.
 - **Remotion:** existing components, repeatable systems, data-driven layouts,
   coded product interfaces, and parameterized scene families.
 - **HyperFrames:** net-new standalone HTML compositions where art direction,

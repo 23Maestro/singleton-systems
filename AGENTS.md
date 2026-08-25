@@ -4,9 +4,10 @@ Codex is the primary implementation driver for this repository. Work stays in
 the current task unless Jerami explicitly requests a separate task. Do not
 dispatch sub-agents, create AFK work, or start background implementation.
 
-`CLAUDE.md` contains the shared repository architecture, commands, writing
-rules, and conventions. Read it before changing the repository. This file owns
-Codex-specific workflow when the two files differ.
+`CODEX.md` contains the canonical repository architecture, commands, writing
+rules, and conventions. Read it before changing the repository. `CLAUDE.md` is
+the secondary Claude Code entrypoint. This file owns Codex-specific workflow
+when the files differ.
 
 ## Start here
 
@@ -32,7 +33,7 @@ authorize automatic dispatch or unsupervised implementation.
 
 ## Checks
 
-Use the commands documented in `CLAUDE.md`. When routing, hooks, skills, or
+Use the commands documented in `CODEX.md`. When routing, hooks, skills, or
 their contract docs change, run:
 
 ```bash
@@ -40,4 +41,3 @@ npm run check:cerebral
 npm run check:cerebral:registry
 npm run check:cerebral:hook-routing
 ```
-

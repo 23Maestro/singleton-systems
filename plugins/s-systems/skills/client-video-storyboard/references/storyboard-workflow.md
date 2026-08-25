@@ -6,6 +6,23 @@ Confirm source media, transcript or script, client notes, references, target
 runtime, aspect ratio, caption expectations, delivery format, and review owner.
 Mark transcript language as locked, flexible, or missing.
 
+## Reference gate
+
+When a client supplies a style reference, complete the full reference audit
+before the target storyboard. Read `reference-edit-profile.md`.
+
+```text
+full reference audit
+  -> quantified Edit Style Profile
+  -> reusable visual and motion families
+  -> client-specific storyboard
+  -> edit
+  -> post-edit learning pass
+```
+
+Do not promote a short sampled match into a style rule. The target storyboard
+must cite the source range and family from the finished profile.
+
 ## Breakdown
 
 Run only the stages the client profile needs:
@@ -16,7 +33,9 @@ URL or local video
   -> native captions, then local Whisper fallback
   -> scene detection and adaptive sampling
   -> compact frame manifest and contact sheets
-  -> transcript and visual beat mapping
+  -> full reference ledger and metrics when a reference exists
+  -> recurring visual and motion families
+  -> target transcript and visual beat mapping
   -> Eagle asset matching
   -> storyboard with one primary engine per beat
   -> human review
@@ -26,6 +45,11 @@ URL or local video
 Keep raw frames and source assets in Eagle. Keep active work, decisions, and
 trial status in Linear. Keep approved visual components and variables in Figma.
 Do not copy task state into Supabase or Eagle.
+
+Figma records approved component states. Figma Motion can own phrase-timed 2D
+scenes and alpha overlays. Other motion engines remain available when the beat
+calls for them. Premiere owns the target edit and its editorial rhythm. Name
+one primary engine for each target beat.
 
 ## Profiles
 

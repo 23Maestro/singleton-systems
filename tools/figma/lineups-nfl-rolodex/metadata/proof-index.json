@@ -1,0 +1,44 @@
+[
+  {
+    "eagleId": "MSI0PT87ED4O2",
+    "currentName": "23_PatrickMahomes_ChargersGame1",
+    "proposedPersonName": "Patrick Mahomes",
+    "team": "Kansas City Chiefs",
+    "role": "player",
+    "position": "QB",
+    "imageContext": "game action vs. Chargers",
+    "sourceUrl": null,
+    "confidence": 1,
+    "needsReview": false,
+    "approvalStatus": "proof-only",
+    "aliases": ["Mahomes", "Chiefs quarterback"]
+  },
+  {
+    "eagleId": "MSQ8J3RPUASCJ",
+    "currentName": "2026-01-04T193718Z_850239210_MT1USATODAY27931063_RTRMADP_3_NFL-DALLAS-COWBOYS-AT-NEW-YORK-GIANTS",
+    "proposedPersonName": "Dak Prescott",
+    "team": "Dallas Cowboys",
+    "role": "player",
+    "position": "QB",
+    "imageContext": "game passing action vs. Giants",
+    "sourceUrl": null,
+    "confidence": 1,
+    "needsReview": false,
+    "approvalStatus": "proof-only",
+    "aliases": ["Dak", "Prescott", "Cowboys quarterback"]
+  },
+  {
+    "eagleId": "MSNRLO2V2IE7E",
+    "currentName": "33_AndyReid_ChiefsHCSolo",
+    "proposedPersonName": "Andy Reid",
+    "team": "Kansas City Chiefs",
+    "role": "coach",
+    "position": "Head coach",
+    "imageContext": "sideline portrait",
+    "sourceUrl": null,
+    "confidence": 1,
+    "needsReview": false,
+    "approvalStatus": "proof-only",
+    "aliases": ["Reid", "Chiefs coach"]
+  }
+]

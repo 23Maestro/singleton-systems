@@ -1,6 +1,6 @@
 # Writing Rules
 
-Canonical source. Generated copies live in `CLAUDE.md`, skill files, and client
+Canonical source. Generated copies live in `CODEX.md`, `CLAUDE.md`, skill files, and client
 repo hooks. Never hand-edit a copy.
 
 ## Scope

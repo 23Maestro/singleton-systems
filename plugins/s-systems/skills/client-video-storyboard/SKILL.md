@@ -16,25 +16,34 @@ Codex     -> source mapping, storyboard, checklist
 
 1. Confirm the URL or local source, client profile, transcript/script, notes,
    references, runtime, aspect ratio, captions, and delivery requirements.
-2. Read `references/storyboard-workflow.md` and create the packet.
+2. When a client supplies a style reference, read
+   `references/reference-edit-profile.md`. Audit the reference from its first
+   frame through its final frame before mapping any target footage. Produce the
+   event ledger and quantified Edit Style Profile. A sampled moment is an
+   example, not a profile.
+3. Read `references/storyboard-workflow.md` and create the packet.
    Use `references/storyboard-template.md` when it needs asset intake, decision
    labels, or a fuller Premiere handoff table.
    Keep Jerami's working packet between 300 and 500 words. Put raw transcript,
    ingest detail, and machine checks behind links. If the review cannot fit,
    route it to a dated interactive Decision Map.
-3. Prefer native captions, then local Whisper. Use ffprobe, scene detection,
+4. Prefer native captions, then local Whisper. Use ffprobe, scene detection,
    adaptive sampling, a compact frame manifest, and contact sheets only when
    the profile needs visual analysis.
-4. Keep each storyboard row to one meaningful screen change and one primary
+5. Keep each storyboard row to one meaningful screen change and one primary
    engine.
-5. Use `s-systems:eagle` for asset operations.
-6. Before any Premiere import, read
+6. When a mapped beat needs animation, read
+   `references/motion-cue-map.md`. Use the client Edit Style Profile to set the
+   cadence, then bind each reveal to a verified transcript phrase or edit point.
+   Load `figma-use` and `figma-use-motion` when Figma Motion owns the beat.
+7. Use `s-systems:eagle` for asset operations.
+8. Before any Premiere import, read
    `references/premiere-ingest-contract.md`. Import every asset
    into its numbered role bin and apply the agreed color label to the project
    item immediately. The import response is not proof. Resolve the new item ID,
    move it to the destination bin ID, then reread its `treePath`. Never leave
    imported media in the project root.
-7. Before Premiere mutation, inspect project info, sequences, items, active
+9. Before Premiere mutation, inspect project info, sequences, items, active
    sequence, and bins. If the bridge is unavailable, stop at the packet.
 
 An ingest is complete only when a readback shows the asset under the intended

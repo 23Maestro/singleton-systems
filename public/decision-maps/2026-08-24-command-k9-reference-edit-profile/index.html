@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Command K9 edit style profile</title>
+  <style>
+    :root{color-scheme:light;--ink:#111318;--body:#475467;--muted:#667085;--line:#d9dee7;--wash:#f5f7fa;--white:#fff;--blue:#1597d5;--black:#0f1115}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--wash);color:var(--body);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}.shell{width:min(1120px,calc(100% - 32px));margin:auto}
+    header{padding:64px 0 42px;background:var(--white);border-bottom:1px solid var(--line)}.eyebrow{margin:0 0 14px;color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}h1{max-width:800px;margin:0;color:var(--ink);font-size:clamp(38px,7vw,72px);line-height:.98;letter-spacing:-.055em}.dek{max-width:760px;margin:22px 0 0;font-size:clamp(18px,2.2vw,24px);line-height:1.4}.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}.chip{padding:7px 11px;border:1px solid var(--line);border-radius:999px;background:var(--wash);color:var(--muted);font-size:12px;font-weight:750}
+    main{padding:44px 0 84px}.section{margin-top:48px}.section:first-child{margin-top:0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:18px}.section-head h2{margin:0;color:var(--ink);font-size:clamp(28px,4vw,42px);letter-spacing:-.035em}.section-head p{max-width:520px;margin:0;text-align:right}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{min-height:136px;padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--white)}.metric .value{display:block;color:var(--ink);font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-.045em}.metric .label{display:block;margin-top:8px;font-size:14px;font-weight:700}
+    .mix{display:flex;height:64px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--white)}.mix span{display:grid;place-items:center;min-width:12px;color:#fff;font-size:12px;font-weight:800}.speaker{background:#111318}.broll{background:#3978a8}.graphic{background:#1597d5}.vertical{background:#6d62c7}.still{background:#a56b32}.end{background:#65717f}.legend{display:flex;flex-wrap:wrap;gap:12px 18px;margin-top:14px}.legend span{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700}.dot{width:10px;height:10px;border-radius:3px}
+    .family-layout{display:grid;grid-template-columns:240px 1fr;gap:18px}.family-nav{display:grid;align-content:start;border:1px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}.family-nav button{border:0;border-bottom:1px solid var(--line);padding:15px 16px;background:transparent;color:var(--muted);text-align:left;font:700 14px/1.25 inherit;cursor:pointer}.family-nav button:last-child{border:0}.family-nav button.active{background:var(--black);color:#fff}.family{display:none;min-height:300px;padding:clamp(26px,5vw,48px);border:1px solid var(--line);border-radius:16px;background:var(--white)}.family.active{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}.timecode{display:inline-block;padding:7px 9px;border-radius:8px;background:#eaf5fb;color:#0a6e9e;font-size:12px;font-weight:800}.family h3{margin:16px 0 0;color:var(--ink);font-size:clamp(28px,4vw,46px);line-height:1;letter-spacing:-.04em}.family p{margin:18px 0 0;font-size:18px;line-height:1.52}.rules{display:grid;gap:0;border-top:1px solid var(--line)}.rule{padding:14px 0;border-bottom:1px solid var(--line)}.rule b{display:block;color:var(--ink);font-size:13px}.rule span{display:block;margin-top:4px;font-size:14px}.owner{display:inline-flex;margin-top:20px;padding:8px 10px;border:1px solid var(--line);border-radius:9px;color:var(--ink);font-size:12px;font-weight:800}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.node{position:relative;min-height:156px;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--white)}.node small{color:var(--blue);font-weight:800}.node strong{display:block;margin-top:10px;color:var(--ink);font-size:20px;line-height:1.1}.node p{margin:10px 0 0;font-size:14px;line-height:1.4}.note{margin-top:34px;padding:20px 22px;border-left:4px solid var(--blue);background:#eaf5fb;color:#17445b}.note strong{color:var(--ink)}
+    @media(max-width:860px){.metrics{grid-template-columns:repeat(2,1fr)}.family-layout{grid-template-columns:1fr}.family-nav{grid-template-columns:repeat(2,1fr)}.family-nav button{border-right:1px solid var(--line)}.family.active{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:8px;text-align:left}}
+    @media(max-width:520px){header{padding:40px 0 30px}.metrics{grid-template-columns:1fr 1fr}.metric{min-height:112px;padding:16px}.mix{height:88px}.mix span{font-size:0}.family-nav{grid-template-columns:1fr}.family{padding:24px}.flow{gap:8px}}
+  </style>
+</head>
+<body>
+  <header><div class="shell">
+    <p class="eyebrow">Command K9 · reference audit</p>
+    <h1>Edit Style Profile</h1>
+    <p class="dek">A full-runtime model of the 8:51 edit. The three-second pillars sequence is one family inside a larger editorial system.</p>
+    <div class="meta"><span class="chip">531.605 seconds</span><span class="chip">65 ledger rows</span><span class="chip">No timeline mutation</span><span class="chip">Visual profile complete</span></div>
+  </div></header>
+
+  <main><div class="shell">
+    <section class="section">
+      <div class="section-head"><h2>Measured rhythm</h2><p>Base visual categories cover the full runtime with no gaps or overlaps.</p></div>
+      <div class="metrics">
+        <div class="metric"><span class="value">53.8%</span><span class="label">Speaker visible</span></div>
+        <div class="metric"><span class="value">16.8%</span><span class="label">Full-screen graphics</span></div>
+        <div class="metric"><span class="value">14.4%</span><span class="label">Vertical footage</span></div>
+        <div class="metric"><span class="value">8.31s</span><span class="label">Average state interval</span></div>
+        <div class="metric"><span class="value">22</span><span class="label">Content graphics</span></div>
+        <div class="metric"><span class="value">9.66s</span><span class="label">Average graphic hold</span></div>
+        <div class="metric"><span class="value">7</span><span class="label">Punch-ins</span></div>
+        <div class="metric"><span class="value">7</span><span class="label">B-roll inserts after open</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Runtime mix</h2><p>Speaker-only time is 47.0%. Speaker plus graphics adds 6.8%.</p></div>
+      <div class="mix" aria-label="Runtime mix">
+        <span class="speaker" style="width:53.8%">53.8%</span><span class="broll" style="width:10.9%">10.9%</span><span class="graphic" style="width:16.8%">16.8%</span><span class="vertical" style="width:14.4%">14.4%</span><span class="still" style="width:2.7%"></span><span class="end" style="width:1.4%"></span>
+      </div>
+      <div class="legend"><span><i class="dot speaker"></i>Speaker</span><span><i class="dot broll"></i>B-roll</span><span><i class="dot graphic"></i>Full graphic</span><span><i class="dot vertical"></i>Vertical</span><span><i class="dot still"></i>Still</span><span><i class="dot end"></i>End card</span></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Seven reusable families</h2><p>Select a family to see its source anchor and build rule.</p></div>
+      <div class="family-layout">
+        <nav class="family-nav" aria-label="Reference families">
+          <button class="active" data-family="trust">Trust rhythm</button><button data-family="evidence">Labeled evidence</button><button data-family="claim">Claim card</button><button data-family="list">Speaker-side list</button><button data-family="system">Full-screen system</button><button data-family="recap">Progressive recap</button><button data-family="bridge">Evidence bridge</button>
+        </nav>
+        <div>
+          <article class="family active" id="trust"><div><span class="timecode">00:14–00:41 · 01:40–02:32</span><h3>Trust rhythm</h3><p>Hold the speaker through the explanation. Punch in when the claim turns or the diagnosis lands.</p><span class="owner">Primary owner · Premiere</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Centered speaker. Wide and close crops share the same axis.</span></div><div class="rule"><b>Motion</b><span>Direct cut. No decorative move.</span></div><div class="rule"><b>Purpose</b><span>Keep authority with the speaker.</span></div></div></article>
+          <article class="family" id="evidence"><div><span class="timecode">01:23–01:40 · 03:39–04:30</span><h3>Labeled evidence</h3><p>Use vertical client footage with blurred side fill. Add one name, source label, or symptom pointer.</p><span class="owner">Primary owner · Premiere</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Original vertical frame stays centered.</span></div><div class="rule"><b>Motion</b><span>Direct cut. Label slides once.</span></div><div class="rule"><b>Purpose</b><span>Turn a case story into proof.</span></div></div></article>
+          <article class="family" id="claim"><div><span class="timecode">00:53–00:59</span><h3>Claim card</h3><p>A short statement sits in a black bar over the white contour field. The completed card holds long enough to read.</p><span class="owner">Primary owner · Remotion</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Black header. Blue emphasis. White field.</span></div><div class="rule"><b>Motion</b><span>Bar build, text reveal, readable hold.</span></div><div class="rule"><b>Purpose</b><span>Land one sentence as the chapter claim.</span></div></div></article>
+          <article class="family" id="list"><div><span class="timecode">02:54–02:59</span><h3>Speaker-side list</h3><p>Two or three short labels enter beside the speaker while the face stays unobstructed.</p><span class="owner">Primary owner · Remotion</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Single aligned stack beside the face.</span></div><div class="rule"><b>Motion</b><span>One-at-a-time slide and settle.</span></div><div class="rule"><b>Purpose</b><span>Make symptoms easy to scan.</span></div></div></article>
+          <article class="family" id="system"><div><span class="timecode">06:15–06:36</span><h3>Full-screen system</h3><p>The pillars and balance scenes explain relationships. Each part enters in order, then the completed system holds.</p><span class="owner">Primary owner · Remotion</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Literal objects, blue label cards, soft shadows.</span></div><div class="rule"><b>Motion</b><span>Ordered reveal with no bounce.</span></div><div class="rule"><b>Purpose</b><span>Explain a relationship in one frame.</span></div></div></article>
+          <article class="family" id="recap"><div><span class="timecode">07:50–08:44</span><h3>Progressive recap</h3><p>One canvas remains on screen while three numbered rows arrive under voice-over.</p><span class="owner">Primary owner · Remotion</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Header above a fixed numbered stack.</span></div><div class="rule"><b>Motion</b><span>Add one row per spoken point.</span></div><div class="rule"><b>Purpose</b><span>Close with a useful memory aid.</span></div></div></article>
+          <article class="family" id="bridge"><div><span class="timecode">00:41–00:50 · 07:21–07:31</span><h3>Evidence bridge</h3><p>Leave the speaker when the claim can be shown. Return to the speaker for the meaning.</p><span class="owner">Primary owner · Premiere</span></div><div class="rules"><div class="rule"><b>Layout</b><span>Full-frame evidence. No extra decoration.</span></div><div class="rule"><b>Motion</b><span>Direct cuts or one restrained wipe.</span></div><div class="rule"><b>Purpose</b><span>Explain a claim and cover an edit.</span></div></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Required order</h2><p>The target storyboard starts after the reference profile.</p></div>
+      <div class="flow"><div class="node"><small>01</small><strong>Full audit</strong><p>Transcript, scene candidates, contact sheets, exact boundaries.</p></div><div class="node"><small>02</small><strong>Quantified profile</strong><p>Ledger, percentages, counts, frequency.</p></div><div class="node"><small>03</small><strong>Pattern families</strong><p>Layout rules, motion behavior, purpose.</p></div><div class="node"><small>04</small><strong>Target map</strong><p>Reference range to transcript beat and owner.</p></div><div class="node"><small>05</small><strong>Edit and learn</strong><p>Premiere assembly, review, post-edit notes.</p></div></div>
+      <div class="note"><strong>Audio boundary:</strong> Visual timing and percentages are complete. Exact sound-effect hits and music changes need one ear-check pass before this becomes an audio reference.</div>
+    </section>
+  </div></main>
+  <script>
+    const buttons=[...document.querySelectorAll('[data-family]')],families=[...document.querySelectorAll('.family')];
+    buttons.forEach(button=>button.addEventListener('click',()=>{buttons.forEach(item=>item.classList.toggle('active',item===button));families.forEach(item=>item.classList.toggle('active',item.id===button.dataset.family));document.querySelector(`#${button.dataset.family}`).scrollIntoView({behavior:'smooth',block:'nearest'});}));
+  </script>
+</body>
+</html>

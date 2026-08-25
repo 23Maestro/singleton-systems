@@ -2,6 +2,28 @@
 
 Use this reference when the edit needs more structure than the short skill checklist.
 
+## Edit Style Profile gate
+
+Complete this block before a target storyboard when a style reference exists.
+
+| Artifact | Required content | Status |
+| --- | --- | --- |
+| event ledger | first frame through final frame; one row per meaningful screen state | pending |
+| quantified profile | category percentages, graphic cadence, reframes, insert frequency | pending |
+| pattern families | layout, motion, transition, caption, and audio families | pending |
+| target mapping | cited reference range, target transcript beat, action, primary engine | blocked until profile is complete |
+
+Use the event-ledger columns from `reference-edit-profile.md`.
+
+When any target row uses Figma Motion, add a Motion Cue Map from
+`motion-cue-map.md` before animation work.
+
+## Target pattern mapping
+
+| Reference range and pattern | Target transcript beat | Action | Primary engine | Status |
+| --- | --- | --- | --- | --- |
+| `00:00.000–00:00.000` / family | exact source range or quote | preserve, adapt, or improve | Figma Motion, another motion engine, or Premiere | proposed |
+
 ## Asset intake
 
 | Asset | Source | Eagle folder | Premiere bin | Status | Note |

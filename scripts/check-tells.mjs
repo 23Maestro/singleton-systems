@@ -15,7 +15,7 @@ const HTML_EXTENSIONS = new Set([".html", ".htm"]);
 const GENERATED_PATH_RE = /(^|\/)(node_modules|vendor|dist|build|coverage|\.next|out)(\/|$)/;
 
 // Files that legitimately contain the banned words because they define or mirror them.
-const EXEMPT = new Set([RULES, "CLAUDE.md", "scripts/check-tells.mjs"]);
+const EXEMPT = new Set([RULES, "CODEX.md", "CLAUDE.md", "scripts/check-tells.mjs"]);
 
 function repoPath(file) {
   return relative(process.cwd(), file).split(sep).join("/");

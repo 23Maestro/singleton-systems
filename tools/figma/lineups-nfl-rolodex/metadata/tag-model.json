@@ -1,0 +1,38 @@
+{
+  "contractVersion": 1,
+  "mutationStatus": "no-write",
+  "intent": "Keep Eagle retrieval metadata sparse, deliberate, and human-approved.",
+  "approvedTagClasses": [
+    {
+      "name": "team",
+      "format": "official team name",
+      "examples": ["Kansas City Chiefs", "Dallas Cowboys"],
+      "applicationStatus": "approved class; this proof does not apply tags"
+    }
+  ],
+  "pendingDecisions": [
+    {
+      "name": "person",
+      "idea": "Player or coach names, associated with their team",
+      "applicationStatus": "not approved; do not create"
+    }
+  ],
+  "sidecarOnlyFields": [
+    "person",
+    "team",
+    "role",
+    "position",
+    "image-context",
+    "source",
+    "confidence",
+    "needs-review"
+  ],
+  "forbiddenAutomaticActions": [
+    "rename Eagle items",
+    "create Eagle tags",
+    "change Eagle annotations",
+    "move Eagle items or folders",
+    "merge or trash Eagle items",
+    "derive silent Eagle tags from video projects"
+  ]
+}

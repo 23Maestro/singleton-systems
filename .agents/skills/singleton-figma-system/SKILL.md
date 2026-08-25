@@ -1,6 +1,6 @@
 ---
 name: singleton-figma-system
-description: Create or refactor Singleton Systems Figma files into reusable client design systems with measured references, variables, components, variants, scenes, review states, and export modes. Use for Singleton client labs, broadcast packages, storyboard libraries, branded template sets, or any Figma file that must support repeatable asset and data replacement.
+description: Create or refactor Singleton Systems Figma files into reusable client design systems with measured references, variables, components, variants, scenes, alpha overlays, buttery motion workspaces, review states, and export modes. Use for client labs, broadcast packages, storyboard libraries, branded template sets, or any Figma file that must support repeatable asset and data replacement.
 ---
 
 # Singleton Figma system
@@ -10,6 +10,10 @@ Build a client-owned design source that can survive the next video, asset pack, 
 Use the Figma skills `figma-use` and `figma-generate-library`. Inspect the target file before changing it. Search connected libraries and Figma Community before drawing a common primitive from scratch.
 
 For broadcast, video, scoreboard, lower-third, ticker, bug, rail, or on-air work, read [broadcast-package-etiquette.md](references/broadcast-package-etiquette.md) before writing to Figma.
+
+For branded full-screen scenes, split-photo title graphics, and compact topic callouts, read [client-video-title-cards.md](references/client-video-title-cards.md). Use it only for title-card families. Do not apply those rules to speaker overlays unless Jerami reopens that family.
+
+For client-specific educational speaker callouts or transparent on-screen graphics, read [client-video-alpha-overlays.md](references/client-video-alpha-overlays.md). Load `figma-use-motion` when the overlay has animation. The trigger word `buttery` activates its slow-sweep, explicit-easing, and shadow-safe export rules.
 
 ## ownership
 

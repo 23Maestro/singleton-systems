@@ -18,6 +18,12 @@ export const metadata: Metadata = {
 
 const decisionMaps = [
   {
+    label: "Command K9 Edit Style Profile",
+    href: "/decision-maps/2026-08-24-command-k9-reference-edit-profile/index.html",
+    tags: ["8:51", "65 States", "Reference Audit"],
+    accent: "border-[#1597d5] text-[#1597d5] dark:text-[#68c9f5]",
+  },
+  {
     label: "Future Voices — Michelle Short",
     href: "/decision-maps/2026-08-14-future-voices-storyboard/index.html",
     tags: ["0:30", "Facebook", "LinkedIn"],
