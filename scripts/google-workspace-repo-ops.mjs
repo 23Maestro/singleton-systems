@@ -10,7 +10,11 @@ import { createReadStream } from "node:fs";
 const ROOT = process.cwd();
 const DEFAULT_CLIENT_FILE = path.join(ROOT, "config/google-workspace/oauth-client.json");
 const TOKEN_DIR = path.join(ROOT, ".google-workspace");
-const TOKEN_FILE = path.join(TOKEN_DIR, "flow-token.json");
+const TOKEN_FILE = path.join(TOKEN_DIR, "repo-ops-token.json");
+const LEGACY_TOKEN_FILES = [
+  path.join(TOKEN_DIR, "workspace-token.json"),
+  path.join(TOKEN_DIR, "flow-token.json"),
+];
 const RESULT_FILE = path.join(TOKEN_DIR, "personal-ops-chores.json");
 
 const TASKS_SHEET = "Chores";
@@ -23,7 +27,6 @@ const SCOPES = [
   "https://www.googleapis.com/auth/forms.body",
   "https://www.googleapis.com/auth/forms.responses.readonly",
   "https://www.googleapis.com/auth/spreadsheets",
-  "https://www.googleapis.com/auth/drive.readonly",
   "https://www.googleapis.com/auth/drive.file",
   "https://www.googleapis.com/auth/userinfo.email",
   "https://www.googleapis.com/auth/userinfo.profile",
@@ -36,7 +39,7 @@ async function main() {
   switch (command) {
     case "auth":
       await getAuthClient({ forceLogin: true });
-      console.log("Google Workspace auth saved for flow.");
+      console.log("Repository Google authorization saved.");
       break;
     case "whoami":
       await printWhoami();
@@ -47,11 +50,8 @@ async function main() {
     case "chores:repair":
       await repairChores();
       break;
-    case "drive:list-folder":
-      await driveListFolder(flags);
-      break;
-    case "drive:download":
-      await driveDownload(flags);
+    case "chores:status":
+      await statusChores();
       break;
     case "drive:upload":
       await driveUpload(flags);
@@ -94,8 +94,11 @@ async function getAuthClient({ forceLogin = false } = {}) {
     firstRedirectUri(credentials)
   );
 
-  if (!forceLogin && (await exists(TOKEN_FILE))) {
-    oauth2Client.setCredentials(JSON.parse(await fs.readFile(TOKEN_FILE, "utf8")));
+  const savedTokenFile = await firstExistingFile([TOKEN_FILE, ...LEGACY_TOKEN_FILES]);
+
+  if (!forceLogin && savedTokenFile) {
+    const savedCredentials = JSON.parse(await fs.readFile(savedTokenFile, "utf8"));
+    oauth2Client.setCredentials(savedCredentials);
     return oauth2Client;
   }
 
@@ -106,51 +109,6 @@ async function getAuthClient({ forceLogin = false } = {}) {
   await fs.mkdir(TOKEN_DIR, { recursive: true });
   await fs.writeFile(TOKEN_FILE, JSON.stringify(authedClient.credentials, null, 2));
   return authedClient;
-}
-
-async function driveListFolder(flags) {
-  if (!flags["folder-id"]) {
-    throw new Error("drive:list-folder requires --folder-id <id>");
-  }
-  const auth = await getAuthClient();
-  const drive = google.drive({ version: "v3", auth });
-  const files = [];
-  let pageToken;
-  do {
-    const { data } = await drive.files.list({
-      q: `'${flags["folder-id"]}' in parents and trashed = false`,
-      fields: "nextPageToken, files(id, name, mimeType, modifiedTime, size)",
-      pageSize: 200,
-      pageToken,
-    });
-    files.push(...(data.files ?? []));
-    pageToken = data.nextPageToken;
-  } while (pageToken);
-  console.log(JSON.stringify({ files }, null, 2));
-}
-
-async function driveDownload(flags) {
-  if (!flags["file-id"] || !flags.dest) {
-    throw new Error("drive:download requires --file-id <id> --dest <localPath>");
-  }
-  const auth = await getAuthClient();
-  const drive = google.drive({ version: "v3", auth });
-  const { data: meta } = await drive.files.get({
-    fileId: flags["file-id"],
-    fields: "id, name, mimeType",
-  });
-  if (meta.mimeType?.startsWith("application/vnd.google-apps.")) {
-    throw new Error(
-      `File "${meta.name}" is a native Google Doc/Sheet/Slide (${meta.mimeType}) - export it manually, this command only downloads binary media files.`
-    );
-  }
-  const res = await drive.files.get(
-    { fileId: flags["file-id"], alt: "media" },
-    { responseType: "arraybuffer" }
-  );
-  await fs.mkdir(path.dirname(flags.dest), { recursive: true });
-  await fs.writeFile(flags.dest, Buffer.from(res.data));
-  console.log(JSON.stringify({ downloaded: flags.dest, name: meta.name }, null, 2));
 }
 
 async function driveUpload(flags) {
@@ -284,14 +242,22 @@ function mimeTypeFor(fileName) {
     ".mp4": "video/mp4",
     ".mov": "video/quicktime",
     ".webm": "video/webm",
+    ".pdf": "application/pdf",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".txt": "text/plain",
   }[extension] || "application/octet-stream";
 }
 
 async function printWhoami() {
   const auth = await getAuthClient();
+  console.log(JSON.stringify(await getGoogleProfile(auth), null, 2));
+}
+
+async function getGoogleProfile(auth) {
   const oauth2 = google.oauth2({ version: "v2", auth });
   const { data } = await oauth2.userinfo.get();
-  console.log(JSON.stringify({ email: data.email, name: data.name }, null, 2));
+  return { email: data.email, name: data.name };
 }
 
 async function setupChores() {
@@ -305,8 +271,9 @@ async function setupChores() {
 
   const form = await createChoresForm(forms);
 
+  const profile = await getGoogleProfile(auth);
   const result = {
-    owner: "flow@singleton-systems.com",
+    owner: profile.email,
     spreadsheetId: spreadsheet.data.spreadsheetId,
     spreadsheetUrl: spreadsheet.data.spreadsheetUrl,
     formId: form.formId,
@@ -336,7 +303,24 @@ async function repairChores() {
   await shapeDerivedSheets(sheets, spreadsheetId, sheetIdMap(refreshed.data.sheets));
   await repairChoresForm(forms, formId);
 
-  const readback = await readChoresState(sheets, forms, spreadsheetId, formId);
+  const profile = await getGoogleProfile(auth);
+  const readback = await readChoresState(sheets, forms, spreadsheetId, formId, profile.email);
+  console.log(JSON.stringify(readback, null, 2));
+}
+
+async function statusChores() {
+  const auth = await getAuthClient();
+  const sheets = google.sheets({ version: "v4", auth });
+  const forms = google.forms({ version: "v1", auth });
+  const result = await readResultFile();
+  const profile = await getGoogleProfile(auth);
+  const readback = await readChoresState(
+    sheets,
+    forms,
+    result.spreadsheetId,
+    result.formId,
+    profile.email
+  );
   console.log(JSON.stringify(readback, null, 2));
 }
 
@@ -610,7 +594,7 @@ async function repairChoresForm(forms, formId) {
   }
 }
 
-async function readChoresState(sheets, forms, spreadsheetId, formId) {
+async function readChoresState(sheets, forms, spreadsheetId, formId, owner) {
   const [spreadsheet, chores, kanban, dailyPlan, fields, form] = await Promise.all([
     sheets.spreadsheets.get({ spreadsheetId }),
     sheets.spreadsheets.values.get({ spreadsheetId, range: `${TASKS_SHEET}!A1:F20` }),
@@ -621,7 +605,7 @@ async function readChoresState(sheets, forms, spreadsheetId, formId) {
   ]);
 
   return {
-    owner: "flow@singleton-systems.com",
+    owner,
     spreadsheetId,
     formId,
     sourceMapping: {
@@ -820,6 +804,13 @@ async function exists(file) {
   }
 }
 
+async function firstExistingFile(files) {
+  for (const file of files) {
+    if (await exists(file)) return file;
+  }
+  return null;
+}
+
 function today() {
   return new Date().toISOString().slice(0, 10);
 }
@@ -841,19 +832,20 @@ function columnLetter(columnNumber) {
 }
 
 function printHelp() {
-  console.log(`Google Workspace CLI
+  console.log(`Repository Google operations
 
 Commands:
-  npm run gws:auth          Authorize as flow@singleton-systems.com
-  npm run gws:whoami        Print the authenticated Google user
-  npm run gws:chores:setup  Create Personal Ops Chores Sheet and Form
-  npm run gws:chores:repair Repair the existing Chores/Home Tasks source contract
-  node scripts/google-workspace-cli.mjs drive:list-folder --folder-id <id>
-                            List files in a Drive folder (read-only, id/name/mimeType/modifiedTime/size)
-  node scripts/google-workspace-cli.mjs drive:download --file-id <id> --dest <path>
-                            Download a binary Drive file to a local path (read-only, never mutates Drive)
-  node scripts/google-workspace-cli.mjs drive:upload --file <path> [--dest <folder-id>] [--name <name>]
+  npm run google:repo:auth          Authorize the repo-specific OAuth client
+  npm run google:repo:whoami        Print the repo token's Google user
+  npm run personal-ops:chores:setup Create the Personal Ops Chores Sheet and Form
+  npm run personal-ops:chores:repair
+                                    Repair the Chores/Home Tasks source contract
+  npm run personal-ops:chores:status
+                                    Read the live Chores/Home Tasks source contract
+  npm run drive:upload:resumable -- --file <path> [--dest <folder-id>] [--name <name>]
                             Upload a local binary file to Drive (root if no folder is given)
+
+Use the Homebrew gws command for general Drive, Gmail, Forms, Sheets, and Docs work.
 
 Before auth:
   1. Enable Google Forms API, Google Sheets API, and Google Drive API.

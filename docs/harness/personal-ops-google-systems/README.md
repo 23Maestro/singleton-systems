@@ -5,7 +5,7 @@ This folder is the local `clasp` project for the Personal Ops chores flow.
 Owner account:
 
 ```text
-flow@singleton-systems.com
+jerami@singleton-systems.com
 ```
 
 Live spreadsheet:
@@ -16,7 +16,7 @@ https://docs.google.com/spreadsheets/d/1WixNN_PjxflMoxCjQDfupXVsAJGKZrkiwGzTzXL6
 
 ## First-Time Setup
 
-1. Sign into Chrome as `flow@singleton-systems.com`.
+1. Sign into Chrome as `jerami@singleton-systems.com`.
 2. Enable Apps Script API for that account:
    `https://script.google.com/home/usersettings`
 3. Run:
@@ -25,9 +25,8 @@ https://docs.google.com/spreadsheets/d/1WixNN_PjxflMoxCjQDfupXVsAJGKZrkiwGzTzXL6
 npm run gas:login
 ```
 
-4. Complete OAuth as `flow@singleton-systems.com`. The npm scripts use the
-   named clasp user `flow` so this stays separate from any personal Google
-   login on the machine.
+4. Complete OAuth as `jerami@singleton-systems.com`. The npm scripts use the
+   local clasp profile label `flow`. That label is not the owner email.
 5. Run:
 
 ```bash
@@ -47,10 +46,16 @@ sets validation, and stores the form URLs in script properties.
 
 ## Normal Update Loop
 
+Read the live Sheet/Form source contract:
+
+```bash
+npm run personal-ops:chores:status
+```
+
 Repair the live Sheet/Form source contract after schema edits:
 
 ```bash
-npm run gws:chores:repair
+npm run personal-ops:chores:repair
 ```
 
 This keeps the user-facing AppSheet table label `Home Tasks` mapped to the

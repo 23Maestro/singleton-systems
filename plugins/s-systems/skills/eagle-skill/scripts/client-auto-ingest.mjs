@@ -25,7 +25,6 @@ import os from "node:os";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EAGLE_CLI = path.join(__dirname, "eagle-api-cli.js");
-const GWS_CLI = path.join(__dirname, "..", "..", "..", "..", "..", "scripts", "google-workspace-cli.mjs");
 const CLIENTS_DIR = path.join(__dirname, "..", "clients");
 const REFERENCES_DIR = path.join(__dirname, "..", "references");
 const STATE_DIR = path.join(os.homedir(), ".eagle-ingest-state");
@@ -43,10 +42,39 @@ function callEagle(tool, args) {
   return JSON.parse(out);
 }
 
-function callGws(subcommand, args) {
-  const flatArgs = Object.entries(args).flatMap(([k, v]) => [`--${k}`, String(v)]);
-  const out = execFileSync("node", [GWS_CLI, subcommand, ...flatArgs], { encoding: "utf8" });
-  return JSON.parse(out);
+function callGws(method, params, extraArgs = [], options = {}) {
+  return execFileSync(
+    "gws",
+    [...method, "--params", JSON.stringify(params), ...extraArgs],
+    { encoding: "utf8", ...options }
+  );
+}
+
+function listDriveFolder(folderId) {
+  const output = callGws(
+    ["drive", "files", "list"],
+    {
+      q: `'${folderId}' in parents and trashed = false`,
+      fields: "nextPageToken,files(id,name,mimeType,modifiedTime,size)",
+      pageSize: 200,
+    },
+    ["--page-all"]
+  );
+  return output
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .flatMap((line) => JSON.parse(line).files ?? []);
+}
+
+function downloadDriveFile(fileId, destination) {
+  const destinationDir = path.dirname(destination);
+  callGws(
+    ["drive", "files", "get"],
+    { fileId, alt: "media" },
+    ["--output", path.basename(destination)],
+    { cwd: destinationDir }
+  );
 }
 
 function loadClient(slug) {
@@ -137,7 +165,7 @@ function gatherSourceFiles(job, client, opts, state, jobStateKey) {
     return [];
   }
 
-  const { files } = callGws("drive:list-folder", { "folder-id": driveFolderId });
+  const files = listDriveFolder(driveFolderId);
   const newFiles = files.filter((f) => !processed.includes(f.id));
   if (newFiles.length === 0) return [];
 
@@ -191,7 +219,7 @@ function main() {
     // Download Drive sources first.
     for (const f of sourceFiles) {
       if (f.kind === "drive") {
-        callGws("drive:download", { "file-id": f.fileId, dest: f.dest });
+        downloadDriveFile(f.fileId, f.dest);
         f.path = f.dest;
       }
     }

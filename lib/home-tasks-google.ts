@@ -8,7 +8,11 @@ const TASK_OPTIONS_SHEET = "Task Options";
 const TASK_HEADERS = ["Task ID", "Room", "Task", "Duration", "Plan", "Notes"] as const;
 const TASK_OPTION_HEADERS = ["Room", "Task", "Duration", "Notes"] as const;
 const LOCAL_CLIENT_FILE = path.join(process.cwd(), "config/google-workspace/oauth-client.json");
-const LOCAL_TOKEN_FILE = path.join(process.cwd(), ".google-workspace/flow-token.json");
+const LOCAL_TOKEN_FILES = [
+  path.join(process.cwd(), ".google-workspace/repo-ops-token.json"),
+  path.join(process.cwd(), ".google-workspace/workspace-token.json"),
+  path.join(process.cwd(), ".google-workspace/flow-token.json"),
+];
 const LOCAL_RESULT_FILE = path.join(process.cwd(), ".google-workspace/personal-ops-chores.json");
 
 export const HOME_TASK_ROOMS = ["Auto", "Bathroom", "Garage", "Kitchen", "Laundry", "Living Room", "Office"] as const;
@@ -325,7 +329,7 @@ async function getSheetsClient() {
 
   const [clientRaw, tokenRaw] = await Promise.all([
     fs.readFile(LOCAL_CLIENT_FILE, "utf8"),
-    fs.readFile(LOCAL_TOKEN_FILE, "utf8"),
+    readLocalGoogleToken(),
   ]);
   const keys = JSON.parse(clientRaw);
   const token = JSON.parse(tokenRaw);
@@ -333,6 +337,19 @@ async function getSheetsClient() {
   const oauth2Client = new google.auth.OAuth2(credentials.client_id, credentials.client_secret);
   oauth2Client.setCredentials(token);
   return google.sheets({ version: "v4", auth: oauth2Client });
+}
+
+async function readLocalGoogleToken() {
+  for (const tokenFile of LOCAL_TOKEN_FILES) {
+    try {
+      return await fs.readFile(tokenFile, "utf8");
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+  }
+  throw new Error(
+    `Missing repository Google token. Run npm run google:repo:auth to create ${LOCAL_TOKEN_FILES[0]}.`
+  );
 }
 
 async function getSpreadsheetId() {

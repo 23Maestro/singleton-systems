@@ -5,7 +5,7 @@ Date: 2026-07-14
 Owner account:
 
 ```text
-flow@singleton-systems.com
+jerami@singleton-systems.com
 ```
 
 Live AppSheet app:
@@ -78,7 +78,7 @@ Living Room
 Office
 ```
 
-The Google setup handled the source data. The local Workspace CLI and Apps
+The Google setup handled the source data. The repo Personal Ops command and Apps
 Script project created or updated the Sheet, Form, validations, and scripts.
 The important lesson was that different Google tools own different jobs:
 
@@ -170,7 +170,7 @@ planning board.
    Room: Auto, Bathroom, Garage, Kitchen, Laundry, Living Room, Office
    ```
 
-5. Use Google Workspace CLI for the pieces APIs handle well:
+5. Use the repo Personal Ops command for its Sheet and Form contract:
 
    ```text
    Create/update Sheet tabs.
