@@ -2,10 +2,11 @@
 
 Local `clasp` project for the no-n8n job search prep engine.
 
-Owner account:
+Google identity:
 
 ```text
-flow@singleton-systems.com
+Primary account and file owner: jerami@singleton-systems.com
+Business email alias: flow@singleton-systems.com
 ```
 
 CLI source:
@@ -123,7 +124,9 @@ First `clasp run` fix to check:
 https://script.google.com/home/usersettings
 ```
 
-Turn `Google Apps Script API` on for `flow@singleton-systems.com`. Google's
+Turn `Google Apps Script API` on while authenticated as
+`jerami@singleton-systems.com`. The `flow@singleton-systems.com` address is an
+email alias on that same account. Google's
 current clasp docs list that dashboard toggle as a prerequisite and map "Script
 API not enabled" to the same settings page. If that is already on and `clasp
 run` still fails, then inspect the script's Cloud project/API executable/OAuth

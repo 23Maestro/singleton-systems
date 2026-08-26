@@ -1,10 +1,15 @@
 # Google Workspace command architecture
 
-The live Google Workspace account is:
+The canonical identity model is:
 
 ```text
-jerami@singleton-systems.com
+Primary Google account and file owner: jerami@singleton-systems.com
+Business email alias: flow@singleton-systems.com
 ```
+
+Both addresses reach the same Workspace account. Authentication and Google file
+ownership resolve to the primary address. A record that uses the Flow alias
+does not imply another account or an ownership transfer.
 
 The shell command `gws` is the Homebrew Google Workspace CLI. It is the
 canonical command for general Drive, Gmail, Forms, Sheets, and Docs work. It is
@@ -105,8 +110,9 @@ config/google-workspace/oauth-client.json
 That file and all local tokens are gitignored. The OAuth template at
 `config/google-workspace/oauth-client.example.json` contains no credentials.
 
-The local clasp profile label is `flow`. It is a machine label. The live Sheet
-and Form owner is `jerami@singleton-systems.com`.
+The local clasp profile label is also `flow`. That machine label selects the
+same account. The live Sheet and Form owner remains
+`jerami@singleton-systems.com`.
 
 ## Personal Ops boundary
 

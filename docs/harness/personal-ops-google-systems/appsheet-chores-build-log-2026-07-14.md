@@ -2,10 +2,11 @@
 
 Date: 2026-07-14
 
-Owner account:
+Identity recorded for this build:
 
 ```text
-jerami@singleton-systems.com
+Primary Google account and file owner: jerami@singleton-systems.com
+Business email alias used in project communication: flow@singleton-systems.com
 ```
 
 Live AppSheet app:

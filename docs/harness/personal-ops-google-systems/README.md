@@ -2,10 +2,11 @@
 
 This folder is the local `clasp` project for the Personal Ops chores flow.
 
-Owner account:
+Google identity:
 
 ```text
-jerami@singleton-systems.com
+Primary account and file owner: jerami@singleton-systems.com
+Business email alias: flow@singleton-systems.com
 ```
 
 Live spreadsheet:
@@ -25,8 +26,9 @@ https://docs.google.com/spreadsheets/d/1WixNN_PjxflMoxCjQDfupXVsAJGKZrkiwGzTzXL6
 npm run gas:login
 ```
 
-4. Complete OAuth as `jerami@singleton-systems.com`. The npm scripts use the
-   local clasp profile label `flow`. That label is not the owner email.
+4. Complete OAuth as `jerami@singleton-systems.com`. The npm scripts use a local
+   clasp profile also named `flow`. The profile label and email alias point to
+   the same Google account.
 5. Run:
 
 ```bash
