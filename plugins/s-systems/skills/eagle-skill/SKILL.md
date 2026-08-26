@@ -6,7 +6,7 @@ allowed-tools: Bash(node *)
 
 # Eagle API Skill
 
-Eagle owns proof and client assets. It must be running at `127.0.0.1:41596`.
+Eagle owns portfolio and client assets. It must be running at `127.0.0.1:41596`.
 
 ```bash
 node scripts/eagle-api-cli.js list

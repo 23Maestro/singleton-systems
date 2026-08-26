@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Offer Portfolio Content"
+  short_description: "Turn portfolio and build progress into offer-aligned content."
+  default_prompt: "Use $offer-portfolio-content to turn this portfolio or build progress into offer-aligned brand content."

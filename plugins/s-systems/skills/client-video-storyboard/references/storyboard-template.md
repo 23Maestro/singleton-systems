@@ -44,4 +44,4 @@ Every storyboard row should contain one meaningful screen change, its
 source/search task, and its Premiere bin. Before timeline mutation, inspect
 project info, sequences, active sequence, items, and bins read-only; stop if
 the bridge is unavailable. After import, reread project items and prove each
-asset's exact `treePath`. A reported `binName` is not placement proof.
+asset's exact `treePath`. A reported `binName` is not placement verification.

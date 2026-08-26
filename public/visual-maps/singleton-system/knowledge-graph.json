@@ -24,7 +24,7 @@
       "id": "service:cerebral-router",
       "type": "service",
       "name": "Cerebral router",
-      "summary": "Chooses one owner, the smallest tool set, a review gate, and proof before cross-surface work.",
+      "summary": "Chooses one owner, the smallest tool set, a review gate, and verification before cross-surface work.",
       "tags": [
         "routing",
         "contract"
@@ -133,8 +133,8 @@
     {
       "id": "service:eagle-assets",
       "type": "service",
-      "name": "Eagle proof and asset owner",
-      "summary": "Owns verified client assets and proof instead of duplicating them into planning systems.",
+      "name": "Eagle portfolio and asset owner",
+      "summary": "Owns verified client assets and portfolio instead of duplicating them into planning systems.",
       "tags": [
         "eagle",
         "assets"
@@ -181,7 +181,7 @@
       "summary": "Executable checks prove routing, registry alignment, and hook behavior before completion.",
       "tags": [
         "tests",
-        "proof"
+        "portfolio"
       ],
       "complexity": "moderate"
     },
@@ -441,7 +441,7 @@
     {
       "id": "layer:delivery-gates",
       "name": "Delivery gates",
-      "description": "Checks that shape writing, visuals, and completion proof.",
+      "description": "Checks that shape writing, visuals, and completion portfolio.",
       "nodeIds": [
         "pipeline:writing-gate",
         "pipeline:visual-gate",

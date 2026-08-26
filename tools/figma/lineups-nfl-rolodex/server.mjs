@@ -21,8 +21,8 @@ const IMAGE_EXTENSIONS = new Set(["jpg", "jpeg", "png", "gif"]);
 const identificationManifest = JSON.parse(
   readFileSync(path.join(HERE, "metadata", "identification-manifest.json"), "utf8"),
 );
-const proofIndex = JSON.parse(readFileSync(path.join(HERE, "metadata", "proof-index.json"), "utf8"));
-const metadataEntries = [...identificationManifest, ...proofIndex];
+const portfolioIndex = JSON.parse(readFileSync(path.join(HERE, "metadata", "portfolio-index.json"), "utf8"));
+const metadataEntries = [...identificationManifest, ...portfolioIndex];
 
 let libraryCache = null;
 

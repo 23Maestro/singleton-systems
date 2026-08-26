@@ -84,14 +84,14 @@ assert.match(unknownRoute.stdout, /\[route-error\] Unknown or disabled route: im
 
 const offerPacket = runHook(`[route] offer-content
 [shape] working-brief
-[tools] s-systems:offer-proof-content
-[query] Turn this creator reference into a proof-led content angle.`);
+[tools] s-systems:offer-portfolio-content
+[query] Turn this creator reference into a portfolio-led content angle.`);
 assert.equal(offerPacket.status, 0);
 for (const snippet of [
   "[route] offer-content",
   "[shape] working-brief",
-  "[tools] s-systems:offer-proof-content",
-  "[query] Turn this creator reference into a proof-led content angle.",
+  "[tools] s-systems:offer-portfolio-content",
+  "[query] Turn this creator reference into a portfolio-led content angle.",
   "[tool-check] Requested tool belongs to this route.",
 ]) {
   assert.match(offerPacket.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `offer packet: missing ${snippet}`);
@@ -106,7 +106,7 @@ assert.match(socialPrompt.stdout, /Writing rules for reviewable artifacts/);
 
 const wrongToolPacket = runHook(`[route] offer-content
 [tools] s-systems:freelance-gig-proposals
-[query] Turn this creator reference into a proof-led content angle.`);
+[query] Turn this creator reference into a portfolio-led content angle.`);
 assert.equal(wrongToolPacket.status, 0);
 assert.match(wrongToolPacket.stdout, /\[route-error\] Requested tool does not belong to offer-content: s-systems:freelance-gig-proposals/);
 

@@ -176,12 +176,12 @@ export const sliceTitles: Record<PortfolioTabTarget, Record<PortfolioSlice, { ti
     Top: {
       title: "Build Map Cards",
       lead: "The build map cards above the divider.",
-      route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapTopSlice",
+      route: "components/AIWorkflowPortfolioCommand.tsx:PortfolioMapPanel > SourceMapTopSlice",
     },
     Bottom: {
       title: "Review Route Panel",
       lead: "The route list and readback panel below the divider.",
-      route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapBottomSlice",
+      route: "components/AIWorkflowPortfolioCommand.tsx:PortfolioMapPanel > SourceMapBottomSlice",
     },
   },
 };
@@ -1108,7 +1108,7 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
       body: route.inspect,
       before: "Portfolio claim routing was represented by a mock map instead of the build map cards.",
       after: `Render the real ${route.title} build map card and route it to ${route.source}.`,
-      route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapTopSlice",
+      route: "components/AIWorkflowPortfolioCommand.tsx:PortfolioMapPanel > SourceMapTopSlice",
       kind: "card" as const,
     }));
   }
@@ -1120,7 +1120,7 @@ export function getSliceElements(tab: PortfolioTabTarget, slice: PortfolioSlice)
     body: route.inspect,
     before: "Claim copy was detached from the reviewable source readback.",
     after: route.result,
-    route: "components/AIWorkflowPortfolioCommand.tsx:ProofMapPanel > SourceMapBottomSlice",
+    route: "components/AIWorkflowPortfolioCommand.tsx:PortfolioMapPanel > SourceMapBottomSlice",
     kind: "detail" as const,
   }));
 }

@@ -38,7 +38,7 @@ Show:
 
 - Prompt/context for themed webinar visuals.
 - Several branded slide images.
-- Quick portfolio of scale: roughly 50 generated images / about 10 per section.
+- Quick view of scale: roughly 50 generated images / about 10 per section.
 
 Say:
 

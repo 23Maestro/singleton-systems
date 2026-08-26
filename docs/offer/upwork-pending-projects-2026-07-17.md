@@ -7,7 +7,7 @@ Profile basis:
 - Screenshot: [00-jerami-upwork-status.png](upwork-reference-screenshots/2026-07-17/00-jerami-upwork-status.png)
 - Status: 100% Job Success, Rising Talent
 - Profile rate: $28/hr
-- Public proof shown: $20K+ total earnings, 11 jobs, 886 hours
+- Public portfolio shown: $20K+ total earnings, 11 jobs, 886 hours
 
 Pricing rule:
 

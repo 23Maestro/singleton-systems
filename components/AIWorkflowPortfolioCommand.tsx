@@ -27,7 +27,7 @@ type WorkflowItem = {
   workflow: string;
   school: string;
   action: string;
-  proof: string;
+  portfolio: string;
   asset: string;
   output: string;
   actions: string[];
@@ -62,7 +62,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Video Progress",
       school: "Northview HS, GA",
       action: "View details, then confirm the title and progress status before editing.",
-      proof: "src/video-progress.tsx",
+      portfolio: "src/video-progress.tsx",
       asset: "Miles Hart Class of 2026 Senior Season",
       output: "Copy YouTube Title / Copy Approved Video Title / Copy Dropbox Folder",
       actions: ["Video Updates", "Update Status", "Update Stage", "Copy YouTube Title"],
@@ -92,7 +92,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Video Updates",
       school: "Lakewood Prep, FL",
       action: "Open Video Updates and fill YouTube link, video type, and season/team.",
-      proof: "src/features/athlete-workflows/video-updates-view.tsx",
+      portfolio: "src/features/athlete-workflows/video-updates-view.tsx",
       asset: "Jordan Vale 2027 Point Guard Highlights",
       output: "Update NPID Video Profile",
       actions: ["Video Updates", "Focus YouTube Link", "Edit SA Videos", "View PlayerID"],
@@ -122,7 +122,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Dropbox Folder Reminder",
       school: "Cedar Ridge HS, TX",
       action: "Copy the folder name, send the reminder, and keep the task in the right stage.",
-      proof: "src/video-progress.tsx",
+      portfolio: "src/video-progress.tsx",
       asset: "CamdenBrooks_2028_Football_TX",
       output: "Dropbox Folder Reminders",
       actions: ["Dropbox Folder Reminders", "Copy Dropbox Folder", "Update Stage", "View PlayerID"],
@@ -152,7 +152,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Completion Review",
       school: "Eastline HS, NC",
       action: "Set completion date after title, status, and PlayerID review are clean.",
-      proof: "src/video-progress.tsx",
+      portfolio: "src/video-progress.tsx",
       asset: "ELI RIVERS Class of 2026 - RHP | SS",
       output: "Set Completion Date",
       actions: ["Set Completion Date", "View PlayerID", "Copy Approved Video Title", "Reload Tasks"],
@@ -184,7 +184,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Set Meetings",
       school: "Westfield HS, OH",
       action: "Send Confirmation, then copy the booked meeting for readback.",
-      proof: "src/head-scout-schedules.tsx",
+      portfolio: "src/head-scout-schedules.tsx",
       asset: "Parent confirmation text for Head Scout Patrick",
       output: "Send Confirmation / Copy Booked Meeting",
       actions: ["Send Confirmation", "Meeting Details", "Copy Booked Meeting", "Open Athlete Task Tab"],
@@ -214,7 +214,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Scout Prep Call Path",
       school: "Ridgeview HS, CO",
       action: "Review contact context and keep the call script ready before outreach.",
-      proof: "src/features/scout-prep/content.ts",
+      portfolio: "src/features/scout-prep/content.ts",
       asset: "Hey Parent A, this is Scouting Coordinator at Prospect ID.",
       output: "Parent script with athlete context and next-step prompt",
       actions: ["Review athlete data", "Open contact context", "Copy Parent 1 Phone", "Update task stage"],
@@ -244,7 +244,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Scout Openings",
       school: "Southgate Prep, AZ",
       action: "View open slots, select two times, and sync them into the call script.",
-      proof: "src/head-scout-schedules.tsx",
+      portfolio: "src/head-scout-schedules.tsx",
       asset: "Head Scout Taylor / Thu 6:00 PM / Sat 11:30 AM",
       output: "Sync to Notion / Copy Slot",
       actions: ["View Open Slots", "Select Slot", "Sync to Notion", "Next Week"],
@@ -274,7 +274,7 @@ const workflowData: Record<WorkflowMode, WorkflowItem[]> = {
       workflow: "Pending Clients",
       school: "Harbor Christian, SC",
       action: "Review pending client context, then route to confirmation or post-call update.",
-      proof: "src/head-scout-schedules.tsx",
+      portfolio: "src/head-scout-schedules.tsx",
       asset: "Needs confirmation text and meeting readback",
       output: "Pending Clients / Post-Call Update",
       actions: ["Pending Clients", "Reschedule Pending", "Meeting Set - Rescheduled", "Refresh Live"],
@@ -404,7 +404,7 @@ const resumeData = [
   ["ROLE MATCH", "AI Specialist", "Hands-on AI workflow builder focused on practical adoption, automation support, documentation, testing, and cleaner business processes."],
 ] as const;
 
-const proofRouteData = [
+const portfolioRouteData = [
   {
     key: "readme",
     title: "Command UI",
@@ -1095,8 +1095,8 @@ function ResumePanel() {
   );
 }
 
-function ProofMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifactMap }) {
-  const [selectedKey, setSelectedKey] = useState(proofRouteData[0].key);
+function PortfolioMapPanel({ codeArtifacts }: { codeArtifacts: HighlightedCodeArtifactMap }) {
+  const [selectedKey, setSelectedKey] = useState(portfolioRouteData[0].key);
 
   return (
     <TabShell title="Build Map" lead="Each card points to the repo area behind the workflow: commands, architecture, source rules, API calls, server support, checks, and web views.">
@@ -1114,8 +1114,8 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
   const [copied, setCopied] = useState(false);
   const activeLabel = useMemo(() => tabs.find((tab) => tab.id === activeTab)?.label ?? "System", [activeTab]);
 
-  async function copyWorkflowProof(item: WorkflowItem) {
-    const text = `${item.name}\n${item.line}\n\nWorkflow: ${item.workflow}\nAction: ${item.action}\nSource: ${item.proof}\nOutput: ${item.output}`;
+  async function copyWorkflowPortfolio(item: WorkflowItem) {
+    const text = `${item.name}\n${item.line}\n\nWorkflow: ${item.workflow}\nAction: ${item.action}\nSource: ${item.portfolio}\nOutput: ${item.output}`;
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -1154,11 +1154,11 @@ export default function AIWorkflowPortfolioCommand({ codeArtifacts }: { codeArti
         </nav>
 
         <div key={activeTab} className="min-w-0 animate-[portfolioTabFade_180ms_ease-out]">
-          {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowProof} /> : null}
+          {activeTab === "system" ? <SystemPanel onCopy={copyWorkflowPortfolio} /> : null}
           {activeTab === "evidence" ? <EvidencePanel /> : null}
           {activeTab === "fit" ? <FitPanel /> : null}
           {activeTab === "resume" ? <ResumePanel /> : null}
-          {activeTab === "sources" ? <ProofMapPanel codeArtifacts={codeArtifacts} /> : null}
+          {activeTab === "sources" ? <PortfolioMapPanel codeArtifacts={codeArtifacts} /> : null}
         </div>
         <style jsx>{`
           @keyframes portfolioTabFade {

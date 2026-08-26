@@ -70,13 +70,13 @@ carried forward so it isn't lost:
 - Prior session's caveat, still true: do not assert shortcut/feature claims
   without reviewing the live app and source contracts first. The user
   explicitly rejected unsupported claims once already.
-- A proof-page shape was proposed but never confirmed or built: a
-  `/scoutid-proof/` route reusing the existing `/ai-workflow-portfolio/`
+- A portfolio-page shape was proposed but never confirmed or built: a
+  `/scoutid-portfolio/` route reusing the existing `/ai-workflow-portfolio/`
   pattern, three tabs (`How it works`, `Evidence map`, `Built from the
   job`), evidence chain `screen/control -> shortcut -> Raycast source ->
-  mutation contract -> proof file/test`. Treat this as one option, not a
+  mutation contract -> verification file/test`. Treat this as one option, not a
   decision — the actual ask now is UI/design polish on the real app for
-  the contest submission, which may or may not need a separate proof page.
+  the contest submission, which may or may not need a separate portfolio page.
 - This is a distinct app from the Glaze-built DFX Palette tool documented
   at `~/Documents/Development/karabiner-ts/docs/glaze-app-handoff.md` —
   don't conflate the two when picking this back up.
@@ -91,4 +91,4 @@ carried forward so it isn't lost:
 3. By 2026-07-27, run the actual design session: grill the homepage/AI
    workflow portfolio cleanup, the pending dashboard, and the ScoutID
    contest UI polish, and very likely set the reusable Singleton Systems
-   brand design system out of that session rather than out of this note.
+   brand design system in that session. This note does not set it.

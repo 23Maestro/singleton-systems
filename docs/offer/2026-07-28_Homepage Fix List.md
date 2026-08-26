@@ -15,7 +15,7 @@ Fix the top to match the body. That's the whole thing.
 | | |
 |---|---|
 | Page height | 8 screens |
-| First proof appears | screen 4 (48% down) |
+| First portfolio appears | screen 4 (48% down) |
 | Sections that say "here's what's messy" | 3 |
 | Audiences named in the hero | 5 |
 | Panels built for the folder exhibit | 3 (visitor sees 1) |
@@ -50,7 +50,7 @@ there's nobody else. Replace with what you actually do.
 - "Where I Can Help" (4 cards)
 
 All three say the same thing. Keep the strongest, cut two.
-**Moves proof from screen 4 to ~screen 2.**
+**Moves portfolio from screen 4 to ~screen 2.**
 
 ### 6. Move the workflow video up
 `/portfolio-2-ssystems.mp4` — currently ~screen 5.
@@ -59,7 +59,7 @@ page. A video guy shouldn't make people read 4 screens before seeing video.
 
 ### 7. Shrink case study scaffolding — keep the claims
 Keep both. Keep "200+ course video files" and "140+ highlights in 6 weeks" —
-only numbered proof you have.
+only numbered portfolio you have.
 Cut the Before / Build Path / Ship Ready tab machinery around them.
 
 ### 8. Trim nav
@@ -75,7 +75,7 @@ screenshot beats a designed one. You did this work for real. Low priority.
 ## Not doing
 
 - Not building a portfolio "part 2" — `/ai-workflow-portfolio` already exists
-- Not cutting case studies before new proof exists
+- Not cutting case studies before new portfolio exists
 - Not a rebuild. All of the above is reversible.
 
 ## Guard

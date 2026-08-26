@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Catena Media Download"
+  short_description: "Download and verify full Catena external SharePoint folders."
+  default_prompt: "Use $catena-media-download to authenticate to these Catena Media shares, download each complete folder, and verify the local archives."

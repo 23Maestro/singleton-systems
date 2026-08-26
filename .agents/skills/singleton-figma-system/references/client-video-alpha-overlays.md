@@ -32,4 +32,4 @@ Apply the measured export frame to every matching overlay timeline before export
 
 ## handoff
 
-Export the top-level timeline frame. Animate descendants only. Record the client family, duration, cue range, easing, export-frame size, nested-cue position, and proof asset in the handoff.
+Export the top-level timeline frame. Animate descendants only. Record the client family, duration, cue range, easing, export-frame size, nested-cue position, and portfolio asset in the handoff.

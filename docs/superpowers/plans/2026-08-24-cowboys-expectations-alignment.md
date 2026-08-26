@@ -49,7 +49,7 @@ Contract hardening:
 
 - Create: `plugins/s-systems/skills/client-video-storyboard/references/lineups-visual-decision-contract.md` — format fork, treatment rules, evidence fields, and QC gate.
 - Modify: `plugins/s-systems/skills/client-video-storyboard/SKILL.md` — route Lineups work through the new reference before storyboard or Premiere work.
-- Modify: `plugins/s-systems/skills/client-video-storyboard/references/storyboard-workflow.md` — require benchmark evidence and motion-deliverable proof before timeline mutation.
+- Modify: `plugins/s-systems/skills/client-video-storyboard/references/storyboard-workflow.md` — require benchmark evidence and motion-deliverable verification before timeline mutation.
 - Modify: `plugins/s-systems/skills/client-video-storyboard/references/storyboard-template.md` — separate spoken beat from actual insert window and record the treatment owner.
 - Modify: `scripts/check-cerebral-drift.mjs` — pin the new contract and its required phrases.
 
@@ -149,7 +149,7 @@ Expected: transcript words and timing remain sourced from Premiere.
 Use these columns:
 
 ```markdown
-| Spoken beat | Actual insert window | Treatment | On-screen subject | Asset | Primary owner | Proof | Status |
+| Spoken beat | Actual insert window | Treatment | On-screen subject | Asset | Primary owner | Portfolio | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 ```
 
@@ -179,7 +179,7 @@ Expected: each candidate is marked `MOTION`, `PHOTO`, `MARK`, or `CHECK` with on
 
 - [ ] **Step 4: Rejudge all 11 existing callouts**
 
-For each current V5 callout, keep it only if the number is the central proof, the finished edits support that treatment, and the composite passes visual QC. Mark the rest `SCRAP` or convert them to `PHOTO`, `MOTION`, or `MARK`.
+For each current V5 callout, keep it only if the number is the central portfolio, the finished edits support that treatment, and the composite passes visual QC. Mark the rest `SCRAP` or convert them to `PHOTO`, `MOTION`, or `MARK`.
 
 Expected: callout count follows evidence from the five finished edits. No fixed quota is invented.
 
@@ -209,7 +209,7 @@ Expected: no duplicate sourcing and no asset is selected without a visual crop c
 
 - [ ] **Step 4: Build the approved Figma boards**
 
-Use the approved Lineups components at Figma node `428:27`. Build only approved `MOTION` rows. Use clean people/action crops, team logos, and the existing broadcast field treatment. Add a stat inside the scene only when the approved row says the number is central proof.
+Use the approved Lineups components at Figma node `428:27`. Build only approved `MOTION` rows. Use clean people/action crops, team logos, and the existing broadcast field treatment. Add a stat inside the scene only when the approved row says the number is central portfolio.
 
 Expected: each board communicates one transcript idea and has a readable 8–12 second reveal plan.
 
@@ -268,12 +268,12 @@ Create `plugins/s-systems/skills/client-video-storyboard/references/lineups-visu
 - Rapid multi-name passages: test one 8–12 second motion composition.
 - One person with 4–8 seconds of explanation: prefer one clean photo hold.
 - System or role explanation: use motion only when relationships need to be shown.
-- Stat treatment: require a central proof claim and finished-edit precedent.
+- Stat treatment: require a central portfolio claim and finished-edit precedent.
 - Connective reasoning and conclusions: keep Mark visible.
 
 ## Evidence fields
 - Record the spoken beat separately from the actual insert window.
-- Record the on-screen subject, asset, primary owner, proof, and status.
+- Record the on-screen subject, asset, primary owner, portfolio, and status.
 
 ## Premiere gate
 - Do not mutate the timeline while an approved motion row has no rendered deliverable.
@@ -307,7 +307,7 @@ Expected: the workflow blocks marker-only motion planning from being reported as
 Replace the short storyboard-row instruction with this required schema:
 
 ```markdown
-| Spoken beat | Actual insert window | Treatment | On-screen subject | Asset/search task | Premiere bin | Primary owner | Proof | Status |
+| Spoken beat | Actual insert window | Treatment | On-screen subject | Asset/search task | Premiere bin | Primary owner | Portfolio | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ```
 

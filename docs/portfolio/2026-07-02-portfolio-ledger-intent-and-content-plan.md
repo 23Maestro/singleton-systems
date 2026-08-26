@@ -4,7 +4,7 @@ Date: 2026-07-02
 
 Status: note only
 
-Pending intent change to be completed - will become source ledger for COMPLETED PROOF!!!!!!!!
+Pending intent change to be completed - will become source ledger for COMPLETED PORTFOLIO!!!!!!!!
 
 ## Why This Folder Exists
 
@@ -110,9 +110,9 @@ Before any portfolio script, post, or outreach draft is treated as final:
 - Lead with the plain fact.
 - Say what happened.
 - Show the asset or mechanism fast.
-- Cut "not X, but Y" setup lines.
+- Cut contrast setup lines.
 - Cut "most people..." setup lines.
-- Cut generic AI words like leverage, seamless, robust, unlock, delve, transform.
+- Cut generic AI filler.
 - Keep concrete nouns: file, folder, prefix, asset, timeline, screen recording.
 - If the screen shows it, do not explain it twice.
 

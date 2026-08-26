@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Move the Source Map proof visuals toward a cleaner C4-style system map and a
+Move the Source Map portfolio visuals toward a cleaner C4-style system map and a
 single consistent image frame. The portfolio should keep the same practical
 case-study feel, but the bottom source images should stop looking like nested
 cards inside cards.

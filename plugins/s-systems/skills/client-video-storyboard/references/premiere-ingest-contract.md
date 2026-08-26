@@ -49,5 +49,5 @@ bed, sound effect, motion render, and end card:
 8. Begin timeline placement only after no imported media remains loose at root.
 
 The Premiere bridge can return a successful `binName` while leaving the item
-at project root. The import response is not proof. The final `treePath` is the
-placement proof.
+at project root. The import response is not verification. The final `treePath` is the
+placement verification.

@@ -23,5 +23,5 @@ Read `references/resume-workflow.md` for the repeatable workflow.
    until the repeated pain and target behavior are concrete.
 
 For a full application, return the angle, summary, bullet swaps, keywords,
-needed application details, and proof gaps. For quick asks, give only the
+needed application details, and evidence gaps. For quick asks, give only the
 highest-impact edits.

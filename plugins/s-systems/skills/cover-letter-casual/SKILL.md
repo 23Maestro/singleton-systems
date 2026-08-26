@@ -14,14 +14,14 @@ Write like a capable operator sending a real note.
 - Specific to the role or client.
 - No corporate filler.
 - No "I am excited to apply" unless requested.
-- No fake certainty or invented proof.
+- No fake certainty or invented experience.
 - Run the Singleton Systems Final Human Pass before showing the note as final.
 
 ## Structure
 
 1. Plain opener
 2. Why this maps to the user's experience
-3. One proof point or concrete example
+3. One portfolio example or concrete result
 4. Simple close
 
 ## Required Output

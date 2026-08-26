@@ -71,4 +71,4 @@ for ordinary cards, lists, charts, or decorative lines. In Remotion, JointJS
 must never control real-time animation or parent layout; keep it inside a
 contained geometry layer and drive all visible progress from the current frame.
 
-Keep reusable diagram proof client-neutral and independently testable.
+Keep reusable diagram examples client-neutral and independently testable.

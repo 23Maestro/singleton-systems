@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-08-22-shared-delivery-gate",
+  "source_revision": "2026-08-25-catena-portfolio-vocabulary",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -112,7 +112,7 @@
       "surface": "outreach",
       "lane": "AI Consultant",
       "owner": "Linear",
-      "intent": "Plan or execute direct B2B client acquisition from real signals and proof.",
+      "intent": "Plan or execute direct B2B client acquisition from real signals and portfolio.",
       "shape": "task",
       "required_tools": [
         "s-systems:agency-growth"
@@ -148,7 +148,7 @@
       "required_tools": [
         "s-systems:job-application-resume"
       ],
-      "review_gate": "Verify claims against the canonical resume JSON or source proof before final.",
+      "review_gate": "Verify claims against the canonical resume JSON or source evidence before final.",
       "priority": 40,
       "enabled": true
     },
@@ -200,23 +200,23 @@
       "enabled": true
     },
     {
-      "route_key": "proof-packaging",
-      "bucket": "proof-packaging",
+      "route_key": "portfolio-packaging",
+      "bucket": "portfolio-packaging",
       "trigger_patterns": [
-        "eagle proof",
+        "eagle portfolio",
         "portfolio asset",
-        "proof asset",
+        "portfolio asset",
         "project screenshot",
         "workflow demo"
       ],
-      "example_prompt": "Turn this Eagle proof asset into a portfolio block.",
-      "surface": "proof",
+      "example_prompt": "Turn this Eagle portfolio asset into a portfolio block.",
+      "surface": "portfolio",
       "lane": "Portfolio",
       "owner": "Eagle",
-      "intent": "Turn a real asset into a proof block or claim.",
-      "shape": "proof",
+      "intent": "Turn a real asset into a portfolio block or claim.",
+      "shape": "portfolio",
       "required_tools": [
-        "s-systems:career-proof-packager",
+        "s-systems:career-portfolio-packager",
         "s-systems:eagle"
       ],
       "review_gate": "Verify the asset and claim source before publishing.",
@@ -232,16 +232,16 @@
         "content idea",
         "social post",
         "content calendar",
-        "proof content"
+        "portfolio content"
       ],
-      "example_prompt": "Turn this project screenshot into a LinkedIn proof content idea.",
+      "example_prompt": "Turn this project screenshot into a LinkedIn portfolio content idea.",
       "surface": "content",
       "lane": "Content Editor",
       "owner": "Docs/skills",
-      "intent": "Turn real proof into useful offer-aligned content.",
-      "shape": "proof",
+      "intent": "Turn documented portfolio work into useful offer-aligned content.",
+      "shape": "portfolio",
       "required_tools": [
-        "s-systems:offer-proof-content"
+        "s-systems:offer-portfolio-content"
       ],
       "review_gate": "Final Human Pass before final.",
       "priority": 55,
@@ -390,7 +390,7 @@
       "required_tools": [
         "s-systems:singleton-systems"
       ],
-      "review_gate": "Use real proof and Final Human Pass for publishable copy.",
+      "review_gate": "Use documented portfolio work and Final Human Pass for publishable copy.",
       "priority": 75,
       "enabled": true
     },
@@ -405,16 +405,39 @@
         "organize asset"
       ],
       "example_prompt": "Find and organize this asset in the Eagle library.",
-      "surface": "proof",
+      "surface": "portfolio",
       "lane": "Portfolio",
       "owner": "Eagle",
       "intent": "Operate the Eagle asset library.",
-      "shape": "proof",
+      "shape": "portfolio",
       "required_tools": [
         "s-systems:eagle"
       ],
       "review_gate": "Verify the selected asset before changing metadata.",
       "priority": 80,
+      "enabled": true
+    },
+    {
+      "route_key": "catena-media-download",
+      "bucket": "catena-media-download",
+      "trigger_patterns": [
+        "catena media",
+        "catena sharepoint",
+        "catena folder",
+        "edward murphy.*shared",
+        "download.*catena"
+      ],
+      "example_prompt": "Download these complete Catena Media SharePoint folders and verify the local archives.",
+      "surface": "client intake",
+      "lane": "Content Editor",
+      "owner": "Local files",
+      "intent": "Complete Catena Media external-guest authentication, download every requested SharePoint folder in full, and verify each local archive before downstream editing work.",
+      "shape": "delivery envelope",
+      "required_tools": [
+        "s-systems:catena-media-download"
+      ],
+      "review_gate": "Verify each archive's source-folder mapping, file count, and internal filenames before downstream asset work.",
+      "priority": 77,
       "enabled": true
     },
     {
@@ -434,11 +457,11 @@
         "whisper"
       ],
       "example_prompt": "Build the storyboard packet for this client video job.",
-      "surface": "proof",
+      "surface": "portfolio",
       "lane": "Content Editor",
       "owner": "Eagle",
       "intent": "Turn a URL or local client video into a profile-aware breakdown and edit-ready packet with a recorded delivery envelope and one primary motion engine per beat.",
-      "shape": "proof",
+      "shape": "portfolio",
       "required_tools": [
         "s-systems:client-video-storyboard",
         "s-systems:eagle"
@@ -455,9 +478,14 @@
       "reason": "Direct B2B acquisition and outbound."
     },
     {
-      "skill_key": "career-proof-packager",
+      "skill_key": "catena-media-download",
       "activation": "core",
-      "reason": "Proof and portfolio packaging."
+      "reason": "Catena Media external SharePoint authentication, complete-folder download, and local archive verification."
+    },
+    {
+      "skill_key": "career-portfolio-packager",
+      "activation": "core",
+      "reason": "Portfolio and portfolio packaging."
     },
     {
       "skill_key": "client-video-storyboard",
@@ -490,9 +518,9 @@
       "reason": "Application and resume work."
     },
     {
-      "skill_key": "offer-proof-content",
+      "skill_key": "offer-portfolio-content",
       "activation": "core",
-      "reason": "Proof-led content."
+      "reason": "Portfolio-led content."
     },
     {
       "skill_key": "opportunity-hq-updater",

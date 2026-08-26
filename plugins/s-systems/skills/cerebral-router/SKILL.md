@@ -16,7 +16,7 @@ active system plan -> Linear Singleton Systems
 fuzzy or branching build -> Linear Wayfinder map
 queryable event or dashboard fact -> Supabase
 task and project state -> Linear
-proof asset -> Eagle
+portfolio asset -> Eagle
 desktop/mobile action -> Raycast or Shortcuts
 active-week review -> Next/Vercel
 reviewed architecture -> LikeC4
@@ -31,7 +31,7 @@ reviewed architecture -> LikeC4
 [bucket] one internal harness destination
 [tools] smallest stack
 [review] mutation gate
-[verify] proof command or readback
+[verify] verification command or readback
 ```
 
 `23M-89` owns the Linear GraphQL gateway for Codex, Raycast, and Shortcuts.

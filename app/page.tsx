@@ -988,7 +988,7 @@ export default function Page() {
             Portfolio From Real Systems
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-center text-lg font-medium leading-relaxed text-neutral-600">
-            Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio kept together.
+            Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio assets kept together.
           </p>
           <div className="mt-10">
             <PortfolioShowcase title="Course Video Migration" tabs={nurseHubPortfolioTabs} />

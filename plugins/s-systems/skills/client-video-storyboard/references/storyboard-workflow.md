@@ -118,7 +118,7 @@ bed, sound effect, motion render, and end card:
    media.
 
 Do not accept a success message as verification. The final `treePath` is the
-bin-placement proof.
+bin-placement verification.
 
 Eagle owns assets and review context. Premiere owns bins, sequences, timeline,
 and exports. Codex maps sources and prepares the packet. Jerami reviews the

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Gary's Client Canvas proof: a guided visual path from a company URL to a checked campaign brief.">
+  <meta name="description" content="Gary's Client Canvas portfolio: a guided visual path from a company URL to a checked campaign brief.">
   <title>Gary's Client Canvas · A reliable campaign brief</title>
   <!-- JointJS supplies geometry and relationships. The visible cards remain custom presentation. -->
   <script src="../../node_modules/@joint/core/dist/joint.min.js"></script>
@@ -358,7 +358,7 @@
       <div class="brand-lockup">
         <span class="brand-mark" aria-hidden="true">SS</span>
         <span class="brand">Wayfinder / Client Canvas</span>
-        <span class="brand-sub">Gary's proof</span>
+        <span class="brand-sub">Gary's portfolio</span>
       </div>
       <div class="topbar-meta">
         <span>08.09.26</span>
@@ -368,7 +368,7 @@
 
     <section class="hero" aria-labelledby="page-title">
       <div>
-        <p class="eyebrow">A first Client Canvas proof for Gary</p>
+        <p class="eyebrow">A first Client Canvas portfolio for Gary</p>
         <h1 id="page-title">Make the brief reliable before you <em>automate it.</em></h1>
         <p class="hero-lead">Gary already has the judgment. The missing piece is a path that keeps facts, tools, and checks in the same place—so another Claude rewrite is not the quality-control system.</p>
         <div class="hero-stats" aria-label="Current brief friction">
@@ -448,13 +448,13 @@
 
     <section data-prompt-panel aria-label="Review prompt">
       <div class="prompt-head">
-        <div><strong>Review lens</strong><span>Use this to discuss the proof with Gary.</span></div>
+        <div><strong>Review lens</strong><span>Use this to discuss the portfolio with Gary.</span></div>
       </div>
       <div class="prompt-body">
         <pre data-prompt-output></pre>
         <button class="copy-button" data-copy-prompt type="button">Copy review prompt</button>
       </div>
-      <p class="review-boundary"><strong>Deliberately out of this proof:</strong> no C4 replacement, no generalized <code>/client/[slug]</code>, and no HeyReach sender automation. The existing Wayfinder stays the source; this canvas is learning what the reusable surface wants to become.</p>
+      <p class="review-boundary"><strong>Deliberately out of this portfolio:</strong> no C4 replacement, no generalized <code>/client/[slug]</code>, and no HeyReach sender automation. The existing Wayfinder stays the source; this canvas is learning what the reusable surface wants to become.</p>
     </section>
   </main>
 
@@ -471,7 +471,7 @@
         state: "confirmed",
         owner: "Gary chooses the target",
         call: "Which company and buyer are we researching?",
-        proof: "A brief has a named target before research starts.",
+        portfolio: "A brief has a named target before research starts.",
       },
       {
         id: "research",
@@ -484,7 +484,7 @@
         state: "fuzzy",
         owner: "Shared: source facts + Gary gaps",
         call: "What is confirmed, and what needs Gary's answer?",
-        proof: "Facts and gaps are visible before copy is generated.",
+        portfolio: "Facts and gaps are visible before copy is generated.",
       },
       {
         id: "campaign",
@@ -497,7 +497,7 @@
         state: "proposed",
         owner: "Shared build; Gary sets the bar",
         call: "What makes this brief useful enough to send?",
-        proof: "The same job can be run again without old chat memory leaking in.",
+        portfolio: "The same job can be run again without old chat memory leaking in.",
       },
       {
         id: "checks",
@@ -508,9 +508,9 @@
         business: "A green-looking answer is not finished. The checks make the quality bar visible before anyone treats the brief as ready.",
         technical: "Hooks guard input and output; the tool harness limits what the campaign skill can touch.",
         state: "locked",
-        owner: "Shared proof gate",
+        owner: "Shared portfolio gate",
         call: "Did the brief pass the agreed checks?",
-        proof: "Bad input or bad output stops before the client-facing step.",
+        portfolio: "Bad input or bad output stops before the client-facing step.",
         later: "Unknown later: sender automation",
       },
       {
@@ -520,11 +520,11 @@
         title: "Gary review",
         summary: "Gary makes the important final call, then the checked brief is finished.",
         business: "The system prepares and checks the work. Gary decides whether it sounds right, is worth sending, and is ready to represent him.",
-        technical: "Human review remains the final state transition; sender automation is intentionally outside this proof.",
+        technical: "Human review remains the final state transition; sender automation is intentionally outside this portfolio.",
         state: "locked",
         owner: "Gary owns the final yes",
         call: "Is this brief ready to send?",
-        proof: "Finished brief: facts checked, useful CTA, Gary approved.",
+        portfolio: "Finished brief: facts checked, useful CTA, Gary approved.",
         output: "Finished brief",
       },
       {
@@ -534,11 +534,11 @@
         title: "Claude setup",
         summary: "Keep Claude useful, but stop asking the chat to be the system.",
         business: "The answer is not another longer prompt. Claude can still help; the repeatable path needs a home outside a single conversation.",
-        technical: "Claude is an execution surface. Source, skills, references, and proof checks live in the shared setup.",
+        technical: "Claude is an execution surface. Source, skills, references, and verification checks live in the shared setup.",
         state: "confirmed",
         owner: "Existing starting point",
         call: "What work should remain in Claude, and what should become durable?",
-        proof: "The workflow survives a new chat without relying on hidden memory.",
+        portfolio: "The workflow survives a new chat without relying on hidden memory.",
       },
       {
         id: "repo",
@@ -551,7 +551,7 @@
         state: "locked",
         owner: "Shared source of truth",
         call: "Which files are allowed to define this job?",
-        proof: "A new run can point to the same reviewed source.",
+        portfolio: "A new run can point to the same reviewed source.",
       },
       {
         id: "skills",
@@ -564,7 +564,7 @@
         state: "proposed",
         owner: "Shared design; Gary supplies judgment",
         call: "Which parts of Gary's workflow repeat exactly?",
-        proof: "The instruction can stay short without losing the useful detail.",
+        portfolio: "The instruction can stay short without losing the useful detail.",
       },
       {
         id: "harness",
@@ -573,11 +573,11 @@
         title: "Tool harness",
         summary: "Give the campaign skill the few tools it needs—and no mystery access.",
         business: "Reliability improves when the skill has a small, understandable set of moves instead of reaching for anything nearby.",
-        technical: "Harness exposes scoped tools and gives hooks a place to enforce the proof contract.",
+        technical: "Harness exposes scoped tools and gives hooks a place to enforce the verification contract.",
         state: "proposed",
         owner: "Singleton Systems implementation",
         call: "What can this job read, write, and prove?",
-        proof: "The skill's allowed moves are clear before it runs.",
+        portfolio: "The skill's allowed moves are clear before it runs.",
       },
     ];
 
@@ -844,7 +844,7 @@
       const next = guidedOrder[(index + 1) % guidedOrder.length];
       const nextNode = findNode(next);
       const technical = state.technical ? `<div class="inspector-technical">${selected.technical}</div>` : "";
-      inspector.innerHTML = `<div class="inspector-main"><div class="inspector-top"><span class="inspector-kicker">${selected.lane} · ${selected.step}</span><span class="node-state ${stateClass(selected.state)}">${selected.state}</span></div><h3>${selected.title}</h3><p class="inspector-lead">${selected.business}</p><div class="inspector-meta"><div class="meta-block"><span>What proves it</span><strong>${selected.proof}</strong></div><div class="meta-block"><span>Current owner</span><strong>${selected.owner}</strong></div></div>${technical}</div><div class="inspector-call"><div><span class="inspector-call-label">The important call</span><strong>${selected.call}</strong><p>AI can prepare the answer. This is where the workflow waits for the person who owns the decision.</p></div><div class="inspector-next"><strong>Next in the guided path:</strong> ${nextNode.title}</div></div>`;
+      inspector.innerHTML = `<div class="inspector-main"><div class="inspector-top"><span class="inspector-kicker">${selected.lane} · ${selected.step}</span><span class="node-state ${stateClass(selected.state)}">${selected.state}</span></div><h3>${selected.title}</h3><p class="inspector-lead">${selected.business}</p><div class="inspector-meta"><div class="meta-block"><span>What proves it</span><strong>${selected.portfolio}</strong></div><div class="meta-block"><span>Current owner</span><strong>${selected.owner}</strong></div></div>${technical}</div><div class="inspector-call"><div><span class="inspector-call-label">The important call</span><strong>${selected.call}</strong><p>AI can prepare the answer. This is where the workflow waits for the person who owns the decision.</p></div><div class="inspector-next"><strong>Next in the guided path:</strong> ${nextNode.title}</div></div>`;
     }
 
     function renderPrompt() {

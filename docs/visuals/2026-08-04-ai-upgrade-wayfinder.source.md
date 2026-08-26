@@ -1,8 +1,8 @@
-# AI upgrade + Wayfinder Client Canvas proof
+# AI upgrade + Wayfinder Client Canvas portfolio
 
 ## Core idea
 
-AI often gets the first 80% right. Then it starts guessing. Wayfinder makes it stop so the user can lock the goal, scope, and proof. This page is the first Gary-specific Client Canvas proof, not a generic client schema.
+AI often gets the first 80% right. Then it starts guessing. Wayfinder makes it stop so the user can lock the goal, scope, and portfolio. This page is the first Gary-specific Client Canvas portfolio, not a generic client schema.
 
 ## Gary's real bottleneck
 
@@ -29,7 +29,7 @@ URL + buyer → research and lock facts → campaign-brief skill → checks → 
 - **URL + buyer** is the confirmed starting input.
 - **Research → lock facts** makes confirmed facts, gaps, and guesses legible before writing.
 - **Campaign-brief skill** is Gary's existing workflow made repeatable.
-- **Checks before the send** covers facts, usefulness, CTA, hooks, and proof checks.
+- **Checks before the send** covers facts, usefulness, CTA, hooks, and verification checks.
 - **Gary review** keeps the final yes with Gary. The finished brief is the output, not an automated send.
 
 ### Foundation — the repeatable layer underneath
@@ -47,7 +47,7 @@ The foundation connects into the campaign-brief skill and the checks. It explain
 
 - Start in **Guided path** on `URL + buyer`; arrow keys move through the path.
 - Workflow, Foundation, and Explore presets change the emphasis without changing the content.
-- Click any card for a business-language explanation, owner, proof, and the decision Gary still makes.
+- Click any card for a business-language explanation, owner, portfolio, and the decision Gary still makes.
 - Drag to pan and use `+` / `−` or the wheel to zoom on a large screen.
 - `confirmed`, `fuzzy`, `unknown / later`, `proposed`, and `locked` are visible states, not hidden metadata.
 - Technical notes are opt-in and secondary.
@@ -68,7 +68,7 @@ JointJS owns only the geometry and relationship lines. Cards, typography, state 
 2. Turn unknowns into small decisions.
 3. Lock the owner, allowed files, chosen route, and definition of done.
 4. Build one small slice.
-5. Run the proof checks, review, then take the next slice.
+5. Run the verification checks, review, then take the next slice.
 
 This is why slowing AI down helps. The user makes the calls that are hard to undo. The agent needs a new decision before it can widen the job or touch more of the repo.
 
@@ -90,9 +90,9 @@ This is why slowing AI down helps. The user makes the calls that are hard to und
 
 The offer is a better way to work with AI. Pick the path, lock the job, run one step, check it, and keep going. Get the brief right before you automate the sender.
 
-## Deliberate boundaries for this proof
+## Deliberate boundaries for this portfolio
 
-- Keep Gary's existing Wayfinder as the content source and first proof.
+- Keep Gary's existing Wayfinder as the content source and first portfolio.
 - Do not replace this with C4.
 - Do not generalize `/client/[slug]` yet.
 - Do not freeze a reusable Client Canvas schema from this one page.

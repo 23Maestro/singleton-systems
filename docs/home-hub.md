@@ -240,7 +240,7 @@ commands -> Command Ops
 lifeops  -> Business Ops
 ```
 
-Job/application links go to Opportunity HQ or stay in the legacy export until purged. Proof assets go to Eagle. Codex/system rules go to `Command Ops` first, then repo docs/skills if repeated.
+Job/application links go to Opportunity HQ or stay in the legacy export until purged. Portfolio assets go to Eagle. Codex/system rules go to `Command Ops` first, then repo docs/skills if repeated.
 
 Do not rebuild tag sprawl in Obsidian. If a note needs date, status, follow-up, money priority, or project relation, it belongs in Opportunity HQ.
 

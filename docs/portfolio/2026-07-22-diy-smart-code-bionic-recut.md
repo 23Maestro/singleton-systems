@@ -27,7 +27,7 @@ What's actually slow — this is the fix:
   - The "device mockups" (the Bionic app card, the fake terminal block in
     IMG_2359) aren't real screen recordings — they're flat vector
     approximations with no bezel, no reflection, no depth. They read as
-    illustrations of software, not proof of software.
+    illustrations of software, not evidence of software.
   - Transitions are either a hard cut or a code-generated glitch effect,
     and the glitch effect stutters/tears (his own words: "clunky").
   - Backgrounds are a static repeating icon texture with zero parallax —
@@ -113,7 +113,7 @@ _ADMIN_REF
 ## Pacing & Transition Rules
 
 ```text
-- No static hold longer than ~1.2s unless it's a hero proof beat (the
+- No static hold longer than ~1.2s unless it's a hero portfolio beat (the
   running-game cutaway, the inline-diff cutaway) — those can breathe to
   2-3s because there's real motion on screen to track.
 - Every card-to-card cut carries a small camera move: push-in, whip pan,

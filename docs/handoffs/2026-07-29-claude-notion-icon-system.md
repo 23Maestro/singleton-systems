@@ -47,7 +47,7 @@ Create these as custom icons, not stock exports:
 | `project.client-work` | `AddressBookTabs` | duotone | Client delivery hub. |
 | `project.ai-consulting` | `Target` | duotone | Keep the target concept, rebuilt through the custom template. |
 | `project.content-editing` | `FilmSlate` | duotone | Comparable visual weight to Target. |
-| `project.portfolio` | `BriefcaseMetal` | duotone | Proof and portfolio work. |
+| `project.portfolio` | `BriefcaseMetal` | duotone | Portfolio and portfolio work. |
 | `task.vsl` | `FilmScript` | duotone | Parent VSL deliverable. |
 | `task.video-package` | `VideoCamera` | duotone | Parent multi-video deliverable. |
 | `subtask.vsl` | `FilmScript` | fill | All VSL subtasks reuse this family. |

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Career Portfolio Packager"
+  short_description: "Package completed work for the site, resume, and offers."
+  default_prompt: "Use $career-portfolio-packager to turn this completed work into a concise Singleton Systems portfolio block."

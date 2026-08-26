@@ -10,7 +10,7 @@
     "sourceUrl": null,
     "confidence": 1,
     "needsReview": false,
-    "approvalStatus": "proof-only",
+    "approvalStatus": "portfolio-only",
     "aliases": ["Mahomes", "Chiefs quarterback"]
   },
   {
@@ -24,7 +24,7 @@
     "sourceUrl": null,
     "confidence": 1,
     "needsReview": false,
-    "approvalStatus": "proof-only",
+    "approvalStatus": "portfolio-only",
     "aliases": ["Dak", "Prescott", "Cowboys quarterback"]
   },
   {
@@ -38,7 +38,7 @@
     "sourceUrl": null,
     "confidence": 1,
     "needsReview": false,
-    "approvalStatus": "proof-only",
+    "approvalStatus": "portfolio-only",
     "aliases": ["Reid", "Chiefs coach"]
   }
 ]

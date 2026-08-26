@@ -67,7 +67,7 @@ const codeArtifactSources: CodeArtifactSource[] = [
     raw_task_status: 'spoke_to_follow_up',
     dedupe_key: 'activity:task-1',
     compatibility_source_owner: 'Primary Operator',
-    compatibility_owner_proof: 'task_assigned_owner',
+    compatibility_owner_portfolio: 'task_assigned_owner',
     active_operator_key: 'operator_primary',
     counts_as_dial: true,
     counts_as_contact: true,
@@ -75,7 +75,7 @@ const codeArtifactSources: CodeArtifactSource[] = [
     counts_as_post_meeting_outcome: false,
   });
 
-  expect(row.owner_proof).toBe('task_assigned_owner');
+  expect(row.owner_portfolio).toBe('task_assigned_owner');
   expect(row.counts_as_contact).toBe(true);
 });`,
   },

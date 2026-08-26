@@ -33,7 +33,7 @@ its execution state; they are not the same taxonomy.
 | Linear | map, tickets, blockers, priority, status, assignment, resolution | implementation evidence |
 | GitHub | branch, commit, pull request, implementation artifact | planning or task status |
 | Codex | works one visible ticket and writes its reviewed resolution | sub-agents or background sync |
-| Pull request | implementation proof and review link | discovery or prioritization |
+| Pull request | implementation evidence and review link | discovery or prioritization |
 | HTML review | scanable snapshot | canonical record |
 
 ## Operating Sequence

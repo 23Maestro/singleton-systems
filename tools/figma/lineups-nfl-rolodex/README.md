@@ -22,9 +22,9 @@ The plugin does not impose edit timing. It supports any short player, coach, or 
 
 The live `NFL Players` folder has 39 files. All 39 have no Eagle tags or annotations. Embedded image descriptions identify 38 single-subject files. One file contains both Jaxson Dart and Cam Skattebo and stays in the review list. The proposed rows are in [`metadata/identification-manifest.json`](metadata/identification-manifest.json). No Eagle names, tags, files, folders, or annotations were changed.
 
-The current metadata contract approves official team names as the only Eagle tag class. Person names remain a future decision. Role, position, image context, source, confidence, and review state exist only in this proof's read-only sidecar manifest. The plugin and bridge never apply them to Eagle.
+The current metadata contract approves official team names as the only Eagle tag class. Person names remain a future decision. Role, position, image context, source, confidence, and review state exist only in this portfolio's read-only sidecar manifest. The plugin and bridge never apply them to Eagle.
 
-Eagle 4.0 Build 23 is installed. The V2 API answers on port 41595 and reports the active `Content Editor` library. The current bridge proof still uses the older V1 routes and is scheduled to move to V2 before the Figma insert proof is final. Eagle returns local image paths, so the bridge supplies image bytes and resizes files above Figma’s 4096 px limit into a temporary cache.
+Eagle 4.0 Build 23 is installed. The V2 API answers on port 41595 and reports the active `Content Editor` library. The current bridge portfolio still uses the older V1 routes and is scheduled to move to V2 before the Figma insert portfolio is final. Eagle returns local image paths, so the bridge supplies image bytes and resizes files above Figma’s 4096 px limit into a temporary cache.
 
 ## Architecture
 

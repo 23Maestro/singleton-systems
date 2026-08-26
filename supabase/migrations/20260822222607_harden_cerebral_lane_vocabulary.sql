@@ -5,7 +5,7 @@ with lane_updates(route_key, lane) as (
     ('agency-growth', 'AI Consultant'),
     ('job-application', 'Portfolio'),
     ('cover-note', 'Writing Review'),
-    ('proof-packaging', 'Portfolio'),
+    ('portfolio-packaging', 'Portfolio'),
     ('offer-content', 'Content Editor'),
     ('opportunity-hq', 'System Maintenance'),
     ('planning-routing', 'System Maintenance'),

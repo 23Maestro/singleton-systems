@@ -253,7 +253,7 @@ def drift_warnings(text):
         warnings.append("- Visual check: HTML comps should be readable human review surfaces with dated file names, large type, few nodes, and no crowded architecture inventory.")
 
     if SOCIAL_RE.search(text):
-        warnings.append("- Social check: keep platform, reference_set, direct_style, post_format, and attack_type aligned in offer-proof-content plus platform skills.")
+        warnings.append("- Social check: keep platform, reference_set, direct_style, post_format, and attack_type aligned in offer-portfolio-content plus platform skills.")
 
     if AUTOMATION_RE.search(text):
         warnings.append("- Harness check: interpret containers as triggerable project/bucket context packets unless runtime infrastructure is explicitly requested.")

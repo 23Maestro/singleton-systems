@@ -40,7 +40,7 @@ Codex     -> source mapping, storyboard, checklist
 8. Before any Premiere import, read
    `references/premiere-ingest-contract.md`. Import every asset
    into its numbered role bin and apply the agreed color label to the project
-   item immediately. The import response is not proof. Resolve the new item ID,
+   item immediately. The import response is not verification. Resolve the new item ID,
    move it to the destination bin ID, then reread its `treePath`. Never leave
    imported media in the project root.
 9. Before Premiere mutation, inspect project info, sequences, items, active

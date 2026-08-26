@@ -57,7 +57,7 @@ music, and sound effects:
    Repeat the move by ID, then read it back again.
 
 The Premiere bridge may return a successful `binName` while the item remains
-at root. Never use the import response as placement proof. The read-back
+at root. Never use the import response as placement verification. The read-back
 `treePath` is authoritative. Finish this transaction before timeline work;
 never postpone it as a cleanup pass.
 

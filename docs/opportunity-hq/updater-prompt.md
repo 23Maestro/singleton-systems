@@ -327,7 +327,7 @@ Valuable future shortcut idea, but not immediate income work.
 Obsidian Capture:
 Suggested Obsidian folder: Command Ops
 Suggested note title: Mobile video transcript shortcut
-Cleaned note: Explore a mobile-friendly transcript step for the existing share-sheet video download shortcut. Possible future portfolio of small practical automations. Keep parked until cash-path work is moving.
+Cleaned note: Explore a mobile-friendly transcript step for the existing share-sheet video download shortcut. Possible future collection of small practical automations. Keep parked until cash-path work is moving.
 
 Do Not:
 Do not create an Opportunity HQ task yet unless I explicitly decide to build it this week.

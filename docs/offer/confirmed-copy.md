@@ -114,7 +114,7 @@ Portfolio From Real Systems
 
 Subhead:
 
-Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio kept together.
+Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio assets kept together.
 
 Portfolio rule:
 

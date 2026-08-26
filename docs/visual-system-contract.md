@@ -85,7 +85,7 @@ Current durable facts:
 ```text
 cerebral_routes / harness_skills / harness_capabilities -> live routing registry
 outreach_attempts / contacts -> outreach and follow-up events
-content_references / content_posts / portfolio_assets -> proof and content metadata
+content_references / content_posts / portfolio_assets -> portfolio and content metadata
 ```
 
 The dashboard reads queryable facts and owner links. New tables require a

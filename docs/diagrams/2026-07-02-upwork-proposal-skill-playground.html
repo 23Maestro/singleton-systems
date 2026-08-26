@@ -373,7 +373,7 @@
       <section class="output">
         <div class="hero-card">
           <h2 id="headline">High match, cover letter only.</h2>
-          <p id="headlineNote">Lead with one useful question. Then one proof anchor and one offer-lens sentence.</p>
+          <p id="headlineNote">Lead with one useful question. Then one portfolio anchor and one offer-lens sentence.</p>
         </div>
 
         <div class="panel">
@@ -417,8 +417,8 @@
             <p id="question">Do you already have the visual style, or would you want the editor to help shape that first?</p>
           </div>
           <div class="card green">
-            <strong>Proof Anchor</strong>
-            <p id="proof">Recurring content systems: webinars, course production, long-form edits, and client video work.</p>
+            <strong>Portfolio Anchor</strong>
+            <p id="portfolio">Recurring content systems: webinars, course production, long-form edits, and client video work.</p>
           </div>
           <div class="card purple">
             <strong>Offer Lens</strong>
@@ -468,14 +468,14 @@
       match: {
         high: {
           headline: "High match, cover letter only.",
-          note: "Lead with one useful question. Then one proof anchor and one offer-lens sentence.",
-          proof: "Recurring content systems: webinars, course production, long-form edits, and client video work.",
+          note: "Lead with one useful question. Then one portfolio anchor and one offer-lens sentence.",
+          portfolio: "Recurring content systems: webinars, course production, long-form edits, and client video work.",
           draft2: "This is a strong fit for me. My best work has been recurring content where the brand needs to stay consistent across every piece. That’s the lane I’d bring here."
         },
         medium: {
           headline: "Medium match, honest bridge.",
           note: "Name the adjacent fit without losing power. Bridge through the real pattern underneath.",
-          proof: "Adjacent portfolio, real overlap: brand consistency, narrative judgment, assets, review, and delivery.",
+          portfolio: "Adjacent portfolio, real overlap: brand consistency, narrative judgment, assets, review, and delivery.",
           draft2: "This is adjacent to some of my portfolio, but the work pattern is familiar: keep the brand clear, the content organized, and the next edit easier than the last."
         }
       },
@@ -518,7 +518,7 @@
       document.getElementById("headline").textContent = match.headline;
       document.getElementById("headlineNote").textContent = match.note;
       document.getElementById("question").textContent = shape.question;
-      document.getElementById("proof").textContent = match.proof;
+      document.getElementById("portfolio").textContent = match.portfolio;
       document.getElementById("offer").textContent = shape.offer;
       document.getElementById("price").textContent = pricing.price;
       document.getElementById("draft1").textContent = shape.question;

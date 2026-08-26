@@ -5,7 +5,7 @@ import bpy
 from mathutils import Vector
 
 ROOT = Path("/Users/singleton23/Documents/Development/singleton-systems")
-OUT = ROOT / "output/scene-3/polyhaven-food-asset-proof.png"
+OUT = ROOT / "output/scene-3/polyhaven-food-asset-portfolio.png"
 ASSETS = [
     (ROOT / "assets/polyhaven/russian_food_cans_01/russian_food_cans_01_1k.gltf", (-0.75, 0, 0)),
     (ROOT / "assets/polyhaven/long_life_food/long_life_food_1k.gltf", (0.75, 0, 0)),
@@ -20,7 +20,7 @@ def main():
     mat.diffuse_color = (0.45, 0.31, 0.19, 1)
     bpy.ops.mesh.primitive_plane_add(size=5, location=(0, 0, -0.05))
     table = bpy.context.object
-    table.name = "proof_table"
+    table.name = "portfolio_table"
     table.data.materials.append(mat)
 
     imported = []
@@ -76,7 +76,7 @@ def main():
     scene.render.engine = "BLENDER_EEVEE"
     scene.render.filepath = str(OUT)
     bpy.ops.render.render(write_still=True)
-    print({"proof_path": str(OUT)})
+    print({"portfolio_path": str(OUT)})
 
 
 main()

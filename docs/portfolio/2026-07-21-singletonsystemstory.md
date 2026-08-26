@@ -12,7 +12,7 @@ I did not start this as a developer trying to make an app.
 
 I started unemployed, coming from broadcast tech, applying for jobs, using the new ChatGPT app for resume help, trying Upwork, and trying to build a portfolio when I did not have much to show yet.
 
-That pressure turned into the first loop: get clearer, apply faster, make proof, learn from the next failure, and keep building.
+That pressure turned into the first loop: get clearer, apply faster, make portfolio, learn from the next failure, and keep building.
 
 By 2023 into 2024, the work started widening. I taught myself video editing without a formal editing career. I grew on Upwork. I was in debt. I was also traveling around 80 miles every other weekend for my kid, trying to keep life moving while figuring out how to make the work real.
 
@@ -29,13 +29,13 @@ Prospect Pipeline, Scouting Command, ScoutID, the Raycast commands, the Codex en
 ## Timeline
 
 - February 2023: unemployed broadcast tech, applying for jobs and using ChatGPT for resume help.
-- 2023: started using AI to shape job materials, Upwork direction, and early portfolio proof.
-- 2023 to 2024: self-taught video editing while building proof and client-facing skills.
+- 2023: started using AI to shape job materials, Upwork direction, and early portfolio portfolio.
+- 2023 to 2024: self-taught video editing while building portfolio and client-facing skills.
 - Summer/Fall 2024: grew into real client work while still dealing with debt, travel, and unstable income.
 - Fall 2024: NurseHub and Prospect ID workload made the manual process painful enough that automation became necessary.
 - One key weekend: bought Keyboard Maestro, Excalibur, Stream Deck, ergonomic keyboard, and Raycast.
 - 2024 to 2025: worked heavy client weeks while building commands, shortcuts, video systems, Prospect ID workflows, and internal tools.
-- 2025 to 2026: Codex, Raycast, GitHub, Glaze, and Singleton Systems became the proof layer around the work.
+- 2025 to 2026: Codex, Raycast, GitHub, Glaze, and Singleton Systems became the portfolio layer around the work.
 
 ## What This Proves
 
@@ -93,10 +93,10 @@ So I started building around the pain. Raycast became my command center. Keyboar
 
 ScoutID comes from that. It is not a random AI wrapper. It is a keyboard-first work surface built from years of prospect workflow details, client work, video systems, shortcut habits, and the repeated problem of needing the next action right now.
 
-That is the story: not a developer showing off a template, but an operator who kept finding the pain, learning the system, and building until the computer started matching the work.
+That is the story: an operator kept finding the pain, learning the system, and building until the computer started matching the work.
 
 ## Keep Separate
 
 Do not merge this story into the ScoutID shortcut review.
 
-Use this page as the origin/proof story. Use a separate ScoutID capture task to review the actual app behavior and decide what belongs in the Glaze submission, screenshots, Notion task, and SaaS demo video.
+Use this page as the origin/portfolio story. Use a separate ScoutID capture task to review the actual app behavior and decide what belongs in the Glaze submission, screenshots, Notion task, and SaaS demo video.

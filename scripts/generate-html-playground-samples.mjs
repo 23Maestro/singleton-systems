@@ -29,7 +29,7 @@ const lanes = [
     subtitle: "Shape a query spec with source, filters, and output limits.",
     presets: [
       ["Recent Tasks", { density: 2, accent: "blue", focus: "tasks" }],
-      ["Portfolio Proof", { density: 3, accent: "green", focus: "assets" }],
+      ["Portfolio Portfolio", { density: 3, accent: "green", focus: "assets" }],
       ["Follow Ups", { density: 1, accent: "amber", focus: "dates" }]
     ],
     controls: [

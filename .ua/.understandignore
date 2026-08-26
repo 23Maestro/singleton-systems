@@ -30,7 +30,7 @@ scripts/blender_*.py
 scripts/export-scene-*.mjs
 scripts/extract-reference-human-icon.mjs
 scripts/prepare-cavalry-researchers.mjs
-scripts/proof_polyhaven_food_assets.py
+scripts/portfolio_polyhaven_food_assets.py
 
 # Website, marketing, portfolio, and archived documentation
 docs/archive/**

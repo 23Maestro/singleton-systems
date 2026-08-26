@@ -19,11 +19,11 @@
       --yellow: #ffc83d;
       --navy: #101826;
       --shadow: 0 18px 46px rgba(15, 23, 42, 0.10);
-      --proof-card-padding: 17px;
-      --proof-card-radius: 22px;
-      --proof-card-gap: 16px;
-      --proof-card-min: 206px;
-      --proof-card-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
+      --portfolio-card-padding: 17px;
+      --portfolio-card-radius: 22px;
+      --portfolio-card-gap: 16px;
+      --portfolio-card-min: 206px;
+      --portfolio-card-shadow: 0 18px 42px rgba(15, 23, 42, 0.07);
     }
 
     * { box-sizing: border-box; }
@@ -168,7 +168,7 @@
     .source-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--proof-card-gap);
+      gap: var(--portfolio-card-gap);
     }
 
     .card,
@@ -176,15 +176,15 @@
     .resume-block {
       position: relative;
       min-height: 100%;
-      padding: var(--proof-card-padding);
+      padding: var(--portfolio-card-padding);
       border: 1px solid #e4e5e7;
-      border-radius: var(--proof-card-radius);
+      border-radius: var(--portfolio-card-radius);
       background: #fff;
-      box-shadow: var(--proof-card-shadow);
+      box-shadow: var(--portfolio-card-shadow);
     }
 
     .card {
-      min-height: var(--proof-card-min);
+      min-height: var(--portfolio-card-min);
       border-top: 0;
       background:
         linear-gradient(180deg, rgba(250, 251, 252, 0.92), #fff 42%),
@@ -863,7 +863,7 @@
 
     .playground-preview-frame {
       display: grid;
-      gap: var(--proof-card-gap);
+      gap: var(--portfolio-card-gap);
       grid-template-columns: repeat(3, minmax(0, 1fr));
       padding: 20px;
       border-radius: 18px;
@@ -1019,7 +1019,7 @@
     }
 
     .resume-grid,
-    .resume-proof {
+    .resume-portfolio {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
@@ -1030,7 +1030,7 @@
       font-size: 16px;
     }
 
-    .resume-proof button {
+    .resume-portfolio button {
       min-height: 118px;
       padding: 12px;
       text-align: left;
@@ -1038,13 +1038,13 @@
       background: var(--soft);
     }
 
-    .resume-proof button[aria-pressed="true"] {
+    .resume-portfolio button[aria-pressed="true"] {
       background: #eef4ff;
       color: #172033;
       border-color: #9fb1d4;
     }
 
-    .resume-proof span {
+    .resume-portfolio span {
       display: block;
       margin-bottom: 5px;
       color: var(--blue);
@@ -1053,14 +1053,14 @@
       text-transform: uppercase;
     }
 
-    .resume-proof strong {
+    .resume-portfolio strong {
       display: block;
       margin-bottom: 6px;
       color: #172033;
       font-size: 15px;
     }
 
-    .resume-proof em {
+    .resume-portfolio em {
       display: block;
       color: var(--muted);
       font-style: normal;
@@ -1171,7 +1171,7 @@
       .fit-grid,
       .source-grid,
       .resume-grid,
-      .resume-proof,
+      .resume-portfolio,
       .insight-grid,
       .flow-detail-grid,
       .route-shell,
@@ -1451,7 +1451,7 @@
               <span>Click a block to focus the resume angle.</span>
             </div>
             <div class="visual-body">
-              <div class="resume-proof" id="resumeProof"></div>
+              <div class="resume-portfolio" id="resumePortfolio"></div>
               <div class="process-detail" id="resumeDetail">Prospect ID is the lead project: command UI, workflow automation, source-of-truth cleanup, and audit scripts.</div>
             </div>
           </section>
@@ -1483,8 +1483,8 @@
             </div>
             <div class="visual-body">
               <div class="route-shell">
-                <div class="route-options" id="proofRouteOptions"></div>
-                <section class="route-detail" id="proofRouteDetail" aria-live="polite"></section>
+                <div class="route-options" id="portfolioRouteOptions"></div>
+                <section class="route-detail" id="portfolioRouteDetail" aria-live="polite"></section>
               </div>
             </div>
           </section>
@@ -1498,16 +1498,16 @@
     const panels = Array.from(document.querySelectorAll('.panel'));
     const workflowData = {
       video: [
-        { icon: '🎬', name: 'Miles Hart', meta: '2026 • Football • WR | CB', status: 'In Queue', source: 'HUDL', line: 'Football | 2026 | WR | CB | Northview HS | Atlanta, GA | Aug 19, 2025 | In Queue | HUDL', workflow: 'Video Progress', school: 'Northview HS, GA', action: 'View Details, then confirm the title and progress status before editing.', proof: 'src/video-progress.tsx', asset: 'Miles Hart Class of 2026 Senior Season', output: 'Copy YouTube Title / Copy Approved Video Title / Copy Dropbox Folder', actions: ['Video Updates', 'Update Status', 'Update Stage', 'Copy YouTube Title'], actionView: { title: 'Video Updates', eyebrow: 'Step 3 - ready update', primary: 'Submit video update', fields: [['Student Athlete', 'Miles Hart'], ['YouTube Link', 'https://youtu.be/video-ready'], ['Video Type', 'Full Season Highlight'], ['Season/Team', '2025 Varsity Football'], ['Approved Video Title', 'MILES HART Class of 2026 - WR | CB']], note: 'The command turns the reviewed athlete row into the video update the production team needs.' } },
-        { icon: '✏️', name: 'Jordan Vale', meta: '2027 • Basketball • PG', status: 'Awaiting Client', source: 'External Links', line: 'Basketball | 2027 | PG | Lakewood Prep | St. Petersburg, FL | Sep 11, 2025 | Awaiting Client | External Links', workflow: 'Video Updates', school: 'Lakewood Prep, FL', action: 'Open Video Updates and fill YouTube link, video type, and season/team.', proof: 'src/features/athlete-workflows/video-updates-view.tsx', asset: 'Jordan Vale 2027 Point Guard Highlights', output: 'Update NPID Video Profile', actions: ['Video Updates', 'Focus YouTube Link', 'Edit SA Videos', 'View PlayerID'], actionView: { title: 'Edit SA Videos', eyebrow: 'Step 3 - ready update', primary: 'Update video link', fields: [['Student Athlete', 'Jordan Vale'], ['YouTube Link', 'https://youtu.be/revision-ready'], ['Video Type', 'Partial Season Highlight'], ['Season/Team', '2026 Travel Basketball'], ['Source', 'youtube']], note: 'The command fills the video profile from the same athlete row, so the operator is not hunting through the dashboard.' } },
-        { icon: '📦', name: 'Camden Brooks', meta: '2028 • Football • QB-D | DE', status: 'On Hold', source: 'Dropbox', line: 'Football | 2028 | QB-D | DE | Cedar Ridge HS | Austin, TX | Oct 9, 2025 | On Hold | Dropbox', workflow: 'Dropbox Folder Reminder', school: 'Cedar Ridge HS, TX', action: 'Copy the folder name, send the reminder, and keep the task in the right stage.', proof: 'src/video-progress.tsx', asset: 'CamdenBrooks_2028_Football_TX', output: 'Dropbox Folder Reminders', actions: ['Dropbox Folder Reminders', 'Copy Dropbox Folder', 'Update Stage', 'View PlayerID'], actionView: { title: 'Dropbox Folder Reminder', eyebrow: 'Step 3 - reminder ready', primary: 'Queue reminder', fields: [['Student Athlete', 'Camden Brooks'], ['Dropbox Folder', 'CamdenBrooks_2028_Football_TX'], ['Video Stage', 'On Hold'], ['Video Status', 'Dropbox'], ['Reminder Type', 'dropbox-folder']], note: 'The command turns the folder status into the next reminder without making the operator rebuild the context.' } },
-        { icon: '✅', name: 'Eli Rivers', meta: '2026 • Baseball • RHP | SS', status: 'Done', source: 'HUDL', line: 'Baseball | 2026 | RHP | SS | Eastline HS | Raleigh, NC | Nov 19, 2025 | Done | HUDL', workflow: 'Completion Review', school: 'Eastline HS, NC', action: 'Set completion date after title, status, and PlayerID review are clean.', proof: 'src/video-progress.tsx', asset: 'ELI RIVERS Class of 2026 - RHP | SS', output: 'Set Completion Date', actions: ['Set Completion Date', 'View PlayerID', 'Copy Approved Video Title', 'Reload Tasks'], actionView: { title: 'Set Completion Date', eyebrow: 'Step 3 - close out', primary: 'Save completion date', fields: [['Student Athlete', 'Eli Rivers'], ['Video Stage', 'Done'], ['Video Status', 'HUDL'], ['Completion Date', 'Nov 19, 2025'], ['Approved Video Title', 'ELI RIVERS Class of 2026 - RHP | SS']], note: 'The command closes the loop only after the title, status, and delivery state are ready.' } }
+        { icon: '🎬', name: 'Miles Hart', meta: '2026 • Football • WR | CB', status: 'In Queue', source: 'HUDL', line: 'Football | 2026 | WR | CB | Northview HS | Atlanta, GA | Aug 19, 2025 | In Queue | HUDL', workflow: 'Video Progress', school: 'Northview HS, GA', action: 'View Details, then confirm the title and progress status before editing.', portfolio: 'src/video-progress.tsx', asset: 'Miles Hart Class of 2026 Senior Season', output: 'Copy YouTube Title / Copy Approved Video Title / Copy Dropbox Folder', actions: ['Video Updates', 'Update Status', 'Update Stage', 'Copy YouTube Title'], actionView: { title: 'Video Updates', eyebrow: 'Step 3 - ready update', primary: 'Submit video update', fields: [['Student Athlete', 'Miles Hart'], ['YouTube Link', 'https://youtu.be/video-ready'], ['Video Type', 'Full Season Highlight'], ['Season/Team', '2025 Varsity Football'], ['Approved Video Title', 'MILES HART Class of 2026 - WR | CB']], note: 'The command turns the reviewed athlete row into the video update the production team needs.' } },
+        { icon: '✏️', name: 'Jordan Vale', meta: '2027 • Basketball • PG', status: 'Awaiting Client', source: 'External Links', line: 'Basketball | 2027 | PG | Lakewood Prep | St. Petersburg, FL | Sep 11, 2025 | Awaiting Client | External Links', workflow: 'Video Updates', school: 'Lakewood Prep, FL', action: 'Open Video Updates and fill YouTube link, video type, and season/team.', portfolio: 'src/features/athlete-workflows/video-updates-view.tsx', asset: 'Jordan Vale 2027 Point Guard Highlights', output: 'Update NPID Video Profile', actions: ['Video Updates', 'Focus YouTube Link', 'Edit SA Videos', 'View PlayerID'], actionView: { title: 'Edit SA Videos', eyebrow: 'Step 3 - ready update', primary: 'Update video link', fields: [['Student Athlete', 'Jordan Vale'], ['YouTube Link', 'https://youtu.be/revision-ready'], ['Video Type', 'Partial Season Highlight'], ['Season/Team', '2026 Travel Basketball'], ['Source', 'youtube']], note: 'The command fills the video profile from the same athlete row, so the operator is not hunting through the dashboard.' } },
+        { icon: '📦', name: 'Camden Brooks', meta: '2028 • Football • QB-D | DE', status: 'On Hold', source: 'Dropbox', line: 'Football | 2028 | QB-D | DE | Cedar Ridge HS | Austin, TX | Oct 9, 2025 | On Hold | Dropbox', workflow: 'Dropbox Folder Reminder', school: 'Cedar Ridge HS, TX', action: 'Copy the folder name, send the reminder, and keep the task in the right stage.', portfolio: 'src/video-progress.tsx', asset: 'CamdenBrooks_2028_Football_TX', output: 'Dropbox Folder Reminders', actions: ['Dropbox Folder Reminders', 'Copy Dropbox Folder', 'Update Stage', 'View PlayerID'], actionView: { title: 'Dropbox Folder Reminder', eyebrow: 'Step 3 - reminder ready', primary: 'Queue reminder', fields: [['Student Athlete', 'Camden Brooks'], ['Dropbox Folder', 'CamdenBrooks_2028_Football_TX'], ['Video Stage', 'On Hold'], ['Video Status', 'Dropbox'], ['Reminder Type', 'dropbox-folder']], note: 'The command turns the folder status into the next reminder without making the operator rebuild the context.' } },
+        { icon: '✅', name: 'Eli Rivers', meta: '2026 • Baseball • RHP | SS', status: 'Done', source: 'HUDL', line: 'Baseball | 2026 | RHP | SS | Eastline HS | Raleigh, NC | Nov 19, 2025 | Done | HUDL', workflow: 'Completion Review', school: 'Eastline HS, NC', action: 'Set completion date after title, status, and PlayerID review are clean.', portfolio: 'src/video-progress.tsx', asset: 'ELI RIVERS Class of 2026 - RHP | SS', output: 'Set Completion Date', actions: ['Set Completion Date', 'View PlayerID', 'Copy Approved Video Title', 'Reload Tasks'], actionView: { title: 'Set Completion Date', eyebrow: 'Step 3 - close out', primary: 'Save completion date', fields: [['Student Athlete', 'Eli Rivers'], ['Video Stage', 'Done'], ['Video Status', 'HUDL'], ['Completion Date', 'Nov 19, 2025'], ['Approved Video Title', 'ELI RIVERS Class of 2026 - RHP | SS']], note: 'The command closes the loop only after the title, status, and delivery state are ready.' } }
       ],
       sales: [
-        { icon: '📅', name: 'Malik Stone', meta: '2026 • Football • OLB | WR', status: 'Set Meetings', source: 'Confirmation 1', line: 'Football | 2026 | OLB | WR | Westfield HS | Columbus, OH | Set Meetings | Head Scout Patrick', workflow: 'Set Meetings', school: 'Westfield HS, OH', action: 'Send Confirmation, then copy the booked meeting for readback.', proof: 'src/head-scout-schedules.tsx', asset: 'Parent confirmation text for Head Scout Patrick', output: 'Send Confirmation / Copy Booked Meeting', actions: ['Send Confirmation', 'Meeting Details', 'Copy Booked Meeting', 'Open Athlete Task Tab'], actionView: { title: 'Send Confirmation', eyebrow: 'Step 3 - message ready', primary: 'Copy message', fields: [['Student Athlete', 'Malik Stone'], ['Recipient', 'Parent A'], ['Head Scout', 'Head Scout Patrick'], ['Meeting', 'Thu 6:00 PM ET'], ['Message', 'Confirming the call with Head Scout Patrick for Malik.']], note: 'The command turns the booked meeting into a clean confirmation message and keeps the meeting details beside it.' } },
-        { icon: '☎️', name: 'Isaiah Quinn', meta: '2027 • Football • S | OLB', status: 'Scout Prep', source: 'Parent Intro', line: 'Football | 2027 | S | OLB | Ridgeview HS | Denver, CO | Scout Prep | Parent Intro', workflow: 'Scout Prep Call Path', school: 'Ridgeview HS, CO', action: 'Review contact context and keep the call script ready before outreach.', proof: 'src/features/scout-prep/content.ts', asset: 'Hey Parent A, this is Scouting Coordinator at Prospect ID.', output: 'Parent script with athlete context and next-step prompt', actions: ['Review athlete data', 'Open contact context', 'Copy Parent 1 Phone', 'Update task stage'], actionView: { title: 'Parent Intro', eyebrow: 'Step 3 - call ready', primary: 'Copy call opener', fields: [['Student Athlete', 'Isaiah Quinn'], ['Parent', 'Parent A'], ['Stage', 'Parent Intro'], ['Opener', 'Hey Parent A, this is Scouting Coordinator at Prospect ID.'], ['Next Step', 'Confirm interest and route the task stage.']], note: 'The command pulls the athlete, parent, and next step into one call surface so the operator is not clicking around.' } },
-        { icon: '🧭', name: 'Noah Bennett', meta: '2028 • Basketball • SG', status: 'Scout Openings', source: 'Open Slots', line: 'Basketball | 2028 | SG | Southgate Prep | Phoenix, AZ | Scout Openings | 4 open', workflow: 'Scout Openings', school: 'Southgate Prep, AZ', action: 'View open slots, select two times, and sync them into the call script.', proof: 'src/head-scout-schedules.tsx', asset: 'Head Scout Taylor • Thu 6:00 PM / Sat 11:30 AM', output: 'Sync to Notion / Copy Slot', actions: ['View Open Slots', 'Select Slot', 'Sync to Notion', 'Next Week'], actionView: { title: 'View Open Slots', eyebrow: 'Step 3 - slots ready', primary: 'Sync selected slots', fields: [['Head Scout', 'Head Scout Taylor'], ['Slot 1', 'Thu 6:00 PM MT'], ['Slot 2', 'Sat 11:30 AM MT'], ['Athlete timezone', 'Mountain'], ['Sync Target', 'Call script toggle']], note: 'The command turns open scout availability into two clear options the operator can offer on the call.' } },
-        { icon: '🧾', name: 'Theo Parker', meta: '2026 • Baseball • C | 3B', status: 'Pending Clients', source: 'Review queue', line: 'Baseball | 2026 | C | 3B | Harbor Christian | Charleston, SC | Pending Clients | Review queue', workflow: 'Pending Clients', school: 'Harbor Christian, SC', action: 'Review pending client context, then route to confirmation or post-call update.', proof: 'src/head-scout-schedules.tsx', asset: 'Needs confirmation text and meeting readback', output: 'Pending Clients / Post-Call Update', actions: ['Pending Clients', 'Reschedule Pending', 'Meeting Set - Rescheduled', 'Refresh Live'], actionView: { title: 'Post-Call Update', eyebrow: 'Step 3 - route ready', primary: 'Open update form', fields: [['Student Athlete', 'Theo Parker'], ['Queue', 'Pending Clients'], ['Review', 'Meeting details and current task'], ['Route', 'Reschedule Pending or Meeting Set - Rescheduled'], ['Readback', 'Refresh Live after save']], note: 'The command keeps the relevant details in front of the operator before they choose the final client follow-up path.' } }
+        { icon: '📅', name: 'Malik Stone', meta: '2026 • Football • OLB | WR', status: 'Set Meetings', source: 'Confirmation 1', line: 'Football | 2026 | OLB | WR | Westfield HS | Columbus, OH | Set Meetings | Head Scout Patrick', workflow: 'Set Meetings', school: 'Westfield HS, OH', action: 'Send Confirmation, then copy the booked meeting for readback.', portfolio: 'src/head-scout-schedules.tsx', asset: 'Parent confirmation text for Head Scout Patrick', output: 'Send Confirmation / Copy Booked Meeting', actions: ['Send Confirmation', 'Meeting Details', 'Copy Booked Meeting', 'Open Athlete Task Tab'], actionView: { title: 'Send Confirmation', eyebrow: 'Step 3 - message ready', primary: 'Copy message', fields: [['Student Athlete', 'Malik Stone'], ['Recipient', 'Parent A'], ['Head Scout', 'Head Scout Patrick'], ['Meeting', 'Thu 6:00 PM ET'], ['Message', 'Confirming the call with Head Scout Patrick for Malik.']], note: 'The command turns the booked meeting into a clean confirmation message and keeps the meeting details beside it.' } },
+        { icon: '☎️', name: 'Isaiah Quinn', meta: '2027 • Football • S | OLB', status: 'Scout Prep', source: 'Parent Intro', line: 'Football | 2027 | S | OLB | Ridgeview HS | Denver, CO | Scout Prep | Parent Intro', workflow: 'Scout Prep Call Path', school: 'Ridgeview HS, CO', action: 'Review contact context and keep the call script ready before outreach.', portfolio: 'src/features/scout-prep/content.ts', asset: 'Hey Parent A, this is Scouting Coordinator at Prospect ID.', output: 'Parent script with athlete context and next-step prompt', actions: ['Review athlete data', 'Open contact context', 'Copy Parent 1 Phone', 'Update task stage'], actionView: { title: 'Parent Intro', eyebrow: 'Step 3 - call ready', primary: 'Copy call opener', fields: [['Student Athlete', 'Isaiah Quinn'], ['Parent', 'Parent A'], ['Stage', 'Parent Intro'], ['Opener', 'Hey Parent A, this is Scouting Coordinator at Prospect ID.'], ['Next Step', 'Confirm interest and route the task stage.']], note: 'The command pulls the athlete, parent, and next step into one call surface so the operator is not clicking around.' } },
+        { icon: '🧭', name: 'Noah Bennett', meta: '2028 • Basketball • SG', status: 'Scout Openings', source: 'Open Slots', line: 'Basketball | 2028 | SG | Southgate Prep | Phoenix, AZ | Scout Openings | 4 open', workflow: 'Scout Openings', school: 'Southgate Prep, AZ', action: 'View open slots, select two times, and sync them into the call script.', portfolio: 'src/head-scout-schedules.tsx', asset: 'Head Scout Taylor • Thu 6:00 PM / Sat 11:30 AM', output: 'Sync to Notion / Copy Slot', actions: ['View Open Slots', 'Select Slot', 'Sync to Notion', 'Next Week'], actionView: { title: 'View Open Slots', eyebrow: 'Step 3 - slots ready', primary: 'Sync selected slots', fields: [['Head Scout', 'Head Scout Taylor'], ['Slot 1', 'Thu 6:00 PM MT'], ['Slot 2', 'Sat 11:30 AM MT'], ['Athlete timezone', 'Mountain'], ['Sync Target', 'Call script toggle']], note: 'The command turns open scout availability into two clear options the operator can offer on the call.' } },
+        { icon: '🧾', name: 'Theo Parker', meta: '2026 • Baseball • C | 3B', status: 'Pending Clients', source: 'Review queue', line: 'Baseball | 2026 | C | 3B | Harbor Christian | Charleston, SC | Pending Clients | Review queue', workflow: 'Pending Clients', school: 'Harbor Christian, SC', action: 'Review pending client context, then route to confirmation or post-call update.', portfolio: 'src/head-scout-schedules.tsx', asset: 'Needs confirmation text and meeting readback', output: 'Pending Clients / Post-Call Update', actions: ['Pending Clients', 'Reschedule Pending', 'Meeting Set - Rescheduled', 'Refresh Live'], actionView: { title: 'Post-Call Update', eyebrow: 'Step 3 - route ready', primary: 'Open update form', fields: [['Student Athlete', 'Theo Parker'], ['Queue', 'Pending Clients'], ['Review', 'Meeting details and current task'], ['Route', 'Reschedule Pending or Meeting Set - Rescheduled'], ['Readback', 'Refresh Live after save']], note: 'The command keeps the relevant details in front of the operator before they choose the final client follow-up path.' } }
       ]
     };
     const evidenceData = {
@@ -1573,7 +1573,7 @@
       ['Education', 'Stetson + SPC', 'Communications degree plus programming and information technology coursework.'],
       ['Role match', 'AI Specialist', 'Data prep, output review, documentation, responsible use, and implementation support.']
     ];
-    const proofRouteData = [
+    const portfolioRouteData = [
       {
         key: 'readme',
         title: 'Command UI',
@@ -1698,7 +1698,7 @@
           <div class="detail-cell primary"><span>Workflow</span><strong>${item.workflow}</strong></div>
           <div class="detail-cell"><span>School / market</span><strong>${item.school}</strong></div>
           <div class="detail-cell route"><span>Next action</span><strong>${item.action}</strong></div>
-          <div class="detail-cell route"><span>Source</span><strong>${item.proof}</strong></div>
+          <div class="detail-cell route"><span>Source</span><strong>${item.portfolio}</strong></div>
           <div class="detail-cell"><span>Ready output</span><strong>${item.output}</strong></div>
           <div class="detail-cell wide"><span>Copy-ready field</span><strong>${item.asset}</strong></div>
         </div>
@@ -1775,7 +1775,7 @@
     }
 
     function renderResume(selected = 0) {
-      document.getElementById('resumeProof').innerHTML = resumeData.map(([label, title, body], index) => `
+      document.getElementById('resumePortfolio').innerHTML = resumeData.map(([label, title, body], index) => `
         <button type="button" data-resume-index="${index}" aria-pressed="${index === selected}">
           <span>${label}</span><strong>${title}</strong><em>${body}</em>
         </button>
@@ -1786,22 +1786,22 @@
       });
     }
 
-    function renderProofRoutes(selected = 'readme') {
-      const active = proofRouteData.find((route) => route.key === selected) || proofRouteData[0];
-      document.getElementById('proofRouteOptions').innerHTML = proofRouteData.map((route) => `
-        <button type="button" class="route-choice" data-proof-route="${route.key}" aria-pressed="${route.key === active.key}">
+    function renderPortfolioRoutes(selected = 'readme') {
+      const active = portfolioRouteData.find((route) => route.key === selected) || portfolioRouteData[0];
+      document.getElementById('portfolioRouteOptions').innerHTML = portfolioRouteData.map((route) => `
+        <button type="button" class="route-choice" data-portfolio-route="${route.key}" aria-pressed="${route.key === active.key}">
           <strong>${route.title}</strong>
           <span>${route.source}</span>
         </button>
       `).join('');
-      document.getElementById('proofRouteDetail').innerHTML = `
+      document.getElementById('portfolioRouteDetail').innerHTML = `
         <h3>${active.title}</h3>
         <div><span>What to inspect</span><p>${active.inspect}</p></div>
         <div><span>Why it matters</span><p>${active.result}</p></div>
         <a href="${active.href}">Open ${active.source}</a>
       `;
-      document.querySelectorAll('[data-proof-route]').forEach((button) => {
-        button.addEventListener('click', () => renderProofRoutes(button.dataset.proofRoute));
+      document.querySelectorAll('[data-portfolio-route]').forEach((button) => {
+        button.addEventListener('click', () => renderPortfolioRoutes(button.dataset.portfolioRoute));
       });
     }
 
@@ -1812,7 +1812,7 @@
     renderEvidence();
     renderProcess();
     renderResume();
-    renderProofRoutes();
+    renderPortfolioRoutes();
   </script>
 </body>
 </html>

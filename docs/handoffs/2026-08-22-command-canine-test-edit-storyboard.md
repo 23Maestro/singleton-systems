@@ -28,7 +28,7 @@ Full ledger: `2026-08-24-command-k9-reference-edit-ledger.csv`
 
 | Edit time | Raw source | Reference pattern | Action | Screen change | Primary engine |
 | --- | --- | --- | --- | --- | --- |
-| 00:00–00:03 | 01:33 dialogue | Claim card, 00:53–00:59 | Adapt | White contour field and black bar: `DOG-PROOF YOUR HOME`. | Figma Motion |
+| 00:00–00:03 | 01:33 dialogue | Claim card, 00:53–00:59 | Adapt | White contour field and black bar: `DOG-PORTFOLIO YOUR HOME`. | Figma Motion |
 | 00:03–00:12 | 01:33–01:42 | Trust rhythm, 00:14–00:41 | Preserve | Kitchen speaker shot. One restrained punch-in at the claim turn. | Premiere |
 | 00:12–00:18 | 01:42–01:47 | Labeled cause, 05:48–06:01 | Adapt | `MEDICATIONS` / `UP + OUT OF REACH`. Keep the bottles visible. | Figma Motion |
 | 00:18–00:27 | 01:47–01:59 | Labeled cause, 05:48–06:01 | Improve | `FOOD` / `CLEAR THE COUNTERS`. Track the label to the counter without covering her hands. | Figma Motion |

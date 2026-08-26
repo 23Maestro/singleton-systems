@@ -65,7 +65,7 @@ Current source files:
 
 Use these skills when useful:
 
-- `offer-proof-content` for copy, sections, portfolio framing, and proof-led content strategy
+- `offer-portfolio-content` for copy, sections, portfolio framing, and portfolio-led content strategy
 - `agency-growth` for direct B2B pain, CTA, objection handling, and conversion logic
 - `ui-designer` after the message is clear
 - `frontend-developer` when implementing or polishing the site
@@ -160,7 +160,7 @@ Default Upwork proposal shape:
 
 1. Pattern-interrupt question or observation.
 2. One sentence showing understanding.
-3. One relevant portfolio point.
+3. One relevant portfolio example.
 4. Simple next step.
 
 Proposal variants to generate when needed:
@@ -217,7 +217,7 @@ Content lanes:
 
 Use these skills when useful:
 
-- `offer-proof-content`
+- `offer-portfolio-content`
 - `podcast-strategist` is preserved for its specialist Chinese-podcast workflow and disabled from normal SSystems routing
 
 Default content shape:
@@ -254,7 +254,7 @@ Use skills as working roles, not as personality decoration.
 
 ### Offer And Copy
 
-- primary: `offer-proof-content`
+- primary: `offer-portfolio-content`
 - secondary: `agency-growth`
 
 Use when:

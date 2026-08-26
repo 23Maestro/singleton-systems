@@ -36,7 +36,7 @@ project: existing Linear project; for Content Editor this is the client
 client: Notion Client backlink for client work; omit for Development
 intent: one sentence
 next: one action
-owner link: Linear, GitHub, job source, or proof asset
+owner link: Linear, GitHub, job source, or portfolio asset
 ```
 
 ## Initiatives and Projects
@@ -87,7 +87,7 @@ pre-tagged `4h+` — split first, always.
 
 Linear Intake: keep raw capture, system decisions, and unselected work in the
 `Command + Ideas` project. Promote only selected delivery, consulting,
-development, or proof work into an initiative project that needs durable
+development, or portfolio work into an initiative project that needs durable
 workflow state.
 
 ## Writing Rules
@@ -97,7 +97,7 @@ log, quote, or restate the correction itself in output.
 No process commentary in deliverables. State facts and results only.
 
 Keep a Linear task to the outcome, current truth, next action, and done check.
-Link the owning workflow or proof. Do not paste the workflow into the issue.
+Link the owning workflow or portfolio. Do not paste the workflow into the issue.
 Use a dated interactive Decision Map when Jerami's review needs more than 500
 words.
 

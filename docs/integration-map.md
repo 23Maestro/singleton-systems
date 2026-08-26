@@ -13,9 +13,9 @@ not repeat their logic.
 | System ideas, commands, active decisions | Linear | `Command + Ideas` and `Singleton Systems` |
 | Career tasks and job workflow state | Opportunity HQ | `opportunity-hq-updater` |
 | Wayfinder maps, decisions, dependencies, active work | Linear | `wayfinder` |
-| Branches, commits, pull requests, implementation proof | GitHub | repository workflow |
+| Branches, commits, pull requests, implementation evidence | GitHub | repository workflow |
 | Queryable events and cross-surface facts | Supabase | `docs/truth-matrix.md` |
-| Proof files and screenshots | Eagle | `career-proof-packager` + `eagle` |
+| Portfolio files and screenshots | Eagle | `career-portfolio-packager` + `eagle` |
 | Home-task truth | Apps Script | Personal Ops contract |
 | Active weekly review | Next/Vercel dashboard | `docs/visual-system-contract.md` |
 | Architecture truth | LikeC4 | `docs/visual-system-contract.md` |

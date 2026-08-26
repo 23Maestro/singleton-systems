@@ -18,7 +18,7 @@ For client-specific educational speaker callouts or transparent on-screen graphi
 ## ownership
 
 - Figma owns geometry, variables, components, variants, scene examples, and review comments.
-- Eagle owns client source assets and proof files.
+- Eagle owns client source assets and portfolio files.
 - FFmpeg and Whisper own timing evidence and transcript anchors.
 - A renderer or editing tool owns final motion and data playback.
 - Keep the active Figma file as the visual contract. Do not copy task state into it.

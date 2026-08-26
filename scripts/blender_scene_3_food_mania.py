@@ -12,8 +12,8 @@ LABEL_DIR = SCENE_3_OUTPUT / "labels"
 ASSET_DIR = ROOT / "assets" / "polyhaven"
 
 BLEND_PATH = SCENE_3_OUTPUT / "scene-3-food-mania.blend"
-PROOF_PATH = SCENE_3_OUTPUT / "blender-scene-3-proof.png"
-CAMERA_PROOF_PATH = SCENE_3_OUTPUT / "blender-scene-3-camera-start-proof.png"
+PORTFOLIO_PATH = SCENE_3_OUTPUT / "blender-scene-3-portfolio.png"
+CAMERA_PORTFOLIO_PATH = SCENE_3_OUTPUT / "blender-scene-3-camera-start-portfolio.png"
 
 COLLECTION_NAME = "SS_Scene_3_Return_Food_Mania"
 
@@ -433,18 +433,18 @@ def build_scene():
 
     scene = bpy.context.scene
     scene.frame_set(1)
-    scene.render.filepath = str(CAMERA_PROOF_PATH)
+    scene.render.filepath = str(CAMERA_PORTFOLIO_PATH)
     bpy.ops.render.render(write_still=True)
 
     scene.frame_set(108)
-    scene.render.filepath = str(PROOF_PATH)
+    scene.render.filepath = str(PORTFOLIO_PATH)
     bpy.ops.render.render(write_still=True)
 
     return {
         "collection": COLLECTION_NAME,
         "blend_path": str(BLEND_PATH),
-        "camera_start_proof": str(CAMERA_PROOF_PATH),
-        "proof_path": str(PROOF_PATH),
+        "camera_start_portfolio": str(CAMERA_PORTFOLIO_PATH),
+        "portfolio_path": str(PORTFOLIO_PATH),
         "labels": str(LABEL_DIR),
     }
 

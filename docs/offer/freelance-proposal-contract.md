@@ -11,7 +11,7 @@ authority.
 ```text
 one direct question or observation
 one sentence showing the real decision understood
-one or two truthful proof anchors
+one or two truthful portfolio anchors
 one clear next step
 ```
 
@@ -29,7 +29,7 @@ repeatable review, or reliable delivery.
 - Platform research: record platform, question, date, why it matters, and next
   check. Do not treat an unverified platform as a qualified lead.
 
-## Proof
+## Portfolio
 
 Use only relevant evidence: course production, Prospect ID video/workflow work,
 broadcast media, long-running freelance delivery, or workflow cleanup. Include

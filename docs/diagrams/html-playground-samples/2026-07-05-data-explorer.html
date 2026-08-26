@@ -47,7 +47,7 @@
     <h1>Data Explorer</h1>
     <p>Shape a query spec with source, filters, and output limits.</p>
     <div class="preset-grid" aria-label="Presets">
-      <button type="button" data-preset="recent tasks" data-preset-index="0">Recent Tasks</button><button type="button" data-preset="portfolio proof" data-preset-index="1">Portfolio Proof</button><button type="button" data-preset="follow ups" data-preset-index="2">Follow Ups</button>
+      <button type="button" data-preset="recent tasks" data-preset-index="0">Recent Tasks</button><button type="button" data-preset="portfolio portfolio" data-preset-index="1">Portfolio Portfolio</button><button type="button" data-preset="follow ups" data-preset-index="2">Follow Ups</button>
     </div>
     <h2>Controls</h2>
     <label>Rows<input data-control="density" type="range" min="1" max="3" step="1"></label><label>Source<select data-control="accent"><option value="blue">blue</option><option value="green">green</option><option value="amber">amber</option></select></label><label>Filter<select data-control="focus"><option value="tasks">tasks</option><option value="assets">assets</option><option value="dates">dates</option></select></label>
@@ -64,7 +64,7 @@
 <script>
 const defaults = {"density":2,"accent":"blue","focus":"tasks"};
 const state = { ...defaults };
-const presets = [{"name":"Recent Tasks","values":{"density":2,"accent":"blue","focus":"tasks"}},{"name":"Portfolio Proof","values":{"density":3,"accent":"green","focus":"assets"}},{"name":"Follow Ups","values":{"density":1,"accent":"amber","focus":"dates"}}];
+const presets = [{"name":"Recent Tasks","values":{"density":2,"accent":"blue","focus":"tasks"}},{"name":"Portfolio Portfolio","values":{"density":3,"accent":"green","focus":"assets"}},{"name":"Follow Ups","values":{"density":1,"accent":"amber","focus":"dates"}}];
 const items = ["SELECT name, status","FROM opportunity_hq","WHERE lane is focused","LIMIT preview rows"];
 const accentMap = {"amber":"#f2b84b","blue":"#6aa8ff","green":"#5ee0a0","slate":"#a9b4c3"};
 const promptOutput = document.querySelector("[data-prompt-output]");

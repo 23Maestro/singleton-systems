@@ -6,7 +6,7 @@ Use LikeC4 when the question is about stable system shape:
 
 - which active surface owns a workflow
 - how Linear, GitHub, Supabase, Next/Vercel, and LikeC4 relate
-- where portfolio proof attaches back to offers, proposals, and website work
+- where portfolio portfolio attaches back to offers, proposals, and website work
 
 Use generated images or draw.io drafts only as style/callout references. The
 source of truth for interactive maps lives here.

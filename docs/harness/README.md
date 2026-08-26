@@ -6,10 +6,10 @@ One owner. One next action. One check.
 
 ```text
 Linear       -> active decisions, Wayfinder maps, dependencies, and next moves
-GitHub       -> branches, commits, pull requests, and implementation proof
+GitHub       -> branches, commits, pull requests, and implementation evidence
 Supabase     -> queryable facts and the runtime routing registry
 Opportunity HQ -> career workflow state
-Eagle        -> proof and assets
+Eagle        -> portfolio and assets
 Raycast / Shortcuts -> desktop and mobile actions
 Next/Vercel  -> owner-backed review dashboard
 LikeC4       -> reviewed architecture
@@ -26,7 +26,7 @@ LikeC4       -> reviewed architecture
 - `plugins/s-systems` is the versioned skill source. Installed plugin copies are outputs.
 - A skill holds only its trigger, unique decision, action, and verification.
 - A reusable operating reference belongs in this repo beside the system it supports.
-- Linear holds Wayfinder planning and task state; GitHub holds linked implementation proof.
+- Linear holds Wayfinder planning and task state; GitHub holds linked implementation evidence.
 - Supabase stores runtime facts only. It never stores full skill text, templates, or ticket bodies.
 
 ## Writing Rules

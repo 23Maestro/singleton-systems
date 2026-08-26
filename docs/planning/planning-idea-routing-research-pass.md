@@ -123,7 +123,7 @@ Later research note:
 
 ```text
 Casual Calvin / voice cadence system:
-  Explore a lightweight way to keep outreach, proposals, and proof copy closer
+  Explore a lightweight way to keep outreach, proposals, and portfolio copy closer
   to the user's natural speaking style without creating fake persona bloat.
   Possible inputs: accepted drafts, rejected lines, before/after rewrites, and
   short examples of "I would say this / I would not say this."
@@ -542,8 +542,8 @@ Default route:
 ```text
 Raw link or transcript -> Obsidian
 Repeated pattern worth studying -> research memo
-Portfolio-backed post idea -> offer-proof-content
-Platform-specific post -> offer-proof-content; an explicitly requested specialist wrapper may be used only when its focused workflow is needed
+Portfolio-backed post idea -> offer-portfolio-content
+Platform-specific post -> offer-portfolio-content; an explicitly requested specialist wrapper may be used only when its focused workflow is needed
 Durable business task -> Opportunity HQ
 ```
 
@@ -577,7 +577,7 @@ Routing:
 
 ```text
 Good lead -> Opportunity HQ task under Singleton portfolio + website
-Offer/social angle -> offer-proof-content
+Offer/social angle -> offer-portfolio-content
 Direct B2B outreach copy -> agency-growth
 Raw maybe -> Obsidian
 ```

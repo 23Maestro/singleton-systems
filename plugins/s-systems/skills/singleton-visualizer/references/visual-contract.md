@@ -8,7 +8,7 @@ harder to understand in prose.
 - Linear: active decision, priority, owner, due date, next move.
 - GitHub: branches, commits, pull requests, and implementation evidence.
 - Supabase: queryable runtime facts and routing registry.
-- Eagle: proof and client assets.
+- Eagle: portfolio and client assets.
 - Next/Vercel: active-week review surfaces.
 - LikeC4: reviewed system architecture.
 

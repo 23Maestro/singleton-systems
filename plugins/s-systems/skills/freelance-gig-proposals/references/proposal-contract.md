@@ -8,7 +8,7 @@ and any provided screening questions. Separate verified facts from inference.
 ## Shape
 
 1. Open with one useful question tied to the work.
-2. Give one or two truthful proof anchors that answer the client's risk.
+2. Give one or two truthful portfolio examples that answer the client's risk.
 3. Connect adjacent experience plainly when the exact example is unavailable.
 4. End with one easy next step.
 

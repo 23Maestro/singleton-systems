@@ -44,7 +44,7 @@ them behind links. Jerami should see the decision, current truth, next action,
 and review gate first.
 
 For Linear, keep an issue body short enough to scan without scrolling when
-possible. Store the workflow in its owning skill or linked proof. Do not copy
+possible. Store the workflow in its owning skill or linked portfolio. Do not copy
 an operating manual into a task.
 
 Rhythm target, from the Ginain transcript:

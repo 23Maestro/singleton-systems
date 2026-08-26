@@ -15,7 +15,7 @@ Use these names in specs and review notes:
 ```text
 brand lockup    Keeper & Kin mark plus company name
 topic tab       compact top-right label
-scene title     main title, such as DOG-PROOF YOUR HOME
+scene title     main title, using the approved client headline
 support card    boxed supporting line beneath a scene title
 info cards      repeated cards in a three-column explainer row
 ```

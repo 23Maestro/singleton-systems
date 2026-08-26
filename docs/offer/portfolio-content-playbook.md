@@ -1,4 +1,4 @@
-# Proof Content Playbook
+# Portfolio Content Playbook
 
 Start with a real asset, operator lesson, before/after, or workflow screen.
 Do not invent metrics, authority, or client claims.
@@ -6,35 +6,35 @@ Do not invent metrics, authority, or client claims.
 ## Working Shape
 
 ```text
-platform -> reference pattern -> proof -> pressure -> reviewed draft
+platform -> reference pattern -> portfolio -> pressure -> reviewed draft
 ```
 
 ```text
 platform = destination network
 reference pattern = observed format, never copied wording or voice
-proof = real Singleton Systems asset, case, screen, or build
+portfolio = real Singleton Systems asset, case, screen, or build
 pressure = Jab | Feint | Haymaker
 ```
 
-- `Jab`: useful proof with no hard sell.
+- `Jab`: useful portfolio with no hard sell.
 - `Feint`: a useful contrast or unexpected demo.
 - `Haymaker`: a direct case study, offer, or CTA.
 
 ## Draft
 
 ```text
-Proof asset:
+Portfolio asset:
 Audience value:
 Hook:
 Problem:
 Story:
 Payoff:
-Visual proof needed:
+Portfolio visual needed:
 Offer connection:
 ```
 
 The post must show a real mechanism before making an offer. For warm leads,
-start with the underused proof, audience path, workflow gap, and offer angle.
+start with the underused portfolio, audience path, workflow gap, and offer angle.
 
 ## Human Pass
 
@@ -44,5 +44,5 @@ start with the underused proof, audience path, workflow gap, and offer angle.
 - Do not narrate what the visual already shows.
 - Keep the final message or outreach note short before offering a Loom.
 
-Supabase may hold reviewed reference metadata, proof links, and published-event
+Supabase may hold reviewed reference metadata, portfolio links, and published-event
 facts. It does not store template copy or replace the original source.

@@ -39,7 +39,7 @@ Load `figma-use` and `figma-use-motion`.
 6. Use manual keyframes for phrase-specific choreography.
 7. Name animated layers after their cue, such as `CUE / decompress` or
    `CUE / medications`.
-8. Read back tracks and export one low-resolution motion proof before handoff.
+8. Read back tracks and export one low-resolution motion sample before handoff.
 
 Figma Motion owns phrase-timed 2D scenes and alpha overlays when it is the named
 engine. Premiere owns dialogue timing, pacing, sound, assembly, and export.

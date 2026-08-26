@@ -1,4 +1,4 @@
-# Proof Content Playbook
+# Portfolio Content Playbook
 
 Start with a real artifact, operator lesson, before-and-after, verified result,
 or recorded workflow. Capture its source before drafting.
@@ -13,7 +13,7 @@ Keep these dimensions aligned:
 
 Return an angle, concise draft, asset needed, and offer connection. Use the
 artifact as evidence, explain what changed, and connect it to one recurring
-workflow problem. Do not manufacture proof or put draft templates in Supabase.
+workflow problem. Do not invent results or put draft templates in Supabase.
 
 Run a Final Human Pass for truth, voice, length, platform fit, and whether the
 opening earns attention without exaggeration.
