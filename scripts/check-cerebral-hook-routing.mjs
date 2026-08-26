@@ -116,6 +116,26 @@ assert.doesNotMatch(unrelated.stdout, /s-systems:freelance-gig-proposals/);
 assert.match(unrelated.stdout, /\[next\] No specialized route matched/);
 assert.ok(unrelated.stdout.length < 500, "unmatched prompts must not receive a large policy block");
 
+for (const prompt of [
+  "Use client video storyboard for this Lineups football edit.",
+  "Build the Catena Media college football edit from the transcript.",
+]) {
+  const lineups = runHook(prompt);
+  assert.equal(lineups.status, 0, `Lineups hook exited ${lineups.status}: ${lineups.stderr}`);
+  for (const snippet of [
+    "[route] client-video",
+    "[profile] Catena Media Lineups",
+    "references/lineups-treatment-system.md",
+    "Use the seven approved lanes",
+    "Action photos only",
+    "Fill the 1920 x 1080 frame",
+    "Components owns approved sources",
+    "Inspect a fresh 1920 x 1080 screenshot",
+  ]) {
+    assert.ok(lineups.stdout.includes(snippet), `Lineups hook: missing ${snippet}`);
+  }
+}
+
 const enforcedDrift = runPostTool("Edit", {
   file_path: path.join(root, "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md"),
 });
@@ -127,7 +147,7 @@ const blockedDrift = runPostTool(
   { NODE_BINARY: "/usr/bin/false" },
 );
 assert.match(blockedDrift.stdout, /"continue": false/);
-assert.match(blockedDrift.stdout, /Opportunity HQ drift check failed after the write/);
+assert.match(blockedDrift.stdout, /Cerebral drift check failed after the write/);
 
 const blockedWriting = runStop(
   "Write a LinkedIn post I can publish about AI hooks.",

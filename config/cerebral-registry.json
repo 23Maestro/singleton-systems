@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-08-25-catena-portfolio-vocabulary",
+  "source_revision": "2026-08-26-lineups-treatment-gate",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -454,7 +454,9 @@
         "motion engine",
         "video breakdown",
         "native captions",
-        "whisper"
+        "whisper",
+        "lineups",
+        "catena(?: media)?.{0,40}football"
       ],
       "example_prompt": "Build the storyboard packet for this client video job.",
       "surface": "portfolio",

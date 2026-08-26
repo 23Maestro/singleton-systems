@@ -15,6 +15,10 @@ For branded full-screen scenes, split-photo title graphics, and compact topic ca
 
 For client-specific educational speaker callouts or transparent on-screen graphics, read [client-video-alpha-overlays.md](references/client-video-alpha-overlays.md). Load `figma-use-motion` when the overlay has animation. The trigger word `buttery` activates its slow-sweep, explicit-easing, and shadow-safe export rules.
 
+For Catena Media Lineups work, read
+[lineups-production-system.md](references/lineups-production-system.md). It
+implements the approved seven-lane menu and the active-page pruning rule.
+
 ## ownership
 
 - Figma owns geometry, variables, components, variants, scene examples, and review comments.

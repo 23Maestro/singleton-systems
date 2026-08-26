@@ -57,6 +57,41 @@ const checks = [
     file: skillPath("singleton-visualizer"),
     must: ["Next/Vercel       = active-week review dashboard", "Supabase          = queryable facts and routing registry"],
   },
+  {
+    file: skillPath("client-video-storyboard"),
+    must: ["references/lineups-treatment-system.md", "seven lanes", "lane, option, and setting"],
+  },
+  {
+    file: path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-treatment-system.md"),
+    must: [
+      "quick action photo",
+      "quick stat",
+      "stat breakdown",
+      "Cinematic 2-up",
+      "Simple comparison",
+      "year-by-year",
+      "asset swap",
+      "recurring board",
+      "action photography",
+      "1920 x 1080",
+      "pre-Premiere gate",
+    ],
+  },
+  {
+    file: ".agents/skills/singleton-figma-system/SKILL.md",
+    must: ["references/lineups-production-system.md", "approved seven-lane menu", "active-page pruning rule"],
+  },
+  {
+    file: ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
+    must: [
+      "Do not create black, white, or image background planes",
+      "112 px",
+      "Components` holds the only editable source",
+      "Field Night",
+      "1920 x 1080",
+      "prune the page in the same pass",
+    ],
+  },
 ];
 
 const errors = [];
@@ -80,6 +115,18 @@ for (const check of checks) {
   }
   for (const retiredOwner of retiredOwners) {
     if (text.includes(retiredOwner)) errors.push(`${check.file}: stale retired owner ${retiredOwner}`);
+  }
+}
+
+const lineupsActiveFiles = [
+  skillPath("client-video-storyboard"),
+  path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-treatment-system.md"),
+  ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
+];
+for (const file of lineupsActiveFiles) {
+  const text = fs.readFileSync(path.join(root, file), "utf8");
+  for (const stale of ["Lineups Motion Data-Driven V1", "action photo plus compact stat", "compact table or year trend"]) {
+    if (text.includes(stale)) errors.push(`${file}: stale Lineups name ${JSON.stringify(stale)}`);
   }
 }
 

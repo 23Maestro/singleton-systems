@@ -53,61 +53,13 @@ timeline work. Do not defer project-panel cleanup.
 Do not create sequences, change a timeline, overwrite exports, or save over a
 client project without an explicit review checkpoint.
 
-## Lineups treatment rule (locked)
+## Lineups gate
 
-Start from transcript meaning and finished-edit precedent. Do not start from the
-current Figma masters. Rank reveal is conditional inventory for episodes that
-actually rank teams or players; it is not the default Lineups structure.
+For every Catena Media Lineups edit, read
+`references/lineups-treatment-system.md` before transcript mapping, asset
+selection, Figma work, or Premiere mutation.
 
-Choose the lightest treatment that proves the passage:
-
-1. quick action photo;
-2. action photo plus compact stat;
-3. two-player comparison;
-4. compact table or year trend;
-5. conditional rank or section reveal;
-6. rare designed explanatory or asset-swap scene.
-
-Use Mark plus a quick action photo for ordinary name mentions, connective
-language, repeated claims, and numbers that do not change the argument. Use a
-compact stat only when one number is the evidence. Use a two-player scene for one
-shared measure; use a table when the audience must compare multiple rows,
-seasons, or measures. Reserve designed scenes for claims whose meaning cannot
-be communicated by a photo or compact comparison.
-
-Preserve the measured Lineups pacing unless the current finished-export profile
-changes it: about 84% Mark, about 16% inserts, a typical five-second insert, 75%
-at eight seconds or less, 90% at twelve seconds or less, and roughly one insert
-every 41 seconds.
-
-Treat people count, stat count, rows, states, and geometry as editorial inputs.
-Expose them through named slots, text/boolean/instance-swap properties, and
-variants. Keep typography, spacing, color, safe areas, and Lineups identity
-guarded.
-
-Do not report a player asset as missing before using the approved retrieval
-path. Search Eagle first, then retrieve a current action image through the
-installed player-asset path or direct SportsDB/OpenWiki calls. Prefer official
-game or practice action photography. Use a roster portrait only as an identity
-fallback and a transparent action pose when isolation is required. Verify
-current team and jersey number against the official roster before labeling.
-
-For ranked episodes only, use this pattern:
-
-```text
-rank reveal -> Mark begins the why -> transcript-selected supporting treatment
-            -> ordinary later mentions get a quick action photo
-```
-
-After each ranked announcement, inspect the transcript and select the first
-clear passage whose meaning benefits from visual support. Do not create another
-full scene for every later name-drop and do not force an asset swap when a
-single composition communicates the beat.
-
-Locked Denver example:
-
-- `00:37.600-00:47.960`: Nik Bonitto + Jonathon Cooper, football-blur
-  background, Broncos logo centered high.
-- At `00:44.320`, reveal `22 COMBINED SACKS`.
-- End before Vance Joseph. Vance is a quick still afterward, not another full
-  composition.
+Use its seven lanes, approved options, automatic routing, action-photo rules,
+pacing profile, pruning rule, and pre-Premiere screenshot gate. Keep Jerami's
+working language to lane, option, and setting. Figma implementation terms stay
+inside the Figma-system skill.

@@ -34,6 +34,8 @@ for (const route of registry.routes) {
   assert.ok(allowedLanes.has(route.lane), `${route.route_key} uses unknown Lane ${route.lane}`);
   assert.notEqual(route.lane, "all_buckets", `${route.route_key} still uses Bucket vocabulary as a Lane`);
 }
+const clientVideoRoute = registry.routes.find((route) => route.route_key === "client-video");
+assert.ok(clientVideoRoute.trigger_patterns.includes("lineups"), "client-video route must recognize Lineups prompts");
 assert.equal(new Set(registry.routes.map((route) => route.bucket)).size, registry.routes.length, "route buckets must be unique");
 
 for (const capability of registry.capabilities) {

@@ -21,6 +21,10 @@ ROUTING_SURFACES = [
     "plugins/s-systems/skills/planning-idea-routing/SKILL.md",
     "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md",
     "plugins/s-systems/skills/singleton-visualizer/SKILL.md",
+    "plugins/s-systems/skills/client-video-storyboard/SKILL.md",
+    "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
+    ".agents/skills/singleton-figma-system/SKILL.md",
+    ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
 ]
 
 STALE_OWNER_PATTERNS = [
@@ -62,6 +66,11 @@ SHELL_MUTATION_RE = re.compile(
 HTML_VISUAL_RE = re.compile(r"html comp|html artifact|playground|visualizer|diagram|map|png|draw\.io", re.I)
 AUTOMATION_RE = re.compile(r"daemon|background worker|scheduled automation|async loop|runtime container|docker|new database", re.I)
 SOCIAL_RE = re.compile(r"linkedin|instagram|youtube|social|reference|creator|jab|feint|haymaker|zander|aishwarya|gary vee", re.I)
+LINEUPS_RE = re.compile(
+    r"\b(?:lineups|catena(?:\s+media)?.{0,40}football|mahomes\s+comeback|"
+    r"cowboys\s+expectations|super\s*bowl\s+bubble|top\s*5\s+(?:offenses|defenses))\b",
+    re.I | re.S,
+)
 CLAUSE_RE = re.compile(r"\bclause\b|claude-specific|claude naming|claude code", re.I)
 ARTIFACT_KIND_RE = (
     r"(?:markdown|mdx|linear(?:\s+(?:issue|doc|document))?|documents?|"
@@ -232,6 +241,15 @@ def context(reason, text):
         lines.append("- [repair] A safe repair inside the requested tool and surface is normal task work: verify the target, repair it, and continue.")
         lines.append("- [substitution-gate] Changing the requested tool or surface requires explicit user approval.")
         lines.append("- [pause] Stop for substitution, destructive repair, new authentication or cost, or an unresolved blocker.")
+    if LINEUPS_RE.search(text):
+        lines.extend([
+            "- [profile] Catena Media Lineups",
+            "- [contract] Read references/lineups-treatment-system.md before transcript mapping, asset selection, Figma work, or Premiere mutation.",
+            "- [menu] Use the seven approved lanes. Choose an approved option and adjust its settings. Do not invent a new option during an edit.",
+            "- [assets] Action photos only. Search Eagle, then SportsDB or OpenWiki. Fill the 1920 x 1080 frame and keep faces clear.",
+            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds copies. Prune rejected and stale work after review.",
+            "- [premiere-gate] Inspect a fresh 1920 x 1080 screenshot before placement.",
+        ])
     lines.extend(drift_warnings(text))
     if public_output_requested(text, routes):
         lines.append("")
@@ -300,7 +318,7 @@ def should_run_drift_check(payload):
 
 def run_drift_check():
     root = repo_root()
-    script = os.path.join(root, "scripts/check-opportunity-hq-drift.mjs")
+    script = os.path.join(root, "scripts/check-cerebral-drift.mjs")
     result = subprocess.run(
         [os.environ.get("NODE_BINARY", "node"), script],
         cwd=root,
@@ -312,7 +330,7 @@ def run_drift_check():
     if result.returncode == 0:
         return None
     details = (result.stderr or result.stdout or "Unknown drift-check failure").strip()
-    return f"Opportunity HQ drift check failed after the write:\n{details}"
+    return f"Cerebral drift check failed after the write:\n{details}"
 
 
 REVIEWABLE_EXTENSIONS = {
@@ -628,7 +646,7 @@ def main():
             try:
                 drift_error = run_drift_check()
             except (OSError, subprocess.SubprocessError) as error:
-                drift_error = f"Opportunity HQ drift check could not run after the write: {error}"
+                drift_error = f"Cerebral drift check could not run after the write: {error}"
             if drift_error:
                 emit_block(drift_error)
                 return
