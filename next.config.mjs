@@ -18,6 +18,7 @@ const nextConfig = {
    */
   async rewrites() {
     const wemby = "https://wemby-shot-lab.vercel.app";
+    const flowzone = "https://flowzone-23maestros-projects.vercel.app";
     return {
       beforeFiles: [
         {
@@ -31,6 +32,14 @@ const nextConfig = {
         {
           source: "/wemby-shot-lab/:path*",
           destination: `${wemby}/wemby-shot-lab/:path*`,
+        },
+        {
+          source: "/flowzone",
+          destination: `${flowzone}/flowzone`,
+        },
+        {
+          source: "/flowzone/:path*",
+          destination: `${flowzone}/flowzone/:path*`,
         },
       ],
     };
