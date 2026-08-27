@@ -59,7 +59,11 @@ For every Catena Media Lineups edit, read
 `references/lineups-treatment-system.md` before transcript mapping, asset
 selection, Figma work, or Premiere mutation.
 
-Use its seven lanes, approved options, automatic routing, action-photo rules,
-pacing profile, pruning rule, and pre-Premiere screenshot gate. Keep Jerami's
-working language to lane, option, and setting. Figma implementation terms stay
-inside the Figma-system skill.
+Use its seven lanes, approved options, automatic routing, action-first asset
+rules, transcript-copy rule, pacing profile, pruning rule, and pre-Premiere
+screenshot gate. Keep Jerami's working language to lane, option, and setting.
+Figma implementation terms stay inside the Figma-system skill.
+
+When a Lineups option needs Figma, load `singleton-figma-system` and read that
+skill's `lineups-production-system.md` reference before building. Do not rebuild
+an approved option from loose layers when its source component already exists.

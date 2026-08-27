@@ -244,10 +244,15 @@ def context(reason, text):
     if LINEUPS_RE.search(text):
         lines.extend([
             "- [profile] Catena Media Lineups",
-            "- [contract] Read references/lineups-treatment-system.md before transcript mapping, asset selection, Figma work, or Premiere mutation.",
+            "- [contract] Read plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md before transcript mapping, asset selection, Figma work, or Premiere mutation.",
             "- [menu] Use the seven approved lanes. Choose an approved option and adjust its settings. Do not invent a new option during an edit.",
-            "- [assets] Action photos only. Search Eagle, then SportsDB or OpenWiki. Fill the 1920 x 1080 frame and keep faces clear.",
-            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds copies. Prune rejected and stale work after review.",
+            "- [assets] Use suitable client-provided Eagle assets. For new searches, prefer action photos and avoid roster portraits; contextual photos are allowed when the transcript supports them. Search Eagle, then SportsDB or OpenWiki. Fill the 1920 x 1080 frame and keep faces clear.",
+            "- [copy] Preserve transcript meaning, attribution, causal ownership, and spoken order. Compress or closely paraphrase; do not invent an editorial angle.",
+            "- [quick-stat] Choose Single-frame statement at 6.5 seconds or Two-photo progression at 10 seconds. Photo-led pushes run 100% to 102.5%. One point has no pipe. Premiere owns light leaks and Blur Dissolves.",
+            "- [figma-contract] Use singleton-figma-system and read .agents/skills/singleton-figma-system/references/lineups-production-system.md before building a Lineups scene.",
+            "- [asset-swap] Inherit the guarded football-visible Field Night background, geometry, layer order, crop roles, and motion from Components. Episode cutouts require real alpha. Only cutouts, logos, transcript copy, and reveal timing are replaceable.",
+            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Prune rejected and stale work after review.",
+            "- [delivery] Approved motion renders live in Eagle at Episode / 06 Motion Renders. Premiere links to that Eagle-managed file.",
             "- [premiere-gate] Inspect a fresh 1920 x 1080 screenshot before placement.",
         ])
     lines.extend(drift_warnings(text))

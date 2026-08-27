@@ -17,6 +17,12 @@ Never leave imported assets in the project root.
 Preserve a compatible existing project scheme. Do not create a parallel bin
 for a category the project already has.
 
+For Lineups episodes, Eagle owns the approved source file under
+`Episode / 06 Motion Renders`. The Premiere bin organizes that linked file
+inside the project; it is not a second disk-storage location. Delete temporary
+exports only after Eagle ingest and Premiere path readback both pass. Do not
+keep a duplicate final motion-render folder in `23Projects`.
+
 ## Colors
 
 Apply labels to project items during ingest. Jerami's visible custom Premiere
