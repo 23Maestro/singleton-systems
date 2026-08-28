@@ -1,0 +1,103 @@
+{
+  "transactionId": "tx-repository-contract-001",
+  "idempotencyKey": "repository-contract-2026-08-27-r1",
+  "intent": "Publish one reviewed repository contract revision across every declared repository owner.",
+  "lane": "System Maintenance",
+  "route": "systems-tool-harness",
+  "declaredOwners": [
+    {
+      "ownerId": "repository-policy",
+      "uri": "repo://docs/policy",
+      "required": true,
+      "dependsOn": [],
+      "reviewGateId": "contract-review"
+    },
+    {
+      "ownerId": "plugin-packaging",
+      "uri": "repo://plugins/s-systems/package",
+      "required": true,
+      "dependsOn": ["repository-policy"],
+      "reviewGateId": null
+    },
+    {
+      "ownerId": "cerebral-registry",
+      "uri": "repo://config/cerebral-registry.json",
+      "required": true,
+      "dependsOn": ["repository-policy"],
+      "reviewGateId": null
+    },
+    {
+      "ownerId": "supabase-registry",
+      "uri": "supabase://cerebral-registry",
+      "required": true,
+      "dependsOn": ["cerebral-registry"],
+      "reviewGateId": null
+    },
+    {
+      "ownerId": "repository-checks",
+      "uri": "command://npm/repository-contract-checks",
+      "required": true,
+      "dependsOn": ["plugin-packaging", "supabase-registry"],
+      "reviewGateId": null
+    },
+    {
+      "ownerId": "repository-readback",
+      "uri": "repo://git/diff-readback",
+      "required": true,
+      "dependsOn": ["repository-checks"],
+      "reviewGateId": null
+    }
+  ],
+  "expectedMutations": [
+    {
+      "ownerId": "repository-policy",
+      "operation": "write-contract",
+      "input": { "desiredState": { "contractRevision": "touch-once-r1", "status": "reviewed" } },
+      "compensation": { "operation": "restore-reviewed-policy", "instructions": "Restore the prior reviewed contract through a new change." }
+    },
+    {
+      "ownerId": "plugin-packaging",
+      "operation": "package-contract",
+      "input": { "desiredState": { "contractRevision": "touch-once-r1", "packaged": true } },
+      "compensation": { "operation": "restore-package-source", "instructions": "Restore the prior package source and rerun package checks." }
+    },
+    {
+      "ownerId": "cerebral-registry",
+      "operation": "register-contract",
+      "input": { "desiredState": { "contractRevision": "touch-once-r1", "registered": true } },
+      "compensation": { "operation": "restore-registry-entry", "instructions": "Restore the prior registry entry and rerun registry checks." }
+    },
+    {
+      "ownerId": "supabase-registry",
+      "operation": "deploy-and-read-back-registry",
+      "input": { "desiredState": { "contractRevision": "touch-once-r1", "liveParity": true } },
+      "compensation": { "operation": "repair-live-registry", "instructions": "Deploy the current repository registry again and repeat live Supabase readback." }
+    },
+    {
+      "ownerId": "repository-checks",
+      "operation": "run-contract-checks",
+      "input": { "desiredState": { "contractRevision": "touch-once-r1", "checks": "passed" } },
+      "compensation": { "operation": "rerun-checks", "instructions": "Repair the failing owner and run every declared check again." }
+    },
+    {
+      "ownerId": "repository-readback",
+      "operation": "read-back-delivery",
+      "input": { "desiredState": { "contractRevision": "touch-once-r1", "ownersAgree": true } },
+      "compensation": { "operation": "repeat-readback", "instructions": "Read every declared repository owner again after repair." }
+    }
+  ],
+  "preconditions": [
+    { "preconditionId": "clean-isolated-worktree", "required": true, "status": "passed", "evidence": "synthetic fixture" },
+    { "preconditionId": "no-live-plugin-publish", "required": true, "status": "passed", "evidence": "synthetic adapters only" }
+  ],
+  "reviewGates": [
+    {
+      "gateId": "contract-review",
+      "required": true,
+      "status": "approved",
+      "reviewer": "Jerami",
+      "evidence": "approved issue intent",
+      "reviewedAt": "2026-08-27T22:03:48.860Z"
+    }
+  ]
+}

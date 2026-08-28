@@ -1,0 +1,50 @@
+{
+  "transactionId": "tx-client-next-action-001",
+  "idempotencyKey": "client-next-action-2026-08-27-r1",
+  "intent": "Record one approved client opportunity update and its next action once.",
+  "lane": "AI Consultant",
+  "route": "client-next-action",
+  "declaredOwners": [
+    {
+      "ownerId": "notion-opportunity",
+      "uri": "notion://client-opportunities/example-client",
+      "required": true,
+      "dependsOn": [],
+      "reviewGateId": "client-update-review"
+    },
+    {
+      "ownerId": "linear-next-action",
+      "uri": "linear://23maestro/issues/example-next-action",
+      "required": true,
+      "dependsOn": ["notion-opportunity"],
+      "reviewGateId": null
+    }
+  ],
+  "expectedMutations": [
+    {
+      "ownerId": "notion-opportunity",
+      "operation": "update-client-opportunity",
+      "input": { "desiredState": { "client": "Example Client", "stage": "Qualified", "sourceRevision": 3 } },
+      "compensation": { "operation": "restore-client-record", "instructions": "Review the Notion history and restore the prior approved client state." }
+    },
+    {
+      "ownerId": "linear-next-action",
+      "operation": "upsert-next-action",
+      "input": { "desiredState": { "title": "Send reviewed discovery outline", "status": "Todo", "sourceRevision": 3 } },
+      "compensation": { "operation": "close-or-repair-next-action", "instructions": "Review the Linear history and repair the next action against the current Notion record." }
+    }
+  ],
+  "preconditions": [
+    { "preconditionId": "synthetic-connectors", "required": true, "status": "passed", "evidence": "in-memory adapters" }
+  ],
+  "reviewGates": [
+    {
+      "gateId": "client-update-review",
+      "required": true,
+      "status": "pending",
+      "reviewer": null,
+      "evidence": null,
+      "reviewedAt": null
+    }
+  ]
+}

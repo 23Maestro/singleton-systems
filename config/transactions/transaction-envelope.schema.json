@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://singleton.systems/schemas/transaction-envelope.schema.json",
+  "title": "Singleton Systems cross-surface transaction envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "transactionId",
+    "idempotencyKey",
+    "intent",
+    "lane",
+    "route",
+    "declaredOwners",
+    "expectedMutations",
+    "preconditions",
+    "reviewGates",
+    "status",
+    "error",
+    "createdAt",
+    "updatedAt",
+    "mutationLedger",
+    "receipts",
+    "invalidations",
+    "attempts",
+    "compensationPlan"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "transactionId": { "type": "string", "minLength": 1 },
+    "idempotencyKey": { "type": "string", "minLength": 1 },
+    "intent": { "type": "string", "minLength": 1 },
+    "lane": { "type": "string", "minLength": 1 },
+    "route": { "type": "string", "minLength": 1 },
+    "declaredOwners": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/owner" }
+    },
+    "expectedMutations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/expectedMutation" }
+    },
+    "preconditions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/precondition" }
+    },
+    "reviewGates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reviewGate" }
+    },
+    "status": {
+      "enum": ["planned", "awaiting_review", "applying", "interrupted", "incomplete", "completed"]
+    },
+    "error": { "type": ["string", "null"] },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "mutationLedger": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ledgerEntry" }
+    },
+    "receipts": {
+      "type": "array",
+      "items": { "$ref": "receipt.schema.json" }
+    },
+    "invalidations": { "type": "array", "items": { "type": "object" } },
+    "attempts": { "type": "array", "items": { "type": "object" } },
+    "compensationPlan": { "type": "array", "items": { "type": "object" } }
+  },
+  "$defs": {
+    "owner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ownerId", "uri", "required", "dependsOn", "reviewGateId"],
+      "properties": {
+        "ownerId": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "required": { "type": "boolean" },
+        "dependsOn": { "type": "array", "items": { "type": "string" } },
+        "reviewGateId": { "type": ["string", "null"] }
+      }
+    },
+    "expectedMutation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ownerId", "operation", "input", "compensation"],
+      "properties": {
+        "ownerId": { "type": "string", "minLength": 1 },
+        "operation": { "type": "string", "minLength": 1 },
+        "input": {},
+        "compensation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["operation", "instructions"],
+          "properties": {
+            "operation": { "type": "string", "minLength": 1 },
+            "instructions": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "precondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preconditionId", "required", "status", "evidence"],
+      "properties": {
+        "preconditionId": { "type": "string", "minLength": 1 },
+        "required": { "type": "boolean" },
+        "status": { "enum": ["pending", "passed", "failed"] },
+        "evidence": {}
+      }
+    },
+    "reviewGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gateId", "required", "status", "reviewer", "evidence", "reviewedAt"],
+      "properties": {
+        "gateId": { "type": "string", "minLength": 1 },
+        "required": { "type": "boolean" },
+        "status": { "enum": ["pending", "approved", "rejected"] },
+        "reviewer": { "type": ["string", "null"] },
+        "evidence": {},
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "ledgerEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ownerId",
+        "ownerUri",
+        "operation",
+        "inputHash",
+        "deliveryKey",
+        "beforeState",
+        "afterState",
+        "readbackEvidence",
+        "status",
+        "applyAttempts",
+        "error",
+        "receiptHash",
+        "verifiedAt"
+      ],
+      "properties": {
+        "ownerId": { "type": "string", "minLength": 1 },
+        "ownerUri": { "type": "string", "minLength": 1 },
+        "operation": { "type": "string", "minLength": 1 },
+        "inputHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "deliveryKey": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "beforeState": {},
+        "afterState": {},
+        "readbackEvidence": {},
+        "status": { "enum": ["pending", "applied", "verified", "failed", "stale"] },
+        "applyAttempts": { "type": "integer", "minimum": 0 },
+        "error": { "type": ["string", "null"] },
+        "receiptHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "verifiedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    }
+  }
+}

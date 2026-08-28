@@ -1,0 +1,181 @@
+{
+  "version": 2,
+  "stateOwners": {
+    "task-state": {
+      "owner": "Linear",
+      "uriScheme": "linear://",
+      "rule": "Tasks, status, priority, assignment, blockers, and resolution live in Linear."
+    },
+    "implementation-evidence": {
+      "owner": "GitHub/repository",
+      "uriScheme": "repo://",
+      "rule": "Code, tests, diffs, commits, and pull requests hold implementation evidence."
+    },
+    "client-opportunity-truth": {
+      "owner": "Notion",
+      "uriScheme": "notion://",
+      "rule": "Durable client and opportunity records live in Notion when the workflow uses it."
+    },
+    "integration-receipts-and-drafts": {
+      "owner": "Supabase",
+      "uriScheme": "supabase://",
+      "rule": "Integration receipts and temporary drafts live in Supabase when required."
+    },
+    "routing-contract-deployment": {
+      "owner": "Supabase registry replica",
+      "uriScheme": "supabase://cerebral-registry",
+      "rule": "The repository registry is canonical. Its required Supabase deployment must match and pass live readback before delivery is complete."
+    }
+  },
+  "flows": {
+    "systems-tool-harness": {
+      "lane": "System Maintenance",
+      "route": "systems-tool-harness",
+      "intent": "Carry one approved Singleton Systems contract revision through repository source, installed tool harnesses, live registry parity, checks, and readback.",
+      "reviewGates": [
+        {
+          "gateId": "live-mutation-review",
+          "required": false,
+          "status": "pending",
+          "description": "Jerami must approve live connector mutation, plugin release, or installed-runtime changes before apply mode."
+        }
+      ],
+      "owners": [
+        {
+          "ownerId": "source-checkout",
+          "uri": "git://singleton-systems/source-checkout",
+          "required": true,
+          "dependsOn": [],
+          "adapter": {
+            "kind": "git-state",
+            "requireClean": true,
+            "requireAttachedBranch": true,
+            "requirePushed": true
+          }
+        },
+        {
+          "ownerId": "repository-policy",
+          "uri": "repo://CONTEXT.md",
+          "required": true,
+          "dependsOn": ["source-checkout"],
+          "adapter": {
+            "kind": "path-snapshot",
+            "path": "CONTEXT.md"
+          }
+        },
+        {
+          "ownerId": "plugin-source",
+          "uri": "repo://plugins/s-systems",
+          "required": true,
+          "dependsOn": ["source-checkout", "repository-policy"],
+          "adapter": {
+            "kind": "path-snapshot",
+            "path": "plugins/s-systems"
+          }
+        },
+        {
+          "ownerId": "cerebral-registry",
+          "uri": "repo://config/cerebral-registry.json",
+          "required": true,
+          "dependsOn": ["source-checkout", "repository-policy"],
+          "adapter": {
+            "kind": "path-snapshot",
+            "path": "config/cerebral-registry.json"
+          }
+        },
+        {
+          "ownerId": "codex-plugin-runtime",
+          "uri": "tool-harness://codex/s-systems",
+          "required": true,
+          "dependsOn": ["plugin-source"],
+          "adapter": {
+            "kind": "directory-parity",
+            "source": "plugins/s-systems",
+            "target": "~/.codex/plugins/cache/singleton23-local/s-systems/{pluginVersion}"
+          }
+        },
+        {
+          "ownerId": "home-plugin-mirror",
+          "uri": "tool-harness://home/s-systems",
+          "required": true,
+          "dependsOn": ["plugin-source"],
+          "adapter": {
+            "kind": "directory-parity",
+            "source": "plugins/s-systems",
+            "target": "~/plugins/s-systems"
+          }
+        },
+        {
+          "ownerId": "claude-plugin-runtime",
+          "uri": "tool-harness://claude/s-systems",
+          "required": true,
+          "dependsOn": ["plugin-source"],
+          "adapter": {
+            "kind": "directory-parity",
+            "source": "plugins/s-systems",
+            "target": "~/.claude/plugins-dev/s-systems"
+          }
+        },
+        {
+          "ownerId": "supabase-registry",
+          "uri": "supabase://cerebral-registry",
+          "required": true,
+          "dependsOn": ["cerebral-registry"],
+          "adapter": {
+            "kind": "command-readback",
+            "command": "npm",
+            "args": ["run", "verify:cerebral:registry"],
+            "watchPaths": ["config/cerebral-registry.json"]
+          }
+        },
+        {
+          "ownerId": "active-task-catalog",
+          "uri": "tool-harness://codex/active-task-catalog",
+          "required": true,
+          "dependsOn": ["codex-plugin-runtime"],
+          "adapter": {
+            "kind": "task-catalog",
+            "expectedVersionPath": "plugins/s-systems/.codex-plugin/plugin.json",
+            "versionEnvironmentKey": "S_SYSTEMS_TASK_PLUGIN_VERSION"
+          }
+        },
+        {
+          "ownerId": "repository-checks",
+          "uri": "command://npm/cerebral-contract-checks",
+          "required": true,
+          "dependsOn": [
+            "codex-plugin-runtime",
+            "home-plugin-mirror",
+            "claude-plugin-runtime",
+            "supabase-registry",
+            "active-task-catalog"
+          ],
+          "adapter": {
+            "kind": "command-readback",
+            "commands": [
+              {
+                "command": "npm",
+                "args": ["run", "check:cerebral"]
+              },
+              {
+                "command": "npm",
+                "args": ["run", "check:cerebral:registry"]
+              },
+              {
+                "command": "npm",
+                "args": ["run", "check:cerebral:hook-routing"]
+              }
+            ],
+            "watchPaths": [
+              "config/cerebral-registry.json",
+              ".codex/hooks.json",
+              ".codex/hooks/cerebral_singleton_guard.py",
+              "plugins/s-systems",
+              "package.json"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

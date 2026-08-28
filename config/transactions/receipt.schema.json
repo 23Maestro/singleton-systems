@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://singleton.systems/schemas/transaction-receipt.schema.json",
+  "title": "Singleton Systems transaction receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "sequence",
+    "transactionId",
+    "ownerId",
+    "ownerUri",
+    "operation",
+    "deliveryKey",
+    "inputHash",
+    "beforeStateHash",
+    "afterStateHash",
+    "readbackEvidenceHash",
+    "adapterEvidence",
+    "previousReceiptHash",
+    "status",
+    "issuedAt",
+    "receiptHash"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "transactionId": { "type": "string", "minLength": 1 },
+    "ownerId": { "type": "string", "minLength": 1 },
+    "ownerUri": { "type": "string", "minLength": 1 },
+    "operation": { "type": "string", "minLength": 1 },
+    "deliveryKey": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "inputHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "beforeStateHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "afterStateHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "readbackEvidenceHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "adapterEvidence": {},
+    "previousReceiptHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "status": { "const": "verified" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "receiptHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
