@@ -98,6 +98,17 @@ EXPORT READY
 - Use 1920 x 1080 as the master broadcast frame unless the client requires another output.
 - Keep the top clear except for an approved graphic bug when that is the show rule.
 - Place the Lineups banner and ticker at the approved bottom baseline.
+- Center standalone non-text focal assets inside their intended container by default. An off-center logo, photo, icon, or focal graphic needs a measured reference or Jerami's explicit direction.
+
+## edit timing contract
+
+For Figma scenes that will be placed in Premiere:
+
+- Time each entrance from the transcript anchor for the spoken line it supports.
+- Once text, logos, stats, or other information appears, keep it visible through the scene. Do not add fade-outs or exit animation unless Jerami asks for one in that scene.
+- Add a 5-second tail pad after the final transcript beat. The pad is an edit handle for Premiere and must preserve the final visible state.
+- Do not make the Figma composition end on the transcript beat. Premiere owns the final trim.
+- Record the transcript anchor, last entrance time, content end, and padded composition end in the scene handoff.
 
 ## reference rule
 

@@ -2,19 +2,11 @@ import { NextResponse } from "next/server";
 
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <style>
-    :root { color-scheme: light dark; }
     .tile { fill: #ffffff; }
     .mark { fill: #050505; }
-    .dot { fill: #2383e2; }
-    @media (prefers-color-scheme: dark) {
-      .tile { fill: #050505; }
-      .mark { fill: #ffffff; }
-      .dot { fill: #35a8ff; }
-    }
   </style>
-  <rect x="4" y="4" width="56" height="56" rx="16" class="tile"/>
-  <text x="32" y="39.5" text-anchor="middle" class="mark" font-family="Geist, Inter, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="-1.4">s.s</text>
-  <circle cx="52" cy="12" r="4" class="dot"/>
+  <rect width="64" height="64" class="tile"/>
+  <text x="32" y="52" text-anchor="middle" class="mark" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="400" textLength="58" lengthAdjust="spacingAndGlyphs">SS</text>
 </svg>`;
 
 export function GET() {
