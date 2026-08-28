@@ -155,7 +155,8 @@ for (const receipt of validProof.transaction.receipts) {
   assert.equal(transaction.status, "incomplete");
   assert.equal(ledger(transaction, "repository-policy").status, "verified");
   assert.equal(ledger(transaction, "plugin-packaging").status, "verified");
-  assert.equal(ledger(transaction, "cerebral-registry").status, "failed");
+  assert.equal(ledger(transaction, "cerebral-registry").status, "stale");
+  assert.equal(ledger(transaction, "cerebral-registry").staleReason, "mutation-outcome-uncertain");
   assert.equal(ledger(transaction, "supabase-registry").status, "stale");
   assert.equal(ledger(transaction, "repository-checks").status, "stale");
   assert.equal(ledger(transaction, "repository-checks").staleReason, "upstream-invalidated");
@@ -179,7 +180,7 @@ for (const receipt of validProof.transaction.receipts) {
   await executeTransaction(transaction, harness.adapters, { clock: fixedClock });
   assert.equal(transaction.status, "incomplete");
   assert.equal(ledger(transaction, "cerebral-registry").status, "verified");
-  assert.equal(ledger(transaction, "supabase-registry").status, "failed");
+  assert.equal(ledger(transaction, "supabase-registry").status, "stale");
   assert.equal(ledger(transaction, "repository-checks").status, "stale");
   assert.equal(ledger(transaction, "repository-readback").status, "stale");
   assert.equal(canComplete(transaction), false);
@@ -222,7 +223,7 @@ for (const receipt of validProof.transaction.receipts) {
   await executeTransaction(transaction, harness.adapters, { clock: fixedClock });
   assert.equal(transaction.status, "incomplete");
   assert.equal(ledger(transaction, "notion-opportunity").status, "verified");
-  assert.equal(ledger(transaction, "linear-next-action").status, "failed");
+  assert.equal(ledger(transaction, "linear-next-action").status, "stale");
   assert.match(transaction.error, /readback mismatch/);
   assert.equal(canComplete(transaction), false);
 }
@@ -243,11 +244,17 @@ for (const receipt of validProof.transaction.receipts) {
   approveReview(transaction, "client-update-review", { reviewer: "Jerami" }, { clock: fixedClock });
   await executeTransaction(transaction, harness.adapters, { clock: fixedClock });
   assert.equal(transaction.status, "incomplete");
-  assert.equal(ledger(transaction, "notion-opportunity").status, "failed");
+  assert.equal(ledger(transaction, "notion-opportunity").status, "stale");
+  assert.equal(ledger(transaction, "notion-opportunity").staleReason, "mutation-outcome-uncertain");
   assert.equal(ledger(transaction, "notion-opportunity").applyAttempts, 1);
   assert.match(transaction.error, /synthetic receipt error/);
   assert.ok(transaction.compensationPlan.length >= 1);
   assert.ok(transaction.compensationPlan.some(({ ownerId }) => ownerId === "notion-opportunity"));
+  harness.faults.receiptErrorOwner = null;
+  await executeTransaction(transaction, harness.adapters, { clock: fixedClock });
+  assert.equal(transaction.status, "completed");
+  assert.equal(ledger(transaction, "notion-opportunity").applyAttempts, 1);
+  assert.equal(harness.applyCounts.get("notion-opportunity"), 1);
 }
 
 {
@@ -286,7 +293,65 @@ for (const receipt of validProof.transaction.receipts) {
   assert.equal(resumed.status, "completed");
   assert.equal(harness.applyCounts.get("notion-opportunity"), 1);
   assert.equal(harness.applyCounts.get("linear-next-action"), 1);
-  assert.ok(resumed.attempts.some(({ ownerId, outcome }) => ownerId === "notion-opportunity" && outcome === "resumed"));
+  assert.ok(resumed.attempts.some(({ ownerId, outcome }) => ownerId === "notion-opportunity" && outcome === "recovered"));
+}
+
+{
+  const transaction = createTransaction(fixture("notion-linear.json"), { clock: fixedClock });
+  const harness = memoryAdapters(transaction);
+  approveReview(transaction, "client-update-review", { reviewer: "Jerami" }, { clock: fixedClock });
+  let durablePreparedState = null;
+  await executeTransaction(transaction, harness.adapters, {
+    clock: fixedClock,
+    checkpoint(current) {
+      const entry = ledger(current, "notion-opportunity");
+      if (entry.status === "prepared") durablePreparedState = JSON.parse(JSON.stringify(current));
+      if (entry.status === "applied") throw new Error("synthetic crash before applied checkpoint");
+    },
+  });
+  assert.equal(transaction.status, "incomplete");
+  assert.equal(harness.applyCounts.get("notion-opportunity"), 1);
+  assert.equal(ledger(durablePreparedState, "notion-opportunity").status, "prepared");
+  assert.equal(validateEnvelope(durablePreparedState), true, JSON.stringify(validateEnvelope.errors));
+  await executeTransaction(durablePreparedState, harness.adapters, { clock: fixedClock });
+  assert.equal(durablePreparedState.status, "completed");
+  assert.equal(harness.applyCounts.get("notion-opportunity"), 1);
+  assert.ok(
+    durablePreparedState.attempts.some(
+      ({ ownerId, outcome }) => ownerId === "notion-opportunity" && outcome === "recovered",
+    ),
+  );
+}
+
+{
+  const transaction = createTransaction(fixture("notion-linear.json"), { clock: fixedClock });
+  const harness = memoryAdapters(transaction);
+  approveReview(transaction, "client-update-review", { reviewer: "Jerami" }, { clock: fixedClock });
+  let durablePreparedState = null;
+  await executeTransaction(transaction, harness.adapters, {
+    clock: fixedClock,
+    checkpoint(current) {
+      durablePreparedState = JSON.parse(JSON.stringify(current));
+      throw new Error("synthetic crash before external apply");
+    },
+  });
+  assert.equal(harness.applyCounts.size, 0);
+  const notionAdapter = harness.adapters["notion-opportunity"];
+  delete harness.adapters["notion-opportunity"];
+  await executeTransaction(durablePreparedState, harness.adapters, { clock: fixedClock });
+  assert.equal(ledger(durablePreparedState, "notion-opportunity").staleReason, "mutation-outcome-uncertain");
+  harness.adapters["notion-opportunity"] = notionAdapter;
+  await executeTransaction(durablePreparedState, harness.adapters, {
+    clock: fixedClock,
+    mode: "reconcile",
+    continueOnFailure: true,
+  });
+  assert.equal(ledger(durablePreparedState, "notion-opportunity").staleReason, "mutation-outcome-uncertain");
+  await executeTransaction(durablePreparedState, harness.adapters, { clock: fixedClock });
+  assert.equal(durablePreparedState.status, "incomplete");
+  assert.equal(ledger(durablePreparedState, "notion-opportunity").status, "stale");
+  assert.match(durablePreparedState.error, /automatic replay refused/);
+  assert.equal(harness.applyCounts.size, 0);
 }
 
 {
@@ -349,5 +414,5 @@ for (const receipt of validProof.transaction.receipts) {
 }
 
 console.log(
-  "Cross-surface transaction checks passed: schema validation, repository proof, partial write, structured staleness, readback mismatch, adapter error, duplicate retry, review gate, interrupted resume, bound receipt tampering, and valid Notion/Linear completion.",
+  "Cross-surface transaction checks passed: schema validation, repository proof, partial write, structured staleness, readback mismatch, adapter error, duplicate retry, review gate, interrupted resume, crash-window recovery without replay, bound receipt tampering, and valid Notion/Linear completion.",
 );

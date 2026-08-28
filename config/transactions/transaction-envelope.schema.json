@@ -154,7 +154,7 @@
         "beforeState": {},
         "afterState": {},
         "readbackEvidence": {},
-        "status": { "enum": ["pending", "applied", "verified", "failed", "stale"] },
+        "status": { "enum": ["pending", "prepared", "applied", "verified", "failed", "stale"] },
         "staleReason": { "type": ["string", "null"] },
         "blockedByOwnerId": { "type": ["string", "null"] },
         "applyAttempts": { "type": "integer", "minimum": 0 },

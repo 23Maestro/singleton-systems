@@ -10,7 +10,7 @@ The envelope records the intent, Lane, route, owners, expected mutations, precon
 
 `completed` is valid only when every required owner is verified, every required review is approved, and the full receipt chain passes its hash check. A missing adapter, failed write, stale dependency, readback mismatch, interrupted run, or changed receipt leaves the transaction incomplete.
 
-Retries use a delivery key derived from the transaction idempotency key, owner ID, and planned input. A verified duplicate does not call `apply` again. An interrupted owner resumes at readback when the same applied input is present. A changed upstream input marks every dependent owner stale before repair.
+Retries use a delivery key derived from the transaction idempotency key, owner ID, and planned input. A verified duplicate does not call `apply` again. Durable runners save a `prepared` checkpoint before any live apply. An interrupted or uncertain owner resumes at readback. A failed readback leaves it incomplete and refuses an automatic replay. A changed upstream input marks every dependent owner stale before repair.
 
 Repair plans are evidence for a later decision. They never execute on their own. Cross-app writes have no ACID promise. Each repair step is best effort and keeps human review in control.
 
