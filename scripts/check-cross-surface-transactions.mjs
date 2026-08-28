@@ -1,14 +1,18 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
 import {
   approveReview,
   canComplete,
   createTransaction,
   executeTransaction,
+  planCompensation,
   verifyReceiptChain,
 } from "../lib/transactions/engine.mjs";
 import { canonicalJson, cloneValue, hashValue } from "../lib/transactions/contract.mjs";
+import { materializeOwnerFlow } from "../lib/transactions/owner-graph.mjs";
 
 const root = process.cwd();
 const fixtureRoot = path.join(root, "config", "transactions", "fixtures");
@@ -24,6 +28,21 @@ function fixture(name) {
 
 function ledger(transaction, ownerId) {
   return transaction.mutationLedger.find((entry) => entry.ownerId === ownerId);
+}
+
+function rehashReceipts(transaction) {
+  let previousReceiptHash = null;
+  transaction.receipts = transaction.receipts.map((receipt, index) => {
+    const unsigned = {
+      ...receipt,
+      sequence: index + 1,
+      previousReceiptHash,
+    };
+    delete unsigned.receiptHash;
+    const rehashed = { ...unsigned, receiptHash: hashValue(unsigned) };
+    previousReceiptHash = rehashed.receiptHash;
+    return rehashed;
+  });
 }
 
 function memoryAdapters(transaction, faults = {}) {
@@ -54,7 +73,13 @@ function memoryAdapters(transaction, faults = {}) {
           const ok = canonicalJson(readback) === canonicalJson(plan.desiredState);
           return {
             ok,
-            evidence: { expectedHash: hashValue(plan.desiredState), actualHash: hashValue(readback) },
+            evidence: {
+              expectedHash: hashValue(plan.desiredState),
+              actualHash: hashValue(readback),
+              ...(faults.evidenceRevisionOwner === owner.ownerId
+                ? { revision: faults.evidenceRevision ?? "changed" }
+                : {}),
+            },
             error: ok ? null : `readback mismatch for ${owner.ownerId}`,
           };
         },
@@ -69,7 +94,7 @@ function memoryAdapters(transaction, faults = {}) {
       },
     ]),
   );
-  return { adapters, state, applyCounts };
+  return { adapters, state, applyCounts, faults };
 }
 
 async function validRepositoryProof() {
@@ -98,6 +123,11 @@ async function validRepositoryProof() {
 const envelopeSchema = loadJson(path.join(root, "config", "transactions", "transaction-envelope.schema.json"));
 const receiptSchema = loadJson(path.join(root, "config", "transactions", "receipt.schema.json"));
 const ownerMap = loadJson(path.join(root, "config", "transactions", "owner-map.json"));
+const ajv = new Ajv2020({ allErrors: true });
+addFormats(ajv);
+ajv.addSchema(receiptSchema);
+const validateEnvelope = ajv.compile(envelopeSchema);
+const validateReceipt = ajv.getSchema(receiptSchema.$id);
 assert.equal(envelopeSchema.properties.status.enum.includes("incomplete"), true);
 assert.equal(envelopeSchema.properties.mutationLedger.items.$ref, "#/$defs/ledgerEntry");
 assert.equal(receiptSchema.properties.previousReceiptHash.type.includes("null"), true);
@@ -108,7 +138,15 @@ assert.equal(ownerMap.stateOwners["integration-receipts-and-drafts"].owner, "Sup
 assert.equal(ownerMap.flows["systems-tool-harness"].owners[0].ownerId, "source-checkout");
 assert.ok(ownerMap.flows["systems-tool-harness"].owners.some(({ ownerId }) => ownerId === "active-task-catalog"));
 
-await validRepositoryProof();
+const materialized = materializeOwnerFlow({ root, flowId: "systems-tool-harness" });
+const plannedTransaction = createTransaction(materialized.definition, { clock: fixedClock });
+assert.equal(validateEnvelope(plannedTransaction), true, JSON.stringify(validateEnvelope.errors));
+
+const validProof = await validRepositoryProof();
+assert.equal(validateEnvelope(validProof.transaction), true, JSON.stringify(validateEnvelope.errors));
+for (const receipt of validProof.transaction.receipts) {
+  assert.equal(validateReceipt(receipt), true, JSON.stringify(validateReceipt.errors));
+}
 
 {
   const transaction = createTransaction(fixture("repository-workflow.json"), { clock: fixedClock });
@@ -120,9 +158,19 @@ await validRepositoryProof();
   assert.equal(ledger(transaction, "cerebral-registry").status, "failed");
   assert.equal(ledger(transaction, "supabase-registry").status, "stale");
   assert.equal(ledger(transaction, "repository-checks").status, "stale");
+  assert.equal(ledger(transaction, "repository-checks").staleReason, "upstream-invalidated");
+  assert.equal(ledger(transaction, "repository-checks").blockedByOwnerId, "cerebral-registry");
   assert.equal(canComplete(transaction), false);
   assert.ok(transaction.compensationPlan.length >= 2);
   assert.ok(transaction.compensationPlan.every((item) => item.automatic === false));
+}
+
+{
+  const transaction = createTransaction(fixture("notion-linear.json"), { clock: fixedClock });
+  transaction.expectedMutations = [];
+  ledger(transaction, "notion-opportunity").status = "applied";
+  assert.doesNotThrow(() => planCompensation(transaction));
+  assert.equal(transaction.compensationPlan[0].operation, "manual-review");
 }
 
 {
@@ -254,6 +302,32 @@ await validRepositoryProof();
 }
 
 {
+  const { transaction } = await validRepositoryProof();
+  transaction.receipts[0].transactionId = "tx-other";
+  rehashReceipts(transaction);
+  assert.throws(() => verifyReceiptChain(transaction), /different transaction/);
+  assert.equal(canComplete(transaction), false);
+}
+
+{
+  const { transaction } = await validRepositoryProof();
+  ledger(transaction, "repository-readback").afterState = { rewritten: true };
+  assert.equal(verifyReceiptChain(transaction), true);
+  assert.equal(canComplete(transaction), false);
+}
+
+{
+  const { transaction, harness } = await validRepositoryProof();
+  const receiptsBefore = transaction.receipts.length;
+  harness.faults.evidenceRevisionOwner = "repository-readback";
+  harness.faults.evidenceRevision = "r2";
+  await executeTransaction(transaction, harness.adapters, { clock: fixedClock, mode: "reconcile" });
+  assert.equal(transaction.status, "completed");
+  assert.equal(transaction.receipts.length, receiptsBefore + 1);
+  assert.equal(canComplete(transaction), true);
+}
+
+{
   const transaction = createTransaction(fixture("notion-linear.json"), { clock: fixedClock });
   const harness = memoryAdapters(transaction);
   approveReview(
@@ -275,5 +349,5 @@ await validRepositoryProof();
 }
 
 console.log(
-  "Cross-surface transaction checks passed: schemas, repository proof, partial write, stale propagation, readback mismatch, adapter error, duplicate retry, review gate, interrupted resume, receipt tampering, and valid Notion/Linear completion.",
+  "Cross-surface transaction checks passed: schema validation, repository proof, partial write, structured staleness, readback mismatch, adapter error, duplicate retry, review gate, interrupted resume, bound receipt tampering, and valid Notion/Linear completion.",
 );

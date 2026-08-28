@@ -5,7 +5,9 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { reconcileDelivery } from "../lib/transactions/delivery.mjs";
 import { canComplete, verifyReceiptChain } from "../lib/transactions/engine.mjs";
+import { withTransactionStateLock } from "../lib/transactions/state-store.mjs";
 
+const root = process.cwd();
 const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "singleton-transaction-staleness-"));
 const repo = path.join(fixtureRoot, "repo");
 const runtime = path.join(fixtureRoot, "runtime", "s-systems");
@@ -43,6 +45,31 @@ async function reconcile(name, environment = {}) {
 }
 
 try {
+  {
+    const events = [];
+    let releaseFirst;
+    const release = new Promise((resolve) => {
+      releaseFirst = resolve;
+    });
+    const lockState = transactionState("lock-contention");
+    const first = withTransactionStateLock(lockState, async () => {
+      events.push("first-start");
+      await release;
+      events.push("first-end");
+    });
+    const second = withTransactionStateLock(
+      lockState,
+      async () => {
+        events.push("second-start");
+      },
+      { retryMs: 5 },
+    );
+    setTimeout(releaseFirst, 25);
+    await Promise.all([first, second]);
+    assert.deepEqual(events, ["first-start", "first-end", "second-start"]);
+    assert.equal(fs.existsSync(`${lockState}.lock`), false);
+  }
+
   write(path.join(repo, "CONTEXT.md"), "# fixture policy\n");
   write(path.join(repo, "config", "cerebral-registry.json"), '{"source_revision":"fixture-r1"}\n');
   write(
@@ -220,8 +247,32 @@ try {
   const repairedSupabase = await reconcile("stale-supabase", currentEnvironment);
   assert.equal(repairedSupabase.transaction.status, "completed");
 
+  const timeoutOwnerMap = JSON.parse(fs.readFileSync(ownerMapPath, "utf8"));
+  const timeoutAdapter = timeoutOwnerMap.flows["systems-tool-harness"].owners.find(
+    ({ ownerId }) => ownerId === "supabase-registry",
+  ).adapter;
+  timeoutAdapter.timeoutMs = 25;
+  timeoutAdapter.args = ["-e", "setTimeout(() => {}, 1000)"];
+  write(ownerMapPath, `${JSON.stringify(timeoutOwnerMap, null, 2)}\n`);
+  const timedOut = await reconcile("command-timeout", currentEnvironment);
+  assert.equal(timedOut.transaction.status, "incomplete");
+  assert.equal(ledger(timedOut.transaction, "supabase-registry").status, "stale");
+  assert.equal(ledger(timedOut.transaction, "supabase-registry").readbackEvidence.commands[0].timedOut, true);
+
+  for (const [flag, message] of [
+    ["--state", "--state requires a path"],
+    ["--task-plugin-version", "--task-plugin-version requires a version"],
+  ]) {
+    const result = spawnSync(process.execPath, [path.join(root, "scripts", "reconcile-system-delivery.mjs"), flag], {
+      cwd: root,
+      encoding: "utf8",
+    });
+    assert.notEqual(result.status, 0);
+    assert.match(`${result.stdout}${result.stderr}`, new RegExp(message.replaceAll("-", "\\-")));
+  }
+
   console.log(
-    "Cross-surface staleness checks passed: real checkout, runtime, task-catalog, command/Supabase readback, durable resume, downstream invalidation, repair plan, and verified completion.",
+    "Cross-surface staleness checks passed: serialized state, real checkout, runtime, task-catalog, bounded command readback, durable resume, downstream invalidation, repair plan, argument validation, and verified completion.",
   );
 } finally {
   fs.rmSync(fixtureRoot, { recursive: true, force: true });

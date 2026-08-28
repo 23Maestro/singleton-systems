@@ -8,8 +8,15 @@ function parseArgs(argv) {
     const value = argv[index];
     if (value === "--json") options.json = true;
     else if (value === "--allow-incomplete") options.allowIncomplete = true;
-    else if (value === "--state") options.statePath = argv[++index];
-    else if (value === "--task-plugin-version") options.taskPluginVersion = argv[++index];
+    else if (value === "--state") {
+      if (!argv[index + 1] || argv[index + 1].startsWith("--")) throw new Error("--state requires a path");
+      options.statePath = argv[++index];
+    } else if (value === "--task-plugin-version") {
+      if (!argv[index + 1] || argv[index + 1].startsWith("--")) {
+        throw new Error("--task-plugin-version requires a version");
+      }
+      options.taskPluginVersion = argv[++index];
+    }
     else if (value === "--apply") throw new Error("apply mode is disabled; live mutation requires Jerami approval");
     else throw new Error(`unknown argument ${value}`);
   }
