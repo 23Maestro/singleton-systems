@@ -15,6 +15,10 @@ Notion, and Supabase delivery.
 - Gate: the shared contract that resolves routing, applies review rules, and
   records delivery results.
 - Owner: the system that holds the durable business record.
+- Owner graph: the machine-readable owners and dependencies affected by one
+  approved intent.
+- Transaction: one approved intent carried through every declared owner until
+  readback proves completion or leaves the work visibly incomplete.
 - Delivery outcome: the result of a delivery attempt, including a visible
   failure and a link to the owning record when one exists.
 - Receipt: the Supabase record of an integration attempt when that workflow
