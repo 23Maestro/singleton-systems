@@ -1,14 +1,10 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { linkedQuery } from "./lib/supabase-linked-cli.mjs";
 
 const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!url || !serviceKey) {
-  console.error("Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY before live verification.");
-  process.exit(1);
-}
 
 const expected = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "config/cerebral-registry.json"), "utf8"),
@@ -35,6 +31,15 @@ async function fetchWithTimeout(endpoint, options = {}) {
 }
 
 async function select(table) {
+  if (!url || !serviceKey) {
+    const key = {
+      cerebral_routes: "route_key",
+      harness_skills: "skill_key",
+      harness_capabilities: "capability_key",
+    }[table];
+    return linkedQuery(`select to_jsonb(registry_row) as record from public.${table} as registry_row order by ${key};`)
+      .map(({ record }) => record);
+  }
   const { response, body } = await fetchWithTimeout(`${url}/rest/v1/${table}?select=*`, {
     headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` },
   });
