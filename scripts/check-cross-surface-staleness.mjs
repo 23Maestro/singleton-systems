@@ -209,6 +209,14 @@ try {
   assert.equal(ledger(staleSupabase.transaction, "supabase-registry").status, "stale");
   assert.equal(ledger(staleSupabase.transaction, "repository-checks").status, "stale");
   assert.equal(canComplete(staleSupabase.transaction), false);
+  assert.equal(
+    staleSupabase.transaction.compensationPlan.some(({ ownerId }) => ownerId === "source-checkout"),
+    false,
+  );
+  assert.deepEqual(
+    staleSupabase.transaction.compensationPlan.map(({ ownerId }) => ownerId).sort(),
+    ["repository-checks", "supabase-registry"],
+  );
   const repairedSupabase = await reconcile("stale-supabase", currentEnvironment);
   assert.equal(repairedSupabase.transaction.status, "completed");
 
