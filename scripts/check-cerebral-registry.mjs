@@ -58,7 +58,7 @@ if (fs.existsSync(pluginSkillsRoot)) {
     .sort();
   assert.deepEqual(catalogSkills, pluginSkills, "registry must classify every bundled SSystems skill");
 }
-assert.equal(catalogSkills.length, 15, "registry must classify the 15 active SSystems skills");
+assert.equal(catalogSkills.length, 16, "registry must classify the 16 active SSystems skills");
 assert.ok(registry.skills.every((skill) => skill.activation === "core"));
 
 const skillNames = new Set(catalogSkills);

@@ -116,6 +116,17 @@ assert.doesNotMatch(unrelated.stdout, /s-systems:freelance-gig-proposals/);
 assert.match(unrelated.stdout, /\[next\] No specialized route matched/);
 assert.ok(unrelated.stdout.length < 500, "unmatched prompts must not receive a large policy block");
 
+const pricing = runHook("What should I charge for this video edit after the platform fee?");
+assert.equal(pricing.status, 0);
+for (const snippet of [
+  "[route] freelance-pricing",
+  "[lane] AI Consultant",
+  "[bucket] freelance-pricing",
+  "[tools] s-systems:freelance-pricing",
+]) {
+  assert.match(pricing.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `pricing route: missing ${snippet}`);
+}
+
 for (const prompt of [
   "Use client video storyboard for this Lineups football edit.",
   "Build the Catena Media college football edit from the transcript.",

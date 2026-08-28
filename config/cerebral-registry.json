@@ -70,6 +70,35 @@
       "enabled": true
     },
     {
+      "route_key": "freelance-pricing",
+      "bucket": "freelance-pricing",
+      "trigger_patterns": [
+        "pricing",
+        "price estimate",
+        "project price",
+        "what should I charge",
+        "what should we charge",
+        "client budget",
+        "budget range",
+        "hourly rate",
+        "fixed rate",
+        "rush fee",
+        "platform fee"
+      ],
+      "example_prompt": "What should I charge for this video edit after the platform fee?",
+      "surface": "pricing decision",
+      "lane": "AI Consultant",
+      "owner": "Docs/skills",
+      "intent": "Turn client budget, scope, risk, and transaction cost into a reviewed project price.",
+      "shape": "operating rule",
+      "required_tools": [
+        "s-systems:freelance-pricing"
+      ],
+      "review_gate": "Check buyer budget, scope, fee math, and the send-ready reply before quoting.",
+      "priority": 15,
+      "enabled": true
+    },
+    {
       "route_key": "freelance-proposal",
       "bucket": "freelance-proposal",
       "trigger_patterns": [
@@ -508,6 +537,11 @@
       "skill_key": "eagle-skill",
       "activation": "core",
       "reason": "Eagle operator contract; exposed as s-systems:eagle."
+    },
+    {
+      "skill_key": "freelance-pricing",
+      "activation": "core",
+      "reason": "Client budget, quote, fee, rush, and scope pricing decisions."
     },
     {
       "skill_key": "freelance-gig-proposals",
