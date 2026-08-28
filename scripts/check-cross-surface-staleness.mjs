@@ -70,6 +70,52 @@ try {
     assert.equal(fs.existsSync(`${lockState}.lock`), false);
   }
 
+  {
+    const staleLockState = transactionState("stale-lock-takeover");
+    write(
+      `${staleLockState}.lock`,
+      `${JSON.stringify({ pid: 2_147_483_647, hostname: os.hostname(), acquiredAt: fixedClock().toISOString() })}\n`,
+    );
+    const events = [];
+    await Promise.all([
+      withTransactionStateLock(staleLockState, async () => {
+        events.push("first");
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }, { retryMs: 5 }),
+      withTransactionStateLock(staleLockState, async () => {
+        events.push("second");
+      }, { retryMs: 5 }),
+    ]);
+    assert.deepEqual(events, ["first", "second"]);
+    assert.equal(fs.existsSync(`${staleLockState}.lock`), false);
+    assert.equal(fs.existsSync(`${staleLockState}.lock.reaper`), false);
+  }
+
+  {
+    const cleanupState = transactionState("cleanup-error");
+    const cleanupPath = `${cleanupState}.lock`;
+    const originalUnlinkSync = fs.unlinkSync;
+    fs.unlinkSync = (file) => {
+      if (file === cleanupPath) {
+        const error = new Error("synthetic lock cleanup error");
+        error.code = "EACCES";
+        throw error;
+      }
+      return originalUnlinkSync(file);
+    };
+    try {
+      await assert.rejects(
+        withTransactionStateLock(cleanupState, async () => {
+          throw new Error("synthetic transaction error");
+        }),
+        /synthetic transaction error/,
+      );
+    } finally {
+      fs.unlinkSync = originalUnlinkSync;
+      fs.rmSync(cleanupPath, { force: true });
+    }
+  }
+
   write(path.join(repo, "CONTEXT.md"), "# fixture policy\n");
   write(path.join(repo, "config", "cerebral-registry.json"), '{"source_revision":"fixture-r1"}\n');
   write(
