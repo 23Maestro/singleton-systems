@@ -12,6 +12,8 @@ import {
   nextVersion,
   parseArgs,
   readManifestVersions,
+  restoreFiles,
+  snapshotFiles,
   writeManifestVersions,
 } from "./release-s-systems-plugin.mjs";
 
@@ -56,12 +58,19 @@ fs.writeFileSync(
 );
 
 const files = manifestFiles(fixture);
+const snapshots = snapshotFiles(files);
 assert.equal(assertManifestConsistency(readManifestVersions(files)), "0.2.1+codex.20260826120000");
 writeManifestVersions(files, "0.2.1+codex.20260826130000");
 assert.deepEqual(
   readManifestVersions(files).map(({ version }) => version),
   Array(3).fill("0.2.1+codex.20260826130000"),
 );
+restoreFiles(snapshots);
+assert.deepEqual(
+  readManifestVersions(files).map(({ version }) => version),
+  Array(3).fill("0.2.1+codex.20260826120000"),
+);
+writeManifestVersions(files, "0.2.1+codex.20260826130000");
 
 assertInstalledPlugin(
   {

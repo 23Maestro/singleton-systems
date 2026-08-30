@@ -24,11 +24,33 @@ if [ -z "$NODE_BIN" ]; then
 fi
 
 mkdir -p "$(dirname "$LOCK_DIR")"
-if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+acquire_lock() {
+  if mkdir "$LOCK_DIR" 2>/dev/null; then
+    echo "$$" > "$LOCK_DIR/pid"
+    return 0
+  fi
+
+  lock_pid="$(cat "$LOCK_DIR/pid" 2>/dev/null || true)"
+  if [[ "$lock_pid" =~ ^[0-9]+$ ]] && kill -0 "$lock_pid" 2>/dev/null; then
+    return 1
+  fi
+
+  rm -f "$LOCK_DIR/pid"
+  rmdir "$LOCK_DIR" 2>/dev/null || return 1
+  mkdir "$LOCK_DIR" 2>/dev/null || return 1
+  echo "$$" > "$LOCK_DIR/pid"
+}
+
+release_lock() {
+  rm -f "$LOCK_DIR/pid"
+  rmdir "$LOCK_DIR" 2>/dev/null || true
+}
+
+if ! acquire_lock; then
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Another ingest pass is active, skipping."
   exit 0
 fi
-trap 'rmdir "$LOCK_DIR"' EXIT
+trap release_lock EXIT
 
 if ! pgrep -x "Eagle" > /dev/null 2>&1; then
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Eagle not running, skipping this pass."

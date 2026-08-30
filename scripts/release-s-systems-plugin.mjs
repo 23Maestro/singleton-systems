@@ -95,6 +95,14 @@ export function writeManifestVersions(files, version) {
   }
 }
 
+export function snapshotFiles(files) {
+  return files.map((file) => ({ file, content: fs.readFileSync(file, "utf8") }));
+}
+
+export function restoreFiles(snapshots) {
+  for (const { file, content } of snapshots) fs.writeFileSync(file, content);
+}
+
 function run(command, args, options = {}) {
   const rendered = [command, ...args].join(" ");
   console.log(`\n> ${rendered}`);
@@ -188,20 +196,42 @@ export function main(argv = process.argv.slice(2)) {
     return;
   }
 
-  writeManifestVersions(files, releaseVersion);
-  run(process.execPath, [path.join(root, "scripts", "sync-s-systems-mirrors.mjs"), "--apply"], { cwd: root });
-  run("codex", ["plugin", "add", PLUGIN_ID, "--json"], { cwd: root });
+  const manifestSnapshots = snapshotFiles(files);
+  try {
+    writeManifestVersions(files, releaseVersion);
+    run(process.execPath, [path.join(root, "scripts", "sync-s-systems-mirrors.mjs"), "--apply"], { cwd: root });
+    run("codex", ["plugin", "add", PLUGIN_ID, "--json"], { cwd: root });
 
-  const listOutput = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
-  assertInstalledPlugin(JSON.parse(listOutput), releaseVersion);
-  runNpm(root, "check:skills:installed");
+    const listOutput = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
+    assertInstalledPlugin(JSON.parse(listOutput), releaseVersion);
+    runNpm(root, "check:skills:installed");
 
-  const moved = moveStaleCaches(cacheRoot, releaseVersion, path.join(home, ".Trash"), true);
-  for (const entry of moved) console.log(`moved stale cache ${entry.version} to ${entry.destination}`);
+    const moved = moveStaleCaches(cacheRoot, releaseVersion, path.join(home, ".Trash"), true);
+    for (const entry of moved) console.log(`moved stale cache ${entry.version} to ${entry.destination}`);
 
-  const remaining = cacheVersions(cacheRoot);
-  assert.deepEqual(remaining, [releaseVersion], `unexpected cache versions remain: ${remaining.join(", ")}`);
-  runNpm(root, "check:skills:installed");
+    const remaining = cacheVersions(cacheRoot);
+    assert.deepEqual(remaining, [releaseVersion], `unexpected cache versions remain: ${remaining.join(", ")}`);
+    runNpm(root, "check:skills:installed");
+  } catch (error) {
+    restoreFiles(manifestSnapshots);
+    try {
+      run(process.execPath, [path.join(root, "scripts", "sync-s-systems-mirrors.mjs"), "--apply"], { cwd: root });
+      if (fs.existsSync(releaseCache)) {
+        const rollbackTrash = path.join(home, ".Trash");
+        fs.mkdirSync(rollbackTrash, { recursive: true });
+        let destination = path.join(rollbackTrash, `s-systems-codex-cache-${releaseVersion}-rollback-${localTimestamp()}`);
+        if (fs.existsSync(destination)) destination = `${destination}-1`;
+        fs.renameSync(releaseCache, destination);
+      }
+      run("codex", ["plugin", "add", PLUGIN_ID, "--json"], { cwd: root });
+      const rollbackList = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
+      assertInstalledPlugin(JSON.parse(rollbackList), currentVersion);
+      runNpm(root, "check:skills:installed");
+    } catch (rollbackError) {
+      throw new Error(`${error.message}\nRollback failed: ${rollbackError.message}`, { cause: error });
+    }
+    throw error;
+  }
 
   console.log(`\nRelease verified: ${PLUGIN_ID} ${releaseVersion}`);
   console.log(FRESH_TASK_NOTICE);

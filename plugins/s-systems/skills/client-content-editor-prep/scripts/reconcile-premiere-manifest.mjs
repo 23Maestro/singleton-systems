@@ -26,12 +26,21 @@ function csvCell(value) {
 
 const args = parseArgs(process.argv.slice(2));
 const manifestPath = path.resolve(args.manifest);
+if (!/\.json$/i.test(manifestPath)) {
+  throw new Error("Manifest path must end in .json");
+}
 const rows = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+if (!Array.isArray(rows) || rows.length === 0) {
+  throw new Error("Manifest must contain at least one row");
+}
 const itemText = args["items-file"]
   ? await fs.readFile(path.resolve(args["items-file"]), "utf8")
   : Buffer.from(args["items-base64"], "base64").toString("utf8");
 const project = JSON.parse(itemText);
-const items = project.items || [];
+if (!Array.isArray(project.items)) {
+  throw new Error("Premiere item data must contain an items array");
+}
+const items = project.items;
 
 const byMediaPath = new Map();
 for (const item of items) {
@@ -51,6 +60,15 @@ for (const row of rows) {
     continue;
   }
   const item = matches[0];
+  if (
+    typeof item.id !== "string"
+    || typeof item.name !== "string"
+    || typeof item.treePath !== "string"
+  ) {
+    row.status = "failed";
+    failures.push({ premiere_name: row.premiere_name, reason: "project item readback is incomplete" });
+    continue;
+  }
   row.premiere_item_id = item.id;
   row.premiere_tree_path = item.treePath;
   const expectedBin = `\\${row.destination_bin.replaceAll("/", "\\")}\\`;

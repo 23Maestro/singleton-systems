@@ -65,6 +65,20 @@ function csvCell(value) {
   return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
+function safeOutputBase(value) {
+  if (
+    typeof value !== "string"
+    || value.length === 0
+    || value === "."
+    || value === ".."
+    || path.basename(value) !== value
+    || /[\\/\u0000-\u001f]/.test(value)
+  ) {
+    throw new Error(`Unsafe output base: ${value}`);
+  }
+  return value;
+}
+
 async function fileState(filePath) {
   try {
     const stat = await fs.stat(filePath);
@@ -82,6 +96,7 @@ const groups = [...(spec.groups || []), ...(spec.excludedGroups || [])];
 if (!spec.prefix || groups.length === 0) {
   throw new Error("Spec requires prefix and at least one group");
 }
+const baseName = safeOutputBase(spec.outputBase || "premiere-ingest-manifest");
 
 const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
 const rows = [];
@@ -165,7 +180,6 @@ if (hasErrors) {
   process.exitCode = 1;
 } else {
   await fs.mkdir(outputDir, { recursive: true });
-  const baseName = spec.outputBase || "premiere-ingest-manifest";
   const cleanRows = rows.map(({ _file_state, ...row }) => row);
   await fs.writeFile(path.join(outputDir, `${baseName}.json`), `${JSON.stringify(cleanRows, null, 2)}\n`);
   const csv = [FIELDS.join(","), ...cleanRows.map((row) => FIELDS.map((field) => csvCell(row[field])).join(","))].join("\n");

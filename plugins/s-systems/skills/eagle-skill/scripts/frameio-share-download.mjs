@@ -168,12 +168,23 @@ async function listAssetIds(shareId, folderId) {
 
 async function getDownloadAssets(shareId, ids) {
   const data = await graphql(shareId, "GetAssetsForDownload", DOWNLOAD_QUERY, { assetIds: ids });
-  return data.assets.map((asset) => ({
+  const assets = data.assets ?? [];
+  const returnedIds = new Set(assets.map((asset) => asset.id));
+  if (assets.length !== ids.length || ids.some((id) => !returnedIds.has(id))) {
+    throw new Error(`Frame.io returned ${assets.length} of ${ids.length} requested assets`);
+  }
+  return assets.map((asset) => ({
     id: asset.id,
     name: safeFileName(asset.name),
     url: asset.media?.original?.downloadUrl,
     size: Number(asset.media?.original?.filesizeInBytes),
   }));
+}
+
+function completedAssetIsPresent(record, outputDir) {
+  if (!record || !Number.isFinite(record.size)) return false;
+  const destination = path.join(outputDir, safeFileName(record.name));
+  return existsSync(destination) && statSync(destination).size === record.size;
 }
 
 async function downloadAsset(asset, outputDir) {
@@ -227,10 +238,33 @@ async function main() {
   if (args.dryRun) return;
 
   let completedThisRun = 0;
+  const destinationOwners = new Map();
+  for (const [id, record] of Object.entries(state.completed)) {
+    if (!completedAssetIsPresent(record, outputDir)) {
+      delete state.completed[id];
+      continue;
+    }
+    const priorOwner = destinationOwners.get(record.name);
+    if (priorOwner && priorOwner !== id) {
+      throw new Error(`Duplicate destination name in saved state: ${record.name}`);
+    }
+    destinationOwners.set(record.name, id);
+  }
   for (let index = 0; index < ids.length; index += 20) {
-    const chunk = ids.slice(index, index + 20).filter((id) => !state.completed[id]);
+    const chunk = ids.slice(index, index + 20).filter((id) => {
+      if (completedAssetIsPresent(state.completed[id], outputDir)) return false;
+      delete state.completed[id];
+      return true;
+    });
     if (chunk.length === 0) continue;
     const assets = await getDownloadAssets(args.shareId, chunk);
+    for (const asset of assets) {
+      const priorOwner = destinationOwners.get(asset.name);
+      if (priorOwner && priorOwner !== asset.id) {
+        throw new Error(`Duplicate destination name: ${asset.name}`);
+      }
+      destinationOwners.set(asset.name, asset.id);
+    }
     await runPool(assets, args.concurrency, async (asset) => {
       const destination = await downloadAsset(asset, outputDir);
       state.completed[asset.id] = {
