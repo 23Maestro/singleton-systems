@@ -75,48 +75,62 @@ function seedWithLinkedCli() {
   const skillKeys = activeKeys("skill_key", registry.skills);
   const capabilityKeys = activeKeys("capability_key", registry.capabilities);
   const sourceRevisionSql = `${quoteJsonb(sourceRevision, "revision")} #>> '{}'`;
-  const sql = `
-with seeded as materialized (
-  select * from public.seed_cerebral_registry(
+  const seedSql = `
+begin;
+
+create temporary table singleton_cerebral_seed_result on commit drop as
+select * from public.seed_cerebral_registry(
     ${quoteJsonb(routes, "routes")},
     ${quoteJsonb(registry.skills, "skills")},
     ${quoteJsonb(registry.capabilities, "capabilities")},
     ${sourceRevisionSql}
-  )
-),
-routes_removed as (
+  );
+
+create temporary table singleton_cerebral_routes_removed on commit drop as
+with removed as (
   delete from public.cerebral_routes
   where route_key not in (
     select jsonb_array_elements_text(${quoteJsonb(routeKeys, "route_keys")})
   )
   returning 1
-),
-skills_removed as (
+)
+select count(*)::int as removed from removed;
+
+create temporary table singleton_cerebral_skills_removed on commit drop as
+with removed as (
   delete from public.harness_skills
   where skill_key not in (
     select jsonb_array_elements_text(${quoteJsonb(skillKeys, "skill_keys")})
   )
   returning 1
-),
-capabilities_removed as (
+)
+select count(*)::int as removed from removed;
+
+create temporary table singleton_cerebral_capabilities_removed on commit drop as
+with removed as (
   delete from public.harness_capabilities
   where capability_key not in (
     select jsonb_array_elements_text(${quoteJsonb(capabilityKeys, "capability_keys")})
   )
   returning 1
 )
+select count(*)::int as removed from removed;
+
 select
-  seeded.routes_count,
-  seeded.skills_count,
-  seeded.capabilities_count,
-  (select count(*)::int from routes_removed) as routes_removed,
-  (select count(*)::int from skills_removed) as skills_removed,
-  (select count(*)::int from capabilities_removed) as capabilities_removed
-from seeded;
+  seeded.*,
+  routes.removed as routes_removed,
+  skills.removed as skills_removed,
+  capabilities.removed as capabilities_removed
+from singleton_cerebral_seed_result seeded
+cross join singleton_cerebral_routes_removed routes
+cross join singleton_cerebral_skills_removed skills
+cross join singleton_cerebral_capabilities_removed capabilities;
+
+commit;
 `;
-  const [result] = linkedQuery(sql);
-  if (!result) throw new Error("Supabase CLI seed returned no result");
-  return result;
+  const [seeded] = linkedQuery(seedSql);
+  if (!seeded) throw new Error("Supabase CLI seed returned no result");
+  return seeded;
 }
 
 async function deleteRetired(table, key, activeKeys) {

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Portfolio Evidence Capture"
+  short_description: "Capture approved project proof at review gates."
+  default_prompt: "Use $portfolio-evidence-capture to propose a lean evidence checkpoint for this project stage."

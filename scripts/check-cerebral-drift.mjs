@@ -62,6 +62,15 @@ const checks = [
     must: ["references/lineups-treatment-system.md", "seven lanes", "lane, option, and setting"],
   },
   {
+    file: skillPath("portfolio-evidence-capture"),
+    must: [
+      "Portfolio checkpoint available",
+      "Wait for Jerami's decision",
+      "Keep at most 12 approved",
+      "evidence-receipt.md",
+    ],
+  },
+  {
     file: path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-treatment-system.md"),
     must: [
       "quick action photo",
