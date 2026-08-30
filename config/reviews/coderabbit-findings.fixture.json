@@ -1,0 +1,72 @@
+[
+  {
+    "findingId": "canonical-media-path",
+    "file": "fixture/build-manifest.mjs",
+    "line": 111,
+    "risk": "Aliases can create duplicate media rows.",
+    "proof": "Two paths resolve to one physical file.",
+    "fix": "Compare canonical paths.",
+    "verification": "A symlink duplicate fixture is rejected.",
+    "status": "resolved"
+  },
+  {
+    "findingId": "stale-lock",
+    "file": "fixture/ingest.sh",
+    "line": 12,
+    "risk": "An interrupted run can block every later run.",
+    "proof": "The lock remains after process death.",
+    "fix": "Reap locks owned by dead local processes.",
+    "verification": "A stale-lock fixture resumes once.",
+    "status": "resolved"
+  },
+  {
+    "findingId": "release-rollback",
+    "file": "fixture/release.mjs",
+    "line": 80,
+    "risk": "A failed release can leave installed owners split.",
+    "proof": "The second copy fails after the first copy changes.",
+    "fix": "Restore every changed target on failure.",
+    "verification": "A forced failure restores matching hashes.",
+    "status": "resolved"
+  },
+  {
+    "findingId": "classification-enum",
+    "file": "fixture/build-manifest.mjs",
+    "line": 101,
+    "risk": "A misspelled classification can silently change edit eligibility.",
+    "proof": "Unknown values pass through the manifest builder.",
+    "fix": "Reject values outside the declared enum.",
+    "verification": "An unknown classification fixture exits nonzero.",
+    "status": "resolved"
+  },
+  {
+    "findingId": "empty-manifest",
+    "file": "fixture/reconcile-manifest.mjs",
+    "line": 70,
+    "risk": "An empty manifest crashes before it can return a valid empty result.",
+    "proof": "The reader accesses the first row without checking length.",
+    "fix": "Use the declared field list when there are no rows.",
+    "verification": "An empty fixture writes headers and exits zero.",
+    "status": "resolved"
+  },
+  {
+    "findingId": "global-sequence",
+    "file": "fixture/build-manifest.mjs",
+    "line": 130,
+    "risk": "Per-group counters can create duplicate sequence numbers.",
+    "proof": "The counter resets inside each group loop.",
+    "fix": "Assign sequence numbers after all rows are combined.",
+    "verification": "A multi-group fixture has one unique ordered sequence.",
+    "status": "resolved"
+  },
+  {
+    "findingId": "ambiguous-owner-readback",
+    "file": "fixture/ingest.mjs",
+    "line": 330,
+    "risk": "Duplicate owner matches can be mistaken for verified delivery.",
+    "proof": "The matcher accepts the first of two equal candidates.",
+    "fix": "Require exactly one owner match.",
+    "verification": "A duplicate fixture remains unverified.",
+    "status": "resolved"
+  }
+]

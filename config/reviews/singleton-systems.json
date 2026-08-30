@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "reviewId": "singleton-systems-codex-rabbit",
+  "intent": "Review the active Singleton Systems diff twice and keep delivery incomplete until checks, findings, current-scope readback, and human approval agree.",
+  "baseRef": "origin/main",
+  "requiredPasses": ["initial", "verification"],
+  "contractFiles": [
+    "AGENTS.md",
+    "CODEX.md",
+    "CONTEXT.md",
+    "docs/agents/domain.md",
+    "docs/agents/issue-tracker.md",
+    "docs/agents/triage-labels.md"
+  ],
+  "checks": [
+    { "checkId": "diff-integrity", "command": "git", "args": ["diff", "--check"], "timeoutMs": 30000 },
+    { "checkId": "repository-tests", "command": "npm", "args": ["test"], "timeoutMs": 180000 },
+    { "checkId": "typecheck", "command": "npm", "args": ["run", "typecheck"], "timeoutMs": 180000 },
+    { "checkId": "build", "command": "npm", "args": ["run", "build"], "timeoutMs": 240000 }
+  ],
+  "humanApproval": { "required": true }
+}

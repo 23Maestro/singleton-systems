@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://singleton.systems/schemas/review-state.schema.json",
+  "title": "Singleton Systems Codex Rabbit review state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "reviewId",
+    "intent",
+    "configHash",
+    "status",
+    "error",
+    "latestScope",
+    "passes",
+    "receipts",
+    "humanApproval",
+    "createdAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "reviewId": { "type": "string", "minLength": 1 },
+    "intent": { "type": "string", "minLength": 1 },
+    "configHash": { "$ref": "#/$defs/hash" },
+    "status": { "enum": ["running", "interrupted", "incomplete", "awaiting_human", "approved"] },
+    "error": { "type": ["string", "null"] },
+    "latestScope": { "$ref": "#/$defs/scope" },
+    "passes": { "type": "array", "items": { "$ref": "#/$defs/pass" } },
+    "receipts": { "type": "array", "items": { "$ref": "#/$defs/receipt" } },
+    "humanApproval": { "$ref": "#/$defs/approval" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "scope": {
+      "type": "object",
+      "required": ["root", "baseRef", "headCommit", "mergeBase", "diffHash", "contractHash", "changedFiles", "untrackedFiles"],
+      "properties": {
+        "root": { "type": "string" },
+        "baseRef": { "type": "string" },
+        "headCommit": { "type": "string" },
+        "mergeBase": { "type": "string" },
+        "diffHash": { "$ref": "#/$defs/hash" },
+        "contractHash": { "$ref": "#/$defs/hash" },
+        "changedFiles": { "type": "array", "items": { "type": "string" } },
+        "untrackedFiles": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["findingId", "file", "line", "risk", "proof", "fix", "verification", "status"],
+      "properties": {
+        "findingId": { "type": "string", "minLength": 1 },
+        "file": { "type": "string", "minLength": 1 },
+        "line": { "type": "integer", "minimum": 1 },
+        "risk": { "type": "string", "minLength": 1 },
+        "proof": { "type": "string", "minLength": 1 },
+        "fix": { "type": "string", "minLength": 1 },
+        "verification": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["open", "resolved"] }
+      }
+    },
+    "check": {
+      "type": "object",
+      "required": ["checkId", "command", "status", "exitCode", "signal", "timedOut", "error", "stdoutHash", "stderrHash", "output"],
+      "properties": {
+        "checkId": { "type": "string" },
+        "command": { "type": "array", "items": { "type": "string" } },
+        "status": { "enum": ["passed", "failed"] },
+        "exitCode": { "type": ["integer", "null"] },
+        "signal": { "type": ["string", "null"] },
+        "timedOut": { "type": "boolean" },
+        "error": { "type": ["string", "null"] },
+        "stdoutHash": { "$ref": "#/$defs/hash" },
+        "stderrHash": { "$ref": "#/$defs/hash" },
+        "output": { "type": "string" }
+      }
+    },
+    "pass": {
+      "type": "object",
+      "required": ["passId", "attempt", "scopeHash", "headCommit", "diffHash", "contractHash", "status", "checks", "findings", "startedAt", "completedAt", "receiptHash"],
+      "properties": {
+        "passId": { "type": "string" },
+        "attempt": { "type": "integer", "minimum": 1 },
+        "scopeHash": { "$ref": "#/$defs/hash" },
+        "headCommit": { "type": "string" },
+        "diffHash": { "$ref": "#/$defs/hash" },
+        "contractHash": { "$ref": "#/$defs/hash" },
+        "status": { "enum": ["running", "passed", "failed"] },
+        "checks": { "type": "array", "items": { "$ref": "#/$defs/check" } },
+        "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": ["string", "null"], "format": "date-time" },
+        "receiptHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "sequence", "reviewId", "passId", "scopeHash", "checksHash", "findingsHash", "previousReceiptHash", "status", "issuedAt", "receiptHash"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "reviewId": { "type": "string" },
+        "passId": { "type": "string" },
+        "scopeHash": { "$ref": "#/$defs/hash" },
+        "checksHash": { "$ref": "#/$defs/hash" },
+        "findingsHash": { "$ref": "#/$defs/hash" },
+        "previousReceiptHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "status": { "enum": ["passed", "failed", "approved"] },
+        "issuedAt": { "type": "string", "format": "date-time" },
+        "receiptHash": { "$ref": "#/$defs/hash" }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "status", "reviewer", "evidence", "scopeHash", "reviewedAt"],
+      "properties": {
+        "required": { "type": "boolean" },
+        "status": { "enum": ["pending", "approved"] },
+        "reviewer": { "type": ["string", "null"] },
+        "evidence": { "type": ["string", "null"] },
+        "scopeHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "reviewedAt": { "type": ["string", "null"], "format": "date-time" }
+      }
+    }
+  }
+}

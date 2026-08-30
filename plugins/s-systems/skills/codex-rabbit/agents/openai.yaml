@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Codex Rabbit"
+  short_description: "Review code twice with a fail-closed receipt."
+  default_prompt: "Use $codex-rabbit to review this repository diff, record findings, rerun after fixes, and stop for human approval."
