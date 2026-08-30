@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-08-30-codex-rabbit-portfolio-evidence-gates",
+  "source_revision": "2026-08-30-upwork-hourly-evidence",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -71,6 +71,30 @@
       ],
       "review_gate": "Run registry and hook checks before completion.",
       "priority": 10,
+      "enabled": true
+    },
+    {
+      "route_key": "upwork-hourly-evidence",
+      "bucket": "upwork-hourly-evidence",
+      "trigger_patterns": [
+        "upwork hourly",
+        "hourly contract",
+        "work diary",
+        "billable hours",
+        "weekly limit",
+        "hours plan"
+      ],
+      "example_prompt": "Build an hours plan for this active Upwork hourly video contract.",
+      "surface": "billing evidence",
+      "lane": "AI Consultant",
+      "owner": "Upwork",
+      "intent": "Turn an active hourly video contract into an evidence-backed work plan and review boundary.",
+      "shape": "operating rule",
+      "required_tools": [
+        "s-systems:upwork-hourly-rubric"
+      ],
+      "review_gate": "Verify the live contract, weekly limit, and evidence state before billing or promising hours.",
+      "priority": 14,
       "enabled": true
     },
     {
@@ -608,6 +632,11 @@
       "skill_key": "freelance-pricing",
       "activation": "core",
       "reason": "Client budget, quote, fee, rush, and scope pricing decisions."
+    },
+    {
+      "skill_key": "upwork-hourly-rubric",
+      "activation": "core",
+      "reason": "Billable-hour planning and evidence for active Upwork video contracts."
     },
     {
       "skill_key": "freelance-gig-proposals",
