@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "BIGTEN-SEC-01",
+  "sceneId": "scene-07",
+  "status": "passed",
+  "issuedAt": "2026-08-27T16:10:00Z",
+  "manifestSha256": "ad5a93c4fa37956f121400ee0c020098942263b95922ff992312d9b313df931a",
+  "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
+  "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
+  "receiptId": "receipt-scene-07-export",
+  "stage": "export-to-premiere",
+  "previousReceiptSha256": "85daddac24f13aeeda709cf9005eff836cb9d53ba5da133bac33121d77770c33",
+  "evidence": {
+    "exportPath": "config/lineups/fixtures/valid/render-proof.mp4",
+    "fileSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
+    "motionProofStatus": "passed",
+    "motionSampleTimes": [0, 1.2, 3.4, 7.8, 14.1],
+    "eaglePath": "Episode / 06 Motion Renders"
+  },
+  "receiptSha256": "9907714e85314f281b9f0fe1d3f7ac1a18887466f7e48c1fe1188a98cded1a72"
+}

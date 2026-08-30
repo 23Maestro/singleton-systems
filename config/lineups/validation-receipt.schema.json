@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://singleton.systems/schemas/lineups-validation-receipt.schema.json",
+  "title": "Lineups validation receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "receiptId",
+    "stage",
+    "episodeId",
+    "sceneId",
+    "status",
+    "issuedAt",
+    "manifestSha256",
+    "previousReceiptSha256",
+    "artifactSha256",
+    "evidence",
+    "review",
+    "receiptSha256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "receiptId": { "type": "string", "minLength": 1 },
+    "stage": {
+      "enum": [
+        "figma-to-export",
+        "export-to-premiere",
+        "premiere-import",
+        "premiere-placement"
+      ]
+    },
+    "episodeId": { "type": "string", "minLength": 1 },
+    "sceneId": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["passed", "failed"] },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "manifestSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "previousReceiptSha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "artifactSha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "evidence": { "type": "object" },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewedAt"],
+      "properties": {
+        "status": { "enum": ["approved", "rejected"] },
+        "reviewer": { "const": "Jerami" },
+        "reviewedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "receiptSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

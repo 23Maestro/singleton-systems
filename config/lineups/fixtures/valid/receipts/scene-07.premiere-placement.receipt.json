@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "BIGTEN-SEC-01",
+  "sceneId": "scene-07",
+  "status": "passed",
+  "issuedAt": "2026-08-27T16:20:00Z",
+  "manifestSha256": "ad5a93c4fa37956f121400ee0c020098942263b95922ff992312d9b313df931a",
+  "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
+  "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
+  "receiptId": "receipt-scene-07-placement",
+  "stage": "premiere-placement",
+  "previousReceiptSha256": "da2fa40e2cf9b89fb34dc4b3395b201c3363a2dd1c8fc523cb7ace52a780d0f7",
+  "evidence": {
+    "timelineClipId": "timeline-clip-scene-07",
+    "sequenceId": "sequence-lineups-01",
+    "trackIndex": 2,
+    "startTime": 312.4
+  },
+  "receiptSha256": "9226ba4dddb2991c5058b6f66b2b3622024817f207fa6dba101f0e4e85b23ee6"
+}

@@ -38,7 +38,7 @@ The machine-readable map is in `config/transactions/owner-map.json`.
 | System Maintenance | Repository contract delivery now declares policy, packaging, the repository registry, its Supabase deployment, checks, and final readback. | Live Supabase mutation needs Jerami approval and must pass parity readback. |
 | AI Consultant | The Notion client record plus Linear next action flow is proven with synthetic adapters. | Live connector mutation needs Jerami approval. |
 | Development | Linear gateway work can adopt the envelope and receipt chain. | Add API readback adapters before any status claim. |
-| Content Editor | The Lineups proof already uses fail-closed manifests and receipts. | Keep its current hook files separate until Jerami approves an adapter. |
+| Content Editor | Lineups uses its hook for live mutation gates and the shared core for owner readback, staleness, and completion. | Each new scene needs enrollment and Jerami review. Other clients still need adapters. |
 | Portfolio | Application work can use receipts for task and repository evidence. | Resume claims keep a human source check. |
 | Writing Review | Reviewed artifacts can declare their durable owner and readback rule. | Final human review stays required. |
 
@@ -73,4 +73,4 @@ The checkout proof found two direct blockers before commit: Git was dirty and de
 
 Read live Linear issue descriptions only. Exclude Linear documents and intentional deep briefs such as `23M-96`. Show Jerami the current word count, compact draft, and facts that must remain. Write nothing until he approves each issue. Review Notion later as its own owner pass.
 
-The proof does not publish a plugin, call a live connector, change Linear state, or alter the Lineups worktree.
+The proof does not publish a plugin, call a live connector, or change Linear state. The approved Lineups adapter is fixture-backed and readback-only.

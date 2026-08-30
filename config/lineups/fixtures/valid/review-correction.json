@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "correctionId": "correction-scene-07-001",
+  "episodeId": "BIGTEN-SEC-01",
+  "sceneId": "scene-07",
+  "decision": "change-timing",
+  "componentId": "428:8000",
+  "instanceId": "428:9001",
+  "exposedSlot": "Reveal timing",
+  "allowedReplacement": "Reveal timing",
+  "requestedValue": { "entranceIndex": 3, "time": 7.8 },
+  "reviewer": "Jerami"
+}
