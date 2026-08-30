@@ -1,65 +1,48 @@
 ---
 name: upwork-hourly-rubric
-description: Use for planning, checking, or explaining billable hours on an active Upwork hourly video contract. Do not use for project quotes or fixed-price work.
+description: Estimate Catena Media Lineups hours when Jerami provides one or more finished video runtimes. Use the stored Mark runtime bands; do not use them for another client.
 ---
 
 # Upwork hourly rubric
 
-Build an honest hours plan that can survive client review. Upwork owns billed time. Linear owns the next action. The source files and editing project hold work evidence.
+For Mark's Catena Media Lineups videos, finished runtime is the required input.
+Do not ask for the rate, footage volume, contract length, edit density, or Work
+Diary settings when Jerami only wants the estimate.
 
-Use `freelance-pricing` when Jerami needs a rate, quote, or budget decision. This skill starts after the hourly contract and rate exist.
+Run:
 
-## verify the contract
+```bash
+node scripts/estimate-catena-hours.mjs 13:41 15:36
+```
 
-Read the active contract before planning hours. Confirm:
+The calculator reads the canonical bands from
+`references/catena-lineups-rubric.json`. Do not estimate from memory or apply
+these bands to another client.
 
-- hourly rate and weekly limit;
-- whether manual time is allowed;
-- required timer or Work Diary behavior;
-- deliverable, deadline, revision terms, and client checkpoints.
+## Figma motion
 
-Treat platform rules as current only after reading the live contract surface. Stop when the contract, limit, or permission is unclear.
+Normal use of the existing Figma motion comps is included in each runtime
+estimate. The initial six-hour template build has been charged. Never add it
+again automatically.
 
-## classify the evidence
+Treat a new visual package, a new template family, or a major system revision
+as separate work only when Catena assigns it. Do not infer those hours from the
+video runtime.
 
-Keep three evidence states:
+## Return
 
-- `measured`: timer, Work Diary, export log, file receipt, or prior completed run;
-- `estimated`: a range tied to known footage, runtime, edit density, and review load;
-- `unknown`: missing source, unclear quality bar, or an unresolved technical risk.
+When Jerami provides runtimes, return only each runtime, its estimated hours,
+and the total unless he asks for more.
 
-Never turn an estimate into recorded time. Never invent timer history, activity, screenshots, client approval, or prior speed.
+```text
+13:41 -> 9:00
+15:36 -> 9:30
+Total -> 18:30
+```
 
-Final runtime is one input. Source volume, culling load, story judgment, graphics, repair work, revisions, and delivery steps can move the hours more.
+If a runtime falls outside 10:00 through 20:00, say the Catena rubric does not
+cover it and ask Jerami to set the estimate. If the estimated total plus known
+logged hours exceeds the 30-hour weekly limit, state the overflow. Do not lower
+the individual estimates to fit the limit.
 
-## score the work
-
-For each phase, assign one load:
-
-- `light`: prepared source, clear reference, simple treatment, little cleanup;
-- `standard`: normal selection and polish with known tools;
-- `heavy`: poor source, research, custom motion, repair, or unclear approvals;
-- `blocked`: work cannot be sized until one fact is resolved.
-
-Map the load to hours only from measured Jerami history or a stated planning assumption. Show the assumption. Use a range when the evidence does not support one number.
-
-Break the plan into real work units such as ingest and cull, story edit, graphics, audio and color, QC and export, client revisions, or delivery. Include only phases that exist in this contract.
-
-## guard billing
-
-- Bill focused contract work allowed by the active terms.
-- Keep idle time, unrelated admin, learning detours, and failed experiments visible but unbilled unless the client approved them.
-- Pause before the weekly limit or a scope boundary.
-- Ask before work that changes the deliverable, treatment, revision count, or deadline.
-- After delivery, compare planned and measured hours. Keep the measured result as the next estimate anchor.
-
-## return
-
-Give Jerami a compact table with phase, evidence state, load, hour range, billable status, and proof. Then give:
-
-1. total planned range and weekly-limit headroom;
-2. blocked facts;
-3. the next client checkpoint;
-4. a short Work Diary memo for the next unit of work.
-
-Use a plain memo: verb + object + output. Example: `Cull interview selects for the 60-second assembly.`
+This skill estimates workload. It never submits time or invents completed work.
