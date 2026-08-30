@@ -32,5 +32,11 @@ assert.deepEqual(
   [{ verified: true }],
 );
 
+const seedSource = fs.readFileSync(path.join(process.cwd(), "scripts/seed-cerebral-registry.mjs"), "utf8");
+assert.doesNotMatch(seedSource, /with seeded as materialized/i, "linked seed and prune must not share one SQL statement");
+assert.match(seedSource, /begin;[\s\S]*seed_cerebral_registry[\s\S]*delete from public\.cerebral_routes[\s\S]*commit;/, "linked seed and pruning must share one transaction");
+assert.match(seedSource, /create temporary table singleton_cerebral_seed_result on commit drop/, "linked seed result must survive until the final query");
+assert.match(seedSource, /routes\.removed as routes_removed/, "linked seed must return route prune counts");
+
 fs.rmSync(root, { recursive: true, force: true });
 console.log("Supabase linked CLI checks passed: explicit path, JSON quoting, and query envelope parsing.");

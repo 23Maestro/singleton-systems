@@ -58,6 +58,28 @@ for (const snippet of ["[route] writing-review", "[lane] Writing Review", "[buck
   assert.match(explicitBucket.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `explicit bucket: missing ${snippet}`);
 }
 
+const portfolioCheckpoint = runHook("Log this for my portfolio as a portfolio checkpoint.");
+assert.equal(portfolioCheckpoint.status, 0);
+assert.doesNotMatch(portfolioCheckpoint.stdout, /\[portfolio-checkpoint\]/, "explicit evidence route must not duplicate its review gate");
+for (const snippet of [
+  "[route] portfolio-evidence",
+  "[lane] Portfolio",
+  "[owner] Eagle",
+  "s-systems:portfolio-evidence-capture",
+  "Show no more than two candidate visuals",
+]) {
+  assert.match(
+    portfolioCheckpoint.stdout,
+    new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    `portfolio checkpoint: missing ${snippet}`,
+  );
+}
+
+const projectReviewGate = runHook("Use client video storyboard for this Lineups football edit.");
+assert.equal(projectReviewGate.status, 0);
+assert.match(projectReviewGate.stdout, /\[portfolio-checkpoint\]/);
+assert.match(projectReviewGate.stdout, /Ignore routine tool calls and wait for Jerami before any Eagle write/);
+
 const preflight = runHook("Can you use the PDF tool to inspect this file?");
 assert.equal(preflight.status, 0);
 for (const snippet of ["[preflight]", "[registry]"]) {
@@ -114,6 +136,7 @@ const unrelated = runHook("Review the site typography.");
 assert.equal(unrelated.status, 0);
 assert.doesNotMatch(unrelated.stdout, /s-systems:freelance-gig-proposals/);
 assert.match(unrelated.stdout, /\[next\] No specialized route matched/);
+assert.match(unrelated.stdout, /\[portfolio-checkpoint\]/, "unmatched project work must retain the evidence gate");
 assert.ok(unrelated.stdout.length < 500, "unmatched prompts must not receive a large policy block");
 
 const pricing = runHook("What should I charge for this video edit after the platform fee?");

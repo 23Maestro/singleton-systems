@@ -15,7 +15,8 @@ not repeat their logic.
 | Wayfinder maps, decisions, dependencies, active work | Linear | `wayfinder` |
 | Branches, commits, pull requests, implementation evidence | GitHub | repository workflow |
 | Queryable events and cross-surface facts | Supabase | `docs/truth-matrix.md` |
-| Portfolio files and screenshots | Eagle | `career-portfolio-packager` + `eagle` |
+| Portfolio evidence checkpoints | Eagle | `portfolio-evidence-capture` + `eagle` |
+| Portfolio blocks and claims | Eagle source evidence | `career-portfolio-packager` |
 | Home-task truth | Apps Script | Personal Ops contract |
 | Active weekly review | Next/Vercel dashboard | `docs/visual-system-contract.md` |
 | Architecture truth | LikeC4 | `docs/visual-system-contract.md` |

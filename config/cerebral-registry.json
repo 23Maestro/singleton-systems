@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-08-30-codex-rabbit-gate",
+  "source_revision": "2026-08-30-codex-rabbit-portfolio-evidence-gates",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -230,6 +230,32 @@
       ],
       "review_gate": "Keep source detail behind a link; show only the information the reader needs to act or decide.",
       "priority": 47,
+      "enabled": true
+    },
+    {
+      "route_key": "portfolio-evidence",
+      "bucket": "portfolio-evidence",
+      "trigger_patterns": [
+        "portfolio checkpoint",
+        "log this for my portfolio",
+        "save this as proof",
+        "portfolio closeout",
+        "portfolio sweep",
+        "portfolio evidence",
+        "capture.*portfolio proof"
+      ],
+      "example_prompt": "Create a portfolio checkpoint for the project stage we just finished.",
+      "surface": "portfolio evidence",
+      "lane": "Portfolio",
+      "owner": "Eagle",
+      "intent": "Turn verified project work into a lean, approval-gated evidence packet.",
+      "shape": "review result",
+      "required_tools": [
+        "s-systems:portfolio-evidence-capture",
+        "s-systems:eagle"
+      ],
+      "review_gate": "Show no more than two candidate visuals for the stage and wait for Jerami before any Eagle write.",
+      "priority": 48,
       "enabled": true
     },
     {
@@ -602,6 +628,11 @@
       "skill_key": "opportunity-hq-updater",
       "activation": "core",
       "reason": "Durable task and project shaping."
+    },
+    {
+      "skill_key": "portfolio-evidence-capture",
+      "activation": "core",
+      "reason": "Approval-gated project evidence capture and Eagle closeout packets."
     },
     {
       "skill_key": "planning-idea-routing",

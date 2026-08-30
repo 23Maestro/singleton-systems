@@ -22,6 +22,7 @@ ROUTING_SURFACES = [
     "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md",
     "plugins/s-systems/skills/singleton-visualizer/SKILL.md",
     "plugins/s-systems/skills/client-video-storyboard/SKILL.md",
+    "plugins/s-systems/skills/portfolio-evidence-capture/SKILL.md",
     "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
     ".agents/skills/singleton-figma-system/SKILL.md",
     ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
@@ -232,6 +233,12 @@ def context(reason, text):
         lines.append(f"- [route-error] Unknown or disabled route: {explicit_route}")
     else:
         lines.append("- [next] No specialized route matched; use normal task flow.")
+    if not any(route.get("route_key") == "portfolio-evidence" for route in routes):
+        lines.append(
+            "- [portfolio-checkpoint] At a completed meaningful review gate, when visible proof exists, "
+            "use s-systems:portfolio-evidence-capture to propose no more than two visuals. "
+            "Ignore routine tool calls and wait for Jerami before any Eagle write."
+        )
     if needs_tool_preflight(text):
         lines.append("- [preflight] Check registry, Homebrew, and repo-local npm facts before reporting a missing tool or path.")
         if not capabilities:
