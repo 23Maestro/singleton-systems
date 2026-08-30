@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://singleton.systems/schemas/lineups-scene-manifest.schema.json",
+  "title": "Lineups scene manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "enforcement",
+    "scene",
+    "figma",
+    "timing",
+    "policy",
+    "export",
+    "ownership",
+    "premiere",
+    "review"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["active", "approvedToolInputSha256"],
+      "properties": {
+        "active": { "const": true },
+        "approvedToolInputSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["episodeId", "sceneId", "lane", "approvedOption", "setting"],
+      "properties": {
+        "episodeId": { "type": "string", "minLength": 1 },
+        "sceneId": { "type": "string", "minLength": 1 },
+        "lane": {
+          "enum": [
+            "quick action photo",
+            "quick stat",
+            "stat breakdown",
+            "comparison",
+            "year-by-year",
+            "asset swap",
+            "recurring board"
+          ]
+        },
+        "approvedOption": { "type": "string", "minLength": 1 },
+        "setting": { "type": "string", "minLength": 1 }
+      }
+    },
+    "figma": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fileKey",
+        "pageId",
+        "rootNodeId",
+        "sourceComponentId",
+        "episodeInstanceId",
+        "episodeUsesInstance",
+        "rootDimensions",
+        "exposedSlots",
+        "allowedReplacementProperties",
+        "focalAssets",
+        "motionTracks"
+      ],
+      "properties": {
+        "fileKey": { "type": "string", "minLength": 1 },
+        "pageId": { "type": "string", "minLength": 1 },
+        "rootNodeId": { "type": "string", "minLength": 1 },
+        "sourceComponentId": { "type": "string", "minLength": 1 },
+        "episodeInstanceId": { "type": "string", "minLength": 1 },
+        "episodeUsesInstance": { "const": true },
+        "rootDimensions": { "$ref": "#/$defs/dimensions" },
+        "exposedSlots": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "allowedReplacementProperties": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "focalAssets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["nodeId", "kind", "centered", "approvedException"],
+            "properties": {
+              "nodeId": { "type": "string", "minLength": 1 },
+              "kind": { "enum": ["logo", "photo", "icon", "graphic"] },
+              "centered": { "type": "boolean" },
+              "approvedException": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "motionTracks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["nodeId", "property", "duration", "keyframes"],
+            "properties": {
+              "nodeId": { "type": "string", "minLength": 1 },
+              "property": { "type": "string", "minLength": 1 },
+              "duration": { "type": "number", "minimum": 0 },
+              "keyframes": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["time", "value"],
+                  "properties": {
+                    "time": { "type": "number", "minimum": 0 },
+                    "value": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transcriptPhrase",
+        "verifiedAnchorTimestamp",
+        "anchorVerified",
+        "entranceTimes",
+        "lastEntrance",
+        "contentEnd",
+        "paddedCompositionEnd",
+        "finalStateVisible",
+        "noExitAnimation"
+      ],
+      "properties": {
+        "transcriptPhrase": { "type": "string", "minLength": 1 },
+        "verifiedAnchorTimestamp": { "type": "number", "minimum": 0 },
+        "anchorVerified": { "const": true },
+        "entranceTimes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "number", "minimum": 0 }
+        },
+        "lastEntrance": { "type": "number", "minimum": 0 },
+        "contentEnd": { "type": "number", "minimum": 0 },
+        "paddedCompositionEnd": { "type": "number", "minimum": 5 },
+        "finalStateVisible": { "const": true },
+        "noExitAnimation": { "const": true }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transitionsApproved",
+        "effectsApproved",
+        "lutsApproved",
+        "opacityChangesApproved"
+      ],
+      "properties": {
+        "transitionsApproved": { "type": "boolean", "default": false },
+        "effectsApproved": { "type": "boolean", "default": false },
+        "lutsApproved": { "type": "boolean", "default": false },
+        "opacityChangesApproved": { "type": "boolean", "default": false },
+        "approvalNote": { "type": ["string", "null"] }
+      }
+    },
+    "export": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dimensions", "path", "fileSha256", "validationStatus", "motionProof"],
+      "properties": {
+        "dimensions": { "$ref": "#/$defs/dimensions" },
+        "path": { "type": "string", "minLength": 1 },
+        "fileSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "validationStatus": { "enum": ["pending", "passed", "failed"] },
+        "motionProof": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "status", "sampleTimes"],
+          "properties": {
+            "type": { "enum": ["validation-sample", "deterministic-track-proof"] },
+            "status": { "enum": ["passed", "failed"] },
+            "sampleTimes": {
+              "type": "array",
+              "minItems": 2,
+              "items": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eaglePath", "duplicateFinalFolderIn23Projects"],
+      "properties": {
+        "eaglePath": { "const": "Episode / 06 Motion Renders" },
+        "duplicateFinalFolderIn23Projects": { "const": false }
+      }
+    },
+    "premiere": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sequenceId",
+        "trackIndex",
+        "approvedStartTime",
+        "projectItemId",
+        "treePath",
+        "labelReadback",
+        "timelineClipId"
+      ],
+      "properties": {
+        "sequenceId": { "type": "string", "minLength": 1 },
+        "trackIndex": { "type": "integer", "minimum": 0 },
+        "approvedStartTime": { "type": "number", "minimum": 0 },
+        "projectItemId": { "type": "string", "minLength": 1 },
+        "treePath": { "type": "string", "minLength": 1 },
+        "labelReadback": { "type": "string", "minLength": 1 },
+        "timelineClipId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewer", "reviewedAt", "correctionPayloadId"],
+      "properties": {
+        "status": { "enum": ["pending", "approved", "rejected"] },
+        "reviewer": { "const": "Jerami" },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "correctionPayloadId": { "type": ["string", "null"] }
+      }
+    }
+  },
+  "$defs": {
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

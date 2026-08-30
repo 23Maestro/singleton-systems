@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "enforcement": {
+    "active": true,
+    "approvedToolInputSha256": "5d8840c43c86662fbfc1c7989a259f0959523b77aa5674225507a7fc1375d962"
+  },
+  "scene": {
+    "episodeId": "BIGTEN-SEC-01",
+    "sceneId": "scene-07",
+    "lane": "asset swap",
+    "approvedOption": "asset swap",
+    "setting": "three transcript-timed entrances"
+  },
+  "figma": {
+    "fileKey": "LINEUPS_FILE_KEY",
+    "pageId": "428:27",
+    "rootNodeId": "428:9000",
+    "sourceComponentId": "428:8000",
+    "episodeInstanceId": "428:9001",
+    "episodeUsesInstance": true,
+    "rootDimensions": { "width": 1920, "height": 1080 },
+    "exposedSlots": ["Logo", "Headline", "Subject A", "Subject B", "Reveal timing"],
+    "allowedReplacementProperties": ["Logo", "Headline", "Subject A", "Subject B", "Reveal timing"],
+    "focalAssets": [
+      { "nodeId": "428:9002", "kind": "logo", "centered": true, "approvedException": null }
+    ],
+    "motionTracks": [
+      {
+        "nodeId": "428:9002",
+        "property": "opacity",
+        "duration": 14.2,
+        "keyframes": [
+          { "time": 0, "value": 0 },
+          { "time": 1.2, "value": 100 },
+          { "time": 14.2, "value": 100 }
+        ]
+      },
+      {
+        "nodeId": "428:9003",
+        "property": "x",
+        "duration": 14.2,
+        "keyframes": [
+          { "time": 2.8, "value": 2080 },
+          { "time": 3.4, "value": 1240 },
+          { "time": 14.2, "value": 1240 }
+        ]
+      }
+    ]
+  },
+  "timing": {
+    "transcriptPhrase": "the defense created four takeaways",
+    "verifiedAnchorTimestamp": 312.4,
+    "anchorVerified": true,
+    "entranceTimes": [0, 1.2, 3.4, 7.8],
+    "lastEntrance": 7.8,
+    "contentEnd": 9.2,
+    "paddedCompositionEnd": 14.2,
+    "finalStateVisible": true,
+    "noExitAnimation": true
+  },
+  "policy": {
+    "transitionsApproved": false,
+    "effectsApproved": false,
+    "lutsApproved": false,
+    "opacityChangesApproved": false,
+    "approvalNote": null
+  },
+  "export": {
+    "dimensions": { "width": 1920, "height": 1080 },
+    "path": "config/lineups/fixtures/valid/render-proof.mp4",
+    "fileSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
+    "validationStatus": "passed",
+    "motionProof": {
+      "type": "validation-sample",
+      "status": "passed",
+      "sampleTimes": [0, 1.2, 3.4, 7.8, 14.1]
+    }
+  },
+  "ownership": {
+    "eaglePath": "Episode / 06 Motion Renders",
+    "duplicateFinalFolderIn23Projects": false
+  },
+  "premiere": {
+    "sequenceId": "sequence-lineups-01",
+    "trackIndex": 2,
+    "approvedStartTime": 312.4,
+    "projectItemId": "project-item-scene-07",
+    "treePath": "BIGTEN-SEC-01/06 Motion Renders/scene-07.mp4",
+    "labelReadback": "Caribbean",
+    "timelineClipId": "timeline-clip-scene-07"
+  },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "reviewedAt": "2026-08-27T16:00:00Z",
+    "correctionPayloadId": "correction-scene-07-001"
+  }
+}

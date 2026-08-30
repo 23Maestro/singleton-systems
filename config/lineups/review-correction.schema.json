@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://singleton.systems/schemas/lineups-review-correction.schema.json",
+  "title": "Lineups review correction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "correctionId",
+    "episodeId",
+    "sceneId",
+    "decision",
+    "componentId",
+    "instanceId",
+    "exposedSlot",
+    "allowedReplacement",
+    "requestedValue",
+    "reviewer"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "correctionId": { "type": "string", "minLength": 1 },
+    "episodeId": { "type": "string", "minLength": 1 },
+    "sceneId": { "type": "string", "minLength": 1 },
+    "decision": {
+      "enum": [
+        "approve",
+        "swap-asset",
+        "change-copy",
+        "change-timing",
+        "reject",
+        "return-to-reference"
+      ]
+    },
+    "componentId": { "type": "string", "minLength": 1 },
+    "instanceId": { "type": "string", "minLength": 1 },
+    "exposedSlot": { "type": "string", "minLength": 1 },
+    "allowedReplacement": { "type": "string", "minLength": 1 },
+    "requestedValue": {},
+    "reviewer": { "const": "Jerami" }
+  }
+}
