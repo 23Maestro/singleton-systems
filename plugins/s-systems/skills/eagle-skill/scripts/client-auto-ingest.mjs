@@ -18,7 +18,15 @@
 // Drive is read-only: files are downloaded, never written back or deleted.
 
 import { execFileSync } from "node:child_process";
-import { readFileSync, existsSync, mkdirSync, writeFileSync, readdirSync, statSync } from "node:fs";
+import {
+  readFileSync,
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+  readdirSync,
+  statSync,
+  unlinkSync,
+} from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import os from "node:os";
@@ -87,6 +95,7 @@ function loadClient(slug) {
 }
 
 function loadSkills(skillsFile) {
+  if (!skillsFile) return [];
   const file = path.join(REFERENCES_DIR, skillsFile);
   return readFileSync(file, "utf8")
     .split("\n")
@@ -97,7 +106,7 @@ function loadSkills(skillsFile) {
 
 function loadState(clientSlug) {
   const file = path.join(STATE_DIR, `${clientSlug}.json`);
-  if (!existsSync(file)) return { processed: {} };
+  if (!existsSync(file)) return { processed: {}, observed: {} };
   return JSON.parse(readFileSync(file, "utf8"));
 }
 
@@ -120,6 +129,59 @@ function normalizeTopic(rawName) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
   return name + take;
+}
+
+function walkFiles(root) {
+  if (!existsSync(root)) return [];
+  return readdirSync(root, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.name.startsWith(".")) return [];
+    const entryPath = path.join(root, entry.name);
+    return entry.isDirectory() ? walkFiles(entryPath) : [entryPath];
+  });
+}
+
+function processedEntry(state, jobStateKey, sourcePath) {
+  const processed = state.processed?.[jobStateKey] ?? [];
+  if (Array.isArray(processed)) return processed.includes(sourcePath) ? { legacy: true } : null;
+  return processed[sourcePath] ?? null;
+}
+
+function markProcessed(state, jobStateKey, sourcePath, details) {
+  state.processed ??= {};
+  const current = state.processed[jobStateKey];
+  if (!current || Array.isArray(current)) state.processed[jobStateKey] = {};
+  state.processed[jobStateKey][sourcePath] = details;
+  if (state.observed?.[jobStateKey]) delete state.observed[jobStateKey][sourcePath];
+}
+
+function eagleFileName(item) {
+  return item.ext ? `${item.name}.${item.ext}` : item.name;
+}
+
+function matchingEagleItem(items, source) {
+  const expectedName = path.basename(source.path).toLowerCase();
+  return items.find(
+    (item) =>
+      eagleFileName(item).toLowerCase() === expectedName &&
+      Number(item.size) === Number(source.size)
+  );
+}
+
+function listFolderItems(folderId) {
+  return callEagle("item_get", {
+    folders: [folderId],
+    fullDetails: true,
+    limit: 1000,
+  }).data ?? [];
+}
+
+function deleteVerifiedStagingFile(source, localDir) {
+  const root = path.resolve(localDir);
+  const target = path.resolve(source.path);
+  if (!target.startsWith(`${root}${path.sep}`)) {
+    throw new Error(`Refusing to remove staging file outside watch root: ${target}`);
+  }
+  unlinkSync(target);
 }
 
 function categorize(rawName, skills) {
@@ -148,15 +210,55 @@ function parseArgs(argv) {
 }
 
 function gatherSourceFiles(job, client, opts, state, jobStateKey) {
-  const processed = state.processed[jobStateKey] ?? [];
+  const configuredLocalDir = opts.localDir ?? job.localDir;
 
-  if (opts.localDir) {
-    return readdirSync(opts.localDir)
-      .filter((f) => !f.startsWith("."))
-      .map((f) => path.join(opts.localDir, f))
-      .filter((f) => statSync(f).isFile())
-      .filter((f) => !processed.includes(f))
-      .map((f) => ({ kind: "local", path: f, stateId: f, name: path.basename(f) }));
+  if (configuredLocalDir) {
+    const localDir = expandHome(configuredLocalDir);
+    const allowedExtensions = (job.extensions ?? []).map((ext) => ext.toLowerCase());
+    const requiredStablePasses = job.requireStablePasses ?? 1;
+    state.observed ??= {};
+    state.observed[jobStateKey] ??= {};
+
+    const candidates = walkFiles(localDir)
+      .filter((file) => statSync(file).isFile())
+      .filter((file) => {
+        const name = path.basename(file).toLowerCase();
+        if (name.endsWith(".crdownload") || name.endsWith(".download") || name.endsWith(".part")) {
+          return false;
+        }
+        if (allowedExtensions.length === 0) return true;
+        return allowedExtensions.includes(path.extname(file).slice(1).toLowerCase());
+      })
+      .filter((file) => !processedEntry(state, jobStateKey, path.resolve(file)));
+
+    const stable = [];
+    for (const file of candidates) {
+      const resolved = path.resolve(file);
+      const stats = statSync(resolved);
+      const previous = state.observed[jobStateKey][resolved];
+      const unchanged = previous?.size === stats.size && previous?.mtimeMs === stats.mtimeMs;
+      const stablePasses = unchanged ? previous.stablePasses + 1 : 1;
+      state.observed[jobStateKey][resolved] = {
+        size: stats.size,
+        mtimeMs: stats.mtimeMs,
+        stablePasses,
+        lastSeenAt: new Date().toISOString(),
+      };
+      if (stablePasses >= requiredStablePasses) {
+        stable.push({
+          kind: "local",
+          path: resolved,
+          stateId: resolved,
+          name: path.basename(resolved),
+          size: stats.size,
+          mtimeMs: stats.mtimeMs,
+          localDir,
+        });
+      }
+    }
+
+    const batchSize = job.batchSize ?? stable.length;
+    return stable.slice(0, batchSize);
   }
 
   const driveFolderId = job.driveFolderId ?? client.driveFolderId;
@@ -166,7 +268,7 @@ function gatherSourceFiles(job, client, opts, state, jobStateKey) {
   }
 
   const files = listDriveFolder(driveFolderId);
-  const newFiles = files.filter((f) => !processed.includes(f.id));
+  const newFiles = files.filter((f) => !processedEntry(state, jobStateKey, f.id));
   if (newFiles.length === 0) return [];
 
   const stagingDir = path.join(expandHome(client.stagingDir), job.jobCode);
@@ -191,8 +293,9 @@ function main() {
     process.exit(1);
   }
 
-  const skills = loadSkills(client.skillsFile);
   const state = loadState(client.clientSlug);
+  state.processed ??= {};
+  state.observed ??= {};
 
   const jobEntries = Object.entries(client.jobs)
     .filter(([name]) => !opts.job || name === opts.job)
@@ -223,6 +326,73 @@ function main() {
         f.path = f.dest;
       }
     }
+
+    if (job.ingestMode === "source-preserve") {
+      let folderItems = listFolderItems(job.eagleFolderId);
+      const missing = [];
+
+      for (const source of sourceFiles) {
+        const existing = matchingEagleItem(folderItems, source);
+        if (!existing) {
+          missing.push(source);
+          continue;
+        }
+        console.log(`  Already verified in Eagle: ${source.name}`);
+        if (job.cleanupAfterVerified && existsSync(source.path)) {
+          deleteVerifiedStagingFile(source, source.localDir);
+        }
+        markProcessed(state, jobStateKey, source.stateId, {
+          size: source.size,
+          mtimeMs: source.mtimeMs,
+          eagleItemId: existing.id,
+          verifiedAt: new Date().toISOString(),
+        });
+      }
+
+      if (missing.length > 0) {
+        callEagle("item_add", {
+          folders: [job.eagleFolderId],
+          tags: job.tags ?? [],
+          annotation: job.annotation ?? "",
+          items: missing.map((source) => ({
+            name: path.parse(source.name).name,
+            source: { type: "path", path: source.path },
+          })),
+        });
+
+        for (let attempt = 0; attempt < 4; attempt++) {
+          folderItems = listFolderItems(job.eagleFolderId);
+          if (missing.every((source) => matchingEagleItem(folderItems, source))) break;
+          Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 750);
+        }
+
+        for (const source of missing) {
+          const imported = matchingEagleItem(folderItems, source);
+          if (!imported) {
+            console.error(`  Verification failed; staging file retained: ${source.name}`);
+            continue;
+          }
+          console.log(`  Verified in Eagle: ${source.name} -> ${imported.id}`);
+          if (job.cleanupAfterVerified && existsSync(source.path)) {
+            deleteVerifiedStagingFile(source, source.localDir);
+          }
+          markProcessed(state, jobStateKey, source.stateId, {
+            size: source.size,
+            mtimeMs: source.mtimeMs,
+            eagleItemId: imported.id,
+            verifiedAt: new Date().toISOString(),
+          });
+        }
+      }
+
+      const verifiedCount = listFolderItems(job.eagleFolderId).length;
+      console.log(
+        `  Source-preserve total: ${verifiedCount}${job.expectedCount ? ` / ${job.expectedCount}` : ""}`
+      );
+      continue;
+    }
+
+    const skills = loadSkills(client.skillsFile);
 
     // Snapshot the job folder before ingest so we can diff after.
     const before = callEagle("item_get", { folders: [job.eagleFolderId], limit: 1000 });
@@ -278,9 +448,13 @@ function main() {
       for (const item of unmatched) console.log(`    - ${item.id}  ${item.name}`);
     }
 
-    state.processed[jobStateKey] = [...(state.processed[jobStateKey] ?? []), ...sourceFiles.map((f) => f.stateId)];
-    saveState(client.clientSlug, state);
+    const existingProcessed = Array.isArray(state.processed[jobStateKey])
+      ? state.processed[jobStateKey]
+      : Object.keys(state.processed[jobStateKey] ?? {});
+    state.processed[jobStateKey] = [...existingProcessed, ...sourceFiles.map((f) => f.stateId)];
   }
+
+  if (opts.apply) saveState(client.clientSlug, state);
 }
 
 main();

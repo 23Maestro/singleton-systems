@@ -8,7 +8,7 @@ import { spawnSync } from "node:child_process";
 const PLUGIN_ID = "s-systems@singleton23-local";
 const VERSION_PATTERN = /^(\d+\.\d+\.\d+\+codex\.)(\d{14})$/;
 const FRESH_TASK_NOTICE =
-  "Plugin updated. This open task still has its startup catalog. Start a fresh task and invoke `$s-systems:client-video-storyboard`. If the old version appears, fully quit and reopen Codex.";
+  "Plugin updated. This open task still has its startup catalog. Start a fresh task and invoke `$s-systems:client-content-editor-prep`. If the old version appears, fully quit and reopen Codex.";
 
 export function parseArgs(argv) {
   const result = { dryRun: false, version: null };

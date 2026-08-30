@@ -36,6 +36,13 @@ for (const route of registry.routes) {
 }
 const clientVideoRoute = registry.routes.find((route) => route.route_key === "client-video");
 assert.ok(clientVideoRoute.trigger_patterns.includes("lineups"), "client-video route must recognize Lineups prompts");
+const contentEditorPrepRoute = registry.routes.find((route) => route.route_key === "client-content-editor-prep");
+assert.ok(contentEditorPrepRoute, "registry must include the client content editor prep route");
+assert.deepEqual(
+  contentEditorPrepRoute.required_tools,
+  ["s-systems:client-content-editor-prep", "s-systems:eagle"],
+  "client content editor prep must pair its prep contract with Eagle",
+);
 assert.equal(new Set(registry.routes.map((route) => route.bucket)).size, registry.routes.length, "route buckets must be unique");
 
 for (const capability of registry.capabilities) {
@@ -58,7 +65,7 @@ if (fs.existsSync(pluginSkillsRoot)) {
     .sort();
   assert.deepEqual(catalogSkills, pluginSkills, "registry must classify every bundled SSystems skill");
 }
-assert.equal(catalogSkills.length, 16, "registry must classify the 16 active SSystems skills");
+assert.equal(catalogSkills.length, 17, "registry must classify the 17 active SSystems skills");
 assert.ok(registry.skills.every((skill) => skill.activation === "core"));
 
 const skillNames = new Set(catalogSkills);

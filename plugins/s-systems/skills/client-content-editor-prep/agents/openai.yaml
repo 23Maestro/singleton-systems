@@ -1,0 +1,4 @@
+interface:
+  display_name: "SS: Client Content Editor Prep"
+  short_description: "Organize client footage for a clean Premiere handoff."
+  default_prompt: "Use $client-content-editor-prep to map this Eagle footage into verified Premiere bins and client-facing clip names."

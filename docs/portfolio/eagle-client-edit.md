@@ -16,6 +16,12 @@ Put client edit assets under `Video Projects / YYYY-MM-DD Project Name`. Keep
 the transcript and edit map with that asset set. Do not create parallel asset
 folder systems or a new top-level category per client.
 
+Filesystem intake for the Content Editor Lane uses
+`/Volumes/HomeSSD/HOME/01_eagle-staging/Content Editor/<client>/<date>`.
+Source-preserve watchers route camera subfolders into the matching Eagle source
+folders, retain original filenames, and remove staging copies only after Eagle
+readback confirms the same filename and byte size in the intended folder.
+
 `Client Review Staging` holds only the human review checklist. It is the pause
 before Premiere staging, timeline mutation, export overwrite, or delivery.
 
