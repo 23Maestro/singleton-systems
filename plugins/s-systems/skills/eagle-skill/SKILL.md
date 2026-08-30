@@ -14,6 +14,11 @@ node scripts/eagle-api-cli.js help <tool>
 node scripts/eagle-api-cli.js call <tool> --json '{"key":"value"}'
 ```
 
+For a public Frame.io folder that must land on an external-drive watch path,
+use `scripts/frameio-share-download.mjs`. It reads the public share manifest,
+downloads originals with resume support, and keeps completion state without
+storing signed URLs.
+
 Use `list` to discover tools and `help <tool>` for the exact parameters.
 
 Before a mutation, identify the selected asset and intended metadata change.

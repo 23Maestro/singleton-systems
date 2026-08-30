@@ -447,6 +447,32 @@
       "enabled": true
     },
     {
+      "route_key": "client-content-editor-prep",
+      "bucket": "client-content-editor-prep",
+      "trigger_patterns": [
+        "content editor prep",
+        "organize.*footage",
+        "sort.*(?:tour|camera)",
+        "rename.*(?:footage|clips)",
+        "premiere bins",
+        "ingest.*premiere",
+        "cull.*footage"
+      ],
+      "example_prompt": "Organize this client footage by tour and camera, then prepare verified Premiere bins and client-facing clip names.",
+      "surface": "client edit prep",
+      "lane": "Content Editor",
+      "owner": "Eagle",
+      "intent": "Turn classified client source footage into an auditable manifest and a verified, non-destructive Premiere project-panel handoff.",
+      "shape": "delivery envelope",
+      "required_tools": [
+        "s-systems:client-content-editor-prep",
+        "s-systems:eagle"
+      ],
+      "review_gate": "Verify manifest uniqueness, source-path existence, import counts, Premiere tree paths, and project-item renames before timeline work.",
+      "priority": 76,
+      "enabled": true
+    },
+    {
       "route_key": "catena-media-download",
       "bucket": "catena-media-download",
       "trigger_patterns": [
@@ -517,6 +543,11 @@
       "skill_key": "career-portfolio-packager",
       "activation": "core",
       "reason": "Portfolio and portfolio packaging."
+    },
+    {
+      "skill_key": "client-content-editor-prep",
+      "activation": "core",
+      "reason": "Transcript-informed footage organization, manifest creation, and verified Premiere project-panel handoff."
     },
     {
       "skill_key": "client-video-storyboard",

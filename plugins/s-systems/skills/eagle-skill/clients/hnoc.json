@@ -1,0 +1,34 @@
+{
+  "clientSlug": "hnoc",
+  "clientCode": "HNOC",
+  "eagleLibrary": "Content Editor.library",
+  "stagingDir": "/Volumes/HomeSSD/HOME/01_eagle-staging/Content Editor/HNOC/2026-07-31",
+  "jobs": {
+    "A CAM": {
+      "jobCode": "A_CAM",
+      "localDir": "/Volumes/HomeSSD/HOME/01_eagle-staging/Content Editor/HNOC/2026-07-31/A CAM",
+      "eagleFolderId": "MTCAP29REUZOW",
+      "ingestMode": "source-preserve",
+      "cleanupAfterVerified": true,
+      "requireStablePasses": 2,
+      "batchSize": 20,
+      "extensions": ["mp4", "mov", "m4v"],
+      "expectedCount": 181,
+      "tags": ["HNOC", "2026-07-31", "A CAM", "source-original"],
+      "annotation": "Original HNOC A-camera source from the 2026-07-31 museum tours. Filename preserved from Frame.io."
+    },
+    "B CAM": {
+      "jobCode": "B_CAM",
+      "localDir": "/Volumes/HomeSSD/HOME/01_eagle-staging/Content Editor/HNOC/2026-07-31/B CAM",
+      "eagleFolderId": "MTCAP2A9YI4BP",
+      "ingestMode": "source-preserve",
+      "cleanupAfterVerified": true,
+      "requireStablePasses": 2,
+      "batchSize": 20,
+      "extensions": ["mp4", "mov", "m4v"],
+      "expectedCount": 81,
+      "tags": ["HNOC", "2026-07-31", "B CAM", "source-original"],
+      "annotation": "Original HNOC B-camera source from the 2026-07-31 museum tours. Filename preserved from Frame.io."
+    }
+  }
+}
