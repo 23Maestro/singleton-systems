@@ -20,6 +20,7 @@ not repeat their logic.
 | Active weekly review | Next/Vercel dashboard | `docs/visual-system-contract.md` |
 | Architecture truth | LikeC4 | `docs/visual-system-contract.md` |
 | Repeated reasoning | Repo skills | matching SSystems skill |
+| Code review receipts | GitHub/repository | `codex-rabbit` + repo review config |
 
 ## Cerebral Route
 

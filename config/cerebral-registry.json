@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-08-26-lineups-treatment-gate",
+  "source_revision": "2026-08-30-codex-rabbit-gate",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -54,7 +54,10 @@
         "singleton23-local",
         "plugin://s-systems",
         "skill.*path",
-        "hook contract"
+        "hook contract",
+        "code review",
+        "CodeRabbit",
+        "codex rabbit"
       ],
       "example_prompt": "Check the SSystems plugin and routing contract before changing this workflow.",
       "surface": "skill / hook routing",
@@ -63,7 +66,8 @@
       "intent": "Route SSystems plugin, skill, hook, and contract work through the canonical contract.",
       "shape": "operating rule",
       "required_tools": [
-        "s-systems:cerebral-router"
+        "s-systems:cerebral-router",
+        "s-systems:codex-rabbit"
       ],
       "review_gate": "Run registry and hook checks before completion.",
       "priority": 10,
@@ -553,6 +557,11 @@
       "skill_key": "client-video-storyboard",
       "activation": "core",
       "reason": "Profile-aware video breakdown, Eagle asset matching, storyboard prep, and reviewed Premiere handoff."
+    },
+    {
+      "skill_key": "codex-rabbit",
+      "activation": "core",
+      "reason": "Two-pass repository review with commit-bound findings and human approval receipts."
     },
     {
       "skill_key": "cerebral-router",
