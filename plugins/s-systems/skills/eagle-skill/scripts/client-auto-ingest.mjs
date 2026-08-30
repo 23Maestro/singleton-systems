@@ -27,7 +27,7 @@ import {
   statSync,
   unlinkSync,
 } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import path from "node:path";
 import os from "node:os";
 
@@ -158,9 +158,9 @@ function eagleFileName(item) {
   return item.ext ? `${item.name}.${item.ext}` : item.name;
 }
 
-function matchingEagleItem(items, source) {
+function matchingEagleItems(items, source) {
   const expectedName = path.basename(source.path).toLowerCase();
-  return items.find(
+  return items.filter(
     (item) =>
       eagleFileName(item).toLowerCase() === expectedName &&
       Number(item.size) === Number(source.size)
@@ -305,6 +305,11 @@ function main() {
     const jobStateKey = `${client.clientSlug}:${job.jobCode}`;
     console.log(`\n=== ${client.clientSlug} / ${jobName} (${job.jobCode}) ===`);
 
+    if (job.ingestMode === "source-preserve" && !(opts.localDir ?? job.localDir)) {
+      console.error("  source-preserve requires a local source directory; Drive sources are unsupported.");
+      continue;
+    }
+
     const sourceFiles = gatherSourceFiles(job, client, opts, state, jobStateKey);
     if (sourceFiles.length === 0) {
       console.log("  Nothing new to ingest.");
@@ -332,11 +337,16 @@ function main() {
       const missing = [];
 
       for (const source of sourceFiles) {
-        const existing = matchingEagleItem(folderItems, source);
-        if (!existing) {
+        const matches = matchingEagleItems(folderItems, source);
+        if (matches.length === 0) {
           missing.push(source);
           continue;
         }
+        if (matches.length > 1) {
+          console.error(`  Ambiguous Eagle readback; staging file retained: ${source.name}`);
+          continue;
+        }
+        const [existing] = matches;
         console.log(`  Already verified in Eagle: ${source.name}`);
         if (job.cleanupAfterVerified && existsSync(source.path)) {
           deleteVerifiedStagingFile(source, source.localDir);
@@ -362,16 +372,17 @@ function main() {
 
         for (let attempt = 0; attempt < 4; attempt++) {
           folderItems = listFolderItems(job.eagleFolderId);
-          if (missing.every((source) => matchingEagleItem(folderItems, source))) break;
+          if (missing.every((source) => matchingEagleItems(folderItems, source).length === 1)) break;
           Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 750);
         }
 
         for (const source of missing) {
-          const imported = matchingEagleItem(folderItems, source);
-          if (!imported) {
+          const matches = matchingEagleItems(folderItems, source);
+          if (matches.length !== 1) {
             console.error(`  Verification failed; staging file retained: ${source.name}`);
             continue;
           }
+          const [imported] = matches;
           console.log(`  Verified in Eagle: ${source.name} -> ${imported.id}`);
           if (job.cleanupAfterVerified && existsSync(source.path)) {
             deleteVerifiedStagingFile(source, source.localDir);
@@ -457,4 +468,6 @@ function main() {
   if (opts.apply) saveState(client.clientSlug, state);
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
+
+export { matchingEagleItems };

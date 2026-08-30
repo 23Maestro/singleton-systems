@@ -82,9 +82,14 @@ function safeOutputBase(value) {
 async function fileState(filePath) {
   try {
     const stat = await fs.stat(filePath);
-    return stat.isFile() ? "file" : "not-file";
+    return stat.isFile()
+      ? { state: "file", canonicalPath: await fs.realpath(filePath) }
+      : { state: "not-file", canonicalPath: filePath };
   } catch (error) {
-    return error.code === "ENOENT" ? "missing" : `error:${error.code || "unknown"}`;
+    return {
+      state: error.code === "ENOENT" ? "missing" : `error:${error.code || "unknown"}`,
+      canonicalPath: filePath,
+    };
   }
 }
 
@@ -103,6 +108,10 @@ const rows = [];
 let sequenceNumber = 0;
 
 for (const group of groups) {
+  const classification = group.classification || "usable";
+  if (!["usable", "reject", "ambiguous"].includes(classification)) {
+    throw new Error(`${group.tour}/${group.camera}: invalid classification ${classification}`);
+  }
   const payload = await callEagle("item_get", {
     folders: [group.folderId],
     fullDetails: true,
@@ -113,8 +122,8 @@ for (const group of groups) {
     throw new Error(`${group.tour}/${group.camera}: expected ${group.expectedCount}, found ${items.length}`);
   }
   for (const item of items) {
-    const classification = group.classification || "usable";
     const usable = classification === "usable";
+    const media = await fileState(item.filePath);
     if (usable) sequenceNumber += 1;
     rows.push({
       sequence_number: usable ? sequenceNumber : "",
@@ -123,7 +132,7 @@ for (const group of groups) {
         : "",
       original_name: originalName(item),
       eagle_item_id: item.id,
-      media_path: item.filePath,
+      media_path: media.canonicalPath,
       tour: group.tour,
       camera: group.camera,
       destination_bin: usable ? group.destinationBin : "",
@@ -133,7 +142,7 @@ for (const group of groups) {
       premiere_item_id: "",
       premiere_tree_path: "",
       status: usable ? "planned" : "excluded",
-      _file_state: await fileState(item.filePath),
+      _file_state: media.state,
     });
   }
 }

@@ -14,6 +14,7 @@ import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
+import { pathToFileURL } from "node:url";
 
 const GRAPHQL_URL = "https://api.frame.io/graphql";
 
@@ -197,6 +198,10 @@ async function downloadAsset(asset, outputDir) {
   if (existsSync(destination) && statSync(destination).size === asset.size) return destination;
 
   let offset = existsSync(partial) ? statSync(partial).size : 0;
+  if (offset === asset.size) {
+    renameSync(partial, destination);
+    return destination;
+  }
   if (offset > asset.size) {
     truncateSync(partial, 0);
     offset = 0;
@@ -281,7 +286,11 @@ async function main() {
   console.log(`Download pass complete: ${completedThisRun} new, ${Object.keys(state.completed).length} recorded.`);
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
+}
+
+export { downloadAsset };

@@ -39,8 +39,7 @@ operations.
 3. Derive tour groups from transcript and folder evidence. A user estimate is a
    shape, not a required category count. Keep categories lean and surface
    ambiguous clips instead of inventing a confident assignment.
-4. Use one global client sequence across usable clips unless the client asked
-   for per-tour numbering. Order by tour, then transcript-supported story order;
+4. Use one global client sequence across usable clips. Order by tour, then transcript-supported story order;
    fall back to source capture order when story order is not defensible.
 5. Inspect the Premiere project, sequences, bins, and existing label scheme.
    Create only the missing tour and camera bins under the existing numbered

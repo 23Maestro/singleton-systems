@@ -3,6 +3,23 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+const MANIFEST_FIELDS = [
+  "sequence_number",
+  "premiere_name",
+  "original_name",
+  "eagle_item_id",
+  "media_path",
+  "tour",
+  "camera",
+  "destination_bin",
+  "classification",
+  "confidence",
+  "reason",
+  "premiere_item_id",
+  "premiere_tree_path",
+  "status",
+];
+
 function parseArgs(argv) {
   const result = {};
   for (let index = 0; index < argv.length; index += 2) {
@@ -30,9 +47,7 @@ if (!/\.json$/i.test(manifestPath)) {
   throw new Error("Manifest path must end in .json");
 }
 const rows = JSON.parse(await fs.readFile(manifestPath, "utf8"));
-if (!Array.isArray(rows) || rows.length === 0) {
-  throw new Error("Manifest must contain at least one row");
-}
+if (!Array.isArray(rows)) throw new Error("Manifest must be an array");
 const itemText = args["items-file"]
   ? await fs.readFile(path.resolve(args["items-file"]), "utf8")
   : Buffer.from(args["items-base64"], "base64").toString("utf8");
@@ -85,7 +100,7 @@ for (const row of rows) {
   }
 }
 
-const fields = Object.keys(rows[0]);
+const fields = rows.length > 0 ? Object.keys(rows[0]) : MANIFEST_FIELDS;
 await fs.writeFile(manifestPath, `${JSON.stringify(rows, null, 2)}\n`);
 const csvPath = manifestPath.replace(/\.json$/i, ".csv");
 const csv = [fields.join(","), ...rows.map((row) => fields.map((field) => csvCell(row[field])).join(","))].join("\n");
