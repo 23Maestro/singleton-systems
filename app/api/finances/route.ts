@@ -6,7 +6,6 @@ import {
   createFinanceEntry,
   listFinanceEntries,
 } from "@/lib/finance-entries";
-import { financeAccessError } from "@/lib/finance-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -20,8 +19,6 @@ const createSchema = z.object({
 }).strict();
 
 export async function GET(request: Request) {
-  const accessError = financeAccessError(request);
-  if (accessError) return accessError;
   try {
     const entries = await listFinanceEntries();
     return NextResponse.json({ entries });
@@ -31,8 +28,6 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const accessError = financeAccessError(request);
-  if (accessError) return accessError;
   const payload = await request.json().catch(() => null);
   const parsed = createSchema.safeParse(payload);
   if (!parsed.success) {

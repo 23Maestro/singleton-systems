@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { FINANCE_CATEGORIES, deleteFinanceEntry, updateFinanceEntry } from "@/lib/finance-entries";
-import { financeAccessError } from "@/lib/finance-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,8 +15,6 @@ const patchSchema = z.object({
 const idSchema = z.string().uuid();
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const accessError = financeAccessError(request);
-  if (accessError) return accessError;
   const parsedId = idSchema.safeParse((await params).id);
   if (!parsedId.success) return NextResponse.json({ error: "Invalid entry ID." }, { status: 400 });
   const payload = await request.json().catch(() => null);
@@ -37,8 +34,6 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
-  const accessError = financeAccessError(request);
-  if (accessError) return accessError;
   const parsedId = idSchema.safeParse((await params).id);
   if (!parsedId.success) return NextResponse.json({ error: "Invalid entry ID." }, { status: 400 });
   try {

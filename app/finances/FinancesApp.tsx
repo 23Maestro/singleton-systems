@@ -60,9 +60,6 @@ type Panel = "income" | "spend" | "billDebt" | null;
 export default function FinancesApp() {
   const [entries, setEntries] = useState<FinanceEntry[]>([]);
   const [loaded, setLoaded] = useState(false);
-  const [authChecked, setAuthChecked] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
   const [addKind, setAddKind] = useState<AddKind>("expense");
@@ -80,24 +77,12 @@ export default function FinancesApp() {
     let active = true;
     async function start() {
       try {
-        const sessionResponse = await fetch("/api/finances/session", { cache: "no-store" });
-        const session = await sessionResponse.json();
-        if (!active) return;
-        setAuthChecked(true);
-        setAuthenticated(session.authenticated === true);
-        if (session.authenticated !== true) {
-          if (!sessionResponse.ok && session.error) setError(session.error);
-          return;
-        }
-
         const entriesResponse = await fetch("/api/finances", { cache: "no-store" });
         const data = await entriesResponse.json();
         if (!entriesResponse.ok) throw new Error(data.error || "Could not load the ledger.");
         if (active) setEntries(data.entries || []);
       } catch (cause) {
         if (active) {
-          setAuthChecked(true);
-          setAuthenticated(false);
           setError(cause instanceof Error ? cause.message : "Could not load the ledger.");
         }
       } finally {
@@ -109,41 +94,6 @@ export default function FinancesApp() {
       active = false;
     };
   }, []);
-
-  async function signIn(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError(null);
-    setLoaded(false);
-    try {
-      const response = await fetch("/api/finances/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: accessToken }),
-      });
-      const session = await response.json();
-      if (!response.ok) throw new Error(session.error || "Could not unlock the ledger.");
-
-      const entriesResponse = await fetch("/api/finances", { cache: "no-store" });
-      const data = await entriesResponse.json();
-      if (!entriesResponse.ok) throw new Error(data.error || "Could not load the ledger.");
-
-      setAuthenticated(true);
-      setAccessToken("");
-      setEntries(data.entries || []);
-    } catch (cause) {
-      setAuthenticated(false);
-      setError(cause instanceof Error ? cause.message : "Could not unlock the ledger.");
-    } finally {
-      setLoaded(true);
-    }
-  }
-
-  async function signOut() {
-    await fetch("/api/finances/session", { method: "DELETE" });
-    setEntries([]);
-    setAuthenticated(false);
-    setError(null);
-  }
 
   const incomeEntries = useMemo(
     () => [...entries].filter((e) => e.kind === "income").sort((a, b) => b.amount - a.amount),
@@ -288,31 +238,10 @@ export default function FinancesApp() {
     setPromoteAmount("");
   }
 
-  if (!authChecked || (authenticated && !loaded)) {
+  if (!loaded) {
     return (
       <main className="flex min-h-dvh items-center justify-center bg-[#eef3f7] text-[#607080] dark:bg-black dark:text-[#b8c4cf]">
         Loading ledger…
-      </main>
-    );
-  }
-
-  if (!authenticated) {
-    return (
-      <main className="flex min-h-dvh items-center justify-center bg-[#eef3f7] px-4 text-[#101820] dark:bg-black dark:text-[#f7f8fa]">
-        <form onSubmit={signIn} className="w-full max-w-sm rounded-xl border border-black/10 bg-white p-5 dark:border-white/10 dark:bg-black">
-          <h1 className="mb-1 text-xl font-semibold">Ledger locked</h1>
-          <p className="mb-4 text-sm text-[#607080] dark:text-[#aeb8c2]">Enter the private finance access token.</p>
-          <input
-            type="password"
-            autoComplete="current-password"
-            value={accessToken}
-            onChange={(event) => setAccessToken(event.target.value)}
-            className="mb-3 w-full rounded-lg border border-black/10 bg-transparent px-3 py-2 outline-none dark:border-white/10"
-            aria-label="Finance access token"
-          />
-          {error && <p className="mb-3 text-sm text-brand-text-coral dark:text-brand-coral">{error}</p>}
-          <button className={`w-full rounded-lg py-2.5 text-sm font-semibold ${NEUTRAL_SOLID}`}>Unlock</button>
-        </form>
       </main>
     );
   }
@@ -336,7 +265,6 @@ export default function FinancesApp() {
               <p className="text-sm text-[#607080] dark:text-[#aeb8c2]">Pay cycle · {cycle.label}</p>
             </div>
           </div>
-          <button onClick={signOut} className="text-xs text-[#607080] dark:text-[#aeb8c2]">Lock</button>
         </header>
 
         {error && (
