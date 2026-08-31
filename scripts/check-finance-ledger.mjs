@@ -32,6 +32,12 @@ assert.equal(
   false,
 );
 
+process.env.VERCEL_ENV = "preview";
+process.env.FINANCES_PREVIEW_OPEN_ACCESS = "true";
+assert.equal(isFinanceAuthorized(new Request("https://example.test/api/finances")), true);
+delete process.env.FINANCES_PREVIEW_OPEN_ACCESS;
+delete process.env.VERCEL_ENV;
+
 const lateDay = new Date(2026, 7, 19, 23, 59, 59);
 const cycle = getCycleForDate(lateDay);
 assert.equal(daysLeftInCycle(cycle, lateDay), 12);

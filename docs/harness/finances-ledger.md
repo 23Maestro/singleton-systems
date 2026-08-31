@@ -12,6 +12,9 @@ Required server variables:
 The service-role key stays on the server. Every finance API route rejects a
 missing or invalid finance session.
 
+`FINANCES_PREVIEW_OPEN_ACCESS=true` can open a Vercel Preview without a login
+screen. The switch has no effect outside the Vercel Preview environment.
+
 Debt promotion uses one database function. It locks the debt row, rejects an
 overpayment, reduces the balance, and records the payment in one transaction.
 Both changes commit together or neither does.

@@ -8,6 +8,10 @@ function configuredToken(): string | null {
   return token && token.length >= 24 ? token : null;
 }
 
+function previewOpenAccess(): boolean {
+  return process.env.VERCEL_ENV === "preview" && process.env.FINANCES_PREVIEW_OPEN_ACCESS === "true";
+}
+
 function safeEqual(left: string, right: string): boolean {
   const leftBuffer = Buffer.from(left);
   const rightBuffer = Buffer.from(right);
@@ -30,7 +34,7 @@ function cookieValue(request: Request, name: string): string | null {
 }
 
 export function financeAuthConfigured(): boolean {
-  return configuredToken() !== null;
+  return previewOpenAccess() || configuredToken() !== null;
 }
 
 export function financeSessionValue(): string {
@@ -45,6 +49,7 @@ export function verifyFinanceToken(candidate: string): boolean {
 }
 
 export function isFinanceAuthorized(request: Request): boolean {
+  if (previewOpenAccess()) return true;
   const token = configuredToken();
   const actual = cookieValue(request, FINANCE_SESSION_COOKIE);
   if (!token || !actual) return false;
