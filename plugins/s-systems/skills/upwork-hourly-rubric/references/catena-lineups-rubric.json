@@ -1,0 +1,16 @@
+{
+  "profile": "catena-lineups-mark",
+  "weekly_limit_hours": 30,
+  "initial_figma_setup": {
+    "hours": 6,
+    "status": "already_charged",
+    "repeat_automatically": false
+  },
+  "bands": [
+    { "minimum": "10:00", "maximum": "11:59", "hours": 8 },
+    { "minimum": "12:00", "maximum": "13:59", "hours": 9 },
+    { "minimum": "14:00", "maximum": "15:59", "hours": 9.5 },
+    { "minimum": "16:00", "maximum": "17:59", "hours": 10 },
+    { "minimum": "18:00", "maximum": "20:00", "hours": 10.5 }
+  ]
+}
