@@ -9,7 +9,7 @@ import {
   type FinanceCategory,
   type FinanceEntry,
   type FinanceKind,
-} from "@/lib/finance-entries";
+} from "@/lib/finance-contract";
 import { cycleProgress, daysLeftInCycle, getCycleForDate } from "@/lib/finance-cycle";
 
 const EXPENSE_CATEGORIES: FinanceCategory[] = ["Food", "Gas", "Child Support", "Misc."];
@@ -47,7 +47,10 @@ function fmt(n: number): string {
 }
 
 function todayISO(): string {
-  return new Date().toISOString().slice(0, 10);
+  const today = new Date();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${today.getFullYear()}-${month}-${day}`;
 }
 
 type LogFilter = "all" | "bill" | "debt";
@@ -57,6 +60,10 @@ type Panel = "income" | "spend" | "billDebt" | null;
 export default function FinancesApp() {
   const [entries, setEntries] = useState<FinanceEntry[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const [panel, setPanel] = useState<Panel>(null);
   const [addKind, setAddKind] = useState<AddKind>("expense");
   const [amount, setAmount] = useState("");
@@ -70,13 +77,73 @@ export default function FinancesApp() {
   const [promoteAmount, setPromoteAmount] = useState("");
 
   useEffect(() => {
-    fetch("/api/finances")
-      .then((res) => res.json())
-      .then((data) => {
-        setEntries(data.entries || []);
-        setLoaded(true);
-      });
+    let active = true;
+    async function start() {
+      try {
+        const sessionResponse = await fetch("/api/finances/session", { cache: "no-store" });
+        const session = await sessionResponse.json();
+        if (!active) return;
+        setAuthChecked(true);
+        setAuthenticated(session.authenticated === true);
+        if (session.authenticated !== true) {
+          if (!sessionResponse.ok && session.error) setError(session.error);
+          return;
+        }
+
+        const entriesResponse = await fetch("/api/finances", { cache: "no-store" });
+        const data = await entriesResponse.json();
+        if (!entriesResponse.ok) throw new Error(data.error || "Could not load the ledger.");
+        if (active) setEntries(data.entries || []);
+      } catch (cause) {
+        if (active) {
+          setAuthChecked(true);
+          setAuthenticated(false);
+          setError(cause instanceof Error ? cause.message : "Could not load the ledger.");
+        }
+      } finally {
+        if (active) setLoaded(true);
+      }
+    }
+    void start();
+    return () => {
+      active = false;
+    };
   }, []);
+
+  async function signIn(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(null);
+    setLoaded(false);
+    try {
+      const response = await fetch("/api/finances/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: accessToken }),
+      });
+      const session = await response.json();
+      if (!response.ok) throw new Error(session.error || "Could not unlock the ledger.");
+
+      const entriesResponse = await fetch("/api/finances", { cache: "no-store" });
+      const data = await entriesResponse.json();
+      if (!entriesResponse.ok) throw new Error(data.error || "Could not load the ledger.");
+
+      setAuthenticated(true);
+      setAccessToken("");
+      setEntries(data.entries || []);
+    } catch (cause) {
+      setAuthenticated(false);
+      setError(cause instanceof Error ? cause.message : "Could not unlock the ledger.");
+    } finally {
+      setLoaded(true);
+    }
+  }
+
+  async function signOut() {
+    await fetch("/api/finances/session", { method: "DELETE" });
+    setEntries([]);
+    setAuthenticated(false);
+    setError(null);
+  }
 
   const incomeEntries = useMemo(
     () => [...entries].filter((e) => e.kind === "income").sort((a, b) => b.amount - a.amount),
@@ -147,7 +214,11 @@ export default function FinancesApp() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ kind, name: name.trim(), category: resolvedCategory, amount: val, entryDate: resolvedDate }),
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      const data = await res.json();
+      setError(data.error || "Could not add the entry.");
+      return;
+    }
     const { entry } = await res.json();
     setEntries((prev) => [entry, ...prev]);
     setPanel(null);
@@ -159,14 +230,23 @@ export default function FinancesApp() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ paid: !entry.paid }),
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      const data = await res.json();
+      setError(data.error || "Could not update the bill.");
+      return;
+    }
     const { entry: updated } = await res.json();
     setEntries((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
   }
 
   async function removeEntry(id: string) {
+    if (!window.confirm("Remove this ledger entry?")) return;
     const res = await fetch(`/api/finances/${id}`, { method: "DELETE" });
-    if (!res.ok) return;
+    if (!res.ok) {
+      const data = await res.json();
+      setError(data.error || "Could not remove the entry.");
+      return;
+    }
     setEntries((prev) => prev.filter((e) => e.id !== id));
   }
 
@@ -179,7 +259,11 @@ export default function FinancesApp() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(patch),
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      const data = await res.json();
+      setError(data.error || "Could not save the entry.");
+      return;
+    }
     const { entry: updated } = await res.json();
     setEntries((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
     setEditingId(null);
@@ -191,19 +275,44 @@ export default function FinancesApp() {
     const res = await fetch(`/api/finances/${id}/promote`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: val }),
+      body: JSON.stringify({ amount: val, entryDate: todayISO() }),
     });
-    if (!res.ok) return;
+    if (!res.ok) {
+      const data = await res.json();
+      setError(data.error || "Could not record the debt payment.");
+      return;
+    }
     const { debt, payment } = await res.json();
     setEntries((prev) => [payment, ...prev.map((e) => (e.id === debt.id ? debt : e))]);
     setPromotingId(null);
     setPromoteAmount("");
   }
 
-  if (!loaded) {
+  if (!authChecked || (authenticated && !loaded)) {
     return (
       <main className="flex min-h-dvh items-center justify-center bg-[#eef3f7] text-[#607080] dark:bg-black dark:text-[#b8c4cf]">
         Loading ledger…
+      </main>
+    );
+  }
+
+  if (!authenticated) {
+    return (
+      <main className="flex min-h-dvh items-center justify-center bg-[#eef3f7] px-4 text-[#101820] dark:bg-black dark:text-[#f7f8fa]">
+        <form onSubmit={signIn} className="w-full max-w-sm rounded-xl border border-black/10 bg-white p-5 dark:border-white/10 dark:bg-black">
+          <h1 className="mb-1 text-xl font-semibold">Ledger locked</h1>
+          <p className="mb-4 text-sm text-[#607080] dark:text-[#aeb8c2]">Enter the private finance access token.</p>
+          <input
+            type="password"
+            autoComplete="current-password"
+            value={accessToken}
+            onChange={(event) => setAccessToken(event.target.value)}
+            className="mb-3 w-full rounded-lg border border-black/10 bg-transparent px-3 py-2 outline-none dark:border-white/10"
+            aria-label="Finance access token"
+          />
+          {error && <p className="mb-3 text-sm text-brand-text-coral dark:text-brand-coral">{error}</p>}
+          <button className={`w-full rounded-lg py-2.5 text-sm font-semibold ${NEUTRAL_SOLID}`}>Unlock</button>
+        </form>
       </main>
     );
   }
@@ -227,7 +336,14 @@ export default function FinancesApp() {
               <p className="text-sm text-[#607080] dark:text-[#aeb8c2]">Pay cycle · {cycle.label}</p>
             </div>
           </div>
+          <button onClick={signOut} className="text-xs text-[#607080] dark:text-[#aeb8c2]">Lock</button>
         </header>
+
+        {error && (
+          <div className="mb-4 rounded-lg border border-brand-coral/40 px-3 py-2 text-sm text-brand-text-coral dark:text-brand-coral">
+            {error}
+          </div>
+        )}
 
         <div className="mb-5 pt-3 pb-4" style={{ borderTop: "2px dashed rgba(0,0,0,0.1)" }}>
           <div className="mb-2 flex justify-between text-xs text-[#607080] dark:text-[#aeb8c2]">

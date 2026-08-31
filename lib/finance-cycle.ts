@@ -46,14 +46,16 @@ export function getCycleForDate(date: Date): FinanceCycle {
 export function cycleProgress(cycle: FinanceCycle, today: Date): number {
   const start = new Date(`${cycle.start}T00:00:00`);
   const end = new Date(`${cycle.end}T00:00:00`);
+  const current = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   const totalDays = Math.round((end.getTime() - start.getTime()) / 86400000) + 1;
-  const elapsed = Math.round((today.getTime() - start.getTime()) / 86400000) + 1;
+  const elapsed = Math.round((current.getTime() - start.getTime()) / 86400000) + 1;
   const clamped = Math.min(totalDays, Math.max(1, elapsed));
   return Math.round((clamped / totalDays) * 100);
 }
 
 export function daysLeftInCycle(cycle: FinanceCycle, today: Date): number {
   const end = new Date(`${cycle.end}T00:00:00`);
-  const diff = Math.round((end.getTime() - today.getTime()) / 86400000);
+  const current = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const diff = Math.round((end.getTime() - current.getTime()) / 86400000);
   return Math.max(0, diff);
 }

@@ -1,30 +1,12 @@
 import { supabaseRest } from "@/lib/supabase-rest";
+import type {
+  FinanceCategory,
+  FinanceEntry,
+  FinanceKind,
+} from "@/lib/finance-contract";
 
-export const FINANCE_KINDS = ["income", "bill", "debt", "expense"] as const;
-export type FinanceKind = (typeof FINANCE_KINDS)[number];
-
-export const FINANCE_CATEGORIES = [
-  "Income",
-  "Bill",
-  "Debt",
-  "Child Support",
-  "Food",
-  "Gas",
-  "Misc.",
-] as const;
-export type FinanceCategory = (typeof FINANCE_CATEGORIES)[number];
-
-export type FinanceEntry = {
-  id: string;
-  kind: FinanceKind;
-  name: string;
-  category: FinanceCategory;
-  amount: number;
-  entryDate: string | null;
-  paid: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
+export { FINANCE_CATEGORIES, FINANCE_KINDS } from "@/lib/finance-contract";
+export type { FinanceCategory, FinanceEntry, FinanceKind } from "@/lib/finance-contract";
 
 type FinanceEntryRow = {
   id: string;
@@ -50,6 +32,11 @@ function fromRow(row: FinanceEntryRow): FinanceEntry {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
+}
+
+function requireRow(row: FinanceEntryRow | undefined, operation: string): FinanceEntryRow {
+  if (!row) throw new Error(`${operation} returned no finance entry.`);
+  return row;
 }
 
 export async function listFinanceEntries(): Promise<FinanceEntry[]> {
@@ -80,7 +67,7 @@ export async function createFinanceEntry(entry: NewFinanceEntry): Promise<Financ
       paid: entry.kind === "expense" || entry.kind === "income",
     }),
   });
-  return fromRow(rows[0]);
+  return fromRow(requireRow(rows[0], "Create"));
 }
 
 export type FinanceEntryPatch = Partial<{
@@ -99,48 +86,37 @@ export async function updateFinanceEntry(id: string, patch: FinanceEntryPatch): 
   if (patch.entryDate !== undefined) body.entry_date = patch.entryDate;
   if (patch.paid !== undefined) body.paid = patch.paid;
 
-  const rows: FinanceEntryRow[] = await supabaseRest(`finance_entries?id=eq.${id}`, {
+  const rows: FinanceEntryRow[] = await supabaseRest(`finance_entries?id=eq.${encodeURIComponent(id)}`, {
     method: "PATCH",
     headers: { Prefer: "return=representation" },
     body: JSON.stringify(body),
   });
-  return fromRow(rows[0]);
+  return fromRow(requireRow(rows[0], "Update"));
 }
 
 export async function deleteFinanceEntry(id: string): Promise<void> {
-  await supabaseRest(`finance_entries?id=eq.${id}`, { method: "DELETE" });
+  await supabaseRest(`finance_entries?id=eq.${encodeURIComponent(id)}`, { method: "DELETE" });
 }
 
 export async function promoteDebtPayment(
   id: string,
   amount: number,
+  entryDate: string,
 ): Promise<{ debt: FinanceEntry; payment: FinanceEntry }> {
-  const rows: FinanceEntryRow[] = await supabaseRest(`finance_entries?id=eq.${id}&select=*`);
-  const debtRow = rows[0];
-  if (!debtRow || debtRow.kind !== "debt") {
-    throw new Error("Promote is only valid on a debt entry.");
-  }
-  const remaining = typeof debtRow.amount === "string" ? parseFloat(debtRow.amount) : debtRow.amount;
-  const nextAmount = Math.max(0, remaining - amount);
+  const result: { debt: FinanceEntryRow; payment: FinanceEntryRow } = await supabaseRest(
+    "rpc/promote_finance_debt_payment",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        p_debt_id: id,
+        p_amount: amount,
+        p_entry_date: entryDate,
+      }),
+    },
+  );
 
-  const updatedRows: FinanceEntryRow[] = await supabaseRest(`finance_entries?id=eq.${id}`, {
-    method: "PATCH",
-    headers: { Prefer: "return=representation" },
-    body: JSON.stringify({ amount: nextAmount, updated_at: new Date().toISOString() }),
-  });
-
-  const paymentRows: FinanceEntryRow[] = await supabaseRest("finance_entries", {
-    method: "POST",
-    headers: { Prefer: "return=representation" },
-    body: JSON.stringify({
-      kind: "expense",
-      name: `${debtRow.name} — extra payment`,
-      category: "Debt",
-      amount,
-      entry_date: new Date().toISOString().slice(0, 10),
-      paid: true,
-    }),
-  });
-
-  return { debt: fromRow(updatedRows[0]), payment: fromRow(paymentRows[0]) };
+  return {
+    debt: fromRow(requireRow(result?.debt, "Debt promotion")),
+    payment: fromRow(requireRow(result?.payment, "Debt payment")),
+  };
 }

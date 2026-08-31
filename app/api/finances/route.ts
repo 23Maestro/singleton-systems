@@ -6,6 +6,7 @@ import {
   createFinanceEntry,
   listFinanceEntries,
 } from "@/lib/finance-entries";
+import { financeAccessError } from "@/lib/finance-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,9 +17,11 @@ const createSchema = z.object({
   category: z.enum(FINANCE_CATEGORIES),
   amount: z.number().positive(),
   entryDate: z.string().date().nullable().default(null),
-});
+}).strict();
 
-export async function GET() {
+export async function GET(request: Request) {
+  const accessError = financeAccessError(request);
+  if (accessError) return accessError;
   try {
     const entries = await listFinanceEntries();
     return NextResponse.json({ entries });
@@ -28,10 +31,15 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const accessError = financeAccessError(request);
+  if (accessError) return accessError;
   const payload = await request.json().catch(() => null);
   const parsed = createSchema.safeParse(payload);
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid finance entry.", details: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
   try {
     const entry = await createFinanceEntry(parsed.data);
