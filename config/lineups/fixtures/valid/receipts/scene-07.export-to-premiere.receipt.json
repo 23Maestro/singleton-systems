@@ -4,18 +4,20 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:10:00Z",
-  "manifestSha256": "ad5a93c4fa37956f121400ee0c020098942263b95922ff992312d9b313df931a",
+  "manifestSha256": "5ed373b31248b0b36c7a2d67c32385b2220b8dbb6bb657725a137c97f0d4e39e",
   "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
   "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
   "receiptId": "receipt-scene-07-export",
   "stage": "export-to-premiere",
-  "previousReceiptSha256": "85daddac24f13aeeda709cf9005eff836cb9d53ba5da133bac33121d77770c33",
+  "previousReceiptSha256": "f4586486d43db107803d91d356fa4a8c58532cfa1a34e69326f2f94d9e248027",
   "evidence": {
     "exportPath": "config/lineups/fixtures/valid/render-proof.mp4",
     "fileSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
     "motionProofStatus": "passed",
     "motionSampleTimes": [0, 1.2, 3.4, 7.8, 14.1],
-    "eaglePath": "Episode / 06 Motion Renders"
+    "eaglePath": "Episode / 06 Motion Renders",
+    "motionEngine": "figma",
+    "cueSha256": "7c0914fdffdcd89b07b3bb3a8d04adc95705290ccd2bf14d39ebf20a1b63b95f"
   },
-  "receiptSha256": "9907714e85314f281b9f0fe1d3f7ac1a18887466f7e48c1fe1188a98cded1a72"
+  "receiptSha256": "2ac2623be59d8bc913465a0c0c24b3c1a54df18f5c90fd3e734b5bba1e9a048e"
 }

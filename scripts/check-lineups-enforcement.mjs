@@ -4,6 +4,9 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
+
 import { canComplete, createTransaction, executeTransaction } from "../lib/transactions/engine.mjs";
 import { createLineupsReconciliation } from "../lib/transactions/lineups-adapter.mjs";
 
@@ -11,12 +14,18 @@ const sourceRoot = process.cwd();
 const hook = path.join(sourceRoot, ".codex/hooks/lineups_enforcement.py");
 const fixtureSource = path.join(sourceRoot, "config/lineups/fixtures/valid");
 const python = process.env.PYTHON || "python3";
+const manifestSchema = JSON.parse(fs.readFileSync(path.join(sourceRoot, "config/lineups/scene-manifest.schema.json"), "utf8"));
+const fixtureManifest = JSON.parse(fs.readFileSync(path.join(fixtureSource, "scene-manifest.json"), "utf8"));
+const ajv = new Ajv2020({ allErrors: true, strict: false });
+addFormats(ajv);
+const validateManifestSchema = ajv.compile(manifestSchema);
+assert.equal(validateManifestSchema(fixtureManifest), true, JSON.stringify(validateManifestSchema.errors));
 
 const approvedFigmaInput = {
   code: "const instance = await figma.getNodeByIdAsync(\"428:9001\");\nif (!instance || instance.type !== \"INSTANCE\") throw new Error(\"Expected approved Lineups instance\");\ninstance.setProperties({\"Logo\":\"Eagles\",\"Headline\":\"FOUR TAKEAWAYS\"});\nreturn { rootNodeId: \"428:9000\", sourceComponentId: \"428:8000\", episodeInstanceId: instance.id, nodeType: instance.type };",
   description: "Lineups scene BIGTEN-SEC-01/scene-07 approved property replacement",
   fileKey: "LINEUPS_FILE_KEY",
-  skillNames: "singleton-figma-system,figma-use",
+  skillNames: "singleton-figma-system,figma-use,file-hygiene,layer-cleanup",
 };
 
 function createCase() {
@@ -137,6 +146,34 @@ function withCase(callback) {
 try {
   withCase((testCase) => {
     expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), "approved Figma transaction");
+
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_use_figma", {
+        ...approvedFigmaInput,
+        skillNames: "singleton-figma-system,figma-use",
+      }),
+      /file-hygiene, layer-cleanup/,
+      "missing baseline Figma hygiene skills",
+    );
+
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_use_figma", {
+        ...approvedFigmaInput,
+        code: `${approvedFigmaInput.code}\nconst frame = figma.createFrame(); frame.layoutMode = "VERTICAL";`,
+      }),
+      /safe-auto-layout-conversion/,
+      "missing Auto Layout conversion skill",
+    );
+
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_use_figma", {
+        ...approvedFigmaInput,
+        description: "Lineups color and contrast update",
+      }),
+      /accessibility-review/,
+      "missing accessibility skill",
+    );
+
     expectPostPass(
       post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, {
         rootNodeId: "428:9000",
@@ -174,6 +211,10 @@ try {
     ["track exceeds root", (m) => { m.figma.motionTracks[1].duration = 14.3; }, /exceeds the root duration/],
     ["keyframe exceeds track", (m) => { m.figma.motionTracks[1].duration = 10; }, /keyframe beyond its duration/],
     ["missing tail", (m) => { m.timing.paddedCompositionEnd = 14.19; }, /tail must be at least five seconds/],
+    ["cue anchor drift", (m) => { m.motion.cues[1].sceneTime = 1.3; m.timing.entranceTimes[1] = 1.3; }, /transcriptTimestamp minus the verified anchor/],
+    ["cue entrance drift", (m) => { m.timing.entranceTimes[1] = 1.25; }, /entranceTimes must match motion cue/],
+    ["duplicate cue ID", (m) => { m.motion.cues[1].cueId = m.motion.cues[0].cueId; }, /cue IDs must be present and unique/],
+    ["cue after content", (m) => { m.motion.cues[3].duration = 2; }, /extends beyond contentEnd/],
     ["loose episode composition", (m) => { m.figma.episodeUsesInstance = false; }, /must use an approved component instance/],
     ["unnoted Premiere approval", (m) => { m.policy.effectsApproved = true; }, /needs an explicit approval note/],
   ]) {
@@ -197,6 +238,35 @@ try {
       pre(testCase, "mcp__codex_apps__figma_export_video", { fileKey: "LINEUPS_FILE_KEY", nodeId: "428:9000" }),
       /motion proof/,
       "export without motion proof",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.export.motionProof.sampleTimes = [0, 14.1];
+    writeManifest(testCase, manifest);
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_export_video", { fileKey: "LINEUPS_FILE_KEY", nodeId: "428:9000" }),
+      /missing cue sample near 1.2/,
+      "proof missing a cue frame",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.motion.engine = "manim";
+    manifest.motion.engineVersion = "0.19.0";
+    manifest.motion.sourcePath = "scenes/scene-07.py";
+    manifest.motion.sceneClass = "Scene07";
+    manifest.figma.motionTracks = [];
+    manifest.export.motionProof.type = "cue-frame-proof";
+    manifest.export.motionProof.engine = "manim";
+    writeManifest(testCase, manifest);
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), "Manim scene Figma design source");
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_export_video", { fileKey: "LINEUPS_FILE_KEY", nodeId: "428:9000" }),
+      /Figma export is unavailable when motion.engine is manim/,
+      "Manim scene cannot use Figma export",
     );
   });
 

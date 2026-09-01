@@ -4,16 +4,16 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:15:00Z",
-  "manifestSha256": "ad5a93c4fa37956f121400ee0c020098942263b95922ff992312d9b313df931a",
+  "manifestSha256": "5ed373b31248b0b36c7a2d67c32385b2220b8dbb6bb657725a137c97f0d4e39e",
   "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
   "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
   "receiptId": "receipt-scene-07-import",
   "stage": "premiere-import",
-  "previousReceiptSha256": "9907714e85314f281b9f0fe1d3f7ac1a18887466f7e48c1fe1188a98cded1a72",
+  "previousReceiptSha256": "2ac2623be59d8bc913465a0c0c24b3c1a54df18f5c90fd3e734b5bba1e9a048e",
   "evidence": {
     "projectItemId": "project-item-scene-07",
     "treePath": "BIGTEN-SEC-01/06 Motion Renders/scene-07.mp4",
     "labelReadback": "Caribbean"
   },
-  "receiptSha256": "da2fa40e2cf9b89fb34dc4b3395b201c3363a2dd1c8fc523cb7ace52a780d0f7"
+  "receiptSha256": "6b5e36dab7520d241543c1946e0b4743a7a8ce4a5fa080fbf1128d442c77cf07"
 }

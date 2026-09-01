@@ -30,6 +30,12 @@ loose substitute layers.
   sections. The Figma page is the canvas.
 - Use black documentation text by default. Keep section headings at 112 px or
   larger and support labels at 48 px or larger.
+- Center scene-title text. Use Auto Width or a hugging container with tight
+  bounds. Place operator labels at a consistent offset above each composition.
+  Use white only on an intentional dark documentation surface.
+- Figma's native frame-name label is interface chrome. Rename it clearly, but
+  use a separate operator text layer when alignment, color, or type size must
+  be controlled.
 - Keep production art inside explicit 1920 x 1080 export frames.
 - Scale image fills to cover the export frame. The source may extend beyond the
   frame. Do not leave side bars or uncovered edges.
@@ -38,6 +44,11 @@ loose substitute layers.
   or cutout container spanning the full export width. The outer export frame
   remains 1920 x 1080.
 - Use large operator-facing labels. Check them at zoomed-out working scale.
+
+Before structural writes, load `file-hygiene` and `layer-cleanup`. Before an
+Auto Layout conversion or sizing refactor, also load
+`safe-auto-layout-conversion`. Before color or contrast work, also load
+`accessibility-review` and use its static-media mode.
 
 ## approved source families
 
@@ -129,6 +140,14 @@ the opening and closing Blur Dissolves and the midpoint light leak. This is the
 approved assembly for Two-photo progression, not a global transition hierarchy.
 
 ## motion-render ownership
+
+Figma owns the approved visual source. Each beat names one render engine. A
+Figma Motion beat reads the shared cue list into manual keyframes. A Manim beat
+uses an approved Figma state as raster or exported vector input and reads the
+same cue list through `tools/lineups_motion`.
+
+Do not rebuild approved geometry in Manim. Do not copy cue times from a visual
+timeline by eye. The scene manifest owns cue math and frame rate.
 
 Approved episode MP4s live in Eagle under `Episode / 06 Motion Renders`.
 Premiere links to that Eagle-managed file and organizes it in the project bin

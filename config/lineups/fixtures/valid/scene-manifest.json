@@ -1,8 +1,8 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "enforcement": {
     "active": true,
-    "approvedToolInputSha256": "5d8840c43c86662fbfc1c7989a259f0959523b77aa5674225507a7fc1375d962"
+    "approvedToolInputSha256": "10ad705a75e570c11610d016bb86677f00f97d0dc4dc3ec02a658a5bfe3cd4d8"
   },
   "scene": {
     "episodeId": "BIGTEN-SEC-01",
@@ -47,6 +47,55 @@
       }
     ]
   },
+  "motion": {
+    "engine": "figma",
+    "engineVersion": "figma-motion",
+    "frameRate": { "numerator": 24000, "denominator": 1001 },
+    "sourcePath": null,
+    "sceneClass": null,
+    "cues": [
+      {
+        "cueId": "scene-start",
+        "elementId": "428:9000",
+        "triggerType": "PHRASE",
+        "triggerText": "the defense created",
+        "transcriptTimestamp": 312.4,
+        "sceneTime": 0,
+        "action": "show",
+        "duration": 0
+      },
+      {
+        "cueId": "logo-reveal",
+        "elementId": "428:9002",
+        "triggerType": "WORD",
+        "triggerText": "four",
+        "transcriptTimestamp": 313.6,
+        "sceneTime": 1.2,
+        "action": "reveal",
+        "duration": 0.4
+      },
+      {
+        "cueId": "subject-a-enter",
+        "elementId": "428:9003",
+        "triggerType": "WORD",
+        "triggerText": "takeaways",
+        "transcriptTimestamp": 315.8,
+        "sceneTime": 3.4,
+        "action": "enter",
+        "duration": 0.6
+      },
+      {
+        "cueId": "subject-b-enter",
+        "elementId": "428:9004",
+        "triggerType": "PHRASE",
+        "triggerText": "offense remained inefficient",
+        "transcriptTimestamp": 320.2,
+        "sceneTime": 7.8,
+        "action": "enter",
+        "duration": 0.6
+      }
+    ]
+  },
   "timing": {
     "transcriptPhrase": "the defense created four takeaways",
     "verifiedAnchorTimestamp": 312.4,
@@ -72,6 +121,7 @@
     "validationStatus": "passed",
     "motionProof": {
       "type": "validation-sample",
+      "engine": "figma",
       "status": "passed",
       "sampleTimes": [0, 1.2, 3.4, 7.8, 14.1]
     }

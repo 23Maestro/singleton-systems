@@ -26,6 +26,10 @@ ROUTING_SURFACES = [
     "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
     ".agents/skills/singleton-figma-system/SKILL.md",
     ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
+    ".agents/skills/safe-auto-layout-conversion/SKILL.md",
+    ".agents/skills/file-hygiene/SKILL.md",
+    ".agents/skills/accessibility-review/SKILL.md",
+    ".agents/skills/layer-cleanup/SKILL.md",
 ]
 
 STALE_OWNER_PATTERNS = [
@@ -257,8 +261,9 @@ def context(reason, text):
             "- [copy] Preserve transcript meaning, attribution, causal ownership, and spoken order. Compress or closely paraphrase; do not invent an editorial angle.",
             "- [quick-stat] Choose Single-frame statement at 6.5 seconds or Two-photo progression at 10 seconds. Photo-led pushes run 100% to 102.5%. One point has no pipe. Premiere owns light leaks and Blur Dissolves.",
             "- [figma-contract] Use singleton-figma-system and read .agents/skills/singleton-figma-system/references/lineups-production-system.md before building a Lineups scene.",
+            "- [figma-skills] Load file-hygiene and layer-cleanup before structural Figma edits. Load safe-auto-layout-conversion for Auto Layout or sizing changes. Load accessibility-review for color, contrast, or accessibility work.",
             "- [asset-swap] Inherit the guarded football-visible Field Night background, geometry, layer order, crop roles, and motion from Components. Episode cutouts require real alpha. Only cutouts, logos, transcript copy, and reveal timing are replaceable.",
-            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Prune rejected and stale work after review.",
+            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Scene titles use centered dark text, Auto Width or Hug, and 112 px or larger type. Support labels use 48 px or larger type. Prune rejected and stale work after review.",
             "- [delivery] Approved motion renders live in Eagle at Episode / 06 Motion Renders. Premiere links to that Eagle-managed file.",
             "- [premiere-gate] Inspect a fresh 1920 x 1080 screenshot before placement.",
         ])

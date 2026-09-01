@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -75,6 +76,18 @@ APPROVED_OPTIONS = {
     "asset swap": {"asset swap"},
     "recurring board": {"Rank Reveal", "Super Bowl Bubble Board"},
 }
+BASE_FIGMA_SKILLS = {
+    "figma-use",
+    "singleton-figma-system",
+    "file-hygiene",
+    "layer-cleanup",
+}
+AUTO_LAYOUT_RE = re.compile(
+    r"layoutMode|layoutSizingHorizontal|layoutSizingVertical|itemSpacing|padding(?:Top|Right|Bottom|Left)|Auto Layout|\bHug\b|\bFill\b",
+    re.I,
+)
+ACCESSIBILITY_RE = re.compile(r"accessibility|wcag|contrast|colou?r", re.I)
+TIMING_EPSILON = 0.001
 PREVIOUS_STAGE = {
     "figma-to-export": None,
     "export-to-premiere": "figma-to-export",
@@ -101,6 +114,27 @@ def sha256_file(path):
         for chunk in iter(lambda: handle.read(65536), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def figma_skill_names(tool_input):
+    return {
+        item.strip().removeprefix("resource:")
+        for item in str(tool_input.get("skillNames") or "").split(",")
+        if item.strip()
+    }
+
+
+def validate_figma_skill_contract(tool_input):
+    loaded = figma_skill_names(tool_input)
+    required_skills = set(BASE_FIGMA_SKILLS)
+    searchable = f"{tool_input.get('description', '')}\n{tool_input.get('code', '')}"
+    if AUTO_LAYOUT_RE.search(searchable):
+        required_skills.add("safe-auto-layout-conversion")
+    if ACCESSIBILITY_RE.search(searchable):
+        required_skills.add("accessibility-review")
+    missing = sorted(required_skills - loaded)
+    if missing:
+        raise EnforcementError(f"Figma mutation is missing required skills: {', '.join(missing)}")
 
 
 def repo_root(cwd):
@@ -151,9 +185,13 @@ def resolved_export_path(root, manifest):
     return candidate.resolve() if candidate.is_absolute() else (root / candidate).resolve()
 
 
+def values_match(left, right, tolerance=TIMING_EPSILON):
+    return abs(left - right) <= tolerance
+
+
 def validate_manifest(manifest, require_export=False):
-    if manifest.get("schemaVersion") != 1:
-        raise EnforcementError("manifest schemaVersion must be 1")
+    if manifest.get("schemaVersion") != 2:
+        raise EnforcementError("manifest schemaVersion must be 2")
     if required(manifest, "enforcement.active") is not True:
         raise EnforcementError("manifest enforcement must be active")
     approved_hash = required(manifest, "enforcement.approvedToolInputSha256")
@@ -200,20 +238,74 @@ def validate_manifest(manifest, require_export=False):
     last_entrance = finite_number(timing.get("lastEntrance"), "lastEntrance")
     content_end = finite_number(timing.get("contentEnd"), "contentEnd")
     padded_end = finite_number(timing.get("paddedCompositionEnd"), "paddedCompositionEnd")
+
+    motion = required(manifest, "motion")
+    engine = motion.get("engine")
+    if engine not in {"figma", "manim"}:
+        raise EnforcementError("motion.engine must be figma or manim")
+    if not motion.get("engineVersion"):
+        raise EnforcementError("motion.engineVersion cannot be empty")
+    frame_rate = motion.get("frameRate") or {}
+    numerator = finite_number(frame_rate.get("numerator"), "motion.frameRate.numerator")
+    denominator = finite_number(frame_rate.get("denominator"), "motion.frameRate.denominator")
+    if numerator <= 0 or denominator <= 0 or not numerator.is_integer() or not denominator.is_integer():
+        raise EnforcementError("motion frame rate must use positive integer numerator and denominator")
+    frame_duration = denominator / numerator
+    if engine == "manim" and (not motion.get("sourcePath") or not motion.get("sceneClass")):
+        raise EnforcementError("Manim motion needs sourcePath and sceneClass")
+    if engine == "figma" and (motion.get("sourcePath") is not None or motion.get("sceneClass") is not None):
+        raise EnforcementError("Figma motion must keep sourcePath and sceneClass null")
+
+    cues = motion.get("cues")
+    if not isinstance(cues, list) or not cues:
+        raise EnforcementError("motion.cues must contain at least one transcript-timed cue")
+    cue_ids = set()
+    cue_scene_times = []
+    previous_scene_time = -1.0
+    for cue in cues:
+        cue_id = cue.get("cueId")
+        if not cue_id or cue_id in cue_ids:
+            raise EnforcementError("motion cue IDs must be present and unique")
+        cue_ids.add(cue_id)
+        if not cue.get("elementId") or not cue.get("triggerText") or not cue.get("action"):
+            raise EnforcementError(f"motion cue {cue_id} is missing its element, trigger, or action")
+        if cue.get("triggerType") not in {"WORD", "PHRASE", "EDIT"}:
+            raise EnforcementError(f"motion cue {cue_id} has an invalid trigger type")
+        transcript_time = finite_number(cue.get("transcriptTimestamp"), f"motion cue {cue_id} transcriptTimestamp")
+        scene_time = finite_number(cue.get("sceneTime"), f"motion cue {cue_id} sceneTime")
+        duration = finite_number(cue.get("duration"), f"motion cue {cue_id} duration")
+        if min(transcript_time, scene_time, duration) < 0:
+            raise EnforcementError(f"motion cue {cue_id} timing cannot be negative")
+        if not values_match(transcript_time - anchor, scene_time):
+            raise EnforcementError(f"motion cue {cue_id} sceneTime must equal transcriptTimestamp minus the verified anchor")
+        if scene_time + TIMING_EPSILON < previous_scene_time:
+            raise EnforcementError("motion cues must stay in scene-time order")
+        if scene_time + duration > content_end + TIMING_EPSILON:
+            raise EnforcementError(f"motion cue {cue_id} extends beyond contentEnd")
+        previous_scene_time = scene_time
+        cue_scene_times.append(scene_time)
+
+    if len(entrance_values) != len(cue_scene_times) or any(
+        not values_match(entrance, cue_time) for entrance, cue_time in zip(entrance_values, cue_scene_times)
+    ):
+        raise EnforcementError("entranceTimes must match motion cue sceneTime values in order")
     if anchor < 0 or min(entrance_values) < 0:
         raise EnforcementError("anchor and entrance times cannot be negative")
-    if abs(max(entrance_values) - last_entrance) > 0.001:
+    if not values_match(max(entrance_values), last_entrance):
         raise EnforcementError("lastEntrance must equal the final entrance time")
     if last_entrance > content_end:
         raise EnforcementError("lastEntrance cannot follow contentEnd")
-    if padded_end + 0.001 < content_end + 5:
+    if padded_end + TIMING_EPSILON < content_end + 5:
         raise EnforcementError("the final-state tail must be at least five seconds")
     if timing.get("finalStateVisible") is not True or timing.get("noExitAnimation") is not True:
         raise EnforcementError("the final state must remain visible with no exit animation")
 
-    for track in required(manifest, "figma.motionTracks"):
+    motion_tracks = required(manifest, "figma.motionTracks")
+    if engine == "figma" and not motion_tracks:
+        raise EnforcementError("Figma motion needs at least one motion track")
+    for track in motion_tracks:
         duration = finite_number(track.get("duration"), "motion track duration")
-        if duration > padded_end + 0.001:
+        if duration > padded_end + TIMING_EPSILON:
             raise EnforcementError(f"motion track {track.get('nodeId', '<unknown>')} exceeds the root duration")
         keyframes = track.get("keyframes") or []
         for frame in keyframes:
@@ -228,7 +320,7 @@ def validate_manifest(manifest, require_export=False):
             for value in values:
                 if value > 0:
                     revealed = True
-                if revealed and previous_value is not None and value + 0.001 < previous_value:
+                if revealed and previous_value is not None and value + TIMING_EPSILON < previous_value:
                     raise EnforcementError(f"opacity track {track.get('nodeId', '<unknown>')} fades visible content back out")
                 previous_value = value
 
@@ -243,7 +335,7 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError("Eagle ownership must be Episode / 06 Motion Renders")
     if required(manifest, "ownership.duplicateFinalFolderIn23Projects") is not False:
         raise EnforcementError("a duplicate final render folder in 23Projects is forbidden")
-    if abs(finite_number(required(manifest, "premiere.approvedStartTime"), "approvedStartTime") - anchor) > 0.001:
+    if not values_match(finite_number(required(manifest, "premiere.approvedStartTime"), "approvedStartTime"), anchor):
         raise EnforcementError("Premiere start time must equal the verified transcript anchor")
 
     review = required(manifest, "review")
@@ -257,6 +349,14 @@ def validate_manifest(manifest, require_export=False):
         proof = export.get("motionProof") or {}
         if proof.get("status") != "passed" or len(proof.get("sampleTimes") or []) < 2:
             raise EnforcementError("export needs a validation sample or deterministic motion proof")
+        if proof.get("engine") != engine:
+            raise EnforcementError("motion proof engine must match motion.engine")
+        if engine == "manim" and proof.get("type") != "cue-frame-proof":
+            raise EnforcementError("Manim export needs cue-frame-proof")
+        proof_times = [finite_number(value, "motion proof sample time") for value in proof.get("sampleTimes") or []]
+        for cue_time in cue_scene_times:
+            if not any(abs(sample_time - cue_time) <= frame_duration + TIMING_EPSILON for sample_time in proof_times):
+                raise EnforcementError(f"motion proof is missing cue sample near {cue_time}")
         if not isinstance(export.get("fileSha256"), str) or len(export["fileSha256"]) != 64:
             raise EnforcementError("export file hash is invalid")
 
@@ -365,10 +465,13 @@ def preflight(root, manifest, directory, tool_name, tool_input):
     if tool_name == "mcp__codex_apps__figma_weave_run_tool":
         raise EnforcementError("Weave is not an approved Lineups mutation path; use the hashed Figma transaction")
     if tool_name == "mcp__codex_apps__figma_use_figma":
+        validate_figma_skill_contract(tool_input)
         if sha256_value(tool_input) != manifest["enforcement"]["approvedToolInputSha256"]:
             raise EnforcementError("Figma mutation input does not match the approved transaction hash")
         return
     if tool_name == FIGMA_EXPORT:
+        if manifest["motion"]["engine"] != "figma":
+            raise EnforcementError("Figma export is unavailable when motion.engine is manim")
         if tool_input.get("nodeId") and tool_input.get("nodeId") != figma["rootNodeId"]:
             raise EnforcementError("export must target the manifest root node")
         load_receipt(root, manifest, directory, "figma-to-export")

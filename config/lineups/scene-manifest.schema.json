@@ -9,6 +9,7 @@
     "enforcement",
     "scene",
     "figma",
+    "motion",
     "timing",
     "policy",
     "export",
@@ -17,7 +18,7 @@
     "review"
   ],
   "properties": {
-    "schemaVersion": { "const": 1 },
+    "schemaVersion": { "const": 2 },
     "enforcement": {
       "type": "object",
       "additionalProperties": false,
@@ -130,6 +131,74 @@
         }
       }
     },
+    "motion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "engineVersion", "frameRate", "sourcePath", "sceneClass", "cues"],
+      "properties": {
+        "engine": { "enum": ["figma", "manim"] },
+        "engineVersion": { "type": "string", "minLength": 1 },
+        "frameRate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["numerator", "denominator"],
+          "properties": {
+            "numerator": { "type": "integer", "minimum": 1 },
+            "denominator": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "sourcePath": { "type": ["string", "null"] },
+        "sceneClass": { "type": ["string", "null"] },
+        "cues": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "cueId",
+              "elementId",
+              "triggerType",
+              "triggerText",
+              "transcriptTimestamp",
+              "sceneTime",
+              "action",
+              "duration"
+            ],
+            "properties": {
+              "cueId": { "type": "string", "minLength": 1 },
+              "elementId": { "type": "string", "minLength": 1 },
+              "triggerType": { "enum": ["WORD", "PHRASE", "EDIT"] },
+              "triggerText": { "type": "string", "minLength": 1 },
+              "transcriptTimestamp": { "type": "number", "minimum": 0 },
+              "sceneTime": { "type": "number", "minimum": 0 },
+              "action": { "type": "string", "minLength": 1 },
+              "duration": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "engine": { "const": "manim" } } },
+          "then": {
+            "properties": {
+              "sourcePath": { "type": "string", "minLength": 1 },
+              "sceneClass": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "engine": { "const": "figma" } } },
+          "then": {
+            "properties": {
+              "sourcePath": { "type": "null" },
+              "sceneClass": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
     "timing": {
       "type": "object",
       "additionalProperties": false,
@@ -189,9 +258,10 @@
         "motionProof": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["type", "status", "sampleTimes"],
+          "required": ["type", "engine", "status", "sampleTimes"],
           "properties": {
-            "type": { "enum": ["validation-sample", "deterministic-track-proof"] },
+            "type": { "enum": ["validation-sample", "deterministic-track-proof", "cue-frame-proof"] },
+            "engine": { "enum": ["figma", "manim"] },
             "status": { "enum": ["passed", "failed"] },
             "sampleTimes": {
               "type": "array",

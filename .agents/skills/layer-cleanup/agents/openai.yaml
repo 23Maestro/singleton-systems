@@ -1,0 +1,3 @@
+interface:
+  display_name: "Layer Cleanup"
+  short_description: "Rename and clean Figma layers safely"

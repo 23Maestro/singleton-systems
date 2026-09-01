@@ -159,6 +159,20 @@ master at 6.5 seconds. In a Two-photo Quick Stat, reset the push for each
 five-second photo state. Keep text and faces inside the safe area at 102.5%.
 Do not apply this global push to Asset Swap, Comparison, or other motion comps.
 
+## motion engine
+
+Every animated beat names one primary engine in the scene manifest.
+
+- Use Figma Motion for a simple approved component move with clean manual
+  keyframes.
+- Use Manim for transcript-dense stat reveals, charts, comparisons, or repeated
+  timing repair.
+- Keep Figma as the approved visual source when Manim renders the scene.
+- Bind both engines to the same renderer-neutral cue list.
+
+The cue list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The
+hook checks the math and the render proof. The engine executes the cue.
+
 ## active-system rule
 
 Approved options live in the current menu. Working pages use copies of those
