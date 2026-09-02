@@ -27,6 +27,20 @@ function runPostTool(toolName, toolInput, env = {}) {
   });
 }
 
+function runPreTool(command, workdir = root) {
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({
+      hook_event_name: "PreToolUse",
+      cwd: root,
+      tool_name: "Bash",
+      tool_input: { command, workdir },
+    }),
+    encoding: "utf8",
+    env: { ...process.env, SUPABASE_URL: "", SUPABASE_ANON_KEY: "" },
+  });
+}
+
 function runStop(prompt, lastAssistantMessage, stopHookActive = false) {
   return spawnSync(python, [hook], {
     cwd: root,
@@ -138,6 +152,26 @@ assert.doesNotMatch(unrelated.stdout, /s-systems:freelance-gig-proposals/);
 assert.match(unrelated.stdout, /\[next\] No specialized route matched/);
 assert.match(unrelated.stdout, /\[portfolio-checkpoint\]/, "unmatched project work must retain the evidence gate");
 assert.ok(unrelated.stdout.length < 500, "unmatched prompts must not receive a large policy block");
+
+const wrongEaglePath = runPreTool("node scripts/eagle-api-cli.js list");
+assert.equal(wrongEaglePath.status, 0);
+assert.match(wrongEaglePath.stdout, /"continue": false/);
+assert.match(wrongEaglePath.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
+
+const correctEaglePath = runPreTool(
+  "node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js list",
+);
+assert.equal(correctEaglePath.status, 0);
+assert.doesNotMatch(correctEaglePath.stdout, /"continue": false/);
+
+const wrongUpworkPath = runPreTool("node scripts/estimate-catena-hours.mjs 13:41");
+assert.equal(wrongUpworkPath.status, 0);
+assert.match(wrongUpworkPath.stdout, /"continue": false/);
+assert.match(wrongUpworkPath.stdout, /plugins\/s-systems\/skills\/upwork-hourly-rubric\/scripts\/estimate-catena-hours\.mjs/);
+
+const ordinaryRepoScript = runPreTool("node scripts/check-cerebral-registry.mjs");
+assert.equal(ordinaryRepoScript.status, 0);
+assert.doesNotMatch(ordinaryRepoScript.stdout, /"continue": false/);
 
 const pricing = runHook("What should I charge for this video edit after the platform fee?");
 assert.equal(pricing.status, 0);
@@ -294,4 +328,4 @@ try {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }
 
-console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 17 guards.`);
+console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 21 guards.`);
