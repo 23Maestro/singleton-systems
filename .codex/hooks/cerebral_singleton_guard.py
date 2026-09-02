@@ -152,6 +152,89 @@ def load_runtime_routes():
         return None
 
 
+def load_runtime_skills():
+    base_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
+    anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
+    if not base_url or not anon_key:
+        return None
+
+    headers = {"apikey": anon_key, "Authorization": f"Bearer {anon_key}"}
+    try:
+        skills_url = base_url + "/rest/v1/harness_skills?activation=eq.core&select=skill_key,canonical_path"
+        request = urllib.request.Request(skills_url, headers=headers)
+        with urllib.request.urlopen(request, timeout=1.5) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except (OSError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def canonical_skills():
+    runtime_skills = load_runtime_skills()
+    if runtime_skills is not None:
+        return runtime_skills
+    return [
+        {
+            "skill_key": skill.get("skill_key"),
+            "canonical_path": f"plugins/s-systems/skills/{skill.get('skill_key')}",
+        }
+        for skill in load_local_registry().get("skills", [])
+        if skill.get("activation") == "core" and skill.get("skill_key")
+    ]
+
+
+def canonical_skill_script_error(payload):
+    if str(payload.get("tool_name") or "") != "Bash":
+        return None
+    tool_input = payload.get("tool_input") or {}
+    if not isinstance(tool_input, dict):
+        return None
+    command = str(tool_input.get("command") or tool_input.get("cmd") or "")
+    if not command:
+        return None
+
+    root = repo_root_from(payload.get("cwd"))
+    expected_by_name = {}
+    for skill in canonical_skills():
+        canonical_path = str(skill.get("canonical_path") or "")
+        skill_root = os.path.abspath(os.path.join(root, canonical_path))
+        try:
+            if os.path.commonpath([root, skill_root]) != root:
+                continue
+        except ValueError:
+            continue
+        scripts_root = os.path.join(skill_root, "scripts")
+        if not os.path.isdir(scripts_root):
+            continue
+        for directory, _, files in os.walk(scripts_root):
+            for filename in files:
+                expected_by_name.setdefault(filename, set()).add(os.path.join(directory, filename))
+
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        return None
+    effective_cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
+    for token in tokens:
+        candidate = token.strip(";&|()")
+        expected_paths = expected_by_name.get(os.path.basename(candidate))
+        if not expected_paths:
+            continue
+        actual_path = os.path.abspath(
+            os.path.expanduser(candidate)
+            if os.path.isabs(os.path.expanduser(candidate))
+            else os.path.join(effective_cwd, candidate)
+        )
+        if actual_path in expected_paths:
+            continue
+        expected = sorted(expected_paths)[0]
+        return (
+            "Canonical skill path check blocked Bash. "
+            f"{os.path.basename(candidate)} must run from {os.path.relpath(expected, root)}; "
+            f"received {candidate}. Supabase harness_skills owns canonical_path."
+        )
+    return None
+
+
 def routes_for_prompt():
     runtime_routes = load_runtime_routes()
     if runtime_routes is not None:
@@ -645,6 +728,10 @@ def main():
         return
 
     if event == "PreToolUse":
+        skill_path_error = canonical_skill_script_error(payload)
+        if skill_path_error:
+            emit_block(skill_path_error)
+            return
         emit(context(f"before {payload.get('tool_name') or 'tool'} can change or inspect implementation", tool_text(payload)), event)
         return
 

@@ -9,13 +9,14 @@ allowed-tools: Bash(node *)
 Eagle owns portfolio and client assets. It must be running at `127.0.0.1:41596`.
 
 ```bash
-node scripts/eagle-api-cli.js list
-node scripts/eagle-api-cli.js help <tool>
-node scripts/eagle-api-cli.js call <tool> --json '{"key":"value"}'
+node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js list
+node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js help <tool>
+node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js call <tool> --json '{"key":"value"}'
 ```
 
 For a public Frame.io folder that must land on an external-drive watch path,
-use `scripts/frameio-share-download.mjs`. It reads the public share manifest,
+use `plugins/s-systems/skills/eagle-skill/scripts/frameio-share-download.mjs`.
+It reads the public share manifest,
 downloads originals with resume support, and keeps completion state without
 storing signed URLs.
 

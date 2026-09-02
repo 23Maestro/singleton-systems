@@ -12,7 +12,7 @@ Diary settings when Jerami only wants the estimate.
 Run:
 
 ```bash
-node scripts/estimate-catena-hours.mjs 13:41 15:36
+node plugins/s-systems/skills/upwork-hourly-rubric/scripts/estimate-catena-hours.mjs 13:41 15:36
 ```
 
 The calculator reads the canonical bands from
