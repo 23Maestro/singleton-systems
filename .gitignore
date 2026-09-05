@@ -23,6 +23,7 @@
 /tmp
 .tmp
 .cache
+.scratch/review-artifacts/
 .playwright-cli
 .playwright-mcp/
 __pycache__/
