@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jerami Singleton business card</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #15171a;
+        --muted: #4a4f57;
+        --coral: #e0483e;
+        --line: #d9dde3;
+        --paper: #ffffff;
+        --canvas: #eef0f3;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body { margin: 0; min-height: 100%; }
+
+      body {
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: "Trebuchet MS", Verdana, Geneva, sans-serif;
+      }
+
+      main {
+        display: grid;
+        gap: 42px;
+        justify-content: center;
+        padding: 56px 24px 72px;
+      }
+
+      .review-label {
+        margin: 0 0 12px;
+        color: #667085;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .card {
+        position: relative;
+        width: 3.75in;
+        height: 2.25in;
+        overflow: hidden;
+        background: var(--paper);
+        box-shadow: 0 24px 60px rgb(21 23 26 / 18%);
+      }
+
+      .trim {
+        position: absolute;
+        inset: 0.125in;
+        pointer-events: none;
+      }
+
+      .safe {
+        position: absolute;
+        inset: 0.25in;
+        pointer-events: none;
+      }
+
+      .front::before {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0.105in;
+        background: var(--coral);
+        content: "";
+      }
+
+      .front-inner {
+        position: absolute;
+        inset: 0.25in 0.28in 0.25in 0.32in;
+        display: grid;
+        grid-template-columns: 0.82in 1fr;
+        align-items: center;
+        gap: 0.19in;
+      }
+
+      .portrait-wrap {
+        position: relative;
+        width: 0.82in;
+        height: 0.82in;
+      }
+
+      .portrait-wrap::after {
+        position: absolute;
+        inset: -0.055in;
+        border: 0.018in solid var(--coral);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .portrait {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .name {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        line-height: 1;
+      }
+
+      .company {
+        margin: 4px 0 0;
+        color: var(--coral);
+        font-size: 11px;
+        font-style: italic;
+        font-weight: 800;
+        line-height: 1.15;
+      }
+
+      .role {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        line-height: 1.2;
+      }
+
+      .contact-list {
+        display: grid;
+        gap: 4px;
+        margin: 11px 0 0;
+        padding: 9px 0 0;
+        border-top: 1px solid #edeef1;
+        list-style: none;
+      }
+
+      .contact-list li {
+        display: grid;
+        grid-template-columns: 12px 1fr;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+        font-size: 7.5px;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+
+      .contact-list svg {
+        width: 10px;
+        height: 10px;
+        fill: currentColor;
+      }
+
+      .contact-list span { white-space: nowrap; }
+
+      .back {
+        background: var(--ink);
+        color: white;
+      }
+
+      .back::after {
+        position: absolute;
+        right: -0.48in;
+        bottom: -0.72in;
+        width: 1.8in;
+        height: 1.8in;
+        border: 0.12in solid var(--coral);
+        border-radius: 50%;
+        content: "";
+        opacity: 0.95;
+      }
+
+      .back-inner {
+        position: absolute;
+        inset: 0.27in 0.3in;
+        display: grid;
+        grid-template-columns: 1fr 0.82in;
+        align-items: center;
+        gap: 0.22in;
+        z-index: 1;
+      }
+
+      .wordmark {
+        display: block;
+        width: 1.56in;
+        height: auto;
+        filter: invert(1);
+      }
+
+      .cta {
+        margin: 0.18in 0 0;
+        color: #ffffff;
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .booking-url {
+        margin: 0.06in 0 0;
+        color: #f5a099;
+        font-size: 7px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .qr-frame {
+        display: grid;
+        width: 0.82in;
+        height: 0.82in;
+        place-items: center;
+        padding: 0.055in;
+        border-radius: 0.08in;
+        background: white;
+      }
+
+      .qr-frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .scan-label {
+        margin: 0.055in 0 0;
+        color: #ffffff;
+        font-size: 6px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .guides .trim { outline: 1px dashed rgb(224 72 62 / 65%); }
+      .guides .safe { outline: 1px dashed rgb(67 121 211 / 55%); }
+
+      .guide-key {
+        display: none;
+        margin: 12px 0 0;
+        color: #667085;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .guides + .guide-key { display: block; }
+
+      @media (max-width: 440px) {
+        main { justify-content: start; padding: 28px 18px 48px; }
+        section { width: max-content; transform: scale(0.88); transform-origin: top left; }
+        main { gap: 0; }
+      }
+
+      @page { size: 3.75in 2.25in; margin: 0; }
+
+      @media print {
+        body { background: white; }
+        main { display: block; padding: 0; }
+        section { break-after: page; page-break-after: always; }
+        section:last-child { break-after: auto; page-break-after: auto; }
+        .review-label, .guide-key { display: none !important; }
+        .card { box-shadow: none; }
+        .trim, .safe { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <p class="review-label">Front</p>
+        <article class="card front" aria-label="Business card front">
+          <div class="trim" aria-hidden="true"></div>
+          <div class="safe" aria-hidden="true"></div>
+          <div class="front-inner">
+            <div class="portrait-wrap">
+              <img class="portrait" src="/email-signatures/jerami-hero-145.jpg" alt="Jerami Singleton">
+            </div>
+            <div>
+              <h1 class="name">Jerami Singleton</h1>
+              <p class="company">Singleton Systems</p>
+              <p class="role">Video + AI Workflow Specialist</p>
+              <ul class="contact-list">
+                <li>
+                  <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M222.37 158.46 168 134.18a12 12 0 0 0-13.78 3.42l-24 29.33a100.6 100.6 0 0 1-41.15-41.15l29.33-24A12 12 0 0 0 121.82 88L97.54 33.63A12 12 0 0 0 85 26.62 68.08 68.08 0 0 0 26 94.25C26 169.11 86.89 230 161.75 230A68.08 68.08 0 0 0 229.38 171a12 12 0 0 0-7.01-12.54Z"/></svg>
+                  <span>(407) 473-3637</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24Zm80 96h-33.14a165.8 165.8 0 0 0-14.76-69.47A88.3 88.3 0 0 1 208 120ZM128 40c12.63 0 29.34 29.33 30.82 80H97.18C98.66 69.33 115.37 40 128 40ZM95.9 50.53A165.8 165.8 0 0 0 81.14 120H48a88.3 88.3 0 0 1 47.9-69.47ZM48 136h33.14a165.8 165.8 0 0 0 14.76 69.47A88.3 88.3 0 0 1 48 136Zm80 80c-12.63 0-29.34-29.33-30.82-80h61.64c-1.48 50.67-18.19 80-30.82 80Zm32.1-10.53A165.8 165.8 0 0 0 174.86 136H208a88.3 88.3 0 0 1-47.9 69.47Z"/></svg>
+                  <span>singleton-systems.com</span>
+                </li>
+                <li>
+                  <svg viewBox="0 0 256 256" aria-hidden="true"><path d="M224 48H32a16 16 0 0 0-16 16v128a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16V64a16 16 0 0 0-16-16Zm-20.69 16L128 133.05 52.69 64ZM32 192V74.19l90.59 83.05a8 8 0 0 0 10.82 0L224 74.19V192Z"/></svg>
+                  <span>jerami@singleton-systems.com</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <p class="review-label">Back</p>
+        <article class="card back" aria-label="Business card back">
+          <div class="trim" aria-hidden="true"></div>
+          <div class="safe" aria-hidden="true"></div>
+          <div class="back-inner">
+            <div>
+              <img class="wordmark" src="/singleton-systems-wordmark.svg" alt="Singleton Systems">
+              <p class="cta">Book a 15-minute <br>workflow chat</p>
+              <p class="booking-url">cal.com/workflow-chat/15min</p>
+            </div>
+            <div>
+              <div class="qr-frame">
+                <img src="/business-cards/jerami-singleton-booking-qr.svg" alt="QR code for booking a workflow chat">
+              </div>
+              <p class="scan-label">Scan to book</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script>
+      if (new URLSearchParams(location.search).has("guides")) {
+        document.querySelectorAll(".card").forEach((card) => card.classList.add("guides"));
+      }
+    </script>
+  </body>
+</html>

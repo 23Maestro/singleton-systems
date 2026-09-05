@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jerami Singleton mobile mechanic business card</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #111315;
+        --steel: #2a2e33;
+        --silver: #d9dde2;
+        --yellow: #f5bf25;
+        --paper: #ffffff;
+        --canvas: #e9ecef;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
+
+      body {
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      main {
+        display: grid;
+        gap: 42px;
+        justify-content: center;
+        padding: 56px 24px 72px;
+      }
+
+      .review-label {
+        margin: 0 0 12px;
+        color: #59616b;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .card {
+        position: relative;
+        width: 3.75in;
+        height: 2.25in;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgb(17 19 21 / 22%);
+      }
+
+      .trim {
+        position: absolute;
+        inset: 0.125in;
+        pointer-events: none;
+      }
+
+      .safe {
+        position: absolute;
+        inset: 0.25in;
+        pointer-events: none;
+      }
+
+      .front {
+        background:
+          linear-gradient(125deg, transparent 0 70%, rgb(245 191 37 / 7%) 70% 100%),
+          var(--ink);
+        color: var(--paper);
+      }
+
+      .front::before {
+        position: absolute;
+        inset: 0 0 auto;
+        height: 0.105in;
+        background: var(--yellow);
+        content: "";
+      }
+
+      .front::after {
+        position: absolute;
+        top: -0.24in;
+        right: -0.18in;
+        width: 1.15in;
+        height: 2.8in;
+        background: repeating-linear-gradient(
+          -45deg,
+          transparent 0 0.16in,
+          rgb(245 191 37 / 10%) 0.16in 0.29in
+        );
+        content: "";
+        transform: rotate(3deg);
+      }
+
+      .front-inner {
+        position: absolute;
+        inset: 0.28in 0.3in 0.25in;
+        display: grid;
+        grid-template-columns: 1fr 0.68in;
+        align-items: center;
+        gap: 0.2in;
+        z-index: 1;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--yellow);
+        font-size: 8px;
+        font-weight: 900;
+        letter-spacing: 0.2em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .trade-title {
+        margin: 0.055in 0 0;
+        font-size: 25px;
+        font-style: italic;
+        font-weight: 900;
+        letter-spacing: -0.045em;
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
+
+      .service-line {
+        margin: 0.08in 0 0;
+        color: var(--silver);
+        font-size: 9px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .identity {
+        display: grid;
+        gap: 4px;
+        margin: 0.16in 0 0;
+        padding: 0.11in 0 0;
+        border-top: 1px solid rgb(255 255 255 / 18%);
+      }
+
+      .name {
+        margin: 0;
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      .phone-label {
+        margin: 0;
+        color: var(--yellow);
+        font-size: 6px;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .phone {
+        margin: 0;
+        color: var(--paper);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.015em;
+        line-height: 1;
+      }
+
+      .wrench-mark {
+        display: grid;
+        width: 0.68in;
+        height: 0.68in;
+        place-items: center;
+        border: 0.025in solid var(--yellow);
+        border-radius: 50%;
+        color: var(--yellow);
+        transform: rotate(-12deg);
+      }
+
+      .wrench-mark svg {
+        width: 0.43in;
+        height: 0.43in;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
+      .back {
+        background: var(--yellow);
+        color: var(--ink);
+      }
+
+      .back::before,
+      .back::after {
+        position: absolute;
+        left: -0.24in;
+        width: 4.3in;
+        height: 0.13in;
+        background: var(--ink);
+        content: "";
+        transform: rotate(-7deg);
+      }
+
+      .back::before { top: -0.04in; }
+      .back::after { bottom: -0.03in; }
+
+      .back-inner {
+        position: absolute;
+        inset: 0.27in 0.3in;
+        display: grid;
+        grid-template-columns: 1fr 0.82in;
+        align-items: center;
+        gap: 0.22in;
+        z-index: 1;
+      }
+
+      .back-title {
+        margin: 0;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 900;
+        letter-spacing: -0.045em;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+
+      .back-copy {
+        margin: 0.08in 0 0;
+        font-size: 8px;
+        font-weight: 800;
+        line-height: 1.25;
+      }
+
+      .back-phone {
+        margin: 0.13in 0 0;
+        font-size: 16px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .back-name {
+        margin: 0.055in 0 0;
+        font-size: 7px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      .qr-frame {
+        display: grid;
+        width: 0.82in;
+        height: 0.82in;
+        place-items: center;
+        padding: 0.055in;
+        border-radius: 0.08in;
+        background: var(--paper);
+        box-shadow: 0 0.04in 0.1in rgb(17 19 21 / 18%);
+      }
+
+      .qr-frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .scan-label {
+        margin: 0.055in 0 0;
+        font-size: 6px;
+        font-weight: 900;
+        letter-spacing: 0.11em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .guides .trim { outline: 1px dashed rgb(224 72 62 / 75%); }
+      .guides .safe { outline: 1px dashed rgb(67 121 211 / 65%); }
+
+      @media (max-width: 440px) {
+        main { justify-content: start; gap: 0; padding: 28px 18px 48px; }
+        section { width: max-content; transform: scale(0.88); transform-origin: top left; }
+      }
+
+      @page { size: 3.75in 2.25in; margin: 0; }
+
+      @media print {
+        body { background: white; }
+        main { display: block; padding: 0; }
+        section { break-after: page; page-break-after: always; }
+        section:last-child { break-after: auto; page-break-after: auto; }
+        .review-label { display: none; }
+        .card { box-shadow: none; }
+        .trim, .safe { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <p class="review-label">Front</p>
+        <article class="card front" aria-label="Mobile mechanic business card front">
+          <div class="trim" aria-hidden="true"></div>
+          <div class="safe" aria-hidden="true"></div>
+          <div class="front-inner">
+            <div>
+              <p class="eyebrow">Jerami Singleton</p>
+              <h1 class="trade-title">Mobile<br>Mechanic</h1>
+              <p class="service-line">Oil changes · Brakes · Tune-ups</p>
+              <div class="identity">
+                <p class="phone-label">Call or text</p>
+                <p class="phone">(407) 473-3637</p>
+              </div>
+            </div>
+            <div class="wrench-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" />
+                <path d="M7 14h.01" />
+                <path d="M17 14h.01" />
+                <rect width="18" height="8" x="3" y="10" rx="2" />
+                <path d="M5 18v2" />
+                <path d="M19 18v2" />
+              </svg>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <p class="review-label">Back</p>
+        <article class="card back" aria-label="Mobile mechanic business card back">
+          <div class="trim" aria-hidden="true"></div>
+          <div class="safe" aria-hidden="true"></div>
+          <div class="back-inner">
+            <div>
+              <h2 class="back-title">Need help<br>with your car?</h2>
+              <p class="back-copy">Oil changes · Brakes · Tune-ups</p>
+              <p class="back-phone">(407) 473-3637</p>
+              <p class="back-name">Jerami Singleton · Mobile Mechanic</p>
+            </div>
+            <div>
+              <div class="qr-frame">
+                <img src="/business-cards/jerami-singleton-phone-qr.svg" alt="QR code to call Jerami Singleton">
+              </div>
+              <p class="scan-label">Scan to call</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <script>
+      if (new URLSearchParams(location.search).has("guides")) {
+        document.querySelectorAll(".card").forEach((card) => card.classList.add("guides"));
+      }
+    </script>
+  </body>
+</html>

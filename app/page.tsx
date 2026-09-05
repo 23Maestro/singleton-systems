@@ -795,15 +795,15 @@ export default function Page() {
       <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
           <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem]">
-            Next time should be easier.
+            AI can make your day easier.
           </h1>
           <div className="mx-auto mt-6">
             <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
-              That thing you do the same way every time? I&apos;ll help you get AI on it. We start small on purpose.
+              My goal is simple: help people figure out where AI can save them time and get it set up.
             </p>
           </div>
           <div className="mx-auto mt-3">
-            <p className="mx-auto flex max-w-[15.5rem] items-center justify-center gap-1.5 text-center text-[9.5px] font-semibold leading-none text-neutral-600 sm:max-w-[18rem] sm:text-[10.5px] lg:max-w-[24rem] lg:text-xs">
+            <p className="mx-auto flex max-w-[20rem] items-center justify-center gap-2 text-center text-sm font-semibold leading-snug text-neutral-600 sm:max-w-[24rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
               <span
                 className="inline-flex h-[1.125rem] w-[1.125rem] shrink-0 items-center justify-center rounded-full border-[1.5px] border-black bg-[#eef6ff] text-[#2383e2] lg:h-5 lg:w-5"
                 aria-hidden="true"
@@ -832,7 +832,7 @@ export default function Page() {
                   />
                 </svg>
               </span>
-              <span>One repeatable workflow at a time.</span>
+              <span>Start with one thing.</span>
             </p>
           </div>
           <div className="mt-8 flex items-center justify-center">
@@ -840,7 +840,7 @@ export default function Page() {
               href={AI_WORKFLOW_SESSION_URL}
               className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
             >
-              AI Workflow Session
+              Let&apos;s start
             </Link>
           </div>
         </div>
@@ -858,8 +858,11 @@ export default function Page() {
           />
           <div className="px-3 pb-3.5 pt-2.5 text-left sm:px-4">
             <p className="text-base font-semibold tracking-[-0.04em] text-neutral-950">Jerami Singleton</p>
-            <p className="mt-1 text-xs font-medium text-neutral-600 sm:text-sm">
-              1.5 years of computer programming. Self-taught video editor since 2023. Building with AI since 2024.
+            <p className="mt-1 text-xs font-medium leading-relaxed text-neutral-600 sm:text-sm">
+              <span className="block">2 years of Programming | IT</span>
+              <span className="block">at St. Petersburg College.</span>
+              <span className="mt-2 block">Video editor since 2023.</span>
+              <span className="mt-2 block">Building with AI since 2024.</span>
             </p>
           </div>
         </div>
