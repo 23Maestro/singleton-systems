@@ -4,9 +4,13 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:05:00Z",
-  "manifestSha256": "ad5a93c4fa37956f121400ee0c020098942263b95922ff992312d9b313df931a",
+  "manifestSha256": "adefa35ebf8df3f969cab300d67cacfa33a0a68337bd16862fa5a51ee2e403a4",
   "artifactSha256": null,
-  "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "reviewedAt": "2026-08-27T16:05:00Z"
+  },
   "receiptId": "receipt-scene-07-figma",
   "stage": "figma-to-export",
   "previousReceiptSha256": null,
@@ -16,11 +20,28 @@
     "rootNodeId": "428:9000",
     "sourceComponentId": "428:8000",
     "episodeInstanceId": "428:9001",
+    "sourceRevision": "figma-revision-current",
+    "proofFrames": [
+      {
+        "time": 0,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "time": 14.1,
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
     "nodeType": "INSTANCE",
     "width": 1920,
     "height": 1080,
     "screenshotStatus": "passed",
-    "motionReadbackStatus": "passed"
+    "motionReadbackStatus": "passed",
+    "motionEngine": "figma",
+    "cueSha256": "7c0914fdffdcd89b07b3bb3a8d04adc95705290ccd2bf14d39ebf20a1b63b95f"
   },
-  "receiptSha256": "85daddac24f13aeeda709cf9005eff836cb9d53ba5da133bac33121d77770c33"
+  "receiptSha256": "a8833e789d39499e6720f5dda60c12f799bc68f0824bf1e318cbb2b00aa414c8"
 }

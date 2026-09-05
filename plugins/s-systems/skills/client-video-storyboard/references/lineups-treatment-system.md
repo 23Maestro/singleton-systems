@@ -90,12 +90,32 @@ Every subject in a cutout slot must have real alpha. Do not place a rectangular
 photo, fake background, blur mask, or full-frame crop in that slot. Stop when an
 approved component cannot support the episode without changing a guarded part.
 
+Record every selected source ID and Figma image hash in the episode asset
+ledger. A source image may appear only once in an episode, including use as a
+photo and reuse as a cutout. Replace the later occurrence before review.
+
+Three-subject swaps use the left, center, and right thirds. Put the logo and
+middle subject on the 960 px centerline. Put the side subjects near 320 px and
+1600 px, and choose inward-facing poses when suitable sources exist.
+
+Eagle tag writes require Jerami's approval for the exact operation. Do not add,
+replace, rename, merge, or group tags during intake or asset selection without
+that approval.
+
 ### 7. recurring board
 
 Use when Mark returns to a named show premise. Current options are **Rank
 Reveal** and **Super Bowl Bubble Board**. Update current teams, logos, ranks, and
 labels inside the approved design. Rank Reveal stays conditional to ranked
 episodes.
+
+## data-driven background
+
+Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards
+use Field Night without the football. Keep the background locked and separate
+from transparent foreground artwork. Bind its Figma node and image hash in the
+scene manifest and verify them in the mutation readback. Photo-led options keep
+their photos. Asset Swap keeps its football-visible Field Night background.
 
 ## automatic routing
 
@@ -158,6 +178,20 @@ on the first frame to 102.5% on the final frame. Build the standard single-photo
 master at 6.5 seconds. In a Two-photo Quick Stat, reset the push for each
 five-second photo state. Keep text and faces inside the safe area at 102.5%.
 Do not apply this global push to Asset Swap, Comparison, or other motion comps.
+
+## motion engine
+
+Every animated beat names one primary engine in the scene manifest.
+
+- Use Figma Motion for a simple approved component move with clean manual
+  keyframes.
+- Use Manim for transcript-dense stat reveals, charts, comparisons, or repeated
+  timing repair.
+- Keep Figma as the approved visual source when Manim renders the scene.
+- Bind both engines to the same renderer-neutral cue list.
+
+The cue list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The
+hook checks the math and the render proof. The engine executes the cue.
 
 ## active-system rule
 

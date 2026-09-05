@@ -27,6 +27,55 @@ function runPostTool(toolName, toolInput, env = {}) {
   });
 }
 
+function runPreTool(command, workdir = root) {
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({
+      hook_event_name: "PreToolUse",
+      cwd: root,
+      tool_name: "Bash",
+      tool_input: { command, workdir },
+    }),
+    encoding: "utf8",
+    env: { ...process.env, SUPABASE_URL: "", SUPABASE_ANON_KEY: "" },
+  });
+}
+
+function runCanonicalSkillProbe(runtimeSkills) {
+  const script = `
+import importlib.util
+import json
+import os
+
+spec = importlib.util.spec_from_file_location("cerebral_singleton_guard", os.environ["CEREBRAL_HOOK_PATH"])
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+module.load_runtime_skills = lambda: json.loads(os.environ["RUNTIME_SKILLS"])
+error = module.canonical_skill_script_error({
+    "hook_event_name": "PreToolUse",
+    "cwd": os.environ["CEREBRAL_ROOT"],
+    "tool_name": "Bash",
+    "tool_input": {
+        "command": "node scripts/eagle-api-cli.js list",
+        "workdir": os.environ["CEREBRAL_ROOT"],
+    },
+})
+if not error:
+    raise SystemExit("wrong skill script path was not blocked")
+print(error)
+`;
+  return spawnSync(python, ["-c", script], {
+    cwd: root,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      CEREBRAL_HOOK_PATH: hook,
+      CEREBRAL_ROOT: root,
+      RUNTIME_SKILLS: JSON.stringify(runtimeSkills),
+    },
+  });
+}
+
 function runStop(prompt, lastAssistantMessage, stopHookActive = false) {
   return spawnSync(python, [hook], {
     cwd: root,
@@ -139,6 +188,30 @@ assert.match(unrelated.stdout, /\[next\] No specialized route matched/);
 assert.match(unrelated.stdout, /\[portfolio-checkpoint\]/, "unmatched project work must retain the evidence gate");
 assert.ok(unrelated.stdout.length < 500, "unmatched prompts must not receive a large policy block");
 
+const wrongEaglePath = runPreTool("node scripts/eagle-api-cli.js list");
+assert.equal(wrongEaglePath.status, 0);
+assert.match(wrongEaglePath.stdout, /"continue": false/);
+assert.match(wrongEaglePath.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
+
+const emptyRuntimeSkillFallback = runCanonicalSkillProbe([]);
+assert.equal(emptyRuntimeSkillFallback.status, 0, emptyRuntimeSkillFallback.stderr);
+assert.match(emptyRuntimeSkillFallback.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
+
+const correctEaglePath = runPreTool(
+  "node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js list",
+);
+assert.equal(correctEaglePath.status, 0);
+assert.doesNotMatch(correctEaglePath.stdout, /"continue": false/);
+
+const wrongUpworkPath = runPreTool("node scripts/estimate-catena-hours.mjs 13:41");
+assert.equal(wrongUpworkPath.status, 0);
+assert.match(wrongUpworkPath.stdout, /"continue": false/);
+assert.match(wrongUpworkPath.stdout, /plugins\/s-systems\/skills\/upwork-hourly-rubric\/scripts\/estimate-catena-hours\.mjs/);
+
+const ordinaryRepoScript = runPreTool("node scripts/check-cerebral-registry.mjs");
+assert.equal(ordinaryRepoScript.status, 0);
+assert.doesNotMatch(ordinaryRepoScript.stdout, /"continue": false/);
+
 const pricing = runHook("What should I charge for this video edit after the platform fee?");
 assert.equal(pricing.status, 0);
 for (const snippet of [
@@ -178,6 +251,8 @@ for (const prompt of [
     "Use the seven approved lanes",
     "prefer action photos and avoid roster portraits",
     "contextual photos are allowed",
+    "One source image may appear only once per episode",
+    "logo and middle subject share the 960 px centerline",
     "Preserve transcript meaning, attribution, causal ownership",
     "Single-frame statement at 6.5 seconds",
     "Two-photo progression at 10 seconds",
@@ -185,10 +260,19 @@ for (const prompt of [
     "One point has no pipe",
     "singleton-figma-system",
     ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
+    "file-hygiene and layer-cleanup",
+    "safe-auto-layout-conversion",
+    "accessibility-review",
     "football-visible Field Night background",
+    "locked no-football Field Night background",
+    "Export transparent artwork separately",
     "Episode cutouts require real alpha",
     "Only cutouts, logos, transcript copy, and reveal timing are replaceable",
     "Keep text and cutout bounds tight",
+    "centered dark text",
+    "Auto Width or Hug",
+    "112 px or larger",
+    "48 px or larger",
     "Episode / 06 Motion Renders",
     "Fill the 1920 x 1080 frame",
     "Components owns approved sources",
@@ -287,4 +371,4 @@ try {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }
 
-console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 17 guards.`);
+console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 21 guards.`);

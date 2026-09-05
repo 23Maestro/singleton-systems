@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hooks check. Manim obeys.</title>
+  <link rel="stylesheet" href="../assets/teach.css">
+  <script src="../assets/teach-quiz.js" defer></script>
+</head>
+<body>
+<main>
+  <p class="kicker">Lesson 0001 · 6 minutes</p>
+  <h1>Hooks check.<br>Manim obeys.</h1>
+  <p class="lede">The dumb-simple answer: Manim will not make Figma smarter. It gives Codex a clock that is easier to program, rerun, inspect, and correct.</p>
+
+  <div class="grid">
+    <article class="card"><strong>Transcript = sheet music</strong><p>It tells us when the words happen.</p></article>
+    <article class="card"><strong>Cue map = editor</strong><p>It picks the word where a visual should land.</p></article>
+    <article class="card"><strong>Hook = bouncer</strong><p>It checks skills, approvals, files, and supplied times.</p></article>
+    <article class="card"><strong>Manim = robot stagehand</strong><p>Give it 1.550 seconds. It repeats 1.550 seconds.</p></article>
+  </div>
+
+  <div class="callout">Your hook can prove that a number is present and consistent. It cannot decide whether that number hits the best spoken beat.</div>
+
+  <h2>The Bo Jackson proof</h2>
+  <p>The approved frame stayed intact. Manim placed raster crops at their original pixels. Only timing changed.</p>
+
+  <div class="equation">
+    spoken cue: 634.050<br>
+    scene start: 632.500<br>
+    scene cue: 634.050 − 632.500 = <span class="answer">1.550 seconds</span><br>
+    code: <code>Wait(1.55)</code>
+  </div>
+
+  <table>
+    <thead><tr><th>Visual</th><th>Entrance</th><th>Motion</th></tr></thead>
+    <tbody>
+      <tr><td>1,090 rush yards</td><td>1.55 s</td><td>0.45 s fade</td></tr>
+      <tr><td>6 touchdowns</td><td>6.60 s</td><td>0.45 s fade</td></tr>
+      <tr><td>179 carries</td><td>10.80 s</td><td>0.45 s fade</td></tr>
+    </tbody>
+  </table>
+
+  <p class="small">Manim’s official guide says <code>run_time</code> controls animation duration and <code>wait()</code> controls empty time. Its configuration also sets the render frame rate. See the <a href="https://docs.manim.community/en/stable/tutorials/building_blocks.html">building blocks guide</a> and <a href="https://docs.manim.community/en/stable/reference/manim._config.utils.ManimConfig.html">configuration reference</a>.</p>
+
+  <h2>How it fits your current workflow</h2>
+  <div class="flow" aria-label="Transcript timed motion workflow">
+    <span class="node">Premiere transcript</span><span class="arrow">→</span>
+    <span class="node">Cue map</span><span class="arrow">→</span>
+    <span class="node">Hook checks</span><span class="arrow">→</span>
+    <span class="node">Figma design</span><span class="arrow">→</span>
+    <span class="node">Figma or Manim render</span><span class="arrow">→</span>
+    <span class="node">Frame proof</span><span class="arrow">→</span>
+    <span class="node">Premiere placement</span>
+  </div>
+
+  <p>Your recent pre-hook blocks a Figma mutation when required skills are missing. The timing checks require a verified transcript anchor, entrance times, a five-second final hold, and exact Premiere placement. Those checks protect the contract. Manim executes the contract with code.</p>
+
+  <h2>Tomorrow’s useful test</h2>
+  <p>Keep one simple scene in Figma as the control. Run one structured stat scene through Manim. Feed both the same cue map. Record cue error in frames, repair minutes, render attempts, and mismatches caught by the hook.</p>
+
+  <section class="quiz" data-quiz data-correct="cue">
+    <h3>Retrieval check</h3>
+    <p>Which part decides the right spoken beat?</p>
+    <button data-answer="hook">Hook checks declared timing</button>
+    <button data-answer="cue">Cue map chooses timing</button>
+    <button data-answer="render">Renderer guesses ideal timing</button>
+    <p class="feedback" data-feedback aria-live="polite"></p>
+  </section>
+
+  <h2>The decision</h2>
+  <p>Keep Figma as the design source. Add Manim as a timing engine for stat reveals, charts, comparisons, and other structured scenes. Skip it for a basic two-keyframe move that Figma already handles cleanly.</p>
+
+  <p><a href="../reference/manim-lineups-timing-map.html">Open the one-page timing map</a>. Ask me to explain any part that still feels fuzzy.</p>
+</main>
+</body>
+</html>

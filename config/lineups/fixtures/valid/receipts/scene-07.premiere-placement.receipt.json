@@ -4,17 +4,23 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:20:00Z",
-  "manifestSha256": "ad5a93c4fa37956f121400ee0c020098942263b95922ff992312d9b313df931a",
+  "manifestSha256": "adefa35ebf8df3f969cab300d67cacfa33a0a68337bd16862fa5a51ee2e403a4",
   "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
-  "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "reviewedAt": "2026-08-27T16:05:00Z"
+  },
   "receiptId": "receipt-scene-07-placement",
   "stage": "premiere-placement",
-  "previousReceiptSha256": "da2fa40e2cf9b89fb34dc4b3395b201c3363a2dd1c8fc523cb7ace52a780d0f7",
+  "previousReceiptSha256": "3b2f8db5afff09d883b1466dd62f5f48d88bb978f9605f3c280dd48c5e270a37",
   "evidence": {
     "timelineClipId": "timeline-clip-scene-07",
     "sequenceId": "sequence-lineups-01",
     "trackIndex": 2,
-    "startTime": 312.4
+    "startTime": 312.4,
+    "duration": 14.2,
+    "endTime": 326.6
   },
-  "receiptSha256": "9226ba4dddb2991c5058b6f66b2b3622024817f207fa6dba101f0e4e85b23ee6"
+  "receiptSha256": "d8fd18578e4a24bfcad2077e051d082f5c67c9e99ed8be13ff7ad0f443886108"
 }

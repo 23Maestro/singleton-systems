@@ -9,6 +9,12 @@ Build a client-owned design source that can survive the next video, asset pack, 
 
 Use the Figma skills `figma-use` and `figma-generate-library`. Inspect the target file before changing it. Search connected libraries and Figma Community before drawing a common primitive from scratch.
 
+Load `file-hygiene` and `layer-cleanup` before structural Figma edits. Load
+`safe-auto-layout-conversion` before changing a manual frame to Auto Layout or
+changing Hug, Fill, wrapper, or layout-sizing behavior. Load
+`accessibility-review` before a color, contrast, or accessibility assessment.
+Use the client contract to resolve any conflict with a generic community rule.
+
 For broadcast, video, scoreboard, lower-third, ticker, bug, rail, or on-air work, read [broadcast-package-etiquette.md](references/broadcast-package-etiquette.md) before writing to Figma.
 
 For branded full-screen scenes, split-photo title graphics, and compact topic callouts, read [client-video-title-cards.md](references/client-video-title-cards.md). Use it only for title-card families. Do not apply those rules to speaker overlays unless Jerami reopens that family.

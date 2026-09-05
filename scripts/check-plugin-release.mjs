@@ -4,11 +4,11 @@ import os from "node:os";
 import path from "node:path";
 import {
   assertInstalledPlugin,
+  assertCacheRetention,
   assertManifestConsistency,
   cacheVersions,
   localTimestamp,
   manifestFiles,
-  moveStaleCaches,
   nextVersion,
   parseArgs,
   readManifestVersions,
@@ -90,14 +90,14 @@ assert.throws(() => assertInstalledPlugin({ installed: [] }, "0.2.1+codex.202608
 const cacheRoot = path.join(fixture, "cache");
 const current = "0.2.1+codex.20260826130000";
 const stale = "0.2.1+codex.20260826120000";
+const staleSkill = path.join(cacheRoot, stale, "skills", "job-application-resume", "SKILL.md");
+fs.mkdirSync(path.dirname(staleSkill), { recursive: true });
+fs.writeFileSync(staleSkill, "---\nname: job-application-resume\n---\n");
 fs.mkdirSync(path.join(cacheRoot, current), { recursive: true });
-fs.mkdirSync(path.join(cacheRoot, stale), { recursive: true });
-assert.throws(() => moveStaleCaches(cacheRoot, current, path.join(fixture, "Trash"), false), /before installed parity/);
-const moved = moveStaleCaches(cacheRoot, current, path.join(fixture, "Trash"), true);
-assert.equal(moved.length, 1);
-assert.equal(moved[0].version, stale);
-assert.deepEqual(cacheVersions(cacheRoot), [current]);
-assert.ok(fs.existsSync(moved[0].destination));
+assert.deepEqual(assertCacheRetention(cacheRoot, current, [stale]), [stale]);
+assert.ok(fs.existsSync(staleSkill), "release invalidated an active task's absolute skill path");
+fs.rmSync(path.join(cacheRoot, stale), { recursive: true, force: true });
+assert.throws(() => assertCacheRetention(cacheRoot, current, [stale]), /removed cache version/);
 
 fs.rmSync(fixture, { recursive: true, force: true });
-console.log("Plugin release checks passed: arguments, versions, manifests, installed state, and guarded cache pruning.");
+console.log("Plugin release checks passed: arguments, versions, manifests, installed state, and active-task cache retention.");

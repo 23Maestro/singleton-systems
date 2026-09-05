@@ -72,6 +72,11 @@ for (const skill of expected.skills) {
   const actual = skillByKey.get(skill.skill_key);
   assert.equal(actual.activation, skill.activation, `${skill.skill_key} activation drifted`);
   assert.equal(actual.reason, skill.reason, `${skill.skill_key} reason drifted`);
+  assert.equal(
+    actual.canonical_path,
+    `plugins/s-systems/skills/${skill.skill_key}`,
+    `${skill.skill_key} canonical_path drifted`,
+  );
 }
 
 const capabilityByKey = new Map(capabilities.map((row) => [row.capability_key, row]));

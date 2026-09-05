@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lineups timing ownership map</title>
+  <link rel="stylesheet" href="../assets/teach.css">
+</head>
+<body>
+<main>
+  <p class="kicker">Quick reference</p>
+  <h1>Who owns the beat?</h1>
+  <p class="lede">Use one cue map. Let each tool do one job.</p>
+
+  <table>
+    <thead><tr><th>Part</th><th>Owns</th><th>Does not own</th></tr></thead>
+    <tbody>
+      <tr><td>Transcript</td><td>Spoken word timestamps</td><td>Visual treatment</td></tr>
+      <tr><td>Cue map</td><td>Editorial entrance choices</td><td>Rendering</td></tr>
+      <tr><td>Lineups hook</td><td>Rules, approval, and matching numbers</td><td>Creative rhythm</td></tr>
+      <tr><td>Figma</td><td>Approved composition and assets</td><td>Automatic transcript sync</td></tr>
+      <tr><td>Manim</td><td>Repeatable cue execution</td><td>Choosing the beat</td></tr>
+      <tr><td>Premiere</td><td>Final placement and editorial context</td><td>Scene internals</td></tr>
+    </tbody>
+  </table>
+
+  <h2>The cue equation</h2>
+  <div class="equation">
+    scene cue = spoken word time − scene start time<br>
+    634.050 − 632.500 = <span class="answer">1.550 seconds</span>
+  </div>
+
+  <h2>Renderer-neutral cue</h2>
+  <div class="equation">
+    element: "rush-yards"<br>
+    transcriptTime: 634.050<br>
+    sceneTime: 1.550<br>
+    action: "reveal"<br>
+    duration: 0.450
+  </div>
+
+  <div class="callout">Manim makes exact timing obeyable. The cue map makes the timing good.</div>
+
+  <p><a href="../lessons/0001-hooks-check-manim-obeys.html">Return to lesson 0001</a></p>
+</main>
+</body>
+</html>

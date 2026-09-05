@@ -4,6 +4,18 @@ Codex is the primary implementation driver for this repository. This file is
 the canonical shared repository guide. `CLAUDE.md` is the secondary Claude Code
 entrypoint. When the two files disagree, this file wins.
 
+## startup
+
+Before exploring or changing the repository, read:
+
+- `CONTEXT.md` for shared Gate and Lane vocabulary;
+- `docs/agents/domain.md` for domain-document rules;
+- `docs/agents/issue-tracker.md` for Linear ownership and workflow;
+- `docs/agents/triage-labels.md` for tracker-label mappings.
+
+These files adapt generic skill language to Singleton Systems. They do not
+authorize automatic dispatch or unsupervised implementation.
+
 ## repository
 
 `singleton-systems` contains two connected systems:
@@ -111,4 +123,8 @@ to every reviewable non-code artifact.
 - Keep secrets inside server routes and server-only modules.
 - Use Linear for task state and GitHub for implementation evidence.
 - `ready-for-build` records readiness. It does not start work.
-- Codex owns the current task unless Jerami requests another task or agent.
+- Treat `Lane` as the front-facing term. Accept `Bucket` as a trigger phrase
+  and tool-harness destination.
+- Keep Jerami in control of scope, delivery, and external changes.
+- Codex owns the current task. Do not dispatch sub-agents, create AFK work, or
+  start background implementation unless Jerami explicitly requests it.

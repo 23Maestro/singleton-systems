@@ -125,6 +125,14 @@ for (const lane of allowedLanes) assert.match(laneMigration, new RegExp(lane));
 assert.match(laneMigration, /'writing-review'/);
 assert.doesNotMatch(laneMigration, /all_buckets/);
 
+const skillPathMigration = fs.readFileSync(
+  path.join(root, "supabase/migrations/20260902003000_add_canonical_skill_paths.sql"),
+  "utf8",
+);
+assert.match(skillPathMigration, /canonical_path text\s+generated always as/);
+assert.match(skillPathMigration, /plugins\/s-systems\/skills/);
+assert.match(skillPathMigration, /to anon, authenticated/);
+
 const deliveryOutcome = fs.readFileSync(path.join(root, "lib/delivery-outcome.ts"), "utf8");
 for (const state of [...registry.gate.delivery_states, ...registry.gate.receipt_states]) {
   assert.match(deliveryOutcome, new RegExp(`"${state}"`), `delivery outcome missing ${state}`);

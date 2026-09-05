@@ -95,11 +95,30 @@ const checks = [
     must: [
       "Do not create black, white, or image background planes",
       "112 px",
+      "Auto Width or a hugging container",
+      "safe-auto-layout-conversion",
+      "accessibility-review",
       "Components` holds the only editable source",
       "Field Night",
       "1920 x 1080",
       "prune the page in the same pass",
     ],
+  },
+  {
+    file: ".agents/skills/safe-auto-layout-conversion/SKILL.md",
+    must: ["Preserve first", "Work inside-out", "visible geometry matches the reference"],
+  },
+  {
+    file: ".agents/skills/file-hygiene/SKILL.md",
+    must: ["Operator labels", "112 px or larger", "native frame-name label"],
+  },
+  {
+    file: ".agents/skills/accessibility-review/SKILL.md",
+    must: ["WCAG 2.2 AA", "static video", "Normal text needs 4.5:1"],
+  },
+  {
+    file: ".agents/skills/layer-cleanup/SKILL.md",
+    must: ["Audit first", "Rename by role", "Do not detach instances"],
   },
 ];
 

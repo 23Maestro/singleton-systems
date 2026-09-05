@@ -1,0 +1,3 @@
+interface:
+  display_name: "Accessibility Review"
+  short_description: "Measure Figma contrast and accessibility"

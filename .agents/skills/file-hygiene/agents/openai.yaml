@@ -1,0 +1,3 @@
+interface:
+  display_name: "File Hygiene"
+  short_description: "Audit and clean Figma file structure"

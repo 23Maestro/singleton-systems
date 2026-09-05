@@ -26,6 +26,10 @@ ROUTING_SURFACES = [
     "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
     ".agents/skills/singleton-figma-system/SKILL.md",
     ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
+    ".agents/skills/safe-auto-layout-conversion/SKILL.md",
+    ".agents/skills/file-hygiene/SKILL.md",
+    ".agents/skills/accessibility-review/SKILL.md",
+    ".agents/skills/layer-cleanup/SKILL.md",
 ]
 
 STALE_OWNER_PATTERNS = [
@@ -148,6 +152,89 @@ def load_runtime_routes():
         return None
 
 
+def load_runtime_skills():
+    base_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
+    anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
+    if not base_url or not anon_key:
+        return None
+
+    headers = {"apikey": anon_key, "Authorization": f"Bearer {anon_key}"}
+    try:
+        skills_url = base_url + "/rest/v1/harness_skills?activation=eq.core&select=skill_key,canonical_path"
+        request = urllib.request.Request(skills_url, headers=headers)
+        with urllib.request.urlopen(request, timeout=1.5) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except (OSError, ValueError, json.JSONDecodeError):
+        return None
+
+
+def canonical_skills():
+    runtime_skills = load_runtime_skills()
+    if runtime_skills:
+        return runtime_skills
+    return [
+        {
+            "skill_key": skill.get("skill_key"),
+            "canonical_path": f"plugins/s-systems/skills/{skill.get('skill_key')}",
+        }
+        for skill in load_local_registry().get("skills", [])
+        if skill.get("activation") == "core" and skill.get("skill_key")
+    ]
+
+
+def canonical_skill_script_error(payload):
+    if str(payload.get("tool_name") or "") != "Bash":
+        return None
+    tool_input = payload.get("tool_input") or {}
+    if not isinstance(tool_input, dict):
+        return None
+    command = str(tool_input.get("command") or tool_input.get("cmd") or "")
+    if not command:
+        return None
+
+    root = repo_root_from(payload.get("cwd"))
+    expected_by_name = {}
+    for skill in canonical_skills():
+        canonical_path = str(skill.get("canonical_path") or "")
+        skill_root = os.path.abspath(os.path.join(root, canonical_path))
+        try:
+            if os.path.commonpath([root, skill_root]) != root:
+                continue
+        except ValueError:
+            continue
+        scripts_root = os.path.join(skill_root, "scripts")
+        if not os.path.isdir(scripts_root):
+            continue
+        for directory, _, files in os.walk(scripts_root):
+            for filename in files:
+                expected_by_name.setdefault(filename, set()).add(os.path.join(directory, filename))
+
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        return None
+    effective_cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
+    for token in tokens:
+        candidate = token.strip(";&|()")
+        expected_paths = expected_by_name.get(os.path.basename(candidate))
+        if not expected_paths:
+            continue
+        actual_path = os.path.abspath(
+            os.path.expanduser(candidate)
+            if os.path.isabs(os.path.expanduser(candidate))
+            else os.path.join(effective_cwd, candidate)
+        )
+        if actual_path in expected_paths:
+            continue
+        expected = sorted(expected_paths)[0]
+        return (
+            "Canonical skill path check blocked Bash. "
+            f"{os.path.basename(candidate)} must run from {os.path.relpath(expected, root)}; "
+            f"received {candidate}. Supabase harness_skills owns canonical_path."
+        )
+    return None
+
+
 def routes_for_prompt():
     runtime_routes = load_runtime_routes()
     if runtime_routes is not None:
@@ -254,11 +341,15 @@ def context(reason, text):
             "- [contract] Read plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md before transcript mapping, asset selection, Figma work, or Premiere mutation.",
             "- [menu] Use the seven approved lanes. Choose an approved option and adjust its settings. Do not invent a new option during an edit.",
             "- [assets] Use suitable client-provided Eagle assets. For new searches, prefer action photos and avoid roster portraits; contextual photos are allowed when the transcript supports them. Search Eagle, then SportsDB or OpenWiki. Fill the 1920 x 1080 frame and keep faces clear.",
+            "- [asset-integrity] One source image may appear only once per episode. Record source IDs and image hashes in the episode asset ledger before Figma or Premiere work.",
+            "- [asset-layout] Three-subject swaps use left, center, and right thirds. The logo and middle subject share the 960 px centerline; side subjects face inward when a suitable asset exists.",
             "- [copy] Preserve transcript meaning, attribution, causal ownership, and spoken order. Compress or closely paraphrase; do not invent an editorial angle.",
             "- [quick-stat] Choose Single-frame statement at 6.5 seconds or Two-photo progression at 10 seconds. Photo-led pushes run 100% to 102.5%. One point has no pipe. Premiere owns light leaks and Blur Dissolves.",
             "- [figma-contract] Use singleton-figma-system and read .agents/skills/singleton-figma-system/references/lineups-production-system.md before building a Lineups scene.",
+            "- [figma-skills] Load file-hygiene and layer-cleanup before structural Figma edits. Load safe-auto-layout-conversion for Auto Layout or sizing changes. Load accessibility-review for color, contrast, or accessibility work.",
+            "- [data-driven] Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards require the locked no-football Field Night background. Export transparent artwork separately from the background. Verify the background image hash and node in Figma readback.",
             "- [asset-swap] Inherit the guarded football-visible Field Night background, geometry, layer order, crop roles, and motion from Components. Episode cutouts require real alpha. Only cutouts, logos, transcript copy, and reveal timing are replaceable.",
-            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Prune rejected and stale work after review.",
+            "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Scene titles use centered dark text, Auto Width or Hug, and 112 px or larger type. Support labels use 48 px or larger type. Prune rejected and stale work after review.",
             "- [delivery] Approved motion renders live in Eagle at Episode / 06 Motion Renders. Premiere links to that Eagle-managed file.",
             "- [premiere-gate] Inspect a fresh 1920 x 1080 screenshot before placement.",
         ])
@@ -640,6 +731,10 @@ def main():
         return
 
     if event == "PreToolUse":
+        skill_path_error = canonical_skill_script_error(payload)
+        if skill_path_error:
+            emit_block(skill_path_error)
+            return
         emit(context(f"before {payload.get('tool_name') or 'tool'} can change or inspect implementation", tool_text(payload)), event)
         return
 
