@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import LedgerTheme from "./ledger/theme";
+import "./ledger/ledger.css";
 
 export const metadata: Metadata = {
   title: "Finances",
-  description: "Personal income, bills, and debt ledger.",
+  manifest: "/finances/manifest.webmanifest",
+  description: "Personal income, expenses, bills, and debt.",
   robots: {
     index: false,
     follow: false,
@@ -21,5 +24,5 @@ export const viewport: Viewport = {
 };
 
 export default function FinancesLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return <LedgerTheme>{children}</LedgerTheme>;
 }

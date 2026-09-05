@@ -1,19 +1,12 @@
-import { NextResponse } from "next/server";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <style>
-    .tile { fill: #ffffff; }
-    .mark { fill: #050505; }
-  </style>
-  <rect width="64" height="64" class="tile"/>
-  <text x="32" y="52" text-anchor="middle" class="mark" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="400" textLength="58" lengthAdjust="spacingAndGlyphs">SS</text>
-</svg>`;
-
-export function GET() {
-  return new NextResponse(favicon, {
+export async function GET() {
+  const favicon = await readFile(path.join(process.cwd(), "public/ledger/favicon.ico"));
+  return new Response(favicon, {
     headers: {
-      "Content-Type": "image/svg+xml; charset=utf-8",
-      "Cache-Control": "public, max-age=31536000, immutable",
+      "Content-Type": "image/x-icon",
+      "Cache-Control": "public, max-age=3600",
     },
   });
 }

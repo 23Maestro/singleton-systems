@@ -47,6 +47,11 @@ relevant Node script directly while iterating.
 
 ## application architecture
 
+Figma Make is a design and concept tool. Port approved exports into this
+repository's Next.js app and deploy on Vercel. Do not copy the export's Vite
+scaffold, package manifest, lockfile, or Figma-specific dependencies. Reuse
+the approved interface, assets, and tested domain rules with the existing stack.
+
 The app uses Next.js App Router, React 19, and Tailwind. The `@/*` path alias
 points to the repository root.
 

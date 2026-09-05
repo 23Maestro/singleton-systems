@@ -1,5 +1,5 @@
-import FinancesApp from "./FinancesApp";
+import Ledger from "./ledger/Ledger";
 
 export default function FinancesPage() {
-  return <FinancesApp />;
+  return <Ledger />;
 }

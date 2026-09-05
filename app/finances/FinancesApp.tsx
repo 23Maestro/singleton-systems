@@ -79,11 +79,11 @@ export default function FinancesApp() {
       try {
         const entriesResponse = await fetch("/api/finances", { cache: "no-store" });
         const data = await entriesResponse.json();
-        if (!entriesResponse.ok) throw new Error(data.error || "Could not load the ledger.");
+        if (!entriesResponse.ok) throw new Error(data.error || "Could not load finances.");
         if (active) setEntries(data.entries || []);
       } catch (cause) {
         if (active) {
-          setError(cause instanceof Error ? cause.message : "Could not load the ledger.");
+          setError(cause instanceof Error ? cause.message : "Could not load finances.");
         }
       } finally {
         if (active) setLoaded(true);
@@ -102,18 +102,6 @@ export default function FinancesApp() {
   const billEntries = useMemo(() => entries.filter((e) => e.kind === "bill"), [entries]);
   const debtEntries = useMemo(() => entries.filter((e) => e.kind === "debt"), [entries]);
   const expenseEntries = useMemo(() => entries.filter((e) => e.kind === "expense"), [entries]);
-
-  const confirmedIncome = useMemo(() => incomeEntries.reduce((s, e) => s + e.amount, 0), [incomeEntries]);
-  const pendingBillsTotal = useMemo(
-    () => billEntries.filter((e) => !e.paid).reduce((s, e) => s + e.amount, 0),
-    [billEntries],
-  );
-  const loggedSpend = useMemo(() => {
-    const paidBills = billEntries.filter((e) => e.paid).reduce((s, e) => s + e.amount, 0);
-    const spend = expenseEntries.reduce((s, e) => s + e.amount, 0);
-    return paidBills + spend;
-  }, [billEntries, expenseEntries]);
-  const available = confirmedIncome - loggedSpend - pendingBillsTotal;
 
   const cycle = useMemo(() => getCycleForDate(new Date()), []);
   const progress = useMemo(() => cycleProgress(cycle, new Date()), [cycle]);
@@ -190,7 +178,7 @@ export default function FinancesApp() {
   }
 
   async function removeEntry(id: string) {
-    if (!window.confirm("Remove this ledger entry?")) return;
+    if (!window.confirm("Remove this finance entry?")) return;
     const res = await fetch(`/api/finances/${id}`, { method: "DELETE" });
     if (!res.ok) {
       const data = await res.json();
@@ -241,7 +229,7 @@ export default function FinancesApp() {
   if (!loaded) {
     return (
       <main className="flex min-h-dvh items-center justify-center bg-[#eef3f7] text-[#607080] dark:bg-black dark:text-[#b8c4cf]">
-        Loading ledger…
+        Loading finances…
       </main>
     );
   }
@@ -261,7 +249,7 @@ export default function FinancesApp() {
               />
             </Link>
             <div className="min-w-0">
-              <h1 className="truncate text-[22px] font-semibold tracking-normal">Ledger</h1>
+              <h1 className="truncate text-[22px] font-semibold tracking-normal">Finances</h1>
               <p className="text-sm text-[#607080] dark:text-[#aeb8c2]">Pay cycle · {cycle.label}</p>
             </div>
           </div>
@@ -282,33 +270,6 @@ export default function FinancesApp() {
               className="h-1.5 rounded-full bg-[#111820] transition-all dark:bg-[#f7f8fa]"
               style={{ width: `${progress}%` }}
             />
-          </div>
-        </div>
-
-        <div className="mb-5 rounded-xl border border-black/10 bg-white p-5 dark:border-white/10 dark:bg-black">
-          <div className="mb-1 text-xs uppercase tracking-widest text-[#607080] dark:text-[#aeb8c2]">
-            Available right now
-          </div>
-          <div
-            className={`mb-4 text-4xl font-bold tabular-nums ${
-              available >= 0 ? "" : "text-brand-text-coral dark:text-brand-coral"
-            }`}
-          >
-            {fmt(available)}
-          </div>
-          <div className="grid grid-cols-3 gap-3 text-xs">
-            <div>
-              <div className="text-[#607080] dark:text-[#aeb8c2]">Confirmed in</div>
-              <div className="font-semibold tabular-nums text-brand-text-green dark:text-brand-green">{fmt(confirmedIncome)}</div>
-            </div>
-            <div>
-              <div className="text-[#607080] dark:text-[#aeb8c2]">Logged spend</div>
-              <div className="font-semibold tabular-nums text-brand-text-coral dark:text-brand-coral">{fmt(loggedSpend)}</div>
-            </div>
-            <div>
-              <div className="text-[#607080] dark:text-[#aeb8c2]">Pending bills</div>
-              <div className="font-semibold tabular-nums text-brand-text-yellow dark:text-brand-yellow">{fmt(pendingBillsTotal)}</div>
-            </div>
           </div>
         </div>
 
