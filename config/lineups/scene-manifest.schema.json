@@ -17,6 +17,19 @@
     "premiere",
     "review"
   ],
+  "allOf": [{
+    "if": {"properties": {"scene": {"anyOf": [
+      {"properties": {"lane": {"enum": ["stat breakdown", "year-by-year", "recurring board"]}}},
+      {"properties": {"lane": {"const": "comparison"}, "approvedOption": {"not": {"const": "Cinematic 2-up"}}}}
+    ]}}},
+    "then": {"properties": {"figma": {"required": ["background"]}}}
+  }, {
+    "if": {"properties": {"scene": {"properties": {"lane": {"const": "asset swap"}}}}},
+    "then": {"properties": {
+      "scene": {"required": ["subjectCount"]},
+      "figma": {"required": ["assetLedger"]}
+    }}
+  }],
   "properties": {
     "schemaVersion": { "const": 2 },
     "enforcement": {
@@ -50,7 +63,8 @@
           ]
         },
         "approvedOption": { "type": "string", "minLength": 1 },
-        "setting": { "type": "string", "minLength": 1 }
+        "setting": { "type": "string", "minLength": 1 },
+        "subjectCount": { "type": "integer", "minimum": 1, "maximum": 4 }
       }
     },
     "figma": {
@@ -62,6 +76,7 @@
         "rootNodeId",
         "sourceComponentId",
         "episodeInstanceId",
+        "sourceRevision",
         "episodeUsesInstance",
         "rootDimensions",
         "exposedSlots",
@@ -70,11 +85,41 @@
         "motionTracks"
       ],
       "properties": {
+        "background": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "setting",
+            "nodeId",
+            "imageHash",
+            "locked",
+            "separateFromArtwork"
+          ],
+          "properties": {
+            "setting": {
+              "const": "Field Night / No football"
+            },
+            "nodeId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "imageHash": {
+              "const": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+            },
+            "locked": {
+              "const": true
+            },
+            "separateFromArtwork": {
+              "const": true
+            }
+          }
+        },
         "fileKey": { "type": "string", "minLength": 1 },
         "pageId": { "type": "string", "minLength": 1 },
         "rootNodeId": { "type": "string", "minLength": 1 },
         "sourceComponentId": { "type": "string", "minLength": 1 },
         "episodeInstanceId": { "type": "string", "minLength": 1 },
+        "sourceRevision": { "type": "string", "minLength": 1 },
         "episodeUsesInstance": { "const": true },
         "rootDimensions": { "$ref": "#/$defs/dimensions" },
         "exposedSlots": {
@@ -89,6 +134,21 @@
           "uniqueItems": true,
           "items": { "type": "string", "minLength": 1 }
         },
+        "assetLedger": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["sceneId", "slotId", "sourceId", "imageHash"],
+            "properties": {
+              "sceneId": { "type": "string", "minLength": 1 },
+              "slotId": { "type": "string", "minLength": 1 },
+              "sourceId": { "type": "string", "minLength": 1 },
+              "imageHash": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
         "focalAssets": {
           "type": "array",
           "items": {
@@ -99,7 +159,9 @@
               "nodeId": { "type": "string", "minLength": 1 },
               "kind": { "enum": ["logo", "photo", "icon", "graphic"] },
               "centered": { "type": "boolean" },
-              "approvedException": { "type": ["string", "null"] }
+              "approvedException": { "type": ["string", "null"] },
+              "layoutRole": { "enum": ["left", "center", "right", "logo"] },
+              "centerX": { "type": "number" }
             }
           }
         },
@@ -249,16 +311,18 @@
     "export": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["dimensions", "path", "fileSha256", "validationStatus", "motionProof"],
+      "required": ["dimensions", "path", "fileSha256", "artifactRole", "backgroundPolicy", "validationStatus", "motionProof"],
       "properties": {
         "dimensions": { "$ref": "#/$defs/dimensions" },
         "path": { "type": "string", "minLength": 1 },
         "fileSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "artifactRole": { "enum": ["final-premiere-render", "alpha-helper", "transparent-artwork-helper"] },
+        "backgroundPolicy": { "enum": ["football-visible-baked", "no-football-baked", "transparent"] },
         "validationStatus": { "enum": ["pending", "passed", "failed"] },
         "motionProof": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["type", "engine", "status", "sampleTimes"],
+          "required": ["type", "engine", "status", "sampleTimes", "frames"],
           "properties": {
             "type": { "enum": ["validation-sample", "deterministic-track-proof", "cue-frame-proof"] },
             "engine": { "enum": ["figma", "manim"] },
@@ -267,6 +331,21 @@
               "type": "array",
               "minItems": 2,
               "items": { "type": "number", "minimum": 0 }
+            },
+            "frames": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["time", "sha256", "width", "height"],
+                "properties": {
+                  "time": { "type": "number", "minimum": 0 },
+                  "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+                  "width": { "const": 1920 },
+                  "height": { "const": 1080 }
+                }
+              }
             }
           }
         }
@@ -288,6 +367,8 @@
         "sequenceId",
         "trackIndex",
         "approvedStartTime",
+        "approvedDuration",
+        "approvedEndTime",
         "projectItemId",
         "treePath",
         "labelReadback",
@@ -297,6 +378,8 @@
         "sequenceId": { "type": "string", "minLength": 1 },
         "trackIndex": { "type": "integer", "minimum": 0 },
         "approvedStartTime": { "type": "number", "minimum": 0 },
+        "approvedDuration": { "type": "number", "exclusiveMinimum": 0 },
+        "approvedEndTime": { "type": "number", "exclusiveMinimum": 0 },
         "projectItemId": { "type": "string", "minLength": 1 },
         "treePath": { "type": "string", "minLength": 1 },
         "labelReadback": { "type": "string", "minLength": 1 },

@@ -41,6 +41,41 @@ function runPreTool(command, workdir = root) {
   });
 }
 
+function runCanonicalSkillProbe(runtimeSkills) {
+  const script = `
+import importlib.util
+import json
+import os
+
+spec = importlib.util.spec_from_file_location("cerebral_singleton_guard", os.environ["CEREBRAL_HOOK_PATH"])
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+module.load_runtime_skills = lambda: json.loads(os.environ["RUNTIME_SKILLS"])
+error = module.canonical_skill_script_error({
+    "hook_event_name": "PreToolUse",
+    "cwd": os.environ["CEREBRAL_ROOT"],
+    "tool_name": "Bash",
+    "tool_input": {
+        "command": "node scripts/eagle-api-cli.js list",
+        "workdir": os.environ["CEREBRAL_ROOT"],
+    },
+})
+if not error:
+    raise SystemExit("wrong skill script path was not blocked")
+print(error)
+`;
+  return spawnSync(python, ["-c", script], {
+    cwd: root,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      CEREBRAL_HOOK_PATH: hook,
+      CEREBRAL_ROOT: root,
+      RUNTIME_SKILLS: JSON.stringify(runtimeSkills),
+    },
+  });
+}
+
 function runStop(prompt, lastAssistantMessage, stopHookActive = false) {
   return spawnSync(python, [hook], {
     cwd: root,
@@ -158,6 +193,10 @@ assert.equal(wrongEaglePath.status, 0);
 assert.match(wrongEaglePath.stdout, /"continue": false/);
 assert.match(wrongEaglePath.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
 
+const emptyRuntimeSkillFallback = runCanonicalSkillProbe([]);
+assert.equal(emptyRuntimeSkillFallback.status, 0, emptyRuntimeSkillFallback.stderr);
+assert.match(emptyRuntimeSkillFallback.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
+
 const correctEaglePath = runPreTool(
   "node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js list",
 );
@@ -212,6 +251,8 @@ for (const prompt of [
     "Use the seven approved lanes",
     "prefer action photos and avoid roster portraits",
     "contextual photos are allowed",
+    "One source image may appear only once per episode",
+    "logo and middle subject share the 960 px centerline",
     "Preserve transcript meaning, attribution, causal ownership",
     "Single-frame statement at 6.5 seconds",
     "Two-photo progression at 10 seconds",
@@ -223,6 +264,8 @@ for (const prompt of [
     "safe-auto-layout-conversion",
     "accessibility-review",
     "football-visible Field Night background",
+    "locked no-football Field Night background",
+    "Export transparent artwork separately",
     "Episode cutouts require real alpha",
     "Only cutouts, logos, transcript copy, and reveal timing are replaceable",
     "Keep text and cutout bounds tight",

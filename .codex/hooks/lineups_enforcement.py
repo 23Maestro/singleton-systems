@@ -76,6 +76,34 @@ APPROVED_OPTIONS = {
     "asset swap": {"asset swap"},
     "recurring board": {"Rank Reveal", "Super Bowl Bubble Board"},
 }
+NO_FOOTBALL_FIELD_HASH = "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+
+
+def is_data_driven(manifest):
+    scene = manifest.get("scene") or {}
+    return scene.get("lane") in {"stat breakdown", "year-by-year", "recurring board"} or (
+        scene.get("lane") == "comparison" and scene.get("approvedOption") != "Cinematic 2-up"
+    )
+
+
+def validate_data_background(manifest):
+    if not is_data_driven(manifest):
+        return
+    background = required(manifest, "figma.background")
+    if background.get("setting") != "Field Night / No football" or background.get("imageHash") != NO_FOOTBALL_FIELD_HASH:
+        raise EnforcementError("data-driven scenes require the approved no-football Field Night background")
+    if background.get("locked") is not True or background.get("separateFromArtwork") is not True:
+        raise EnforcementError("data-driven background must be locked and separate from transparent artwork")
+    if not background.get("nodeId"):
+        raise EnforcementError("data-driven background needs its Figma node ID")
+
+
+def response_backgrounds(value):
+    for item in response_objects(value):
+        if isinstance(item.get("background"), dict):
+            yield item["background"]
+
+
 BASE_FIGMA_SKILLS = {
     "figma-use",
     "singleton-figma-system",
@@ -88,6 +116,7 @@ AUTO_LAYOUT_RE = re.compile(
 )
 ACCESSIBILITY_RE = re.compile(r"accessibility|wcag|contrast|colou?r", re.I)
 TIMING_EPSILON = 0.001
+ALIGNMENT_TOLERANCE = 2.0
 PREVIOUS_STAGE = {
     "figma-to-export": None,
     "export-to-premiere": "figma-to-export",
@@ -189,6 +218,87 @@ def values_match(left, right, tolerance=TIMING_EPSILON):
     return abs(left - right) <= tolerance
 
 
+def response_objects(value):
+    if isinstance(value, dict):
+        yield value
+        for child in value.values():
+            yield from response_objects(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from response_objects(child)
+    elif isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except (ValueError, TypeError):
+            return
+        if not isinstance(parsed, str):
+            yield from response_objects(parsed)
+
+
+def validate_focal_asset_readback(manifest, tool_response):
+    if required(manifest, "scene.lane") != "asset swap":
+        return
+    expected_assets = [asset for asset in required(manifest, "figma.focalAssets") if asset.get("layoutRole")]
+    if not expected_assets:
+        return
+    returned_assets = next(
+        (item["focalAssets"] for item in response_objects(tool_response) if isinstance(item.get("focalAssets"), list)),
+        None,
+    )
+    if returned_assets is None:
+        raise EnforcementError("Figma readback is missing measured focal-asset opaque bounds")
+    returned_by_id = {
+        asset.get("nodeId"): asset
+        for asset in returned_assets
+        if isinstance(asset, dict) and asset.get("nodeId")
+    }
+    visible_centers = {}
+    for expected in expected_assets:
+        returned = returned_by_id.get(expected["nodeId"])
+        role = expected["layoutRole"]
+        if returned is None or returned.get("layoutRole") != role or returned.get("kind") != expected.get("kind"):
+            raise EnforcementError(f"Figma readback does not identify the expected {role} focal asset")
+        bounds = returned.get("opaqueBounds") or {}
+        x = finite_number(bounds.get("x"), f"{role} opaqueBounds.x")
+        width = finite_number(bounds.get("width"), f"{role} opaqueBounds.width")
+        if width <= 0:
+            raise EnforcementError(f"{role} opaque bounds must have positive width")
+        visible_centers[role] = x + width / 2
+    if {"left", "center", "right"}.issubset(visible_centers):
+        if "logo" not in visible_centers:
+            raise EnforcementError("Figma readback is missing the three-subject logo opaque bounds")
+        if not values_match(visible_centers["center"], 960, ALIGNMENT_TOLERANCE) or not values_match(
+            visible_centers["logo"], 960, ALIGNMENT_TOLERANCE
+        ):
+            raise EnforcementError("Figma opaque bounds do not place the logo and middle subject on the 960 px centerline")
+        if visible_centers["left"] > 640 or visible_centers["right"] < 1280:
+            raise EnforcementError("Figma opaque bounds do not place side subjects in the left and right thirds")
+
+
+def premiere_clip_readback(tool_response, premiere):
+    for container in response_objects(tool_response):
+        if container.get("sequenceId") != premiere["sequenceId"]:
+            continue
+        for candidate in response_objects(container):
+            if candidate.get("clipId") == premiere["timelineClipId"]:
+                return candidate
+    return None
+
+
+def figma_scene_readback(tool_response, figma):
+    return next(
+        (
+            item
+            for item in response_objects(tool_response)
+            if item.get("rootNodeId") == figma["rootNodeId"]
+            and item.get("sourceComponentId") == figma["sourceComponentId"]
+            and item.get("episodeInstanceId") == figma["episodeInstanceId"]
+            and item.get("nodeType") == "INSTANCE"
+        ),
+        None,
+    )
+
+
 def validate_manifest(manifest, require_export=False):
     if manifest.get("schemaVersion") != 2:
         raise EnforcementError("manifest schemaVersion must be 2")
@@ -206,15 +316,37 @@ def validate_manifest(manifest, require_export=False):
         if not required(manifest, f"scene.{field}"):
             raise EnforcementError(f"scene.{field} cannot be empty")
 
+    validate_data_background(manifest)
+
     if required(manifest, "figma.episodeUsesInstance") is not True:
         raise EnforcementError("episode work must use an approved component instance")
-    for field in ("fileKey", "pageId", "rootNodeId", "sourceComponentId", "episodeInstanceId"):
+    for field in ("fileKey", "pageId", "rootNodeId", "sourceComponentId", "episodeInstanceId", "sourceRevision"):
         if not required(manifest, f"figma.{field}"):
             raise EnforcementError(f"figma.{field} cannot be empty")
     if not required(manifest, "figma.exposedSlots"):
         raise EnforcementError("at least one exposed slot is required")
     if not required(manifest, "figma.allowedReplacementProperties"):
         raise EnforcementError("at least one allowed replacement property is required")
+
+    asset_ledger = (manifest.get("figma") or {}).get("assetLedger")
+    subject_count = None
+    if lane == "asset swap":
+        subject_count = finite_number(required(manifest, "scene.subjectCount"), "scene.subjectCount")
+        if not subject_count.is_integer() or not 1 <= subject_count <= 4:
+            raise EnforcementError("asset swap subjectCount must be an integer from 1 to 4")
+        if not isinstance(asset_ledger, list) or not asset_ledger:
+            raise EnforcementError("asset swap scenes require the episode asset ledger")
+        source_ids = set()
+        image_hashes = set()
+        for entry in asset_ledger:
+            source_id = str(entry.get("sourceId") or "")
+            image_hash = str(entry.get("imageHash") or "")
+            if not source_id or not image_hash or not entry.get("sceneId") or not entry.get("slotId"):
+                raise EnforcementError("episode asset ledger entries need sceneId, slotId, sourceId, and imageHash")
+            if source_id in source_ids or image_hash in image_hashes:
+                raise EnforcementError("one source image may appear only once per episode")
+            source_ids.add(source_id)
+            image_hashes.add(image_hash)
 
     root_dimensions = required(manifest, "figma.rootDimensions")
     export_dimensions = required(manifest, "export.dimensions")
@@ -223,9 +355,31 @@ def validate_manifest(manifest, require_export=False):
     if export_dimensions != root_dimensions:
         raise EnforcementError("export dimensions must match the Figma root dimensions")
 
+    layout_roles = {}
+    layout_kinds = {}
     for asset in required(manifest, "figma.focalAssets"):
         if asset.get("centered") is not True and not asset.get("approvedException"):
             raise EnforcementError(f"standalone focal asset {asset.get('nodeId', '<unknown>')} is off-center without an approved exception")
+        role = asset.get("layoutRole")
+        if role:
+            center_x = finite_number(asset.get("centerX"), f"focal asset {asset.get('nodeId', '<unknown>')} centerX")
+            if role in layout_roles:
+                raise EnforcementError(f"three-subject layout has duplicate {role} roles")
+            layout_roles[role] = center_x
+            layout_kinds[role] = asset.get("kind")
+    if subject_count == 3:
+        expected_roles = {"left", "center", "right", "logo"}
+        if set(layout_roles) != expected_roles:
+            raise EnforcementError("three-subject layout requires exactly one left, center, right, and logo role")
+        if layout_kinds["logo"] != "logo":
+            raise EnforcementError("three-subject logo role must use kind logo")
+        for role in ("left", "center", "right"):
+            if layout_kinds[role] != "photo":
+                raise EnforcementError(f"three-subject {role} role must use kind photo")
+        if not values_match(layout_roles["center"], 960) or not values_match(layout_roles["logo"], 960):
+            raise EnforcementError("the logo and middle subject must share the 960 px centerline")
+        if layout_roles["left"] > 640 or layout_roles["right"] < 1280:
+            raise EnforcementError("side subjects must occupy the left and right thirds")
 
     timing = required(manifest, "timing")
     if not timing.get("transcriptPhrase") or timing.get("anchorVerified") is not True:
@@ -337,6 +491,12 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError("a duplicate final render folder in 23Projects is forbidden")
     if not values_match(finite_number(required(manifest, "premiere.approvedStartTime"), "approvedStartTime"), anchor):
         raise EnforcementError("Premiere start time must equal the verified transcript anchor")
+    approved_duration = finite_number(required(manifest, "premiere.approvedDuration"), "approvedDuration")
+    approved_end = finite_number(required(manifest, "premiere.approvedEndTime"), "approvedEndTime")
+    if approved_duration <= 0 or not values_match(approved_duration, padded_end):
+        raise EnforcementError("Premiere duration must equal the approved render duration")
+    if not values_match(approved_end, anchor + approved_duration):
+        raise EnforcementError("Premiere end time must equal start time plus duration")
 
     review = required(manifest, "review")
     if review.get("status") != "approved" or review.get("reviewer") != "Jerami":
@@ -344,6 +504,11 @@ def validate_manifest(manifest, require_export=False):
 
     if require_export:
         export = required(manifest, "export")
+        if lane == "asset swap" and (
+            export.get("artifactRole") != "final-premiere-render"
+            or export.get("backgroundPolicy") != "football-visible-baked"
+        ):
+            raise EnforcementError("Asset Swap Premiere delivery must be the finished football-visible Premiere render")
         if export.get("validationStatus") != "passed":
             raise EnforcementError("export validation has not passed")
         proof = export.get("motionProof") or {}
@@ -357,6 +522,15 @@ def validate_manifest(manifest, require_export=False):
         for cue_time in cue_scene_times:
             if not any(abs(sample_time - cue_time) <= frame_duration + TIMING_EPSILON for sample_time in proof_times):
                 raise EnforcementError(f"motion proof is missing cue sample near {cue_time}")
+        proof_frames = proof.get("frames") or []
+        if len(proof_frames) < 2:
+            raise EnforcementError("export needs at least two visible proof frames")
+        for frame in proof_frames:
+            frame_time = finite_number(frame.get("time"), "visible proof frame time")
+            if frame_time not in proof_times or frame.get("width") != 1920 or frame.get("height") != 1080:
+                raise EnforcementError("visible proof frames must be sampled 1920 x 1080 frames")
+            if not isinstance(frame.get("sha256"), str) or len(frame["sha256"]) != 64:
+                raise EnforcementError("visible proof frame hash is invalid")
         if not isinstance(export.get("fileSha256"), str) or len(export["fileSha256"]) != 64:
             raise EnforcementError("export file hash is invalid")
 
@@ -389,6 +563,12 @@ def load_receipt(root, manifest, directory, stage, previous_stage=None, require_
     review = receipt.get("review") or {}
     if review.get("status") != "approved" or review.get("reviewer") != "Jerami":
         raise EnforcementError(f"{stage} receipt lacks Jerami approval")
+    if stage in {"figma-to-export", "export-to-premiere"}:
+        evidence = receipt.get("evidence") or {}
+        if evidence.get("sourceRevision") != required(manifest, "figma.sourceRevision"):
+            raise EnforcementError(f"{stage} receipt does not bind the approved Figma source revision")
+        if evidence.get("proofFrames") != required(manifest, "export.motionProof.frames"):
+            raise EnforcementError(f"{stage} receipt does not bind the current visible proof frames")
     if previous_stage:
         previous = load_receipt(root, manifest, directory, previous_stage, PREVIOUS_STAGE.get(previous_stage))
         if receipt.get("previousReceiptSha256") != previous.get("receiptSha256"):
@@ -429,8 +609,19 @@ def is_scoped(root, manifest, tool_name, tool_input, payload=None):
     if tool_name in PREMIERE_DESTRUCTIVE:
         return True
     if tool_name in PREMIERE_READBACK and payload is not None:
-        text = response_text(payload)
-        return any(str(value) in text for value in (premiere.get("projectItemId"), premiere.get("timelineClipId"), premiere.get("treePath")) if value)
+        input_identifiers = {
+            tool_input.get("projectItemId"),
+            tool_input.get("clipId"),
+            tool_input.get("sequenceId"),
+        }
+        if input_identifiers & {premiere.get("projectItemId"), premiere.get("timelineClipId"), premiere.get("sequenceId")}:
+            return True
+        return any(
+            item.get("projectItemId") == premiere.get("projectItemId")
+            or item.get("clipId") == premiere.get("timelineClipId")
+            or item.get("treePath") == premiere.get("treePath")
+            for item in response_objects(payload.get("tool_response"))
+        )
     identifiers = {
         tool_input.get("projectItemId"),
         tool_input.get("newProjectItemId"),
@@ -519,9 +710,14 @@ def postflight(root, manifest, directory, tool_name, payload):
     premiere = manifest["premiere"]
 
     if tool_name == "mcp__codex_apps__figma_use_figma":
-        missing = [value for value in (figma["rootNodeId"], figma["sourceComponentId"], figma["episodeInstanceId"]) if value not in response]
-        if missing or "INSTANCE" not in response:
+        scene_readback = figma_scene_readback(payload.get("tool_response"), figma)
+        if scene_readback is None:
             raise EnforcementError("Figma readback did not confirm the root, source component, and episode instance")
+        if scene_readback.get("sourceRevision") != figma["sourceRevision"]:
+            raise EnforcementError("Figma readback did not confirm the current approved source revision")
+        if is_data_driven(manifest) and figma["background"] not in list(response_backgrounds(payload.get("tool_response"))):
+            raise EnforcementError("Figma readback did not confirm the locked no-football background and separate artwork")
+        validate_focal_asset_readback(manifest, payload.get("tool_response"))
         post_context("Lineups Figma mutation readback passed. Export still requires a current figma-to-export receipt.")
         return
     if tool_name == FIGMA_EXPORT:
@@ -546,11 +742,19 @@ def postflight(root, manifest, directory, tool_name, payload):
         post_context("Lineups timeline mutation returned the expected clip. Completion still requires sequence readback and a premiere-placement receipt.")
         return
     if tool_name in {"mcp__premiere_pro__get_full_sequence_info", "mcp__premiere_pro__get_clip_properties"}:
-        for value, label in ((premiere["timelineClipId"], "clip ID"), (premiere["sequenceId"], "sequence ID")):
-            if value not in response:
-                raise EnforcementError(f"Premiere placement readback is missing the expected {label}")
-        if str(premiere["approvedStartTime"]) not in response or str(premiere["trackIndex"]) not in response:
-            raise EnforcementError("Premiere placement readback is missing the approved start time or track")
+        clip = premiere_clip_readback(payload.get("tool_response"), premiere)
+        if clip is None:
+            raise EnforcementError("Premiere placement readback is missing the exact clip in the exact sequence")
+        actual_start = finite_number(clip.get("startTime"), "Premiere clip startTime")
+        actual_duration = finite_number(clip.get("duration"), "Premiere clip duration")
+        actual_end = finite_number(clip.get("endTime"), "Premiere clip endTime")
+        if (
+            clip.get("trackIndex") != premiere["trackIndex"]
+            or not values_match(actual_start, premiere["approvedStartTime"])
+            or not values_match(actual_duration, premiere["approvedDuration"])
+            or not values_match(actual_end, premiere["approvedEndTime"])
+        ):
+            raise EnforcementError("Premiere placement readback does not match the exact start, duration, end, and track")
         post_context("Lineups Premiere placement readback passed. Record the chained premiere-placement receipt before marking the scene complete.")
 
 

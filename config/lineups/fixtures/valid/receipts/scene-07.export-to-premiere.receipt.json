@@ -4,20 +4,47 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:10:00Z",
-  "manifestSha256": "5ed373b31248b0b36c7a2d67c32385b2220b8dbb6bb657725a137c97f0d4e39e",
+  "manifestSha256": "adefa35ebf8df3f969cab300d67cacfa33a0a68337bd16862fa5a51ee2e403a4",
   "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
-  "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "reviewedAt": "2026-08-27T16:05:00Z"
+  },
   "receiptId": "receipt-scene-07-export",
   "stage": "export-to-premiere",
-  "previousReceiptSha256": "f4586486d43db107803d91d356fa4a8c58532cfa1a34e69326f2f94d9e248027",
+  "previousReceiptSha256": "a8833e789d39499e6720f5dda60c12f799bc68f0824bf1e318cbb2b00aa414c8",
   "evidence": {
     "exportPath": "config/lineups/fixtures/valid/render-proof.mp4",
     "fileSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
     "motionProofStatus": "passed",
-    "motionSampleTimes": [0, 1.2, 3.4, 7.8, 14.1],
+    "motionSampleTimes": [
+      0,
+      1.2,
+      3.4,
+      7.8,
+      14.1
+    ],
     "eaglePath": "Episode / 06 Motion Renders",
     "motionEngine": "figma",
-    "cueSha256": "7c0914fdffdcd89b07b3bb3a8d04adc95705290ccd2bf14d39ebf20a1b63b95f"
+    "cueSha256": "7c0914fdffdcd89b07b3bb3a8d04adc95705290ccd2bf14d39ebf20a1b63b95f",
+    "sourceRevision": "figma-revision-current",
+    "proofFrames": [
+      {
+        "time": 0,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "time": 14.1,
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "artifactRole": "final-premiere-render",
+    "backgroundPolicy": "football-visible-baked"
   },
-  "receiptSha256": "2ac2623be59d8bc913465a0c0c24b3c1a54df18f5c90fd3e734b5bba1e9a048e"
+  "receiptSha256": "4e20c3db19ffd78ec837cbb4335eb18e65d505b4aafcb9ca3c09d599305744b7"
 }

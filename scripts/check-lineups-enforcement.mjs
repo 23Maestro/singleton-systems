@@ -9,6 +9,7 @@ import addFormats from "ajv-formats";
 
 import { canComplete, createTransaction, executeTransaction } from "../lib/transactions/engine.mjs";
 import { createLineupsReconciliation } from "../lib/transactions/lineups-adapter.mjs";
+import { hashValue } from "../lib/transactions/contract.mjs";
 
 const sourceRoot = process.cwd();
 const hook = path.join(sourceRoot, ".codex/hooks/lineups_enforcement.py");
@@ -70,6 +71,21 @@ function writeManifest(testCase, manifest) {
   fs.writeFileSync(testCase.manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
+function refreshReceiptChain(testCase) {
+  const manifestSha256 = hashValue(readManifest(testCase));
+  let previousReceiptSha256 = null;
+  for (const stage of ["figma-to-export", "export-to-premiere", "premiere-import", "premiere-placement"]) {
+    const receiptPath = path.join(testCase.receiptDir, `scene-07.${stage}.receipt.json`);
+    const receipt = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
+    receipt.manifestSha256 = manifestSha256;
+    receipt.previousReceiptSha256 = previousReceiptSha256;
+    delete receipt.receiptSha256;
+    receipt.receiptSha256 = hashValue(receipt);
+    previousReceiptSha256 = receipt.receiptSha256;
+    fs.writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
+  }
+}
+
 function expectAllowed(result, label) {
   assert.equal(result.status, 0, `${label}: hook exited ${result.status}: ${result.stderr}`);
   assert.equal(result.stdout.trim(), "", `${label}: expected allow, got ${result.stdout}`);
@@ -99,6 +115,23 @@ function pre(testCase, toolName, toolInput) {
 
 function post(testCase, toolName, toolInput, toolResponse) {
   return runHook(testCase, "PostToolUse", toolName, toolInput, toolResponse);
+}
+
+function figmaReadback(manifest, overrides = {}) {
+  return {
+    rootNodeId: manifest.figma.rootNodeId,
+    sourceComponentId: manifest.figma.sourceComponentId,
+    episodeInstanceId: manifest.figma.episodeInstanceId,
+    nodeType: "INSTANCE",
+    sourceRevision: manifest.figma.sourceRevision,
+    focalAssets: manifest.figma.focalAssets.map(({ nodeId, kind, layoutRole, centerX }) => ({
+      nodeId,
+      kind,
+      layoutRole,
+      opaqueBounds: { x: centerX - 100, y: 100, width: 200, height: 200 },
+    })),
+    ...overrides,
+  };
 }
 
 const hookConfig = JSON.parse(fs.readFileSync(path.join(sourceRoot, ".codex/hooks.json"), "utf8"));
@@ -144,6 +177,28 @@ function withCase(callback) {
 }
 
 try {
+  for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Rank Reveal"], ["recurring board", "Super Bowl Bubble Board"]]) {
+    withCase((testCase) => {
+      const m = readManifest(testCase);
+      m.scene.lane = lane; m.scene.approvedOption = option;
+      writeManifest(testCase, m);
+      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /figma.background/, `${option} missing background`);
+      m.figma.background = {setting: "Field Night / No football", nodeId: "background-node", imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70", locked: true, separateFromArtwork: true};
+      writeManifest(testCase, m);
+      assert.equal(validateManifestSchema(m), true, JSON.stringify(validateManifestSchema.errors));
+      expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), `${option} approved field`);
+      const response = {rootNodeId: m.figma.rootNodeId, sourceComponentId: m.figma.sourceComponentId, episodeInstanceId: m.figma.episodeInstanceId, nodeType: "INSTANCE", sourceRevision: m.figma.sourceRevision};
+      expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, response), /locked no-football background/, `${option} missing background readback`);
+      expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, {content: [{type: "text", text: JSON.stringify({...response, background: m.figma.background})}]}), /Figma mutation readback passed/, `${option} background readback`);
+      const wrong = {...m.figma.background, imageHash: "f".repeat(40)};
+      expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, {...response, background: wrong}), /locked no-football background/, `${option} changed art readback`);
+      m.figma.background = wrong; writeManifest(testCase, m);
+      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /approved no-football/, `${option} wrong art`);
+      m.figma.background.imageHash = "6c84d05a7f038c5e3f9f14a4103cd9b533251e70";
+      m.figma.background.separateFromArtwork = false; writeManifest(testCase, m);
+      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /separate from transparent artwork/, `${option} baked background`);
+    });
+  }
   withCase((testCase) => {
     expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), "approved Figma transaction");
 
@@ -174,15 +229,26 @@ try {
       "missing accessibility skill",
     );
 
+    const manifest = readManifest(testCase);
     expectPostPass(
-      post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, {
-        rootNodeId: "428:9000",
-        sourceComponentId: "428:8000",
-        episodeInstanceId: "428:9001",
-        nodeType: "INSTANCE",
-      }),
+      post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, figmaReadback(manifest)),
       /Figma mutation readback passed/,
       "Figma readback",
+    );
+    const offAxisAssets = figmaReadback(manifest).focalAssets.map((asset) =>
+      asset.layoutRole === "logo"
+        ? { ...asset, opaqueBounds: { ...asset.opaqueBounds, x: asset.opaqueBounds.x - 180 } }
+        : asset,
+    );
+    expectPostBlock(
+      post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, figmaReadback(manifest, { focalAssets: offAxisAssets })),
+      /opaque bounds.*960 px centerline/,
+      "off-axis opaque logo bounds",
+    );
+    expectPostBlock(
+      post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, figmaReadback(manifest, { sourceRevision: "figma-revision-stale" })),
+      /current approved source revision/,
+      "stale Figma mutation readback",
     );
   });
 
@@ -206,6 +272,13 @@ try {
 
   for (const [label, mutate, pattern] of [
     ["off-center focal asset", (m) => { m.figma.focalAssets[0].centered = false; }, /off-center without an approved exception/],
+    ["repeated episode source", (m) => { m.figma.assetLedger[1].sourceId = m.figma.assetLedger[0].sourceId; }, /only once per episode/],
+    ["misaligned center subject", (m) => { m.figma.focalAssets.find(({layoutRole}) => layoutRole === "center").centerX = 910; }, /share the 960 px centerline/],
+    ["missing centered logo", (m) => { m.figma.focalAssets = m.figma.focalAssets.filter(({layoutRole}) => layoutRole !== "logo"); }, /exactly one left, center, right, and logo role/],
+    ["incomplete three-subject roles", (m) => { m.figma.focalAssets = m.figma.focalAssets.filter(({layoutRole}) => !["right", "logo"].includes(layoutRole)); }, /exactly one left, center, right, and logo role/],
+    ["duplicate three-subject role", (m) => { m.figma.focalAssets.push({...m.figma.focalAssets.find(({layoutRole}) => layoutRole === "left"), nodeId: "duplicate-left"}); }, /duplicate left roles/],
+    ["wrong three-subject logo kind", (m) => { m.figma.focalAssets.find(({layoutRole}) => layoutRole === "logo").kind = "photo"; }, /logo role must use kind logo/],
+    ["missing approved source revision", (m) => { delete m.figma.sourceRevision; }, /figma.sourceRevision/],
     ["fade-out", (m) => { m.figma.motionTracks[0].keyframes.at(-1).value = 0; }, /fades visible content back out/],
     ["zero opacity row", (m) => { m.figma.motionTracks[0].keyframes = [{ time: 0, value: 0 }, { time: 14.2, value: 0 }]; }, /remains 0 -> 0/],
     ["track exceeds root", (m) => { m.figma.motionTracks[1].duration = 14.3; }, /exceeds the root duration/],
@@ -293,6 +366,22 @@ try {
   });
 
   withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.export.artifactRole = "alpha-helper";
+    manifest.export.backgroundPolicy = "transparent";
+    writeManifest(testCase, manifest);
+    refreshReceiptChain(testCase);
+    expectDenied(
+      pre(testCase, "mcp__premiere_pro__import_media", {
+        filePath: path.join(testCase.fixture, "render-proof.mp4"),
+        binName: "06 Motion Renders",
+      }),
+      /finished football-visible Premiere render/,
+      "Asset Swap alpha helper import",
+    );
+  });
+
+  withCase((testCase) => {
     const receiptPath = path.join(testCase.receiptDir, "scene-07.export-to-premiere.receipt.json");
     const receipt = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
     receipt.status = "failed";
@@ -301,6 +390,50 @@ try {
       pre(testCase, "mcp__premiere_pro__import_media", { filePath: path.join(testCase.fixture, "render-proof.mp4"), binName: "06 Motion Renders" }),
       /receipt hash is stale or invalid/,
       "failed or tampered receipt",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.figma.sourceRevision = "figma-revision-current";
+    writeManifest(testCase, manifest);
+    const receiptPath = path.join(testCase.receiptDir, "scene-07.figma-to-export.receipt.json");
+    const receipt = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
+    receipt.evidence.sourceRevision = "figma-revision-stale";
+    fs.writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
+    refreshReceiptChain(testCase);
+    expectDenied(
+      pre(testCase, "mcp__premiere_pro__import_media", {
+        filePath: path.join(testCase.fixture, "render-proof.mp4"),
+        binName: "06 Motion Renders",
+      }),
+      /approved Figma source revision/,
+      "stale Figma source revision receipt",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.export.motionProof.frames = [
+      { time: 0, sha256: "a".repeat(64), width: 1920, height: 1080 },
+      { time: 14.1, sha256: "b".repeat(64), width: 1920, height: 1080 },
+    ];
+    writeManifest(testCase, manifest);
+    const receiptPath = path.join(testCase.receiptDir, "scene-07.figma-to-export.receipt.json");
+    const receipt = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
+    receipt.evidence.proofFrames = [
+      { time: 0, sha256: "c".repeat(64), width: 1920, height: 1080 },
+      { time: 14.1, sha256: "b".repeat(64), width: 1920, height: 1080 },
+    ];
+    fs.writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
+    refreshReceiptChain(testCase);
+    expectDenied(
+      pre(testCase, "mcp__premiere_pro__import_media", {
+        filePath: path.join(testCase.fixture, "render-proof.mp4"),
+        binName: "06 Motion Renders",
+      }),
+      /current visible proof frames/,
+      "stale visible proof frame receipt",
     );
   });
 
@@ -363,10 +496,32 @@ try {
     expectPostPass(
       post(testCase, "mcp__premiere_pro__get_full_sequence_info", { sequenceId: "sequence-lineups-01" }, {
         sequenceId: "sequence-lineups-01",
-        clips: [{ clipId: "timeline-clip-scene-07", trackIndex: 2, startTime: 312.4 }],
+        clips: [{ clipId: "timeline-clip-scene-07", trackIndex: 2, startTime: 312.4, duration: 14.2, endTime: 326.6 }],
       }),
       /placement readback passed/,
       "valid placement readback",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.premiere.approvedDuration = 14.2;
+    manifest.premiere.approvedEndTime = 326.6;
+    writeManifest(testCase, manifest);
+    refreshReceiptChain(testCase);
+    expectPostBlock(
+      post(testCase, "mcp__premiere_pro__get_full_sequence_info", { sequenceId: "sequence-lineups-01" }, {
+        sequenceId: "sequence-lineups-01",
+        clips: [{
+          clipId: "timeline-clip-scene-07",
+          trackIndex: 2,
+          startTime: 6312.4,
+          duration: 1,
+          endTime: 6313.4,
+        }],
+      }),
+      /exact start, duration, end, and track/,
+      "deceptive Premiere placement readback",
     );
   });
 

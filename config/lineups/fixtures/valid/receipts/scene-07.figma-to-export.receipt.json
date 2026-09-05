@@ -4,9 +4,13 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:05:00Z",
-  "manifestSha256": "5ed373b31248b0b36c7a2d67c32385b2220b8dbb6bb657725a137c97f0d4e39e",
+  "manifestSha256": "adefa35ebf8df3f969cab300d67cacfa33a0a68337bd16862fa5a51ee2e403a4",
   "artifactSha256": null,
-  "review": { "status": "approved", "reviewer": "Jerami", "reviewedAt": "2026-08-27T16:05:00Z" },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "reviewedAt": "2026-08-27T16:05:00Z"
+  },
   "receiptId": "receipt-scene-07-figma",
   "stage": "figma-to-export",
   "previousReceiptSha256": null,
@@ -16,6 +20,21 @@
     "rootNodeId": "428:9000",
     "sourceComponentId": "428:8000",
     "episodeInstanceId": "428:9001",
+    "sourceRevision": "figma-revision-current",
+    "proofFrames": [
+      {
+        "time": 0,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "time": 14.1,
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
     "nodeType": "INSTANCE",
     "width": 1920,
     "height": 1080,
@@ -24,5 +43,5 @@
     "motionEngine": "figma",
     "cueSha256": "7c0914fdffdcd89b07b3bb3a8d04adc95705290ccd2bf14d39ebf20a1b63b95f"
   },
-  "receiptSha256": "f4586486d43db107803d91d356fa4a8c58532cfa1a34e69326f2f94d9e248027"
+  "receiptSha256": "a8833e789d39499e6720f5dda60c12f799bc68f0824bf1e318cbb2b00aa414c8"
 }
