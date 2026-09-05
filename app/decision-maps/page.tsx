@@ -18,6 +18,18 @@ export const metadata: Metadata = {
 
 const decisionMaps = [
   {
+    label: "CYB session thesis and one-hour flow",
+    href: "/decision-maps/2026-09-04-cyb-session-plan/index.html",
+    tags: ["1 Hour", "AI Consulting", "October 14"],
+    accent: "border-[#7c3aed] text-[#7c3aed] dark:text-[#c4b5fd]",
+  },
+  {
+    label: "CYB case studies",
+    href: "/decision-maps/2026-09-04-cyb-case-studies/index.html",
+    tags: ["HNOC", "Catena Lineups", "Proof"],
+    accent: "border-[#15985d] text-[#15985d] dark:text-[#62f2aa]",
+  },
+  {
     label: "Command K9 Edit Style Profile",
     href: "/decision-maps/2026-08-24-command-k9-reference-edit-profile/index.html",
     tags: ["8:51", "65 States", "Reference Audit"],
