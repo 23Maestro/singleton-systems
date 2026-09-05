@@ -9,7 +9,8 @@
     "sceneId": "scene-07",
     "lane": "asset swap",
     "approvedOption": "asset swap",
-    "setting": "three transcript-timed entrances"
+    "setting": "three transcript-timed entrances",
+    "subjectCount": 3
   },
   "figma": {
     "fileKey": "LINEUPS_FILE_KEY",
@@ -17,12 +18,22 @@
     "rootNodeId": "428:9000",
     "sourceComponentId": "428:8000",
     "episodeInstanceId": "428:9001",
+    "sourceRevision": "figma-revision-current",
     "episodeUsesInstance": true,
     "rootDimensions": { "width": 1920, "height": 1080 },
     "exposedSlots": ["Logo", "Headline", "Subject A", "Subject B", "Reveal timing"],
     "allowedReplacementProperties": ["Logo", "Headline", "Subject A", "Subject B", "Reveal timing"],
+    "assetLedger": [
+      { "sceneId": "scene-07", "slotId": "logo", "sourceId": "eagles-logo", "imageHash": "hash-eagles-logo" },
+      { "sceneId": "scene-07", "slotId": "left", "sourceId": "subject-left", "imageHash": "hash-subject-left" },
+      { "sceneId": "scene-07", "slotId": "center", "sourceId": "subject-center", "imageHash": "hash-subject-center" },
+      { "sceneId": "scene-07", "slotId": "right", "sourceId": "subject-right", "imageHash": "hash-subject-right" }
+    ],
     "focalAssets": [
-      { "nodeId": "428:9002", "kind": "logo", "centered": true, "approvedException": null }
+      { "nodeId": "428:9002", "kind": "logo", "centered": true, "approvedException": null, "layoutRole": "logo", "centerX": 960 },
+      { "nodeId": "428:9003", "kind": "photo", "centered": true, "approvedException": null, "layoutRole": "left", "centerX": 320 },
+      { "nodeId": "428:9004", "kind": "photo", "centered": true, "approvedException": null, "layoutRole": "center", "centerX": 960 },
+      { "nodeId": "428:9005", "kind": "photo", "centered": true, "approvedException": null, "layoutRole": "right", "centerX": 1600 }
     ],
     "motionTracks": [
       {
@@ -118,12 +129,18 @@
     "dimensions": { "width": 1920, "height": 1080 },
     "path": "config/lineups/fixtures/valid/render-proof.mp4",
     "fileSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
+    "artifactRole": "final-premiere-render",
+    "backgroundPolicy": "football-visible-baked",
     "validationStatus": "passed",
     "motionProof": {
       "type": "validation-sample",
       "engine": "figma",
       "status": "passed",
-      "sampleTimes": [0, 1.2, 3.4, 7.8, 14.1]
+      "sampleTimes": [0, 1.2, 3.4, 7.8, 14.1],
+      "frames": [
+        { "time": 0, "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "width": 1920, "height": 1080 },
+        { "time": 14.1, "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "width": 1920, "height": 1080 }
+      ]
     }
   },
   "ownership": {
@@ -134,6 +151,8 @@
     "sequenceId": "sequence-lineups-01",
     "trackIndex": 2,
     "approvedStartTime": 312.4,
+    "approvedDuration": 14.2,
+    "approvedEndTime": 326.6,
     "projectItemId": "project-item-scene-07",
     "treePath": "BIGTEN-SEC-01/06 Motion Renders/scene-07.mp4",
     "labelReadback": "Caribbean",
