@@ -13,5 +13,6 @@ for (const size of [192, 512]) await sharp(Buffer.from(darkMark)).resize(size, s
 await sharp(Buffer.from(darkMark)).resize(180, 180).png().toFile("public/ledger/apple-touch-icon.png");
 const png = await sharp(Buffer.from(darkMark)).resize(48, 48).png().toBuffer();
 const header = Buffer.alloc(22); header.writeUInt16LE(1,2); header.writeUInt16LE(1,4); header[6]=48; header[7]=48; header.writeUInt16LE(1,10); header.writeUInt16LE(32,12); header.writeUInt32LE(png.length,14); header.writeUInt32LE(22,18);
-await fs.writeFile("public/ledger/favicon.ico", Buffer.concat([header,png]));
+const favicon = Buffer.concat([header,png]);
+for (const path of ["app/favicon.ico", "public/ledger/favicon.ico"]) await fs.writeFile(path, favicon);
 console.log("Generated SVG, 48px ICO, 180px Apple, and 192/512px app icons.");

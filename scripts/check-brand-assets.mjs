@@ -80,6 +80,14 @@ assert.ok(
   `${REFERENCE_PNG} is missing — it is the reference render for the wordmark`
 );
 
+const ROOT_FAVICON = fs.readFileSync(path.join(root, "app/favicon.ico"));
+const FINANCES_FAVICON = fs.readFileSync(path.join(root, "public/ledger/favicon.ico"));
+assert.deepEqual(
+  ROOT_FAVICON,
+  FINANCES_FAVICON,
+  "app/favicon.ico must match the Finances favicon generated from the outlined S asterisk"
+);
+
 /**
  * Every logo reference in the app must resolve to an approved asset.
  *

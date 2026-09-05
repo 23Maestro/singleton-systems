@@ -33,11 +33,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: [
-      { url: "/ledger/favicon.ico?v=ss4", sizes: "48x48" },
-      { url: "/icon.svg?v=ss4", type: "image/svg+xml" },
-    ],
-    apple: "/ledger/apple-touch-icon.png?v=ss4",
+    icon: [{ url: "/icon.svg?v=ss5", type: "image/svg+xml" }],
+    apple: "/apple-icon.svg?v=ss5",
   },
   openGraph: {
     type: "website",
