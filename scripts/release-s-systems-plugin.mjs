@@ -140,23 +140,16 @@ export function cacheVersions(cacheRoot) {
     .sort();
 }
 
-export function moveStaleCaches(cacheRoot, currentVersion, trashRoot, parityVerified) {
-  assert.equal(parityVerified, true, "refusing to prune caches before installed parity passes");
+export function assertCacheRetention(cacheRoot, currentVersion, versionsBeforeRelease) {
   assert.ok(fs.existsSync(path.join(cacheRoot, currentVersion)), `missing current cache ${currentVersion}`);
-  const stale = cacheVersions(cacheRoot).filter((version) => version !== currentVersion);
-  if (stale.length === 0) return [];
-  fs.mkdirSync(trashRoot, { recursive: true });
-  const stamp = localTimestamp();
-  return stale.map((version, index) => {
-    const source = path.join(cacheRoot, version);
-    let destination = path.join(trashRoot, `s-systems-codex-cache-${version}-${stamp}`);
-    if (fs.existsSync(destination)) destination = `${destination}-${index + 1}`;
-    fs.renameSync(source, destination);
-    return { version, destination };
-  });
+  const after = cacheVersions(cacheRoot);
+  for (const version of versionsBeforeRelease) {
+    assert.ok(after.includes(version), `release removed cache version ${version} referenced by an active task`);
+  }
+  return after.filter((version) => version !== currentVersion);
 }
 
-function printPlan({ currentVersion, releaseVersion, files, cacheRoot, stale, mirrors }) {
+function printPlan({ currentVersion, releaseVersion, files, cacheRoot, retained, mirrors }) {
   console.log(`Current version: ${currentVersion}`);
   console.log(`Release version: ${releaseVersion}`);
   console.log("Manifest updates:");
@@ -164,7 +157,7 @@ function printPlan({ currentVersion, releaseVersion, files, cacheRoot, stale, mi
   console.log("Mirror targets:");
   for (const mirror of mirrors) console.log(`- ${mirror}`);
   console.log(`Installed cache: ${path.join(cacheRoot, releaseVersion)}`);
-  console.log(`Stale caches after release: ${stale.length ? stale.join(", ") : "none"}`);
+  console.log(`Existing caches retained for active tasks: ${retained.length ? retained.join(", ") : "none"}`);
 }
 
 export function main(argv = process.argv.slice(2)) {
@@ -177,11 +170,12 @@ export function main(argv = process.argv.slice(2)) {
   const releaseVersion = nextVersion(currentVersion, requestedVersion);
   const cacheRoot = path.join(home, ".codex", "plugins", "cache", "singleton23-local", "s-systems");
   const releaseCache = path.join(cacheRoot, releaseVersion);
-  const stale = cacheVersions(cacheRoot).filter((entry) => entry !== releaseVersion);
+  const existingCaches = cacheVersions(cacheRoot);
   const mirrors = [path.join(home, "plugins", "s-systems"), path.join(home, ".claude", "plugins-dev", "s-systems")];
 
   assert.ok(!fs.existsSync(releaseCache), `release cache already exists: ${releaseCache}`);
 
+  runNpm(root, "check:agents");
   runNpm(root, "check:skills");
   runNpm(root, "check:cerebral");
   runNpm(root, "check:cerebral:hook-routing");
@@ -189,7 +183,7 @@ export function main(argv = process.argv.slice(2)) {
   runNpm(root, "check:drift");
   run("git", ["diff", "--check"], { cwd: root });
 
-  printPlan({ currentVersion, releaseVersion, files, cacheRoot, stale, mirrors });
+  printPlan({ currentVersion, releaseVersion, files, cacheRoot, retained: existingCaches, mirrors });
   if (dryRun) {
     run(process.execPath, [path.join(root, "scripts", "sync-s-systems-mirrors.mjs")], { cwd: root });
     console.log("\nDry run complete. No manifests, mirrors, plugin config, or caches were changed.");
@@ -206,11 +200,8 @@ export function main(argv = process.argv.slice(2)) {
     assertInstalledPlugin(JSON.parse(listOutput), releaseVersion);
     runNpm(root, "check:skills:installed");
 
-    const moved = moveStaleCaches(cacheRoot, releaseVersion, path.join(home, ".Trash"), true);
-    for (const entry of moved) console.log(`moved stale cache ${entry.version} to ${entry.destination}`);
-
-    const remaining = cacheVersions(cacheRoot);
-    assert.deepEqual(remaining, [releaseVersion], `unexpected cache versions remain: ${remaining.join(", ")}`);
+    const retained = assertCacheRetention(cacheRoot, releaseVersion, existingCaches);
+    for (const version of retained) console.log(`retained cache ${version} for active tasks`);
     runNpm(root, "check:skills:installed");
   } catch (error) {
     restoreFiles(manifestSnapshots);
