@@ -1,0 +1,207 @@
+[
+  {
+    "id": "google",
+    "file": "google-hq.png",
+    "provider": "https://workspace.google.com",
+    "assetSource": "https://www.gstatic.com/images/branding/product/2x/googleg_96dp.png",
+    "width": 192,
+    "height": 192
+  },
+  {
+    "id": "chatgpt",
+    "file": "chatgpt.png",
+    "provider": "https://chatgpt.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64"
+  },
+  {
+    "id": "raycast",
+    "file": "raycast-hq.png",
+    "provider": "https://raycast.com",
+    "assetSource": "https://raycast.com/favicon-production.png",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "id": "figma",
+    "file": "figma-hq.svg",
+    "provider": "https://figma.com",
+    "assetSource": "https://static.figma.com/app/icon/2/favicon.svg",
+    "width": 64,
+    "height": 64
+  },
+  {
+    "id": "screenstudio",
+    "file": "screenstudio-hq.png",
+    "provider": "https://screen.studio",
+    "assetSource": "https://screen.studio/icon.png",
+    "width": 401,
+    "height": 401
+  },
+  {
+    "id": "cleo",
+    "file": "cleo.png",
+    "provider": "https://meetcleo.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=meetcleo.com&sz=64"
+  },
+  {
+    "id": "envato",
+    "file": "envato.png",
+    "provider": "https://elements.envato.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=elements.envato.com&sz=64"
+  },
+  {
+    "id": "brigit",
+    "file": "brigit-hq.png",
+    "provider": "https://hellobrigit.com",
+    "assetSource": "https://www.hellobrigit.com/wp-content/uploads/2026/06/cropped-BG-Do-not-export-12-192x192.png",
+    "width": 192,
+    "height": 192
+  },
+  {
+    "id": "albert",
+    "file": "albert-hq.png",
+    "provider": "https://albert.com",
+    "assetSource": "https://albert.com/_next_public/assets/android-chrome-512x512.png",
+    "width": 192,
+    "height": 192
+  },
+  {
+    "id": "cashapp",
+    "file": "cashapp-hq.svg",
+    "provider": "https://cash.app",
+    "assetSource": "https://cdn.simpleicons.org/cashapp/00D64F",
+    "width": 24,
+    "height": 24
+  },
+  {
+    "id": "chime",
+    "file": "chime.png",
+    "provider": "https://chime.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=chime.com&sz=64"
+  },
+  {
+    "id": "earnin",
+    "file": "earnin.png",
+    "provider": "https://earnin.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=earnin.com&sz=64"
+  },
+  {
+    "id": "dave",
+    "file": "dave.jpg",
+    "provider": "https://dave.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=dave.com&sz=64"
+  },
+  {
+    "id": "creditgenie",
+    "file": "creditgenie.png",
+    "provider": "https://creditgenie.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=creditgenie.com&sz=64"
+  },
+  {
+    "id": "grant",
+    "file": "grant.jpg",
+    "provider": "https://grantcash.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=grantcash.com&sz=64"
+  },
+  {
+    "id": "klarna",
+    "file": "klarna.png",
+    "provider": "https://klarna.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=klarna.com&sz=64"
+  },
+  {
+    "id": "zip",
+    "file": "zip.png",
+    "provider": "https://zip.co",
+    "assetSource": "https://www.google.com/s2/favicons?domain=zip.co&sz=64"
+  },
+  {
+    "id": "tilt",
+    "file": "tilt.png",
+    "provider": "https://tilt.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=tilt.com&sz=64"
+  },
+  {
+    "id": "moneylion",
+    "file": "moneylion.png",
+    "provider": "https://moneylion.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=moneylion.com&sz=64"
+  },
+  {
+    "id": "vola",
+    "file": "vola-hq.png",
+    "provider": "https://volafinance.com",
+    "assetSource": "https://volafinance.com/_next/static/media/apple-touch-icon.7507e32a.png",
+    "width": 180,
+    "height": 180
+  },
+  {
+    "id": "apple",
+    "file": "apple.png",
+    "provider": "https://apple.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=apple.com&sz=64"
+  },
+  {
+    "id": "macys",
+    "file": "macys.png",
+    "provider": "https://macys.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=macys.com&sz=64"
+  },
+  {
+    "id": "discover",
+    "file": "discover-hq.svg",
+    "provider": "https://discover.com",
+    "assetSource": "https://www.discover.com/content/dam/discover/en_us/global/logos/discover-logo.svg",
+    "width": 190,
+    "height": 37
+  },
+  {
+    "id": "hsn",
+    "file": "hsn-hq.png",
+    "provider": "https://hsn.com",
+    "assetSource": "https://www.hsn.com/cassette.axd/file/apple-touch-icon-120x120-af968907bda9afbe9cfff7bc04e1ebb80a5fb806.png",
+    "width": 120,
+    "height": 120
+  },
+  {
+    "id": "instaloan",
+    "file": "instaloan.png",
+    "provider": "https://instaloan.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=instaloan.com&sz=64"
+  },
+  {
+    "id": "usaa",
+    "file": "usaa.png",
+    "provider": "https://usaa.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=usaa.com&sz=64"
+  },
+  {
+    "id": "geico",
+    "file": "geico.png",
+    "provider": "https://geico.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=geico.com&sz=64"
+  },
+  {
+    "id": "spectrum",
+    "file": "spectrum.png",
+    "provider": "https://spectrum.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=spectrum.com&sz=64"
+  },
+  {
+    "id": "frontier",
+    "file": "frontier.png",
+    "provider": "https://frontier.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=frontier.com&sz=64"
+  },
+  {
+    "id": "directauto",
+    "file": "directauto.png",
+    "provider": "https://directauto.com",
+    "assetSource": "https://www.google.com/s2/favicons?domain=directauto.com&sz=64"
+  },
+  {
+    "file": "dumbbell.svg",
+    "provider": "https://lucide.dev",
+    "assetSource": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/dumbbell.svg"
+  }
+]

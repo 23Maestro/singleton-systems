@@ -34,10 +34,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico?v=ss3" },
-      { url: "/icon.svg?v=ss3", type: "image/svg+xml" },
+      { url: "/ledger/favicon.ico?v=ss4", sizes: "48x48" },
+      { url: "/icon.svg?v=ss4", type: "image/svg+xml" },
     ],
-    apple: "/apple-icon.svg?v=ss3",
+    apple: "/ledger/apple-touch-icon.png?v=ss4",
   },
   openGraph: {
     type: "website",

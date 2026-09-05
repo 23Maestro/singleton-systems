@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Singleton Systems icon">
-  <style>
-    .tile { fill: #ffffff; }
-    .mark { fill: #050505; }
-  </style>
-  <rect width="64" height="64" class="tile"/>
-  <text x="32" y="52" text-anchor="middle" class="mark" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="400" textLength="58" lengthAdjust="spacingAndGlyphs">SS</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="Singleton Systems S asterisk">
+<style>@media(prefers-color-scheme:dark){.tile{fill:#08090b}.ink{fill:#fff}.star{stroke:#fff}}</style><rect class="tile" width="512" height="512" rx="132" fill="#fff"/>
+<g class="ink" fill="#08090b">
+<path d="M236.43 364.64Q193.80 364.64 170.31 344.77Q146.82 324.91 144.50 290.98L201.05 288.37Q203.37 303.45 211.93 311.72Q220.48 319.98 237.01 319.98Q250.06 319.98 257.16 315.49Q264.27 310.99 264.27 302Q264.27 296.49 261.51 292.29Q258.76 288.08 250.78 284.75Q242.81 281.41 227.15 278.22Q199.02 272.42 181.62 264.74Q164.22 257.05 156.25 244.87Q148.27 232.69 148.27 213.84Q148.27 194.70 158.13 180.20Q167.99 165.70 186.55 157.58Q205.11 149.46 231.21 149.46Q258.76 149.46 277.32 158.74Q295.88 168.02 306.17 184.26Q316.47 200.50 318.50 221.96L262.53 224.28Q261.37 210.07 253.10 202.09Q244.84 194.12 230.63 194.12Q218.45 194.12 211.78 199.05Q205.11 203.98 205.11 212.10Q205.11 221.67 212.79 226.75Q220.48 231.82 240.49 235.30Q270.94 240.52 288.63 249.51Q306.32 258.50 313.71 270.97Q321.11 283.44 321.11 299.68Q321.11 329.84 298.78 347.24Q276.45 364.64 236.43 364.64Z"/>
+</g>
+<!-- Low asterisk replaces the period. Its bounds clear the S by 14px. -->
+<g class="star" stroke="#08090b" stroke-width="10" stroke-linecap="square" transform="translate(357 340) scale(.95)"><path d="M0-22V22M-19-11L19 11M-19 11L19-11"/></g>
 </svg>
