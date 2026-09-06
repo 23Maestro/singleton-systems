@@ -62,6 +62,10 @@ const checks = [
     must: ["references/lineups-treatment-system.md", "seven lanes", "lane, option, and setting"],
   },
   {
+    file: skillPath("eagle-skill"),
+    must: ["references/lineups-asset-naming.md", "scripts/lineups-asset-gate.mjs", "locked gate in dry-run mode"],
+  },
+  {
     file: skillPath("portfolio-evidence-capture"),
     must: [
       "Portfolio checkpoint available",

@@ -5,6 +5,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { downloadAsset } from "../plugins/s-systems/skills/eagle-skill/scripts/frameio-share-download.mjs";
 import { matchingEagleItems } from "../plugins/s-systems/skills/eagle-skill/scripts/client-auto-ingest.mjs";
+import { nextNames, planUpdates } from "../plugins/s-systems/skills/eagle-skill/scripts/lineups-asset-gate.mjs";
 
 const root = process.cwd();
 const fixture = fs.mkdtempSync(path.join(os.tmpdir(), "client-content-editor-prep-check-"));
@@ -98,8 +99,33 @@ try {
     { path: "/fixture/clip.mov", size: 3 },
   );
   assert.equal(duplicateMatches.length, 2);
+
+  const lockedNames = nextNames(
+    ["mike-tomlin-1", "patrick-mahomes-11"],
+    [
+      { id: "tomlin", subject: "Mike Tomlin", league: "NFL", team: "Pittsburgh Steelers", role: "Coach", photoType: "Action", confidence: "high" },
+      { id: "mahomes", subject: "Patrick Mahomes", league: "NFL", team: "Kansas City Chiefs", role: "Player", photoType: "Transparent", confidence: "high" },
+      { id: "steelers", subject: "Pittsburgh Steelers", league: "NFL", team: "Pittsburgh Steelers", role: null, photoType: "Logo", confidence: "high" },
+    ],
+  );
+  assert.deepEqual(lockedNames, [
+    { id: "tomlin", name: "mike-tomlin-2", tags: ["NFL", "Pittsburgh Steelers", "Coach", "Action"] },
+    { id: "mahomes", name: "patrick-mahomes-12", tags: ["NFL", "Kansas City Chiefs", "Player", "Transparent"] },
+    { id: "steelers", name: "pittsburgh-steelers-1", tags: ["NFL", "Pittsburgh Steelers", "Logo"] },
+  ]);
+  assert.throws(
+    () => nextNames([], [{ id: "guess", subject: "Unknown", league: "NFL", team: "Pittsburgh Steelers", role: "Player", photoType: "Action", confidence: "review" }]),
+    /identity needs review/,
+  );
+  assert.equal(
+    planUpdates(
+      [{ id: "tomlin", name: "mike-tomlin-1" }],
+      [{ id: "tomlin", subject: "Mike Tomlin", league: "NFL", team: "Pittsburgh Steelers", role: "Coach", photoType: "Action", confidence: "high" }],
+    )[0].name,
+    "mike-tomlin-1",
+  );
 } finally {
   fs.rmSync(fixture, { recursive: true, force: true });
 }
 
-console.log("Client content editor prep checks passed: safe outputs, empty and incomplete manifests, exact partial resume, and ambiguous Eagle readback.");
+console.log("Client content editor prep checks passed: safe outputs, manifest reconciliation, exact resume, Eagle readback, and locked Lineups names and tags.");

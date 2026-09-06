@@ -27,3 +27,20 @@ Never use Eagle as task state or a code runtime. For client video asset placemen
 Premiere boundaries, or review staging, read `references/client-edit-boundaries.md`.
 To pick the motion engine for a beat and record the delivery envelope, read
 `references/motion-engine-routing.md`.
+
+For NFL or CFB people and logos, read
+`references/lineups-asset-naming.md`. Never invent names or tags from the
+prompt. Run the locked gate in dry-run mode, show its exact output, then add
+`--apply` only after approval:
+
+```bash
+node plugins/s-systems/skills/eagle-skill/scripts/lineups-asset-gate.mjs --proposals proposals.json
+```
+
+To identify local images with the signed-in Codex subscription, pass a JSON
+manifest containing `items` with `id` and `imagePath`. This does not require an
+API key:
+
+```bash
+node plugins/s-systems/skills/eagle-skill/scripts/lineups-asset-gate.mjs --identify images.json
+```

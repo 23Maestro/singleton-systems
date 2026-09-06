@@ -149,6 +149,24 @@ export function assertCacheRetention(cacheRoot, currentVersion, versionsBeforeRe
   return after.filter((version) => version !== currentVersion);
 }
 
+export function backupCaches(cacheRoot, versions) {
+  const backupRoot = fs.mkdtempSync(path.join(os.tmpdir(), "s-systems-cache-backup-"));
+  for (const version of versions) {
+    const source = path.join(cacheRoot, version);
+    if (fs.existsSync(source)) fs.cpSync(source, path.join(backupRoot, version), { recursive: true });
+  }
+  return backupRoot;
+}
+
+export function restoreMissingCaches(cacheRoot, backupRoot, versions) {
+  fs.mkdirSync(cacheRoot, { recursive: true });
+  for (const version of versions) {
+    const destination = path.join(cacheRoot, version);
+    const backup = path.join(backupRoot, version);
+    if (!fs.existsSync(destination) && fs.existsSync(backup)) fs.cpSync(backup, destination, { recursive: true });
+  }
+}
+
 function printPlan({ currentVersion, releaseVersion, files, cacheRoot, retained, mirrors }) {
   console.log(`Current version: ${currentVersion}`);
   console.log(`Release version: ${releaseVersion}`);
@@ -190,11 +208,13 @@ export function main(argv = process.argv.slice(2)) {
     return;
   }
 
+  const cacheBackup = backupCaches(cacheRoot, existingCaches);
   const manifestSnapshots = snapshotFiles(files);
   try {
     writeManifestVersions(files, releaseVersion);
     run(process.execPath, [path.join(root, "scripts", "sync-s-systems-mirrors.mjs"), "--apply"], { cwd: root });
     run("codex", ["plugin", "add", PLUGIN_ID, "--json"], { cwd: root });
+    restoreMissingCaches(cacheRoot, cacheBackup, existingCaches);
 
     const listOutput = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
     assertInstalledPlugin(JSON.parse(listOutput), releaseVersion);
@@ -215,6 +235,7 @@ export function main(argv = process.argv.slice(2)) {
         fs.renameSync(releaseCache, destination);
       }
       run("codex", ["plugin", "add", PLUGIN_ID, "--json"], { cwd: root });
+      restoreMissingCaches(cacheRoot, cacheBackup, existingCaches);
       const rollbackList = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
       assertInstalledPlugin(JSON.parse(rollbackList), currentVersion);
       runNpm(root, "check:skills:installed");
@@ -222,6 +243,8 @@ export function main(argv = process.argv.slice(2)) {
       throw new Error(`${error.message}\nRollback failed: ${rollbackError.message}`, { cause: error });
     }
     throw error;
+  } finally {
+    if (cacheBackup) fs.rmSync(cacheBackup, { recursive: true, force: true });
   }
 
   console.log(`\nRelease verified: ${PLUGIN_ID} ${releaseVersion}`);

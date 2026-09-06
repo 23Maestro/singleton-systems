@@ -5,6 +5,7 @@ import path from "node:path";
 import {
   assertInstalledPlugin,
   assertCacheRetention,
+  backupCaches,
   assertManifestConsistency,
   cacheVersions,
   localTimestamp,
@@ -12,6 +13,7 @@ import {
   nextVersion,
   parseArgs,
   readManifestVersions,
+  restoreMissingCaches,
   restoreFiles,
   snapshotFiles,
   writeManifestVersions,
@@ -98,6 +100,11 @@ assert.deepEqual(assertCacheRetention(cacheRoot, current, [stale]), [stale]);
 assert.ok(fs.existsSync(staleSkill), "release invalidated an active task's absolute skill path");
 fs.rmSync(path.join(cacheRoot, stale), { recursive: true, force: true });
 assert.throws(() => assertCacheRetention(cacheRoot, current, [stale]), /removed cache version/);
+const cacheBackup = backupCaches(cacheRoot, [current]);
+fs.rmSync(path.join(cacheRoot, current), { recursive: true, force: true });
+restoreMissingCaches(cacheRoot, cacheBackup, [current]);
+assert.ok(fs.existsSync(path.join(cacheRoot, current)), "release did not restore an active cache removed by plugin install");
+fs.rmSync(cacheBackup, { recursive: true, force: true });
 
 fs.rmSync(fixture, { recursive: true, force: true });
 console.log("Plugin release checks passed: arguments, versions, manifests, installed state, and active-task cache retention.");

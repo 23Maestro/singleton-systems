@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "subject": { "type": "string" },
+          "league": { "enum": ["NFL", "CFB"] },
+          "team": { "type": "string" },
+          "role": { "enum": ["Player", "Coach", null] },
+          "photoType": { "enum": ["Action", "Transparent", "Logo"] },
+          "confidence": { "enum": ["high", "review"] }
+        },
+        "required": ["id", "subject", "league", "team", "role", "photoType", "confidence"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false
+}

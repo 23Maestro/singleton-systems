@@ -27,6 +27,10 @@ Load `s-systems:eagle` and follow its client edit boundaries before Premiere
 mutation. Use the `premiere-pro-mcp` skill for bridge startup and Premiere
 operations.
 
+For NFL or CFB still-image intake, use the Eagle skill's locked Lineups asset
+gate. The Eagle item ID and original filename remain provenance; the approved
+Eagle display name follows the Lineups naming contract.
+
 ## Workflow
 
 1. Inspect the exact Eagle folder membership and resolve each usable asset to a
