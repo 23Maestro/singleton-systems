@@ -121,7 +121,8 @@ function identify(manifestFile) {
   ].join("\n");
   try {
     const auth = spawnSync("codex", ["login", "status"], { encoding: "utf8" });
-    if (auth.status !== 0 || !auth.stdout.includes("Logged in using ChatGPT")) {
+    const authOutput = `${auth.stdout ?? ""}\n${auth.stderr ?? ""}`;
+    if (auth.status !== 0 || !authOutput.includes("Logged in using ChatGPT")) {
       throw new Error("Codex must be logged in with ChatGPT; API-key billing is blocked");
     }
     const result = spawnSync("codex", [
@@ -160,6 +161,11 @@ function main() {
     ? readProposals(path.resolve(args.proposals))
     : identify(path.resolve(args.identify));
   if (!Array.isArray(proposals) || proposals.length === 0) throw new Error("Proposal file has no items");
+  const reviewItems = proposals.filter((proposal) => proposal.confidence !== "high");
+  if (reviewItems.length) {
+    console.log(JSON.stringify({ mode: "identification-review", items: proposals }, null, 2));
+    throw new Error(`${reviewItems.map((proposal) => proposal.id).join(", ")}: identity needs review`);
+  }
   for (const proposal of proposals) validateProposal(proposal);
   const { missingTeams, teamGroupId } = lockedGroups(proposals);
 
@@ -178,7 +184,8 @@ function main() {
     callEagle("tag_group_add_tags", {
       operations: [{ groupId: teamGroupId, tags: missingTeams, removeFromSource: true }],
     });
-    const teamGroup = callEagle("tag_group_get", { ids: [teamGroupId], fullDetails: true }).data?.[0];
+    const teamGroups = callEagle("tag_group_get", { ids: [teamGroupId], fullDetails: true }).data ?? [];
+    const teamGroup = teamGroups.find((group) => group.id === teamGroupId || group.name === "Team");
     if (!teamGroup || missingTeams.some((team) => !teamGroup.tags.includes(team))) {
       throw new Error("Team: Eagle tag group readback is incomplete");
     }
