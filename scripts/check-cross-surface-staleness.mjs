@@ -7,6 +7,10 @@ import { reconcileDelivery } from "../lib/transactions/delivery.mjs";
 import { canComplete, verifyReceiptChain } from "../lib/transactions/engine.mjs";
 import { withTransactionStateLock } from "../lib/transactions/state-store.mjs";
 
+for (const key of Object.keys(process.env)) {
+  if (key.startsWith("GIT_")) delete process.env[key];
+}
+
 const root = process.cwd();
 const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "singleton-transaction-staleness-"));
 const repo = path.join(fixtureRoot, "repo");
@@ -20,7 +24,13 @@ function write(file, content) {
 }
 
 function runGit(args) {
-  const result = spawnSync("git", args, { cwd: repo, encoding: "utf8" });
+  const environment = { ...process.env };
+
+  for (const key of Object.keys(environment)) {
+    if (key.startsWith("GIT_")) delete environment[key];
+  }
+
+  const result = spawnSync("git", args, { cwd: repo, env: environment, encoding: "utf8" });
   if (result.status !== 0) throw new Error(result.stderr || result.stdout || `git ${args.join(" ")} failed`);
   return result.stdout.trim();
 }

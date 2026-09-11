@@ -10,6 +10,10 @@ import { approveRepositoryReview, runRepositoryReview } from "../lib/reviews/eng
 import { assertFindings, verifyReviewReceiptChain } from "../lib/reviews/contract.mjs";
 import { createRepositoryAdapter } from "../lib/reviews/repository-adapter.mjs";
 
+for (const key of Object.keys(process.env)) {
+  if (key.startsWith("GIT_")) delete process.env[key];
+}
+
 const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "codex-rabbit-check-"));
 const fixedClock = () => new Date("2026-08-30T06:30:00.000Z");
 const emptyHash = hashValue("");

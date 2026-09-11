@@ -7,9 +7,16 @@ type LoopingPortfolioVideoProps = {
   poster: string;
   label: string;
   className?: string;
+  controlPlacement?: "inside" | "outside";
 };
 
-export default function LoopingPortfolioVideo({ src, poster, label, className }: LoopingPortfolioVideoProps) {
+export default function LoopingPortfolioVideo({
+  src,
+  poster,
+  label,
+  className,
+  controlPlacement = "inside",
+}: LoopingPortfolioVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -39,7 +46,7 @@ export default function LoopingPortfolioVideo({ src, poster, label, className }:
   }
 
   return (
-    <div className="relative">
+    <div className="relative h-full rounded-[inherit]">
       <video
         ref={videoRef}
         className={className}
@@ -55,7 +62,11 @@ export default function LoopingPortfolioVideo({ src, poster, label, className }:
       <button
         type="button"
         onClick={togglePlayback}
-        className="absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/72 text-white shadow-[0_10px_24px_rgba(0,0,0,0.3)] backdrop-blur transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
+        className={
+          controlPlacement === "outside"
+            ? "absolute -bottom-10 right-0 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:-bottom-11 sm:h-9 sm:w-9"
+            : "absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/72 text-white shadow-[0_10px_24px_rgba(0,0,0,0.3)] backdrop-blur transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
+        }
         aria-label={isPaused ? "Play portfolio video" : "Pause portfolio video"}
       >
         {isPaused ? (

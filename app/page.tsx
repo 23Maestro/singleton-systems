@@ -9,15 +9,13 @@ import {
   Microphone,
   NotePencil,
   PaperPlaneTilt,
-  ShieldCheck,
   Signpost,
   TrendUp,
   VideoCamera,
   Wrench,
 } from "@phosphor-icons/react/dist/ssr";
 import BookQuickChatButton from "@/components/BookQuickChatButton";
-import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
-import PortfolioShowcase, { type PortfolioTab } from "@/components/PortfolioShowcase";
+import PortfolioVideoCarousel from "@/components/PortfolioVideoCarousel";
 import { founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
 
 const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
@@ -149,104 +147,6 @@ const solutions = [
   },
 ] as const;
 
-const nurseHubPortfolioTabs: readonly PortfolioTab[] = [
-  {
-    id: "before",
-    label: "Before",
-    eyebrow: "Unordered Source Folder",
-    subtitle: "Course videos received, but order and upload prep are unclear.",
-    gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#ffe9a6,#f59e0b_48%,#8f4b00)]",
-  },
-  {
-    id: "build",
-    label: "Build Path",
-    eyebrow: "Structured Processing Lane",
-    subtitle: "AI helped turn the ordered project list into an ffmpeg-ready export path, skipping manual Premiere assembly during the migration.",
-    gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#b9efff,#2383e2_48%,#004fa8)]",
-  },
-  {
-    id: "ready",
-    label: "Ship Ready",
-    eyebrow: "Upload-Ready Library",
-    subtitle: "Multiple course libraries assembled, named in order, and ready for YouTube upload.",
-    gemClassName: "bg-[radial-gradient(circle_at_30%_30%,#c9ffd9,#25c266_48%,#0f7a3a)]",
-  },
-] as const;
-
-const recruitingPortfolioPanes = [
-  {
-    label: "Status",
-    eyebrow: "Manual Tracking",
-    title: "Status got blurry as volume climbed.",
-    subtitle: "Lookup, video updates, follow-up, and delivery pressure were spread across repeated steps.",
-    tone: "warning",
-  },
-  {
-    label: "Action",
-    eyebrow: "Operator View",
-    title: "Every athlete had a clearer next step.",
-    subtitle: "Lookup, status, shortcuts, and next steps all lived closer to the work.",
-    tone: "process",
-  },
-  {
-    label: "Output",
-    eyebrow: "Shipped Under Load",
-    title: "140+ highlights delivered in 6 weeks",
-    subtitle: "Real delivery volume moved with less manual tracking, fewer repeated clicks, and fewer memory based follow ups.",
-    tone: "ready",
-  },
-] as const;
-
-function RecruitingSignalIcon({ label }: { label: (typeof recruitingPortfolioPanes)[number]["label"] }) {
-  if (label === "Status") {
-    return <Clock size={28} weight="bold" color="#050505" aria-hidden="true" />;
-  }
-
-  if (label === "Action") {
-    // Compound glyph: base ClipboardText + nested status badge, matching the
-    // notion-style corner-badge detail used across the "what I fix" icons.
-    return (
-      <span className="relative inline-flex h-7 w-7" aria-hidden="true">
-        <ClipboardText size={28} weight="bold" color="#050505" />
-        <span className="absolute -bottom-1 -right-1.5 inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border-[1.75px] border-black bg-[#dff2ff]">
-          <CheckCircle size={11} weight="fill" color="#050505" />
-        </span>
-      </span>
-    );
-  }
-
-  return <ShieldCheck size={28} weight="bold" color="#050505" aria-hidden="true" />;
-}
-
-function RecruitingIconFrame({ pane, children }: { pane: (typeof recruitingPortfolioPanes)[number]; children: React.ReactNode }) {
-  const toneClass = {
-    warning: "bg-[#ffc83d]",
-    process: "bg-[#2383e2]",
-    ready: "bg-[#25c266]",
-  }[pane.tone];
-
-  return (
-    <span className={`inline-flex h-14 w-14 items-center justify-center rounded-full border-2 border-black ${toneClass} shadow-[0_8px_18px_rgba(15,23,42,0.1)]`}>
-      {children}
-    </span>
-  );
-}
-
-function RecruitingPortfolioPill({ pane }: { pane: (typeof recruitingPortfolioPanes)[number] }) {
-  const gemClass = {
-    warning: "bg-[radial-gradient(circle_at_30%_30%,#ffe9a6,#f59e0b_48%,#8f4b00)]",
-    process: "bg-[radial-gradient(circle_at_30%_30%,#b9efff,#2383e2_48%,#004fa8)]",
-    ready: "bg-[radial-gradient(circle_at_30%_30%,#c9ffd9,#25c266_48%,#0f7a3a)]",
-  }[pane.tone];
-
-  return (
-    <span className="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-[1rem] bg-white px-3 text-[0.72rem] font-semibold text-neutral-950 shadow-[0_9px_20px_rgba(15,23,42,0.13)] ring-1 ring-black/5">
-      <span className={`h-2.5 w-2.5 rounded-full ${gemClass}`} aria-hidden="true" />
-      {pane.label}
-    </span>
-  );
-}
-
 function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
   const classes = {
     blue: "bg-[#004fa8]",
@@ -340,7 +240,7 @@ function AssetsPreview() {
   const rows = [
     ["First AI fix", "Fix the task costing you the most time", "Option 1", "bg-[#dbeafe] text-[#075985] border-[#93c5fd]"],
     ["Second AI fix", "Take another repeated task off your plate", "Option 2", "bg-[#fee2e2] text-[#9f1239] border-[#fca5a5]"],
-    ["My pick", "The fastest way to get time back", "Start here", "bg-[#dcfce7] text-[#166534] border-[#86efac]"],
+    ["My pick", "Where I’d start", "Start here", "bg-[#dcfce7] text-[#166534] border-[#86efac]"],
   ] as const;
 
   return (
@@ -403,7 +303,7 @@ function NotesPreview() {
   const tabs = ["Your plan", "I’ll do it", "Build it for me"] as const;
   const rows = [
     ["I’ll do it", "Follow the steps and set it up yourself.", "Your choice", "bg-blue-100 text-blue-700", "task"],
-    ["Build it for me", "I set it up and show you how it works.", "My help", "bg-green-100 text-green-700", "people"],
+    ["Build it for me", "I set it up and show you how it works.", "Built for you", "bg-green-100 text-green-700", "people"],
   ] as const;
 
   return (
@@ -500,7 +400,7 @@ function PackagePreview() {
               Easy to find <span className="text-green-500">✓</span>
             </span>
           </div>
-          <p className="mb-5 pr-4 text-base leading-snug text-neutral-600">Keep the useful parts and see what comes next.</p>
+          <p className="mb-5 pr-4 text-base leading-snug text-neutral-600">Keep your instructions and what we&apos;ve built in one place.</p>
 
           <ul className="space-y-4 text-base font-medium text-neutral-600">
             {[
@@ -684,11 +584,13 @@ export default function Page() {
             <p className="mt-1 text-xs font-medium leading-relaxed text-neutral-600 sm:text-sm">
               <span className="block">2 years of Programming | IT</span>
               <span className="block">at St. Petersburg College</span>
-              <span className="mt-2 block">Video editor since 2023</span>
+              <span className="mt-2 block">Video Editor</span>
               <span className="mt-2 block">Building with AI since 2024</span>
             </p>
           </div>
         </div>
+
+        <PortfolioVideoCarousel />
       </section>
 
       <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="start-heading">
@@ -715,10 +617,10 @@ export default function Page() {
               </p>
             </div>
             <p className="mt-7 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Tell me what you wish took less time. Send a note, voice memo, or Loom.
+              Tell me what you wish took less time. Send a note, voice memo, or Loom. Explain it in your own words.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              I&apos;ll review it before our call and bring one or two AI fixes. Follow the plan yourself, or have me build it for you.
+              I review it before our call and bring one or two AI fixes. I ask questions to understand what matters to you and how the work should be done. Follow the plan yourself, or have me build it for you.
             </p>
           </div>
         </div>
@@ -768,75 +670,6 @@ export default function Page() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="portfolio" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="portfolio-heading">
-        <div className="mx-auto max-w-6xl">
-          <h2 id="portfolio-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            Portfolio From Real Systems
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-lg font-medium leading-relaxed text-neutral-600">
-            Real examples of messy work cleaned up enough to reuse, with the before, the build, and the portfolio assets kept together.
-          </p>
-          <div className="mt-10">
-            <PortfolioShowcase title="Course Video Migration" tabs={nurseHubPortfolioTabs} />
-          </div>
-          <article className="mt-8 overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-white shadow-[0_18px_52px_rgba(15,23,42,0.08)]">
-            <div className="grid gap-6 bg-[#f7f7f5] p-5 sm:p-7 lg:grid-cols-[1fr_21rem] lg:p-8">
-              <div>
-                <h3 className="max-w-2xl text-3xl font-semibold leading-tight tracking-[-0.045em] text-neutral-950 sm:text-4xl">
-                  Recruiting Ops Command Center
-                </h3>
-                <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-neutral-600 sm:text-lg">
-                  A custom workflow for moving athlete video work through lookup, review, follow-up, and delivery without losing status.
-                </p>
-              </div>
-              <div className="rounded-[1.35rem] border border-neutral-200 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
-                <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-neutral-600">Outcome</p>
-                <p className="mt-3 text-3xl font-bold tracking-normal text-neutral-950">140+ highlights</p>
-                <p className="mt-1 text-lg font-semibold tracking-normal text-neutral-950">delivered in 6 weeks</p>
-                <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600">
-                  Status, follow-up, send readiness, and review needs stayed visible as volume increased.
-                </p>
-              </div>
-            </div>
-            <div className="border-t border-neutral-200 bg-white p-4 sm:p-6 lg:p-7">
-              <div className="overflow-hidden rounded-[1.65rem] border border-neutral-200 bg-[#f7f7f5] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.85)]">
-                <div className="mb-3 flex items-center justify-between gap-3 px-2 pt-1">
-                  <div className="flex items-center gap-2">
-                    <span className="h-3 w-3 rounded-full bg-[#ff6257]" aria-hidden="true" />
-                    <span className="h-3 w-3 rounded-full bg-[#ffc83d]" aria-hidden="true" />
-                    <span className="h-3 w-3 rounded-full bg-[#25c266]" aria-hidden="true" />
-                  </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-neutral-600 shadow-[0_8px_18px_rgba(15,23,42,0.07)]">
-                    Live workflow preview
-                  </span>
-                </div>
-                <LoopingPortfolioVideo
-                  className="aspect-[12/7] w-full rounded-[1.25rem] border border-neutral-200 bg-black object-cover shadow-[0_18px_42px_rgba(15,23,42,0.16)]"
-                  src="/portfolio-2-ssystems.mp4"
-                  poster="/portfolio-2-ssystems-poster.jpg"
-                  label="Recruiting Ops Command Center workflow preview"
-                />
-              </div>
-            </div>
-            <div className="grid gap-3 border-t border-neutral-200 bg-[#fbfbfb] p-4 sm:grid-cols-3 sm:p-5">
-              {recruitingPortfolioPanes.map((pane) => (
-                <div key={pane.label} className="rounded-[1.25rem] border border-neutral-200 bg-white p-5 shadow-[0_10px_24px_rgba(15,23,42,0.045)]">
-                  <div className="mb-4 flex items-center justify-between gap-3">
-                    <RecruitingIconFrame pane={pane}>
-                      <RecruitingSignalIcon label={pane.label} />
-                    </RecruitingIconFrame>
-                    <RecruitingPortfolioPill pane={pane} />
-                  </div>
-                  <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.18em] text-neutral-600">{pane.eyebrow}</p>
-                  <h4 className="mt-3 text-xl font-semibold leading-tight tracking-normal text-neutral-950 sm:text-2xl">{pane.title}</h4>
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-600 sm:text-[0.95rem]">{pane.subtitle}</p>
-                </div>
-              ))}
-            </div>
-          </article>
         </div>
       </section>
 

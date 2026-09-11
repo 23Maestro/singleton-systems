@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Checking Singleton Systems map"
           }
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Loading Singleton Systems map"
           }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Checking outbound writing"
           }
@@ -43,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Checking Cerebral route"
           }
@@ -54,7 +54,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/lineups_enforcement.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
             "timeout": 10,
             "statusMessage": "Checking Lineups transaction"
           }
@@ -67,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/cerebral_singleton_guard.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Scanning Singleton Systems drift"
           }
@@ -78,7 +78,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/lineups_enforcement.py\"",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
             "timeout": 10,
             "statusMessage": "Verifying Lineups transaction readback"
           }

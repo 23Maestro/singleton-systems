@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-card-motion {
+    transition: none !important;
+  }
+}
+
 :root {
   color-scheme: light dark;
   --site-bg: #ffffff;
