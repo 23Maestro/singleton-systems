@@ -24,7 +24,8 @@ deletes. Baseline inactivity thresholds are 7 days for framework/Python caches,
 Run the same classifier across the tree:
 
 ```bash
-python3 scripts/dev_storage.py
+DEV_STORAGE_SKILL="${CODEX_HOME:-$HOME/.codex}/skills/dev-storage"
+python3 "$DEV_STORAGE_SKILL/scripts/dev_storage.py"
 ```
 
 Use `--apply-reviewed` only after the user authorizes the listed paths. Never

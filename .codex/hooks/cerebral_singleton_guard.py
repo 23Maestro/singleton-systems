@@ -189,6 +189,58 @@ def canonical_skills():
     ]
 
 
+def canonical_skill_roots(root):
+    roots = []
+    seen = set()
+
+    def add(skill_root, display_root):
+        skill_root = os.path.abspath(os.path.expanduser(skill_root))
+        real_root = os.path.realpath(skill_root)
+        if real_root in seen or not os.path.isfile(os.path.join(skill_root, "SKILL.md")):
+            return
+        seen.add(real_root)
+        roots.append((skill_root, display_root))
+
+    for skill in canonical_skills():
+        canonical_path = str(skill.get("canonical_path") or "")
+        if not canonical_path:
+            continue
+        skill_root = os.path.abspath(os.path.join(root, canonical_path))
+        try:
+            if os.path.commonpath([root, skill_root]) != root:
+                continue
+        except ValueError:
+            continue
+        add(skill_root, canonical_path)
+
+    repo_skills_root = os.path.join(root, ".agents", "skills")
+    try:
+        repo_skill_names = os.listdir(repo_skills_root)
+    except OSError:
+        repo_skill_names = []
+    for skill_name in repo_skill_names:
+        add(
+            os.path.join(repo_skills_root, skill_name),
+            os.path.join(".agents", "skills", skill_name),
+        )
+
+    codex_home = os.environ.get("CODEX_HOME") or os.path.join(os.path.expanduser("~"), ".codex")
+    personal_skills_root = os.path.join(codex_home, "skills")
+    try:
+        personal_skill_names = os.listdir(personal_skills_root)
+    except OSError:
+        personal_skill_names = []
+    for skill_name in personal_skill_names:
+        if skill_name.startswith("."):
+            continue
+        add(
+            os.path.join(personal_skills_root, skill_name),
+            os.path.join("${CODEX_HOME:-$HOME/.codex}", "skills", skill_name),
+        )
+
+    return roots
+
+
 def canonical_skill_script_error(payload):
     if str(payload.get("tool_name") or "") != "Bash":
         return None
@@ -201,20 +253,18 @@ def canonical_skill_script_error(payload):
 
     root = repo_root_from(payload.get("cwd"))
     expected_by_name = {}
-    for skill in canonical_skills():
-        canonical_path = str(skill.get("canonical_path") or "")
-        skill_root = os.path.abspath(os.path.join(root, canonical_path))
-        try:
-            if os.path.commonpath([root, skill_root]) != root:
-                continue
-        except ValueError:
-            continue
+    for skill_root, display_root in canonical_skill_roots(root):
         scripts_root = os.path.join(skill_root, "scripts")
         if not os.path.isdir(scripts_root):
             continue
         for directory, _, files in os.walk(scripts_root):
             for filename in files:
-                expected_by_name.setdefault(filename, set()).add(os.path.join(directory, filename))
+                script_path = os.path.join(directory, filename)
+                display_path = os.path.join(
+                    display_root,
+                    os.path.relpath(script_path, skill_root),
+                ).replace(os.sep, "/")
+                expected_by_name.setdefault(filename, {})[os.path.realpath(script_path)] = display_path
 
     try:
         tokens = shlex.split(command)
@@ -226,18 +276,21 @@ def canonical_skill_script_error(payload):
         expected_paths = expected_by_name.get(os.path.basename(candidate))
         if not expected_paths:
             continue
-        actual_path = os.path.abspath(
-            os.path.expanduser(candidate)
-            if os.path.isabs(os.path.expanduser(candidate))
-            else os.path.join(effective_cwd, candidate)
-        )
+        expanded_candidate = os.path.expandvars(os.path.expanduser(candidate))
+        if "$" in expanded_candidate:
+            continue
+        actual_path = os.path.realpath(os.path.abspath(
+            expanded_candidate
+            if os.path.isabs(expanded_candidate)
+            else os.path.join(effective_cwd, expanded_candidate)
+        ))
         if actual_path in expected_paths:
             continue
-        expected = sorted(expected_paths)[0]
+        expected = " or ".join(sorted(expected_paths.values()))
         return (
             "Canonical skill path check blocked Bash. "
-            f"{os.path.basename(candidate)} must run from {os.path.relpath(expected, root)}; "
-            f"received {candidate}. Supabase harness_skills owns canonical_path."
+            f"{os.path.basename(candidate)} must run from {expected}; "
+            f"received {candidate}. Registered plugin, repo-local, and personal skill roots own script paths."
         )
     return None
 

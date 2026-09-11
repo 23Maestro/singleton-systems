@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
 const root = process.cwd();
@@ -27,7 +28,7 @@ function runPostTool(toolName, toolInput, env = {}) {
   });
 }
 
-function runPreTool(command, workdir = root) {
+function runPreTool(command, workdir = root, env = {}) {
   return spawnSync(python, [hook], {
     cwd: root,
     input: JSON.stringify({
@@ -37,7 +38,7 @@ function runPreTool(command, workdir = root) {
       tool_input: { command, workdir },
     }),
     encoding: "utf8",
-    env: { ...process.env, SUPABASE_URL: "", SUPABASE_ANON_KEY: "" },
+    env: { ...process.env, SUPABASE_URL: "", SUPABASE_ANON_KEY: "", ...env },
   });
 }
 
@@ -221,6 +222,44 @@ const wrongUpworkPath = runPreTool("node scripts/estimate-catena-hours.mjs 13:41
 assert.equal(wrongUpworkPath.status, 0);
 assert.match(wrongUpworkPath.stdout, /"continue": false/);
 assert.match(wrongUpworkPath.stdout, /plugins\/s-systems\/skills\/upwork-hourly-rubric\/scripts\/estimate-catena-hours\.mjs/);
+
+const wrongRepoSkillPath = runPreTool("python3 scripts/dev_storage.py --json");
+assert.equal(wrongRepoSkillPath.status, 0);
+assert.match(wrongRepoSkillPath.stdout, /"continue": false/);
+assert.match(wrongRepoSkillPath.stdout, /\.agents\/skills\/dev-storage\/scripts\/dev_storage\.py/);
+
+const correctRepoSkillPath = runPreTool(
+  "python3 .agents/skills/dev-storage/scripts/dev_storage.py --json",
+);
+assert.equal(correctRepoSkillPath.status, 0);
+assert.doesNotMatch(correctRepoSkillPath.stdout, /"continue": false/);
+
+const personalCodexHome = fs.mkdtempSync(path.join(os.tmpdir(), "cerebral-personal-skill-"));
+try {
+  const personalScript = path.join(personalCodexHome, "skills", "personal-example", "scripts", "personal-helper.py");
+  fs.mkdirSync(path.dirname(personalScript), { recursive: true });
+  fs.writeFileSync(path.join(personalCodexHome, "skills", "personal-example", "SKILL.md"), "---\nname: personal-example\ndescription: Test fixture.\n---\n", "utf8");
+  fs.writeFileSync(personalScript, "print('ok')\n", "utf8");
+
+  const wrongPersonalSkillPath = runPreTool(
+    "python3 scripts/personal-helper.py",
+    root,
+    { CODEX_HOME: personalCodexHome },
+  );
+  assert.equal(wrongPersonalSkillPath.status, 0);
+  assert.match(wrongPersonalSkillPath.stdout, /"continue": false/);
+  assert.match(wrongPersonalSkillPath.stdout, /personal-example\/scripts\/personal-helper\.py/);
+
+  const correctPersonalSkillPath = runPreTool(
+    `python3 ${personalScript}`,
+    root,
+    { CODEX_HOME: personalCodexHome },
+  );
+  assert.equal(correctPersonalSkillPath.status, 0);
+  assert.doesNotMatch(correctPersonalSkillPath.stdout, /"continue": false/);
+} finally {
+  fs.rmSync(personalCodexHome, { recursive: true, force: true });
+}
 
 const ordinaryRepoScript = runPreTool("node scripts/check-cerebral-registry.mjs");
 assert.equal(ordinaryRepoScript.status, 0);
