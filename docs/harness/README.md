@@ -24,6 +24,9 @@ LikeC4       -> reviewed architecture
 ## Source Rules
 
 - `plugins/s-systems` is the versioned skill source. Installed plugin copies are outputs.
+- `.agents/skills` is the versioned source for repo-local standalone skills.
+- `~/.codex/skills/<name>` is the runtime mirror when a repo-local skill is installed globally.
+- Skill commands must resolve their owning skill root. A bare `scripts/<file>` path is unsafe because Codex keeps the active repository as its working directory.
 - A skill holds only its trigger, unique decision, action, and verification.
 - A reusable operating reference belongs in this repo beside the system it supports.
 - Linear holds Wayfinder planning and task state; GitHub holds linked implementation evidence.
@@ -58,6 +61,8 @@ For SSystems skill or route work:
    delegated to Codex when Codex owns the next implementation action.
 5. Run `npm run check:cerebral:registry` before completion. It verifies that the
    registry and all versioned SSystems skill folders still match.
+6. Run `npm run check:skills` for every versioned skill. Run
+   `npm run check:skills:installed` when an installed personal mirror exists.
 
 ## Change Gate
 

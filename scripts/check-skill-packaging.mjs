@@ -7,6 +7,10 @@ import path from "node:path";
 const root = process.cwd();
 const home = os.homedir();
 const checkInstalled = process.argv.includes("--installed");
+const repoLocalSkillsRoot = path.join(root, ".agents", "skills");
+const repoLocalSkillRoots = fs.readdirSync(repoLocalSkillsRoot, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(repoLocalSkillsRoot, entry.name, "SKILL.md")))
+  .map((entry) => path.join(repoLocalSkillsRoot, entry.name));
 const skillRoots = [
   path.join(root, "skills", "html-playground"),
   ...fs.readdirSync(path.join(root, "plugins", "s-systems", "skills"), { withFileTypes: true })
@@ -76,6 +80,19 @@ function checkSkill(skillRoot) {
   }
 }
 
+function checkOwnedScriptCommandPaths(skillRoot) {
+  const skillFile = path.join(skillRoot, "SKILL.md");
+  const markdown = fs.readFileSync(skillFile, "utf8");
+  for (const block of markdown.matchAll(/```(?:bash|sh|zsh|shell)\s*\n([\s\S]*?)```/gi)) {
+    for (const match of block[1].matchAll(/(?:^|\s)(?:\.\/)?scripts\/([A-Za-z0-9_./-]+)/gm)) {
+      const resource = match[1].replace(/\\$/, "");
+      if (fs.existsSync(path.join(skillRoot, "scripts", resource))) {
+        assert.fail(`${skillFile}: own script command must resolve the skill root: scripts/${resource}`);
+      }
+    }
+  }
+}
+
 function hash(file) {
   return crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 }
@@ -97,10 +114,19 @@ function assertParity(canonical, generated, label) {
 
 for (const skillRoot of skillRoots) checkSkill(skillRoot);
 console.log(`resource paths ok: ${skillRoots.length} canonical skills`);
+for (const skillRoot of repoLocalSkillRoots) checkOwnedScriptCommandPaths(skillRoot);
+console.log(`runtime paths ok: ${repoLocalSkillRoots.length} repo-local standalone skills`);
 
 if (checkInstalled) {
   const htmlSource = path.join(root, "skills", "html-playground");
   assertParity(htmlSource, path.join(home, ".codex", "skills", "html-playground"), "html-playground global mirror");
+
+  for (const canonical of repoLocalSkillRoots) {
+    const installed = path.join(home, ".codex", "skills", path.basename(canonical));
+    if (fs.existsSync(installed)) {
+      assertParity(canonical, installed, `${path.basename(canonical)} personal skill mirror`);
+    }
+  }
 
   const pluginSource = path.join(root, "plugins", "s-systems");
   assertParity(pluginSource, path.join(home, "plugins", "s-systems"), "s-systems Codex source mirror");
