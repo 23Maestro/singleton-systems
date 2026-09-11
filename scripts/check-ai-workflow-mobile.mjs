@@ -11,7 +11,7 @@ const baseUrl = process.env.AI_WORKFLOW_BASE_URL ?? "http://127.0.0.1:3000/ai-wo
 
 const cases = [
   { name: "system", tab: "System" },
-  { name: "workflow", tab: "Workflow" },
+  { name: "portfolio", tab: "Portfolio" },
   { name: "ai", tab: "AI Fit", artifact: "review_first_implementation_loop" },
   { name: "resume", tab: "Resume", artifact: "resume_timeline_map" },
   { name: "build-map-readme", tab: "Build Map", artifact: "ai_workflow_readme_map" },

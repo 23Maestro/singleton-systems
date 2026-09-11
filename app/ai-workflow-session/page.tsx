@@ -7,6 +7,10 @@ import { siteUrl } from "../site";
 export const metadata: Metadata = {
   title: "AI Workflow Session",
   description: "Tell Singleton Systems what you would like AI to make easier.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/ai-workflow-session",
   },

@@ -6,6 +6,10 @@ import { founderName, siteName, siteUrl } from "../site";
 export const metadata: Metadata = {
   title: "Links",
   description: "The main Singleton Systems, portfolio, social, and GitHub links in one place.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/links",
   },

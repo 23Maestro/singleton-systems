@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Portfolio C4 Plan",
   description: "Implementation plan for the AI Workflow Portfolio C4 map and source image framing cleanup.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/portfolio-c4-plan/",
   },

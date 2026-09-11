@@ -45,10 +45,17 @@ CAPABILITY_RE = re.compile(
     re.I,
 )
 TOOL_FAILURE_RE = re.compile(
-    r"(?:tool|plugin|cli|viewer|surface|connector|command|oauth|authentication|path)"
+    r"(?:tool|plugin|cli|viewer|surface|connector|command|endpoint|framework|version|runtime|oauth|authentication|path)"
     r"[\s\S]{0,80}(?:fail|failed|failing|missing|unavailable|not working|expired|cannot|can't|blocked)"
     r"|(?:fail|failed|failing|missing|unavailable|not working|expired|cannot|can't|blocked)"
-    r"[\s\S]{0,80}(?:tool|plugin|cli|viewer|surface|connector|command|oauth|authentication|path)",
+    r"[\s\S]{0,80}(?:tool|plugin|cli|viewer|surface|connector|command|endpoint|framework|version|runtime|oauth|authentication|path)",
+    re.I,
+)
+SUBSTITUTION_RE = re.compile(
+    r"(?:fail|failed|failing|missing|unavailable|unsupported|outdated|not working|not enabled|cannot|can't|blocked)"
+    r"[\s\S]{0,180}(?:so\s+(?:i(?:'m| am)|we(?:'re| are))|instead|next best|fall back|fallback|switch(?:ing)?|using the live)"
+    r"|(?:instead|next best|fall back|fallback|switch(?:ing)?)"
+    r"[\s\S]{0,180}(?:fail|failed|failing|missing|unavailable|unsupported|outdated|not working|not enabled|cannot|can't|blocked)",
     re.I,
 )
 
@@ -291,6 +298,10 @@ def needs_tool_preflight(text):
     return bool(CAPABILITY_RE.search(text) or TOOL_FAILURE_RE.search(text))
 
 
+def attempts_unapproved_substitution(text):
+    return bool(SUBSTITUTION_RE.search(text))
+
+
 def context(reason, text):
     routes, capabilities, registry_source, explicit_route, tags = registry_matches(text)
     lines = ["Cerebral route:", f"- [reason] {reason}"]
@@ -335,6 +346,11 @@ def context(reason, text):
         lines.append("- [repair] A safe repair inside the requested tool and surface is normal task work: verify the target, repair it, and continue.")
         lines.append("- [substitution-gate] Changing the requested tool or surface requires explicit user approval.")
         lines.append("- [pause] Stop for substitution, destructive repair, new authentication or cost, or an unresolved blocker.")
+    if attempts_unapproved_substitution(text):
+        lines.append(
+            "- [substitution-block] Do not continue on the substitute. Verify and repair or upgrade the requested path first. "
+            "Ask Jerami only when that repair changes scope, adds cost or authentication, is destructive, or carries unresolved risk."
+        )
     if LINEUPS_RE.search(text):
         lines.extend([
             "- [profile] Catena Media Lineups",

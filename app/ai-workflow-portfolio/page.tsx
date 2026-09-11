@@ -4,7 +4,11 @@ import { getPortfolioCodeArtifacts } from "@/lib/portfolio-code-artifacts";
 
 export const metadata: Metadata = {
   title: "AI Workflow Portfolio",
-  description: "A light case-study portfolio page for practical AI workflow cleanup, verification, and role-fit examples.",
+  description: "A light case-study portfolio page for practical AI workflows, verification, and role-fit examples.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/ai-workflow-portfolio/",
   },

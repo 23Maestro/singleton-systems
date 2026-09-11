@@ -8,7 +8,6 @@ export const siteDescription =
   "Practical AI workflow consulting for established operators who want to improve one recurring task at a time.";
 
 export const nicheKeywords = [
-  "workflow cleanup consultant",
   "AI workflow consultant",
   "video workflow consultant",
   "Premiere Pro workflow systems",

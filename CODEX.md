@@ -29,6 +29,7 @@ Keep those purposes clear before editing.
 ## commands
 
 ```bash
+npm run verify
 npm run dev
 npm run build
 npm run start
@@ -36,6 +37,8 @@ npm run lint
 npm run typecheck
 npm test
 ```
+
+Husky runs `npm run verify` before every commit.
 
 Cerebral contract checks:
 

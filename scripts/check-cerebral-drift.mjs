@@ -59,7 +59,14 @@ const checks = [
   },
   {
     file: skillPath("client-video-storyboard"),
-    must: ["references/lineups-treatment-system.md", "seven lanes", "lane, option, and setting"],
+    must: [
+      "references/lineups-treatment-system.md",
+      "references/lineups-episode-lifecycle.md",
+      "Use one Linear issue",
+      "record per video",
+      "seven lanes",
+      "lane, option, and setting",
+    ],
   },
   {
     file: skillPath("eagle-skill"),
@@ -88,6 +95,22 @@ const checks = [
       "action photography",
       "1920 x 1080",
       "pre-Premiere gate",
+      "Pre-Figma review and Post-Figma review are fixed Lineups stages",
+      "A Linear issue may reach",
+      "required review and delivery readback pass",
+      "Episode-specific Decision Maps are temporary review surfaces",
+    ],
+  },
+  {
+    file: path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-episode-lifecycle.md"),
+    must: [
+      "Each video is one episode project",
+      "confirmed delivery deadline as the Linear due date",
+      "locked Pre-Figma UI",
+      "locked Post-Figma UI",
+      "Shared code reads the active episode record",
+      "When the Linear issue is `Done`",
+      "Cleanup cannot remove another active episode",
     ],
   },
   {

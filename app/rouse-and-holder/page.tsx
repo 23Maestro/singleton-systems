@@ -4,6 +4,13 @@ import CopyBlock from "./CopyBlock";
 export const metadata: Metadata = {
   title: "Rouse and Holder — Setup Guide",
   description: "Seven steps to set up the brief pipeline. Copy, paste, done.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: "/rouse-and-holder",
+  },
 };
 
 const steps: { title: string; label: string; code: string }[] = [

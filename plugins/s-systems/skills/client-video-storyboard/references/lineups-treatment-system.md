@@ -199,6 +199,32 @@ Approved options live in the current menu. Working pages use copies of those
 approved options. Idea boards remain references. Rejected drafts, replaced
 masters, and stale labels leave active pages after each review pass.
 
+## episode review lifecycle
+
+Read `lineups-episode-lifecycle.md` for the project record, locked review UIs,
+Linear status flow, and closeout boundary.
+
+Pre-Figma review and Post-Figma review are fixed Lineups stages. Reuse the
+established Decision Map structure for each episode. Replace the episode title,
+date, transcript beats, lane and option choices, source links, candidate count,
+and review state. Do not create a new review-page design or a new Figma option
+for each video.
+
+The Pre-Figma stage reviews transcript mapping and proposed lane, option, and
+setting choices before Figma work. The Post-Figma stage reviews current episode
+copies, motion previews, and proof after Figma work. Both stages use the
+approved source families in Figma Components. Episode Workspace holds the
+temporary episode copies.
+
+Episode-specific Decision Maps are temporary review surfaces. Figma source
+components and Eagle assets are the durable sources. A Linear issue may reach
+Done only after its required review and delivery readback pass and its approved
+motion renders are in Eagle. When the issue is Done, remove that episode's
+Pre-Figma and Post-Figma Decision Map directories plus their index, route,
+redirect, gate, and test registrations. Keep this lifecycle, the reusable stage
+structure, approved Figma source components, Eagle assets, and durable evidence
+receipts.
+
 ## pre-Premiere gate
 
 Before placement, inspect a fresh 1920 x 1080 screenshot and confirm:

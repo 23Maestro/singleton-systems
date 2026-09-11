@@ -149,6 +149,20 @@ assert.match(failingCliPath.stdout, /\[preflight\]/);
 assert.match(failingCliPath.stdout, /\[repair\]/);
 assert.match(failingCliPath.stdout, /\[substitution-gate\]/);
 
+const blockedPreferredPathFallback = runHook(
+  "The Next.js endpoint is unavailable because this repo is on Next 15, so I’m using the live rendered page and doing the next best thing.",
+);
+assert.equal(blockedPreferredPathFallback.status, 0);
+for (const snippet of ["[preflight]", "[repair]", "[substitution-gate]", "[substitution-block]"]) {
+  assert.match(
+    blockedPreferredPathFallback.stdout,
+    new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    `preferred-path fallback: missing ${snippet}`,
+  );
+}
+assert.match(blockedPreferredPathFallback.stdout, /Do not continue on the substitute/);
+assert.match(blockedPreferredPathFallback.stdout, /repair or upgrade the requested path first/);
+
 const unknownRoute = runHook("[route] imaginary-route\nDo something.");
 assert.equal(unknownRoute.status, 0);
 assert.match(unknownRoute.stdout, /\[route-error\] Unknown or disabled route: imaginary-route/);

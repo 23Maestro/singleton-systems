@@ -2,6 +2,36 @@
 const nextConfig = {
   outputFileTracingRoot: new URL(".", import.meta.url).pathname,
   reactStrictMode: true,
+  async headers() {
+    const privateRoutePatterns = [
+      "/ai-workflow-portfolio/:path*",
+      "/ai-workflow-session/:path*",
+      "/decision-maps/:path*",
+      "/finances/:path*",
+      "/finances-form/:path*",
+      "/finances-plan/:path*",
+      "/flowzone/:path*",
+      "/futurevoices/:path*",
+      "/home-tasks/:path*",
+      "/linear-inbox/:path*",
+      "/links/:path*",
+      "/portfolio-c4-plan/:path*",
+      "/rouse-and-holder/:path*",
+      "/visual-maps/:path*",
+      "/wemby-shot-lab/:path*",
+      "/c4",
+    ];
+
+    return privateRoutePatterns.map((source) => ({
+      source,
+      headers: [
+        {
+          key: "X-Robots-Tag",
+          value: "noindex, nofollow",
+        },
+      ],
+    }));
+  },
   async redirects() {
     return [
       {

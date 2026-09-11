@@ -480,7 +480,7 @@ const aiCards = [
     body: "Turned scattered workflow details into cleaner task, status, meeting, and reporting records.",
     accent: "#ff6257",
     icon: "D",
-    facts: ["Workflow cleanup", "Status rules", "Reporting checks"],
+    facts: ["AI workflows", "Status rules", "Reporting checks"],
   },
   {
     id: "output-review-card",

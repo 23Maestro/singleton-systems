@@ -19,7 +19,7 @@ const verification: Metadata["verification"] = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${founderName} | Workflow Cleanup Consultant`,
+    default: `${founderName} | AI Workflow Consultant`,
     template: `%s | ${siteName}`,
   },
   description: siteDescription,

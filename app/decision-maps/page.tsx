@@ -6,6 +6,10 @@ import { founderName, siteName, siteUrl } from "../site";
 export const metadata: Metadata = {
   title: "Decision Maps",
   description: "Visual Singleton Systems decision maps and Wayfinder review surfaces.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   alternates: {
     canonical: "/decision-maps",
   },

@@ -342,7 +342,7 @@ async function getSheetsClient() {
 async function readLocalGoogleToken() {
   for (const tokenFile of LOCAL_TOKEN_FILES) {
     try {
-      return await fs.readFile(tokenFile, "utf8");
+      return await fs.readFile(/* turbopackIgnore: true */ tokenFile, "utf8");
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     }

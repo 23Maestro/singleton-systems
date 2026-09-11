@@ -79,6 +79,10 @@ function stripReviewCode(text, file) {
   }
 
   if (HTML_EXTENSIONS.has(extension) || TEXT_EXTENSIONS.has(extension)) {
+    clean = clean.replace(
+      /<details\b[^>]*>\s*<summary\b[^>]*>\s*Spoken context\s*<\/summary>[\s\S]*?<\/details\s*>/gi,
+      blankNonNewline,
+    );
     clean = clean.replace(/<(script|style|pre|code)\b[\s\S]*?<\/\1\s*>/gi, blankNonNewline);
     clean = clean.replace(/<!--[\s\S]*?-->/g, blankNonNewline);
     if (HTML_EXTENSIONS.has(extension)) clean = clean.replace(/<[^>]+>/g, " ");
@@ -167,6 +171,13 @@ function selfTest() {
   const html = stripReviewCode("<p>robust</p><script>const robust = true;</script>", "probe.html");
   console.assert(/robust/.test(html), "visible HTML copy was stripped");
   console.assert(!/const robust/.test(html), "HTML script was not stripped");
+
+  const transcript = stripReviewCode(
+    "<p>Clean copy.</p><details><summary>Spoken context</summary><p>not just quoted but exact</p></details>",
+    "probe.html",
+  );
+  console.assert(/Clean copy/.test(transcript), "visible HTML copy was stripped with transcript");
+  console.assert(!/not just/.test(transcript), "spoken transcript was scanned as authored copy");
 
   console.log("check-tells self-test passed");
 }
