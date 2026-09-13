@@ -3,7 +3,7 @@
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-import LoopingPortfolioVideo from "@/components/LoopingPortfolioVideo";
+import LoopingPortfolioVideo, { type LoopingPortfolioVideoHandle } from "@/components/LoopingPortfolioVideo";
 
 const projects = [
   {
@@ -41,8 +41,10 @@ export default function PortfolioVideoCarousel() {
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isVideoPaused, setIsVideoPaused] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<Array<LoopingPortfolioVideoHandle | null>>([]);
   const pointerIdRef = useRef<number | null>(null);
   const dragStartRef = useRef(0);
   const lastPointRef = useRef({ x: 0, time: 0 });
@@ -197,6 +199,10 @@ export default function PortfolioVideoCarousel() {
           const offset = baseOffset + (spacing === 0 ? 0 : dragOffset / spacing);
           const distance = Math.abs(offset);
           const isActive = index === activeIndex;
+          const circularDistance = Math.min(
+            (index - activeIndex + projects.length) % projects.length,
+            (activeIndex - index + projects.length) % projects.length,
+          );
           const x = spacing * offset;
           const z = isActive ? 260 : -90 * distance;
           const rotation = isActive ? 0 : offset < 0 ? 42 : -42;
@@ -226,13 +232,17 @@ export default function PortfolioVideoCarousel() {
             >
               <div className="relative h-full w-full rounded-[1rem] border border-black/20 bg-black shadow-[0_22px_44px_-24px_rgba(15,23,42,0.32),0_8px_18px_-12px_rgba(15,23,42,0.22)] sm:rounded-[1.25rem]">
                 <LoopingPortfolioVideo
+                  ref={(video) => {
+                    videoRefs.current[index] = video;
+                  }}
                   src={project.src}
                   poster={project.poster}
                   label={`${project.source}: ${project.name} portfolio video`}
                   active={isActive && isVisible && !prefersReducedMotion}
+                  preload={circularDistance <= 1 ? "auto" : "metadata"}
                   priority={index === 0}
                   className="h-full w-full rounded-[inherit] object-contain"
-                  controlPlacement="outside"
+                  onPausedChange={isActive ? setIsVideoPaused : undefined}
                 />
                 <span
                   className="pointer-events-none absolute inset-0 rounded-[inherit] border border-white/15"
@@ -244,17 +254,34 @@ export default function PortfolioVideoCarousel() {
         })}
       </div>
 
-      <div className="mt-1 flex items-center justify-center gap-3 sm:mt-2 sm:gap-12">
+      <div className="mt-1 grid grid-cols-[2.5rem_9rem_2.5rem] grid-rows-[2rem_auto] items-center justify-center gap-x-3 gap-y-2 sm:mt-2 sm:grid-cols-[3rem_14rem_3rem] sm:grid-rows-[2.25rem_auto] sm:gap-x-12 sm:gap-y-3">
+        <button
+          type="button"
+          onClick={() => videoRefs.current[activeIndex]?.togglePlayback()}
+          className="col-start-3 row-start-1 inline-flex h-8 w-8 items-center justify-self-end rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:h-9 sm:w-9"
+          aria-label={isVideoPaused ? "Play portfolio video" : "Pause portfolio video"}
+        >
+          {isVideoPaused ? (
+            <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-px" fill="currentColor" aria-hidden="true">
+              <path d="M8 5.6v12.8c0 .7.78 1.13 1.38.75l9.85-6.4a.9.9 0 0 0 0-1.5L9.38 4.85C8.78 4.47 8 4.9 8 5.6Z" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+              <path d="M7.75 5.5c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Zm7 0c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Z" />
+            </svg>
+          )}
+        </button>
+
         <button
           type="button"
           onClick={previous}
           aria-label="Previous project"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-lg text-neutral-950 shadow-[0_8px_22px_rgba(15,23,42,0.06)] transition hover:border-neutral-950 sm:h-12 sm:w-12 sm:text-xl"
+          className="col-start-1 row-start-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-lg text-neutral-950 shadow-[0_8px_22px_rgba(15,23,42,0.06)] transition hover:border-neutral-950 sm:h-12 sm:w-12 sm:text-xl"
         >
           <span aria-hidden="true">←</span>
         </button>
 
-        <div aria-live="polite" className="w-36 text-center sm:w-56">
+        <div aria-live="polite" className="col-start-2 row-start-2 w-36 text-center sm:w-56">
           <p className="text-base font-semibold leading-tight text-neutral-950 [text-shadow:0_1px_0_#fff,0_0_12px_rgba(255,255,255,0.9)] sm:text-xl">{projects[activeIndex].name}</p>
           <p className="mt-1 text-xs font-semibold text-neutral-500 sm:text-sm">{projects[activeIndex].source}</p>
         </div>
@@ -263,7 +290,7 @@ export default function PortfolioVideoCarousel() {
           type="button"
           onClick={next}
           aria-label="Next project"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-lg text-neutral-950 shadow-[0_8px_22px_rgba(15,23,42,0.06)] transition hover:border-neutral-950 sm:h-12 sm:w-12 sm:text-xl"
+          className="col-start-3 row-start-2 inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-lg text-neutral-950 shadow-[0_8px_22px_rgba(15,23,42,0.06)] transition hover:border-neutral-950 sm:h-12 sm:w-12 sm:text-xl"
         >
           <span aria-hidden="true">→</span>
         </button>

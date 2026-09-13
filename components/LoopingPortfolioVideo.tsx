@@ -1,31 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+
+export type LoopingPortfolioVideoHandle = {
+  togglePlayback: () => void;
+};
 
 type LoopingPortfolioVideoProps = {
   src: string;
   poster: string;
   label: string;
   active: boolean;
+  preload?: "auto" | "metadata" | "none";
   priority?: boolean;
   className?: string;
-  controlPlacement?: "inside" | "outside";
+  onPausedChange?: (isPaused: boolean) => void;
 };
 
-export default function LoopingPortfolioVideo({
+const LoopingPortfolioVideo = forwardRef<LoopingPortfolioVideoHandle, LoopingPortfolioVideoProps>(function LoopingPortfolioVideo({
   src,
   poster,
   label,
   active,
+  preload = "metadata",
   priority = false,
   className,
-  controlPlacement = "inside",
-}: LoopingPortfolioVideoProps) {
+  onPausedChange,
+}, ref) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoFrameCallbackRef = useRef<number | null>(null);
   const fallbackFrameCallbackRef = useRef<number | null>(null);
-  const [isPaused, setIsPaused] = useState(false);
   const [hasPresentedFrame, setHasPresentedFrame] = useState(false);
 
   useEffect(() => {
@@ -38,9 +43,9 @@ export default function LoopingPortfolioVideo({
       video.pause();
       video.currentTime = 0;
       setHasPresentedFrame(false);
-      setIsPaused(prefersReducedMotion && active);
+      if (active) onPausedChange?.(true);
     } else {
-      void video.play().catch(() => setIsPaused(true));
+      void video.play().catch(() => onPausedChange?.(true));
     }
 
     return () => {
@@ -54,7 +59,7 @@ export default function LoopingPortfolioVideo({
         fallbackFrameCallbackRef.current = null;
       }
     };
-  }, [active]);
+  }, [active, onPausedChange]);
 
   function revealAfterPresentedFrame(video: HTMLVideoElement) {
     if (hasPresentedFrame || videoFrameCallbackRef.current !== null || fallbackFrameCallbackRef.current !== null) return;
@@ -83,11 +88,13 @@ export default function LoopingPortfolioVideo({
     }
 
     if (video.paused) {
-      void video.play().catch(() => setIsPaused(true));
+      void video.play().catch(() => onPausedChange?.(true));
     } else {
       video.pause();
     }
   }
+
+  useImperativeHandle(ref, () => ({ togglePlayback }));
 
   return (
     <div className="relative h-full overflow-visible rounded-[inherit]">
@@ -99,16 +106,18 @@ export default function LoopingPortfolioVideo({
         muted
         loop
         playsInline
-        preload="metadata"
+        preload={preload}
         aria-label={label}
         onPlaying={(event) => {
-          setIsPaused(false);
+          if (active) onPausedChange?.(false);
           revealAfterPresentedFrame(event.currentTarget);
         }}
-        onPause={() => setIsPaused(true)}
+        onPause={() => {
+          if (active) onPausedChange?.(true);
+        }}
         onError={() => {
           setHasPresentedFrame(false);
-          setIsPaused(true);
+          if (active) onPausedChange?.(true);
         }}
       >
         Your browser does not support the video tag.
@@ -129,28 +138,8 @@ export default function LoopingPortfolioVideo({
           className="object-contain"
         />
       </div>
-      {active ? (
-        <button
-          type="button"
-          onClick={togglePlayback}
-          className={
-            controlPlacement === "outside"
-              ? "absolute -bottom-8 -right-1 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:-bottom-11 sm:right-0 sm:h-9 sm:w-9"
-              : "absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/72 text-white shadow-[0_10px_24px_rgba(0,0,0,0.3)] backdrop-blur transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
-          }
-          aria-label={isPaused ? "Play portfolio video" : "Pause portfolio video"}
-        >
-          {isPaused ? (
-            <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-px" fill="currentColor" aria-hidden="true">
-              <path d="M8 5.6v12.8c0 .7.78 1.13 1.38.75l9.85-6.4a.9.9 0 0 0 0-1.5L9.38 4.85C8.78 4.47 8 4.9 8 5.6Z" />
-            </svg>
-          ) : (
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
-              <path d="M7.75 5.5c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Zm7 0c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Z" />
-            </svg>
-          )}
-        </button>
-      ) : null}
     </div>
   );
-}
+});
+
+export default LoopingPortfolioVideo;
