@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -85,7 +84,7 @@ export default function PortfolioVideoCarousel() {
       ? Math.min(deckWidth * 0.72, 250)
       : Math.min(deckWidth * 0.55, 560);
   const spacing = cardWidth * (isMobile ? 0.44 : 0.46);
-  const deckHeight = cardWidth === 0 ? 260 : cardWidth * (9 / 16) * 1.22 + (isMobile ? 84 : 100);
+  const deckHeight = cardWidth === 0 ? 260 : cardWidth * (9 / 16) * 1.22 + (isMobile ? 124 : 100);
 
   function previous() {
     setActiveIndex((index) => (index - 1 + projects.length) % projects.length);
@@ -226,27 +225,15 @@ export default function PortfolioVideoCarousel() {
               aria-hidden={!isActive}
             >
               <div className="relative h-full w-full rounded-[1rem] border border-black/20 bg-black shadow-[0_22px_44px_-24px_rgba(15,23,42,0.32),0_8px_18px_-12px_rgba(15,23,42,0.22)] sm:rounded-[1.25rem]">
-                {isActive && isVisible && !prefersReducedMotion ? (
-                  <LoopingPortfolioVideo
-                    src={project.src}
-                    poster={project.poster}
-                    label={`${project.source}: ${project.name} portfolio video`}
-                    className="h-full w-full rounded-[inherit] object-contain"
-                    controlPlacement="outside"
-                  />
-                ) : (
-                  <div className="absolute inset-0 overflow-hidden rounded-[inherit]">
-                    <Image
-                      src={project.poster}
-                      alt=""
-                      fill
-                      priority={index === 0}
-                      draggable={false}
-                      sizes="(min-width: 640px) 560px, 72vw"
-                      className="object-contain"
-                    />
-                  </div>
-                )}
+                <LoopingPortfolioVideo
+                  src={project.src}
+                  poster={project.poster}
+                  label={`${project.source}: ${project.name} portfolio video`}
+                  active={isActive && isVisible && !prefersReducedMotion}
+                  priority={index === 0}
+                  className="h-full w-full rounded-[inherit] object-contain"
+                  controlPlacement="outside"
+                />
                 <span
                   className="pointer-events-none absolute inset-0 rounded-[inherit] border border-white/15"
                   aria-hidden="true"
@@ -257,7 +244,7 @@ export default function PortfolioVideoCarousel() {
         })}
       </div>
 
-      <div className="mt-1 flex items-center justify-center gap-6 sm:mt-2 sm:gap-12">
+      <div className="mt-1 flex items-center justify-center gap-3 sm:mt-2 sm:gap-12">
         <button
           type="button"
           onClick={previous}
@@ -267,7 +254,7 @@ export default function PortfolioVideoCarousel() {
           <span aria-hidden="true">←</span>
         </button>
 
-        <div aria-live="polite" className="w-40 text-center sm:w-56">
+        <div aria-live="polite" className="w-36 text-center sm:w-56">
           <p className="text-base font-semibold leading-tight text-neutral-950 [text-shadow:0_1px_0_#fff,0_0_12px_rgba(255,255,255,0.9)] sm:text-xl">{projects[activeIndex].name}</p>
           <p className="mt-1 text-xs font-semibold text-neutral-500 sm:text-sm">{projects[activeIndex].source}</p>
         </div>

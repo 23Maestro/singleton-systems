@@ -1,11 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 type LoopingPortfolioVideoProps = {
   src: string;
   poster: string;
   label: string;
+  active: boolean;
+  priority?: boolean;
   className?: string;
   controlPlacement?: "inside" | "outside";
 };
@@ -14,20 +17,63 @@ export default function LoopingPortfolioVideo({
   src,
   poster,
   label,
+  active,
+  priority = false,
   className,
   controlPlacement = "inside",
 }: LoopingPortfolioVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoFrameCallbackRef = useRef<number | null>(null);
+  const fallbackFrameCallbackRef = useRef<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [hasPresentedFrame, setHasPresentedFrame] = useState(false);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const video = videoRef.current;
 
-    if (prefersReducedMotion && videoRef.current) {
-      videoRef.current.pause();
-      setIsPaused(true);
+    if (!video) return;
+
+    if (!active || prefersReducedMotion) {
+      video.pause();
+      video.currentTime = 0;
+      setHasPresentedFrame(false);
+      setIsPaused(prefersReducedMotion && active);
+    } else {
+      void video.play().catch(() => setIsPaused(true));
     }
-  }, []);
+
+    return () => {
+      if (videoFrameCallbackRef.current !== null && typeof video.cancelVideoFrameCallback === "function") {
+        video.cancelVideoFrameCallback(videoFrameCallbackRef.current);
+        videoFrameCallbackRef.current = null;
+      }
+
+      if (fallbackFrameCallbackRef.current !== null) {
+        cancelAnimationFrame(fallbackFrameCallbackRef.current);
+        fallbackFrameCallbackRef.current = null;
+      }
+    };
+  }, [active]);
+
+  function revealAfterPresentedFrame(video: HTMLVideoElement) {
+    if (hasPresentedFrame || videoFrameCallbackRef.current !== null || fallbackFrameCallbackRef.current !== null) return;
+
+    if (typeof video.requestVideoFrameCallback === "function") {
+      videoFrameCallbackRef.current = video.requestVideoFrameCallback(() => {
+        videoFrameCallbackRef.current = null;
+        setHasPresentedFrame(true);
+      });
+      return;
+    }
+
+    fallbackFrameCallbackRef.current = requestAnimationFrame(() => {
+      fallbackFrameCallbackRef.current = requestAnimationFrame(() => {
+        fallbackFrameCallbackRef.current = null;
+        setHasPresentedFrame(true);
+      });
+    });
+  }
 
   function togglePlayback() {
     const video = videoRef.current;
@@ -37,48 +83,74 @@ export default function LoopingPortfolioVideo({
     }
 
     if (video.paused) {
-      void video.play();
-      setIsPaused(false);
+      void video.play().catch(() => setIsPaused(true));
     } else {
       video.pause();
-      setIsPaused(true);
     }
   }
 
   return (
-    <div className="relative h-full rounded-[inherit]">
+    <div className="relative h-full overflow-visible rounded-[inherit]">
       <video
         ref={videoRef}
         className={className}
         src={src}
         poster={poster}
-        autoPlay
         muted
         loop
         playsInline
         preload="metadata"
         aria-label={label}
-      />
-      <button
-        type="button"
-        onClick={togglePlayback}
-        className={
-          controlPlacement === "outside"
-            ? "absolute -bottom-10 right-0 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:-bottom-11 sm:h-9 sm:w-9"
-            : "absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/72 text-white shadow-[0_10px_24px_rgba(0,0,0,0.3)] backdrop-blur transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
-        }
-        aria-label={isPaused ? "Play portfolio video" : "Pause portfolio video"}
+        onPlaying={(event) => {
+          setIsPaused(false);
+          revealAfterPresentedFrame(event.currentTarget);
+        }}
+        onPause={() => setIsPaused(true)}
+        onError={() => {
+          setHasPresentedFrame(false);
+          setIsPaused(true);
+        }}
       >
-        {isPaused ? (
-          <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-px" fill="currentColor" aria-hidden="true">
-            <path d="M8 5.6v12.8c0 .7.78 1.13 1.38.75l9.85-6.4a.9.9 0 0 0 0-1.5L9.38 4.85C8.78 4.47 8 4.9 8 5.6Z" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
-            <path d="M7.75 5.5c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Zm7 0c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Z" />
-          </svg>
-        )}
-      </button>
+        Your browser does not support the video tag.
+      </video>
+      <div
+        className={`pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit] transition-opacity duration-[700ms] [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] ${
+          hasPresentedFrame ? "opacity-0" : "opacity-100"
+        }`}
+        aria-hidden="true"
+      >
+        <Image
+          src={poster}
+          alt=""
+          fill
+          priority={priority}
+          draggable={false}
+          sizes="(min-width:640px) 560px, 72vw"
+          className="object-contain"
+        />
+      </div>
+      {active ? (
+        <button
+          type="button"
+          onClick={togglePlayback}
+          className={
+            controlPlacement === "outside"
+              ? "absolute -bottom-8 -right-1 z-20 inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:-bottom-11 sm:right-0 sm:h-9 sm:w-9"
+              : "absolute bottom-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/72 text-white shadow-[0_10px_24px_rgba(0,0,0,0.3)] backdrop-blur transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-white/70"
+          }
+          aria-label={isPaused ? "Play portfolio video" : "Pause portfolio video"}
+        >
+          {isPaused ? (
+            <svg viewBox="0 0 24 24" className="h-4 w-4 translate-x-px" fill="currentColor" aria-hidden="true">
+              <path d="M8 5.6v12.8c0 .7.78 1.13 1.38.75l9.85-6.4a.9.9 0 0 0 0-1.5L9.38 4.85C8.78 4.47 8 4.9 8 5.6Z" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+              <path d="M7.75 5.5c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Zm7 0c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h1.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25h-1.5Z" />
+            </svg>
+          )}
+        </button>
+      ) : null}
     </div>
   );
 }

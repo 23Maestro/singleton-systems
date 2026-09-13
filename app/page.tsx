@@ -10,6 +10,7 @@ import {
   NotePencil,
   PaperPlaneTilt,
   Signpost,
+  Timer,
   TrendUp,
   VideoCamera,
   Wrench,
@@ -132,7 +133,7 @@ const solutions = [
   },
   {
     title: "See Where to Start",
-    copy: "I review what you send and come to the call with one or two AI fixes built around the way you work.",
+    copy: "I review what you send and come to the call with 1-2 AI fixes built around the way you work.",
     tone: "yellow",
   },
   {
@@ -149,7 +150,7 @@ const solutions = [
 
 function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
   const classes = {
-    blue: "bg-[#004fa8]",
+    blue: "bg-black",
     yellow: "bg-[#ffc83d]",
     coral: "bg-[#ff6257]",
     green: "bg-[#25c266]",
@@ -157,7 +158,7 @@ function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
   const sizeClass = "h-14 w-14 sm:h-16 sm:w-16";
   const svgSizeClass = "h-8 w-8 sm:h-9 sm:w-9";
   const Icon = {
-    blue: PaperPlaneTilt,
+    blue: Timer,
     yellow: Signpost,
     coral: CursorClick,
     green: TrendUp,
@@ -389,8 +390,8 @@ function PackagePreview() {
             <div className="flex items-center gap-2">
               <span
                 aria-label="Step 1"
-                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#25c266] text-base font-black text-white shadow-[0_0_14px_rgba(37,194,102,0.55)]"
-                style={{ WebkitTextStroke: "1px black" }}
+                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#25c266] text-[1.6rem] font-black leading-none text-white shadow-[0_0_14px_rgba(37,194,102,0.55)]"
+                style={{ WebkitTextStroke: "1.15px black" }}
               >
                 1
               </span>
@@ -427,8 +428,8 @@ function PackagePreview() {
             <div className="flex items-center gap-2">
               <span
                 aria-label="Step 2"
-                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#25c266] text-base font-black text-white shadow-[0_0_14px_rgba(37,194,102,0.55)]"
-                style={{ WebkitTextStroke: "1px black" }}
+                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-black bg-[#25c266] text-[1.6rem] font-black leading-none text-white shadow-[0_0_14px_rgba(37,194,102,0.55)]"
+                style={{ WebkitTextStroke: "1.15px black" }}
               >
                 2
               </span>
@@ -617,10 +618,13 @@ export default function Page() {
               </p>
             </div>
             <p className="mt-7 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Tell me what you wish took less time. Send a note, voice memo, or Loom. Explain it in your own words.
+              Tell me what you wish took less time. Send a <strong className="font-bold">note</strong>, <strong className="font-bold">voice memo</strong>, or <strong className="font-bold">Loom</strong>. Explain it in your own words.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              I review it before our call and bring one or two AI fixes. I ask questions to understand what matters to you and how the work should be done. Follow the plan yourself, or have me build it for you.
+              I review it before our call and bring 1-2 AI fixes. I ask questions to understand what matters to you and how the work should be done.
+            </p>
+            <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
+              Follow the plan yourself, or have me build it for you.
             </p>
           </div>
         </div>
