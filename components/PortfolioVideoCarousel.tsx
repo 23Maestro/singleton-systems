@@ -258,7 +258,7 @@ export default function PortfolioVideoCarousel() {
         <button
           type="button"
           onClick={() => videoRefs.current[activeIndex]?.togglePlayback()}
-          className="col-start-3 row-start-1 inline-flex h-8 w-8 items-center justify-self-end rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:h-9 sm:w-9"
+          className="col-start-2 row-start-1 inline-flex h-8 w-8 items-center justify-self-center rounded-full border border-black/15 bg-white text-black shadow-[0_8px_22px_rgba(15,23,42,0.16)] transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black/60 sm:h-9 sm:w-9"
           aria-label={isVideoPaused ? "Play portfolio video" : "Pause portfolio video"}
         >
           {isVideoPaused ? (
