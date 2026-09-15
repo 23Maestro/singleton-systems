@@ -22,6 +22,15 @@ import { founderName, serviceDescription, serviceName, siteDescription, siteName
 
 const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
 const CAL_URL = "https://cal.com/workflow-chat/15min";
+const HOME_NAV_ITEMS = [
+  { label: "Start", href: "#start" },
+  { label: "Links", href: "/links" },
+  { label: "Solutions", href: "#portfolio" },
+  { label: "How It Starts", href: "#how-it-starts" },
+  { label: "What I Fix", href: "#what-i-fix" },
+  { label: "Pricing", href: "#offers" },
+  { label: "Book", href: "#book" },
+] as const;
 
 function offerUrl(offer: AiWorkflowOffer) {
   return `${AI_WORKFLOW_SESSION_URL}?offer=${offer}`;
@@ -84,7 +93,7 @@ const jsonLd = [
     description: serviceDescription,
     audience: {
       "@type": "Audience",
-      audienceType: "creators, coaches, course teams, small teams, and service businesses",
+      audienceType: "established operators with recurring work",
     },
   },
   {
@@ -97,12 +106,12 @@ const jsonLd = [
         name: "What does Singleton Systems do?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Singleton Systems helps creators, coaches, small teams, and service businesses turn messy recurring workflows into cleaner reusable systems.",
+          text: "Singleton Systems helps established operators turn repeated work into clear, reusable AI-assisted workflows.",
         },
       },
       {
         "@type": "Question",
-        name: "Does Singleton Systems work with video teams?",
+        name: "Can Singleton Systems improve video workflows?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "Yes. AI video workflow consulting can cover Premiere Pro editing pipelines, footage organization, course video migrations, review links, delivery systems, and repeatable production handoffs.",
@@ -485,21 +494,11 @@ export default function Page() {
           />
         </a>
         <nav aria-label="Primary" className="hidden items-center gap-5 text-xs font-semibold text-neutral-600 md:flex lg:gap-7 lg:text-sm">
-          <a className="transition hover:text-black" href="#start">
-            Start
-          </a>
-          <Link className="transition hover:text-black" href="/links">
-            Links
-          </Link>
-          <a className="transition hover:text-black" href="#what-i-fix">
-            What I Fix
-          </a>
-          <a className="transition hover:text-black" href="#portfolio">
-            Portfolio
-          </a>
-          <a className="transition hover:text-black" href="#offers">
-            Pricing
-          </a>
+          {HOME_NAV_ITEMS.map((item) => (
+            <Link key={item.href} className="whitespace-nowrap transition hover:text-black" href={item.href}>
+              {item.label}
+            </Link>
+          ))}
         </nav>
         <details className="group relative md:hidden">
           <summary
@@ -516,11 +515,11 @@ export default function Page() {
             aria-label="Mobile"
             className="absolute right-0 top-14 z-20 grid min-w-44 gap-3 rounded-3xl border border-neutral-200 bg-white p-5 text-right text-sm font-bold shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
           >
-            <a href="#start">Start</a>
-            <Link href="/links">Links</Link>
-            <a href="#what-i-fix">What I Fix</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#offers">Pricing</a>
+            {HOME_NAV_ITEMS.map((item) => (
+              <Link key={item.href} href={item.href}>
+                {item.label}
+              </Link>
+            ))}
           </nav>
         </details>
       </header>
@@ -603,7 +602,7 @@ export default function Page() {
         <PortfolioVideoCarousel />
       </section>
 
-      <section className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="start-heading">
+      <section id="how-it-starts" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="start-heading">
         <div className="mx-auto max-w-5xl">
           <h2 id="start-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
             How It Starts
@@ -642,7 +641,7 @@ export default function Page() {
       <section id="what-i-fix" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="what-i-fix-heading">
         <div className="mx-auto max-w-6xl">
           <h2 id="what-i-fix-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            There&apos;s a Better Way
+            What I Fix
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-center text-lg font-medium leading-relaxed text-neutral-600 sm:text-xl">
             I map repeated work into one clear workflow AI handles the busywork while you keep the decisions
@@ -824,24 +823,11 @@ export default function Page() {
             </p>
           </div>
           <nav aria-label="Footer" className="grid gap-3 text-lg font-bold">
-            <a href="#start" className="transition hover:text-neutral-600">
-              Start
-            </a>
-            <Link href="/links" className="transition hover:text-neutral-600">
-              Links
-            </Link>
-            <a href="#what-i-fix" className="transition hover:text-neutral-600">
-              What I Fix
-            </a>
-            <a href="#portfolio" className="transition hover:text-neutral-600">
-              Portfolio
-            </a>
-            <a href="#offers" className="transition hover:text-neutral-600">
-              Pricing
-            </a>
-            <a href="#book" className="transition hover:text-neutral-600">
-              Book
-            </a>
+            {HOME_NAV_ITEMS.map((item) => (
+              <Link key={item.href} href={item.href} className="transition hover:text-neutral-600">
+                {item.label}
+              </Link>
+            ))}
           </nav>
         </div>
       </footer>
