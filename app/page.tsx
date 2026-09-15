@@ -497,6 +497,9 @@ export default function Page() {
           <a className="transition hover:text-black" href="#portfolio">
             Portfolio
           </a>
+          <a className="transition hover:text-black" href="#offers">
+            Pricing
+          </a>
         </nav>
         <details className="group relative md:hidden">
           <summary
@@ -517,6 +520,7 @@ export default function Page() {
             <Link href="/links">Links</Link>
             <a href="#what-i-fix">What I Fix</a>
             <a href="#portfolio">Portfolio</a>
+            <a href="#offers">Pricing</a>
           </nav>
         </details>
       </header>
@@ -831,6 +835,9 @@ export default function Page() {
             </a>
             <a href="#portfolio" className="transition hover:text-neutral-600">
               Portfolio
+            </a>
+            <a href="#offers" className="transition hover:text-neutral-600">
+              Pricing
             </a>
             <a href="#book" className="transition hover:text-neutral-600">
               Book
