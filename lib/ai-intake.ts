@@ -1,5 +1,5 @@
 import { supabaseRest, supabaseStorageUpload } from "@/lib/supabase-rest";
-import { aiWorkflowOfferLabel, type AiWorkflowOffer } from "@/lib/ai-workflow-offers";
+import { aiWorkflowOfferLabel, notionAiWorkflowOfferLabel, type AiWorkflowOffer } from "@/lib/ai-workflow-offers";
 
 const AUDIO_BUCKET = "ai-intake-voice-memos";
 
@@ -59,13 +59,49 @@ function notionEnv() {
   return { token, dataSourceId };
 }
 
+function notionRichText(content: string) {
+  return (content.match(/[\s\S]{1,1900}/g) ?? []).map((chunk) => ({
+    type: "text" as const,
+    text: { content: chunk },
+  }));
+}
+
+function notionParagraph(content: string) {
+  return {
+    object: "block",
+    type: "paragraph",
+    paragraph: { rich_text: notionRichText(content) },
+  };
+}
+
+function notionHeading(content: string) {
+  return {
+    object: "block",
+    type: "heading_2",
+    heading_2: { rich_text: notionRichText(content) },
+  };
+}
+
 export async function createNotionAiIntakePage(request: AiIntakeRequest) {
   const config = notionEnv();
   if (!config) throw new Error("Notion delivery is not configured.");
 
+  const offerLabel = request.offer ? aiWorkflowOfferLabel(request.offer) : "Not specified";
+  const notionOfferLabel = request.offer ? notionAiWorkflowOfferLabel(request.offer) : null;
   const audioNote = request.audio_object_path
     ? `Voice memo saved privately: ${request.audio_file_name ?? "audio file"} (${request.audio_object_path})`
     : "No voice memo attached.";
+  const children = [
+    notionHeading("Selected offer"),
+    notionParagraph(offerLabel),
+    notionHeading("What they want AI to make easier"),
+    notionParagraph(request.ai_wish),
+    ...(request.helpful_context
+      ? [notionHeading("Helpful context"), notionParagraph(request.helpful_context)]
+      : []),
+    notionHeading("Attachment"),
+    notionParagraph(audioNote),
+  ];
   const response = await fetch("https://api.notion.com/v1/pages", {
     method: "POST",
     headers: {
@@ -76,23 +112,14 @@ export async function createNotionAiIntakePage(request: AiIntakeRequest) {
     body: JSON.stringify({
       parent: { data_source_id: config.dataSourceId },
       properties: {
-        Name: { title: [{ text: { content: request.name } }] },
+        Name: { title: notionRichText(`${request.name} — ${offerLabel}`) },
         Email: { email: request.email },
-        "AI wish": { rich_text: [{ text: { content: request.ai_wish } }] },
-        "Helpful context": { rich_text: request.helpful_context ? [{ text: { content: request.helpful_context } }] : [] },
+        "AI wish": { rich_text: notionRichText(request.ai_wish) },
+        "Helpful context": { rich_text: request.helpful_context ? notionRichText(request.helpful_context) : [] },
+        Offer: { select: notionOfferLabel ? { name: notionOfferLabel } : null },
+        Stage: { select: { name: "New" } },
       },
-      children: [
-        {
-          object: "block",
-          type: "paragraph",
-          paragraph: { rich_text: [{ type: "text", text: { content: `Selected offer: ${request.offer ? aiWorkflowOfferLabel(request.offer) : "Not specified"}` } }] },
-        },
-        {
-          object: "block",
-          type: "paragraph",
-          paragraph: { rich_text: [{ type: "text", text: { content: audioNote } }] },
-        },
-      ],
+      children,
     }),
   });
   const body = (await response.json()) as { id?: string; message?: string };

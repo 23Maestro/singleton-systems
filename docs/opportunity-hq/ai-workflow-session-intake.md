@@ -16,6 +16,7 @@ practical solution, and decide together whether a build makes sense.
 Required:
 
 ```text
+Selected offer
 What are one or two things you’d like AI to make easier?
 Name
 Email
@@ -31,7 +32,9 @@ Add a Loom or audio link, attach a voice memo, or paste a transcript.
 
 1. The server stores a durable request row in `ai_intake_requests`.
 2. Voice memos live in the private `ai-intake-voice-memos` Supabase bucket.
-3. The server creates a matching Notion page in `AI Intake Requests`.
+3. The server creates a matching Notion page in `AI Intake Requests`. Its title
+   combines the person and selected offer. `Offer` records the package and
+   `Stage` starts at `New` for follow-up.
 4. A Notion delivery failure is recorded on the Supabase row for retry; it
    never discards the visitor request.
 
