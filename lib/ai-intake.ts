@@ -1,4 +1,5 @@
 import { supabaseRest, supabaseStorageUpload } from "@/lib/supabase-rest";
+import { aiWorkflowOfferLabel, type AiWorkflowOffer } from "@/lib/ai-workflow-offers";
 
 const AUDIO_BUCKET = "ai-intake-voice-memos";
 
@@ -8,6 +9,7 @@ export type AiIntakeRequest = {
   email: string;
   ai_wish: string;
   helpful_context: string | null;
+  offer: AiWorkflowOffer | null;
   audio_object_path: string | null;
   audio_file_name: string | null;
   audio_content_type: string | null;
@@ -16,7 +18,7 @@ export type AiIntakeRequest = {
   notion_delivery_error: string | null;
 };
 
-type AiIntakeInsert = Pick<AiIntakeRequest, "name" | "email" | "ai_wish" | "helpful_context" | "audio_object_path" | "audio_file_name" | "audio_content_type">;
+type AiIntakeInsert = Pick<AiIntakeRequest, "name" | "email" | "ai_wish" | "helpful_context" | "offer" | "audio_object_path" | "audio_file_name" | "audio_content_type">;
 
 export async function saveAiIntakeAudio(id: string, file: File) {
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-").slice(-120) || "voice-memo";
@@ -80,6 +82,11 @@ export async function createNotionAiIntakePage(request: AiIntakeRequest) {
         "Helpful context": { rich_text: request.helpful_context ? [{ text: { content: request.helpful_context } }] : [] },
       },
       children: [
+        {
+          object: "block",
+          type: "paragraph",
+          paragraph: { rich_text: [{ type: "text", text: { content: `Selected offer: ${request.offer ? aiWorkflowOfferLabel(request.offer) : "Not specified"}` } }] },
+        },
         {
           object: "block",
           type: "paragraph",

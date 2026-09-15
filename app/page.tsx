@@ -17,10 +17,15 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import BookQuickChatButton from "@/components/BookQuickChatButton";
 import PortfolioVideoCarousel from "@/components/PortfolioVideoCarousel";
+import type { AiWorkflowOffer } from "@/lib/ai-workflow-offers";
 import { founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
 
 const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
 const CAL_URL = "https://cal.com/workflow-chat/15min";
+
+function offerUrl(offer: AiWorkflowOffer) {
+  return `${AI_WORKFLOW_SESSION_URL}?offer=${offer}`;
+}
 
 const jsonLd = [
   {
@@ -674,6 +679,109 @@ export default function Page() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="offers" className="px-6 pb-20 pt-6 sm:px-8 sm:pb-24 sm:pt-10 lg:px-10" aria-labelledby="offers-heading">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#126f39]">Choose your starting point</p>
+            <h2 id="offers-heading" className="mt-4 text-4xl font-semibold tracking-normal sm:text-5xl">
+              Choose Where to Start
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-neutral-600 sm:text-xl">
+              Start with 1 repeated task, build the workflow, or put the complete foundation in place.
+            </p>
+          </div>
+
+          <article className="relative mt-12 overflow-hidden rounded-[2rem] bg-black px-7 py-8 text-white shadow-[0_22px_60px_rgba(0,0,0,0.18)] sm:px-10 sm:py-10">
+            <div className="absolute right-0 top-0 h-56 w-56 translate-x-16 -translate-y-16 rounded-full bg-[#25c266]/25 blur-3xl" aria-hidden="true" />
+            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="rounded-full bg-[#25c266] px-3 py-1 text-xs font-black uppercase tracking-[0.13em] text-black">Complete system</span>
+                  <span className="text-sm font-semibold text-white/60">Up to 3 workflows</span>
+                </div>
+                <h3 className="mt-5 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Build My AI System</h3>
+                <p className="mt-3 max-w-2xl text-lg font-medium leading-relaxed text-white/72 sm:text-xl">
+                  Put your business knowledge into a working foundation, then build the 3 repeated workflows costing you the most time.
+                </p>
+                <ul className="mt-6 grid gap-3 text-base font-semibold text-white/88 sm:grid-cols-2">
+                  {["Business interview and working foundation", "Up to 3 configured workflows", "3 private working sessions", "Documentation and 30 days of refinement"].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5">
+                      <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#62d26f]" weight="fill" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex min-w-[13rem] flex-col items-start lg:items-end">
+                <p className="text-4xl font-bold tracking-[-0.045em] sm:text-5xl">$1,500</p>
+                <p className="mt-1 text-sm font-semibold text-white/55">one-time</p>
+                <Link href={offerUrl("build-my-ai-system")} className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-bold text-black transition hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-[#62d26f] focus:ring-offset-2 focus:ring-offset-black">
+                  Build my system
+                </Link>
+              </div>
+            </div>
+          </article>
+
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <article className="flex h-full flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] sm:p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#075985]">1 complete workflow</p>
+              <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="text-3xl font-bold tracking-[-0.035em]">Build It for Me</h3>
+                <p className="text-2xl font-bold tracking-[-0.03em]">$500</p>
+              </div>
+              <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-600">Turn 1 repeated task into a tested workflow you can keep using.</p>
+              <ul className="mt-6 space-y-3 text-base font-semibold text-neutral-800">
+                {["Configured around your real work", "Tested across real examples", "Documented so you can repeat it", "1 private refinement session"].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5"><Check className="mt-0.5 h-5 w-5 shrink-0 text-[#075985]" weight="bold" aria-hidden="true" /><span>{item}</span></li>
+                ))}
+              </ul>
+              <Link href={offerUrl("build-it-for-me")} className="mt-8 inline-flex min-h-12 items-center justify-center self-start rounded-full bg-black px-6 text-sm font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2">
+                Build 1 workflow
+              </Link>
+            </article>
+
+            <article className="flex h-full flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] sm:p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#126f39]">Ongoing improvement</p>
+              <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
+                <h3 className="text-3xl font-bold tracking-[-0.035em]">Keep It Working</h3>
+                <p className="text-2xl font-bold tracking-[-0.03em]">$500<span className="text-base text-neutral-500">/month</span></p>
+              </div>
+              <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-600">Keep expanding the working foundation as your business changes.</p>
+              <ul className="mt-6 space-y-3 text-base font-semibold text-neutral-800">
+                {["2 private working sessions each month", "1 new workflow or major improvement", "Updates to existing instructions", "Questions and refinements covered"].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5"><Check className="mt-0.5 h-5 w-5 shrink-0 text-[#126f39]" weight="bold" aria-hidden="true" /><span>{item}</span></li>
+                ))}
+              </ul>
+              <Link href={offerUrl("keep-it-working")} className="mt-8 inline-flex min-h-12 items-center justify-center self-start rounded-full bg-black px-6 text-sm font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2">
+                Keep it working
+              </Link>
+            </article>
+          </div>
+
+          <article className="mx-auto mt-5 max-w-4xl rounded-[2rem] border-2 border-black bg-[#fff5cf] p-7 shadow-[0_14px_0_#050505] sm:p-8">
+            <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-center">
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-black bg-[#ffc83d] px-3 py-1 text-xs font-black uppercase tracking-[0.13em] text-black">Best first step</span>
+                  <span className="text-sm font-bold text-neutral-600">1 task · 2 real examples</span>
+                </div>
+                <h3 className="mt-4 text-3xl font-bold tracking-[-0.035em]">Start With One Thing</h3>
+                <p className="mt-3 text-lg font-medium leading-relaxed text-neutral-700">
+                  Bring 1 repeated task. We finish it, save what worked, and make sure AI can repeat it reliably.
+                </p>
+                <p className="mt-3 text-sm font-bold text-neutral-600">Continue within 14 days and the $75 goes toward Build It for Me.</p>
+              </div>
+              <div className="sm:text-right">
+                <p className="text-4xl font-bold tracking-[-0.045em]">$75</p>
+                <Link href={offerUrl("start-with-one-thing")} className="mt-5 inline-flex min-h-12 items-center justify-center rounded-full bg-black px-6 text-sm font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#fff5cf]">
+                  Start with 1 task
+                </Link>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 

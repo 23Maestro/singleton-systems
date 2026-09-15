@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { createAiIntakeRequest, createNotionAiIntakePage, saveAiIntakeAudio, updateAiIntakeAudio, updateAiIntakeNotionDelivery } from "@/lib/ai-intake";
 import { delivered, deliveryFailed, deliveryHttpStatus, recordedReceipt, type DeliveryOutcome } from "@/lib/delivery-outcome";
+import { AI_WORKFLOW_OFFER_VALUES } from "@/lib/ai-workflow-offers";
 
 const MAX_AUDIO_BYTES = 25 * 1024 * 1024;
 
@@ -10,6 +11,7 @@ const intakeSchema = z.object({
   email: z.string().trim().email().max(320),
   aiWish: z.string().trim().max(5000),
   helpfulContext: z.string().trim().max(5000),
+  offer: z.enum(AI_WORKFLOW_OFFER_VALUES),
   company: z.string().trim().max(0),
 });
 
@@ -21,6 +23,7 @@ export async function POST(request: Request) {
       email: form.get("email") ?? "",
       aiWish: form.get("aiWish") ?? "",
       helpfulContext: form.get("helpfulContext") ?? "",
+      offer: form.get("offer") ?? "",
       company: form.get("company") ?? "",
     });
     const audioEntry = form.get("audio");
@@ -37,6 +40,7 @@ export async function POST(request: Request) {
       email: input.email,
       ai_wish: input.aiWish || "Voice memo attached.",
       helpful_context: input.helpfulContext || null,
+      offer: input.offer,
       audio_object_path: null,
       audio_file_name: null,
       audio_content_type: null,

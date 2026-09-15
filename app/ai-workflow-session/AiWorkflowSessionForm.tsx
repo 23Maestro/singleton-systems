@@ -1,8 +1,9 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { AI_WORKFLOW_OFFERS, type AiWorkflowOffer } from "@/lib/ai-workflow-offers";
 
-export default function AiWorkflowSessionForm() {
+export default function AiWorkflowSessionForm({ initialOffer }: { initialOffer?: AiWorkflowOffer }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
 
@@ -27,6 +28,7 @@ export default function AiWorkflowSessionForm() {
 
   return <form onSubmit={submit} className="space-y-9" encType="multipart/form-data">
     <p className="text-center text-xl font-semibold tracking-[-0.025em] text-neutral-950">What are one or two things you&apos;d like AI to make easier?</p>
+    <label className="block"><span className="text-base font-semibold text-neutral-950">Where would you like to start?</span><select name="offer" required defaultValue={initialOffer ?? ""} className="mt-3 block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-[16px] text-neutral-950 outline-none focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/10"><option value="" disabled>Choose an option</option>{AI_WORKFLOW_OFFERS.map((offer) => <option key={offer.value} value={offer.value}>{offer.label}</option>)}</select></label>
     <div><label className="block"><span className="sr-only">Tell me what repeats</span><textarea name="aiWish" rows={4} aria-label="Tell me what repeats" placeholder="Drop your notes, add a Loom link or upload a voice memo" className="block w-full resize-y rounded-2xl border border-neutral-300 bg-white px-4 py-3 text-[16px] leading-6 text-neutral-950 outline-none placeholder:text-neutral-500 focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/10" /></label><label className="mt-3 inline-block cursor-pointer text-sm font-medium text-neutral-600 underline decoration-neutral-300 underline-offset-4 transition hover:text-neutral-950 hover:decoration-neutral-950"><span>Attach a voice memo</span><span className="sr-only"> (optional, up to 25 MB)</span><input name="audio" type="file" accept="audio/*" className="sr-only" /></label></div>
     <div className="grid gap-7 sm:grid-cols-2"><label className="block"><span className="text-base font-semibold text-neutral-950">Name</span><input name="name" required autoComplete="name" className="mt-3 block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-[16px] text-neutral-950 outline-none focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/10" /></label><label className="block"><span className="text-base font-semibold text-neutral-950">Email</span><input name="email" required type="email" autoComplete="email" className="mt-3 block w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-[16px] text-neutral-950 outline-none focus:border-neutral-950 focus:ring-2 focus:ring-neutral-950/10" /></label></div>
     <label className="hidden" aria-hidden="true">Company<input name="company" tabIndex={-1} autoComplete="off" /></label>
