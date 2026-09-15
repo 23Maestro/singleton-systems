@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { financeAccessError } from "@/lib/finance-auth";
 import { commandSchema } from "@/lib/ledger/commands";
 import { readLedger, executeCommand } from "@/lib/ledger/server";
 
@@ -6,18 +7,20 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 const headers = { "Cache-Control": "private, no-store", "X-Robots-Tag": "noindex, nofollow" };
 
-// Deployment-scoped cutover switch. Jerami selected an unlinked preview without login.
+// Deployment-scoped cutover switch. Authentication remains required when enabled.
 function disabled() {
   return process.env.FINANCE_LEDGER_ENABLED !== "true"
     ? NextResponse.json({ error: "Ledger access is not enabled for this deployment." }, { status: 503, headers }) : null;
 }
-export async function GET() {
+export async function GET(request: Request) {
   const blocked = disabled(); if (blocked) return blocked;
+  const accessError = financeAccessError(request); if (accessError) return accessError;
   try { return NextResponse.json(await readLedger(), { headers }); }
   catch { return NextResponse.json({ error: "Could not load the saved ledger. Please retry." }, { status: 503, headers }); }
 }
 export async function POST(request: Request) {
   const blocked = disabled(); if (blocked) return blocked;
+  const accessError = financeAccessError(request); if (accessError) return accessError;
   if (request.headers.get("origin") !== new URL(request.url).origin)
     return NextResponse.json({ error: "Use the Ledger page to save changes." }, { status: 403, headers });
   if (!request.headers.get("content-type")?.startsWith("application/json"))

@@ -40,6 +40,14 @@
 .ledger-app .icon-button:hover { background: var(--neutral-bg); }
 .ledger-app .theme-button { border: 1px solid var(--border); font-size: 21px; }
 .ledger-app .page { max-width: 816px; margin: auto; padding: 36px 24px 72px; }
+.ledger-app .access-page { min-height: 100dvh; display: grid; place-items: center; padding: 24px; }
+.ledger-app .access-card { width: min(100%,420px); padding: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; box-shadow: var(--shadow); }
+.ledger-app .access-wordmark { display: block; width: 132px; height: auto; margin-bottom: 32px; }
+.ledger-app .access-eyebrow { color: var(--text-2); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.ledger-app .access-card h1 { margin-top: 5px; font-size: 34px; font-weight: 650; letter-spacing: -.045em; }
+.ledger-app .access-copy { margin-top: 10px; color: var(--text-2); font-size: 15px; }
+.ledger-app .access-form { display: grid; gap: 16px; margin-top: 26px; }
+.ledger-app .access-submit { width: 100%; }
 .ledger-app .page-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; gap: 20px; }
 .ledger-app .page-title h1 { font-size: 27px; font-weight: 650; letter-spacing: -.04em; }
 .ledger-app .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
@@ -298,6 +306,8 @@
   .ledger-app nav button { flex: 1; min-height: 44px; padding: 8px; }
   .ledger-app .theme-button { width: 44px; min-width: 44px; }
   .ledger-app .page { padding: 20px 12px 32px; }
+  .ledger-app .access-page { padding: 16px; }
+  .ledger-app .access-card { padding: 24px 20px; }
   .ledger-app .entry-page { padding-top: 12px; }
   .ledger-app .entry-page .page-title h1 { font-size: 24px; }
   .ledger-app .entry-card { padding: 14px; }

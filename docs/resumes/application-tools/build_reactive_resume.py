@@ -22,6 +22,190 @@ DEFAULT_JOB = "bealls-ai-specialist"
 SWIFT_AQUA_WASP_ID = "019f2ab9-9442-700b-9a60-09f5e4c343b6"
 
 JOBS: dict[str, dict[str, Any]] = {
+    "social-media-video-editor": {
+        "headline": "Social Media Video Editor",
+        "email": "Jerami@singleton-systems.com",
+        "phone": "407-473-3637",
+        "location": "Riverview, FL",
+        "summary": (
+            "Social Media Video Editor with 10+ years across social content, sports, education, "
+            "retail television, and live broadcast. Currently handles ongoing part-time Catena Media "
+            "editing and additional Upwork client work, shaping raw footage into polished social and "
+            "YouTube videos with strong pacing, clear storytelling, captions, music, sound effects, "
+            "and simple motion graphics. Experienced in Adobe Premiere Pro, client communication, "
+            "feedback, and deadline-driven delivery."
+        ),
+        "experience_bullets": {
+            "current-freelance": [
+                "Turn raw host-led sports footage into polished YouTube and social videos, tightening story flow and pacing while adding supporting visuals, captions, music, sound design, and branded motion graphics.",
+                "Handle ongoing part-time editing for Catena Media's Lineups brand alongside additional Upwork and direct-client projects, managing intake, revisions, communication, and final delivery.",
+                "Use Adobe Premiere Pro and After Effects for captions, music, sound effects, pacing, simple graphics, color correction, and audio cleanup as each edit requires.",
+                "Maintain organized project files, repeatable quality-control checks, and platform-ready exports across multiple client workflows.",
+            ],
+            "national-prospect-id": [
+                "Produced 1,000+ multi-sport athlete highlight reels, shaping raw game footage into clear stories for recruiting audiences.",
+                "Scaled output to 70 videos per month during peak enrollment growth while maintaining pacing, clip selection, clarity, and quality-control standards.",
+                "Applied sports judgment to identify key plays, frame athlete value, and keep edits engaging across different sports and source-footage conditions.",
+                "Built reusable Premiere Pro templates, naming conventions, and delivery workflows that supported consistent weekly deadlines.",
+            ],
+            "nursehub": [
+                "Restructured 60+ hours of YouTube course content and processed 180-200 lesson assets across repeated course migrations.",
+                "Improved pacing and clarity across long-form educational videos while standardizing captions, transcripts, audio, and export settings.",
+                "Built deterministic FFmpeg workflows that increased assembly throughput 2-3x and eliminated recurring export errors.",
+                "Converted scattered source material into organized, learner-ready modules with consistent formatting and reliable quality control.",
+            ],
+            "home-shopping-network": [
+                "Supported high-volume television content creation through on-set production, camera operation, lighting, audio, and asset capture.",
+                "Worked directly with models, products, producers, and creative teams to capture demonstrations, before-and-after footage, and brand storytelling content.",
+                "Maintained visual consistency, brand standards, and technical quality across deadline-driven broadcast and digital shoots.",
+            ],
+            "wfla-news-channel-8": [
+                "Supported live news broadcasts through studio floor coordination, graphics operation, robotic cameras, and reliable on-air execution.",
+                "Communicated with producers, directors, and technical teams under live production constraints where timing and accuracy mattered.",
+            ],
+            "freelance-broadcast-pa": [
+                "Supported camera, graphics, setup, operation, and breakdown for live sports broadcasts across collegiate and professional events.",
+                "Built an early foundation in deadline-driven production, visual timing, technical troubleshooting, and team communication.",
+            ],
+        },
+        "skills": [
+            {
+                "id": "editing-story",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "name": "Editing & Story",
+                "proficiency": "",
+                "level": 0,
+                "keywords": [
+                    "Adobe Premiere Pro",
+                    "Social video editing",
+                    "Long-form YouTube",
+                    "Short-form / Reels",
+                    "Pacing and timing",
+                    "Captions",
+                    "Music and sound effects",
+                ],
+            },
+            {
+                "id": "finishing",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "name": "Finishing",
+                "proficiency": "",
+                "level": 0,
+                "keywords": [
+                    "Adobe After Effects",
+                    "Simple motion graphics",
+                    "Audio cleanup",
+                    "Basic color correction",
+                    "Adobe Media Encoder",
+                    "FFmpeg",
+                ],
+            },
+            {
+                "id": "delivery",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "name": "Client Delivery",
+                "proficiency": "",
+                "level": 0,
+                "keywords": [
+                    "Clear communication",
+                    "Feedback and revisions",
+                    "Deadline management",
+                    "File organization",
+                    "Quality control",
+                ],
+            },
+        ],
+        "profiles": [
+            {
+                "id": "profile-singleton-systems",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "network": "Portfolio",
+                "username": "singleton-systems.com",
+                "website": {
+                    "url": "https://singleton-systems.com",
+                    "label": "singleton-systems.com",
+                    "inlineLink": True,
+                },
+            },
+            {
+                "id": "profile-linkedin",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "network": "LinkedIn",
+                "username": "linkedin.com/in/jeramisingleton",
+                "website": {
+                    "url": "https://www.linkedin.com/in/jeramisingleton/",
+                    "label": "linkedin.com/in/jeramisingleton",
+                    "inlineLink": True,
+                },
+            },
+            {
+                "id": "profile-educational-content",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "network": "Educational Content",
+                "username": "jeramisingleton.carrd.co",
+                "website": {
+                    "url": "https://jeramisingleton.carrd.co/",
+                    "label": "jeramisingleton.carrd.co",
+                    "inlineLink": True,
+                },
+            },
+            {
+                "id": "profile-upwork",
+                "hidden": False,
+                "icon": "",
+                "iconColor": "rgba(31, 75, 130, 1)",
+                "network": "Upwork",
+                "username": "Video Editor Profile",
+                "website": {
+                    "url": "https://www.upwork.com/freelancers/~01376b12599102b2cc",
+                    "label": "Upwork profile",
+                    "inlineLink": True,
+                },
+            },
+        ],
+        "notes": "General social media video editor resume generated from confirmed Singleton Systems resume and current freelance facts.",
+        "json_filename": "social-media-video-editor-reactive-resume.json",
+        "pdf_filename": "Jerami_Singleton_Social_Media_Video_Editor_Resume.pdf",
+        "resume_name": "Social Media Video Editor",
+        "resume_slug": "social-media-video-editor",
+        "resume_tags": ["Social Media", "Video Editing"],
+        "current_freelance": True,
+        "hide_icons": False,
+        "hide_picture": True,
+        "icloud_resume_folder": True,
+        "page_margin_y": 26,
+        "national_prospect_period": "February 2024 - June 2026",
+        "reactive_resume_id": "01a09d4e-d9c7-76dc-87c9-35ca9199c894",
+        "show_freelance_broadcast": True,
+        "style_rules": [
+            {
+                "id": "tighten-skills-top",
+                "label": "Move left panel upward",
+                "enabled": True,
+                "target": {"scope": "sectionType", "sectionType": "skills"},
+                "slots": {"section": {"marginTop": -48}},
+            },
+            {
+                "id": "tighten-profiles-top",
+                "label": "Keep profile links on page one",
+                "enabled": True,
+                "target": {"scope": "sectionType", "sectionType": "profiles"},
+                "slots": {"section": {"marginTop": -28}},
+            }
+        ],
+    },
     "bealls-ai-specialist": {
         "headline": "AI Specialist | Jay23singleton@gmail.com | 407-473-3637",
         "summary": (
@@ -165,17 +349,97 @@ def json_output_path(job_slug: str) -> Path:
 
 
 def pdf_output_path(job_slug: str) -> Path:
-    return Path.home() / "Documents" / job_config(job_slug)["pdf_filename"]
+    config = job_config(job_slug)
+    if config.get("icloud_resume_folder"):
+        output_dir = Path.home() / "Library/Mobile Documents/com~apple~CloudDocs/Records/23/Resumes"
+    else:
+        output_dir = Path.home() / "Documents"
+    return output_dir / config["pdf_filename"]
 
 
 def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
     config = job_config(job_slug)
     experience_bullets = config["experience_bullets"]
+    experience_items: list[dict[str, Any]] = []
+    if config.get("current_freelance"):
+        experience_items.append(
+            {
+                "id": "current-freelance",
+                "hidden": False,
+                "company": "Upwork & Direct Clients",
+                "position": "Freelance Video Editor",
+                "location": "Remote",
+                "period": "June 2026 - Present",
+                "website": website("https://www.upwork.com/freelancers/~01376b12599102b2cc", "Upwork profile"),
+                "description": bullets(experience_bullets["current-freelance"]),
+                "roles": [],
+            }
+        )
+
+    experience_items.extend(
+        [
+            {
+                "id": "national-prospect-id",
+                "hidden": False,
+                "company": "National Prospect ID",
+                "position": "Video Editor",
+                "location": "Remote",
+                "period": config.get("national_prospect_period", "February 2024 - June 2026"),
+                "website": website(),
+                "description": bullets(experience_bullets["national-prospect-id"]),
+                "roles": [],
+            },
+            {
+                "id": "nursehub",
+                "hidden": False,
+                "company": "NurseHub",
+                "position": "Video Editor",
+                "location": "Remote",
+                "period": "July 2024 - December 2025",
+                "website": website(),
+                "description": bullets(experience_bullets["nursehub"]),
+                "roles": [],
+            },
+            {
+                "id": "home-shopping-network",
+                "hidden": False,
+                "company": "Home Shopping Network",
+                "position": "Production Technician",
+                "location": "St. Petersburg, FL",
+                "period": "December 2020 - February 2023",
+                "website": website(),
+                "description": bullets(experience_bullets["home-shopping-network"]),
+                "roles": [],
+            },
+            {
+                "id": "wfla-news-channel-8",
+                "hidden": False,
+                "company": "WFLA News Channel 8",
+                "position": "Production Technician",
+                "location": "Tampa, FL",
+                "period": "January 2018 - April 2019",
+                "website": website(),
+                "description": bullets(experience_bullets["wfla-news-channel-8"]),
+                "roles": [],
+            },
+            {
+                "id": "freelance-broadcast-pa",
+                "hidden": not config.get("show_freelance_broadcast", False),
+                "company": "Freelance",
+                "position": "Broadcast Production Assistant",
+                "location": "Central Florida",
+                "period": "August 2014 - January 2018",
+                "website": website(),
+                "description": bullets(experience_bullets["freelance-broadcast-pa"]),
+                "roles": [],
+            },
+        ]
+    )
     return {
         "$schema": SCHEMA_URL,
         "version": "5.0.0",
         "picture": {
-            "hidden": not PROFILE_IMAGE_PATH.exists(),
+            "hidden": config.get("hide_picture", not PROFILE_IMAGE_PATH.exists()),
             "url": image_data_uri(PROFILE_IMAGE_PATH) if PROFILE_IMAGE_PATH.exists() else "",
             "size": 96,
             "rotation": 0,
@@ -189,9 +453,9 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
         "basics": {
             "name": "Jerami Singleton",
             "headline": config["headline"],
-            "email": "",
-            "phone": "",
-            "location": "",
+            "email": config.get("email", ""),
+            "phone": config.get("phone", ""),
+            "location": config.get("location", ""),
             "website": {"url": "", "label": ""},
             "customFields": [],
         },
@@ -207,7 +471,7 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
         "sections": {
             "profiles": section(
                 "Portfolio",
-                [
+                config.get("profiles", [
                     {
                         "id": "profile-singleton-systems",
                         "hidden": False,
@@ -226,67 +490,11 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
                         "username": "jeramisingleton",
                         "website": website("https://linkedin.com/in/jeramisingleton", "linkedin.com/in/jeramisingleton"),
                     },
-                ],
+                ]),
             ),
             "experience": section(
                 "Experience",
-                [
-                    {
-                        "id": "national-prospect-id",
-                        "hidden": False,
-                        "company": "National Prospect ID",
-                        "position": "Video Editor",
-                        "location": "Remote",
-                        "period": "February 2024 - June 2026",
-                        "website": website(),
-                        "description": bullets(experience_bullets["national-prospect-id"]),
-                        "roles": [],
-                    },
-                    {
-                        "id": "nursehub",
-                        "hidden": False,
-                        "company": "NurseHub",
-                        "position": "Video Editor",
-                        "location": "Remote",
-                        "period": "July 2024 - December 2025",
-                        "website": website(),
-                        "description": bullets(experience_bullets["nursehub"]),
-                        "roles": [],
-                    },
-                    {
-                        "id": "home-shopping-network",
-                        "hidden": False,
-                        "company": "Home Shopping Network",
-                        "position": "Production Technician",
-                        "location": "St. Petersburg, FL",
-                        "period": "December 2020 - February 2023",
-                        "website": website(),
-                        "description": bullets(experience_bullets["home-shopping-network"]),
-                        "roles": [],
-                    },
-                    {
-                        "id": "wfla-news-channel-8",
-                        "hidden": False,
-                        "company": "WFLA News Channel 8",
-                        "position": "Production Technician",
-                        "location": "Tampa, FL",
-                        "period": "January 2018 - April 2019",
-                        "website": website(),
-                        "description": bullets(experience_bullets["wfla-news-channel-8"]),
-                        "roles": [],
-                    },
-                    {
-                        "id": "freelance-broadcast-pa",
-                        "hidden": True,
-                        "company": "Freelance",
-                        "position": "Broadcast Production Assistant",
-                        "location": "Central Florida",
-                        "period": "August 2014 - January 2018",
-                        "website": website(),
-                        "description": bullets(experience_bullets["freelance-broadcast-pa"]),
-                        "roles": [],
-                    },
-                ],
+                experience_items,
             ),
             "education": section(
                 "Education",
@@ -307,13 +515,13 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
                         "id": "spc",
                         "hidden": False,
                         "school": "St. Petersburg College",
-                        "degree": "Associate of Science in Computer Programming / Information Technology",
+                        "degree": "Computer Programming / Information Technology Coursework",
                         "area": "",
                         "grade": "",
                         "location": "St. Petersburg, Florida",
                         "period": "2021 - 2023",
                         "website": website(),
-                        "description": "No degree awarded.",
+                        "description": "",
                     },
                 ],
             ),
@@ -372,11 +580,11 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
                 "gapX": 18,
                 "gapY": 12,
                 "marginX": 32,
-                "marginY": 24,
+                "marginY": config.get("page_margin_y", 24),
                 "format": "letter",
                 "locale": "en-US",
                 "hideLinkUnderline": True,
-                "hideIcons": True,
+                "hideIcons": config.get("hide_icons", True),
                 "hideSectionIcons": True,
             },
             "design": {
@@ -402,7 +610,7 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
                 },
             },
             "notes": config["notes"],
-            "styleRules": [
+            "styleRules": config.get("style_rules", [
                 {
                     "id": "tighten-summary-top",
                     "label": "Tighten Summary top spacing",
@@ -417,7 +625,7 @@ def build_resume_data(job_slug: str = DEFAULT_JOB) -> dict[str, Any]:
                     "target": {"scope": "sectionType", "sectionType": "skills"},
                     "slots": {"section": {"marginTop": -48}},
                 },
-            ],
+            ]),
         },
     }
 
@@ -527,7 +735,9 @@ def import_and_download(resume_data: dict[str, Any], pdf_out: Path) -> str:
     return resume_id
 
 
-def update_and_download(resume_data: dict[str, Any], resume_id: str, pdf_out: Path) -> str:
+def update_and_download(
+    resume_data: dict[str, Any], resume_id: str, pdf_out: Path, config: dict[str, Any]
+) -> str:
     api_key = os.environ.get("REACTIVE_RESUME_API_KEY")
     if not api_key:
         raise RuntimeError("Missing REACTIVE_RESUME_API_KEY in environment or .env.local")
@@ -535,10 +745,18 @@ def update_and_download(resume_data: dict[str, Any], resume_id: str, pdf_out: Pa
     base_url = os.environ.get("REACTIVE_RESUME_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
     headers = {"x-api-key": api_key, "Content-Type": "application/json"}
 
+    update_payload: dict[str, Any] = {"data": resume_data}
+    if config.get("resume_name"):
+        update_payload["name"] = config["resume_name"]
+    if config.get("resume_slug"):
+        update_payload["slug"] = config["resume_slug"]
+    if config.get("resume_tags") is not None:
+        update_payload["tags"] = config["resume_tags"]
+
     update_response = requests.put(
         f"{base_url}/resumes/{resume_id}",
         headers=headers,
-        json={"data": resume_data},
+        json=update_payload,
         timeout=60,
     )
     if update_response.status_code >= 400:
@@ -612,7 +830,7 @@ def main(argv: list[str] | None = None) -> int:
         resume_id = config.get("reactive_resume_id")
         if not resume_id:
             raise RuntimeError(f"Job {args.job} does not define reactive_resume_id")
-        resume_id = update_and_download(resume_data, resume_id, pdf_out)
+        resume_id = update_and_download(resume_data, resume_id, pdf_out, config)
     else:
         resume_id = import_and_download(resume_data, pdf_out)
     print(f"reactive_resume_id={resume_id}")

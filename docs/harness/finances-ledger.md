@@ -2,9 +2,13 @@
 
 ## Product intent
 
-`/finances` is Jerami's personal cash-flow app. It has no login, access token,
-or Lock action. It is not linked from the public site, Links page, or Visual
-Maps.
+`/finances` is Jerami's personal cash-flow app. It requires one finance
+passphrase per trusted device and stores a signed, HTTP-only session for one
+year. The finance APIs enforce the same session. Rotating
+`FINANCES_ACCESS_TOKEN` invalidates every trusted device.
+
+The page is not linked from the public site, Links page, or Visual Maps, and it
+remains `noindex`. Those discovery controls do not replace authentication.
 
 Jerami enters real income and spending by hand. The app does not sync a bank
 account. Its cash figure must match the balance Jerami reports.
