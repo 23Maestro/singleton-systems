@@ -22,12 +22,6 @@ export const metadata: Metadata = {
 
 const decisionMaps = [
   {
-    label: "NFL Week 2 Power Rankings — Post-Figma",
-    href: "/decision-maps/2026-09-15-nfl-week-2-power-rankings-post-figma-review/index.html",
-    tags: ["27 Candidates", "17 Motion Scenes", "Post-Figma Review"],
-    accent: "border-[#00c0e8] text-[#007b94] dark:text-[#5ee9ff]",
-  },
-  {
     label: "Kedasha Preview",
     href: "/decision-maps/2026-09-15-kedasha-preview",
     tags: ["September 15, 2026", "Editing Direction", "Hermes Agent"],
