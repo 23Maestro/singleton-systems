@@ -29,6 +29,24 @@
       "scene": {"required": ["subjectCount"]},
       "figma": {"required": ["assetLedger"]}
     }}
+  }, {
+    "if": {"properties": {"scene": {"properties": {"approvedOption": {"const": "Rank Reveal"}}}}},
+    "then": {"properties": {
+      "figma": {
+        "required": ["rankReveal"],
+        "properties": {"episodeUsesInstance": {"const": false}}
+      },
+      "motion": {
+        "required": ["timingValidator"],
+        "properties": {
+          "engine": {"const": "figma"},
+          "engineVersion": {"const": "figma-motion"},
+          "timingValidator": {"const": "manim"},
+          "sourcePath": {"type": "null"},
+          "sceneClass": {"type": "null"}
+        }
+      }
+    }}
   }],
   "properties": {
     "schemaVersion": { "const": 2 },
@@ -78,6 +96,7 @@
         "episodeInstanceId",
         "sourceRevision",
         "episodeUsesInstance",
+        "motionWorkingCopyMode",
         "rootDimensions",
         "exposedSlots",
         "allowedReplacementProperties",
@@ -120,7 +139,8 @@
         "sourceComponentId": { "type": "string", "minLength": 1 },
         "episodeInstanceId": { "type": "string", "minLength": 1 },
         "sourceRevision": { "type": "string", "minLength": 1 },
-        "episodeUsesInstance": { "const": true },
+        "episodeUsesInstance": { "const": false },
+        "motionWorkingCopyMode": { "const": "detached-from-canonical-instance" },
         "rootDimensions": { "$ref": "#/$defs/dimensions" },
         "exposedSlots": {
           "type": "array",
@@ -149,6 +169,64 @@
             }
           }
         },
+        "rankReveal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "canonicalSourceComponentId",
+            "canonicalSourceName",
+            "stateOrder",
+            "boardEntranceOrder",
+            "logoWrapperDimensions",
+            "motionWorkingCopyMode",
+            "revealedRank",
+            "visibleRanks",
+            "logoAssignments"
+          ],
+          "properties": {
+            "canonicalSourceComponentId": { "const": "1277:558" },
+            "canonicalSourceName": { "const": "Recurring Board / Rank Reveal / 10 Teams" },
+            "stateOrder": { "const": "10-to-1-cumulative" },
+            "boardEntranceOrder": { "const": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] },
+            "logoWrapperDimensions": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["width", "height"],
+              "properties": {
+                "width": { "const": 96 },
+                "height": { "const": 78 }
+              }
+            },
+            "motionWorkingCopyMode": { "const": "detached-from-canonical-instance" },
+            "revealedRank": { "type": "integer", "minimum": 1, "maximum": 10 },
+            "visibleRanks": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 10,
+              "uniqueItems": true,
+              "items": { "type": "integer", "minimum": 1, "maximum": 10 }
+            },
+            "logoAssignments": {
+              "type": "array",
+              "minItems": 10,
+              "maxItems": 10,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["rank", "team", "componentId", "componentName"],
+                "properties": {
+                  "rank": { "type": "integer", "minimum": 1, "maximum": 10 },
+                  "team": { "type": "string", "minLength": 1 },
+                  "componentId": { "type": "string", "minLength": 1 },
+                  "componentName": {
+                    "type": "string",
+                    "pattern": "^Asset/Team Logo/Normalized/"
+                  }
+                }
+              }
+            }
+          }
+        },
         "focalAssets": {
           "type": "array",
           "items": {
@@ -170,8 +248,10 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["nodeId", "property", "duration", "keyframes"],
+            "required": ["cueId", "nodeId", "property", "duration", "keyframes"],
             "properties": {
+              "cueId": { "type": "string", "minLength": 1 },
+              "rank": { "type": "integer", "minimum": 1, "maximum": 10 },
               "nodeId": { "type": "string", "minLength": 1 },
               "property": { "type": "string", "minLength": 1 },
               "duration": { "type": "number", "minimum": 0 },
@@ -196,10 +276,11 @@
     "motion": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["engine", "engineVersion", "frameRate", "sourcePath", "sceneClass", "cues"],
+      "required": ["engine", "engineVersion", "timingValidator", "frameRate", "sourcePath", "sceneClass", "cues"],
       "properties": {
-        "engine": { "enum": ["figma", "manim"] },
-        "engineVersion": { "type": "string", "minLength": 1 },
+        "engine": { "const": "figma" },
+        "engineVersion": { "const": "figma-motion" },
+        "timingValidator": { "const": "manim" },
         "frameRate": {
           "type": "object",
           "additionalProperties": false,
@@ -209,8 +290,8 @@
             "denominator": { "type": "integer", "minimum": 1 }
           }
         },
-        "sourcePath": { "type": ["string", "null"] },
-        "sceneClass": { "type": ["string", "null"] },
+        "sourcePath": { "type": "null" },
+        "sceneClass": { "type": "null" },
         "cues": {
           "type": "array",
           "minItems": 1,
@@ -239,33 +320,17 @@
             }
           }
         }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "engine": { "const": "manim" } } },
-          "then": {
-            "properties": {
-              "sourcePath": { "type": "string", "minLength": 1 },
-              "sceneClass": { "type": "string", "minLength": 1 }
-            }
-          }
-        },
-        {
-          "if": { "properties": { "engine": { "const": "figma" } } },
-          "then": {
-            "properties": {
-              "sourcePath": { "type": "null" },
-              "sceneClass": { "type": "null" }
-            }
-          }
-        }
-      ]
+      }
     },
     "timing": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "transcriptPhrase",
+        "transcriptSource",
+        "transcriptPath",
+        "timestampResolution",
+        "manimTimingValidated",
         "verifiedAnchorTimestamp",
         "anchorVerified",
         "entranceTimes",
@@ -277,6 +342,10 @@
       ],
       "properties": {
         "transcriptPhrase": { "type": "string", "minLength": 1 },
+        "transcriptSource": { "const": "whisper" },
+        "transcriptPath": { "type": "string", "minLength": 1 },
+        "timestampResolution": { "const": "word" },
+        "manimTimingValidated": { "const": true },
         "verifiedAnchorTimestamp": { "type": "number", "minimum": 0 },
         "anchorVerified": { "const": true },
         "entranceTimes": {
@@ -286,7 +355,7 @@
         },
         "lastEntrance": { "type": "number", "minimum": 0 },
         "contentEnd": { "type": "number", "minimum": 0 },
-        "paddedCompositionEnd": { "type": "number", "minimum": 5 },
+        "paddedCompositionEnd": { "type": "number", "minimum": 10 },
         "finalStateVisible": { "const": true },
         "noExitAnimation": { "const": true }
       }
@@ -325,7 +394,7 @@
           "required": ["type", "engine", "status", "sampleTimes", "frames"],
           "properties": {
             "type": { "enum": ["validation-sample", "deterministic-track-proof", "cue-frame-proof"] },
-            "engine": { "enum": ["figma", "manim"] },
+            "engine": { "const": "figma" },
             "status": { "enum": ["passed", "failed"] },
             "sampleTimes": {
               "type": "array",

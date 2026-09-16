@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 2,
+  "enforcement": {
+    "active": true,
+    "approvedToolInputSha256": "92dea4852fd3b5640f03c062ee66a9fbcbb56edb5760de4d0f467183b6473e21"
+  },
+  "scene": {
+    "episodeId": "2026-09-15-nfl-week-2-power-rankings",
+    "sceneId": "S21",
+    "lane": "quick stat",
+    "approvedOption": "Single-frame statement",
+    "setting": "single-frame photo statement"
+  },
+  "figma": {
+    "fileKey": "o7E24iymIT80MTXGYIogVH",
+    "pageId": "1268:1446",
+    "rootNodeId": "1298:7537",
+    "sourceComponentId": "653:184",
+    "episodeInstanceId": "1298:7537",
+    "sourceRevision": "quick-stat-single-frame-v1",
+    "episodeUsesInstance": false,
+    "motionWorkingCopyMode": "detached-from-canonical-instance",
+    "rootDimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "exposedSlots": [
+      "Photo",
+      "Topic Small",
+      "Topic Large",
+      "Statement"
+    ],
+    "allowedReplacementProperties": [
+      "TOPIC SMALL",
+      "TOPIC LARGE",
+      "STATEMENT"
+    ],
+    "focalAssets": [],
+    "motionTracks": [
+      {
+        "cueId": "S21-photo-push",
+        "nodeId": "S21/PHOTO",
+        "property": "scale",
+        "duration": 16,
+        "keyframes": [
+          {
+            "time": 0,
+            "value": 1
+          },
+          {
+            "time": 16,
+            "value": 1.025
+          }
+        ]
+      },
+      {
+        "cueId": "S21-purdy-swap",
+        "nodeId": "S21/PHOTO-2",
+        "property": "opacity",
+        "duration": 16,
+        "keyframes": [
+          {
+            "time": 0,
+            "value": 0
+          },
+          {
+            "time": 5.632,
+            "value": 1
+          },
+          {
+            "time": 16,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-statement",
+        "nodeId": "S21/STATEMENT",
+        "property": "opacity",
+        "duration": 16,
+        "keyframes": [
+          {
+            "time": 6,
+            "value": 0
+          },
+          {
+            "time": 6.4,
+            "value": 1
+          },
+          {
+            "time": 16,
+            "value": 1
+          }
+        ]
+      }
+    ]
+  },
+  "motion": {
+    "engine": "figma",
+    "engineVersion": "figma-motion",
+    "timingValidator": "manim",
+    "frameRate": {
+      "numerator": 24000,
+      "denominator": 1001
+    },
+    "sourcePath": null,
+    "sceneClass": null,
+    "cues": [
+      {
+        "cueId": "S21-photo-push",
+        "elementId": "photo",
+        "triggerType": "EDIT",
+        "triggerText": "scene start",
+        "transcriptTimestamp": 805.4,
+        "sceneTime": 0,
+        "action": "slow-photo-push",
+        "duration": 0
+      },
+      {
+        "cueId": "S21-purdy-swap",
+        "elementId": "photo-2",
+        "triggerType": "EDIT",
+        "triggerText": "Purdy swap before the 49ers callout",
+        "transcriptTimestamp": 811.032,
+        "sceneTime": 5.632,
+        "action": "swap-to-brock-purdy",
+        "duration": 0
+      },
+      {
+        "cueId": "S21-statement",
+        "elementId": "statement",
+        "triggerType": "WORD",
+        "triggerText": "27",
+        "transcriptTimestamp": 811.4,
+        "sceneTime": 6,
+        "action": "reveal-statement",
+        "duration": 0.4
+      }
+    ]
+  },
+  "timing": {
+    "transcriptPhrase": "scene start Purdy swap before the 49ers callout 27",
+    "transcriptSource": "whisper",
+    "transcriptPath": "/Users/singleton23/Documents/Codex/2026-09-15/lineups-nfl-week-2-power-rankings/transcript/power-rankings-2026-09-15.json",
+    "timestampResolution": "word",
+    "manimTimingValidated": true,
+    "verifiedAnchorTimestamp": 805.4,
+    "anchorVerified": true,
+    "entranceTimes": [
+      0,
+      5.632,
+      6
+    ],
+    "lastEntrance": 6,
+    "contentEnd": 6.4,
+    "paddedCompositionEnd": 16,
+    "finalStateVisible": true,
+    "noExitAnimation": true
+  },
+  "policy": {
+    "transitionsApproved": false,
+    "effectsApproved": false,
+    "lutsApproved": false,
+    "opacityChangesApproved": false,
+    "approvalNote": null
+  },
+  "export": {
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "path": "pending/2026-09-15-nfl-week-2-power-rankings/S21.mp4",
+    "fileSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "artifactRole": "final-premiere-render",
+    "backgroundPolicy": "football-visible-baked",
+    "validationStatus": "pending",
+    "motionProof": {
+      "type": "cue-frame-proof",
+      "engine": "figma",
+      "status": "failed",
+      "sampleTimes": [
+        0,
+        5.632,
+        6,
+        15.9
+      ],
+      "frames": [
+        {
+          "time": 0,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "time": 15.9,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "width": 1920,
+          "height": 1080
+        }
+      ]
+    }
+  },
+  "ownership": {
+    "eaglePath": "Episode / 06 Motion Renders",
+    "duplicateFinalFolderIn23Projects": false
+  },
+  "premiere": {
+    "sequenceId": "pending-week-2-sequence",
+    "trackIndex": 2,
+    "approvedStartTime": 805.4,
+    "approvedDuration": 16,
+    "approvedEndTime": 821.4,
+    "projectItemId": "pending-S21",
+    "treePath": "2026-09-15-nfl-week-2-power-rankings/06 Motion Renders/S21.mp4",
+    "labelReadback": "pending",
+    "timelineClipId": "pending-S21"
+  },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "reviewedAt": "2026-09-16T00:00:00Z",
+    "correctionPayloadId": null
+  }
+}

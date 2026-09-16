@@ -80,13 +80,28 @@ assert.ok(
   `${REFERENCE_PNG} is missing — it is the reference render for the wordmark`
 );
 
-const ROOT_FAVICON = fs.readFileSync(path.join(root, "app/favicon.ico"));
-const FINANCES_FAVICON = fs.readFileSync(path.join(root, "public/ledger/favicon.ico"));
-assert.deepEqual(
-  ROOT_FAVICON,
-  FINANCES_FAVICON,
-  "app/favicon.ico must match the Finances favicon generated from the outlined S asterisk"
-);
+const FAVICON_SOURCE = "public/brand/singleton-systems-favicon.svg";
+const FAVICON_ICO = "public/brand/singleton-systems-favicon.ico";
+const faviconSource = fs.readFileSync(path.join(root, FAVICON_SOURCE), "utf8");
+assert.doesNotMatch(faviconSource, /<text|font-family/);
+assert.match(faviconSource, /translate\(357 340\) scale\(\.95\)/);
+assert.ok(fs.existsSync(path.join(root, FAVICON_ICO)), `${FAVICON_ICO} is missing`);
+
+const RETIRED_ICON_PATHS = [
+  "app/favicon.ico",
+  "app/icon.svg",
+  "app/apple-icon.svg",
+  "public/apple-icon.svg",
+  "public/ledger/favicon.ico",
+  "public/ledger/apple-touch-icon.png",
+  "public/ledger/ledger-192.png",
+  "public/ledger/ledger-512.png",
+  "public/ledger/mark-dark.svg",
+  "public/ledger/mark-light.svg",
+];
+for (const rel of RETIRED_ICON_PATHS) {
+  assert.equal(fs.existsSync(path.join(root, rel)), false, `${rel} was retired; use ${FAVICON_SOURCE}`);
+}
 
 /**
  * Every logo reference in the app must resolve to an approved asset.
@@ -100,6 +115,10 @@ const APPROVED = new Set([
   "/singleton-systems-wordmark.svg",
   "/brand/ssystems-logo-wordmark-black-2640x1040.png",
   "/brand/ssystems-logo-wordmark-white-2640x1040.png",
+  "/brand/singleton-systems-favicon.svg",
+  "/brand/singleton-systems-favicon-180.png",
+  "/brand/singleton-systems-favicon-192.png",
+  "/brand/singleton-systems-favicon-512.png",
 ]);
 
 function walk(dir) {
@@ -131,5 +150,5 @@ for (const file of sources) {
 
 console.log(
   `brand assets OK — ${WORDMARKS.length} wordmarks outlined, font-free, locked to ${EXPECTED_VIEWBOX}; ` +
-    `${referenceCount} logo references all resolve to approved assets`
+    `${referenceCount} logo references all resolve to approved assets; ${FAVICON_SOURCE} is canonical`
 );

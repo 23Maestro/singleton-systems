@@ -10,11 +10,12 @@ def manifest():
     return {
         "schemaVersion": 2,
         "motion": {
-            "engine": "manim",
-            "engineVersion": "0.19.0",
+            "engine": "figma",
+            "engineVersion": "figma-motion",
+            "timingValidator": "manim",
             "frameRate": {"numerator": 24000, "denominator": 1001},
-            "sourcePath": "scene.py",
-            "sceneClass": "ProofScene",
+            "sourcePath": None,
+            "sceneClass": None,
             "cues": [
                 {
                     "cueId": "yards",
@@ -56,6 +57,17 @@ class CueContractTests(unittest.TestCase):
             path = Path(directory) / "manifest.json"
             path.write_text(json.dumps(manifest()), encoding="utf-8")
             self.assertEqual(CueContract.from_path(path).cue("yards").trigger_text, "yards")
+
+    def test_validates_figma_motion_with_manim_timing_authority(self):
+        contract = CueContract(manifest())
+        self.assertEqual(contract.engine, "figma")
+        self.assertEqual(contract.timing_validator, "manim")
+
+    def test_never_uses_manim_as_the_figma_motion_renderer(self):
+        value = manifest()
+        value["motion"]["engine"] = "manim"
+        with self.assertRaisesRegex(CueContractError, "Figma Motion"):
+            CueContract(value)
 
 
 if __name__ == "__main__":

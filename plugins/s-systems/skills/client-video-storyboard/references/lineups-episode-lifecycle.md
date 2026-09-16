@@ -29,6 +29,7 @@ delivery deadline when it is missing.
 ingest files
   -> create or update Linear issue and due date
   -> file source media and packet in Eagle
+  -> complete transcript and activate transcript-Manim-Figma scene manifests
   -> locked Pre-Figma review
   -> approved Figma source-family episode copies
   -> locked Post-Figma review
@@ -54,6 +55,11 @@ Keep the approved typography, spacing, colors, card geometry, responsive
 behavior, and navigation. Replace only project-record data and candidate
 content. Do not redesign the page for a team, subject, or episode.
 
+Anchor every compact visual-preview pill at the top center of its image or
+motion frame with a safe inset. This includes source-preview, motion-placeholder,
+and missing-asset labels. Never bottom-align these pills or let them overlap the
+candidate title, team name, subject, or key image content.
+
 ## locked Post-Figma UI
 
 Use the same hierarchy for every episode:
@@ -77,6 +83,21 @@ Shared code reads the active episode record. It cannot contain a team name,
 fixed scene count, fixed date, or episode path. Put those values in the episode
 record. The gate checks the current record's candidate order, Figma readback,
 preview hashes, dimensions, frame rate, source IDs, and review links.
+
+The Lineups Figma file cannot be mutated or exported without an active scene
+manifest. Activate the manifest before building an episode copy. For every Rank
+Reveal scene, the gate also verifies:
+
+- canonical source `1277:558` named `Recurring Board / Rank Reveal / 10 Teams`;
+- ten normalized 96 x 78 logo-wrapper assignments;
+- cumulative visible ranks from 10 through the newly revealed rank;
+- Rank 10 only: one scene-start 10-to-1 row-shell cascade;
+- ranks 9 through 1: no repeated board cascade and only the current team name
+  and normalized logo animate;
+- one verified team-content cue and exact cue math within 0.001 seconds;
+- Manim declared as timing validator and Figma Motion as the sole engine;
+- a live Figma Motion opacity track aligned to the cue start and duration;
+- live Figma readback matching the manifest before export.
 
 Use this record shape for each active episode:
 

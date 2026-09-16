@@ -109,6 +109,27 @@ Reveal** and **Super Bowl Bubble Board**. Update current teams, logos, ranks, an
 labels inside the approved design. Rank Reveal stays conditional to ranked
 episodes.
 
+Mark's Power Rankings is a weekly Tuesday-afternoon filming workflow during the
+season. Treat the next episode as new data in the same Rank Reveal system, not a
+new design pass.
+
+`Recurring Board / Rank Reveal / 10 Teams` (`1277:558`) is the only canonical
+Rank Reveal source. The pre-normalized source was deleted. Assign logos only
+through `Asset/Team Logo/Normalized/*` 96 x 78 wrappers. Set the ten teams and
+logos once for the episode, then reveal cumulatively from rank 10 through rank
+1. Every state keeps all previously revealed rows visible. Rank 10 starts with
+a scene-start 10-to-1 row-shell cascade. Ranks 9 through 1 keep the board
+static and animate only the current team name and normalized logo.
+The episode motion artifact is a verified detached working copy. The canonical
+component remains the sole reusable source; detached episode copies never
+become alternate masters.
+
+Each reveal is transcript-driven. The scene manifest names the verified phrase
+or word timestamp. Manim validates `sceneTime = transcriptTimestamp -
+verifiedAnchorTimestamp` and the frame rate. Figma Motion alone renders the row
+reveal from that cue. A static board, missing track, raw logo component, broken
+cumulative state, or Premiere retime fails the Rank Reveal workflow.
+
 ## data-driven background
 
 Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards
@@ -181,17 +202,15 @@ Do not apply this global push to Asset Swap, Comparison, or other motion comps.
 
 ## motion engine
 
-Every animated beat names one primary engine in the scene manifest.
+Every animated Lineups beat uses the same fixed contract. Figma Motion is the
+sole visual motion engine. Manim validates the Whisper word anchors, cue math,
+frame rate, and composition timing; it never renders the scene. The cue list
+owns `transcriptTimestamp`, `sceneTime`, action, and duration. The hook checks
+the math and motion proof before Figma mutation or export.
 
-- Use Figma Motion for a simple approved component move with clean manual
-  keyframes.
-- Use Manim for transcript-dense stat reveals, charts, comparisons, or repeated
-  timing repair.
-- Keep Figma as the approved visual source when Manim renders the scene.
-- Bind both engines to the same renderer-neutral cue list.
-
-The cue list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The
-hook checks the math and the render proof. The engine executes the cue.
+Every composition is at least 10 seconds long and extends at least two seconds
+beyond its last content cue. This padding is intentional so Premiere can trim a
+longer source instead of sending the scene back to Figma.
 
 ## active-system rule
 

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="NFL Week 2 Power Rankings Pre-Figma flow, candidate map, and asset review." />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>NFL Week 2 Power Rankings — Pre-Figma review</title>
+    <style>
+      :root { --paper:#f7f7f5; --card:#fff; --ink:#111318; --muted:#667085; --line:#d8d9d5; --blue:#1677ff; --yellow:#f4c430; --red:#d63c32; --green:#178a52; --navy:#0a1f44; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height:1.45; }
+      button,a { font:inherit; }
+      a { color:inherit; }
+      .shell { width:min(70rem,calc(100% - 2rem)); margin:auto; padding:2rem 0 4rem; }
+      .top { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+      .brand { width:8rem; }
+      .brand img { display:block; width:100%; height:auto; }
+      .back { color:var(--muted); font-size:.8rem; font-weight:750; text-decoration:none; }
+      h1 { margin:4rem 0 .75rem; max-width:12ch; font-size:clamp(2.7rem,9vw,6.8rem); letter-spacing:-.07em; line-height:.88; }
+      .meta { color:var(--muted); font-weight:650; }
+      .route { margin:2rem 0; padding:1rem 1.1rem; border-left:5px solid var(--blue); background:var(--card); font-size:.9rem; font-weight:750; }
+      .tabs { display:flex; gap:.5rem; overflow:auto; padding-bottom:.5rem; }
+      .tab { border:1px solid var(--line); border-radius:999px; background:transparent; padding:.65rem 1rem; color:var(--muted); cursor:pointer; font-size:.83rem; font-weight:800; white-space:nowrap; }
+      .tab[aria-selected="true"] { border-color:var(--ink); background:var(--ink); color:#fff; }
+      .panel { margin-top:1rem; }
+      .panel[hidden] { display:none; }
+      .summary { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.7rem; margin-bottom:1rem; }
+      .stat,.beat,.asset,.decision-note { border:1px solid var(--line); border-radius:.55rem; background:var(--card); }
+      .stat { padding:1rem; }
+      .stat strong { display:block; font-size:1.55rem; }
+      .stat span { color:var(--muted); font-size:.75rem; font-weight:750; }
+      .coverage { margin:1rem 0 1.2rem; padding:1rem; border:1px solid var(--line); border-radius:.55rem; background:var(--card); }
+      .coverage-head { display:flex; justify-content:space-between; gap:1rem; color:var(--muted); font-size:.75rem; font-weight:800; }
+      .coverage-bar { display:flex; height:1.1rem; margin-top:.7rem; overflow:hidden; border-radius:999px; background:#e8e8e5; }
+      .coverage-mark { width:83.7%; background:var(--ink); }
+      .coverage-inserts { width:16.3%; background:var(--blue); }
+      .coverage-key { display:flex; flex-wrap:wrap; gap:1rem; margin-top:.7rem; color:var(--muted); font-size:.75rem; font-weight:750; }
+      .coverage-key span::before { content:""; display:inline-block; width:.65rem; height:.65rem; margin-right:.35rem; border-radius:999px; vertical-align:-.05rem; background:var(--ink); }
+      .coverage-key span:last-child::before { background:var(--blue); }
+      .list { display:grid; gap:.8rem; }
+      .beat { display:grid; grid-template-columns:11rem minmax(0,1fr); overflow:hidden; }
+      .visual { position:relative; min-height:10rem; overflow:hidden; background:var(--navy); color:#fff; }
+      .visual img { display:block; width:100%; height:100%; min-height:10rem; object-fit:cover; }
+      .motion { display:flex; min-height:10rem; flex-direction:column; justify-content:flex-end; padding:1rem; background:linear-gradient(145deg,#06142d 0%,#0b3f87 60%,#1677ff 100%); }
+      .motion .rank { color:#7fb2ff; font-size:.7rem; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+      .motion strong { display:block; margin-top:.2rem; font-size:1.3rem; line-height:.95; letter-spacing:-.04em; }
+      .motion.stat-visual { background:linear-gradient(145deg,#191919 0%,#292929 52%,#1677ff 100%); }
+      .motion.gap-visual { background:repeating-linear-gradient(135deg,#3b1615,#3b1615 12px,#61211e 12px,#61211e 24px); }
+      .visual-label { position:absolute; top:.65rem; left:50%; z-index:2; transform:translateX(-50%); border-radius:999px; background:rgba(0,0,0,.72); padding:.25rem .5rem; font-size:.63rem; font-weight:850; white-space:nowrap; }
+      .beat-body { padding:1rem; }
+      .beat-top { display:flex; align-items:flex-start; justify-content:space-between; gap:.8rem; }
+      .id,.time,.engine,.pill,.lane { font-size:.73rem; font-weight:800; }
+      .time,.engine,.lane { color:var(--muted); }
+      .time { display:block; margin-top:.15rem; }
+      .copy strong { display:block; font-size:1.02rem; }
+      .copy span { display:block; margin-top:.28rem; color:var(--muted); font-size:.79rem; }
+      .spec { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; margin-top:1rem; padding-top:.8rem; border-top:1px solid var(--line); }
+      .spec dt { color:var(--muted); font-size:.62rem; font-weight:900; letter-spacing:.06em; text-transform:uppercase; }
+      .spec dd { margin:.15rem 0 0; font-size:.76rem; font-weight:750; }
+      .source { margin:.75rem 0 0; color:var(--muted); font-size:.75rem; }
+      .source strong { color:var(--ink); }
+      .group-title { margin:2rem 0 .75rem; font-size:1rem; }
+      .pill { border-radius:999px; padding:.25rem .6rem; white-space:nowrap; }
+      .proposed { background:#dff5e9; color:#126a40; }
+      .review { background:#fff0b8; color:#775800; }
+      .blocked { background:#ffe0dd; color:#9c2921; }
+      .assets { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem; }
+      .asset,.decision-note { padding:1rem; }
+      .asset h2,.decision-note h2 { margin:0 0 .45rem; font-size:1rem; }
+      .asset p,.asset li,.decision-note p { color:var(--muted); font-size:.84rem; }
+      .asset ul { margin:.5rem 0 0; padding-left:1.1rem; }
+      .decision-note { margin-bottom:.8rem; border-left:5px solid var(--yellow); }
+      .decision-note.blocker { border-left-color:var(--red); }
+      .next { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.78rem; font-weight:750; }
+      .next strong { color:var(--ink); }
+      @media (max-width:820px) { .summary{grid-template-columns:repeat(2,1fr)}.summary .stat:last-child{grid-column:1 / -1}.beat{grid-template-columns:8.5rem minmax(0,1fr)}.spec{grid-template-columns:1fr}.assets{grid-template-columns:1fr} }
+      @media (max-width:560px) { .shell{width:calc(100% - 1rem);padding-top:1rem}h1{margin-top:3rem}.beat{grid-template-columns:1fr}.visual,.visual img,.motion{min-height:12rem}.summary{grid-template-columns:repeat(2,1fr)}.beat-top{align-items:center} }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <a class="brand" href="/" aria-label="Singleton Systems home"><img src="/singleton-systems-wordmark.svg" alt="Singleton Systems" width="660" height="260" /></a>
+        <a class="back" href="/decision-maps">Decision maps</a>
+      </header>
+
+      <h1>NFL Week 2 Power Rankings</h1>
+      <p class="meta">Lineups · Pre-Figma review · 19:32.480 · due September 16 for noon posting · Linear 23M-169</p>
+      <p class="route">Review 27 candidates → approve or trim → build approved scenes → place in Premiere.</p>
+
+      <nav class="tabs" aria-label="Review sections" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="storyboard" id="storyboard-tab">Flow</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="candidates" id="candidates-tab">Needs decision</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="assets" id="assets-tab">Asset ledger</button>
+      </nav>
+
+      <section class="panel" id="storyboard" role="tabpanel" aria-labelledby="storyboard-tab">
+        <div class="summary">
+          <div class="stat"><strong>27</strong><span>planned beats</span></div>
+          <div class="stat"><strong>23</strong><span>ready to build</span></div>
+          <div class="stat"><strong>2</strong><span>need review</span></div>
+          <div class="stat"><strong>2</strong><span>asset gaps</span></div>
+          <div class="stat"><strong>16.3%</strong><span>planned insert time</span></div>
+        </div>
+        <div class="coverage" aria-label="Screen time coverage estimate">
+          <div class="coverage-head"><span>19:32 source</span><span>Target profile: Mark about 84% / inserts about 16%</span></div>
+          <div class="coverage-bar" aria-hidden="true"><span class="coverage-mark"></span><span class="coverage-inserts"></span></div>
+          <div class="coverage-key"><span>Mark on screen 83.7%</span><span>Photos and motion 16.3% · 3:11 planned</span></div>
+        </div>
+        <div class="list" id="storyboard-list"></div>
+      </section>
+
+      <section class="panel" id="candidates" role="tabpanel" aria-labelledby="candidates-tab" hidden>
+        <article class="decision-note">
+          <h2>Contextual photo calls</h2>
+          <p>Keep Jaxon Smith-Njigba at 12:24 and Brock Purdy at 13:32 as general team support, even though Mark does not say either player’s name in those passages?</p>
+        </article>
+        <article class="decision-note blocker">
+          <h2>True asset gaps</h2>
+          <p>C.J. Stroud at 04:20 and Zay Flowers at 18:06 have no usable Eagle image after search. Approving the concepts opens the normal external asset search; rejecting them removes 13 seconds and lands the episode at roughly 15.2% inserts.</p>
+        </article>
+        <div id="candidate-list"></div>
+      </section>
+
+      <section class="panel" id="assets" role="tabpanel" aria-labelledby="assets-tab" hidden>
+        <div class="assets">
+          <article class="asset"><h2>Supplied and assigned</h2><p>All 10 client photos are mapped once: Caleb Williams, Trevor Lawrence, Brock Purdy, Isaiah Likely and Cam Skattebo, Josh Allen, Patrick Mahomes, Lamar Jackson and Derrick Henry, Joe Burrow, Jaxon Smith-Njigba, and Danielle Hunter with the Texans defense.</p></article>
+          <article class="asset"><h2>Eagle support ready</h2><ul><li>John Harbaugh / Giants projection</li><li>Ben Johnson / Bears scoring contrast</li><li>Alternate Josh Allen / four-stat breakdown</li><li>49ers–Rams game context / 27–7 statement</li><li>Kenneth Walker / three-stat breakdown</li></ul></article>
+          <article class="asset"><h2>Still needed</h2><ul><li>C.J. Stroud for the Texans–Bills 36–31 point</li><li>Zay Flowers for the 60-yard touchdown</li></ul></article>
+          <article class="asset"><h2>Motion source</h2><p>All approved motion candidates use Figma Motion. Whisper supplies word timestamps and Manim validates the timing contract before the Figma build. No motion scene is built before this review is approved.</p></article>
+        </div>
+        <p class="next"><strong>Next gate:</strong> approve or trim the candidates, validate transcript cues with Manim, build the approved scenes in Figma Motion, then place them in Premiere.</p>
+      </section>
+    </main>
+
+    <script>
+      const beats = [
+        {id:"S01",time:"00:55–01:03",title:"#10 New York Giants",detail:"Lane 7 · rank reveal",copy:"10 | NEW YORK GIANTS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 10",label:"NEW YORK GIANTS"},
+        {id:"S02",time:"02:06–02:12",title:"Isaiah Likely and Cam Skattebo",detail:"Lane 1 · quick action photo",copy:"Full-frame team support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNCMHYJ · client-supplied.",image:"assets/isaiah-likely-cam-skattebo.jpg"},
+        {id:"S03",time:"03:36–03:43",title:"Giants: 4–2 by late October?",detail:"Lane 2 · single-frame statement",copy:"4–2 BY LATE OCTOBER?",engine:"Figma Motion",status:"proposed",source:"Eagle ready · John Harbaugh · MSI0KMLFL6HFB.",image:"assets/john-harbaugh.jpg"},
+        {id:"S04",time:"04:14–04:20",title:"#9 Houston Texans",detail:"Lane 7 · rank reveal",copy:"9 | HOUSTON TEXANS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 9",label:"HOUSTON TEXANS"},
+        {id:"S05",time:"04:20–04:26",title:"Texans over Bills, 36–31",detail:"Lane 2 · single-frame statement",copy:"36–31 | STILL AN AFC CONTENDER",engine:"Figma Motion",status:"blocked",source:"C.J. Stroud image missing after Eagle search; external asset search required.",visual:"gap",rank:"Asset gap",label:"C.J. STROUD"},
+        {id:"S06",time:"05:14–05:19",title:"Danielle Hunter and Texans defense",detail:"Lane 1 · quick action photo",copy:"Full-frame defensive support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNAYR7A · client-supplied.",image:"assets/danielle-hunter-texans-defense.jpg"},
+        {id:"S07",time:"05:36–05:43",title:"#8 Chicago Bears",detail:"Lane 7 · rank reveal",copy:"8 | CHICAGO BEARS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 8",label:"CHICAGO BEARS"},
+        {id:"S08",time:"05:43–05:53",title:"Caleb Williams",detail:"Lane 1 · quick action photo",copy:"Full-frame player support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFMQYZYE · client-supplied.",image:"assets/caleb-williams.jpg"},
+        {id:"S09",time:"07:05–07:11",title:"Bears scoring contrast",detail:"Lane 2 · single-frame statement",copy:"59 SCORED | ALMOST 40 ALLOWED",engine:"Figma Motion",status:"proposed",source:"Eagle ready · Ben Johnson · MSI0PT87YG822.",image:"assets/ben-johnson.jpg"},
+        {id:"S10",time:"07:16–07:22",title:"#7 Buffalo Bills",detail:"Lane 7 · rank reveal",copy:"7 | BUFFALO BILLS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 7",label:"BUFFALO BILLS"},
+        {id:"S11",time:"07:22–07:30",title:"Josh Allen",detail:"Lane 1 · quick action photo",copy:"Full-frame player support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNMSSHY · client-supplied.",image:"assets/josh-allen.jpg"},
+        {id:"S12",time:"07:30–07:40",title:"Josh Allen four-stat burst",detail:"Lane 3 · stat breakdown",copy:"24/29 · 300+ PASS YDS · 2 PASS TD · 2 RUSH TD",engine:"Figma Motion · Manim timing",status:"proposed",source:"Eagle ready · alternate Josh Allen · MSI0PT87OCVF2.",image:"assets/josh-allen-alt.jpg"},
+        {id:"S13",time:"08:43–08:50",title:"#6 Jacksonville Jaguars",detail:"Lane 7 · rank reveal",copy:"6 | JACKSONVILLE JAGUARS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 6",label:"JACKSONVILLE JAGUARS"},
+        {id:"S14",time:"09:24–09:31",title:"Trevor Lawrence",detail:"Lane 1 · quick action photo",copy:"Full-frame player support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNL74JF · client-supplied.",image:"assets/trevor-lawrence.jpg"},
+        {id:"S15",time:"10:45–10:52",title:"#5 Cincinnati Bengals",detail:"Lane 7 · rank reveal",copy:"5 | CINCINNATI BENGALS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 5",label:"CINCINNATI BENGALS"},
+        {id:"S16",time:"11:33–11:39",title:"Joe Burrow",detail:"Lane 1 · quick action photo",copy:"Full-frame player support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNWBBDV · client-supplied.",image:"assets/joe-burrow.jpg"},
+        {id:"S17",time:"11:45–11:52",title:"#4 Seattle Seahawks",detail:"Lane 7 · rank reveal",copy:"4 | SEATTLE SEAHAWKS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 4",label:"SEATTLE SEAHAWKS"},
+        {id:"S18",time:"12:24–12:28",title:"Jaxon Smith-Njigba",detail:"Lane 1 · quick action photo",copy:"General Seahawks support",engine:"Premiere",status:"review",source:"Eagle ready · MU3EXQFNYUJF3 · player is not named in this passage.",image:"assets/jaxon-smith-njigba.jpg"},
+        {id:"S19",time:"12:48–12:56",title:"#3 San Francisco 49ers",detail:"Lane 7 · rank reveal",copy:"3 | SAN FRANCISCO 49ERS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 3",label:"SAN FRANCISCO 49ERS"},
+        {id:"S20",time:"13:32–13:37",title:"Brock Purdy",detail:"Lane 1 · quick action photo",copy:"General 49ers support",engine:"Premiere",status:"review",source:"Eagle ready · MU3EXQFN2AKLC · player is not named in this passage.",image:"assets/brock-purdy.jpg"},
+        {id:"S21",time:"13:37–13:44",title:"49ers over Rams, 27–7",detail:"Lane 2 · single-frame statement",copy:"49ERS 27 | RAMS 7",engine:"Figma Motion",status:"proposed",source:"Eagle ready · 49ers–Rams context · MTKLSJ6GFLLX6.",image:"assets/49ers-rams-context.jpg"},
+        {id:"S22",time:"14:40–14:49",title:"#2 Kansas City Chiefs",detail:"Lane 7 · rank reveal",copy:"2 | KANSAS CITY CHIEFS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 2",label:"KANSAS CITY CHIEFS"},
+        {id:"S23",time:"15:45–15:50",title:"Patrick Mahomes",detail:"Lane 1 · quick action photo",copy:"Full-frame player support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNOG7KH · client-supplied.",image:"assets/patrick-mahomes.jpg"},
+        {id:"S24",time:"15:50–16:00",title:"Kenneth Walker three-stat burst",detail:"Lane 3 · stat breakdown",copy:"173 RUSH YDS · RUSH TD · REC TD",engine:"Figma Motion · Manim timing",status:"proposed",source:"Eagle ready · Kenneth Walker · MT8L0WHFQWY9I.",image:"assets/kenneth-walker.jpg"},
+        {id:"S25",time:"17:41–17:47",title:"#1 Baltimore Ravens",detail:"Lane 7 · rank reveal",copy:"1 | BALTIMORE RAVENS",engine:"Figma Motion",status:"proposed",source:"Approved Lineups rank source family; episode copy not built.",visual:"rank",rank:"Rank 1",label:"BALTIMORE RAVENS"},
+        {id:"S26",time:"17:52–18:06",title:"Lamar Jackson and Derrick Henry",detail:"Lane 1 · quick action photo",copy:"Full-frame two-player support",engine:"Premiere",status:"proposed",source:"Eagle ready · MU3EXQFNFJR83 · client-supplied.",image:"assets/lamar-jackson-derrick-henry.jpg"},
+        {id:"S27",time:"18:06–18:12",title:"Zay Flowers 60-yard touchdown",detail:"Lane 2 · single-frame statement",copy:"60-YARD TOUCHDOWN",engine:"Figma Motion",status:"blocked",source:"Zay Flowers image missing after Eagle search; external asset search required.",visual:"gap",rank:"Asset gap",label:"ZAY FLOWERS"}
+      ];
+
+      const visual = beat => beat.image
+        ? `<div class="visual"><img src="${beat.image}" alt="${beat.title} source preview" loading="lazy" /><span class="visual-label">SOURCE PREVIEW</span></div>`
+        : `<div class="visual motion ${beat.visual === "gap" ? "gap-visual" : ""}"><span class="rank">${beat.rank}</span><strong>${beat.label}</strong><span class="visual-label">${beat.visual === "gap" ? "MISSING ASSET" : "MOTION PLACEHOLDER"}</span></div>`;
+
+      const card = beat => `<article class="beat">
+        ${visual(beat)}
+        <div class="beat-body">
+          <div class="beat-top"><div class="copy"><strong>${beat.title}</strong><span>${beat.detail}</span></div><span class="pill ${beat.status}">${beat.status === "proposed" ? "ready" : beat.status}</span></div>
+          <span class="time">${beat.id} · ${beat.time}</span>
+          <dl class="spec"><div><dt>On-screen copy</dt><dd>${beat.copy}</dd></div><div><dt>Primary engine</dt><dd>${beat.engine}</dd></div><div><dt>Use</dt><dd>${beat.detail.replace(/^Lane \d · /, "")}</dd></div></dl>
+          <p class="source"><strong>Source:</strong> ${beat.source}</p>
+        </div>
+      </article>`;
+
+      document.querySelector("#storyboard-list").innerHTML = beats.map(card).join("");
+      document.querySelector("#candidate-list").innerHTML = [
+        ["Needs review", "review"], ["Blocked on asset", "blocked"]
+      ].map(([title,status]) => `<h2 class="group-title">${title}</h2><div class="list">${beats.filter(beat => beat.status === status).map(card).join("")}</div>`).join("");
+
+      const tabs = [...document.querySelectorAll("[role=tab]")];
+      tabs.forEach(tab => tab.addEventListener("click", () => {
+        tabs.forEach(item => item.setAttribute("aria-selected", String(item === tab)));
+        document.querySelectorAll("[role=tabpanel]").forEach(panel => panel.hidden = panel.id !== tab.getAttribute("aria-controls"));
+      }));
+    </script>
+  </body>
+</html>

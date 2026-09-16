@@ -10,8 +10,8 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#f1f4f8",
     theme_color: "#f1f4f8",
     icons: [
-      { src: "/ledger/ledger-192.png", sizes: "192x192", type: "image/png" },
-      { src: "/ledger/ledger-512.png", sizes: "512x512", type: "image/png" },
+      { src: "/brand/singleton-systems-favicon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/brand/singleton-systems-favicon-512.png", sizes: "512x512", type: "image/png" },
     ],
   };
 }

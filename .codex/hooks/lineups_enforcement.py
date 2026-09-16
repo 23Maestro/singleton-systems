@@ -9,6 +9,12 @@ import re
 import sys
 from pathlib import Path
 
+SOURCE_ROOT = Path(__file__).resolve().parents[2]
+if str(SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(SOURCE_ROOT))
+
+from tools.lineups_motion import CueContract, CueContractError
+
 
 FIGMA_MUTATIONS = {
     "mcp__codex_apps__figma_use_figma",
@@ -77,6 +83,9 @@ APPROVED_OPTIONS = {
     "recurring board": {"Rank Reveal", "Super Bowl Bubble Board"},
 }
 NO_FOOTBALL_FIELD_HASH = "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+LINEUPS_FIGMA_FILE_KEY = "o7E24iymIT80MTXGYIogVH"
+RANK_REVEAL_SOURCE_COMPONENT_ID = "1277:558"
+RANK_REVEAL_SOURCE_NAME = "Recurring Board / Rank Reveal / 10 Teams"
 
 
 def is_data_driven(manifest):
@@ -96,6 +105,111 @@ def validate_data_background(manifest):
         raise EnforcementError("data-driven background must be locked and separate from transparent artwork")
     if not background.get("nodeId"):
         raise EnforcementError("data-driven background needs its Figma node ID")
+
+
+def is_rank_reveal(manifest):
+    scene = manifest.get("scene") or {}
+    return scene.get("lane") == "recurring board" and scene.get("approvedOption") == "Rank Reveal"
+
+
+def validate_rank_reveal(manifest, cues, motion_tracks, frame_duration):
+    if not is_rank_reveal(manifest):
+        return
+
+    figma = manifest.get("figma") or {}
+    motion = manifest.get("motion") or {}
+    contract = figma.get("rankReveal") or {}
+
+    if figma.get("fileKey") != LINEUPS_FIGMA_FILE_KEY:
+        raise EnforcementError("Rank Reveal must use the canonical Lineups Figma file")
+    if figma.get("sourceComponentId") != RANK_REVEAL_SOURCE_COMPONENT_ID:
+        raise EnforcementError("Rank Reveal must use the normalized canonical source component")
+    if contract.get("canonicalSourceComponentId") != RANK_REVEAL_SOURCE_COMPONENT_ID or contract.get("canonicalSourceName") != RANK_REVEAL_SOURCE_NAME:
+        raise EnforcementError("Rank Reveal canonical source identity is missing or stale")
+    if contract.get("stateOrder") != "10-to-1-cumulative":
+        raise EnforcementError("Rank Reveal state order must be 10-to-1 cumulative")
+    if contract.get("boardEntranceOrder") != [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]:
+        raise EnforcementError("Rank Reveal board entrance order must stay 10 through 1")
+    if contract.get("logoWrapperDimensions") != {"width": 96, "height": 78}:
+        raise EnforcementError("Rank Reveal logos must use normalized 96 x 78 wrappers")
+    if contract.get("motionWorkingCopyMode") != "detached-from-canonical-instance":
+        raise EnforcementError("Rank Reveal motion must use a detached working copy of the canonical instance")
+
+    revealed_rank = contract.get("revealedRank")
+    if isinstance(revealed_rank, bool) or not isinstance(revealed_rank, int) or not 1 <= revealed_rank <= 10:
+        raise EnforcementError("Rank Reveal revealedRank must be an integer from 1 to 10")
+    expected_visible = list(range(10, revealed_rank - 1, -1))
+    if contract.get("visibleRanks") != expected_visible:
+        raise EnforcementError("Rank Reveal visibleRanks must preserve every prior 10-to-1 reveal")
+
+    assignments = contract.get("logoAssignments")
+    if not isinstance(assignments, list) or len(assignments) != 10:
+        raise EnforcementError("Rank Reveal needs exactly ten normalized logo assignments")
+    ranks = set()
+    component_ids = set()
+    for assignment in assignments:
+        rank = assignment.get("rank")
+        component_id = str(assignment.get("componentId") or "")
+        component_name = str(assignment.get("componentName") or "")
+        if rank in ranks or rank not in range(1, 11):
+            raise EnforcementError("Rank Reveal logo assignments must cover unique ranks 1 through 10")
+        if not assignment.get("team") or not component_id or component_id in component_ids:
+            raise EnforcementError("Rank Reveal logo assignments need unique component IDs and team names")
+        if not component_name.startswith("Asset/Team Logo/Normalized/"):
+            raise EnforcementError("Rank Reveal cannot assign a raw or non-normalized logo component")
+        ranks.add(rank)
+        component_ids.add(component_id)
+    if ranks != set(range(1, 11)):
+        raise EnforcementError("Rank Reveal logo assignments must cover ranks 1 through 10")
+
+    if motion.get("engine") != "figma" or motion.get("engineVersion") != "figma-motion":
+        raise EnforcementError("Rank Reveal uses Figma Motion as its sole motion engine")
+    if motion.get("timingValidator") != "manim":
+        raise EnforcementError("Rank Reveal requires Manim as the transcript timing validator")
+    board_cues = [cue for cue in cues if cue.get("action") == "stagger-board-rows-10-to-1"]
+    team_cues = [cue for cue in cues if cue.get("action") == f"reveal-rank-{revealed_rank}-content"]
+    if len(team_cues) != 1:
+        raise EnforcementError("each Rank Reveal scene needs one transcript-proven team-content cue")
+
+    if revealed_rank == 10:
+        if len(board_cues) != 1:
+            raise EnforcementError("Rank 10 needs one scene-start board cascade before its transcript-proven team-content cue")
+        board_cue = board_cues[0]
+        board_time = finite_number(board_cue.get("sceneTime"), "Rank Reveal board cue sceneTime")
+        if board_cue.get("triggerType") != "EDIT" or not values_match(board_time, 0):
+            raise EnforcementError("Rank 10 board cascade must be an EDIT cue at scene time 0")
+        board_tracks = [
+            track for track in motion_tracks
+            if track.get("cueId") == board_cue.get("cueId") and track.get("property") == "opacity"
+        ]
+        if len(board_tracks) != 10 or [track.get("rank") for track in board_tracks] != [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]:
+            raise EnforcementError("Rank 10 board cue needs ten ordered Figma Motion opacity tracks from rank 10 through rank 1")
+        starts = []
+        completions = []
+        for track in board_tracks:
+            keyframes = track.get("keyframes") or []
+            if len(keyframes) < 2:
+                raise EnforcementError("Rank 10 board tracks need fade-in keyframes")
+            starts.append(finite_number(keyframes[0].get("time"), "Rank Reveal board keyframe start"))
+            completions.append(finite_number(keyframes[1].get("time"), "Rank Reveal board keyframe completion"))
+        board_duration = finite_number(board_cue.get("duration"), "Rank Reveal board cue duration")
+        if not values_match(starts[0], 0) or any(right <= left for left, right in zip(starts, starts[1:])):
+            raise EnforcementError("Rank 10 row fades must begin at scene time 0 and stagger in 10-to-1 order")
+        if not values_match(completions[-1], board_duration, frame_duration + TIMING_EPSILON):
+            raise EnforcementError("Rank 10 row stagger must complete at the approved board-cue duration")
+    else:
+        if board_cues:
+            raise EnforcementError("Ranks 9 through 1 must not replay the full-board cascade")
+        if any(track.get("rank") is not None for track in motion_tracks):
+            raise EnforcementError("Ranks 9 through 1 may animate only the newly revealed team text and logo")
+
+    team_cue = team_cues[0]
+    team_tracks = [
+        track for track in motion_tracks
+        if track.get("cueId") == team_cue.get("cueId") and track.get("property") == "opacity"
+    ]
+    if len(team_tracks) != 2:
+        raise EnforcementError("Rank Reveal team cue needs Figma Motion opacity tracks for both team text and normalized logo")
 
 
 def response_backgrounds(value):
@@ -286,14 +400,22 @@ def premiere_clip_readback(tool_response, premiere):
 
 
 def figma_scene_readback(tool_response, figma):
+    expected_node_type = "INSTANCE" if figma.get("episodeUsesInstance") is True else "FRAME"
+    pending_root = str(figma.get("rootNodeId") or "").startswith("pending:")
     return next(
         (
             item
             for item in response_objects(tool_response)
-            if item.get("rootNodeId") == figma["rootNodeId"]
+            if (
+                (pending_root and item.get("plannedRootNodeId") == figma["rootNodeId"] and item.get("rootNodeId"))
+                or item.get("rootNodeId") == figma["rootNodeId"]
+            )
             and item.get("sourceComponentId") == figma["sourceComponentId"]
-            and item.get("episodeInstanceId") == figma["episodeInstanceId"]
-            and item.get("nodeType") == "INSTANCE"
+            and (
+                (pending_root and item.get("episodeInstanceId") == item.get("rootNodeId"))
+                or item.get("episodeInstanceId") == figma["episodeInstanceId"]
+            )
+            and item.get("nodeType") == expected_node_type
         ),
         None,
     )
@@ -318,11 +440,17 @@ def validate_manifest(manifest, require_export=False):
 
     validate_data_background(manifest)
 
-    if required(manifest, "figma.episodeUsesInstance") is not True:
-        raise EnforcementError("episode work must use an approved component instance")
+    figma = manifest.get("figma") or {}
+    uses_instance = required(manifest, "figma.episodeUsesInstance")
+    if uses_instance is not False:
+        raise EnforcementError("episode motion must use a detached working copy of an approved canonical instance")
+    if required(manifest, "figma.motionWorkingCopyMode") != "detached-from-canonical-instance":
+        raise EnforcementError("episode motion must verify the canonical instance before detaching its working copy")
     for field in ("fileKey", "pageId", "rootNodeId", "sourceComponentId", "episodeInstanceId", "sourceRevision"):
         if not required(manifest, f"figma.{field}"):
             raise EnforcementError(f"figma.{field} cannot be empty")
+    if str(figma.get("rootNodeId")).startswith("pending:") and figma.get("episodeInstanceId") != figma.get("rootNodeId"):
+        raise EnforcementError("planned Figma scene initialization must use one matching pending scene token")
     if not required(manifest, "figma.exposedSlots"):
         raise EnforcementError("at least one exposed slot is required")
     if not required(manifest, "figma.allowedReplacementProperties"):
@@ -384,6 +512,10 @@ def validate_manifest(manifest, require_export=False):
     timing = required(manifest, "timing")
     if not timing.get("transcriptPhrase") or timing.get("anchorVerified") is not True:
         raise EnforcementError("the transcript phrase needs a verified anchor")
+    if timing.get("transcriptSource") != "whisper" or timing.get("timestampResolution") != "word" or not timing.get("transcriptPath"):
+        raise EnforcementError("Lineups motion requires the Whisper word-timestamp transcript before Figma")
+    if timing.get("manimTimingValidated") is not True:
+        raise EnforcementError("Lineups motion requires the Manim timing gate before Figma")
     anchor = finite_number(timing.get("verifiedAnchorTimestamp"), "verifiedAnchorTimestamp")
     entrances = timing.get("entranceTimes")
     if not isinstance(entrances, list) or not entrances:
@@ -395,20 +527,18 @@ def validate_manifest(manifest, require_export=False):
 
     motion = required(manifest, "motion")
     engine = motion.get("engine")
-    if engine not in {"figma", "manim"}:
-        raise EnforcementError("motion.engine must be figma or manim")
-    if not motion.get("engineVersion"):
-        raise EnforcementError("motion.engineVersion cannot be empty")
+    if engine != "figma" or motion.get("engineVersion") != "figma-motion":
+        raise EnforcementError("Lineups motion uses Figma Motion as its sole visual engine")
+    if motion.get("timingValidator") != "manim":
+        raise EnforcementError("Lineups motion requires Manim transcript timing validation before Figma")
     frame_rate = motion.get("frameRate") or {}
     numerator = finite_number(frame_rate.get("numerator"), "motion.frameRate.numerator")
     denominator = finite_number(frame_rate.get("denominator"), "motion.frameRate.denominator")
     if numerator <= 0 or denominator <= 0 or not numerator.is_integer() or not denominator.is_integer():
         raise EnforcementError("motion frame rate must use positive integer numerator and denominator")
     frame_duration = denominator / numerator
-    if engine == "manim" and (not motion.get("sourcePath") or not motion.get("sceneClass")):
-        raise EnforcementError("Manim motion needs sourcePath and sceneClass")
-    if engine == "figma" and (motion.get("sourcePath") is not None or motion.get("sceneClass") is not None):
-        raise EnforcementError("Figma motion must keep sourcePath and sceneClass null")
+    if motion.get("sourcePath") is not None or motion.get("sceneClass") is not None:
+        raise EnforcementError("Lineups Manim timing validation cannot declare a render source or scene class")
 
     cues = motion.get("cues")
     if not isinstance(cues, list) or not cues:
@@ -449,10 +579,26 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError("lastEntrance must equal the final entrance time")
     if last_entrance > content_end:
         raise EnforcementError("lastEntrance cannot follow contentEnd")
-    if padded_end + TIMING_EPSILON < content_end + 5:
-        raise EnforcementError("the final-state tail must be at least five seconds")
+    minimum_padded_end = max(10.0, content_end + 2.0)
+    if padded_end + TIMING_EPSILON < minimum_padded_end:
+        raise EnforcementError("motion compositions must be at least ten seconds with at least two seconds of trim-safe padding")
     if timing.get("finalStateVisible") is not True or timing.get("noExitAnimation") is not True:
         raise EnforcementError("the final state must remain visible with no exit animation")
+
+    try:
+        contract = CueContract(manifest)
+        from manim import config as manim_config
+        manim_config.pixel_width = contract.pixel_width
+        manim_config.pixel_height = contract.pixel_height
+        manim_config.frame_rate = float(contract.frame_rate)
+        if (
+            manim_config.pixel_width != 1920
+            or manim_config.pixel_height != 1080
+            or not values_match(float(manim_config.frame_rate), numerator / denominator)
+        ):
+            raise EnforcementError("Manim did not accept the manifest dimensions and rational frame rate")
+    except CueContractError as error:
+        raise EnforcementError(f"Manim timing gate rejected the cue contract: {error}") from error
 
     motion_tracks = required(manifest, "figma.motionTracks")
     if engine == "figma" and not motion_tracks:
@@ -477,6 +623,29 @@ def validate_manifest(manifest, require_export=False):
                 if revealed and previous_value is not None and value + TIMING_EPSILON < previous_value:
                     raise EnforcementError(f"opacity track {track.get('nodeId', '<unknown>')} fades visible content back out")
                 previous_value = value
+
+    tracks_by_cue = {}
+    for track in motion_tracks:
+        cue_id = str(track.get("cueId") or "")
+        if not cue_id:
+            raise EnforcementError("every Figma Motion track must name its transcript cue ID")
+        tracks_by_cue.setdefault(cue_id, []).append(track)
+    for cue in cues:
+        cue_duration = finite_number(cue.get("duration"), f"motion cue {cue.get('cueId')} duration")
+        if cue_duration <= 0 or cue.get("action") == "stagger-board-rows-10-to-1":
+            continue
+        cue_time = finite_number(cue.get("sceneTime"), f"motion cue {cue.get('cueId')} sceneTime")
+        matching = tracks_by_cue.get(cue.get("cueId"), [])
+        if not matching:
+            raise EnforcementError(f"motion cue {cue.get('cueId')} has no Figma Motion track")
+        for track in matching:
+            times = [finite_number(frame.get("time"), "motion keyframe time") for frame in track.get("keyframes") or []]
+            if not any(values_match(value, cue_time) for value in times) or not any(
+                values_match(value, cue_time + cue_duration, frame_duration + TIMING_EPSILON) for value in times
+            ):
+                raise EnforcementError(f"Figma Motion track {track.get('nodeId')} is not aligned to transcript cue {cue.get('cueId')}")
+
+    validate_rank_reveal(manifest, cues, motion_tracks, frame_duration)
 
     policy = required(manifest, "policy")
     for field in ("transitionsApproved", "effectsApproved", "lutsApproved", "opacityChangesApproved"):
@@ -516,8 +685,6 @@ def validate_manifest(manifest, require_export=False):
             raise EnforcementError("export needs a validation sample or deterministic motion proof")
         if proof.get("engine") != engine:
             raise EnforcementError("motion proof engine must match motion.engine")
-        if engine == "manim" and proof.get("type") != "cue-frame-proof":
-            raise EnforcementError("Manim export needs cue-frame-proof")
         proof_times = [finite_number(value, "motion proof sample time") for value in proof.get("sampleTimes") or []]
         for cue_time in cue_scene_times:
             if not any(abs(sample_time - cue_time) <= frame_duration + TIMING_EPSILON for sample_time in proof_times):
@@ -645,6 +812,59 @@ def post_context(message):
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": message}}))
 
 
+def review_export_roster(root, manifest):
+    """Episode-approved preview exports do not imply Premiere delivery approval."""
+    episode_id = required(manifest, "scene.episodeId")
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}-[a-z0-9-]+", episode_id):
+        return None
+    episode_dir = root / "config" / "lineups" / "episodes" / episode_id
+    roster_path = episode_dir / "review-exports.json"
+    if not roster_path.is_file():
+        return None
+    roster = read_json(roster_path, "review export roster")
+    if (
+        roster.get("schemaVersion") != 1
+        or roster.get("episodeId") != episode_id
+        or roster.get("status") != "approved"
+        or roster.get("reviewer") != "Jerami"
+        or roster.get("purpose") != "post-figma-review"
+        or roster.get("fileKey") != required(manifest, "figma.fileKey")
+        or roster.get("dimensions") != {"width": 1920, "height": 1080}
+        or roster.get("fps") != 25
+    ):
+        raise EnforcementError("review export roster is incomplete or unapproved")
+    scenes = roster.get("scenes") or []
+    ids = [item.get("id") for item in scenes]
+    nodes = [item.get("nodeId") for item in scenes]
+    if len(scenes) != roster.get("expectedCount") or len(set(ids)) != len(ids) or len(set(nodes)) != len(nodes):
+        raise EnforcementError("review export roster count or uniqueness failed")
+    audit = read_json(episode_dir / "motion-scene-build-audit.json", "motion scene audit")
+    listed = {item["id"]: item["nodeId"] for item in scenes}
+    for item in audit.get("rankRevealScenes", []) + audit.get("supportingMotionScenes", []):
+        if listed.get(item.get("sceneId")) != item.get("rootNodeId"):
+            raise EnforcementError("review export roster drifted from the approved motion audit")
+    return roster
+
+
+def review_export_preflight(roster, tool_input):
+    if tool_input.get("fileKey") != roster["fileKey"]:
+        raise EnforcementError("review export uses the wrong Figma file")
+    node_id, job_id = tool_input.get("nodeId"), tool_input.get("jobId")
+    if bool(node_id) == bool(job_id):
+        raise EnforcementError("review export requires one scene node or one polling job")
+    if job_id:
+        if not isinstance(job_id, str) or len(job_id) < 8:
+            raise EnforcementError("review export polling job ID is invalid")
+        return
+    if node_id not in {item["nodeId"] for item in roster["scenes"]}:
+        raise EnforcementError("review export node is not in the approved episode roster")
+    if tool_input.get("fps") != roster["fps"] or tool_input.get("quality") != "high":
+        raise EnforcementError("review export must use the approved 25 fps high-quality preset")
+    constraint = tool_input.get("constraint")
+    if constraint is not None and constraint != {"type": "WIDTH", "value": 1920}:
+        raise EnforcementError("review export cannot resize the 1920 x 1080 composition")
+
+
 def preflight(root, manifest, directory, tool_name, tool_input):
     require_export = tool_name != "mcp__codex_apps__figma_use_figma"
     validate_manifest(manifest, require_export=require_export)
@@ -661,8 +881,6 @@ def preflight(root, manifest, directory, tool_name, tool_input):
             raise EnforcementError("Figma mutation input does not match the approved transaction hash")
         return
     if tool_name == FIGMA_EXPORT:
-        if manifest["motion"]["engine"] != "figma":
-            raise EnforcementError("Figma export is unavailable when motion.engine is manim")
         if tool_input.get("nodeId") and tool_input.get("nodeId") != figma["rootNodeId"]:
             raise EnforcementError("export must target the manifest root node")
         load_receipt(root, manifest, directory, "figma-to-export")
@@ -717,6 +935,17 @@ def postflight(root, manifest, directory, tool_name, payload):
             raise EnforcementError("Figma readback did not confirm the current approved source revision")
         if is_data_driven(manifest) and figma["background"] not in list(response_backgrounds(payload.get("tool_response"))):
             raise EnforcementError("Figma readback did not confirm the locked no-football background and separate artwork")
+        if is_rank_reveal(manifest):
+            returned_contract = next(
+                (
+                    item.get("rankReveal")
+                    for item in response_objects(payload.get("tool_response"))
+                    if isinstance(item.get("rankReveal"), dict)
+                ),
+                None,
+            )
+            if returned_contract != figma["rankReveal"]:
+                raise EnforcementError("Figma readback did not confirm the canonical source, normalized logos, and cumulative Rank Reveal state")
         validate_focal_asset_readback(manifest, payload.get("tool_response"))
         post_context("Lineups Figma mutation readback passed. Export still requires a current figma-to-export receipt.")
         return
@@ -762,15 +991,35 @@ def main():
     payload = json.load(sys.stdin)
     root = repo_root(payload.get("cwd"))
     manifest_path = active_manifest_path(root)
-    if not manifest_path.exists():
-        return
     event = payload.get("hook_event_name") or ""
     tool_name = str(payload.get("tool_name") or "")
     tool_input = payload.get("tool_input") or {}
+    if not manifest_path.exists():
+        if (
+            event == "PreToolUse"
+            and tool_name in FIGMA_MUTATIONS | {FIGMA_EXPORT}
+            and tool_input.get("fileKey") == LINEUPS_FIGMA_FILE_KEY
+        ):
+            deny(
+                "the Lineups Figma file requires an active scene manifest before mutation or export; "
+                "review the transcript anchor and declare Manim timing validation plus the Figma Motion engine first"
+            )
+        return
     try:
         manifest = read_json(manifest_path, "active Lineups manifest")
         if not is_scoped(root, manifest, tool_name, tool_input, payload if event == "PostToolUse" else None):
             return
+        if tool_name == FIGMA_EXPORT:
+            roster = review_export_roster(root, manifest)
+            if roster is not None:
+                if event == "PreToolUse":
+                    review_export_preflight(roster, tool_input)
+                elif event == "PostToolUse":
+                    response = response_text(payload).lower()
+                    if '"iserror": true' in response or '"error"' in response and '"error": null' not in response:
+                        raise EnforcementError("review export tool reported an error")
+                    post_context("Lineups review export returned. Inspect the MP4 and record proof before Premiere delivery.")
+                return
         directory = receipt_dir(root, manifest_path)
         if event == "PreToolUse":
             preflight(root, manifest, directory, tool_name, tool_input)

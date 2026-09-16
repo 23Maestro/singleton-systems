@@ -86,6 +86,7 @@
     "remotion:scene-three:assets": "node scripts/export-scene-3-remotion-assets.mjs",
     "blender:scene-three:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_3_food_mania.py",
     "check:brand": "node scripts/check-brand-assets.mjs",
+    "brand:favicon:generate": "node scripts/generate-singleton-systems-favicon.mjs",
     "check:tells": "node scripts/check-tells.mjs"
   },
   "dependencies": {

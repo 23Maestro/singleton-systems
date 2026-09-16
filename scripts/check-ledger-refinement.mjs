@@ -39,8 +39,8 @@ const css = read("app/finances/ledger/ledger.css");
 assert.match(css, /--bg: #08090b/);
 assert.match(css, /--visual-height/);
 assert.match(css, /font-size: 18px/);
-assert.doesNotMatch(read("app/icon.svg"), /<text|font-family/);
-assert.match(read("app/icon.svg"), /translate\(357 340\) scale\(\.95\)/);
+assert.doesNotMatch(read("public/brand/singleton-systems-favicon.svg"), /<text|font-family/);
+assert.match(read("public/brand/singleton-systems-favicon.svg"), /translate\(357 340\) scale\(\.95\)/);
 for (const file of ["app/finances/layout.tsx", "app/finances/manifest.ts", "app/finances/ledger/components/Nav.tsx", "app/finances/ledger/context.tsx"]) {
   assert.doesNotMatch(read(file), />Ledger<|[\"']Ledger(?: \||[\"'])|Loading saved ledger|saved ledger/i);
 }

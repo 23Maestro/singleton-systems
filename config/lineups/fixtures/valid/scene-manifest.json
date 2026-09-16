@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "enforcement": {
     "active": true,
-    "approvedToolInputSha256": "10ad705a75e570c11610d016bb86677f00f97d0dc4dc3ec02a658a5bfe3cd4d8"
+    "approvedToolInputSha256": "f440f5e3e5e016a1165dff3e7cd8b5d1ea8d0b2949effc8c5be85cf05c2d2e2e"
   },
   "scene": {
     "episodeId": "BIGTEN-SEC-01",
@@ -19,7 +19,8 @@
     "sourceComponentId": "428:8000",
     "episodeInstanceId": "428:9001",
     "sourceRevision": "figma-revision-current",
-    "episodeUsesInstance": true,
+    "episodeUsesInstance": false,
+    "motionWorkingCopyMode": "detached-from-canonical-instance",
     "rootDimensions": { "width": 1920, "height": 1080 },
     "exposedSlots": ["Logo", "Headline", "Subject A", "Subject B", "Reveal timing"],
     "allowedReplacementProperties": ["Logo", "Headline", "Subject A", "Subject B", "Reveal timing"],
@@ -37,22 +38,35 @@
     ],
     "motionTracks": [
       {
+        "cueId": "logo-reveal",
         "nodeId": "428:9002",
         "property": "opacity",
         "duration": 14.2,
         "keyframes": [
-          { "time": 0, "value": 0 },
-          { "time": 1.2, "value": 100 },
+          { "time": 1.2, "value": 0 },
+          { "time": 1.6, "value": 100 },
           { "time": 14.2, "value": 100 }
         ]
       },
       {
+        "cueId": "subject-a-enter",
         "nodeId": "428:9003",
         "property": "x",
         "duration": 14.2,
         "keyframes": [
-          { "time": 2.8, "value": 2080 },
-          { "time": 3.4, "value": 1240 },
+          { "time": 3.4, "value": 2080 },
+          { "time": 4, "value": 1240 },
+          { "time": 14.2, "value": 1240 }
+        ]
+      },
+      {
+        "cueId": "subject-b-enter",
+        "nodeId": "428:9004",
+        "property": "x",
+        "duration": 14.2,
+        "keyframes": [
+          { "time": 7.8, "value": 2080 },
+          { "time": 8.4, "value": 1240 },
           { "time": 14.2, "value": 1240 }
         ]
       }
@@ -61,6 +75,7 @@
   "motion": {
     "engine": "figma",
     "engineVersion": "figma-motion",
+    "timingValidator": "manim",
     "frameRate": { "numerator": 24000, "denominator": 1001 },
     "sourcePath": null,
     "sceneClass": null,
@@ -109,6 +124,10 @@
   },
   "timing": {
     "transcriptPhrase": "the defense created four takeaways",
+    "transcriptSource": "whisper",
+    "transcriptPath": "transcripts/scene-07.whisper.json",
+    "timestampResolution": "word",
+    "manimTimingValidated": true,
     "verifiedAnchorTimestamp": 312.4,
     "anchorVerified": true,
     "entranceTimes": [0, 1.2, 3.4, 7.8],

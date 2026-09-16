@@ -1,0 +1,36 @@
+{
+  "episodeId": "2026-09-15-nfl-week-2-power-rankings",
+  "reviewedAt": "2026-09-16T00:00:00Z",
+  "reviewer": "Jerami",
+  "status": "post-figma-review-ready",
+  "contract": {
+    "transcriptSource": "Whisper word timestamps",
+    "timingValidator": "Manim",
+    "visualMotionEngine": "Figma Motion",
+    "workingCopyMode": "detached-from-canonical-instance",
+    "compositionDurationSeconds": 16,
+    "dimensions": { "width": 1920, "height": 1080 }
+  },
+  "rankRevealScenes": [
+    { "sceneId":"S01","rootNodeId":"1285:202" },
+    { "sceneId":"S04","rootNodeId":"1285:8089" },
+    { "sceneId":"S07","rootNodeId":"1285:8220" },
+    { "sceneId":"S10","rootNodeId":"1285:8362" },
+    { "sceneId":"S13","rootNodeId":"1285:8505" },
+    { "sceneId":"S15","rootNodeId":"1285:8660" },
+    { "sceneId":"S17","rootNodeId":"1285:8822" },
+    { "sceneId":"S19","rootNodeId":"1285:8992" },
+    { "sceneId":"S22","rootNodeId":"1285:9172" },
+    { "sceneId":"S25","rootNodeId":"1285:9353" }
+  ],
+  "supportingMotionScenes": [
+    { "sceneId":"S03","rootNodeId":"1297:15","photoNodeId":"1297:16","animatedNodeCount":2,"visualQa":"passed" },
+    { "sceneId":"S05","rootNodeId":"1298:15","photoNodeId":"1298:16","animatedNodeCount":2,"visualQa":"passed" },
+    { "sceneId":"S09","rootNodeId":"1298:7358","photoNodeId":"1298:7359","animatedNodeCount":2,"visualQa":"passed" },
+    { "sceneId":"S12","rootNodeId":"1298:7396","photoNodeId":"1298:7397","animatedNodeCount":9,"visualQa":"passed" },
+    { "sceneId":"S21","rootNodeId":"1298:7537","photoNodeId":"1298:7538","animatedNodeCount":2,"visualQa":"passed" },
+    { "sceneId":"S24","rootNodeId":"1298:7572","photoNodeId":"1298:7573","animatedNodeCount":7,"visualQa":"passed","eagleSourceId":"MT8L0WHFQWY9I" },
+    { "sceneId":"S27","rootNodeId":"1298:7686","photoNodeId":"1298:7687","animatedNodeCount":2,"visualQa":"passed" }
+  ],
+  "totals": { "figmaMotionScenes": 17, "premiereOnlyCandidates": 10, "blockedAssets": 0 }
+}

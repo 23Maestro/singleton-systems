@@ -25,6 +25,14 @@ const projects = [
   { id: "prj_flowzone", name: "flowzone", deploymentExpiration: policy },
 ];
 
+test("recommendations match Vercel's current Hobby retention options", () => {
+  assert.deepEqual(RECOMMENDED_RETENTION, {
+    expirationDays: 30,
+    expirationDaysCanceled: 7,
+    expirationDaysErrored: 7,
+  });
+});
+
 test("dry-run is the default and apply must be explicit", () => {
   assert.deepEqual(parseArgs([]), { apply: false, help: false });
   assert.deepEqual(parseArgs(["--apply"]), { apply: true, help: false });

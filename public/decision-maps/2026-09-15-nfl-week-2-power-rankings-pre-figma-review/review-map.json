@@ -1,0 +1,56 @@
+{
+  "episodeSlug": "2026-09-15-nfl-week-2-power-rankings",
+  "title": "NFL Week 2 Power Rankings",
+  "linearIssue": "23M-169",
+  "dueDate": "2026-09-16",
+  "sourceRuntimeSeconds": 1172.48,
+  "audioPolicy": "Use embedded video audio. Keep the separate MP3 filed, but do not run a pairing or sync workflow unless a real issue appears.",
+  "stage": "pre-figma-review",
+  "status": "awaiting-review",
+  "coverage": {
+    "markOnScreenPercent": 83.7,
+    "insertPercent": 16.3,
+    "plannedInsertSeconds": 191.08
+  },
+  "counts": {
+    "total": 27,
+    "ready": 23,
+    "needsReview": 2,
+    "blocked": 2
+  },
+  "reviewDecisions": [
+    "Keep or remove the Jaxon Smith-Njigba contextual photo at 00:12:24.",
+    "Keep or remove the Brock Purdy contextual photo at 00:13:32.",
+    "Approve external asset search for C.J. Stroud at 00:04:20 or cut the beat.",
+    "Approve external asset search for Zay Flowers at 00:18:06 or cut the beat."
+  ],
+  "candidates": [
+    { "id": "S01", "time": "00:00:55.160-00:01:03.120", "subject": "#10 New York Giants", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S02", "time": "00:02:06.760-00:02:12.000", "subject": "Isaiah Likely and Cam Skattebo", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S03", "time": "00:03:36.960-00:03:43.460", "subject": "Giants 4-2 projection", "lane": 2, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S04", "time": "00:04:14.640-00:04:20.000", "subject": "#9 Houston Texans", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S05", "time": "00:04:20.000-00:04:26.500", "subject": "Texans over Bills 36-31", "lane": 2, "engine": "Figma Motion", "status": "blocked", "gap": "C.J. Stroud image" },
+    { "id": "S06", "time": "00:05:14.680-00:05:19.520", "subject": "Danielle Hunter and Texans defense", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S07", "time": "00:05:36.480-00:05:43.680", "subject": "#8 Chicago Bears", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S08", "time": "00:05:43.680-00:05:53.520", "subject": "Caleb Williams", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S09", "time": "00:07:05.400-00:07:11.900", "subject": "Bears scoring contrast", "lane": 2, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S10", "time": "00:07:16.400-00:07:22.560", "subject": "#7 Buffalo Bills", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S11", "time": "00:07:22.560-00:07:30.080", "subject": "Josh Allen", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S12", "time": "00:07:30.080-00:07:40.080", "subject": "Josh Allen four-stat breakdown", "lane": 3, "engine": "Figma Motion", "timingValidator": "Manim", "status": "ready" },
+    { "id": "S13", "time": "00:08:43.280-00:08:50.080", "subject": "#6 Jacksonville Jaguars", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S14", "time": "00:09:24.740-00:09:31.200", "subject": "Trevor Lawrence", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S15", "time": "00:10:45.720-00:10:52.880", "subject": "#5 Cincinnati Bengals", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S16", "time": "00:11:33.000-00:11:39.500", "subject": "Joe Burrow", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S17", "time": "00:11:45.000-00:11:52.780", "subject": "#4 Seattle Seahawks", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S18", "time": "00:12:24.040-00:12:28.520", "subject": "Jaxon Smith-Njigba", "lane": 1, "engine": "Premiere", "status": "needs-review" },
+    { "id": "S19", "time": "00:12:48.780-00:12:56.060", "subject": "#3 San Francisco 49ers", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S20", "time": "00:13:32.320-00:13:37.760", "subject": "Brock Purdy", "lane": 1, "engine": "Premiere", "status": "needs-review" },
+    { "id": "S21", "time": "00:13:37.760-00:13:44.260", "subject": "49ers over Rams 27-7", "lane": 2, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S22", "time": "00:14:40.680-00:14:49.640", "subject": "#2 Kansas City Chiefs", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S23", "time": "00:15:45.960-00:15:50.480", "subject": "Patrick Mahomes", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S24", "time": "00:15:50.480-00:16:00.480", "subject": "Kenneth Walker three-stat breakdown", "lane": 3, "engine": "Figma Motion", "timingValidator": "Manim", "status": "ready" },
+    { "id": "S25", "time": "00:17:41.380-00:17:47.260", "subject": "#1 Baltimore Ravens", "lane": 7, "engine": "Figma Motion", "status": "ready" },
+    { "id": "S26", "time": "00:17:52.980-00:18:06.180", "subject": "Lamar Jackson and Derrick Henry", "lane": 1, "engine": "Premiere", "status": "ready" },
+    { "id": "S27", "time": "00:18:06.180-00:18:12.680", "subject": "Zay Flowers 60-yard touchdown", "lane": 2, "engine": "Figma Motion", "status": "blocked", "gap": "Zay Flowers image" }
+  ]
+}

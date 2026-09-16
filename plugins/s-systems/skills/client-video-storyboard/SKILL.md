@@ -73,3 +73,28 @@ Figma implementation terms stay inside the Figma-system skill.
 When a Lineups option needs Figma, load `singleton-figma-system` and read that
 skill's `lineups-production-system.md` reference before building. Do not rebuild
 an approved option from loose layers when its source component already exists.
+
+Before the first Lineups Figma mutation, create and activate the scene manifest.
+The manifest must already contain the verified transcript anchor, rational frame
+rate, cue list, `entranceTimes`, approved Figma source, episode instance, and
+motion ownership. The Lineups Figma file fails closed when no active manifest
+exists. Do not build static compositions first and add timing later.
+
+For every Lineups motion candidate, use this fixed contract:
+
+- `motion.engine` is `figma` and `motion.engineVersion` is `figma-motion`;
+- `motion.timingValidator` is `manim`;
+- Whisper supplies word-level transcript timestamps;
+- Manim validates transcript cue math, frame rate, and composition timing only;
+- Figma Motion is the sole visual motion engine and must have read-back manual
+  keyframe tracks aligned to every approved non-zero cue;
+- each composition is at least 10 seconds long and extends at least two seconds
+  beyond its final content cue for trim-safe Premiere placement;
+- Premiere places the rendered scene at the verified transcript anchor and does
+  not retime the motion by eye.
+
+Stop before Figma when the transcript anchor, Manim timing validation, Figma
+Motion tracks, or approved source cannot be named and verified. For Rank Reveal,
+also require the normalized canonical source and its cumulative 10-to-1 state.
+Only Rank 10 may animate the full board cascade. Ranks 9 through 1 animate only
+the current team name and normalized logo while prior reveals remain visible.

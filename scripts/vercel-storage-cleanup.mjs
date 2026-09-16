@@ -10,8 +10,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 export const EXPECTED_TEAM_SLUG = "23maestros-projects";
 export const CLEANUP_TARGETS = new Set(["singleton-systems", "wemby-shot-lab"]);
 export const RECOMMENDED_RETENTION = Object.freeze({
-  expirationDays: 7,
-  expirationDaysCanceled: 1,
+  expirationDays: 30,
+  expirationDaysCanceled: 7,
   expirationDaysErrored: 7,
 });
 
@@ -278,10 +278,10 @@ function manualFallback(entry) {
     `Manual fallback for ${entry.name}:`,
     `1. Open ${dashboardUrl(entry.name)}`,
     "2. Find Deployment Retention Policy.",
-    `3. Set Pre-Production to ${entry.recommended.expirationDays} days.`,
-    `4. Set Canceled to ${entry.recommended.expirationDaysCanceled} day.`,
-    `5. Set Errored to ${entry.recommended.expirationDaysErrored} days.`,
-    `6. Leave Production at ${entry.current.expirationDaysProduction} days.`,
+    `3. Set Pre-Production Deployments to ${entry.recommended.expirationDays} days.`,
+    `4. Set Canceled Deployments to ${entry.recommended.expirationDaysCanceled} days.`,
+    `5. Set Errored Deployments to ${entry.recommended.expirationDaysErrored} days.`,
+    `6. Leave Production Deployments at ${entry.current.expirationDaysProduction} days.`,
     `7. Leave the production minimum at ${entry.current.deploymentsToKeep}.`,
     "8. Save.",
   ].join("\n");

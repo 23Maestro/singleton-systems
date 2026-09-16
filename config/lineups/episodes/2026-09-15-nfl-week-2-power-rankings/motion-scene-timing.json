@@ -1,0 +1,49 @@
+{
+  "episodeId": "2026-09-15-nfl-week-2-power-rankings",
+  "transcriptPath": "/Users/singleton23/Documents/Codex/2026-09-15/lineups-nfl-week-2-power-rankings/transcript/power-rankings-2026-09-15.json",
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "pageId": "1268:1446",
+  "duration": 16,
+  "frameRate": { "numerator": 24000, "denominator": 1001 },
+  "scenes": [
+    {
+      "sceneId": "S03", "lane": "quick stat", "approvedOption": "Single-frame statement", "sectionId": "1274:6", "sourceComponentId": "653:184", "sourceRevision": "quick-stat-single-frame-v1", "x": 40, "y": 80,
+      "anchor": 216.96, "triggerText": "four", "cueTime": 0.33, "topicSmall": "NEW YORK GIANTS", "topicLarge": "EARLY-SEASON OUTLOOK", "statement": "4–2 BY LATE OCTOBER?", "asset": "john-harbaugh.jpg"
+    },
+    {
+      "sceneId": "S05", "lane": "quick stat", "approvedOption": "Single-frame statement", "sectionId": "1274:6", "sourceComponentId": "653:184", "sourceRevision": "quick-stat-single-frame-v1", "x": 2040, "y": 80,
+      "anchor": 260, "triggerText": "36", "cueTime": 1.56, "topicSmall": "HOUSTON TEXANS", "topicLarge": "AFC CONTENDER", "statement": "36–31 OVER BUFFALO", "asset": "cj-stroud.jpg"
+    },
+    {
+      "sceneId": "S09", "lane": "quick stat", "approvedOption": "Single-frame statement", "sectionId": "1274:6", "sourceComponentId": "653:184", "sourceRevision": "quick-stat-single-frame-v1", "x": 40, "y": 1280,
+      "anchor": 425.4, "triggerText": "almost", "cueTime": 2.15, "topicSmall": "CHICAGO BEARS", "topicLarge": "OFFENSE VS DEFENSE", "statement": "59 SCORED • NEARLY 40 ALLOWED", "asset": "ben-johnson.jpg"
+    },
+    {
+      "sceneId": "S12", "lane": "stat breakdown", "approvedOption": "stat breakdown", "sectionId": "1274:7", "sourceComponentId": "591:123", "sourceRevision": "stat-breakdown-four-point-v1", "x": 40, "y": 80,
+      "anchor": 450.08, "subject": "JOSH ALLEN", "headline": "WEEK 1 MVP", "asset": "josh-allen-alt.jpg",
+      "stats": [
+        { "value": "24/29", "label": "COMPLETIONS", "triggerText": "24", "transcriptTimestamp": 456.63 },
+        { "value": "300+", "label": "PASS YARDS", "triggerText": "300", "transcriptTimestamp": 458.34 },
+        { "value": "2", "label": "PASS TD", "triggerText": "two", "transcriptTimestamp": 460.63 },
+        { "value": "2", "label": "RUSH TD", "triggerText": "two", "transcriptTimestamp": 462.62 }
+      ]
+    },
+    {
+      "sceneId": "S21", "lane": "quick stat", "approvedOption": "Single-frame statement", "sectionId": "1274:6", "sourceComponentId": "653:184", "sourceRevision": "quick-stat-single-frame-v1", "x": 2040, "y": 1280,
+      "anchor": 805.4, "triggerText": "27", "cueTime": 6, "topicSmall": "SAN FRANCISCO 49ERS", "topicLarge": "WEEK 1 STATEMENT", "statement": "49ERS 27 • RAMS 7", "asset": "49ers-rams-context.jpg"
+    },
+    {
+      "sceneId": "S24", "lane": "stat breakdown", "approvedOption": "stat breakdown", "sectionId": "1274:7", "sourceComponentId": "591:105", "sourceRevision": "stat-breakdown-three-point-v1", "x": 2040, "y": 80,
+      "anchor": 953.66, "subject": "KENNETH WALKER", "headline": "WEEK 1 TAKEOVER", "asset": "kenneth-walker.jpg",
+      "stats": [
+        { "value": "173", "label": "RUSH YARDS", "triggerText": "173", "transcriptTimestamp": 958.4 },
+        { "value": "1", "label": "RUSH TD", "triggerText": "touchdown", "transcriptTimestamp": 963.76 },
+        { "value": "1", "label": "REC TD", "triggerText": "receiving", "transcriptTimestamp": 965.58 }
+      ]
+    },
+    {
+      "sceneId": "S27", "lane": "quick stat", "approvedOption": "Single-frame statement", "sectionId": "1274:6", "sourceComponentId": "653:184", "sourceRevision": "quick-stat-single-frame-v1", "x": 40, "y": 2480,
+      "anchor": 1086.18, "triggerText": "60", "cueTime": 3.09, "topicSmall": "BALTIMORE RAVENS", "topicLarge": "EXPLOSIVE PLAY", "statement": "ZAY FLOWERS • 60-YARD TD", "asset": "zay-flowers.jpg"
+    }
+  ]
+}

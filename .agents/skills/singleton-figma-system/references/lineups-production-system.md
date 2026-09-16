@@ -161,15 +161,43 @@ Preserve aspect ratio. Normalize visual size across logos and inspect the result
 at 1920 x 1080. Uniform frame dimensions alone do not pass. Card gaps follow the
 available frame space and visual balance; an example gap is not a fixed token.
 
+For Rank Reveal, use only the canonical component
+`Recurring Board / Rank Reveal / 10 Teams` (`1277:558`). The broken
+pre-normalized master is not a legacy option; it has been deleted. Every logo
+swap must target an `Asset/Team Logo/Normalized/*` 96 x 78 wrapper. Never assign
+a raw logo atom directly to a ranking row. Preserve the 10-to-1 cumulative
+reveal order and keep previously revealed rows visible. Rank 10 alone owns the
+scene-start 10-to-1 row-shell cascade. Ranks 9 through 1 must not inherit that
+cascade; they animate only the current rank's team name and normalized logo at
+the transcript-proven cue. Verify the canonical instance first, then detach the
+episode motion copy because Figma cannot write keyframes to instance sublayers.
+Do not turn that detached copy into another reusable master.
+
 ## motion-render ownership
 
-Figma owns the approved visual source. Each beat names one render engine. A
-Figma Motion beat reads the shared cue list into manual keyframes. A Manim beat
-uses an approved Figma state as raster or exported vector input and reads the
-same cue list through `tools/lineups_motion`.
+All Lineups motion uses a fixed split of responsibility. Figma owns the
+approved visual source and Figma Motion is the sole visual motion engine. Manim
+is the transcript timing validator only. The active
+manifest must set `motion.engine` to `figma`, `motion.engineVersion` to
+`figma-motion`, and `motion.timingValidator` to `manim`. Validate the cue math
+through `validate_manim_timing_from_manifest()`, then write those cue times into
+Figma Motion manual keyframes. Do not render any Lineups scene in Manim.
+
+The Lineups Figma file fails closed without an active scene manifest. Create the
+manifest before any episode composition. A static episode instance is not a
+motion handoff. For every motion scene, verify the canonical instance, then
+detach only the episode working copy before writing transcript-timed keyframes;
+the detached copy must never become another reusable master. Read back the
+Figma Motion track for the newly revealed row and
+prove its keyframes begin at the cue time and complete at the approved duration.
+The Rank 10 board cascade begins at scene time 0. Every later state keeps its
+board static and visible so component-level generic motion cannot leak across
+the weekly sequence.
 
 Do not rebuild approved geometry in Manim. Do not copy cue times from a visual
-timeline by eye. The scene manifest owns cue math and frame rate.
+timeline by eye. The scene manifest owns cue math and frame rate. Every motion
+composition is at least 10 seconds long and extends at least two seconds beyond
+its last content cue so Premiere always receives trim-safe padding.
 
 Approved episode MP4s live in Eagle under `Episode / 06 Motion Renders`.
 Premiere links to that Eagle-managed file and organizes it in the project bin

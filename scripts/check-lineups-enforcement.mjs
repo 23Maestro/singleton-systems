@@ -23,10 +23,17 @@ const validateManifestSchema = ajv.compile(manifestSchema);
 assert.equal(validateManifestSchema(fixtureManifest), true, JSON.stringify(validateManifestSchema.errors));
 
 const approvedFigmaInput = {
-  code: "const instance = await figma.getNodeByIdAsync(\"428:9001\");\nif (!instance || instance.type !== \"INSTANCE\") throw new Error(\"Expected approved Lineups instance\");\ninstance.setProperties({\"Logo\":\"Eagles\",\"Headline\":\"FOUR TAKEAWAYS\"});\nreturn { rootNodeId: \"428:9000\", sourceComponentId: \"428:8000\", episodeInstanceId: instance.id, nodeType: instance.type };",
+  code: "const instance = await figma.getNodeByIdAsync(\"428:9001\");\nif (!instance || instance.type !== \"INSTANCE\") throw new Error(\"Expected approved Lineups instance\");\ninstance.setProperties({\"Logo\":\"Eagles\",\"Headline\":\"FOUR TAKEAWAYS\"});\nconst frame = instance.detachInstance();\nreturn { rootNodeId: \"428:9000\", sourceComponentId: \"428:8000\", episodeInstanceId: frame.id, nodeType: frame.type };",
   description: "Lineups scene BIGTEN-SEC-01/scene-07 approved property replacement",
   fileKey: "LINEUPS_FILE_KEY",
   skillNames: "singleton-figma-system,figma-use,file-hygiene,layer-cleanup",
+};
+
+const rankFigmaInput = {
+  code: "const instance = await figma.getNodeByIdAsync(\"1276:5\");\nif (!instance || instance.type !== \"INSTANCE\") throw new Error(\"Expected approved Rank Reveal instance\");\nreturn { rootNodeId: instance.id, sourceComponentId: instance.mainComponent.id, episodeInstanceId: instance.id, nodeType: instance.type, sourceRevision: \"rank-reveal-normalized-v1\" };",
+  description: "Lineups weekly Rank Reveal property and Figma Motion update",
+  fileKey: "o7E24iymIT80MTXGYIogVH",
+  skillNames: "singleton-figma-system,figma-use,figma-use-motion,file-hygiene,layer-cleanup",
 };
 
 function createCase() {
@@ -69,6 +76,145 @@ function readManifest(testCase) {
 
 function writeManifest(testCase, manifest) {
   fs.writeFileSync(testCase.manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+}
+
+function rankRevealManifest(revealedRank = 10) {
+  const manifest = structuredClone(fixtureManifest);
+  manifest.enforcement.approvedToolInputSha256 = hashValue(rankFigmaInput);
+  manifest.scene = {
+    episodeId: "2026-09-15-nfl-week-2-power-rankings",
+    sceneId: "S01",
+    lane: "recurring board",
+    approvedOption: "Rank Reveal",
+    setting: "weekly cumulative 10-to-1 reveal",
+  };
+  manifest.figma = {
+    fileKey: "o7E24iymIT80MTXGYIogVH",
+    pageId: "1268:1446",
+    rootNodeId: "1276:5",
+    sourceComponentId: "1277:558",
+    episodeInstanceId: "1276:5",
+    sourceRevision: "rank-reveal-normalized-v1",
+    episodeUsesInstance: false,
+    motionWorkingCopyMode: "detached-from-canonical-instance",
+    rootDimensions: { width: 1920, height: 1080 },
+    background: {
+      setting: "Field Night / No football",
+      nodeId: "594:1256",
+      imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70",
+      locked: true,
+      separateFromArtwork: true,
+    },
+    exposedSlots: ["Team 1-10", "Logo 1-10", "Revealed 1-10"],
+    allowedReplacementProperties: ["Team 1-10", "Logo 1-10", "Revealed 1-10"],
+    rankReveal: {
+      canonicalSourceComponentId: "1277:558",
+      canonicalSourceName: "Recurring Board / Rank Reveal / 10 Teams",
+      stateOrder: "10-to-1-cumulative",
+      boardEntranceOrder: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+      logoWrapperDimensions: { width: 96, height: 78 },
+      motionWorkingCopyMode: "detached-from-canonical-instance",
+      revealedRank,
+      visibleRanks: Array.from({ length: 11 - revealedRank }, (_, index) => 10 - index),
+      logoAssignments: Array.from({ length: 10 }, (_, index) => ({
+        rank: index + 1,
+        team: `TEAM ${index + 1}`,
+        componentId: `normalized-logo-${index + 1}`,
+        componentName: `Asset/Team Logo/Normalized/Team ${index + 1}`,
+      })),
+    },
+    focalAssets: [],
+    motionTracks: [
+      ...(revealedRank === 10 ? Array.from({ length: 10 }, (_, index) => ({
+        cueId: "rank-board-enter",
+        rank: 10 - index,
+        nodeId: `rank-row-${10 - index}`,
+        property: "opacity",
+        duration: 12.96,
+        keyframes: [
+          { time: index * 0.1, value: 0 },
+          { time: index * 0.1 + 0.4, value: 100 },
+          { time: 12.96, value: 100 },
+        ],
+      })) : []),
+      {
+        cueId: `rank-${revealedRank}-content`,
+        nodeId: `rank-${revealedRank}-team-text`,
+        property: "opacity",
+        duration: 12.96,
+        keyframes: [
+          { time: 1.5, value: 0 },
+          { time: 1.9, value: 100 },
+          { time: 12.96, value: 100 },
+        ],
+      },
+      {
+        cueId: `rank-${revealedRank}-content`,
+        nodeId: `rank-${revealedRank}-logo`,
+        property: "opacity",
+        duration: 12.96,
+        keyframes: [
+          { time: 1.5, value: 0 },
+          { time: 1.9, value: 100 },
+          { time: 12.96, value: 100 },
+        ],
+      },
+    ],
+  };
+  manifest.motion = {
+    engine: "figma",
+    engineVersion: "figma-motion",
+    timingValidator: "manim",
+    frameRate: { numerator: 24000, denominator: 1001 },
+    sourcePath: null,
+    sceneClass: null,
+    cues: [
+      ...(revealedRank === 10 ? [{
+        cueId: "rank-board-enter",
+        elementId: "rank-board",
+        triggerType: "EDIT",
+        triggerText: "scene start",
+        transcriptTimestamp: 55.16,
+        sceneTime: 0,
+        action: "stagger-board-rows-10-to-1",
+        duration: 1.3,
+      }] : []),
+      {
+        cueId: `rank-${revealedRank}-content`,
+        elementId: `rank-${revealedRank}-content`,
+        triggerType: "PHRASE",
+        triggerText: revealedRank === 10 ? "New York Giants" : `rank ${revealedRank}`,
+        transcriptTimestamp: 56.66,
+        sceneTime: 1.5,
+        action: `reveal-rank-${revealedRank}-content`,
+        duration: 0.4,
+      },
+    ],
+  };
+  manifest.timing = {
+    transcriptPhrase: revealedRank === 10 ? "number ten, New York Giants" : `rank ${revealedRank}`,
+    transcriptSource: "whisper",
+    transcriptPath: "transcripts/power-rankings.whisper.json",
+    timestampResolution: "word",
+    manimTimingValidated: true,
+    verifiedAnchorTimestamp: 55.16,
+    anchorVerified: true,
+    entranceTimes: revealedRank === 10 ? [0, 1.5] : [1.5],
+    lastEntrance: 1.5,
+    contentEnd: 7.96,
+    paddedCompositionEnd: 12.96,
+    finalStateVisible: true,
+    noExitAnimation: true,
+  };
+  manifest.export.backgroundPolicy = "no-football-baked";
+  manifest.export.motionProof.engine = "figma";
+  manifest.export.motionProof.sampleTimes = [0, 12.9];
+  manifest.export.motionProof.frames[0].time = 0;
+  manifest.export.motionProof.frames[1].time = 12.9;
+  manifest.premiere.approvedStartTime = 55.16;
+  manifest.premiere.approvedDuration = 12.96;
+  manifest.premiere.approvedEndTime = 68.12;
+  return manifest;
 }
 
 function refreshReceiptChain(testCase) {
@@ -122,7 +268,7 @@ function figmaReadback(manifest, overrides = {}) {
     rootNodeId: manifest.figma.rootNodeId,
     sourceComponentId: manifest.figma.sourceComponentId,
     episodeInstanceId: manifest.figma.episodeInstanceId,
-    nodeType: "INSTANCE",
+    nodeType: manifest.figma.episodeUsesInstance ? "INSTANCE" : "FRAME",
     sourceRevision: manifest.figma.sourceRevision,
     focalAssets: manifest.figma.focalAssets.map(({ nodeId, kind, layoutRole, centerX }) => ({
       nodeId,
@@ -177,7 +323,66 @@ function withCase(callback) {
 }
 
 try {
-  for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Rank Reveal"], ["recurring board", "Super Bowl Bubble Board"]]) {
+  withCase((testCase) => {
+    fs.rmSync(testCase.manifestPath);
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput),
+      /requires an active scene manifest.*transcript anchor.*Manim timing validation.*Figma Motion/,
+      "unenrolled Lineups Figma mutation",
+    );
+    expectAllowed(
+      pre(testCase, "mcp__codex_apps__figma_use_figma", { ...rankFigmaInput, fileKey: "OTHER_FILE" }),
+      "unenrolled unrelated Figma mutation",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = rankRevealManifest();
+    writeManifest(testCase, manifest);
+    assert.equal(validateManifestSchema(manifest), true, JSON.stringify(validateManifestSchema.errors));
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput), "valid weekly Rank Reveal");
+    expectPostPass(
+      post(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput, figmaReadback(manifest, {
+        background: manifest.figma.background,
+        rankReveal: manifest.figma.rankReveal,
+      })),
+      /Figma mutation readback passed/,
+      "Rank Reveal canonical and timing readback",
+    );
+
+    const failures = [
+      ["stale Rank Reveal source", (m) => { m.figma.sourceComponentId = "835:231"; }, /normalized canonical source/],
+      ["raw Rank Reveal logo", (m) => { m.figma.rankReveal.logoAssignments[0].componentName = "Asset\/Team Logo\/Raw Team"; }, /raw or non-normalized logo/],
+      ["non-cumulative Rank Reveal", (m) => { m.figma.rankReveal.visibleRanks = [9]; }, /preserve every prior 10-to-1 reveal/],
+      ["missing Manim timing authority", (m) => { m.motion.timingValidator = null; }, /requires Manim.*transcript timing validat/],
+      ["missing Figma Motion alignment", (m) => { m.figma.motionTracks[0].keyframes[0].time = 0.2; }, /row fades must begin at scene time 0/],
+    ];
+    for (const [label, mutate, pattern] of failures) {
+      const changed = rankRevealManifest();
+      mutate(changed);
+      writeManifest(testCase, changed);
+      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput), pattern, label);
+    }
+
+    const laterReveal = rankRevealManifest(9);
+    writeManifest(testCase, laterReveal);
+    assert.equal(validateManifestSchema(laterReveal), true, JSON.stringify(validateManifestSchema.errors));
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput), "valid later Rank Reveal");
+
+    const replayedCascade = rankRevealManifest(9);
+    const initialReveal = rankRevealManifest(10);
+    replayedCascade.motion.cues.unshift(initialReveal.motion.cues[0]);
+    replayedCascade.figma.motionTracks.unshift(...initialReveal.figma.motionTracks.slice(0, 10));
+    replayedCascade.timing.entranceTimes = [0, 1.5];
+    writeManifest(testCase, replayedCascade);
+    expectDenied(
+      pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput),
+      /must not replay the full-board cascade/,
+      "later Rank Reveal replaying full board",
+    );
+  });
+
+  for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Super Bowl Bubble Board"]]) {
     withCase((testCase) => {
       const m = readManifest(testCase);
       m.scene.lane = lane; m.scene.approvedOption = option;
@@ -187,7 +392,7 @@ try {
       writeManifest(testCase, m);
       assert.equal(validateManifestSchema(m), true, JSON.stringify(validateManifestSchema.errors));
       expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), `${option} approved field`);
-      const response = {rootNodeId: m.figma.rootNodeId, sourceComponentId: m.figma.sourceComponentId, episodeInstanceId: m.figma.episodeInstanceId, nodeType: "INSTANCE", sourceRevision: m.figma.sourceRevision};
+      const response = {rootNodeId: m.figma.rootNodeId, sourceComponentId: m.figma.sourceComponentId, episodeInstanceId: m.figma.episodeInstanceId, nodeType: "FRAME", sourceRevision: m.figma.sourceRevision};
       expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, response), /locked no-football background/, `${option} missing background readback`);
       expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, {content: [{type: "text", text: JSON.stringify({...response, background: m.figma.background})}]}), /Figma mutation readback passed/, `${option} background readback`);
       const wrong = {...m.figma.background, imageHash: "f".repeat(40)};
@@ -283,12 +488,15 @@ try {
     ["zero opacity row", (m) => { m.figma.motionTracks[0].keyframes = [{ time: 0, value: 0 }, { time: 14.2, value: 0 }]; }, /remains 0 -> 0/],
     ["track exceeds root", (m) => { m.figma.motionTracks[1].duration = 14.3; }, /exceeds the root duration/],
     ["keyframe exceeds track", (m) => { m.figma.motionTracks[1].duration = 10; }, /keyframe beyond its duration/],
-    ["missing tail", (m) => { m.timing.paddedCompositionEnd = 14.19; }, /tail must be at least five seconds/],
+    ["missing trim-safe padding", (m) => { m.timing.paddedCompositionEnd = 11.19; }, /at least ten seconds.*two seconds of trim-safe padding/],
+    ["missing Whisper word timing", (m) => { m.timing.timestampResolution = "segment"; }, /Whisper word-timestamp transcript/],
+    ["missing Manim timing gate", (m) => { m.timing.manimTimingValidated = false; }, /Manim timing gate/],
     ["cue anchor drift", (m) => { m.motion.cues[1].sceneTime = 1.3; m.timing.entranceTimes[1] = 1.3; }, /transcriptTimestamp minus the verified anchor/],
     ["cue entrance drift", (m) => { m.timing.entranceTimes[1] = 1.25; }, /entranceTimes must match motion cue/],
     ["duplicate cue ID", (m) => { m.motion.cues[1].cueId = m.motion.cues[0].cueId; }, /cue IDs must be present and unique/],
     ["cue after content", (m) => { m.motion.cues[3].duration = 2; }, /extends beyond contentEnd/],
-    ["loose episode composition", (m) => { m.figma.episodeUsesInstance = false; }, /must use an approved component instance/],
+    ["loose episode composition", (m) => { m.figma.episodeUsesInstance = true; }, /must use a detached working copy/],
+    ["missing detached-copy contract", (m) => { delete m.figma.motionWorkingCopyMode; }, /figma.motionWorkingCopyMode/],
     ["unnoted Premiere approval", (m) => { m.policy.effectsApproved = true; }, /needs an explicit approval note/],
   ]) {
     withCase((testCase) => {
@@ -316,6 +524,30 @@ try {
 
   withCase((testCase) => {
     const manifest = readManifest(testCase);
+    manifest.figma.rootNodeId = "pending:scene-07";
+    manifest.figma.episodeInstanceId = "pending:scene-07";
+    writeManifest(testCase, manifest);
+    const input = {...approvedFigmaInput, description: "Initialize Lineups scene BIGTEN-SEC-01/scene-07"};
+    manifest.enforcement.approvedToolInputSha256 = hashValue(input);
+    writeManifest(testCase, manifest);
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", input), "planned Figma scene initialization");
+    expectPostPass(
+      post(testCase, "mcp__codex_apps__figma_use_figma", input, {
+        plannedRootNodeId: "pending:scene-07",
+        rootNodeId: "428:9900",
+        sourceComponentId: manifest.figma.sourceComponentId,
+        episodeInstanceId: "428:9900",
+        nodeType: "FRAME",
+        sourceRevision: manifest.figma.sourceRevision,
+        focalAssets: figmaReadback(manifest).focalAssets,
+      }),
+      /Figma mutation readback passed/,
+      "planned Figma scene initialization readback",
+    );
+  });
+
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
     manifest.export.motionProof.sampleTimes = [0, 14.1];
     writeManifest(testCase, manifest);
     expectDenied(
@@ -335,11 +567,10 @@ try {
     manifest.export.motionProof.type = "cue-frame-proof";
     manifest.export.motionProof.engine = "manim";
     writeManifest(testCase, manifest);
-    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), "Manim scene Figma design source");
     expectDenied(
-      pre(testCase, "mcp__codex_apps__figma_export_video", { fileKey: "LINEUPS_FILE_KEY", nodeId: "428:9000" }),
-      /Figma export is unavailable when motion.engine is manim/,
-      "Manim scene cannot use Figma export",
+      pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput),
+      /Figma Motion as its sole visual engine/,
+      "Manim cannot become a Lineups renderer",
     );
   });
 

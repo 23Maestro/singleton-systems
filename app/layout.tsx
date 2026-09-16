@@ -33,8 +33,13 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: [{ url: "/icon.svg?v=ss5", type: "image/svg+xml" }],
-    apple: "/apple-icon.svg?v=ss5",
+    icon: [
+      { url: "/brand/singleton-systems-favicon.svg?v=ss6", type: "image/svg+xml" },
+      { url: "/brand/singleton-systems-favicon.ico?v=ss6", type: "image/x-icon", sizes: "48x48" },
+    ],
+    apple: [
+      { url: "/brand/singleton-systems-favicon-180.png?v=ss6", type: "image/png", sizes: "180x180" },
+    ],
   },
   openGraph: {
     type: "website",

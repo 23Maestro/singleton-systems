@@ -4,7 +4,7 @@
   "sceneId": "scene-07",
   "status": "passed",
   "issuedAt": "2026-08-27T16:10:00Z",
-  "manifestSha256": "adefa35ebf8df3f969cab300d67cacfa33a0a68337bd16862fa5a51ee2e403a4",
+  "manifestSha256": "02b546c1a0628b765a8d2debe4800ca0f9f29d00ad5db7a386174610f31e9ebd",
   "artifactSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
   "review": {
     "status": "approved",
@@ -13,7 +13,7 @@
   },
   "receiptId": "receipt-scene-07-export",
   "stage": "export-to-premiere",
-  "previousReceiptSha256": "a8833e789d39499e6720f5dda60c12f799bc68f0824bf1e318cbb2b00aa414c8",
+  "previousReceiptSha256": "1cafdf4cc6f293d3b40885ba5ae717b9019316835ddc27b80f3a1b14cf40daf2",
   "evidence": {
     "exportPath": "config/lineups/fixtures/valid/render-proof.mp4",
     "fileSha256": "b7fc7ab215f83d9d4f88fabd3be6cea58c86a6fe8936bcc95a938da5d57b48f6",
@@ -46,5 +46,5 @@
     "artifactRole": "final-premiere-render",
     "backgroundPolicy": "football-visible-baked"
   },
-  "receiptSha256": "4e20c3db19ffd78ec837cbb4335eb18e65d505b4aafcb9ca3c09d599305744b7"
+  "receiptSha256": "6cec48ab26cb0d33f020690b71abe1c3ef33cd50236e925d9875eda8cba93644"
 }

@@ -1,7 +1,13 @@
 import { chromium } from "playwright";
 
 const targetUrl = process.env.SEO_AEO_URL || process.argv[2] || "https://singleton-systems.com";
-const requiredPaths = ["/", "/robots.txt", "/sitemap.xml", "/favicon.ico", "/icon.svg"];
+const requiredPaths = [
+  "/",
+  "/robots.txt",
+  "/sitemap.xml",
+  "/brand/singleton-systems-favicon.ico",
+  "/brand/singleton-systems-favicon.svg",
+];
 
 function assert(condition, message) {
   if (!condition) {

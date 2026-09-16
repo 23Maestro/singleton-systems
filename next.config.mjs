@@ -52,6 +52,10 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
+          source: "/decision-maps/2026-09-15-kedasha-preview",
+          destination: "/decision-maps/2026-09-15-kedasha-preview/index.html",
+        },
+        {
           source: "/futurevoices",
           destination: "/decision-maps/2026-08-14-future-voices-storyboard/index.html",
         },

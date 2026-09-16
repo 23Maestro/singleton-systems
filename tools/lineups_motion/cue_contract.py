@@ -27,15 +27,18 @@ class Cue:
 
 
 class CueContract:
-    """A small runtime view of the manifest's motion section."""
+    """A small runtime view of the manifest's transcript-timed cue schedule."""
 
     def __init__(self, manifest: dict[str, Any], source: Path | None = None):
         if manifest.get("schemaVersion") != 2:
             raise CueContractError("Lineups cue execution requires manifest schemaVersion 2")
 
         motion = manifest.get("motion") or {}
-        if motion.get("engine") != "manim":
-            raise CueContractError("CueContract can render only a motion.engine of manim")
+        engine = motion.get("engine")
+        if engine != "figma" or motion.get("engineVersion") != "figma-motion":
+            raise CueContractError("Lineups motion must use Figma Motion as its visual engine")
+        if motion.get("timingValidator") != "manim":
+            raise CueContractError("Lineups timing validation requires motion.timingValidator of manim")
 
         frame_rate = motion.get("frameRate") or {}
         numerator = frame_rate.get("numerator")
@@ -82,6 +85,8 @@ class CueContract:
 
         self.manifest = manifest
         self.source = source
+        self.engine = str(engine or "")
+        self.timing_validator = motion.get("timingValidator")
         self.engine_version = str(motion.get("engineVersion") or "")
         self.frame_rate = Fraction(numerator, denominator)
         self.frame_duration = float(1 / self.frame_rate)
