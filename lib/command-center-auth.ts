@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 
 export const COMMAND_CENTER_COOKIE = "singleton_command_center_session";
-const MAX_AGE = 60 * 60 * 24 * 30;
+const MAX_AGE = 60 * 60 * 24 * 365;
 
 function secret() {
   const value = process.env.COMMAND_CENTER_ACCESS_TOKEN?.trim();
