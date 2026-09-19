@@ -24,7 +24,9 @@ itself. Read the current Figma scenes again after Jerami edits them, inspect
 their rendered frames, and refresh the evidence before publishing. Never mark
 a candidate approved from a geometry check. Jerami owns design approval.
 
-For Manim-designated beats, Manim owns the transcript cue calculation and
-Figma Motion owns the animation. The canvas poster must show the complete
-design before Motion opens. The rendered review must preserve the spoken reveal
-order at 25 fps.
+For Manim-designated beats, the Whisper transcript must be complete and Manim
+must validate the cue calculation before the associated Pre-Figma review page
+is generated. The page exposes that validated timing context; it does not
+initiate timing validation. Figma Motion owns the animation. The canvas poster
+must show the complete design before Motion opens. The rendered review must
+preserve the spoken reveal order at 25 fps.
