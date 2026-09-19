@@ -88,16 +88,21 @@ engine. Premiere owns dialogue timing, pacing, sound, assembly, and export.
 
 ## Manim timing gate
 
-Manim does not render Lineups scenes. It validates the Whisper word anchors,
-scene-time math, frame rate, and duration before Figma Motion work begins.
+Manim does not render Lineups scenes. It runs after Whisper has produced the
+word-level transcript and before the associated Pre-Figma review page is
+generated. It validates the Whisper word anchors, scene-time math, frame rate,
+and duration before the candidate review is published or Figma Motion work
+begins.
 
 1. Keep Figma as the approved visual source and Figma Motion as the sole engine.
 2. Set `motion.engine` to `figma`, `motion.engineVersion` to `figma-motion`, and
    `motion.timingValidator` to `manim`.
 3. Keep `motion.sourcePath` and `motion.sceneClass` null.
-4. Load the contract with `validate_manim_timing_from_manifest()`.
-5. Write the validated cue times into Figma Motion manual keyframes.
-6. Make every composition at least 10 seconds long and keep at least two seconds
+4. Run Manim against the completed Whisper transcript and cue map.
+5. Record the passed cue-proof receipt before generating the Pre-Figma review page.
+6. Load the validated contract with `validate_manim_timing_from_manifest()`.
+7. Write the validated cue times into Figma Motion manual keyframes.
+8. Make every composition at least 10 seconds long and keep at least two seconds
    after its final content cue for trim-safe Premiere placement.
 
 ```bash
