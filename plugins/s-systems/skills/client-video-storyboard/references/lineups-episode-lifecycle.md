@@ -29,8 +29,10 @@ delivery deadline when it is missing.
 ingest files
   -> create or update Linear issue and due date
   -> file source media and packet in Eagle
-  -> complete transcript and activate transcript-Manim-Figma scene manifests
-  -> locked Pre-Figma review
+  -> complete the Whisper word-level transcript
+  -> run Manim timing validation and write the passed cue proof
+  -> create the episode scene manifests with the validated Whisper/Manim timing
+  -> generate and publish the locked Pre-Figma review
   -> approved Figma source-family episode copies
   -> locked Post-Figma review
   -> Premiere edit and delivery readback
@@ -38,6 +40,34 @@ ingest files
   -> Linear Done
   -> remove episode-specific Decision Maps and active gate records
 ```
+
+## timing order and hook caveat
+
+The timing order is a hard stop, not a suggestion:
+
+```text
+source media
+  -> Whisper word-level transcript
+  -> Manim timing validation and cue proof
+  -> scene manifest with the passed timing receipt
+  -> generate and publish the Pre-Figma review page
+  -> human candidate decisions
+  -> Figma Motion
+  -> Post-Figma review
+  -> Premiere placement
+```
+
+Manim must run after the Whisper transcript is complete and before the associated
+Pre-Figma review page is created. The Pre-Figma page may display the validated
+trigger phrase, cue, frame rate, and proof status, but it must not be generated
+from an unvalidated timing map.
+
+The hook caveat is explicit: current preflight validates the manifest's
+`manimTimingValidated` contract, cue math, and motion proof; it does not
+independently launch a fresh Manim run at mutation time. The upstream Manim
+validation therefore needs a current cue-proof receipt tied to the Whisper
+transcript hash and cue-map hash. A missing or stale receipt is a stop, not a
+reason to defer validation until Figma or Premiere.
 
 ## locked Pre-Figma UI
 
@@ -96,6 +126,7 @@ Reveal scene, the gate also verifies:
   and normalized logo animate;
 - one verified team-content cue and exact cue math within 0.001 seconds;
 - Manim declared as timing validator and Figma Motion as the sole engine;
+- a passed Manim cue-proof receipt tied to the Whisper transcript and cue-map hashes before Pre-Figma publication;
 - a live Figma Motion opacity track aligned to the cue start and duration;
 - live Figma readback matching the manifest before export.
 
