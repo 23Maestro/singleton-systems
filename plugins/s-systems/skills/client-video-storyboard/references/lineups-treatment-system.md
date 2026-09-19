@@ -204,9 +204,11 @@ Do not apply this global push to Asset Swap, Comparison, or other motion comps.
 
 Every animated Lineups beat uses the same fixed contract. Figma Motion is the
 sole visual motion engine. Manim validates the Whisper word anchors, cue math,
-frame rate, and composition timing; it never renders the scene. The cue list
-owns `transcriptTimestamp`, `sceneTime`, action, and duration. The hook checks
-the math and motion proof before Figma mutation or export.
+frame rate, and composition timing; it never renders the scene. The required
+order is Whisper word-level transcript -> Manim timing validation and cue proof
+-> Pre-Figma review page -> human candidate decisions -> Figma Motion. The cue
+list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The hook
+checks the math and motion proof before Figma mutation or export.
 
 Every composition is at least 10 seconds long and extends at least two seconds
 beyond its last content cue. This padding is intentional so Premiere can trim a
@@ -229,9 +231,10 @@ date, transcript beats, lane and option choices, source links, candidate count,
 and review state. Do not create a new review-page design or a new Figma option
 for each video.
 
-The Pre-Figma stage reviews transcript mapping and proposed lane, option, and
-setting choices before Figma work. The Post-Figma stage reviews current episode
-copies, motion previews, and proof after Figma work. Both stages use the
+The Pre-Figma stage is generated only after the completed Whisper transcript
+passes Manim timing validation. It reviews transcript mapping and proposed lane,
+option, and setting choices before Figma work. The Post-Figma stage reviews
+current episode copies, motion previews, and proof after Figma work. Both stages use the
 approved source families in Figma Components. Episode Workspace holds the
 temporary episode copies.
 
