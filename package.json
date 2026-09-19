@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky",
     "verify": "npm run typecheck && npm run lint && npm test",
-    "prebuild": "npm run decision-maps:sync && npm run check:cerebral && npm run check:brand",
+    "prebuild": "npm run decision-maps:sync && npm run check:cerebral && npm run check:brand && node scripts/check-personal-endpoints.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -96,6 +96,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@remotion/google-fonts": "4.0.486",
     "@vercel/speed-insights": "^2.0.0",
+    "convex": "^1.46.0",
     "framer-motion": "^11.11.11",
     "geist": "^1.7.2",
     "lucide-react": "^1.28.0",

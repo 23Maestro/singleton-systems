@@ -1,0 +1,618 @@
+[
+  {
+    "asset": "floor-press",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Dumbbell_Floor_Press",
+    "license": "Unlicense",
+    "licenseUrl": "https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE.md"
+  },
+  {
+    "asset": "db-row",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/One-Arm_Dumbbell_Row",
+    "license": "Unlicense",
+    "licenseUrl": "https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE.md"
+  },
+  {
+    "asset": "shoulder-press",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Standing_Dumbbell_Press",
+    "license": "Unlicense",
+    "licenseUrl": "https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE.md"
+  },
+  {
+    "asset": "pull-apart",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Band_Pull_Apart",
+    "license": "Unlicense",
+    "licenseUrl": "https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE.md"
+  },
+  {
+    "asset": "hammer-curl",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hammer_Curls",
+    "license": "Unlicense",
+    "licenseUrl": "https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE.md"
+  },
+  {
+    "asset": "glute-bridge",
+    "source": "https://wger.de/media/exercise-images/265/7528acb4-b2cc-4b75-b6ae-d514cbd4f78b.png",
+    "author": [],
+    "license": {
+      "id": 2,
+      "full_name": "Creative Commons Attribution Share Alike 4",
+      "short_name": "CC-BY-SA 4",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+    },
+    "imageLicenseId": 2,
+    "imageLicense": {
+      "id": 712,
+      "uuid": "7528acb4-b2cc-4b75-b6ae-d514cbd4f78b",
+      "exercise": 265,
+      "exercise_uuid": "ceb0c2d0-06ac-4a49-89e7-8d7b1c1e5672",
+      "image": "https://wger.de/media/exercise-images/265/7528acb4-b2cc-4b75-b6ae-d514cbd4f78b.png",
+      "thumbnails": {
+        "small": "https://wger.de/media/exercise-images/265/7528acb4-b2cc-4b75-b6ae-d514cbd4f78b.png.200x200_q85.png",
+        "medium": "https://wger.de/media/exercise-images/265/7528acb4-b2cc-4b75-b6ae-d514cbd4f78b.png.400x400_q85.png"
+      },
+      "is_main": true,
+      "style": "4",
+      "license": 2,
+      "license_title": "",
+      "license_object_url": "",
+      "license_author": "",
+      "license_author_url": "",
+      "license_derivative_source_url": "",
+      "author_history": [],
+      "is_ai_generated": false
+    }
+  },
+  {
+    "asset": "rdl",
+    "source": "https://wger.de/media/exercise-images/1652/0306c8c0-70cc-45d4-92de-6fa72ceaa834.webp",
+    "author": "AlucardEvil40",
+    "license": {
+      "id": 2,
+      "full_name": "Creative Commons Attribution Share Alike 4",
+      "short_name": "CC-BY-SA 4",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+    },
+    "imageLicenseId": 2,
+    "imageLicense": {
+      "id": 590,
+      "uuid": "0306c8c0-70cc-45d4-92de-6fa72ceaa834",
+      "exercise": 1652,
+      "exercise_uuid": "65d12ecf-54b8-466d-a412-e55c396cad69",
+      "image": "https://wger.de/media/exercise-images/1652/0306c8c0-70cc-45d4-92de-6fa72ceaa834.webp",
+      "thumbnails": {
+        "small": "https://wger.de/media/exercise-images/1652/0306c8c0-70cc-45d4-92de-6fa72ceaa834.webp.200x200_q85.jpg",
+        "medium": "https://wger.de/media/exercise-images/1652/0306c8c0-70cc-45d4-92de-6fa72ceaa834.webp.400x400_q85.jpg"
+      },
+      "is_main": true,
+      "style": "4",
+      "license": 2,
+      "license_title": "",
+      "license_object_url": "",
+      "license_author": "AlucardEvil40",
+      "license_author_url": "",
+      "license_derivative_source_url": "",
+      "author_history": [
+        "AlucardEvil40"
+      ],
+      "is_ai_generated": false
+    }
+  },
+  {
+    "asset": "goblet-squat",
+    "source": "https://wger.de/media/exercise-images/203/1c052351-2af0-4227-aeb0-244008e4b0a8.jpeg",
+    "author": "philip",
+    "license": {
+      "id": 2,
+      "full_name": "Creative Commons Attribution Share Alike 4",
+      "short_name": "CC-BY-SA 4",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+    },
+    "imageLicenseId": 2,
+    "imageLicense": {
+      "id": 328,
+      "uuid": "1c052351-2af0-4227-aeb0-244008e4b0a8",
+      "exercise": 203,
+      "exercise_uuid": "b7c6a444-90ea-4f5b-9fea-748311606eaa",
+      "image": "https://wger.de/media/exercise-images/203/1c052351-2af0-4227-aeb0-244008e4b0a8.jpeg",
+      "thumbnails": {
+        "small": "https://wger.de/media/exercise-images/203/1c052351-2af0-4227-aeb0-244008e4b0a8.jpeg.200x200_q85.jpg",
+        "medium": "https://wger.de/media/exercise-images/203/1c052351-2af0-4227-aeb0-244008e4b0a8.jpeg.400x400_q85.jpg"
+      },
+      "is_main": true,
+      "style": "4",
+      "license": 2,
+      "license_title": "",
+      "license_object_url": "",
+      "license_author": "philip",
+      "license_author_url": "",
+      "license_derivative_source_url": "",
+      "author_history": [
+        "philip"
+      ],
+      "is_ai_generated": false
+    }
+  },
+  {
+    "asset": "reverse-lunge",
+    "source": "https://wger.de/media/exercise-images/999/d0931eb3-8db0-4049-bb08-aa4036072056.jfif",
+    "author": "philip",
+    "license": {
+      "id": 2,
+      "full_name": "Creative Commons Attribution Share Alike 4",
+      "short_name": "CC-BY-SA 4",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+    },
+    "imageLicenseId": 2,
+    "imageLicense": {
+      "id": 335,
+      "uuid": "d0931eb3-8db0-4049-bb08-aa4036072056",
+      "exercise": 999,
+      "exercise_uuid": "616f9026-1a1d-4ed8-b068-cfbb81b6a000",
+      "image": "https://wger.de/media/exercise-images/999/d0931eb3-8db0-4049-bb08-aa4036072056.jfif",
+      "thumbnails": {
+        "small": "https://wger.de/media/exercise-images/999/d0931eb3-8db0-4049-bb08-aa4036072056.jfif.200x200_q85.jpg",
+        "medium": "https://wger.de/media/exercise-images/999/d0931eb3-8db0-4049-bb08-aa4036072056.jfif.400x400_q85.jpg"
+      },
+      "is_main": true,
+      "style": "4",
+      "license": 2,
+      "license_title": "",
+      "license_object_url": "",
+      "license_author": "philip",
+      "license_author_url": "",
+      "license_derivative_source_url": "",
+      "author_history": [
+        "philip"
+      ],
+      "is_ai_generated": false
+    }
+  },
+  {
+    "asset": "calf-raise",
+    "source": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png",
+    "author": "erikocobra",
+    "license": {
+      "id": 2,
+      "full_name": "Creative Commons Attribution Share Alike 4",
+      "short_name": "CC-BY-SA 4",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+    },
+    "imageLicenseId": 2,
+    "imageLicense": {
+      "id": 453,
+      "uuid": "53d4fabe-c994-4907-873f-8d82813a9832",
+      "exercise": 1243,
+      "exercise_uuid": "58ca3e51-ea64-4771-a74a-a74d29f5c40c",
+      "image": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png",
+      "thumbnails": {
+        "small": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png.200x200_q85.jpg",
+        "medium": "https://wger.de/media/exercise-images/1243/53d4fabe-c994-4907-873f-8d82813a9832.png.400x400_q85.jpg"
+      },
+      "is_main": true,
+      "style": "4",
+      "license": 2,
+      "license_title": "Double Leg Calf Raise",
+      "license_object_url": "https://commons.wikimedia.org/wiki/File:Exercise_Heel_Raise_Two_Legs.png",
+      "license_author": "erikocobra",
+      "license_author_url": "",
+      "license_derivative_source_url": "",
+      "author_history": [
+        "erikocobra"
+      ],
+      "is_ai_generated": false
+    }
+  },
+  {
+    "asset": "gear-handle-bands",
+    "source": {
+      "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Trenirovachni_lastici_set.JPG/500px-Trenirovachni_lastici_set.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "thumbwidth": 400,
+      "thumbheight": 289,
+      "responsiveUrls": {
+        "2": "https://upload.wikimedia.org/wikipedia/commons/0/02/Trenirovachni_lastici_set.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      },
+      "thumbattribs": {
+        "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Trenirovachni_lastici_set.JPG/500px-Trenirovachni_lastici_set.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "decoding": "async",
+        "loading": "lazy",
+        "width": 400,
+        "height": 289,
+        "srcset": "https://upload.wikimedia.org/wikipedia/commons/0/02/Trenirovachni_lastici_set.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+      },
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Trenirovachni_lastici_set.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "descriptionurl": "https://commons.wikimedia.org/wiki/File:Trenirovachni_lastici_set.JPG",
+      "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=18099122",
+      "extmetadata": {
+        "DateTime": {
+          "value": "2012-01-19 17:58:24",
+          "source": "mediawiki-metadata",
+          "hidden": ""
+        },
+        "ObjectName": {
+          "value": "Trenirovachni lastici set",
+          "source": "mediawiki-metadata"
+        },
+        "CommonsMetadataExtension": {
+          "value": 1.2,
+          "source": "extension",
+          "hidden": ""
+        },
+        "Categories": {
+          "value": "GFDL|Weight training equipment|License migration redundant|CC-BY-SA-4.0,3.0,2.5,2.0,1.0|Resistance bands|Self-published work",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "Assessments": {
+          "value": "",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "ImageDescription": {
+          "value": "A tipical resistance bands set",
+          "source": "commons-desc-page"
+        },
+        "DateTimeOriginal": {
+          "value": "2012-01-19",
+          "source": "commons-desc-page"
+        },
+        "Credit": {
+          "value": "www.trenirai.me",
+          "source": "commons-desc-page"
+        },
+        "Artist": {
+          "value": "Velislav Panchev",
+          "source": "commons-desc-page"
+        },
+        "Permission": {
+          "value": "jpg",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseShortName": {
+          "value": "CC BY-SA 4.0",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "UsageTerms": {
+          "value": "Creative Commons Attribution-Share Alike 4.0",
+          "source": "commons-desc-page"
+        },
+        "AttributionRequired": {
+          "value": "true",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseUrl": {
+          "value": "https://creativecommons.org/licenses/by-sa/4.0",
+          "source": "commons-desc-page"
+        },
+        "Copyrighted": {
+          "value": "True",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "Restrictions": {
+          "value": "",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "License": {
+          "value": "cc-by-sa-4.0",
+          "source": "commons-templates",
+          "hidden": ""
+        }
+      }
+    }
+  },
+  {
+    "asset": "gear-block",
+    "source": {
+      "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Cork_yoga_blocks.jpg/500px-Cork_yoga_blocks.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "thumbwidth": 400,
+      "thumbheight": 550,
+      "responsiveUrls": {
+        "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Cork_yoga_blocks.jpg/960px-Cork_yoga_blocks.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      },
+      "thumbattribs": {
+        "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Cork_yoga_blocks.jpg/500px-Cork_yoga_blocks.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "decoding": "async",
+        "loading": "lazy",
+        "width": 400,
+        "height": 550,
+        "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Cork_yoga_blocks.jpg/960px-Cork_yoga_blocks.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+      },
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Cork_yoga_blocks.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "descriptionurl": "https://commons.wikimedia.org/wiki/File:Cork_yoga_blocks.jpg",
+      "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=107077584",
+      "extmetadata": {
+        "DateTime": {
+          "value": "2021-06-29 08:39:11",
+          "source": "mediawiki-metadata",
+          "hidden": ""
+        },
+        "ObjectName": {
+          "value": "Cork yoga blocks",
+          "source": "mediawiki-metadata"
+        },
+        "CommonsMetadataExtension": {
+          "value": 1.2,
+          "source": "extension",
+          "hidden": ""
+        },
+        "Categories": {
+          "value": "Cork (material)|Yoga brick|Self-published work",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "Assessments": {
+          "value": "",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "ImageDescription": {
+          "value": "Cork yoga blocks",
+          "source": "commons-desc-page"
+        },
+        "DateTimeOriginal": {
+          "value": "2021-06-29",
+          "source": "commons-desc-page"
+        },
+        "Credit": {
+          "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+          "source": "commons-desc-page"
+        },
+        "Artist": {
+          "value": "<a href=\"//commons.wikimedia.org/wiki/User:Chiswick_Chap\" title=\"User:Chiswick Chap\">Ian Alexander</a>",
+          "source": "commons-desc-page"
+        },
+        "LicenseShortName": {
+          "value": "CC BY-SA 4.0",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "UsageTerms": {
+          "value": "Creative Commons Attribution-Share Alike 4.0",
+          "source": "commons-desc-page"
+        },
+        "AttributionRequired": {
+          "value": "true",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseUrl": {
+          "value": "https://creativecommons.org/licenses/by-sa/4.0",
+          "source": "commons-desc-page"
+        },
+        "Copyrighted": {
+          "value": "True",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "Restrictions": {
+          "value": "",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "License": {
+          "value": "cc-by-sa-4.0",
+          "source": "commons-templates",
+          "hidden": ""
+        }
+      }
+    }
+  },
+  {
+    "asset": "gear-roller",
+    "source": {
+      "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Hartschaumrolle.jpg/500px-Hartschaumrolle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "thumbwidth": 400,
+      "thumbheight": 502,
+      "responsiveUrls": {
+        "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Hartschaumrolle.jpg/960px-Hartschaumrolle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      },
+      "thumbattribs": {
+        "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Hartschaumrolle.jpg/500px-Hartschaumrolle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "decoding": "async",
+        "loading": "lazy",
+        "width": 400,
+        "height": 502,
+        "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Hartschaumrolle.jpg/960px-Hartschaumrolle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+      },
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Hartschaumrolle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "descriptionurl": "https://commons.wikimedia.org/wiki/File:Hartschaumrolle.jpg",
+      "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=23138325",
+      "extmetadata": {
+        "DateTime": {
+          "value": "2012-12-11 12:50:09",
+          "source": "mediawiki-metadata",
+          "hidden": ""
+        },
+        "ObjectName": {
+          "value": "Hartschaumrolle",
+          "source": "mediawiki-metadata"
+        },
+        "CommonsMetadataExtension": {
+          "value": 1.2,
+          "source": "extension",
+          "hidden": ""
+        },
+        "Categories": {
+          "value": "Polyurethane foam|Massage rollers|Self-published work",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "Assessments": {
+          "value": "",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "ImageDescription": {
+          "value": "A photo of a hard foam roller or fascia roller (Foam Roller).",
+          "source": "commons-desc-page"
+        },
+        "DateTimeOriginal": {
+          "value": "2012-12-11 13:46:18",
+          "source": "commons-desc-page"
+        },
+        "Credit": {
+          "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+          "source": "commons-desc-page"
+        },
+        "Artist": {
+          "value": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Finfit&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Finfit (page does not exist)\">Finfit</a>",
+          "source": "commons-desc-page"
+        },
+        "LicenseShortName": {
+          "value": "CC BY-SA 3.0",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "UsageTerms": {
+          "value": "Creative Commons Attribution-Share Alike 3.0",
+          "source": "commons-desc-page"
+        },
+        "AttributionRequired": {
+          "value": "true",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseUrl": {
+          "value": "https://creativecommons.org/licenses/by-sa/3.0",
+          "source": "commons-desc-page"
+        },
+        "Copyrighted": {
+          "value": "True",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "Restrictions": {
+          "value": "",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "License": {
+          "value": "cc-by-sa-3.0",
+          "source": "commons-templates",
+          "hidden": ""
+        }
+      }
+    }
+  },
+  {
+    "asset": "gear-ab-wheel",
+    "source": {
+      "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Ab_roller.webp/500px-Ab_roller.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "thumbwidth": 400,
+      "thumbheight": 454,
+      "responsiveUrls": {
+        "2": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Ab_roller.webp/960px-Ab_roller.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      },
+      "thumbattribs": {
+        "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Ab_roller.webp/500px-Ab_roller.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "decoding": "async",
+        "loading": "lazy",
+        "width": 400,
+        "height": 454,
+        "srcset": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Ab_roller.webp/960px-Ab_roller.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail 2x"
+      },
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Ab_roller.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "descriptionurl": "https://commons.wikimedia.org/wiki/File:Ab_roller.webp",
+      "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=184589827",
+      "extmetadata": {
+        "DateTime": {
+          "value": "2026-02-20 17:22:27",
+          "source": "mediawiki-metadata",
+          "hidden": ""
+        },
+        "ObjectName": {
+          "value": "Ab roller",
+          "source": "mediawiki-metadata"
+        },
+        "CommonsMetadataExtension": {
+          "value": 1.2,
+          "source": "extension",
+          "hidden": ""
+        },
+        "Categories": {
+          "value": "CC-Zero|Self-published work|Ab wheels",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "Assessments": {
+          "value": "",
+          "source": "commons-categories",
+          "hidden": ""
+        },
+        "ImageDescription": {
+          "value": "Ab roller",
+          "source": "commons-desc-page"
+        },
+        "DateTimeOriginal": {
+          "value": "2026-02-20",
+          "source": "commons-desc-page"
+        },
+        "Credit": {
+          "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+          "source": "commons-desc-page"
+        },
+        "Artist": {
+          "value": "<a href=\"//commons.wikimedia.org/wiki/User:Wikideas1\" title=\"User:Wikideas1\">Wikideas1</a>",
+          "source": "commons-desc-page"
+        },
+        "LicenseShortName": {
+          "value": "CC0",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "UsageTerms": {
+          "value": "Creative Commons Zero, Public Domain Dedication",
+          "source": "commons-desc-page"
+        },
+        "AttributionRequired": {
+          "value": "false",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "LicenseUrl": {
+          "value": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "source": "commons-desc-page"
+        },
+        "Copyrighted": {
+          "value": "True",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "Restrictions": {
+          "value": "",
+          "source": "commons-desc-page",
+          "hidden": ""
+        },
+        "License": {
+          "value": "cc0",
+          "source": "commons-templates",
+          "hidden": ""
+        }
+      }
+    }
+  },
+  {
+    "asset": "gear-stick",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Round_The_World_Shoulder_Stretch",
+    "license": "Unlicense"
+  },
+  {
+    "asset": "gear-dumbbells",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Hammer_Curls",
+    "license": "Unlicense"
+  },
+  {
+    "asset": "gear-loop-bands",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Band_Pull_Apart",
+    "license": "Unlicense"
+  },
+  {
+    "asset": "gear-bodyweight",
+    "source": "https://github.com/yuhonas/free-exercise-db/tree/main/exercises/Butt_Lift_Bridge",
+    "license": "Unlicense"
+  }
+]

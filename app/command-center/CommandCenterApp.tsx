@@ -157,10 +157,6 @@ function placeOverlaps(blocks: Block[]): TimedPlacement[] {
 }
 
 export default function CommandCenterApp() {
-  const [access, setAccess] = useState<"checking" | "locked" | "open">(
-    "checking",
-  );
-  const [passphrase, setPassphrase] = useState("");
   const [surface, setSurface] = useState<Surface>("queue");
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [error, setError] = useState("");
@@ -208,6 +204,7 @@ export default function CommandCenterApp() {
       throw new Error(result.error || "Could not load Command Center.");
     const next = result as Snapshot;
     setSnapshot(next);
+    setError("");
     setSelectedWork(
       (current) =>
         current ??
@@ -224,23 +221,16 @@ export default function CommandCenterApp() {
   }, []);
 
   useEffect(() => {
-    fetch("/api/command-center/session", { cache: "no-store" })
-      .then((response) => response.json())
-      .then((result) => setAccess(result.authenticated ? "open" : "locked"))
-      .catch(() => setAccess("locked"));
-  }, []);
-  useEffect(() => {
-    if (access !== "open") return;
     load().catch((cause) =>
       setError(cause instanceof Error ? cause.message : "Could not load."),
     );
-  }, [access, load]);
+  }, [load]);
   useEffect(() => {
     if (selectedContact === null && snapshot?.contacts.length)
       setSelectedContact(snapshot.contacts[0].id);
   }, [selectedContact, snapshot]);
   useEffect(() => {
-    if (access !== "open" || selectedContact === null) {
+    if (selectedContact === null) {
       setMail(null);
       return;
     }
@@ -267,7 +257,7 @@ export default function CommandCenterApp() {
     return () => {
       active = false;
     };
-  }, [access, selectedContact]);
+  }, [selectedContact]);
   const handleShortcut = useEffectEvent((event: KeyboardEvent) => {
     if (
       event.target instanceof HTMLInputElement ||
@@ -342,27 +332,6 @@ export default function CommandCenterApp() {
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Action failed.");
       return null;
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function unlock(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setBusy(true);
-    setError("");
-    try {
-      const response = await fetch("/api/command-center/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: passphrase }),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Unlock failed.");
-      setPassphrase("");
-      setAccess("open");
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "Unlock failed.");
     } finally {
       setBusy(false);
     }
@@ -620,39 +589,6 @@ export default function CommandCenterApp() {
       setTaskDue("");
     }
   }
-
-  if (access !== "open")
-    return (
-      <main className="cc cc-gate">
-        <div className="cc-gate-card">
-          <span className="cc-brand">SINGLETON SYSTEMS</span>
-          <h1>Command Center</h1>
-          {access === "checking" ? (
-            <p>Checking this device…</p>
-          ) : (
-            <form onSubmit={unlock}>
-              <label>
-                Passphrase
-                <input
-                  type="password"
-                  autoComplete="current-password"
-                  value={passphrase}
-                  onChange={(event) => setPassphrase(event.target.value)}
-                  autoFocus
-                  required
-                />
-              </label>
-              <button disabled={busy}>Unlock</button>
-            </form>
-          )}
-          {error && (
-            <p className="cc-error" role="alert">
-              {error}
-            </p>
-          )}
-        </div>
-      </main>
-    );
 
   return (
     <main className="cc">

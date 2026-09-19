@@ -1,5 +1,4 @@
 import { google } from "googleapis";
-import { commandCenterAccessError } from "@/lib/command-center-auth";
 import { supabaseRest } from "@/lib/supabase-rest";
 
 export const runtime = "nodejs";
@@ -13,8 +12,6 @@ export async function GET(
   request: Request,
   context: { params: Promise<{ contactId: string }> },
 ) {
-  const denied = commandCenterAccessError(request);
-  if (denied) return denied;
   const { contactId } = await context.params;
   if (!/^\d+$/.test(contactId))
     return Response.json(

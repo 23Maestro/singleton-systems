@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { commandCenterAccessError } from "@/lib/command-center-auth";
 import {
   commandCenterSnapshot,
   createLinearTask,
@@ -95,15 +94,11 @@ const actionSchema = z.discriminatedUnion("action", [
   }),
 ]);
 
-export async function GET(request: Request) {
-  const denied = commandCenterAccessError(request);
-  if (denied) return denied;
+export async function GET() {
   return Response.json(await commandCenterSnapshot(), { headers });
 }
 
 export async function POST(request: Request) {
-  const denied = commandCenterAccessError(request);
-  if (denied) return denied;
   if (request.headers.get("origin") !== new URL(request.url).origin)
     return Response.json(
       { error: "Invalid origin." },
