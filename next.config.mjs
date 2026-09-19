@@ -6,6 +6,7 @@ const nextConfig = {
     const privateRoutePatterns = [
       "/ai-workflow-portfolio/:path*",
       "/ai-workflow-session/:path*",
+      "/dashboard/:path*",
       "/decision-maps/:path*",
       "/finances/:path*",
       "/finances-form/:path*",
