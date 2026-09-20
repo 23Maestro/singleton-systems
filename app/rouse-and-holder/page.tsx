@@ -33,6 +33,23 @@ const pageStyles = String.raw`
 @media(max-width:760px){.gary-setup-page .s4,.gary-setup-page .s5,.gary-setup-page .s7,.gary-setup-page .s8{grid-column:span 12}.gary-setup-page{padding:13px}}
 `;
 
+const repoShape = String.raw`business-ai-workspace/
+├── README.md
+├── AGENTS.md
+├── CONTEXT.md
+├── inputs/
+│   └── newest-business-plan.md
+├── business/
+│   ├── brand-foundation.md
+│   ├── voice-rules.md
+│   └── offer-and-audience.md
+├── outputs/
+│   ├── research/
+│   └── drafts/
+└── .agents/skills/
+    ├── business-setup/
+    └── cold-email-workflow/`;
+
 export default function RouseAndHolderPage() {
   return (
     <main className="gary-setup-page">
@@ -76,9 +93,7 @@ export default function RouseAndHolderPage() {
 
         <section className="card s7">
           <h2>Repo shape</h2>
-          <pre className="tree">
-            {"business-ai-workspace/\\n├── README.md\\n├── AGENTS.md\\n├── CONTEXT.md\\n├── inputs/\\n│   └── newest-business-plan.md\\n├── business/\\n│   ├── brand-foundation.md\\n│   ├── voice-rules.md\\n│   └── offer-and-audience.md\\n├── outputs/\\n│   ├── research/\\n│   └── drafts/\\n└── .agents/skills/\\n    ├── business-setup/\\n    └── cold-email-workflow/"}
-          </pre>
+          <pre className="tree">{repoShape}</pre>
         </section>
 
         <section className="card s7">
