@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import CopyBlock from "./CopyBlock";
 
 export const metadata: Metadata = {
-  title: "Rouse and Holder — Setup Guide",
-  description: "Seven steps to set up the brief pipeline. Copy, paste, done.",
+  title: "Gary's Business Setup",
+  description: "Build the business foundation before the cold-email workflow.",
   robots: {
     index: false,
     follow: false,
@@ -13,137 +12,189 @@ export const metadata: Metadata = {
   },
 };
 
-const steps: { title: string; label: string; code: string }[] = [
-  {
-    title: "Install Claude Code",
-    label: "TERMINAL",
-    code: "npm install -g @anthropic-ai/claude-code",
-  },
-  {
-    title: "Make the project folder",
-    label: "TERMINAL",
-    code: "mkdir -p ~/Documents/rouse-and-holder\ncd ~/Documents/rouse-and-holder\ngit init",
-  },
-  {
-    title: "Start Claude Code",
-    label: "TERMINAL",
-    code: "claude",
-  },
-  {
-    title: "Paste the setup prompt",
-    label: "PASTE INTO CLAUDE",
-    code: `Set up this repo for a brief-generation project.
-
-Create .claude/settings.json with a UserPromptSubmit hook that runs:
-  cat .claude/writing-rules.md
-
-Create .claude/writing-rules.md from the file I am attaching.
-
-Do not add anything else. No README, no scaffolding, no extra folders.
-Confirm both files exist when done.`,
-  },
-  {
-    title: "Install Grill Me and Wayfinder",
-    label: "TERMINAL",
-    code: "npx -y skills add mattpocock/skills --skill wayfinder --agent claude-code\nnpx -y skills add mattpocock/skills --skill grill-me --agent claude-code",
-  },
-  {
-    title: "Run the interview",
-    label: "PASTE INTO CLAUDE",
-    code: `I need to nail down the exact spec for an AI pipeline that generates
-sales briefs, before it gets built. Interview me until you have:
-
-1. My current prompts, in full.
-2. 2-3 full session transcripts, including bad first drafts and
-   every correction I made, in order.
-3. How I target accounts — clustered by industry, or scattershot.
-4. What separates a finished brief from an early draft. Name the
-   specific, recurring corrections — not "made it better."
-
-Write the findings clean enough to hand an engineer with zero
-follow-up questions.`,
-  },
-  {
-    title: "Turn it into a build plan",
-    label: "PASTE INTO CLAUDE",
-    code: `Turn the interview findings into a phased build plan: URL in,
-sales brief out. Stack is Firecrawl (scrape), Claude (generate),
-Vercel (host the HTML brief).`,
-  },
-];
-
-const accessItems = [
-  "A Firecrawl account and API key, or a card to start one.",
-  "A Claude (Anthropic) API key, or a card to start one.",
-  "A Vercel account to host the brief pages.",
-  "3-5 real client URLs you target now — the pipeline gets tested against these, not a stranger's site.",
-];
+const pageStyles = String.raw`
+@font-face{font-family:Geist;src:url("https://raw.githubusercontent.com/23Maestro/singleton-systems/main/public/decision-maps/2026-08-14-future-voices-storyboard/assets/Geist-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Geist Mono";src:url("https://raw.githubusercontent.com/23Maestro/singleton-systems/main/public/decision-maps/2026-08-14-future-voices-storyboard/assets/GeistMono-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{--gary-white:#fff;--gary-wash:#f8fafc;--gary-ink:#111318;--gary-body:#475467;--gary-muted:#667085;--gary-line:#d8dee8;--gary-blue:#2383e2;--gary-blue-text:#1b76d0;--gary-yellow:#ffc83d;--gary-yellow-text:#996d00;--gary-coral:#ff6257;--gary-coral-text:#eb0f00;--gary-green:#25c266;--gary-green-text:#1a8646}
+.gary-setup-page{max-width:1080px;min-height:100dvh;margin:auto;padding:20px;background:var(--gary-white);color:var(--gary-body);font:15px/1.5 Geist,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.gary-setup-page,.gary-setup-page *,.gary-setup-page *::before,.gary-setup-page *::after{box-sizing:border-box}
+.gary-setup-page .bar{display:grid;grid-template-columns:repeat(4,1fr);height:6px;border-radius:99px;overflow:hidden;margin-bottom:17px}.gary-setup-page .bar i:nth-child(1){background:var(--gary-blue)}.gary-setup-page .bar i:nth-child(2){background:var(--gary-yellow)}.gary-setup-page .bar i:nth-child(3){background:var(--gary-coral)}.gary-setup-page .bar i:nth-child(4){background:var(--gary-green)}
+.gary-setup-page .kicker{font:700 11px/1.2 "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gary-blue-text)}
+.gary-setup-page h1{color:var(--gary-ink);font-size:28px;line-height:1.1;margin:5px 0 6px}.gary-setup-page h2{color:var(--gary-ink);font-size:15px;margin:0 0 9px}.gary-setup-page h3{color:var(--gary-ink);font-size:14px;margin:11px 0 4px}.gary-setup-page .lead{font-size:17px;max-width:760px;margin:0 0 15px}
+.gary-setup-page .ask{border-left:5px solid var(--gary-coral);background:#fff7f6;border-radius:0 10px 10px 0;padding:13px 15px;margin-bottom:12px;color:var(--gary-ink)}.gary-setup-page .ask b{color:var(--gary-coral-text)}
+.gary-setup-page .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}.gary-setup-page .card{border:1px solid var(--gary-line);border-radius:12px;padding:14px;background:var(--gary-white);box-shadow:0 8px 18px rgba(15,23,42,.045)}.gary-setup-page .s4{grid-column:span 4}.gary-setup-page .s5{grid-column:span 5}.gary-setup-page .s7{grid-column:span 7}.gary-setup-page .s8{grid-column:span 8}
+.gary-setup-page ul,.gary-setup-page ol{margin:5px 0 0;padding-left:19px}.gary-setup-page li{margin:4px 0}.gary-setup-page .tight li{margin:2px 0}
+.gary-setup-page code{font-family:"Geist Mono",monospace;background:var(--gary-wash);border:1px solid #e4e8ef;padding:1px 4px;border-radius:4px;color:var(--gary-ink);font-size:12px}
+.gary-setup-page .tree{white-space:pre-wrap;background:var(--gary-ink);color:#fff;border-radius:9px;padding:12px;margin:0;font:12px/1.55 "Geist Mono",monospace}
+.gary-setup-page .file,.gary-setup-page .step{border-top:1px solid #e4e8ef;padding:8px 0}.gary-setup-page .file:first-of-type,.gary-setup-page .step:first-of-type{border-top:0}.gary-setup-page .file b{display:block;color:var(--gary-ink)}
+.gary-setup-page .step{display:grid;grid-template-columns:27px 1fr;gap:8px}.gary-setup-page .num{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#eaf2f8;color:var(--gary-blue-text);font-weight:800;font-size:11px}
+.gary-setup-page .tags{margin:2px 0 7px}.gary-setup-page .tag{display:inline-block;margin:2px 3px 2px 0;padding:3px 8px;border-radius:99px;font:700 11px/1.4 "Geist Mono",monospace;background:#eaf2f8;color:var(--gary-blue-text)}.gary-setup-page .tag:nth-child(2){background:#fff7dc;color:var(--gary-yellow-text)}.gary-setup-page .tag:nth-child(3){background:#fff0ee;color:var(--gary-coral-text)}.gary-setup-page .tag:nth-child(4){background:#eaf8ef;color:var(--gary-green-text)}
+.gary-setup-page .note{font-size:12px;color:var(--gary-muted);margin-top:7px}.gary-setup-page .footer{margin-top:10px;font:600 11px/1.2 "Geist Mono",monospace;color:var(--gary-muted);text-align:right}
+@media(max-width:760px){.gary-setup-page .s4,.gary-setup-page .s5,.gary-setup-page .s7,.gary-setup-page .s8{grid-column:span 12}.gary-setup-page{padding:13px}}
+`;
 
 export default function RouseAndHolderPage() {
   return (
-    <main className="min-h-dvh bg-neutral-50 text-neutral-950">
-      <header className="bg-neutral-950 px-6 py-16 sm:px-10 sm:py-20">
-        <div className="mx-auto max-w-3xl">
-          <p className="text-xs font-semibold tracking-[0.14em] text-brand-blue">ROUSE AND HOLDER</p>
-          <h1 className="mt-3 text-4xl font-bold leading-tight text-white sm:text-5xl">
-            Set up your brief pipeline
-          </h1>
-        </div>
-      </header>
+    <main className="gary-setup-page">
+      <style dangerouslySetInnerHTML={{ __html: pageStyles }} />
 
-      <div className="border-b border-neutral-200 bg-white px-6 py-6 sm:px-10">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-end gap-3">
-          <a
-            href="/rouse-and-holder/writing-rules.md"
-            download
-            className="rounded-lg bg-brand-blue px-5 py-3 text-sm font-semibold text-white hover:bg-brand-text-blue"
-          >
-            Download writing-rules.md
-          </a>
-          <a
-            href="/rouse-and-holder/interview-prompt.md"
-            download
-            className="rounded-lg border border-neutral-300 px-5 py-3 text-sm font-semibold text-brand-text-blue hover:border-brand-blue"
-          >
-            Download interview prompt
-          </a>
-        </div>
+      <div className="bar">
+        <i />
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="kicker">Gary Rouse · September 18, 2026</div>
+      <h1>Build the business first</h1>
+      <p className="lead">
+        Start with the version-two cold-email reply document. Use it to shape the business files, then build the
+        cold-email steps.
+      </p>
+
+      <div className="ask">
+        <b>Your next move:</b> Put your version-two cold-email reply document in the <code>inputs</code> folder, then
+        run <code>grill-with-docs</code> to find gaps before you fill the four business files.
       </div>
 
-      <div className="mx-auto max-w-3xl px-6 py-12 sm:px-10">
-        <ol className="flex flex-col gap-5">
-          {steps.map((step, i) => (
-            <li key={step.title} className="flex gap-5 rounded-2xl border border-neutral-200 bg-white p-7">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-blue text-lg font-bold text-white">
-                {i + 1}
-              </span>
-              <div className="flex flex-1 flex-col gap-2.5">
-                <h2 className="text-xl font-semibold">{step.title}</h2>
-                <div className="mt-1">
-                  <CopyBlock label={step.label} code={step.code} />
-                </div>
-              </div>
+      <div className="grid">
+        <section className="card s5">
+          <h2>Start here</h2>
+          <ol className="tight">
+            <li>Start with your version-two cold-email reply document.</li>
+            <li>
+              Put it in the <code>inputs</code> folder.
             </li>
-          ))}
-        </ol>
+            <li>
+              Run <code>grill-with-docs</code> to find gaps.
+            </li>
+            <li>Use the helper skills to ask and answer the next questions.</li>
+            <li>Save the answers in four files.</li>
+            <li>Use those files to build the email steps.</li>
+          </ol>
+          <p className="note">Start with your own business and offer. The client workflow comes after the foundation is clear.</p>
+        </section>
 
-        <div className="mt-5 flex gap-5 rounded-2xl border border-neutral-200 bg-white p-7">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-blue text-lg font-bold text-white">
-            8
-          </span>
-          <div className="flex flex-1 flex-col gap-2.5">
-            <h2 className="text-xl font-semibold">Gather access before you send everything back</h2>
-            <ul className="flex flex-col gap-1.5 text-[15px] leading-relaxed text-neutral-700">
-              {accessItems.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span className="text-brand-text-blue">-</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        <section className="card s7">
+          <h2>Repo shape</h2>
+          <pre className="tree">
+            {"business-ai-workspace/\\n├── README.md\\n├── AGENTS.md\\n├── CONTEXT.md\\n├── inputs/\\n│   └── newest-business-plan.md\\n├── business/\\n│   ├── brand-foundation.md\\n│   ├── voice-rules.md\\n│   └── offer-and-audience.md\\n├── outputs/\\n│   ├── research/\\n│   └── drafts/\\n└── .agents/skills/\\n    ├── business-setup/\\n    └── cold-email-workflow/"}
+          </pre>
+        </section>
+
+        <section className="card s7">
+          <h2>The four main files</h2>
+          <div className="file">
+            <b>
+              <code>CONTEXT.md</code>
+            </b>
+            What is true now. What is still not clear. What Gary should do next.
           </div>
-        </div>
+          <div className="file">
+            <b>
+              <code>brand-foundation.md</code>
+            </b>
+            Why the business exists. What makes it useful. What proof Gary has.
+          </div>
+          <div className="file">
+            <b>
+              <code>voice-rules.md</code>
+            </b>
+            How Gary talks. Words he likes. Words he does not want to use.
+          </div>
+          <div className="file">
+            <b>
+              <code>offer-and-audience.md</code>
+            </b>
+            Who Gary helps. What problem they have. What he sells. What they get.
+          </div>
+          <p className="note">The files hold the facts. The skills read the facts and help Gary do the work.</p>
+        </section>
+
+        <section className="card s5">
+          <h2>Five helper skills</h2>
+          <div className="tags">
+            <span className="tag">grill-with-docs</span>
+            <span className="tag">grilling</span>
+            <span className="tag">domain-modeling</span>
+            <span className="tag">research</span>
+            <span className="tag">grill-me</span>
+          </div>
+          <ul className="tight">
+            <li>
+              <b>grill-with-docs:</b> reads Gary’s plan and finds gaps.
+            </li>
+            <li>
+              <b>grilling:</b> asks the next best question.
+            </li>
+            <li>
+              <b>domain-modeling:</b> gives each key idea one clear name.
+            </li>
+            <li>
+              <b>research:</b> checks what is true.
+            </li>
+            <li>
+              <b>grill-me:</b> tests a rough idea before Gary uses it.
+            </li>
+          </ul>
+        </section>
+
+        <section className="card s8">
+          <h2>First work session</h2>
+          <div className="step">
+            <div className="num">1</div>
+            <div>
+              <b>Set it up.</b> Make the repo and link it to ChatGPT or Codex.
+            </div>
+          </div>
+          <div className="step">
+            <div className="num">2</div>
+            <div>
+              <b>Add your starting document.</b> Put the version-two cold-email reply document in <code>inputs</code>.
+            </div>
+          </div>
+          <div className="step">
+            <div className="num">3</div>
+            <div>
+              <b>Run grill-with-docs.</b> Find what is clear, what is missing, and what does not match.
+            </div>
+          </div>
+          <div className="step">
+            <div className="num">4</div>
+            <div>
+              <b>Fill the four files.</b> Gary checks each part before it is saved.
+            </div>
+          </div>
+          <div className="step">
+            <div className="num">5</div>
+            <div>
+              <b>Check the market.</b> Learn how buyers talk about the problem and what proof they need.
+            </div>
+          </div>
+          <div className="step">
+            <div className="num">6</div>
+            <div>
+              <b>Build the email steps.</b> Pick the list, message, checks, and way to track replies.
+            </div>
+          </div>
+        </section>
+
+        <section className="card s4">
+          <h2>We are done when</h2>
+          <ul className="tight">
+            <li>Gary can say what he sells in one minute.</li>
+            <li>He knows who should buy it.</li>
+            <li>The offer gives one clear win.</li>
+            <li>The words sound like Gary.</li>
+            <li>Proof is real or marked as not checked.</li>
+            <li>Each email uses the four files.</li>
+            <li>Gary checks each email before it sends.</li>
+          </ul>
+          <h3>Next move</h3>
+          <p>Use the version-two cold-email reply document as the first test. Fix the template when you get stuck.</p>
+        </section>
       </div>
+
+      <div className="footer">Singleton Systems</div>
     </main>
   );
 }
