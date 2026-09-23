@@ -6,13 +6,13 @@ const nextConfig = {
     const privateRoutePatterns = [
       "/ai-workflow-portfolio/:path*",
       "/ai-workflow-session/:path*",
+      "/business-links/:path*",
       "/dashboard/:path*",
       "/decision-maps/:path*",
       "/finances/:path*",
       "/finances-form/:path*",
       "/finances-plan/:path*",
       "/flowzone/:path*",
-      "/futurevoices/:path*",
       "/home-tasks/:path*",
       "/linear-inbox/:path*",
       "/links/:path*",
@@ -55,10 +55,6 @@ const nextConfig = {
         {
           source: "/decision-maps/2026-09-15-kedasha-preview",
           destination: "/decision-maps/2026-09-15-kedasha-preview/index.html",
-        },
-        {
-          source: "/futurevoices",
-          destination: "/decision-maps/2026-08-14-future-voices-storyboard/index.html",
         },
         {
           source: "/wemby-shot-lab",

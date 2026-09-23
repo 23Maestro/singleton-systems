@@ -387,7 +387,7 @@ assert.equal(ordinaryChat.status, 0);
 assert.equal(ordinaryChat.stdout.trim(), "", "ordinary chat must not invoke the writing gate");
 
 const cleanArtifact = runPostTool("Edit", {
-  file_path: path.join(root, "docs/visuals/2026-08-04-ai-upgrade-wayfinder.html"),
+  file_path: path.join(root, "docs/visuals/2026-07-07-video-projects-routing.html"),
 });
 assert.equal(cleanArtifact.status, 0, `clean artifact check exited ${cleanArtifact.status}: ${cleanArtifact.stderr}`);
 assert.doesNotMatch(cleanArtifact.stdout, /"continue": false/);
