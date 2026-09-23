@@ -1,0 +1,783 @@
+{
+  "retrieved_on": "2026-09-17",
+  "provider": "ScrapeCreators",
+  "scope": "Metadata and captions only; no transcript or visual review",
+  "credits_before": 7100,
+  "credits_after": 7091,
+  "linkedin": {
+    "status": "awaiting_creator",
+    "live_test": false
+  },
+  "samples": [
+    {
+      "name": "corey-posts",
+      "endpoint": "/v1/twitter/user-tweets",
+      "returned_count": 101,
+      "retained_count": 30,
+      "sampling": "popular public entries, not latest",
+      "posts": [
+        {
+          "id": "2066581137191776483",
+          "url": "https://x.com/coreyganim/status/2066581137191776483",
+          "text": "This week I crossed 50,000 followers on X.\n\nHard to believe, because when I started posting about AI, I had 15k. Every one of them came from my old life: selling on Amazon.\n\nMost of you know me as an AI guy. You probably know nothing about how I got here.\n\nHere are a few things https://t.co/rlvOMMJSKc",
+          "date": "Mon Jun 15 17:58:32 +0000 2026",
+          "likes": 297,
+          "comments": 49,
+          "views": {
+            "count": "36299",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 10
+        },
+        {
+          "id": "1736057409150361985",
+          "url": "https://x.com/coreyganim/status/1736057409150361985",
+          "text": "Looking for a side hustle?\n\nTry Amazon FBA.\n\nIt's the best way to make an extra $1-5k per month (in profit).\n\nA getting started guide:",
+          "date": "Sat Dec 16 16:15:15 +0000 2023",
+          "likes": 829,
+          "comments": 11,
+          "views": {
+            "count": "442576",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 80
+        },
+        {
+          "id": "1678067648507133953",
+          "url": "https://x.com/coreyganim/status/1678067648507133953",
+          "text": "6 years ago I was a broke college kid making $15/hour.\n\nThis year I broke $10M in sales with my Amazon wholesale business.\n\nThis is my story: https://t.co/obCMuQdxlP",
+          "date": "Sun Jul 09 15:44:39 +0000 2023",
+          "likes": 514,
+          "comments": 58,
+          "views": {
+            "count": "162013",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 40
+        },
+        {
+          "id": "1736788799227584722",
+          "url": "https://x.com/coreyganim/status/1736788799227584722",
+          "text": "My Amazon business does $3,000,000+ per year in sales.\n\nVirtual assistants run the whole thing.\n\nI pay them $6-10/hour.\n\nThis is how I find them:",
+          "date": "Mon Dec 18 16:41:32 +0000 2023",
+          "likes": 426,
+          "comments": 19,
+          "views": {
+            "count": "188345",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 39
+        },
+        {
+          "id": "1634319899907575809",
+          "url": "https://x.com/coreyganim/status/1634319899907575809",
+          "text": "Finding suppliers is the most important part of your Amazon business.\n\nIt's also the hardest.\n\nSo I made a FREE guide showing you how to find your first (or next) supplier.\n\nReply \"free\" + Like + RT and I'll auto-DM it to you!\n\n*first 750 people only, must be following me*",
+          "date": "Fri Mar 10 22:26:42 +0000 2023",
+          "likes": 392,
+          "comments": 364,
+          "views": {
+            "count": "44584",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 252
+        },
+        {
+          "id": "1644341202056093697",
+          "url": "https://x.com/coreyganim/status/1644341202056093697",
+          "text": "If you use it right, chatGPT can land you profitable wholesale accounts.\n\nBut most sellers have no idea how.\n\nWant to see me break down a  strategy for landing brand-direct accounts?\n\nLike and reply \"chatGPT\" to this tweet and I'll DM it to you!\n\n*must be following me* https://t.co/s5eIpzOMbB",
+          "date": "Fri Apr 07 14:07:47 +0000 2023",
+          "likes": 393,
+          "comments": 408,
+          "views": {
+            "count": "47885",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 24
+        },
+        {
+          "id": "1646891439886827520",
+          "url": "https://x.com/coreyganim/status/1646891439886827520",
+          "text": "You're struggling to land wholesale accounts because your outreach sucks.\n\nSo I compiled 10 email templates that don't suck.\n\nThe exact ones we used to land 400+ wholesale accounts.\n\nLike + reply \"templates\" and I'll DM them to you for FREE.\n\n*must be following me* https://t.co/pvXQuBtjZe",
+          "date": "Fri Apr 14 15:01:31 +0000 2023",
+          "likes": 342,
+          "comments": 332,
+          "views": {
+            "count": "27302",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 21
+        },
+        {
+          "id": "1681054951244480512",
+          "url": "https://x.com/coreyganim/status/1681054951244480512",
+          "text": "Amazon wholesale makes me $10,000+ per month in profit from home.\n\nCopy this blueprint to get started ASAP (step-by-step):",
+          "date": "Mon Jul 17 21:35:07 +0000 2023",
+          "likes": 307,
+          "comments": 10,
+          "views": {
+            "count": "68865",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 43
+        },
+        {
+          "id": "1739676337093144649",
+          "url": "https://x.com/coreyganim/status/1739676337093144649",
+          "text": "I found the number one side hustle for 2024.\n\nIt's called Amazon FBA.\n\nThis is exactly how you start:\n\n(and how you can scale to $50K/mo):",
+          "date": "Tue Dec 26 15:55:35 +0000 2023",
+          "likes": 274,
+          "comments": 10,
+          "views": {
+            "count": "156128",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 26
+        },
+        {
+          "id": "1738913264325517624",
+          "url": "https://x.com/coreyganim/status/1738913264325517624",
+          "text": "New to Amazon wholesale?\n\nDon't buy a $997 course.\n\nThis thread has everything you need to get started.\n\n(for free):",
+          "date": "Sun Dec 24 13:23:24 +0000 2023",
+          "likes": 281,
+          "comments": 6,
+          "views": {
+            "count": "87516",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 26
+        },
+        {
+          "id": "1738581894256599187",
+          "url": "https://x.com/coreyganim/status/1738581894256599187",
+          "text": "Amazon FBA is the best side hustle (by far).\n\nYou can generate $5,000/mo in profit with less than $100 in overhead.\n\nHere's how it works (60-second crash course):",
+          "date": "Sat Dec 23 15:26:39 +0000 2023",
+          "likes": 273,
+          "comments": 12,
+          "views": {
+            "count": "195148",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 25
+        },
+        {
+          "id": "1751647673239650386",
+          "url": "https://x.com/coreyganim/status/1751647673239650386",
+          "text": "My neighbor is a $150M/year Amazon seller.\n\nHe spilled all his secrets.\n\nThis is what he told me:",
+          "date": "Sun Jan 28 16:45:23 +0000 2024",
+          "likes": 269,
+          "comments": 18,
+          "views": {
+            "count": "89046",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 33
+        },
+        {
+          "id": "1676234980094091264",
+          "url": "https://x.com/coreyganim/status/1676234980094091264",
+          "text": "Buying products bulk and flipping them on Amazon is a foolproof way anyone can make $10,000/mo.\n\nBut most people are taking the wrong approach.\n\nSimple step-by-step  blueprint: https://t.co/1uRkTl8trl",
+          "date": "Tue Jul 04 14:22:16 +0000 2023",
+          "likes": 277,
+          "comments": 8,
+          "views": {
+            "count": "73120",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 37
+        },
+        {
+          "id": "1629256464538775552",
+          "url": "https://x.com/coreyganim/status/1629256464538775552",
+          "text": "Increase your Amazon sales by 10% overnight using a catch-all automated PPC campaign: https://t.co/JiadrAqBhi",
+          "date": "Fri Feb 24 23:06:25 +0000 2023",
+          "likes": 262,
+          "comments": 37,
+          "views": {
+            "count": "68727",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 27
+        },
+        {
+          "id": "1711003580855877779",
+          "url": "https://x.com/coreyganim/status/1711003580855877779",
+          "text": "The riches are in the niches.\n\nAnd smart Amazon sellers are making a killing selling \"boring\" products.\n\n3 insanely profitable (and overlooked) categories to sell on Amazon:",
+          "date": "Sun Oct 08 13:00:17 +0000 2023",
+          "likes": 246,
+          "comments": 5,
+          "views": {
+            "count": "80460",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 22
+        },
+        {
+          "id": "1741447514467729644",
+          "url": "https://x.com/coreyganim/status/1741447514467729644",
+          "text": "I sat down with an 18 year old Amazon seller.\n\nI told him exactly what he needs to do to scale to $100K/month.\n\nHere's the blueprint:\n\n(it's simpler than you think):",
+          "date": "Sun Dec 31 13:13:36 +0000 2023",
+          "likes": 234,
+          "comments": 3,
+          "views": {
+            "count": "134197",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 27
+        },
+        {
+          "id": "1726955279743410566",
+          "url": "https://x.com/coreyganim/status/1726955279743410566",
+          "text": "I sat down with a $150M/year Amazon seller.\n\nHe spilled all his secrets.\n\nThis is what he told me:",
+          "date": "Tue Nov 21 13:26:38 +0000 2023",
+          "likes": 245,
+          "comments": 13,
+          "views": {
+            "count": "77322",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 26
+        },
+        {
+          "id": "1729133964286193811",
+          "url": "https://x.com/coreyganim/status/1729133964286193811",
+          "text": "I've been an Amazon seller for 6 years.\n\nI just hit $11.5M in lifetime sales.\n\nMy business model is dead simple.\n\nHere's my entire blueprint (copy this):",
+          "date": "Mon Nov 27 13:43:57 +0000 2023",
+          "likes": 228,
+          "comments": 8,
+          "views": {
+            "count": "71644",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 24
+        },
+        {
+          "id": "1756697190397882368",
+          "url": "https://x.com/coreyganim/status/1756697190397882368",
+          "text": "I've been an Amazon seller for 6.5 years.\n\nI just hit $12M in lifetime sales.\n\nMy business model is dead simple.\n\nHere's my entire blueprint (copy this):",
+          "date": "Sun Feb 11 15:10:22 +0000 2024",
+          "likes": 220,
+          "comments": 6,
+          "views": {
+            "count": "99972",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 23
+        },
+        {
+          "id": "1743286205251240044",
+          "url": "https://x.com/coreyganim/status/1743286205251240044",
+          "text": "My $3,000,000/year Amazon business is run by virtual assistants.\n\nI pay them $6/hour.\n\nThis is how I find them:",
+          "date": "Fri Jan 05 14:59:54 +0000 2024",
+          "likes": 202,
+          "comments": 19,
+          "views": {
+            "count": "70872",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 22
+        },
+        {
+          "id": "1877364754475360647",
+          "url": "https://x.com/coreyganim/status/1877364754475360647",
+          "text": "Amazon sellers are pissed.\n\nAnd they should be.\n\nThe recent changes to the reimbursement policy is a fee increase in disguise.\n\nWhich makes sellers extra mad since Amazon announced \"no new fee increases in 2025\" at the end of 2024.\n\nOne of the key policy changes goes into effect https://t.co/cTi3iM9qTM",
+          "date": "Thu Jan 09 14:40:11 +0000 2025",
+          "likes": 203,
+          "comments": 41,
+          "views": {
+            "count": "147537",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 56
+        },
+        {
+          "id": "1737860629778551223",
+          "url": "https://x.com/coreyganim/status/1737860629778551223",
+          "text": "I've been selling on Amazon for 6.5 years.\n\nI've sold over $11.5M worth of other people's products.\n\nI haven't touched inventory in 2 years.\n\nHere's how my business works (and why you should copy it):",
+          "date": "Thu Dec 21 15:40:36 +0000 2023",
+          "likes": 191,
+          "comments": 6,
+          "views": {
+            "count": "121953",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 22
+        },
+        {
+          "id": "1737588470061609045",
+          "url": "https://x.com/coreyganim/status/1737588470061609045",
+          "text": "My Amazon business does $3,000,000+ per year in sales.\n\nI only work with 6 suppliers.\n\nHere's how I found them (steal my strategy):",
+          "date": "Wed Dec 20 21:39:08 +0000 2023",
+          "likes": 175,
+          "comments": 6,
+          "views": {
+            "count": "67446",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 21
+        },
+        {
+          "id": "1625525786772996096",
+          "url": "https://x.com/coreyganim/status/1625525786772996096",
+          "text": "I want to help you 10x your Amazon wholesale business.\n\nWant to jump on a (free) 30 min Zoom with me?\n\nLike this tweet for a chance to be selected.\n\nI'll pick a winner in 24 hours.",
+          "date": "Tue Feb 14 16:02:03 +0000 2023",
+          "likes": 186,
+          "comments": 24,
+          "views": {
+            "count": "13856",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 4
+        },
+        {
+          "id": "1735311768073716091",
+          "url": "https://x.com/coreyganim/status/1735311768073716091",
+          "text": "Want to make a killing selling on Amazon?\n\nStart thinking outside the box.\n\n3 insanely profitable (and overlooked) categories you need to sell ASAP:",
+          "date": "Thu Dec 14 14:52:20 +0000 2023",
+          "likes": 178,
+          "comments": 3,
+          "views": {
+            "count": "101574",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 24
+        },
+        {
+          "id": "1683884857158512654",
+          "url": "https://x.com/coreyganim/status/1683884857158512654",
+          "text": "Selling tampons and power tools on Amazon will make me a millionaire.\n\nHere's how:",
+          "date": "Tue Jul 25 17:00:09 +0000 2023",
+          "likes": 173,
+          "comments": 6,
+          "views": {
+            "count": "51503",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 21
+        },
+        {
+          "id": "1742630817954685277",
+          "url": "https://x.com/coreyganim/status/1742630817954685277",
+          "text": "I sat down with a 19 year old Amazon seller.\n\nHe sold over $6,000,000 in 2023.\n\nHere's how his business works (and why you should copy it):",
+          "date": "Wed Jan 03 19:35:38 +0000 2024",
+          "likes": 164,
+          "comments": 4,
+          "views": {
+            "count": "54026",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 20
+        },
+        {
+          "id": "1661363943091126274",
+          "url": "https://x.com/coreyganim/status/1661363943091126274",
+          "text": "🚨INTRODUCING🚨\n\nThe Amazon Wholesale Podcast\n\nEvery Wednesday I sit down with successful Amazon sellers to talk all things wholesale.\n\nEpisode 001 w/ @alloutamazonn drops in 15 mins on YouTube https://t.co/jDuqYw6cRq",
+          "date": "Wed May 24 13:30:05 +0000 2023",
+          "likes": 164,
+          "comments": 17,
+          "views": {
+            "count": "20342",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 15
+        },
+        {
+          "id": "1666864481585057792",
+          "url": "https://x.com/coreyganim/status/1666864481585057792",
+          "text": "❌ STOP calling yourself an Amazon seller\n\n✅ START calling yourself THIS instead https://t.co/WejbLIxEzQ",
+          "date": "Thu Jun 08 17:47:15 +0000 2023",
+          "likes": 155,
+          "comments": 13,
+          "views": {
+            "count": "17165",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 12
+        },
+        {
+          "id": "1742283706738290786",
+          "url": "https://x.com/coreyganim/status/1742283706738290786",
+          "text": "Looking to start a business in 2024?\n\nTry Amazon FBA.\n\nBut don't buy a $1,997 course.\n\nThis thread will get you started (for free):",
+          "date": "Tue Jan 02 20:36:20 +0000 2024",
+          "likes": 154,
+          "comments": 6,
+          "views": {
+            "count": "42218",
+            "state": "EnabledWithCount"
+          },
+          "reposts": 12
+        }
+      ]
+    },
+    {
+      "name": "ferdie-posts",
+      "endpoint": "/v2/instagram/user/posts",
+      "returned_count": 12,
+      "retained_count": 12,
+      "sampling": "first returned page",
+      "posts": [
+        {
+          "id": "3987523581826652209_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DdWh5IkRVgx/",
+          "text": "That app idea sitting in your Notes app? It might be time to actually build it. 👀\n\nWith @replit , you can describe your idea in plain English and watch it turn into a working app.\n\nNo more “I’ll build it someday.” Open @replit , explain what you want, and start creating. 🚀\n\n#ReplitPartner #Replit #BuildInPublic #AI #VibeCoding",
+          "date": "2026-09-16T14:45:51.000Z",
+          "likes": 125,
+          "comments": 6,
+          "views": 2741,
+          "duration": 39.333
+        },
+        {
+          "id": "3986097465819699620_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DdRdoaiRJmk/",
+          "text": "New iPhone, almost caseless feel. @torras_global \n\nThe TORRAS Air gives my iPhone 18 Pro Max the protection I need without covering up that Burgundy colorway or adding unnecessary bulk. \n\nThin, lightweight, and built for those accidental drops. \n\n#torras #torrasq3air #torrasphonecase #iphone18 #magsafecase",
+          "date": "2026-09-14T15:32:03.000Z",
+          "likes": 213,
+          "comments": 5,
+          "views": 7650,
+          "duration": 32.666
+        },
+        {
+          "id": "3984317340334507595_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DdLI4LfEUZL/",
+          "text": "Don’t forget Pre-Order for the iPhone 18 Pro & Pro Max starts tomorrow morning. 09. 12. 2026 at 5am\nPT\n#iphone18pro #iphoneduo #applewatchultra5 #apple",
+          "date": "2026-09-12T04:34:21.000Z",
+          "likes": 61,
+          "comments": 2
+        },
+        {
+          "id": "3982724071552310270_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DdFenETRdv-/",
+          "text": "Thoughts on this new Burgundy color for the iPhone 18 Pro #iphone18pro #iphoneduo #apple",
+          "date": "2026-09-09T23:49:56.000Z",
+          "likes": 291,
+          "comments": 28,
+          "views": 12476,
+          "duration": 7.8
+        },
+        {
+          "id": "3982567818501726392_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DdE7FSTsqC4/",
+          "text": "The iPhone Duo!!!!!!!!!!\n\nAre you buying this ?\n\n #apple #iphoneduo",
+          "date": "2026-09-09T18:39:35.000Z",
+          "likes": 131,
+          "comments": 30,
+          "views": 6022,
+          "duration": 38.833
+        },
+        {
+          "id": "3979775413789833930_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/Dc7AKcwxrrK/",
+          "text": "Two ultrawide monitors. Two completely different experiences. 👀\n\nI’ve spent time using both the Samsung Odyssey G9 and the ViewFinity S85TH, and they’re built for two very different setups.\n\nThe G9 gives you maximum screen real estate and immersion, while the S85TH gives me the perfect balance of size, resolution, and functionality for my everyday workflow.\n\nWhich one are you choosing for your setup? 👇🏾\n\n#SamsungMonitor #UltrawideMonitor #DeskSetup #TechSetup #ProductivitySetup",
+          "date": "2026-09-05T22:11:31.000Z",
+          "likes": 2623,
+          "comments": 47,
+          "views": 78270,
+          "duration": 45.033
+        },
+        {
+          "id": "3979235252731569844_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/Dc5FWEkxua0/",
+          "text": "There’s no better feeling than knocking things off the list on a Friday night. #buildinginpublic",
+          "date": "2026-09-05T04:20:43.000Z",
+          "likes": 119,
+          "comments": 5,
+          "views": 3015,
+          "duration": 24.38
+        },
+        {
+          "id": "3973055937715146853_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DcjIVNARJBl/",
+          "text": "I just built my own content planner with @replit \n\nAnd I built it using Replit’s new Free Mode, which lets you use Replit Agent for everyday builds without burning through your AI usage credits. 🚀\n\nThis is what excites me most about AI right now. You can have an idea for a tool that solves your problem and just start building it.\n\nWhat should I build next? 👇\n\n#ReplitPartner #Replit #AI #AITools #BuildInPublic",
+          "date": "2026-08-27T15:51:54.000Z",
+          "likes": 147,
+          "comments": 4,
+          "views": 3095,
+          "duration": 43.233
+        },
+        {
+          "id": "3971226351294314368_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DccoVN3kXeA/",
+          "text": "@replit just launched Free Mode and this is HUGE! \n\nYou can now use Replit Agent for everyday builds without burning through your AI usage credits, making it easier to experiment, build, and actually bring those random ideas in your head to life.\n\nI put together 5 practical apps you can start building right now — from a personal website to a content calendar, job tracker, finance dashboard, and your own AI assistant.\n\nThe barrier to building your own software just got even lower. 👀\n\nSave this post, head over to Replit, and start building. What are you building first? 👇\n\n#ReplitPartner #replite #AITools #FreeMode BuildInPublic",
+          "date": "2026-08-25T03:04:53.000Z",
+          "likes": 119,
+          "comments": 5
+        },
+        {
+          "id": "3968205017224147966_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DcR5XBPkXP-/",
+          "text": "#nycsummerdump it was a well needed break. \nPSA I’ve got the best niece",
+          "date": "2026-08-20T23:02:02.000Z",
+          "likes": 305,
+          "comments": 15
+        },
+        {
+          "id": "3967272880315951323_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/DcOlapGRejb/",
+          "text": "This is the newest 5K2K monitor from @samsungus , and of course I had to upgrade 🖥️\n\nFrom coding and content creation to multitasking and gaming, the @samsungus ViewFinity S85TH. 40” curved, 5K2K, Thunderbolt 5 gives me enough screen space needed to do it all. \n\nThe colors are vibrant and beautiful with 144Hz refresh rate. I love this monitor! \n#samsungpartner #samsungmonitorpartner #ViewFinityS85TH",
+          "date": "2026-08-19T16:13:32.000Z",
+          "likes": 346,
+          "comments": 10,
+          "views": 10325,
+          "duration": 62.6
+        },
+        {
+          "id": "3962897769567737806_314789599",
+          "url": "https://www.instagram.com/ferdie.dev/p/Db_CoZsRdfO/",
+          "text": "Part 2 of my Build with Claude series! 🚀\n\nThis time, I used Claude Design to help me design and prototype a new feature for my app.\n\nIdea → Design → Build, all within minutes!\n\nStay Tuned for part 3\n\n@claudeai \n#claude #ad",
+          "date": "2026-08-13T15:19:09.000Z",
+          "likes": 171,
+          "comments": 58,
+          "views": 3314,
+          "duration": 47.809
+        }
+      ]
+    },
+    {
+      "name": "nate-videos",
+      "endpoint": "/v1/youtube/channel-videos",
+      "returned_count": 30,
+      "retained_count": 30,
+      "sampling": "first returned page",
+      "posts": [
+        {
+          "id": "FqnNL8fnUWo",
+          "url": "https://www.youtube.com/watch?v=FqnNL8fnUWo",
+          "title": "How to Build GPT-6 Astra Automations (that don’t eat your usage limit)",
+          "text": "",
+          "date": "2026-09-16T23:33:49.665Z",
+          "duration": "35:26"
+        },
+        {
+          "id": "ff7om2bBLKM",
+          "url": "https://www.youtube.com/watch?v=ff7om2bBLKM",
+          "title": "Grok Bot Manages My Inbox (and has its own)",
+          "text": "",
+          "date": "2026-09-16T11:33:49.665Z",
+          "duration": "14:29"
+        },
+        {
+          "id": "68HH9HVFJDM",
+          "url": "https://www.youtube.com/watch?v=68HH9HVFJDM",
+          "title": "AI News in 10 mins: 10% chance AI kills humans within a decade",
+          "text": "",
+          "date": "2026-09-14T11:33:49.665Z",
+          "duration": "10:26"
+        },
+        {
+          "id": "HIRDzMtuWFk",
+          "url": "https://www.youtube.com/watch?v=HIRDzMtuWFk",
+          "title": "Anthropic Engineer Explains: What to Build Instead of AI Agents",
+          "text": "",
+          "date": "2026-09-14T11:33:49.665Z",
+          "duration": "9:48"
+        },
+        {
+          "id": "6LNlCpQPYFc",
+          "url": "https://www.youtube.com/watch?v=6LNlCpQPYFc",
+          "title": "How to Actually Choose the Right AI Agent",
+          "text": "",
+          "duration": "34:09"
+        },
+        {
+          "id": "5QmOhvVssxY",
+          "url": "https://www.youtube.com/watch?v=5QmOhvVssxY",
+          "title": "Thank You for 1M Subscribers",
+          "text": "",
+          "date": "2026-09-10T11:33:49.665Z",
+          "duration": "6:40"
+        },
+        {
+          "id": "o3IEkKXXXvo",
+          "url": "https://www.youtube.com/watch?v=o3IEkKXXXvo",
+          "title": "GPT-6 Astra Finally Solves AI Video Editing (full guide)",
+          "text": "",
+          "date": "2026-09-09T11:33:49.665Z",
+          "duration": "29:58"
+        },
+        {
+          "id": "TLQLfa7yH4I",
+          "url": "https://www.youtube.com/watch?v=TLQLfa7yH4I",
+          "title": "I Turned GPT-6 Astra Into a 24/7 Stock Trader (tutorial)",
+          "text": "",
+          "date": "2026-09-08T11:33:49.665Z",
+          "duration": "17:05"
+        },
+        {
+          "id": "yysILVsfLFM",
+          "url": "https://www.youtube.com/watch?v=yysILVsfLFM",
+          "title": "I Turned GPT-6 Astra Into the Ultimate AI Second Brain",
+          "text": "",
+          "date": "2026-09-07T11:33:49.665Z",
+          "duration": "19:49"
+        },
+        {
+          "id": "WfJPBVXPt8k",
+          "url": "https://www.youtube.com/watch?v=WfJPBVXPt8k",
+          "title": "I Tested GPT-6 Astra vs Fable 5.1 on 15 Real Use Cases",
+          "text": "",
+          "date": "2026-09-07T11:33:49.666Z",
+          "duration": "38:36"
+        },
+        {
+          "id": "9oi-b5Dvtso",
+          "url": "https://www.youtube.com/watch?v=9oi-b5Dvtso",
+          "title": "GPT-6 Astra Voice Mode Automates Literally Anything",
+          "text": "",
+          "date": "2026-09-06T11:33:49.666Z",
+          "duration": "14:45"
+        },
+        {
+          "id": "QhmhUgccaS0",
+          "url": "https://www.youtube.com/watch?v=QhmhUgccaS0",
+          "title": "GPT-6 Astra FINALLY Kills AI Website Slop",
+          "text": "",
+          "date": "2026-09-05T11:33:49.666Z",
+          "duration": "8:37"
+        },
+        {
+          "id": "dT5-x3u5nCg",
+          "url": "https://www.youtube.com/watch?v=dT5-x3u5nCg",
+          "title": "GPT-6 Astra Made This Entire Video",
+          "text": "",
+          "date": "2026-09-05T11:33:49.666Z",
+          "duration": "4:39"
+        },
+        {
+          "id": "5FukkI4fbiU",
+          "url": "https://www.youtube.com/watch?v=5FukkI4fbiU",
+          "title": "I Had Fable 5.1 and 5 Build Me the Same App",
+          "text": "",
+          "date": "2026-09-04T11:33:49.666Z",
+          "duration": "12:37"
+        },
+        {
+          "id": "NbUTIFEEXLY",
+          "url": "https://www.youtube.com/watch?v=NbUTIFEEXLY",
+          "title": "AI News in 5 Mins: GPT-6 Astra",
+          "text": "",
+          "date": "2026-09-04T11:33:49.666Z",
+          "duration": "5:42"
+        },
+        {
+          "id": "FBVNS1l5Vb8",
+          "url": "https://www.youtube.com/watch?v=FBVNS1l5Vb8",
+          "title": "How Anthropic ACTUALLY Prompts Fable 5.1",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "11:32"
+        },
+        {
+          "id": "FFWtxjvW2ts",
+          "url": "https://www.youtube.com/watch?v=FFWtxjvW2ts",
+          "title": "Fable 5.1 FINALLY Kills AI Website Slop",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "16:13"
+        },
+        {
+          "id": "8IyORt-7rOQ",
+          "url": "https://www.youtube.com/watch?v=8IyORt-7rOQ",
+          "title": "Fable 5.1 Just Dropped. It Looks Unreal.",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "5:31"
+        },
+        {
+          "id": "Lbax7_pW2Nw",
+          "url": "https://www.youtube.com/watch?v=Lbax7_pW2Nw",
+          "title": "Anthropic is Teaching Claude to be Evil (real results)",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "14:20"
+        },
+        {
+          "id": "NyfYxpXiw_0",
+          "url": "https://www.youtube.com/watch?v=NyfYxpXiw_0",
+          "title": "Every Grok Bot Concept Explained for Normal People",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "21:32"
+        },
+        {
+          "id": "4hKJ9X6rGFo",
+          "url": "https://www.youtube.com/watch?v=4hKJ9X6rGFo",
+          "title": "Build & Sell Grok Bots (2 Hour Course)",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "1:45:42"
+        },
+        {
+          "id": "PYjbeY8sGLs",
+          "url": "https://www.youtube.com/watch?v=PYjbeY8sGLs",
+          "title": "I Cloned Calendly and Now It’s Free Forever",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "14:00"
+        },
+        {
+          "id": "gQef3d3erOs",
+          "url": "https://www.youtube.com/watch?v=gQef3d3erOs",
+          "title": "Set Up a Personal Hermes in 14 Mins (no VPS or mac mini)",
+          "text": "",
+          "date": "2026-09-03T11:33:49.666Z",
+          "duration": "14:21"
+        },
+        {
+          "id": "bg0C-2iUUqM",
+          "url": "https://www.youtube.com/watch?v=bg0C-2iUUqM",
+          "title": "I Tested Claude Code vs. Codex on Design. It Wasn't Even Close.",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "20:34"
+        },
+        {
+          "id": "DoHPZf7jEQ4",
+          "url": "https://www.youtube.com/watch?v=DoHPZf7jEQ4",
+          "title": "The 3-Step System Behind My $20K/Month AI Agency Retainers",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "28:35"
+        },
+        {
+          "id": "ZzHsJW10iq4",
+          "url": "https://www.youtube.com/watch?v=ZzHsJW10iq4",
+          "title": "Everything Goldman Sachs Taught Me About AI (In 10 minutes)",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "10:21"
+        },
+        {
+          "id": "UsfCe5fJK6A",
+          "url": "https://www.youtube.com/watch?v=UsfCe5fJK6A",
+          "title": "100 Hours Testing Deepseek Harness vs. Claude Code. What You Need to Know.",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "18:02"
+        },
+        {
+          "id": "QUI6Ug4cHnE",
+          "url": "https://www.youtube.com/watch?v=QUI6Ug4cHnE",
+          "title": "I Built The Ultimate Claude Website Design Skill (steal this)",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "16:44"
+        },
+        {
+          "id": "_kK_4cOYF4o",
+          "url": "https://www.youtube.com/watch?v=_kK_4cOYF4o",
+          "title": "This Stealth Model Makes Claude Code Free. Here's How.",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "13:34"
+        },
+        {
+          "id": "yCACmFTiCto",
+          "url": "https://www.youtube.com/watch?v=yCACmFTiCto",
+          "title": "Turn Claude Into a One Person Marketing Team in 38 Mins",
+          "text": "",
+          "date": "2026-08-27T11:33:49.666Z",
+          "duration": "38:29"
+        }
+      ]
+    }
+  ]
+}
