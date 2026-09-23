@@ -5,7 +5,7 @@ import { founderName, siteName, siteUrl } from "../site";
 
 export const metadata: Metadata = {
   title: "Decision Maps",
-  description: "Visual Singleton Systems decision maps and Wayfinder review surfaces.",
+  description: "Visual Singleton Systems decision maps and review surfaces.",
   robots: {
     index: false,
     follow: false,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `${founderName} Decision Maps | ${siteName}`,
-    description: "Visual Singleton Systems decision maps and Wayfinder review surfaces.",
+    description: "Visual Singleton Systems decision maps and review surfaces.",
     url: `${siteUrl}/decision-maps`,
   },
 };
@@ -34,32 +34,8 @@ const decisionMaps = [
     accent: "border-[#1677ff] text-[#1677ff] dark:text-[#68a7ff]",
   },
   {
-    label: "CYB session thesis and one-hour flow",
-    href: "/decision-maps/2026-09-04-cyb-session-plan/index.html",
-    tags: ["1 Hour", "AI Consulting", "October 14"],
-    accent: "border-[#7c3aed] text-[#7c3aed] dark:text-[#c4b5fd]",
-  },
-  {
-    label: "CYB case studies",
-    href: "/decision-maps/2026-09-04-cyb-case-studies/index.html",
-    tags: ["HNOC", "Catena Lineups", "Proof"],
-    accent: "border-[#15985d] text-[#15985d] dark:text-[#62f2aa]",
-  },
-  {
-    label: "Command K9 Edit Style Profile",
-    href: "/decision-maps/2026-08-24-command-k9-reference-edit-profile/index.html",
-    tags: ["8:51", "65 States", "Reference Audit"],
-    accent: "border-[#1597d5] text-[#1597d5] dark:text-[#68c9f5]",
-  },
-  {
-    label: "Future Voices — Michelle Short",
-    href: "/decision-maps/2026-08-14-future-voices-storyboard/index.html",
-    tags: ["0:30", "Facebook", "LinkedIn"],
-    accent: "border-[#ed1c24] text-[#ed1c24] dark:text-[#ff696e]",
-  },
-  {
     label: "Wemby Edit Map",
-    href: "/decision-maps/wemby-shot-selection-storyboard/",
+    href: "/decision-maps/wemby-shot-selection-storyboard/index.html",
     tags: ["2:00", "Tab 2", "Tab 3"],
     accent: "border-[#15985d] text-[#15985d] dark:text-[#62f2aa]",
   },
