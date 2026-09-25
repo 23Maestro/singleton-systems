@@ -4,6 +4,8 @@ import { existsSync } from "node:fs";
 // These pages ship together. A partial worktree must not silently drop a surface.
 for (const file of [
   "app/fitness/page.tsx",
+  "app/business-ops/page.tsx",
+  "app/decision-maps/page.tsx",
   "app/finances/page.tsx",
   "app/finances-form/page.tsx",
   "app/dashboard/page.tsx",
@@ -20,7 +22,7 @@ console.log("Personal endpoints are present in this release.");
 const base = process.argv[2];
 if (base) {
   for (const route of [
-    "/fitness", "/finances", "/finances-form", "/dashboard", "/command-center",
+    "/business-ops", "/decision-maps", "/fitness", "/finances", "/finances-form", "/dashboard", "/command-center",
     "/api/fitness", "/api/finances/ledger", "/api/command-center",
     "/api/fitness/session", "/api/finances/session", "/api/command-center/session",
   ]) {

@@ -48,8 +48,10 @@ Fitness, Finances, and Dashboard open without a passphrase or login cookie.
 backend credentials remain server-side. The browser does not need a token.
 See `docs/personal-endpoints.md` for the shared deployment contract.
 
-The morning routine embeds the original Supple Warriors YouTube video.
-Instagram embeds load only when opened, with an original-link fallback.
+The morning stretch embeds the original Supple Warriors YouTube video above
+the workout. Mobility groups the remaining videos into body-region cards using
+each media record's `area`; additional videos appear in the matching card.
+Players render inline and lazy-load, with a collapsed playback-help link.
 Reel embeds can be blocked by Instagram or device privacy settings.
 Video files downloaded for review remain local; they are not rehosted.
 Illustrations are original orientation graphics, not form demonstrations.

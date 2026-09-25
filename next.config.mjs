@@ -7,6 +7,7 @@ const nextConfig = {
       "/ai-workflow-portfolio/:path*",
       "/ai-workflow-session/:path*",
       "/business-links/:path*",
+      "/business-ops/:path*",
       "/dashboard/:path*",
       "/decision-maps/:path*",
       "/finances/:path*",

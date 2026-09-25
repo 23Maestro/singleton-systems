@@ -62,14 +62,12 @@ export default function FitnessApp() {
     [tab, setTab] = useState<Tab>("today"),
     [selected, setSelected] = useState<string | null>(null),
     [week, setWeek] = useState(() => monday(localDay())),
-    [media, setMedia] = useState<Media | null>(null),
     [settings, setSettings] = useState(false),
     [now, setNow] = useState(() => Date.now()),
     [celebrate, setCelebrate] = useState(false);
   const initialized = useRef(false),
     inFlight = useRef(false),
     reduced = useReducedMotion(),
-    dialog = useRef<HTMLDialogElement>(null),
     gearDialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -113,10 +111,6 @@ export default function FitnessApp() {
       document.removeEventListener("visibilitychange", refresh);
     };
   }, [load]);
-  useEffect(() => {
-    if (media) dialog.current?.showModal();
-    else dialog.current?.close();
-  }, [media]);
   useEffect(() => {
     if (settings) gearDialog.current?.showModal();
     else gearDialog.current?.close();
@@ -340,6 +334,26 @@ export default function FitnessApp() {
               </button>
             </div>
           )}
+          {morning && (
+            <section id="morning-routine" className={s.morningVideo} aria-labelledby="morning-title">
+              <div className={s.morningHeading}>
+                <div>
+                  <span className={s.eyebrow}>FULL BODY · BEFORE YOUR WORKOUT</span>
+                  <h2 id="morning-title">Morning stretch</h2>
+                </div>
+                <button
+                  className={`${s.morningCheck} ${morningDone ? s.checked : ""}`}
+                  disabled={busy}
+                  aria-label={morningDone ? "Undo morning completion" : "Mark morning complete"}
+                  aria-pressed={morningDone}
+                  onClick={() => void send({ action: "morning", day: today, done: !morningDone })}
+                >
+                  <Check size={19} />
+                </button>
+              </div>
+              <VideoPlayer media={morning} />
+            </section>
+          )}
           {tab === "mobility" ? (
             <>
               <span className={s.eyebrow}>MAKE ROOM TO MOVE</span>
@@ -348,28 +362,29 @@ export default function FitnessApp() {
                 Your familiar morning routine, plus a little movement where you
                 need it.
               </p>
-              <div className={s.mediaGrid}>
-                {state.media.map((m) => (
-                  <button
-                    key={m.id}
-                    className={s.mediaCard}
-                    onClick={() => setMedia(m)}
-                  >
-                    <span className={s.mediaArt}>
-                      <Sparkles size={32} />
-                      <span className={s.playBubble}>
-                        <Play size={20} fill="currentColor" />
-                      </span>
-                    </span>
-                    <span className={s.eyebrow}>
-                      {m.area.replace("-", " ")}
-                    </span>
-                    <h3>{m.title}</h3>
-                    <p>{m.creator}</p>
-                    {!m.reviewed && m.id !== "morning" && (
-                      <small>Reference only</small>
-                    )}
-                  </button>
+              <div className={s.regionGrid}>
+                {Object.entries(
+                  state.media.filter((item) => item.id !== "morning").reduce(
+                    (groups, item) => {
+                      (groups[item.area] ??= []).push(item);
+                      return groups;
+                    },
+                    {} as Record<string, Media[]>,
+                  ),
+                ).map(([area, videos]) => (
+                  <section key={area} className={s.regionCard} aria-label={area.replaceAll("-", " ")}>
+                    <header className={s.regionHeading}>
+                      <h2>{area.replaceAll("-", " ")}</h2>
+                      <span>{videos.length} {videos.length === 1 ? "video" : "videos"}</span>
+                    </header>
+                    {videos.map((item) => (
+                      <article key={item.id} className={s.regionVideo}>
+                        <h3>{item.title}</h3>
+                        <VideoPlayer media={item} />
+                        {!item.reviewed && <small>Reference only</small>}
+                      </article>
+                    ))}
+                  </section>
                 ))}
               </div>
             </>
@@ -409,45 +424,10 @@ export default function FitnessApp() {
                 <div className={s.empty}>
                   <CalendarDays size={32} />
                   <h2>No sessions prepared yet.</h2>
-                  <p>Morning movement is ready below.</p>
+                  <p>Morning movement is ready above.</p>
                 </div>
               )}
-              <div className={s.morning}>
-                <div className={s.morningIcon}>
-                  <Sparkles size={23} />
-                </div>
-                <div>
-                  <span className={s.eyebrow}>YOUR DAILY RESET</span>
-                  <h3>Morning movement</h3>
-                  <p>Supple Warriors · follow along</p>
-                </div>
-                <button
-                  aria-label="Play morning routine"
-                  className={s.iconButton}
-                  onClick={() => morning && setMedia(morning)}
-                >
-                  <Play size={20} />
-                </button>
-                <button
-                  className={`${s.morningCheck} ${morningDone ? s.checked : ""}`}
-                  disabled={busy}
-                  aria-label={
-                    morningDone
-                      ? "Undo morning completion"
-                      : "Mark morning complete"
-                  }
-                  aria-pressed={morningDone}
-                  onClick={() =>
-                    void send({
-                      action: "morning",
-                      day: today,
-                      done: !morningDone,
-                    })
-                  }
-                >
-                  <Check size={19} />
-                </button>
-              </div>
+
             </>
           )}
         </section>
@@ -455,12 +435,9 @@ export default function FitnessApp() {
           <span className={s.eyebrow}>A LITTLE EVERY DAY</span>
           <h2>Start with movement.</h2>
           <p>Your morning routine is always here. No new decisions required.</p>
-          <button
-            className={s.outlineButton}
-            onClick={() => morning && setMedia(morning)}
-          >
+          <a className={s.outlineButton} href="#morning-routine">
             <Play size={17} /> Morning routine
-          </button>
+          </a>
           <div className={s.extraLine} />
           <span className={s.eyebrow}>MADE FOR YOUR SPACE</span>
           <div className={s.equipmentPreview}>
@@ -475,71 +452,6 @@ export default function FitnessApp() {
           </button>
         </aside>
       </div>
-      <dialog
-        ref={dialog}
-        className={s.dialog}
-        onCancel={() => setMedia(null)}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) setMedia(null);
-        }}
-      >
-        {media && (
-          <>
-            <div className={s.dialogHead}>
-              <div>
-                <span className={s.eyebrow}>{media.creator}</span>
-                <h2>{media.title}</h2>
-              </div>
-              <button
-                className={s.iconButton}
-                autoFocus
-                aria-label="Close video"
-                onClick={() => setMedia(null)}
-              >
-                <X />
-              </button>
-            </div>
-            <iframe
-              key={media.id}
-              title={media.title}
-              src={media.embed}
-              className={media.id === "morning" ? s.youtube : s.instagram}
-              allow="encrypted-media; picture-in-picture; fullscreen"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
-            <p className={s.videoNote}>{media.note}</p>
-            <a
-              href={media.source}
-              target="_blank"
-              rel="noreferrer"
-              className={s.outlineButton}
-            >
-              Open original video <ExternalLink size={16} />
-            </a>
-            {media.id === "morning" && (
-              <button
-                className={s.primary}
-                disabled={busy}
-                onClick={async () => {
-                  if (
-                    await send({
-                      action: "morning",
-                      day: today,
-                      done: !morningDone,
-                    })
-                  )
-                    setMedia(null);
-                }}
-              >
-                {morningDone ? "Undo completion" : "Morning routine done"}
-                <Check size={18} />
-              </button>
-            )}
-          </>
-        )}
-      </dialog>
       <dialog
         ref={gearDialog}
         className={s.dialog}
@@ -1017,5 +929,28 @@ function FitnessBrand() {
       />
       <Dumbbell className={s.brandDumbbell} size={23} aria-hidden="true" />
     </>
+  );
+}
+
+function VideoPlayer({ media }: { media: Media }) {
+  const instagram = new URL(media.embed).hostname.endsWith("instagram.com");
+  return (
+    <div className={s.videoPlayer}>
+      <iframe
+        title={media.title}
+        src={media.embed}
+        className={instagram ? s.instagram : s.youtube}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+      />
+      <details className={s.playbackHelp}>
+        <summary>Video not playing?</summary>
+        <a href={media.source} target="_blank" rel="noreferrer">
+          Open video <ExternalLink size={14} />
+        </a>
+      </details>
+    </div>
   );
 }

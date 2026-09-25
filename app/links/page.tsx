@@ -212,9 +212,9 @@ export default function LinksPage() {
           ))}
         </div>
 
-        <nav className="mt-8 text-center text-sm font-bold text-neutral-500 dark:text-neutral-400" aria-label="Business workspace">
-          <Link href="/business-links" className="transition hover:text-[#111318] dark:hover:text-white">
-            Business Workspace
+        <nav className="mt-8 text-center text-sm font-bold text-neutral-500 dark:text-neutral-400" aria-label="Business Ops">
+          <Link href="/business-ops" className="transition hover:text-[#111318] dark:hover:text-white">
+            Business Ops
           </Link>
         </nav>
       </section>
