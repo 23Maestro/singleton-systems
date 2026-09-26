@@ -82,7 +82,7 @@ const faqs = [
   },
   {
     q: "Are you local to Tampa?",
-    a: "Yes. Singleton Systems is based in Tampa and works with businesses across Tampa Bay, including St. Petersburg and Clearwater. We start on a video call, and I am happy to meet in person if you prefer.",
+    a: "Yes. Singleton Systems is based in Tampa and works with businesses across Tampa Bay, including St. Petersburg and Clearwater. The work happens over video calls so it fits your schedule. Once we're working together, I'm glad to meet in person too.",
   },
 ];
 
