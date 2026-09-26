@@ -15,26 +15,16 @@ import {
   VideoCamera,
   Wrench,
 } from "@phosphor-icons/react/dist/ssr";
-import BookQuickChatButton from "@/components/BookQuickChatButton";
 import PortfolioVideoCarousel from "@/components/PortfolioVideoCarousel";
-import type { AiWorkflowOffer } from "@/lib/ai-workflow-offers";
-import { founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
-
-const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
-const CAL_URL = "https://cal.com/workflow-chat/15min";
-const HOME_NAV_ITEMS = [
-  { label: "Start", href: "#start" },
-  { label: "Links", href: "/links" },
-  { label: "Solutions", href: "#portfolio" },
-  { label: "How It Starts", href: "#how-it-starts" },
-  { label: "What I Fix", href: "#what-i-fix" },
-  { label: "Pricing", href: "#offers" },
-  { label: "Book", href: "#book" },
-] as const;
-
-function offerUrl(offer: AiWorkflowOffer) {
-  return `${AI_WORKFLOW_SESSION_URL}?offer=${offer}`;
-}
+import { ProofSection, RealProblemSection, TriedSection } from "@/components/home/BuyerStorySections";
+import ReviewsSection from "@/components/home/ReviewsSection";
+import { AI_WORKFLOW_SESSION_URL, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
+import BookSection from "@/components/site/BookSection";
+import OffersSection from "@/components/site/OffersSection";
+import SiteFooter from "@/components/site/SiteFooter";
+import ProfileCard from "@/components/site/ProfileCard";
+import SiteHeader from "@/components/site/SiteHeader";
+import { siteNavFor } from "@/components/site/nav";
 
 const jsonLd = [
   {
@@ -44,6 +34,11 @@ const jsonLd = [
     name: founderName,
     url: siteUrl,
     jobTitle: "AI Workflow Consultant",
+    homeLocation: {
+      "@type": "Place",
+      name: "Tampa, Florida",
+    },
+    sameAs: ["https://www.linkedin.com/in/jeramisingleton"],
     worksFor: {
       "@id": `${siteUrl}/#organization`,
     },
@@ -89,7 +84,10 @@ const jsonLd = [
     provider: {
       "@id": `${siteUrl}/#organization`,
     },
-    areaServed: "United States",
+    areaServed: [
+      { "@type": "City", name: "Tampa, FL" },
+      { "@type": "Country", name: "United States" },
+    ],
     description: serviceDescription,
     audience: {
       "@type": "Audience",
@@ -482,56 +480,16 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-7 py-8 sm:px-8 lg:px-10">
-        <a href="#start" className="block w-24 sm:w-28" aria-label="Singleton Systems home">
-          <Image
-            src="/singleton-systems-wordmark.svg"
-            alt="Singleton Systems"
-            width={660}
-            height={260}
-            priority
-            className="h-auto w-full"
-          />
-        </a>
-        <nav aria-label="Primary" className="hidden items-center gap-5 text-xs font-semibold text-neutral-600 md:flex lg:gap-7 lg:text-sm">
-          {HOME_NAV_ITEMS.map((item) => (
-            <Link key={item.href} className="whitespace-nowrap transition hover:text-black" href={item.href}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <details className="group relative md:hidden">
-          <summary
-            className="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full bg-black text-white marker:hidden"
-            aria-label="Open navigation"
-          >
-            <span className="space-y-1.5">
-              <span className="block h-0.5 w-5 rounded-full bg-current" />
-              <span className="block h-0.5 w-5 rounded-full bg-current" />
-              <span className="block h-0.5 w-5 rounded-full bg-current" />
-            </span>
-          </summary>
-          <nav
-            aria-label="Mobile"
-            className="absolute right-0 top-14 z-20 grid min-w-44 gap-3 rounded-3xl border border-neutral-200 bg-white p-5 text-right text-sm font-bold shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
-          >
-            {HOME_NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </details>
-      </header>
+      <SiteHeader items={siteNavFor("")} homeHref="#start" />
 
       <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
           <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem]">
-            AI should make your day easier
+            Take the busy work off your team
           </h1>
           <div className="mx-auto mt-6">
             <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
-              I find what&apos;s taking too long and build an AI fix around the way you work
+              Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you.
             </p>
           </div>
           <div className="mx-auto mt-3">
@@ -577,30 +535,13 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="mt-10 w-full max-w-[12rem] overflow-hidden rounded-[1.45rem] border border-[#2b5f8f]/22 bg-white shadow-[0_14px_36px_rgba(35,54,79,0.08)] backdrop-blur sm:mt-14 sm:max-w-[14rem]">
-          <Image
-            src="/23-hero.png"
-            alt="Jerami Singleton"
-            width={1254}
-            height={1254}
-            priority
-            fetchPriority="high"
-            sizes="(min-width: 640px) 14rem, 12rem"
-            className="aspect-square w-full rounded-b-[1.18rem] object-cover"
-          />
-          <div className="px-3 pb-3.5 pt-2.5 text-left sm:px-4">
-            <p className="text-base font-semibold tracking-[-0.04em] text-neutral-950">Jerami Singleton</p>
-            <p className="mt-1 text-xs font-medium leading-relaxed text-neutral-600 sm:text-sm">
-              <span className="block">2 years of Programming | IT</span>
-              <span className="block">at St. Petersburg College</span>
-              <span className="mt-2 block">Video Editing since 2022</span>
-              <span className="mt-2 block">Building with AI since 2024</span>
-            </p>
-          </div>
-        </div>
+        <ProfileCard />
 
         <PortfolioVideoCarousel />
       </section>
+
+      <TriedSection />
+      <RealProblemSection />
 
       <section id="how-it-starts" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="start-heading">
         <div className="mx-auto max-w-5xl">
@@ -685,152 +626,16 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="offers" className="px-6 pb-20 pt-6 sm:px-8 sm:pb-24 sm:pt-10 lg:px-10" aria-labelledby="offers-heading">
-        <div className="mx-auto max-w-6xl">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#126f39]">Choose your starting point</p>
-            <h2 id="offers-heading" className="mt-4 text-4xl font-semibold tracking-normal sm:text-5xl">
-              Choose Where to Start
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-neutral-600 sm:text-xl">
-              Start with 1 repeated task, build the workflow, or put the complete foundation in place.
-            </p>
-          </div>
+      <ProofSection />
+      <ReviewsSection />
 
-          <article className="relative mt-12 overflow-hidden rounded-[2rem] bg-black px-7 py-8 text-white shadow-[0_22px_60px_rgba(0,0,0,0.18)] sm:px-10 sm:py-10">
-            <div className="absolute right-0 top-0 h-56 w-56 translate-x-16 -translate-y-16 rounded-full bg-[#25c266]/25 blur-3xl" aria-hidden="true" />
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
-              <div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full bg-[#25c266] px-3 py-1 text-xs font-black uppercase tracking-[0.13em] text-black">Complete system</span>
-                  <span className="text-sm font-semibold text-white/60">Up to 3 workflows</span>
-                </div>
-                <h3 className="mt-5 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Build My AI System</h3>
-                <p className="mt-3 max-w-2xl text-lg font-medium leading-relaxed text-white/72 sm:text-xl">
-                  Put your business knowledge into a working foundation, then build the 3 repeated workflows costing you the most time.
-                </p>
-                <ul className="mt-6 grid gap-3 text-base font-semibold text-white/88 sm:grid-cols-2">
-                  {["Business interview and working foundation", "Up to 3 configured workflows", "3 private working sessions", "Documentation and 30 days of refinement"].map((item) => (
-                    <li key={item} className="flex items-start gap-2.5">
-                      <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#62d26f]" weight="fill" aria-hidden="true" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="flex min-w-[13rem] flex-col items-start lg:items-end">
-                <p className="text-4xl font-bold tracking-[-0.045em] sm:text-5xl">$1,500</p>
-                <p className="mt-1 text-sm font-semibold text-white/55">one-time</p>
-                <Link href={offerUrl("build-my-ai-system")} className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-bold text-black transition hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-[#62d26f] focus:ring-offset-2 focus:ring-offset-black">
-                  Build my system
-                </Link>
-              </div>
-            </div>
-          </article>
+      <OffersSection />
 
-          <div className="mt-5 grid gap-5 lg:grid-cols-2">
-            <article className="flex h-full flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] sm:p-8">
-              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#075985]">1 complete workflow</p>
-              <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="text-3xl font-bold tracking-[-0.035em]">Build It for Me</h3>
-                <p className="text-2xl font-bold tracking-[-0.03em]">$500</p>
-              </div>
-              <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-600">Turn 1 repeated task into a tested workflow you can keep using.</p>
-              <ul className="mt-6 space-y-3 text-base font-semibold text-neutral-800">
-                {["Configured around your real work", "Tested across real examples", "Documented so you can repeat it", "1 private refinement session"].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5"><Check className="mt-0.5 h-5 w-5 shrink-0 text-[#075985]" weight="bold" aria-hidden="true" /><span>{item}</span></li>
-                ))}
-              </ul>
-              <Link href={offerUrl("build-it-for-me")} className="mt-8 inline-flex min-h-12 items-center justify-center self-start rounded-full bg-black px-6 text-sm font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2">
-                Build 1 workflow
-              </Link>
-            </article>
 
-            <article className="flex h-full flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] sm:p-8">
-              <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#126f39]">Ongoing improvement</p>
-              <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="text-3xl font-bold tracking-[-0.035em]">Keep It Working</h3>
-                <p className="text-2xl font-bold tracking-[-0.03em]">$500<span className="text-base text-neutral-500">/month</span></p>
-              </div>
-              <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-600">Keep expanding the working foundation as your business changes.</p>
-              <ul className="mt-6 space-y-3 text-base font-semibold text-neutral-800">
-                {["2 private working sessions each month", "1 new workflow or major improvement", "Updates to existing instructions", "Questions and refinements covered"].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5"><Check className="mt-0.5 h-5 w-5 shrink-0 text-[#126f39]" weight="bold" aria-hidden="true" /><span>{item}</span></li>
-                ))}
-              </ul>
-              <Link href={offerUrl("keep-it-working")} className="mt-8 inline-flex min-h-12 items-center justify-center self-start rounded-full bg-black px-6 text-sm font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2">
-                Keep it working
-              </Link>
-            </article>
-          </div>
+      <BookSection />
 
-          <article className="mx-auto mt-5 max-w-4xl rounded-[2rem] border-2 border-black bg-[#fff5cf] p-7 shadow-[0_14px_0_#050505] sm:p-8">
-            <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-center">
-              <div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-black bg-[#ffc83d] px-3 py-1 text-xs font-black uppercase tracking-[0.13em] text-black">Best first step</span>
-                  <span className="text-sm font-bold text-neutral-600">1 task · 2 real examples</span>
-                </div>
-                <h3 className="mt-4 text-3xl font-bold tracking-[-0.035em]">Start With One Thing</h3>
-                <p className="mt-3 text-lg font-medium leading-relaxed text-neutral-700">
-                  Bring 1 repeated task. We finish it, save what worked, and make sure AI can repeat it reliably.
-                </p>
-                <p className="mt-3 text-sm font-bold text-neutral-600">Continue within 14 days and the $75 goes toward Build It for Me.</p>
-              </div>
-              <div className="sm:text-right">
-                <p className="text-4xl font-bold tracking-[-0.045em]">$75</p>
-                <Link href={offerUrl("start-with-one-thing")} className="mt-5 inline-flex min-h-12 items-center justify-center rounded-full bg-black px-6 text-sm font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#fff5cf]">
-                  Start with 1 task
-                </Link>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
 
-      <section id="book" className="bg-black px-6 py-20 text-center text-white sm:px-8 sm:py-24 lg:px-10" aria-labelledby="book-heading">
-        <div className="mx-auto max-w-3xl">
-          <h2 id="book-heading" className="text-4xl font-semibold tracking-normal sm:text-5xl">
-            Let&apos;s check out <em className="font-bold text-brand-text-green drop-shadow-[0_0_12px_rgba(37,194,102,0.42)]">your</em> flow
-          </h2>
-          <p className="mt-8 text-balance text-xl font-semibold leading-relaxed text-white/78 sm:text-2xl">
-            Book a Workflow Session or tell me what you wish AI could help you do
-          </p>
-          <div className="mt-10 flex items-center justify-center">
-            <a
-              href={CAL_URL}
-              className="inline-flex min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:hidden"
-            >
-              Book a Workflow Session
-            </a>
-            <BookQuickChatButton className="hidden min-h-14 min-w-[13rem] items-center justify-center rounded-full bg-white px-7 text-sm font-bold uppercase tracking-normal text-black transition hover:bg-neutral-200 md:inline-flex" />
-          </div>
-        </div>
-      </section>
-
-      <footer className="border-t border-neutral-200 bg-[#fbfbfb] px-6 py-10 sm:px-8 lg:px-10">
-        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <Image
-              src="/singleton-systems-wordmark.svg"
-              alt="Singleton Systems"
-              width={660}
-              height={260}
-              className="h-auto w-44"
-            />
-            <p className="mt-4 max-w-xl text-base font-semibold leading-relaxed text-neutral-600">
-              Workflow sessions for people who want AI to handle repeated work while they stay in charge
-            </p>
-          </div>
-          <nav aria-label="Footer" className="grid gap-3 text-lg font-bold">
-            {HOME_NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href} className="transition hover:text-neutral-600">
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter items={siteNavFor("")} />
     </main>
   );
 }

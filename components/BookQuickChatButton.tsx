@@ -1,7 +1,8 @@
 "use client";
 
+import { CAL_LINK } from "@/app/site";
+
 const CAL_NAMESPACE = "workflow-chat";
-const CAL_LINK = "workflow-chat/15min";
 
 type BookQuickChatButtonProps = {
   className?: string;
@@ -24,7 +25,7 @@ export default function BookQuickChatButton({ className }: BookQuickChatButtonPr
         cal("modal", { calLink: CAL_LINK });
       }}
     >
-      Book a Workflow Session
+      Book a Free Call
     </button>
   );
 }

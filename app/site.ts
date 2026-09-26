@@ -24,3 +24,9 @@ export const serviceName = "AI Workflow Consulting for Established Operators";
 
 export const serviceDescription =
   "Singleton Systems helps established operators improve one recurring workflow at a time with practical AI-assisted systems for intake, files, review, follow-up, delivery, and repeat work.";
+
+export const CAL_LINK = "workflow-chat/15min";
+
+export const CAL_URL = `https://cal.com/${CAL_LINK}`;
+
+export const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";

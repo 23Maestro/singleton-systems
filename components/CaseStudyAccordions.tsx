@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable react/no-unescaped-entities */
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 
 type CaseStudyKind = "youtube" | "sport";
