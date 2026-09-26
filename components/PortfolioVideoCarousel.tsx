@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 import LoopingPortfolioVideo, { type LoopingPortfolioVideoHandle } from "@/components/LoopingPortfolioVideo";
@@ -239,7 +239,7 @@ export default function PortfolioVideoCarousel() {
                   poster={project.poster}
                   label={`${project.source}: ${project.name} portfolio video`}
                   active={isActive && isVisible && !prefersReducedMotion}
-                  preload={circularDistance <= 1 ? "auto" : "metadata"}
+                  preload={isVisible && circularDistance <= 1 ? "auto" : "none"}
                   priority={index === 0}
                   className="h-full w-full rounded-[inherit] object-contain"
                   onPausedChange={isActive ? setIsVideoPaused : undefined}
@@ -296,7 +296,7 @@ export default function PortfolioVideoCarousel() {
         </button>
       </div>
 
-      <div className="mt-4 flex justify-center gap-2.5" aria-label="Choose a project">
+      <div className="mt-3 flex justify-center gap-0.5" aria-label="Choose a project">
         {projects.map((project, index) => (
           <button
             key={project.name}
@@ -304,10 +304,15 @@ export default function PortfolioVideoCarousel() {
             onClick={() => setActiveIndex(index)}
             aria-label={`Show ${project.name}`}
             aria-current={index === activeIndex ? "true" : undefined}
-            className={`h-2.5 rounded-full transition-[width,background-color] ${
-              index === activeIndex ? "w-8 bg-black" : "w-2.5 bg-neutral-300 hover:bg-neutral-500"
-            }`}
-          />
+            className="group flex h-6 min-w-6 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950"
+          >
+            <span
+              aria-hidden="true"
+              className={`block h-2.5 rounded-full transition-[width,background-color] ${
+                index === activeIndex ? "w-8 bg-black" : "w-2.5 bg-neutral-300 group-hover:bg-neutral-500"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

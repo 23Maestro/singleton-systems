@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../command-center/command-center.css";
 
 export const metadata: Metadata = {
-  title: "Dashboard | Singleton Systems",
+  title: "Dashboard",
   robots: { index: false, follow: false },
 };
 

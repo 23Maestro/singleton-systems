@@ -102,7 +102,6 @@ const LoopingPortfolioVideo = forwardRef<LoopingPortfolioVideoHandle, LoopingPor
         ref={videoRef}
         className={className}
         src={src}
-        poster={poster}
         muted
         loop
         playsInline
