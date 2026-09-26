@@ -106,7 +106,7 @@ assert(runtime.title === "Jerami Singleton | AI Workflow Consultant", "Hydrated 
 assert(runtime.canonical === "https://singleton-systems.com/", "Hydrated canonical mismatch");
 const h1AccessibleText = runtime.h1Label || runtime.h1Text;
 
-assert(h1AccessibleText?.includes("Take the busy work off your team"), `Hydrated H1 mismatch: ${h1AccessibleText}`);
+assert(h1AccessibleText?.includes("Take the Busy Work off Your Team"), `Hydrated H1 mismatch: ${h1AccessibleText}`);
 assert(runtime.h1Count === 1, `Expected 1 H1, found ${runtime.h1Count}`);
 assert(runtime.jsonLdCount >= 1, "Hydrated page missing JSON-LD");
 assert(runtime.hasJsonLdFaq, "Hydrated page missing FAQPage JSON-LD");

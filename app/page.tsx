@@ -485,15 +485,15 @@ export default function Page() {
       <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
           <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem]">
-            Take the busy work off your team
+            Take the Busy Work off Your Team
           </h1>
           <div className="mx-auto mt-6">
-            <p className="mx-auto max-w-[17rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
+            <p className="mx-auto max-w-[17rem] text-balance text-lg font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] lg:max-w-[28rem]">
               Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you.
             </p>
           </div>
           <div className="mx-auto mt-3">
-            <p className="mx-auto flex max-w-[20rem] items-center justify-center gap-2 text-center text-sm font-semibold leading-snug text-neutral-600 sm:max-w-[24rem] sm:text-base lg:max-w-[28rem] lg:text-lg">
+            <p className="mx-auto flex max-w-[20rem] items-center justify-center gap-2 text-center text-lg font-semibold leading-snug text-neutral-600 sm:max-w-[24rem] lg:max-w-[28rem]">
               <span
                 className="inline-flex h-[1.125rem] w-[1.125rem] shrink-0 items-center justify-center rounded-full border-[1.5px] border-black bg-[#eef6ff] text-[#2383e2] lg:h-5 lg:w-5"
                 aria-hidden="true"
@@ -528,7 +528,7 @@ export default function Page() {
           <div className="mt-8 flex items-center justify-center">
             <Link
               href={AI_WORKFLOW_SESSION_URL}
-              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
+              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-base font-bold uppercase tracking-normal text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
             >
               Let&apos;s start
             </Link>

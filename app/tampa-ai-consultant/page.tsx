@@ -82,7 +82,7 @@ const faqs = [
   },
   {
     q: "Are you local to Tampa?",
-    a: "Yes. Singleton Systems is based in Tampa and works with businesses across Tampa Bay, including St. Petersburg and Clearwater. Sessions run on video calls so they fit your schedule.",
+    a: "Yes. Singleton Systems is based in Tampa and works with businesses across Tampa Bay, including St. Petersburg and Clearwater. We start on a video call, and I am happy to meet in person if you prefer.",
   },
 ];
 
@@ -139,13 +139,13 @@ export default function TampaAiConsultantPage() {
           <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[26rem] lg:max-w-2xl lg:text-[3.5rem]">
             AI Consultant in Tampa for Small Businesses
           </h1>
-          <p className="mx-auto mt-6 max-w-[19rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[24rem] sm:text-base lg:max-w-[30rem] lg:text-lg">
+          <p className="mx-auto mt-6 max-w-[19rem] text-balance text-lg font-medium leading-relaxed text-neutral-700 sm:max-w-[24rem] lg:max-w-[30rem]">
             I help Tampa Bay owners and small teams hand their repeated busy work to AI, one task at a time, built around the way they already work.
           </p>
           <div className="mt-8 flex items-center justify-center">
             <a
               href={CAL_URL}
-              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-xs font-bold uppercase tracking-[0.13em] text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
+              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-base font-bold uppercase tracking-normal text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
             >
               Book a free 15 minute call
             </a>

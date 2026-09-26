@@ -9,24 +9,28 @@ const projects = [
   {
     name: "1-Click Follow-Up",
     source: "Prospect ID",
+    caption: "Their scheduling site was 15 years old. Every follow up took a pile of clicks. Now it takes one tap from my phone.",
     src: "/portfolio/proof-videos/prospect-id.mp4",
     poster: "/portfolio/proof-videos/prospect-id-poster.jpg",
   },
   {
     name: "$300 Job. 2 Hours.",
     source: "Upwork Client",
+    caption: "Footage organized and color graded in 4 days, a week ahead of the deadline. The client called it very efficient work, done very well.",
     src: "/portfolio/proof-videos/hnoc.mp4",
     poster: "/portfolio/proof-videos/hnoc-poster.jpg",
   },
   {
     name: "AI Preps the Project",
     source: "Catena Media",
+    caption: "Before I start editing, I know what footage I have, what's missing, and which graphics need building.",
     src: "/portfolio/proof-videos/catena.mp4",
     poster: "/portfolio/proof-videos/catena-poster.jpg",
   },
   {
     name: "140+ Videos. 6 Weeks.",
     source: "Prospect ID",
+    caption: "Once the old system ran itself, I made 140+ videos in 6 weeks, by myself.",
     src: "/portfolio-2-ssystems.mp4",
     poster: "/portfolio-2-ssystems-poster.jpg",
   },
@@ -283,7 +287,7 @@ export default function PortfolioVideoCarousel() {
 
         <div aria-live="polite" className="col-start-2 row-start-2 w-36 text-center sm:w-56">
           <p className="text-base font-semibold leading-tight text-neutral-950 [text-shadow:0_1px_0_#fff,0_0_12px_rgba(255,255,255,0.9)] sm:text-xl">{projects[activeIndex].name}</p>
-          <p className="mt-1 text-xs font-semibold text-neutral-500 sm:text-sm">{projects[activeIndex].source}</p>
+          <p className="mt-1 text-base font-semibold text-neutral-500">{projects[activeIndex].source}</p>
         </div>
 
         <button
@@ -296,22 +300,24 @@ export default function PortfolioVideoCarousel() {
         </button>
       </div>
 
-      <div className="mt-3 flex justify-center gap-0.5" aria-label="Choose a project">
+      <p className="mx-auto mt-4 max-w-md text-balance text-center text-lg font-medium leading-relaxed text-neutral-700">
+        {projects[activeIndex].caption}
+      </p>
+
+      <div className="mx-auto mt-5 flex max-w-xl flex-wrap justify-center gap-2" aria-label="Choose a project">
         {projects.map((project, index) => (
           <button
             key={project.name}
             type="button"
             onClick={() => setActiveIndex(index)}
-            aria-label={`Show ${project.name}`}
             aria-current={index === activeIndex ? "true" : undefined}
-            className="group flex h-6 min-w-6 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950"
+            className={`rounded-full border px-4 py-2 text-base font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2 ${
+              index === activeIndex
+                ? "border-black bg-black text-white"
+                : "border-neutral-300 bg-white text-neutral-700 hover:border-neutral-950"
+            }`}
           >
-            <span
-              aria-hidden="true"
-              className={`block h-2.5 rounded-full transition-[width,background-color] ${
-                index === activeIndex ? "w-8 bg-black" : "w-2.5 bg-neutral-300 group-hover:bg-neutral-500"
-              }`}
-            />
+            {project.name}
           </button>
         ))}
       </div>

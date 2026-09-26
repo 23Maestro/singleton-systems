@@ -28,7 +28,7 @@ export function TriedSection() {
           {alternatives.map((item) => (
             <article key={item.title} className="rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.06)]">
               <h3 className="text-xl font-bold tracking-[-0.02em]">{item.title}</h3>
-              <p className="mt-3 text-base font-medium leading-relaxed text-neutral-600">{item.body}</p>
+              <p className="mt-3 text-lg font-medium leading-relaxed text-neutral-600">{item.body}</p>
             </article>
           ))}
         </div>
@@ -61,7 +61,7 @@ export function ProofSection() {
         </h2>
         <div className="mt-10 grid gap-5 lg:grid-cols-2">
           <article className="flex flex-col rounded-[2rem] border-2 border-black bg-white p-7 sm:p-8">
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#075985]">Prospect ID</p>
+            <p className="text-base font-bold uppercase tracking-[0.14em] text-[#075985]">Prospect ID</p>
             <h3 className="mt-3 text-3xl font-bold tracking-[-0.035em]">An Old System That Got Fast</h3>
             <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-700">
               Prospect ID ran on a website more than 15 years old. Every highlight video meant a long list of manual clicks. I got the computer to do the clicking.
@@ -71,12 +71,12 @@ export function ProofSection() {
             </p>
           </article>
           <article className="flex flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 sm:p-8">
-            <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#126f39]">Catena Media</p>
+            <p className="text-base font-bold uppercase tracking-[0.14em] text-[#126f39]">Catena Media</p>
             <h3 className="mt-3 text-3xl font-bold tracking-[-0.035em]">The Same Thinking, Used on Video</h3>
             <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-700">
               Before I start editing, I know what footage I have, what is missing, and which graphics need building.
             </p>
-            <p className="mt-4 text-base font-medium leading-relaxed text-neutral-600">
+            <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-600">
               Transcripts, footage checks, and review pages happen first. The edit goes faster because nothing surprises me halfway through.
             </p>
           </article>

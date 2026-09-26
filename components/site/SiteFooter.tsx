@@ -14,7 +14,7 @@ export default function SiteFooter({ items }: { items: NavItem[] }) {
             height={260}
             className="h-auto w-44"
           />
-          <p className="mt-4 max-w-xl text-base font-semibold leading-relaxed text-neutral-600">
+          <p className="mt-4 max-w-xl text-lg font-semibold leading-relaxed text-neutral-600">
             Workflow sessions for people who want AI to handle repeated work while they stay in charge
           </p>
         </div>

@@ -15,7 +15,7 @@ export default function ProfileCard() {
       />
       <div className="px-3 pb-3.5 pt-2.5 text-left sm:px-4">
         <p className="text-base font-semibold tracking-[-0.04em] text-neutral-950">Jerami Singleton</p>
-        <p className="mt-1 text-xs font-medium leading-relaxed text-neutral-600 sm:text-sm">
+        <p className="mt-1 text-base font-medium leading-relaxed text-neutral-600">
           <span className="block">2 years of Programming | IT</span>
           <span className="block">at St. Petersburg College</span>
           <span className="mt-2 block">Video Editing since 2022</span>

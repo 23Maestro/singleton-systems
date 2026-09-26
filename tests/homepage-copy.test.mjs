@@ -102,3 +102,15 @@ test("reviews stay readable with JavaScript off and with reduced motion", async 
     await browser.close();
   }
 });
+
+test("portfolio carousel names each video on its selector and explains the one showing", async () => {
+  const page = visibleCopyOnly(await html("/"));
+  const selectors = page.match(/<div[^>]*aria-label="Choose a project"[^>]*>[\s\S]*?<\/div>/)?.[0] ?? "";
+  for (const name of ["1-Click Follow-Up", "$300 Job. 2 Hours.", "AI Preps the Project", "140+ Videos. 6 Weeks."]) {
+    assert.match(selectors, new RegExp(`<button[^>]*>[^<]*${name.replace(/[.$+]/g, "\\$&")}[^<]*</button>`), `no named selector for ${name}`);
+  }
+  assert.ok(
+    page.includes("Their scheduling site was 15 years old. Every follow up took a pile of clicks."),
+    "missing caption under the first video",
+  );
+});

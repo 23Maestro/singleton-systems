@@ -7,7 +7,7 @@ const reviews: Review[] = [
     quote:
       "Jerami is a very organized and efficient videographer. He always brought unique ideas and solutions, and his creativity showed me he always had a passion to get better. He worked with us for a few years and made 100’s of high quality highlight and skills videos for high school athletes. Very pleased we hired and worked closely with Jerami.",
     name: "James Holcomb",
-    role: "Prospect ID",
+    role: "CEO, Prospect ID",
     upwork: false,
   },
   {
@@ -31,7 +31,7 @@ const reviews: Review[] = [
     upwork: true,
   },
   {
-    quote: "Quick Response. Great Work. Very professional. Will recommend his servicess",
+    quote: "Quick Response. Great Work. Very professional. Will recommend his services",
     name: "Upwork Client",
     role: null,
     upwork: true,
