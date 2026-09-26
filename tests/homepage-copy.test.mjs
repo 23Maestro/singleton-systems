@@ -72,7 +72,10 @@ test("homepage reviews show exact client words with who said them", async () => 
   for (const review of REVIEWS) assert.ok(section.includes(review), `missing review text: ${review.slice(0, 40)}`);
   assert.ok(section.includes("James Holcomb"), "James Holcomb credited");
   assert.ok(section.includes("NurseHub"), "NurseHub credited");
-  assert.equal(section.match(/Upwork client/g)?.length ?? 0, 3, "three Upwork client labels");
+  assert.ok(section.includes("Alex Hollis"), "Alex Hollis credited");
+  assert.ok(section.includes("CEO, NurseHub"), "NurseHub role shown");
+  assert.ok(section.includes("Upwork Client"), "Upwork Client label in Title Case");
+  assert.ok(!section.includes("Upwork client"), "no lowercase Upwork client label");
   assert.match(page.slice(start), /src="[^"]*upwork-50\.png[^"]*"/, "Upwork logo from the email signature");
 });
 
@@ -88,7 +91,7 @@ test("reviews stay readable with JavaScript off and with reduced motion", async 
     for (const options of [{ javaScriptEnabled: false }, { reducedMotion: "reduce" }]) {
       const page = await browser.newPage(options);
       await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
-      const quote = page.locator("#reviews blockquote").first();
+      const quote = page.locator("#reviews [data-review-card] blockquote").first();
       await quote.scrollIntoViewIfNeeded();
       await page.waitForTimeout(300);
       const opacity = await quote.evaluate((el) => getComputedStyle(el).opacity);

@@ -6,6 +6,7 @@ import OffersSection from "@/components/site/OffersSection";
 import ProfileCard from "@/components/site/ProfileCard";
 import SiteFooter from "@/components/site/SiteFooter";
 import SiteHeader from "@/components/site/SiteHeader";
+import StepBadge from "@/components/site/StepBadge";
 import { siteNavFor } from "@/components/site/nav";
 import {
   BUILD_IT_FOR_ME,
@@ -135,8 +136,7 @@ export default function TampaAiConsultantPage() {
 
       <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
         <div className="w-full max-w-2xl">
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#126f39]">Tampa, Florida</p>
-          <h1 className="mx-auto mt-4 w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[26rem] lg:max-w-2xl lg:text-[3.5rem]">
+          <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[26rem] lg:max-w-2xl lg:text-[3.5rem]">
             AI Consultant in Tampa for Small Businesses
           </h1>
           <p className="mx-auto mt-6 max-w-[19rem] text-balance text-[15px] font-medium leading-relaxed text-neutral-700 sm:max-w-[24rem] sm:text-base lg:max-w-[30rem] lg:text-lg">
@@ -150,7 +150,7 @@ export default function TampaAiConsultantPage() {
               Book a free 15 minute call
             </a>
           </div>
-          <p className="mt-4 text-sm font-semibold text-neutral-500">
+          <p className="mt-5 text-base font-semibold text-neutral-600">
             Free call. First build {START_WITH_ONE_THING.display}, credited if you continue within 14 days.
           </p>
         </div>
@@ -169,12 +169,10 @@ export default function TampaAiConsultantPage() {
             {steps.map((step, index) => (
               <li
                 key={step.title}
-                className="flex flex-col rounded-[2rem] border border-neutral-200/80 bg-white/90 p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] backdrop-blur sm:p-8"
+                className="flex flex-col overflow-hidden rounded-[2rem] border border-neutral-200/80 bg-white/90 p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] backdrop-blur sm:p-8"
               >
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-black bg-[#62d26f] text-lg font-black text-black">
-                  {index + 1}
-                </span>
-                <h3 className="mt-5 text-2xl font-bold tracking-[-0.02em]">{step.title}</h3>
+                <StepBadge step={index + 1} />
+                <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-black">{step.title}</h3>
                 <p className="mt-3 text-lg font-medium leading-relaxed text-neutral-600">{step.body}</p>
               </li>
             ))}

@@ -106,6 +106,7 @@
     "next": "^16.3.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-use-measure": "^2.1.7",
     "remotion": "4.0.486",
     "satori": "^0.26.0",
     "shiki": "^4.3.1",
