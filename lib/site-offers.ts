@@ -12,17 +12,18 @@ export type SiteOffer = {
   summary: string;
 };
 
-export const FIRST_BUILD_CREDIT_LINE = "Choose any package within 14 days and the $75 comes off the price.";
+export const FIRST_BUILD_CREDIT_LINE = "Choose a bigger package within 14 days and the $500 comes off the price.";
 
 export const START_WITH_ONE_THING: SiteOffer = {
   value: "start-with-one-thing",
   name: "Start With One Thing",
-  price: 75,
-  display: "$75",
+  price: 500,
+  display: "$500",
   cadence: "one-time",
-  summary: `Your first task built and tested on 2 real examples. ${FIRST_BUILD_CREDIT_LINE}`,
+  summary: `A look at where your week goes, then the task costing you the most time built into a tested workflow with written steps. ${FIRST_BUILD_CREDIT_LINE}`,
 };
 
+// Folded into Start With One Thing on 2026-09-27. Kept so older intake links still resolve.
 export const BUILD_IT_FOR_ME: SiteOffer = {
   value: "build-it-for-me",
   name: "Build It for Me",
@@ -35,8 +36,8 @@ export const BUILD_IT_FOR_ME: SiteOffer = {
 export const KEEP_IT_WORKING: SiteOffer = {
   value: "keep-it-working",
   name: "Keep It Working",
-  price: 500,
-  display: "$500",
+  price: 1500,
+  display: "$1,500",
   cadence: "month",
   summary: "Keep expanding the working foundation as your business changes.",
 };
@@ -44,13 +45,13 @@ export const KEEP_IT_WORKING: SiteOffer = {
 export const BUILD_MY_AI_SYSTEM: SiteOffer = {
   value: "build-my-ai-system",
   name: "Build My AI System",
-  price: 1500,
-  display: "$1,500",
+  price: 2500,
+  display: "$2,500",
   cadence: "one-time",
-  summary: "Put your business knowledge into a working foundation, then build the 3 repeated workflows costing you the most time.",
+  summary: "Put your business knowledge into a working foundation, then build the next 3 workflows costing you the most time over 60 days.",
 };
 
-export const SITE_OFFERS = [START_WITH_ONE_THING, BUILD_IT_FOR_ME, BUILD_MY_AI_SYSTEM, KEEP_IT_WORKING] as const;
+export const SITE_OFFERS = [START_WITH_ONE_THING, BUILD_MY_AI_SYSTEM, KEEP_IT_WORKING] as const;
 
 export function offerUrl(offer: AiWorkflowOffer) {
   return `${AI_WORKFLOW_SESSION_URL}?offer=${offer}`;

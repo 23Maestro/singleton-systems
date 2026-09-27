@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Check, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import {
-  BUILD_IT_FOR_ME,
   BUILD_MY_AI_SYSTEM,
   FIRST_BUILD_CREDIT_LINE,
   KEEP_IT_WORKING,
@@ -19,7 +18,7 @@ export default function OffersSection() {
             Choose Where to Start
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-neutral-600 sm:text-xl">
-            Start with 1 repeated task, build the workflow, or put the complete foundation in place.
+            Start with the task costing you the most time, then build the rest or keep it running.
           </p>
         </div>
 
@@ -54,24 +53,7 @@ export default function OffersSection() {
           </div>
         </article>
 
-        <div className="mt-5 grid gap-5 lg:grid-cols-2">
-          <article className="flex h-full flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] sm:p-8">
-            <p className="text-base font-bold uppercase tracking-[0.14em] text-[#075985]">1 complete workflow</p>
-            <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
-              <h3 className="text-3xl font-bold tracking-[-0.035em]">{BUILD_IT_FOR_ME.name}</h3>
-              <p className="text-2xl font-bold tracking-[-0.03em]">{BUILD_IT_FOR_ME.display}</p>
-            </div>
-            <p className="mt-4 text-lg font-medium leading-relaxed text-neutral-600">{BUILD_IT_FOR_ME.summary}</p>
-            <ul className="mt-6 space-y-3 text-base font-semibold text-neutral-800">
-              {["Configured around your real work", "Tested across real examples", "Documented so you can repeat it", "1 private refinement session"].map((item) => (
-                <li key={item} className="flex items-start gap-2.5"><Check className="mt-0.5 h-5 w-5 shrink-0 text-[#075985]" weight="bold" aria-hidden="true" /><span>{item}</span></li>
-              ))}
-            </ul>
-            <Link href={offerUrl(BUILD_IT_FOR_ME.value)} className="mt-8 inline-flex min-h-12 items-center justify-center self-start rounded-full bg-black px-6 text-base font-bold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2">
-              Build 1 workflow
-            </Link>
-          </article>
-
+        <div className="mt-5 grid gap-5">
           <article className="flex h-full flex-col rounded-[2rem] border border-neutral-200/80 bg-white p-7 shadow-[0_16px_42px_rgba(15,23,42,0.07)] sm:p-8">
             <p className="text-base font-bold uppercase tracking-[0.14em] text-[#126f39]">Ongoing improvement</p>
             <div className="mt-4 flex flex-wrap items-baseline justify-between gap-3">
@@ -95,11 +77,11 @@ export default function OffersSection() {
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full border border-black bg-[#ffc83d] px-3 py-1 text-base font-black uppercase tracking-[0.13em] text-black">Best first step</span>
-                <span className="text-base font-bold text-neutral-600">1 task · 2 real examples</span>
+                <span className="text-base font-bold text-neutral-600">Time audit · 1 workflow</span>
               </div>
               <h3 className="mt-4 text-3xl font-bold tracking-[-0.035em]">{START_WITH_ONE_THING.name}</h3>
               <p className="mt-3 text-lg font-medium leading-relaxed text-neutral-700">
-                After a free call, bring 1 repeated task. I build it, save what worked, and make sure AI can repeat it reliably.
+                After a free call, I look at where your week goes and build the task costing you the most time. You get written steps so it keeps working.
               </p>
               <p className="mt-3 text-base font-bold text-neutral-600">{FIRST_BUILD_CREDIT_LINE}</p>
             </div>

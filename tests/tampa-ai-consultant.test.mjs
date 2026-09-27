@@ -71,9 +71,19 @@ for (const privatePath of ["/fitness", "/dashboard", "/command-center", "/home-t
   });
 }
 
-test("Tampa buyer sees the $75 credit applies to any package within 14 days", async () => {
+test("Tampa buyer sees the $500 first build is credited toward a bigger package within 14 days", async () => {
   const { html } = await get(PAGE_PATH);
-  assert.match(html, /Choose any package within 14 days and the \$75 comes off the price\./);
+  assert.match(html, /Choose a bigger package within 14 days and the \$500 comes off the price\./);
+  assert.doesNotMatch(html, /\$75\b/);
+});
+
+test("Search engines see the pricing ladder: $500 first build, $2,500 system, $1,500 a month", async () => {
+  const { html } = await get(PAGE_PATH);
+  const service = jsonLdBlocks(html).find((block) => block["@type"] === "Service");
+  const byName = Object.fromEntries(service.offers.map((offer) => [offer.name, offer]));
+  assert.equal(String(byName["Start With One Thing"].price), "500");
+  assert.equal(String(byName["Build My AI System"].price), "2500");
+  assert.equal(byName["Build It for Me"], undefined, "single workflow rung is folded into the first build");
 });
 
 test("Tampa page uses the same site header, reviews, pricing, and booking sections as the homepage", async () => {
@@ -88,5 +98,5 @@ test("Search engines see Keep It Working as a monthly price", async () => {
   const service = jsonLdBlocks(html).find((block) => block["@type"] === "Service");
   const monthly = service.offers.find((offer) => offer.name === "Keep It Working");
   assert.equal(monthly.priceSpecification?.unitText, "MONTH");
-  assert.equal(String(monthly.priceSpecification?.price), "500");
+  assert.equal(String(monthly.priceSpecification?.price), "1500");
 });

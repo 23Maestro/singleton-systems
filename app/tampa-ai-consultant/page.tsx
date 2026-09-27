@@ -9,7 +9,6 @@ import SiteHeader from "@/components/site/SiteHeader";
 import StepBadge from "@/components/site/StepBadge";
 import { siteNavFor } from "@/components/site/nav";
 import {
-  BUILD_IT_FOR_ME,
   BUILD_MY_AI_SYSTEM,
   FIRST_BUILD_CREDIT_LINE,
   KEEP_IT_WORKING,
@@ -51,7 +50,7 @@ const steps = [
   },
   {
     title: `Build the First One for ${START_WITH_ONE_THING.display}`,
-    body: `I build that one task into a working AI workflow inside the tools you already use and test it on your real examples. ${FIRST_BUILD_CREDIT_LINE}`,
+    body: `I look at where your week goes, then build the task costing you the most time into a working AI workflow inside the tools you already use, tested on your real examples. ${FIRST_BUILD_CREDIT_LINE}`,
   },
   {
     title: "Keep Going if It Works",
@@ -66,7 +65,7 @@ const faqs = [
   },
   {
     q: "How much does AI consulting cost?",
-    a: `The first call is free. Building your first task is ${START_WITH_ONE_THING.display}. ${FIRST_BUILD_CREDIT_LINE} Building one complete workflow is ${BUILD_IT_FOR_ME.display}. A full system with up to three workflows is ${BUILD_MY_AI_SYSTEM.display}. Ongoing help is ${KEEP_IT_WORKING.display} a month.`,
+    a: `The first call is free. Building your first task is ${START_WITH_ONE_THING.display}. ${FIRST_BUILD_CREDIT_LINE} The next three workflows, built over 60 days, are ${BUILD_MY_AI_SYSTEM.display}. Ongoing help is ${KEEP_IT_WORKING.display} a month.`,
   },
   {
     q: "Do I need to be technical or buy new software?",
