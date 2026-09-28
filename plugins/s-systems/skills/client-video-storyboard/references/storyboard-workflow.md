@@ -43,8 +43,8 @@ URL or local video
 ```
 
 Keep raw frames and source assets in Eagle. Keep active work, decisions, and
-trial status in Linear. Keep approved visual components and variables in Figma.
-Do not copy task state into Supabase or Eagle.
+trial status in Asana `Content Editor`. Keep approved visual components and
+variables in Figma. Do not copy task state into Supabase or Eagle.
 
 Figma records approved component states. Figma Motion can own phrase-timed 2D
 scenes and alpha overlays. Other motion engines remain available when the beat

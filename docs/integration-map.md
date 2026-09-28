@@ -10,9 +10,12 @@ not repeat their logic.
 | Work | Owner | Contract |
 | --- | --- | --- |
 | Natural-language routing | Cerebral + Supabase registry | `config/cerebral-registry.json` + hook |
-| System ideas, commands, active decisions | Linear | `Command + Ideas` and `Singleton Systems` |
+| Development ideas, commands, active decisions | Linear | `Command + Ideas` and `Singleton Systems` |
+| AI Consulting tasks and project state | Asana | `AI Consulting` |
+| Content Editor tasks and project state | Asana | `Content Editor` |
 | Career tasks and job workflow state | Opportunity HQ | `opportunity-hq-updater` |
-| Wayfinder maps, decisions, dependencies, active work | Linear | `wayfinder` |
+| Development Wayfinder maps and decisions | Linear | `wayfinder` |
+| AI Consulting and Content Editor Wayfinder maps | Asana | `wayfinder` |
 | Branches, commits, pull requests, implementation evidence | GitHub | repository workflow |
 | Queryable events and cross-surface facts | Supabase | `docs/truth-matrix.md` |
 | Portfolio evidence checkpoints | Eagle | `portfolio-evidence-capture` + `eagle` |
@@ -49,8 +52,10 @@ npm run check:cerebral:registry
 ## Active Review Route
 
 ```text
-idea / command / decision -> Linear
-fuzzy or branching build  -> Linear Wayfinder map
+Development idea / decision -> Linear
+AI Consulting task          -> Asana AI Consulting
+Content Editor task         -> Asana Content Editor
+fuzzy or branching work     -> Lane owner via Wayfinder
 queryable event           -> Supabase
 active-week review        -> Next/Vercel dashboard
 reviewed architecture     -> LikeC4

@@ -16,15 +16,24 @@ assert.match(read("docs/harness/README.md"), new RegExp(`\\[lane\\] ${initiative
 assert.match(read("docs/harness/README.md"), new RegExp(`\\[system lane\\] ${systemLanes}`));
 assert.ok(registry.routes.every((route) => route.lane !== "all_buckets"));
 
-// Linear owns task state. No route may point at the retired Opportunity HQ owner.
+// Lane task state must stay in Linear or Asana. Opportunity HQ is retired.
 const retired = registry.routes.filter((route) => /opportunity hq/i.test(route.owner ?? ""));
 assert.equal(retired.length, 0, `routes still owned by Opportunity HQ: ${retired.map((r) => r.route_key).join(", ")}`);
+const staleLinearRoutes = registry.routes.filter(
+  (route) => ["AI Consultant", "Content Editor"].includes(route.lane) && route.owner === "Linear",
+);
+assert.equal(staleLinearRoutes.length, 0, `AI or editor routes still owned by Linear: ${staleLinearRoutes.map((r) => r.route_key).join(", ")}`);
+for (const route of registry.routes.filter((item) => item.owner === "Asana")) {
+  const expectedProject = route.lane === "AI Consultant" ? "AI Consulting" : "Content Editor";
+  assert.equal(route.project, expectedProject, `${route.route_key} uses the wrong Asana project`);
+}
 
-assert.match(skill("cerebral-router"), /task and project state -> Linear/);
+assert.match(skill("cerebral-router"), /Development task and project state -> Linear/);
+assert.match(skill("cerebral-router"), /AI Consulting and Content Editor task state -> Asana/);
 assert.match(skill("cerebral-router"), /The dashboard reads owner state and opens owner links\./);
 
 assert.match(updater, new RegExp(`initiative: ${initiatives}`));
-assert.match(updater, /Linear owns task, status, completion, priority, assignment,\s+dependency, and\s+project state\./);
+assert.match(updater, /Linear owns Development task state\. Asana owns AI Consulting and Content Editor\s+task state\./);
 assert.match(updater, /A lead does not\s+receive a Task until real delivery work is selected\./);
 assert.match(updater, /exactly three blocks/);
 
@@ -34,8 +43,8 @@ assert.match(updater, /for Notion, `ntn` is the\s+sole runtime route/);
 assert.match(updater, /A Client record never carries task status/);
 assert.match(updater, /Portfolio records still live in Notion pending migration/);
 
-// Completion is a state change, not a Notion deletion.
+// Completion is a task-state change, not a Notion deletion.
 assert.doesNotMatch(updater, /move the page to Notion Trash/);
-assert.match(updater, /Completion is a Linear state change, not a deletion\./);
+assert.match(updater, /Completion is a task-state change\./);
 
 console.log(`Task contract check passed: ${initiatives}`);

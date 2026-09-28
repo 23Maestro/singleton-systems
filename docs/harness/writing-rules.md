@@ -7,7 +7,8 @@ repo hooks. Never hand-edit a copy.
 
 Applies to every reviewable non-code artifact created here:
 
-Markdown and MDX, Linear issues and docs, GitHub commit and PR bodies, Notion,
+Markdown and MDX, Linear issues and docs, Asana projects and tasks, GitHub commit
+and PR bodies, Notion,
 memory files, emails, cover letters, proposals, briefs, client handoffs,
 captions, site copy, public HTML/pages, visual/source notes, and review docs.
 
@@ -47,6 +48,12 @@ For Linear, keep an issue body short enough to scan without scrolling when
 possible. Store the workflow in its owning skill or linked portfolio. Do not copy
 an operating manual into a task.
 
+For Asana, names stay short. A project name is one to three words. A task name
+is two to four words, a verb plus the object (Book pilot call, Rank spec lanes).
+Parent tasks follow the same limit. Put context, links, dates, and the next
+action in the description. The Linear link goes in the description, never the
+name.
+
 Rhythm target, from the Ginain transcript:
 
 - "You go to school, you get one job, you work at that company forever."
@@ -85,7 +92,7 @@ Fires on `UserPromptSubmit` via `cat`. Keep it near 150 tokens.
 
 ```text
 Writing rules — apply to every reviewable non-code artifact created here:
-Markdown, Linear docs, GitHub and Notion copy, memory, emails, cover letters,
+Markdown, Linear docs, Asana tasks, GitHub and Notion copy, memory, emails, cover letters,
 proposals, briefs, handoffs, captions, site copy, public HTML/pages, and
 visual/source notes. Not to source code, generated bundles, code blocks, or
 conversation.

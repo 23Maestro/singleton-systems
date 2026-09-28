@@ -223,7 +223,7 @@ masters, and stale labels leave active pages after each review pass.
 ## episode review lifecycle
 
 Read `lineups-episode-lifecycle.md` for the project record, locked review UIs,
-Linear status flow, and closeout boundary.
+Asana task flow, and closeout boundary.
 
 Pre-Figma review and Post-Figma review are fixed Lineups stages. Reuse the
 established Decision Map structure for each episode. Replace the episode title,
@@ -239,9 +239,9 @@ approved source families in Figma Components. Episode Workspace holds the
 temporary episode copies.
 
 Episode-specific Decision Maps are temporary review surfaces. Figma source
-components and Eagle assets are the durable sources. A Linear issue may reach
-Done only after its required review and delivery readback pass and its approved
-motion renders are in Eagle. When the issue is Done, remove that episode's
+components and Eagle assets are the durable sources. An Asana task may be
+completed only after its required review and delivery readback pass and its
+approved motion renders are in Eagle. When the task is complete, remove that episode's
 Pre-Figma and Post-Figma Decision Map directories plus their index, route,
 redirect, gate, and test registrations. Keep this lifecycle, the reusable stage
 structure, approved Figma source components, Eagle assets, and durable evidence

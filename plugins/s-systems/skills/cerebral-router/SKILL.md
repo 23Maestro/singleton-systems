@@ -12,10 +12,14 @@ Raycast, Shortcuts, Next/Vercel, docs, or LikeC4.
 
 ```text
 unselected thought -> Linear Command + Ideas
-active system plan -> Linear Singleton Systems
-fuzzy or branching build -> Linear Wayfinder map
+active Development plan -> Linear Singleton Systems
+fuzzy or branching Development build -> Linear Wayfinder map
+selected AI consulting work -> Asana AI Consulting
+selected client editing work -> Asana Content Editor
+fuzzy AI consulting or client editing work -> Asana parent task with subtasks
 queryable event or dashboard fact -> Supabase
-task and project state -> Linear
+Development task and project state -> Linear
+AI Consulting and Content Editor task state -> Asana
 portfolio asset -> Eagle
 desktop/mobile action -> Raycast or Shortcuts
 active-week review -> Next/Vercel
@@ -34,8 +38,9 @@ reviewed architecture -> LikeC4
 [verify] verification command or readback
 ```
 
-`23M-89` owns the Linear GraphQL gateway for Codex, Raycast, and Shortcuts.
-Keep its credentials server-side.
+`23M-89` owns the Development-only Linear GraphQL gateway for Codex, Raycast,
+and Shortcuts. Keep its credentials server-side. Do not send AI Consulting or
+Content Editor tasks through that gateway.
 
 ## Route
 

@@ -4,11 +4,12 @@
 
 ```text
 1. Cerebral - Routing
-2. Linear - Decisions and Active System Work
-3. GitHub - Implementation Evidence
-4. Supabase - Queryable Cross-Surface Facts
-5. Next/Vercel - Active Week Dashboard
-6. LikeC4 - Reviewed System Map
+2. Linear - Development Work
+3. Asana - Client and Consulting Work
+4. GitHub - Implementation Evidence
+5. Supabase - Queryable Cross-Surface Facts
+6. Next/Vercel - Active Week Dashboard
+7. LikeC4 - Reviewed System Map
 ```
 
 Each surface has one job. Links may cross surfaces, but state ownership does not.
@@ -25,10 +26,10 @@ request -> Cerebral route -> owner surface -> reviewed mutation -> verification
 
 Cerebral never becomes a task database, background worker, or hidden writer.
 
-## 2. Linear - Decisions and Active System Work
+## 2. Linear - Development Work
 
-Intent: provide the mobile-friendly decision cockpit for system ideas, command
-work, projects, assignments, and active next moves.
+Intent: hold Development ideas, decisions, projects, assignments, and next
+moves.
 
 Canonical placements:
 
@@ -55,27 +56,39 @@ Use this template for a new issue:
 Existing issues receive a short comment or independently actionable subissue;
 do not rewrite their full body.
 
-Wayfinder maps also live here. A map is one Linear issue, and its named
-decision tickets are sub-issues connected by native blockers. Linear owns the
-map, frontier, assignment, status, priority, and resolution.
+Development Wayfinder maps also live here. A map is one Linear issue, and its
+named decision tickets are sub-issues connected by native blockers.
 
 ```text
 Wayfinder map -> blocking decisions -> clear route -> implementation handoff
 ```
 
-## 3. GitHub - Implementation Evidence
+## 3. Asana - Client and Consulting Work
+
+Intent: hold AI Consulting and Content Editor task state.
+
+```text
+AI Consulting -> To Do / In Progress / Done
+Content Editor -> client sections and completed task state
+```
+
+Use the fixed `AI Consulting` and `Content Editor` projects. A Wayfinder map in
+either Lane is a parent task with decision subtasks. Keep links, dates, and any
+former Linear link in the description.
+
+## 4. GitHub - Implementation Evidence
 
 Intent: retain the code history and review evidence produced after a Linear
 decision reaches implementation.
 
 ```text
-Linear issue -> branch / commit / pull request -> verified implementation
+task record -> branch / commit / pull request -> verified implementation
 ```
 
 GitHub does not own Wayfinder ticket state. Link evidence back to the named
-Linear issue; a backlink does not migrate ownership.
+Linear or Asana record; a backlink does not migrate ownership.
 
-## 4. Supabase - Queryable Cross-Surface Facts
+## 5. Supabase - Queryable Cross-Surface Facts
 
 Intent: hold facts that need reporting, joins, multiple readers, or dashboard
 queries. It is not a scratchpad or copy of every ticket body.
@@ -91,13 +104,14 @@ content_references / content_posts / portfolio_assets -> portfolio and content m
 The dashboard reads queryable facts and owner links. New tables require a
 read-only design pass, confirmed writer/reader list, and a verification path.
 
-## 5. Next/Vercel - Active Week Dashboard
+## 6. Next/Vercel - Active Week Dashboard
 
 Intent: run a seven-day review surface without becoming another task database.
 
 Inputs:
 
-- current system decisions and owner links from Linear
+- current Development decisions from Linear
+- current AI Consulting and Content Editor tasks from Asana
 - active career, cash, and outreach events from Supabase-backed owner flows
 - active Personal Ops home tasks from Apps Script while the list remains small
 - weekly goals, time cues, and follow-up dates
@@ -130,7 +144,7 @@ Pending implementation cards:
 Shortcut Playground creates a mobile client. Raycast and Codex use the same
 gateway contract when that task is ready.
 
-## 6. LikeC4 - Reviewed System Map
+## 7. LikeC4 - Reviewed System Map
 
 Intent: make verified repositories, apps, APIs, and handoffs understandable.
 
@@ -149,7 +163,8 @@ What stays out across all surfaces:
 ## Review Rhythm
 
 ```text
-Capture / decide / Wayfind -> Linear
+Development capture / decide / Wayfind -> Linear
+AI Consulting or Content Editor tasks -> Asana
 Implement / review code -> GitHub
 During the week -> Next/Vercel dashboard
 Queryable event -> Supabase

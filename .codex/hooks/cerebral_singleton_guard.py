@@ -371,6 +371,8 @@ def context(reason, text):
                 f"- [tools] {' + '.join(route.get('required_tools') or [])}",
                 f"- [review] {route.get('review_gate') or 'review before mutation'}",
             ])
+            if route.get("project"):
+                lines.insert(len(lines) - 4, f"- [project] {route.get('project')}")
             if tags.get("query"):
                 lines.append(f"- [query] {tags.get('query')}")
             unknown_tools = [tool for tool in requested_tools if tool not in allowed_tools]

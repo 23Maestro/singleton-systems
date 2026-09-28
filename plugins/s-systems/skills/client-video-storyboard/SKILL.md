@@ -60,10 +60,11 @@ For every Catena Media Lineups edit, read
 selection, Figma work, or Premiere mutation.
 
 At episode ingest and closeout, also read
-`references/lineups-episode-lifecycle.md`. Use one Linear issue and one project
-record per video. Set its due date from the confirmed delivery deadline. Use
-the locked Pre-Figma and Post-Figma review UIs. A team or topic is episode data;
-it cannot change the shared UI or create a new option.
+`references/lineups-episode-lifecycle.md`. Use one Asana task and one episode
+record per video in the `Content Editor` project and `Catena` section. Set its
+due date from the confirmed delivery deadline. Use the locked Pre-Figma and
+Post-Figma review UIs. A team or topic is episode data; it cannot change the
+shared UI or create a new option.
 
 Use its seven lanes, approved options, automatic routing, action-first asset
 rules, transcript-copy rule, pacing profile, pruning rule, and pre-Premiere

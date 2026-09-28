@@ -114,7 +114,7 @@ export async function linearGraphql<T>(
   return payload.data;
 }
 
-function issueLane(issue: LinearIssue): Lane {
+function issueLane(issue: Pick<LinearIssue, "labels" | "project">): Lane {
   const labels = issue.labels.nodes.map(({ name }) => name.toLowerCase());
   if (labels.some((name) => name === "ai consultant")) return "AI Consultant";
   if (labels.some((name) => name === "content editor")) return "Content Editor";
@@ -287,8 +287,9 @@ export async function listLinearWork(): Promise<WorkItem[]> {
         (relation) =>
           relation.type === "blocks" &&
           relation.issue.state.type !== "completed",
-      ),
-    }));
+        ),
+    }))
+    .filter((issue) => issue.lane === "Development");
 }
 
 export async function commandCenterSnapshot() {
@@ -372,13 +373,17 @@ export async function updateLinearStatus(
     issue: {
       id: string;
       team: { key: string; states: { nodes: { id: string; name: string }[] } };
+      project: { id: string; name: string } | null;
+      labels: { nodes: { name: string }[] };
     } | null;
   }>(
-    `query ($id: String!) { issue(id: $id) { id team { key states { nodes { id name } } } } }`,
+    `query ($id: String!) { issue(id: $id) { id project { id name } labels { nodes { name } } team { key states { nodes { id name } } } } }`,
     { id: issueId },
   );
   if (lookup.issue?.team.key !== "23M")
     throw new Error("That issue is outside Singleton Systems.");
+  if (issueLane(lookup.issue) !== "Development")
+    throw new Error("AI Consulting and Content Editor task state belongs in Asana.");
   const state = lookup.issue.team.states.nodes.find(
     (item) => item.name === stateName,
   );

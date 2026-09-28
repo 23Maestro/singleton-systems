@@ -7,27 +7,25 @@ Figma source family.
 
 ## project record
 
-Create or update one Linear issue when the episode files are ingested. Keep it
-inside the Catena Media project. Record:
+Create or update one Asana task when the episode files are ingested. Keep it in
+the `Content Editor` project (`1218890014545436`) under `Catena`. Record:
 
 - episode title and stable slug;
 - source delivery and Eagle folder;
-- confirmed delivery deadline as the Linear due date;
+- confirmed delivery deadline as the Asana due date;
 - transcript and client notes;
 - Pre-Figma and Post-Figma review paths;
 - Premiere project and final export target.
 
-Use `Todo` when the episode is accepted but work has not started. Use `In
-Progress` when editing starts. Use `In Review` while Jerami is reviewing a
-packet, design, or export. Use `Done` only after the finished edit, required
-delivery readback, and Eagle filing pass. Do not invent a due date. Ask for the
-delivery deadline when it is missing.
+Leave the task incomplete from intake through review. Complete it only after
+the finished edit, required delivery readback, and Eagle filing pass. Do not
+invent a due date. Ask for the delivery deadline when it is missing.
 
 ## fixed flow
 
 ```text
 ingest files
-  -> create or update Linear issue and due date
+  -> create or update Asana task and due date
   -> file source media and packet in Eagle
   -> complete the Whisper word-level transcript
   -> run Manim timing validation and write the passed cue proof
@@ -37,7 +35,7 @@ ingest files
   -> locked Post-Figma review
   -> Premiere edit and delivery readback
   -> file approved renders and final export in Eagle
-  -> Linear Done
+  -> complete Asana task
   -> remove episode-specific Decision Maps and active gate records
 ```
 
@@ -135,7 +133,7 @@ Use this record shape for each active episode:
 ```json
 {
   "episodeSlug": "episode-slug",
-  "linearIssue": "TEAM-123",
+  "asanaTask": "1234567890123456",
   "dueDate": "YYYY-MM-DD",
   "map": "public/decision-maps/YYYY-MM-DD-episode-slug-post-figma-review/review-map.json",
   "proof": "config/lineups/episode-slug-review-proof.json",
@@ -157,7 +155,7 @@ Use this record shape for each active episode:
 
 ## closeout
 
-When the Linear issue is `Done`, confirm the approved renders and final export
+When the Asana task is complete, confirm the approved renders and final export
 remain in Eagle. Then remove only that episode's:
 
 - Pre-Figma and Post-Figma public Decision Map directories;
@@ -166,6 +164,6 @@ remain in Eagle. Then remove only that episode's:
 - episode proof and readback files;
 - temporary local preview exports.
 
-Keep the Linear issue, durable evidence receipts, this lifecycle, shared UI
+Keep the Asana task, durable evidence receipts, this lifecycle, shared UI
 rules, generic gate code, framing tests, Figma source components, and all Eagle
 assets. Cleanup cannot remove another active episode.

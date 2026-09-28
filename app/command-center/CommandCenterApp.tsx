@@ -173,7 +173,7 @@ export default function CommandCenterApp() {
   const [taskEditor, setTaskEditor] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDue, setTaskDue] = useState("");
-  const [taskLane, setTaskLane] = useState<Lane>("AI Consultant");
+  const [taskLane, setTaskLane] = useState<Lane>("Development");
   const [selectedContact, setSelectedContact] = useState<number | null>(null);
   const [contactEditor, setContactEditor] = useState<number | "new" | null>(
     null,
@@ -810,7 +810,10 @@ export default function CommandCenterApp() {
                           })
                         }
                       >
-                        {lanes.map((item) => (
+                        {(selected.owner === "linear"
+                          ? (["Development"] as Lane[])
+                          : lanes
+                        ).map((item) => (
                           <option key={item}>{item}</option>
                         ))}
                       </select>
@@ -1332,7 +1335,7 @@ export default function CommandCenterApp() {
               <fieldset className="cc-lane-field">
                 <legend>Lane</legend>
                 <div className="cc-lane-values">
-                  {lanes.map((item) => (
+                  {(["Development"] as Lane[]).map((item) => (
                     <button
                       key={item}
                       type="button"

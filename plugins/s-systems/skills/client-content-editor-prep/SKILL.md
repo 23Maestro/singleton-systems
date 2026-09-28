@@ -8,6 +8,9 @@ description: Use when client footage must be culled, grouped by tour or topic, m
 Prepare client footage so another editor can begin immediately. This skill owns
 organization and handoff, not creative editing.
 
+Track selected prep work in the Asana `Content Editor` project under the
+matching client section. Do not create or update a Linear task for this Lane.
+
 ```text
 Eagle manifest -> Premiere bins -> project-item names -> verified handoff
 ```

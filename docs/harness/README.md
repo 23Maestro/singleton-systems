@@ -5,7 +5,8 @@ One owner. One next action. One check.
 ## Owner Map
 
 ```text
-Linear       -> active decisions, Wayfinder maps, dependencies, and next moves
+Linear       -> Development decisions, Wayfinder maps, dependencies, and next moves
+Asana        -> AI Consulting and Content Editor tasks and project state
 GitHub       -> branches, commits, pull requests, and implementation evidence
 Supabase     -> queryable facts and the runtime routing registry
 Opportunity HQ -> career workflow state
@@ -29,12 +30,13 @@ LikeC4       -> reviewed architecture
 - Skill commands must resolve their owning skill root. A bare `scripts/<file>` path is unsafe because Codex keeps the active repository as its working directory.
 - A skill holds only its trigger, unique decision, action, and verification.
 - A reusable operating reference belongs in this repo beside the system it supports.
-- Linear holds Wayfinder planning and task state; GitHub holds linked implementation evidence.
+- Linear holds Development planning and task state. Asana holds AI Consulting
+  and Content Editor task state. GitHub holds linked implementation evidence.
 - Supabase stores runtime facts only. It never stores full skill text, templates, or ticket bodies.
 
 ## Writing Rules
 
-Applies to every reviewable non-code artifact: Markdown, Linear, GitHub,
+Applies to every reviewable non-code artifact: Markdown, Linear, Asana, GitHub,
 Notion, memory, emails, cover letters, proposals, briefs, handoffs, captions,
 site copy, public HTML/pages, visual/source notes, and review docs. Not to
 source code, generated bundles, code blocks, or conversation.
@@ -46,6 +48,8 @@ source code, generated bundles, code blocks, or conversation.
   when the decision is simple.
 - Route a longer review to a dated interactive HTML Decision Map. Keep Linear
   task bodies short and move operating rules to their owner.
+- Asana names stay short: projects one to three words, tasks two to four
+  words. Context goes in the description.
 
 Full deny-list and the client-repo hook payload: `docs/harness/writing-rules.md`.
 
@@ -57,8 +61,8 @@ For SSystems skill or route work:
 2. Treat `plugins/s-systems` as the canonical source for all registered
    SSystems skills.
 3. Treat installed Codex and Claude plugin copies as generated outputs only.
-4. Keep Linear work in the `Singleton Systems` project, assigned to Jerami and
-   delegated to Codex when Codex owns the next implementation action.
+4. Keep Development work in the Linear `Singleton Systems` project. Keep AI
+   Consulting and Content Editor work in their matching Asana projects.
 5. Run `npm run check:cerebral:registry` before completion. It verifies that the
    registry and all versioned SSystems skill folders still match.
 6. Run `npm run check:skills` for every versioned skill. Run

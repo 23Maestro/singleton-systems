@@ -1,19 +1,19 @@
 ---
 name: opportunity-hq-updater
-description: Shape selected client delivery, AI consulting, development, or portfolio work into Linear without duplicating decisions or dashboard state.
+description: Shape selected client delivery, AI consulting, development, or portfolio work in its Lane task system without duplicating decisions or dashboard state.
 ---
 
 # Task Updater
 
-Use only after the work is selected. Raw thoughts, system decisions, and
-Wayfinder maps stay in Linear; implementation evidence belongs in GitHub.
+Use only after the work is selected. Raw thoughts stay in Linear Command +
+Ideas. Implementation evidence belongs in GitHub.
 
-Linear owns task, status, completion, priority, assignment, dependency, and
-project state. Nothing else does.
+Linear owns Development task state. Asana owns AI Consulting and Content Editor
+task state.
 
 ## Runtime Route
 
-All task reads and mutations go through Linear GraphQL at
+Development task reads and mutations go through Linear GraphQL at
 `https://api.linear.app/graphql`, using `LINEAR_API_KEY` from `.env.local`
 server-side. Send the key raw — it is not `Bearer`-prefixed. Read every mutation
 back through GraphQL before reporting it done.
@@ -21,6 +21,13 @@ back through GraphQL before reporting it done.
 Linear enforces a query complexity cap. A four-level nested query
 (initiative -> project -> issue -> state) fails with `Query too complex`. Split
 it into two flat queries.
+
+AI Consulting and Content Editor task reads and mutations use the connected
+Asana tool in the `singleton-systems.com` workspace. Stop when Asana is not
+connected. Read each write back before reporting it done.
+
+- `AI Consulting`: `1218884867598641`
+- `Content Editor`: `1218890014545436`
 
 Notion retains only the Clients and Portfolio surfaces. Reads and mutations
 there must use the Homebrew Notion CLI at `/opt/homebrew/bin/ntn`. Run
@@ -32,11 +39,13 @@ sole runtime route.
 
 ```text
 initiative: Development | Content Editor | AI Consultant | Portfolio
-project: existing Linear project; for Content Editor this is the client
+task system: Linear for Development; Asana for Content Editor or AI Consultant
+project: Linear Development project or fixed Asana Lane project
+section: Content Editor client section when applicable
 client: Notion Client backlink for client work; omit for Development
 intent: one sentence
 next: one action
-owner link: Linear, GitHub, job source, or portfolio asset
+owner link: Linear, Asana, GitHub, job source, or portfolio asset
 ```
 
 ## Initiatives and Projects
@@ -44,10 +53,15 @@ owner link: Linear, GitHub, job source, or portfolio asset
 Initiative is the durable business lane. Project is a finite engagement,
 outcome, development effort, or packaging effort.
 
-- Client editing work -> `Content Editor`, one project per client
-- AI consulting and outreach -> `AI Consultant`
-- Repo, tooling, plugin, and website work -> `Development`
+- Client editing work -> Asana `Content Editor`, matching client section
+- AI consulting and outreach -> Asana `AI Consulting`
+- Repo, tooling, plugin, and website work -> Linear `Development`
 - Anything whose purpose is proving capability -> `Portfolio`
+
+Do not create a client-specific Asana project. Use the fixed Lane project. Keep
+project names to one to three words. Keep task and parent-task names to two to
+four words, a verb plus the object. Put context, links, dates, and any former
+Linear link in the description.
 
 The routing test is purpose, not subject matter. If a record exists to show
 someone you can do what you say, it is Portfolio even when the subject is a
@@ -55,8 +69,8 @@ client.
 
 ## Clients
 
-Clients live in the Notion Clients database and are backlinked from Linear
-issues. A Client record never carries task status — status lives in Linear only.
+Clients live in the Notion Clients database and link to their owning Asana or
+Linear task. A Client record never carries task status.
 
 Keep contacts as `Active` or `Lead`. A lead does not
 receive a Task until real delivery work is selected. Lead page content stays at
@@ -75,20 +89,19 @@ split the same set across two systems.
 Apply the 4-hour test before shaping the task:
 
 ```text
-duration >= 4h -> this is a project, not a task. Split into 2-4 sub-issues,
+duration >= 4h -> this is a project, not a task. Split into 2-4 subtasks,
                   then size each one again.
-duration <= 2h -> create as a single issue.
+duration <= 2h -> create as a single task.
 ```
 
 Stop splitting once every piece fits inside `2h` or less. Never create a task
 pre-tagged `4h+` — split first, always.
 
-## Linear Intake Rules
+## Intake Rules
 
-Linear Intake: keep raw capture, system decisions, and unselected work in the
-`Command + Ideas` project. Promote only selected delivery, consulting,
-development, or portfolio work into an initiative project that needs durable
-workflow state.
+Linear Intake: keep raw capture, Development decisions, and unselected work in
+the `Command + Ideas` project. Promote selected Development work into Linear.
+Write selected AI Consulting and Content Editor work to Asana.
 
 ## Writing Rules
 
@@ -96,18 +109,17 @@ Correction = edit instruction. A correction fixes the artifact silently. Never
 log, quote, or restate the correction itself in output.
 No process commentary in deliverables. State facts and results only.
 
-Keep a Linear task to the outcome, current truth, next action, and done check.
-Link the owning workflow or portfolio. Do not paste the workflow into the issue.
-Use a dated interactive Decision Map when Jerami's review needs more than 500
-words.
+Keep each task to the outcome, current truth, next action, and done check. Link
+the owning workflow or portfolio. Do not paste the workflow into the task. Use
+a dated interactive Decision Map when Jerami's review needs more than 500 words.
 
 ## Output
 
-Create or update the smallest issue shape needed for the selected work. Keep
-status and completion in Linear. Keep evidence in GitHub or Eagle.
+Create or update the smallest task shape needed for the selected work. Keep
+status and completion in the Lane task system. Keep evidence in GitHub or Eagle.
 
 Do not create an issue from an unclear idea, copy templates into Supabase, or
 write duplicate task state into the dashboard.
 
-Completion is a Linear state change, not a deletion. Never mark a parent issue
-Done until all required sub-issues are complete.
+Completion is a task-state change. Do not delete the record at closeout. Never
+complete a parent task until all required subtasks are complete.

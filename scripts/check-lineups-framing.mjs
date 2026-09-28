@@ -11,7 +11,7 @@ const registryPath = process.env.LINEUPS_REVIEW_GATES_PATH ?? 'config/lineups/re
 
 for (const entry of readJson(registryPath)) {
   assert.match(entry.episodeSlug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Active Lineups episode needs a stable slug');
-  assert.match(entry.linearIssue, /^[A-Z0-9]+-\d+$/, `${entry.episodeSlug}: missing Linear issue`);
+  assert.match(entry.asanaTask, /^\d+$/, `${entry.episodeSlug}: missing Asana task`);
   assert.match(entry.dueDate, /^\d{4}-\d{2}-\d{2}$/, `${entry.episodeSlug}: missing confirmed due date`);
   assert.ok(entry.preFigma?.path && entry.preFigma?.title && Number.isInteger(entry.preFigma?.candidateCount), `${entry.episodeSlug}: incomplete Pre-Figma stage record`);
   assert.ok(entry.postFigma?.readyLabel && entry.postFigma?.dateLabel && Number.isInteger(entry.postFigma?.built) && Number.isInteger(entry.postFigma?.needsReview), `${entry.episodeSlug}: incomplete Post-Figma stage record`);
@@ -90,5 +90,5 @@ for (const entry of readJson(registryPath)) {
   assert.ok(preFigmaHtml.includes('href="/decision-maps"'), 'Pre-Figma review must link to the Decision Maps interface');
   assert.ok(preFigmaHtml.includes(`href="${publicRoute(entry.map)}"`), `${entry.episodeSlug}: Pre-Figma review must link to its Post-Figma state`);
 
-  console.log(`Lineups review gate ${entry.linearIssue}: ${map.candidates.length} public scenes, ${scenes.length} source scenes, and ${proof.files.length} current files passed`);
+  console.log(`Lineups review gate ${entry.asanaTask}: ${map.candidates.length} public scenes, ${scenes.length} source scenes, and ${proof.files.length} current files passed`);
 }

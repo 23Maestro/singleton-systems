@@ -34,6 +34,14 @@ for (const route of registry.routes) {
   assert.ok(allowedLanes.has(route.lane), `${route.route_key} uses unknown Lane ${route.lane}`);
   assert.notEqual(route.lane, "all_buckets", `${route.route_key} still uses Bucket vocabulary as a Lane`);
 }
+const staleLaneRoutes = registry.routes.filter(
+  (route) => ["AI Consultant", "Content Editor"].includes(route.lane) && route.owner === "Linear",
+);
+assert.equal(staleLaneRoutes.length, 0, "AI Consultant and Content Editor routes must not write to Linear");
+for (const route of registry.routes.filter((item) => item.owner === "Asana")) {
+  const expectedProject = route.lane === "AI Consultant" ? "AI Consulting" : "Content Editor";
+  assert.equal(route.project, expectedProject, `${route.route_key} must name its Asana project`);
+}
 const clientVideoRoute = registry.routes.find((route) => route.route_key === "client-video");
 assert.ok(clientVideoRoute.trigger_patterns.includes("lineups"), "client-video route must recognize Lineups prompts");
 const contentEditorPrepRoute = registry.routes.find((route) => route.route_key === "client-content-editor-prep");

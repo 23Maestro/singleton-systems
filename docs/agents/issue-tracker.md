@@ -1,17 +1,31 @@
-# Issue tracker
+# Task systems
 
-Linear is the canonical issue tracker for Singleton Systems.
+Singleton Systems uses task systems by Lane.
 
 ## Ownership
 
-- Linear owns tasks, status, priority, assignment, blockers, and resolution.
+- Linear owns Development tasks, status, priority, assignment, blockers, and
+  resolution.
+- Asana owns AI Consulting and Content Editor tasks and project state.
 - GitHub holds linked implementation evidence such as branches, commits, and
   pull requests.
-- GitHub Issues do not duplicate Linear tasks.
+- GitHub Issues do not duplicate Linear or Asana tasks.
 - Notion owns client and portfolio records.
 - Supabase holds integration receipts and temporary drafts when needed.
 
-## Workflow
+## Asana
+
+Use the `singleton-systems.com` workspace.
+
+- `AI Consulting` (`1218884867598641`) uses `To Do`, `In Progress`, and `Done`.
+- `Content Editor` (`1218890014545436`) groups tasks under client sections.
+- Project names are one to three words.
+- Task and parent-task names are two to four words: a verb plus the object.
+- Put context, links, dates, and any former Linear link in the description.
+- Do not create a new Asana project for a client. Use the correct project and
+  section.
+
+## Development workflow
 
 - `Backlog`: captured but not accepted.
 - `Todo`: accepted and unclaimed.
@@ -20,11 +34,11 @@ Linear is the canonical issue tracker for Singleton Systems.
 - `Done`: reviewed and observable.
 - Due dates represent real deadlines only.
 
-Prefer the server-side Linear GraphQL gateway for repository workflows. Use the
-Linear connector only when the gateway lacks the required operation, and state
-that fallback before changing Linear.
+For Development, prefer the server-side Linear GraphQL gateway. Use the Linear
+connector only when the gateway lacks the required operation. For AI Consulting
+or Content Editor, use the connected Asana tool and read the task back after a
+write. Stop when Asana is not connected.
 
-`ready-for-build` means the issue is specified enough for Jerami to begin or
-approve implementation. It does not start an agent, sub-agent, branch, or
-background task.
-
+`ready-for-build` means a Development issue is specified enough for Jerami to
+begin or approve implementation. It does not start an agent, sub-agent, branch,
+or background task.

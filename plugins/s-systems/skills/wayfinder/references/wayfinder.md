@@ -1,4 +1,4 @@
-# Linear Wayfinder Operations
+# Wayfinder owner operations
 
 Owner: `singleton-systems`
 
@@ -7,21 +7,22 @@ at commit `38d62e71ed01fc05d5ae63b0807172e9546049d5` (2026-07-29).
 
 Intentional deviations:
 
-- Linear is the issue tracker.
+- Linear owns Development maps.
+- Asana owns AI Consulting and Content Editor maps.
 - Jerami remains present for every ticket.
 - No sub-agent, AFK ticket, automatic research dispatch, or research branch.
 - No dependency on `/research`, `/prototype`, `/domain-modeling`, or
   `/setup-matt-pocock-skills`.
-- No local-Markdown tracker fallback; stop if the Linear setup is unavailable.
+- No local-Markdown tracker fallback. Stop if the Lane owner is unavailable.
 
 ## Hierarchy Contract
 
 ```text
-Initiative -> durable business lane
-Project    -> finite engagement, delivery outcome, development effort, or packaging effort
-Map issue  -> one foggy route inside that project
-Sub-issue  -> one decision or prerequisite
-GitHub     -> linked implementation evidence only
+Lane        -> durable business lane
+Project     -> the Lane owner project
+Map record  -> one foggy route inside that project
+Child record -> one decision or prerequisite
+GitHub      -> linked implementation evidence only
 ```
 
 The locked initiative names are:
@@ -33,15 +34,15 @@ AI Consultant
 Portfolio
 ```
 
-The planned Development project name is exactly `S.Systems`. Creating or
-renaming initiatives and projects belongs to a separately reviewed Linear
-configuration pass. Do not silently substitute `Singleton Systems` or create
-missing records while using this skill.
+The planned Linear Development project name is exactly `S.Systems`. AI
+Consulting maps use Asana project `AI Consulting` (`1218884867598641`). Content
+Editor maps use Asana project `Content Editor` (`1218890014545436`). Do not
+create or rename a project while using this skill.
 
 Use one shared Wayfinder skill. Put lane-specific context in the map's `Notes`;
 never copy or fork the skill per initiative.
 
-## Labels
+## Development labels
 
 ```text
 wayfinder:map
@@ -53,28 +54,29 @@ wayfinder:task
 
 Do not normalize case, spacing, or punctuation.
 
-## Linear Operations
+## Owner operations
 
-1. Read the initiative, project, team workflow, labels, and existing issues.
-2. Stop if the intended initiative, project, or label is missing. Report the
-   exact missing name; do not invent it.
-3. Create the map as a project issue with `wayfinder:map`.
-4. Create precise decision tickets as map sub-issues with one type label.
-5. Add native Linear blocker relationships after all issue identities exist.
-   If the available GraphQL operation cannot create the relationship, stop and
-   provide the exact manual Linear step. Do not replace native blockers with a
-   quiet body convention.
-6. Leave open tickets unassigned and not `In Progress` until claimed.
-7. Claim one ticket by assigning it to Jerami and setting `In Progress`.
-8. Resolve it with a concise answer comment. Move it to `Done` only after the
-   answer or prerequisite is observable, then update the map index.
+1. Read the Lane project, workflow, and existing tasks.
+2. Stop if the intended project is missing. For Development, also stop when a
+   required label is missing.
+3. Create the map in the Lane owner. Use a Linear issue with `wayfinder:map` for
+   Development. Use an Asana parent task for AI Consulting or Content Editor.
+4. Create precise decisions as child records. Linear children use one type
+   label. Asana children put the type in the description.
+5. Add native dependencies after all record identities exist. If the owner
+   tool cannot create the dependency, stop and give the exact manual step.
+6. Leave open records unassigned until claimed.
+7. Claim one record by assigning it to Jerami. Move AI Consulting work to `In
+   Progress`. Keep Content Editor work in its client section.
+8. Resolve it with a concise answer comment. Complete it only after the answer
+   or prerequisite is observable, then update the map index.
 
-Prefer the server-side Linear GraphQL gateway over the connector for reads and
-writes. Keep credentials server-side and read the result back through GraphQL.
-Use the connector only when GraphQL lacks the required operation, and state the
-fallback before mutation.
+For Development, prefer the server-side Linear GraphQL gateway and read the
+result back through GraphQL. Use the Linear connector only when GraphQL lacks
+the required operation. For AI Consulting or Content Editor, use the connected
+Asana tool and read the result back there.
 
-Status contract:
+Development status contract:
 
 ```text
 Backlog    -> captured, not accepted
@@ -89,13 +91,13 @@ for research, fog, or parked work.
 
 ## GitHub Boundary
 
-Linear owns map state, tickets, blockers, status, priority, assignment, and
-resolution. GitHub may hold a linked branch, commit, pull request, spec, or
-artifact produced after a decision. A backlink is evidence, not state
-ownership. Never mirror a Linear decision ticket as a GitHub Issue.
+The Lane task system owns map state, tickets, blockers, status, priority,
+assignment, and resolution. GitHub may hold a linked branch, commit, pull
+request, spec, or artifact produced after a decision. A backlink is evidence.
+Never mirror a decision ticket as a GitHub Issue.
 
-When implementation begins, include the Linear identifier in the branch and
-pull request. Keep broad GitHub Issues Sync disabled.
+When implementation begins, include the Linear or Asana identifier in the
+branch and pull request. Keep broad GitHub Issues Sync disabled.
 
 ## Verification
 

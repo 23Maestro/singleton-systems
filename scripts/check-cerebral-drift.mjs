@@ -15,7 +15,7 @@ const checks = [
   },
   {
     file: "docs/visual-system-contract.md",
-    must: ["Linear - Decisions and Active System Work", "GitHub - Implementation Evidence", "23M-88", "23M-89"],
+    must: ["Linear - Development Work", "Asana - Client and Consulting Work", "GitHub - Implementation Evidence", "23M-88", "23M-89"],
   },
   {
     file: "docs/truth-matrix.md",
@@ -35,7 +35,7 @@ const checks = [
   },
   {
     file: skillPath("cerebral-router"),
-    must: ["## Cerebral Tags", "Linear Command + Ideas", "23M-89", "Linear GraphQL gateway"],
+    must: ["## Cerebral Tags", "Linear Command + Ideas", "AI Consulting and Content Editor task state -> Asana", "23M-89", "Linear GraphQL gateway"],
   },
   {
     file: skillPath("planning-idea-routing"),
@@ -43,7 +43,7 @@ const checks = [
   },
   {
     file: skillPath("opportunity-hq-updater"),
-    must: ["## Linear Intake Rules", "Linear Intake:", "Correction = edit instruction", "No process commentary in deliverables"],
+    must: ["## Intake Rules", "Linear Intake:", "Write selected AI Consulting and Content Editor work to Asana", "Correction = edit instruction", "No process commentary in deliverables"],
   },
   {
     file: skillPath("wayfinder"),
@@ -62,7 +62,7 @@ const checks = [
     must: [
       "references/lineups-treatment-system.md",
       "references/lineups-episode-lifecycle.md",
-      "Use one Linear issue",
+      "Use one Asana task",
       "record per video",
       "seven lanes",
       "lane, option, and setting",
@@ -96,7 +96,7 @@ const checks = [
       "1920 x 1080",
       "pre-Premiere gate",
       "Pre-Figma review and Post-Figma review are fixed Lineups stages",
-      "A Linear issue may reach",
+      "An Asana task may be",
       "required review and delivery readback pass",
       "Episode-specific Decision Maps are temporary review surfaces",
     ],
@@ -105,11 +105,11 @@ const checks = [
     file: path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-episode-lifecycle.md"),
     must: [
       "Each video is one episode project",
-      "confirmed delivery deadline as the Linear due date",
+      "confirmed delivery deadline as the Asana due date",
       "locked Pre-Figma UI",
       "locked Post-Figma UI",
       "Shared code reads the active episode record",
-      "When the Linear issue is `Done`",
+      "When the Asana task is complete",
       "Cleanup cannot remove another active episode",
     ],
   },

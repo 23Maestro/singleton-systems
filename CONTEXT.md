@@ -28,7 +28,8 @@ Notion, and Supabase delivery.
 
 - The gate owns route, Lane, Bucket resolution, review result, delivery result,
   and the pointer to the owning record.
-- Linear owns task and status state.
+- Linear owns Development task and status state.
+- Asana owns AI Consulting and Content Editor task and status state.
 - Notion owns client and portfolio records.
 - Supabase holds integration receipts and temporary drafts when the workflow
   needs them.

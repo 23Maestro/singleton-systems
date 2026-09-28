@@ -16,5 +16,9 @@ Write like a solo operator: short, specific, and human.
 5. When platform quality is unclear, log dated research pending. Do not treat
    it as a qualified lead.
 
+When selected follow-up work needs task state, use the Asana `AI Consulting`
+project. Keep the task name to two to four words. Put the post, dates, context,
+and any former Linear link in the description.
+
 Unless requested otherwise, return a question-first version, a warmer version,
 and a direct version under 500 characters. Ask for the post when it is missing.

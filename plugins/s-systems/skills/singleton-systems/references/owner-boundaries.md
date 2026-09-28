@@ -3,9 +3,12 @@
 ## Durable Owners
 
 ```text
-unselected thought       -> Linear Command + Ideas
-active system plan       -> Linear Singleton Systems
-fuzzy multi-session work -> Linear Wayfinder map
+unselected thought            -> Linear Command + Ideas
+Development plan or task      -> Linear Singleton Systems
+Development Wayfinder map     -> Linear
+AI consulting plan or task    -> Asana AI Consulting
+Content Editor plan or task   -> Asana Content Editor
+AI or editor Wayfinder map    -> Asana parent task with subtasks
 runtime/dashboard fact   -> Supabase
 career workflow state    -> Opportunity HQ
 portfolio or client asset    -> Eagle

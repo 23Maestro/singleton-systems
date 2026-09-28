@@ -18,7 +18,7 @@ Never launch or delegate to a sub-agent.
 
 A loose idea has arrived: too big for one agent session and wrapped in fog. The
 way from here to the **destination** is not visible yet. Wayfinding charts that
-route as a **shared map** on the repo's issue tracker, then works its **decision
+route as a **shared map** in the Lane task system, then works its **decision
 tickets** one at a time until the route is clear.
 
 The destination varies per effort. Naming it is the first act of charting
@@ -39,11 +39,13 @@ linked title, never by a bare ID, number, or slug.
 
 ## The map
 
-The map is one Linear issue labelled `wayfinder:map`. Its decision tickets are
-sub-issues. The map is an index, not a duplicate store. Each decision lives in
-its resolution comment. The map links a one-line gist after the ticket closes.
+Development maps use one Linear issue labelled `wayfinder:map`. AI Consulting
+and Content Editor maps use one parent task in their fixed Asana project. The
+decision tickets are Linear sub-issues or Asana subtasks. The map is an index.
+Each decision lives in its resolution comment. The map links a one-line gist
+after the ticket closes.
 
-Read `references/wayfinder.md` for the Linear hierarchy, labels, status rules,
+Read `references/wayfinder.md` for the owner hierarchy, naming, status rules,
 blocking operations, and GitHub boundary.
 
 ### Map body
@@ -59,7 +61,7 @@ blocking operations, and GitHub boundary.
 
 ## Decisions so far
 
-- <closed ticket title, linked to its Linear issue> — <one-line gist>
+- <closed ticket title, linked to its owner record> — <one-line gist>
 
 ## Not yet specified
 
@@ -72,8 +74,8 @@ blocking operations, and GitHub boundary.
 
 ### Decision tickets
 
-Each ticket is a Linear sub-issue sized to one focused session. Its body holds
-one precise question:
+Each ticket is a child record sized to one focused session. Its body holds one
+precise question:
 
 ```markdown
 ## Question
@@ -81,13 +83,13 @@ one precise question:
 <the decision or investigation this ticket resolves>
 ```
 
-Apply exactly one type label: `wayfinder:research`, `wayfinder:prototype`,
-`wayfinder:grilling`, or `wayfinder:task`.
+For Development, apply exactly one type label: `wayfinder:research`,
+`wayfinder:prototype`, `wayfinder:grilling`, or `wayfinder:task`. In Asana, put
+the type in the description. Keep the task name to two to four words.
 
-Claim a ticket before working it by assigning it and moving it to
-`In Progress`. Use Linear's native blocker relationships. The frontier is the
-open, unblocked, unclaimed sub-issues. Link assets from the ticket instead of
-pasting them into its body.
+Claim a ticket before working it. Use the owner's native dependencies. The
+frontier is the open, unblocked, unclaimed child records. Link assets from the
+ticket instead of pasting them into its body.
 
 ## Ticket types
 
@@ -128,7 +130,7 @@ far**.
 2. Grill breadth-first to identify precise questions and visible fog.
 3. If the whole route fits one session and no fog remains, stop and ask whether
    a map is useful.
-4. Create the Linear map and the decision tickets that are precise now.
+4. Create the map and decision tickets in the Lane owner.
 5. Wire native blockers after issue identities exist.
 6. Queue research tickets. Do not start them, create branches, or launch
    separate sessions.
@@ -143,7 +145,7 @@ Resolve no more than one ticket per session.
 3. Claim it before work.
 4. Resolve it in the current session. Fetch related ticket bodies only when
    needed.
-5. Post the answer as a resolution comment, close the ticket, and append its
+5. Post the answer as a resolution comment, complete the ticket, and append its
    linked one-line gist to **Decisions so far**.
 6. Create and wire only newly precise tickets. Remove graduated fog from **Not
    yet specified** so each fact has one owner.
@@ -154,11 +156,11 @@ Correction = edit instruction. Fix the artifact silently; never log, quote, or
 restate the correction itself. No process commentary in deliverables. State
 facts and results only.
 
-Keep each Linear issue focused on one decision. Jerami should see the question,
+Keep each task focused on one decision. Jerami should see the question,
 current truth, and next move without reading an operating manual. Route a map
 that needs more than 500 review words to a dated interactive Decision Map.
 
-Do not create a flat ticket inventory, duplicate Linear state in GitHub, or
+Do not create a flat ticket inventory, duplicate task state in GitHub, or
 create a visual unless it clarifies a real handoff.
 
 Validate with `npm run check:skills`, `npm run check:cerebral`,

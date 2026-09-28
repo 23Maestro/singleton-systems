@@ -9,8 +9,11 @@ Use after capture and before creating work.
 
 ```text
 Linear Command + Ideas = raw capture, links, and unselected thoughts
-active system plan -> Linear Singleton Systems
-fuzzy or branching build -> Linear Wayfinder map
+active Development plan -> Linear Singleton Systems
+fuzzy or branching Development build -> Linear Wayfinder map
+selected AI consulting task -> Asana AI Consulting
+selected client editing task -> Asana Content Editor
+fuzzy AI consulting or client editing work -> Asana parent task with subtasks
 career task or application state -> Opportunity HQ
 portfolio asset -> Eagle
 queryable repeated event -> Supabase only after a read-only design pass

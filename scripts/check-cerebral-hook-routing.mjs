@@ -95,7 +95,14 @@ for (const route of routes) {
   for (const prompt of [route.example_prompt, `[route] ${route.route_key}\nHandle this request.`]) {
     const result = runHook(prompt);
     assert.equal(result.status, 0, `${route.route_key}: hook exited ${result.status}: ${result.stderr}`);
-    const must = [`[route] ${route.route_key}`, `[lane] ${route.lane}`, `[bucket] ${route.bucket}`, `[owner] ${route.owner}`, ...route.required_tools];
+    const must = [
+      `[route] ${route.route_key}`,
+      `[lane] ${route.lane}`,
+      `[bucket] ${route.bucket}`,
+      `[owner] ${route.owner}`,
+      ...(route.project ? [`[project] ${route.project}`] : []),
+      ...route.required_tools,
+    ];
     for (const snippet of must) {
       assert.match(result.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `${route.route_key}: missing ${snippet}`);
     }

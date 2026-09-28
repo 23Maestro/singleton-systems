@@ -124,7 +124,8 @@ to every reviewable non-code artifact.
 - Preserve unrelated changes in a dirty worktree.
 - Verify visible behavior for user-facing changes.
 - Keep secrets inside server routes and server-only modules.
-- Use Linear for task state and GitHub for implementation evidence.
+- Use Linear for Development task state. Use Asana for AI Consulting and
+  Content Editor task state. GitHub holds implementation evidence.
 - `ready-for-build` records readiness. It does not start work.
 - Treat `Lane` as the front-facing term. Accept `Bucket` as a trigger phrase
   and tool-harness destination.

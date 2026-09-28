@@ -23,7 +23,7 @@ GitHub, Linear, plugin runtimes, or other apps.
 | System Maintenance | Singleton Systems repository | Add a config file and package command in each repo | Required before commit, merge, release, or live writes |
 | Development | Any Git repository with declared checks | Add repo-specific contract files and checks | Required for accepted risk and delivery |
 | Content Editor | Script and plugin repositories | Add media-app readback adapters when code mutates external apps | Required before Premiere, Eagle, or Figma writes |
-| AI Consultant and Portfolio | Code changes only | Keep business truth in Linear or Notion; link the code receipt | Required before client or public delivery |
+| AI Consultant and Portfolio | Code changes only | Keep AI Consulting task truth in Asana and portfolio truth in Notion; link the code receipt | Required before client or public delivery |
 
 CodeRabbit comments are test inputs. They do not become universal rules until a
 fixture proves the failure class belongs in this repository.

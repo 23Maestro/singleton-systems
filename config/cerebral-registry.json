@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-08-30-upwork-hourly-evidence",
+  "source_revision": "2026-09-26-asana-task-ownership",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -142,7 +142,8 @@
       "example_prompt": "Write an Upwork freelance proposal for this client post.",
       "surface": "proposal",
       "lane": "AI Consultant",
-      "owner": "Linear",
+      "owner": "Asana",
+      "project": "AI Consulting",
       "intent": "Turn a marketplace opportunity into a reviewed proposal or next action.",
       "shape": "task",
       "required_tools": [
@@ -168,7 +169,8 @@
       "example_prompt": "Build a cold email sequence for this direct B2B lead.",
       "surface": "outreach",
       "lane": "AI Consultant",
-      "owner": "Linear",
+      "owner": "Asana",
+      "project": "AI Consulting",
       "intent": "Plan or execute direct B2B client acquisition from real signals and portfolio.",
       "shape": "task",
       "required_tools": [

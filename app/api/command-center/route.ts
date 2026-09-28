@@ -213,6 +213,8 @@ export async function POST(request: Request) {
         result = await updateLinearStatus(command.issueId, command.state);
         break;
       case "linearCreate": {
+        if (command.lane !== "Development")
+          throw new Error("Create AI Consulting and Content Editor tasks in Asana.");
         const task = await createLinearTask(command.title, command.dueDate);
         const mapping = await supabaseRest(
           "command_center_work_lanes?on_conflict=owner,owner_id&select=*",
@@ -224,7 +226,7 @@ export async function POST(request: Request) {
             body: JSON.stringify({
               owner: "linear",
               owner_id: task.id,
-              lane: command.lane,
+              lane: "Development",
               updated_at: new Date().toISOString(),
             }),
           },
@@ -240,6 +242,8 @@ export async function POST(request: Request) {
         result = await updateNotionStatus(command.pageId, command.state);
         break;
       case "laneSave":
+        if (command.owner === "linear" && command.lane !== "Development")
+          throw new Error("Linear work must stay in the Development Lane.");
         result = await supabaseRest(
           "command_center_work_lanes?on_conflict=owner,owner_id&select=*",
           {

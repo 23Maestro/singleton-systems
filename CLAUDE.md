@@ -8,7 +8,7 @@ remaining notes mirror the shared architecture for Claude Code.
 
 `singleton-systems` is the public Next.js website/portfolio for Singleton
 Systems *and* the personal operating-system harness Jerami Singleton uses to
-route work (Linear, GitHub, Supabase, Opportunity HQ, Eagle, etc.) through
+route work (Linear, Asana, GitHub, Supabase, Opportunity HQ, Eagle, etc.) through
 AI agents. Application code (`app/`, `lib/`, `components/`) and the
 "Cerebral" routing/registry system (`config/`, `.codex/`, `plugins/s-systems/`,
 most of `docs/`) live in the same tree but serve different purposes — keep
@@ -64,8 +64,8 @@ App Router, React 19, Tailwind. Path alias `@/*` -> repo root (see
 - `/home-tasks` — a chores tracker backed by Google Sheets via
   `lib/home-tasks-google.ts` (uses `googleapis` + a local OAuth token under
   `.google-workspace/`, not Supabase).
-- `/linear-inbox` — a capture form (desktop via Raycast, mobile via iOS
-  Shortcut/Android share-sheet) that is the single write path into Linear.
+- `/linear-inbox` — a Development capture form (desktop via Raycast, mobile via
+  iOS Shortcut/Android share-sheet) that is the single repo write path into Linear.
   Server route `app/api/linear/inbox/route.ts` does GraphQL directly against
   `api.linear.app` using `LINEAR_API_KEY` (server-side only, sent raw — not
   `Bearer`-prefixed). It creates issues/comments/sub-issues, decides
@@ -139,7 +139,7 @@ their own semi-independent codebases, not part of the Next.js build.
 
 ## Writing Rules
 
-Applies to every reviewable non-code artifact — Markdown, Linear, GitHub,
+Applies to every reviewable non-code artifact — Markdown, Linear, Asana, GitHub,
 Notion, memory, emails, cover letters, proposals, briefs, handoffs, captions,
 site copy, public HTML/pages, visual/source notes, and review docs. Not to
 source code, generated bundles, code blocks, or conversation.
@@ -156,6 +156,8 @@ Writing Rules.
 - If the review truly needs more, create a dated interactive HTML Decision Map
   and keep the written entry point short. Do not put operating manuals in
   Linear issues.
+- Asana names stay short: projects one to three words, tasks two to four
+  words. Context goes in the description.
 - Banned: delve, showcase, leverage, utilize, robust, seamless, elevate, streamline, pivotal, crucial, foster, landscape, empower, unlock, additionally, enhance, facilitate, demonstrate.
 - Banned: "not just X but Y", "X rather than Y", "serves as", "features" (write is, has), hedging, three-item rhythm, `**Bold**:` list headers, Title Case Headings.
 

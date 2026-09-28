@@ -4,7 +4,17 @@
     "task-state": {
       "owner": "Linear",
       "uriScheme": "linear://",
-      "rule": "Tasks, status, priority, assignment, blockers, and resolution live in Linear."
+      "rule": "Development tasks, status, priority, assignment, blockers, and resolution live in Linear."
+    },
+    "ai-consulting-task-state": {
+      "owner": "Asana",
+      "uriScheme": "asana://1218884867598641",
+      "rule": "AI Consulting tasks and project state live in the Asana AI Consulting project."
+    },
+    "content-editor-task-state": {
+      "owner": "Asana",
+      "uriScheme": "asana://1218890014545436",
+      "rule": "Content Editor tasks and project state live in the Asana Content Editor project."
     },
     "implementation-evidence": {
       "owner": "GitHub/repository",
