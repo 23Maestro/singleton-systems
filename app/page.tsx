@@ -18,7 +18,7 @@ import {
 import PortfolioVideoCarousel from "@/components/PortfolioVideoCarousel";
 import { ProofSection, RealProblemSection, TriedSection } from "@/components/home/BuyerStorySections";
 import ReviewsSection from "@/components/home/ReviewsSection";
-import { AI_WORKFLOW_SESSION_URL, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
+import { AI_WORKFLOW_SESSION_URL, ORGANIZATION_PROFILES, PERSON_PROFILES, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
 import BookSection from "@/components/site/BookSection";
 import OffersSection from "@/components/site/OffersSection";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -38,7 +38,7 @@ const jsonLd = [
       "@type": "Place",
       name: "Tampa, Florida",
     },
-    sameAs: ["https://www.linkedin.com/in/jeramisingleton"],
+    sameAs: PERSON_PROFILES,
     worksFor: {
       "@id": `${siteUrl}/#organization`,
     },
@@ -62,6 +62,7 @@ const jsonLd = [
       "@id": `${siteUrl}/#person`,
     },
     description: siteDescription,
+    sameAs: ORGANIZATION_PROFILES,
     logo: `${siteUrl}/brand/ssystems-logo-wordmark-black-2640x1040.png`,
   },
   {

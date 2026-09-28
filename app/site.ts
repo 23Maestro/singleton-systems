@@ -30,3 +30,13 @@ export const CAL_LINK = "workflow-chat/15min";
 export const CAL_URL = `https://cal.com/${CAL_LINK}`;
 
 export const AI_WORKFLOW_SESSION_URL = "/ai-workflow-session";
+
+// Public profiles for schema.org sameAs. Person gets personal handles, Organization gets brand handles.
+export const PERSON_PROFILES = [
+  "https://www.linkedin.com/in/jeramisingleton",
+  "https://x.com/23Maestro_",
+];
+export const ORGANIZATION_PROFILES = [
+  "https://www.instagram.com/singleton.systems/",
+  "https://www.tiktok.com/@singleton_systems",
+];

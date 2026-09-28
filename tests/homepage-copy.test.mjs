@@ -114,3 +114,13 @@ test("portfolio carousel names each video on its selector and explains the one s
     "missing caption under the first video",
   );
 });
+
+test("search engines can tie the site to Jerami's and the brand's social profiles", async () => {
+  const page = await html("/");
+  for (const url of [
+    "https://www.linkedin.com/in/jeramisingleton",
+    "https://x.com/23Maestro_",
+    "https://www.instagram.com/singleton.systems/",
+    "https://www.tiktok.com/@singleton_systems",
+  ]) assert.ok(page.includes(JSON.stringify(url)), `missing sameAs ${url}`);
+});
