@@ -10,10 +10,10 @@ import StepBadge from "@/components/site/StepBadge";
 import { siteNavFor } from "@/components/site/nav";
 import {
   BUILD_MY_AI_SYSTEM,
-  FIRST_BUILD_CREDIT_LINE,
+  BUILD_IT_FOR_ME,
+  FIRST_FIX_LIMIT_LINE,
   KEEP_IT_WORKING,
   SITE_OFFERS,
-  START_WITH_ONE_THING,
   offerJsonLd,
 } from "@/lib/site-offers";
 import { CAL_URL, founderName, siteName, siteUrl } from "../site";
@@ -49,12 +49,12 @@ const steps = [
     body: "Book a free 15 minute call and tell me which task your team repeats every week. We figure out together if AI can help.",
   },
   {
-    title: `Build the First One for ${START_WITH_ONE_THING.display}`,
-    body: `I look at where your week goes, then build the task costing you the most time into a working AI workflow inside the tools you already use, tested on your real examples. ${FIRST_BUILD_CREDIT_LINE}`,
+    title: "I Solve the First Simple Problem Free",
+    body: `I build the fix inside the tools you already use, test it on your real examples, and hand it over with written steps. ${FIRST_FIX_LIMIT_LINE}`,
   },
   {
     title: "Keep Going if It Works",
-    body: "Pick the package that fits. You get written instructions so every workflow keeps working after I hand it over.",
+    body: `Liked it? ${BUILD_IT_FOR_ME.name} is ${BUILD_IT_FOR_ME.display}. ${KEEP_IT_WORKING.name} is ${KEEP_IT_WORKING.display} a month for 2 new workflows. Need 3 or more now? ${BUILD_MY_AI_SYSTEM.name} is ${BUILD_MY_AI_SYSTEM.display}.`,
   },
 ];
 
@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     q: "How much does AI consulting cost?",
-    a: `The first call is free. Building your first task is ${START_WITH_ONE_THING.display}. ${FIRST_BUILD_CREDIT_LINE} The next three workflows, built over 60 days, are ${BUILD_MY_AI_SYSTEM.display}. Ongoing help is ${KEEP_IT_WORKING.display} a month.`,
+    a: `The call and your first simple fix are free. After that, 1 more workflow is ${BUILD_IT_FOR_ME.display}. Ongoing help with 2 new workflows a month is ${KEEP_IT_WORKING.display} a month. A big build with 3 or more workflows over 60 days is ${BUILD_MY_AI_SYSTEM.display}.`,
   },
   {
     q: "Do I need to be technical or buy new software?",
@@ -150,7 +150,7 @@ export default function TampaAiConsultantPage() {
             </a>
           </div>
           <p className="mt-5 text-base font-semibold text-neutral-600">
-            Free call. First build {START_WITH_ONE_THING.display}, credited if you continue within 14 days.
+            Free call. First simple problem solved free.
           </p>
         </div>
         <ProfileCard />

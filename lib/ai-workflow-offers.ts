@@ -1,6 +1,6 @@
 export const AI_WORKFLOW_OFFERS = [
-  { value: "start-with-one-thing", label: "Start With One Thing — $500", notionLabel: "Start With One Thing — $500" },
-  { value: "build-it-for-me", label: "Build It for Me — $500 one-time", notionLabel: "Build It for Me — $500 one-time" },
+  { value: "start-with-one-thing", label: "First Problem Solved Free", notionLabel: "First Problem Solved Free" },
+  { value: "build-it-for-me", label: "One More Workflow — $500 one-time", notionLabel: "One More Workflow — $500 one-time" },
   { value: "keep-it-working", label: "Keep It Working — $1,500/month", notionLabel: "Keep It Working — $1,500/month" },
   { value: "build-my-ai-system", label: "Build My AI System — $2,500", notionLabel: "Build My AI System — $2.5K" },
 ] as const;

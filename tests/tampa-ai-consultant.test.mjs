@@ -71,19 +71,28 @@ for (const privatePath of ["/fitness", "/dashboard", "/command-center", "/home-t
   });
 }
 
-test("Tampa buyer sees the $500 first build is credited toward a bigger package within 14 days", async () => {
+test("Tampa buyer sees the first simple problem is solved free", async () => {
   const { html } = await get(PAGE_PATH);
-  assert.match(html, /Choose a bigger package within 14 days and the \$500 comes off the price\./);
+  assert.match(html, /First Problem Solved Free/);
   assert.doesNotMatch(html, /\$75\b/);
+  assert.doesNotMatch(html, /comes off the price/, "no credit line now that the first fix is free");
 });
 
-test("Search engines see the pricing ladder: $500 first build, $2,500 system, $1,500 a month", async () => {
+test("Search engines see the ladder: free first fix, $500 one more, $1,500 a month, $2,500 big build", async () => {
   const { html } = await get(PAGE_PATH);
   const service = jsonLdBlocks(html).find((block) => block["@type"] === "Service");
   const byName = Object.fromEntries(service.offers.map((offer) => [offer.name, offer]));
-  assert.equal(String(byName["Start With One Thing"].price), "500");
+  assert.equal(String(byName["First Problem Solved Free"].price), "0");
+  assert.equal(String(byName["One More Workflow"].price), "500");
   assert.equal(String(byName["Build My AI System"].price), "2500");
-  assert.equal(byName["Build It for Me"], undefined, "single workflow rung is folded into the first build");
+});
+
+test("Offers read in buying order: free, $500, monthly, big build", async () => {
+  const { html } = await get(PAGE_PATH);
+  const offers = html.slice(html.indexOf('id="offers"'));
+  const positions = ["First Problem Solved Free", "One More Workflow", "Keep It Working", "Build My AI System"].map((name) => offers.indexOf(name));
+  assert.ok(positions.every((pos) => pos >= 0), `missing offer: ${positions}`);
+  assert.deepEqual([...positions].sort((x, y) => x - y), positions);
 });
 
 test("Tampa page uses the same site header, reviews, pricing, and booking sections as the homepage", async () => {

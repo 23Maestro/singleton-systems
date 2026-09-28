@@ -12,25 +12,24 @@ export type SiteOffer = {
   summary: string;
 };
 
-export const FIRST_BUILD_CREDIT_LINE = "Choose a bigger package within 14 days and the $500 comes off the price.";
+export const FIRST_FIX_LIMIT_LINE = "One simple task, built in your own AI account. Bigger jobs use the options below.";
 
 export const START_WITH_ONE_THING: SiteOffer = {
   value: "start-with-one-thing",
-  name: "Start With One Thing",
-  price: 500,
-  display: "$500",
+  name: "First Problem Solved Free",
+  price: 0,
+  display: "Free",
   cadence: "one-time",
-  summary: `A look at where your week goes, then the task costing you the most time built into a tested workflow with written steps. ${FIRST_BUILD_CREDIT_LINE}`,
+  summary: "On a free call we pick one simple task that eats your week. I build the fix and hand it over with written steps.",
 };
 
-// Folded into Start With One Thing on 2026-09-27. Kept so older intake links still resolve.
 export const BUILD_IT_FOR_ME: SiteOffer = {
   value: "build-it-for-me",
-  name: "Build It for Me",
+  name: "One More Workflow",
   price: 500,
   display: "$500",
   cadence: "one-time",
-  summary: "Turn 1 repeated task into a tested workflow you can keep using.",
+  summary: "Liked the first one? I build 1 more repeated task, test it on your real examples, and write it up so your team can run it. One payment and we're done.",
 };
 
 export const KEEP_IT_WORKING: SiteOffer = {
@@ -39,7 +38,7 @@ export const KEEP_IT_WORKING: SiteOffer = {
   price: 1500,
   display: "$1,500",
   cadence: "month",
-  summary: "Keep expanding the working foundation as your business changes.",
+  summary: "2 new workflows every month, and I keep everything we built running as your business changes.",
 };
 
 export const BUILD_MY_AI_SYSTEM: SiteOffer = {
@@ -48,10 +47,10 @@ export const BUILD_MY_AI_SYSTEM: SiteOffer = {
   price: 2500,
   display: "$2,500",
   cadence: "one-time",
-  summary: "Put your business knowledge into a working foundation, then build the next 3 workflows costing you the most time over 60 days.",
+  summary: "For businesses that need 3 or more workflows now. I set up a foundation with your business knowledge, then build the workflows costing you the most time over 60 days.",
 };
 
-export const SITE_OFFERS = [START_WITH_ONE_THING, BUILD_MY_AI_SYSTEM, KEEP_IT_WORKING] as const;
+export const SITE_OFFERS = [START_WITH_ONE_THING, BUILD_IT_FOR_ME, KEEP_IT_WORKING, BUILD_MY_AI_SYSTEM] as const;
 
 export function offerUrl(offer: AiWorkflowOffer) {
   return `${AI_WORKFLOW_SESSION_URL}?offer=${offer}`;
