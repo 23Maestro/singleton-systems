@@ -13,6 +13,9 @@ Before exploring or changing the repository, read:
 - `docs/agents/issue-tracker.md` for Linear ownership and workflow;
 - `docs/agents/triage-labels.md` for tracker-label mappings.
 
+Before downloading, generating, moving, or cleaning video media, read
+`docs/video-storage-workflow.md` and use `s-systems:video-storage`.
+
 These files adapt generic skill language to Singleton Systems. They do not
 authorize automatic dispatch or unsupervised implementation.
 
@@ -107,6 +110,10 @@ or apply mirror updates.
 
 `docs/` holds planning, operating, handoff, and visual-map material. Update it
 when the task changes a durable contract or a drift check pins the text.
+
+Video storage is a separate front-facing tool. `s-systems:video-storage` owns
+MediaSSD placement, migration, retention, and video-media cleanup. `dev-storage`
+owns dependencies, caches, runtimes, and Git worktrees.
 
 ## writing
 

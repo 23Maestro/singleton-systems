@@ -7,6 +7,12 @@ description: Audit and reduce macOS development storage bloat with Hazel discove
 
 Protect source first, then remove only reproducible local state.
 
+## Video Boundary
+
+Route video intake, working media, renders, proxies, previews, media migration,
+and retention to `s-systems:video-storage`. This skill may report that media is
+consuming space, but it must not move, organize, or retire that media.
+
 ## Baseline
 
 - `PROTECTED`: source, `.git`, manifests, lockfiles, `.env*`, databases, project

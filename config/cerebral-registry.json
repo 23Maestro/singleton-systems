@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-09-26-asana-task-ownership",
+  "source_revision": "2026-09-28-video-storage-tool",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -552,6 +552,31 @@
       "enabled": true
     },
     {
+      "route_key": "video-storage",
+      "bucket": "video-storage",
+      "trigger_patterns": [
+        "video storage",
+        "media storage",
+        "MediaSSD",
+        "video project storage",
+        "render storage",
+        "move.*video.*media",
+        "migrate.*video.*project"
+      ],
+      "example_prompt": "Use video storage to set the project boundary before intake or rendering.",
+      "surface": "video storage",
+      "lane": "System Maintenance",
+      "owner": "Docs/skills",
+      "intent": "Keep reusable video workflow source in Git and route heavy working media and generated outputs to the verified MediaSSD project root.",
+      "shape": "operating rule",
+      "required_tools": [
+        "s-systems:video-storage"
+      ],
+      "review_gate": "Verify the physical MediaSSD volume, write access, and free space before intake or rendering; require explicit approval before retiring an existing copy.",
+      "priority": 77,
+      "enabled": true
+    },
+    {
       "route_key": "client-video",
       "bucket": "client-video",
       "trigger_patterns": [
@@ -679,6 +704,11 @@
       "skill_key": "singleton-visualizer",
       "activation": "core",
       "reason": "Visual system maps."
+    },
+    {
+      "skill_key": "video-storage",
+      "activation": "core",
+      "reason": "Video project storage, MediaSSD routing, migration, retention, and exact-path cleanup."
     },
     {
       "skill_key": "wayfinder",

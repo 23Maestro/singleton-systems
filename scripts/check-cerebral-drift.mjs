@@ -54,6 +54,28 @@ const checks = [
     must: ["## Writing Rules", "Correction = edit instruction", "No process commentary in deliverables"],
   },
   {
+    file: "CODEX.md",
+    must: ["docs/video-storage-workflow.md", "s-systems:video-storage", "MediaSSD placement"],
+  },
+  {
+    file: "docs/video-storage-workflow.md",
+    must: ["s-systems:video-storage", "dev-storage", "/Volumes/MediaSSD/02_EDITING/CLIENTS/<CLIENT>/<PROJECT>/"],
+  },
+  {
+    file: skillPath("video-storage"),
+    must: [
+      "Keep the reusable edit system in Git",
+      "/Volumes/MediaSSD/02_EDITING/CLIENTS/<CLIENT>/<PROJECT>/",
+      "Do not use the internal SSD as a fallback",
+      "Do not blanket",
+      "explicit approval",
+    ],
+  },
+  {
+    file: ".agents/skills/dev-storage/SKILL.md",
+    must: ["s-systems:video-storage", "must not move, organize, or retire that media"],
+  },
+  {
     file: skillPath("singleton-visualizer"),
     must: ["Next/Vercel       = active-week review dashboard", "Supabase          = queryable facts and routing registry"],
   },
