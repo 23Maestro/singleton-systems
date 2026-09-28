@@ -123,6 +123,11 @@ to every reviewable non-code artifact.
 - Fix corrections silently.
 - State facts and results only.
 - Use short sentences, plain verbs, and concrete numbers.
+- Rewrite source-backed drafts without losing facts or attribution. Run the
+  competitor swap test on hooks, landing pages, proposals, and portfolio copy.
+- Format Linear and Asana operational copy as CommonMark with headings, bullets,
+  fenced code when useful, and real blank lines. Never print escaped `\n` as
+  layout.
 - Keep Jerami review surfaces under 500 words when the decision is simple.
 - Use a dated interactive Decision Map when the review needs more room.
 

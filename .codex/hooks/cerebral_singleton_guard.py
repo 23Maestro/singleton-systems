@@ -693,6 +693,7 @@ def writing_rules():
         (re.compile(r"\befforts are ongoing\b", re.I), "vague attribution"),
         (re.compile(r"\bnestled in the\b|\bmarking a pivotal\b|\brich cultural\b", re.I), "puffery"),
         (re.compile(r"^\s*[-*]\s*\*\*[^*]+\*\*:", re.I | re.M), "bold inline list header"),
+        (re.compile(r"\\n"), "literal escaped newline"),
     ]
 
 
@@ -719,7 +720,49 @@ def strip_writing_code(text):
     return re.sub(r"`[^`\n]+`", _blank_non_newline, clean)
 
 
+def commonmark_spacing_hits(text):
+    hits = []
+    lines = text.splitlines()
+    in_fence = False
+    in_list_block = False
+    for index, line in enumerate(lines):
+        trimmed = line.strip()
+        is_fence = re.match(r"^(?:`{3,}|~{3,})", trimmed)
+        if is_fence:
+            if not in_fence and index > 0 and lines[index - 1].strip():
+                hits.append((index + 1, "CommonMark blank line before fenced code", trimmed))
+            if in_fence and index + 1 < len(lines) and lines[index + 1].strip():
+                hits.append((index + 1, "CommonMark blank line after fenced code", trimmed))
+            in_fence = not in_fence
+            in_list_block = False
+            continue
+        if in_fence:
+            continue
+        if not trimmed:
+            in_list_block = False
+            continue
+        if re.match(r"^#{1,6}\s+", line) and index + 1 < len(lines) and lines[index + 1].strip():
+            hits.append((index + 1, "CommonMark blank line after heading", trimmed))
+        list_pattern = r"^\s*(?:[-*+] |\d+[.)] )"
+        is_list = re.match(list_pattern, line)
+        prior_list_in_block = False
+        cursor = index - 1
+        while cursor >= 0 and lines[cursor].strip():
+            if re.match(list_pattern, lines[cursor]):
+                prior_list_in_block = True
+            cursor -= 1
+        if is_list and index > 0 and lines[index - 1].strip() and not prior_list_in_block:
+            hits.append((index + 1, "CommonMark blank line before list", trimmed))
+        if is_list:
+            in_list_block = True
+        elif in_list_block and not re.match(r"^\s{2,}\S", line):
+            hits.append((index + 1, "CommonMark blank line after list", trimmed))
+            in_list_block = False
+    return hits
+
+
 def writing_hits(text):
+    spacing_hits = commonmark_spacing_hits(text)
     text = strip_writing_code(text)
     hits = []
     for pattern, label in writing_rules():
@@ -727,6 +770,7 @@ def writing_hits(text):
             line_number = text[: match.start()].count("\n") + 1
             hits.append((line_number, label, match.group(0).strip()[:80]))
     hits.extend(title_case_heading_hits(text))
+    hits.extend(spacing_hits)
     return sorted(hits, key=lambda item: item[0])
 
 

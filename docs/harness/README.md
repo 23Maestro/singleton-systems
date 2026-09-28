@@ -44,12 +44,16 @@ source code, generated bundles, code blocks, or conversation.
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
 - Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
+- Rewrite source-backed drafts without losing facts or attribution. Run the
+  competitor swap test on hooks, landing pages, proposals, and portfolio copy.
 - Jerami review surfaces usually stay between 300 and 500 words. Use fewer
   when the decision is simple.
 - Route a longer review to a dated interactive HTML Decision Map. Keep Linear
   task bodies short and move operating rules to their owner.
 - Asana names stay short: projects one to three words, tasks two to four
   words. Context goes in the description.
+- Linear and Asana operational copy uses CommonMark headings, bullets, fenced
+  code when useful, and real blank lines. Never print escaped `\n` as layout.
 
 Full deny-list and the client-repo hook payload: `docs/harness/writing-rules.md`.
 

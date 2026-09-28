@@ -28,6 +28,16 @@ conversation. Talk normally in chat.
 Caveman brevity, full grammar. Short sentences. Plain verbs. Concrete numbers.
 Second person when addressing a reader.
 
+## Human pass
+
+- Rewrite the supplied draft. Preserve verified facts, scope, attribution,
+  causal ownership, and sequence. Do not replace source-backed writing with a
+  generic reconstruction.
+- Run the swap test on hooks, landing pages, proposals, and portfolio copy. If
+  another company could use the line unchanged, make it specific or delete it.
+- Review in this order: truth and attribution, swap test, plain-language
+  compression, AI-tell scan, audience and next action.
+
 ## Human review limit
 
 Jerami's review surface should usually stay between 300 and 500 words. This is
@@ -53,6 +63,46 @@ is two to four words, a verb plus the object (Book pilot call, Rank spec lanes).
 Parent tasks follow the same limit. Put context, links, dates, and the next
 action in the description. The Linear link goes in the description, never the
 name.
+
+## Operational format
+
+Linear and Asana descriptions should read like polished CLI help: clear title,
+grouped sections, short facts, and visible whitespace.
+
+- Write valid CommonMark. A standalone document gets one `#` title. Use `##`
+  for sections. When the native task title already acts as the document title,
+  begin the description with `##`.
+- Put a blank line after every heading and before and after lists or fenced code
+  blocks. Emit real line breaks. Never print a visible escaped `\n` sequence.
+- Use bullets for facts, changes, blockers, and next actions. Use fenced code
+  blocks for commands, payloads, or exact machine output that benefits from
+  fixed-width text.
+- Operational updates use `What changed`, `Blocked`, and `Next` when those
+  sections contain useful information. Omit empty sections and status theater.
+  Do not open with "Successfully" or an emoji wall.
+
+````markdown
+# Repair video storage
+
+The storage route now separates repository source from working media.
+
+## What changed
+
+- Added the MediaSSD route.
+- Kept source and manifests in Git.
+
+## Blocked
+
+- Browser policy still needs a separate review.
+
+## Next
+
+- Verify the mounted volume before the next render.
+
+```bash
+npm run check:cerebral
+```
+````
 
 Rhythm target, from the Ginain transcript:
 
@@ -100,6 +150,13 @@ conversation.
 Correction = edit instruction. Fix the artifact silently. Never restate the
 correction.
 No process commentary. No preamble, no recap. Deliver the artifact only.
+
+Rewrite drafts; preserve facts, scope, attribution, and sequence.
+Swap test hooks and site copy: if another company could reuse a line unchanged,
+make it specific or delete it.
+Linear/Asana: CommonMark `#`/`##` headings, bullets, fenced code when useful,
+and blank lines around blocks. Emit real line breaks, never a visible `\n`.
+Updates state what changed, what is blocked or failed, and what comes next.
 
 Banned: delve, tapestry, testament, underscore, pivotal, crucial, meticulous,
 intricate, showcase, foster, garner, landscape, vibrant, robust, seamless,

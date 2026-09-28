@@ -113,6 +113,12 @@ Keep each task to the outcome, current truth, next action, and done check. Link
 the owning workflow or portfolio. Do not paste the workflow into the task. Use
 a dated interactive Decision Map when Jerami's review needs more than 500 words.
 
+Format Linear and Asana bodies as CommonMark. Use one `#` title for a standalone
+document or begin at `##` when the native task title already owns the page.
+Separate headings, bullets, and fenced code blocks with real blank lines. Never
+print escaped `\n` as layout. Operational updates group useful facts under
+`What changed`, `Blocked`, and `Next`; omit empty sections.
+
 ## Output
 
 Create or update the smallest task shape needed for the selected work. Keep

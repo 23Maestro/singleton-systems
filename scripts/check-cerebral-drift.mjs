@@ -43,7 +43,7 @@ const checks = [
   },
   {
     file: skillPath("opportunity-hq-updater"),
-    must: ["## Intake Rules", "Linear Intake:", "Write selected AI Consulting and Content Editor work to Asana", "Correction = edit instruction", "No process commentary in deliverables"],
+    must: ["## Intake Rules", "Linear Intake:", "Write selected AI Consulting and Content Editor work to Asana", "Correction = edit instruction", "No process commentary in deliverables", "Format Linear and Asana bodies as CommonMark", "Never\nprint escaped `\\n` as layout"],
   },
   {
     file: skillPath("wayfinder"),
@@ -51,7 +51,7 @@ const checks = [
   },
   {
     file: "docs/harness/README.md",
-    must: ["## Writing Rules", "Correction = edit instruction", "No process commentary in deliverables"],
+    must: ["## Writing Rules", "Correction = edit instruction", "No process commentary in deliverables", "competitor swap test", "Linear and Asana operational copy uses CommonMark"],
   },
   {
     file: "CODEX.md",

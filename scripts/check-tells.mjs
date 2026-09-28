@@ -60,7 +60,60 @@ function phraseRules(words) {
     [/\befforts are ongoing\b/gi, "vague attribution"],
     [/\bnestled in the\b|\bmarking a pivotal\b|\brich cultural\b/gi, "puffery"],
     [/^\s*[-*]\s*\*\*[^*]+\*\*:/gm, "bold inline list header"],
+    [/\\n/g, "literal escaped newline"],
   ];
+}
+
+function commonMarkSpacingHits(text, file) {
+  if (!MARKDOWN_EXTENSIONS.has(extname(file).toLowerCase())) return [];
+  const lines = text.split("\n");
+  const hits = [];
+  let inFence = false;
+  let inListBlock = false;
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index];
+    const trimmed = line.trim();
+    const isFence = /^(?:`{3,}|~{3,})/.test(trimmed);
+    if (isFence) {
+      if (!inFence && index > 0 && lines[index - 1].trim() !== "") {
+        hits.push({ line: index + 1, rule: "CommonMark blank line before fenced code", text: trimmed });
+      }
+      if (inFence && index + 1 < lines.length && lines[index + 1].trim() !== "") {
+        hits.push({ line: index + 1, rule: "CommonMark blank line after fenced code", text: trimmed });
+      }
+      inFence = !inFence;
+      inListBlock = false;
+      continue;
+    }
+    if (inFence) continue;
+    if (trimmed === "") {
+      inListBlock = false;
+      continue;
+    }
+
+    if (/^#{1,6}\s+/.test(line) && index + 1 < lines.length && lines[index + 1].trim() !== "") {
+      hits.push({ line: index + 1, rule: "CommonMark blank line after heading", text: trimmed });
+    }
+
+    const listPattern = /^\s*(?:[-*+] |\d+[.)] )/;
+    const isList = listPattern.test(line);
+    let priorListInBlock = false;
+    for (let cursor = index - 1; cursor >= 0 && lines[cursor].trim() !== ""; cursor -= 1) {
+      if (listPattern.test(lines[cursor])) priorListInBlock = true;
+    }
+    if (isList && index > 0 && lines[index - 1].trim() !== "" && !priorListInBlock) {
+      hits.push({ line: index + 1, rule: "CommonMark blank line before list", text: trimmed });
+    }
+    if (isList) {
+      inListBlock = true;
+    } else if (inListBlock && !/^\s{2,}\S/.test(line)) {
+      hits.push({ line: index + 1, rule: "CommonMark blank line after list", text: trimmed });
+      inListBlock = false;
+    }
+  }
+
+  return hits;
 }
 
 function blankNonNewline(text) {
@@ -127,6 +180,7 @@ function scan(file, rules, options = {}) {
     }
   }
   const warns = [];
+  hits.push(...commonMarkSpacingHits(raw, file));
   if (options.strict) warns.push(...titleCaseHeadings(text));
   const dash = emDashDensity(text);
   if (options.strict && dash) warns.push({ line: 1, rule: "em dash density", text: `${dash}% of sentences` });
@@ -159,11 +213,26 @@ function selfTest() {
   console.assert(probe("not a mirror, but a portal"), "not X but Y missed");
   console.assert(probe("Use a hook rather than a script."), "rather than missed");
   console.assert(probe("- **Thing**: explanation"), "bold list header missed");
+  console.assert(probe("Changed\\nNext"), "literal escaped newline missed");
   console.assert(!probe("The build has four steps."), "false positive on clean prose");
   console.assert(!probe("New features shipped today."), "false positive on noun 'features'");
 
   console.assert(titleCaseHeadings("## The Big Red Dog").length === 1, "title case missed");
   console.assert(titleCaseHeadings("## The build gate").length === 0, "title case false positive");
+
+  console.assert(
+    commonMarkSpacingHits("# Status\nText", "probe.md").some((hit) => hit.rule.includes("after heading")),
+    "heading spacing missed",
+  );
+  console.assert(
+    commonMarkSpacingHits("Text\n- Item", "probe.md").some((hit) => hit.rule.includes("before list")),
+    "list spacing missed",
+  );
+  console.assert(
+    commonMarkSpacingHits("- Item\nText", "probe.md").some((hit) => hit.rule.includes("after list")),
+    "list trailing spacing missed",
+  );
+  console.assert(commonMarkSpacingHits("# Status\n\nText\n\n- Item", "probe.md").length === 0, "clean CommonMark rejected");
 
   const code = stripReviewCode("```\ndelve\n```\nclean", "probe.md");
   console.assert(!/delve/.test(code), "code fence not stripped");

@@ -191,6 +191,8 @@ for (const snippet of [
 }
 assert.match(offerPacket.stdout, /Writing rules for reviewable artifacts/, "offer packet: missing writing rules");
 assert.match(offerPacket.stdout, /Jerami review: aim for 300-500 words maximum/, "offer packet: hook did not read the canonical payload");
+assert.match(offerPacket.stdout, /Swap test hooks and site copy/, "offer packet: missing swap test");
+assert.match(offerPacket.stdout, /Linear\/Asana: CommonMark/, "offer packet: missing operational format");
 
 const socialPrompt = runHook("Write a LinkedIn post I can publish about AI hooks.");
 assert.equal(socialPrompt.status, 0);
@@ -378,6 +380,29 @@ const markdownWriting = runStop(
 assert.equal(markdownWriting.status, 0);
 assert.match(markdownWriting.stdout, /"decision": "block"/);
 assert.match(markdownWriting.stdout, /banned word/);
+
+const escapedNewlineWriting = runStop(
+  "Create a Markdown Linear document for review.",
+  "# Status\\n\\n## What changed\\n\\n- Added the route.",
+);
+assert.equal(escapedNewlineWriting.status, 0);
+assert.match(escapedNewlineWriting.stdout, /"decision": "block"/);
+assert.match(escapedNewlineWriting.stdout, /literal escaped newline/);
+
+const crampedCommonMarkWriting = runStop(
+  "Create a Markdown Asana task for review.",
+  "# Status\nCurrent state.\n## What changed\n- Added the route.",
+);
+assert.equal(crampedCommonMarkWriting.status, 0);
+assert.match(crampedCommonMarkWriting.stdout, /"decision": "block"/);
+assert.match(crampedCommonMarkWriting.stdout, /CommonMark blank line/);
+
+const cleanCommonMarkWriting = runStop(
+  "Create a Markdown Linear document for review.",
+  "# Status\n\nCurrent state.\n\n## What changed\n\n- Added the route.\n\n## Next\n\n- Verify the readback.",
+);
+assert.equal(cleanCommonMarkWriting.status, 0);
+assert.equal(cleanCommonMarkWriting.stdout.trim(), "");
 
 const htmlWriting = runStop(
   "Build a public HTML page for review.",

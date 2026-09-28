@@ -151,6 +151,11 @@ Writing Rules.
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
 - Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
+- Rewrite source-backed drafts without losing facts or attribution. Run the
+  competitor swap test on hooks, landing pages, proposals, and portfolio copy.
+- Format Linear and Asana operational copy as CommonMark with headings, bullets,
+  fenced code when useful, and real blank lines. Never print escaped `\n` as
+  layout.
 - Jerami review surfaces usually stay between 300 and 500 words. Use fewer
   when the decision is simple.
 - If the review truly needs more, create a dated interactive HTML Decision Map

@@ -51,6 +51,10 @@ blocking operations, and GitHub boundary.
 ### Map body
 
 ```markdown
+# <map title>
+
+<current state in one sentence>
+
 ## Destination
 
 <what reaching the end of this map looks like>
@@ -78,6 +82,8 @@ Each ticket is a child record sized to one focused session. Its body holds one
 precise question:
 
 ```markdown
+# <ticket title>
+
 ## Question
 
 <the decision or investigation this ticket resolves>
