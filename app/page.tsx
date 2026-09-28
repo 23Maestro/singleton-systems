@@ -18,7 +18,7 @@ import {
 import PortfolioVideoCarousel from "@/components/PortfolioVideoCarousel";
 import { ProofSection, RealProblemSection, TriedSection } from "@/components/home/BuyerStorySections";
 import ReviewsSection from "@/components/home/ReviewsSection";
-import { AI_WORKFLOW_SESSION_URL, ORGANIZATION_PROFILES, PERSON_PROFILES, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
+import { CAL_URL, ORGANIZATION_PROFILES, PERSON_PROFILES, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
 import BookSection from "@/components/site/BookSection";
 import OffersSection from "@/components/site/OffersSection";
 import SiteFooter from "@/components/site/SiteFooter";
@@ -523,15 +523,15 @@ export default function Page() {
                   />
                 </svg>
               </span>
-              <span>Start with one thing</span>
+              <span>First simple problem solved free</span>
             </p>
           </div>
           <div className="mt-8 flex items-center justify-center">
             <Link
-              href={AI_WORKFLOW_SESSION_URL}
+              href={CAL_URL}
               className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-base font-bold uppercase tracking-normal text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
             >
-              Let&apos;s start
+              Book a free call
             </Link>
           </div>
         </div>

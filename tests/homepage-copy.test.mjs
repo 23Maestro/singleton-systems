@@ -124,3 +124,11 @@ test("search engines can tie the site to Jerami's and the brand's social profile
     "https://www.tiktok.com/@singleton_systems",
   ]) assert.ok(page.includes(JSON.stringify(url)), `missing sameAs ${url}`);
 });
+
+test("homepage hero offers the free first problem and books a call", async () => {
+  const page = visibleCopyOnly(await html("/"));
+  const hero = page.slice(page.indexOf("<h1"), page.indexOf('id="portfolio"'));
+  assert.ok(hero.includes("First simple problem solved free"), "hero kicker should name the free first problem");
+  assert.match(hero, /<a[^>]*href="https:\/\/cal\.com\/[^"]+"[^>]*>Book a free call<\/a>/, "hero button should book a call on Cal.com");
+  assert.ok(!hero.includes("Start with one thing"), "old kicker still in hero");
+});

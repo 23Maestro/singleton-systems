@@ -16,14 +16,14 @@ const projects = [
   {
     name: "$300 Job. 2 Hours.",
     source: "Upwork Client",
-    caption: "Footage organized and color graded in 4 days, a week ahead of the deadline. The client called it very efficient work, done very well.",
+    caption: "Got it on a Friday, delivered Monday morning, a week ahead of schedule. The client called it very efficient work, done very well.",
     src: "/portfolio/proof-videos/hnoc.mp4",
     poster: "/portfolio/proof-videos/hnoc-poster.jpg",
   },
   {
     name: "AI Preps the Project",
     source: "Catena Media",
-    caption: "Before I start editing, I know what footage I have, what's missing, and which graphics need building.",
+    caption: "Most of the edit builds itself now. I spend my hours on the finish, where taste makes the difference.",
     src: "/portfolio/proof-videos/catena.mp4",
     poster: "/portfolio/proof-videos/catena-poster.jpg",
   },
