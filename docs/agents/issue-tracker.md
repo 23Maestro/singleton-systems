@@ -22,9 +22,13 @@ Use the `singleton-systems.com` workspace.
 - Project names are one to three words.
 - Task and parent-task names are two to four words: a verb plus the object.
 - Put context, links, dates, and any former Linear link in the description.
-- Format descriptions as CommonMark. Use one `#` title only for a standalone
-  document; otherwise start at `##`. Put real blank lines around headings,
-  bullets, and fenced code blocks. Never print escaped `\n` as layout.
+- Draft with grouped sections and real blank lines. Send formatted Asana
+  descriptions through `html_notes`, using supported XML-compatible HTML in
+  a `<body>` root. Use `<h2>`, `<strong>`, `<ul>/<li>`, `<a href="...">`, and
+  `<pre>` as needed; escape text and close every tag. `notes` is plain text
+  and does not render CommonMark. Do not send both fields in one update.
+  Read back `notes` and `html_notes` after writing. Use subtasks for actionable
+  work; Markdown checkbox syntax is not an interactive Asana checklist.
 - Do not create a new Asana project for a client. Use the correct project and
   section.
 
@@ -36,8 +40,8 @@ Use the `singleton-systems.com` workspace.
 - `In Review`: an answer or artifact awaits Jerami's review.
 - `Done`: reviewed and observable.
 - Due dates represent real deadlines only.
-- Format Linear bodies with the same CommonMark and blank-line contract used
-  for Asana descriptions.
+- Format Linear bodies as CommonMark with headings, bullets, fenced code when
+  useful, and real blank lines. Asana uses the HTML transport defined above.
 
 For Development, prefer the server-side Linear GraphQL gateway. Use the Linear
 connector only when the gateway lacks the required operation. For AI Consulting

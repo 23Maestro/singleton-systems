@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "id": "745-pastor-ben-visual-direction-v1",
+  "clientId": "pastor_ben",
+  "sharedContract": "../visual-contract.json",
+  "inherits": ["workflow", "jeramiWiggleRoom"],
+  "sources": {
+    "visualDirection": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+    "editBrief": "https://docs.google.com/document/d/1YsDSsA1NJq_UZPMMqTy9ZPiamBr2PUbZ/edit",
+    "brandBook": "https://docs.google.com/presentation/d/1nptiXz9vaDejx7PP77biUJ38zDNVbuIrxP4FSWR1FM0/edit",
+    "verifiedOn": "2026-09-30",
+    "authority": "Brief sets batch scope and cover direction. Ian's Visual Direction sets lane treatments. Brand-book recommendation supplies exact palette and typography. Jerami adopted these as production direction with the shared 10% allowance; separate client sign-off is not claimed."
+  },
+  "client": {
+    "name": "Pastor Ben",
+    "aliases": ["pastor ben"],
+    "batch": {
+      "requestedDeliverables": 14,
+      "sourceFormat": "Direct-to-camera",
+      "averageListedSeconds": 46,
+      "inventoryAuthority": "Brief's requested count and average; not a verified source-file count or target duration.",
+      "scope": "One branded cover per finished video. Static images, carousels and quote cards are excluded.",
+      "routing": "Inspect each source's subject before selecting a lane. Camera format alone does not settle teaching versus reflective faith content. Family and music rules do not add deliverables to the 14-video batch."
+    },
+    "references": {
+      "accounts": ["https://www.instagram.com/chandlerdmoore/", "https://www.tiktok.com/@isaiahsalterx"],
+      "inspection": "Links resolved from Ian's document in the earlier source audit. Full reference-account and embedded-image visual audit remains pending.",
+      "placeholderPolicy": "Use Ben's approved source frame and the video's own headline. Brand-book portraits, example hooks and scripture labels are examples, not reusable client assets."
+    },
+    "brand": {
+      "paletteName": "Modern Earth with Quiet Reflective blue accent",
+      "palette": { "black": "#1C1C1A", "olive": "#6B7052", "brown": "#B08B5D", "grayBlue": "#5C6B73", "cream": "#EFE9DC" },
+      "font": "Cambria headings; Calibri body",
+      "typography": { "headingFamily": "Cambria", "bodyFamily": "Calibri", "pairingName": "Editorial Warmth", "weightAuthority": "No exact weights or pixel sizes supplied. Record the measured lane baseline after the sample." },
+      "fontStatus": "Cambria pending per Jerami. Do not purchase, install from an unlicensed source, or silently substitute it. Verify Calibri availability before use.",
+      "colorUse": "Black/olive editorial base, brown for warmth, cream for calm surfaces, gray-blue for reflective faith and ADHD content. Preserve natural skin and footage; graphic palette is not a global color tint."
+    },
+    "rules": [
+      "Prioritize natural footage and Ben's presence over heavy graphics.",
+      "Keep the Modern Earth palette consistent, with the recommended gray-blue accent.",
+      "Use editorial serif moments intentionally for teaching or reflection. Body text stays clean and readable.",
+      "The page feels lived-in and human. Keep family and music distinct within Ben's system.",
+      "Avoid heavy overlays, oversized bold text on every post, generic Christian graphics and John-style treatments."
+    ],
+    "coverDirection": {
+      "source": "editBrief",
+      "headline": "A clear, bold headline that reads at a glance.",
+      "image": "Use an approved still or photo of Pastor Ben.",
+      "consistency": "Recognizable grid treatment using Ben's own palette.",
+      "distinction": "Bold cover hierarchy does not require heavy video overlays or oversized bold text throughout each edit. Reflective, family and music lanes keep their quieter treatment."
+    },
+    "productionStatus": {
+      "direction": "source-backed; adopted by Jerami",
+      "premiereTemplate": "not built or verified",
+      "pixelBaseline": null,
+      "referenceImageBinding": null,
+      "pending": ["Licensed Cambria availability", "First 9:16 sample and matching cover", "Measured geometry and phone-readability review"],
+      "limits": "JSON and hook checks validate enrollment and declared adjustment bounds. They do not certify rendered style alignment."
+    },
+    "lanes": {
+      "teaching": {
+        "name": "Talking Head / Teaching",
+        "aliases": ["talking head", "teaching", "direct-to-camera", "dtc"],
+        "treatment": "Clean and simple. Minimal text. Strong hook/title only when needed. Ben remains the focal point.",
+        "requiredLabel": null,
+        "labelAuthority": "No mandatory series label or fixed title copy is supplied.",
+        "visualPasses": {
+          "framing": "Ben remains the focal point in 9:16. Keep the face clear; use his actual footage.",
+          "color": "Natural, grounded picture. Modern Earth supports the graphics without a heavy tint.",
+          "opening": "No mandatory intro card. A short hook/title over footage is optional, only when needed. Duration is an editorial default to measure in the sample.",
+          "onScreenText": "Minimal text. Use Cambria for an intentional editorial heading and Calibri for body text when available. Avoid oversized bold overlays on every post.",
+          "cover": "Approved Ben still plus a clear, bold headline, with Modern Earth colors and readable hierarchy. Exact geometry is unmeasured."
+        },
+        "visualReview": ["Ben prominent with face clear", "Minimal video text", "Bold cover headline readable on phone", "Modern Earth and intended typography", "No borrowed John graphics", "Native captions absent from the clean Opus master"]
+      },
+      "faith": {
+        "name": "Faith / Scripture",
+        "aliases": ["faith", "scripture"],
+        "treatment": "More editorial and reflective. Calm compositions, serif typography, cream/olive/gray-blue tones.",
+        "requiredLabel": null,
+        "labelAuthority": "No fixed scripture label is required. Include a verse reference only when the source supports it.",
+        "visualPasses": {
+          "framing": "Calm 9:16 composition with room for a short editorial heading; Ben stays visible when on camera.",
+          "color": "Cream, olive and gray-blue graphics support reflection. Keep source skin and footage natural.",
+          "opening": "No mandatory intro card. Use a restrained reflective heading only when it adds needed context.",
+          "onScreenText": "Intentional Cambria serif heading with readable Calibri body. Keep scripture copy attributable to the source.",
+          "cover": "Ben's approved still and a clear headline with calmer cream/olive/gray-blue hierarchy. Do not copy the brand book's placeholder scripture or person."
+        },
+        "visualReview": ["Calm composition", "Serif heading and readable body", "Cream/olive/gray-blue within the adopted palette", "Source-backed scripture text", "Cover readable without heavy overlays"]
+      },
+      "family": {
+        "name": "Family / Everyday",
+        "aliases": ["family", "everyday"],
+        "treatment": "Very natural. Little to no graphic treatment. Warm grade and candid framing.",
+        "requiredLabel": null,
+        "batchScope": "Reference lane only until a source in the current 14-video batch is verified to fit. No added family deliverables.",
+        "visualPasses": {
+          "framing": "Candid 9:16 framing. Preserve the people and everyday setting in the source.",
+          "color": "Warm, natural grade. Do not force teaching-card colors over family footage.",
+          "opening": "No mandatory intro card or recurring label. Let the source moment open the video.",
+          "onScreenText": "Little to no graphics. Any necessary hook stays short and readable.",
+          "cover": "Ben's approved candid frame carries the cover. Keep any headline simple within his palette; do not turn it into a heavy teaching card."
+        },
+        "visualReview": ["Candid framing preserved", "Warm natural color", "Little to no video graphics", "Quiet cover", "No added batch scope"]
+      },
+      "music": {
+        "name": "Music",
+        "aliases": ["music", "performance"],
+        "treatment": "More cinematic and mood-led. Darker imagery is fine. Keep text minimal and let performance create the energy.",
+        "requiredLabel": null,
+        "batchScope": "Reference lane only until a source in the current 14-video batch is verified to fit. No added music deliverables.",
+        "visualPasses": {
+          "framing": "Performance-led 9:16 composition with Ben as the subject. Preserve meaningful performance details.",
+          "color": "Darker imagery is allowed when supported by the source. Keep the Modern Earth identity; do not force a dark grade onto unsuitable footage.",
+          "opening": "No mandatory intro card. Let performance establish the opening energy.",
+          "onScreenText": "Minimal text; intentional editorial type only when needed. No persistent heavy overlays.",
+          "cover": "Approved performance still with a minimal title and Ben's palette. Performance carries the visual energy."
+        },
+        "visualReview": ["Performance remains prominent", "Source-supported mood", "Minimal text", "Matching performance cover", "No added batch scope"]
+      }
+    }
+  }
+}

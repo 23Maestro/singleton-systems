@@ -192,7 +192,9 @@ for (const snippet of [
 assert.match(offerPacket.stdout, /Writing rules for reviewable artifacts/, "offer packet: missing writing rules");
 assert.match(offerPacket.stdout, /Jerami review: aim for 300-500 words maximum/, "offer packet: hook did not read the canonical payload");
 assert.match(offerPacket.stdout, /Swap test hooks and site copy/, "offer packet: missing swap test");
-assert.match(offerPacket.stdout, /Linear\/Asana: CommonMark/, "offer packet: missing operational format");
+assert.match(offerPacket.stdout, /Linear: CommonMark/, "offer packet: missing Linear operational format");
+assert.match(offerPacket.stdout, /Asana: convert drafts to supported HTML in `html_notes`/, "offer packet: missing Asana rich-text transport");
+assert.match(offerPacket.stdout, /`notes` is plain text/, "offer packet: missing Asana plain-text boundary");
 
 const socialPrompt = runHook("Write a LinkedIn post I can publish about AI hooks.");
 assert.equal(socialPrompt.status, 0);

@@ -8,6 +8,12 @@
             "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10,
             "statusMessage": "Checking Singleton Systems map"
+          },
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/creative_745.py\"",
+            "timeout": 10,
+            "statusMessage": "Loading 745 client visual contract"
           }
         ]
       }
@@ -39,6 +45,17 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/node \"/Users/singleton23/Documents/Development/singleton-systems/scripts/developer-storage/storage-gate.mjs\" hook",
+            "timeout": 10,
+            "statusMessage": "Checking external media storage"
+          }
+        ]
+      },
+      {
         "matcher": "apply_patch|Edit|Write|Bash",
         "hooks": [
           {
@@ -57,6 +74,17 @@
             "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
             "timeout": 10,
             "statusMessage": "Checking Lineups transaction"
+          }
+        ]
+      },
+      {
+        "matcher": "^(?:mcp__premiere_pro__.*|mcp__cua_repl.*|functions\\.exec|exec)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/creative_745.py\"",
+            "timeout": 10,
+            "statusMessage": "Checking bound 745 visual treatment"
           }
         ]
       }

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "id": "745-creative-visual-direction-v1",
+  "sources": {
+    "visualDirection": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+    "editBrief": "https://docs.google.com/document/d/1YsDSsA1NJq_UZPMMqTy9ZPiamBr2PUbZ/edit",
+    "johnBrandBook": "https://docs.google.com/presentation/d/1-em4fWQRk5jL5AfOMyekNHHZvBJ-PRRoBSvPuA0aMKY/edit",
+    "benBrandBook": "https://docs.google.com/presentation/d/1nptiXz9vaDejx7PP77biUJ38zDNVbuIrxP4FSWR1FM0/edit",
+    "ericBrandBook": "https://docs.google.com/presentation/d/1r87O8pBLcHNn_Y7H0giZaNo5kv0LhwFc/edit"
+  },
+  "approval": "Jerami locked the supplied direction as the production template with 10% wiggle room. The reference image binds John Prayer's visual treatment; it is not a completed Premiere template.",
+  "jeramiWiggleRoom": {
+    "maxDeviationPercent": 10,
+    "fixed": ["Client identity", "Content lane and treatment", "Font family", "Approved brand palette", "Required series label", "Text hierarchy", "Graphic density", "Caption ownership"],
+    "adjustablePercentFields": ["fontSizePercent", "spacingPercent", "textOffsetXPercent", "textOffsetYPercent", "cropScalePercent", "openingHoldPercent"],
+    "contentSlots": ["Video-specific headline", "Headline line breaks", "The selected client's approved source frame"],
+    "measurement": "Percent adjustments are relative to the built lane template's recorded baseline. No pixel baseline exists yet. This is a bounded adjustment policy, not a computed 90% visual similarity score.",
+    "outsideAllowance": "Ask Jerami before exceeding 10%, changing a fixed field, or creating a treatment for an unlisted content type."
+  },
+  "workflow": {
+    "visualEdit": "Premiere Pro",
+    "cover": "Premiere Pro",
+    "captions": "Opus Clip",
+    "captionHandoff": "Clean Premiere master. Preserve the native caption track but disable it for this export. Opus must not recut or reframe the edit.",
+    "aspectRatio": "9:16",
+    "scope": "Simple video edits and one branded cover per finished video. No heavy animation, complex effects, or extensive rebuilding.",
+    "deliveryDefaults": { "width": 1080, "height": 1920, "colorSpace": "Rec.709 SDR", "codec": "H.264", "frameRate": "source-matched" },
+    "deliveryDefaultsAuthority": "Working defaults; 9:16 is Jerami's instruction. The brief does not lock the other export settings.",
+    "taskOwner": "Asana Content Editor",
+    "clientMessages": "Draft only. Sending requires Jerami's authorization.",
+    "unknownLane": "Do not guess or reuse another client's treatment. Jev may suggest a listed lane; inspect the source before binding."
+  },
+  "clients": {
+    "pastor_john": {
+      "name": "Pastor John",
+      "aliases": ["pastor john", "john prayer", "john's prayer", "john’s prayer"],
+      "references": {
+        "northStar": "https://drive.google.com/file/d/1nlXvFz2dbpCcI0iK6Xpbw37GzP9DnhHn/view",
+        "account": "https://www.instagram.com/stevenfurtick/",
+        "linkAuthority": "Resolved from native hyperlinks in Ian's Visual Direction document. North-star media and reference account have not been fully audited. John's Prayer image supplied by Jerami governs the current sample."
+      },
+      "brand": {
+        "paletteName": "Stadium Lights",
+        "palette": { "stageBlack": "#101014", "electricBlue": "#2FB8F0", "violetPop": "#A85CF9", "softLavender": "#D6C7F7", "nearBlackNavy": "#14161F", "white": "#FFFFFF" },
+        "font": "Poppins",
+        "weights": ["Bold", "SemiBold"],
+        "authority": "Brand-book recommendation adopted as the working direction by Jerami. Graphics use this palette; it does not instruct tinting footage blue/violet."
+      },
+      "rules": [
+        "Same visual system, different locked treatments for different content types, with Jerami's 10% adjustment allowance.",
+        "Keep typography, spacing, contrast, labels, and brand colors consistent.",
+        "Do not force one thumbnail layout across the page.",
+        "Use strong text hierarchy without filling every cover with graphic elements.",
+        "Mix louder and quieter covers so the grid is not visually exhausting.",
+        "Use John's own approved image/footage and video-specific headlines. Supplied example copy and people are placeholders.",
+        "Avoid generic church graphics, identical templates, and over-designed covers on every post."
+      ],
+      "lanes": {
+        "prayer": {
+          "name": "Prayer",
+          "aliases": ["prayer", "pray", "afraid of tomorrow"],
+          "treatment": "Softer and more personal. Fewer words, more breathing room, clear A Prayer For treatment.",
+          "requiredLabel": "A PRAYER FOR",
+          "reference": {
+            "path": "/Volumes/MediaSSD/02_EDITING/23Projects/745Creative/references/2026-09-30-john-prayer-style.png",
+            "sha256": "a27d9aeab22662179db8e5d26efb68ac862c3dead9cb03a79632815231cb0f2b",
+            "authority": "Jerami supplied this visual as the treatment to bind on 2026-09-30.",
+            "sourceDimensions": { "width": 178, "height": 222 },
+            "geometryNote": "The supplied preview is approximately 4:5. Match its composition in the required 9:16 output; do not stretch it or treat the preview dimensions as export dimensions."
+          },
+          "layout": {
+            "speaker": "John is prominent and centered. Keep face clear; retain natural footage.",
+            "label": "Small violet filled label, dark uppercase A PRAYER FOR, left-aligned above the headline.",
+            "headline": "Short, bold, left-aligned headline in the lower region. White lead line; violet emphasized final phrase. Avoid covering John's face.",
+            "background": "Dark lower fade behind text; footage remains visible above it.",
+            "spacing": "Clear separation between label and headline, with generous surrounding breathing room.",
+            "thumbnail": "Quiet cover using John's own frame, the same label/type/colors, and the video's headline.",
+            "opening": "Carry the A Prayer For treatment into the opening. Use a restrained overlay over footage; a separate full-screen intro is not required by the document.",
+            "timingAuthority": "Opening duration is an editorial tweak, not a supplied client timing specification.",
+            "motion": "No added dramatic animation or constant graphical activity. A static treatment is sufficient.",
+            "safeArea": "Keep text inside phone-visible safe areas and clear of Opus captions. Verify the actual 9:16 frame."
+          },
+          "allowedTweaks": ["Video-specific headline", "Headline line breaks", "Crop for John's face/gestures", "Text size and spacing for readability", "Opening hold duration", "Restrained palette accents"],
+          "visualReview": ["A Prayer For label visible", "John prominent, face clear", "Short headline and breathing room", "Poppins and Stadium Lights colors", "Quiet matching cover", "No duplicate native captions in the Opus master"]
+        },
+        "bold_beliefs": { "name": "Bold Beliefs", "aliases": ["bold beliefs", "bold belief", "bold belief talks"], "treatment": "Direct and structured. Talking-head image stays prominent, clear series label, concise statement-driven headline." },
+        "sermon": { "name": "Sermon Clips", "aliases": ["sermon", "sermon clips"], "treatment": "Most editorial and dramatic. Big headline, strong contrast, Pastor John as the hero. Text can interact with the image.", "batchScope": "Not part of the current 24 John clips." },
+        "lifestyle": { "name": "Lifestyle / Walking", "aliases": ["lifestyle", "walking", "marquee walk"], "treatment": "Minimal graphics. Let the footage/location carry the frame. Simple hook only.", "batchScope": "Marquee Walk is outside the current 24 John clips." },
+        "quote": { "name": "Quote Graphics", "aliases": ["quote graphics", "quote card"], "treatment": "Textured brand-color backgrounds. Simple type, selective word highlights. Use as breathing room in the grid.", "batchScope": "Static assets are outside the 54-video scope." }
+      }
+    },
+    "pastor_ben": { "contractFile": "pastor-ben/visual-contract.json" },
+    "eric_miller": { "contractFile": "eric-miller/visual-contract.json" }
+  }
+}

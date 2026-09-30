@@ -557,6 +557,7 @@
       "trigger_patterns": [
         "video storage",
         "media storage",
+        "HomeSSD",
         "MediaSSD",
         "video project storage",
         "render storage",
@@ -567,12 +568,12 @@
       "surface": "video storage",
       "lane": "System Maintenance",
       "owner": "Docs/skills",
-      "intent": "Keep reusable video workflow source in Git and route heavy working media and generated outputs to the verified MediaSSD project root.",
+      "intent": "Keep reusable video workflow source in Git, route generated media and replaceable working copies to the verified HomeSSD client/type root, and preserve irreplaceable originals in Eagle or MediaSSD.",
       "shape": "operating rule",
       "required_tools": [
         "s-systems:video-storage"
       ],
-      "review_gate": "Verify the physical MediaSSD volume, write access, and free space before intake or rendering; require explicit approval before retiring an existing copy.",
+      "review_gate": "Verify the physical HomeSSD UUID, write access, and 50 GiB free-space floor before intake or rendering; never use the internal SSD as fallback; require explicit approval before retiring an existing copy.",
       "priority": 77,
       "enabled": true
     },
@@ -708,7 +709,7 @@
     {
       "skill_key": "video-storage",
       "activation": "core",
-      "reason": "Video project storage, MediaSSD routing, migration, retention, and exact-path cleanup."
+      "reason": "Video working-copy and generated-output routing to HomeSSD, durable source preservation, retention, and exact-path cleanup."
     },
     {
       "skill_key": "wayfinder",

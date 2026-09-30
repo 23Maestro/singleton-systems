@@ -69,9 +69,15 @@ name.
 Linear and Asana descriptions should read like polished CLI help: clear title,
 grouped sections, short facts, and visible whitespace.
 
-- Write valid CommonMark. A standalone document gets one `#` title. Use `##`
-  for sections. When the native task title already acts as the document title,
-  begin the description with `##`.
+- Draft valid CommonMark. Linear accepts it directly. A standalone document
+  gets one `#` title. Use `##` for sections; omit the title when the native
+  task title already owns the page.
+- Convert Asana drafts to supported HTML before writing `html_notes`. Wrap
+  the content in `<body>`, escape text, and close every tag. Use `<h2>` for
+  sections, `<strong>` for smaller labels, `<ul>/<li>` for lists, `<a>` for
+  links, and `<pre>` for code. `notes` is plain text, not a Markdown renderer.
+  Send only one description field. Read back both fields after writing.
+  Use subtasks for actionable work; literal `- [ ]` is not a task control.
 - Put a blank line after every heading and before and after lists or fenced code
   blocks. Emit real line breaks. Never print a visible escaped `\n` sequence.
 - Use bullets for facts, changes, blockers, and next actions. Use fenced code
@@ -154,8 +160,9 @@ No process commentary. No preamble, no recap. Deliver the artifact only.
 Rewrite drafts; preserve facts, scope, attribution, and sequence.
 Swap test hooks and site copy: if another company could reuse a line unchanged,
 make it specific or delete it.
-Linear/Asana: CommonMark `#`/`##` headings, bullets, fenced code when useful,
-and blank lines around blocks. Emit real line breaks, never a visible `\n`.
+Linear: CommonMark headings, bullets, fenced code, and blank lines.
+Asana: convert drafts to supported HTML in `html_notes`, wrapped in `<body>`.
+`notes` is plain text. Read back both fields. Emit real line breaks.
 Updates state what changed, what is blocked or failed, and what comes next.
 
 Banned: delve, tapestry, testament, underscore, pivotal, crucial, meticulous,

@@ -9,6 +9,18 @@
 /docs/visual-maps/dist
 /docs/visual-maps/archive
 
+# FaithTalk working media and generated outputs stay outside Git/Codex snapshots.
+# Keep compositions, HTML, scripts, manifests, and documentation visible.
+/videos/faithtalk-drawn-seed-preview/assets/
+/videos/faithtalk-drawn-seed-preview/renders/
+/videos/faithtalk-drawn-seed-preview/references/
+/videos/faithtalk-drawn-seed-preview/snapshots/
+/videos/faithtalk-drawn-seed-preview/.hyperframes/
+/videos/faithtalk-drawn-seed-preview/.thumbnails/
+/videos/faithtalk-logo-reveal/renders/
+/videos/faithtalk-logo-reveal/.hyperframes/
+/videos/faithtalk-logo-reveal/.thumbnails/
+
 # Understand Anything local graph data; keep the scan boundary
 /.ua/*
 !/.ua/.understandignore

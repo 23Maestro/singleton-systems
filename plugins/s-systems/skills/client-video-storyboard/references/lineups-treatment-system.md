@@ -116,8 +116,8 @@ new design pass.
 `Recurring Board / Rank Reveal / 10 Teams` (`1277:558`) is the only canonical
 Rank Reveal source. The pre-normalized source was deleted. Assign logos only
 through `Asset/Team Logo/Normalized/*` 96 x 78 wrappers. Set the ten teams and
-logos once for the episode, then reveal cumulatively from rank 10 through rank
-1. Every state keeps all previously revealed rows visible. Rank 10 starts with
+logos once for the episode, then reveal cumulatively from rank 10 through rank 1.
+Every state keeps all previously revealed rows visible. Rank 10 starts with
 a scene-start 10-to-1 row-shell cascade. Ranks 9 through 1 keep the board
 static and animate only the current team name and normalized logo.
 The episode motion artifact is a verified detached working copy. The canonical

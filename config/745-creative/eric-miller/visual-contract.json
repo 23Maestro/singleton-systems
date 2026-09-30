@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "id": "745-eric-miller-visual-direction-v1",
+  "clientId": "eric_miller",
+  "sharedContract": "../visual-contract.json",
+  "inherits": ["workflow", "jeramiWiggleRoom"],
+  "sources": {
+    "visualDirection": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+    "editBrief": "https://docs.google.com/document/d/1YsDSsA1NJq_UZPMMqTy9ZPiamBr2PUbZ/edit",
+    "brandBook": "https://docs.google.com/presentation/d/1r87O8pBLcHNn_Y7H0giZaNo5kv0LhwFc/edit",
+    "verifiedOn": "2026-09-30",
+    "authority": "Brief sets batch scope. Ian's later Visual Direction sets lane treatments. Brand-book recommendation supplies After Hours with the daytime warm base and Roboto/Arial. Jerami adopted this direction with the shared 10% allowance; separate client sign-off is not claimed."
+  },
+  "client": {
+    "name": "Eric Miller",
+    "aliases": ["eric miller", "eric / east of the river"],
+    "batch": {
+      "requestedDeliverables": 16,
+      "sourceFormat": "Direct-to-camera",
+      "averageListedSeconds": 50,
+      "inventoryAuthority": "Brief's requested count and average; not a verified file count, usable-clip count or target duration.",
+      "scope": "Simple consistent edits and one matching branded cover per finished video.",
+      "routing": "Inspect the script and footage before selecting market, education or local. Do not label all direct-to-camera clips market takes automatically. Property rules do not add listing deliverables."
+    },
+    "references": {
+      "account": "https://www.instagram.com/kantorwithak/",
+      "inspection": "Link resolved from Ian's document in the earlier source audit. Full reference-account and embedded-image visual audit remains pending.",
+      "estimateLimitation": "No Eric thumbnail reference or brand palette was included in the source document used for the estimate. The later Visual Direction and Eric brand book supply the current direction; exact cover geometry still needs a sample.",
+      "placeholderPolicy": "Use Eric's actual approved source frame, real source-supported locations and video-specific copy. Brand-book portraits, prices, headlines and example labels are placeholders."
+    },
+    "brand": {
+      "paletteName": "After Hours with River Valley warm base for daytime",
+      "palette": { "inkBlack": "#16181B", "duskSlate": "#3E4C59", "amber": "#D98A3D", "fieldstone": "#C9BFB1", "paper": "#F4F1EA" },
+      "font": "Roboto / Arial",
+      "typography": { "primaryFamily": "Roboto", "documentedAlternateFamily": "Arial", "pairingName": "Modern Confident", "weightAuthority": "No exact weights or pixel sizes supplied. Verify installed fonts and record the sample baseline." },
+      "colorUse": "Ink black/dusk slate carry editorial show and market energy. Amber is the signal accent. Fieldstone/paper soften daytime and educational graphics. Preserve natural footage; the palette does not mandate a dusk grade.",
+      "authority": "Use the recommendation's five-color combination. Other standalone palette options in the brand book are not active treatments."
+    },
+    "rules": [
+      "A local media brand with Eric at the center. The feed remains useful before someone needs to buy or sell.",
+      "Keep the look clean and local. Avoid corporate gloss.",
+      "Use After Hours consistently, with the recommended daytime warm base.",
+      "Use source-supported towns, streets, businesses, homes and Glastonbury/East of the River locations as visual identity.",
+      "Avoid generic Realtor graphics, luxury-for-luxury's-sake styling, heavy sales language and making every post an ad."
+    ],
+    "productionStatus": {
+      "direction": "source-backed; adopted by Jerami",
+      "premiereTemplate": "not built or verified",
+      "pixelBaseline": null,
+      "referenceImageBinding": null,
+      "pending": ["First 9:16 sample and matching cover", "Measured geometry and phone-readability review", "Source-to-deliverable reconciliation"],
+      "limits": "JSON and hook checks validate enrollment and declared adjustment bounds. They do not certify rendered style alignment. Only verified affected sources go on hold."
+    },
+    "lanes": {
+      "local": {
+        "name": "East of the River / Local",
+        "aliases": ["east of the river", "local"],
+        "treatment": "Recurring-show feel. Strong location-led visuals, clear titles, editorial/local-media energy.",
+        "requiredLabel": null,
+        "labelAuthority": "Recurring-show identity is required direction. No universal literal label is supplied. Use East of the River only when the source belongs to that series.",
+        "visualPasses": {
+          "framing": "Source-supported location carries the 9:16 frame. Preserve Eric's presence when he is on camera.",
+          "color": "After Hours editorial graphics; fieldstone/paper for daylight warmth. Keep locations recognizable and natural.",
+          "opening": "No mandatory intro card. A clear source-backed show or location title can establish recurring-show identity over footage.",
+          "onScreenText": "Clear Roboto/Arial titles with local-media hierarchy. Do not invent town names or series membership.",
+          "cover": "Location-led approved source still, clear title and recurring-show identity. Keep palette/type consistent; exact layout remains unmeasured."
+        },
+        "visualReview": ["Location supported by source", "Recurring-show identity clear", "Readable title", "After Hours with appropriate daytime base", "No generic Realtor cover"]
+      },
+      "market": {
+        "name": "Market Takes / Talking Head",
+        "aliases": ["market", "market takes", "talking head", "direct-to-camera", "dtc"],
+        "treatment": "Direct and simple. Eric is the focal point. Minimal graphics and a strong hook.",
+        "requiredLabel": null,
+        "labelAuthority": "No mandatory MARKET TAKE label. Example label in the brand book is not a universal requirement.",
+        "visualPasses": {
+          "framing": "Eric is prominent in 9:16. Keep his face clear and retain useful source setting.",
+          "color": "Natural footage with After Hours graphic accents. Use fieldstone/paper for softer daytime treatment when appropriate.",
+          "opening": "No mandatory intro card. Keep the source hook direct; optional title stays concise and does not add a sales pitch.",
+          "onScreenText": "Minimal Roboto/Arial graphics with a strong video-specific hook. No persistent ad-like overlays.",
+          "cover": "Eric's approved still plus a clear hook in the After Hours system. Match the video without inventing prices, statistics or sales claims."
+        },
+        "visualReview": ["Eric focal point", "Strong source-backed hook", "Minimal graphics", "Readable matching cover", "No ad-like or unsupported claims", "Native captions absent from the clean Opus master"]
+      },
+      "property": {
+        "name": "Listings / Property",
+        "aliases": ["listing", "listings", "property"],
+        "treatment": "Let the property do the work. Clean title treatment. Avoid generic listing templates.",
+        "requiredLabel": null,
+        "batchScope": "Reference lane only until a current source is verified as a listing/property clip. No added listing deliverables.",
+        "visualPasses": {
+          "framing": "Property leads the 9:16 composition. Preserve the meaningful room or exterior details in the source.",
+          "color": "Natural property color. After Hours type and restrained accents support the picture; no forced luxury grade.",
+          "opening": "No mandatory intro card. A clean property title is allowed when supported by the source.",
+          "onScreenText": "Clean Roboto/Arial title. Include address, price or property facts only when verified from client/source assets.",
+          "cover": "Approved property still with a clean source-backed title. No generic listing frame or invented luxury branding."
+        },
+        "visualReview": ["Property remains the hero", "Clean title", "Verified property facts only", "Natural color", "No generic listing template", "No added batch scope"]
+      },
+      "education": {
+        "name": "Buyer / Seller Education",
+        "aliases": ["buyer", "seller", "education"],
+        "treatment": "Slightly more structured. Clear, scannable headline. Simple graphics or solid-color cards when useful.",
+        "requiredLabel": null,
+        "labelAuthority": "No mandatory BUYER + SELLER label or fixed card count is supplied.",
+        "visualPasses": {
+          "framing": "Eric remains visible when on camera. Leave room for scannable information without covering his face.",
+          "color": "Use fieldstone/paper for softer educational surfaces, with ink/slate and restrained amber in the adopted palette.",
+          "opening": "No mandatory intro card. A concise educational headline or simple card is optional when useful.",
+          "onScreenText": "Scannable Roboto/Arial headline. Simple graphics or solid-color cards support source-backed information; no heavy animation.",
+          "cover": "Approved Eric/source still or a simple adopted-color surface with a clear educational headline. Exact layout is a sample default, not a supplied fixed template."
+        },
+        "visualReview": ["Headline scannable on phone", "Source-backed information", "Simple useful graphics", "Daytime warm palette base", "Matching readable cover", "No heavy animation"]
+      }
+    }
+  }
+}

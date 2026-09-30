@@ -43,7 +43,7 @@ const checks = [
   },
   {
     file: skillPath("opportunity-hq-updater"),
-    must: ["## Intake Rules", "Linear Intake:", "Write selected AI Consulting and Content Editor work to Asana", "Correction = edit instruction", "No process commentary in deliverables", "Format Linear and Asana bodies as CommonMark", "Never\nprint escaped `\\n` as layout"],
+    must: ["## Intake Rules", "Linear Intake:", "Write selected AI Consulting and Content Editor work to Asana", "Correction = edit instruction", "No process commentary in deliverables", "Format Linear bodies as CommonMark", "html_notes", "notes` is plain text", "Never print escaped `\\n` as layout"],
   },
   {
     file: skillPath("wayfinder"),
@@ -51,21 +51,22 @@ const checks = [
   },
   {
     file: "docs/harness/README.md",
-    must: ["## Writing Rules", "Correction = edit instruction", "No process commentary in deliverables", "competitor swap test", "Linear and Asana operational copy uses CommonMark"],
+    must: ["## Writing Rules", "Correction = edit instruction", "No process commentary in deliverables", "competitor swap test", "Linear operational copy uses CommonMark", "html_notes", "notes` is plain text"],
   },
   {
     file: "CODEX.md",
-    must: ["docs/video-storage-workflow.md", "s-systems:video-storage", "MediaSSD placement"],
+    must: ["docs/video-storage-workflow.md", "s-systems:video-storage", "HomeSSD placement"],
   },
   {
     file: "docs/video-storage-workflow.md",
-    must: ["s-systems:video-storage", "dev-storage", "/Volumes/MediaSSD/02_EDITING/CLIENTS/<CLIENT>/<PROJECT>/"],
+    must: ["s-systems:video-storage", "dev-storage", "/Volumes/HomeSSD/Generated/<CLIENT>/<TYPE>/", "Eagle or MediaSSD"],
   },
   {
     file: skillPath("video-storage"),
     must: [
       "Keep the reusable edit system in Git",
-      "/Volumes/MediaSSD/02_EDITING/CLIENTS/<CLIENT>/<PROJECT>/",
+      "/Volumes/HomeSSD/Generated/<CLIENT>/<TYPE>/",
+      "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A",
       "Do not use the internal SSD as a fallback",
       "Do not blanket",
       "explicit approval",

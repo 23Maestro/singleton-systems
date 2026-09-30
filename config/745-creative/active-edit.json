@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "clientId": "pastor_john",
+  "laneId": "prayer",
+  "source": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Afraid of Tomorrow.mov",
+  "sourceTitle": "Afraid of Tomorrow",
+  "headline": "THE FEAR OF TOMORROW",
+  "headlineLines": ["THE FEAR OF", "TOMORROW"],
+  "sequenceId": "db95fd6e-2826-4b79-b9b8-7d78125bdb78",
+  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/745Creative/2026-09-30_pastorjohn-test.prproj",
+  "captionOwner": "Opus Clip",
+  "width": 1080,
+  "height": 1920,
+  "adjustments": {},
+  "visualStatus": "direction bound; title treatment and cover not yet built or verified"
+}

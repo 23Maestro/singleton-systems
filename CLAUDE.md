@@ -1,5 +1,11 @@
 # CLAUDE.md
 
+For 745 Creative visual edits, follow `docs/745-creative-visual-contract.md`
+and `config/745-creative/visual-contract.json`. Bind the exact client/content
+lane and Premiere sequence before visual mutation. Jerami permits 10%
+adjustments within the locked treatment. Premiere owns visuals/covers;
+Opus Clip owns captions. Jev suggests lanes and never binds automatically.
+
 This is the secondary Claude Code entrypoint. Read `CODEX.md` first. It is the
 canonical shared repository guide and wins when these files disagree. The
 remaining notes mirror the shared architecture for Claude Code.
@@ -153,9 +159,10 @@ Writing Rules.
 - Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
 - Rewrite source-backed drafts without losing facts or attribution. Run the
   competitor swap test on hooks, landing pages, proposals, and portfolio copy.
-- Format Linear and Asana operational copy as CommonMark with headings, bullets,
-  fenced code when useful, and real blank lines. Never print escaped `\n` as
-  layout.
+- Draft operational copy as CommonMark with real blank lines. Linear accepts
+  CommonMark. Convert Asana descriptions to supported HTML in `html_notes`,
+  wrapped in `<body>`; `notes` is plain text. Read back both fields after writes.
+  Never print escaped `\n` as layout.
 - Jerami review surfaces usually stay between 300 and 500 words. Use fewer
   when the decision is simple.
 - If the review truly needs more, create a dated interactive HTML Decision Map

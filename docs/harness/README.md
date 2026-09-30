@@ -52,8 +52,9 @@ source code, generated bundles, code blocks, or conversation.
   task bodies short and move operating rules to their owner.
 - Asana names stay short: projects one to three words, tasks two to four
   words. Context goes in the description.
-- Linear and Asana operational copy uses CommonMark headings, bullets, fenced
-  code when useful, and real blank lines. Never print escaped `\n` as layout.
+- Linear operational copy uses CommonMark. Convert Asana descriptions to
+  supported HTML in `html_notes`, wrapped in `<body>`; `notes` is plain text.
+  Read back both fields. Use real blank lines. Never print escaped `\n` as layout.
 
 Full deny-list and the client-repo hook payload: `docs/harness/writing-rules.md`.
 

@@ -112,7 +112,7 @@ or apply mirror updates.
 when the task changes a durable contract or a drift check pins the text.
 
 Video storage is a separate front-facing tool. `s-systems:video-storage` owns
-MediaSSD placement, migration, retention, and video-media cleanup. `dev-storage`
+HomeSSD placement, migration, retention, and video-media cleanup. `dev-storage`
 owns dependencies, caches, runtimes, and Git worktrees.
 
 ## writing
@@ -125,13 +125,21 @@ to every reviewable non-code artifact.
 - Use short sentences, plain verbs, and concrete numbers.
 - Rewrite source-backed drafts without losing facts or attribution. Run the
   competitor swap test on hooks, landing pages, proposals, and portfolio copy.
-- Format Linear and Asana operational copy as CommonMark with headings, bullets,
-  fenced code when useful, and real blank lines. Never print escaped `\n` as
-  layout.
+- Draft operational copy as CommonMark with real blank lines. Linear accepts
+  CommonMark. Convert Asana descriptions to supported HTML in `html_notes`,
+  wrapped in `<body>`; `notes` is plain text. Read back both fields after writes.
+  Never print escaped `\n` as layout.
 - Keep Jerami review surfaces under 500 words when the decision is simple.
 - Use a dated interactive Decision Map when the review needs more room.
 
 ## conventions
+
+For 745 Creative visual edits, read `docs/745-creative-visual-contract.md`.
+Bind the exact client/content lane and Premiere sequence in
+`config/745-creative/active-edit.json`. The source-backed JSON and supplied
+reference govern the look, with Jerami's 10% adjustment allowance.
+Premiere owns visuals/covers; Opus Clip owns captions. Jev suggests lanes;
+it never overrides the supplied direction or binds automatically.
 
 - Preserve unrelated changes in a dirty worktree.
 - Verify visible behavior for user-facing changes.
