@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import {
   Check,
   CheckCircle,
@@ -23,6 +22,7 @@ import BookSection from "@/components/site/BookSection";
 import OffersSection from "@/components/site/OffersSection";
 import SiteFooter from "@/components/site/SiteFooter";
 import ProfileCard from "@/components/site/ProfileCard";
+import Hero from "@/components/site/Hero";
 import SiteHeader from "@/components/site/SiteHeader";
 import { siteNavFor } from "@/components/site/nav";
 
@@ -487,59 +487,14 @@ export default function Page() {
       />
       <SiteHeader items={siteNavFor("")} homeHref="#start" />
 
-      <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
-        <div className="w-full max-w-2xl">
-          <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[24rem] lg:max-w-2xl lg:text-[3.5rem]">
-            Take the Busy Work off Your Team
-          </h1>
-          <div className="mx-auto mt-6">
-            <p className="mx-auto max-w-[17rem] text-balance text-lg font-medium leading-relaxed text-neutral-700 sm:max-w-[20rem] lg:max-w-[28rem]">
-              Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you.
-            </p>
-          </div>
-          <div className="mx-auto mt-3">
-            <p className="mx-auto flex max-w-[20rem] items-center justify-center gap-2 text-center text-lg font-semibold leading-snug text-neutral-600 sm:max-w-[24rem] lg:max-w-[28rem]">
-              <span
-                className="inline-flex h-[1.125rem] w-[1.125rem] shrink-0 items-center justify-center rounded-full border-[1.5px] border-black bg-[#eef6ff] text-[#2383e2] lg:h-5 lg:w-5"
-                aria-hidden="true"
-              >
-                <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
-                  <path
-                    d="M8 2.5L8.8 5.4L11.5 6.2L8.8 7L8 9.8L7.2 7L4.5 6.2L7.2 5.4L8 2.5Z"
-                    fill="currentColor"
-                    stroke="#050505"
-                    strokeWidth="0.45"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M4 10.2L4.4 11.4L5.6 11.8L4.4 12.2L4 13.5L3.6 12.2L2.4 11.8L3.6 11.4L4 10.2Z"
-                    fill="currentColor"
-                    stroke="#050505"
-                    strokeWidth="0.35"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M12 9.2L12.4 10.4L13.6 10.8L12.4 11.2L12 12.5L11.6 11.2L10.4 10.8L11.6 10.4L12 9.2Z"
-                    fill="currentColor"
-                    stroke="#050505"
-                    strokeWidth="0.35"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              <span>First simple problem solved free</span>
-            </p>
-          </div>
-          <div className="mt-8 flex items-center justify-center">
-            <Link
-              href={CAL_URL}
-              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-base font-bold uppercase tracking-normal text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
-            >
-              Book a free call
-            </Link>
-          </div>
-        </div>
+      <Hero
+        title="Take the Busy Work off Your Team"
+        body="Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you."
+        ctaLabel="Book a free call"
+        ctaHref={CAL_URL}
+      />
 
+      <section className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 sm:px-8 sm:pb-18 lg:px-10">
         <ProfileCard />
 
         <PortfolioVideoCarousel />

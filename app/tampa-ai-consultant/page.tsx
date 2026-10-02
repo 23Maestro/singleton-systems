@@ -5,6 +5,7 @@ import BookSection from "@/components/site/BookSection";
 import OffersSection from "@/components/site/OffersSection";
 import ProfileCard from "@/components/site/ProfileCard";
 import SiteFooter from "@/components/site/SiteFooter";
+import Hero from "@/components/site/Hero";
 import SiteHeader from "@/components/site/SiteHeader";
 import StepBadge from "@/components/site/StepBadge";
 import { siteNavFor } from "@/components/site/nav";
@@ -133,26 +134,14 @@ export default function TampaAiConsultantPage() {
       />
       <SiteHeader items={nav} homeHref="/" />
 
-      <section id="start" className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 pt-16 text-center sm:px-8 sm:pb-18 sm:pt-20 lg:px-10">
-        <div className="w-full max-w-2xl">
-          <h1 className="mx-auto w-full max-w-[22rem] text-center text-[2.34rem] font-semibold leading-[1.05] tracking-normal sm:max-w-[26rem] lg:max-w-2xl lg:text-[3.5rem]">
-            AI Consultant in Tampa for Small Businesses
-          </h1>
-          <p className="mx-auto mt-6 max-w-[19rem] text-balance text-lg font-medium leading-relaxed text-neutral-700 sm:max-w-[24rem] lg:max-w-[30rem]">
-            I help Tampa Bay owners and small teams hand their repeated busy work to AI, one task at a time, built around the way they already work.
-          </p>
-          <div className="mt-8 flex items-center justify-center">
-            <a
-              href={CAL_URL}
-              className="inline-flex min-h-11 min-w-[12.75rem] items-center justify-center rounded-full bg-black px-6 text-base font-bold uppercase tracking-normal text-white shadow-[0_12px_28px_rgba(0,0,0,0.14)] transition hover:bg-neutral-800"
-            >
-              Book a free 15 minute call
-            </a>
-          </div>
-          <p className="mt-5 text-base font-semibold text-neutral-600">
-            Free call. First simple problem solved free.
-          </p>
-        </div>
+      <Hero
+        title="AI Consultant in Tampa for Small Businesses"
+        body="I help Tampa Bay owners and small teams hand their repeated busy work to AI, one task at a time, built around the way they already work."
+        ctaLabel="Book a free 15 minute call"
+        ctaHref={CAL_URL}
+      />
+
+      <section className="flex justify-center px-7 pb-6">
         <ProfileCard />
       </section>
 

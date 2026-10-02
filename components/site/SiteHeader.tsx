@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { NavItem } from "@/components/site/nav";
@@ -15,14 +17,7 @@ export default function SiteHeader({ items, homeHref }: { items: NavItem[]; home
           className="h-auto w-full"
         />
       </a>
-      <nav aria-label="Primary" className="hidden items-center gap-5 text-base font-semibold text-neutral-600 md:flex lg:gap-7">
-        {items.map((item) => (
-          <Link key={item.href} className="whitespace-nowrap transition hover:text-black" href={item.href}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
-      <details className="group relative md:hidden">
+      <details className="group relative">
         <summary
           className="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full bg-black text-white marker:hidden"
           aria-label="Open navigation"
@@ -34,11 +29,11 @@ export default function SiteHeader({ items, homeHref }: { items: NavItem[]; home
           </span>
         </summary>
         <nav
-          aria-label="Mobile"
+          aria-label="Primary"
           className="absolute right-0 top-14 z-20 grid min-w-44 gap-3 rounded-3xl border border-neutral-200 bg-white p-5 text-right text-base font-bold shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
         >
           {items.map((item) => (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}>
               {item.label}
             </Link>
           ))}

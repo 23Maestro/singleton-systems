@@ -127,17 +127,18 @@ test("search engines can tie the site to Jerami's and the brand's social profile
 
 test("homepage hero offers the free first problem and books a call", async () => {
   const page = visibleCopyOnly(await html("/"));
-  const hero = page.slice(page.indexOf("<h1"), page.indexOf('id="portfolio"'));
+  const start = page.indexOf("data-hero");
+  const hero = page.slice(start, page.indexOf("</section>", start));
   assert.ok(hero.includes("First simple problem solved free"), "hero kicker should name the free first problem");
   assert.match(hero, /<a[^>]*href="https:\/\/cal\.com\/[^"]+"[^>]*>Book a free call<\/a>/, "hero button should book a call on Cal.com");
   assert.ok(!hero.includes("Start with one thing"), "old kicker still in hero");
 });
 
-test("profile card and Person data show broadcast production since 2014", async () => {
+test("profile card and Person data show broadcast production since 2014 without naming a station", async () => {
   const page = await html("/");
   const text = textOf(visibleCopyOnly(page));
   assert.ok(text.includes("Broadcast Production since 2014"), "profile card missing broadcast years");
-  assert.ok(text.includes("WFLA News Channel 8"), "profile card missing WFLA");
+  assert.ok(!text.includes("WFLA"), "profile card should not name a station");
   assert.ok(page.includes('"name":"Broadcast Production Specialist"'), "Person data missing broadcast occupation");
 });
 
@@ -186,6 +187,124 @@ test("choosing each portfolio video announces its caption", async () => {
     for (const [name, caption] of Object.entries(captions)) {
       await page.locator('#portfolio [aria-label="Choose a project"]').getByRole("button", { name, exact: true }).click();
       assert.ok((await live.textContent()).includes(caption), `${name} caption not announced`);
+    }
+  } finally {
+    await browser.close();
+  }
+});
+
+test("each profile card line fits on one row on phone and desktop", async () => {
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  try {
+    for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
+      const page = await browser.newPage({ viewport });
+      await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+      const lines = page.locator("[data-profile-card] p span");
+      assert.ok((await lines.count()) >= 4, "profile card lines not found");
+      const wrapped = await lines.evaluateAll((spans) =>
+        spans.filter((s) => s.getClientRects().length > 1).map((s) => s.textContent),
+      );
+      assert.deepEqual(wrapped, [], `profile card lines wrap at ${viewport.width}px`);
+      await page.close();
+    }
+  } finally {
+    await browser.close();
+  }
+});
+
+test("header uses one menu button at every width", async () => {
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  try {
+    for (const path of ["/", "/tampa-ai-consultant"]) {
+      for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
+        const page = await browser.newPage({ viewport });
+        await page.goto(new URL(path, BASE_URL).href, { waitUntil: "load" });
+        const header = page.locator("header").first();
+        const button = header.getByLabel("Open navigation");
+        assert.ok(await button.isVisible(), `${path} at ${viewport.width}px: no menu button`);
+        const visibleLinks = await header.locator("nav a:visible").count();
+        assert.equal(visibleLinks, 0, `${path} at ${viewport.width}px: nav links show before the menu opens`);
+        await button.click();
+        for (const label of ["Start", "Links", "Solutions", "How It Starts", "What I Fix", "Pricing", "Tampa", "Book"]) {
+          assert.ok(await header.getByRole("link", { name: label, exact: true }).isVisible(), `${path} at ${viewport.width}px: ${label} missing from open menu`);
+        }
+        await page.close();
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+});
+
+test("hero owns its own framed section on both pages", async () => {
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  try {
+    for (const path of ["/", "/tampa-ai-consultant"]) {
+      for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
+        const page = await browser.newPage({ viewport, reducedMotion: "reduce" });
+        await page.goto(new URL(path, BASE_URL).href, { waitUntil: "load" });
+        const where = `${path} at ${viewport.width}px`;
+        const hero = page.locator("[data-hero]");
+        assert.equal(await hero.count(), 1, `${where}: no hero section`);
+        const facts = await hero.evaluate((el) => {
+          const h1 = el.querySelector("h1");
+          const pill = el.querySelector("[data-hero-pill]");
+          const body = el.querySelector("[data-hero-body]");
+          return {
+            hasCard: !!el.querySelector("[data-profile-card]"),
+            hasCarousel: !!el.querySelector("#portfolio"),
+            pillText: pill?.textContent.trim() ?? "",
+            pillBeforeH1: !!pill && !!h1 && !!(pill.compareDocumentPosition(h1) & Node.DOCUMENT_POSITION_FOLLOWING),
+            h1Size: h1 ? parseFloat(getComputedStyle(h1).fontSize) : 0,
+            bodyWidth: body ? body.getBoundingClientRect().width : 0,
+            heroHeight: el.getBoundingClientRect().height,
+            chip: el.querySelector("[data-hero-chip]")?.textContent.trim() ?? "",
+          };
+        });
+        assert.ok(!facts.hasCard, `${where}: profile card still inside the hero`);
+        assert.ok(!facts.hasCarousel, `${where}: carousel still inside the hero`);
+        assert.equal(facts.pillText, "First simple problem solved free", `${where}: pill text`);
+        assert.ok(facts.pillBeforeH1, `${where}: pill should sit above the headline`);
+        assert.match(facts.chip, /Jerami Singleton · Tampa/, `${where}: photo chip`);
+        if (viewport.width === 1440) {
+          assert.ok(facts.h1Size >= 64, `${where}: headline ${facts.h1Size}px, want 64+`);
+          assert.ok(facts.bodyWidth >= 500, `${where}: paragraph ${facts.bodyWidth}px wide, want 500+`);
+          assert.ok(facts.heroHeight >= viewport.height * 0.7, `${where}: hero ${facts.heroHeight}px tall, want most of the screen`);
+        }
+        const card = page.locator("[data-profile-card]");
+        assert.equal(await card.count(), 1, `${where}: profile card missing`);
+        const cardAfterHero = await page.evaluate(() => {
+          const hero = document.querySelector("[data-hero]");
+          const card = document.querySelector("[data-profile-card]");
+          return !!(hero.compareDocumentPosition(card) & Node.DOCUMENT_POSITION_FOLLOWING);
+        });
+        assert.ok(cardAfterHero, `${where}: profile card should follow the hero`);
+        const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+        assert.ok(overflow <= 0, `${where}: page scrolls sideways by ${overflow}px`);
+        await page.close();
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+});
+
+test("menu closes after jumping to a section", async () => {
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  try {
+    for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
+      const page = await browser.newPage({ viewport, reducedMotion: "reduce" });
+      await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+      const header = page.locator("header").first();
+      await header.getByLabel("Open navigation").click();
+      await header.getByRole("link", { name: "Pricing", exact: true }).click();
+      await page.waitForTimeout(200);
+      assert.equal(await header.locator("nav a:visible").count(), 0, `menu still open at ${viewport.width}px after a jump link`);
+      await page.close();
     }
   } finally {
     await browser.close();
