@@ -9,7 +9,7 @@ const projects = [
   {
     name: "1-Click Follow-Up",
     source: "Prospect ID",
-    caption: "Their scheduling site was 15 years old. Every follow up took a pile of clicks. Now it takes one tap from my phone.",
+    caption: "Their scheduling site was 15 years old. Every follow up took a pile of clicks. I got it down to one tap from my phone.",
     src: "/portfolio/proof-videos/prospect-id.mp4",
     poster: "/portfolio/proof-videos/prospect-id-poster.jpg",
   },
@@ -285,7 +285,7 @@ export default function PortfolioVideoCarousel() {
           <span aria-hidden="true">←</span>
         </button>
 
-        <div aria-live="polite" className="col-start-2 row-start-2 w-36 text-center sm:w-56">
+        <div className="col-start-2 row-start-2 w-36 text-center sm:w-56">
           <p className="text-base font-semibold leading-tight text-neutral-950 [text-shadow:0_1px_0_#fff,0_0_12px_rgba(255,255,255,0.9)] sm:text-xl">{projects[activeIndex].name}</p>
           <p className="mt-1 text-base font-semibold text-neutral-500">{projects[activeIndex].source}</p>
         </div>
@@ -300,7 +300,7 @@ export default function PortfolioVideoCarousel() {
         </button>
       </div>
 
-      <p className="mx-auto mt-4 max-w-md text-balance text-center text-lg font-medium leading-relaxed text-neutral-700">
+      <p aria-live="polite" className="mx-auto mt-4 max-w-md text-balance text-center text-lg font-medium leading-relaxed text-neutral-700">
         {projects[activeIndex].caption}
       </p>
 

@@ -70,3 +70,6 @@ supabase/.temp/
 
 # typescript
 *.tsbuildinfo
+
+# progress dashboards
+.dashboard/

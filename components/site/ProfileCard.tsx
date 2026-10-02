@@ -18,6 +18,8 @@ export default function ProfileCard() {
         <p className="mt-1 text-base font-medium leading-relaxed text-neutral-600">
           <span className="block">2 years of Programming | IT</span>
           <span className="block">at St. Petersburg College</span>
+          <span className="mt-2 block">Broadcast Production since 2014</span>
+          <span className="block">at WFLA News Channel 8</span>
           <span className="mt-2 block">Video Editing since 2022</span>
           <span className="mt-2 block">Building with AI since 2024</span>
         </p>

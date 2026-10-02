@@ -132,3 +132,62 @@ test("homepage hero offers the free first problem and books a call", async () =>
   assert.match(hero, /<a[^>]*href="https:\/\/cal\.com\/[^"]+"[^>]*>Book a free call<\/a>/, "hero button should book a call on Cal.com");
   assert.ok(!hero.includes("Start with one thing"), "old kicker still in hero");
 });
+
+test("profile card and Person data show broadcast production since 2014", async () => {
+  const page = await html("/");
+  const text = textOf(visibleCopyOnly(page));
+  assert.ok(text.includes("Broadcast Production since 2014"), "profile card missing broadcast years");
+  assert.ok(text.includes("WFLA News Channel 8"), "profile card missing WFLA");
+  assert.ok(page.includes('"name":"Broadcast Production Specialist"'), "Person data missing broadcast occupation");
+});
+
+test("no reading text renders under 16px on phone or desktop", async () => {
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  try {
+    for (const path of ["/", "/tampa-ai-consultant"]) {
+      for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
+        const page = await browser.newPage({ viewport, reducedMotion: "reduce" });
+        await page.goto(new URL(path, BASE_URL).href, { waitUntil: "load" });
+        const small = await page.evaluate(() => {
+          const found = [];
+          for (const el of document.querySelectorAll("body *")) {
+            // Product mockups in What I Fix are illustrations, not reading text.
+            if (el.closest("[data-illustration], [aria-hidden='true'], script, style")) continue;
+            const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+            if (!hasText || el.getClientRects().length === 0) continue;
+            const size = parseFloat(getComputedStyle(el).fontSize);
+            if (size < 16) found.push(`${size}px "${el.textContent.trim().slice(0, 40)}"`);
+          }
+          return found;
+        });
+        assert.deepEqual(small, [], `${path} at ${viewport.width}px has text under 16px`);
+        await page.close();
+      }
+    }
+  } finally {
+    await browser.close();
+  }
+});
+
+test("choosing each portfolio video announces its caption", async () => {
+  const { chromium } = await import("@playwright/test");
+  const browser = await chromium.launch();
+  const captions = {
+    "1-Click Follow-Up": "I got it down to one tap from my phone.",
+    "$300 Job. 2 Hours.": "a week ahead of schedule",
+    "AI Preps the Project": "Most of the edit builds itself now.",
+    "140+ Videos. 6 Weeks.": "I made 140+ videos in 6 weeks",
+  };
+  try {
+    const page = await browser.newPage({ reducedMotion: "reduce" });
+    await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+    const live = page.locator("#portfolio [aria-live]");
+    for (const [name, caption] of Object.entries(captions)) {
+      await page.locator('#portfolio [aria-label="Choose a project"]').getByRole("button", { name, exact: true }).click();
+      assert.ok((await live.textContent()).includes(caption), `${name} caption not announced`);
+    }
+  } finally {
+    await browser.close();
+  }
+});
