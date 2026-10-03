@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { loadEnvFile } from "node:process";
 import { linkedQuery } from "./lib/supabase-linked-cli.mjs";
+import { repoSkillRows } from "./lib/repo-skill-registry.mjs";
+
+try { loadEnvFile(".env.local"); } catch (error) { if (error.code !== "ENOENT") throw error; }
 
 const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -9,6 +13,7 @@ const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const expected = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "config/cerebral-registry.json"), "utf8"),
 );
+const expectedSkills = repoSkillRows(process.cwd(), expected.skills);
 const expectedRevision = expected.source_revision;
 assert.ok(expectedRevision, "config/cerebral-registry.json is missing source_revision");
 
@@ -54,7 +59,7 @@ const [routes, skills, capabilities] = await Promise.all([
 ]);
 
 assert.deepEqual(new Set(routes.map((row) => row.route_key)), new Set(expected.routes.map((row) => row.route_key)));
-assert.deepEqual(new Set(skills.map((row) => row.skill_key)), new Set(expected.skills.map((row) => row.skill_key)));
+assert.deepEqual(new Set(skills.map((row) => row.skill_key)), new Set(expectedSkills.map((row) => row.skill_key)));
 assert.deepEqual(new Set(capabilities.map((row) => row.capability_key)), new Set(expected.capabilities.map((row) => row.capability_key)));
 const routeByKey = new Map(routes.map((row) => [row.route_key, row]));
 for (const route of expected.routes) {
@@ -63,18 +68,20 @@ for (const route of expected.routes) {
   assert.deepEqual(actual.required_tools, route.required_tools, `${route.route_key} required_tools drifted`);
   assert.equal(actual.lane, route.lane, `${route.route_key} lane drifted`);
   assert.equal(actual.owner, route.owner, `${route.route_key} owner drifted`);
+  assert.equal(actual.surface, route.surface, `${route.route_key} surface drifted`);
+  assert.equal(actual.project, route.project ?? null, `${route.route_key} project drifted`);
   assert.equal(actual.priority, route.priority, `${route.route_key} priority drifted`);
   assert.equal(actual.enabled, route.enabled, `${route.route_key} enabled drifted`);
 }
 
 const skillByKey = new Map(skills.map((row) => [row.skill_key, row]));
-for (const skill of expected.skills) {
+for (const skill of expectedSkills) {
   const actual = skillByKey.get(skill.skill_key);
   assert.equal(actual.activation, skill.activation, `${skill.skill_key} activation drifted`);
   assert.equal(actual.reason, skill.reason, `${skill.skill_key} reason drifted`);
   assert.equal(
     actual.canonical_path,
-    `plugins/s-systems/skills/${skill.skill_key}`,
+    skill.canonical_path,
     `${skill.skill_key} canonical_path drifted`,
   );
 }
@@ -86,7 +93,7 @@ for (const capability of expected.capabilities) {
   assert.equal(actual.verification_command, capability.verification_command, `${capability.capability_key} verification_command drifted`);
 }
 
-const expectedCoreCount = expected.skills.filter((row) => row.activation === "core").length;
+const expectedCoreCount = expectedSkills.filter((row) => row.activation === "core").length;
 assert.equal(skills.filter((row) => row.activation === "core").length, expectedCoreCount);
 assert.deepEqual(new Set([...routes, ...skills, ...capabilities].map((row) => row.source_revision)), new Set([expectedRevision]));
 console.log(`Live Cerebral registry verified: ${routes.length} routes, ${skills.length} skills, ${capabilities.length} capabilities.`);

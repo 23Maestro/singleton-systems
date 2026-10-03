@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
+import { loadEnvFile } from "node:process";
 import { linkedQuery, quoteJsonb } from "./lib/supabase-linked-cli.mjs";
+import { repoSkillRows } from "./lib/repo-skill-registry.mjs";
+
+try { loadEnvFile(".env.local"); } catch (error) { if (error.code !== "ENOENT") throw error; }
 
 const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -19,6 +23,7 @@ if (!linkedCli && (!url || !serviceKey)) {
 const registry = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "config/cerebral-registry.json"), "utf8"),
 );
+const skills = repoSkillRows(process.cwd(), registry.skills);
 
 const sourceRevision = registry.source_revision;
 if (!sourceRevision) {
@@ -53,8 +58,8 @@ async function seedRegistry() {
       Prefer: "return=representation",
     },
     body: JSON.stringify({
-      p_routes: registry.routes.map(({ surface, ...route }) => route),
-      p_skills: registry.skills,
+      p_routes: registry.routes,
+      p_skills: skills,
       p_capabilities: registry.capabilities,
       p_source_revision: sourceRevision,
     }),
@@ -70,9 +75,9 @@ function activeKeys(field, rows) {
 }
 
 function seedWithLinkedCli() {
-  const routes = registry.routes.map(({ surface, ...route }) => route);
+  const routes = registry.routes;
   const routeKeys = activeKeys("route_key", routes);
-  const skillKeys = activeKeys("skill_key", registry.skills);
+  const skillKeys = activeKeys("skill_key", skills);
   const capabilityKeys = activeKeys("capability_key", registry.capabilities);
   const sourceRevisionSql = `${quoteJsonb(sourceRevision, "revision")} #>> '{}'`;
   const seedSql = `
@@ -81,7 +86,7 @@ begin;
 create temporary table singleton_cerebral_seed_result on commit drop as
 select * from public.seed_cerebral_registry(
     ${quoteJsonb(routes, "routes")},
-    ${quoteJsonb(registry.skills, "skills")},
+    ${quoteJsonb(skills, "skills")},
     ${quoteJsonb(registry.capabilities, "capabilities")},
     ${sourceRevisionSql}
   );
@@ -165,7 +170,7 @@ if (linkedCli) {
   [seeded] = await seedRegistry();
   [routesRemoved, skillsRemoved, capabilitiesRemoved] = await Promise.all([
     deleteRetired("cerebral_routes", "route_key", registry.routes.map((route) => route.route_key)),
-    deleteRetired("harness_skills", "skill_key", registry.skills.map((skill) => skill.skill_key)),
+    deleteRetired("harness_skills", "skill_key", skills.map((skill) => skill.skill_key)),
     deleteRetired("harness_capabilities", "capability_key", registry.capabilities.map((capability) => capability.capability_key)),
   ]);
 }

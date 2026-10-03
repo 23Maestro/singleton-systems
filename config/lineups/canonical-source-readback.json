@@ -1,0 +1,688 @@
+{
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "pageId": "428:27",
+  "sources": [
+    {
+      "id": "434:111",
+      "name": "Recurring Board / Rank Reveal",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "441:50",
+      "name": "Asset Swap",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "587:1130",
+      "name": "Quick Action Photo",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "589:103",
+      "name": "Quick Stat",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "591:124",
+      "name": "Stat Breakdown",
+      "type": "COMPONENT_SET",
+      "parentId": "428:27",
+      "width": 3960,
+      "height": 1080
+    },
+    {
+      "id": "591:105",
+      "name": "Points=3",
+      "type": "COMPONENT",
+      "parentId": "591:124",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Points": "3"
+      }
+    },
+    {
+      "id": "591:123",
+      "name": "Points=4",
+      "type": "COMPONENT",
+      "parentId": "591:124",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Points": "4"
+      }
+    },
+    {
+      "id": "593:107",
+      "name": "Comparison / Cinematic 2-up",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "46:66",
+      "name": "_Base / Full Comparison Table/4",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1416,
+      "height": 680,
+      "variants": null
+    },
+    {
+      "id": "127:591",
+      "name": "_Base / Full Comparison Table/2",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1416,
+      "height": 680,
+      "variants": null
+    },
+    {
+      "id": "274:910",
+      "name": "_Base / Full Comparison Table / Subjects=3",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1524,
+      "height": 732,
+      "variants": null
+    },
+    {
+      "id": "598:494",
+      "name": "Comparison / Simple",
+      "type": "COMPONENT_SET",
+      "parentId": "428:27",
+      "width": 6000,
+      "height": 1080
+    },
+    {
+      "id": "598:215",
+      "name": "Subjects=2",
+      "type": "COMPONENT",
+      "parentId": "598:494",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "2"
+      }
+    },
+    {
+      "id": "598:279",
+      "name": "Subjects=3",
+      "type": "COMPONENT",
+      "parentId": "598:494",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "3"
+      }
+    },
+    {
+      "id": "598:372",
+      "name": "Subjects=4",
+      "type": "COMPONENT",
+      "parentId": "598:494",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "4"
+      }
+    },
+    {
+      "id": "1384:607",
+      "name": "Subjects=5",
+      "type": "COMPONENT",
+      "parentId": "598:494",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "5"
+      }
+    },
+    {
+      "id": "601:215",
+      "name": "Recurring Board / Super Bowl Bubble",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "653:226",
+      "name": "Quick Stat / Statement",
+      "type": "COMPONENT_SET",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 2280
+    },
+    {
+      "id": "653:184",
+      "name": "Option=Single-frame statement",
+      "type": "COMPONENT",
+      "parentId": "653:226",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Option": "Single-frame statement"
+      }
+    },
+    {
+      "id": "653:196",
+      "name": "Option=Two-photo progression",
+      "type": "COMPONENT",
+      "parentId": "653:226",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Option": "Two-photo progression"
+      }
+    },
+    {
+      "id": "654:225",
+      "name": "Year-by-Year / Trend Table",
+      "type": "COMPONENT_SET",
+      "parentId": "428:27",
+      "width": 3960,
+      "height": 1080
+    },
+    {
+      "id": "599:215",
+      "name": "Periods=7",
+      "type": "COMPONENT",
+      "parentId": "654:225",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Periods": "7"
+      }
+    },
+    {
+      "id": "654:199",
+      "name": "Periods=3",
+      "type": "COMPONENT",
+      "parentId": "654:225",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Periods": "3"
+      }
+    },
+    {
+      "id": "711:184",
+      "name": "Asset Swap / Logo Pair",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "731:193",
+      "name": "Comparison / Full / Conference Pulse",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "742:359",
+      "name": "Comparison / Full / National Champions",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "745:216",
+      "name": "Comparison / Full / Big Ten SEC Snapshot",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "767:238",
+      "name": "Quick Stat / Big Ten SVG Statement",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "839:297",
+      "name": "Quick Stat / Statement / Power Rankings / P01",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "839:308",
+      "name": "Quick Stat / Statement / Power Rankings / P06",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "839:319",
+      "name": "Quick Stat / Statement / Power Rankings / P11",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "868:776",
+      "name": "Quick Stat / Cyan Statement Callout",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1087,
+      "variants": null
+    },
+    {
+      "id": "881:306",
+      "name": "Asset Swap / Three Names / P09 Bengals",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "882:313",
+      "name": "Asset Swap / Three Names / P03 Bears",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "882:346",
+      "name": "Asset Swap / Three Names / P16 Patriots",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "882:375",
+      "name": "Asset Swap / Championship / P10 Broncos vs Patriots",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "1103:783",
+      "name": "Comparison / Full",
+      "type": "COMPONENT_SET",
+      "parentId": "428:27",
+      "width": 6000,
+      "height": 1080
+    },
+    {
+      "id": "594:1254",
+      "name": "Subjects=2, Rows=3",
+      "type": "COMPONENT",
+      "parentId": "1103:783",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "2",
+        "Rows": "3"
+      }
+    },
+    {
+      "id": "1103:649",
+      "name": "Subjects=2, Rows=2",
+      "type": "COMPONENT",
+      "parentId": "1103:783",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "2",
+        "Rows": "2"
+      }
+    },
+    {
+      "id": "594:1345",
+      "name": "Subjects=3, Rows=3",
+      "type": "COMPONENT",
+      "parentId": "1103:783",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "3",
+        "Rows": "3"
+      }
+    },
+    {
+      "id": "1103:694",
+      "name": "Subjects=3, Rows=2",
+      "type": "COMPONENT",
+      "parentId": "1103:783",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "3",
+        "Rows": "2"
+      }
+    },
+    {
+      "id": "594:1437",
+      "name": "Subjects=4, Rows=3",
+      "type": "COMPONENT",
+      "parentId": "1103:783",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "4",
+        "Rows": "3"
+      }
+    },
+    {
+      "id": "1103:738",
+      "name": "Subjects=4, Rows=2",
+      "type": "COMPONENT",
+      "parentId": "1103:783",
+      "width": 1920,
+      "height": 1080,
+      "variants": {
+        "Subjects": "4",
+        "Rows": "2"
+      }
+    },
+    {
+      "id": "1277:558",
+      "name": "Recurring Board / Rank Reveal / 10 Teams",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "1413:664",
+      "name": "Matchup / Team matchup",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    },
+    {
+      "id": "1425:630",
+      "name": "Quick Action Photo / Full Frame / 5.5s Hook",
+      "type": "COMPONENT",
+      "parentId": "428:27",
+      "width": 1920,
+      "height": 1080,
+      "variants": null
+    }
+  ],
+  "callout": [
+    {
+      "id": "868:776",
+      "name": "Quick Stat / Cyan Statement Callout",
+      "type": "COMPONENT",
+      "x": 8600,
+      "y": 3980,
+      "width": 1920,
+      "height": 1087,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "FIXED",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "MIN",
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 816,
+      "paddingBottom": 0,
+      "cornerRadius": 0,
+      "topLeftRadius": 0,
+      "topRightRadius": 0,
+      "bottomLeftRadius": 0,
+      "bottomRightRadius": 0,
+      "clipsContent": true,
+      "fills": [],
+      "strokes": [],
+      "strokeWeight": 1,
+      "effects": []
+    },
+    {
+      "id": "868:777",
+      "name": "PANEL / LOWER THIRD",
+      "type": "FRAME",
+      "x": 589,
+      "y": 816,
+      "width": 742,
+      "height": 190,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "AUTO",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "CENTER",
+      "paddingLeft": 72,
+      "paddingRight": 72,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "topLeftRadius": 0,
+      "topRightRadius": 34,
+      "bottomLeftRadius": 34,
+      "bottomRightRadius": 0,
+      "clipsContent": true,
+      "fills": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.02500000037252903,
+                "g": 0.054999999701976776,
+                "b": 0.07500000298023224,
+                "a": 0.8799999952316284
+              },
+              "position": 0,
+              "boundVariables": {}
+            },
+            {
+              "color": {
+                "r": 0.03500000014901161,
+                "g": 0.0949999988079071,
+                "b": 0.12999999523162842,
+                "a": 0.800000011920929
+              },
+              "position": 0.550000011920929,
+              "boundVariables": {}
+            },
+            {
+              "color": {
+                "r": 0.054999999701976776,
+                "g": 0.14000000059604645,
+                "b": 0.1899999976158142,
+                "a": 0.7200000286102295
+              },
+              "position": 1,
+              "boundVariables": {}
+            }
+          ],
+          "gradientTransform": [
+            [
+              0.8500000238418579,
+              0.18000000715255737,
+              -0.019999999552965164
+            ],
+            [
+              -0.18000000715255737,
+              0.8500000238418579,
+              0.11999999731779099
+            ]
+          ]
+        }
+      ],
+      "strokes": [
+        {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0,
+            "g": 0.753000020980835,
+            "b": 0.9100000262260437
+          },
+          "boundVariables": {}
+        }
+      ],
+      "strokeWeight": 2,
+      "effects": [
+        {
+          "type": "BACKGROUND_BLUR",
+          "visible": true,
+          "radius": 22,
+          "boundVariables": {},
+          "blurType": "NORMAL"
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 18,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0.753000020980835,
+            "b": 0.9100000262260437,
+            "a": 0.2199999988079071
+          },
+          "offset": {
+            "x": 10,
+            "y": 10
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 30,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.46000000834465027
+          },
+          "offset": {
+            "x": 0,
+            "y": 18
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "INNER_SHADOW",
+          "visible": true,
+          "radius": 7,
+          "boundVariables": {},
+          "color": {
+            "r": 0.44999998807907104,
+            "g": 0.9300000071525574,
+            "b": 1,
+            "a": 0.1599999964237213
+          },
+          "offset": {
+            "x": -2,
+            "y": -2
+          },
+          "spread": 0,
+          "blendMode": "SCREEN"
+        }
+      ]
+    },
+    {
+      "id": "868:779",
+      "name": "TEXT / STAT CALLOUT / FULL PILL",
+      "type": "TEXT",
+      "x": 72,
+      "y": 56.5,
+      "width": 598,
+      "height": 77,
+      "fills": [
+        {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.968999981880188,
+            "g": 0.968999981880188,
+            "b": 0.9490000009536743
+          },
+          "boundVariables": {
+            "color": {
+              "type": "VARIABLE_ALIAS",
+              "id": "VariableID:428:8"
+            }
+          }
+        }
+      ],
+      "strokes": [],
+      "strokeWeight": 1,
+      "effects": [],
+      "fontName": {
+        "family": "Inter",
+        "style": "Bold",
+        "variationSettings": {
+          "wght": 700,
+          "slnt": 0
+        }
+      },
+      "fontSize": 64,
+      "lineHeight": {
+        "unit": "AUTO"
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textAutoResize": "WIDTH_AND_HEIGHT",
+      "textAlignHorizontal": "CENTER",
+      "textAlignVertical": "CENTER"
+    }
+  ]
+}

@@ -1,0 +1,629 @@
+{
+  "schemaVersion": 1,
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "componentsPageId": "428:27",
+  "verifiedAt": "2026-10-01",
+  "identityPolicy": "Resolve by registry key and exact Figma IDs. Names and canvas positions are display-only. Never choose an episode example as a source.",
+  "templates": [
+    {
+      "key": "quick-action.full-frame",
+      "lane": "quick action photo",
+      "option": "quick action photo",
+      "settings": {},
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1425:630",
+        "name": "Quick Action Photo / Full Frame / 5.5s Hook",
+        "type": "COMPONENT",
+        "parentId": "428:27",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "quick-stat.single",
+      "lane": "quick stat",
+      "option": "Single-frame statement",
+      "settings": {
+        "photos": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "653:184",
+        "name": "Option=Single-frame statement",
+        "type": "COMPONENT",
+        "parentId": "653:226",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184",
+        "variantProperties": {
+          "Option": "Single-frame statement"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "quick-stat.callout.v1"
+      ],
+      "visualGuardCoverage": "callout geometry and style"
+    },
+    {
+      "key": "quick-stat.progression",
+      "lane": "quick stat",
+      "option": "Two-photo progression",
+      "settings": {
+        "photos": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "653:196",
+        "name": "Option=Two-photo progression",
+        "type": "COMPONENT",
+        "parentId": "653:226",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-196",
+        "variantProperties": {
+          "Option": "Two-photo progression"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "quick-stat.callout.v1"
+      ],
+      "visualGuardCoverage": "callout geometry and style"
+    },
+    {
+      "key": "stat-breakdown.3",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "settings": {
+        "stats": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "591:105",
+        "name": "Points=3",
+        "type": "COMPONENT",
+        "parentId": "591:124",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-105",
+        "variantProperties": {
+          "Points": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "stat-breakdown.4",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "settings": {
+        "stats": 4
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "591:123",
+        "name": "Points=4",
+        "type": "COMPONENT",
+        "parentId": "591:124",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-123",
+        "variantProperties": {
+          "Points": "4"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.cinematic.2",
+      "lane": "comparison",
+      "option": "Cinematic 2-up",
+      "settings": {
+        "subjects": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "593:107",
+        "name": "Comparison / Cinematic 2-up",
+        "type": "COMPONENT",
+        "parentId": "428:27",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=593-107",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.simple.2",
+      "lane": "comparison",
+      "option": "Simple comparison",
+      "settings": {
+        "subjects": 2,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "598:215",
+        "name": "Subjects=2",
+        "type": "COMPONENT",
+        "parentId": "598:494",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-215",
+        "variantProperties": {
+          "Subjects": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.simple.3",
+      "lane": "comparison",
+      "option": "Simple comparison",
+      "settings": {
+        "subjects": 3,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "598:279",
+        "name": "Subjects=3",
+        "type": "COMPONENT",
+        "parentId": "598:494",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-279",
+        "variantProperties": {
+          "Subjects": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.simple.4",
+      "lane": "comparison",
+      "option": "Simple comparison",
+      "settings": {
+        "subjects": 4,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "598:372",
+        "name": "Subjects=4",
+        "type": "COMPONENT",
+        "parentId": "598:494",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-372",
+        "variantProperties": {
+          "Subjects": "4"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.full.2.2",
+      "lane": "comparison",
+      "option": "Full comparison: 2",
+      "settings": {
+        "subjects": 2,
+        "rows": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1103:649",
+        "name": "Subjects=2, Rows=2",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-649",
+        "variantProperties": {
+          "Subjects": "2",
+          "Rows": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.full.2.3",
+      "lane": "comparison",
+      "option": "Full comparison: 2",
+      "settings": {
+        "subjects": 2,
+        "rows": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "594:1254",
+        "name": "Subjects=2, Rows=3",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1254",
+        "variantProperties": {
+          "Subjects": "2",
+          "Rows": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.full.3.2",
+      "lane": "comparison",
+      "option": "Full comparison: 3",
+      "settings": {
+        "subjects": 3,
+        "rows": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1103:694",
+        "name": "Subjects=3, Rows=2",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-694",
+        "variantProperties": {
+          "Subjects": "3",
+          "Rows": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.full.3.3",
+      "lane": "comparison",
+      "option": "Full comparison: 3",
+      "settings": {
+        "subjects": 3,
+        "rows": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "594:1345",
+        "name": "Subjects=3, Rows=3",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1345",
+        "variantProperties": {
+          "Subjects": "3",
+          "Rows": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.full.4.2",
+      "lane": "comparison",
+      "option": "Full comparison: 4",
+      "settings": {
+        "subjects": 4,
+        "rows": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1103:738",
+        "name": "Subjects=4, Rows=2",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-738",
+        "variantProperties": {
+          "Subjects": "4",
+          "Rows": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.full.4.3",
+      "lane": "comparison",
+      "option": "Full comparison: 4",
+      "settings": {
+        "subjects": 4,
+        "rows": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "594:1437",
+        "name": "Subjects=4, Rows=3",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1437",
+        "variantProperties": {
+          "Subjects": "4",
+          "Rows": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "year-by-year.trend.3",
+      "lane": "year-by-year",
+      "option": "Trend table",
+      "settings": {
+        "periods": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "654:199",
+        "name": "Periods=3",
+        "type": "COMPONENT",
+        "parentId": "654:225",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=654-199",
+        "variantProperties": {
+          "Periods": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "year-by-year.trend.7",
+      "lane": "year-by-year",
+      "option": "Trend table",
+      "settings": {
+        "periods": 7
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "599:215",
+        "name": "Periods=7",
+        "type": "COMPONENT",
+        "parentId": "654:225",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=599-215",
+        "variantProperties": {
+          "Periods": "7"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "asset-swap.standard",
+      "lane": "asset swap",
+      "option": "asset swap",
+      "settings": {
+        "subjects": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "441:50",
+        "name": "Asset Swap",
+        "type": "COMPONENT",
+        "parentId": "428:27",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=441-50",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "recurring.rank-reveal.10",
+      "lane": "recurring board",
+      "option": "Rank Reveal",
+      "settings": {
+        "items": 10
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1277:558",
+        "name": "Recurring Board / Rank Reveal / 10 Teams",
+        "type": "COMPONENT",
+        "parentId": "428:27",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "recurring.super-bowl-bubble",
+      "lane": "recurring board",
+      "option": "Super Bowl Bubble Board",
+      "settings": {},
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "601:215",
+        "name": "Recurring Board / Super Bowl Bubble",
+        "type": "COMPONENT",
+        "parentId": "428:27",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=601-215",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    }
+  ],
+  "unboundOptions": [
+    {
+      "lane": "year-by-year",
+      "option": "Simple board",
+      "status": "reference gap; no canonical Components source registered"
+    },
+    {
+      "lane": "asset swap",
+      "setting": "subjects=1,3,4",
+      "status": "reference gap; register a verified capacity source before retrieval"
+    }
+  ],
+  "contracts": {
+    "quick-stat.callout.v1": "config/lineups/callout-contract.json"
+  }
+}

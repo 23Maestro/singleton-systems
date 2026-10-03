@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "npm run check:agents && npm run check:drift && npm run check:skills && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:storage-gate && npm run check:lineups:enforcement && npm run check:745:visual && npm run check:lineups:framing && npm run check:lineups:motion && npm run check:upwork-hourly && npm run check:finances && npm run check:cerebral:registry && npm run check:supabase-cli && npm run check:transactions && npm run check:codex-rabbit && npm run check:plugin-release && npm run check:client-content-editor-prep && npm run check:vercel-storage-cleanup && npm run check:tells && npm run check:brand",
+    "test": "npm run check:agents && npm run check:drift && npm run check:skills && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:storage-gate && npm run check:faithtalk:storage && npm run check:lineups:enforcement && npm run check:745:visual && npm run check:lineups:framing && npm run check:lineups:motion && npm run check:lineups:templates && npm run check:upwork-hourly && npm run check:finances && npm run check:cerebral:registry && npm run check:supabase-cli && npm run check:transactions && npm run check:codex-rabbit && npm run check:plugin-release && npm run check:client-content-editor-prep && npm run check:vercel-storage-cleanup && npm run check:tells && npm run check:brand",
     "check:agents": "node scripts/check-agent-guidance.mjs",
     "check:drift": "node scripts/check-opportunity-hq-drift.mjs",
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
@@ -91,7 +91,9 @@
     "check:brand": "node scripts/check-brand-assets.mjs",
     "brand:favicon:generate": "node scripts/generate-singleton-systems-favicon.mjs",
     "check:tells": "node scripts/check-tells.mjs",
-    "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs"
+    "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs",
+    "check:lineups:templates": "node scripts/check-lineups-templates.mjs",
+    "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

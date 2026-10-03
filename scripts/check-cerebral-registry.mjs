@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { repoSkillRows } from "./lib/repo-skill-registry.mjs";
 
 const root = process.cwd();
 const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
+const repoSkills = repoSkillRows(root, registry.skills);
 const pluginRoot = registry.plugin.source_path;
 const pluginSkillsRoot = path.join(pluginRoot, "skills");
 assert.equal(registry.version, 3);
@@ -70,18 +72,22 @@ for (const capabilityKey of ["homebrew", "pdf-skill"]) {
   assert.equal(capability.path, null, `${capabilityKey} must not store a machine/runtime path`);
 }
 
-const catalogSkills = registry.skills.map((skill) => skill.skill_key).sort();
+const catalogSkills = repoSkills.map((skill) => skill.skill_key).sort();
+const pluginSkills = repoSkills
+  .filter((skill) => skill.canonical_path.startsWith("plugins/s-systems/skills/"))
+  .map((skill) => skill.skill_key)
+  .sort();
 if (fs.existsSync(pluginSkillsRoot)) {
-  const pluginSkills = fs.readdirSync(pluginSkillsRoot, { withFileTypes: true })
+  const bundledSkills = fs.readdirSync(pluginSkillsRoot, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(pluginSkillsRoot, entry.name, "SKILL.md")))
     .map((entry) => entry.name)
     .sort();
-  assert.deepEqual(catalogSkills, pluginSkills, "registry must classify every bundled SSystems skill");
+  assert.deepEqual(pluginSkills, bundledSkills, "registry must classify every bundled SSystems skill");
 }
-assert.equal(catalogSkills.length, 21, "registry must classify the 21 active SSystems skills");
-assert.ok(registry.skills.every((skill) => skill.activation === "core"));
+assert.equal(catalogSkills.length, 42, "registry must classify every repository skill");
+assert.ok(repoSkills.every((skill) => skill.activation === "core"));
 
-const skillNames = new Set(catalogSkills);
+const skillNames = new Set(pluginSkills);
 const allowedExternalTools = new Set([
   "design-canvas",
   "linear:linear",
@@ -101,7 +107,7 @@ for (const route of registry.routes) {
   }
 }
 
-for (const skill of catalogSkills) {
+for (const skill of pluginSkills) {
   const text = fs.readFileSync(path.join(pluginSkillsRoot, skill, "SKILL.md"), "utf8");
   assert.doesNotMatch(text, /\]\(\.\.\/\.\.\/\.\.\/docs\//, `${skill} must reference repo docs by canonical path`);
 }
@@ -111,7 +117,7 @@ const sourceContractFiles = [
   "docs/harness/README.md",
   "docs/integration-map.md",
   "plugins/s-systems/README.md",
-  ...catalogSkills.map((skill) => path.join(pluginSkillsRoot, skill, "SKILL.md")),
+  ...pluginSkills.map((skill) => path.join(pluginSkillsRoot, skill, "SKILL.md")),
 ];
 for (const file of sourceContractFiles) {
   const text = fs.readFileSync(path.join(root, file), "utf8");
@@ -139,12 +145,20 @@ assert.match(laneMigration, /'writing-review'/);
 assert.doesNotMatch(laneMigration, /all_buckets/);
 
 const skillPathMigration = fs.readFileSync(
-  path.join(root, "supabase/migrations/20260902003000_add_canonical_skill_paths.sql"),
+  path.join(root, "supabase/migrations/20260929171138_make_skill_registry_paths_explicit.sql"),
   "utf8",
 );
-assert.match(skillPathMigration, /canonical_path text\s+generated always as/);
-assert.match(skillPathMigration, /plugins\/s-systems\/skills/);
+assert.match(skillPathMigration, /alter column canonical_path drop expression/);
+assert.match(skillPathMigration, /canonical_path = skill_row\.canonical_path/);
+assert.match(skillPathMigration, /harness_capabilities_read_registry/);
 assert.match(skillPathMigration, /to anon, authenticated/);
+
+const routeMetadataMigration = fs.readFileSync(
+  path.join(root, "supabase/migrations/20260929171858_complete_live_route_metadata.sql"),
+  "utf8",
+);
+assert.match(routeMetadataMigration, /add column if not exists surface text/);
+assert.match(routeMetadataMigration, /project = route_row\.project/);
 
 const deliveryOutcome = fs.readFileSync(path.join(root, "lib/delivery-outcome.ts"), "utf8");
 for (const state of [...registry.gate.delivery_states, ...registry.gate.receipt_states]) {
@@ -158,4 +172,4 @@ for (const file of ["app/api/ai-intake/route.ts", "app/api/linear/inbox/route.ts
   assert.match(text, /@\/lib\/delivery-outcome/, `${file} must use the shared delivery outcome`);
 }
 
-console.log(`Cerebral registry check passed: ${registry.routes.length} routes, ${registry.skills.length} skills, ${registry.capabilities.length} capabilities.`);
+console.log(`Cerebral registry check passed: ${registry.routes.length} routes, ${repoSkills.length} skills, ${registry.capabilities.length} capabilities.`);

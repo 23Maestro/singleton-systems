@@ -44,6 +44,22 @@ loose substitute layers.
   or cutout container spanning the full export width. The outer export frame
   remains 1920 x 1080.
 - Use large operator-facing labels. Check them at zoomed-out working scale.
+- Use numerals in scene copy, operator labels, and episode layer names. Write
+  `3 WEEKS`, `2 SEASONS AGO`, and `3 WINS`; preserve the original transcript
+  wording in evidence and spoken-word cue anchors.
+- Align comparison subjects by their visible head tops and optical scale,
+  then check the final motion state. Equal image-container heights alone do
+  not establish visual alignment.
+- Organize episode pages as horizontal lane columns with a shared top baseline.
+  Order active columns as Quick Action Photos, Quick Stats, Stat Breakdowns,
+  Comparison, Asset Swap, Year-by-Year, and Recurring Boards. Omit unused lanes
+  and number the visible columns consecutively. Use a two-column scene grid
+  inside lanes with multiple scenes and one column for a single scene. Keep
+  each scene's centered title and timing label above its composition.
+- Every episode composition has native Figma motion, including Quick Action
+  Photos. Verify transcript entrances and retain at least five seconds of the
+  final held state after the last motion keyframe. Keep editorial trim lengths
+  separate from padded composition durations.
 
 Before structural writes, load `file-hygiene` and `layer-cleanup`. Before an
 Auto Layout conversion or sizing refactor, also load
@@ -74,11 +90,15 @@ Build one source family for each lane:
 
 Stat breakdown, Simple comparison, Full comparison, year-by-year, and recurring
 boards use the locked no-football Field Night art. The approved image hash is
-`6c84d05a7f038c5e3f9f14a4103cd9b533251e70` (source `594:1256`). Export transparent
-foreground artwork separately. `figma.background` records the setting, node ID,
-image hash, lock state, and separate-artwork state. Figma mutation readback must
-return that object from live node properties. Asset Swap keeps its football-visible
-Field Night source. Cinematic comparison remains photo-led.
+`6c84d05a7f038c5e3f9f14a4103cd9b533251e70` (source `594:1256`). Keep the background
+and artwork as separate editable Figma layers. `figma.background` records the
+setting, node ID, image hash, lock state, and separate-artwork state. Figma
+mutation readback must return that object from live node properties. These layer
+requirements do not require separate transparent artwork exports. Export the
+complete motion scene with its approved background included. A transparent
+overlay is a separate deliverable only when Jerami explicitly requests it.
+Asset Swap keeps its football-visible Field Night source. Cinematic comparison
+keeps its approved photo-led composition.
 
 ## editable and guarded values
 
@@ -111,12 +131,21 @@ about 320 px, 960 px, and 1600 px. The logo and center subject must share the
 960 px centerline. Choose side poses that face inward when the available source
 set supports it.
 
-## alpha-cutout trial — 2026-08-26
+## alpha player assets
 
-Test Figma Design's native `Remove background` action as the primary cutout
-path for one to ten motion-scene candidates. Preserve the Eagle original,
-place the selected images in Figma, select the image layers, and let Computer
-Use trigger the visible action. Batch the selection when Figma allows it.
+Asset Swap and Comparison require real-alpha player assets for player
+compositing. This applies to Cinematic 2-up, Simple comparison, and Full
+comparison with two, three, or four subjects. A period-only comparison with no
+players needs no player cutouts. The other five lanes have no automatic
+player-cutout requirement. Player-asset alpha and final scene-export alpha are
+separate decisions.
+
+Search Eagle for suitable existing alpha player art first. If none is suitable,
+choose a simple action photo from Eagle or the approved photo sources. Preserve
+the original, place it in Figma, select the image layer, and use Figma Design's
+native `Remove background` action. Let Computer Use trigger the visible action.
+Batch the selection when Figma allows it. Preserve approved geometry and crop
+roles when placing the result.
 
 Review every result against a contrasting background. The cutout passes only
 when it has real alpha, keeps the subject's face, uniform, equipment, and edge
@@ -124,18 +153,37 @@ detail intact, and contains no rectangular photo background. A failed edge or
 changed subject returns to the original.
 
 Do not send identity-sensitive sports photos through generative image editing
-for routine background removal. Use a local removal model when the Figma action
-is unavailable or fails review. Keep this path in trial status until one live
-episode batch passes the cutout review.
+for routine background removal. If the native Figma action is unavailable or
+fails review, preserve the original and report the failure before substituting
+another removal tool.
 
 ## quick-stat geometry
 
-Use Anton at 60 px for the full lower-third statement. Keep the copy on one
+Use the [Components callout source](https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=868-776)
+(`868:776`): Inter Bold at 64 px, a
+fixed 190 px panel height, 72 px left and right padding, and vertically centered
+text. Hug width only. Never set the panel's vertical sizing to Hug or Auto.
+Keep these measurements in every source and episode copy. Reduce the font
+only when a long statement exceeds the safe width; preserve height and padding.
+Keep the copy on one
 horizontal line. One point has no pipe. Two separate, parallel facts use one
 pipe. Do not use labels or subtitles. Keep the subject name once. Center the
 card near the bottom. Let it hug the complete statement, then scale the whole
 card for readability. A slight approved transparency is allowed. Do not place
 the card over the upper-left topic.
+
+Preserve the approved bottom edge when the statement changes height. In the
+current 1920 x 1080 source, the wrapper starts at y = -7 and the panel ends at
+y = 1006 inside that wrapper, leaving 81 px below the panel in the scene.
+The fixed 190 px panel uses wrapper top padding = 816. Center it on x = 960
+after the copy hugs horizontally. The approved 64 px text box is 77 px high,
+leaving 56.5 px above and below it. Do not collapse this breathing room when
+copy changes.
+
+The machine-readable authority is `config/lineups/callout-contract.json`.
+It binds the source file, Components page, exact role node IDs, protected
+geometry and styling, and a SHA-256 fingerprint. Episode examples are reference
+evidence; they never own this standard.
 
 The upper-left topic may use the approved small qualifier and large topic
 stack. Keep both fields transcript-derived. Hide an unused field through the
@@ -151,6 +199,43 @@ the safe area at 102.5%.
 Do not bake the light leak or Blur Dissolve into the Figma render. Premiere owns
 the opening and closing Blur Dissolves and the midpoint light leak. This is the
 approved assembly for Two-photo progression, not a global transition hierarchy.
+
+## template retrieval and drift checks
+
+`config/lineups/template-registry.json` binds approved options and capacities
+to exact Components node IDs. Resolve by its stable key, never by page order,
+search keywords, or an episode name. Template names are display labels.
+
+Use `python3 scripts/lineups-templates.py resolve quick-stat.single` to retrieve
+a source. `fetch-sources` emits a read-only Figma tool input; execute it with
+`figma-use`, save its actual JSON response, then run
+`python3 scripts/lineups-templates.py check <readback.json>`.
+Missing IDs, wrong source ownership, and unsupported capacities fail without
+substituting an old episode design. The unbound Simple board option remains a
+reference gap until its canonical source is registered.
+
+For lane fit, pass reviewed requirements to
+`python3 scripts/lineups-templates.py fit <candidate.json>`. Include transcript
+evidence, visual purpose, supported counts, and comparison kind. Player
+compositing requires verified real alpha; team-logo and period comparisons do
+not need player cutouts. Multiple eligible looks require review. The resolver
+checks declared requirements; it does not infer or approve transcript meaning.
+
+Quick Stat manifests must include `figma.templateBinding`: template key,
+callout contract ID, source fingerprint, and exact episode wrapper/panel/text
+IDs. Generate readback with `fetch-callouts <bindings.json>`; read properties
+from live nodes. Mutation readback and delivery receipts must include
+`calloutReadback` and `sourceCallout`. A matching source ID or prose revision
+alone does not prove design fidelity. The hook rejects changed typography,
+panel sizing, padding, appearance, centering, baseline, and text overflow.
+Long-copy type reduction requires a recorded fit override with measured overflow
+at 64 px; it never updates the reusable source.
+
+`npm run check:lineups:templates` tests retrieval, ambiguous lane fit, and the
+historical callout regressions against saved live readbacks. Registry entries
+declare visual-check coverage. The other lanes retain their existing geometry,
+background, alpha, asset, and motion gates; full style comparisons for them
+remain uncovered. Review their screenshots before calling them complete.
 
 ## repeated logo alignment
 

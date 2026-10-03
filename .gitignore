@@ -73,3 +73,11 @@ supabase/.temp/
 
 # progress dashboards
 .dashboard/
+
+# Local client review history and diagnostics; canonical compositions remain visible.
+.dashboard/
+/videos/faithtalk-drawn-seed-preview/review-v*.html
+/videos/faithtalk-drawn-seed-preview/tests/reference/
+/videos/faithtalk-logo-reveal/archive/
+/videos/faithtalk-logo-reveal/figma/*.png
+!videos/faithtalk-drawn-seed-preview/review-v23-36_5.html

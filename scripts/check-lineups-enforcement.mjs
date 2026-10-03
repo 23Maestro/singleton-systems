@@ -324,6 +324,23 @@ function withCase(callback) {
 
 try {
   withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    manifest.export.path = null;
+    manifest.premiere = {};
+    writeManifest(testCase, manifest);
+    expectAllowed(
+      pre(testCase, "mcp__premiere_pro__import_media", { filePath: "/tmp/unrelated-photo.jpg", binName: "05 Stills" }),
+      "unrelated import with no enrolled export path",
+    );
+    expectAllowed(
+      pre(testCase, "mcp__premiere_pro__add_to_timeline", { projectItemId: "other-item", sequenceId: "other-sequence" }),
+      "absent enrolled identifiers cannot match unrelated placement",
+    );
+    const readback = post(testCase, "mcp__premiere_pro__get_full_sequence_info", { sequenceId: "other-sequence" }, { success: true, clips: [{ name: "unrelated" }] });
+    assert.equal(readback.status, 0);
+    assert.equal(readback.stdout.trim(), "", "absent response fields cannot enroll unrelated readback");
+  });
+  withCase((testCase) => {
     fs.rmSync(testCase.manifestPath);
     expectDenied(
       pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput),
@@ -401,7 +418,7 @@ try {
       expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /approved no-football/, `${option} wrong art`);
       m.figma.background.imageHash = "6c84d05a7f038c5e3f9f14a4103cd9b533251e70";
       m.figma.background.separateFromArtwork = false; writeManifest(testCase, m);
-      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /separate from transparent artwork/, `${option} baked background`);
+      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /separate from editable artwork inside Figma/, `${option} merged Figma background`);
     });
   }
   withCase((testCase) => {
@@ -826,6 +843,66 @@ try {
     assert.equal(transaction.status, "awaiting_review");
     assert.equal(canComplete(transaction), false);
   }
+  withCase((testCase) => {
+    const manifest = readManifest(testCase);
+    const canonical = JSON.parse(fs.readFileSync(path.join(sourceRoot, "config/lineups/canonical-template-verification.json"), "utf8"));
+    const contract = JSON.parse(fs.readFileSync(path.join(sourceRoot, "config/lineups/callout-contract.json"), "utf8"));
+    const measured = JSON.parse(fs.readFileSync(path.join(fixtureSource, "callout-readback.json"), "utf8")).callouts[0];
+    manifest.scene.lane = "quick stat";
+    manifest.scene.approvedOption = "Single-frame statement";
+    manifest.figma.fileKey = canonical.fileKey;
+    manifest.figma.rootNodeId = measured.rootNodeId;
+    manifest.figma.episodeInstanceId = measured.rootNodeId;
+    manifest.figma.sourceComponentId = "653:184";
+    manifest.figma.templateBinding = {
+      key: "quick-stat.single", contractId: contract.id, sourceFingerprint: contract.sourceFingerprint,
+      roleNodeIds: Object.fromEntries(["wrapper", "panel", "text"].map(role => [role, measured[role].id])),
+    };
+    const input = { ...approvedFigmaInput, fileKey: canonical.fileKey };
+    manifest.enforcement.approvedToolInputSha256 = hashValue(input);
+    writeManifest(testCase, manifest);
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", input), "Components-bound Quick Stat");
+    const response = figmaReadback(manifest, { calloutReadback: measured, sourceCallout: canonical.callout });
+    expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", input, response), /Figma mutation readback passed/, "measured Quick Stat");
+    const collapsed = structuredClone(response);
+    collapsed.calloutReadback.panel.height = 90;
+    collapsed.calloutReadback.panel.counterAxisSizingMode = "AUTO";
+    expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", input, collapsed), /panel.height/, "collapsed callout height");
+    const changedSource = structuredClone(response);
+    changedSource.sourceCallout.text.fontName = { family: "Anton", style: "Regular" };
+    expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", input, changedSource), /text.fontName/, "changed Components source");
+    manifest.scene.episodeId = "2026-10-01-template-guard-test";
+    manifest.scene.sceneId = measured.sceneId;
+    manifest.figma.pageId = "fixture:page";
+    writeManifest(testCase, manifest);
+    const episodeDir = path.join(testCase.root, "config/lineups/episodes", manifest.scene.episodeId);
+    fs.mkdirSync(episodeDir, { recursive: true });
+    const roster = {
+      schemaVersion: 1, episodeId: manifest.scene.episodeId, status: "approved",
+      reviewer: "Jerami", purpose: "post-figma-review", fileKey: canonical.fileKey,
+      pageId: manifest.figma.pageId, fps: 25, dimensions: { width: 1920, height: 1080 },
+      expectedCount: 1, scenes: [{ id: measured.sceneId, nodeId: measured.rootNodeId, lane: "quick stat" }],
+    };
+    const save = (name, value) => fs.writeFileSync(path.join(episodeDir, name), JSON.stringify(value));
+    save("review-exports.json", roster);
+    save("motion-scene-build-audit.json", { supportingMotionScenes: [{ sceneId: measured.sceneId, rootNodeId: measured.rootNodeId }] });
+    save("callout-bindings.json", { pageId: manifest.figma.pageId, scenes: [{ sceneId: measured.sceneId, rootNodeId: measured.rootNodeId, roleNodeIds: manifest.figma.templateBinding.roleNodeIds }] });
+    const readback = { fileKey: canonical.fileKey, pageId: manifest.figma.pageId, callouts: [measured] };
+    save("callout-readback.json", readback);
+    const exportInput = { fileKey: canonical.fileKey, nodeId: measured.rootNodeId, fps: 25, quality: "high" };
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_export_video", exportInput), "measured review export preflight");
+    const badReadback = structuredClone(readback);
+    badReadback.callouts[0].panel.height = 90;
+    save("callout-readback.json", badReadback);
+    expectDenied(pre(testCase, "mcp__codex_apps__figma_export_video", exportInput), /panel.height/, "review export style drift");
+    save("callout-readback.json", readback);
+    roster.status = "paused";
+    save("review-exports.json", roster);
+    expectDenied(pre(testCase, "mcp__codex_apps__figma_export_video", exportInput), /unapproved/, "paused exports stay held");
+    delete manifest.figma.templateBinding;
+    writeManifest(testCase, manifest);
+    expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", input), /template key/, "missing Components binding");
+  });
 } finally {
   for (const testCase of cases) fs.rmSync(testCase.root, { recursive: true, force: true });
 }

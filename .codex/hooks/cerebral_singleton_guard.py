@@ -3,8 +3,12 @@ import json
 import os
 import re
 import shlex
+import shutil
+import signal
 import subprocess
 import sys
+import tempfile
+import time
 import urllib.parse
 import urllib.request
 
@@ -112,6 +116,141 @@ def read_input():
     return json.loads(raw) if raw.strip() else {}
 
 
+def codex_git_temp_candidates(temp_root):
+    candidates = []
+    try:
+        minimum_age = float(os.environ.get("CEREBRAL_CODEX_GIT_TEMP_MIN_AGE_SECONDS", "10"))
+    except ValueError:
+        minimum_age = 10
+    now = time.time()
+    try:
+        entries = os.scandir(temp_root)
+    except OSError:
+        return candidates
+    with entries:
+        for entry in entries:
+            if not entry.name.startswith("tmp.") or not entry.is_dir(follow_symlinks=False):
+                continue
+            candidate = os.path.realpath(entry.path)
+            if os.path.dirname(candidate) != temp_root:
+                continue
+            objects = os.path.join(candidate, "objects")
+            if not os.path.isdir(objects) or os.path.islink(objects):
+                continue
+            if not any(os.path.isfile(os.path.join(candidate, name)) for name in ("index", "index.lock")):
+                continue
+            try:
+                newest_marker = max(
+                    os.path.getmtime(candidate),
+                    os.path.getmtime(objects),
+                    *(
+                        os.path.getmtime(os.path.join(candidate, name))
+                        for name in ("index", "index.lock")
+                        if os.path.exists(os.path.join(candidate, name))
+                    ),
+                )
+            except OSError:
+                continue
+            if now - newest_marker < minimum_age:
+                continue
+            candidates.append(candidate)
+    return candidates
+
+
+def open_temp_processes(temp_root):
+    try:
+        result = subprocess.run(
+            ["lsof", "-nP", "+c", "0", "-F", "pcn"],
+            capture_output=True,
+            check=False,
+            text=True,
+            timeout=5,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    prefix = temp_root + os.sep
+    processes = {}
+    current_pid = None
+    for line in result.stdout.splitlines():
+        if line.startswith("p"):
+            try:
+                current_pid = int(line[1:])
+            except ValueError:
+                current_pid = None
+                continue
+            processes.setdefault(current_pid, {"command": "", "paths": set()})
+        elif current_pid is not None and line.startswith("c"):
+            processes[current_pid]["command"] = line[1:]
+        elif current_pid is not None and line.startswith("n"):
+            path = line[1:]
+            if path == temp_root or path.startswith(prefix):
+                processes[current_pid]["paths"].add(path)
+    return processes
+
+
+def allocated_bytes(path):
+    total = 0
+    for current_root, directories, files in os.walk(path, followlinks=False):
+        for name in directories + files:
+            item = os.path.join(current_root, name)
+            try:
+                stat = os.lstat(item)
+            except OSError:
+                continue
+            total += getattr(stat, "st_blocks", 0) * 512
+    return total
+
+
+def cleanup_codex_git_temp(stop_writers=False):
+    configured_root = os.environ.get("CEREBRAL_CODEX_GIT_TEMP_ROOT")
+    temp_root = os.path.realpath(configured_root or tempfile.gettempdir())
+    candidates = codex_git_temp_candidates(temp_root)
+    if not candidates:
+        return {"removed": 0, "bytes": 0, "skipped": 0}
+    processes = open_temp_processes(temp_root)
+    if processes is None:
+        return {"removed": 0, "bytes": 0, "skipped": len(candidates)}
+    if stop_writers and os.environ.get("CEREBRAL_CODEX_GIT_TEMP_STOP_WRITERS", "1") != "0":
+        for pid, process in processes.items():
+            if "codex-workspace-diff" not in process["command"]:
+                continue
+            if not any(
+                path == candidate or path.startswith(candidate + os.sep)
+                for path in process["paths"]
+                for candidate in candidates
+            ):
+                continue
+            try:
+                os.kill(pid, signal.SIGTERM)
+            except (ProcessLookupError, PermissionError):
+                continue
+        processes = open_temp_processes(temp_root)
+        if processes is None:
+            return {"removed": 0, "bytes": 0, "skipped": len(candidates)}
+    open_paths = {
+        path
+        for process in processes.values()
+        for path in process["paths"]
+    }
+    removed = 0
+    recovered = 0
+    skipped = 0
+    for candidate in candidates:
+        prefix = candidate + os.sep
+        if any(path == candidate or path.startswith(prefix) for path in open_paths):
+            skipped += 1
+            continue
+        size = allocated_bytes(candidate)
+        try:
+            shutil.rmtree(candidate)
+        except OSError:
+            skipped += 1
+            continue
+        removed += 1
+        recovered += size
+    return {"removed": removed, "bytes": recovered, "skipped": skipped}
+
+
 def in_repo(payload):
     cwd = payload.get("cwd") or os.getcwd()
     return REPO_MARKER in cwd or os.path.exists(os.path.join(repo_root_from(cwd), REGISTRY_PATH))
@@ -134,74 +273,112 @@ def repo_root_from(cwd=None):
         current = parent
 
 
-def load_local_registry():
-    path = os.path.join(repo_root_from(), REGISTRY_PATH)
+class RegistryUnavailable(RuntimeError):
+    pass
+
+
+def supabase_connection():
+    root = repo_root_from()
+    env_path = os.environ.get("CEREBRAL_SUPABASE_ENV_FILE") or os.path.join(root, ".env.local")
+    values = {}
     try:
-        with open(path, "r", encoding="utf-8") as handle:
-            return json.load(handle)
-    except (FileNotFoundError, json.JSONDecodeError, OSError):
-        return {"routes": [], "capabilities": []}
+        with open(env_path, "r", encoding="utf-8") as handle:
+            for raw_line in handle:
+                line = raw_line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                key, value = line.split("=", 1)
+                key = key.strip()
+                if key in {"SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY", "SUPABASE_ANON_KEY"}:
+                    values[key] = value.strip().strip("'\"")
+    except OSError:
+        pass
+
+    base_url = (os.environ.get("SUPABASE_URL") or values.get("SUPABASE_URL") or "").rstrip("/")
+    api_key = (
+        os.environ.get("SUPABASE_PUBLISHABLE_KEY")
+        or os.environ.get("SUPABASE_ANON_KEY")
+        or values.get("SUPABASE_PUBLISHABLE_KEY")
+        or values.get("SUPABASE_ANON_KEY")
+        or ""
+    )
+    if not base_url or not api_key:
+        raise RegistryUnavailable(
+            "Live Supabase routing blocked: SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY "
+            f"must be available in the hook environment or {env_path}. No local registry fallback is allowed."
+        )
+    return base_url, api_key
+
+
+def load_runtime_rows(table, query, required_fields):
+    base_url, api_key = supabase_connection()
+    try:
+        timeout = float(os.environ.get("CEREBRAL_REGISTRY_TIMEOUT_SECONDS", "5"))
+    except ValueError as error:
+        raise RegistryUnavailable("Live Supabase routing blocked: invalid registry timeout.") from error
+    request = urllib.request.Request(
+        f"{base_url}/rest/v1/{table}?{query}",
+        headers={"apikey": api_key, "Authorization": f"Bearer {api_key}"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            rows = json.loads(response.read().decode("utf-8"))
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        raise RegistryUnavailable(
+            f"Live Supabase routing blocked: {table} could not be read ({error}). "
+            "No local registry fallback is allowed."
+        ) from error
+    if not isinstance(rows, list) or not rows:
+        raise RegistryUnavailable(
+            f"Live Supabase routing blocked: {table} returned no registry rows. "
+            "No local registry fallback is allowed."
+        )
+    if any(not isinstance(row, dict) or any(row.get(field) is None for field in required_fields) for row in rows):
+        raise RegistryUnavailable(f"Live Supabase routing blocked: {table} returned an incomplete registry row.")
+    return rows
 
 
 def load_runtime_routes():
-    base_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
-    anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
-    if not base_url or not anon_key:
-        return None
-
-    headers = {"apikey": anon_key, "Authorization": f"Bearer {anon_key}"}
-    try:
-        routes_url = base_url + "/rest/v1/cerebral_routes?enabled=eq.true&select=*"
-        request = urllib.request.Request(routes_url, headers=headers)
-        with urllib.request.urlopen(request, timeout=1.5) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except (OSError, ValueError, json.JSONDecodeError):
-        return None
+    return load_runtime_rows(
+        "cerebral_routes",
+        "enabled=eq.true&select=*",
+        ("route_key", "trigger_patterns", "lane", "owner", "intent", "shape", "required_tools", "review_gate", "priority", "enabled", "surface"),
+    )
 
 
 def load_runtime_skills():
-    base_url = os.environ.get("SUPABASE_URL", "").rstrip("/")
-    anon_key = os.environ.get("SUPABASE_ANON_KEY", "")
-    if not base_url or not anon_key:
-        return None
-
-    headers = {"apikey": anon_key, "Authorization": f"Bearer {anon_key}"}
-    try:
-        skills_url = base_url + "/rest/v1/harness_skills?activation=eq.core&select=skill_key,canonical_path"
-        request = urllib.request.Request(skills_url, headers=headers)
-        with urllib.request.urlopen(request, timeout=1.5) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except (OSError, ValueError, json.JSONDecodeError):
-        return None
+    return load_runtime_rows(
+        "harness_skills",
+        "activation=eq.core&select=skill_key,canonical_path",
+        ("skill_key", "canonical_path"),
+    )
 
 
-def canonical_skills():
-    runtime_skills = load_runtime_skills()
-    if runtime_skills:
-        return runtime_skills
-    return [
-        {
-            "skill_key": skill.get("skill_key"),
-            "canonical_path": f"plugins/s-systems/skills/{skill.get('skill_key')}",
-        }
-        for skill in load_local_registry().get("skills", [])
-        if skill.get("activation") == "core" and skill.get("skill_key")
-    ]
+def load_runtime_capabilities():
+    return load_runtime_rows(
+        "harness_capabilities",
+        "select=*",
+        ("capability_key", "status", "verification_command"),
+    )
 
 
-def canonical_skill_roots(root):
+def canonical_skill_roots(root, skills):
     roots = []
     seen = set()
 
     def add(skill_root, display_root):
         skill_root = os.path.abspath(os.path.expanduser(skill_root))
         real_root = os.path.realpath(skill_root)
-        if real_root in seen or not os.path.isfile(os.path.join(skill_root, "SKILL.md")):
+        if real_root in seen:
             return
+        if not os.path.isfile(os.path.join(skill_root, "SKILL.md")):
+            raise RegistryUnavailable(
+                f"Live Supabase routing blocked: {display_root}/SKILL.md does not exist in the repository."
+            )
         seen.add(real_root)
         roots.append((skill_root, display_root))
 
-    for skill in canonical_skills():
+    for skill in skills:
         canonical_path = str(skill.get("canonical_path") or "")
         if not canonical_path:
             continue
@@ -212,31 +389,6 @@ def canonical_skill_roots(root):
         except ValueError:
             continue
         add(skill_root, canonical_path)
-
-    repo_skills_root = os.path.join(root, ".agents", "skills")
-    try:
-        repo_skill_names = os.listdir(repo_skills_root)
-    except OSError:
-        repo_skill_names = []
-    for skill_name in repo_skill_names:
-        add(
-            os.path.join(repo_skills_root, skill_name),
-            os.path.join(".agents", "skills", skill_name),
-        )
-
-    codex_home = os.environ.get("CODEX_HOME") or os.path.join(os.path.expanduser("~"), ".codex")
-    personal_skills_root = os.path.join(codex_home, "skills")
-    try:
-        personal_skill_names = os.listdir(personal_skills_root)
-    except OSError:
-        personal_skill_names = []
-    for skill_name in personal_skill_names:
-        if skill_name.startswith("."):
-            continue
-        add(
-            os.path.join(personal_skills_root, skill_name),
-            os.path.join("${CODEX_HOME:-$HOME/.codex}", "skills", skill_name),
-        )
 
     return roots
 
@@ -252,8 +404,42 @@ def canonical_skill_script_error(payload):
         return None
 
     root = repo_root_from(payload.get("cwd"))
+    skills = load_runtime_skills()
+    registered = {skill["skill_key"]: skill["canonical_path"] for skill in skills}
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        return None
+    effective_cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
+    for token in tokens:
+        candidate = token.strip(";&|()")
+        expanded = os.path.expandvars(os.path.expanduser(candidate))
+        if "$" in expanded:
+            continue
+        absolute = os.path.abspath(expanded if os.path.isabs(expanded) else os.path.join(effective_cwd, expanded))
+        try:
+            relative = os.path.relpath(absolute, root).replace(os.sep, "/")
+        except ValueError:
+            continue
+        match = re.match(r"^\.agents/skills/([^/]+)(/.*)?$", relative)
+        if not match:
+            continue
+        skill_key, suffix = match.group(1), match.group(2) or ""
+        expected_root = registered.get(skill_key)
+        if not expected_root:
+            return (
+                "Live Supabase canonical skill path check blocked Bash. "
+                f"{relative} is not registered in harness_skills. Stop and repair the live registry."
+            )
+        if expected_root != f".agents/skills/{skill_key}":
+            expected = f"{expected_root}{suffix}"
+            return (
+                "Live Supabase canonical skill path check blocked Bash. "
+                f"{relative} is registered at {expected}. Retry with that path; do not report the skill as stale."
+            )
+
     expected_by_name = {}
-    for skill_root, display_root in canonical_skill_roots(root):
+    for skill_root, display_root in canonical_skill_roots(root, skills):
         scripts_root = os.path.join(skill_root, "scripts")
         if not os.path.isdir(scripts_root):
             continue
@@ -266,11 +452,6 @@ def canonical_skill_script_error(payload):
                 ).replace(os.sep, "/")
                 expected_by_name.setdefault(filename, {})[os.path.realpath(script_path)] = display_path
 
-    try:
-        tokens = shlex.split(command)
-    except ValueError:
-        return None
-    effective_cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
     for token in tokens:
         candidate = token.strip(";&|()")
         expected_paths = expected_by_name.get(os.path.basename(candidate))
@@ -290,16 +471,13 @@ def canonical_skill_script_error(payload):
         return (
             "Canonical skill path check blocked Bash. "
             f"{os.path.basename(candidate)} must run from {expected}; "
-            f"received {candidate}. Registered plugin, repo-local, and personal skill roots own script paths."
+            f"received {candidate}. Live Supabase harness_skills owns canonical script paths."
         )
     return None
 
 
 def routes_for_prompt():
-    runtime_routes = load_runtime_routes()
-    if runtime_routes is not None:
-        return runtime_routes, "Supabase runtime registry"
-    return load_local_registry().get("routes", []), "local registry fallback"
+    return load_runtime_routes(), "Supabase runtime registry"
 
 
 def packet_tags(text):
@@ -341,9 +519,9 @@ def registry_matches(text):
         ]
 
     capabilities = []
-    capability_source = "local registry fallback"
+    capability_source = "Supabase runtime registry"
     if needs_tool_preflight(text) or any(route.get("route_key") == "systems-tool-harness" for route in matched_routes):
-        capabilities = load_local_registry().get("capabilities", [])
+        capabilities = load_runtime_capabilities()
     return matched_routes, capabilities, capability_source if capabilities else route_source, explicit_route, tags
 
 
@@ -418,7 +596,8 @@ def context(reason, text):
             "- [quick-stat] Choose Single-frame statement at 6.5 seconds or Two-photo progression at 10 seconds. Photo-led pushes run 100% to 102.5%. One point has no pipe. Premiere owns light leaks and Blur Dissolves.",
             "- [figma-contract] Use singleton-figma-system and read .agents/skills/singleton-figma-system/references/lineups-production-system.md before building a Lineups scene.",
             "- [figma-skills] Load file-hygiene and layer-cleanup before structural Figma edits. Load safe-auto-layout-conversion for Auto Layout or sizing changes. Load accessibility-review for color, contrast, or accessibility work.",
-            "- [data-driven] Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards require the locked no-football Field Night background. Export transparent artwork separately from the background. Verify the background image hash and node in Figma readback.",
+            "- [data-driven] Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards require the locked no-football Field Night background. Keep background and artwork as separate editable Figma layers. Export complete motion scenes with their approved backgrounds included; transparent overlays require an explicit request. Verify the background image hash and node in Figma readback.",
+            "- [player-alpha] Asset Swap and Comparison require real-alpha player assets for player compositing. Comparison includes Cinematic 2-up, Simple, and Full with two, three, or four subjects. Search Eagle for suitable alpha player art first; otherwise choose a suitable simple action photo and use Figma's native Remove background tool. Preserve the original and verify real alpha and clean edges. The other five lanes have no automatic player-cutout requirement. Player-asset alpha does not require transparent final scene exports.",
             "- [asset-swap] Inherit the guarded football-visible Field Night background, geometry, layer order, crop roles, and motion from Components. Episode cutouts require real alpha. Only cutouts, logos, transcript copy, and reveal timing are replaceable.",
             "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Scene titles use centered dark text, Auto Width or Hug, and 112 px or larger type. Support labels use 48 px or larger type. Prune rejected and stale work after review.",
             "- [delivery] Approved motion renders live in Eagle at Episode / 06 Motion Renders. Premiere links to that Eagle-managed file.",
@@ -841,23 +1020,42 @@ def main():
 
     event = payload.get("hook_event_name") or ""
     if event == "UserPromptSubmit":
+        cleanup_codex_git_temp(stop_writers=True)
         prompt = str(payload.get("prompt") or "")
-        emit(context("repo prompt should stay aligned across surfaces", prompt), event)
+        try:
+            emit(context("repo prompt should stay aligned across surfaces", prompt), event)
+        except RegistryUnavailable as error:
+            emit_block(str(error))
         return
 
     if event == "PreToolUse":
-        skill_path_error = canonical_skill_script_error(payload)
-        if skill_path_error:
-            emit_block(skill_path_error)
-            return
-        emit(context(f"before {payload.get('tool_name') or 'tool'} can change or inspect implementation", tool_text(payload)), event)
+        try:
+            skill_path_error = canonical_skill_script_error(payload)
+            if skill_path_error:
+                emit_block(skill_path_error)
+                return
+            emit(context(f"before {payload.get('tool_name') or 'tool'} can change or inspect implementation", tool_text(payload)), event)
+        except RegistryUnavailable as error:
+            emit_block(str(error))
         return
 
     if event == "SessionStart":
-        emit(context("session should start from canonical Singleton Systems routing", ""), event)
+        cleanup_codex_git_temp()
+        try:
+            emit(context("session should start from canonical Singleton Systems routing", ""), event)
+        except RegistryUnavailable as error:
+            emit_block(str(error))
         return
 
     if event == "Stop":
+        cleanup_result = cleanup_codex_git_temp(stop_writers=True)
+        if cleanup_result["removed"]:
+            recovered_gib = cleanup_result["bytes"] / (1024 ** 3)
+            print(
+                f"Cerebral Stop cleanup removed {cleanup_result['removed']} abandoned Git-temp "
+                f"directories and recovered {recovered_gib:.2f} GiB.",
+                file=sys.stderr,
+            )
         writing_error = run_writing_stop_gate(payload)
         if writing_error:
             print(json.dumps({"decision": "block", "reason": writing_error}))

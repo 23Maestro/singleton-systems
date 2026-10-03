@@ -47,7 +47,47 @@
         }
       }
     }}
-  }],
+  },
+    {
+      "if": {
+        "properties": {
+          "scene": {
+            "properties": {
+              "lane": {
+                "const": "quick stat"
+              }
+            },
+            "required": [
+              "lane"
+            ]
+          },
+          "figma": {
+            "properties": {
+              "fileKey": {
+                "const": "o7E24iymIT80MTXGYIogVH"
+              }
+            },
+            "required": [
+              "fileKey"
+            ]
+          }
+        },
+        "required": [
+          "scene",
+          "figma"
+        ]
+      },
+      "then": {
+        "properties": {
+          "figma": {
+            "required": [
+              "templateBinding"
+            ]
+          }
+        }
+      }
+    }
+  ],
   "properties": {
     "schemaVersion": { "const": 2 },
     "enforcement": {
@@ -129,7 +169,84 @@
               "const": true
             },
             "separateFromArtwork": {
+              "description": "Background and artwork remain separate editable Figma layers. This does not require a transparent scene export or a separate artwork export.",
               "const": true
+            }
+          }
+        },
+        "templateBinding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "key",
+            "contractId",
+            "sourceFingerprint",
+            "roleNodeIds"
+          ],
+          "properties": {
+            "key": {
+              "enum": [
+                "quick-stat.single",
+                "quick-stat.progression"
+              ]
+            },
+            "contractId": {
+              "const": "quick-stat.callout.v1"
+            },
+            "sourceFingerprint": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "roleNodeIds": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "wrapper",
+                "panel",
+                "text"
+              ],
+              "properties": {
+                "wrapper": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "panel": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            },
+            "fitOverride": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "fontSize",
+                "reason",
+                "textWidthAt64",
+                "evidence"
+              ],
+              "properties": {
+                "fontSize": {
+                  "type": "number",
+                  "minimum": 44,
+                  "exclusiveMaximum": 64
+                },
+                "reason": {
+                  "const": "long-copy-safe-width"
+                },
+                "evidence": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "textWidthAt64": {
+                  "type": "number",
+                  "exclusiveMinimum": 1632
+                }
+              }
             }
           }
         },

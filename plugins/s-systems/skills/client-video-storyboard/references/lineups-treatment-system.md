@@ -31,13 +31,21 @@ Choose one of two options:
    photo states. Keep the upper-left topic visible across both states. Reveal
    the supporting statement on the second state.
 
-Use Anton at 60 px throughout the lower third. Keep all copy on one horizontal
+Use the [approved Components callout](https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=868-776):
+Inter Bold at 64 px, fixed 190 px
+height, 72 px side padding, and vertically centered text. Hug width only;
+never collapse height to the text. Reduce type only for a long line that
+exceeds the safe width, preserving panel height and padding. Keep all copy on one horizontal
 line. One point has no pipe. Use one pipe only when two separate, parallel facts
 belong in the same statement. Do not add labels or a subtitle. The card hugs the
 complete statement while remaining large enough to read at playback size. A
 subject name appears once. Do not repeat it in the topic. The optional
 upper-left topic may use the approved small qualifier and large topic stack.
 Populate it with transcript-derived language when the passage needs framing.
+
+Components owns this standard. Past episodes are examples. The template
+registry binds each approved look to its source, and measured callout checks
+must pass after copy changes. A lane match does not prove a visual match.
 
 The two-photo progression stays photo-led. Do not use Field Night. Premiere
 owns its transitions: Blur Dissolve may sit at the start and end, while a light
@@ -68,6 +76,9 @@ comparison reference. Supporting statistics are optional in Cinematic 2-up.
 Show them only when the transcript supplies a true like-for-like comparison.
 Leave the fields blank when the comparison is conceptual. Do not fill empty
 space with jersey numbers, years, or unrelated values.
+
+Player assets for every Comparison option follow the alpha-player workflow
+below. A period-only comparison with no players needs no player cutouts.
 
 ### 5. year-by-year
 
@@ -134,9 +145,32 @@ cumulative state, or Premiere retime fails the Rank Reveal workflow.
 
 Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards
 use Field Night without the football. Keep the background locked and separate
-from transparent foreground artwork. Bind its Figma node and image hash in the
-scene manifest and verify them in the mutation readback. Photo-led options keep
-their photos. Asset Swap keeps its football-visible Field Night background.
+from the editable artwork inside Figma. Bind its Figma node and image hash in
+the scene manifest and verify them in the mutation readback. Photo-led options
+keep their photos. Asset Swap keeps its football-visible Field Night background.
+
+## alpha player assets and scene exports
+
+Asset Swap and Comparison are the two lanes that require real-alpha player
+assets for player compositing. Comparison includes Cinematic 2-up, Simple, and
+Full with two, three, or four subjects. Alpha belongs to the replaceable player
+asset; it does not make the complete scene a transparent export.
+
+Search Eagle for a suitable existing player cutout first. If one is unavailable,
+choose a suitable simple action photo from Eagle or the approved photo sources
+and use Figma's native Remove background tool. Preserve the source photo. Verify
+real alpha, face and uniform detail, equipment, and clean edges against a
+contrasting background before using the cutout. Reject rectangular photo
+backgrounds and failed edges. Keep the approved composition and crop roles.
+
+Quick Action Photo, Quick Stat, Stat Breakdown, Year-by-year, and Recurring Board
+have no automatic player-cutout requirement. Keep the approved full photos or
+board artwork for those lanes.
+
+Export complete motion scenes with their approved backgrounds included.
+Keeping background and artwork as separate editable Figma layers does not
+require separate transparent artwork exports. Export a transparent overlay only
+when Jerami explicitly requests that deliverable.
 
 ## automatic routing
 
@@ -258,7 +292,8 @@ Before placement, inspect a fresh 1920 x 1080 screenshot and confirm:
 - the photo is relevant and is not repeated nearby;
 - no source note, unexplained wash, or unapproved background appears;
 - all episode values and art can be replaced without rebuilding the design.
-- Asset Swap subjects have real alpha and inherit the guarded background,
-  geometry, layer order, crop roles, and motion from the approved component.
+- Asset Swap and Comparison player assets have real alpha and clean edges.
+- Asset Swap inherits the guarded background, geometry, layer order, crop
+  roles, and motion from the approved component.
 
 Premiere placement waits until this gate passes.

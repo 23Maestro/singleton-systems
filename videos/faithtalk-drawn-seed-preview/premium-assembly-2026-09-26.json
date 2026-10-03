@@ -1,0 +1,347 @@
+{
+  "date": "2026-09-26",
+  "scope": "Preparation for remaining intro and outro assembly. No composition or render changes in this pass.",
+  "precedence": "Latest user decisions and later static refinements supersede historical proposals. Never apply an older uniform typography pass over the current cards.",
+  "sources": {
+    "client_notes": "CALL-NOTES-2026-09-24.md",
+    "pdf": "references/alignment-2026-09-24/client-storyboard.pdf",
+    "intro_edit_map": "references/source-window-review-2026-09-26.md",
+    "intro_review": "review-v16-36_5.html",
+    "intro_logo_mount": "compositions/logo-approved-v6-1.html",
+    "logo_source": "../faithtalk-logo-reveal/compositions/logo.html",
+    "logo_decisions": "../faithtalk-logo-reveal/V6.1-DECISIONS.md",
+    "discussion": "references/premium-motion-2026-09-24/DISCUSSION-DECISIONS.md",
+    "static_refinement": "references/premium-motion-2026-09-24/STATIC-REFINEMENT-CHECKLIST.md",
+    "static_audit": "references/premium-motion-2026-09-24/BROADCAST-STATIC-AUDIT-2026-09-25.md",
+    "credits_and_teaser_latest": "references/premium-motion-2026-09-24/glass-credit-refinement/README.md",
+    "credits_proof": "references/premium-motion-2026-09-24/glass-credit-refinement/connect-spaced-double-trim.png",
+    "teaser_proof": "references/premium-motion-2026-09-24/glass-credit-refinement/next-week.png",
+    "download_manifest": "assets/client-replacements-2026-09-25/manifest.json",
+    "music_handoff": "references/MUSIC-HANDOFF-2026-09-26.md",
+    "nursehub_audio_description": "references/nursehub-sfx-2026-09-26/description.md",
+    "tv_reference_board": "references/premium-motion-2026-09-24/index.html",
+    "envato_reference_board": "references/envato/index.html",
+    "motion_preset": "references/envato-motion-preset-2026-09-26/motion-preset.json",
+    "readiness_audit": "references/envato-motion-preset-2026-09-26/READINESS-AUDIT.md"
+  },
+  "intro": {
+    "duration_seconds": 36.5,
+    "status": "Existing v16 review baseline; music and temporary footage are not final delivery approvals.",
+    "beats": [
+      {
+        "id": "drawing",
+        "start": 0,
+        "end": 17.1,
+        "preserve": "Approved seed/growth artwork and stage timing. Continuous artwork across background changes. Apply the new fixed-center spatial lock instead of preserving existing travel.",
+        "queued": "Gold leading tip followed by white on the same outline; one faint emerald highlight confined to mature leaf strokes.",
+        "proof": "Compare plain and accented versions in isolation. No duplicate contour, filled leaves, glitter or green wash."
+      },
+      {
+        "id": "mountain",
+        "start": 13.6,
+        "end": 17.6,
+        "source_alias": "mountain-3",
+        "source_window": [
+          1.2,
+          5.2
+        ],
+        "status": "Selected source in latest edit map",
+        "preserve": "Warm sunrise silhouette opening arms. Completed plant remains readable.",
+        "timing_note": "Earlier 2–3 second completed-form hold is a creative target. Inspect the present drawing completion before changing the locked edit."
+      },
+      {
+        "id": "people",
+        "start": 17.1,
+        "end": 19.9,
+        "copy": "Real People"
+      },
+      {
+        "id": "faith",
+        "start": 19.9,
+        "end": 22,
+        "copy": "Real Faith"
+      },
+      {
+        "id": "stories",
+        "start": 22,
+        "end": 23.9,
+        "copy": "Real Stories"
+      },
+      {
+        "id": "embrace",
+        "start": 23.9,
+        "end": 27.1,
+        "copy": "The Real Embrace",
+        "source_alias": "hands-1",
+        "source_window": [
+          2.7,
+          5.9
+        ],
+        "status": "Temporary source. Dinner close-up preferred; downloaded church/wooden-pew backup available. Couch option rejected."
+      },
+      {
+        "id": "jesus",
+        "start": 27.1,
+        "end": 31.5,
+        "copy": "Of Jesus"
+      },
+      {
+        "id": "logo",
+        "start": 31.5,
+        "end": 36.5,
+        "status": "Approved five-second choreography mounted in review",
+        "preserve": "White rise/glow, horizontal emerald-left and gold-right dashes, centered breathing pause, backward depth dip while moving left. Word fade/reveal overlaps the move; words settle after emblem. Keep approved 5% word-timing refinement.",
+        "assembly": "Use supplied masks and vector lockup. Preserve alpha. Composite onto selected background when available; no seed or green fill inside logo."
+      }
+    ],
+    "text_hold_check": "Current review source begins a short exit fade before each beat endpoint, including 0.35 seconds for Jesus. Inspect the actual transition: ensure the full phrase is readable until the transition begins; do not mark the requested hold fixed from source inspection alone.",
+    "music": {
+      "current_review": "Soaring Strings 0–36.5 seconds",
+      "final_selection": false,
+      "direction": "Opening buildup liked; later lift should feel hopeful and warmer. User reports original full track has a stronger later section; compare that source before replacing it with a newly generated song.",
+      "analysis": "If Gemini is used, send one file per neutral request without client feedback, then compare the resulting description to Marco's notes locally."
+    },
+    "spatial_lock": {
+      "scope": "Seed progression through scenes1–4, including mature plant over mountain. Separate logo animation is unaffected.",
+      "anchor": "One fixed frame-center anchor:1920,1080 at3840×2160;960,540 at1920×1080.",
+      "motion": "Drawing and growth unfold in place around the shared anchor. Keep natural growth and subtle local leaf movement. Remove wandering x/y travel, large repositioning and recentering jumps between stages.",
+      "precedence": "Supersedes earlier instructions to preserve existing seed travel; retain approved artwork, stage order and overall timing.",
+      "proof": "Overlay center guides and compare all four stages plus their transitions. Verify the shared anchor stays fixed and perceived center does not drift; do not recenter individual changing path bounding boxes frame by frame."
+    }
+  },
+  "outro": {
+    "scene_order": [
+      "Connect",
+      "Story",
+      "Prayer",
+      "Next Week"
+    ],
+    "duration_seconds_range": [
+      24.024,
+      28.028
+    ],
+    "timing_status": "User target: four scenes around7 seconds each, about28 seconds total. Includes entrances, full-copy holds and transitions. Supersedes60–120-second historical brief and old Linear issue text.",
+    "reading_order": "Entire page top to bottom; elements within a row left to right. Keep preceding text visible. Essential reading hold starts only when the final required line is fully visible.",
+    "motion_timing": "Use preconfigured motion-preset.json:210frames per scene at30000/1001fps,840frames total. Fitted text curve and chosen panel/exit curves are labeled. Verify in Figma Motion before integration.",
+    "connect": {
+      "facebook": "Mask original container first, then reveal F. Final pixels match supplied asset.",
+      "instagram": "Trace actual border path from opposing corners. One restrained glow on completion; inner elements glow/fade in together. Settle without looping.",
+      "tiktok": "Quick sequential layers, not jarring. User's 'tik, tok, camera' names require mapping to actual supplied vectors before implementation; no new camera symbol.",
+      "following_line": "Reveal as one group after icon row completes.",
+      "credits": {
+        "card_size": [
+          245,
+          160
+        ],
+        "column_centers_x": [
+          300,
+          740,
+          1180,
+          1620
+        ],
+        "units": "1920×1080 design pixels",
+        "outer_trim": "Existing 2px gold #F2BA08 from accepted legacy glass treatment",
+        "inner_trim": "1.5px emerald #035229, inset4px",
+        "glass": "62% translucent black, 24px background blur,14px corners",
+        "note": "Preserve accepted colors rather than silently normalizing gold to another kit token. Refit width if final names change; keep column centers."
+      }
+    },
+    "story": {
+      "order": [
+        "headline",
+        "supporting invitation",
+        "submission instruction",
+        "URL"
+      ],
+      "phrase": "Inter Bold Italic on 'your story' is already applied. Gold underline motion remains queued, once under that phrase only.",
+      "rule": "Existing bottom gold rule draws once with destination. Keep its accent subordinate to phrase emphasis."
+    },
+    "prayer": {
+      "order": "Use existing page text groups in reading order. Request precedes URL; hold both for reading.",
+      "effects": "Preserve the approved panel and rule. No new decorative effect selected."
+    },
+    "next_week": {
+      "layout": "Full-frame editable video with approved left rail. Single-line 'Next Week on', enlarged supplied logo below.",
+      "motion": "Headline then logo, minimal movement, hold while video plays.",
+      "geometry": {
+        "rail_width": 1005,
+        "fade_starts_x": 804,
+        "content_left": 96,
+        "logo_right": 756,
+        "units": "1920×1080 design pixels"
+      }
+    },
+    "type_at_1080": {
+      "headline": "Geist ExtraBold800,88px",
+      "general_support_and_instruction": "Geist Medium500,52px",
+      "destination": "Geist Bold700,56px",
+      "connect_handle": "64px Medium",
+      "connect_url": "64px Bold",
+      "story_support": "80px Medium; 'your story' Inter Bold Italic700",
+      "credits": "Keep existing52/56px",
+      "render_scaling": "Double design dimensions at3840×2160"
+    },
+    "backing": "Story/Prayer lower panel lower80% solid; only upper20% fades. Existing 48% feathered neutral Story scrim is a scene-specific approved treatment, not a broadcast standard.",
+    "studio": {
+      "count": 3,
+      "separate_from_cta_sequence": true,
+      "directions": [
+        "emerald band",
+        "gold with emerald stripe",
+        "emerald landscape"
+      ],
+      "preserve": "Supplied logo vectors, approved seam shadows and quiet host-friendly backgrounds.",
+      "open": "Production option selection, full-resolution photography and camera test. Studio02 photograph remains provisional."
+    },
+    "motion_reference": {
+      "package": "Minimal Broadcast Package for Premiere Pro by Premiumilk",
+      "source_url": "https://elements.envato.com/minimal-broadcast-package-for-premiere-pro-clean-t-FCQPRWV",
+      "local_preview": "references/envato/broadcast-package-preview.mp4",
+      "review_windows": "Inspect movement around0:38 for information hierarchy,0:53 for teaser and3:23 for social/CTA. These are saved reference markers, not measured entrance boundaries.",
+      "required_adaptation": "Carry the reference broadcast motion into panel/rail reveals, masked text entrances, easing, stagger and inter-card transitions. Preserve approved final layouts, typography and page-wide reading order.",
+      "mapping": "Connect uses information-row entrances with the locked custom icon construction. Story and Prayer use lower-panel reveals and staged text. Next Week uses the reference teaser movement on the approved left rail and full-frame video.",
+      "implementation_gate": "Load the measured reference sheets and preconfigured preset, then build one scene in Figma Motion. Compare actual playback to reference mechanics and the settled frame to approved design. Re-measure only if evidence conflicts.",
+      "limits": "Preserve approved layouts. Source measurements describe visible25fps preview behavior; FaithTalk durations and panel/exit curves are explicit adaptation presets. Do not claim recovered original authoring keyframes."
+    },
+    "duration_target_seconds": 28,
+    "scene_duration_seconds_range": [
+      6.006,
+      7.007
+    ],
+    "timing_starting_plan": {
+      "Connect": [
+        0,
+        7
+      ],
+      "Story": [
+        7,
+        14
+      ],
+      "Prayer": [
+        14,
+        21
+      ],
+      "Next Week": [
+        21,
+        28
+      ],
+      "note": "Rounded7-second editorial labels only. Exact preset boundaries7.007,14.014,21.021,28.028seconds at30000/1001fps govern integration. No fifth scene. Readability is subject to playback verification."
+    },
+    "music": {
+      "required": true,
+      "direction": "Continuous selected music bed across all four scenes; shape transitions to musical phrasing and give the last scene a clean resolution. Duck around VO or teaser dialogue. No track restart per card.",
+      "selection": "No final outro track identified here. Reuse the user-approved music when identified; label any temporary review bed clearly. Do not silently call current intro review music final."
+    },
+    "render_duration_seconds": 28.028,
+    "render_scene_duration_seconds": 7.007,
+    "reading_verification": "Connect has only3.003seconds with all copy settled. This is a proposal, not a demonstrated accessibility pass. Check actual credit names and URL at normal viewing size/speed. Shorten decorative entrance/path timing first if needed; if that still fails, report the pacing conflict before changing copy or total runtime.",
+    "transition_ownership": {
+      "frame_intervals": "Scene windows are half-open [0,210),[210,420),[420,630),[630,840). Global boundaries are7.007,14.014,21.021,28.028seconds. The final visible frame is839.",
+      "media": "The master sequence owns background dissolves. Pre-roll incoming video12frames before its scene boundary, underneath outgoing text. Continue the same video clock across that boundary; never restart at local frame0. Validate that selected media provides this front handle.",
+      "graphics": "Incoming scene graphics start at its boundary. Outgoing text exits198–207; outgoing backing fades198–210. Preserve the GLTV overlay. No simultaneous duplicate text or additional crossfade duration.",
+      "end": "Atframe840 end the requested sequence cleanly. Keep Next Week footage through final visible frame; final audio resolution stays inside the existing budget."
+    }
+  },
+  "sound": {
+    "reference_is_description_not_selected_assets": true,
+    "reference_seconds": {
+      "pad": [
+        0,
+        6
+      ],
+      "airy_rise": [
+        0.5,
+        1.8
+      ],
+      "glassy_chime": [
+        1.6,
+        3.2
+      ],
+      "rounded_double_pulse": [
+        3.6,
+        5
+      ],
+      "transition_swoosh": [
+        7.6,
+        8.5
+      ]
+    },
+    "adaptation": "Reference times belong to NurseHub. Fit a restrained airy rise, softened tonal arrival and short movement/completion accents to actual FaithTalk events. Keep atmospheric character; audition after music choice.",
+    "limits": "No loud boom, sharp sparkle or sound on every glyph, leaf or social icon. Keep voiceover intelligible. Final loudness follows verified network requirements."
+  },
+  "assembly_order": [
+    "Snapshot current approved sources without disturbing other edits",
+    "Apply fixed-center seed progression through scenes1–4, then preview mature-leaf and seed-gold accents within existing timing",
+    "Verify complete intro phrase holds and current footage windows",
+    "Load the preconfigured Envato motion preset and source evidence for each scene; verify first Figma Motion playback before integration",
+    "Build and review Connect in Figma Motion, then integrate with original source-vector masks and credits positions",
+    "Build Story then Prayer individually in Figma Motion; compare each settled frame to current static proof before integration",
+    "Build Next Week in Figma Motion with replaceable episode media; integrate its verified motion",
+    "Integrate selected outro music across the full roughly28-second sequence; fit restrained sound cues and verify mix",
+    "Review assembled sequence and required export specification"
+  ],
+  "acceptance": [
+    "Seed progression retains a fixed center anchor through scenes1–4, with growth in place and no wandering translation",
+    "Each outro scene has an observed Envato motion reference and a comparison of its entrance, settle and transition while preserving approved layout",
+    "Exact client copy and approved scene count",
+    "Settled frames match newest accepted Figma layout and typography",
+    "No cropped glyphs or unintended mask edges",
+    "All essential text inside 5% graphics-safe area and meets project4.5:1 target through moving backgrounds",
+    "Sufficient full-text reading hold at intended viewing size",
+    "Native4K media verified; mixed source frame rates checked at30000/1001 delivery",
+    "No false claim that static checks establish final broadcast acceptance",
+    "Studio camera check and actual GLTV delivery sheet before final certification"
+  ],
+  "remaining_dependencies": [
+    "Final music choice",
+    "Final copy/VO, URLs and credit names where still provisional",
+    "Final episode teaser video",
+    "Approval of temporary hands/background media",
+    "TikTok layer-name mapping",
+    "Final-resolution reference-card photography",
+    "Actual GLTV delivery specification",
+    "Live Figma Motion capability and node/vector bindings",
+    "Readable Connect credits within proposed hold",
+    "Required GLTV mark in both final deliverables"
+  ],
+  "storage": "Put new large review media and renders on verified MediaSSD under02_EDITING/CLIENTS/FAITHTALK. Preserve existing linked media paths.",
+  "workflow": {
+    "skills": [
+      "/Users/singleton23/.codex/skills/implement/SKILL.md",
+      "/Users/singleton23/.codex/skills/tdd/SKILL.md"
+    ],
+    "intro": "Direct updates in current intro composition; preserve approved logo.",
+    "outro": "Each scene starts in Figma Motion using original masks and editable source assets, then verified integration into final composition. Do not bypass Figma Motion.",
+    "slice": "One scene at a time. Define expected observable behavior, show current failure, implement minimum, verify playback and settled frame, record result, stop at scene review boundary.",
+    "tdd_seams": "Proposed: rendered single-scene playback/seek, then integrated playback with sound. Confirm these with Jerami before writing automated tests, per tdd skill. No automated tests are written by this documentation pass.",
+    "review": "Use reference-based visual evidence for perceptual quality; do not substitute assertions about internal tween values. Recommend code-review separately after implementation."
+  },
+  "linear": {
+    "verified_date": "2026-09-26",
+    "parent": {
+      "id": "23M-194",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-194/outro-match-concept-02-before-adding-motion"
+    },
+    "static_done": [
+      "23M-197",
+      "23M-198",
+      "23M-199",
+      "23M-200",
+      "23M-201"
+    ],
+    "motion": {
+      "id": "23M-202",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-202/animate-the-matched-outro-cards-and-verify-the-reading-holds"
+    },
+    "note": "Read live during handoff preparation. Linear records not edited. Older duration and static descriptions are superseded by latest user decisions and local static refinements."
+  },
+  "required_branding": {
+    "role": "networkBug",
+    "source": "Existing supplied Greater Love TV vector in each approved Figma scene.",
+    "behavior": "Retain its approved size, position and visibility during each scene and the transition. Exclude it from generic text/backing exit groups. Do not introduce new bug animation.",
+    "integration": "Use one persistent overlay if all scenes share the same placement. Otherwise preserve per-scene placements and crossfade the two exact marks without doubling brightness. Confirm intro closing GLTV representation separately.",
+    "final_export": "Review-only Singleton Systems watermark in the current intro is not a substitute for GLTV. Identify review-only overlays before client delivery; retain only agreed final branding."
+  }
+}

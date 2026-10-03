@@ -26,6 +26,16 @@ LikeC4       -> reviewed architecture
 
 - `plugins/s-systems` is the versioned skill source. Installed plugin copies are outputs.
 - `.agents/skills` is the versioned source for repo-local standalone skills.
+- Supabase `harness_skills` owns live canonical-path resolution for every
+  repository skill. The hook loads `.env.local` directly and stops when the
+  live registry cannot be read. There is no runtime file fallback.
+- `.env.local` must provide `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` or
+  `SUPABASE_ANON_KEY`. Missing or rejected credentials block routing.
+- The Stop hook removes only `TMPDIR/tmp.*` Git scratch databases that are at
+  least 10 seconds old. It terminates an exact `codex-workspace-diff` writer only
+  when that process still holds one of those stale candidates. Session start
+  and the next user prompt repeat the cleanup. Fresh state, other processes,
+  real repositories, and open temporary directories are excluded.
 - `~/.codex/skills/<name>` is the runtime mirror when a repo-local skill is installed globally.
 - Skill commands must resolve their owning skill root. A bare `scripts/<file>` path is unsafe because Codex keeps the active repository as its working directory.
 - A skill holds only its trigger, unique decision, action, and verification.
@@ -68,8 +78,8 @@ For SSystems skill or route work:
 3. Treat installed Codex and Claude plugin copies as generated outputs only.
 4. Keep Development work in the Linear `Singleton Systems` project. Keep AI
    Consulting and Content Editor work in their matching Asana projects.
-5. Run `npm run check:cerebral:registry` before completion. It verifies that the
-   registry and all versioned SSystems skill folders still match.
+5. Run `npm run check:cerebral:registry` before completion. It verifies the
+   42 versioned repository skill paths before they are seeded to Supabase.
 6. Run `npm run check:skills` for every versioned skill. Run
    `npm run check:skills:installed` when an installed personal mirror exists.
 

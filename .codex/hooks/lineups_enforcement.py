@@ -14,6 +14,9 @@ if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
 from tools.lineups_motion import CueContract, CueContractError
+from tools.lineups_motion.templates import (
+    validate_callout, validate_manifest_binding, validate_manifest_readback,
+)
 
 
 FIGMA_MUTATIONS = {
@@ -102,7 +105,7 @@ def validate_data_background(manifest):
     if background.get("setting") != "Field Night / No football" or background.get("imageHash") != NO_FOOTBALL_FIELD_HASH:
         raise EnforcementError("data-driven scenes require the approved no-football Field Night background")
     if background.get("locked") is not True or background.get("separateFromArtwork") is not True:
-        raise EnforcementError("data-driven background must be locked and separate from transparent artwork")
+        raise EnforcementError("data-driven background must be locked and separate from editable artwork inside Figma")
     if not background.get("nodeId"):
         raise EnforcementError("data-driven background needs its Figma node ID")
 
@@ -449,6 +452,7 @@ def validate_manifest(manifest, require_export=False):
     for field in ("fileKey", "pageId", "rootNodeId", "sourceComponentId", "episodeInstanceId", "sourceRevision"):
         if not required(manifest, f"figma.{field}"):
             raise EnforcementError(f"figma.{field} cannot be empty")
+    validate_manifest_binding(manifest)
     if str(figma.get("rootNodeId")).startswith("pending:") and figma.get("episodeInstanceId") != figma.get("rootNodeId"):
         raise EnforcementError("planned Figma scene initialization must use one matching pending scene token")
     if not required(manifest, "figma.exposedSlots"):
@@ -734,6 +738,9 @@ def load_receipt(root, manifest, directory, stage, previous_stage=None, require_
         evidence = receipt.get("evidence") or {}
         if evidence.get("sourceRevision") != required(manifest, "figma.sourceRevision"):
             raise EnforcementError(f"{stage} receipt does not bind the approved Figma source revision")
+        if manifest.get("figma", {}).get("templateBinding"):
+            validate_manifest_readback(manifest, evidence.get("calloutReadback") or {})
+            validate_callout(evidence.get("sourceCallout") or {}, source=True)
         if evidence.get("proofFrames") != required(manifest, "export.motionProof.frames"):
             raise EnforcementError(f"{stage} receipt does not bind the current visible proof frames")
     if previous_stage:
@@ -759,7 +766,7 @@ def response_text(payload):
 
 def input_path_matches(root, manifest, tool_input):
     candidate = tool_input.get("filePath")
-    if not candidate:
+    if not candidate or not (manifest.get("export") or {}).get("path"):
         return False
     return Path(candidate).expanduser().resolve() == resolved_export_path(root, manifest)
 
@@ -767,6 +774,9 @@ def input_path_matches(root, manifest, tool_input):
 def is_scoped(root, manifest, tool_name, tool_input, payload=None):
     figma = manifest.get("figma") or {}
     premiere = manifest.get("premiere") or {}
+    premiere_identifiers = {
+        premiere.get("projectItemId"), premiere.get("timelineClipId"), premiere.get("sequenceId"),
+    } - {None, ""}
     if tool_name == "mcp__codex_apps__figma_weave_run_tool":
         return True
     if tool_name in FIGMA_MUTATIONS or tool_name == FIGMA_EXPORT:
@@ -781,12 +791,12 @@ def is_scoped(root, manifest, tool_name, tool_input, payload=None):
             tool_input.get("clipId"),
             tool_input.get("sequenceId"),
         }
-        if input_identifiers & {premiere.get("projectItemId"), premiere.get("timelineClipId"), premiere.get("sequenceId")}:
+        if input_identifiers & premiere_identifiers:
             return True
         return any(
-            item.get("projectItemId") == premiere.get("projectItemId")
-            or item.get("clipId") == premiere.get("timelineClipId")
-            or item.get("treePath") == premiere.get("treePath")
+            (premiere.get("projectItemId") and item.get("projectItemId") == premiere["projectItemId"])
+            or (premiere.get("timelineClipId") and item.get("clipId") == premiere["timelineClipId"])
+            or (premiere.get("treePath") and item.get("treePath") == premiere["treePath"])
             for item in response_objects(payload.get("tool_response"))
         )
     identifiers = {
@@ -797,7 +807,7 @@ def is_scoped(root, manifest, tool_name, tool_input, payload=None):
         tool_input.get("clipId2"),
         tool_input.get("sequenceId"),
     }
-    return bool(identifiers & {premiere.get("projectItemId"), premiere.get("timelineClipId"), premiere.get("sequenceId")})
+    return bool(identifiers & premiere_identifiers)
 
 
 def deny(reason):
@@ -843,6 +853,22 @@ def review_export_roster(root, manifest):
     for item in audit.get("rankRevealScenes", []) + audit.get("supportingMotionScenes", []):
         if listed.get(item.get("sceneId")) != item.get("rootNodeId"):
             raise EnforcementError("review export roster drifted from the approved motion audit")
+    quick_stats = [item for item in scenes if item.get("lane") == "quick stat"]
+    if quick_stats:
+        readback = read_json(episode_dir / "callout-readback.json", "Components-bound callout readback")
+        bindings = read_json(episode_dir / "callout-bindings.json", "exact episode callout bindings")
+        source = read_json(SOURCE_ROOT / "config/lineups/canonical-template-verification.json", "canonical template proof")
+        if readback.get("fileKey") != roster["fileKey"] or readback.get("pageId") != roster.get("pageId") or bindings.get("pageId") != roster.get("pageId"):
+            raise EnforcementError("review callout proof identifies a different file or episode page")
+        validate_callout(source.get("callout") or {}, source=True)
+        for item in quick_stats:
+            matches = [row for row in readback.get("callouts", []) if row.get("rootNodeId") == item["nodeId"] and row.get("sceneId") == item["id"]]
+            bound = [row for row in bindings.get("scenes", []) if row.get("rootNodeId") == item["nodeId"] and row.get("sceneId") == item["id"]]
+            if len(matches) != 1 or len(bound) != 1:
+                raise EnforcementError("review export is missing an exact Quick Stat source comparison")
+            if bound[0].get("roleNodeIds") != {role: (matches[0].get(role) or {}).get("id") for role in ("wrapper", "panel", "text")}:
+                raise EnforcementError("review callout nodes drifted from their registered episode bindings")
+            validate_callout(matches[0], fit_override=matches[0].get("fitOverride"))
     return roster
 
 
@@ -933,6 +959,9 @@ def postflight(root, manifest, directory, tool_name, payload):
             raise EnforcementError("Figma readback did not confirm the root, source component, and episode instance")
         if scene_readback.get("sourceRevision") != figma["sourceRevision"]:
             raise EnforcementError("Figma readback did not confirm the current approved source revision")
+        if figma.get("templateBinding"):
+            validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
+            validate_callout(scene_readback.get("sourceCallout") or {}, source=True)
         if is_data_driven(manifest) and figma["background"] not in list(response_backgrounds(payload.get("tool_response"))):
             raise EnforcementError("Figma readback did not confirm the locked no-football background and separate artwork")
         if is_rank_reveal(manifest):

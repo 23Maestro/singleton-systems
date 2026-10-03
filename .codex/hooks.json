@@ -25,8 +25,8 @@
           {
             "type": "command",
             "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
-            "timeout": 10,
-            "statusMessage": "Loading Singleton Systems map"
+            "timeout": 60,
+            "statusMessage": "Clearing abandoned diff state and loading Singleton Systems map"
           }
         ]
       }
@@ -37,8 +37,8 @@
           {
             "type": "command",
             "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/cerebral_singleton_guard.py\"",
-            "timeout": 10,
-            "statusMessage": "Checking outbound writing"
+            "timeout": 60,
+            "statusMessage": "Checking outbound writing and temporary Git storage"
           }
         ]
       }

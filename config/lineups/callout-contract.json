@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "id": "quick-stat.callout.v1",
+  "source": {
+    "fileKey": "o7E24iymIT80MTXGYIogVH",
+    "pageId": "428:27",
+    "componentId": "868:776",
+    "roleNodeIds": {
+      "wrapper": "868:776",
+      "panel": "868:777",
+      "text": "868:779"
+    },
+    "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=868-776"
+  },
+  "protected": {
+    "wrapper": {
+      "width": 1920,
+      "height": 1087,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "FIXED",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "MIN",
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 816,
+      "paddingBottom": 0,
+      "topLeftRadius": 0,
+      "topRightRadius": 0,
+      "bottomLeftRadius": 0,
+      "bottomRightRadius": 0,
+      "clipsContent": true,
+      "fills": [],
+      "strokes": [],
+      "strokeWeight": 1,
+      "effects": []
+    },
+    "panel": {
+      "height": 190,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "AUTO",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "CENTER",
+      "paddingLeft": 72,
+      "paddingRight": 72,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "topLeftRadius": 0,
+      "topRightRadius": 34,
+      "bottomLeftRadius": 34,
+      "bottomRightRadius": 0,
+      "clipsContent": true,
+      "fills": [
+        {
+          "type": "GRADIENT_LINEAR",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "gradientStops": [
+            {
+              "color": {
+                "r": 0.025,
+                "g": 0.055,
+                "b": 0.075,
+                "a": 0.88
+              },
+              "position": 0,
+              "boundVariables": {}
+            },
+            {
+              "color": {
+                "r": 0.035,
+                "g": 0.095,
+                "b": 0.13,
+                "a": 0.8
+              },
+              "position": 0.55,
+              "boundVariables": {}
+            },
+            {
+              "color": {
+                "r": 0.055,
+                "g": 0.14,
+                "b": 0.19,
+                "a": 0.72
+              },
+              "position": 1,
+              "boundVariables": {}
+            }
+          ],
+          "gradientTransform": [
+            [
+              0.85,
+              0.18,
+              -0.02
+            ],
+            [
+              -0.18,
+              0.85,
+              0.12
+            ]
+          ]
+        }
+      ],
+      "strokes": [
+        {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0,
+            "g": 0.753,
+            "b": 0.91
+          },
+          "boundVariables": {}
+        }
+      ],
+      "strokeWeight": 2,
+      "effects": [
+        {
+          "type": "BACKGROUND_BLUR",
+          "visible": true,
+          "radius": 22,
+          "boundVariables": {},
+          "blurType": "NORMAL"
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 18,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0.753,
+            "b": 0.91,
+            "a": 0.22
+          },
+          "offset": {
+            "x": 10,
+            "y": 10
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 30,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.46
+          },
+          "offset": {
+            "x": 0,
+            "y": 18
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": true
+        },
+        {
+          "type": "INNER_SHADOW",
+          "visible": true,
+          "radius": 7,
+          "boundVariables": {},
+          "color": {
+            "r": 0.45,
+            "g": 0.93,
+            "b": 1,
+            "a": 0.16
+          },
+          "offset": {
+            "x": -2,
+            "y": -2
+          },
+          "spread": 0,
+          "blendMode": "SCREEN"
+        }
+      ]
+    },
+    "text": {
+      "fills": [
+        {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.969,
+            "g": 0.969,
+            "b": 0.949
+          },
+          "boundVariables": {
+            "color": {
+              "type": "VARIABLE_ALIAS",
+              "id": "VariableID:428:8"
+            }
+          }
+        }
+      ],
+      "strokes": [],
+      "strokeWeight": 1,
+      "effects": [],
+      "fontName": {
+        "family": "Inter",
+        "style": "Bold"
+      },
+      "fontSize": 64,
+      "lineHeight": {
+        "unit": "AUTO"
+      },
+      "letterSpacing": {
+        "unit": "PERCENT",
+        "value": 0
+      },
+      "textAutoResize": "WIDTH_AND_HEIGHT",
+      "textAlignHorizontal": "CENTER",
+      "textAlignVertical": "CENTER"
+    }
+  },
+  "geometry": {
+    "wrapperX": 0,
+    "wrapperY": -7,
+    "panelBottom": 999,
+    "panelCenterX": 960,
+    "safeWidth": 1776,
+    "tolerance": 0.25
+  },
+  "allowedChanges": [
+    "statement copy",
+    "photo",
+    "transcript reveal timing",
+    "horizontal hug width"
+  ],
+  "sourceFingerprint": "272195d6357ad35b39a0c22dc8bd24f44bba06068fab3512821d444436b5853b"
+}

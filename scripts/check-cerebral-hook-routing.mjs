@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
 
 const root = process.cwd();
@@ -11,11 +10,12 @@ const python = process.env.PYTHON || "python3";
 const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
 const routes = registry.routes.filter((route) => route.enabled);
 
-function runHook(prompt) {
+function runHook(prompt, env = {}) {
   return spawnSync(python, [hook], {
     cwd: root,
     input: JSON.stringify({ hook_event_name: "UserPromptSubmit", cwd: root, prompt }),
     encoding: "utf8",
+    env: { ...process.env, ...env },
   });
 }
 
@@ -42,42 +42,7 @@ function runPreTool(command, workdir = root, env = {}) {
   });
 }
 
-function runCanonicalSkillProbe(runtimeSkills) {
-  const script = `
-import importlib.util
-import json
-import os
-
-spec = importlib.util.spec_from_file_location("cerebral_singleton_guard", os.environ["CEREBRAL_HOOK_PATH"])
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
-module.load_runtime_skills = lambda: json.loads(os.environ["RUNTIME_SKILLS"])
-error = module.canonical_skill_script_error({
-    "hook_event_name": "PreToolUse",
-    "cwd": os.environ["CEREBRAL_ROOT"],
-    "tool_name": "Bash",
-    "tool_input": {
-        "command": "node scripts/eagle-api-cli.js list",
-        "workdir": os.environ["CEREBRAL_ROOT"],
-    },
-})
-if not error:
-    raise SystemExit("wrong skill script path was not blocked")
-print(error)
-`;
-  return spawnSync(python, ["-c", script], {
-    cwd: root,
-    encoding: "utf8",
-    env: {
-      ...process.env,
-      CEREBRAL_HOOK_PATH: hook,
-      CEREBRAL_ROOT: root,
-      RUNTIME_SKILLS: JSON.stringify(runtimeSkills),
-    },
-  });
-}
-
-function runStop(prompt, lastAssistantMessage, stopHookActive = false) {
+function runStop(prompt, lastAssistantMessage, stopHookActive = false, env = {}) {
   return spawnSync(python, [hook], {
     cwd: root,
     input: JSON.stringify({
@@ -88,6 +53,7 @@ function runStop(prompt, lastAssistantMessage, stopHookActive = false) {
       last_assistant_message: lastAssistantMessage,
     }),
     encoding: "utf8",
+    env: { ...process.env, ...env },
   });
 }
 
@@ -219,9 +185,36 @@ assert.equal(wrongEaglePath.status, 0);
 assert.match(wrongEaglePath.stdout, /"continue": false/);
 assert.match(wrongEaglePath.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
 
-const emptyRuntimeSkillFallback = runCanonicalSkillProbe([]);
-assert.equal(emptyRuntimeSkillFallback.status, 0, emptyRuntimeSkillFallback.stderr);
-assert.match(emptyRuntimeSkillFallback.stdout, /plugins\/s-systems\/skills\/eagle-skill\/scripts\/eagle-api-cli\.js/);
+const unavailableRegistry = runHook("Review the site typography.", {
+  CEREBRAL_SUPABASE_ENV_FILE: path.join(root, ".missing-supabase-env"),
+  SUPABASE_URL: "",
+  SUPABASE_PUBLISHABLE_KEY: "",
+  SUPABASE_ANON_KEY: "",
+});
+assert.equal(unavailableRegistry.status, 0);
+assert.match(unavailableRegistry.stdout, /"continue": false/);
+assert.match(unavailableRegistry.stdout, /No local registry fallback is allowed/);
+
+const wrongEagleDocument = runPreTool("sed -n '1,240p' .agents/skills/eagle-skill/SKILL.md");
+assert.equal(wrongEagleDocument.status, 0);
+assert.match(wrongEagleDocument.stdout, /"continue": false/);
+assert.match(wrongEagleDocument.stdout, /plugins\/s-systems\/skills\/eagle-skill\/SKILL\.md/);
+assert.match(wrongEagleDocument.stdout, /do not report the skill as stale/i);
+
+const correctEagleDocument = runPreTool(
+  "sed -n '1,240p' plugins/s-systems/skills/eagle-skill/SKILL.md",
+);
+assert.equal(correctEagleDocument.status, 0);
+assert.doesNotMatch(correctEagleDocument.stdout, /"continue": false/);
+
+const standaloneSkillDocument = runPreTool("sed -n '1,240p' .agents/skills/dev-storage/SKILL.md");
+assert.equal(standaloneSkillDocument.status, 0);
+assert.doesNotMatch(standaloneSkillDocument.stdout, /"continue": false/);
+
+const unknownSkillDocument = runPreTool("sed -n '1,240p' .agents/skills/not-registered/SKILL.md");
+assert.equal(unknownSkillDocument.status, 0);
+assert.match(unknownSkillDocument.stdout, /"continue": false/);
+assert.match(unknownSkillDocument.stdout, /not registered in harness_skills/);
 
 const correctEaglePath = runPreTool(
   "node plugins/s-systems/skills/eagle-skill/scripts/eagle-api-cli.js list",
@@ -244,33 +237,6 @@ const correctRepoSkillPath = runPreTool(
 );
 assert.equal(correctRepoSkillPath.status, 0);
 assert.doesNotMatch(correctRepoSkillPath.stdout, /"continue": false/);
-
-const personalCodexHome = fs.mkdtempSync(path.join(os.tmpdir(), "cerebral-personal-skill-"));
-try {
-  const personalScript = path.join(personalCodexHome, "skills", "personal-example", "scripts", "personal-helper.py");
-  fs.mkdirSync(path.dirname(personalScript), { recursive: true });
-  fs.writeFileSync(path.join(personalCodexHome, "skills", "personal-example", "SKILL.md"), "---\nname: personal-example\ndescription: Test fixture.\n---\n", "utf8");
-  fs.writeFileSync(personalScript, "print('ok')\n", "utf8");
-
-  const wrongPersonalSkillPath = runPreTool(
-    "python3 scripts/personal-helper.py",
-    root,
-    { CODEX_HOME: personalCodexHome },
-  );
-  assert.equal(wrongPersonalSkillPath.status, 0);
-  assert.match(wrongPersonalSkillPath.stdout, /"continue": false/);
-  assert.match(wrongPersonalSkillPath.stdout, /personal-example\/scripts\/personal-helper\.py/);
-
-  const correctPersonalSkillPath = runPreTool(
-    `python3 ${personalScript}`,
-    root,
-    { CODEX_HOME: personalCodexHome },
-  );
-  assert.equal(correctPersonalSkillPath.status, 0);
-  assert.doesNotMatch(correctPersonalSkillPath.stdout, /"continue": false/);
-} finally {
-  fs.rmSync(personalCodexHome, { recursive: true, force: true });
-}
 
 const ordinaryRepoScript = runPreTool("node scripts/check-cerebral-registry.mjs");
 assert.equal(ordinaryRepoScript.status, 0);
@@ -329,7 +295,13 @@ for (const prompt of [
     "accessibility-review",
     "football-visible Field Night background",
     "locked no-football Field Night background",
-    "Export transparent artwork separately",
+    "Keep background and artwork as separate editable Figma layers",
+    "Export complete motion scenes with their approved backgrounds included",
+    "Asset Swap and Comparison require real-alpha player assets",
+    "Search Eagle for suitable alpha player art first",
+    "Figma's native Remove background tool",
+    "The other five lanes have no automatic player-cutout requirement",
+    "Player-asset alpha does not require transparent final scene exports",
     "Episode cutouts require real alpha",
     "Only cutouts, logos, transcript copy, and reveal timing are replaceable",
     "Keep text and cutout bounds tight",
@@ -420,6 +392,45 @@ const ordinaryChat = runStop(
 assert.equal(ordinaryChat.status, 0);
 assert.equal(ordinaryChat.stdout.trim(), "", "ordinary chat must not invoke the writing gate");
 
+const cleanupRoot = fs.mkdtempSync(path.join(root, ".codex-git-temp-cleanup-test-"));
+try {
+  const fresh = path.join(cleanupRoot, "tmp.fresh");
+  fs.mkdirSync(path.join(fresh, "objects"), { recursive: true });
+  fs.writeFileSync(path.join(fresh, "index"), "scratch index", "utf8");
+  const fiveSecondsAgo = new Date(Date.now() - 5_000);
+  for (const item of [fresh, path.join(fresh, "objects"), path.join(fresh, "index")]) {
+    fs.utimesSync(item, fiveSecondsAgo, fiveSecondsAgo);
+  }
+  const unrelatedTemp = path.join(cleanupRoot, "tmp.unrelated");
+  fs.mkdirSync(path.join(unrelatedTemp, "objects"), { recursive: true });
+  const preserveFresh = runStop("Finish the task.", "Done.", false, {
+    CEREBRAL_CODEX_GIT_TEMP_ROOT: cleanupRoot,
+    CEREBRAL_CODEX_GIT_TEMP_STOP_WRITERS: "0",
+  });
+  assert.equal(preserveFresh.status, 0, preserveFresh.stderr);
+  assert.equal(fs.existsSync(fresh), true, "Stop hook must preserve a fresh Git-temp database");
+  assert.equal(fs.existsSync(unrelatedTemp), true, "Stop hook must preserve non-matching temporary directories");
+  const cleanup = runStop("Finish the task.", "Done.", false, {
+    CEREBRAL_CODEX_GIT_TEMP_ROOT: cleanupRoot,
+    CEREBRAL_CODEX_GIT_TEMP_STOP_WRITERS: "0",
+    CEREBRAL_CODEX_GIT_TEMP_MIN_AGE_SECONDS: "0",
+  });
+  assert.equal(cleanup.status, 0, cleanup.stderr);
+  assert.equal(fs.existsSync(fresh), false, "Stop hook must remove an abandoned Git-temp database");
+  const interrupted = path.join(cleanupRoot, "tmp.interrupted");
+  fs.mkdirSync(path.join(interrupted, "objects"), { recursive: true });
+  fs.writeFileSync(path.join(interrupted, "index.lock"), "scratch lock", "utf8");
+  const recovery = runHook("Review the site typography.", {
+    CEREBRAL_CODEX_GIT_TEMP_ROOT: cleanupRoot,
+    CEREBRAL_CODEX_GIT_TEMP_STOP_WRITERS: "0",
+    CEREBRAL_CODEX_GIT_TEMP_MIN_AGE_SECONDS: "0",
+  });
+  assert.equal(recovery.status, 0, recovery.stderr);
+  assert.equal(fs.existsSync(interrupted), false, "next prompt must clean an interrupted Git-temp database");
+} finally {
+  fs.rmSync(cleanupRoot, { recursive: true, force: true });
+}
+
 const cleanArtifact = runPostTool("Edit", {
   file_path: path.join(root, "docs/visuals/2026-07-07-video-projects-routing.html"),
 });
@@ -458,4 +469,4 @@ try {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }
 
-console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 21 guards.`);
+console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 28 guards.`);

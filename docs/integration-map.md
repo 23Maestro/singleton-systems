@@ -31,7 +31,7 @@ not repeat their logic.
 ```text
 natural request
   -> Cerebral hook
-  -> Supabase live registry or checked-in fallback
+  -> Supabase live registry
   -> owner skill or surface
   -> review gate
   -> requested mutation
@@ -40,6 +40,8 @@ natural request
 
 Natural language remains default. Exact route packets are optional helpers.
 Cerebral routes attention; it does not silently mutate owner systems.
+If the live registry cannot be read, routing stops. Checked-in files seed and
+verify Supabase; they never replace it at runtime.
 
 Run:
 
