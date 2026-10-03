@@ -1,6 +1,7 @@
 import {
   createAsanaTask,
   createAsanaSubtask,
+  completeAsanaSubtask,
   updateAsanaTask,
   updateAsanaStatus,
 } from "@/lib/command-center-asana";
@@ -9,6 +10,7 @@ import {
   commandCenterSnapshot,
   createLinearTask,
   createLinearSubtask,
+  completeLinearSubtask,
   updateLinearStatus,
   updateLinearTask,
   updateNotionStatus,
@@ -93,6 +95,16 @@ const actionSchema = z.discriminatedUnion("action", [
     action: z.literal("asanaStatus"),
     taskId: z.string().regex(/^\d+$/),
     state: z.enum(["To Do", "In Progress", "Review", "Done"]),
+  }),
+  z.object({
+    action: z.literal("asanaSubtaskComplete"),
+    parentId: z.string().regex(/^\d+$/),
+    childId: z.string().regex(/^\d+$/),
+  }),
+  z.object({
+    action: z.literal("linearSubtaskComplete"),
+    parentId: z.uuid(),
+    childId: z.uuid(),
   }),
   z.object({
     action: z.literal("asanaSubtask"),
@@ -288,6 +300,12 @@ export async function POST(request: Request) {
         break;
       case "asanaSubtask":
         result = await createAsanaSubtask(command.parentId, command.title);
+        break;
+      case "asanaSubtaskComplete":
+        result = await completeAsanaSubtask(command.parentId, command.childId);
+        break;
+      case "linearSubtaskComplete":
+        result = await completeLinearSubtask(command.parentId, command.childId);
         break;
       case "linearStatus":
         result = await updateLinearStatus(command.issueId, command.state);

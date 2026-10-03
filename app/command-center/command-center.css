@@ -414,7 +414,7 @@
   --columns: repeat(var(--day-count, 3), minmax(205px, 1fr));
 }
 .cc-calendar-head,
-.cc-untimed-row,
+.cc-calendar-head,
 .cc-calendar-body {
   display: grid;
   grid-template-columns: var(--gutter) var(--columns);
@@ -442,24 +442,6 @@
   color: var(--cc-muted);
   font-size: 11px;
 }
-.cc-untimed-row {
-  position: sticky;
-  top: 58px;
-  z-index: 4;
-  min-height: 58px;
-  background: var(--cc-nav);
-  border-bottom: 1px solid var(--cc-line);
-}
-.cc-untimed-label {
-  padding: 9px 7px;
-  color: var(--cc-muted);
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-}
-.cc-calendar-body {
-  height: 1344px;
-}
 .cc-times {
   position: relative;
   background: var(--cc-nav);
@@ -481,31 +463,6 @@
   left: 0;
   right: 0;
   border-top: 1px solid var(--cc-grid);
-}
-.cc-untimed {
-  min-width: 0;
-  padding: 6px;
-  border-left: 1px solid var(--cc-line);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.cc-untimed-item {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: left;
-  border: 1px solid var(--lane);
-  border-left: 3px solid var(--lane);
-  border-radius: 5px;
-  padding: 6px 7px;
-  background: color-mix(
-    in srgb,
-    var(--lane),
-    var(--cc-panel) var(--cc-tint-strength)
-  );
-  color: var(--cc-text);
-  font-size: 10px;
 }
 .cc-timed-block {
   position: absolute;
@@ -529,9 +486,6 @@
     outline-color 120ms ease;
 }
 .cc-timed-block:hover,
-.cc-untimed-item:hover {
-  outline: 1px solid var(--lane);
-}
 .cc-timed-block:focus-visible {
   outline: 2px solid var(--cc-blue);
   outline-offset: 2px;
@@ -1017,8 +971,7 @@
 .cc-planner-workspace .cc-calendar {
   --columns: repeat(var(--day-count, 7), minmax(110px, 1fr));
 }
-.cc-planner-workspace
-  :is(.cc-calendar-head, .cc-untimed-row, .cc-calendar-body) {
+.cc-planner-workspace :is(.cc-calendar-head, .cc-calendar-body) {
   min-width: calc(56px + var(--day-count) * 110px);
 }
 .cc-task-dialog {
@@ -1336,29 +1289,6 @@
 .cc-editor-subtasks {
   margin: 10px 0 8px 36px;
 }
-.cc-editor-subtasks a {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 7px 0;
-  color: var(--cc-text);
-}
-.cc-editor-subtasks a > span {
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--cc-control-line);
-  border-radius: 4px;
-}
-.cc-editor-subtasks a > svg {
-  margin-left: auto;
-  color: var(--cc-muted);
-}
-.cc-editor-subtasks a.done {
-  color: var(--cc-muted);
-  text-decoration: line-through;
-}
 .cc-editor-subtask-input {
   display: flex;
   align-items: center;
@@ -1403,4 +1333,665 @@
   .cc-editor-tools {
     top: -58px;
   }
+}
+
+/* Calendar scheduling */
+.cc-calendar-head {
+  height: 56px;
+}
+.cc-calendar-body {
+  position: relative;
+}
+.cc-times span {
+  right: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.cc-day-column.today {
+  background: color-mix(in srgb, var(--cc-blue), transparent 94%);
+}
+.cc-day-head strong {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cc-timed-block {
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  border-radius: 8px;
+  border-width: 0 0 0 3px;
+  padding: 5px 8px 7px;
+  box-shadow:
+    0 1px 2px #0003,
+    0 6px 14px color-mix(in srgb, var(--lane), transparent 82%);
+  transition:
+    box-shadow 120ms ease,
+    transform 120ms ease;
+}
+.cc-timed-block:hover {
+  outline: 0;
+  box-shadow:
+    0 1px 2px #0003,
+    0 8px 20px color-mix(in srgb, var(--lane), transparent 66%);
+}
+.cc-timed-block.dragging {
+  cursor: grabbing;
+  z-index: 6;
+  box-shadow: 0 14px 30px #0005;
+  transition: none;
+}
+.cc-timed-block.pending {
+  opacity: 0.7;
+}
+.cc-timed-block strong {
+  font-size: 12px;
+  line-height: 1.25;
+}
+.cc-resize {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 9px;
+  cursor: ns-resize;
+  touch-action: none;
+}
+.cc-resize::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 22px;
+  height: 3px;
+  margin-left: -11px;
+  border-radius: 2px;
+  background: var(--lane);
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+.cc-timed-block:hover .cc-resize::after,
+.cc-timed-block:focus-visible .cc-resize::after,
+.cc-timed-block.dragging .cc-resize::after {
+  opacity: 0.9;
+}
+.cc-drop-ghost {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  z-index: 3;
+  padding: 5px 8px;
+  border: 1.5px dashed var(--cc-blue);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--cc-blue), transparent 86%);
+  color: var(--cc-text);
+  font-size: 11px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+/* Task rail */
+.cc-row[draggable="true"] {
+  cursor: grab;
+}
+.cc-row-schedule {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  color: var(--cc-muted);
+  opacity: 0;
+}
+.cc-row:hover .cc-row-schedule,
+.cc-row:focus-within .cc-row-schedule,
+.cc-row.selected .cc-row-schedule {
+  opacity: 1;
+}
+.cc-row-schedule:hover {
+  background: var(--cc-hover);
+  color: var(--cc-text);
+  border-color: var(--cc-control-line);
+}
+.cc-lane-bar {
+  width: 4px;
+}
+
+/* Subtasks */
+.cc-subtask {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  padding: 4px 0;
+}
+.cc-subtask-check {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1.5px solid var(--cc-control-line);
+  border-radius: 6px;
+  background: var(--cc-input);
+  color: #fff;
+}
+.cc-subtask-check:hover:not(:disabled) {
+  border-color: var(--lane);
+  background: color-mix(in srgb, var(--lane), transparent 80%);
+}
+.cc-subtask.done .cc-subtask-check {
+  border-color: var(--lane);
+  background: var(--lane);
+  opacity: 1;
+}
+.cc-subtask-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cc-subtask.done .cc-subtask-title {
+  color: var(--cc-muted);
+  text-decoration: line-through;
+}
+.cc-pill {
+  flex: none;
+  padding: 2px 8px;
+  border: 1px solid var(--cc-line);
+  border-radius: 999px;
+  background: var(--cc-raised);
+  color: var(--cc-muted);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.cc-pill.overdue {
+  border-color: #e25555;
+  color: var(--cc-error-text);
+  background: var(--cc-error-bg);
+}
+.cc-subtask-link {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  color: var(--cc-muted);
+}
+.cc-subtask-link:hover {
+  background: var(--cc-hover);
+  color: var(--cc-text);
+}
+.cc-editor-ok {
+  color: var(--cc-accent);
+  font-size: 12px;
+}
+
+/* Schedule picker */
+.cc-picker {
+  width: min(380px, calc(100vw - 24px));
+  padding: 16px;
+  border: 1px solid var(--cc-line);
+  border-radius: 16px;
+  background: var(--cc-panel);
+  color: var(--cc-text);
+  box-shadow: 0 24px 70px #0006;
+}
+.cc-picker::backdrop {
+  background: #0007;
+}
+.cc-picker[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cc-picker header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cc-picker header strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cc-picker button {
+  border: 1px solid var(--cc-control-line);
+  border-radius: 10px;
+  background: var(--cc-panel);
+  color: var(--cc-text);
+  min-height: 44px;
+  padding: 0 12px;
+}
+.cc-picker header button {
+  border: 0;
+  min-width: 44px;
+}
+.cc-picker button.on {
+  border-color: var(--cc-blue);
+  background: var(--cc-primary-bg);
+  color: var(--cc-accent);
+}
+.cc-picker-days,
+.cc-picker-durations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cc-picker-time {
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  gap: 8px;
+}
+.cc-picker-time input {
+  min-height: 44px;
+  border: 1px solid var(--cc-control-line);
+  border-radius: 10px;
+  background: var(--cc-input);
+  color: var(--cc-text);
+  text-align: center;
+  font-size: 16px;
+}
+.cc-picker .cc-picker-place {
+  border-color: var(--cc-primary-line);
+  background: var(--cc-primary-bg);
+  color: var(--cc-accent);
+  font-weight: 650;
+}
+
+/* Surfaces */
+.cc-planner-rail {
+  background: var(--cc-panel);
+}
+.cc-row {
+  border-bottom-color: color-mix(in srgb, var(--cc-line), transparent 40%);
+}
+.cc-calendar {
+  background: var(--cc-bg);
+}
+.cc-calendar-head {
+  background: var(--cc-panel);
+  box-shadow: 0 1px 0 var(--cc-line);
+}
+
+/* Phones and iPad */
+@media (max-width: 680px) {
+  .cc-planner-workspace {
+    flex-direction: column;
+  }
+  .cc-planner-rail {
+    width: 100%;
+    max-height: 34dvh;
+    border-right: 0;
+    border-bottom: 1px solid var(--cc-line);
+  }
+  .cc-rail-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .cc-planner-workspace .cc-calendar {
+    --columns: repeat(var(--day-count, 1), minmax(0, 1fr));
+  }
+  .cc-planner-workspace :is(.cc-calendar-head, .cc-calendar-body) {
+    min-width: 0;
+  }
+  .cc-toolbar {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .cc-toolbar button {
+    min-height: 40px;
+    white-space: nowrap;
+  }
+}
+@media (pointer: coarse) {
+  .cc-row {
+    min-height: 56px;
+  }
+  .cc-row-schedule {
+    opacity: 1;
+    width: 44px;
+    height: 44px;
+  }
+  .cc-row[draggable="true"] {
+    cursor: default;
+  }
+  .cc-subtask {
+    min-height: 48px;
+  }
+  .cc-subtask-check {
+    width: 28px;
+    height: 28px;
+  }
+  .cc-subtask-link {
+    width: 44px;
+    height: 44px;
+  }
+  .cc-timed-block {
+    cursor: pointer;
+  }
+}
+
+/* Notices float so a failed write never shifts the grid */
+.cc-error,
+.cc-warning {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  z-index: 60;
+  transform: translateX(-50%);
+  max-width: min(560px, calc(100vw - 24px));
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  box-shadow: 0 12px 32px #0005;
+}
+.cc-warning {
+  bottom: 72px;
+}
+@media (max-width: 680px) {
+  .cc-error {
+    bottom: 78px;
+  }
+  .cc-warning {
+    bottom: 130px;
+  }
+}
+
+/* Phone shell: fixed viewport height so only the calendar scrolls */
+@media (max-width: 680px) {
+  .cc {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .cc-main {
+    flex: 1 1 0;
+    height: auto;
+  }
+  .cc-planner-rail {
+    max-height: 30dvh;
+  }
+  .cc-rail-head {
+    padding: 10px 12px 6px;
+  }
+  .cc-rail-filters {
+    gap: 6px;
+    padding: 2px 12px 10px;
+  }
+  .cc-rail-filters button {
+    padding: 6px 10px;
+    border-color: var(--cc-line);
+    border-radius: 999px;
+  }
+  .cc-rail-filters button.on {
+    border-color: var(--lane);
+  }
+}
+
+/* Visual pass: soft panels, pastel blocks, pill rows */
+.cc-planner-workspace {
+  gap: 10px;
+  padding: 10px;
+  background: var(--cc-nav);
+}
+.cc-planner-rail,
+.cc-planner-workspace .cc-calendar {
+  border: 1px solid var(--cc-line);
+  border-radius: 16px;
+  background: var(--cc-panel);
+  box-shadow: 0 1px 2px #0002;
+}
+.cc-planner-rail {
+  border-right: 1px solid var(--cc-line);
+  padding-bottom: 8px;
+}
+.cc-planner-workspace .cc-calendar {
+  background: var(--cc-panel);
+}
+.cc-calendar-head {
+  border-radius: 16px 16px 0 0;
+}
+.cc-toolbar {
+  gap: 6px;
+}
+.cc-toolbar button {
+  border-radius: 10px;
+}
+.cc-range {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.cc-range small {
+  margin-left: 8px;
+  color: var(--cc-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Rail rows */
+.cc-rail-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px 6px;
+  color: var(--cc-accent);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.cc-count {
+  padding: 1px 7px;
+  border-radius: 6px;
+  background: var(--cc-raised);
+  color: var(--cc-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.cc-planner-rail .cc-row {
+  margin: 2px 8px;
+  width: auto;
+  min-height: 48px;
+  padding: 10px 10px 10px 12px;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+}
+.cc-planner-rail .cc-row:hover {
+  background: var(--cc-hover);
+}
+.cc-planner-rail .cc-row.selected {
+  background: var(--cc-hover);
+  border-color: var(--cc-line);
+}
+.cc-planner-rail .cc-lane-bar {
+  width: 4px;
+  min-height: 22px;
+  align-self: center;
+  height: 22px;
+}
+.cc-due {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--cc-raised);
+  color: var(--cc-muted);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.cc-due.soon,
+.cc-due.late {
+  background: var(--cc-error-bg);
+  color: var(--cc-error-text);
+}
+
+/* Calendar blocks */
+.cc-timed-block {
+  --block-bg: color-mix(in srgb, var(--lane) 30%, #11151b);
+  --block-fg: color-mix(in srgb, var(--lane) 22%, #fff);
+  border: 0;
+  border-radius: 10px;
+  padding: 6px 10px 8px;
+  background: var(--block-bg);
+  color: var(--block-fg);
+  box-shadow: none;
+  margin-bottom: 1px;
+}
+.cc[data-theme="light"] .cc-timed-block {
+  --block-bg: color-mix(in srgb, var(--lane) 16%, #fff);
+  --block-fg: color-mix(in srgb, var(--lane) 32%, #0b1220);
+}
+.cc-timed-block strong {
+  color: inherit;
+  font-size: 13px;
+  font-weight: 650;
+}
+.cc-timed-block span {
+  color: inherit;
+  opacity: 0.85;
+  font-size: 11px;
+  font-weight: 500;
+}
+.cc-timed-block:hover {
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--lane), transparent 70%);
+}
+.cc-timed-block.selected,
+.cc-timed-block:focus-visible {
+  outline: 2px solid var(--cc-blue);
+  outline-offset: 0;
+}
+.cc-timed-block.short {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.cc-timed-block.short span {
+  display: none;
+}
+.cc-resize::after {
+  background: var(--block-fg);
+}
+
+/* Time gutter and now marker */
+.cc-times span {
+  color: var(--cc-muted);
+  font-weight: 650;
+}
+.cc-now {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  height: 0;
+  border-top: 2px solid var(--cc-blue);
+  pointer-events: none;
+}
+.cc-now::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cc-blue);
+}
+.cc .cc-times .cc-now-label {
+  z-index: 3;
+  padding: 1px 5px;
+  border-radius: 6px;
+  background: var(--cc-blue);
+  color: #07111c;
+  font-size: 10px;
+}
+.cc[data-theme="light"] .cc-times .cc-now-label {
+  color: #fff;
+}
+.cc-drop-ghost {
+  border-radius: 10px;
+}
+
+/* Overlays */
+.cc-task-dialog {
+  border-radius: 20px;
+  box-shadow:
+    0 30px 80px #0005,
+    0 2px 6px #0003;
+}
+.cc-picker {
+  border-radius: 20px;
+}
+@media (max-width: 680px) {
+  .cc-planner-workspace {
+    gap: 8px;
+    padding: 8px;
+  }
+  .cc-planner-rail {
+    border-radius: 14px;
+  }
+  .cc-range {
+    font-size: 15px;
+  }
+}
+@media (max-width: 680px) {
+  .cc-rail-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .cc-rail-filters button {
+    flex: none;
+    white-space: nowrap;
+  }
+  .cc-planner-rail {
+    max-height: 26dvh;
+  }
+}
+
+/* Luminous fills: deep lane color, soft glow, white text */
+.cc-timed-block,
+.cc[data-theme="light"] .cc-timed-block {
+  --block-top: color-mix(in oklch, var(--lane) 81%, #000);
+  --block-bottom: color-mix(in oklch, var(--lane) 61%, #000);
+  --block-bg: var(--block-top);
+  --block-fg: #fff;
+  background-color: var(--block-top);
+  background-image: linear-gradient(
+    165deg,
+    var(--block-top),
+    var(--block-bottom)
+  );
+  box-shadow:
+    inset 0 1px 0 #ffffff38,
+    0 6px 18px color-mix(in srgb, var(--lane), transparent 62%);
+}
+.cc-timed-block:hover {
+  filter: brightness(1.12);
+  box-shadow:
+    inset 0 1px 0 #ffffff48,
+    0 8px 24px color-mix(in srgb, var(--lane), transparent 48%);
+}
+.cc-timed-block span {
+  opacity: 0.92;
+}
+.cc-timed-block.selected,
+.cc-timed-block:focus-visible {
+  outline: 2px solid var(--cc-text);
+  outline-offset: 2px;
 }

@@ -53,7 +53,13 @@ export type WorkItem = {
   owner: "linear" | "asana" | "notion";
   title: string;
   description?: string | null;
-  children?: { id: string; title: string; url: string; status: string }[];
+  children?: {
+    id: string;
+    title: string;
+    url: string;
+    status: string;
+    dueDate?: string | null;
+  }[];
   url: string;
   dueDate: string | null;
   status: string;
@@ -69,7 +75,7 @@ const linearIssuesQuery = `query CommandCenterIssues($after: String) {
   issues(first: 100, after: $after, filter: { state: { name: { in: ["Todo", "In Progress", "In Review"] } } }) {
     nodes {
       id identifier title description url dueDate
-      children { nodes { id title url state { name } } }
+      children { nodes { id title url dueDate state { name } } }
       state { name }
       team { key }
       project { id name }
@@ -90,6 +96,7 @@ type LinearIssue = {
       id: string;
       title: string;
       url: string;
+      dueDate: string | null;
       state: { name: string };
     }[];
   };
@@ -298,6 +305,7 @@ export async function listLinearWork(): Promise<WorkItem[]> {
         title: child.title,
         url: child.url,
         status: child.state.name,
+        dueDate: child.dueDate,
       })),
       url: issue.url,
       dueDate: issue.dueDate,
@@ -594,4 +602,66 @@ export async function createLinearSubtask(parentId: string, title: string) {
     id: parentId,
     projectId: before.issue.project?.id ?? null,
   });
+}
+
+export async function completeLinearSubtask(parentId: string, childId: string) {
+  const lookup = await linearGraphql<{
+    issue: {
+      id: string;
+      parent: { id: string } | null;
+      team: { key: string; states: { nodes: { id: string; name: string }[] } };
+    } | null;
+    parent: (Pick<LinearIssue, "labels" | "project"> & {
+      team: { key: string };
+    }) | null;
+  }>(
+    `query ($id: String!, $parentId: String!) {
+      issue(id: $id) { id parent { id } team { key states { nodes { id name } } } }
+      parent: issue(id: $parentId) { team { key } labels { nodes { name } } project { id name } }
+    }`,
+    { id: childId, parentId },
+  );
+  if (
+    !lookup.parent ||
+    lookup.parent.team.key !== "23M" ||
+    issueLane(lookup.parent) !== "Development"
+  )
+    throw new Error("Subtasks must belong to a Singleton Systems Development task.");
+  if (!lookup.issue || lookup.issue.parent?.id !== parentId)
+    throw new Error("That task is not a subtask of this parent.");
+  const state = lookup.issue.team.states.nodes.find(
+    (item) => item.name === "Done",
+  );
+  if (!state) throw new Error("That Linear status is unavailable.");
+  const mutation = await linearGraphql<{ issueUpdate: { success: boolean } }>(
+    `mutation ($id: String!, $input: IssueUpdateInput!) { issueUpdate(id: $id, input: $input) { success } }`,
+    { id: childId, input: { stateId: state.id } },
+  );
+  if (!mutation.issueUpdate.success)
+    throw new Error("Linear rejected the subtask completion.");
+  const readback = await linearGraphql<{
+    issue: {
+      id: string;
+      title: string;
+      url: string;
+      dueDate: string | null;
+      parent: { id: string } | null;
+      state: { name: string };
+    };
+  }>(
+    `query ($id: String!) { issue(id: $id) { id title url dueDate parent { id } state { name } } }`,
+    { id: childId },
+  );
+  if (
+    readback.issue.state.name !== "Done" ||
+    readback.issue.parent?.id !== parentId
+  )
+    throw new Error("Linear did not confirm the subtask completion.");
+  return {
+    id: readback.issue.id,
+    title: readback.issue.title,
+    url: readback.issue.url,
+    status: "Done",
+    dueDate: readback.issue.dueDate,
+  };
 }
