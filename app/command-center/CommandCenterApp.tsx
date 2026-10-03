@@ -1,5 +1,7 @@
 "use client";
 
+import type { AsanaProject } from "@/lib/command-center-asana";
+
 import {
   type FormEvent,
   useCallback,
@@ -8,6 +10,7 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from "react";
 import {
   ArrowClockwise,
@@ -16,8 +19,9 @@ import {
   Check,
   Clock,
   EnvelopeSimple,
-  ListChecks,
+  Moon,
   Plus,
+  Sun,
   UsersThree,
   X,
 } from "@phosphor-icons/react";
@@ -29,6 +33,8 @@ import type {
   Lane,
   WorkItem,
 } from "@/lib/command-center";
+import { getTheme, getServerTheme, setTheme, subscribeTheme } from "./theme";
+import TaskEditor, { type TaskEdit } from "./TaskEditor";
 
 type Snapshot = {
   contacts: Contact[];
@@ -37,6 +43,7 @@ type Snapshot = {
   drafts: Draft[];
   work: WorkItem[];
   failures: string[];
+  asanaProjects: AsanaProject[];
 };
 type MailView = {
   configured: boolean;
@@ -50,11 +57,11 @@ type MailView = {
   gmailUrl?: string;
   error?: string;
 };
-type Surface = "queue" | "planner" | "updates" | "clients";
+type Surface = "planner" | "updates" | "clients";
 const lanes: Lane[] = ["AI Consultant", "Content Editor", "Development"];
 const laneColors: Record<Lane, string> = {
-  "AI Consultant": "#7c5cff",
-  "Content Editor": "#e58a32",
+  "AI Consultant": "#e25555",
+  "Content Editor": "#3488e8",
   Development: "#27a88a",
 };
 const emptyContact = {
@@ -157,7 +164,8 @@ function placeOverlaps(blocks: Block[]): TimedPlacement[] {
 }
 
 export default function CommandCenterApp() {
-  const [surface, setSurface] = useState<Surface>("queue");
+  const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
+  const [surface, setSurface] = useState<Surface>("planner");
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -170,10 +178,13 @@ export default function CommandCenterApp() {
   const [shortcutMode, setShortcutMode] = useState<
     "closed" | "open" | "closing"
   >("closed");
-  const [taskEditor, setTaskEditor] = useState(false);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDue, setTaskDue] = useState("");
-  const [taskLane, setTaskLane] = useState<Lane>("Development");
+  const [taskEditor, setTaskEditor] = useState<{
+    work: WorkItem | null;
+    block: Block | null;
+    session: number;
+  } | null>(null);
+  const editorSequence = useRef(0);
+  const calendarReady = snapshot !== null;
   const [selectedContact, setSelectedContact] = useState<number | null>(null);
   const [contactEditor, setContactEditor] = useState<number | "new" | null>(
     null,
@@ -188,14 +199,9 @@ export default function CommandCenterApp() {
   const [draftBody, setDraftBody] = useState("");
   const [draftLane, setDraftLane] = useState<Lane>("AI Consultant");
   const [mail, setMail] = useState<MailView | null>(null);
-  const [dayCount, setDayCount] = useState<1 | 3 | 5>(3);
+  const [dayCount, setDayCount] = useState<1 | 3 | 5 | 7>(7);
   const [dayOffset, setDayOffset] = useState(0);
   const calendarRef = useRef<HTMLDivElement>(null);
-  const [blockWork, setBlockWork] = useState<WorkItem | null>(null);
-  const [editingBlockId, setEditingBlockId] = useState<string | null>(null);
-  const [blockDate, setBlockDate] = useState(dateKey(new Date()));
-  const [blockStart, setBlockStart] = useState("09:00");
-  const [blockEnd, setBlockEnd] = useState("10:00");
 
   const load = useCallback(async () => {
     const response = await fetch("/api/command-center", { cache: "no-store" });
@@ -212,9 +218,14 @@ export default function CommandCenterApp() {
           (item) =>
             !item.blocked &&
             item.lane !== "Development" &&
-            ["Todo", "In Progress", "Today", "Queued", "In Motion"].includes(
-              item.status,
-            ),
+            [
+              "Todo",
+              "To Do",
+              "In Progress",
+              "Today",
+              "Queued",
+              "In Motion",
+            ].includes(item.status),
         )?.id ??
         null,
     );
@@ -259,6 +270,7 @@ export default function CommandCenterApp() {
     };
   }, [selectedContact]);
   const handleShortcut = useEffectEvent((event: KeyboardEvent) => {
+    if (taskEditor) return;
     if (
       event.target instanceof HTMLInputElement ||
       event.target instanceof HTMLTextAreaElement ||
@@ -272,9 +284,8 @@ export default function CommandCenterApp() {
       event.preventDefault();
       closeShortcut();
       setContactEditor(null);
-      setBlockWork(null);
       setDraftMenu(false);
-      setTaskEditor(false);
+      setTaskEditor(null);
       return;
     }
     if (shortcutMode === "open") {
@@ -289,14 +300,16 @@ export default function CommandCenterApp() {
     );
     if (
       event.key.toLowerCase() === "p" &&
-      surface === "queue" &&
+      surface === "planner" &&
+      event.target instanceof HTMLElement &&
+      event.target.closest(".cc-row") &&
       shortcutItem
     ) {
       event.preventDefault();
       setShortcutMode("open");
       return;
     }
-    if (event.key === "q") setSurface("queue");
+    if (event.key === "q") setSurface("planner");
     if (event.key === "p") setSurface("planner");
     if (event.key === "u") setSurface("updates");
     if (event.key === "c") setSurface("clients");
@@ -314,7 +327,7 @@ export default function CommandCenterApp() {
       if (calendarRef.current) calendarRef.current.scrollTop = 62 + 70 + 7 * 56;
     });
     return () => cancelAnimationFrame(frame);
-  }, [surface, dayCount, dayOffset]);
+  }, [surface, dayCount, dayOffset, calendarReady]);
 
   async function command(payload: Record<string, unknown>) {
     setBusy(true);
@@ -327,7 +340,7 @@ export default function CommandCenterApp() {
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Action failed.");
-      await load();
+      await load().catch(() => setError("Saved. Refresh failed; try Refresh."));
       return result;
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Action failed.");
@@ -377,7 +390,7 @@ export default function CommandCenterApp() {
   const ready = work.filter(
     (item) =>
       !item.blocked &&
-      ["Todo", "In Progress", "Today", "Queued", "In Motion"].includes(
+      ["Todo", "To Do", "In Progress", "Today", "Queued", "In Motion"].includes(
         item.status,
       ) &&
       filters[item.lane],
@@ -385,7 +398,8 @@ export default function CommandCenterApp() {
   const selected =
     ready.find((item) => item.id === selectedWork) ?? ready[0] ?? null;
   const updates = work.filter(
-    (item) => item.blocked || ["In Review", "Waiting"].includes(item.status),
+    (item) =>
+      item.blocked || ["In Review", "Review", "Waiting"].includes(item.status),
   );
   const dueContacts = contacts.filter(
     (item) =>
@@ -398,7 +412,8 @@ export default function CommandCenterApp() {
       Array.from({ length: dayCount }, (_, index) => {
         const date = new Date();
         date.setHours(12, 0, 0, 0);
-        date.setDate(date.getDate() + dayOffset + index);
+        const weekStart = dayCount === 7 ? (date.getDay() + 6) % 7 : 0;
+        date.setDate(date.getDate() - weekStart + dayOffset + index);
         return date;
       }),
     [dayCount, dayOffset],
@@ -497,7 +512,9 @@ export default function CommandCenterApp() {
     return command(
       item.owner === "linear"
         ? { action: "linearStatus", issueId: item.id, state }
-        : { action: "notionStatus", pageId: item.id, state },
+        : item.owner === "asana"
+          ? { action: "asanaStatus", taskId: item.id, state }
+          : { action: "notionStatus", pageId: item.id, state },
     );
   }
   async function applyShortcut(key: string) {
@@ -505,15 +522,25 @@ export default function CommandCenterApp() {
     closeShortcut();
     if (key === "1") await chooseToday(selected);
     if (key === "2") openBlock(selected);
-    if (key === "3")
+    if (
+      key === "3" &&
+      (selected.owner !== "asana" || selected.states?.includes("In Progress"))
+    )
       await setWorkState(
         selected,
-        selected.owner === "linear" ? "In Progress" : "In Motion",
+        selected.owner === "notion" ? "In Motion" : "In Progress",
       );
-    if (key === "4")
+    if (
+      key === "4" &&
+      (selected.owner !== "asana" || selected.states?.includes("Review"))
+    )
       await setWorkState(
         selected,
-        selected.owner === "linear" ? "In Review" : "Waiting",
+        selected.owner === "linear"
+          ? "In Review"
+          : selected.owner === "asana"
+            ? "Review"
+            : "Waiting",
       );
     if (key === "5") await setWorkState(selected, "Done");
   }
@@ -524,39 +551,102 @@ export default function CommandCenterApp() {
         (entry) =>
           entry.owner === item.owner &&
           entry.owner_id === item.id &&
-          entry.selected_date === today &&
-          !entry.starts_at,
-      );
-    setBlockWork(item);
-    setEditingBlockId(placement?.id ?? null);
-    setBlockDate(placement?.selected_date ?? today);
-    setBlockStart(
-      placement?.starts_at
-        ? new Date(placement.starts_at).toTimeString().slice(0, 5)
-        : "09:00",
-    );
-    setBlockEnd(
-      placement?.ends_at
-        ? new Date(placement.ends_at).toTimeString().slice(0, 5)
-        : "10:00",
-    );
-  }
-  async function placeBlock(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!blockWork) return;
-    const result = await command({
-      action: "blockSave",
-      id: editingBlockId ?? undefined,
-      owner: blockWork.owner,
-      ownerId: blockWork.id,
-      selectedDate: blockDate,
-      startsAt: localDateTime(blockDate, blockStart),
-      endsAt: localDateTime(blockDate, blockEnd),
+          entry.selected_date === today,
+      ) ??
+      null;
+    setSelectedWork(item.id);
+    setSurface("planner");
+    setError("");
+    setTaskEditor({
+      work: item,
+      block: placement,
+      session: ++editorSequence.current,
     });
-    if (result) {
-      setBlockWork(null);
-      setEditingBlockId(null);
+  }
+  function newTask() {
+    setSurface("planner");
+    setError("");
+    setTaskEditor({
+      work: null,
+      block: null,
+      session: ++editorSequence.current,
+    });
+  }
+  async function saveTask(edit: TaskEdit): Promise<boolean> {
+    if (!taskEditor) return false;
+    let item = taskEditor.work;
+    if (!item) {
+      const asanaProject = snapshot?.asanaProjects?.find(
+        (project) => project.id === edit.projectId,
+      );
+      const created = await command({
+        action: asanaProject ? "asanaCreate" : "linearCreate",
+        title: edit.title,
+        description: edit.description,
+        dueDate: edit.dueDate,
+        ...(asanaProject
+          ? {
+              projectId: asanaProject.id,
+              sectionId: edit.sectionId || undefined,
+            }
+          : { lane: "Development" }),
+      });
+      if (!created?.result?.id) return false;
+      item = {
+        ...created.result,
+        owner: asanaProject ? "asana" : "linear",
+        description: edit.description,
+        status: created.result.status ?? "Todo",
+        lane: asanaProject?.lane ?? "Development",
+        blocked: false,
+      } as WorkItem;
+      setTaskEditor({ ...taskEditor, work: item });
+      setSelectedWork(item.id);
+      setFilters((current) => ({ ...current, [item!.lane]: true }));
+    } else if (item.owner === "linear" || item.owner === "asana") {
+      const task: Record<string, unknown> = {};
+      if (edit.title !== item.title) task.title = edit.title;
+      if (edit.description !== (item.description ?? ""))
+        task.description = edit.description;
+      if (edit.dueDate !== (item.dueDate?.slice(0, 10) ?? null))
+        task.dueDate = edit.dueDate;
+      if (Object.keys(task).length) {
+        const updated = await command({
+          action: item.owner === "asana" ? "asanaUpdate" : "linearUpdate",
+          ...(item.owner === "asana"
+            ? { taskId: item.id }
+            : { issueId: item.id }),
+          task,
+        });
+        if (!updated) return false;
+        item = { ...item, ...updated.result };
+        setTaskEditor({ ...taskEditor, work: item });
+      }
     }
+    if (!item) return false;
+    const start = edit.start ? localDateTime(edit.date, edit.start) : null;
+    const end = start
+      ? new Date(Date.parse(start) + edit.duration * 60000).toISOString()
+      : null;
+    const placementChanged =
+      !taskEditor.block ||
+      edit.date !== taskEditor.block.selected_date ||
+      start !== taskEditor.block.starts_at ||
+      end !== taskEditor.block.ends_at;
+    if ((edit.start || taskEditor.block) && placementChanged) {
+      const saved = await command({
+        action: "blockSave",
+        id: taskEditor.block?.id,
+        owner: item.owner,
+        ownerId: item.id,
+        selectedDate: edit.date,
+        startsAt: start,
+        endsAt: end,
+      });
+      if (!saved) return false;
+    }
+    setTaskEditor(null);
+    return true;
   }
   async function saveDraft(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -574,31 +664,15 @@ export default function CommandCenterApp() {
       setDraftBody("");
     }
   }
-  async function saveTask(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const result = await command({
-      action: "linearCreate",
-      title: taskTitle,
-      dueDate: taskDue || null,
-      lane: taskLane,
-    });
-    if (result?.result?.id) {
-      setSelectedWork(result.result.id);
-      setTaskEditor(false);
-      setTaskTitle("");
-      setTaskDue("");
-    }
-  }
 
   return (
-    <main className="cc">
+    <main className="cc" data-theme={theme}>
       <aside className="cc-nav" aria-label="Command Center navigation">
         <div className="cc-mark" title="Singleton Systems">
           S
         </div>
         {(
           [
-            ["queue", ListChecks, "Queue", "Q"],
             ["planner", CalendarBlank, "Planner", "P"],
             ["updates", Clock, "Updates", "U"],
             ["clients", UsersThree, "Clients", "C"],
@@ -627,17 +701,27 @@ export default function CommandCenterApp() {
                   ? "Planner"
                   : surface === "updates"
                     ? "Updates"
-                    : "Queue"}
+                    : "Planner"}
             </h1>
           </div>
-          <button
-            className="cc-icon"
-            title="Refresh"
-            aria-label="Refresh"
-            onClick={() => load().catch((cause) => setError(String(cause)))}
-          >
-            <ArrowClockwise size={18} />
-          </button>
+          <div className="cc-header-actions">
+            <button
+              className="cc-icon"
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              className="cc-icon"
+              title="Refresh"
+              aria-label="Refresh"
+              onClick={() => load().catch((cause) => setError(String(cause)))}
+            >
+              <ArrowClockwise size={18} />
+            </button>
+          </div>
         </header>
         {error && (
           <div className="cc-error" role="alert">
@@ -654,36 +738,59 @@ export default function CommandCenterApp() {
             </div>
           ))}
         {!snapshot && <div className="cc-empty">Loading live work…</div>}
-        {snapshot && surface === "queue" && (
+        {snapshot && surface === "planner" && (
           <>
             <div className="cc-toolbar">
-              {lanes.map((laneName) => (
+              <button onClick={() => setDayOffset((old) => old - dayCount)}>
+                ←
+              </button>
+              <button onClick={() => setDayOffset(0)}>Today</button>
+              <button onClick={() => setDayOffset((old) => old + dayCount)}>
+                →
+              </button>
+              <span className="cc-spacer" />
+              {([1, 3, 5, 7] as const).map((count) => (
                 <button
-                  key={laneName}
-                  className={`cc-toggle ${filters[laneName] ? "on" : ""}`}
-                  style={
-                    { "--lane": laneColors[laneName] } as React.CSSProperties
-                  }
-                  onClick={() =>
-                    setFilters((old) => ({
-                      ...old,
-                      [laneName]: !old[laneName],
-                    }))
-                  }
+                  key={count}
+                  className={dayCount === count ? "cc-toggle on" : "cc-toggle"}
+                  onClick={() => setDayCount(count)}
                 >
-                  <i className="cc-lane-dot" /> {laneName}
+                  {count === 7
+                    ? "Full week"
+                    : `${count} day${count === 1 ? "" : "s"}`}
                 </button>
               ))}
-              <span className="cc-spacer" />
-              <button
-                className="cc-primary"
-                onClick={() => setTaskEditor(true)}
-              >
-                <Plus size={16} /> New task
-              </button>
             </div>
-            <div className="cc-split">
-              <div className="cc-list">
+            <div className="cc-planner-workspace">
+              <div className="cc-list cc-planner-rail">
+                <div className="cc-rail-head">
+                  <button className="cc-secondary" onClick={newTask}>
+                    <Plus size={16} /> New task
+                  </button>
+                </div>
+                <div className="cc-rail-filters">
+                  {lanes.map((laneName) => (
+                    <button
+                      key={laneName}
+                      className={`cc-toggle ${filters[laneName] ? "on" : ""}`}
+                      style={
+                        {
+                          "--lane": laneColors[laneName],
+                        } as React.CSSProperties
+                      }
+                      aria-pressed={filters[laneName]}
+                      onClick={() =>
+                        setFilters((old) => ({
+                          ...old,
+                          [laneName]: !old[laneName],
+                        }))
+                      }
+                    >
+                      <i className="cc-lane-dot" />
+                      {laneName}
+                    </button>
+                  ))}
+                </div>
                 {ready.length === 0 && (
                   <p className="cc-empty">No ready work in these lanes.</p>
                 )}
@@ -697,10 +804,16 @@ export default function CommandCenterApp() {
                       setSelectedWork(item.id);
                       setShortcutMode("closed");
                     }}
+                    onFocus={() => setSelectedWork(item.id)}
+                    onDoubleClick={(event) => {
+                      if (!(event.target as HTMLElement).closest("button"))
+                        openBlock(item);
+                    }}
                     onKeyDown={(event) => {
+                      if (event.target !== event.currentTarget) return;
                       if (event.key === "Enter" || event.key === " ") {
                         event.preventDefault();
-                        setSelectedWork(item.id);
+                        openBlock(item);
                       }
                     }}
                   >
@@ -712,7 +825,9 @@ export default function CommandCenterApp() {
                         } as React.CSSProperties
                       }
                     />
-                    <span>{item.title}</span>
+                    <span className="cc-task-name" title={item.title}>
+                      {item.title}
+                    </span>
                     {selected?.id === item.id && shortcutMode !== "closed" ? (
                       <div
                         className={`cc-shortcut-chips ${shortcutMode === "closing" ? "closing" : ""}`}
@@ -724,27 +839,36 @@ export default function CommandCenterApp() {
                           ["3", "Start", "#149b67"],
                           [
                             "4",
-                            item.owner === "linear" ? "Review" : "Wait",
+                            item.owner === "notion" ? "Wait" : "Review",
                             "#d99129",
                           ],
                           ["5", "Done", "#5c6f82"],
-                        ].map(([key, label, tone], index) => (
-                          <button
-                            key={key}
-                            type="button"
-                            style={
-                              {
-                                "--chip": tone,
-                                "--delay": `${index * 42}ms`,
-                              } as React.CSSProperties
-                            }
-                            onClick={() => void applyShortcut(key)}
-                            title={`${key}: ${label}`}
-                          >
-                            <kbd>{key}</kbd>
-                            {label}
-                          </button>
-                        ))}
+                        ]
+                          .filter(
+                            ([key]) =>
+                              item.owner !== "asana" ||
+                              (key !== "3" && key !== "4") ||
+                              item.states?.includes(
+                                key === "3" ? "In Progress" : "Review",
+                              ),
+                          )
+                          .map(([key, label, tone], index) => (
+                            <button
+                              key={key}
+                              type="button"
+                              style={
+                                {
+                                  "--chip": tone,
+                                  "--delay": `${index * 42}ms`,
+                                } as React.CSSProperties
+                              }
+                              onClick={() => void applyShortcut(key)}
+                              title={`${key}: ${label}`}
+                            >
+                              <kbd>{key}</kbd>
+                              {label}
+                            </button>
+                          ))}
                       </div>
                     ) : (
                       <time>{shortDate(item.dueDate)}</time>
@@ -771,242 +895,149 @@ export default function CommandCenterApp() {
                     </button>
                   ))}
               </div>
-              <div className="cc-detail">
-                {selected ? (
-                  <>
-                    <span className="cc-overline">
-                      {selected.lane} · {selected.status} ·{" "}
-                      {selected.projectName ?? selected.owner}
-                    </span>
-                    <h2>{selected.title}</h2>
-                    <p>Due {shortDate(selected.dueDate)}</p>
-                    <div className="cc-actions">
-                      <button
-                        onClick={() => chooseToday(selected)}
-                        disabled={busy}
-                      >
-                        <Plus size={16} /> Today
-                      </button>
-                      <button onClick={() => openBlock(selected)}>
-                        <CalendarBlank size={16} /> Block time
-                      </button>
-                      <a href={selected.url} target="_blank" rel="noreferrer">
-                        Open {selected.owner === "linear" ? "Linear" : "Notion"}{" "}
-                        <ArrowSquareOut size={14} />
-                      </a>
+              <div
+                className="cc-calendar"
+                ref={calendarRef}
+                style={{ "--day-count": dayCount } as React.CSSProperties}
+              >
+                <div className="cc-calendar-head">
+                  <div className="cc-time-corner" />
+                  {days.map((date) => (
+                    <div className="cc-day-head" key={dateKey(date)}>
+                      <strong>
+                        {date.toLocaleDateString(undefined, {
+                          weekday: "short",
+                        })}
+                      </strong>
+                      <span>
+                        {date.toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
                     </div>
-                    <div className="cc-divider" />
-                    <label className="cc-inline-select">
-                      Lane{" "}
-                      <select
-                        value={selected.lane}
-                        disabled={busy}
-                        onChange={(event) =>
-                          command({
-                            action: "laneSave",
-                            owner: selected.owner,
-                            ownerId: selected.id,
-                            lane: event.target.value,
-                          })
-                        }
-                      >
-                        {(selected.owner === "linear"
-                          ? (["Development"] as Lane[])
-                          : lanes
-                        ).map((item) => (
-                          <option key={item}>{item}</option>
-                        ))}
-                      </select>
-                    </label>
-                    <span className="cc-overline">Work state</span>
-                    <div className="cc-actions">
-                      {(selected.owner === "linear"
-                        ? ["Todo", "In Progress", "In Review", "Done"]
-                        : ["Queued", "Today", "In Motion", "Waiting", "Done"]
-                      ).map((state) => (
-                        <button
-                          key={state}
-                          disabled={busy || selected.status === state}
-                          onClick={() =>
-                            command(
-                              selected.owner === "linear"
-                                ? {
-                                    action: "linearStatus",
-                                    issueId: selected.id,
-                                    state,
-                                  }
-                                : {
-                                    action: "notionStatus",
-                                    pageId: selected.id,
-                                    state,
-                                  },
-                            )
-                          }
-                        >
-                          {state}
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <p className="cc-empty">Select work to see its actions.</p>
-                )}
-              </div>
-            </div>
-          </>
-        )}
-        {snapshot && surface === "planner" && (
-          <>
-            <div className="cc-toolbar">
-              <button onClick={() => setDayOffset((old) => old - dayCount)}>
-                ←
-              </button>
-              <button onClick={() => setDayOffset(0)}>Today</button>
-              <button onClick={() => setDayOffset((old) => old + dayCount)}>
-                →
-              </button>
-              <span className="cc-spacer" />
-              {([1, 3, 5] as const).map((count) => (
-                <button
-                  key={count}
-                  className={dayCount === count ? "cc-toggle on" : "cc-toggle"}
-                  onClick={() => setDayCount(count)}
-                >
-                  {count} day
-                </button>
-              ))}
-            </div>
-            <div
-              className="cc-calendar"
-              ref={calendarRef}
-              style={{ "--day-count": dayCount } as React.CSSProperties}
-            >
-              <div className="cc-calendar-head">
-                <div className="cc-time-corner" />
-                {days.map((date) => (
-                  <div className="cc-day-head" key={dateKey(date)}>
-                    <strong>
-                      {date.toLocaleDateString(undefined, { weekday: "short" })}
-                    </strong>
-                    <span>
-                      {date.toLocaleDateString(undefined, {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <div className="cc-untimed-row">
-                <div className="cc-untimed-label">Untimed</div>
-                {days.map((date) => {
-                  const key = dateKey(date);
-                  const untimed = blocks.filter(
-                    (block) => block.selected_date === key && !block.starts_at,
-                  );
-                  return (
-                    <div className="cc-untimed" key={key}>
-                      {untimed.map((block) => (
-                        <button
-                          className="cc-untimed-item"
-                          key={block.id}
-                          style={
-                            {
-                              "--lane": laneColors[laneForBlock(block)],
-                            } as React.CSSProperties
-                          }
-                          onClick={() => {
-                            const item = workForBlock(block);
-                            if (item) openBlock(item, block);
-                          }}
-                        >
-                          {titleForBlock(block)}
-                        </button>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="cc-calendar-body">
-                <div className="cc-times">
-                  {Array.from({ length: 24 }, (_, hour) => (
-                    <span key={hour} style={{ top: `${hour * 56}px` }}>
-                      {hour === 0
-                        ? "12am"
-                        : hour < 12
-                          ? `${hour}am`
-                          : hour === 12
-                            ? "12pm"
-                            : `${hour - 12}pm`}
-                    </span>
                   ))}
                 </div>
-                {days.map((date) => {
-                  const key = dateKey(date);
-                  const placements = placeOverlaps(
-                    blocks.filter(
-                      (block) => block.selected_date === key && block.starts_at,
-                    ),
-                  );
-                  return (
-                    <div className="cc-day-column" key={key}>
-                      {Array.from({ length: 24 }, (_, hour) => (
-                        <i
-                          className="cc-hour-line"
-                          style={{ top: `${hour * 56}px` }}
-                          key={hour}
-                        />
-                      ))}
-                      {placements.map((placement) => {
-                        const item = workForBlock(placement.block);
-                        const top = (placement.startMinute / 60) * 56;
-                        const height = Math.max(
-                          28,
-                          Math.min(
-                            ((placement.endMinute - placement.startMinute) /
-                              60) *
-                              56,
-                            1344 - top,
-                          ),
-                        );
-                        const left =
-                          (placement.lane / placement.laneCount) * 100;
-                        const width = 100 / placement.laneCount;
-                        const lane = laneForBlock(placement.block);
-                        return (
+                <div className="cc-untimed-row">
+                  <div className="cc-untimed-label">Untimed</div>
+                  {days.map((date) => {
+                    const key = dateKey(date);
+                    const untimed = blocks.filter(
+                      (block) =>
+                        block.selected_date === key && !block.starts_at,
+                    );
+                    return (
+                      <div className="cc-untimed" key={key}>
+                        {untimed.map((block) => (
                           <button
-                            className="cc-timed-block"
-                            key={placement.block.id}
+                            className="cc-untimed-item"
+                            key={block.id}
                             style={
                               {
-                                "--lane": laneColors[lane],
-                                top: `${top}px`,
-                                height: `${height}px`,
-                                left: `calc(${left}% + 4px)`,
-                                width: `calc(${width}% - 8px)`,
+                                "--lane": laneColors[laneForBlock(block)],
                               } as React.CSSProperties
                             }
                             onClick={() => {
-                              if (item) openBlock(item, placement.block);
+                              const item = workForBlock(block);
+                              if (item) openBlock(item, block);
                             }}
-                            title={`${titleForBlock(placement.block)} · edit block`}
                           >
-                            <strong>
-                              {placement.stack
-                                ? `${placement.stack.length} overlapping blocks`
-                                : titleForBlock(placement.block)}
-                            </strong>
-                            <span>
-                              {placement.stack
-                                ? placement.stack.map(titleForBlock).join(" · ")
-                                : `${new Date(placement.block.starts_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}–${new Date(placement.block.ends_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`}
-                            </span>
+                            {titleForBlock(block)}
                           </button>
-                        );
-                      })}
-                    </div>
-                  );
-                })}
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="cc-calendar-body">
+                  <div className="cc-times">
+                    {Array.from({ length: 24 }, (_, hour) => (
+                      <span key={hour} style={{ top: `${hour * 56}px` }}>
+                        {hour === 0
+                          ? "12am"
+                          : hour < 12
+                            ? `${hour}am`
+                            : hour === 12
+                              ? "12pm"
+                              : `${hour - 12}pm`}
+                      </span>
+                    ))}
+                  </div>
+                  {days.map((date) => {
+                    const key = dateKey(date);
+                    const placements = placeOverlaps(
+                      blocks.filter(
+                        (block) =>
+                          block.selected_date === key && block.starts_at,
+                      ),
+                    );
+                    return (
+                      <div className="cc-day-column" key={key}>
+                        {Array.from({ length: 24 }, (_, hour) => (
+                          <i
+                            className="cc-hour-line"
+                            style={{ top: `${hour * 56}px` }}
+                            key={hour}
+                          />
+                        ))}
+                        {placements.map((placement) => {
+                          const item = workForBlock(placement.block);
+                          const top = (placement.startMinute / 60) * 56;
+                          const height = Math.max(
+                            28,
+                            Math.min(
+                              ((placement.endMinute - placement.startMinute) /
+                                60) *
+                                56,
+                              1344 - top,
+                            ),
+                          );
+                          const left =
+                            (placement.lane / placement.laneCount) * 100;
+                          const width = 100 / placement.laneCount;
+                          const lane = laneForBlock(placement.block);
+                          return (
+                            <button
+                              className="cc-timed-block"
+                              key={placement.block.id}
+                              style={
+                                {
+                                  "--lane": laneColors[lane],
+                                  top: `${top}px`,
+                                  height: `${height}px`,
+                                  left: `calc(${left}% + 4px)`,
+                                  width: `calc(${width}% - 8px)`,
+                                } as React.CSSProperties
+                              }
+                              onClick={(event) => {
+                                if (item && event.detail === 0)
+                                  openBlock(item, placement.block);
+                                else if (item) setSelectedWork(item.id);
+                              }}
+                              onDoubleClick={() => {
+                                if (item) openBlock(item, placement.block);
+                              }}
+                              title={`${titleForBlock(placement.block)} · edit block`}
+                            >
+                              <strong>
+                                {placement.stack
+                                  ? `${placement.stack.length} overlapping blocks`
+                                  : titleForBlock(placement.block)}
+                              </strong>
+                              <span>
+                                {placement.stack
+                                  ? placement.stack
+                                      .map(titleForBlock)
+                                      .join(" · ")
+                                  : `${new Date(placement.block.starts_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}–${new Date(placement.block.ends_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </>
@@ -1297,71 +1328,80 @@ export default function CommandCenterApp() {
         )}
       </section>
       {taskEditor && (
-        <div
-          className="cc-modal-backdrop"
-          onMouseDown={() => setTaskEditor(false)}
-        >
-          <section
-            className="cc-modal cc-small-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="cc-task-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <div className="cc-modal-head">
-              <h2 id="cc-task-title">New task</h2>
-              <button onClick={() => setTaskEditor(false)} aria-label="Close">
-                <X size={18} />
-              </button>
-            </div>
-            <form onSubmit={saveTask}>
-              <label>
-                Task name
-                <input
-                  value={taskTitle}
-                  onChange={(event) => setTaskTitle(event.target.value)}
-                  autoFocus
-                  required
-                />
-              </label>
-              <label>
-                Due date
-                <input
-                  type="date"
-                  value={taskDue}
-                  onChange={(event) => setTaskDue(event.target.value)}
-                />
-              </label>
-              <fieldset className="cc-lane-field">
-                <legend>Lane</legend>
-                <div className="cc-lane-values">
-                  {(["Development"] as Lane[]).map((item) => (
-                    <button
-                      key={item}
-                      type="button"
-                      className={taskLane === item ? "selected" : ""}
-                      style={
-                        { "--lane": laneColors[item] } as React.CSSProperties
-                      }
-                      onClick={() => setTaskLane(item)}
-                    >
-                      <i />
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-              <div className="cc-modal-actions">
-                <button type="button" onClick={() => setTaskEditor(false)}>
-                  Cancel
-                </button>
-                <button className="cc-primary" disabled={busy}>
-                  <Check size={16} /> Add task
-                </button>
-              </div>
-            </form>
-          </section>
-        </div>
+        <TaskEditor
+          key={taskEditor.session}
+          work={taskEditor.work}
+          block={taskEditor.block}
+          today={today}
+          busy={busy}
+          error={error}
+          laneColors={laneColors}
+          projects={snapshot?.asanaProjects ?? []}
+          onSave={saveTask}
+          onSubtask={async (title) => {
+            if (!taskEditor.work || taskEditor.work.owner === "notion")
+              return false;
+            const result = await command({
+              action:
+                taskEditor.work.owner === "asana"
+                  ? "asanaSubtask"
+                  : "linearSubtask",
+              parentId: taskEditor.work.id,
+              title,
+            });
+            if (!result?.result?.id) return false;
+            setTaskEditor((current) =>
+              current?.work && current.session === taskEditor.session
+                ? {
+                    ...current,
+                    work: {
+                      ...current.work,
+                      children: [
+                        ...(current.work.children ?? []),
+                        {
+                          id: result.result.id,
+                          title: result.result.title,
+                          url: result.result.url,
+                          status: result.result.status ?? "Todo",
+                        },
+                      ],
+                    },
+                  }
+                : current,
+            );
+            return true;
+          }}
+          onComplete={async () => {
+            if (
+              taskEditor.work &&
+              (await setWorkState(taskEditor.work, "Done"))
+            )
+              setTaskEditor(null);
+          }}
+          onState={async (state) => {
+            if (taskEditor.work) {
+              const result = await setWorkState(taskEditor.work, state);
+              if (result) {
+                if (state === "Done") setTaskEditor(null);
+                else
+                  setTaskEditor({
+                    ...taskEditor,
+                    work: { ...taskEditor.work, status: state },
+                  });
+              }
+            }
+          }}
+          onRemove={async () => {
+            if (taskEditor.block) {
+              const result = await command({
+                action: "blockDelete",
+                id: taskEditor.block.id,
+              });
+              if (result) setTaskEditor(null);
+            }
+          }}
+          onClose={() => setTaskEditor(null)}
+        />
       )}
       {contactEditor !== null && (
         <div
@@ -1595,85 +1635,6 @@ export default function CommandCenterApp() {
                 </button>
                 <button className="cc-primary" disabled={busy}>
                   <Check size={16} /> Save
-                </button>
-              </div>
-            </form>
-          </section>
-        </div>
-      )}
-      {blockWork && (
-        <div
-          className="cc-modal-backdrop"
-          onMouseDown={() => setBlockWork(null)}
-        >
-          <section
-            className="cc-modal cc-small-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="cc-block-title"
-            onMouseDown={(event) => event.stopPropagation()}
-          >
-            <div className="cc-modal-head">
-              <h2 id="cc-block-title">Block time</h2>
-              <button onClick={() => setBlockWork(null)} aria-label="Close">
-                <X size={18} />
-              </button>
-            </div>
-            <p>{blockWork.title}</p>
-            <form onSubmit={placeBlock}>
-              <label>
-                Date
-                <input
-                  type="date"
-                  value={blockDate}
-                  onChange={(event) => setBlockDate(event.target.value)}
-                  required
-                />
-              </label>
-              <div className="cc-form-grid">
-                <label>
-                  Start
-                  <input
-                    type="time"
-                    value={blockStart}
-                    onChange={(event) => setBlockStart(event.target.value)}
-                    required
-                  />
-                </label>
-                <label>
-                  End
-                  <input
-                    type="time"
-                    value={blockEnd}
-                    onChange={(event) => setBlockEnd(event.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <div className="cc-modal-actions">
-                <button type="button" onClick={() => setBlockWork(null)}>
-                  Cancel
-                </button>
-                {editingBlockId && (
-                  <button
-                    type="button"
-                    disabled={busy}
-                    onClick={async () => {
-                      const result = await command({
-                        action: "blockDelete",
-                        id: editingBlockId,
-                      });
-                      if (result) {
-                        setBlockWork(null);
-                        setEditingBlockId(null);
-                      }
-                    }}
-                  >
-                    Remove
-                  </button>
-                )}
-                <button className="cc-primary" disabled={busy}>
-                  {editingBlockId ? "Save block" : "Place block"}
                 </button>
               </div>
             </form>

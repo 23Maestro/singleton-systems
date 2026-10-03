@@ -1,8 +1,16 @@
+import {
+  createAsanaTask,
+  createAsanaSubtask,
+  updateAsanaTask,
+  updateAsanaStatus,
+} from "@/lib/command-center-asana";
 import { z } from "zod";
 import {
   commandCenterSnapshot,
   createLinearTask,
+  createLinearSubtask,
   updateLinearStatus,
+  updateLinearTask,
   updateNotionStatus,
 } from "@/lib/command-center";
 import { supabaseRest } from "@/lib/supabase-rest";
@@ -55,13 +63,43 @@ const actionSchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("blockSave"),
     id: z.uuid().optional(),
-    owner: z.enum(["linear", "notion", "home", "crm"]),
+    owner: z.enum(["linear", "asana", "notion", "home", "crm"]),
     ownerId: z.string().trim().min(1).max(160),
     selectedDate: z.iso.date(),
     startsAt: z.iso.datetime({ offset: true }).nullable(),
     endsAt: z.iso.datetime({ offset: true }).nullable(),
   }),
   z.object({ action: z.literal("blockDelete"), id: z.uuid() }),
+  z.object({
+    action: z.literal("asanaCreate"),
+    title: z.string().trim().min(1).max(80),
+    description: z.string().trim().max(10000),
+    dueDate: z.iso.date().nullable(),
+    projectId: z.string().regex(/^\d+$/),
+    sectionId: z.string().regex(/^\d+$/).optional(),
+  }),
+  z.object({
+    action: z.literal("asanaUpdate"),
+    taskId: z.string().regex(/^\d+$/),
+    task: z
+      .object({
+        title: z.string().trim().min(1).max(255).optional(),
+        description: z.string().trim().max(10000).optional(),
+        dueDate: z.iso.date().nullable().optional(),
+      })
+      .refine((v) => Object.keys(v).length > 0),
+  }),
+  z.object({
+    action: z.literal("asanaStatus"),
+    taskId: z.string().regex(/^\d+$/),
+    state: z.enum(["To Do", "In Progress", "Review", "Done"]),
+  }),
+  z.object({
+    action: z.literal("asanaSubtask"),
+    parentId: z.string().regex(/^\d+$/),
+    title: z.string().trim().min(1).max(80),
+  }),
+
   z.object({
     action: z.literal("draftSave"),
     id: z.uuid().optional(),
@@ -76,8 +114,32 @@ const actionSchema = z.discriminatedUnion("action", [
     state: z.enum(["Todo", "In Progress", "In Review", "Done"]),
   }),
   z.object({
+    action: z.literal("linearSubtask"),
+    parentId: z.uuid(),
+    title: z.string().trim().min(1).max(80),
+  }),
+  z.object({
+    action: z.literal("linearUpdate"),
+    issueId: z.uuid(),
+    task: z
+      .object({
+        title: z.string().trim().min(1).max(255).optional(),
+        description: z.string().trim().max(10000).optional(),
+        dueDate: z.iso.date().nullable().optional(),
+      })
+      .refine((value) => Object.keys(value).length > 0),
+  }),
+  z.object({
     action: z.literal("linearCreate"),
-    title: z.string().trim().min(1).max(255),
+    title: z
+      .string()
+      .trim()
+      .min(1)
+      .max(
+        80,
+        "Keep the task name under 80 characters. Put details in the description.",
+      ),
+    description: z.string().trim().max(10000).default(""),
     dueDate: z.iso.date().nullable(),
     lane,
   }),
@@ -209,13 +271,43 @@ export async function POST(request: Request) {
           throw new Error("Draft was not confirmed.");
         break;
       }
+      case "asanaCreate":
+        result = await createAsanaTask(
+          command.title,
+          command.description,
+          command.dueDate,
+          command.projectId,
+          command.sectionId,
+        );
+        break;
+      case "asanaUpdate":
+        result = await updateAsanaTask(command.taskId, command.task);
+        break;
+      case "asanaStatus":
+        result = await updateAsanaStatus(command.taskId, command.state);
+        break;
+      case "asanaSubtask":
+        result = await createAsanaSubtask(command.parentId, command.title);
+        break;
       case "linearStatus":
         result = await updateLinearStatus(command.issueId, command.state);
         break;
+      case "linearSubtask":
+        result = await createLinearSubtask(command.parentId, command.title);
+        break;
+      case "linearUpdate":
+        result = await updateLinearTask(command.issueId, command.task);
+        break;
       case "linearCreate": {
         if (command.lane !== "Development")
-          throw new Error("Create AI Consulting and Content Editor tasks in Asana.");
-        const task = await createLinearTask(command.title, command.dueDate);
+          throw new Error(
+            "Create AI Consulting and Content Editor tasks in Asana.",
+          );
+        const task = await createLinearTask(
+          command.title,
+          command.dueDate,
+          command.description,
+        );
         const mapping = await supabaseRest(
           "command_center_work_lanes?on_conflict=owner,owner_id&select=*",
           {

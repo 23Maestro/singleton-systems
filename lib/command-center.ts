@@ -1,3 +1,4 @@
+import { listAsanaWork, listAsanaProjects } from "@/lib/command-center-asana";
 import { supabaseRest } from "@/lib/supabase-rest";
 
 export const LANES = [
@@ -34,7 +35,7 @@ export type Interaction = {
 };
 export type Block = {
   id: string;
-  owner: "linear" | "notion" | "home" | "crm";
+  owner: "linear" | "asana" | "notion" | "home" | "crm";
   owner_id: string;
   selected_date: string;
   starts_at: string | null;
@@ -49,13 +50,17 @@ export type Draft = {
 };
 export type WorkItem = {
   id: string;
-  owner: "linear" | "notion";
+  owner: "linear" | "asana" | "notion";
   title: string;
+  description?: string | null;
+  children?: { id: string; title: string; url: string; status: string }[];
   url: string;
   dueDate: string | null;
   status: string;
   lane: Lane;
   blocked: boolean;
+  sectionId?: string;
+  states?: string[];
   projectId?: string | null;
   projectName?: string | null;
 };
@@ -63,7 +68,8 @@ export type WorkItem = {
 const linearIssuesQuery = `query CommandCenterIssues($after: String) {
   issues(first: 100, after: $after, filter: { state: { name: { in: ["Todo", "In Progress", "In Review"] } } }) {
     nodes {
-      id identifier title url dueDate
+      id identifier title description url dueDate
+      children { nodes { id title url state { name } } }
       state { name }
       team { key }
       project { id name }
@@ -78,6 +84,15 @@ type LinearIssue = {
   id: string;
   identifier: string;
   title: string;
+  description: string | null;
+  children: {
+    nodes: {
+      id: string;
+      title: string;
+      url: string;
+      state: { name: string };
+    }[];
+  };
   url: string;
   dueDate: string | null;
   state: { name: string };
@@ -277,6 +292,13 @@ export async function listLinearWork(): Promise<WorkItem[]> {
       id: issue.id,
       owner: "linear" as const,
       title: issue.title,
+      description: issue.description,
+      children: issue.children.nodes.map((child) => ({
+        id: child.id,
+        title: child.title,
+        url: child.url,
+        status: child.state.name,
+      })),
       url: issue.url,
       dueDate: issue.dueDate,
       status: issue.state.name,
@@ -287,7 +309,7 @@ export async function listLinearWork(): Promise<WorkItem[]> {
         (relation) =>
           relation.type === "blocks" &&
           relation.issue.state.type !== "completed",
-        ),
+      ),
     }))
     .filter((issue) => issue.lane === "Development");
 }
@@ -299,7 +321,8 @@ export async function commandCenterSnapshot() {
     blocks,
     drafts,
     linear,
-    notion,
+    asana,
+    asanaProjects,
     laneOverrides,
   ] = await Promise.allSettled([
     supabaseRest(
@@ -315,7 +338,8 @@ export async function commandCenterSnapshot() {
       "crm_message_drafts?select=id,title,lane,subject,body&order=title.asc",
     ),
     listLinearWork(),
-    listNotionWork(),
+    listAsanaWork(),
+    listAsanaProjects(),
     supabaseRest("command_center_work_lanes?select=owner,owner_id,lane"),
   ]);
   const failures: string[] = [];
@@ -327,8 +351,8 @@ export async function commandCenterSnapshot() {
     if (result.status === "fulfilled") return result.value;
     console.error(`[command-center] ${name} read failed`, result.reason);
     const message =
-      name === "Notion"
-        ? "Notion tasks need a connection."
+      name === "Asana"
+        ? "Asana needs a website connection."
         : name === "Linear"
           ? "Linear work is unavailable."
           : "Client and planner storage needs setup.";
@@ -342,7 +366,7 @@ export async function commandCenterSnapshot() {
   );
   const allWork = [
     ...take(linear, "Linear", [] as WorkItem[]),
-    ...take(notion, "Notion", [] as WorkItem[]),
+    ...take(asana, "Asana", [] as WorkItem[]),
   ];
   return {
     contacts: take(contacts, "Clients", [] as Contact[]) as Contact[],
@@ -353,13 +377,16 @@ export async function commandCenterSnapshot() {
     ) as Interaction[],
     blocks: take(blocks, "Planner", [] as Block[]) as Block[],
     drafts: take(drafts, "Drafts", [] as Draft[]) as Draft[],
+    asanaProjects: take(asanaProjects, "Asana", []),
     work: allWork.map((item) => ({
       ...item,
       lane:
-        mappedLanes.find(
-          (mapping) =>
-            mapping.owner === item.owner && mapping.owner_id === item.id,
-        )?.lane ?? item.lane,
+        item.owner === "asana" || item.owner === "linear"
+          ? item.lane
+          : (mappedLanes.find(
+              (mapping) =>
+                mapping.owner === item.owner && mapping.owner_id === item.id,
+            )?.lane ?? item.lane),
     })),
     failures,
   };
@@ -383,7 +410,9 @@ export async function updateLinearStatus(
   if (lookup.issue?.team.key !== "23M")
     throw new Error("That issue is outside Singleton Systems.");
   if (issueLane(lookup.issue) !== "Development")
-    throw new Error("AI Consulting and Content Editor task state belongs in Asana.");
+    throw new Error(
+      "AI Consulting and Content Editor task state belongs in Asana.",
+    );
   const state = lookup.issue.team.states.nodes.find(
     (item) => item.name === stateName,
   );
@@ -407,12 +436,77 @@ export async function updateLinearStatus(
   return readback.issue;
 }
 
-export async function createLinearTask(title: string, dueDate: string | null) {
+export async function updateLinearTask(
+  issueId: string,
+  task: { title?: string; description?: string; dueDate?: string | null },
+) {
+  const before = await linearGraphql<{
+    issue:
+      | (Pick<LinearIssue, "labels" | "project"> & { team: { key: string } })
+      | null;
+  }>(
+    `query ($id: String!) { issue(id: $id) { team { key } labels { nodes { name } } project { id name } } }`,
+    { id: issueId },
+  );
+  if (
+    !before.issue ||
+    before.issue.team.key !== "23M" ||
+    issueLane(before.issue) !== "Development"
+  )
+    throw new Error(
+      "Only Singleton Systems Development tasks can be edited in Linear.",
+    );
+  const updated = await linearGraphql<{ issueUpdate: { success: boolean } }>(
+    `mutation ($id: String!, $input: IssueUpdateInput!) { issueUpdate(id: $id, input: $input) { success } }`,
+    { id: issueId, input: task },
+  );
+  if (!updated.issueUpdate.success)
+    throw new Error("Linear rejected the task update.");
+  const readback = await linearGraphql<{
+    issue: {
+      id: string;
+      title: string;
+      description: string | null;
+      dueDate: string | null;
+    } | null;
+  }>(
+    `query ($id: String!) { issue(id: $id) { id title description dueDate } }`,
+    { id: issueId },
+  );
+  if (
+    !readback.issue ||
+    Object.entries(task).some(([key, value]) => {
+      const actual = readback.issue![key as keyof typeof readback.issue];
+      return key === "description"
+        ? (actual ?? "") !== value
+        : actual !== value;
+    })
+  )
+    throw new Error("Linear task readback did not match the update.");
+  return readback.issue;
+}
+
+export async function createLinearTask(
+  title: string,
+  dueDate: string | null,
+  description = "",
+  parent?: { id: string; projectId: string | null },
+) {
   const teamLookup = await linearGraphql<{
-    teams: { nodes: { id: string; key: string }[] };
-  }>(`query { teams(filter: { key: { eq: "23M" } }) { nodes { id key } } }`);
+    teams: {
+      nodes: {
+        id: string;
+        key: string;
+        states: { nodes: { id: string; name: string }[] };
+      }[];
+    };
+  }>(
+    `query { teams(filter: { key: { eq: "23M" } }) { nodes { id key states { nodes { id name } } } } }`,
+  );
   const team = teamLookup.teams.nodes.find((item) => item.key === "23M");
   if (!team) throw new Error("Singleton Systems team was not found.");
+  const state = team.states.nodes.find((item) => item.name === "Todo");
+  if (!state) throw new Error("The Todo state was not found.");
 
   const created = await linearGraphql<{
     issueCreate: {
@@ -429,7 +523,21 @@ export async function createLinearTask(title: string, dueDate: string | null) {
     `mutation ($input: IssueCreateInput!) {
       issueCreate(input: $input) { success issue { id identifier title url dueDate } }
     }`,
-    { input: { teamId: team.id, title, ...(dueDate ? { dueDate } : {}) } },
+    {
+      input: {
+        teamId: team.id,
+        stateId: state.id,
+        title,
+        ...(description ? { description } : {}),
+        ...(parent
+          ? {
+              parentId: parent.id,
+              ...(parent.projectId ? { projectId: parent.projectId } : {}),
+            }
+          : {}),
+        ...(dueDate ? { dueDate } : {}),
+      },
+    },
   );
   const task = created.issueCreate.issue;
   if (!created.issueCreate.success || !task)
@@ -439,17 +547,23 @@ export async function createLinearTask(title: string, dueDate: string | null) {
     issue: {
       id: string;
       title: string;
+      description: string | null;
+      parent: { id: string } | null;
+      state: { name: string };
       dueDate: string | null;
       team: { key: string };
     } | null;
   }>(
-    `query ($id: String!) { issue(id: $id) { id title dueDate team { key } } }`,
+    `query ($id: String!) { issue(id: $id) { id title description dueDate parent { id } state { name } team { key } } }`,
     { id: task.id },
   );
   if (
     !readback.issue ||
     readback.issue.team.key !== "23M" ||
+    readback.issue.state.name !== "Todo" ||
     readback.issue.title !== title ||
+    (readback.issue.description ?? "") !== description ||
+    (readback.issue.parent?.id ?? null) !== (parent?.id ?? null) ||
     readback.issue.dueDate !== dueDate
   ) {
     throw new Error(
@@ -457,4 +571,27 @@ export async function createLinearTask(title: string, dueDate: string | null) {
     );
   }
   return task;
+}
+
+export async function createLinearSubtask(parentId: string, title: string) {
+  const before = await linearGraphql<{
+    issue:
+      | (Pick<LinearIssue, "labels" | "project"> & { team: { key: string } })
+      | null;
+  }>(
+    `query ($id: String!) { issue(id: $id) { team { key } labels { nodes { name } } project { id name } } }`,
+    { id: parentId },
+  );
+  if (
+    !before.issue ||
+    before.issue.team.key !== "23M" ||
+    issueLane(before.issue) !== "Development"
+  )
+    throw new Error(
+      "Subtasks must belong to a Singleton Systems Development task.",
+    );
+  return createLinearTask(title, null, "", {
+    id: parentId,
+    projectId: before.issue.project?.id ?? null,
+  });
 }
