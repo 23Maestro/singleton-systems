@@ -54,17 +54,15 @@ assert.throws(() => apply({ ...clear, id: id(), previousBalance: clear.previousB
 data = apply(clear);
 assert.equal(data.currentBalance, 0);
 assert.equal(data.balanceSet, true);
-assert.equal(data.transactions[0].name, "Balance cleared");
-assert.equal(data.transactions[0].signedAmount, -beforeClear.currentBalance);
-assert.deepEqual(data.transactions.slice(1), beforeClear.transactions);
+assert.deepEqual(data.transactions, beforeClear.transactions);
 assert.deepEqual(data.planEntries, beforeClear.planEntries);
 assert.deepEqual(data.plannedPayments, beforeClear.plannedPayments);
 assert.deepEqual(apply(clear), data);
-// Clear also handles a negative cash balance with a signed correction.
+// Clear also resets a negative cash balance without adding a log entry.
 const negative = { ...beforeClear, currentBalance: -42.15 };
 const clearedNegative = applyCommand(negative, commandSchema.parse({ ...clear, id: id(), previousBalance: -42.15 }), new Date().toISOString());
 assert.equal(clearedNegative.currentBalance, 0);
-assert.equal(clearedNegative.transactions[0].signedAmount, 42.15);
+assert.deepEqual(clearedNegative.transactions, negative.transactions);
 const old = [{ id: id(), name: "Macy's (PRA)", amount: "111.07", kind: "debt", category: "Debt", paid: false, entry_date: "2026-08-20", created_at: "2026-08-21T00:00:00Z", updated_at: "2026-08-21T00:00:00Z" },
   { id: id(), name: "Daycare", amount: "340.00", kind: "bill", category: "Child Support", paid: true, entry_date: "2026-08-20", created_at: "2026-08-21T00:00:00Z", updated_at: "2026-08-21T00:00:00Z" }];
 const imported = importLegacy(old, SEED);

@@ -5,7 +5,7 @@ import { useApp } from "../context"
 import SourceIcon from "../components/SourceIcon"
 import { Modal } from "../components/Controls"
 import { fmtCurrency, fmtDate, mondayFor } from "@/lib/ledger/dates"
-import { CATEGORY_STYLES } from "@/lib/ledger/ledger"
+import { CATEGORY_STYLES, isPayoff } from "@/lib/ledger/ledger"
 
 function ClearBalanceModal({ balance, onClose }: { balance: number; onClose: () => void }) {
   const { clearBalance } = useApp()
@@ -29,13 +29,13 @@ function ClearBalanceModal({ balance, onClose }: { balance: number; onClose: () 
       setBusy(false)
     }
   }
-  return <Modal title="Clear current balance?" onClose={() => { if (!saving.current) onClose() }}>
+  return <Modal title="Clear and start fresh?" onClose={() => { if (!saving.current) onClose() }}>
     <form className="stack" onSubmit={submit}>
-      <p>Set your current balance from {fmtCurrency(balance)} to $0.00. Your saved income, expenses, and payment history will stay in place.</p>
+      <p>Set your current balance from {fmtCurrency(balance)} to $0.00 without adding a log entry.</p>
       {error && <p className="error" role="alert">{error}</p>}
       <div className="modal-actions">
         <button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</button>
-        <button className="btn btn-primary" disabled={busy}>{busy ? "Saving…" : "Clear balance"}</button>
+        <button className="btn btn-primary" disabled={busy}>{busy ? "Saving…" : "Clear"}</button>
       </div>
     </form>
   </Modal>
@@ -45,6 +45,7 @@ export default function Home() {
   const { data, today, navigate } = useApp()
   const [weekOffset, setWeekOffset] = useState(0)
   const [clearAmount, setClearAmount] = useState<number | null>(null)
+  const resolvedIds = new Set(data.planEntries.filter(e => isPayoff(e) && !e.isActive && e.balance === 0).map(e => e.id))
   const date = new Date(mondayFor(today) + "T12:00:00")
   date.setDate(date.getDate() + weekOffset * 7)
   const start = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
@@ -52,7 +53,7 @@ export default function Home() {
   endDate.setDate(endDate.getDate() + 6)
   const end = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, "0")}-${String(endDate.getDate()).padStart(2, "0")}`
   const rows = [
-    ...data.transactions.map((tx) => {
+    ...data.transactions.filter(tx => tx.name !== "Balance cleared" && (!tx.planEntryId || !resolvedIds.has(tx.planEntryId))).map((tx) => {
       const style = tx.category ? CATEGORY_STYLES[tx.category] : undefined
       const amount =
         tx.type === "income"
@@ -75,7 +76,7 @@ export default function Home() {
         pending: false,
       }
     }),
-    ...data.plannedPayments.map((pp) => ({
+    ...data.plannedPayments.filter(pp => !pp.resolved && !resolvedIds.has(pp.planEntryId)).map((pp) => ({
       id: pp.id,
       name: pp.name,
       date: pp.date,
@@ -104,7 +105,7 @@ export default function Home() {
       <section className="balance-block">
         <div className="balance-label">
           <span>Current balance</span>
-          <button className="clear-balance-button" disabled={data.currentBalance === 0} onClick={() => setClearAmount(data.currentBalance)}>Clear balance</button>
+          <button className="btn btn-neutral" disabled={data.currentBalance === 0} onClick={() => setClearAmount(data.currentBalance)}>Clear</button>
         </div>
         <h1 className="cash-value">
           {fmtCurrency(data.currentBalance)}

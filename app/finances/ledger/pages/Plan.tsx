@@ -466,7 +466,7 @@ export default function Plan() {
         {TYPES.filter((type) => filter === "all" || filter === type).map(
           (type) => {
             const entries = data.planEntries
-              .filter((e) => e.planType === type)
+              .filter((e) => e.planType === type && (e.isActive || !isPayoff(e) || e.balance !== 0))
               .sort(
                 (a, b) =>
                   sortAmount(b) - sortAmount(a) || a.name.localeCompare(b.name),

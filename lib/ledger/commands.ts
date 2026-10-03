@@ -36,11 +36,19 @@ export function applyCommand(data: AppData, command: LedgerCommand, timestamp: s
   if (command.type === "payment") return recordPayment(data, command.entryId, command.amount, command.date, command.id, command.resolve);
   if (command.type === "reconcile") {
     if (data.transactions.some(t => t.id === command.id)) return data;
+    // Clear starts a fresh cash balance without adding an activity row.
+    // The server operation record still protects retries after a lost response.
+    if (command.amount === 0 && command.previousBalance != null) {
+      if (data.currentBalance === 0 && data.balanceSet) return data;
+      if (command.previousBalance !== data.currentBalance)
+        throw new Error("Your balance changed. Close and reopen the confirmation to use the latest balance.");
+      return { ...data, balanceSet: true, currentBalance: 0 };
+    }
     if (command.previousBalance != null && command.previousBalance !== data.currentBalance)
       throw new Error("Your balance changed. Close and reopen the confirmation to use the latest balance.");
     const difference = subtract(command.amount, data.currentBalance);
     return { ...data, balanceSet: true, currentBalance: command.amount, transactions: [{
-      id: command.id, type: "reconcile", name: command.previousBalance != null && command.amount === 0 ? "Balance cleared" : "Balance updated", amount: Math.abs(difference),
+      id: command.id, type: "reconcile", name: "Balance updated", amount: Math.abs(difference),
       signedAmount: difference, date: todayISO(), status: "paid", createdAt: timestamp,
     }, ...data.transactions] };
   }
