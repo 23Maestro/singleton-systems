@@ -714,6 +714,13 @@ export default function CommandCenterApp() {
       });
     }
   }
+  function cancelGesture(event: React.PointerEvent<HTMLElement>) {
+    gesture.current = null;
+    previewRef.current = null;
+    setPreview(null);
+    if (event.currentTarget.hasPointerCapture(event.pointerId))
+      event.currentTarget.releasePointerCapture(event.pointerId);
+  }
   function endGesture(event: React.PointerEvent<HTMLElement>) {
     const g = gesture.current;
     gesture.current = null;
@@ -1384,7 +1391,7 @@ export default function CommandCenterApp() {
                               }
                               onPointerMove={moveGesture}
                               onPointerUp={endGesture}
-                              onPointerCancel={endGesture}
+                              onPointerCancel={cancelGesture}
                               onClick={() => {
                                 if (justDragged.current) return;
                                 if (item) setSelectedWork(item.id);
@@ -1434,7 +1441,7 @@ export default function CommandCenterApp() {
                                   }
                                   onPointerMove={moveGesture}
                                   onPointerUp={endGesture}
-                                  onPointerCancel={endGesture}
+                                  onPointerCancel={cancelGesture}
                                 />
                               )}
                             </div>

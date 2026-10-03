@@ -9,6 +9,8 @@ const AI_PROJECT = "1218884867598641";
 let tasks;
 let calls;
 let failPut;
+let ignorePut;
+let failReadback;
 
 function task(gid, extra = {}) {
   return {
@@ -29,6 +31,8 @@ function task(gid, extra = {}) {
 beforeEach(() => {
   calls = [];
   failPut = false;
+  ignorePut = false;
+  failReadback = false;
   tasks = {
     100: task("100", {
       memberships: [{ project: { gid: AI_PROJECT }, section: { gid: "9", name: "To Do" } }],
@@ -53,10 +57,14 @@ beforeEach(() => {
       return ok(Object.values(tasks).filter((t) => !t.parent && t.memberships.some((m) => route.includes(m.project.gid))));
     if (match?.[2])
       return ok(Object.values(tasks).filter((t) => t.parent?.gid === match[1]));
-    if (match && method === "GET") return ok(tasks[match[1]]);
+    if (match && method === "GET") {
+      if (failReadback && tasks[match[1]]?.completed)
+        return new Response("{}", { status: 503 });
+      return ok(tasks[match[1]]);
+    }
     if (match && method === "PUT") {
       if (failPut) return new Response("{}", { status: 500 });
-      Object.assign(tasks[match[1]], JSON.parse(init.body).data);
+      if (!ignorePut) Object.assign(tasks[match[1]], JSON.parse(init.body).data);
       return ok(tasks[match[1]]);
     }
     return new Response("{}", { status: 404 });
@@ -113,4 +121,20 @@ test("an already completed subtask is confirmed without another write", async ()
   const done = await completeAsanaSubtask("100", "101");
   assert.equal(done.status, "Done");
   assert.ok(!calls.some((call) => call.startsWith("PUT")));
+});
+
+
+test("a successful HTTP write without completed readback is rejected", async () => {
+  ignorePut = true;
+  await assert.rejects(completeAsanaSubtask("100", "101"), /did not confirm/);
+  assert.equal(tasks[101].completed, false);
+});
+
+test("retry after a lost readback confirms completion without a second write", async () => {
+  failReadback = true;
+  await assert.rejects(completeAsanaSubtask("100", "101"), /Asana request failed/);
+  assert.equal(tasks[101].completed, true);
+  failReadback = false;
+  assert.equal((await completeAsanaSubtask("100", "101")).status, "Done");
+  assert.equal(calls.filter((call) => call === "PUT tasks/101").length, 1);
 });
