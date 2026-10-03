@@ -674,6 +674,14 @@ export default function CommandCenterApp() {
     }
     return null;
   }
+  function flushKeyboardPlacement() {
+    if (keyTimer.current === undefined) return;
+    window.clearTimeout(keyTimer.current);
+    keyTimer.current = undefined;
+    const final = previewRef.current;
+    const block = final && blocks.find((entry) => entry.id === final.id);
+    if (final && block) void persistPlacement(block, final);
+  }
   function beginGesture(
     event: React.PointerEvent<HTMLElement>,
     block: Block,
@@ -685,6 +693,8 @@ export default function CommandCenterApp() {
       saving.current.has(block.id)
     )
       return;
+    flushKeyboardPlacement();
+    if (saving.current.has(block.id)) return;
     if (mode === "resize") event.stopPropagation();
     event.currentTarget.setPointerCapture(event.pointerId);
     gesture.current = {
@@ -736,6 +746,8 @@ export default function CommandCenterApp() {
   }
   function keyAdjust(event: React.KeyboardEvent<HTMLElement>, block: Block) {
     if (event.target !== event.currentTarget) return;
+    if (previewRef.current && previewRef.current.id !== block.id)
+      flushKeyboardPlacement();
     const base = previewRef.current?.id === block.id ? previewRef.current : null;
     const current = base
       ? { ...block, starts_at: base.startsAt, ends_at: base.endsAt, selected_date: base.selectedDate }
@@ -762,6 +774,7 @@ export default function CommandCenterApp() {
     showPreview(block, next);
     window.clearTimeout(keyTimer.current);
     keyTimer.current = window.setTimeout(() => {
+      keyTimer.current = undefined;
       const final = previewRef.current;
       if (final && final.id === block.id) void persistPlacement(block, final);
     }, 450);
