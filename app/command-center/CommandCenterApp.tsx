@@ -15,7 +15,9 @@ import {
 import {
   ArrowClockwise,
   ArrowSquareOut,
+  WarningCircle,
   CalendarBlank,
+  CalendarPlus,
   Check,
   Clock,
   EnvelopeSimple,
@@ -35,6 +37,17 @@ import type {
 } from "@/lib/command-center";
 import { getTheme, getServerTheme, setTheme, subscribeTheme } from "./theme";
 import TaskEditor, { type TaskEdit } from "./TaskEditor";
+import SchedulePicker from "./SchedulePicker";
+import {
+  SNAP_MINUTES,
+  blockSpan,
+  minuteFromOffset,
+  movePlacement,
+  newPlacement,
+  resizePlacement,
+  snapMinutes,
+  type Placement,
+} from "@/lib/command-center-schedule";
 
 type Snapshot = {
   contacts: Contact[];
@@ -64,6 +77,10 @@ const laneColors: Record<Lane, string> = {
   "Content Editor": "#3488e8",
   Development: "#27a88a",
 };
+const HOUR_PX = 56;
+const GRID_TOP = 14;
+const GRID_HEIGHT = 24 * HOUR_PX + GRID_TOP * 2;
+const dragType = "application/x-command-center-task";
 const emptyContact = {
   name: "",
   company: "",
@@ -84,6 +101,24 @@ type ContactForm = typeof emptyContact;
 
 function dateKey(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+function isoWeek(date: Date) {
+  const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  target.setUTCDate(target.getUTCDate() + 4 - (target.getUTCDay() || 7));
+  const yearStart = Date.UTC(target.getUTCFullYear(), 0, 1);
+  return Math.ceil(((target.getTime() - yearStart) / 86400000 + 1) / 7);
+}
+function durationLabel(minutes: number) {
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return hours ? `${hours}h${rest ? ` ${rest}m` : ""}` : `${rest}m`;
+}
+function dueTone(value: string | null, today: string) {
+  if (!value) return "";
+  const day = value.slice(0, 10);
+  if (day < today) return "late";
+  const gap = (Date.parse(`${day}T12:00:00`) - Date.parse(`${today}T12:00:00`)) / 86400000;
+  return gap <= 1 ? "soon" : "";
 }
 function shortDate(value: string | null) {
   if (!value) return "—";
@@ -119,13 +154,8 @@ function placeOverlaps(blocks: Block[]): TimedPlacement[] {
   const intervals = blocks
     .filter((block) => block.starts_at && block.ends_at)
     .map((block) => {
-      const start = new Date(block.starts_at!);
-      const end = new Date(block.ends_at!);
-      return {
-        block,
-        startMinute: start.getHours() * 60 + start.getMinutes(),
-        endMinute: end.getHours() * 60 + end.getMinutes(),
-      };
+      const span = blockSpan(block);
+      return { block, startMinute: span.start, endMinute: span.end };
     })
     .sort((a, b) => a.startMinute - b.startMinute || a.endMinute - b.endMinute);
   const groups: (typeof intervals)[] = [];
@@ -202,6 +232,31 @@ export default function CommandCenterApp() {
   const [dayCount, setDayCount] = useState<1 | 3 | 5 | 7>(7);
   const [dayOffset, setDayOffset] = useState(0);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const columnRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [dropPreview, setDropPreview] = useState<{
+    date: string;
+    minute: number;
+  } | null>(null);
+  const [preview, setPreview] = useState<(Placement & { id: string }) | null>(
+    null,
+  );
+  const previewRef = useRef<(Placement & { id: string }) | null>(null);
+  const [pendingIds, setPendingIds] = useState<string[]>([]);
+  const [picker, setPicker] = useState<WorkItem | null>(null);
+  const saving = useRef(new Set<string>());
+  const queued = useRef(new Map<string, Placement>());
+  const keyTimer = useRef<number | undefined>(undefined);
+  const dropping = useRef(false);
+  const gesture = useRef<{
+    block: Block;
+    mode: "move" | "resize";
+    startX: number;
+    startY: number;
+    moved: boolean;
+  } | null>(null);
+  const justDragged = useRef(false);
+  const wantNow = useRef(false);
+  const [now, setNow] = useState(() => new Date());
 
   const load = useCallback(async () => {
     const response = await fetch("/api/command-center", { cache: "no-store" });
@@ -236,6 +291,14 @@ export default function CommandCenterApp() {
       setError(cause instanceof Error ? cause.message : "Could not load."),
     );
   }, [load]);
+  useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 60000);
+    return () => window.clearInterval(timer);
+  }, []);
+  useEffect(() => {
+    const width = window.innerWidth;
+    setDayCount(width < 680 ? 1 : width < 1100 ? 3 : 7);
+  }, []);
   useEffect(() => {
     if (selectedContact === null && snapshot?.contacts.length)
       setSelectedContact(snapshot.contacts[0].id);
@@ -309,6 +372,11 @@ export default function CommandCenterApp() {
       setShortcutMode("open");
       return;
     }
+    if (event.key.toLowerCase() === "t" && surface === "planner") {
+      event.preventDefault();
+      goToNow();
+      return;
+    }
     if (event.key === "q") setSurface("planner");
     if (event.key === "p") setSurface("planner");
     if (event.key === "u") setSurface("updates");
@@ -324,12 +392,20 @@ export default function CommandCenterApp() {
   useEffect(() => {
     if (surface !== "planner") return;
     const frame = requestAnimationFrame(() => {
-      if (calendarRef.current) calendarRef.current.scrollTop = 62 + 70 + 7 * 56;
+      if (!calendarRef.current) return;
+      if (wantNow.current) {
+        wantNow.current = false;
+        const current = new Date();
+        calendarRef.current.scrollTop = Math.max(
+          0,
+          GRID_TOP + ((current.getHours() * 60 + current.getMinutes()) / 60) * HOUR_PX - 140,
+        );
+      } else calendarRef.current.scrollTop = 0;
     });
     return () => cancelAnimationFrame(frame);
   }, [surface, dayCount, dayOffset, calendarReady]);
 
-  async function command(payload: Record<string, unknown>) {
+  async function command(payload: Record<string, unknown>, reload = true) {
     setBusy(true);
     setError("");
     try {
@@ -340,7 +416,10 @@ export default function CommandCenterApp() {
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Action failed.");
-      await load().catch(() => setError("Saved. Refresh failed; try Refresh."));
+      if (reload)
+        await load().catch(() =>
+          setError("Saved. Refresh failed; try Refresh."),
+        );
       return result;
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Action failed.");
@@ -354,6 +433,16 @@ export default function CommandCenterApp() {
   const work = snapshot?.work ?? [];
   const blocks = snapshot?.blocks ?? [];
   const contacts = snapshot?.contacts ?? [];
+  const shownBlocks = blocks.map((block) =>
+    preview && preview.id === block.id
+      ? {
+          ...block,
+          selected_date: preview.selectedDate,
+          starts_at: preview.startsAt,
+          ends_at: preview.endsAt,
+        }
+      : block,
+  );
   const workForBlock = (block: Block) =>
     work.find(
       (item) => item.owner === block.owner && item.id === block.owner_id,
@@ -484,23 +573,204 @@ export default function CommandCenterApp() {
     });
     if (result) setInteractionText("");
   }
+  async function scheduleTask(
+    item: WorkItem,
+    date: string,
+    minute: number,
+    duration = 60,
+  ) {
+    if (dropping.current) return false;
+    dropping.current = true;
+    try {
+      const placed = newPlacement(date, minute, duration);
+      const saved = await command({
+        action: "blockSave",
+        owner: item.owner,
+        ownerId: item.id,
+        selectedDate: placed.selectedDate,
+        startsAt: placed.startsAt,
+        endsAt: placed.endsAt,
+      });
+      return Boolean(saved);
+    } finally {
+      dropping.current = false;
+    }
+  }
   async function chooseToday(item: WorkItem) {
+    const now = new Date();
+    const minute =
+      Math.ceil((now.getHours() * 60 + now.getMinutes()) / SNAP_MINUTES) *
+      SNAP_MINUTES;
+    await scheduleTask(item, today, minute);
+  }
+  async function persistPlacement(block: Block, next: Placement) {
+    if (saving.current.has(block.id)) {
+      queued.current.set(block.id, next);
+      return;
+    }
+    saving.current.add(block.id);
+    setPendingIds((ids) => [...ids, block.id]);
+    const apply = (to: Pick<Block, "selected_date" | "starts_at" | "ends_at">) =>
+      setSnapshot((current) =>
+        current
+          ? {
+              ...current,
+              blocks: current.blocks.map((entry) =>
+                entry.id === block.id ? { ...entry, ...to } : entry,
+              ),
+            }
+          : current,
+      );
+    apply({
+      selected_date: next.selectedDate,
+      starts_at: next.startsAt,
+      ends_at: next.endsAt,
+    });
+    previewRef.current = null;
+    setPreview(null);
+    const result = await command(
+      {
+        action: "blockSave",
+        id: block.id,
+        owner: block.owner,
+        ownerId: block.owner_id,
+        selectedDate: next.selectedDate,
+        startsAt: next.startsAt,
+        endsAt: next.endsAt,
+      },
+      false,
+    );
+    saving.current.delete(block.id);
+    setPendingIds((ids) => ids.filter((id) => id !== block.id));
+    if (!result) {
+      queued.current.delete(block.id);
+      apply(block);
+      return;
+    }
+    const follow = queued.current.get(block.id);
+    if (follow) {
+      queued.current.delete(block.id);
+      await persistPlacement(
+        {
+          ...block,
+          selected_date: next.selectedDate,
+          starts_at: next.startsAt,
+          ends_at: next.endsAt,
+        },
+        follow,
+      );
+    }
+  }
+  function showPreview(block: Block, next: Placement | null) {
+    const value = next ? { id: block.id, ...next } : null;
+    previewRef.current = value;
+    setPreview(value);
+  }
+  function dayFromX(x: number) {
+    for (const date of days) {
+      const key = dateKey(date);
+      const rect = columnRefs.current[key]?.getBoundingClientRect();
+      if (rect && x >= rect.left && x < rect.right) return key;
+    }
+    return null;
+  }
+  function beginGesture(
+    event: React.PointerEvent<HTMLElement>,
+    block: Block,
+    mode: "move" | "resize",
+  ) {
     if (
-      blocks.some(
-        (block) =>
-          block.owner === item.owner &&
-          block.owner_id === item.id &&
-          block.selected_date === today,
-      )
+      event.pointerType === "touch" ||
+      event.button !== 0 ||
+      saving.current.has(block.id)
     )
       return;
-    await command({
-      action: "blockSave",
-      owner: item.owner,
-      ownerId: item.id,
-      selectedDate: today,
-      startsAt: null,
-      endsAt: null,
+    if (mode === "resize") event.stopPropagation();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    gesture.current = {
+      block,
+      mode,
+      startX: event.clientX,
+      startY: event.clientY,
+      moved: false,
+    };
+  }
+  function moveGesture(event: React.PointerEvent<HTMLElement>) {
+    const g = gesture.current;
+    if (!g) return;
+    const dx = event.clientX - g.startX;
+    const dy = event.clientY - g.startY;
+    if (!g.moved && Math.hypot(dx, dy) < 4) return;
+    g.moved = true;
+    const delta = snapMinutes((dy / HOUR_PX) * 60);
+    const span = blockSpan(g.block);
+    if (g.mode === "move") {
+      const day = dayFromX(event.clientX) ?? g.block.selected_date;
+      showPreview(g.block, movePlacement(g.block, day, span.start + delta));
+    } else {
+      showPreview(g.block, {
+        ...resizePlacement(g.block, span.end + delta),
+        selectedDate: g.block.selected_date,
+      });
+    }
+  }
+  function endGesture(event: React.PointerEvent<HTMLElement>) {
+    const g = gesture.current;
+    gesture.current = null;
+    if (event.currentTarget.hasPointerCapture(event.pointerId))
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    if (!g?.moved) return;
+    justDragged.current = true;
+    window.setTimeout(() => {
+      justDragged.current = false;
+    }, 0);
+    const next = previewRef.current;
+    if (next && next.id === g.block.id) void persistPlacement(g.block, next);
+  }
+  function keyAdjust(event: React.KeyboardEvent<HTMLElement>, block: Block) {
+    if (event.target !== event.currentTarget) return;
+    const base = previewRef.current?.id === block.id ? previewRef.current : null;
+    const current = base
+      ? { ...block, starts_at: base.startsAt, ends_at: base.endsAt, selected_date: base.selectedDate }
+      : block;
+    const span = blockSpan(current);
+    let next: Placement | null = null;
+    const vertical = event.key === "ArrowUp" ? -1 : event.key === "ArrowDown" ? 1 : 0;
+    const horizontal = event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : 0;
+    if (vertical && event.shiftKey)
+      next = {
+        ...resizePlacement(current, span.end + vertical * SNAP_MINUTES),
+        selectedDate: current.selected_date,
+      };
+    else if (vertical)
+      next = movePlacement(current, current.selected_date, span.start + vertical * SNAP_MINUTES);
+    else if (horizontal) {
+      const index = days.findIndex((date) => dateKey(date) === current.selected_date);
+      const target = days[index + horizontal];
+      if (index >= 0 && target)
+        next = movePlacement(current, dateKey(target), span.start);
+    }
+    if (!next) return;
+    event.preventDefault();
+    showPreview(block, next);
+    window.clearTimeout(keyTimer.current);
+    keyTimer.current = window.setTimeout(() => {
+      const final = previewRef.current;
+      if (final && final.id === block.id) void persistPlacement(block, final);
+    }, 450);
+  }
+  function goToNow() {
+    wantNow.current = true;
+    setDayOffset(0);
+    setNow(new Date());
+    window.requestAnimationFrame(() => {
+      if (!wantNow.current || !calendarRef.current) return;
+      wantNow.current = false;
+      const current = new Date();
+      calendarRef.current.scrollTop = Math.max(
+        0,
+        GRID_TOP + ((current.getHours() * 60 + current.getMinutes()) / 60) * HOUR_PX - 140,
+      );
     });
   }
   function closeShortcut() {
@@ -633,7 +903,7 @@ export default function CommandCenterApp() {
       edit.date !== taskEditor.block.selected_date ||
       start !== taskEditor.block.starts_at ||
       end !== taskEditor.block.ends_at;
-    if ((edit.start || taskEditor.block) && placementChanged) {
+    if (edit.start && placementChanged) {
       const saved = await command({
         action: "blockSave",
         id: taskEditor.block?.id,
@@ -744,10 +1014,17 @@ export default function CommandCenterApp() {
               <button onClick={() => setDayOffset((old) => old - dayCount)}>
                 ←
               </button>
-              <button onClick={() => setDayOffset(0)}>Today</button>
+              <button onClick={goToNow} title="Today (T)">Today</button>
               <button onClick={() => setDayOffset((old) => old + dayCount)}>
                 →
               </button>
+              <strong className="cc-range">
+                {days[Math.floor(days.length / 2)].toLocaleDateString(undefined, {
+                  month: "long",
+                  year: "numeric",
+                })}
+                {dayCount === 7 && <small>W{isoWeek(days[0])}</small>}
+              </strong>
               <span className="cc-spacer" />
               {([1, 3, 5, 7] as const).map((count) => (
                 <button
@@ -794,12 +1071,27 @@ export default function CommandCenterApp() {
                 {ready.length === 0 && (
                   <p className="cc-empty">No ready work in these lanes.</p>
                 )}
+                {ready.length > 0 && (
+                  <div className="cc-list-section cc-rail-section">
+                    To-dos <span className="cc-count">{ready.length}</span>
+                  </div>
+                )}
                 {ready.map((item) => (
                   <div
                     key={`${item.owner}:${item.id}`}
                     className={`cc-row ${selected?.id === item.id ? "selected" : ""}`}
                     role="button"
                     tabIndex={0}
+                    draggable
+                    onDragStart={(event) => {
+                      event.dataTransfer.setData(
+                        dragType,
+                        `${item.owner}|${item.id}`,
+                      );
+                      event.dataTransfer.effectAllowed = "copy";
+                      setSelectedWork(item.id);
+                    }}
+                    onDragEnd={() => setDropPreview(null)}
                     onClick={() => {
                       setSelectedWork(item.id);
                       setShortcutMode("closed");
@@ -871,7 +1163,30 @@ export default function CommandCenterApp() {
                           ))}
                       </div>
                     ) : (
-                      <time>{shortDate(item.dueDate)}</time>
+                      <>
+                        {item.dueDate ? (
+                          <time
+                            className={`cc-due ${dueTone(item.dueDate, today)}`}
+                          >
+                            {dueTone(item.dueDate, today) && (
+                              <WarningCircle size={13} />
+                            )}
+                            {shortDate(item.dueDate)}
+                          </time>
+                        ) : null}
+                        <button
+                          type="button"
+                          className="cc-row-schedule"
+                          aria-label={`Schedule ${item.title}`}
+                          title="Schedule"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            setPicker(item);
+                          }}
+                        >
+                          <CalendarPlus size={18} />
+                        </button>
+                      </>
                     )}
                   </div>
                 ))}
@@ -918,120 +1233,211 @@ export default function CommandCenterApp() {
                     </div>
                   ))}
                 </div>
-                <div className="cc-untimed-row">
-                  <div className="cc-untimed-label">Untimed</div>
-                  {days.map((date) => {
-                    const key = dateKey(date);
-                    const untimed = blocks.filter(
-                      (block) =>
-                        block.selected_date === key && !block.starts_at,
-                    );
-                    return (
-                      <div className="cc-untimed" key={key}>
-                        {untimed.map((block) => (
-                          <button
-                            className="cc-untimed-item"
-                            key={block.id}
-                            style={
-                              {
-                                "--lane": laneColors[laneForBlock(block)],
-                              } as React.CSSProperties
-                            }
-                            onClick={() => {
-                              const item = workForBlock(block);
-                              if (item) openBlock(item, block);
-                            }}
-                          >
-                            {titleForBlock(block)}
-                          </button>
-                        ))}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="cc-calendar-body">
+                <div className="cc-calendar-body" style={{ height: GRID_HEIGHT }}>
                   <div className="cc-times">
+                    {days.some((date) => dateKey(date) === today) && (
+                      <span
+                        className="cc-now-label"
+                        style={{
+                          top: `${GRID_TOP + ((now.getHours() * 60 + now.getMinutes()) / 60) * HOUR_PX}px`,
+                        }}
+                      >
+                        {now.toLocaleTimeString(undefined, {
+                          hour: "numeric",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    )}
                     {Array.from({ length: 24 }, (_, hour) => (
-                      <span key={hour} style={{ top: `${hour * 56}px` }}>
+                      <span
+                        key={hour}
+                        style={{ top: `${GRID_TOP + hour * HOUR_PX}px` }}
+                      >
                         {hour === 0
-                          ? "12am"
+                          ? "12 AM"
                           : hour < 12
-                            ? `${hour}am`
+                            ? `${hour} AM`
                             : hour === 12
-                              ? "12pm"
-                              : `${hour - 12}pm`}
+                              ? "12 PM"
+                              : `${hour - 12} PM`}
                       </span>
                     ))}
                   </div>
                   {days.map((date) => {
                     const key = dateKey(date);
                     const placements = placeOverlaps(
-                      blocks.filter(
+                      shownBlocks.filter(
                         (block) =>
                           block.selected_date === key && block.starts_at,
                       ),
                     );
                     return (
-                      <div className="cc-day-column" key={key}>
+                      <div
+                        className={`cc-day-column ${key === today ? "today" : ""}`}
+                        key={key}
+                        data-date={key}
+                        ref={(element) => {
+                          columnRefs.current[key] = element;
+                        }}
+                        onDragOver={(event) => {
+                          if (!event.dataTransfer.types.includes(dragType))
+                            return;
+                          event.preventDefault();
+                          event.dataTransfer.dropEffect = "copy";
+                          const rect = event.currentTarget.getBoundingClientRect();
+                          setDropPreview({
+                            date: key,
+                            minute: Math.min(
+                              1380,
+                              minuteFromOffset(
+                                event.clientY - rect.top - GRID_TOP,
+                                HOUR_PX,
+                              ),
+                            ),
+                          });
+                        }}
+                        onDragLeave={(event) => {
+                          if (!event.currentTarget.contains(event.relatedTarget as Node))
+                            setDropPreview(null);
+                        }}
+                        onDrop={(event) => {
+                          const [owner, id] = event.dataTransfer
+                            .getData(dragType)
+                            .split("|");
+                          const item = work.find(
+                            (entry) => entry.owner === owner && entry.id === id,
+                          );
+                          const target = dropPreview;
+                          setDropPreview(null);
+                          if (!item || !target) return;
+                          event.preventDefault();
+                          void scheduleTask(item, target.date, target.minute);
+                        }}
+                      >
                         {Array.from({ length: 24 }, (_, hour) => (
                           <i
                             className="cc-hour-line"
-                            style={{ top: `${hour * 56}px` }}
+                            style={{ top: `${GRID_TOP + hour * HOUR_PX}px` }}
                             key={hour}
                           />
                         ))}
+                        {key === today && (
+                          <i
+                            className="cc-now"
+                            style={{
+                              top: `${GRID_TOP + ((now.getHours() * 60 + now.getMinutes()) / 60) * HOUR_PX}px`,
+                            }}
+                          />
+                        )}
+                        {dropPreview?.date === key && (
+                          <div
+                            className="cc-drop-ghost"
+                            style={{
+                              top: `${GRID_TOP + (dropPreview.minute / 60) * HOUR_PX}px`,
+                              height: `${HOUR_PX}px`,
+                            }}
+                          >
+                            {new Date(2000, 0, 1, 0, dropPreview.minute).toLocaleTimeString(
+                              undefined,
+                              { hour: "numeric", minute: "2-digit" },
+                            )}
+                          </div>
+                        )}
                         {placements.map((placement) => {
                           const item = workForBlock(placement.block);
-                          const top = (placement.startMinute / 60) * 56;
+                          const top =
+                            GRID_TOP + (placement.startMinute / 60) * HOUR_PX;
                           const height = Math.max(
-                            28,
-                            Math.min(
-                              ((placement.endMinute - placement.startMinute) /
-                                60) *
-                                56,
-                              1344 - top,
-                            ),
+                            24,
+                            ((placement.endMinute - placement.startMinute) / 60) *
+                              HOUR_PX,
                           );
                           const left =
                             (placement.lane / placement.laneCount) * 100;
                           const width = 100 / placement.laneCount;
                           const lane = laneForBlock(placement.block);
+                          const stacked = Boolean(placement.stack);
+                          const original = blocks.find(
+                            (entry) => entry.id === placement.block.id,
+                          )!;
+                          const pending = pendingIds.includes(placement.block.id);
+                          const range = `${new Date(placement.block.starts_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}–${new Date(placement.block.ends_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`;
                           return (
-                            <button
-                              className="cc-timed-block"
+                            <div
+                              className={`cc-timed-block ${preview?.id === placement.block.id ? "dragging" : ""} ${pending ? "pending" : ""} ${item && item.id === selectedWork ? "selected" : ""} ${height < 40 ? "short" : ""}`}
+                              role="button"
+                              tabIndex={0}
                               key={placement.block.id}
+                              data-block-id={placement.block.id}
+                              aria-label={`${titleForBlock(placement.block)}, ${range}. Arrow keys move, Shift plus arrows resize, Enter edits.`}
                               style={
                                 {
                                   "--lane": laneColors[lane],
                                   top: `${top}px`,
                                   height: `${height}px`,
-                                  left: `calc(${left}% + 4px)`,
-                                  width: `calc(${width}% - 8px)`,
+                                  left: `calc(${left}% + 3px)`,
+                                  width: `calc(${width}% - 6px)`,
                                 } as React.CSSProperties
                               }
-                              onClick={(event) => {
-                                if (item && event.detail === 0)
-                                  openBlock(item, placement.block);
-                                else if (item) setSelectedWork(item.id);
+                              onPointerDown={(event) =>
+                                !stacked && beginGesture(event, original, "move")
+                              }
+                              onPointerMove={moveGesture}
+                              onPointerUp={endGesture}
+                              onPointerCancel={endGesture}
+                              onClick={() => {
+                                if (justDragged.current) return;
+                                if (item) setSelectedWork(item.id);
+                                if (
+                                  item &&
+                                  window.matchMedia("(pointer: coarse)").matches
+                                )
+                                  openBlock(item, original);
                               }}
                               onDoubleClick={() => {
-                                if (item) openBlock(item, placement.block);
+                                if (item) openBlock(item, original);
                               }}
-                              title={`${titleForBlock(placement.block)} · edit block`}
+                              onKeyDown={(event) => {
+                                if (event.target !== event.currentTarget) return;
+                                if (event.key === "Enter" || event.key === " ") {
+                                  event.preventDefault();
+                                  if (item) openBlock(item, original);
+                                  return;
+                                }
+                                if (!stacked) keyAdjust(event, original);
+                              }}
+                              title={`${titleForBlock(placement.block)} · double-click to edit`}
                             >
                               <strong>
-                                {placement.stack
-                                  ? `${placement.stack.length} overlapping blocks`
+                                {stacked
+                                  ? `${placement.stack!.length} overlapping blocks`
                                   : titleForBlock(placement.block)}
                               </strong>
                               <span>
-                                {placement.stack
-                                  ? placement.stack
-                                      .map(titleForBlock)
+                                {stacked
+                                  ? placement
+                                      .stack!.map(titleForBlock)
                                       .join(" · ")
-                                  : `${new Date(placement.block.starts_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}–${new Date(placement.block.ends_at!).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}`}
+                                  : durationLabel(
+                                      placement.endMinute - placement.startMinute,
+                                    )}
                               </span>
-                            </button>
+                              {!stacked && height >= 64 && (
+                                <span className="cc-block-range">{range}</span>
+                              )}
+                              {!stacked && (
+                                <i
+                                  className="cc-resize"
+                                  aria-hidden="true"
+                                  onPointerDown={(event) =>
+                                    beginGesture(event, original, "resize")
+                                  }
+                                  onPointerMove={moveGesture}
+                                  onPointerUp={endGesture}
+                                  onPointerCancel={endGesture}
+                                />
+                              )}
+                            </div>
                           );
                         })}
                       </div>
@@ -1327,6 +1733,20 @@ export default function CommandCenterApp() {
           </>
         )}
       </section>
+      {picker && (
+        <SchedulePicker
+          key={`${picker.owner}:${picker.id}`}
+          title={picker.title}
+          days={days.map(dateKey)}
+          today={today}
+          busy={busy}
+          onPlace={async (date, minute, duration) => {
+            if (await scheduleTask(picker, date, minute, duration))
+              setPicker(null);
+          }}
+          onClose={() => setPicker(null)}
+        />
+      )}
       {taskEditor && (
         <TaskEditor
           key={taskEditor.session}
@@ -1363,8 +1783,38 @@ export default function CommandCenterApp() {
                           title: result.result.title,
                           url: result.result.url,
                           status: result.result.status ?? "Todo",
+                          dueDate: result.result.dueDate ?? null,
                         },
                       ],
+                    },
+                  }
+                : current,
+            );
+            return true;
+          }}
+          onSubtaskComplete={async (childId) => {
+            const parent = taskEditor.work;
+            if (!parent || parent.owner === "notion") return false;
+            const result = await command({
+              action:
+                parent.owner === "asana"
+                  ? "asanaSubtaskComplete"
+                  : "linearSubtaskComplete",
+              parentId: parent.id,
+              childId,
+            });
+            if (result?.result?.status !== "Done") return false;
+            setTaskEditor((current) =>
+              current?.work && current.session === taskEditor.session
+                ? {
+                    ...current,
+                    work: {
+                      ...current.work,
+                      children: current.work.children?.map((child) =>
+                        child.id === childId
+                          ? { ...child, ...result.result }
+                          : child,
+                      ),
                     },
                   }
                 : current,

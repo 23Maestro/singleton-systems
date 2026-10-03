@@ -179,6 +179,7 @@ export async function listAsanaWork(): Promise<WorkItem[]> {
                   title: t.name,
                   url: t.permalink_url,
                   status: t.completed ? "Done" : "To Do",
+                  dueDate: t.due_on,
                 }))
               : [],
           })),
@@ -290,10 +291,29 @@ export async function createAsanaSubtask(parentId: string, title: string) {
     throw new Error(
       `Asana subtask ${created.data.gid} exists, but readback was not confirmed. Refresh before retrying.`,
     );
+  return child(after);
+}
+function child(task: Task) {
   return {
-    id: after.gid,
-    title: after.name,
-    url: after.permalink_url,
-    status: "To Do",
+    id: task.gid,
+    title: task.name,
+    url: task.permalink_url,
+    status: task.completed ? "Done" : "To Do",
+    dueDate: task.due_on,
   };
+}
+// Subtasks inherit ownership from the parent. Validate the parent's project,
+// confirm the parent link, then complete only the child. Never move sections.
+export async function completeAsanaSubtask(parentId: string, childId: string) {
+  const parent = await read(parentId);
+  projectFor(parent);
+  const before = await read(childId);
+  if (before.parent?.gid !== parentId)
+    throw new Error("That task is not a subtask of this parent.");
+  if (!before.completed)
+    await asanaRequest(`tasks/${childId}`, "PUT", { completed: true });
+  const after = await read(childId);
+  if (!after.completed || after.parent?.gid !== parentId)
+    throw new Error("Asana did not confirm the subtask completion.");
+  return child(after);
 }

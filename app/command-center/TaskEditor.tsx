@@ -42,6 +42,7 @@ type Props = {
   onState: (state: string) => Promise<void>;
   onRemove: () => Promise<void>;
   onSubtask: (title: string) => Promise<boolean>;
+  onSubtaskComplete: (childId: string) => Promise<boolean>;
   onClose: () => void;
 };
 
@@ -58,6 +59,7 @@ export default function TaskEditor({
   onState,
   onRemove,
   onSubtask,
+  onSubtaskComplete,
   onClose,
 }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -85,6 +87,9 @@ export default function TaskEditor({
   const [addingSubtask, setAddingSubtask] = useState(false);
   const [subtaskTitle, setSubtaskTitle] = useState("");
   const [validation, setValidation] = useState("");
+  const completing = useRef(new Set<string>());
+  const [completingIds, setCompletingIds] = useState<string[]>([]);
+  const [confirmed, setConfirmed] = useState("");
   const locked = busy || saving;
   const [projectId, setProjectId] = useState(work?.projectId ?? "linear");
   const [sectionId, setSectionId] = useState(work?.sectionId ?? "");
@@ -143,6 +148,25 @@ export default function TaskEditor({
       );
     } finally {
       setSaving(false);
+    }
+  }
+  async function completeSubtask(child: { id: string; title: string }) {
+    if (completing.current.has(child.id)) return;
+    completing.current.add(child.id);
+    setCompletingIds((ids) => [...ids, child.id]);
+    setConfirmed("");
+    setValidation("");
+    try {
+      if (await onSubtaskComplete(child.id))
+        setConfirmed(`Completed ${child.title}`);
+      else setValidation(`Could not complete ${child.title}. Try again.`);
+    } catch (cause) {
+      setValidation(
+        cause instanceof Error ? cause.message : "Could not complete the subtask.",
+      );
+    } finally {
+      completing.current.delete(child.id);
+      setCompletingIds((ids) => ids.filter((id) => id !== child.id));
     }
   }
   async function save(event: FormEvent<HTMLFormElement>) {
@@ -341,15 +365,6 @@ export default function TaskEditor({
                     onChange={(event) => setStart(event.target.value)}
                   />
                 </label>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStart("");
-                    setPanel(null);
-                  }}
-                >
-                  Untimed
-                </button>
               </div>
             )}
           </div>
@@ -472,21 +487,56 @@ export default function TaskEditor({
           </div>
           {work?.children?.length || addingSubtask ? (
             <div className="cc-editor-subtasks">
-              {work?.children?.map((child) => (
-                <a
-                  key={child.id}
-                  href={child.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={child.status === "Done" ? "done" : ""}
-                >
-                  <span>
-                    {child.status === "Done" ? <Check size={13} /> : null}
-                  </span>
-                  {child.title}
-                  <ArrowSquareOut size={13} />
-                </a>
-              ))}
+              {work?.children?.map((child) => {
+                const done = child.status === "Done";
+                const pending = completingIds.includes(child.id);
+                const overdue =
+                  !done && child.dueDate && child.dueDate.slice(0, 10) < today;
+                return (
+                  <div
+                    key={child.id}
+                    className={`cc-subtask ${done ? "done" : ""}`}
+                  >
+                    <button
+                      type="button"
+                      className="cc-subtask-check"
+                      role="checkbox"
+                      aria-checked={done}
+                      aria-label={`Complete ${child.title}`}
+                      disabled={done || pending || locked}
+                      onClick={() => void completeSubtask(child)}
+                    >
+                      {done || pending ? <Check size={13} weight="bold" /> : null}
+                    </button>
+                    <span className="cc-subtask-title" title={child.title}>
+                      {child.title}
+                    </span>
+                    {child.dueDate && (
+                      <time
+                        className={`cc-pill ${overdue ? "overdue" : ""}`}
+                        dateTime={child.dueDate}
+                      >
+                        {new Date(
+                          `${child.dueDate.slice(0, 10)}T12:00:00`,
+                        ).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </time>
+                    )}
+                    <a
+                      className="cc-subtask-link"
+                      href={child.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Open ${child.title} in ${work.owner === "asana" ? "Asana" : "Linear"}`}
+                      title="Open source"
+                    >
+                      <ArrowSquareOut size={15} />
+                    </a>
+                  </div>
+                );
+              })}
               {addingSubtask && (
                 <div className="cc-editor-subtask-input">
                   <input
@@ -551,6 +601,11 @@ export default function TaskEditor({
                 <LinkSimple size={20} /> Add link
               </button>
             ))}
+          {confirmed && !validation && !error && (
+            <span className="cc-editor-ok" role="status">
+              {confirmed}
+            </span>
+          )}
           {(validation || error) && (
             <span className="cc-editor-error" role="alert">
               {validation || error}
