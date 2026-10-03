@@ -25,20 +25,22 @@ export const commandSchema = z.discriminatedUnion("type", [
     type: z.enum(["income", "expense"]), name: z.string().trim().min(1).max(160),
     amount: money.positive(), date, category: z.enum(["Family", "Food", "Health", "Household", "Miscellaneous", "Personal", "Transportation", "Work"]).optional(),
   }).strict() }).strict(),
-  z.object({ type: z.literal("payment"), id: z.string().uuid(), entryId: z.string().min(1).max(100), amount: money.positive(), date }).strict(),
-  z.object({ type: z.literal("reconcile"), id: z.string().uuid(), amount: money }).strict(),
+  z.object({ type: z.literal("payment"), id: z.string().uuid(), entryId: z.string().min(1).max(100), amount: money.nonnegative(), date, resolve: z.boolean().optional() }).strict().refine(command => command.resolve || command.amount > 0, "Enter a valid amount."),
+  z.object({ type: z.literal("reconcile"), id: z.string().uuid(), amount: money, previousBalance: money.optional() }).strict(),
   z.object({ type: z.literal("save-item"), id: z.string().uuid(), entry: item, previous: item.optional() }).strict(),
 ]);
 export type LedgerCommand = z.infer<typeof commandSchema>;
 
 export function applyCommand(data: AppData, command: LedgerCommand, timestamp: string): AppData {
   if (command.type === "entry") return recordEntry(data, { ...command.entry, category: command.entry.type === "income" ? undefined : command.entry.category ?? "Miscellaneous", id: command.id, status: "paid", createdAt: timestamp });
-  if (command.type === "payment") return recordPayment(data, command.entryId, command.amount, command.date, command.id);
+  if (command.type === "payment") return recordPayment(data, command.entryId, command.amount, command.date, command.id, command.resolve);
   if (command.type === "reconcile") {
     if (data.transactions.some(t => t.id === command.id)) return data;
+    if (command.previousBalance != null && command.previousBalance !== data.currentBalance)
+      throw new Error("Your balance changed. Close and reopen the confirmation to use the latest balance.");
     const difference = subtract(command.amount, data.currentBalance);
     return { ...data, balanceSet: true, currentBalance: command.amount, transactions: [{
-      id: command.id, type: "reconcile", name: "Balance updated", amount: Math.abs(difference),
+      id: command.id, type: "reconcile", name: command.previousBalance != null && command.amount === 0 ? "Balance cleared" : "Balance updated", amount: Math.abs(difference),
       signedAmount: difference, date: todayISO(), status: "paid", createdAt: timestamp,
     }, ...data.transactions] };
   }

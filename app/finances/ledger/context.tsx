@@ -10,6 +10,8 @@ type Context = {
   navigate: (page: Page, options?: { entryType?: "income" | "expense" }) => void;
   addTransaction: (tx: Transaction) => Promise<void>;
   pay: (entryId: string, amount: number, date: string, id: string) => Promise<void>;
+  resolve: (entryId: string, amount: number, date: string, id: string) => Promise<void>;
+  clearBalance: (previousBalance: number, id: string) => Promise<void>;
   reconcile: (amount: number, id: string) => Promise<void>;
   saveEntry: (entry: PlanEntry, previous?: PlanEntry) => Promise<void>;
 };
@@ -64,6 +66,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     navigate: (next, options) => { setEntryType(options?.entryType ?? null); window.history.pushState(null, "", paths[next] + (options?.entryType ? `?type=${options.entryType}` : "")); },
     addTransaction: tx => commit({ type: "entry", id: tx.id, entry: { type: tx.type as "income" | "expense", name: tx.name, amount: tx.amount, date: tx.date, ...(tx.type === "expense" ? { category: tx.category } : {}) } }, "Entry saved"),
     pay: (entryId, amount, date, id) => commit({ type: "payment", entryId, amount, date, id }, "Payment recorded"),
+    resolve: (entryId, amount, date, id) => commit({ type: "payment", entryId, amount, date, id, resolve: true }, "Full balance paid · item resolved"),
+    clearBalance: (previousBalance, id) => commit({ type: "reconcile", amount: 0, previousBalance, id }, "Balance cleared"),
     reconcile: (amount, id) => commit({ type: "reconcile", amount, id }, "Balance updated"),
     saveEntry: (entry, previous) => {
       const key = JSON.stringify({ entry, previous });

@@ -20,6 +20,51 @@ assert.equal(data.currentBalance, 1359);
 assert.throws(() => apply({ type: "save-item", id: id(), previous, entry: { ...previous, amount: 30 } }), /changed/);
 assert.throws(() => commandSchema.parse({ ...income, extra: "injected" }));
 assert.throws(() => commandSchema.parse({ type: "payment", id: id(), entryId: "b1", amount: 1.234, date: "2026-08-31" }));
+// Full resolution uses the remaining balance, not the usual installment.
+const cleo = data.planEntries.find(e => e.id === "a1");
+const cashBeforeResolve = data.currentBalance;
+const resolution = { type: "payment", id: id(), entryId: cleo.id, amount: cleo.balance, date: "2026-08-31", resolve: true };
+const beforeResolve = structuredClone(data);
+data = apply(resolution);
+const resolved = data.planEntries.find(e => e.id === cleo.id);
+assert.equal(resolved.balance, 0);
+assert.equal(resolved.isActive, false);
+assert.equal(data.currentBalance, Math.round((cashBeforeResolve - cleo.balance) * 100) / 100);
+assert.equal(data.plannedPayments[0].amount, cleo.balance);
+assert.equal(data.plannedPayments[0].resolved, true);
+assert.deepEqual(apply(resolution), data);
+assert.equal(beforeResolve.planEntries.find(e => e.id === cleo.id).isActive, true);
+assert.throws(() => apply({ ...resolution, id: id() }), /inactive/);
+assert.throws(() => apply({ ...resolution, id: id(), resolve: false, amount: 5 }), /inactive/);
+const albert = data.planEntries.find(e => e.id === "a2");
+assert.throws(() => apply({ ...resolution, id: id(), entryId: albert.id, amount: albert.balance - 1 }), /balance changed/);
+assert.throws(() => apply({ ...resolution, id: id(), entryId: "b1", amount: 700 }), /Only an advance or debt/);
+assert.throws(() => apply({ ...resolution, id: id(), entryId: "d8", amount: data.planEntries.find(e => e.id === "d8").balance }), /exact remaining balance/);
+assert.throws(() => commandSchema.parse({ type: "payment", id: id(), entryId: albert.id, amount: 0, date: "2026-08-31" }));
+// A debt already at zero can be closed without deducting money again.
+const zeroBalanceData = { ...data, planEntries: data.planEntries.map(e => e.id === albert.id ? { ...e, balance: 0 } : e) };
+const zeroResolved = applyCommand(zeroBalanceData, commandSchema.parse({ ...resolution, id: id(), entryId: albert.id, amount: 0 }), new Date().toISOString());
+assert.equal(zeroResolved.currentBalance, data.currentBalance);
+assert.equal(zeroResolved.planEntries.find(e => e.id === albert.id).isActive, false);
+assert.equal(zeroResolved.planEntries.find(e => e.id === albert.id).paymentAmount, albert.paymentAmount);
+// Clear cash preserves every financial record and refuses stale confirmations.
+const clear = { type: "reconcile", id: id(), amount: 0, previousBalance: data.currentBalance };
+const beforeClear = structuredClone(data);
+assert.throws(() => apply({ ...clear, id: id(), previousBalance: clear.previousBalance + 1 }), /balance changed/);
+data = apply(clear);
+assert.equal(data.currentBalance, 0);
+assert.equal(data.balanceSet, true);
+assert.equal(data.transactions[0].name, "Balance cleared");
+assert.equal(data.transactions[0].signedAmount, -beforeClear.currentBalance);
+assert.deepEqual(data.transactions.slice(1), beforeClear.transactions);
+assert.deepEqual(data.planEntries, beforeClear.planEntries);
+assert.deepEqual(data.plannedPayments, beforeClear.plannedPayments);
+assert.deepEqual(apply(clear), data);
+// Clear also handles a negative cash balance with a signed correction.
+const negative = { ...beforeClear, currentBalance: -42.15 };
+const clearedNegative = applyCommand(negative, commandSchema.parse({ ...clear, id: id(), previousBalance: -42.15 }), new Date().toISOString());
+assert.equal(clearedNegative.currentBalance, 0);
+assert.equal(clearedNegative.transactions[0].signedAmount, 42.15);
 const old = [{ id: id(), name: "Macy's (PRA)", amount: "111.07", kind: "debt", category: "Debt", paid: false, entry_date: "2026-08-20", created_at: "2026-08-21T00:00:00Z", updated_at: "2026-08-21T00:00:00Z" },
   { id: id(), name: "Daycare", amount: "340.00", kind: "bill", category: "Child Support", paid: true, entry_date: "2026-08-20", created_at: "2026-08-21T00:00:00Z", updated_at: "2026-08-21T00:00:00Z" }];
 const imported = importLegacy(old, SEED);
@@ -36,4 +81,4 @@ assert.ok(!pkg.dependencies?.vite && !pkg.devDependencies?.vite);
 const css = readFileSync(new URL("app/finances/ledger/ledger.css", root), "utf8");
 assert.doesNotMatch(css, /@import|:root/);
 for (const route of ["finances", "finances-form", "finances-plan"]) assert.ok(readFileSync(new URL(`app/${route}/page.tsx`, root), "utf8"));
-console.log("PASS: server commands, replay-safe money, stale edits, strict input, legacy preservation, Next.js routes, scoped CSS, no Figma/Vite runtime.");
+console.log("PASS: server commands, full debt resolution, cash clearing, duplicate and stale confirmation safety, strict input, legacy preservation, Next.js routes, scoped CSS.");

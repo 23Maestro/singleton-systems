@@ -53,6 +53,8 @@
 .ledger-app .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
 .ledger-app .balance-block { padding: 24px 8px 32px; }
 .ledger-app .balance-label { display: flex; align-items: center; justify-content: space-between; color: var(--text-2); font-size: 14px; font-weight: 500; }
+.ledger-app .clear-balance-button { min-height: 44px; padding: 8px 12px; border: 0; background: transparent; border-radius: 10px; color: var(--text-2); font: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.ledger-app .resolve-button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 12px; color: var(--text-1); background: var(--raised); font-size: 13px; font-weight: 600; white-space: nowrap; }
 .ledger-app .text-button { font-size: 13px; background: transparent; border: 0; min-height: 44px; padding: 0 8px; color: var(--text-2); }
 .ledger-app .text-button:hover { color: var(--text-1); }
 .ledger-app .cash-value { font-size: clamp(42px,7vw,62px); font-weight: 550; letter-spacing: -.055em; line-height: 1.15; font-variant-numeric: tabular-nums; margin: 6px 0 28px; }

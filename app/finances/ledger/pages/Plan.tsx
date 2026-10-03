@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent } from "react"
 import { AnimatePresence } from "framer-motion"
-import { ArrowUpRight, CreditCard, Pencil, Plus, Receipt, Repeat2 } from "lucide-react"
+import { ArrowUpRight, Check, CreditCard, Pencil, Plus, Receipt, Repeat2 } from "lucide-react"
 import { useApp } from "../context"
 import {
   Modal,
@@ -32,6 +32,49 @@ const GROUP_ICONS = {
   subscription: Repeat2,
   advance: ArrowUpRight,
   debt: CreditCard,
+}
+
+function ResolveModal({ entry, onClose }: { entry: PlanEntry; onClose: () => void }) {
+  const { data, resolve, today } = useApp()
+  const [cashBefore] = useState(data.currentBalance)
+  const [date, setDate] = useState(today)
+  const [error, setError] = useState("")
+  const [busy, setBusy] = useState(false)
+  const id = useRef(crypto.randomUUID())
+  const saving = useRef(false)
+  const amount = entry.balance
+  const ready = amount != null && amount >= 0 && (entry.balanceHigh == null || entry.balanceHigh === amount)
+  async function submit(event: FormEvent) {
+    event.preventDefault()
+    if (saving.current || !ready) return
+    saving.current = true
+    setBusy(true)
+    setError("")
+    try {
+      await resolve(entry.id, amount!, date, id.current)
+      onClose()
+    } catch (e) {
+      setError((e as Error).message)
+    } finally {
+      saving.current = false
+      setBusy(false)
+    }
+  }
+  return <Modal title={`Resolve ${entry.name}?`} onClose={() => { if (!saving.current) onClose() }}>
+    <form className="stack" onSubmit={submit}>
+      {ready ? <>
+        <p>Record the entire remaining balance of {fmtCurrency(amount!)} as paid and mark {entry.name} resolved.</p>
+        {entry.isApproximate && <p className="hint">This uses the saved estimate. Edit the remaining balance first if the amount paid was different.</p>}
+        <p className="hint">This payment will be deducted from your current balance. Based on the balance when you opened this, you will have {fmtCurrency(subtract(cashBefore, amount!))} remaining.</p>
+        <DateField label="Payment date" value={date} max={today} onChange={setDate} />
+      </> : <p>Use the pencil to set an exact remaining balance before resolving this item.</p>}
+      {error && <p className="error" role="alert">{error}</p>}
+      <div className="modal-actions">
+        <button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</button>
+        <button className="btn btn-primary" disabled={busy || !ready}>{busy ? "Saving…" : "Resolve in full"}</button>
+      </div>
+    </form>
+  </Modal>
 }
 
 function PaymentModal({
@@ -369,7 +412,7 @@ export default function Plan() {
   const { data } = useApp()
   const [filter, setFilter] = useState<"all" | PlanType>("all")
   const [dialog, setDialog] = useState<{
-    mode: "pay" | "edit" | "add"
+    mode: "pay" | "resolve" | "edit" | "add"
     entry: PlanEntry
   } | null>(null)
   const liveEntry =
@@ -477,10 +520,15 @@ export default function Plan() {
                                 ✓ Paid {fmtDate(paid.date)}
                               </small>
                             )}
-                            {!e.isActive && <small>Inactive</small>}
+                            {!e.isActive && <small>{payoff && e.balance === 0 ? "Resolved" : "Inactive"}</small>}
                           </div>
                           <span className="row-amount">{displayAmount(e)}</span>
                           <div className="row-actions">
+                            {payoff && e.isActive && <button
+                              className="resolve-button"
+                              aria-label={`Resolve ${e.name} in full`}
+                              onClick={() => setDialog({ mode: "resolve", entry: e })}
+                            ><Check size={16} aria-hidden="true" /> Resolve</button>}
                             <button
                               disabled={
                                 !e.isActive ||
@@ -532,7 +580,8 @@ export default function Plan() {
           onClose={() => setDialog(null)}
         />
       )}
-      {dialog && dialog.mode !== "pay" && (
+      {dialog?.mode === "resolve" && <ResolveModal key={dialog.entry.id} entry={dialog.entry} onClose={() => setDialog(null)} />}
+      {dialog && (dialog.mode === "edit" || dialog.mode === "add") && (
         <EditModal
           key={dialog.entry.id}
           entry={dialog.entry}

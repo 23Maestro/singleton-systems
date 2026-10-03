@@ -1,13 +1,50 @@
-import { useState } from "react"
+import { useRef, useState, type FormEvent } from "react"
+import { AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, Inbox, Minus, Plus } from "lucide-react"
 import { useApp } from "../context"
 import SourceIcon from "../components/SourceIcon"
+import { Modal } from "../components/Controls"
 import { fmtCurrency, fmtDate, mondayFor } from "@/lib/ledger/dates"
 import { CATEGORY_STYLES } from "@/lib/ledger/ledger"
+
+function ClearBalanceModal({ balance, onClose }: { balance: number; onClose: () => void }) {
+  const { clearBalance } = useApp()
+  const id = useRef(crypto.randomUUID())
+  const saving = useRef(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState("")
+  async function submit(event: FormEvent) {
+    event.preventDefault()
+    if (saving.current) return
+    saving.current = true
+    setBusy(true)
+    setError("")
+    try {
+      await clearBalance(balance, id.current)
+      onClose()
+    } catch (e) {
+      setError((e as Error).message)
+    } finally {
+      saving.current = false
+      setBusy(false)
+    }
+  }
+  return <Modal title="Clear current balance?" onClose={() => { if (!saving.current) onClose() }}>
+    <form className="stack" onSubmit={submit}>
+      <p>Set your current balance from {fmtCurrency(balance)} to $0.00. Your saved income, expenses, and payment history will stay in place.</p>
+      {error && <p className="error" role="alert">{error}</p>}
+      <div className="modal-actions">
+        <button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</button>
+        <button className="btn btn-primary" disabled={busy}>{busy ? "Saving…" : "Clear balance"}</button>
+      </div>
+    </form>
+  </Modal>
+}
 
 export default function Home() {
   const { data, today, navigate } = useApp()
   const [weekOffset, setWeekOffset] = useState(0)
+  const [clearAmount, setClearAmount] = useState<number | null>(null)
   const date = new Date(mondayFor(today) + "T12:00:00")
   date.setDate(date.getDate() + weekOffset * 7)
   const start = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`
@@ -47,6 +84,8 @@ export default function Home() {
       label:
         pp.status === "planned"
           ? "Previously planned · not deducted"
+          : pp.resolved
+            ? "Resolved · Paid in full"
           : pp.planType === "bill" || pp.planType === "subscription"
             ? "C² · Paid"
             : "P² · Paid",
@@ -65,6 +104,7 @@ export default function Home() {
       <section className="balance-block">
         <div className="balance-label">
           <span>Current balance</span>
+          <button className="clear-balance-button" disabled={data.currentBalance === 0} onClick={() => setClearAmount(data.currentBalance)}>Clear balance</button>
         </div>
         <h1 className="cash-value">
           {fmtCurrency(data.currentBalance)}
@@ -146,6 +186,7 @@ export default function Home() {
           </p>
         )}
       </section>
+      <AnimatePresence>{clearAmount !== null && <ClearBalanceModal balance={clearAmount} onClose={() => setClearAmount(null)} />}</AnimatePresence>
     </div>
   )
 }

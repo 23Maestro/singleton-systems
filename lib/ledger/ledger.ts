@@ -193,28 +193,42 @@ export function recordPayment(
   amount: number,
   date: string,
   id: string,
+  resolve = false,
 ): AppData {
   if (data.plannedPayments.some((p) => p.id === id && p.status === "paid"))
     return data
-  parseAmount(String(amount))
+  parseAmount(String(amount), resolve)
   if (!id || !isDate(date)) throw new Error("Choose a valid payment date.")
   if (date > todayISO())
     throw new Error("A recorded payment cannot have a future date.")
   const e = data.planEntries.find((item) => item.id === entryId)
   if (!e)
     throw new Error("This item no longer exists. Close and reopen the payment.")
+  if (!e.isActive)
+    throw new Error("This item is inactive. Reopen its details to check the balance.")
   const changed = { ...e }
   if (isPayoff(e)) {
     if (e.balance == null)
       throw new Error(
         "Set a balance with the pencil first. An estimate is fine.",
       )
+    if (resolve) {
+      if (e.balanceHigh != null && e.balanceHigh !== e.balance)
+        throw new Error("Set an exact remaining balance with the pencil before resolving this item.")
+      if (amount !== e.balance)
+        throw new Error("The remaining balance changed. Close and reopen Resolve to use the latest balance.")
+      changed.isActive = false
+      changed.isApproximate = false
+      changed.balanceHigh = undefined
+      changed.balanceQualifier = undefined
+    }
     changed.balance = subtract(e.balance, amount)
-    if (e.balanceHigh != null)
+    if (!resolve && e.balanceHigh != null)
       changed.balanceHigh = subtract(e.balanceHigh, amount)
-    changed.paymentAmount = amount
+    if (amount > 0) changed.paymentAmount = amount
     changed.balanceDisplay = undefined
   }
+  else if (resolve) throw new Error("Only an advance or debt can be resolved.")
   return {
     ...data,
     balanceSet: true,
@@ -232,6 +246,7 @@ export function recordPayment(
         cycleStart: mondayFor(date),
         status: "paid",
         paidAt: new Date().toISOString(),
+        ...(resolve ? { resolved: true } : {}),
         planType: e.planType,
         dueDate: e.dueDate,
       },

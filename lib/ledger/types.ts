@@ -29,6 +29,7 @@ export interface PlannedPayment {
   cycleStart: string
   status: "planned" | "paid"
   paidAt?: string
+  resolved?: boolean
   planType: PlanType
   dueDate?: string
 }

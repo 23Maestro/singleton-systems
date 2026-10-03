@@ -21,7 +21,7 @@
     "check:lineups:framing": "node scripts/check-lineups-framing.test.mjs && node scripts/check-lineups-framing.mjs",
     "check:lineups:motion": "python3 -m unittest tools.lineups_motion.tests.test_cue_contract",
     "check:upwork-hourly": "node scripts/check-upwork-hourly-rubric.mjs",
-    "check:finances": "node scripts/check-finance-cycle.mjs && node scripts/check-finance-ledger.mjs",
+    "check:finances": "node scripts/check-finance-cycle.mjs && node scripts/check-finance-ledger.mjs && node scripts/check-ledger-integration.mjs",
     "check:cerebral:registry": "node scripts/check-cerebral-registry.mjs",
     "plugins:sync": "node scripts/sync-s-systems-mirrors.mjs",
     "plugins:sync:apply": "node scripts/sync-s-systems-mirrors.mjs --apply",
