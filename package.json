@@ -36,7 +36,7 @@
     "vercel:storage:cleanup": "node scripts/vercel-storage-cleanup.mjs",
     "check:supabase-cli": "node scripts/check-supabase-linked-cli.mjs",
     "check:transactions": "node scripts/check-cross-surface-transactions.mjs && node scripts/check-cross-surface-staleness.mjs",
-    "check:codex-rabbit": "node scripts/check-codex-rabbit-review.mjs",
+    "check:codex-rabbit": "node scripts/check-codex-rabbit-review.mjs && node scripts/check-code-delivery-stop.mjs",
     "review:codex-rabbit": "node scripts/codex-rabbit-review.mjs",
     "transactions:reconcile": "node scripts/reconcile-system-delivery.mjs",
     "cerebral:helper": "node scripts/cerebral-helper.mjs --html",
@@ -97,6 +97,7 @@
     "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py"
   },
   "dependencies": {
+    "@annotorious/annotorious": "3.9.4",
     "@calcom/embed-react": "^1.5.3",
     "@joint/core": "^4.3.1",
     "@linear/sdk": "^88.2.0",

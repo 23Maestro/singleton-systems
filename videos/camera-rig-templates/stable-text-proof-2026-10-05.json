@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-05",
+  "template": "Camera rig / Template 2",
+  "capability": "Static native-font alpha textures after live builds",
+  "sources": [
+    {
+      "file": "index.html",
+      "sha256": "c583f2b648a7aad8d65a05555b7e587cf7f6260cc3c9ab23a97c5a38d89dfea7"
+    },
+    {
+      "file": "stable-text.js",
+      "sha256": "79f6abd31e84767af80646b5d621866bee5d0c4d812b2ed718fff36d106d655e"
+    },
+    {
+      "file": "scripts/bake-text.mjs",
+      "sha256": "f60448b582b1260eead52980894cacc0ddb81edb2b140c26ae7462947326520d"
+    },
+    {
+      "file": "tests/stable-text.test.mjs",
+      "sha256": "8e43aad9d66f454f51db4b18dd645e8b593c12ebf4590b90f96e6f9da4916746"
+    },
+    {
+      "file": "package.json",
+      "sha256": "f6b7e37b7d675bdeecfa4a31899167b00cc146487fb4f9f94a92319abc463ff4"
+    },
+    {
+      "file": "README.md",
+      "sha256": "608d390d156da673a3ddc35f424713a58d2ca7050270bcd1c45b57187ed39903"
+    },
+    {
+      "file": "AGENTS.md",
+      "sha256": "e28901a23c03ff25ef73b88d7a0a9c1f85cd587bedec623676b59c8181026815"
+    }
+  ],
+  "engine": {
+    "rig.js": {
+      "before": "ce69d8a1639d70290950fdb1e97ba3c879fe9af4f63eab591060a68077a00a9f",
+      "after": "ce69d8a1639d70290950fdb1e97ba3c879fe9af4f63eab591060a68077a00a9f"
+    },
+    "rig.css": {
+      "before": "287f451a0a5e2d09afdabc6ba02589efe7066ff323a33a31cb656b965bdce777",
+      "after": "287f451a0a5e2d09afdabc6ba02589efe7066ff323a33a31cb656b965bdce777"
+    },
+    "rig.data.js": {
+      "before": "5f233b71eb6321ad6a2b6c5a93be91f5b4f22f58f46f800fdf0be2bd26978851",
+      "after": "5f233b71eb6321ad6a2b6c5a93be91f5b4f22f58f46f800fdf0be2bd26978851"
+    }
+  },
+  "profile": {
+    "stepSeconds": 1.2,
+    "whipSeconds": 1.5,
+    "authoringDuration": 21.4
+  },
+  "cli": {
+    "before": "0.8.127",
+    "after": "0.8.134",
+    "check": "Zero lint, runtime, layout, motion and contrast findings; 20/20 text contrast checks passed."
+  },
+  "text": {
+    "scale": 2,
+    "labels": 14,
+    "fingerprint": "a63de36bee43be20448b4faf3815a19826c77eb6b12afe68bbc7864189e18524",
+    "directory": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/source/template-2-text/a63de36bee43be20448b4faf3815a19826c77eb6b12afe68bbc7864189e18524",
+    "sourceCopy": "rig.data.js",
+    "regeneration": "npm run text:bake; automatic before test, preview, check, render and publish",
+    "dynamicOptOut": "data-rig-text=\"live\""
+  },
+  "tests": {
+    "red": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/source/template-2-stable-text-red-2026-10-05.log",
+    "green": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/source/template-2-stable-text-green-2026-10-05.log",
+    "seam": "Native composition seeking and exported pixels",
+    "passed": 1,
+    "failed": 0,
+    "behavior": "Alpha heading has 2x source density, replaces settled letter builds and reproduces its paint after a move and backward seek."
+  },
+  "sourceEdit": {
+    "editedHeading": "EDITABLE SOURCE",
+    "visible": true,
+    "image": "file:///Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/source/template-2-regeneration-proof-2026-10-05/assets/stable-text/text-001.png",
+    "total": "21.40"
+  },
+  "staleAssets": {
+    "changedTitle": "EDITABLE SOURCE",
+    "errors": [
+      "Static text text-001 changed. Run npm run text:bake."
+    ]
+  },
+  "dynamicCounter": {
+    "values": [
+      {
+        "time": 0.4,
+        "value": 20
+      },
+      {
+        "time": 1.4,
+        "value": 70
+      },
+      {
+        "time": 0.4,
+        "value": 20
+      }
+    ],
+    "rasterImagesInsideCounter": 0,
+    "total": "21.40"
+  },
+  "checkLog": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/source/template-2-stable-text-check-2026-10-05.log",
+  "render": {
+    "output": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/renders/template-2-stable-text-2026-10-05.mp4",
+    "sha256": "44c9f9c7b07bc9213ce1622e16a569af4c1367940d927c3461d53a5d68cf802a",
+    "bytes": 10595128,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1920,
+          "height": 1080,
+          "r_frame_rate": "30000/1001",
+          "duration": "21.421400",
+          "nb_read_frames": "642"
+        }
+      ]
+    },
+    "log": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/renders/template-2-stable-text-render-2026-10-05.log",
+    "capture": "screenshot / hardware GPU",
+    "decodedFrames": [
+      45,
+      615
+    ],
+    "inspection": "Native 1920x1080 heading and multiline card text retain the authored look, with transparent text image backgrounds."
+  },
+  "priorMeasuredSample": {
+    "source": "/Users/singleton23/Documents/Development/motion-studio/briefs/diy-smart-code/2026-10-05-review-r2-build.json",
+    "maxPaintJumpPixels": 0.1836628271620384,
+    "roundedPixels": 0.19
+  },
+  "registryChecks": "Cerebral registry, contract drift and hook routing pass.",
+  "preservedSource": "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/source/template-2-before-stable-text-2026-10-05",
+  "portfolio": {
+    "stage": "Build",
+    "candidates": [
+      "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/renders/template-2-stable-text-2026-10-05.mp4",
+      "/Volumes/HomeSSD/Generated/VIDEO_WORKFLOWS/previews/template-2-stable-text-heading-2026-10-05.png"
+    ],
+    "eagleWrite": "none"
+  }
+}

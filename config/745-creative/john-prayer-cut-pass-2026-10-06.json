@@ -1,0 +1,6057 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "clientId": "pastor_john",
+  "laneId": "prayer",
+  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/745Creative/2026-09-30_pastorjohn-test.prproj",
+  "removedReviewBinName": "John Prayer - Cut Reviews",
+  "removedReviewBinId": "000f465e",
+  "status": "saved cuts in existing sequences; extra review copies removed; listening and delivery approval pending",
+  "consolidation": {
+    "savedAt": "2026-10-07T02:52:56.046Z",
+    "userDirection": "Edit existing projects and sequences directly. No automatic review duplicates; Jerami reviews in place and can undo or restore source media.",
+    "originalSequencesEdited": 18,
+    "extraReviewCopiesRemoved": 18,
+    "reviewBinRemoved": true,
+    "remainingSequenceCount": 22,
+    "exactPreExistingSequenceIdsPreserved": true,
+    "sourceMediaRemoved": false,
+    "recordsMeaning": "The original records below document the initial duplicate cut pass. Their review IDs, final placement clip IDs, and originalUnchanged checks are historical, not current project state. This consolidation maps the verified cuts onto the existing originalSequenceId for each record.",
+    "recovery": "Native Undo in the current session or restore/re-extend the original source clips. No new backup projects or video files were created by this consolidation.",
+    "review": "Listening review, sound finishing, final caption timing, exports and delivery remain pending.",
+    "sequences": [
+      {
+        "sequenceId": "ca02215a-5f54-46e6-8e24-efde1ab078ec",
+        "name": "745_PJ_Prayer_FeelingBehindEveryoneElse_v01_REVIEW",
+        "durationSeconds": 54.30425,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "44156161-368e-4381-aeda-e87db379b184",
+        "name": "745_PJ_Prayer_AfraidOfTomorrow_CAPTION_TEST_10s_20261006",
+        "durationSeconds": 46.1794666666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "105927b9-0624-43aa-9651-cf522247d636",
+        "name": "745_PJ_Prayer_MoneyPressure_v01_REVIEW",
+        "durationSeconds": 44.7113333333333,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "1b090249-2775-47a2-856b-8109e76d2c1d",
+        "name": "745_PJ_Prayer_HaventPrayedinaLongTime_v01_REVIEW",
+        "durationSeconds": 46.1294166666627,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "20c9b3cd-43f5-44af-90af-d04bcde3db07",
+        "name": "745_PJ_Prayer_AshamedtoComeBack_v01_REVIEW",
+        "durationSeconds": 47.5308166666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "41dbcb4b-afca-48b4-990a-bd62f5b7a755",
+        "name": "745_PJ_Prayer_CarryingEveryoneElse_v01_REVIEW",
+        "durationSeconds": 55.1884666666627,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "5ad56fea-3f9d-42da-a73a-f5165eaedf30",
+        "name": "745_PJ_Prayer_HurtbytheChurch_v01_REVIEW",
+        "durationSeconds": 50.0833666666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "6231c0f2-c054-4d63-a298-7074f1f1438d",
+        "name": "745_PJ_Prayer_AlreadyTired_v01_REVIEW",
+        "durationSeconds": 52.9529,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "724eb930-b11f-434c-bbf6-6842eba83170",
+        "name": "745_PJ_Prayer_ADecisionYouCantMake_v01_REVIEW",
+        "durationSeconds": 49.4827666666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "7f5f74a4-e1b9-4bda-b6c6-a1390f6089c8",
+        "name": "745_PJ_Prayer_AMarriageHoldingOn_v01_REVIEW",
+        "durationSeconds": 47.1304166666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "989b272c-8d2e-408c-b5cc-82f6b91395cd",
+        "name": "745_PJ_Prayer_AMindThatWontShutOff_v01_REVIEW",
+        "durationSeconds": 47.0803666666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "a370ec07-75a5-4c6d-b3bd-eb9246547e9c",
+        "name": "745_PJ_Prayer_WhenthePastWontLetGo_v01_REVIEW",
+        "durationSeconds": 50.5171333333333,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "bcd887a4-2940-4593-8860-d90473ec4d2f",
+        "name": "745_PJ_Prayer_TheTemptationThatWaitsTillYoureAlone_v01_REVIEW",
+        "durationSeconds": 46.1460999999961,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "c336d049-c1a8-4d70-b362-593e463e052f",
+        "name": "745_PJ_Prayer_WorriedAboutYourKids_v01_REVIEW",
+        "durationSeconds": 49.8164333333333,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "c9995dad-dff7-4f32-88fa-f9e3e6025ea3",
+        "name": "745_PJ_Prayer_BreakingtheCycle_v01_REVIEW",
+        "durationSeconds": 52.7026499999961,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "d25986f2-a3f3-4e67-8d94-31c8dffbbbad",
+        "name": "745_PJ_Prayer_MissingSomeone_v01_REVIEW",
+        "durationSeconds": 49.0823666666667,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "f444828b-d7e8-4fc4-9c17-bc5386561b2f",
+        "name": "745_PJ_Prayer_TheThingNobodyKnows_v01_REVIEW",
+        "durationSeconds": 46.6132333333333,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      },
+      {
+        "sequenceId": "f533a19b-1b26-4e9a-b6cc-e4809a41f30b",
+        "name": "745_PJ_Prayer_FeelingLikeaFailure_v01_REVIEW",
+        "durationSeconds": 46.7633833333333,
+        "checks": {
+          "durationMatches": true,
+          "wordsUnchanged": true,
+          "videoMatchesCutCopy": true,
+          "audioMatchesCutCopy": true,
+          "audioVideoMappingMatches": true,
+          "continuousVideo": true,
+          "openingUnchanged": true
+        }
+      }
+    ]
+  },
+  "approval": {
+    "request": "Can you go thru and make cuts to all of John's clips we have ready please. Based on this example",
+    "example": "Remove the whole pause",
+    "save": "Yes, save the review copies"
+  },
+  "summary": {
+    "reviewSequences": 18,
+    "removedGaps": 170,
+    "removedSeconds": 110.09331666666667,
+    "heldGaps": 32,
+    "boldBeliefs": "6 sources not assembled in the current project; not included"
+  },
+  "policy": {
+    "transcriptProvider": "Completed Adobe Premiere Pro transcript only; no re-transcription",
+    "candidate": "Sentence-ending word gap >=0.4s within the same source placement",
+    "audioCheck": "FFmpeg silencedetect -35dB, minimum quiet interval 0.20s; full selected range must be covered",
+    "boundaries": "Inward-rounded 60000/1001 frame edges; no intentional breath retained inside a selected clean gap",
+    "opening": "Do not cut a gap crossing the existing opening graphic hold",
+    "method": "Frame-exact V1/A1 razors, exact range selection, native Edit > Ripple Delete",
+    "limits": "Audio-level and transcript checks do not replace listening to the joins. Captions must use the final cut timing. No footage, graphic styling, sound finishing, covers or client uploads changed."
+  },
+  "records": [
+    {
+      "sourceTitle": "Feeling Behind Everyone Else.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Feeling Behind Everyone Else.mov",
+      "sourceProjectItemId": "000f4284",
+      "originalSequenceId": "ca02215a-5f54-46e6-8e24-efde1ab078ec",
+      "originalSequenceName": "745_PJ_Prayer_FeelingBehindEveryoneElse_v01_REVIEW",
+      "reviewSequenceId": "8ce88be7-9297-4977-96fc-82c6e917ebae",
+      "reviewSequenceName": "745_PJ_Prayer_FeelingBehindEveryoneElse_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f465f",
+      "beforeDuration": 58.5585,
+      "afterDuration": 54.30425,
+      "removedSeconds": 4.254249999999988,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 143,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 10.877533333333334,
+            "end": 11.4114,
+            "startFrame": 652,
+            "endFrame": 684
+          },
+          "sourceRemoved": {
+            "start": 14.914899999996063,
+            "end": 15.448766666662731
+          },
+          "precedingWord": "behind.",
+          "nextWord": "Somebody",
+          "removedSeconds": 0.5338666666666665,
+          "quietInterval": {
+            "start": 14.886938,
+            "end": 15.633875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 14.664650000000002,
+            "end": 15.215200000000001,
+            "startFrame": 879,
+            "endFrame": 912
+          },
+          "sourceRemoved": {
+            "start": 18.702016666662733,
+            "end": 19.25256666666273
+          },
+          "precedingWord": "house.",
+          "nextWord": "Somebody",
+          "removedSeconds": 0.5505499999999994,
+          "quietInterval": {
+            "start": 18.659646,
+            "end": 19.452542
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 16.783433333333335,
+            "end": 17.367350000000002,
+            "startFrame": 1006,
+            "endFrame": 1041
+          },
+          "sourceRemoved": {
+            "start": 20.820799999996066,
+            "end": 21.404716666662733
+          },
+          "precedingWord": "promotion.",
+          "nextWord": "Somebody",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 20.617521,
+            "end": 21.477833
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 34.71801666666667,
+            "end": 35.21851666666667,
+            "startFrame": 2081,
+            "endFrame": 2111
+          },
+          "sourceRemoved": {
+            "start": 38.7553833333294,
+            "end": 39.2558833333294
+          },
+          "precedingWord": "them.",
+          "nextWord": "Give",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 38.580646,
+            "end": 39.495146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 43.02631666666667,
+            "end": 43.860483333333335,
+            "startFrame": 2579,
+            "endFrame": 2629
+          },
+          "sourceRemoved": {
+            "start": 47.0636833333294,
+            "end": 47.89784999999606
+          },
+          "precedingWord": "hands.",
+          "nextWord": "Keep",
+          "removedSeconds": 0.8341666666666612,
+          "quietInterval": {
+            "start": 46.965979,
+            "end": 48.127479
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 49.31593333333334,
+            "end": 50.050000000000004,
+            "startFrame": 2956,
+            "endFrame": 3000
+          },
+          "sourceRemoved": {
+            "start": 53.35329999999607,
+            "end": 54.08736666666273
+          },
+          "precedingWord": "responsibilities.",
+          "nextWord": "Turn",
+          "removedSeconds": 0.7340666666666635,
+          "quietInterval": {
+            "start": 53.269354,
+            "end": 54.299771
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 55.30525000000001,
+            "end": 55.822433333333336,
+            "startFrame": 3315,
+            "endFrame": 3346
+          },
+          "sourceRemoved": {
+            "start": 59.342616666662735,
+            "end": 59.85979999999606
+          },
+          "precedingWord": "today.",
+          "nextWord": "In",
+          "removedSeconds": 0.5171833333333282,
+          "quietInterval": {
+            "start": 59.225542,
+            "end": 60.069146
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 4.662633,
+          "end": 5.102633,
+          "precedingWord": "them.",
+          "nextWord": "Let's",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 5.822633,
+          "end": 6.782633,
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 19.902633,
+          "end": 20.742633,
+          "precedingWord": "outside.",
+          "nextWord": "God",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 24.262633,
+          "end": 25.022633,
+          "precedingWord": "else's.",
+          "nextWord": "Help",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 29.782633,
+          "end": 30.502633,
+          "precedingWord": "is.",
+          "nextWord": "Show",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4345",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 10.8775333333333,
+          "sourceIn": 4.03736666666273,
+          "sourceOut": 14.9149
+        },
+        {
+          "clipId": "000f434b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 10.8775333333333,
+          "timelineEnd": 14.1307833333333,
+          "sourceIn": 15.4487666666627,
+          "sourceOut": 18.7020166666667
+        },
+        {
+          "clipId": "000f434e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 14.1307833333333,
+          "timelineEnd": 15.6990166666667,
+          "sourceIn": 19.2525666666627,
+          "sourceOut": 20.8208
+        },
+        {
+          "clipId": "000f4351",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 15.6990166666667,
+          "timelineEnd": 33.0496833333333,
+          "sourceIn": 21.4047166666627,
+          "sourceOut": 38.7553833333333
+        },
+        {
+          "clipId": "000f435a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 33.0496833333333,
+          "timelineEnd": 40.8574833333333,
+          "sourceIn": 39.2558833333294,
+          "sourceOut": 47.0636833333333
+        },
+        {
+          "clipId": "000f4358",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 40.8574833333333,
+          "timelineEnd": 46.3129333333333,
+          "sourceIn": 47.8978499999961,
+          "sourceOut": 53.3533
+        },
+        {
+          "clipId": "000f435f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 46.3129333333333,
+          "timelineEnd": 51.5681833333333,
+          "sourceIn": 54.0873666666627,
+          "sourceOut": 59.3426166666667
+        },
+        {
+          "clipId": "000f4363",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 51.5681833333333,
+          "timelineEnd": 54.30425,
+          "sourceIn": 59.8597999999961,
+          "sourceOut": 62.5958666666667
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Afraid of Tomorrow.mov",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MUNOXORC7HRI2.info/Afraid of Tomorrow.mov",
+      "sourceProjectItemId": "000f4245",
+      "originalSequenceId": "44156161-368e-4381-aeda-e87db379b184",
+      "originalSequenceName": "745_PJ_Prayer_AfraidOfTomorrow_CAPTION_TEST_10s_20261006",
+      "reviewSequenceId": "5a3d77b8-515a-4c1e-b36e-bc6ea8fd3689",
+      "reviewSequenceName": "745_PJ_Prayer_AfraidOfTomorrow_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4660",
+      "beforeDuration": 48.9322166666667,
+      "afterDuration": 46.1794666666667,
+      "removedSeconds": 2.752749999999999,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 146,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 17.35066666666667,
+            "end": 17.901216666666667,
+            "startFrame": 1040,
+            "endFrame": 1073
+          },
+          "sourceRemoved": {
+            "start": 23.22319999999997,
+            "end": 23.773749999999964
+          },
+          "precedingWord": "yet.",
+          "nextWord": "God,",
+          "removedSeconds": 0.5505499999999977,
+          "quietInterval": {
+            "start": 22.947667,
+            "end": 23.971875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 20.036683333333336,
+            "end": 20.620600000000003,
+            "startFrame": 1201,
+            "endFrame": 1236
+          },
+          "sourceRemoved": {
+            "start": 25.909216666666637,
+            "end": 26.493133333333304
+          },
+          "precedingWord": "today.",
+          "nextWord": "Jesus",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 25.771208,
+            "end": 26.691979
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 23.473450000000003,
+            "end": 23.940583333333336,
+            "startFrame": 1407,
+            "endFrame": 1435
+          },
+          "sourceRemoved": {
+            "start": 29.3459833333333,
+            "end": 29.813116666666637
+          },
+          "precedingWord": "trouble.",
+          "nextWord": "Give",
+          "removedSeconds": 0.46713333333333296,
+          "quietInterval": {
+            "start": 29.180854,
+            "end": 30.047417
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 45.52881666666667,
+            "end": 46.06268333333334,
+            "startFrame": 2729,
+            "endFrame": 2761
+          },
+          "sourceRemoved": {
+            "start": 53.82043333333337,
+            "end": 54.35430000000004
+          },
+          "precedingWord": "arrived.",
+          "nextWord": "And",
+          "removedSeconds": 0.5338666666666683,
+          "quietInterval": {
+            "start": 53.715167,
+            "end": 54.629146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 47.66428333333334,
+            "end": 48.28156666666667,
+            "startFrame": 2857,
+            "endFrame": 2894
+          },
+          "sourceRemoved": {
+            "start": 55.955900000000035,
+            "end": 56.57318333333337
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 55.701833,
+            "end": 56.760562
+          }
+        }
+      ],
+      "heldGaps": [],
+      "finalPlacements": [
+        {
+          "clipId": "000f437a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.05305,
+          "sourceIn": 3.26993333333333,
+          "sourceOut": 6.32298333333333
+        },
+        {
+          "clipId": "000f437b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.05305,
+          "timelineEnd": 3.83716666666667,
+          "sourceIn": 7.007,
+          "sourceOut": 7.79111666666667
+        },
+        {
+          "clipId": "000f437c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.83716666666667,
+          "timelineEnd": 7.39071666666667,
+          "sourceIn": 8.59191666666667,
+          "sourceOut": 12.1454666666667
+        },
+        {
+          "clipId": "000f437d",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.39071666666667,
+          "timelineEnd": 10.2435666666667,
+          "sourceIn": 12.56255,
+          "sourceOut": 15.4154
+        },
+        {
+          "clipId": "000f437e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 10.2435666666667,
+          "timelineEnd": 17.3506666666667,
+          "sourceIn": 16.1161,
+          "sourceOut": 23.2232
+        },
+        {
+          "clipId": "000f4368",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 17.3506666666667,
+          "timelineEnd": 19.4861333333333,
+          "sourceIn": 23.77375,
+          "sourceOut": 25.9092166666667
+        },
+        {
+          "clipId": "000f436c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 19.4861333333333,
+          "timelineEnd": 22.3389833333333,
+          "sourceIn": 26.4931333333333,
+          "sourceOut": 29.3459833333333
+        },
+        {
+          "clipId": "000f4370",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 22.3389833333333,
+          "timelineEnd": 25.1584666666667,
+          "sourceIn": 29.8131166666667,
+          "sourceOut": 32.6326
+        },
+        {
+          "clipId": "000f437f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 25.1584666666667,
+          "timelineEnd": 32.7660666666667,
+          "sourceIn": 33.4667666666667,
+          "sourceOut": 41.0743666666667
+        },
+        {
+          "clipId": "000f4380",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 32.7660666666667,
+          "timelineEnd": 38.8054333333333,
+          "sourceIn": 41.9752666666667,
+          "sourceOut": 48.0146333333333
+        },
+        {
+          "clipId": "000f4381",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 38.8054333333333,
+          "timelineEnd": 43.9272166666667,
+          "sourceIn": 48.69865,
+          "sourceOut": 53.8204333333333
+        },
+        {
+          "clipId": "000f4374",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.9272166666667,
+          "timelineEnd": 45.5288166666667,
+          "sourceIn": 54.3543,
+          "sourceOut": 55.9559
+        },
+        {
+          "clipId": "000f4378",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 45.5288166666667,
+          "timelineEnd": 46.1794666666667,
+          "sourceIn": 56.5731833333333,
+          "sourceOut": 57.2238333333333
+        }
+      ],
+      "exceptions": [
+        "Uses Jerami's latest caption-test cut. Its opening graphics remain disabled as inherited; imported native captions are not a final timed caption pass."
+      ]
+    },
+    {
+      "sourceTitle": "Money Pressure.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Money Pressure.mov",
+      "sourceProjectItemId": "000f429e",
+      "originalSequenceId": "105927b9-0624-43aa-9651-cf522247d636",
+      "originalSequenceName": "745_PJ_Prayer_MoneyPressure_v01_REVIEW",
+      "reviewSequenceId": "73ef3754-c103-4694-adeb-256ab1068ad2",
+      "reviewSequenceName": "745_PJ_Prayer_MoneyPressure_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4661",
+      "beforeDuration": 50.2335166666667,
+      "afterDuration": 44.7113333333333,
+      "removedSeconds": 5.5221833333333326,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 148,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.4367666666666667,
+            "end": 4.254250000000001,
+            "startFrame": 206,
+            "endFrame": 255
+          },
+          "sourceRemoved": {
+            "start": 8.475133333333337,
+            "end": 9.292616666666671
+          },
+          "precedingWord": "you.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.817483333333334,
+          "quietInterval": {
+            "start": 8.341854,
+            "end": 9.487813
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 7.223883333333334,
+            "end": 7.691016666666667,
+            "startFrame": 433,
+            "endFrame": 461
+          },
+          "sourceRemoved": {
+            "start": 12.262250000000005,
+            "end": 12.729383333333338
+          },
+          "precedingWord": "today.",
+          "nextWord": "You",
+          "removedSeconds": 0.46713333333333296,
+          "quietInterval": {
+            "start": 12.100667,
+            "end": 12.916083
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 10.543866666666668,
+            "end": 11.061050000000002,
+            "startFrame": 632,
+            "endFrame": 663
+          },
+          "sourceRemoved": {
+            "start": 15.582233333333338,
+            "end": 16.09941666666667
+          },
+          "precedingWord": "responsibility.",
+          "nextWord": "You",
+          "removedSeconds": 0.5171833333333336,
+          "quietInterval": {
+            "start": 15.511875,
+            "end": 16.291208
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 13.196516666666668,
+            "end": 13.980633333333335,
+            "startFrame": 791,
+            "endFrame": 838
+          },
+          "sourceRemoved": {
+            "start": 18.234883333333336,
+            "end": 19.019000000000005
+          },
+          "precedingWord": "out.",
+          "nextWord": "God,",
+          "removedSeconds": 0.7841166666666677,
+          "quietInterval": {
+            "start": 18.104417,
+            "end": 19.217271
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 20.670650000000002,
+            "end": 21.25456666666667,
+            "startFrame": 1239,
+            "endFrame": 1274
+          },
+          "sourceRemoved": {
+            "start": 25.70901666666667,
+            "end": 26.292933333333337
+          },
+          "precedingWord": "panic.",
+          "nextWord": "Provide",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 25.549333,
+            "end": 26.497687
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 25.2252,
+            "end": 25.97595,
+            "startFrame": 1512,
+            "endFrame": 1557
+          },
+          "sourceRemoved": {
+            "start": 30.26356666666667,
+            "end": 31.014316666666673
+          },
+          "precedingWord": "it.",
+          "nextWord": "Guard",
+          "removedSeconds": 0.75075,
+          "quietInterval": {
+            "start": 30.034,
+            "end": 31.217125
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 31.781750000000002,
+            "end": 32.41571666666667,
+            "startFrame": 1905,
+            "endFrame": 1943
+          },
+          "sourceRemoved": {
+            "start": 36.82011666666667,
+            "end": 37.45408333333334
+          },
+          "precedingWord": "faithful.",
+          "nextWord": "Jesus",
+          "removedSeconds": 0.6339666666666659,
+          "quietInterval": {
+            "start": 36.723208,
+            "end": 37.612437
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 35.38535,
+            "end": 35.85248333333334,
+            "startFrame": 2121,
+            "endFrame": 2149
+          },
+          "sourceRemoved": {
+            "start": 40.42371666666667,
+            "end": 40.89085000000001
+          },
+          "precedingWord": "need.",
+          "nextWord": "Help",
+          "removedSeconds": 0.4671333333333365,
+          "quietInterval": {
+            "start": 40.282542,
+            "end": 41.068875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 39.50613333333334,
+            "end": 40.00663333333333,
+            "startFrame": 2368,
+            "endFrame": 2398
+          },
+          "sourceRemoved": {
+            "start": 44.544500000000006,
+            "end": 45.045
+          },
+          "precedingWord": "time.",
+          "nextWord": "Give",
+          "removedSeconds": 0.5004999999999953,
+          "quietInterval": {
+            "start": 44.45275,
+            "end": 45.220708
+          }
+        }
+      ],
+      "heldGaps": [],
+      "finalPlacements": [
+        {
+          "clipId": "000f43b0",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.43676666666667,
+          "sourceIn": 5.03836666666667,
+          "sourceOut": 8.47513333333333
+        },
+        {
+          "clipId": "000f439d",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.43676666666667,
+          "timelineEnd": 6.4064,
+          "sourceIn": 9.29261666666667,
+          "sourceOut": 12.26225
+        },
+        {
+          "clipId": "000f4393",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 6.4064,
+          "timelineEnd": 9.25925,
+          "sourceIn": 12.7293833333333,
+          "sourceOut": 15.5822333333333
+        },
+        {
+          "clipId": "000f4397",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.25925,
+          "timelineEnd": 11.3947166666667,
+          "sourceIn": 16.0994166666667,
+          "sourceOut": 18.2348833333333
+        },
+        {
+          "clipId": "000f439a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 11.3947166666667,
+          "timelineEnd": 18.0847333333333,
+          "sourceIn": 19.019,
+          "sourceOut": 25.7090166666667
+        },
+        {
+          "clipId": "000f43a0",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 18.0847333333333,
+          "timelineEnd": 22.0553666666667,
+          "sourceIn": 26.2929333333333,
+          "sourceOut": 30.2635666666667
+        },
+        {
+          "clipId": "000f43a4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 22.0553666666667,
+          "timelineEnd": 27.8611666666667,
+          "sourceIn": 31.0143166666667,
+          "sourceOut": 36.8201166666667
+        },
+        {
+          "clipId": "000f43a8",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 27.8611666666667,
+          "timelineEnd": 30.8308,
+          "sourceIn": 37.4540833333333,
+          "sourceOut": 40.4237166666667
+        },
+        {
+          "clipId": "000f43ac",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 30.8308,
+          "timelineEnd": 34.48445,
+          "sourceIn": 40.89085,
+          "sourceOut": 44.5445
+        },
+        {
+          "clipId": "000f43b1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 34.48445,
+          "timelineEnd": 44.7113333333333,
+          "sourceIn": 45.045,
+          "sourceOut": 55.2718833333333
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Havent Prayed in a Long Time.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Havent Prayed in a Long Time.mov",
+      "sourceProjectItemId": "000f42a1",
+      "originalSequenceId": "1b090249-2775-47a2-856b-8109e76d2c1d",
+      "originalSequenceName": "745_PJ_Prayer_HaventPrayedinaLongTime_v01_REVIEW",
+      "reviewSequenceId": "53680956-6cd1-4687-89d8-0936b1fa1188",
+      "reviewSequenceName": "745_PJ_Prayer_HaventPrayedinaLongTime_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4662",
+      "beforeDuration": 50.4337166666627,
+      "afterDuration": 46.1294166666627,
+      "removedSeconds": 4.304299999999995,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 152,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 4.9049000000000005,
+            "end": 5.85585,
+            "startFrame": 294,
+            "endFrame": 351
+          },
+          "sourceRemoved": {
+            "start": 9.94326666666667,
+            "end": 10.89421666666667
+          },
+          "precedingWord": "you.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.9509499999999997,
+          "quietInterval": {
+            "start": 9.889188,
+            "end": 11.088354
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 20.236883333333335,
+            "end": 20.687333333333335,
+            "startFrame": 1213,
+            "endFrame": 1240
+          },
+          "sourceRemoved": {
+            "start": 25.275250000000007,
+            "end": 25.725700000000003
+          },
+          "precedingWord": "here.",
+          "nextWord": "Thank",
+          "removedSeconds": 0.45045,
+          "quietInterval": {
+            "start": 25.234333,
+            "end": 25.766271
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 26.826800000000002,
+            "end": 27.377350000000003,
+            "startFrame": 1608,
+            "endFrame": 1641
+          },
+          "sourceRemoved": {
+            "start": 31.865166666666674,
+            "end": 32.415716666666675
+          },
+          "precedingWord": "long.",
+          "nextWord": "Take",
+          "removedSeconds": 0.5505500000000012,
+          "quietInterval": {
+            "start": 31.845708,
+            "end": 32.448625
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 32.34898333333334,
+            "end": 32.84948333333334,
+            "startFrame": 1939,
+            "endFrame": 1969
+          },
+          "sourceRemoved": {
+            "start": 37.387350000000005,
+            "end": 37.88785000000001
+          },
+          "precedingWord": "Jesus.",
+          "nextWord": "Give",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 37.368792,
+            "end": 38.126
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 38.038000000000004,
+            "end": 38.455083333333334,
+            "startFrame": 2280,
+            "endFrame": 2305
+          },
+          "sourceRemoved": {
+            "start": 43.07636666666667,
+            "end": 43.49345
+          },
+          "precedingWord": "again.",
+          "nextWord": "And",
+          "removedSeconds": 0.4170833333333306,
+          "quietInterval": {
+            "start": 42.958708,
+            "end": 43.651396
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 43.67696666666667,
+            "end": 44.17746666666667,
+            "startFrame": 2618,
+            "endFrame": 2648
+          },
+          "sourceRemoved": {
+            "start": 48.71533333333334,
+            "end": 49.215833333333336
+          },
+          "precedingWord": "begin.",
+          "nextWord": "Meet",
+          "removedSeconds": 0.5004999999999953,
+          "quietInterval": {
+            "start": 48.579271,
+            "end": 49.333875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 47.113733333333336,
+            "end": 47.61423333333334,
+            "startFrame": 2824,
+            "endFrame": 2854
+          },
+          "sourceRemoved": {
+            "start": 52.152100000000004,
+            "end": 52.65260000000001
+          },
+          "precedingWord": "you.",
+          "nextWord": "In",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 52.038479,
+            "end": 52.781229
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 49.06568333333334,
+            "end": 49.49945,
+            "startFrame": 2941,
+            "endFrame": 2967
+          },
+          "sourceRemoved": {
+            "start": 54.10405000000001,
+            "end": 54.53781666666667
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.4337666666666635,
+          "quietInterval": {
+            "start": 53.991875,
+            "end": 54.703958
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 9.381633,
+          "end": 10.301633,
+          "precedingWord": "time.",
+          "nextWord": "Maybe",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 12.461633,
+          "end": 13.061633,
+          "precedingWord": "anymore.",
+          "nextWord": "Maybe",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 23.541633,
+          "end": 24.221633,
+          "precedingWord": "today.",
+          "nextWord": "Take",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f43d7",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 4.9049,
+          "sourceIn": 5.03836666666667,
+          "sourceOut": 9.9432666666706
+        },
+        {
+          "clipId": "000f43b9",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.9049,
+          "timelineEnd": 19.2859333333333,
+          "sourceIn": 10.8942166666667,
+          "sourceOut": 25.2752500000039
+        },
+        {
+          "clipId": "000f43bd",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 19.2859333333333,
+          "timelineEnd": 25.4254,
+          "sourceIn": 25.7257,
+          "sourceOut": 31.8651666666706
+        },
+        {
+          "clipId": "000f43c1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 25.4254,
+          "timelineEnd": 30.3970333333333,
+          "sourceIn": 32.4157166666667,
+          "sourceOut": 37.3873500000039
+        },
+        {
+          "clipId": "000f43c5",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 30.3970333333333,
+          "timelineEnd": 35.58555,
+          "sourceIn": 37.88785,
+          "sourceOut": 43.0763666666706
+        },
+        {
+          "clipId": "000f43c9",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 35.58555,
+          "timelineEnd": 40.8074333333333,
+          "sourceIn": 43.49345,
+          "sourceOut": 48.7153333333373
+        },
+        {
+          "clipId": "000f43cd",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 40.8074333333333,
+          "timelineEnd": 43.7437,
+          "sourceIn": 49.2158333333333,
+          "sourceOut": 52.1521000000039
+        },
+        {
+          "clipId": "000f43d1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.7437,
+          "timelineEnd": 45.19515,
+          "sourceIn": 52.6526,
+          "sourceOut": 54.1040500000039
+        },
+        {
+          "clipId": "000f43d4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 45.19515,
+          "timelineEnd": 46.1294166666627,
+          "sourceIn": 54.5378166666667,
+          "sourceOut": 55.4720833333333
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Ashamed to Come Back.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Ashamed to Come Back.mov",
+      "sourceProjectItemId": "000f4298",
+      "originalSequenceId": "20c9b3cd-43f5-44af-90af-d04bcde3db07",
+      "originalSequenceName": "745_PJ_Prayer_AshamedtoComeBack_v01_REVIEW",
+      "reviewSequenceId": "f91e08f7-14f0-4dfc-ba28-3cd2217c79c1",
+      "reviewSequenceName": "745_PJ_Prayer_AshamedtoComeBack_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4663",
+      "beforeDuration": 56.3563,
+      "afterDuration": 47.5308166666667,
+      "removedSeconds": 8.825483333333333,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 150,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 4.020683333333333,
+            "end": 5.138466666666667,
+            "startFrame": 241,
+            "endFrame": 308
+          },
+          "sourceRemoved": {
+            "start": 6.9402666666666635,
+            "end": 8.058049999999998
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 1.1177833333333336,
+          "quietInterval": {
+            "start": 6.799937,
+            "end": 8.222896
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 8.591916666666668,
+            "end": 9.726383333333334,
+            "startFrame": 515,
+            "endFrame": 583
+          },
+          "sourceRemoved": {
+            "start": 11.511499999999998,
+            "end": 12.645966666666665
+          },
+          "precedingWord": "ashamed.",
+          "nextWord": "They",
+          "removedSeconds": 1.1344666666666665,
+          "quietInterval": {
+            "start": 11.315146,
+            "end": 12.859667
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.028683333333335,
+            "end": 12.6126,
+            "startFrame": 721,
+            "endFrame": 756
+          },
+          "sourceRemoved": {
+            "start": 14.948266666666665,
+            "end": 15.53218333333333
+          },
+          "precedingWord": "done.",
+          "nextWord": "And",
+          "removedSeconds": 0.5839166666666653,
+          "quietInterval": {
+            "start": 14.80175,
+            "end": 15.7315
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 15.265250000000002,
+            "end": 16.249566666666666,
+            "startFrame": 915,
+            "endFrame": 974
+          },
+          "sourceRemoved": {
+            "start": 18.18483333333333,
+            "end": 19.169149999999995
+          },
+          "precedingWord": "away.",
+          "nextWord": "God,",
+          "removedSeconds": 0.9843166666666647,
+          "quietInterval": {
+            "start": 18.045188,
+            "end": 19.409333
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 18.985633333333336,
+            "end": 19.569550000000003,
+            "startFrame": 1138,
+            "endFrame": 1173
+          },
+          "sourceRemoved": {
+            "start": 21.905216666666668,
+            "end": 22.489133333333335
+          },
+          "precedingWord": "today.",
+          "nextWord": "Like",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 21.776,
+            "end": 22.69675
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 22.2222,
+            "end": 22.806116666666668,
+            "startFrame": 1332,
+            "endFrame": 1367
+          },
+          "sourceRemoved": {
+            "start": 25.14178333333333,
+            "end": 25.725699999999996
+          },
+          "precedingWord": "afar.",
+          "nextWord": "You",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 25.130437,
+            "end": 25.940062
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 25.508816666666668,
+            "end": 26.00931666666667,
+            "startFrame": 1529,
+            "endFrame": 1559
+          },
+          "sourceRemoved": {
+            "start": 28.428399999999996,
+            "end": 28.9289
+          },
+          "precedingWord": "road.",
+          "nextWord": "Draw",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 28.229042,
+            "end": 29.108437
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 27.427400000000002,
+            "end": 28.094733333333334,
+            "startFrame": 1644,
+            "endFrame": 1684
+          },
+          "sourceRemoved": {
+            "start": 30.346983333333334,
+            "end": 31.014316666666666
+          },
+          "precedingWord": "home.",
+          "nextWord": "Give",
+          "removedSeconds": 0.6673333333333318,
+          "quietInterval": {
+            "start": 30.294354,
+            "end": 31.214625
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 34.58455,
+            "end": 35.05168333333334,
+            "startFrame": 2073,
+            "endFrame": 2101
+          },
+          "sourceRemoved": {
+            "start": 37.50413333333333,
+            "end": 37.971266666666665
+          },
+          "precedingWord": "Jesus.",
+          "nextWord": "Reminded",
+          "removedSeconds": 0.4671333333333365,
+          "quietInterval": {
+            "start": 37.479896,
+            "end": 38.179958
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 42.542500000000004,
+            "end": 43.29325,
+            "startFrame": 2550,
+            "endFrame": 2595
+          },
+          "sourceRemoved": {
+            "start": 45.46208333333333,
+            "end": 46.21283333333333
+          },
+          "precedingWord": "home.",
+          "nextWord": "Let's",
+          "removedSeconds": 0.7507499999999965,
+          "quietInterval": {
+            "start": 45.424979,
+            "end": 46.4165
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 52.5525,
+            "end": 53.33661666666667,
+            "startFrame": 3150,
+            "endFrame": 3197
+          },
+          "sourceRemoved": {
+            "start": 55.47208333333333,
+            "end": 56.2562
+          },
+          "precedingWord": "you.",
+          "nextWord": "In",
+          "removedSeconds": 0.7841166666666695,
+          "quietInterval": {
+            "start": 55.393792,
+            "end": 56.453667
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 54.78806666666667,
+            "end": 55.455400000000004,
+            "startFrame": 3284,
+            "endFrame": 3324
+          },
+          "sourceRemoved": {
+            "start": 57.70765,
+            "end": 58.37498333333333
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.6673333333333318,
+          "quietInterval": {
+            "start": 57.590417,
+            "end": 58.567083
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 2.7527500000000003,
+          "end": 3.2532500000000004,
+          "precedingWord": "now.",
+          "nextWord": "Let's",
+          "reason": "Crosses existing opening title/fade hold; preserved"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4410",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 2.75275,
+          "sourceIn": 2.91958333333333,
+          "sourceOut": 5.67233333333333
+        },
+        {
+          "clipId": "000f43dc",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 2.75275,
+          "timelineEnd": 3.25325,
+          "sourceIn": 5.67233333333333,
+          "sourceOut": 6.17283333333333
+        },
+        {
+          "clipId": "000f43de",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.25325,
+          "timelineEnd": 4.02068333333333,
+          "sourceIn": 6.17283333333333,
+          "sourceOut": 6.94026666666667
+        },
+        {
+          "clipId": "000f43e2",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.02068333333333,
+          "timelineEnd": 7.47413333333333,
+          "sourceIn": 8.05805,
+          "sourceOut": 11.5115
+        },
+        {
+          "clipId": "000f43e5",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.47413333333333,
+          "timelineEnd": 9.77643333333333,
+          "sourceIn": 12.6459666666667,
+          "sourceOut": 14.9482666666667
+        },
+        {
+          "clipId": "000f43e9",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.77643333333333,
+          "timelineEnd": 12.4290833333333,
+          "sourceIn": 15.5321833333333,
+          "sourceOut": 18.1848333333333
+        },
+        {
+          "clipId": "000f43ed",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 12.4290833333333,
+          "timelineEnd": 15.16515,
+          "sourceIn": 19.16915,
+          "sourceOut": 21.9052166666667
+        },
+        {
+          "clipId": "000f43f1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 15.16515,
+          "timelineEnd": 17.8178,
+          "sourceIn": 22.4891333333333,
+          "sourceOut": 25.1417833333333
+        },
+        {
+          "clipId": "000f43f5",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 17.8178,
+          "timelineEnd": 20.5205,
+          "sourceIn": 25.7257,
+          "sourceOut": 28.4284
+        },
+        {
+          "clipId": "000f43fa",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 20.5205,
+          "timelineEnd": 21.9385833333333,
+          "sourceIn": 28.9289,
+          "sourceOut": 30.3469833333333
+        },
+        {
+          "clipId": "000f43fe",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 21.9385833333333,
+          "timelineEnd": 28.4284,
+          "sourceIn": 31.0143166666667,
+          "sourceOut": 37.5041333333333
+        },
+        {
+          "clipId": "000f4402",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 28.4284,
+          "timelineEnd": 35.9192166666667,
+          "sourceIn": 37.9712666666667,
+          "sourceOut": 45.4620833333333
+        },
+        {
+          "clipId": "000f4406",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 35.9192166666667,
+          "timelineEnd": 45.1784666666667,
+          "sourceIn": 46.2128333333333,
+          "sourceOut": 55.4720833333333
+        },
+        {
+          "clipId": "000f440a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 45.1784666666667,
+          "timelineEnd": 46.6299166666667,
+          "sourceIn": 56.2562,
+          "sourceOut": 57.70765
+        },
+        {
+          "clipId": "000f440e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 46.6299166666667,
+          "timelineEnd": 47.5308166666667,
+          "sourceIn": 58.3749833333333,
+          "sourceOut": 59.2758833333333
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Carrying Everyone Else.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Carrying Everyone Else.mov",
+      "sourceProjectItemId": "000f4294",
+      "originalSequenceId": "41dbcb4b-afca-48b4-990a-bd62f5b7a755",
+      "originalSequenceName": "745_PJ_Prayer_CarryingEveryoneElse_v01_REVIEW",
+      "reviewSequenceId": "70c51536-43e1-4f68-9517-63c0d2af7868",
+      "reviewSequenceName": "745_PJ_Prayer_CarryingEveryoneElse_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4664",
+      "beforeDuration": 61.0109499999961,
+      "afterDuration": 55.1884666666627,
+      "removedSeconds": 5.8224833333333414,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 150,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 15.882533333333335,
+            "end": 16.316300000000002,
+            "startFrame": 952,
+            "endFrame": 978
+          },
+          "sourceRemoved": {
+            "start": 19.386033333333334,
+            "end": 19.8198
+          },
+          "precedingWord": "responsibilities.",
+          "nextWord": "It",
+          "removedSeconds": 0.4337666666666671,
+          "quietInterval": {
+            "start": 19.316,
+            "end": 19.910208
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 17.767750000000003,
+            "end": 18.234883333333336,
+            "startFrame": 1065,
+            "endFrame": 1093
+          },
+          "sourceRemoved": {
+            "start": 21.271250000000002,
+            "end": 21.738383333333335
+          },
+          "precedingWord": "stop.",
+          "nextWord": "God,",
+          "removedSeconds": 0.46713333333333296,
+          "quietInterval": {
+            "start": 21.050021,
+            "end": 21.900333
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 22.40571666666667,
+            "end": 23.27325,
+            "startFrame": 1343,
+            "endFrame": 1395
+          },
+          "sourceRemoved": {
+            "start": 25.90921666666667,
+            "end": 26.77675
+          },
+          "precedingWord": "Savior.",
+          "nextWord": "There",
+          "removedSeconds": 0.8675333333333306,
+          "quietInterval": {
+            "start": 25.77075,
+            "end": 26.981646
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 39.039,
+            "end": 40.02331666666667,
+            "startFrame": 2340,
+            "endFrame": 2399
+          },
+          "sourceRemoved": {
+            "start": 42.542500000000004,
+            "end": 43.526816666666676
+          },
+          "precedingWord": "to.",
+          "nextWord": "Teach",
+          "removedSeconds": 0.9843166666666718,
+          "quietInterval": {
+            "start": 42.437896,
+            "end": 43.727333
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 42.12541666666667,
+            "end": 43.19315,
+            "startFrame": 2525,
+            "endFrame": 2589
+          },
+          "sourceRemoved": {
+            "start": 45.628916666666676,
+            "end": 46.696650000000005
+          },
+          "precedingWord": "guilty.",
+          "nextWord": "And",
+          "removedSeconds": 1.0677333333333294,
+          "quietInterval": {
+            "start": 45.47275,
+            "end": 46.85675
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 46.563183333333335,
+            "end": 47.230516666666674,
+            "startFrame": 2791,
+            "endFrame": 2831
+          },
+          "sourceRemoved": {
+            "start": 50.06668333333334,
+            "end": 50.734016666666676
+          },
+          "precedingWord": "else.",
+          "nextWord": "Remind",
+          "removedSeconds": 0.6673333333333389,
+          "quietInterval": {
+            "start": 50.057708,
+            "end": 50.916896
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 57.323933333333336,
+            "end": 58.07468333333334,
+            "startFrame": 3436,
+            "endFrame": 3481
+          },
+          "sourceRemoved": {
+            "start": 60.82743333333334,
+            "end": 61.57818333333334
+          },
+          "precedingWord": "you.",
+          "nextWord": "In",
+          "removedSeconds": 0.7507500000000036,
+          "quietInterval": {
+            "start": 60.771354,
+            "end": 61.740167
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 59.52613333333334,
+            "end": 60.11005000000001,
+            "startFrame": 3568,
+            "endFrame": 3603
+          },
+          "sourceRemoved": {
+            "start": 63.029633333333344,
+            "end": 63.61355000000001
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 62.874333,
+            "end": 63.774875
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 4.1565,
+          "end": 5.1165,
+          "precedingWord": "you.",
+          "nextWord": "Father,",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 27.3565,
+          "end": 28.3165,
+          "precedingWord": "hands.",
+          "nextWord": "Give",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 30.7165,
+          "end": 31.3965,
+          "precedingWord": "difference.",
+          "nextWord": "Help",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 36.2765,
+          "end": 37.1965,
+          "precedingWord": "them.",
+          "nextWord": "Teach",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4435",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 15.8825333333333,
+          "sourceIn": 3.5035,
+          "sourceOut": 19.3860333333373
+        },
+        {
+          "clipId": "000f4417",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 15.8825333333333,
+          "timelineEnd": 17.3339833333333,
+          "sourceIn": 19.8198,
+          "sourceOut": 21.2712500000039
+        },
+        {
+          "clipId": "000f441b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 17.3339833333333,
+          "timelineEnd": 21.5048166666667,
+          "sourceIn": 21.7383833333333,
+          "sourceOut": 25.9092166666706
+        },
+        {
+          "clipId": "000f441f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 21.5048166666667,
+          "timelineEnd": 37.2705666666667,
+          "sourceIn": 26.77675,
+          "sourceOut": 42.5425000000039
+        },
+        {
+          "clipId": "000f4423",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 37.2705666666667,
+          "timelineEnd": 39.3726666666667,
+          "sourceIn": 43.5268166666667,
+          "sourceOut": 45.6289166666706
+        },
+        {
+          "clipId": "000f4426",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 39.3726666666667,
+          "timelineEnd": 42.7427,
+          "sourceIn": 46.69665,
+          "sourceOut": 50.0666833333373
+        },
+        {
+          "clipId": "000f442b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 42.7427,
+          "timelineEnd": 52.8361166666667,
+          "sourceIn": 50.7340166666667,
+          "sourceOut": 60.8274333333373
+        },
+        {
+          "clipId": "000f442f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 52.8361166666667,
+          "timelineEnd": 54.2875666666667,
+          "sourceIn": 61.5781833333333,
+          "sourceOut": 63.0296333333373
+        },
+        {
+          "clipId": "000f4439",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 54.2875666666667,
+          "timelineEnd": 55.1884666666627,
+          "sourceIn": 63.61355,
+          "sourceOut": 64.51445
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Hurt by the Church.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Hurt by the Church.mov",
+      "sourceProjectItemId": "000f429d",
+      "originalSequenceId": "5ad56fea-3f9d-42da-a73a-f5165eaedf30",
+      "originalSequenceName": "745_PJ_Prayer_HurtbytheChurch_v01_REVIEW",
+      "reviewSequenceId": "ce42a8b7-3560-47f3-bbf3-d75552f5707c",
+      "reviewSequenceName": "745_PJ_Prayer_HurtbytheChurch_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4665",
+      "beforeDuration": 57.9912666666667,
+      "afterDuration": 50.0833666666667,
+      "removedSeconds": 7.90789999999999,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 148,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 4.1541500000000005,
+            "end": 4.65465,
+            "startFrame": 249,
+            "endFrame": 279
+          },
+          "sourceRemoved": {
+            "start": 9.22588333333333,
+            "end": 9.726383333333331
+          },
+          "precedingWord": "again.",
+          "nextWord": "Let's",
+          "removedSeconds": 0.5004999999999997,
+          "quietInterval": {
+            "start": 9.050646,
+            "end": 9.901875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 5.388716666666667,
+            "end": 6.45645,
+            "startFrame": 323,
+            "endFrame": 387
+          },
+          "sourceRemoved": {
+            "start": 10.460449999999998,
+            "end": 11.528183333333331
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 1.067733333333333,
+          "quietInterval": {
+            "start": 10.343187,
+            "end": 11.713625
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 9.359350000000001,
+            "end": 10.026683333333335,
+            "startFrame": 561,
+            "endFrame": 601
+          },
+          "sourceRemoved": {
+            "start": 14.43108333333333,
+            "end": 15.098416666666665
+          },
+          "precedingWord": "church.",
+          "nextWord": "You",
+          "removedSeconds": 0.6673333333333336,
+          "quietInterval": {
+            "start": 14.296542,
+            "end": 15.281667
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 11.244566666666667,
+            "end": 11.745066666666668,
+            "startFrame": 674,
+            "endFrame": 704
+          },
+          "sourceRemoved": {
+            "start": 16.3163,
+            "end": 16.816799999999997
+          },
+          "precedingWord": "happened.",
+          "nextWord": "You",
+          "removedSeconds": 0.5005000000000006,
+          "quietInterval": {
+            "start": 16.218729,
+            "end": 17.029583
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 15.632283333333335,
+            "end": 16.383033333333334,
+            "startFrame": 937,
+            "endFrame": 982
+          },
+          "sourceRemoved": {
+            "start": 20.704016666666664,
+            "end": 21.454766666666664
+          },
+          "precedingWord": "them.",
+          "nextWord": "God",
+          "removedSeconds": 0.7507499999999983,
+          "quietInterval": {
+            "start": 20.548458,
+            "end": 21.614417
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 19.00231666666667,
+            "end": 19.853166666666667,
+            "startFrame": 1139,
+            "endFrame": 1190
+          },
+          "sourceRemoved": {
+            "start": 24.07405,
+            "end": 24.924899999999997
+          },
+          "precedingWord": "happened.",
+          "nextWord": "Keep",
+          "removedSeconds": 0.8508499999999977,
+          "quietInterval": {
+            "start": 23.965312,
+            "end": 25.103875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 25.442083333333336,
+            "end": 26.4264,
+            "startFrame": 1525,
+            "endFrame": 1584
+          },
+          "sourceRemoved": {
+            "start": 30.513816666666667,
+            "end": 31.49813333333333
+          },
+          "precedingWord": "boundaries.",
+          "nextWord": "Help",
+          "removedSeconds": 0.9843166666666647,
+          "quietInterval": {
+            "start": 30.438896,
+            "end": 31.678896
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 41.55818333333334,
+            "end": 42.3423,
+            "startFrame": 2491,
+            "endFrame": 2538
+          },
+          "sourceRemoved": {
+            "start": 46.62991666666667,
+            "end": 47.41403333333333
+          },
+          "precedingWord": "process.",
+          "nextWord": "Walk",
+          "removedSeconds": 0.7841166666666624,
+          "quietInterval": {
+            "start": 46.562417,
+            "end": 47.53875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 44.4444,
+            "end": 44.944900000000004,
+            "startFrame": 2664,
+            "endFrame": 2694
+          },
+          "sourceRemoved": {
+            "start": 49.51613333333333,
+            "end": 50.01663333333333
+          },
+          "precedingWord": "process.",
+          "nextWord": "Most",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 49.312438,
+            "end": 50.170708
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 49.749700000000004,
+            "end": 50.300250000000005,
+            "startFrame": 2982,
+            "endFrame": 3015
+          },
+          "sourceRemoved": {
+            "start": 54.82143333333333,
+            "end": 55.37198333333333
+          },
+          "precedingWord": "you.",
+          "nextWord": "Draw",
+          "removedSeconds": 0.5505500000000012,
+          "quietInterval": {
+            "start": 54.726708,
+            "end": 55.555583
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 54.47108333333334,
+            "end": 55.221833333333336,
+            "startFrame": 3265,
+            "endFrame": 3310
+          },
+          "sourceRemoved": {
+            "start": 59.54281666666667,
+            "end": 60.29356666666666
+          },
+          "precedingWord": "broken.",
+          "nextWord": "And",
+          "removedSeconds": 0.7507499999999965,
+          "quietInterval": {
+            "start": 59.432521,
+            "end": 60.440062
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 30.708267,
+          "end": 31.428267,
+          "precedingWord": "Jesus.",
+          "nextWord": "If",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4468",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 4.15415,
+          "sourceIn": 5.07173333333333,
+          "sourceOut": 9.22588333333333
+        },
+        {
+          "clipId": "000f443e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.15415,
+          "timelineEnd": 4.88821666666667,
+          "sourceIn": 9.72638333333333,
+          "sourceOut": 10.46045
+        },
+        {
+          "clipId": "000f4441",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.88821666666667,
+          "timelineEnd": 7.79111666666667,
+          "sourceIn": 11.5281833333333,
+          "sourceOut": 14.4310833333333
+        },
+        {
+          "clipId": "000f4446",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.79111666666667,
+          "timelineEnd": 9.009,
+          "sourceIn": 15.0984166666667,
+          "sourceOut": 16.3163
+        },
+        {
+          "clipId": "000f444a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.009,
+          "timelineEnd": 12.8962166666667,
+          "sourceIn": 16.8168,
+          "sourceOut": 20.7040166666667
+        },
+        {
+          "clipId": "000f444e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 12.8962166666667,
+          "timelineEnd": 15.5155,
+          "sourceIn": 21.4547666666667,
+          "sourceOut": 24.07405
+        },
+        {
+          "clipId": "000f4451",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 15.5155,
+          "timelineEnd": 21.1044166666667,
+          "sourceIn": 24.9249,
+          "sourceOut": 30.5138166666667
+        },
+        {
+          "clipId": "000f4456",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 21.1044166666667,
+          "timelineEnd": 36.2362,
+          "sourceIn": 31.4981333333333,
+          "sourceOut": 46.6299166666667
+        },
+        {
+          "clipId": "000f445a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 36.2362,
+          "timelineEnd": 38.3383,
+          "sourceIn": 47.4140333333333,
+          "sourceOut": 49.5161333333333
+        },
+        {
+          "clipId": "000f445e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 38.3383,
+          "timelineEnd": 43.1431,
+          "sourceIn": 50.0166333333333,
+          "sourceOut": 54.8214333333333
+        },
+        {
+          "clipId": "000f4461",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.1431,
+          "timelineEnd": 47.3139333333333,
+          "sourceIn": 55.3719833333333,
+          "sourceOut": 59.5428166666667
+        },
+        {
+          "clipId": "000f4466",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 47.3139333333333,
+          "timelineEnd": 50.0833666666667,
+          "sourceIn": 60.2935666666667,
+          "sourceOut": 63.063
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Already Tired.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Already Tired.mov",
+      "sourceProjectItemId": "000f42a2",
+      "originalSequenceId": "6231c0f2-c054-4d63-a298-7074f1f1438d",
+      "originalSequenceName": "745_PJ_Prayer_AlreadyTired_v01_REVIEW",
+      "reviewSequenceId": "248e56c9-420f-4905-ae62-a74fb7178e66",
+      "reviewSequenceName": "745_PJ_Prayer_AlreadyTired_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4666",
+      "beforeDuration": 55.0383166666667,
+      "afterDuration": 52.9529,
+      "removedSeconds": 2.0854166666666694,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 152,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.8038000000000003,
+            "end": 4.254250000000001,
+            "startFrame": 228,
+            "endFrame": 255
+          },
+          "sourceRemoved": {
+            "start": 8.47513333333333,
+            "end": 8.92558333333333
+          },
+          "precedingWord": "day.",
+          "nextWord": "Let's",
+          "removedSeconds": 0.45045000000000046,
+          "quietInterval": {
+            "start": 8.312646,
+            "end": 9.131875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.879533333333335,
+            "end": 13.263250000000001,
+            "startFrame": 772,
+            "endFrame": 795
+          },
+          "sourceRemoved": {
+            "start": 17.550866666666664,
+            "end": 17.93458333333333
+          },
+          "precedingWord": "there.",
+          "nextWord": "The",
+          "removedSeconds": 0.3837166666666665,
+          "quietInterval": {
+            "start": 17.471563,
+            "end": 18.12325
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 19.919900000000002,
+            "end": 20.336983333333336,
+            "startFrame": 1194,
+            "endFrame": 1219
+          },
+          "sourceRemoved": {
+            "start": 24.59123333333333,
+            "end": 25.008316666666666
+          },
+          "precedingWord": "there.",
+          "nextWord": "God,",
+          "removedSeconds": 0.41708333333333414,
+          "quietInterval": {
+            "start": 24.414604,
+            "end": 25.224646
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 34.51781666666667,
+            "end": 34.934900000000006,
+            "startFrame": 2069,
+            "endFrame": 2094
+          },
+          "sourceRemoved": {
+            "start": 39.18915,
+            "end": 39.606233333333336
+          },
+          "precedingWord": "today.",
+          "nextWord": "Help",
+          "removedSeconds": 0.4170833333333377,
+          "quietInterval": {
+            "start": 39.173562,
+            "end": 39.622875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 51.83511666666667,
+            "end": 52.2522,
+            "startFrame": 3107,
+            "endFrame": 3132
+          },
+          "sourceRemoved": {
+            "start": 56.50645,
+            "end": 56.92353333333333
+          },
+          "precedingWord": "today.",
+          "nextWord": "In",
+          "removedSeconds": 0.4170833333333306,
+          "quietInterval": {
+            "start": 56.419042,
+            "end": 57.152604
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 5.068667,
+          "end": 5.828667,
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 26.708667,
+          "end": 27.308667,
+          "precedingWord": "now.",
+          "nextWord": "Give",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 37.988667,
+          "end": 38.508667,
+          "precedingWord": "alone.",
+          "nextWord": "God,",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 49.068667,
+          "end": 49.668667,
+          "precedingWord": "God.",
+          "nextWord": "Help",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4481",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.8038,
+          "sourceIn": 4.67133333333333,
+          "sourceOut": 8.47513333333333
+        },
+        {
+          "clipId": "000f446f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.8038,
+          "timelineEnd": 12.4290833333333,
+          "sourceIn": 8.92558333333333,
+          "sourceOut": 17.5508666666667
+        },
+        {
+          "clipId": "000f4473",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 12.4290833333333,
+          "timelineEnd": 19.0857333333333,
+          "sourceIn": 17.9345833333333,
+          "sourceOut": 24.5912333333333
+        },
+        {
+          "clipId": "000f4477",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 19.0857333333333,
+          "timelineEnd": 33.2665666666667,
+          "sourceIn": 25.0083166666667,
+          "sourceOut": 39.18915
+        },
+        {
+          "clipId": "000f447b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 33.2665666666667,
+          "timelineEnd": 50.1667833333333,
+          "sourceIn": 39.6062333333333,
+          "sourceOut": 56.50645
+        },
+        {
+          "clipId": "000f447f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 50.1667833333333,
+          "timelineEnd": 52.9529,
+          "sourceIn": 56.9235333333333,
+          "sourceOut": 59.70965
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "A Decision You Cant Make.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/A Decision You Cant Make.mov",
+      "sourceProjectItemId": "000f4297",
+      "originalSequenceId": "724eb930-b11f-434c-bbf6-6842eba83170",
+      "originalSequenceName": "745_PJ_Prayer_ADecisionYouCantMake_v01_REVIEW",
+      "reviewSequenceId": "6dd830f2-156c-4ca0-a5e8-4471cf7ccb22",
+      "reviewSequenceName": "745_PJ_Prayer_ADecisionYouCantMake_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4667",
+      "beforeDuration": 56.8234333333333,
+      "afterDuration": 49.4827666666667,
+      "removedSeconds": 7.34066666666667,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 150,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.5535500000000004,
+            "end": 4.371033333333334,
+            "startFrame": 213,
+            "endFrame": 262
+          },
+          "sourceRemoved": {
+            "start": 6.4731333333333305,
+            "end": 7.290616666666664
+          },
+          "precedingWord": "out.",
+          "nextWord": "Let's",
+          "removedSeconds": 0.8174833333333336,
+          "quietInterval": {
+            "start": 6.255854,
+            "end": 7.468271
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 5.7057,
+            "end": 6.773433333333334,
+            "startFrame": 342,
+            "endFrame": 406
+          },
+          "sourceRemoved": {
+            "start": 8.62528333333333,
+            "end": 9.693016666666665
+          },
+          "precedingWord": "wisdom.",
+          "nextWord": "Father,",
+          "removedSeconds": 1.0677333333333339,
+          "quietInterval": {
+            "start": 8.467292,
+            "end": 9.887417
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 9.943266666666668,
+            "end": 10.443766666666667,
+            "startFrame": 596,
+            "endFrame": 626
+          },
+          "sourceRemoved": {
+            "start": 12.862849999999998,
+            "end": 13.363349999999997
+          },
+          "precedingWord": "next.",
+          "nextWord": "They've",
+          "removedSeconds": 0.5004999999999988,
+          "quietInterval": {
+            "start": 12.744937,
+            "end": 13.571771
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.829483333333334,
+            "end": 13.380033333333335,
+            "startFrame": 769,
+            "endFrame": 802
+          },
+          "sourceRemoved": {
+            "start": 15.749066666666664,
+            "end": 16.299616666666665
+          },
+          "precedingWord": "it.",
+          "nextWord": "They've",
+          "removedSeconds": 0.5505500000000012,
+          "quietInterval": {
+            "start": 15.516604,
+            "end": 16.486313
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 16.14946666666667,
+            "end": 16.933583333333335,
+            "startFrame": 968,
+            "endFrame": 1015
+          },
+          "sourceRemoved": {
+            "start": 19.069049999999997,
+            "end": 19.853166666666667
+          },
+          "precedingWord": "once.",
+          "nextWord": "God,",
+          "removedSeconds": 0.7841166666666659,
+          "quietInterval": {
+            "start": 18.971812,
+            "end": 20.033208
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 21.10441666666667,
+            "end": 21.538183333333336,
+            "startFrame": 1265,
+            "endFrame": 1291
+          },
+          "sourceRemoved": {
+            "start": 24.024,
+            "end": 24.457766666666664
+          },
+          "precedingWord": "you.",
+          "nextWord": "So",
+          "removedSeconds": 0.4337666666666671,
+          "quietInterval": {
+            "start": 23.878333,
+            "end": 24.651542
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 22.956266666666668,
+            "end": 23.406716666666668,
+            "startFrame": 1376,
+            "endFrame": 1403
+          },
+          "sourceRemoved": {
+            "start": 25.87585,
+            "end": 26.326299999999996
+          },
+          "precedingWord": "wisdom.",
+          "nextWord": "Help",
+          "removedSeconds": 0.45045,
+          "quietInterval": {
+            "start": 25.763875,
+            "end": 26.342396
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 31.147783333333336,
+            "end": 31.56486666666667,
+            "startFrame": 1867,
+            "endFrame": 1892
+          },
+          "sourceRemoved": {
+            "start": 34.067366666666665,
+            "end": 34.48445
+          },
+          "precedingWord": "mind.",
+          "nextWord": "Put",
+          "removedSeconds": 0.41708333333333414,
+          "quietInterval": {
+            "start": 34.002313,
+            "end": 34.743437
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 39.15578333333334,
+            "end": 39.85648333333334,
+            "startFrame": 2347,
+            "endFrame": 2389
+          },
+          "sourceRemoved": {
+            "start": 42.07536666666667,
+            "end": 42.776066666666665
+          },
+          "precedingWord": "obey.",
+          "nextWord": "If",
+          "removedSeconds": 0.7006999999999977,
+          "quietInterval": {
+            "start": 42.017021,
+            "end": 42.937562
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 47.714333333333336,
+            "end": 48.248200000000004,
+            "startFrame": 2860,
+            "endFrame": 2892
+          },
+          "sourceRemoved": {
+            "start": 50.633916666666664,
+            "end": 51.16778333333333
+          },
+          "precedingWord": "truth.",
+          "nextWord": "Guide",
+          "removedSeconds": 0.5338666666666683,
+          "quietInterval": {
+            "start": 50.505021,
+            "end": 51.387354
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 53.58686666666667,
+            "end": 54.204150000000006,
+            "startFrame": 3212,
+            "endFrame": 3249
+          },
+          "sourceRemoved": {
+            "start": 56.50645,
+            "end": 57.123733333333334
+          },
+          "precedingWord": "ahead.",
+          "nextWord": "Christ's",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 56.262479,
+            "end": 57.293958
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 55.50545,
+            "end": 55.97258333333334,
+            "startFrame": 3327,
+            "endFrame": 3355
+          },
+          "sourceRemoved": {
+            "start": 58.42503333333333,
+            "end": 58.89216666666667
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.4671333333333365,
+          "quietInterval": {
+            "start": 58.279021,
+            "end": 59.03425
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 28.620417,
+          "end": 29.340417,
+          "precedingWord": "wisdom.",
+          "nextWord": "Bring",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 43.300417,
+          "end": 44.100417,
+          "precedingWord": "patience.",
+          "nextWord": "Keep",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f44b6",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.55355,
+          "sourceIn": 2.91958333333333,
+          "sourceOut": 6.47313333333333
+        },
+        {
+          "clipId": "000f4488",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.55355,
+          "timelineEnd": 4.88821666666667,
+          "sourceIn": 7.29061666666667,
+          "sourceOut": 8.62528333333333
+        },
+        {
+          "clipId": "000f448c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.88821666666667,
+          "timelineEnd": 8.05805,
+          "sourceIn": 9.69301666666667,
+          "sourceOut": 12.86285
+        },
+        {
+          "clipId": "000f4490",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 8.05805,
+          "timelineEnd": 10.4437666666667,
+          "sourceIn": 13.36335,
+          "sourceOut": 15.7490666666667
+        },
+        {
+          "clipId": "000f4494",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 10.4437666666667,
+          "timelineEnd": 13.2132,
+          "sourceIn": 16.2996166666667,
+          "sourceOut": 19.06905
+        },
+        {
+          "clipId": "000f4498",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 13.2132,
+          "timelineEnd": 17.3840333333333,
+          "sourceIn": 19.8531666666667,
+          "sourceOut": 24.024
+        },
+        {
+          "clipId": "000f449c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 17.3840333333333,
+          "timelineEnd": 18.8021166666667,
+          "sourceIn": 24.4577666666667,
+          "sourceOut": 25.87585
+        },
+        {
+          "clipId": "000f44a0",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 18.8021166666667,
+          "timelineEnd": 26.5431833333333,
+          "sourceIn": 26.3263,
+          "sourceOut": 34.0673666666667
+        },
+        {
+          "clipId": "000f44a3",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 26.5431833333333,
+          "timelineEnd": 34.1341,
+          "sourceIn": 34.48445,
+          "sourceOut": 42.0753666666667
+        },
+        {
+          "clipId": "000f44a8",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 34.1341,
+          "timelineEnd": 41.99195,
+          "sourceIn": 42.7760666666667,
+          "sourceOut": 50.6339166666667
+        },
+        {
+          "clipId": "000f44ac",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 41.99195,
+          "timelineEnd": 47.3306166666667,
+          "sourceIn": 51.1677833333333,
+          "sourceOut": 56.50645
+        },
+        {
+          "clipId": "000f44b0",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 47.3306166666667,
+          "timelineEnd": 48.6319166666667,
+          "sourceIn": 57.1237333333333,
+          "sourceOut": 58.4250333333333
+        },
+        {
+          "clipId": "000f44b4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 48.6319166666667,
+          "timelineEnd": 49.4827666666667,
+          "sourceIn": 58.8921666666667,
+          "sourceOut": 59.7430166666667
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "A Marriage Holding On.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/A Marriage Holding On.mov",
+      "sourceProjectItemId": "000f429f",
+      "originalSequenceId": "7f5f74a4-e1b9-4bda-b6c6-a1390f6089c8",
+      "originalSequenceName": "745_PJ_Prayer_AMarriageHoldingOn_v01_REVIEW",
+      "reviewSequenceId": "f971bbe6-e5da-4b22-9983-e96e196fb0e5",
+      "reviewSequenceName": "745_PJ_Prayer_AMarriageHoldingOn_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4668",
+      "beforeDuration": 53.4867666666667,
+      "afterDuration": 47.1304166666667,
+      "removedSeconds": 6.356350000000001,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 143,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.486816666666667,
+            "end": 4.3043000000000005,
+            "startFrame": 209,
+            "endFrame": 258
+          },
+          "sourceRemoved": {
+            "start": 8.274933333333337,
+            "end": 9.09241666666667
+          },
+          "precedingWord": "both.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.8174833333333336,
+          "quietInterval": {
+            "start": 8.0005,
+            "end": 9.266604
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 10.677333333333333,
+            "end": 11.26125,
+            "startFrame": 640,
+            "endFrame": 675
+          },
+          "sourceRemoved": {
+            "start": 15.465450000000004,
+            "end": 16.04936666666667
+          },
+          "precedingWord": "wrong.",
+          "nextWord": "You",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 15.3395,
+            "end": 16.248542
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 14.764750000000001,
+            "end": 15.665650000000001,
+            "startFrame": 885,
+            "endFrame": 939
+          },
+          "sourceRemoved": {
+            "start": 19.55286666666667,
+            "end": 20.45376666666667
+          },
+          "precedingWord": "with.",
+          "nextWord": "God,",
+          "removedSeconds": 0.9009,
+          "quietInterval": {
+            "start": 19.400583,
+            "end": 20.643937
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 24.157466666666668,
+            "end": 24.791433333333334,
+            "startFrame": 1448,
+            "endFrame": 1486
+          },
+          "sourceRemoved": {
+            "start": 28.94558333333334,
+            "end": 29.579550000000005
+          },
+          "precedingWord": "other.",
+          "nextWord": "We're.",
+          "removedSeconds": 0.6339666666666659,
+          "quietInterval": {
+            "start": 28.850042,
+            "end": 29.75825
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 28.244883333333334,
+            "end": 28.945583333333335,
+            "startFrame": 1693,
+            "endFrame": 1735
+          },
+          "sourceRemoved": {
+            "start": 33.033,
+            "end": 33.733700000000006
+          },
+          "precedingWord": "forgive.",
+          "nextWord": "We're.",
+          "removedSeconds": 0.7007000000000012,
+          "quietInterval": {
+            "start": 32.962688,
+            "end": 33.924125
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 32.71601666666667,
+            "end": 33.349983333333334,
+            "startFrame": 1961,
+            "endFrame": 1999
+          },
+          "sourceRemoved": {
+            "start": 37.504133333333336,
+            "end": 38.1381
+          },
+          "precedingWord": "Honestly.",
+          "nextWord": "We're",
+          "removedSeconds": 0.6339666666666659,
+          "quietInterval": {
+            "start": 37.331125,
+            "end": 38.307417
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 35.035000000000004,
+            "end": 35.46876666666667,
+            "startFrame": 2100,
+            "endFrame": 2126
+          },
+          "sourceRemoved": {
+            "start": 39.82311666666667,
+            "end": 40.256883333333334
+          },
+          "precedingWord": "needed.",
+          "nextWord": "Give",
+          "removedSeconds": 0.4337666666666635,
+          "quietInterval": {
+            "start": 39.64725,
+            "end": 40.446792
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 37.48745,
+            "end": 38.104733333333336,
+            "startFrame": 2247,
+            "endFrame": 2284
+          },
+          "sourceRemoved": {
+            "start": 42.27556666666667,
+            "end": 42.89285
+          },
+          "precedingWord": "it.",
+          "nextWord": "Lord,",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 41.98925,
+            "end": 43.106562
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 44.4444,
+            "end": 45.061683333333335,
+            "startFrame": 2664,
+            "endFrame": 2701
+          },
+          "sourceRemoved": {
+            "start": 49.23251666666667,
+            "end": 49.8498
+          },
+          "precedingWord": "Father.",
+          "nextWord": "Bring",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 49.142562,
+            "end": 50.070125
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 52.20215,
+            "end": 52.61923333333334,
+            "startFrame": 3129,
+            "endFrame": 3154
+          },
+          "sourceRemoved": {
+            "start": 56.99026666666667,
+            "end": 57.40735000000001
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.4170833333333377,
+          "quietInterval": {
+            "start": 56.776833,
+            "end": 57.599542
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 7.151883,
+          "end": 8.271883,
+          "precedingWord": "now.",
+          "nextWord": "You",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f44e3",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.48681666666667,
+          "sourceIn": 4.78811666666667,
+          "sourceOut": 8.27493333333333
+        },
+        {
+          "clipId": "000f44bd",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.48681666666667,
+          "timelineEnd": 9.85985,
+          "sourceIn": 9.09241666666667,
+          "sourceOut": 15.46545
+        },
+        {
+          "clipId": "000f44c1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.85985,
+          "timelineEnd": 13.36335,
+          "sourceIn": 16.0493666666667,
+          "sourceOut": 19.5528666666667
+        },
+        {
+          "clipId": "000f44c4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 13.36335,
+          "timelineEnd": 21.8551666666667,
+          "sourceIn": 20.4537666666667,
+          "sourceOut": 28.9455833333333
+        },
+        {
+          "clipId": "000f44c7",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 21.8551666666667,
+          "timelineEnd": 25.3086166666667,
+          "sourceIn": 29.57955,
+          "sourceOut": 33.033
+        },
+        {
+          "clipId": "000f44d2",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 25.3086166666667,
+          "timelineEnd": 29.07905,
+          "sourceIn": 33.7337,
+          "sourceOut": 37.5041333333333
+        },
+        {
+          "clipId": "000f44d0",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 29.07905,
+          "timelineEnd": 30.7640666666667,
+          "sourceIn": 38.1381,
+          "sourceOut": 39.8231166666667
+        },
+        {
+          "clipId": "000f44d4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 30.7640666666667,
+          "timelineEnd": 32.78275,
+          "sourceIn": 40.2568833333333,
+          "sourceOut": 42.2755666666667
+        },
+        {
+          "clipId": "000f44e1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 32.78275,
+          "timelineEnd": 39.1224166666667,
+          "sourceIn": 42.89285,
+          "sourceOut": 49.2325166666667
+        },
+        {
+          "clipId": "000f44db",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 39.1224166666667,
+          "timelineEnd": 46.2628833333333,
+          "sourceIn": 49.8498,
+          "sourceOut": 56.9902666666667
+        },
+        {
+          "clipId": "000f44df",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 46.2628833333333,
+          "timelineEnd": 47.1304166666667,
+          "sourceIn": 57.40735,
+          "sourceOut": 58.2748833333333
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "A Mind That Wont Shut Off.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/A Mind That Wont Shut Off.mov",
+      "sourceProjectItemId": "000f429b",
+      "originalSequenceId": "989b272c-8d2e-408c-b5cc-82f6b91395cd",
+      "originalSequenceName": "745_PJ_Prayer_AMindThatWontShutOff_v01_REVIEW",
+      "reviewSequenceId": "3f428428-a262-4feb-b80e-32845a56548a",
+      "reviewSequenceName": "745_PJ_Prayer_AMindThatWontShutOff_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4669",
+      "beforeDuration": 54.8381166666667,
+      "afterDuration": 47.0803666666667,
+      "removedSeconds": 7.757749999999994,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 141,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.5535500000000004,
+            "end": 4.4544500000000005,
+            "startFrame": 213,
+            "endFrame": 267
+          },
+          "sourceRemoved": {
+            "start": 7.624283333329401,
+            "end": 8.525183333329402
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.9009,
+          "quietInterval": {
+            "start": 7.454708,
+            "end": 8.745625
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 8.041366666666667,
+            "end": 8.658650000000002,
+            "startFrame": 482,
+            "endFrame": 519
+          },
+          "sourceRemoved": {
+            "start": 12.112099999996067,
+            "end": 12.729383333329402
+          },
+          "precedingWord": "tonight.",
+          "nextWord": "You",
+          "removedSeconds": 0.6172833333333347,
+          "quietInterval": {
+            "start": 11.934583,
+            "end": 12.938854
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 10.910900000000002,
+            "end": 11.628283333333334,
+            "startFrame": 654,
+            "endFrame": 697
+          },
+          "sourceRemoved": {
+            "start": 14.981633333329402,
+            "end": 15.699016666662734
+          },
+          "precedingWord": "head.",
+          "nextWord": "The",
+          "removedSeconds": 0.7173833333333324,
+          "quietInterval": {
+            "start": 14.775812,
+            "end": 15.851521
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 13.480133333333335,
+            "end": 14.064050000000002,
+            "startFrame": 808,
+            "endFrame": 843
+          },
+          "sourceRemoved": {
+            "start": 17.550866666662735,
+            "end": 18.134783333329402
+          },
+          "precedingWord": "replaying.",
+          "nextWord": "The",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 17.410292,
+            "end": 18.327562
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 18.752066666666668,
+            "end": 19.586233333333336,
+            "startFrame": 1124,
+            "endFrame": 1174
+          },
+          "sourceRemoved": {
+            "start": 22.822799999996068,
+            "end": 23.656966666662736
+          },
+          "precedingWord": "tomorrow.",
+          "nextWord": "God",
+          "removedSeconds": 0.8341666666666683,
+          "quietInterval": {
+            "start": 22.756,
+            "end": 23.834708
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 22.75606666666667,
+            "end": 23.50681666666667,
+            "startFrame": 1364,
+            "endFrame": 1409
+          },
+          "sourceRemoved": {
+            "start": 26.82679999999607,
+            "end": 27.57754999999607
+          },
+          "precedingWord": "you.",
+          "nextWord": "Your",
+          "removedSeconds": 0.75075,
+          "quietInterval": {
+            "start": 26.808,
+            "end": 27.769937
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 41.641600000000004,
+            "end": 42.25888333333334,
+            "startFrame": 2496,
+            "endFrame": 2533
+          },
+          "sourceRemoved": {
+            "start": 45.712333333329404,
+            "end": 46.32961666666274
+          },
+          "precedingWord": "morning.",
+          "nextWord": "Give",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 45.563354,
+            "end": 46.542562
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 45.795750000000005,
+            "end": 46.5465,
+            "startFrame": 2745,
+            "endFrame": 2790
+          },
+          "sourceRemoved": {
+            "start": 49.866483333329406,
+            "end": 50.6172333333294
+          },
+          "precedingWord": "breathe.",
+          "nextWord": "Let",
+          "removedSeconds": 0.7507499999999965,
+          "quietInterval": {
+            "start": 49.741167,
+            "end": 50.794396
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 48.99895,
+            "end": 49.58286666666667,
+            "startFrame": 2937,
+            "endFrame": 2972
+          },
+          "sourceRemoved": {
+            "start": 53.0696833333294,
+            "end": 53.65359999999607
+          },
+          "precedingWord": "dark.",
+          "nextWord": "Be",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 52.902583,
+            "end": 53.873479
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 51.201150000000005,
+            "end": 51.93521666666667,
+            "startFrame": 3069,
+            "endFrame": 3113
+          },
+          "sourceRemoved": {
+            "start": 55.271883333329406,
+            "end": 56.00594999999607
+          },
+          "precedingWord": "Lord.",
+          "nextWord": "In",
+          "removedSeconds": 0.7340666666666635,
+          "quietInterval": {
+            "start": 55.102396,
+            "end": 56.146562
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 53.26988333333334,
+            "end": 53.93721666666667,
+            "startFrame": 3193,
+            "endFrame": 3233
+          },
+          "sourceRemoved": {
+            "start": 57.34061666666274,
+            "end": 58.00794999999607
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.6673333333333318,
+          "quietInterval": {
+            "start": 57.180792,
+            "end": 58.169792
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 15.709267,
+          "end": 16.349267,
+          "precedingWord": "solve.",
+          "nextWord": "The",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 31.909267,
+          "end": 32.469267,
+          "precedingWord": "Jesus.",
+          "nextWord": "So",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4514",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.55355,
+          "sourceIn": 4.0707333333294,
+          "sourceOut": 7.62428333333333
+        },
+        {
+          "clipId": "000f44ea",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.55355,
+          "timelineEnd": 7.14046666666667,
+          "sourceIn": 8.5251833333294,
+          "sourceOut": 12.1121
+        },
+        {
+          "clipId": "000f44ed",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.14046666666667,
+          "timelineEnd": 9.39271666666667,
+          "sourceIn": 12.7293833333294,
+          "sourceOut": 14.9816333333333
+        },
+        {
+          "clipId": "000f44f1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.39271666666667,
+          "timelineEnd": 11.2445666666667,
+          "sourceIn": 15.6990166666627,
+          "sourceOut": 17.5508666666667
+        },
+        {
+          "clipId": "000f44f4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 11.2445666666667,
+          "timelineEnd": 15.9325833333333,
+          "sourceIn": 18.1347833333294,
+          "sourceOut": 22.8228
+        },
+        {
+          "clipId": "000f44fa",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 15.9325833333333,
+          "timelineEnd": 19.1024166666667,
+          "sourceIn": 23.6569666666627,
+          "sourceOut": 26.8268
+        },
+        {
+          "clipId": "000f44fe",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 19.1024166666667,
+          "timelineEnd": 37.2372,
+          "sourceIn": 27.5775499999961,
+          "sourceOut": 45.7123333333333
+        },
+        {
+          "clipId": "000f4502",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 37.2372,
+          "timelineEnd": 40.7740666666667,
+          "sourceIn": 46.3296166666627,
+          "sourceOut": 49.8664833333333
+        },
+        {
+          "clipId": "000f4505",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 40.7740666666667,
+          "timelineEnd": 43.2265166666667,
+          "sourceIn": 50.6172333333294,
+          "sourceOut": 53.0696833333333
+        },
+        {
+          "clipId": "000f4509",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.2265166666667,
+          "timelineEnd": 44.8448,
+          "sourceIn": 53.6535999999961,
+          "sourceOut": 55.2718833333333
+        },
+        {
+          "clipId": "000f450e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 44.8448,
+          "timelineEnd": 46.1794666666667,
+          "sourceIn": 56.0059499999961,
+          "sourceOut": 57.3406166666667
+        },
+        {
+          "clipId": "000f4512",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 46.1794666666667,
+          "timelineEnd": 47.0803666666667,
+          "sourceIn": 58.0079499999961,
+          "sourceOut": 58.90885
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "When the Past Wont Let Go.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/When the Past Wont Let Go.mov",
+      "sourceProjectItemId": "000f429a",
+      "originalSequenceId": "a370ec07-75a5-4c6d-b3bd-eb9246547e9c",
+      "originalSequenceName": "745_PJ_Prayer_WhenthePastWontLetGo_v01_REVIEW",
+      "reviewSequenceId": "e8a62949-649b-4191-8115-9e15b0458c37",
+      "reviewSequenceName": "745_PJ_Prayer_WhenthePastWontLetGo_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f466a",
+      "beforeDuration": 55.5221333333333,
+      "afterDuration": 50.5171333333333,
+      "removedSeconds": 5.004999999999996,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 153,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.887216666666667,
+            "end": 4.7547500000000005,
+            "startFrame": 233,
+            "endFrame": 285
+          },
+          "sourceRemoved": {
+            "start": 7.590916666666667,
+            "end": 8.458450000000001
+          },
+          "precedingWord": "you.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.8675333333333333,
+          "quietInterval": {
+            "start": 7.403667,
+            "end": 8.669833
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 8.758750000000001,
+            "end": 9.225883333333334,
+            "startFrame": 525,
+            "endFrame": 553
+          },
+          "sourceRemoved": {
+            "start": 12.46245,
+            "end": 12.929583333333333
+          },
+          "precedingWord": "past.",
+          "nextWord": "Maybe",
+          "removedSeconds": 0.46713333333333296,
+          "quietInterval": {
+            "start": 12.361313,
+            "end": 13.142604
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.562550000000002,
+            "end": 13.113100000000001,
+            "startFrame": 753,
+            "endFrame": 786
+          },
+          "sourceRemoved": {
+            "start": 16.266250000000003,
+            "end": 16.8168
+          },
+          "precedingWord": "label.",
+          "nextWord": "Maybe",
+          "removedSeconds": 0.5505499999999994,
+          "quietInterval": {
+            "start": 16.124083,
+            "end": 17.003958
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 16.483133333333335,
+            "end": 17.033683333333336,
+            "startFrame": 988,
+            "endFrame": 1021
+          },
+          "sourceRemoved": {
+            "start": 20.186833333333336,
+            "end": 20.737383333333337
+          },
+          "precedingWord": "be.",
+          "nextWord": "God,",
+          "removedSeconds": 0.5505500000000012,
+          "quietInterval": {
+            "start": 20.001396,
+            "end": 20.94375
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 24.157466666666668,
+            "end": 24.6246,
+            "startFrame": 1448,
+            "endFrame": 1476
+          },
+          "sourceRemoved": {
+            "start": 27.86116666666667,
+            "end": 28.328300000000002
+          },
+          "precedingWord": "creation.",
+          "nextWord": "Help",
+          "removedSeconds": 0.46713333333333296,
+          "quietInterval": {
+            "start": 27.72725,
+            "end": 28.347708
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 29.01231666666667,
+            "end": 29.863166666666668,
+            "startFrame": 1739,
+            "endFrame": 1790
+          },
+          "sourceRemoved": {
+            "start": 32.71601666666667,
+            "end": 33.56686666666667
+          },
+          "precedingWord": "forgiven.",
+          "nextWord": "We're",
+          "removedSeconds": 0.8508499999999977,
+          "quietInterval": {
+            "start": 32.575104,
+            "end": 33.774396
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 41.92521666666667,
+            "end": 42.39235,
+            "startFrame": 2513,
+            "endFrame": 2541
+          },
+          "sourceRemoved": {
+            "start": 45.62891666666667,
+            "end": 46.09605
+          },
+          "precedingWord": "master.",
+          "nextWord": "Teach",
+          "removedSeconds": 0.4671333333333294,
+          "quietInterval": {
+            "start": 45.532167,
+            "end": 46.286146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 52.20215,
+            "end": 52.98626666666667,
+            "startFrame": 3129,
+            "endFrame": 3176
+          },
+          "sourceRemoved": {
+            "start": 55.90585,
+            "end": 56.68996666666667
+          },
+          "precedingWord": "you.",
+          "nextWord": "In",
+          "removedSeconds": 0.7841166666666695,
+          "quietInterval": {
+            "start": 55.763417,
+            "end": 56.728833
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 46.3563,
+          "end": 46.8363,
+          "precedingWord": "Changed.",
+          "nextWord": "Given",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 48.7563,
+          "end": 49.4763,
+          "precedingWord": "Jesus.",
+          "nextWord": "Keep",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4539",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.88721666666667,
+          "sourceIn": 3.7037,
+          "sourceOut": 7.59091666666667
+        },
+        {
+          "clipId": "000f451b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.88721666666667,
+          "timelineEnd": 7.89121666666667,
+          "sourceIn": 8.45845,
+          "sourceOut": 12.46245
+        },
+        {
+          "clipId": "000f451f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.89121666666667,
+          "timelineEnd": 11.2278833333333,
+          "sourceIn": 12.9295833333333,
+          "sourceOut": 16.26625
+        },
+        {
+          "clipId": "000f4523",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 11.2278833333333,
+          "timelineEnd": 14.5979166666667,
+          "sourceIn": 16.8168,
+          "sourceOut": 20.1868333333333
+        },
+        {
+          "clipId": "000f4527",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 14.5979166666667,
+          "timelineEnd": 21.7217,
+          "sourceIn": 20.7373833333333,
+          "sourceOut": 27.8611666666667
+        },
+        {
+          "clipId": "000f452b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 21.7217,
+          "timelineEnd": 26.1094166666667,
+          "sourceIn": 28.3283,
+          "sourceOut": 32.7160166666667
+        },
+        {
+          "clipId": "000f4534",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 26.1094166666667,
+          "timelineEnd": 38.1714666666667,
+          "sourceIn": 33.5668666666667,
+          "sourceOut": 45.6289166666667
+        },
+        {
+          "clipId": "000f4533",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 38.1714666666667,
+          "timelineEnd": 47.9812666666667,
+          "sourceIn": 46.09605,
+          "sourceOut": 55.90585
+        },
+        {
+          "clipId": "000f4537",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 47.9812666666667,
+          "timelineEnd": 50.5171333333333,
+          "sourceIn": 56.6899666666667,
+          "sourceOut": 59.2258333333333
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "The Temptation That Waits Till Youre Alone.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/The Temptation That Waits Till Youre Alone.mov",
+      "sourceProjectItemId": "000f4295",
+      "originalSequenceId": "bcd887a4-2940-4593-8860-d90473ec4d2f",
+      "originalSequenceName": "745_PJ_Prayer_TheTemptationThatWaitsTillYoureAlone_v01_REVIEW",
+      "reviewSequenceId": "f375c8c0-c9e6-423c-aa1b-8b7a6ec19eb6",
+      "reviewSequenceName": "745_PJ_Prayer_TheTemptationThatWaitsTillYoureAlone_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f466b",
+      "beforeDuration": 53.7203333333294,
+      "afterDuration": 46.1460999999961,
+      "removedSeconds": 7.57423333333335,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 138,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.837166666666667,
+            "end": 4.854850000000001,
+            "startFrame": 230,
+            "endFrame": 291
+          },
+          "sourceRemoved": {
+            "start": 7.590916666666667,
+            "end": 8.608600000000001
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 1.0176833333333337,
+          "quietInterval": {
+            "start": 7.393125,
+            "end": 8.843146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 9.993316666666667,
+            "end": 11.061050000000002,
+            "startFrame": 599,
+            "endFrame": 663
+          },
+          "sourceRemoved": {
+            "start": 13.747066666666667,
+            "end": 14.814800000000002
+          },
+          "precedingWord": "around.",
+          "nextWord": "You",
+          "removedSeconds": 1.0677333333333348,
+          "quietInterval": {
+            "start": 13.607583,
+            "end": 15.018354
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 13.596916666666667,
+            "end": 14.064050000000002,
+            "startFrame": 815,
+            "endFrame": 843
+          },
+          "sourceRemoved": {
+            "start": 17.35066666666667,
+            "end": 17.817800000000002
+          },
+          "precedingWord": "them.",
+          "nextWord": "God,",
+          "removedSeconds": 0.46713333333333473,
+          "quietInterval": {
+            "start": 17.174187,
+            "end": 17.995771
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 18.752066666666668,
+            "end": 19.586233333333336,
+            "startFrame": 1124,
+            "endFrame": 1174
+          },
+          "sourceRemoved": {
+            "start": 22.505816666666668,
+            "end": 23.339983333333336
+          },
+          "precedingWord": "it.",
+          "nextWord": "Your",
+          "removedSeconds": 0.8341666666666683,
+          "quietInterval": {
+            "start": 22.233479,
+            "end": 23.527354
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 27.227200000000003,
+            "end": 28.144783333333336,
+            "startFrame": 1632,
+            "endFrame": 1687
+          },
+          "sourceRemoved": {
+            "start": 30.980950000000004,
+            "end": 31.898533333333337
+          },
+          "precedingWord": "it.",
+          "nextWord": "Give",
+          "removedSeconds": 0.917583333333333,
+          "quietInterval": {
+            "start": 30.657958,
+            "end": 32.076583
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 29.713016666666668,
+            "end": 30.130100000000002,
+            "startFrame": 1781,
+            "endFrame": 1806
+          },
+          "sourceRemoved": {
+            "start": 33.46676666666667,
+            "end": 33.88385
+          },
+          "precedingWord": "door.",
+          "nextWord": "Put",
+          "removedSeconds": 0.41708333333333414,
+          "quietInterval": {
+            "start": 33.445,
+            "end": 34.097
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 36.31961666666667,
+            "end": 37.137100000000004,
+            "startFrame": 2177,
+            "endFrame": 2226
+          },
+          "sourceRemoved": {
+            "start": 40.07336666666667,
+            "end": 40.89085
+          },
+          "precedingWord": "moment.",
+          "nextWord": "If",
+          "removedSeconds": 0.8174833333333353,
+          "quietInterval": {
+            "start": 39.779083,
+            "end": 41.014958
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 40.59055,
+            "end": 41.02431666666667,
+            "startFrame": 2433,
+            "endFrame": 2459
+          },
+          "sourceRemoved": {
+            "start": 44.344300000000004,
+            "end": 44.778066666666675
+          },
+          "precedingWord": "alone.",
+          "nextWord": "Give",
+          "removedSeconds": 0.43376666666667063,
+          "quietInterval": {
+            "start": 44.208896,
+            "end": 44.986521
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 47.31393333333334,
+            "end": 47.897850000000005,
+            "startFrame": 2836,
+            "endFrame": 2871
+          },
+          "sourceRemoved": {
+            "start": 51.067683333333335,
+            "end": 51.6516
+          },
+          "precedingWord": "them.",
+          "nextWord": "Help",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 50.94975,
+            "end": 51.834812
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 50.467083333333335,
+            "end": 50.93421666666667,
+            "startFrame": 3025,
+            "endFrame": 3053
+          },
+          "sourceRemoved": {
+            "start": 54.22083333333333,
+            "end": 54.68796666666667
+          },
+          "precedingWord": "tonight.",
+          "nextWord": "Christ's",
+          "removedSeconds": 0.4671333333333365,
+          "quietInterval": {
+            "start": 53.935312,
+            "end": 54.883646
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 52.268883333333335,
+            "end": 52.819433333333336,
+            "startFrame": 3133,
+            "endFrame": 3166
+          },
+          "sourceRemoved": {
+            "start": 56.02263333333333,
+            "end": 56.57318333333333
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.5505500000000012,
+          "quietInterval": {
+            "start": 55.815646,
+            "end": 56.732875
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 24.06625,
+          "end": 24.82625,
+          "precedingWord": "escape.",
+          "nextWord": "Help",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 2.6026000000000002,
+          "end": 3.1031000000000004,
+          "precedingWord": "tonight.",
+          "nextWord": "Let's",
+          "reason": "Crosses existing opening title/fade hold; preserved"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f456a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.83716666666667,
+          "sourceIn": 3.75375,
+          "sourceOut": 7.5909166666706
+        },
+        {
+          "clipId": "000f4540",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.83716666666667,
+          "timelineEnd": 8.97563333333333,
+          "sourceIn": 8.6086,
+          "sourceOut": 13.7470666666706
+        },
+        {
+          "clipId": "000f4544",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 8.97563333333333,
+          "timelineEnd": 11.5115,
+          "sourceIn": 14.8148,
+          "sourceOut": 17.3506666666706
+        },
+        {
+          "clipId": "000f4546",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 11.5115,
+          "timelineEnd": 16.1995166666667,
+          "sourceIn": 17.8178,
+          "sourceOut": 22.5058166666706
+        },
+        {
+          "clipId": "000f454c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 16.1995166666667,
+          "timelineEnd": 23.8404833333333,
+          "sourceIn": 23.3399833333333,
+          "sourceOut": 30.9809500000039
+        },
+        {
+          "clipId": "000f4550",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 23.8404833333333,
+          "timelineEnd": 25.4087166666667,
+          "sourceIn": 31.8985333333333,
+          "sourceOut": 33.4667666666706
+        },
+        {
+          "clipId": "000f4554",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 25.4087166666667,
+          "timelineEnd": 31.5982333333333,
+          "sourceIn": 33.88385,
+          "sourceOut": 40.0733666666706
+        },
+        {
+          "clipId": "000f4558",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 31.5982333333333,
+          "timelineEnd": 35.0516833333333,
+          "sourceIn": 40.89085,
+          "sourceOut": 44.3443000000039
+        },
+        {
+          "clipId": "000f455c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 35.0516833333333,
+          "timelineEnd": 41.3413,
+          "sourceIn": 44.7780666666667,
+          "sourceOut": 51.0676833333373
+        },
+        {
+          "clipId": "000f4560",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 41.3413,
+          "timelineEnd": 43.9105333333333,
+          "sourceIn": 51.6516,
+          "sourceOut": 54.2208333333373
+        },
+        {
+          "clipId": "000f4564",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.9105333333333,
+          "timelineEnd": 45.2452,
+          "sourceIn": 54.6879666666667,
+          "sourceOut": 56.0226333333373
+        },
+        {
+          "clipId": "000f4568",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 45.2452,
+          "timelineEnd": 46.1460999999961,
+          "sourceIn": 56.5731833333333,
+          "sourceOut": 57.4740833333333
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Worried About Your Kids.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Worried About Your Kids.mov",
+      "sourceProjectItemId": "000f4299",
+      "originalSequenceId": "c336d049-c1a8-4d70-b362-593e463e052f",
+      "originalSequenceName": "745_PJ_Prayer_WorriedAboutYourKids_v01_REVIEW",
+      "reviewSequenceId": "b04fa813-36ef-48bf-b69c-3f005bfca5ab",
+      "reviewSequenceName": "745_PJ_Prayer_WorriedAboutYourKids_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f466c",
+      "beforeDuration": 58.1914666666667,
+      "afterDuration": 49.8164333333333,
+      "removedSeconds": 8.375033333333342,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 145,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.636966666666667,
+            "end": 4.05405,
+            "startFrame": 218,
+            "endFrame": 243
+          },
+          "sourceRemoved": {
+            "start": 8.191516666666667,
+            "end": 8.6086
+          },
+          "precedingWord": "fix?",
+          "nextWord": "Let's",
+          "removedSeconds": 0.41708333333333325,
+          "quietInterval": {
+            "start": 8.086625,
+            "end": 8.683271
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 4.838166666666667,
+            "end": 5.772433333333334,
+            "startFrame": 290,
+            "endFrame": 346
+          },
+          "sourceRemoved": {
+            "start": 9.392716666666667,
+            "end": 10.326983333333335
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.9342666666666668,
+          "quietInterval": {
+            "start": 9.196458,
+            "end": 10.534104
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 9.75975,
+            "end": 10.377033333333333,
+            "startFrame": 585,
+            "endFrame": 622
+          },
+          "sourceRemoved": {
+            "start": 14.3143,
+            "end": 14.931583333333332
+          },
+          "precedingWord": "today.",
+          "nextWord": "You",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 14.132583,
+            "end": 15.142583
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.395716666666667,
+            "end": 13.096416666666668,
+            "startFrame": 743,
+            "endFrame": 785
+          },
+          "sourceRemoved": {
+            "start": 16.950266666666668,
+            "end": 17.65096666666667
+          },
+          "precedingWord": "do.",
+          "nextWord": "You",
+          "removedSeconds": 0.7007000000000012,
+          "quietInterval": {
+            "start": 16.818333,
+            "end": 17.842979
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 17.434083333333334,
+            "end": 18.134783333333335,
+            "startFrame": 1045,
+            "endFrame": 1087
+          },
+          "sourceRemoved": {
+            "start": 21.988633333333333,
+            "end": 22.689333333333334
+          },
+          "precedingWord": "control.",
+          "nextWord": "God",
+          "removedSeconds": 0.7007000000000012,
+          "quietInterval": {
+            "start": 21.870125,
+            "end": 22.865542
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 29.679650000000002,
+            "end": 30.18015,
+            "startFrame": 1779,
+            "endFrame": 1809
+          },
+          "sourceRemoved": {
+            "start": 34.2342,
+            "end": 34.734700000000004
+          },
+          "precedingWord": "harm.",
+          "nextWord": "Put",
+          "removedSeconds": 0.5004999999999988,
+          "quietInterval": {
+            "start": 34.067687,
+            "end": 34.905729
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 34.91821666666667,
+            "end": 35.535500000000006,
+            "startFrame": 2093,
+            "endFrame": 2130
+          },
+          "sourceRemoved": {
+            "start": 39.47276666666667,
+            "end": 40.090050000000005
+          },
+          "precedingWord": "you.",
+          "nextWord": "And",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 39.357833,
+            "end": 40.289771
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 38.35498333333334,
+            "end": 38.888850000000005,
+            "startFrame": 2299,
+            "endFrame": 2331
+          },
+          "sourceRemoved": {
+            "start": 42.909533333333336,
+            "end": 43.443400000000004
+          },
+          "precedingWord": "peace.",
+          "nextWord": "Keep",
+          "removedSeconds": 0.5338666666666683,
+          "quietInterval": {
+            "start": 42.896313,
+            "end": 43.683417
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 41.157783333333334,
+            "end": 41.69165,
+            "startFrame": 2467,
+            "endFrame": 2499
+          },
+          "sourceRemoved": {
+            "start": 45.71233333333333,
+            "end": 46.2462
+          },
+          "precedingWord": "control.",
+          "nextWord": "Help",
+          "removedSeconds": 0.5338666666666683,
+          "quietInterval": {
+            "start": 45.621271,
+            "end": 46.434646
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 44.42771666666667,
+            "end": 45.37866666666667,
+            "startFrame": 2663,
+            "endFrame": 2720
+          },
+          "sourceRemoved": {
+            "start": 48.98226666666667,
+            "end": 49.93321666666667
+          },
+          "precedingWord": "savior.",
+          "nextWord": "They",
+          "removedSeconds": 0.9509499999999989,
+          "quietInterval": {
+            "start": 48.886208,
+            "end": 50.123104
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 47.63091666666667,
+            "end": 48.21483333333334,
+            "startFrame": 2855,
+            "endFrame": 2890
+          },
+          "sourceRemoved": {
+            "start": 52.18546666666667,
+            "end": 52.76938333333334
+          },
+          "precedingWord": "goes.",
+          "nextWord": "But",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 52.158021,
+            "end": 53.00475
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 49.516133333333336,
+            "end": 50.21683333333334,
+            "startFrame": 2968,
+            "endFrame": 3010
+          },
+          "sourceRemoved": {
+            "start": 54.070683333333335,
+            "end": 54.77138333333334
+          },
+          "precedingWord": "everything.",
+          "nextWord": "Give",
+          "removedSeconds": 0.7007000000000048,
+          "quietInterval": {
+            "start": 53.958125,
+            "end": 54.970687
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 54.87148333333334,
+            "end": 55.455400000000004,
+            "startFrame": 3289,
+            "endFrame": 3324
+          },
+          "sourceRemoved": {
+            "start": 59.426033333333336,
+            "end": 60.00995
+          },
+          "precedingWord": "well.",
+          "nextWord": "In",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 59.316396,
+            "end": 60.251875
+          }
+        }
+      ],
+      "heldGaps": [],
+      "finalPlacements": [
+        {
+          "clipId": "000f45a3",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.63696666666667,
+          "sourceIn": 4.55455,
+          "sourceOut": 8.19151666666667
+        },
+        {
+          "clipId": "000f4576",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.63696666666667,
+          "timelineEnd": 4.42108333333333,
+          "sourceIn": 8.6086,
+          "sourceOut": 9.39271666666667
+        },
+        {
+          "clipId": "000f4574",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.42108333333333,
+          "timelineEnd": 8.4084,
+          "sourceIn": 10.3269833333333,
+          "sourceOut": 14.3143
+        },
+        {
+          "clipId": "000f4579",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 8.4084,
+          "timelineEnd": 10.4270833333333,
+          "sourceIn": 14.9315833333333,
+          "sourceOut": 16.9502666666667
+        },
+        {
+          "clipId": "000f457d",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 10.4270833333333,
+          "timelineEnd": 14.76475,
+          "sourceIn": 17.6509666666667,
+          "sourceOut": 21.9886333333333
+        },
+        {
+          "clipId": "000f4581",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 14.76475,
+          "timelineEnd": 26.3096166666667,
+          "sourceIn": 22.6893333333333,
+          "sourceOut": 34.2342
+        },
+        {
+          "clipId": "000f4585",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 26.3096166666667,
+          "timelineEnd": 31.0476833333333,
+          "sourceIn": 34.7347,
+          "sourceOut": 39.4727666666667
+        },
+        {
+          "clipId": "000f4589",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 31.0476833333333,
+          "timelineEnd": 33.8671666666667,
+          "sourceIn": 40.09005,
+          "sourceOut": 42.9095333333333
+        },
+        {
+          "clipId": "000f458d",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 33.8671666666667,
+          "timelineEnd": 36.1361,
+          "sourceIn": 43.4434,
+          "sourceOut": 45.7123333333333
+        },
+        {
+          "clipId": "000f4591",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 36.1361,
+          "timelineEnd": 38.8721666666667,
+          "sourceIn": 46.2462,
+          "sourceOut": 48.9822666666667
+        },
+        {
+          "clipId": "000f4594",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 38.8721666666667,
+          "timelineEnd": 41.1244166666667,
+          "sourceIn": 49.9332166666667,
+          "sourceOut": 52.1854666666667
+        },
+        {
+          "clipId": "000f4598",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 41.1244166666667,
+          "timelineEnd": 42.4257166666667,
+          "sourceIn": 52.7693833333333,
+          "sourceOut": 54.0706833333333
+        },
+        {
+          "clipId": "000f459d",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 42.4257166666667,
+          "timelineEnd": 47.0803666666667,
+          "sourceIn": 54.7713833333333,
+          "sourceOut": 59.4260333333333
+        },
+        {
+          "clipId": "000f45a1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 47.0803666666667,
+          "timelineEnd": 49.8164333333333,
+          "sourceIn": 60.00995,
+          "sourceOut": 62.7460166666667
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Breaking the Cycle.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Breaking the Cycle.mov",
+      "sourceProjectItemId": "000f42a3",
+      "originalSequenceId": "c9995dad-dff7-4f32-88fa-f9e3e6025ea3",
+      "originalSequenceName": "745_PJ_Prayer_BreakingtheCycle_v01_REVIEW",
+      "reviewSequenceId": "ac71cbbe-ebb0-4408-9aa7-e62c27583653",
+      "reviewSequenceName": "745_PJ_Prayer_BreakingtheCycle_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f466d",
+      "beforeDuration": 56.7233333333294,
+      "afterDuration": 52.7026499999961,
+      "removedSeconds": 4.0206833333333325,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 151,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.6036,
+            "end": 4.05405,
+            "startFrame": 216,
+            "endFrame": 243
+          },
+          "sourceRemoved": {
+            "start": 9.27593333333334,
+            "end": 9.72638333333334
+          },
+          "precedingWord": "again?",
+          "nextWord": "Let's",
+          "removedSeconds": 0.45045,
+          "quietInterval": {
+            "start": 9.098375,
+            "end": 9.923438
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 4.871533333333334,
+            "end": 5.85585,
+            "startFrame": 292,
+            "endFrame": 351
+          },
+          "sourceRemoved": {
+            "start": 10.543866666666673,
+            "end": 11.52818333333334
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.9843166666666665,
+          "quietInterval": {
+            "start": 10.36025,
+            "end": 11.745792
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 10.076733333333333,
+            "end": 10.66065,
+            "startFrame": 604,
+            "endFrame": 639
+          },
+          "sourceRemoved": {
+            "start": 15.749066666666673,
+            "end": 16.33298333333334
+          },
+          "precedingWord": "thing.",
+          "nextWord": "You",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 15.65275,
+            "end": 16.506521
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 18.752066666666668,
+            "end": 19.335983333333335,
+            "startFrame": 1124,
+            "endFrame": 1159
+          },
+          "sourceRemoved": {
+            "start": 24.424400000000006,
+            "end": 25.008316666666673
+          },
+          "precedingWord": "up.",
+          "nextWord": "God",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 24.202708,
+            "end": 25.223875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 25.475450000000002,
+            "end": 25.892533333333336,
+            "startFrame": 1527,
+            "endFrame": 1552
+          },
+          "sourceRemoved": {
+            "start": 31.147783333333344,
+            "end": 31.564866666666674
+          },
+          "precedingWord": "cross.",
+          "nextWord": "Give",
+          "removedSeconds": 0.41708333333333414,
+          "quietInterval": {
+            "start": 31.068333,
+            "end": 31.786604
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 46.47976666666667,
+            "end": 46.94690000000001,
+            "startFrame": 2786,
+            "endFrame": 2814
+          },
+          "sourceRemoved": {
+            "start": 52.15210000000001,
+            "end": 52.61923333333335
+          },
+          "precedingWord": "it.",
+          "nextWord": "Don't",
+          "removedSeconds": 0.4671333333333365,
+          "quietInterval": {
+            "start": 51.825208,
+            "end": 52.792125
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 53.52013333333334,
+            "end": 54.054,
+            "startFrame": 3208,
+            "endFrame": 3240
+          },
+          "sourceRemoved": {
+            "start": 59.19246666666668,
+            "end": 59.72633333333334
+          },
+          "precedingWord": "time.",
+          "nextWord": "In",
+          "removedSeconds": 0.5338666666666612,
+          "quietInterval": {
+            "start": 59.048375,
+            "end": 59.9025
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 49.427667,
+          "end": 49.947667,
+          "precedingWord": "cage.",
+          "nextWord": "Lead",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f45c4",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.52018333333333,
+          "sourceIn": 5.67233333333333,
+          "sourceOut": 9.1925166666706
+        },
+        {
+          "clipId": "000f45c5",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.52018333333333,
+          "timelineEnd": 3.6036,
+          "sourceIn": 9.19251666666667,
+          "sourceOut": 9.27593333333727
+        },
+        {
+          "clipId": "000f45ad",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.6036,
+          "timelineEnd": 4.42108333333333,
+          "sourceIn": 9.72638333333333,
+          "sourceOut": 10.5438666666706
+        },
+        {
+          "clipId": "000f45ae",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.42108333333333,
+          "timelineEnd": 8.64196666666667,
+          "sourceIn": 11.5281833333333,
+          "sourceOut": 15.7490666666706
+        },
+        {
+          "clipId": "000f45b1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 8.64196666666667,
+          "timelineEnd": 16.7333833333333,
+          "sourceIn": 16.3329833333333,
+          "sourceOut": 24.4244000000039
+        },
+        {
+          "clipId": "000f45b6",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 16.7333833333333,
+          "timelineEnd": 22.87285,
+          "sourceIn": 25.0083166666667,
+          "sourceOut": 31.1477833333373
+        },
+        {
+          "clipId": "000f45ba",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 22.87285,
+          "timelineEnd": 43.4600833333333,
+          "sourceIn": 31.5648666666667,
+          "sourceOut": 52.1521000000039
+        },
+        {
+          "clipId": "000f45bd",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.4600833333333,
+          "timelineEnd": 50.0333166666667,
+          "sourceIn": 52.6192333333333,
+          "sourceOut": 59.1924666666706
+        },
+        {
+          "clipId": "000f45c1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 50.0333166666667,
+          "timelineEnd": 52.7026499999961,
+          "sourceIn": 59.7263333333333,
+          "sourceOut": 62.3956666666667
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Missing Someone.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Missing Someone.mov",
+      "sourceProjectItemId": "000f4296",
+      "originalSequenceId": "d25986f2-a3f3-4e67-8d94-31c8dffbbbad",
+      "originalSequenceName": "745_PJ_Prayer_MissingSomeone_v01_REVIEW",
+      "reviewSequenceId": "a6789c6f-be46-42fb-9506-61c43b76f695",
+      "reviewSequenceName": "745_PJ_Prayer_MissingSomeone_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f466e",
+      "beforeDuration": 58.4250333333333,
+      "afterDuration": 49.0823666666667,
+      "removedSeconds": 9.342666666666664,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 147,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 4.070733333333334,
+            "end": 5.138466666666667,
+            "startFrame": 244,
+            "endFrame": 308
+          },
+          "sourceRemoved": {
+            "start": 6.906900000000004,
+            "end": 7.974633333333337
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 1.067733333333333,
+          "quietInterval": {
+            "start": 6.727396,
+            "end": 8.213167
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 8.274933333333333,
+            "end": 8.85885,
+            "startFrame": 496,
+            "endFrame": 531
+          },
+          "sourceRemoved": {
+            "start": 11.111100000000004,
+            "end": 11.695016666666671
+          },
+          "precedingWord": "today.",
+          "nextWord": "You",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 10.931083,
+            "end": 11.876146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 14.631283333333334,
+            "end": 15.582233333333335,
+            "startFrame": 877,
+            "endFrame": 934
+          },
+          "sourceRemoved": {
+            "start": 17.467450000000003,
+            "end": 18.418400000000005
+          },
+          "precedingWord": "hurt.",
+          "nextWord": "God,",
+          "removedSeconds": 0.9509500000000006,
+          "quietInterval": {
+            "start": 17.21625,
+            "end": 18.626958
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 18.835483333333336,
+            "end": 19.569550000000003,
+            "startFrame": 1129,
+            "endFrame": 1173
+          },
+          "sourceRemoved": {
+            "start": 21.671650000000007,
+            "end": 22.405716666666674
+          },
+          "precedingWord": "brokenhearted.",
+          "nextWord": "So",
+          "removedSeconds": 0.7340666666666671,
+          "quietInterval": {
+            "start": 21.483083,
+            "end": 22.619646
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 26.226200000000002,
+            "end": 27.17715,
+            "startFrame": 1572,
+            "endFrame": 1629
+          },
+          "sourceRemoved": {
+            "start": 29.062366666666673,
+            "end": 30.01331666666667
+          },
+          "precedingWord": "okay.",
+          "nextWord": "Give",
+          "removedSeconds": 0.9509499999999989,
+          "quietInterval": {
+            "start": 28.959354,
+            "end": 30.222458
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 31.548183333333338,
+            "end": 32.449083333333334,
+            "startFrame": 1891,
+            "endFrame": 1945
+          },
+          "sourceRemoved": {
+            "start": 34.384350000000005,
+            "end": 35.285250000000005
+          },
+          "precedingWord": "again.",
+          "nextWord": "Bring",
+          "removedSeconds": 0.9008999999999965,
+          "quietInterval": {
+            "start": 34.10675,
+            "end": 35.499583
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 36.236200000000004,
+            "end": 36.736700000000006,
+            "startFrame": 2172,
+            "endFrame": 2202
+          },
+          "sourceRemoved": {
+            "start": 39.072366666666674,
+            "end": 39.57286666666668
+          },
+          "precedingWord": "presence.",
+          "nextWord": "When",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 39.058708,
+            "end": 39.790188
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 42.42571666666667,
+            "end": 43.259883333333335,
+            "startFrame": 2543,
+            "endFrame": 2593
+          },
+          "sourceRemoved": {
+            "start": 45.261883333333344,
+            "end": 46.096050000000005
+          },
+          "precedingWord": "themselves.",
+          "nextWord": "Give",
+          "removedSeconds": 0.8341666666666612,
+          "quietInterval": {
+            "start": 45.224937,
+            "end": 46.303937
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 44.711333333333336,
+            "end": 45.29525,
+            "startFrame": 2680,
+            "endFrame": 2715
+          },
+          "sourceRemoved": {
+            "start": 47.54750000000001,
+            "end": 48.131416666666674
+          },
+          "precedingWord": "today.",
+          "nextWord": "Not",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 47.475896,
+            "end": 48.356625
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 47.714333333333336,
+            "end": 48.498450000000005,
+            "startFrame": 2860,
+            "endFrame": 2907
+          },
+          "sourceRemoved": {
+            "start": 50.55050000000001,
+            "end": 51.334616666666676
+          },
+          "precedingWord": "today.",
+          "nextWord": "Hold",
+          "removedSeconds": 0.7841166666666695,
+          "quietInterval": {
+            "start": 50.393042,
+            "end": 51.501958
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 50.91753333333334,
+            "end": 51.41803333333334,
+            "startFrame": 3052,
+            "endFrame": 3082
+          },
+          "sourceRemoved": {
+            "start": 53.75370000000001,
+            "end": 54.25420000000001
+          },
+          "precedingWord": "aches.",
+          "nextWord": "And",
+          "removedSeconds": 0.5005000000000024,
+          "quietInterval": {
+            "start": 53.7235,
+            "end": 54.442917
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 55.105050000000006,
+            "end": 55.62223333333334,
+            "startFrame": 3303,
+            "endFrame": 3334
+          },
+          "sourceRemoved": {
+            "start": 57.941216666666676,
+            "end": 58.45840000000001
+          },
+          "precedingWord": "loss.",
+          "nextWord": "And",
+          "removedSeconds": 0.5171833333333353,
+          "quietInterval": {
+            "start": 57.803271,
+            "end": 58.663854
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 57.10705000000001,
+            "end": 57.54081666666667,
+            "startFrame": 3423,
+            "endFrame": 3449
+          },
+          "sourceRemoved": {
+            "start": 59.94321666666668,
+            "end": 60.37698333333334
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.4337666666666635,
+          "quietInterval": {
+            "start": 59.823,
+            "end": 60.563042
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 21.023833,
+          "end": 21.943833,
+          "precedingWord": "now.",
+          "nextWord": "Give",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        },
+        {
+          "start": 2.8695333333333335,
+          "end": 3.336666666666667,
+          "precedingWord": "now.",
+          "nextWord": "Let's",
+          "reason": "Crosses existing opening title/fade hold; preserved"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4600",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 4.07073333333333,
+          "sourceIn": 2.83616666666667,
+          "sourceOut": 6.9069
+        },
+        {
+          "clipId": "000f45ce",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.07073333333333,
+          "timelineEnd": 7.2072,
+          "sourceIn": 7.97463333333333,
+          "sourceOut": 11.1111
+        },
+        {
+          "clipId": "000f45d2",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.2072,
+          "timelineEnd": 12.9796333333333,
+          "sourceIn": 11.6950166666667,
+          "sourceOut": 17.46745
+        },
+        {
+          "clipId": "000f45d6",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 12.9796333333333,
+          "timelineEnd": 16.2328833333333,
+          "sourceIn": 18.4184,
+          "sourceOut": 21.67165
+        },
+        {
+          "clipId": "000f45da",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 16.2328833333333,
+          "timelineEnd": 22.8895333333333,
+          "sourceIn": 22.4057166666667,
+          "sourceOut": 29.0623666666667
+        },
+        {
+          "clipId": "000f45de",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 22.8895333333333,
+          "timelineEnd": 27.2605666666667,
+          "sourceIn": 30.0133166666667,
+          "sourceOut": 34.38435
+        },
+        {
+          "clipId": "000f45e1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 27.2605666666667,
+          "timelineEnd": 31.0476833333333,
+          "sourceIn": 35.28525,
+          "sourceOut": 39.0723666666667
+        },
+        {
+          "clipId": "000f45e6",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 31.0476833333333,
+          "timelineEnd": 36.7367,
+          "sourceIn": 39.5728666666667,
+          "sourceOut": 45.2618833333333
+        },
+        {
+          "clipId": "000f45ea",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 36.7367,
+          "timelineEnd": 38.18815,
+          "sourceIn": 46.09605,
+          "sourceOut": 47.5475
+        },
+        {
+          "clipId": "000f45ed",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 38.18815,
+          "timelineEnd": 40.6072333333333,
+          "sourceIn": 48.1314166666667,
+          "sourceOut": 50.5505
+        },
+        {
+          "clipId": "000f45f1",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 40.6072333333333,
+          "timelineEnd": 43.0263166666667,
+          "sourceIn": 51.3346166666667,
+          "sourceOut": 53.7537
+        },
+        {
+          "clipId": "000f45f6",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 43.0263166666667,
+          "timelineEnd": 46.7133333333333,
+          "sourceIn": 54.2542,
+          "sourceOut": 57.9412166666667
+        },
+        {
+          "clipId": "000f45fa",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 46.7133333333333,
+          "timelineEnd": 48.19815,
+          "sourceIn": 58.4584,
+          "sourceOut": 59.9432166666667
+        },
+        {
+          "clipId": "000f45fd",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 48.19815,
+          "timelineEnd": 49.0823666666667,
+          "sourceIn": 60.3769833333333,
+          "sourceOut": 61.2612
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "The Thing Nobody Knows.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/The Thing Nobody Knows.mov",
+      "sourceProjectItemId": "000f429c",
+      "originalSequenceId": "f444828b-d7e8-4fc4-9c17-bc5386561b2f",
+      "originalSequenceName": "745_PJ_Prayer_TheThingNobodyKnows_v01_REVIEW",
+      "reviewSequenceId": "82462d32-19ad-4b7b-adc4-e5b33b3b28e0",
+      "reviewSequenceName": "745_PJ_Prayer_TheThingNobodyKnows_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f466f",
+      "beforeDuration": 56.0393166666667,
+      "afterDuration": 46.6132333333333,
+      "removedSeconds": 9.42608333333333,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 141,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 4.721383333333334,
+            "end": 5.85585,
+            "startFrame": 283,
+            "endFrame": 351
+          },
+          "sourceRemoved": {
+            "start": 10.393716666666663,
+            "end": 11.528183333333331
+          },
+          "precedingWord": "pray.",
+          "nextWord": "Father,",
+          "removedSeconds": 1.1344666666666665,
+          "quietInterval": {
+            "start": 10.203563,
+            "end": 11.760146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 8.675333333333334,
+            "end": 9.259250000000002,
+            "startFrame": 520,
+            "endFrame": 555
+          },
+          "sourceRemoved": {
+            "start": 14.347666666666665,
+            "end": 14.931583333333332
+          },
+          "precedingWord": "secret.",
+          "nextWord": "You",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 14.248083,
+            "end": 15.125021
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 10.760750000000002,
+            "end": 11.294616666666668,
+            "startFrame": 645,
+            "endFrame": 677
+          },
+          "sourceRemoved": {
+            "start": 16.433083333333332,
+            "end": 16.966949999999997
+          },
+          "precedingWord": "is.",
+          "nextWord": "Nothing's",
+          "removedSeconds": 0.5338666666666665,
+          "quietInterval": {
+            "start": 16.368354,
+            "end": 17.137792
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.562550000000002,
+            "end": 13.546866666666668,
+            "startFrame": 753,
+            "endFrame": 812
+          },
+          "sourceRemoved": {
+            "start": 18.234883333333332,
+            "end": 19.219199999999997
+          },
+          "precedingWord": "you.",
+          "nextWord": "God!",
+          "removedSeconds": 0.9843166666666665,
+          "quietInterval": {
+            "start": 18.056,
+            "end": 19.409875
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 16.316300000000002,
+            "end": 17.067050000000002,
+            "startFrame": 978,
+            "endFrame": 1023
+          },
+          "sourceRemoved": {
+            "start": 21.988633333333333,
+            "end": 22.739383333333333
+          },
+          "precedingWord": "mercy.",
+          "nextWord": "Give",
+          "removedSeconds": 0.75075,
+          "quietInterval": {
+            "start": 21.874063,
+            "end": 22.942042
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 21.95526666666667,
+            "end": 22.655966666666668,
+            "startFrame": 1316,
+            "endFrame": 1358
+          },
+          "sourceRemoved": {
+            "start": 27.6276,
+            "end": 28.3283
+          },
+          "precedingWord": "pretending.",
+          "nextWord": "Your",
+          "removedSeconds": 0.7006999999999977,
+          "quietInterval": {
+            "start": 27.497792,
+            "end": 28.550021
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 28.71201666666667,
+            "end": 29.21251666666667,
+            "startFrame": 1721,
+            "endFrame": 1751
+          },
+          "sourceRemoved": {
+            "start": 34.38435,
+            "end": 34.88485
+          },
+          "precedingWord": "us.",
+          "nextWord": "Help",
+          "removedSeconds": 0.5004999999999988,
+          "quietInterval": {
+            "start": 34.320667,
+            "end": 35.078437
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 30.680650000000004,
+            "end": 31.26456666666667,
+            "startFrame": 1839,
+            "endFrame": 1874
+          },
+          "sourceRemoved": {
+            "start": 36.352983333333334,
+            "end": 36.9369
+          },
+          "precedingWord": "that.",
+          "nextWord": "And",
+          "removedSeconds": 0.5839166666666671,
+          "quietInterval": {
+            "start": 36.067708,
+            "end": 37.152604
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 34.40103333333334,
+            "end": 35.1351,
+            "startFrame": 2062,
+            "endFrame": 2106
+          },
+          "sourceRemoved": {
+            "start": 40.073366666666665,
+            "end": 40.80743333333333
+          },
+          "precedingWord": "alone.",
+          "nextWord": "Give",
+          "removedSeconds": 0.7340666666666635,
+          "quietInterval": {
+            "start": 39.928333,
+            "end": 40.977646
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 39.52281666666667,
+            "end": 40.42371666666667,
+            "startFrame": 2369,
+            "endFrame": 2423
+          },
+          "sourceRemoved": {
+            "start": 45.19515,
+            "end": 46.09605
+          },
+          "precedingWord": "them.",
+          "nextWord": "Break",
+          "removedSeconds": 0.9009,
+          "quietInterval": {
+            "start": 45.030646,
+            "end": 46.282104
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 41.90853333333334,
+            "end": 42.62591666666667,
+            "startFrame": 2512,
+            "endFrame": 2555
+          },
+          "sourceRemoved": {
+            "start": 47.580866666666665,
+            "end": 48.298249999999996
+          },
+          "precedingWord": "shame.",
+          "nextWord": "Lead",
+          "removedSeconds": 0.7173833333333306,
+          "quietInterval": {
+            "start": 47.4895,
+            "end": 48.478375
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 52.46908333333334,
+            "end": 53.21983333333334,
+            "startFrame": 3145,
+            "endFrame": 3190
+          },
+          "sourceRemoved": {
+            "start": 58.141416666666665,
+            "end": 58.89216666666667
+          },
+          "precedingWord": "honestly.",
+          "nextWord": "Christ's",
+          "removedSeconds": 0.7507500000000036,
+          "quietInterval": {
+            "start": 57.988417,
+            "end": 59.128104
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 54.58786666666667,
+            "end": 55.13841666666667,
+            "startFrame": 3272,
+            "endFrame": 3305
+          },
+          "sourceRemoved": {
+            "start": 60.2602,
+            "end": 60.81075
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.5505500000000012,
+          "quietInterval": {
+            "start": 60.166167,
+            "end": 61.007687
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 46.387667,
+          "end": 47.587667,
+          "precedingWord": "freedom.",
+          "nextWord": "Thank",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f4639",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 4.72138333333333,
+          "sourceIn": 5.67233333333333,
+          "sourceOut": 10.3937166666667
+        },
+        {
+          "clipId": "000f4607",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 4.72138333333333,
+          "timelineEnd": 7.54086666666667,
+          "sourceIn": 11.5281833333333,
+          "sourceOut": 14.3476666666667
+        },
+        {
+          "clipId": "000f460a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 7.54086666666667,
+          "timelineEnd": 9.04236666666667,
+          "sourceIn": 14.9315833333333,
+          "sourceOut": 16.4330833333333
+        },
+        {
+          "clipId": "000f460e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.04236666666667,
+          "timelineEnd": 10.3103,
+          "sourceIn": 16.96695,
+          "sourceOut": 18.2348833333333
+        },
+        {
+          "clipId": "000f4612",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 10.3103,
+          "timelineEnd": 13.0797333333333,
+          "sourceIn": 19.2192,
+          "sourceOut": 21.9886333333333
+        },
+        {
+          "clipId": "000f4617",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 13.0797333333333,
+          "timelineEnd": 17.96795,
+          "sourceIn": 22.7393833333333,
+          "sourceOut": 27.6276
+        },
+        {
+          "clipId": "000f4624",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 17.96795,
+          "timelineEnd": 24.024,
+          "sourceIn": 28.3283,
+          "sourceOut": 34.38435
+        },
+        {
+          "clipId": "000f461e",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 24.024,
+          "timelineEnd": 25.4921333333333,
+          "sourceIn": 34.88485,
+          "sourceOut": 36.3529833333333
+        },
+        {
+          "clipId": "000f4621",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 25.4921333333333,
+          "timelineEnd": 28.6286,
+          "sourceIn": 36.9369,
+          "sourceOut": 40.0733666666667
+        },
+        {
+          "clipId": "000f4627",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 28.6286,
+          "timelineEnd": 33.0163166666667,
+          "sourceIn": 40.8074333333333,
+          "sourceOut": 45.19515
+        },
+        {
+          "clipId": "000f462b",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 33.0163166666667,
+          "timelineEnd": 34.5011333333333,
+          "sourceIn": 46.09605,
+          "sourceOut": 47.5808666666667
+        },
+        {
+          "clipId": "000f462f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 34.5011333333333,
+          "timelineEnd": 44.3443,
+          "sourceIn": 48.29825,
+          "sourceOut": 58.1414166666667
+        },
+        {
+          "clipId": "000f4633",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 44.3443,
+          "timelineEnd": 45.7123333333333,
+          "sourceIn": 58.8921666666667,
+          "sourceOut": 60.2602
+        },
+        {
+          "clipId": "000f4637",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 45.7123333333333,
+          "timelineEnd": 46.6132333333333,
+          "sourceIn": 60.81075,
+          "sourceOut": 61.71165
+        }
+      ],
+      "exceptions": []
+    },
+    {
+      "sourceTitle": "Feeling Like a Failure.mov",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Feeling Like a Failure.mov",
+      "sourceProjectItemId": "000f42a0",
+      "originalSequenceId": "f533a19b-1b26-4e9a-b6cc-e4809a41f30b",
+      "originalSequenceName": "745_PJ_Prayer_FeelingLikeaFailure_v01_REVIEW",
+      "reviewSequenceId": "a72d56b1-9759-4b6d-9983-fec950d2ec52",
+      "reviewSequenceName": "745_PJ_Prayer_FeelingLikeaFailure_v02_CUT_REVIEW",
+      "reviewProjectItemId": "000f4670",
+      "beforeDuration": 50.1834666666667,
+      "afterDuration": 46.7633833333333,
+      "removedSeconds": 3.4200833333333396,
+      "checks": {
+        "durationMatches": true,
+        "wordsUnchanged": true,
+        "audioVideoMappingMatches": true,
+        "continuousVideo": true,
+        "openingTracksUnchanged": true,
+        "originalUnchanged": true
+      },
+      "spokenWordCount": 148,
+      "cuts": [
+        {
+          "timelineBefore": {
+            "start": 3.75375,
+            "end": 4.487816666666667,
+            "startFrame": 225,
+            "endFrame": 269
+          },
+          "sourceRemoved": {
+            "start": 9.19251666666667,
+            "end": 9.926583333333337
+          },
+          "precedingWord": "you.",
+          "nextWord": "Father,",
+          "removedSeconds": 0.7340666666666671,
+          "quietInterval": {
+            "start": 8.998437,
+            "end": 10.121104
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 7.5075,
+            "end": 7.924583333333334,
+            "startFrame": 450,
+            "endFrame": 475
+          },
+          "sourceRemoved": {
+            "start": 12.94626666666667,
+            "end": 13.363350000000004
+          },
+          "precedingWord": "today.",
+          "nextWord": "You",
+          "removedSeconds": 0.41708333333333414,
+          "quietInterval": {
+            "start": 12.793021,
+            "end": 13.533146
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 10.794116666666667,
+            "end": 11.177833333333334,
+            "startFrame": 647,
+            "endFrame": 670
+          },
+          "sourceRemoved": {
+            "start": 16.232883333333337,
+            "end": 16.616600000000005
+          },
+          "precedingWord": "wrong.",
+          "nextWord": "You",
+          "removedSeconds": 0.3837166666666665,
+          "quietInterval": {
+            "start": 16.134875,
+            "end": 16.8215
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 12.595916666666668,
+            "end": 13.2132,
+            "startFrame": 755,
+            "endFrame": 792
+          },
+          "sourceRemoved": {
+            "start": 18.034683333333337,
+            "end": 18.65196666666667
+          },
+          "precedingWord": "short.",
+          "nextWord": "But",
+          "removedSeconds": 0.617283333333333,
+          "quietInterval": {
+            "start": 17.869125,
+            "end": 18.793604
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 16.433083333333336,
+            "end": 16.850166666666667,
+            "startFrame": 985,
+            "endFrame": 1010
+          },
+          "sourceRemoved": {
+            "start": 21.871850000000006,
+            "end": 22.288933333333336
+          },
+          "precedingWord": "identity.",
+          "nextWord": "Where",
+          "removedSeconds": 0.4170833333333306,
+          "quietInterval": {
+            "start": 21.766146,
+            "end": 22.460292
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 35.18515,
+            "end": 35.65228333333334,
+            "startFrame": 2109,
+            "endFrame": 2137
+          },
+          "sourceRemoved": {
+            "start": 40.62391666666667,
+            "end": 41.09105000000001
+          },
+          "precedingWord": "it.",
+          "nextWord": "Remind",
+          "removedSeconds": 0.4671333333333365,
+          "quietInterval": {
+            "start": 40.384042,
+            "end": 41.286833
+          }
+        },
+        {
+          "timelineBefore": {
+            "start": 48.9489,
+            "end": 49.332616666666674,
+            "startFrame": 2934,
+            "endFrame": 2957
+          },
+          "sourceRemoved": {
+            "start": 54.387666666666675,
+            "end": 54.77138333333335
+          },
+          "precedingWord": "ask.",
+          "nextWord": "Amen.",
+          "removedSeconds": 0.3837166666666718,
+          "quietInterval": {
+            "start": 54.209646,
+            "end": 54.895958
+          }
+        }
+      ],
+      "heldGaps": [
+        {
+          "start": 31.061233,
+          "end": 31.781233,
+          "precedingWord": "Jesus.",
+          "nextWord": "Help",
+          "reason": "Quiet interval does not cover the full frame-aligned word gap"
+        }
+      ],
+      "finalPlacements": [
+        {
+          "clipId": "000f465a",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 0,
+          "timelineEnd": 3.75375,
+          "sourceIn": 5.43876666666667,
+          "sourceOut": 9.19251666666667
+        },
+        {
+          "clipId": "000f463f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 3.75375,
+          "timelineEnd": 6.77343333333333,
+          "sourceIn": 9.92658333333333,
+          "sourceOut": 12.9462666666667
+        },
+        {
+          "clipId": "000f4643",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 6.77343333333333,
+          "timelineEnd": 9.64296666666667,
+          "sourceIn": 13.36335,
+          "sourceOut": 16.2328833333333
+        },
+        {
+          "clipId": "000f4648",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 9.64296666666667,
+          "timelineEnd": 11.06105,
+          "sourceIn": 16.6166,
+          "sourceOut": 18.0346833333333
+        },
+        {
+          "clipId": "000f464c",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 11.06105,
+          "timelineEnd": 14.2809333333333,
+          "sourceIn": 18.6519666666667,
+          "sourceOut": 21.87185
+        },
+        {
+          "clipId": "000f464f",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 14.2809333333333,
+          "timelineEnd": 32.6159166666667,
+          "sourceIn": 22.2889333333333,
+          "sourceOut": 40.6239166666667
+        },
+        {
+          "clipId": "000f4654",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 32.6159166666667,
+          "timelineEnd": 45.9125333333333,
+          "sourceIn": 41.09105,
+          "sourceOut": 54.3876666666667
+        },
+        {
+          "clipId": "000f4659",
+          "trackType": "video",
+          "trackIndex": 0,
+          "timelineStart": 45.9125333333333,
+          "timelineEnd": 46.7633833333333,
+          "sourceIn": 54.7713833333333,
+          "sourceOut": 55.6222333333333
+        }
+      ],
+      "exceptions": []
+    }
+  ]
+}

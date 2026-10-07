@@ -1,0 +1,6 @@
+{
+  "name": "john-prayer-caption-probe",
+  "private": true,
+  "scripts": { "check": "npx --yes hyperframes@0.8.138 check", "preview": "npx --yes hyperframes@0.8.138 preview --background --port 3027" },
+  "dependencies": { "gsap": "3.14.2" }
+}

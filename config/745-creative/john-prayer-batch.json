@@ -1,0 +1,1098 @@
+{
+  "schemaVersion": 1,
+  "updatedOn": "2026-10-06",
+  "clientId": "pastor_john",
+  "laneId": "prayer",
+  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/745Creative/2026-09-30_pastorjohn-test.prproj",
+  "captionOwner": "Opus Clip",
+  "nativeTemplate": "premiere-masters/john-prayer-native-fade-v1.prproj",
+  "approvedStyleRecord": "figma-masters/pastor-john-prayer.json",
+  "laneSourceCount": 18,
+  "approvedSample": {
+    "sourceTitle": "Afraid of Tomorrow",
+    "sequenceId": "db95fd6e-2826-4b79-b9b8-7d78125bdb78",
+    "status": "opening style approved; full review and export remain with Jerami"
+  },
+  "builtReviewSequenceCount": 17,
+  "fullEditsApproved": 0,
+  "transcriptPolicy": "Only completed Adobe Premiere Pro source transcripts. No Whisper or Claude SRT used for these 17 edits.",
+  "reviewContactSheet": "/Volumes/HomeSSD/Generated/745_CREATIVE/previews/pastor_john/prayer/2026-10-06-prayer-batch-covers-v2.png",
+  "cleanFrameContactSheet": "/Volumes/HomeSSD/Generated/745_CREATIVE/previews/pastor_john/prayer/2026-10-06-prayer-batch-clean-frames.png",
+  "records": [
+    {
+      "order": 2,
+      "sourceTitle": "Feeling Behind Everyone Else",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Feeling Behind Everyone Else.mov",
+      "projectItemId": "000f4284",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/6b605054-14d4-d3e7-bb08-4c7700000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "ca02215a-5f54-46e6-8e24-efde1ab078ec",
+      "sequenceName": "745_PJ_Prayer_FeelingBehindEveryoneElse_v01_REVIEW",
+      "sequenceProjectItemId": "000f42a6",
+      "headlineLines": [
+        "FEELING",
+        "BEHIND"
+      ],
+      "figmaFrameId": "17:40",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-40",
+      "sourceRange": {
+        "inSeconds": 4.03736666666273,
+        "outSeconds": 62.5958666666667
+      },
+      "durationSeconds": 58.5585,
+      "videoClipId": "000f42a7",
+      "audioClipId": "000f42a8",
+      "titleClipId": "000f42ad",
+      "titleProjectItemId": "000f42ac",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 58.5585,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/ca02215a-5f54-46e6-8e24-efde1ab078ec/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/ca02215a-5f54-46e6-8e24-efde1ab078ec/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/ca02215a-5f54-46e6-8e24-efde1ab078ec/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 3,
+      "sourceTitle": "Carrying Everyone Else",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Carrying Everyone Else.mov",
+      "projectItemId": "000f4294",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/c6e1d5aa-39e3-53a0-3c54-878700000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "41dbcb4b-afca-48b4-990a-bd62f5b7a755",
+      "sequenceName": "745_PJ_Prayer_CarryingEveryoneElse_v01_REVIEW",
+      "sequenceProjectItemId": "000f42af",
+      "headlineLines": [
+        "CARRYING",
+        "EVERYONE ELSE"
+      ],
+      "figmaFrameId": "17:47",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-47",
+      "sourceRange": {
+        "inSeconds": 3.5035,
+        "outSeconds": 64.51445
+      },
+      "durationSeconds": 61.0109499999961,
+      "videoClipId": "000f42ce",
+      "audioClipId": "000f42ff",
+      "titleClipId": "000f42d0",
+      "titleProjectItemId": "000f42cf",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 61.0109499999961,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/41dbcb4b-afca-48b4-990a-bd62f5b7a755/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/41dbcb4b-afca-48b4-990a-bd62f5b7a755/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/41dbcb4b-afca-48b4-990a-bd62f5b7a755/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 4,
+      "sourceTitle": "The Temptation That Waits Till You're Alone",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/The Temptation That Waits Till Youre Alone.mov",
+      "projectItemId": "000f4295",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/a1b92649-6b20-dd83-ae13-e54f00000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "bcd887a4-2940-4593-8860-d90473ec4d2f",
+      "sequenceName": "745_PJ_Prayer_TheTemptationThatWaitsTillYoureAlone_v01_REVIEW",
+      "sequenceProjectItemId": "000f42b1",
+      "headlineLines": [
+        "PRIVATE",
+        "TEMPTATION"
+      ],
+      "figmaFrameId": "17:54",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-54",
+      "sourceRange": {
+        "inSeconds": 3.75375,
+        "outSeconds": 57.4740833333333
+      },
+      "durationSeconds": 53.7203333333294,
+      "videoClipId": "000f42d1",
+      "audioClipId": "000f4300",
+      "titleClipId": "000f42d3",
+      "titleProjectItemId": "000f42d2",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 53.7203333333294,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/bcd887a4-2940-4593-8860-d90473ec4d2f/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/bcd887a4-2940-4593-8860-d90473ec4d2f/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/bcd887a4-2940-4593-8860-d90473ec4d2f/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 5,
+      "sourceTitle": "Missing Someone",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Missing Someone.mov",
+      "projectItemId": "000f4296",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/c0e74c78-ceac-78d1-2086-bf1600000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "d25986f2-a3f3-4e67-8d94-31c8dffbbbad",
+      "sequenceName": "745_PJ_Prayer_MissingSomeone_v01_REVIEW",
+      "sequenceProjectItemId": "000f42b3",
+      "headlineLines": [
+        "MISSING",
+        "SOMEONE"
+      ],
+      "figmaFrameId": "17:61",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-61",
+      "sourceRange": {
+        "inSeconds": 2.83616666666667,
+        "outSeconds": 61.2612
+      },
+      "durationSeconds": 58.4250333333333,
+      "videoClipId": "000f42d4",
+      "audioClipId": "000f4301",
+      "titleClipId": "000f42d6",
+      "titleProjectItemId": "000f42d5",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 58.4250333333333,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/d25986f2-a3f3-4e67-8d94-31c8dffbbbad/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/d25986f2-a3f3-4e67-8d94-31c8dffbbbad/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/d25986f2-a3f3-4e67-8d94-31c8dffbbbad/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 6,
+      "sourceTitle": "A Decision You Can't Make",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/A Decision You Cant Make.mov",
+      "projectItemId": "000f4297",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/1e064f73-1704-593c-5cad-f8c000000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "724eb930-b11f-434c-bbf6-6842eba83170",
+      "sequenceName": "745_PJ_Prayer_ADecisionYouCantMake_v01_REVIEW",
+      "sequenceProjectItemId": "000f42b5",
+      "headlineLines": [
+        "A HARD",
+        "DECISION"
+      ],
+      "figmaFrameId": "17:68",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-68",
+      "sourceRange": {
+        "inSeconds": 2.91958333333333,
+        "outSeconds": 59.7430166666667
+      },
+      "durationSeconds": 56.8234333333333,
+      "videoClipId": "000f42d7",
+      "audioClipId": "000f4302",
+      "titleClipId": "000f42d9",
+      "titleProjectItemId": "000f42d8",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 56.8234333333333,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/724eb930-b11f-434c-bbf6-6842eba83170/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/724eb930-b11f-434c-bbf6-6842eba83170/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/724eb930-b11f-434c-bbf6-6842eba83170/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 7,
+      "sourceTitle": "Ashamed to Come Back",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Ashamed to Come Back.mov",
+      "projectItemId": "000f4298",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/cd86c532-ff20-43a5-e4a6-c0aa00000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "20c9b3cd-43f5-44af-90af-d04bcde3db07",
+      "sequenceName": "745_PJ_Prayer_AshamedtoComeBack_v01_REVIEW",
+      "sequenceProjectItemId": "000f42b7",
+      "headlineLines": [
+        "COMING",
+        "BACK"
+      ],
+      "figmaFrameId": "17:75",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-75",
+      "sourceRange": {
+        "inSeconds": 2.91958333333333,
+        "outSeconds": 59.2758833333333
+      },
+      "durationSeconds": 56.3563,
+      "videoClipId": "000f42da",
+      "audioClipId": "000f4303",
+      "titleClipId": "000f42dc",
+      "titleProjectItemId": "000f42db",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 56.3563,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/20c9b3cd-43f5-44af-90af-d04bcde3db07/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/20c9b3cd-43f5-44af-90af-d04bcde3db07/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/20c9b3cd-43f5-44af-90af-d04bcde3db07/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 8,
+      "sourceTitle": "Worried About Your Kids",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Worried About Your Kids.mov",
+      "projectItemId": "000f4299",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/dcfd151b-38df-3299-adfd-47d200000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "c336d049-c1a8-4d70-b362-593e463e052f",
+      "sequenceName": "745_PJ_Prayer_WorriedAboutYourKids_v01_REVIEW",
+      "sequenceProjectItemId": "000f42b9",
+      "headlineLines": [
+        "YOUR",
+        "KIDS"
+      ],
+      "figmaFrameId": "17:82",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-82",
+      "sourceRange": {
+        "inSeconds": 4.55455,
+        "outSeconds": 62.7460166666667
+      },
+      "durationSeconds": 58.1914666666667,
+      "videoClipId": "000f42dd",
+      "audioClipId": "000f4304",
+      "titleClipId": "000f42df",
+      "titleProjectItemId": "000f42de",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 58.1914666666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/c336d049-c1a8-4d70-b362-593e463e052f/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/c336d049-c1a8-4d70-b362-593e463e052f/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/c336d049-c1a8-4d70-b362-593e463e052f/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 9,
+      "sourceTitle": "When the Past Won't Let Go",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/When the Past Wont Let Go.mov",
+      "projectItemId": "000f429a",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/730199df-7779-30a9-512d-1f0400000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "a370ec07-75a5-4c6d-b3bd-eb9246547e9c",
+      "sequenceName": "745_PJ_Prayer_WhenthePastWontLetGo_v01_REVIEW",
+      "sequenceProjectItemId": "000f42bb",
+      "headlineLines": [
+        "LETTING GO",
+        "OF THE PAST"
+      ],
+      "figmaFrameId": "17:89",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-89",
+      "sourceRange": {
+        "inSeconds": 3.7037,
+        "outSeconds": 59.2258333333333
+      },
+      "durationSeconds": 55.5221333333333,
+      "videoClipId": "000f42e0",
+      "audioClipId": "000f4305",
+      "titleClipId": "000f42e2",
+      "titleProjectItemId": "000f42e1",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 55.5221333333333,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/a370ec07-75a5-4c6d-b3bd-eb9246547e9c/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/a370ec07-75a5-4c6d-b3bd-eb9246547e9c/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/a370ec07-75a5-4c6d-b3bd-eb9246547e9c/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 10,
+      "sourceTitle": "A Mind That Won't Shut Off",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/A Mind That Wont Shut Off.mov",
+      "projectItemId": "000f429b",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/a8e697ed-b68e-30b9-ee82-851900000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "989b272c-8d2e-408c-b5cc-82f6b91395cd",
+      "sequenceName": "745_PJ_Prayer_AMindThatWontShutOff_v01_REVIEW",
+      "sequenceProjectItemId": "000f42bd",
+      "headlineLines": [
+        "A RESTLESS",
+        "MIND"
+      ],
+      "figmaFrameId": "17:96",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-96",
+      "sourceRange": {
+        "inSeconds": 4.0707333333294,
+        "outSeconds": 58.90885
+      },
+      "durationSeconds": 54.8381166666667,
+      "videoClipId": "000f42e3",
+      "audioClipId": "000f4306",
+      "titleClipId": "000f42e5",
+      "titleProjectItemId": "000f42e4",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 54.8381166666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/989b272c-8d2e-408c-b5cc-82f6b91395cd/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/989b272c-8d2e-408c-b5cc-82f6b91395cd/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/989b272c-8d2e-408c-b5cc-82f6b91395cd/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": [
+        "Production comment after Amen excluded."
+      ]
+    },
+    {
+      "order": 11,
+      "sourceTitle": "The Thing Nobody Knows",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/The Thing Nobody Knows.mov",
+      "projectItemId": "000f429c",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/3ffb27fe-760d-55f8-6c5b-6f6800000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "f444828b-d7e8-4fc4-9c17-bc5386561b2f",
+      "sequenceName": "745_PJ_Prayer_TheThingNobodyKnows_v01_REVIEW",
+      "sequenceProjectItemId": "000f42bf",
+      "headlineLines": [
+        "THE HIDDEN",
+        "BATTLE"
+      ],
+      "figmaFrameId": "17:103",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-103",
+      "sourceRange": {
+        "inSeconds": 5.67233333333333,
+        "outSeconds": 61.71165
+      },
+      "durationSeconds": 56.0393166666667,
+      "videoClipId": "000f42e6",
+      "audioClipId": "000f4307",
+      "titleClipId": "000f42e8",
+      "titleProjectItemId": "000f42e7",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 56.0393166666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/f444828b-d7e8-4fc4-9c17-bc5386561b2f/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/f444828b-d7e8-4fc4-9c17-bc5386561b2f/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/f444828b-d7e8-4fc4-9c17-bc5386561b2f/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 12,
+      "sourceTitle": "Hurt by the Church",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Hurt by the Church.mov",
+      "projectItemId": "000f429d",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/f21f4c3f-b456-f28d-4707-604c00000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "5ad56fea-3f9d-42da-a73a-f5165eaedf30",
+      "sequenceName": "745_PJ_Prayer_HurtbytheChurch_v01_REVIEW",
+      "sequenceProjectItemId": "000f42c1",
+      "headlineLines": [
+        "CHURCH",
+        "HURT"
+      ],
+      "figmaFrameId": "17:110",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-110",
+      "sourceRange": {
+        "inSeconds": 5.07173333333333,
+        "outSeconds": 63.063
+      },
+      "durationSeconds": 57.9912666666667,
+      "videoClipId": "000f42e9",
+      "audioClipId": "000f4308",
+      "titleClipId": "000f42eb",
+      "titleProjectItemId": "000f42ea",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 57.9912666666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/5ad56fea-3f9d-42da-a73a-f5165eaedf30/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/5ad56fea-3f9d-42da-a73a-f5165eaedf30/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/5ad56fea-3f9d-42da-a73a-f5165eaedf30/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 13,
+      "sourceTitle": "Money Pressure",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Money Pressure.mov",
+      "projectItemId": "000f429e",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/b2ca27ca-2b9d-0693-c41d-9dc100000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "105927b9-0624-43aa-9651-cf522247d636",
+      "sequenceName": "745_PJ_Prayer_MoneyPressure_v01_REVIEW",
+      "sequenceProjectItemId": "000f42c3",
+      "headlineLines": [
+        "MONEY",
+        "PRESSURE"
+      ],
+      "figmaFrameId": "17:117",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-117",
+      "sourceRange": {
+        "inSeconds": 5.03836666666667,
+        "outSeconds": 55.2718833333333
+      },
+      "durationSeconds": 50.2335166666667,
+      "videoClipId": "000f42ec",
+      "audioClipId": "000f4309",
+      "titleClipId": "000f42ee",
+      "titleProjectItemId": "000f42ed",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 50.2335166666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/105927b9-0624-43aa-9651-cf522247d636/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/105927b9-0624-43aa-9651-cf522247d636/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/105927b9-0624-43aa-9651-cf522247d636/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 14,
+      "sourceTitle": "A Marriage Holding On",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/A Marriage Holding On.mov",
+      "projectItemId": "000f429f",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/a683bee4-e3b1-457c-5e9f-363c00000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "7f5f74a4-e1b9-4bda-b6c6-a1390f6089c8",
+      "sequenceName": "745_PJ_Prayer_AMarriageHoldingOn_v01_REVIEW",
+      "sequenceProjectItemId": "000f42c5",
+      "headlineLines": [
+        "A MARRIAGE",
+        "HOLDING ON"
+      ],
+      "figmaFrameId": "17:124",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-124",
+      "sourceRange": {
+        "inSeconds": 4.78811666666667,
+        "outSeconds": 58.2748833333333
+      },
+      "durationSeconds": 53.4867666666667,
+      "videoClipId": "000f42ef",
+      "audioClipId": "000f430a",
+      "titleClipId": "000f42f1",
+      "titleProjectItemId": "000f42f0",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 53.4867666666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/7f5f74a4-e1b9-4bda-b6c6-a1390f6089c8/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/7f5f74a4-e1b9-4bda-b6c6-a1390f6089c8/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/7f5f74a4-e1b9-4bda-b6c6-a1390f6089c8/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 15,
+      "sourceTitle": "Feeling Like a Failure",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Feeling Like a Failure.mov",
+      "projectItemId": "000f42a0",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/c5cc53a2-94de-dd68-6319-420200000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "f533a19b-1b26-4e9a-b6cc-e4809a41f30b",
+      "sequenceName": "745_PJ_Prayer_FeelingLikeaFailure_v01_REVIEW",
+      "sequenceProjectItemId": "000f42c7",
+      "headlineLines": [
+        "FEELING LIKE",
+        "A FAILURE"
+      ],
+      "figmaFrameId": "17:131",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-131",
+      "sourceRange": {
+        "inSeconds": 5.43876666666667,
+        "outSeconds": 55.6222333333333
+      },
+      "durationSeconds": 50.1834666666667,
+      "videoClipId": "000f42f2",
+      "audioClipId": "000f430b",
+      "titleClipId": "000f42f4",
+      "titleProjectItemId": "000f42f3",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 50.1834666666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/f533a19b-1b26-4e9a-b6cc-e4809a41f30b/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/f533a19b-1b26-4e9a-b6cc-e4809a41f30b/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/f533a19b-1b26-4e9a-b6cc-e4809a41f30b/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 16,
+      "sourceTitle": "Haven't Prayed in a Long Time",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Havent Prayed in a Long Time.mov",
+      "projectItemId": "000f42a1",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/355bac28-7847-a153-8175-589700000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "1b090249-2775-47a2-856b-8109e76d2c1d",
+      "sequenceName": "745_PJ_Prayer_HaventPrayedinaLongTime_v01_REVIEW",
+      "sequenceProjectItemId": "000f42c9",
+      "headlineLines": [
+        "PRAYING",
+        "AGAIN"
+      ],
+      "figmaFrameId": "17:138",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-138",
+      "sourceRange": {
+        "inSeconds": 5.03836666666667,
+        "outSeconds": 55.4720833333333
+      },
+      "durationSeconds": 50.4337166666627,
+      "videoClipId": "000f42f5",
+      "audioClipId": "000f430c",
+      "titleClipId": "000f42f7",
+      "titleProjectItemId": "000f42f6",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 50.4337166666627,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/1b090249-2775-47a2-856b-8109e76d2c1d/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/1b090249-2775-47a2-856b-8109e76d2c1d/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/1b090249-2775-47a2-856b-8109e76d2c1d/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 17,
+      "sourceTitle": "Already Tired",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Already Tired.mov",
+      "projectItemId": "000f42a2",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/83bb5337-a858-510f-46a1-420000000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "6231c0f2-c054-4d63-a298-7074f1f1438d",
+      "sequenceName": "745_PJ_Prayer_AlreadyTired_v01_REVIEW",
+      "sequenceProjectItemId": "000f42cb",
+      "headlineLines": [
+        "ALREADY",
+        "TIRED"
+      ],
+      "figmaFrameId": "17:145",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-145",
+      "sourceRange": {
+        "inSeconds": 4.67133333333333,
+        "outSeconds": 59.70965
+      },
+      "durationSeconds": 55.0383166666667,
+      "videoClipId": "000f42f8",
+      "audioClipId": "000f430d",
+      "titleClipId": "000f42fa",
+      "titleProjectItemId": "000f42f9",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 55.0383166666667,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/6231c0f2-c054-4d63-a298-7074f1f1438d/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/6231c0f2-c054-4d63-a298-7074f1f1438d/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/6231c0f2-c054-4d63-a298-7074f1f1438d/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": []
+    },
+    {
+      "order": 18,
+      "sourceTitle": "Breaking the Cycle",
+      "sourcePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Breaking the Cycle.mov",
+      "projectItemId": "000f42a3",
+      "transcript": {
+        "provider": "Adobe Premiere Pro",
+        "status": "Completed",
+        "selectionMethod": "content-state-id",
+        "cachePath": "/Users/singleton23/Library/Application Support/Adobe/Common/Analyzer Cache Files/02d2cce2-a46b-1a1d-dfb6-81a900000024.8ae190a9-26ad-45fe-91d7-07f67c10eaca__L_en-us_D_0_M_0_S_1_R_1_I_0.1.__SERIALIZED_TRANSCRIPT_FLAT_BUFFERV216_filler.mfdc"
+      },
+      "sequenceId": "c9995dad-dff7-4f32-88fa-f9e3e6025ea3",
+      "sequenceName": "745_PJ_Prayer_BreakingtheCycle_v01_REVIEW",
+      "sequenceProjectItemId": "000f42cd",
+      "headlineLines": [
+        "BREAKING",
+        "THE CYCLE"
+      ],
+      "figmaFrameId": "17:152",
+      "figmaFrameUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=17-152",
+      "sourceRange": {
+        "inSeconds": 5.67233333333333,
+        "outSeconds": 62.3956666666667
+      },
+      "durationSeconds": 56.7233333333294,
+      "videoClipId": "000f42fb",
+      "audioClipId": "000f42fc",
+      "titleClipId": "000f42fe",
+      "titleProjectItemId": "000f42fd",
+      "nativeReadback": {
+        "width": 1080,
+        "height": 1920,
+        "colorSpace": "Rec. 709",
+        "autoToneMap": true,
+        "fadeBlendModeValue": 17,
+        "rampStart": [
+          0.5,
+          0.4953125
+        ],
+        "rampEnd": [
+          0.5,
+          0.78
+        ],
+        "openingEndSeconds": 3.003,
+        "audioDurationSeconds": 56.7233333333294,
+        "motionScale": 88.8888854980469
+      },
+      "files": {
+        "title": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/c9995dad-dff7-4f32-88fa-f9e3e6025ea3/opening-title-alpha.png",
+        "coverDraft": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/c9995dad-dff7-4f32-88fa-f9e3e6025ea3/cover-v2.png",
+        "afterOpeningProof": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/c9995dad-dff7-4f32-88fa-f9e3e6025ea3/clean-proof-v2.png"
+      },
+      "status": {
+        "transcript": "completed in Premiere",
+        "timeline": "head and tail trimmed; internal pauses retained",
+        "visual": "opening and clean-frame proof inspected",
+        "cover": "draft frame inspected; Jerami approval pending",
+        "audio": "source dialogue retained; sound finishing and full playback review pending",
+        "export": "not exported",
+        "captions": "Opus Clip after Jerami export"
+      },
+      "exceptions": [
+        "Pre-roll word Vision excluded before the spoken hook."
+      ]
+    }
+  ]
+}

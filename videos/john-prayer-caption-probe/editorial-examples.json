@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "client": "pastor_john",
+  "lane": "prayer",
+  "sequenceId": "44156161-368e-4381-aeda-e87db379b184",
+  "examples": [
+    {
+      "id": "control-to-help-pause",
+      "approval": "Remove the whole pause",
+      "approvedBy": "Jerami",
+      "date": "2026-10-06",
+      "context": "control. → Help them…",
+      "timelineBefore": {
+        "start": 40.4070333333333,
+        "end": 41.09105
+      },
+      "sourceRemoved": {
+        "start": 48.0146333333333,
+        "end": 48.69865
+      },
+      "removedSeconds": 0.6840166666667,
+      "method": "Native Premiere Edit > Ripple Delete, linked selected V1/A1",
+      "verified": {
+        "videoClipCount": 8,
+        "audioClipCount": 8,
+        "nextClipStarts": 40.4070333333333,
+        "sequenceDuration": 48.9322166666667
+      },
+      "rule": "Remove the entire clean sentence gap for comparable Prayer cuts, after checking intact word endings and the join. Not a blanket rule for dramatic pauses or wording changes.",
+      "listeningReview": "pending Jerami"
+    }
+  ]
+}

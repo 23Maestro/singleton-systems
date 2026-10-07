@@ -1,0 +1,15 @@
+import { readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+const root = dirname(fileURLToPath(import.meta.url));
+const require = createRequire(import.meta.url);
+const postcss = require('postcss');
+const tailwind = require('@tailwindcss/postcss');
+const path = resolve(root, 'styles/alignui.css');
+const source = await readFile(path, 'utf8');
+if (!source.includes('@theme') || !source.includes('--color-gray-950')) throw new Error('AlignUI tokens missing');
+if (source.includes('[object Object]')) throw new Error('Broken generated token');
+const result = await postcss([tailwind({ base: root })]).process(source, { from: path });
+if (!result.css.includes('--color-gray-950')) throw new Error('Compiled tokens missing');
+console.log(`PASS: isolated Tailwind 4 stylesheet compiles (${result.css.length} characters). No output file written.`);

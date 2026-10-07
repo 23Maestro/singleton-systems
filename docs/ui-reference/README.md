@@ -2,6 +2,10 @@
 
 This folder stores visual references for future design passes.
 
+Free reusable code: [AlignUI source library](../../tools/ui/alignui-free/README.md).
+It lives outside the active website components and keeps its own styles and
+license. Use selected components after a consuming-project compatibility check.
+
 - `notion-ai-workspace-reference.pdf`: Notion-inspired white-space, typography, spacing, and restrained color-accent reference.
 
 ## Custom Icon Direction

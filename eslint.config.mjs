@@ -18,5 +18,8 @@ export default defineConfig([
     "output/**",
     "public/visual-maps/**",
     "next-env.d.ts",
+    "tools/ui/alignui-free/upstream/**",
+    ".claude/**",
+    ".scratch/**",
   ]),
 ]);

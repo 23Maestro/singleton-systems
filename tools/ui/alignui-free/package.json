@@ -1,0 +1,16 @@
+{
+  "name": "@singleton-systems/alignui-free",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "import": "node import.mjs",
+    "check": "node check.mjs",
+    "check:styles": "node check-styles.mjs",
+    "styles:init": "npx --yes @alignui/cli@0.0.19 tailwind"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "tailwindcss": "4.3.3"
+  }
+}

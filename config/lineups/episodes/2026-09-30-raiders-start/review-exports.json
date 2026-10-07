@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "2026-09-30-raiders-start",
+  "status": "approved",
+  "reviewer": "Jerami",
+  "purpose": "post-figma-review",
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "pageId": "1509:9",
+  "fps": 25,
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "expectedCount": 22,
+  "scenes": [
+    {
+      "id": "S03",
+      "nodeId": "1509:82",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S06",
+      "nodeId": "1509:301",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S07",
+      "nodeId": "1509:313",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S10",
+      "nodeId": "1509:629",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S12",
+      "nodeId": "1509:674",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S15",
+      "nodeId": "1509:854",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S19",
+      "nodeId": "1509:1305",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S20",
+      "nodeId": "1509:1317",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S01",
+      "nodeId": "1509:22",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S02",
+      "nodeId": "1509:55",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S04",
+      "nodeId": "1509:100",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S11",
+      "nodeId": "1509:647",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S13",
+      "nodeId": "1509:692",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S21",
+      "nodeId": "1535:21",
+      "lane": "comparison"
+    },
+    {
+      "id": "S22",
+      "nodeId": "1509:1387",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S08",
+      "nodeId": "1509:340",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S09",
+      "nodeId": "1509:506",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S14",
+      "nodeId": "1509:731",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S16",
+      "nodeId": "1509:878",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S17",
+      "nodeId": "1509:1016",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S18",
+      "nodeId": "1509:1182",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S05",
+      "nodeId": "1509:139",
+      "lane": "year-by-year"
+    }
+  ],
+  "approvalEvidence": "Jerami: let's export and prep the premiere handoff",
+  "approvedAt": "2026-10-01T23:22:26.261836+00:00"
+}

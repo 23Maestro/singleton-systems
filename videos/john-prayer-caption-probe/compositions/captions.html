@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"><head></head>
+<body>
+<template>
+<style>
+@font-face {font-family:"Poppins";src:url("assets/Poppins-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:block;}
+#root {position:absolute;inset:0;width:100%;height:100%;background:transparent;}
+.phrase {position:absolute;left:108px;top:1080px;width:864px;margin:0;transform:translateY(-50%);text-align:center;text-transform:uppercase;font-family:"Poppins",sans-serif;font-size:80px;font-weight:600;line-height:1.16;letter-spacing:-0.6px;color:#FFFFFF;-webkit-text-stroke:5px #101014;paint-order:stroke fill;text-shadow:0 4px 12px rgba(0,0,0,.85);opacity:0;}
+.accent {color:#A85CF9;}
+</style>
+<div id="root" data-composition-id="john-prayer-captions" data-width="1080" data-height="1920" data-duration="10">
+        <p id="phrase-1" class="phrase" data-word-start="0" data-word-end="3" data-start-frame="0" data-end-frame="67">For the person<br>carrying</p>
+        <p id="phrase-2" class="phrase" data-word-start="4" data-word-end="7" data-start-frame="69" data-end-frame="177"><span class="accent">tomorrow’s fears</span><br>right now.</p>
+        <p id="phrase-3" class="phrase" data-word-start="8" data-word-end="9" data-start-frame="184" data-end-frame="227">Let’s pray.</p>
+        <p id="phrase-4" class="phrase" data-word-start="10" data-word-end="10" data-start-frame="232" data-end-frame="273">Father,</p>
+        <p id="phrase-5" class="phrase" data-word-start="11" data-word-end="15" data-start-frame="290" data-end-frame="359">I pray for<br>the person</p>
+        <p id="phrase-6" class="phrase" data-word-start="16" data-word-end="20" data-start-frame="359" data-end-frame="443">who is afraid<br>of <span class="accent">tomorrow.</span></p>
+        <p id="phrase-7" class="phrase" data-word-start="21" data-word-end="23" data-start-frame="444" data-end-frame="490">Their mind has</p>
+        <p id="phrase-8" class="phrase" data-word-start="24" data-word-end="27" data-start-frame="490" data-end-frame="538">already gone<br>to the</p>
+        <p id="phrase-9" class="phrase" data-word-start="28" data-word-end="30" data-start-frame="538" data-end-frame="600"><span class="accent">worst case</span><br>scenario.</p>
+</div>
+<script>
+(async function() {
+  await document.fonts.load('600 80px "Poppins"');
+  await document.fonts.ready;
+  const tl = gsap.timeline({paused:true});
+        tl.set("#phrase-1", { opacity: 1 }, 0/60);
+        tl.set("#phrase-1", { opacity: 0 }, 67/60);
+        tl.set("#phrase-2", { opacity: 1 }, 69/60);
+        tl.set("#phrase-2", { opacity: 0 }, 177/60);
+        tl.set("#phrase-3", { opacity: 1 }, 184/60);
+        tl.set("#phrase-3", { opacity: 0 }, 227/60);
+        tl.set("#phrase-4", { opacity: 1 }, 232/60);
+        tl.set("#phrase-4", { opacity: 0 }, 273/60);
+        tl.set("#phrase-5", { opacity: 1 }, 290/60);
+        tl.set("#phrase-5", { opacity: 0 }, 359/60);
+        tl.set("#phrase-6", { opacity: 1 }, 359/60);
+        tl.set("#phrase-6", { opacity: 0 }, 443/60);
+        tl.set("#phrase-7", { opacity: 1 }, 444/60);
+        tl.set("#phrase-7", { opacity: 0 }, 490/60);
+        tl.set("#phrase-8", { opacity: 1 }, 490/60);
+        tl.set("#phrase-8", { opacity: 0 }, 538/60);
+        tl.set("#phrase-9", { opacity: 1 }, 538/60);
+        tl.set("#phrase-9", { opacity: 0 }, 600/60);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["john-prayer-captions"] = tl;
+})();
+</script>
+</template>
+</body>
+</html>

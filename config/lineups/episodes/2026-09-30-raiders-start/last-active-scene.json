@@ -1,0 +1,297 @@
+{
+  "schemaVersion": 2,
+  "enforcement": {
+    "active": true,
+    "stage": "figma-build",
+    "approvedToolInputSha256": "ac45217688ae51ff40ce450c12d358903647e662104a237184a5081fd179f24c"
+  },
+  "scene": {
+    "episodeId": "2026-09-30-raiders-start",
+    "sceneId": "S21",
+    "lane": "comparison",
+    "approvedOption": "Simple comparison",
+    "setting": "2 teams; shared 3–0 record; logos; AFC West matchup"
+  },
+  "figma": {
+    "fileKey": "o7E24iymIT80MTXGYIogVH",
+    "pageId": "1509:9",
+    "sourceComponentId": "598:215",
+    "episodeInstanceId": "1535:21",
+    "instanceStatus": "canonical instance verified; working copy detached; native motion read back",
+    "sourceReadbackStatus": "approved source inspected read-only",
+    "background": {
+      "nodeId": "1535:23",
+      "imageHash": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70",
+      "locked": true,
+      "separateFromArtwork": true,
+      "setting": "Field Night / No football"
+    },
+    "motionTracks": [
+      {
+        "cueId": "S21-raiders-record",
+        "nodeId": "1535:28",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 1.12,
+            "value": 0
+          },
+          {
+            "time": 1.52,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-raiders-record",
+        "nodeId": "1535:29",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 1.12,
+            "value": 0
+          },
+          {
+            "time": 1.52,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-raiders-record",
+        "nodeId": "1535:93",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 1.12,
+            "value": 0
+          },
+          {
+            "time": 1.52,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-chiefs-record",
+        "nodeId": "1535:33",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 4.18,
+            "value": 0
+          },
+          {
+            "time": 4.58,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-chiefs-record",
+        "nodeId": "1535:34",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 4.18,
+            "value": 0
+          },
+          {
+            "time": 4.58,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-chiefs-record",
+        "nodeId": "1535:97",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 4.18,
+            "value": 0
+          },
+          {
+            "time": 4.58,
+            "value": 1
+          }
+        ]
+      },
+      {
+        "cueId": "S21-matchup-headline",
+        "nodeId": "1535:36",
+        "property": "opacity",
+        "duration": 13,
+        "keyframes": [
+          {
+            "time": 5.99,
+            "value": 0
+          },
+          {
+            "time": 6.39,
+            "value": 1
+          }
+        ]
+      }
+    ],
+    "rootNodeId": "1535:21",
+    "sourceRevision": "canonical-live-verified-2026-10-01:598:215",
+    "episodeUsesInstance": false,
+    "motionWorkingCopyMode": "detached-from-canonical-instance",
+    "rootDimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "exposedSlots": [
+      "Team Logo 1",
+      "Team Logo 2",
+      "Subject 1",
+      "Subject 2",
+      "Value 1",
+      "Value 2",
+      "Title"
+    ],
+    "allowedReplacementProperties": [
+      "approved asset fill",
+      "transcript copy",
+      "reveal timing",
+      "approved data settings"
+    ],
+    "focalAssets": [
+      {
+        "nodeId": "1535:93",
+        "role": "team-logo",
+        "approvedException": "Approved 2-column comparison slots; Jerami requested logos"
+      },
+      {
+        "nodeId": "1535:97",
+        "role": "team-logo",
+        "approvedException": "Approved 2-column comparison slots; Jerami requested logos"
+      }
+    ],
+    "alphaStatus": "not required; team logos only",
+    "headlineNodeId": "1535:36",
+    "cueTrackCounts": {
+      "S21-raiders-record": 3,
+      "S21-chiefs-record": 3,
+      "S21-matchup-headline": 1
+    },
+    "logoNodeIds": [
+      "1535:93",
+      "1535:97"
+    ]
+  },
+  "motion": {
+    "engine": "figma",
+    "engineVersion": "figma-motion",
+    "timingValidator": "manim",
+    "frameRate": {
+      "numerator": 25,
+      "denominator": 1
+    },
+    "sourcePath": null,
+    "sceneClass": null,
+    "cues": [
+      {
+        "cueId": "S21-raiders-record",
+        "elementId": "left-subject",
+        "triggerType": "WORD",
+        "triggerText": "3-0,",
+        "transcriptTimestamp": 740.88,
+        "sceneTime": 1.12,
+        "action": "reveal-left-subject-record",
+        "duration": 0.4
+      },
+      {
+        "cueId": "S21-chiefs-record",
+        "elementId": "right-subject",
+        "triggerType": "WORD",
+        "triggerText": "3-0",
+        "transcriptTimestamp": 743.94,
+        "sceneTime": 4.18,
+        "action": "reveal-right-subject-record",
+        "duration": 0.4
+      },
+      {
+        "cueId": "S21-matchup-headline",
+        "elementId": "headline",
+        "triggerType": "WORD",
+        "triggerText": "Chiefs",
+        "transcriptTimestamp": 745.75,
+        "sceneTime": 5.99,
+        "action": "reveal-matchup-headline",
+        "duration": 0.4
+      }
+    ]
+  },
+  "timing": {
+    "transcriptSource": "whisper",
+    "transcriptPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-09-30-raiders-start/transcript/2026-09-30-raiders-start-words.json",
+    "transcriptSha256": "d6dd7bd34fa46928091b2902c962d25ff01b2c92a47f849dbf726bf42347e03b",
+    "timestampResolution": "word",
+    "manimTimingValidated": true,
+    "verifiedAnchorTimestamp": 739.76,
+    "anchorVerified": true,
+    "entranceTimes": [
+      1.12,
+      4.18,
+      5.99
+    ],
+    "contentEnd": 8,
+    "paddedCompositionEnd": 13.0,
+    "cueProofReceipt": "../cue-proof-receipt.json",
+    "finalStateVisible": true,
+    "noExitAnimation": true,
+    "transcriptPhrase": "And now you're 3-0, and you're hosting the 3-0 Kansas City Chiefs this Sunday in Las Vegas. First place in the AFC West is on the line.",
+    "lastEntrance": 5.99,
+    "tailPaddingSeconds": 5,
+    "lastTranscriptContentEnd": 6.39
+  },
+  "copyEvidence": {
+    "start": 739.76,
+    "end": 754.36,
+    "excerpt": "And now you're 3-0, and you're hosting the 3-0 Kansas City Chiefs this Sunday in Las Vegas. First place in the AFC West is on the line.",
+    "authority": "supplied episode narration; values have not been independently fact-checked"
+  },
+  "assets": [],
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "approvalEvidence": "Jerami: scrap S21; use Time of Possession or The Scenario table with logos unless Mark directly compares Mahomes and Cousins. Transcript confirms team matchup.",
+    "gate": "Pre-Figma primary 22-scene map"
+  },
+  "export": {
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "path": null,
+    "validationStatus": "held by Jerami; native Figma review complete; render playback unverified",
+    "motionProof": {
+      "status": "pending"
+    }
+  },
+  "ownership": {
+    "eaglePath": "Episode / 06 Motion Renders",
+    "duplicateFinalFolderIn23Projects": false
+  },
+  "premiere": {
+    "approvedStartTime": 739.76,
+    "approvedDuration": 13.0,
+    "approvedEndTime": 752.76,
+    "plannedEditorialDuration": 10,
+    "placementStatus": "not authorized at Figma stage"
+  },
+  "policy": {
+    "transitionsApproved": false,
+    "effectsApproved": false,
+    "lutsApproved": false,
+    "opacityChangesApproved": false
+  }
+}

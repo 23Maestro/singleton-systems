@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "clientId": "pastor_john",
   "laneId": "prayer",
-  "source": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Afraid of Tomorrow.mov",
-  "sourceTitle": "Afraid of Tomorrow",
-  "headline": "THE FEAR OF TOMORROW",
-  "headlineLines": ["THE FEAR OF", "TOMORROW"],
-  "sequenceId": "db95fd6e-2826-4b79-b9b8-7d78125bdb78",
+  "source": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Feeling Behind Everyone Else.mov",
+  "sourceTitle": "Feeling Behind Everyone Else",
+  "headline": "FEELING BEHIND",
+  "headlineLines": ["FEELING", "BEHIND"],
+  "sequenceId": "ca02215a-5f54-46e6-8e24-efde1ab078ec",
   "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/745Creative/2026-09-30_pastorjohn-test.prproj",
   "captionOwner": "Opus Clip",
   "width": 1080,
   "height": 1920,
   "adjustments": {},
-  "visualStatus": "direction bound; title treatment and cover not yet built or verified"
+  "visualStatus": "Approved John Prayer style applied; opening composite, crop and clean frame inspected on 2026-10-06. Cover is a draft. Sound finishing and full playback review pending; export and Opus caption handoff remain with Jerami."
 }

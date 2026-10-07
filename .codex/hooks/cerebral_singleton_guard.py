@@ -991,6 +991,28 @@ def stop_prompt(payload):
     )
 
 
+def run_completion_stop_gate(payload):
+    if not re.search(r"^\[code-delivery\]", str(payload.get("last_assistant_message") or ""), re.MULTILINE):
+        return None
+    script = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "scripts", "code-delivery-stop.mjs")
+    try:
+        result = subprocess.run(
+            [os.environ.get("NODE_BINARY", "node"), script],
+            input=json.dumps(payload), capture_output=True, text=True, timeout=45,
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            raise ValueError("completion bridge failed to return evidence")
+        output = json.loads(result.stdout)
+        if not isinstance(output, dict) or not (output.get("systemMessage") or output.get("decision") == "block"):
+            raise ValueError("completion bridge returned an invalid decision")
+        return output
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        reason = f"Code delivery remains incomplete: completion bridge unavailable ({error}). Report incomplete without retrying unbounded work."
+        if payload.get("stop_hook_active") is True:
+            return {"continue": False, "stopReason": reason, "systemMessage": reason}
+        return {"decision": "block", "reason": reason}
+
+
 def run_writing_stop_gate(payload):
     prompt = stop_prompt(payload)
     if not public_output_requested(prompt):
@@ -1023,7 +1045,11 @@ def main():
         cleanup_codex_git_temp(stop_writers=True)
         prompt = str(payload.get("prompt") or "")
         try:
-            emit(context("repo prompt should stay aligned across surfaces", prompt), event)
+            packet = context("repo prompt should stay aligned across surfaces", prompt)
+            if payload.get("session_id") and payload.get("turn_id"):
+                packet += "\n- [completion-binding] " + json.dumps({"sessionId": payload["session_id"], "runId": payload["turn_id"]})
+                packet += "\n- [completion] For a declared code-delivery result, run the repository review with --task, --session and --run. End with one standalone [code-delivery] JSON declaration. Outcomes: ready, approved, incomplete, cancelled. Research and progress replies need no declaration. See docs/harness/codex-rabbit.md."
+            emit(packet, event)
         except RegistryUnavailable as error:
             emit_block(str(error))
         return
@@ -1048,6 +1074,10 @@ def main():
         return
 
     if event == "Stop":
+        completion_result = run_completion_stop_gate(payload)
+        if completion_result and (completion_result.get("decision") == "block" or completion_result.get("continue") is False):
+            print(json.dumps(completion_result))
+            return
         cleanup_result = cleanup_codex_git_temp(stop_writers=True)
         if cleanup_result["removed"]:
             recovered_gib = cleanup_result["bytes"] / (1024 ** 3)
@@ -1059,6 +1089,8 @@ def main():
         writing_error = run_writing_stop_gate(payload)
         if writing_error:
             print(json.dumps({"decision": "block", "reason": writing_error}))
+        elif completion_result:
+            print(json.dumps(completion_result))
         return
 
     if event == "PostToolUse":

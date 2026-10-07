@@ -105,6 +105,7 @@
         "schemaVersion": { "const": 1 },
         "sequence": { "type": "integer", "minimum": 1 },
         "reviewId": { "type": "string" },
+        "configHash": { "$ref": "#/$defs/hash" },
         "passId": { "type": "string" },
         "scopeHash": { "$ref": "#/$defs/hash" },
         "checksHash": { "$ref": "#/$defs/hash" },

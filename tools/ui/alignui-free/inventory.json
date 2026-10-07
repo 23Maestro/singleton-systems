@@ -1,0 +1,331 @@
+{
+  "importedAt": "2026-10-04T23:01:14.965Z",
+  "freeOnly": true,
+  "license": "MIT",
+  "repository": "https://github.com/alignui/alignui-nextjs-typescript-starter",
+  "commit": "f37bd913a058ceca39d5bfc2369ec420018e5716",
+  "cliVersion": "0.0.19",
+  "snapshotNote": "Pinned public starter; toast wrappers from live free docs. Not a claim that every current v1.2 change is present.",
+  "files": [
+    {
+      "path": "upstream-dependencies.json",
+      "source": "https://github.com/alignui/alignui-nextjs-typescript-starter/blob/f37bd913a058ceca39d5bfc2369ec420018e5716/package.json",
+      "sha256": "a1747a5856cee48044ebd3ef2f94ae5ecf4b12fcbead40898f69bb2bc6062b21"
+    },
+    {
+      "path": "upstream/app/globals.css",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/app/globals.css",
+      "sha256": "b7eb8f3a941bc7f74b421fde3f04085fd41bf632586ea2915f5b896a9690b642"
+    },
+    {
+      "path": "upstream/components/ui/accordion.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/accordion.tsx",
+      "sha256": "5e09ace1927052d403cbced9ec09c29abb59162ce5ee3fe623f4a8e281246a47"
+    },
+    {
+      "path": "upstream/components/ui/alert.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/alert.tsx",
+      "sha256": "72d76b4ccc244e510a8a534708c98ed97d19183b93228548a0ea2c05642ddca3"
+    },
+    {
+      "path": "upstream/components/ui/avatar-empty-icons.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/avatar-empty-icons.tsx",
+      "sha256": "d9b1822a381c67cd8461d8da0d43d8e2e804bce90c2d3a7c9e9622509af382d7"
+    },
+    {
+      "path": "upstream/components/ui/avatar-group-compact.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/avatar-group-compact.tsx",
+      "sha256": "ab10e7cbd1b608f2bf03ce49dc2cb553d6fa8074513ff122431f5830af196ea8"
+    },
+    {
+      "path": "upstream/components/ui/avatar-group.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/avatar-group.tsx",
+      "sha256": "4d9792261e09a1c6d20446c76077caec690a2c17bfd5635ad57a115ac0857d72"
+    },
+    {
+      "path": "upstream/components/ui/avatar.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/avatar.tsx",
+      "sha256": "0b81c06c0e9548de87791d76d37e858296cccb07778eed9611266df9e55cecb8"
+    },
+    {
+      "path": "upstream/components/ui/badge.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/badge.tsx",
+      "sha256": "bc34624c44e42220d4c650dad4dc302f1dd218e04fbc2360bf94a67ca399746f"
+    },
+    {
+      "path": "upstream/components/ui/breadcrumb.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/breadcrumb.tsx",
+      "sha256": "39345d5bca7b5c64374f9e7ebb8cd0277b4bd92ed92ef2c533f8ffbf2390e805"
+    },
+    {
+      "path": "upstream/components/ui/button-group.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/button-group.tsx",
+      "sha256": "37f6ae2de9daacca048408b5495ae3619bb505afd8a9650eb4460747983e5247"
+    },
+    {
+      "path": "upstream/components/ui/button.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/button.tsx",
+      "sha256": "fa200371066f6cfc1ee141d6b7f2bc7a41af772877908bded936e9319d17d209"
+    },
+    {
+      "path": "upstream/components/ui/checkbox.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/checkbox.tsx",
+      "sha256": "6070561e5ee210fbae61f9b549ea5221864d98a1060a59226f6aecbaa097888f"
+    },
+    {
+      "path": "upstream/components/ui/color-picker.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/color-picker.tsx",
+      "sha256": "f7bec0275a7b4ac91f17d4f9bdfb77964a1c6160d07fcb5e7063b7b2ccfe97a1"
+    },
+    {
+      "path": "upstream/components/ui/command-menu.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/command-menu.tsx",
+      "sha256": "de059ea0b304da292c4cfc0e96b55f2349e3922d950079689b86600c25b1dd94"
+    },
+    {
+      "path": "upstream/components/ui/compact-button.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/compact-button.tsx",
+      "sha256": "2112bc2c5879c447a069421148abb438ef747f8df967dc0316c25629ba9b16e0"
+    },
+    {
+      "path": "upstream/components/ui/datepicker.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/datepicker.tsx",
+      "sha256": "f3536fd09275c3f1d2e2ba4772bacf1a331612bd07aac3d48e5ad03e15ca70b2"
+    },
+    {
+      "path": "upstream/components/ui/digit-input.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/digit-input.tsx",
+      "sha256": "f252a03c207eb11fc1b885c26c3369aeca294e20875cceda3f045b895a1dc25c"
+    },
+    {
+      "path": "upstream/components/ui/divider.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/divider.tsx",
+      "sha256": "eeb29a3c02d0ac2c8a4e78093b997f43e476343b4d616b3d597161b99c217167"
+    },
+    {
+      "path": "upstream/components/ui/dot-stepper.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/dot-stepper.tsx",
+      "sha256": "b0c1a461a49402a8196401242ad561dbf070868f6ebbf4913cfe7a3db20d365e"
+    },
+    {
+      "path": "upstream/components/ui/drawer.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/drawer.tsx",
+      "sha256": "af1f1915d69a8e714773c90481993a955f347d280e17016fe48583a662d7ac1e"
+    },
+    {
+      "path": "upstream/components/ui/dropdown.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/dropdown.tsx",
+      "sha256": "4390020c1b83ed49d32b0c7fd80305f457bd22777321ce9a2ce423065d926dd1"
+    },
+    {
+      "path": "upstream/components/ui/fancy-button.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/fancy-button.tsx",
+      "sha256": "9ebd9b35395c431fb9caf4238bf415d7b6ab6787b24959792a7f192d0e96c166"
+    },
+    {
+      "path": "upstream/components/ui/file-format-icon.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/file-format-icon.tsx",
+      "sha256": "1386bbdc4182fea57a834b08fa2021637d2b29c69658d1e4f2175bd24f932370"
+    },
+    {
+      "path": "upstream/components/ui/file-upload.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/file-upload.tsx",
+      "sha256": "4246cd4cfbd577f6a6a6cb4e48f24350e23fc062eeefdd8ed0e0e8c6935cbac5"
+    },
+    {
+      "path": "upstream/components/ui/hint.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/hint.tsx",
+      "sha256": "35e0617a1f965ba06bf46b2626138eb40b02bd96190a405134654fb9bd65da16"
+    },
+    {
+      "path": "upstream/components/ui/horizontal-stepper.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/horizontal-stepper.tsx",
+      "sha256": "3f225668b3d4c206c0541462d7783f21072f4396856fe9a23494c8ffb4d0f2c6"
+    },
+    {
+      "path": "upstream/components/ui/input.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/input.tsx",
+      "sha256": "20665c0bf9ab4908a283081e53ab540dfeedc670cabf1f00724a45ea1685feca"
+    },
+    {
+      "path": "upstream/components/ui/kbd.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/kbd.tsx",
+      "sha256": "b048ab193aaa850cd86ff7118a53308987369decdbec4b1ee6e3e4723b715abc"
+    },
+    {
+      "path": "upstream/components/ui/label.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/label.tsx",
+      "sha256": "7f7971bd6273c0581c80eaddcc258afc712ed07deb589259d955d0d925ce8e8e"
+    },
+    {
+      "path": "upstream/components/ui/link-button.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/link-button.tsx",
+      "sha256": "a82e6beb24a5dce94612370ffa071f6e562ac8112fb8609638e02481782dfaad"
+    },
+    {
+      "path": "upstream/components/ui/modal.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/modal.tsx",
+      "sha256": "9f29105d3c5201a60f524411c77d14d516b3e6bcf51463f6ab1fa7bb32274242"
+    },
+    {
+      "path": "upstream/components/ui/notification-provider.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/notification-provider.tsx",
+      "sha256": "a68c567a618b6044865b5aae5627ab76fefe2f32cc836bda76afedaf629c9b91"
+    },
+    {
+      "path": "upstream/components/ui/notification.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/notification.tsx",
+      "sha256": "7f5376bf58518c4023ebc7df95998cee71f565461108ebf78eadb837dcb80b68"
+    },
+    {
+      "path": "upstream/components/ui/pagination.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/pagination.tsx",
+      "sha256": "4cfe1f90e032c95dc86607467a8bfc521657ce11630f1a4ac6af55f8299aae02"
+    },
+    {
+      "path": "upstream/components/ui/popover.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/popover.tsx",
+      "sha256": "1b3fddd8b9e0afce3965b5c8876a425723f8d340551e3c38fec044d065f8036c"
+    },
+    {
+      "path": "upstream/components/ui/progress-bar.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/progress-bar.tsx",
+      "sha256": "a7081964d67186321922ea6027f3f841c6da3db896e69e9fbf3709dd3cb42511"
+    },
+    {
+      "path": "upstream/components/ui/progress-circle.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/progress-circle.tsx",
+      "sha256": "5265f669125dc54093bc97215c93a46784ee261da04ed26129c4dbc542b80596"
+    },
+    {
+      "path": "upstream/components/ui/radio.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/radio.tsx",
+      "sha256": "c3aaf5b420a25bb6b7d359f30fd3bf766be889d2af8b149d530c0dbe2c34a702"
+    },
+    {
+      "path": "upstream/components/ui/segmented-control.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/segmented-control.tsx",
+      "sha256": "a659e3c79956fe64779ebf46beaba97801430f7e5b1ebe99a0ead004ca7feba3"
+    },
+    {
+      "path": "upstream/components/ui/select.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/select.tsx",
+      "sha256": "ee0d0de99869084d47d0fe2c59fddbd55dfb658e61e667b464d30a3c1c40ddb9"
+    },
+    {
+      "path": "upstream/components/ui/slider.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/slider.tsx",
+      "sha256": "3cb6237d51a4fb01ed70491a4de8c92fb103f59699f6b27f3e0ccbd727e1050c"
+    },
+    {
+      "path": "upstream/components/ui/social-button.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/social-button.tsx",
+      "sha256": "e227a28f122c652d288dee574540013df8212900b685a6df159c7a79982fb005"
+    },
+    {
+      "path": "upstream/components/ui/status-badge.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/status-badge.tsx",
+      "sha256": "a2286b3e31d8028f374da070236bb9b6f76dce8b9588347938391c5d9e666fa1"
+    },
+    {
+      "path": "upstream/components/ui/svg-rating-icons.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/svg-rating-icons.tsx",
+      "sha256": "f5783b0c189f3baf1db25766dc2223ba187f5a2f027e44753abd5a59c58d57b7"
+    },
+    {
+      "path": "upstream/components/ui/switch.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/switch.tsx",
+      "sha256": "68a3db7d6600fa710989168232d5759ae4d1d8ea9b0c97af708595434a44616b"
+    },
+    {
+      "path": "upstream/components/ui/tab-menu-horizontal.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/tab-menu-horizontal.tsx",
+      "sha256": "b6139e46707372dd944f22cac787b3d6a508e5b084ee1a551aa3c5c4ead3b19b"
+    },
+    {
+      "path": "upstream/components/ui/tab-menu-vertical.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/tab-menu-vertical.tsx",
+      "sha256": "51c92468af691a7c1202e553d24e32cf07282e12f13db3de15bf0b7f9f8fbbfa"
+    },
+    {
+      "path": "upstream/components/ui/table.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/table.tsx",
+      "sha256": "4995758793572f0d92a09af03a99029a80fc68c76ba69cfd50ee51a99228c6f8"
+    },
+    {
+      "path": "upstream/components/ui/tag.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/tag.tsx",
+      "sha256": "703e8fe9cddef93cb32c0bec403ef10751b90678908fa11f38b1637beae148b5"
+    },
+    {
+      "path": "upstream/components/ui/textarea.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/textarea.tsx",
+      "sha256": "e2d9776ade31a07f01c5938d9398db8871f5260d912bbc056c37cbdc9a69f8b1"
+    },
+    {
+      "path": "upstream/components/ui/toast-alert.tsx",
+      "source": "https://www.alignui.com/docs/v1.2/ui/toast",
+      "sha256": "a319335778e286ab33a83821734b1b75471a98141413d08392836a23d754c573"
+    },
+    {
+      "path": "upstream/components/ui/toast.tsx",
+      "source": "https://www.alignui.com/docs/v1.2/ui/toast",
+      "sha256": "ea1bb91a67f951b6c1a72a54cb5234eab9b703bfeedbbb9e37fa1495e3ea1a89"
+    },
+    {
+      "path": "upstream/components/ui/tooltip.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/tooltip.tsx",
+      "sha256": "fca20e2685a83ef7cbcc48dcc61bbd0543831544f1aa15323f33e6c1cf7c2dfe"
+    },
+    {
+      "path": "upstream/components/ui/vertical-stepper.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/components/ui/vertical-stepper.tsx",
+      "sha256": "b11c6c8c0039f149d67802c4c93bf236819a5a8facb8c8f6e31ae7bf8520a106"
+    },
+    {
+      "path": "upstream/global.d.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/global.d.ts",
+      "sha256": "c4330b1952a6c54fb33e34892fca8a06619375836ec4d472aaf835d5c30aaf98"
+    },
+    {
+      "path": "upstream/hooks/use-notification.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/hooks/use-notification.ts",
+      "sha256": "a29cd48e8d12597287fcd0c55d089518f7df5ffb6fee50ed207177909555d429"
+    },
+    {
+      "path": "upstream/hooks/use-tab-observer.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/hooks/use-tab-observer.ts",
+      "sha256": "7e0857b45d2b626c8820d38dd20c7c290ef119f8c642565fc7f402972c2a1bbd"
+    },
+    {
+      "path": "upstream/LICENSE",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/LICENSE",
+      "sha256": "044631d65dfceea93e40628513c8f479d618ab57505e7d4227fc64620f15d4a9"
+    },
+    {
+      "path": "upstream/tailwind.config.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/tailwind.config.ts",
+      "sha256": "b33801d58a27df786a137d1c76ecac240c6fe594de6301bdabb4ef4c9109f172"
+    },
+    {
+      "path": "upstream/utils/cn.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/utils/cn.ts",
+      "sha256": "0db1d724b674642e16d0733475b45dc88a5c325639f09601fb20434213c10a2f"
+    },
+    {
+      "path": "upstream/utils/polymorphic.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/utils/polymorphic.ts",
+      "sha256": "97c0eda0d098e45dcd909a030366d33e17e0128a2b39226f7c93a88e03629766"
+    },
+    {
+      "path": "upstream/utils/recursive-clone-children.tsx",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/utils/recursive-clone-children.tsx",
+      "sha256": "5039ae911188e91f13e17792159d0b66fd80801cb7629466fd3c9e22ecbd27fb"
+    },
+    {
+      "path": "upstream/utils/tv.ts",
+      "source": "https://raw.githubusercontent.com/alignui/alignui-nextjs-typescript-starter/f37bd913a058ceca39d5bfc2369ec420018e5716/utils/tv.ts",
+      "sha256": "6b9248849a7f014ad7882e755357a7a7cca86c1e90a77deafc8cfcb15434eec7"
+    }
+  ]
+}

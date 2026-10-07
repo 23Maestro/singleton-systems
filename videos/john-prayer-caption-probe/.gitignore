@@ -1,0 +1,9 @@
+node_modules/
+assets/base.mp4
+renders
+snapshots
+.hyperframes
+.hf-tmp
+__pycache__/
+.thumbnails/
+.waveform-cache/

@@ -22,6 +22,12 @@ export const metadata: Metadata = {
 
 const decisionMaps = [
   {
+    label: "Dante QB Highlights",
+    href: "https://dante-qb-highlight-review.super-cedar-2285.chatgpt.site",
+    tags: ["September 30, 2026", "20 Plays", "ChatGPT Sites"],
+    accent: "border-[#e79527] text-[#a85e00] dark:text-[#ffbd61]",
+  },
+  {
     label: "Kedasha Preview",
     href: "/decision-maps/2026-09-15-kedasha-preview",
     tags: ["September 15, 2026", "Editing Direction", "Hermes Agent"],

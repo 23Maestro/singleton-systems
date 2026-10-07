@@ -8,18 +8,40 @@
     "benBrandBook": "https://docs.google.com/presentation/d/1nptiXz9vaDejx7PP77biUJ38zDNVbuIrxP4FSWR1FM0/edit",
     "ericBrandBook": "https://docs.google.com/presentation/d/1r87O8pBLcHNn_Y7H0giZaNo5kv0LhwFc/edit"
   },
-  "approval": "Jerami locked the supplied direction as the production template with 10% wiggle room. The reference image binds John Prayer's visual treatment; it is not a completed Premiere template.",
+  "approval": "Jerami locked the supplied direction with 10% wiggle room. On 2026-10-06 he approved John Prayer's native Premiere fade and larger title for same-lane reuse. Other lane templates remain unapproved.",
   "jeramiWiggleRoom": {
     "maxDeviationPercent": 10,
     "fixed": ["Client identity", "Content lane and treatment", "Font family", "Approved brand palette", "Required series label", "Text hierarchy", "Graphic density", "Caption ownership"],
     "adjustablePercentFields": ["fontSizePercent", "spacingPercent", "textOffsetXPercent", "textOffsetYPercent", "cropScalePercent", "openingHoldPercent"],
     "contentSlots": ["Video-specific headline", "Headline line breaks", "The selected client's approved source frame"],
-    "measurement": "Percent adjustments are relative to the built lane template's recorded baseline. No pixel baseline exists yet. This is a bounded adjustment policy, not a computed 90% visual similarity score.",
+    "measurement": "Percent adjustments are relative to the lane template's recorded baseline. John Prayer has an approved measured baseline in figma-masters/pastor-john-prayer.json; other lanes remain unbuilt. This is a bounded adjustment policy, not a computed 90% visual similarity score.",
+    "componentRefinement": {
+      "allowedRoles": ["Required series-label container", "Headline support container", "Restrained brand accent"],
+      "policy": "A role-matched Figma UI component may replace a plain rectangle or ellipse. Keep the required wording, font, approved palette, hierarchy, graphic density and face clearance. No extra controls or decoration. Review the first component choice visually before reuse.",
+      "provenance": "Record the component source, file/node identity and license or reuse permission. Do not assume a community asset is licensed for client delivery.",
+      "measurement": "Shape substitution is a qualitative design choice. The numeric +/-10% limits still apply to measured geometry; no visual-similarity percentage is claimed."
+    },
     "outsideAllowance": "Ask Jerami before exceeding 10%, changing a fixed field, or creating a treatment for an unlisted content type."
   },
   "workflow": {
     "visualEdit": "Premiere Pro",
-    "cover": "Premiere Pro",
+    "cover": "Figma lane masters; covers reviewed in Figma, openings checked over footage in Premiere Pro",
+    "graphics": {
+      "authoring": "Figma",
+      "fallbackRenderer": "HyperFrames + GSAP, only when an export or motion requirement needs it; preserve the approved Figma design",
+      "designReview": "Review each lane's first cover and opening against its approved Figma master. Review later covers as a Figma contact sheet. Test the opening once over real footage in Premiere before reuse.",
+      "assembly": "Premiere Pro",
+      "outputRoot": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders",
+      "cover": { "format": "png", "width": 1080, "height": 1920 },
+      "opening": { "format": "png", "alpha": true, "audio": false },
+      "animatedOpening": { "format": "mov", "codec": "prores_4444", "alpha": true, "audio": false },
+      "masterStatus": "John Prayer's larger title and native Premiere fade are approved for same-lane reuse. Its lane productionMaster indexes the measured record and editable project. Bold Beliefs, Ben and Eric remain unbuilt. Per-video covers, edits and exports still need review.",
+      "nativeExportPolicy": "Static transparent PNG overlays can be held or faded in Premiere. Native Figma video exports are not assumed to be ProRes 4444; an animated alpha handoff needs a verified conversion or an explicit fallback renderer.",
+      "openingPolicy": "Use a restrained overlay over footage. Prayer carries its required treatment; other current lanes may omit an opening title. No universal full-screen intro.",
+      "currentBatchLanes": { "pastor_john": ["prayer", "bold_beliefs"], "pastor_ben": ["teaching", "faith"], "eric_miller": ["local", "market", "education"] },
+      "contentAuthority": "A listed lane still requires source inspection. Reference-only lanes add no work. Selected source still, headline, line breaks and timing are per-video slots; fixed styles stay in the visual contract.",
+      "review": "Technical export checks do not approve pixels, font licensing, source-frame selection, or client claims. Review one lane sample and record its measured baseline before repeated production."
+    },
     "captions": "Opus Clip",
     "captionHandoff": "Clean Premiere master. Preserve the native caption track but disable it for this export. Opus must not recut or reframe the edit.",
     "aspectRatio": "9:16",
@@ -58,6 +80,30 @@
       "lanes": {
         "prayer": {
           "name": "Prayer",
+          "productionMaster": {
+            "batchManifest": "john-prayer-batch.json",
+            "record": "figma-masters/pastor-john-prayer.json",
+            "status": "approved for same-lane reuse",
+            "approvedOn": "2026-10-06",
+            "scope": "Pastor John Prayer only; 18 current-batch sources. Do not apply automatically to the other 36 videos.",
+            "projectFile": "premiere-masters/john-prayer-native-fade-v1.prproj",
+            "backing": {
+              "engine": "Premiere Pro native Graphic + Ramp",
+              "blendMode": "Multiply",
+              "shapeSizePixels": [1080, 978],
+              "shapePositionNormalized": [0.5, 0.75],
+              "shapeAnchorNormalized": [0.5, 0.2546875],
+              "rampStartNormalized": [0.5, 0.4953125],
+              "rampEndNormalized": [0.5, 0.78],
+              "startColor": "#FFFFFF",
+              "endColor": "#000000",
+              "rampScatter": 1,
+              "opacity": 100,
+              "reuse": "Copy the native Graphic clip into the destination sequence above footage; do not nest it. Put the title-only Figma PNG above it."
+            },
+            "openingSeconds": 3,
+            "perVideoReview": "Use the completed Premiere transcript. Verify source crop, short headline wrapping, own cover frame, audio and full edit. Jerami reviews and exports before Opus captions; style approval is not delivery approval."
+          },
           "aliases": ["prayer", "pray", "afraid of tomorrow"],
           "treatment": "Softer and more personal. Fewer words, more breathing room, clear A Prayer For treatment.",
           "requiredLabel": "A PRAYER FOR",

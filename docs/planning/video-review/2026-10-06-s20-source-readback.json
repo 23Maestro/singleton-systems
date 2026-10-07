@@ -1,0 +1,1122 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-06T18:07:48.929Z",
+  "purpose": "Source research for the hosted video review proof",
+  "evidenceKind": "live-figma-source-readback",
+  "state": "source-verified-render-and-capture-unverified",
+  "sourceRevision": null,
+  "exportedMediaSha256": null,
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "page": {
+    "id": "1491:4092",
+    "name": "07 - Power Rankings"
+  },
+  "root": {
+    "id": "1494:3253",
+    "name": "S20 / Buffalo wins despite turnovers / Figma Motion",
+    "width": 1920,
+    "height": 1080,
+    "box": {
+      "x": 8680,
+      "y": 380,
+      "width": 1920,
+      "height": 1080
+    },
+    "timelines": [
+      {
+        "id": "1494:3253",
+        "duration": 10
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "1494:3253",
+      "name": "S20 / Buffalo wins despite turnovers / Figma Motion",
+      "type": "FRAME",
+      "parentId": "1494:139",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 8680,
+        "y": 380,
+        "width": 1920,
+        "height": 1080
+      },
+      "transform": [
+        [
+          1,
+          0,
+          80
+        ],
+        [
+          0,
+          1,
+          380
+        ]
+      ],
+      "clipsContent": true,
+      "text": null,
+      "animations": {}
+    },
+    {
+      "id": "1494:3334",
+      "name": "BG / FIELD NIGHT / NO FOOTBALL",
+      "type": "RECTANGLE",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 8680,
+        "y": 380,
+        "width": 1920,
+        "height": 1080
+      },
+      "transform": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "clipsContent": null,
+      "text": null,
+      "animations": {}
+    },
+    {
+      "id": "1494:3254",
+      "name": "EDIT / ACTION PHOTO / FILL LEFT PANEL",
+      "type": "RECTANGLE",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 8680,
+        "y": 380,
+        "width": 1120,
+        "height": 1080
+      },
+      "transform": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "clipsContent": null,
+      "text": null,
+      "animations": {
+        "SCALE_XY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3335",
+              "keyframes": [
+                {
+                  "id": "1494:3336",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "VECTOR",
+                    "value": {
+                      "x": 1,
+                      "y": 1
+                    }
+                  },
+                  "timelinePosition": 0
+                },
+                {
+                  "id": "1494:3337",
+                  "easing": {
+                    "type": "EASE_IN_AND_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.42,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "VECTOR",
+                    "value": {
+                      "x": 1.024999976158142,
+                      "y": 1.024999976158142
+                    }
+                  },
+                  "timelinePosition": 10
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "VECTOR",
+            "value": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "1494:3255",
+      "name": "PANEL / CLEAN DATA",
+      "type": "RECTANGLE",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9800,
+        "y": 380,
+        "width": 800,
+        "height": 1080
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1120
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "clipsContent": null,
+      "text": null,
+      "animations": {}
+    },
+    {
+      "id": "1494:3256",
+      "name": "RULE / ACCENT",
+      "type": "RECTANGLE",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9800,
+        "y": 380,
+        "width": 10,
+        "height": 1080
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1120
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "clipsContent": null,
+      "text": null,
+      "animations": {}
+    },
+    {
+      "id": "1494:3257",
+      "name": "RULE / STAT",
+      "type": "RECTANGLE",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 1110,
+        "width": 620,
+        "height": 2
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          730
+        ]
+      ],
+      "clipsContent": null,
+      "text": null,
+      "animations": {}
+    },
+    {
+      "id": "1494:3258",
+      "name": "RULE / STAT",
+      "type": "RECTANGLE",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 890,
+        "width": 620,
+        "height": 2
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          510
+        ]
+      ],
+      "clipsContent": null,
+      "text": null,
+      "animations": {}
+    },
+    {
+      "id": "1494:3259",
+      "name": "SUBJECT",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 472,
+        "width": 620,
+        "height": 34
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          92
+        ]
+      ],
+      "clipsContent": null,
+      "text": "BUFFALO BILLS",
+      "animations": {}
+    },
+    {
+      "id": "1494:3260",
+      "name": "HEADLINE",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 522,
+        "width": 620,
+        "height": 100
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          142
+        ]
+      ],
+      "clipsContent": null,
+      "text": "STILL WON",
+      "animations": {}
+    },
+    {
+      "id": "1494:3261",
+      "name": "VALUE 1",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 710,
+        "width": 280,
+        "height": 96
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          330
+        ]
+      ],
+      "clipsContent": null,
+      "text": "24–16",
+      "animations": {
+        "OPACITY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3338",
+              "keyframes": [
+                {
+                  "id": "1494:3339",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 1.43
+                },
+                {
+                  "id": "1494:3340",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 1
+                  },
+                  "timelinePosition": 1.83
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 1
+          }
+        },
+        "TRANSLATION_Y": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3341",
+              "keyframes": [
+                {
+                  "id": "1494:3342",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 18
+                  },
+                  "timelinePosition": 1.43
+                },
+                {
+                  "id": "1494:3343",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 1.83
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 330
+          }
+        }
+      }
+    },
+    {
+      "id": "1494:3262",
+      "name": "LABEL 1",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 800,
+        "width": 620,
+        "height": 40
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          420
+        ]
+      ],
+      "clipsContent": null,
+      "text": "WIN VS CHARGERS",
+      "animations": {
+        "OPACITY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3344",
+              "keyframes": [
+                {
+                  "id": "1494:3345",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 1.43
+                },
+                {
+                  "id": "1494:3346",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 1
+                  },
+                  "timelinePosition": 1.83
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 1
+          }
+        },
+        "TRANSLATION_Y": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3347",
+              "keyframes": [
+                {
+                  "id": "1494:3348",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 18
+                  },
+                  "timelinePosition": 1.43
+                },
+                {
+                  "id": "1494:3349",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 1.83
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 420
+          }
+        }
+      }
+    },
+    {
+      "id": "1494:3263",
+      "name": "VALUE 2",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 930,
+        "width": 280,
+        "height": 96
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          550
+        ]
+      ],
+      "clipsContent": null,
+      "text": "3–0",
+      "animations": {
+        "OPACITY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3350",
+              "keyframes": [
+                {
+                  "id": "1494:3351",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 4.06
+                },
+                {
+                  "id": "1494:3352",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 1
+                  },
+                  "timelinePosition": 4.46
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 1
+          }
+        },
+        "TRANSLATION_Y": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3353",
+              "keyframes": [
+                {
+                  "id": "1494:3354",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 18
+                  },
+                  "timelinePosition": 4.06
+                },
+                {
+                  "id": "1494:3355",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 4.46
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 550
+          }
+        }
+      }
+    },
+    {
+      "id": "1494:3264",
+      "name": "LABEL 2",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 1020,
+        "width": 620,
+        "height": 40
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          640
+        ]
+      ],
+      "clipsContent": null,
+      "text": "RECORD",
+      "animations": {
+        "OPACITY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3356",
+              "keyframes": [
+                {
+                  "id": "1494:3357",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 4.06
+                },
+                {
+                  "id": "1494:3358",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 1
+                  },
+                  "timelinePosition": 4.46
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 1
+          }
+        },
+        "TRANSLATION_Y": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3359",
+              "keyframes": [
+                {
+                  "id": "1494:3360",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 18
+                  },
+                  "timelinePosition": 4.06
+                },
+                {
+                  "id": "1494:3361",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 4.46
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 640
+          }
+        }
+      }
+    },
+    {
+      "id": "1494:3265",
+      "name": "VALUE 3",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 1150,
+        "width": 280,
+        "height": 96
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          770
+        ]
+      ],
+      "clipsContent": null,
+      "text": "5",
+      "animations": {
+        "OPACITY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3362",
+              "keyframes": [
+                {
+                  "id": "1494:3363",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 7.14
+                },
+                {
+                  "id": "1494:3364",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 1
+                  },
+                  "timelinePosition": 7.54
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 1
+          }
+        },
+        "TRANSLATION_Y": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3365",
+              "keyframes": [
+                {
+                  "id": "1494:3366",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 18
+                  },
+                  "timelinePosition": 7.14
+                },
+                {
+                  "id": "1494:3367",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 7.54
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 770
+          }
+        }
+      }
+    },
+    {
+      "id": "1494:3266",
+      "name": "LABEL 3",
+      "type": "TEXT",
+      "parentId": "1494:3253",
+      "visible": true,
+      "opacity": 1,
+      "box": {
+        "x": 9880,
+        "y": 1240,
+        "width": 620,
+        "height": 40
+      },
+      "transform": [
+        [
+          1,
+          0,
+          1200
+        ],
+        [
+          0,
+          1,
+          860
+        ]
+      ],
+      "clipsContent": null,
+      "text": "TEAM TURNOVERS",
+      "animations": {
+        "OPACITY": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3368",
+              "keyframes": [
+                {
+                  "id": "1494:3369",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 7.14
+                },
+                {
+                  "id": "1494:3370",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 1
+                  },
+                  "timelinePosition": 7.54
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 1
+          }
+        },
+        "TRANSLATION_Y": {
+          "tracks": [
+            {
+              "id": "KeyframeTrackId:1494:3371",
+              "keyframes": [
+                {
+                  "id": "1494:3372",
+                  "easing": {
+                    "type": "CUSTOM_CUBIC_BEZIER",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0.5,
+                      "y1": 0,
+                      "x2": 0.5,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 18
+                  },
+                  "timelinePosition": 7.14
+                },
+                {
+                  "id": "1494:3373",
+                  "easing": {
+                    "type": "EASE_OUT",
+                    "easingFunctionCubicBezier": {
+                      "x1": 0,
+                      "y1": 0,
+                      "x2": 0.58,
+                      "y2": 1
+                    }
+                  },
+                  "value": {
+                    "type": "FLOAT",
+                    "value": 0
+                  },
+                  "timelinePosition": 7.54
+                }
+              ],
+              "keyframeOperation": "SET"
+            }
+          ],
+          "timelineDuration": 10,
+          "baseValue": {
+            "type": "FLOAT",
+            "value": 860
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,429 @@
+{
+  "label": "Example only; not a saved client project",
+  "request": {
+    "apiVersion": 1,
+    "requestId": "fork-review-example",
+    "command": "calculate",
+    "inputs": {
+      "currency": "USD",
+      "revenue": {
+        "fixed": {
+          "priceMinorUnits": 50000
+        }
+      },
+      "actualDurationMilliseconds": 14400000,
+      "costs": [
+        {
+          "kind": "production",
+          "amountMinorUnits": 10000,
+          "provenance": "entered"
+        }
+      ],
+      "platformFee": {
+        "settled": {
+          "amountMinorUnits": 0
+        }
+      },
+      "targetHourlyValueMinorUnits": 10000
+    }
+  },
+  "result": {
+    "calculations": [
+      {
+        "assumptions": [],
+        "formula": "Job Price",
+        "label": "Gross Revenue",
+        "metric": "grossRevenueMinorUnits",
+        "operands": [
+          {
+            "label": "Job Price",
+            "unit": "USD",
+            "value": "500"
+          }
+        ],
+        "result": 50000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Production Costs + Project Fees",
+        "label": "Direct Project Costs",
+        "metric": "directCostsMinorUnits",
+        "operands": [
+          {
+            "label": "Platform",
+            "unit": "USD",
+            "value": "0"
+          },
+          {
+            "label": "Production",
+            "unit": "USD",
+            "value": "100"
+          }
+        ],
+        "result": 10000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Gross Revenue \u2212 Direct Project Costs",
+        "label": "Gross Profit",
+        "metric": "grossProfitMinorUnits",
+        "operands": [
+          {
+            "label": "Gross Revenue",
+            "unit": "USD",
+            "value": "500"
+          },
+          {
+            "label": "Direct Project Costs",
+            "unit": "USD",
+            "value": "100"
+          }
+        ],
+        "result": 40000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Gross Profit \u00f7 Gross Revenue \u00d7 100",
+        "label": "Gross Margin",
+        "metric": "grossMarginBasisPoints",
+        "operands": [
+          {
+            "label": "Gross Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Gross Revenue",
+            "unit": "USD",
+            "value": "500"
+          }
+        ],
+        "result": 8000,
+        "unit": "basisPoints"
+      },
+      {
+        "assumptions": [
+          "Overhead excluded"
+        ],
+        "formula": "Gross Profit \u2212 Allocated Overhead",
+        "label": "Operating Profit",
+        "metric": "operatingProfitMinorUnits",
+        "operands": [
+          {
+            "label": "Gross Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Allocated Overhead",
+            "unit": "USD",
+            "value": "0"
+          }
+        ],
+        "result": 40000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [
+          "Overhead excluded"
+        ],
+        "formula": "Operating Profit \u00f7 Gross Revenue \u00d7 100",
+        "label": "Operating Margin",
+        "metric": "operatingMarginBasisPoints",
+        "operands": [
+          {
+            "label": "Operating Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Gross Revenue",
+            "unit": "USD",
+            "value": "500"
+          }
+        ],
+        "result": 8000,
+        "unit": "basisPoints"
+      },
+      {
+        "assumptions": [],
+        "formula": "Gross Revenue \u00f7 Actual Hours",
+        "label": "Revenue per Hour",
+        "metric": "revenuePerHourMinorUnits",
+        "operands": [
+          {
+            "label": "Gross Revenue",
+            "unit": "USD",
+            "value": "500"
+          },
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          }
+        ],
+        "result": 12500,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Gross Profit \u00f7 Actual Hours",
+        "label": "Gross Profit per Hour",
+        "metric": "grossProfitPerHourMinorUnits",
+        "operands": [
+          {
+            "label": "Gross Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          }
+        ],
+        "result": 10000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [
+          "Overhead excluded"
+        ],
+        "formula": "Operating Profit \u00f7 Actual Hours",
+        "label": "Operating Profit per Hour",
+        "metric": "operatingProfitPerHourMinorUnits",
+        "operands": [
+          {
+            "label": "Operating Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          }
+        ],
+        "result": 10000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Actual Hours \u00d7 Target Hourly Value",
+        "label": "Value of Your Time",
+        "metric": "laborValueMinorUnits",
+        "operands": [
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          },
+          {
+            "label": "Target Hourly Value",
+            "unit": "USD",
+            "value": "100"
+          }
+        ],
+        "result": 40000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [
+          "Overhead excluded"
+        ],
+        "formula": "Operating Profit \u2212 (Actual Hours \u00d7 Target Hourly Value)",
+        "label": "Economic Profit",
+        "metric": "economicProfitMinorUnits",
+        "operands": [
+          {
+            "label": "Operating Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          },
+          {
+            "label": "Target Hourly Value",
+            "unit": "USD",
+            "value": "100"
+          }
+        ],
+        "result": 0,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Settled Platform Fee",
+        "label": "Platform Fee",
+        "metric": "platformFeeMinorUnits",
+        "operands": [
+          {
+            "label": "Settled Fee",
+            "unit": "USD",
+            "value": "0"
+          }
+        ],
+        "result": 0,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Platform + Transaction + Withdrawal + Other Fees",
+        "label": "Payment Fees",
+        "metric": "paymentFeesMinorUnits",
+        "operands": [
+          {
+            "label": "Platform",
+            "unit": "USD",
+            "value": "0"
+          }
+        ],
+        "result": 0,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [
+          "Production costs excluded"
+        ],
+        "formula": "Gross Revenue \u2212 Payment Fees",
+        "label": "Estimated Net Receipts",
+        "metric": "estimatedNetReceiptsMinorUnits",
+        "operands": [
+          {
+            "label": "Gross Revenue",
+            "unit": "USD",
+            "value": "500"
+          },
+          {
+            "label": "Payment Fees",
+            "unit": "USD",
+            "value": "0"
+          }
+        ],
+        "result": 50000,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Entered Settled Receipt",
+        "label": "Actual Net Received",
+        "metric": "actualNetReceivedMinorUnits",
+        "operands": [
+          {
+            "label": "Actual Net Received",
+            "unit": "USD"
+          }
+        ],
+        "unavailableReason": "Actual net received has not been entered",
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Actual Net Received \u00f7 Actual Hours",
+        "label": "Net Received per Hour",
+        "metric": "effectiveNetReceivedPerHourMinorUnits",
+        "operands": [
+          {
+            "label": "Actual Net Received",
+            "unit": "USD"
+          },
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          }
+        ],
+        "unavailableReason": "Actual net received has not been entered",
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [
+          "Production costs excluded"
+        ],
+        "formula": "Estimated Net Receipts \u00f7 Actual Hours",
+        "label": "Estimated Net Receipts per Hour",
+        "metric": "estimatedNetReceiptsPerHourMinorUnits",
+        "operands": [
+          {
+            "label": "Estimated Net Receipts",
+            "unit": "USD",
+            "value": "500"
+          },
+          {
+            "label": "Actual Hours",
+            "unit": "hours",
+            "value": "4"
+          }
+        ],
+        "result": 12500,
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [],
+        "formula": "Entered Tax Scenario",
+        "label": "Estimated Tax Reserve",
+        "metric": "taxEstimateMinorUnits",
+        "operands": [],
+        "unavailableReason": "No tax estimate has been entered",
+        "unit": "usdMinorUnits"
+      },
+      {
+        "assumptions": [
+          "Overhead excluded",
+          "Estimate only"
+        ],
+        "formula": "Operating Profit \u2212 Estimated Tax Reserve",
+        "label": "Estimated Take-Home Profit",
+        "metric": "estimatedTakeHomeMinorUnits",
+        "operands": [
+          {
+            "label": "Operating Profit",
+            "unit": "USD",
+            "value": "400"
+          },
+          {
+            "label": "Estimated Tax Reserve",
+            "unit": "USD"
+          }
+        ],
+        "unavailableReason": "No tax estimate has been entered",
+        "unit": "usdMinorUnits"
+      }
+    ],
+    "costBreakdown": [
+      {
+        "amountMinorUnits": 0,
+        "kind": "platform",
+        "provenance": "settled"
+      },
+      {
+        "amountMinorUnits": 10000,
+        "kind": "production",
+        "provenance": "entered"
+      }
+    ],
+    "currency": "USD",
+    "directCostsMinorUnits": 10000,
+    "economicProfitMinorUnits": 0,
+    "estimatedNetReceiptsMinorUnits": 50000,
+    "estimatedNetReceiptsPerHourMinorUnits": 12500,
+    "grossMarginBasisPoints": 8000,
+    "grossProfitMinorUnits": 40000,
+    "grossProfitPerHourMinorUnits": 10000,
+    "grossRevenueMinorUnits": 50000,
+    "laborValueMinorUnits": 40000,
+    "operatingMarginBasisPoints": 8000,
+    "operatingProfitMinorUnits": 40000,
+    "operatingProfitPerHourMinorUnits": 10000,
+    "overheadExcluded": true,
+    "paymentFeesMinorUnits": 0,
+    "platformFeeMinorUnits": 0,
+    "revenuePerHourMinorUnits": 12500
+  }
+}

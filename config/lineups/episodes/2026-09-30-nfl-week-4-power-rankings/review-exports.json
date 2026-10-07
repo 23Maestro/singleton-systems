@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "2026-09-30-nfl-week-4-power-rankings",
+  "status": "approved",
+  "reviewer": "Jerami",
+  "purpose": "post-figma-review",
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "pageId": "1491:4092",
+  "fps": 25,
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "expectedCount": 23,
+  "scenes": [
+    {
+      "id": "S01",
+      "nodeId": "1494:359",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S02",
+      "nodeId": "1494:481",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S03",
+      "nodeId": "1494:710",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S04",
+      "nodeId": "1494:804",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S05",
+      "nodeId": "1494:1021",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S06",
+      "nodeId": "1494:1117",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S07",
+      "nodeId": "1494:1334",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S08",
+      "nodeId": "1494:1432",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S09",
+      "nodeId": "1494:1649",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S10",
+      "nodeId": "1494:1762",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S11",
+      "nodeId": "1494:1991",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S12",
+      "nodeId": "1494:2116",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S13",
+      "nodeId": "1494:2140",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S14",
+      "nodeId": "1494:2357",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S15",
+      "nodeId": "1494:2495",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S16",
+      "nodeId": "1494:2724",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S17",
+      "nodeId": "1494:2858",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S18",
+      "nodeId": "1494:2876",
+      "lane": "quick stat"
+    },
+    {
+      "id": "S19",
+      "nodeId": "1494:3105",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S20",
+      "nodeId": "1494:3253",
+      "lane": "stat breakdown"
+    },
+    {
+      "id": "S21",
+      "nodeId": "1494:3581",
+      "lane": "recurring board"
+    },
+    {
+      "id": "S22",
+      "nodeId": "1494:3728",
+      "lane": "quick action photo"
+    },
+    {
+      "id": "S23",
+      "nodeId": "1494:3746",
+      "lane": "quick stat"
+    }
+  ]
+}

@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from creative_745_graphics import make_plan, check_pair, render_guard, import_guard
 
 ROOT = Path(__file__).resolve().parents[2]
 READ_OPERATIONS = re.compile(r"^(get_|list_|find_|read_|search_|detect_|analyze_|inspect_|check_)")
@@ -138,13 +139,27 @@ def hook(payload):
     searchable = json.dumps(tool_input, ensure_ascii=False)
     prompt = str(payload.get("prompt", ""))
     is_prompt = event == "UserPromptSubmit"
+    def strings(value):
+        if isinstance(value, str):
+            return [value]
+        if isinstance(value, dict):
+            return [item for nested in value.values() for item in strings(nested)]
+        if isinstance(value, list):
+            return [item for nested in value for item in strings(nested)]
+        return []
+    commands = strings(tool_input)
+    figma_call = "figma_" in tool_name or (tool_name in {"functions.exec", "exec"} and "mcp__codex_apps__figma_" in searchable)
+    scoped_figma = figma_call and bool(re.search(r"745|pastor.?john|bold.?beliefs|john.?prayer", searchable, re.I))
+    graphics_render = next((value for value in commands
+                            if re.search(r"hyperframes(?:@[^\s]+)?\s+render\b", value)
+                            and re.search(r"745[-_](?:creative|CREATIVE)", value, re.I)), None)
     if is_prompt and not re.search(r"745|pastor john|john.?s? prayer|pastor ben|eric miller", prompt, re.I):
         return
     if event not in {"UserPromptSubmit", "PreToolUse"}:
         return
-    if not is_prompt and not ("premiere_pro" in tool_name or "cua" in tool_name or tool_name in {"functions.exec", "exec"}):
+    if not is_prompt and not (scoped_figma or graphics_render or "premiere_pro" in tool_name or "cua" in tool_name or tool_name in {"functions.exec", "exec"}):
         return
-    if tool_name in {"functions.exec", "exec"} and "mcp__premiere_pro__" not in searchable:
+    if tool_name in {"functions.exec", "exec"} and "mcp__premiere_pro__" not in searchable and not graphics_render and not scoped_figma:
         return
     if "premiere_pro" in tool_name:
         operation = tool_name.rsplit("__", 1)[-1]
@@ -152,6 +167,26 @@ def hook(payload):
             return
     try:
         contract, active, _ = load_data()
+        if scoped_figma and "mcp__premiere_pro__" not in searchable and not graphics_render:
+            emit(event, "745 FIGMA DESIGN REMINDER (not a node-level mutation gate). Select the exact client/lane; do not inherit active Prayer for Bold Beliefs. "
+                 "Approved lane masters govern layout; source-backed contracts govern direction. Record component provenance and first visual approval.\n"
+                 + json.dumps({"graphics": contract["workflow"]["graphics"], "wiggleRoom": contract["jeramiWiggleRoom"]}))
+            return
+        if graphics_render:
+            emit(event, render_guard(contract, active, graphics_render))
+            return
+        if tool_name.endswith("__import_media") or any(
+                re.search(r"mcp__premiere_pro__import_media\s*\(", value) for value in commands):
+            graphics_root = contract["workflow"]["graphics"]["outputRoot"]
+            files = [value for value in commands if value.startswith(graphics_root + "/")
+                     and Path(value).suffix.lower() in {".png", ".mov"}]
+            # Catch static nested calls. Dynamic JS paths still require manual checks.
+            for value in commands:
+                files.extend(re.findall(r"[\"'](" + re.escape(graphics_root) + r"/[^\"']+\.(?:png|mov))[\"']", value))
+            files = list(dict.fromkeys(files))
+            if files:
+                emit(event, import_guard(contract, active, files))
+                return
         if is_prompt:
             match = prompt_match(contract, prompt)
             if match and match[1]:
@@ -191,7 +226,7 @@ def hook(payload):
             raise ValueError("745 captions belong to Opus Clip; preserve the native track disabled for the clean master")
         emit(event, context(contract, active["clientId"], active["laneId"], active)
              + "\nENROLLMENT PASSED. This is not visual approval: inspect the title treatment and cover against the reference before declaring them complete.")
-    except (OSError, ValueError, KeyError, TypeError) as error:
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
         if is_prompt:
             emit(event, f"745 visual contract unavailable: {error}. Stop visual mutation until repaired.")
         else:
@@ -211,9 +246,24 @@ def cli():
     suggest = sub.add_parser("suggest")
     suggest.add_argument("--state", required=True)
     suggest.add_argument("--client")
+    graphics = sub.add_parser("graphics-plan", help="Print contract-bound variables; never render or approve")
+    graphics.add_argument("--opening", choices=("overlay", "none"), required=True)
+    graphics.add_argument("--opening-seconds", type=float)
+    graphics.add_argument("--renderer", choices=("figma", "hyperframes"), default="figma")
+    graphics.add_argument("--opening-format", choices=("png", "mov"), help="Figma defaults to static PNG; MOV needs a verified animated alpha handoff")
+    check = sub.add_parser("graphics-check", help="Check the exported pair; visual approval remains pending")
+    check.add_argument("--plan", required=True)
+    check.add_argument("--cover", required=True)
+    check.add_argument("--opening")
     args = parser.parse_args()
     contract, active, active_path = load_data()
-    if args.command == "show":
+    if args.command == "graphics-plan":
+        print(json.dumps(make_plan(contract, active, args.opening, args.opening_seconds,
+                                   args.renderer, args.opening_format), ensure_ascii=False, indent=2))
+    elif args.command == "graphics-check":
+        plan = json.loads(Path(args.plan).read_text())
+        print(json.dumps(check_pair(contract, active, plan, args.cover, args.opening), indent=2))
+    elif args.command == "show":
         if bool(args.client) != bool(args.lane):
             parser.error("show requires both --client and --lane, or neither for the active edit")
         if not args.client and not active:

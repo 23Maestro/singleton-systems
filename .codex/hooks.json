@@ -78,7 +78,7 @@
         ]
       },
       {
-        "matcher": "^(?:mcp__premiere_pro__.*|mcp__cua_repl.*|functions\\.exec|exec)$",
+        "matcher": "^(?:mcp__codex_apps__figma_.*|mcp__premiere_pro__.*|mcp__cua_repl.*|functions\\.exec|exec|Bash|exec_command)$",
         "hooks": [
           {
             "type": "command",

@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-07T00:51:26.978199+00:00",
+  "root": "/Users/singleton23/Documents/Development/singleton-systems",
+  "headCommit": "4a686d493db00ee1c48820ff47e5a9cae535cfba",
+  "dirtyStatus": [
+    " M .codex/hooks.json",
+    " M .codex/hooks/creative_745.py",
+    " M CLAUDE.md",
+    " M CODEX.md",
+    " M app/decision-maps/page.tsx",
+    " M config/745-creative/active-edit.json",
+    " M config/745-creative/visual-contract.json",
+    " D config/lineups/active-scene.json",
+    " M docs/745-creative-visual-contract.md",
+    " M docs/ui-reference/README.md",
+    " M eslint.config.mjs",
+    " M package-lock.json",
+    " M package.json",
+    " M scripts/745-visual-contract.test.mjs",
+    " M tsconfig.json",
+    "?? .codex/hooks/creative_745_graphics.py",
+    "?? config/745-creative/figma-masters/",
+    "?? config/745-creative/john-prayer-batch.json",
+    "?? config/745-creative/premiere-masters/",
+    "?? config/745-creative/visual-intake-map.json",
+    "?? config/lineups/episodes/2026-09-30-nfl-week-4-power-rankings/",
+    "?? config/lineups/episodes/2026-09-30-raiders-start/",
+    "?? default.profraw",
+    "?? docs/harness/2026-10-06-agentafk-comparison.md",
+    "?? docs/harness/2026-10-06-agentafk-jev.json",
+    "?? docs/offer/2026-10-03-diy-smartcode-sonnet-handoff.md",
+    "?? docs/planning/2026-10-04-business-time-intelligence-spec.md",
+    "?? docs/planning/2026-10-05-745-visual-intake-map.md",
+    "?? docs/planning/2026-10-05-video-review-annotations.md",
+    "?? docs/planning/2026-10-06-john-figma-lane-masters-spec.md",
+    "?? docs/planning/2026-10-06-video-review-proof.md",
+    "?? docs/planning/business-time-intelligence/",
+    "?? docs/planning/video-review/",
+    "?? docs/reviews/",
+    "?? public/decision-maps/2026-10-04-business-time-fork/",
+    "?? public/decision-maps/2026-10-04-business-time-intelligence/",
+    "?? public/nylamaree/",
+    "?? tests/nylamaree-homepage.test.mjs",
+    "?? tools/api-key-intake/",
+    "?? tools/business-time/",
+    "?? tools/ui/",
+    "?? videos/camera-rig-templates/",
+    "?? videos/john-prayer-caption-probe/"
+  ],
+  "files": {
+    ".codex/hooks/cerebral_singleton_guard.py": {
+      "sha256": "43f3cce9a961685cc3bcb2b9c82c3ca7b5042d242681d076c800d47f8674d46a"
+    },
+    ".codex/hooks.json": {
+      "sha256": "8ccbde60a637ac2618b5cf5f95a04978094d11356d9720a356ed3990bb8fc380"
+    },
+    "lib/reviews/contract.mjs": {
+      "sha256": "4492eecfeb9fa384e1275ada0f135a89b457aeb9822f8ed61ad1f5ed08418f71"
+    },
+    "lib/reviews/engine.mjs": {
+      "sha256": "04640c279b71a5c58280742a7b66fd8eb90567d1950789f266238049142f9ac9"
+    },
+    "lib/reviews/repository-adapter.mjs": {
+      "sha256": "106b9117aa26f81388cf39f5f464af66ef8e4dc3a3eea1a7c7d50aa584c44ee2"
+    },
+    "lib/transactions/engine.mjs": {
+      "sha256": "c356323efb41bbb23523d53d1800e9edefb9d7bfbb1b99853a20e5f035a3df09"
+    },
+    "lib/transactions/state-store.mjs": {
+      "sha256": "d0ef23998ad2cb7f94099e84a5939fc541ba8ee0ad700a84756b101c1324d4bb"
+    },
+    "lib/transactions/system-adapters.mjs": {
+      "sha256": "4fe37a460a59f018131f2b0cd5e56d54c6514fb768eeb3f1b667251b436b5c39"
+    },
+    "scripts/codex-rabbit-review.mjs": {
+      "sha256": "9260d468723981e7cb32f923818074bac9d0b161f5263b5d4138295d13bcfcc9"
+    },
+    "scripts/check-codex-rabbit-review.mjs": {
+      "sha256": "45bd79e9a7e31f43b8a80112f64a89a0f20a2be8104e5a67414130f125238115"
+    },
+    "scripts/check-cross-surface-transactions.mjs": {
+      "sha256": "864511b808c6908852b6901431fe67158d129e117a261063f5f8a2f90c4728fb"
+    },
+    "scripts/check-cross-surface-staleness.mjs": {
+      "sha256": "89ecad8cc7eba6134b3e3bd64d8c08e5789c4ac825aa2cff4f0927c9038a14f7"
+    },
+    "scripts/check-cerebral-hook-routing.mjs": {
+      "sha256": "d03da43d90af4742b6e534f5919e76f040ef2160474f724fd90ce3479aca02e3"
+    },
+    "config/reviews/singleton-systems.json": {
+      "sha256": "5918b2ab7043a4b33dc827e0cdab7116040d49ca353d8cd8befdc8424b096e4d"
+    },
+    "config/reviews/coderabbit-findings.fixture.json": {
+      "sha256": "8d6b8466d66953e4bc6f5ebc9c9473747858edc41bb1209ce348b3cc5272e0d6"
+    },
+    "CODEX.md": {
+      "sha256": "371c5ab2d8cf2742f17e4fbb87c95e19a6de5968a0330f66f5b792fbc1ab1e4a"
+    },
+    "package.json": {
+      "sha256": "17a521f14ecf76569c0d6a9996f24a628dbdded4ab6822c34019bd2cfe751b78"
+    },
+    "package-lock.json": {
+      "sha256": "8ffab2334842692f51b24d8f5e6bcecb610cdbbb97e92b6deb1ac7482b9e9fa1"
+    }
+  },
+  "upstream": {
+    "repository": "https://github.com/griffinwork40/agent-afk",
+    "commit": "09cab784dcf1232a55f41b7ddf54c1988221fce1",
+    "releaseSubject": "chore(release): v5.302.1"
+  }
+}

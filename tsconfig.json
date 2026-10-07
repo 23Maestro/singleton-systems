@@ -39,6 +39,7 @@
   "exclude": [
     "node_modules",
     "tools/figma/lineups-topic-builder",
-    "tools/figma/lineups-nfl-rolodex"
+    "tools/figma/lineups-nfl-rolodex",
+    "tools/ui/alignui-free"
   ]
 }

@@ -1,0 +1,214 @@
+{
+  "status": "passed",
+  "rankRevealScenes": [
+    {
+      "sceneId": "S01",
+      "rootNodeId": "1494:359",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 12,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S03",
+      "rootNodeId": "1494:710",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S05",
+      "rootNodeId": "1494:1021",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S07",
+      "rootNodeId": "1494:1334",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S09",
+      "rootNodeId": "1494:1649",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S11",
+      "rootNodeId": "1494:1991",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S14",
+      "rootNodeId": "1494:2357",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S16",
+      "rootNodeId": "1494:2724",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S19",
+      "rootNodeId": "1494:3105",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S21",
+      "rootNodeId": "1494:3581",
+      "lane": "recurring board",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10.04,
+      "status": "passed"
+    }
+  ],
+  "supportingMotionScenes": [
+    {
+      "sceneId": "S02",
+      "rootNodeId": "1494:481",
+      "lane": "quick stat",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S04",
+      "rootNodeId": "1494:804",
+      "lane": "quick action photo",
+      "wordCues": 1,
+      "nativeTrackCount": 1,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S06",
+      "rootNodeId": "1494:1117",
+      "lane": "quick action photo",
+      "wordCues": 1,
+      "nativeTrackCount": 1,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S08",
+      "rootNodeId": "1494:1432",
+      "lane": "quick action photo",
+      "wordCues": 2,
+      "nativeTrackCount": 1,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S10",
+      "rootNodeId": "1494:1762",
+      "lane": "quick stat",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S12",
+      "rootNodeId": "1494:2116",
+      "lane": "quick stat",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S13",
+      "rootNodeId": "1494:2140",
+      "lane": "quick action photo",
+      "wordCues": 1,
+      "nativeTrackCount": 1,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S15",
+      "rootNodeId": "1494:2495",
+      "lane": "quick stat",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S17",
+      "rootNodeId": "1494:2858",
+      "lane": "quick action photo",
+      "wordCues": 1,
+      "nativeTrackCount": 1,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S18",
+      "rootNodeId": "1494:2876",
+      "lane": "quick stat",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S20",
+      "rootNodeId": "1494:3253",
+      "lane": "stat breakdown",
+      "wordCues": 3,
+      "nativeTrackCount": 13,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S22",
+      "rootNodeId": "1494:3728",
+      "lane": "quick action photo",
+      "wordCues": 1,
+      "nativeTrackCount": 1,
+      "duration": 10,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S23",
+      "rootNodeId": "1494:3746",
+      "lane": "quick stat",
+      "wordCues": 1,
+      "nativeTrackCount": 2,
+      "duration": 10,
+      "status": "passed"
+    }
+  ]
+}

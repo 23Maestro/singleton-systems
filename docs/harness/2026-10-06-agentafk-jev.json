@@ -1,0 +1,105 @@
+{
+  "decision": {
+    "id": "singleton-harness-hardening-first",
+    "state": "Verified at the repository boundary: Singleton Systems already has live-registry fail-closed routing, canonical skill path checks, revision-bound two-pass repository review with human approval, chained receipts, bounded check commands, atomic state writes, lock serialization, prepared-before-apply checkpoints, readback recovery without replay, idempotency and downstream invalidation. The existing Stop hook checks writing and Git-temp cleanup but does not consult repository review or transaction completion. The review CLI defaults to OS temporary state; an explicit durable --state path is possible. Individual finding proof and verification are nonempty text fields, without per-finding execution/readback result binding. No shared task-owned process lifecycle registry or on-demand recurring-failure scanner was found in inspected .codex, config, lib, scripts, plugins/s-systems and docs/harness sources. Command timeouts and narrow Git-temp cleanup exist; lifecycle of Codex-app-managed processes outside this repo is unknown. Jerami reports lingering preview processes and wants to harden the current engine without a second runtime, AFK installation, daemon, automatic delegation or website work. This decision selects the first implementation slice; a separate new task is authorized after the evidence handoff. Keep research/progress replies able to end; implementation readiness and human release approval are distinct. Preserve unrelated dirty 745, Lineups, video, Glaze and website work. Jev comparative scores will not be interpreted as repository coverage or calibrated confidence. Assumption: comparable narrowly scoped additions can be tested locally before any release. Unknown: exact production integration effort for each slice.",
+    "question": "Which narrowly scoped hardening slice should the new task implement first under these constraints?",
+    "options": [
+      {
+        "id": "completion",
+        "description": "Connect code-delivery completion claims to existing fresh review and transaction receipts, using an explicit durable state location and bounded correction behavior."
+      },
+      {
+        "id": "processes",
+        "description": "Add task ownership, identity checks, deadlines, descendant cleanup and verified exit for processes launched by an approved repository runner."
+      },
+      {
+        "id": "findings",
+        "description": "Extend existing review findings with scope-bound check or readback evidence and verify consequential claims across callers and consumers."
+      },
+      {
+        "id": "feedback",
+        "description": "Add a read-only recurring-failure scan over existing redacted receipts or traces, then create reviewed regression cases with source provenance."
+      },
+      {
+        "id": "needs_review",
+        "description": "Leave implementation priority unresolved because the evidence does not support selecting one of these narrowly scoped additions."
+      }
+    ]
+  },
+  "result": {
+    "id": "singleton-harness-hardening-first",
+    "option_ids": [
+      "completion",
+      "processes",
+      "findings",
+      "feedback",
+      "needs_review"
+    ],
+    "probabilities": [
+      0.596742816880514,
+      0.03131910305038325,
+      0.06385795054299434,
+      0.012211446572920403,
+      0.295868682953188
+    ],
+    "option_logits": [
+      25.032573699951172,
+      22.085315704345703,
+      22.797748565673828,
+      21.143461227416992,
+      24.331003189086914
+    ],
+    "answer_token_ids": [
+      32,
+      33,
+      34,
+      35,
+      36
+    ],
+    "input_tokens": 559,
+    "allowed_token_mass": 0.9991594738271299,
+    "full_vocab_argmax_id": 32,
+    "prompt_sha256": "36be2ad499865fc1bd5f6988d4ae6b30b81362edc5e5613d51bae047e75b17bb",
+    "prompt_version": "direct-options-v1",
+    "model": {
+      "source": "Qwen/Qwen3.5-4B",
+      "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+      "backend": "llamacpp",
+      "dtype": "gguf-quantized",
+      "gguf": {
+        "file": "Qwen_Qwen3.5-4B-Q4_K_M.gguf",
+        "bytes": 3013027808,
+        "sha256": "13c16f426047e2de38cd075bdade4a7bcbc8c774384876f677740cda65f8a983"
+      },
+      "vocab_size": 248320,
+      "threads": 8,
+      "n_gpu_layers": 0,
+      "max_prompt_tokens": 4096,
+      "context_tokens": 4352,
+      "decode_chunk": 512,
+      "llama_cpp_python_version": "0.3.35",
+      "transformers_version": "5.17.0",
+      "serving_config": "llamacpp-state-restore-v1"
+    },
+    "readout": "quantized branch last-position logits over a restored prefix state",
+    "probability_status": "conditional option score over quantized weights; uncalibrated as decision confidence",
+    "cache_hit": false,
+    "prefix_tokens": 356,
+    "prefix_sha256": "ab0c129eb6901a4687d3364465f18e769080a7178a4911e37de06c087358c94d",
+    "branch_state_bytes": 64364284,
+    "prefill_seconds": 3.523255790991243,
+    "copy_seconds": 0.0018881249707192183,
+    "suffix_forward_seconds": 2.034835957980249,
+    "forward_seconds": 5.558091748971492,
+    "total_seconds": 5.584876999957487,
+    "selected_option_id": "completion",
+    "_jev": {
+      "server_pid": 35093,
+      "request_count": 1,
+      "loaded_at_unix": 1791334225.289829,
+      "idle_seconds": 300,
+      "home": "/Volumes/HomeSSD/Jev"
+    }
+  },
+  "exitCode": 0
+}

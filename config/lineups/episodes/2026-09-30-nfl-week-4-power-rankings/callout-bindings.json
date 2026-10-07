@@ -1,0 +1,59 @@
+{
+  "pageId": "1491:4092",
+  "scenes": [
+    {
+      "sceneId": "S02",
+      "rootNodeId": "1494:481",
+      "roleNodeIds": {
+        "wrapper": "1494:494",
+        "panel": "1494:495",
+        "text": "1494:496"
+      }
+    },
+    {
+      "sceneId": "S10",
+      "rootNodeId": "1494:1762",
+      "roleNodeIds": {
+        "wrapper": "1494:1775",
+        "panel": "1494:1776",
+        "text": "1494:1777"
+      }
+    },
+    {
+      "sceneId": "S12",
+      "rootNodeId": "1494:2116",
+      "roleNodeIds": {
+        "wrapper": "1494:2129",
+        "panel": "1494:2130",
+        "text": "1494:2131"
+      }
+    },
+    {
+      "sceneId": "S15",
+      "rootNodeId": "1494:2495",
+      "roleNodeIds": {
+        "wrapper": "1494:2508",
+        "panel": "1494:2509",
+        "text": "1494:2510"
+      }
+    },
+    {
+      "sceneId": "S18",
+      "rootNodeId": "1494:2876",
+      "roleNodeIds": {
+        "wrapper": "1494:2889",
+        "panel": "1494:2890",
+        "text": "1494:2891"
+      }
+    },
+    {
+      "sceneId": "S23",
+      "rootNodeId": "1494:3746",
+      "roleNodeIds": {
+        "wrapper": "1494:3759",
+        "panel": "1494:3760",
+        "text": "1494:3761"
+      }
+    }
+  ]
+}

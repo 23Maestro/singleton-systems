@@ -1,0 +1,619 @@
+{
+  "schemaVersion": 1,
+  "auditId": "singleton-agentafk-hardening-2026-10-06",
+  "root": "/Users/singleton23/Documents/Development/singleton-systems",
+  "method": {
+    "name": "24-control repository-owned hardening coverage",
+    "selection": "Agent-authored requirements informed by pinned AFK patterns and existing Singleton Systems contracts.",
+    "weighting": "One point per criterion. Present receives one; missing or not evidenced receives zero. Requirements have equal weight, not equal risk.",
+    "evidenceLevel": "Current source readback plus passing local contract tests. No AFK execution or production integration audit.",
+    "limits": [
+      "The percentage describes only this declared rubric.",
+      "Absence is bounded to .codex, config, lib, scripts, plugins/s-systems and docs/harness inspected in the source snapshot.",
+      "Codex app-managed lifecycle, all crash modes and live external adapters remain outside proven coverage.",
+      "Open-ended feature parity, multi-agent orchestration, daemons, notifications and alternative model runtimes are excluded by user scope."
+    ]
+  },
+  "scores": {
+    "demonstrated": 16,
+    "missing": 5,
+    "notEvidenced": 3,
+    "possible": 24,
+    "coveragePercent": 66.66666666666667,
+    "uncreditedPercent": 33.333333333333336,
+    "confirmedGapPercent": 20.833333333333332,
+    "notEvidencedPercent": 12.5
+  },
+  "criteria": [
+    {
+      "id": "H01",
+      "group": "routing",
+      "requirement": "Resolve one owner through canonical Cerebral routing",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": ".codex/hooks/cerebral_singleton_guard.py",
+          "line": 479,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:cerebral:hook-routing",
+          "observation": "Routing reads live rows and emits owner packets."
+        }
+      ]
+    },
+    {
+      "id": "H02",
+      "group": "routing",
+      "requirement": "Fail closed when live registry rows are missing or unavailable",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": ".codex/hooks/cerebral_singleton_guard.py",
+          "line": 313,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:cerebral:hook-routing",
+          "observation": "RegistryUnavailable blocks; fixture verifies no local fallback."
+        }
+      ]
+    },
+    {
+      "id": "H03",
+      "group": "routing",
+      "requirement": "Guard registered skill-script execution against canonical paths",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": ".codex/hooks/cerebral_singleton_guard.py",
+          "line": 396,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:cerebral:hook-routing",
+          "observation": "Registered skill roots and script targets are validated."
+        }
+      ]
+    },
+    {
+      "id": "H04",
+      "group": "review",
+      "requirement": "Record configured check exit results and output hashes",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/engine.mjs",
+          "line": 104,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:codex-rabbit",
+          "observation": "Check records include exitCode, error, timedOut and output hashes."
+        }
+      ]
+    },
+    {
+      "id": "H05",
+      "group": "review",
+      "requirement": "Configure command deadlines and preserve timeout failure",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/repository-adapter.mjs",
+          "line": 10,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:codex-rabbit",
+          "observation": "spawnSync timeout results leave the review incomplete; descendant teardown is assessed separately."
+        }
+      ]
+    },
+    {
+      "id": "H06",
+      "group": "review",
+      "requirement": "Bind review evidence to HEAD, active diff and contract",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/repository-adapter.mjs",
+          "line": 83,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:codex-rabbit",
+          "observation": "Snapshot binds tracked and untracked content plus contract hashes."
+        }
+      ]
+    },
+    {
+      "id": "H07",
+      "group": "review",
+      "requirement": "Verify the chained review receipt hashes",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/contract.mjs",
+          "line": 95,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:codex-rabbit",
+          "observation": "Tampered receipt chains are rejected."
+        }
+      ]
+    },
+    {
+      "id": "H08",
+      "group": "review",
+      "requirement": "Keep omitted unresolved findings open across passes",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/contract.mjs",
+          "line": 193,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:codex-rabbit",
+          "observation": "Latest finding state is retained; omission does not resolve it."
+        }
+      ]
+    },
+    {
+      "id": "H09",
+      "group": "review",
+      "requirement": "Require declared passes and fresh human approval for accepted review",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/engine.mjs",
+          "line": 140,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:codex-rabbit",
+          "observation": "Approval reads a fresh snapshot and rejects stale scope or missing passes."
+        }
+      ]
+    },
+    {
+      "id": "H10",
+      "group": "completion",
+      "requirement": "Consult fresh bound evidence before a code-delivery completion claim",
+      "status": "missing",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": ".codex/hooks/cerebral_singleton_guard.py",
+          "line": 1050,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "Stop handles writing and Git-temp cleanup; no review or transaction completion lookup."
+        }
+      ]
+    },
+    {
+      "id": "H11",
+      "group": "findings",
+      "requirement": "Bind individual finding resolution to a relevant check or readback result",
+      "status": "missing",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/contract.mjs",
+          "line": 42,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "Proof and verification are required strings; the engine runs global configured checks."
+        }
+      ]
+    },
+    {
+      "id": "H12",
+      "group": "recovery",
+      "requirement": "Persist a prepared checkpoint before a mutation apply",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/transactions/engine.mjs",
+          "line": 544,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "Checkpoint callback runs after preparation and before apply."
+        }
+      ]
+    },
+    {
+      "id": "H13",
+      "group": "recovery",
+      "requirement": "Recover uncertain writes by readback without automatic replay",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/transactions/engine.mjs",
+          "line": 508,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "Uncertain outcomes resume at verification; changed uncertain input refuses replay."
+        }
+      ]
+    },
+    {
+      "id": "H14",
+      "group": "recovery",
+      "requirement": "Make verified duplicate delivery idempotent",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/transactions/engine.mjs",
+          "line": 410,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "A matching verified delivery reuses its receipt without apply."
+        }
+      ]
+    },
+    {
+      "id": "H15",
+      "group": "recovery",
+      "requirement": "Invalidate dependent owners after an upstream input changes",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/transactions/engine.mjs",
+          "line": 162,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "Dependency graph changes produce stale downstream states."
+        }
+      ]
+    },
+    {
+      "id": "H16",
+      "group": "recovery",
+      "requirement": "Write state atomically with restricted file permissions",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/transactions/state-store.mjs",
+          "line": 98,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "Temporary state is written with mode 0600 and renamed atomically; filesystem power-loss durability is untested."
+        }
+      ]
+    },
+    {
+      "id": "H17",
+      "group": "recovery",
+      "requirement": "Serialize state operations and recover dead local lock owners",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/transactions/state-store.mjs",
+          "line": 45,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "Lock contention and dead-owner takeover are tested; all crash permutations are not established."
+        }
+      ]
+    },
+    {
+      "id": "H18",
+      "group": "retention",
+      "requirement": "Use retained storage as the default location for long-lived review state",
+      "status": "missing",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "scripts/codex-rabbit-review.mjs",
+          "line": 43,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "Default is OS temporary storage. Explicit --state already supports a retained path."
+        }
+      ]
+    },
+    {
+      "id": "H19",
+      "group": "processes",
+      "requirement": "Associate repo-runner processes with task identity and deadline",
+      "status": "not_evidenced",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/repository-adapter.mjs",
+          "line": 10,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "No common ownership registry found in the inspected harness; app-managed process lifecycle is outside the audit."
+        }
+      ]
+    },
+    {
+      "id": "H20",
+      "group": "processes",
+      "requirement": "Stop only owned descendant processes on cancellation or teardown",
+      "status": "not_evidenced",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "lib/reviews/repository-adapter.mjs",
+          "line": 10,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "Command timeout exists; owned descendant/process-group teardown is not established by source or tests."
+        }
+      ]
+    },
+    {
+      "id": "H21",
+      "group": "processes",
+      "requirement": "Verify exit and protect against PID reuse or unrelated-process cleanup",
+      "status": "not_evidenced",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": ".codex/hooks/cerebral_singleton_guard.py",
+          "line": 204,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "Narrow Git-temp cleanup is separate. No shared repo-runner exit/identity proof was found."
+        }
+      ]
+    },
+    {
+      "id": "H22",
+      "group": "feedback",
+      "requirement": "Maintain deterministic regression cases for failure and recovery",
+      "status": "present",
+      "points": 1,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "scripts/check-cross-surface-transactions.mjs",
+          "line": 1,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": "check:transactions",
+          "observation": "Failure fixtures and CodeRabbit-derived findings exist; automated incident capture is separate."
+        }
+      ]
+    },
+    {
+      "id": "H23",
+      "group": "feedback",
+      "requirement": "Scan existing redacted traces or receipts for recurring failure patterns on demand",
+      "status": "missing",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "scripts/check-codex-rabbit-review.mjs",
+          "line": 1,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "The inspected harness has check suites; no recurring-incident scanner was found."
+        }
+      ]
+    },
+    {
+      "id": "H24",
+      "group": "feedback",
+      "requirement": "Retain source provenance when converting selected incidents to regression cases",
+      "status": "missing",
+      "points": 0,
+      "maxPoints": 1,
+      "evidence": [
+        {
+          "path": "config/reviews/coderabbit-findings.fixture.json",
+          "line": 1,
+          "sourceSnapshot": "2026-10-06-agentafk-source-snapshot.json",
+          "check": null,
+          "observation": "Manual learned findings exist; no trace-to-case export contract with source checksum was found."
+        }
+      ]
+    }
+  ],
+  "drift": [
+    {
+      "id": "D01",
+      "topic": "Percentage basis",
+      "previous": "25% was a judgment estimate with no denominator.",
+      "current": "The 24-control equal-point audit demonstrates 16 controls. Five are missing and three process controls are not evidenced.",
+      "handoffRule": "Report 66.7% demonstrated and 33.3% uncredited on this rubric. Do not call it measured full AFK parity or a security score."
+    },
+    {
+      "id": "D02",
+      "topic": "Jev score interpretation",
+      "previous": "User requested Jev for a more accurate score.",
+      "current": "The invoked skill excludes standalone ratings; its output selects among explicit priorities.",
+      "handoffRule": "Use ledger arithmetic for coverage. Jev probabilities are relative, uncalibrated choice scores."
+    },
+    {
+      "id": "D03",
+      "topic": "Receipt integrity versus enforcement",
+      "previous": "Hash-bound review receipts can sound like universal completion enforcement.",
+      "current": "The review CLI enforces its own contract; Stop does not read that state.",
+      "handoffRule": "Reuse the existing engine in a narrowly scoped completion bridge. Preserve research and progress exits."
+    },
+    {
+      "id": "D04",
+      "topic": "Recovery versus retained storage",
+      "previous": "Resumable state can sound like persistent retention.",
+      "current": "Atomic checkpoint support exists; the review CLI defaults to an OS temporary path and accepts explicit --state.",
+      "handoffRule": "Fix the default retained path. Preserve explicit state paths and existing state; no automatic deletion or migration."
+    },
+    {
+      "id": "D05",
+      "topic": "Finding proof",
+      "previous": "A required verification string can sound like verified execution.",
+      "current": "Configured global checks run; individual finding resolution is still supplied as text/status.",
+      "handoffRule": "H11 is a later additive review-contract change. Do not portray the existing global check runner as absent."
+    },
+    {
+      "id": "D06",
+      "topic": "Process boundary",
+      "previous": "Lack of a shared repo registry can sound like no process cleanup anywhere.",
+      "current": "Command deadlines, narrow Git-temp cleanup and Codex-app process facilities exist; common repo-runner lifecycle evidence is absent.",
+      "handoffRule": "H19-H21 receive no audit credit. Inspect app integration before building a parallel process engine; preserve unrelated services."
+    },
+    {
+      "id": "D07",
+      "topic": "Failure learning",
+      "previous": "Existing cases were described as synthetic.",
+      "current": "Deterministic recovery cases and seven CodeRabbit-derived finding fixtures already exist.",
+      "handoffRule": "Missing work is on-demand incident scanning and provenance export; retain existing fixtures."
+    },
+    {
+      "id": "D08",
+      "topic": "Validation scope",
+      "previous": "Four passing checks could be read as complete repository or production health.",
+      "current": "Checks use fixture repositories and injected routing/runtime facts. Live Supabase, actual Stop delivery and live external writes were not exercised.",
+      "handoffRule": "Keep proof levels explicit. Prior unrelated Glaze typecheck failures and four existing dependency advisories are historical observations, not refreshed health results."
+    },
+    {
+      "id": "D09",
+      "topic": "Upstream version",
+      "previous": "Website footer previously displayed v5.292.3.",
+      "current": "The inspected source is pinned to 09cab784; its release commit identifies v5.302.1.",
+      "handoffRule": "Use the pinned source. Do not describe the earlier marketing version as current or silently switch to upstream HEAD."
+    },
+    {
+      "id": "D10",
+      "topic": "Scope and authority",
+      "previous": "Comparison sits beside an unfinished hosted video-review proposal.",
+      "current": "This task prepares evidence and creates a new implementation task. Hosted video review is still a separate pending source adapter.",
+      "handoffRule": "Implement only the first completion/retention slice in the new task. No AFK runtime, daemon, subagents, website, tracker, deployment, media or unrelated cleanup."
+    }
+  ],
+  "upstream": {
+    "repository": "https://github.com/griffinwork40/agent-afk",
+    "commit": "09cab784dcf1232a55f41b7ddf54c1988221fce1",
+    "releaseSubject": "chore(release): v5.302.1",
+    "sources": [
+      {
+        "area": "completion",
+        "path": "src/agent/terminal-state-gate.ts",
+        "qualification": "Opt-in and autonomous mode only; correction cap fails open."
+      },
+      {
+        "area": "processes",
+        "path": "src/agent/shell-jobs/process-jobs.ts",
+        "qualification": "Owned jobs, deadlines and teardown inside AFK's own runtime."
+      },
+      {
+        "area": "findings",
+        "path": "src/bundled-plugins/awa-bundled/skills/shadow-verify/SKILL.md",
+        "qualification": "Independent claim verification is a pattern reference; its delegated orchestration is excluded."
+      },
+      {
+        "area": "feedback",
+        "path": "src/improve/scan/detectors/repeated-tool-use.ts",
+        "qualification": "Detector reads traces. Source implements argument-hash fingerprinting when available."
+      },
+      {
+        "area": "feedback",
+        "path": "src/improve/eval-gen/replay-fixture.ts",
+        "qualification": "Source fixture/provenance reference; no claim of full end-to-end replay parity."
+      }
+    ]
+  },
+  "verification": {
+    "at": "2026-10-06",
+    "checks": [
+      {
+        "command": "npm run check:codex-rabbit",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "command": "npm run check:transactions",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "command": "npm run check:cerebral:registry",
+        "exitCode": 0,
+        "status": "passed"
+      },
+      {
+        "command": "npm run check:cerebral:hook-routing",
+        "exitCode": 0,
+        "status": "passed"
+      }
+    ]
+  },
+  "jev": {
+    "record": "2026-10-06-agentafk-jev.json",
+    "selectedOptionId": "completion",
+    "interpretation": "Select completion enforcement with retained state as the first slice. Explanation is the reviewing agent's assessment, not Jev-generated reasoning."
+  },
+  "firstImplementationSlice": {
+    "ids": [
+      "H10",
+      "H18"
+    ],
+    "laterIds": [
+      "H11",
+      "H19",
+      "H20",
+      "H21",
+      "H23",
+      "H24"
+    ],
+    "authority": "Jerami requested the research handoff first and then a new task.",
+    "status": "ready_for_new_task",
+    "implementation": {
+      "status": "local_fixture_verified_pending_review",
+      "baselineRetained": true,
+      "controls": {
+        "H10": {
+          "status": "implemented_local",
+          "evidence": [
+            "lib/reviews/completion.mjs",
+            ".codex/hooks/cerebral_singleton_guard.py",
+            "scripts/check-code-delivery-stop.mjs"
+          ],
+          "limits": [
+            "Only structured standalone code-delivery declarations are enforced.",
+            "Production desktop Stop delivery and human cancellation remain unverified.",
+            "Repository readiness and review approval do not prove release or external owner delivery."
+          ]
+        },
+        "H18": {
+          "status": "implemented_local",
+          "evidence": [
+            "lib/reviews/state-path.mjs",
+            "scripts/codex-rabbit-review.mjs",
+            "scripts/check-code-delivery-stop.mjs"
+          ],
+          "default": "~/.local/state/singleton-systems/reviews/<hash>.json",
+          "legacyTemporaryState": "preserved; no migration"
+        }
+      },
+      "readback": "docs/harness/2026-10-06-harness-hardening-readback.json",
+      "releaseApproval": "pending",
+      "laterControls": "H11 and H19-H24 unchanged"
+    }
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "status": "passed",
+  "supportingMotionScenes": [
+    {
+      "sceneId": "S03",
+      "rootNodeId": "1509:82",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S06",
+      "rootNodeId": "1509:301",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S07",
+      "rootNodeId": "1509:313",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S10",
+      "rootNodeId": "1509:629",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S12",
+      "rootNodeId": "1509:674",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S15",
+      "rootNodeId": "1509:854",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S19",
+      "rootNodeId": "1509:1305",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S20",
+      "rootNodeId": "1509:1317",
+      "lane": "quick action photo",
+      "duration": 10.52,
+      "lastMotionEnd": 5.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 1,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S01",
+      "rootNodeId": "1509:22",
+      "lane": "quick stat",
+      "duration": 11.52,
+      "lastMotionEnd": 6.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 3,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S02",
+      "rootNodeId": "1509:55",
+      "lane": "quick stat",
+      "duration": 11.52,
+      "lastMotionEnd": 6.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 3,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S04",
+      "rootNodeId": "1509:100",
+      "lane": "quick stat",
+      "duration": 11.52,
+      "lastMotionEnd": 6.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 3,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S11",
+      "rootNodeId": "1509:647",
+      "lane": "quick stat",
+      "duration": 11.52,
+      "lastMotionEnd": 6.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 3,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S13",
+      "rootNodeId": "1509:692",
+      "lane": "quick stat",
+      "duration": 11.52,
+      "lastMotionEnd": 6.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 3,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S21",
+      "rootNodeId": "1535:21",
+      "lane": "comparison",
+      "duration": 13,
+      "lastMotionEnd": 6.39,
+      "finalStateHold": 6.61,
+      "nativeTracks": 7,
+      "cueCount": 3,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S22",
+      "rootNodeId": "1509:1387",
+      "lane": "quick stat",
+      "duration": 11.52,
+      "lastMotionEnd": 6.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 3,
+      "cueCount": 1,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S08",
+      "rootNodeId": "1509:340",
+      "lane": "stat breakdown",
+      "duration": 17,
+      "lastMotionEnd": 12,
+      "finalStateHold": 5,
+      "nativeTracks": 17,
+      "cueCount": 4,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S09",
+      "rootNodeId": "1509:506",
+      "lane": "stat breakdown",
+      "duration": 17.52,
+      "lastMotionEnd": 12.5,
+      "finalStateHold": 5.02,
+      "nativeTracks": 13,
+      "cueCount": 3,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S14",
+      "rootNodeId": "1509:731",
+      "lane": "stat breakdown",
+      "duration": 15,
+      "lastMotionEnd": 10,
+      "finalStateHold": 5,
+      "nativeTracks": 13,
+      "cueCount": 3,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S16",
+      "rootNodeId": "1509:878",
+      "lane": "stat breakdown",
+      "duration": 13,
+      "lastMotionEnd": 8,
+      "finalStateHold": 5,
+      "nativeTracks": 13,
+      "cueCount": 3,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S17",
+      "rootNodeId": "1509:1016",
+      "lane": "stat breakdown",
+      "duration": 15,
+      "lastMotionEnd": 10,
+      "finalStateHold": 5,
+      "nativeTracks": 17,
+      "cueCount": 4,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S18",
+      "rootNodeId": "1509:1182",
+      "lane": "stat breakdown",
+      "duration": 18,
+      "lastMotionEnd": 13,
+      "finalStateHold": 5,
+      "nativeTracks": 13,
+      "cueCount": 3,
+      "status": "passed"
+    },
+    {
+      "sceneId": "S05",
+      "rootNodeId": "1509:139",
+      "lane": "year-by-year",
+      "duration": 15.96,
+      "lastMotionEnd": 10.94,
+      "finalStateHold": 5.02,
+      "nativeTracks": 19,
+      "cueCount": 3,
+      "status": "passed"
+    }
+  ],
+  "rankRevealScenes": []
+}

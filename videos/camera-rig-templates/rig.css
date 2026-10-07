@@ -1,0 +1,73 @@
+/* Camera-rig base styles. Skins override the variables below; nothing here sets the camera move. */
+:root {
+  --accent: #4cc2ff;
+  --ink: #f2f4f8;
+  --ink-dim: #a9b3c4;
+  --font-display: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --display-weight: 900;
+  --display-case: none;
+  --display-track: -0.02em;
+  --frame-width: 6px;
+  --frame-radius: 6px;
+}
+.rig-root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #05070c; }
+.rig-env, .rig-env-far { position: absolute; inset: 0; }
+.rig-env-far { inset: -6%; }                       /* oversized so parallax never shows an edge */
+.rig-stage { position: absolute; inset: 0; transform-style: preserve-3d; perspective-origin: 50% 46%; }
+.rig-world { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.rig-stop { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+.rig-stop-inner { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); width: 1500px; display: flex; justify-content: center; }
+.rig-dolly { position: absolute; inset: 0; transform-style: preserve-3d; }
+.rig-floor { position: absolute; left: -16000px; top: -16000px; width: 32000px; height: 32000px; transform-origin: 50% 50%; }
+.rig-flare, .rig-flash { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+.rig-flash { background: #fff; mix-blend-mode: screen; }
+.ltr { display: inline-block; }
+.wrd { display: inline-block; white-space: nowrap; }
+
+/* ---------- components ---------- */
+.c-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); font-size: 150px; line-height: 0.95; color: var(--ink); text-align: center; }
+.c-title-sm { font-size: 96px; }
+.c-kicker { font-family: var(--font-body); font-weight: 700; font-size: 34px; letter-spacing: 0.3em; color: var(--accent); text-align: center; margin-bottom: 18px; }
+.c-sub { font-family: var(--font-body); font-weight: 600; font-size: 42px; color: var(--ink-dim); text-align: center; margin-top: 18px; }
+.c-rule { display: block; width: 520px; height: 5px; margin: 26px auto 0; background: var(--accent); box-shadow: 0 0 22px var(--accent); transform-origin: 50% 50%; }
+.c-headline, .c-stat, .c-quote, .c-icons { display: flex; flex-direction: column; align-items: center; }
+.c-stat-value { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 300px; line-height: 0.9; color: var(--ink); letter-spacing: var(--display-track); }
+.c-stat-label { font-family: var(--font-body); font-weight: 700; font-size: 44px; letter-spacing: 0.24em; color: var(--accent); margin-top: 24px; }
+.c-icon-row { display: flex; gap: 56px; margin-top: 54px; }
+.c-icon { display: flex; flex-direction: column; align-items: center; gap: 22px; width: 220px; }
+.c-icon-glyph { width: 170px; height: 170px; border-radius: 34px; display: flex; align-items: center; justify-content: center; border: 4px solid var(--accent); box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 55%, transparent), inset 0 0 30px color-mix(in srgb, var(--accent) 25%, transparent); background: rgba(255,255,255,0.04); }
+.c-icon-glyph svg { width: 92px; height: 92px; stroke: var(--ink); fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.c-icon-label { font-family: var(--font-body); font-weight: 700; font-size: 32px; letter-spacing: 0.12em; color: var(--ink); }
+.c-quote { max-width: 1400px; }
+.c-quote-line { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-case); font-size: 58px; line-height: 1.12; color: var(--ink); text-align: center; }
+.c-quote-by { font-family: var(--font-body); font-weight: 800; font-size: 34px; letter-spacing: 0.06em; color: var(--accent); margin-top: 22px; text-transform: var(--display-case); }
+
+.c-card { display: flex; flex-direction: column; align-items: center; }
+.c-card-head { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; }
+.c-card-head .c-title { font-size: 120px; }
+.c-card-head .c-sub { margin-top: 6px; font-size: 34px; color: var(--ink); letter-spacing: 0.04em; }
+.c-card-media { display: flex; align-items: center; gap: 22px; }
+.c-frame { position: relative; overflow: visible; --glow: 1; }
+.c-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.c-frame-hero { width: 760px; height: 440px; }
+.c-frame-side { width: 400px; height: 300px; border: 4px solid var(--accent); }
+.c-frame-hero .c-swap { position: absolute; inset: 0; }
+.c-frame-hero::after { content: ""; position: absolute; inset: calc(var(--frame-width) * -1); border-radius: var(--frame-radius); pointer-events: none;
+  box-shadow: 0 0 calc(46px * var(--glow)) color-mix(in srgb, var(--accent) 80%, transparent), inset 0 0 calc(30px * var(--glow)) color-mix(in srgb, var(--accent) 45%, transparent); opacity: var(--glow); }
+.c-draw { position: absolute; inset: calc(var(--frame-width) * -1); pointer-events: none; }
+.c-draw i { position: absolute; background: var(--accent); display: block; }
+.c-draw .d-top { left: 0; right: 0; top: 0; height: var(--frame-width); transform-origin: 50% 50%; }
+.c-draw .d-bottom { left: 0; right: 0; bottom: 0; height: var(--frame-width); transform-origin: 50% 50%; }
+.c-draw .d-left { left: 0; top: 0; bottom: 0; width: var(--frame-width); transform-origin: 50% 0; }
+.c-draw .d-right { right: 0; top: 0; bottom: 0; width: var(--frame-width); transform-origin: 50% 0; }
+.c-card-stats { display: flex; gap: 120px; margin-top: 34px; }
+.c-card-stat { display: flex; flex-direction: column; align-items: center; }
+.c-card-stat-top { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-case); font-size: 60px; color: var(--accent); }
+.c-card-stat-bottom { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-case); font-size: 48px; color: var(--ink); }
+.c-card-quote { display: flex; flex-direction: column; align-items: center; margin-top: 30px; }
+.c-card-side { flex-direction: row; align-items: center; gap: 50px; }
+.c-card-side .c-frame-hero { width: 540px; height: 680px; }
+.c-card-text { display: flex; flex-direction: column; align-items: flex-start; max-width: 660px; }
+.c-card-text .c-title, .c-card-text .c-quote-line { text-align: left; }
+.c-card-text .c-title-sm { font-size: 84px; margin-bottom: 16px; }

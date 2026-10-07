@@ -1,0 +1,600 @@
+{
+  "schemaVersion": 1,
+  "id": "745-creative-visual-intake-map",
+  "verifiedOn": "2026-10-05",
+  "board": {
+    "fileKey": "9XxBtJQCNLNNQZJaB02xiS",
+    "url": "https://www.figma.com/board/9XxBtJQCNLNNQZJaB02xiS"
+  },
+  "authority": {
+    "visualRules": "visual-contract.json and referenced client contracts",
+    "taskState": "Asana Content Editor",
+    "mapState": "Dated projection. No automatic sync or rendered visual certification."
+  },
+  "scope": {
+    "requestedVideos": 54,
+    "referenceLanes": 13,
+    "sourceFilesListed": 55,
+    "fridayCheckpoint": {
+      "text": "Examples for lanes represented in the supplied 54-video backlog",
+      "at": "2026-10-09T10:00:00-04:00",
+      "authority": "Jerami reported Darzell's request; not a due date for all 54 videos"
+    },
+    "excluded": "Reference-only lanes add no deliverables."
+  },
+  "contractFiles": [
+    "config/745-creative/visual-contract.json",
+    "config/745-creative/pastor-ben/visual-contract.json",
+    "config/745-creative/eric-miller/visual-contract.json"
+  ],
+  "inventory": [
+    {
+      "folderId": "19AVZc_21-UO_a08Wi89BBxZgFE49uDG9",
+      "client": "pastor_john",
+      "lane": "prayer",
+      "files": [
+        {
+          "id": "1rsQ9bbu2h_aJ4IZ3m9-c1zryuCGj-kyt",
+          "name": "Afraid of Tomorrow",
+          "url": "https://drive.google.com/file/d/1rsQ9bbu2h_aJ4IZ3m9-c1zryuCGj-kyt/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1oGu-fziK6EPMHhkGs8SQHsDt_j-pmPB7",
+          "name": "Feeling Behind Everyone Else",
+          "url": "https://drive.google.com/file/d/1oGu-fziK6EPMHhkGs8SQHsDt_j-pmPB7/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1eMl8C5Lk3rQpfkwt8qlEF_Rd1CNVh9l4",
+          "name": "Carrying Everyone Else",
+          "url": "https://drive.google.com/file/d/1eMl8C5Lk3rQpfkwt8qlEF_Rd1CNVh9l4/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1U_OUPR59dkCVA9SRA12Ir70ZoNSK5qVI",
+          "name": "The Temptation That Waits Till You're Alone",
+          "url": "https://drive.google.com/file/d/1U_OUPR59dkCVA9SRA12Ir70ZoNSK5qVI/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1dH9zC9Hs968mSX7OitDMqaexqCRPZacE",
+          "name": "Missing Someone",
+          "url": "https://drive.google.com/file/d/1dH9zC9Hs968mSX7OitDMqaexqCRPZacE/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1zC_U4f-Wz7-kNbjd8IbM9kNiUnmv1HFb",
+          "name": "A Decision You Can't Make",
+          "url": "https://drive.google.com/file/d/1zC_U4f-Wz7-kNbjd8IbM9kNiUnmv1HFb/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1EL6W7rrf70ooGkcXGo5TRVrr5800KV2I",
+          "name": "Ashamed to Come Back",
+          "url": "https://drive.google.com/file/d/1EL6W7rrf70ooGkcXGo5TRVrr5800KV2I/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "18uTSz1Tqw5eRk1Kz3GmuLDu5VXRFQlcT",
+          "name": "Worried About Your Kids",
+          "url": "https://drive.google.com/file/d/18uTSz1Tqw5eRk1Kz3GmuLDu5VXRFQlcT/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1vjMIClV_0gci6g26gqhdxOV0msHLjbVz",
+          "name": "When the Past Won't Let Go",
+          "url": "https://drive.google.com/file/d/1vjMIClV_0gci6g26gqhdxOV0msHLjbVz/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "19vXzBPy_6wyfMOcZCgcHd9wOXCOTI_NZ",
+          "name": "A Mind That Won't Shut Off",
+          "url": "https://drive.google.com/file/d/19vXzBPy_6wyfMOcZCgcHd9wOXCOTI_NZ/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1T2uDtt7BB1rPdb2RiyrXVowKVqs5NLmy",
+          "name": "The Thing Nobody Knows",
+          "url": "https://drive.google.com/file/d/1T2uDtt7BB1rPdb2RiyrXVowKVqs5NLmy/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1dMdRdfvGFoD8cAhC93fZVna94JZMkMfN",
+          "name": "Hurt by the Church",
+          "url": "https://drive.google.com/file/d/1dMdRdfvGFoD8cAhC93fZVna94JZMkMfN/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1j9GCwkvIfAnA_ZbDrL_hioD8cVwfTyVe",
+          "name": "Money Pressure",
+          "url": "https://drive.google.com/file/d/1j9GCwkvIfAnA_ZbDrL_hioD8cVwfTyVe/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1c9U5nUzBBO7n6GW6mZmCZdfy0oduiwFT",
+          "name": "A Marriage Holding On",
+          "url": "https://drive.google.com/file/d/1c9U5nUzBBO7n6GW6mZmCZdfy0oduiwFT/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "18KO_74REoBOyDwYeQHBBvVxakGPk7kgc",
+          "name": "Feeling Like a Failure",
+          "url": "https://drive.google.com/file/d/18KO_74REoBOyDwYeQHBBvVxakGPk7kgc/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1R2rAomTtEz4BphPmrHEOSq3GRhPMTeeO",
+          "name": "Haven't Prayed in a Long Time",
+          "url": "https://drive.google.com/file/d/1R2rAomTtEz4BphPmrHEOSq3GRhPMTeeO/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1QVWQsT1m9zqBMN7se2ICaV9qSwQTSD0j",
+          "name": "Already Tired",
+          "url": "https://drive.google.com/file/d/1QVWQsT1m9zqBMN7se2ICaV9qSwQTSD0j/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1NFAmwSJFaqXs4WJmegfDIhF8s47isavy",
+          "name": "Breaking the Cycle",
+          "url": "https://drive.google.com/file/d/1NFAmwSJFaqXs4WJmegfDIhF8s47isavy/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        }
+      ]
+    },
+    {
+      "folderId": "1UGngy4ZQI2DDl2-BBWrmgQ9HV56HpC3s",
+      "client": "pastor_john",
+      "lane": "bold_beliefs",
+      "files": [
+        {
+          "id": "1ozsAuiEkWjUQBYsYuL30I21fhoXW_4Eb",
+          "name": "Grace vs. Willpower",
+          "url": "https://drive.google.com/file/d/1ozsAuiEkWjUQBYsYuL30I21fhoXW_4Eb/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1MZJExW0FAbOf5LFEVKgFbs0QXcf9EYvD",
+          "name": "Freedom",
+          "url": "https://drive.google.com/file/d/1MZJExW0FAbOf5LFEVKgFbs0QXcf9EYvD/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1R87uZeg_OcgcWOQr4DpSZC3EXFUxQ7zl",
+          "name": "Compassion",
+          "url": "https://drive.google.com/file/d/1R87uZeg_OcgcWOQr4DpSZC3EXFUxQ7zl/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1Cd3V370W2Vh5V1p-SAXjTFwB1kNXqo8g",
+          "name": "Starting Over",
+          "url": "https://drive.google.com/file/d/1Cd3V370W2Vh5V1p-SAXjTFwB1kNXqo8g/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1iSL9U2jmyA1bUnykg-6Dgq9BgiEN7Lq8",
+          "name": "Shame + Forgiveness",
+          "url": "https://drive.google.com/file/d/1iSL9U2jmyA1bUnykg-6Dgq9BgiEN7Lq8/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1dnWndyIhvI1W-iWfRkVKAt4wzUMezEQ9",
+          "name": "Resistance",
+          "url": "https://drive.google.com/file/d/1dnWndyIhvI1W-iWfRkVKAt4wzUMezEQ9/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        }
+      ]
+    },
+    {
+      "folderId": "1mxGQlZpvVVs-AAmcesdQQ8WomC80zPwG",
+      "client": "pastor_ben",
+      "lane": null,
+      "files": [
+        {
+          "id": "1nRAXrXhbAo4DAP2QdwFL4KVVYByKJij-",
+          "name": "GIFTED DOESN’T ALWAYS MEAN MATURE",
+          "url": "https://drive.google.com/file/d/1nRAXrXhbAo4DAP2QdwFL4KVVYByKJij-/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1HF2XwdcwOEMML_0oFV81OVjuW52P6GQE",
+          "name": "DON’T QUIT BEFORE THE HARVEST",
+          "url": "https://drive.google.com/file/d/1HF2XwdcwOEMML_0oFV81OVjuW52P6GQE/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1D8a0UPVUEsm5jhVQXTKsGKeC_HmB2AJS",
+          "name": "COURAGE DOESN’T MEAN YOU’RE NOT AFRAID",
+          "url": "https://drive.google.com/file/d/1D8a0UPVUEsm5jhVQXTKsGKeC_HmB2AJS/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1H0vX2d7RZFwSrgYB28Er94JbGjBVSdIP",
+          "name": "CHANGE STARTS IN YOUR MIND",
+          "url": "https://drive.google.com/file/d/1H0vX2d7RZFwSrgYB28Er94JbGjBVSdIP/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1uyxvnYMNLMZkSiHx0bc7Ok2GUUm-Hf_u",
+          "name": "WHEN YOUR MIND WON’T STOP",
+          "url": "https://drive.google.com/file/d/1uyxvnYMNLMZkSiHx0bc7Ok2GUUm-Hf_u/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1P3WCcgBqnlzBUv0NOTuacPaCSNBWrHxP",
+          "name": "WAITING ISN’T DOING NOTHING",
+          "url": "https://drive.google.com/file/d/1P3WCcgBqnlzBUv0NOTuacPaCSNBWrHxP/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1sBOq1eEnD1cz72nngZwUgJoacKFNNbxT",
+          "name": "will power isn’t enough Done",
+          "url": "https://drive.google.com/file/d/1sBOq1eEnD1cz72nngZwUgJoacKFNNbxT/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "11XQIOIfjjc2qbHDAUn4pzj8LQoKzrJkV",
+          "name": "KNOWING THE WORD ISN’T ENOUGH",
+          "url": "https://drive.google.com/file/d/11XQIOIfjjc2qbHDAUn4pzj8LQoKzrJkV/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1CSsqGDQS9yTVZe4dl0qw9u6yO-20jPYT",
+          "name": "THE BIBLE TELLS YOU TO STUDY AN ANT",
+          "url": "https://drive.google.com/file/d/1CSsqGDQS9yTVZe4dl0qw9u6yO-20jPYT/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1ps0uOOA_HolGfQzGI_d17jWm-E7nJ9_L",
+          "name": "WHAT’S WEIGHING YOU DOWN?",
+          "url": "https://drive.google.com/file/d/1ps0uOOA_HolGfQzGI_d17jWm-E7nJ9_L/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1w576gO0uAF8BZJvNsVsHEClCxRl7R-oL",
+          "name": "YOU WEREN’T MEANT TO CARRY IT ALL",
+          "url": "https://drive.google.com/file/d/1w576gO0uAF8BZJvNsVsHEClCxRl7R-oL/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1j-VMOCiqwjzqcbsdg_WnO76pOsGnRfqZ",
+          "name": "WHAT IF THIS SEASON IS FORMING YOU?",
+          "url": "https://drive.google.com/file/d/1j-VMOCiqwjzqcbsdg_WnO76pOsGnRfqZ/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1ZGdZ4k_DvYnQxI61qSpb4PjQRuPpJQwa",
+          "name": "THIS SEASON ISN’T THE WHOLE STORY",
+          "url": "https://drive.google.com/file/d/1ZGdZ4k_DvYnQxI61qSpb4PjQRuPpJQwa/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1zpLRzVHRRY3ATL5MZqByzj6iJFHJ-Tzr",
+          "name": "LOVE IS MORE THAN A FEELING",
+          "url": "https://drive.google.com/file/d/1zpLRzVHRRY3ATL5MZqByzj6iJFHJ-Tzr/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        }
+      ]
+    },
+    {
+      "folderId": "1CyJJCrQmBuSe-vU2hJiQ-1-x9cOaiISg",
+      "client": "eric_miller",
+      "lane": null,
+      "files": [
+        {
+          "id": "18fsJ9R4SPes8cT7aSR79LISjEsONFbLo",
+          "name": "IMG_2034.MOV",
+          "url": "https://drive.google.com/file/d/18fsJ9R4SPes8cT7aSR79LISjEsONFbLo/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "17t-Nzb8KDeOmpprH2DMU-WMKedRDgAbb",
+          "name": "IMG_1961.MOV",
+          "url": "https://drive.google.com/file/d/17t-Nzb8KDeOmpprH2DMU-WMKedRDgAbb/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1JKFskvV5UsDS7Jvu_ZqxhiWyT23vCRrh",
+          "name": "IMG_2085.MOV",
+          "url": "https://drive.google.com/file/d/1JKFskvV5UsDS7Jvu_ZqxhiWyT23vCRrh/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1Vdh3kKs5HTwVsw-S6t8xURBUmL-f_9kI",
+          "name": "IMG_2003.MOV",
+          "url": "https://drive.google.com/file/d/1Vdh3kKs5HTwVsw-S6t8xURBUmL-f_9kI/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1att6NzWJn-EaIAA3QIzoJHfC7udpCvcc",
+          "name": "IMG_2059.MOV",
+          "url": "https://drive.google.com/file/d/1att6NzWJn-EaIAA3QIzoJHfC7udpCvcc/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1VnN3YU_m9ADEFd4KJ-QbhrIgt7yS5W7X",
+          "name": "IMG_2092.MOV",
+          "url": "https://drive.google.com/file/d/1VnN3YU_m9ADEFd4KJ-QbhrIgt7yS5W7X/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1MW_PQtipcwbGiZU8puUbIADWxpQovf5A",
+          "name": "IMG_2033.MOV",
+          "url": "https://drive.google.com/file/d/1MW_PQtipcwbGiZU8puUbIADWxpQovf5A/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "18da98nlslfllr4wXlcIxK_AntOVRd7yk",
+          "name": "IMG_2088.MOV",
+          "url": "https://drive.google.com/file/d/18da98nlslfllr4wXlcIxK_AntOVRd7yk/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "19TR9QdmMADaM1Y4PFjKvo1OD6IeKN3iE",
+          "name": "IMG_4493.MOV",
+          "url": "https://drive.google.com/file/d/19TR9QdmMADaM1Y4PFjKvo1OD6IeKN3iE/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "17o4U8pZfXUZ8nSg5_3iR2sHTYCd-uE8g",
+          "name": "IMG_1978.MOV",
+          "url": "https://drive.google.com/file/d/17o4U8pZfXUZ8nSg5_3iR2sHTYCd-uE8g/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1HYZEsQ7XQh2t2Pnoz-kmfirkNqY-uBZl",
+          "name": "IMG_2056.MOV",
+          "url": "https://drive.google.com/file/d/1HYZEsQ7XQh2t2Pnoz-kmfirkNqY-uBZl/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1kYN739OwMOQaD6XCGaqi1X6HyxH3gWT0",
+          "name": "IMG_1997.MOV",
+          "url": "https://drive.google.com/file/d/1kYN739OwMOQaD6XCGaqi1X6HyxH3gWT0/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1WdQwV664LvvMovj5ykACIoJCT9lLq1P5",
+          "name": "IMG_2075.MOV",
+          "url": "https://drive.google.com/file/d/1WdQwV664LvvMovj5ykACIoJCT9lLq1P5/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1Ui37gyDWrDtNZHRI-4a6EhSM5eLldYRO",
+          "name": "IMG_2071.MOV",
+          "url": "https://drive.google.com/file/d/1Ui37gyDWrDtNZHRI-4a6EhSM5eLldYRO/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "120J7EIucmZMZZO81RKC6ulkQehSmp4df",
+          "name": "IMG_2093.MOV",
+          "url": "https://drive.google.com/file/d/120J7EIucmZMZZO81RKC6ulkQehSmp4df/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1VEzwk5TumfVITs_LkUTvMXX7mkFFucNT",
+          "name": "IMG_4492.MOV",
+          "url": "https://drive.google.com/file/d/1VEzwk5TumfVITs_LkUTvMXX7mkFFucNT/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        },
+        {
+          "id": "1UJ4cXt4iqQTTFzyozatfsOnY5juQ3s0I",
+          "name": "IMG_2022.MOV",
+          "url": "https://drive.google.com/file/d/1UJ4cXt4iqQTTFzyozatfsOnY5juQ3s0I/view?usp=drivesdk",
+          "mime": "video/quicktime"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "direction-0",
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-05-direction-0.png",
+      "mime": "image/jpeg",
+      "sha256": "fd5eea84baf655eb7ce3f05691606fcdc298122da91adaf33dd1f8e26ba42977",
+      "sourceDocument": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+      "inlineObjectId": "i.0"
+    },
+    {
+      "id": "direction-1",
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-05-direction-1.png",
+      "mime": "image/png",
+      "sha256": "b84121dfc645e07578d00723e3b8429cf2499f269c6a2863fcd31a57aaa57a97",
+      "sourceDocument": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+      "inlineObjectId": "i.1"
+    },
+    {
+      "id": "direction-2",
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-05-direction-2.png",
+      "mime": "image/png",
+      "sha256": "36f0a39da05b9b0c75ebe965d2a63bbcaf7b1faf085bf4a3c3ffe1ee1d43e6c8",
+      "sourceDocument": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+      "inlineObjectId": "i.2"
+    },
+    {
+      "id": "direction-3",
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-05-direction-3.png",
+      "mime": "image/png",
+      "sha256": "3bfbc3dd1785d927f170c0ae9023c8501498785ee06c4224eb5ae5f3e76c2b99",
+      "sourceDocument": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+      "inlineObjectId": "i.3"
+    },
+    {
+      "id": "direction-4",
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-05-direction-4.png",
+      "mime": "image/png",
+      "sha256": "5ad5b2d740af143f57b253a32af9eeeeb7d7376fcdf3a8b6e35fda799786b835",
+      "sourceDocument": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+      "inlineObjectId": "i.4"
+    },
+    {
+      "id": "direction-5",
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-05-direction-5.png",
+      "mime": "image/png",
+      "sha256": "a128e202fd74a15d22b61aea59238091d6fe77401c1d979de99c281c06f88062",
+      "sourceDocument": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
+      "inlineObjectId": "kix.1c3otk6b54ij"
+    }
+  ],
+  "boardVerification": {
+  "nodes": {
+    "root": "0:1",
+    "titleCard": "2:2",
+    "checkpointCard": "2:10",
+    "clients": {
+      "pastor_john": "2:15",
+      "pastor_ben": "2:25",
+      "eric_miller": "2:35"
+    },
+    "lanes": [
+      {
+        "client": "pastor_john",
+        "lane": "prayer",
+        "nodeId": "2:65",
+        "imageId": "2:68"
+      },
+      {
+        "client": "pastor_john",
+        "lane": "bold_beliefs",
+        "nodeId": "2:75",
+        "imageId": "2:78"
+      },
+      {
+        "client": "pastor_john",
+        "lane": "sermon",
+        "nodeId": "2:85",
+        "imageId": "2:88"
+      },
+      {
+        "client": "pastor_john",
+        "lane": "lifestyle",
+        "nodeId": "2:95",
+        "imageId": "2:98"
+      },
+      {
+        "client": "pastor_john",
+        "lane": "quote",
+        "nodeId": "2:105",
+        "imageId": "2:108"
+      },
+      {
+        "client": "pastor_ben",
+        "lane": "teaching",
+        "nodeId": "2:125",
+        "imageId": "2:128"
+      },
+      {
+        "client": "pastor_ben",
+        "lane": "faith",
+        "nodeId": "2:135",
+        "imageId": "2:138"
+      },
+      {
+        "client": "pastor_ben",
+        "lane": "family",
+        "nodeId": "2:145",
+        "imageId": "2:148"
+      },
+      {
+        "client": "pastor_ben",
+        "lane": "music",
+        "nodeId": "2:155",
+        "imageId": "2:158"
+      },
+      {
+        "client": "eric_miller",
+        "lane": "local",
+        "nodeId": "2:175",
+        "imageId": "2:178"
+      },
+      {
+        "client": "eric_miller",
+        "lane": "market",
+        "nodeId": "2:185",
+        "imageId": "2:188"
+      },
+      {
+        "client": "eric_miller",
+        "lane": "property",
+        "nodeId": "2:195",
+        "imageId": "2:198"
+      },
+      {
+        "client": "eric_miller",
+        "lane": "education",
+        "nodeId": "2:205",
+        "imageId": "2:208"
+      }
+    ],
+    "sourceIndexes": [
+      "3:22",
+      "3:68",
+      "3:105"
+    ],
+    "productionFlow": "4:64"
+  },
+  "contractRevision": "4a686d493db00ee1c48820ff47e5a9cae535cfba",
+  "checks": {
+    "laneCards": 13,
+    "imageNodes": 18,
+    "uniqueImages": 5,
+    "hyperlinks": 113,
+    "connectors": 23,
+    "overflowNodes": 0,
+    "linkFingerprint": 290882352,
+    "minFontSize": 32,
+    "sourceFileFontSize": 44
+  },
+  "layout": {
+    "revision": 2,
+    "verifiedOn": "2026-10-06",
+    "outerPageBackground": false,
+    "clientBackgrounds": true,
+    "clientWidth": 2800,
+    "clientGap": 1150,
+    "laneCardWidth": 1200,
+    "bodyFontSize": 40,
+    "sourceFileFontSize": 44,
+    "sourceCardBottomPadding": 65,
+    "sourceCardHeights": {
+      "pastor_john": 1597,
+      "pastor_ben": 1158,
+      "eric_miller": 1079
+    },
+    "entryConnectors": ["13:62", "13:66", "13:70"],
+    "screenshotPaths": [
+      "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-layout-overview.png",
+      "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-layout-source-index.png",
+      "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-layout-prayer-card.png"
+    ]
+  }
+},
+  "issues": [
+    {
+      "id": "eric-reconciliation",
+      "status": "needs-inspection",
+      "text": "17 source files, 16 requested deliverables, prior Claude count of 14 scripted clips. Selection and lane mapping unresolved."
+    },
+    {
+      "id": "ben-done",
+      "status": "needs-inspection",
+      "text": "will power isn’t enough Done exists among 14 raw files. Approved folder is empty. This does not establish whether an edit exists elsewhere."
+    },
+    {
+      "id": "ben-cambria",
+      "status": "pending",
+      "text": "Cambria remains pending licensed source per Jerami."
+    },
+    {
+      "id": "asana-caption-stale",
+      "status": "stale",
+      "text": "Parent task still says native captions. Current shared contract assigns captions to Opus Clip."
+    },
+    {
+      "id": "sample-status",
+      "status": "unverified",
+      "text": "Direction is recorded. Built visual templates and pixel baselines remain unverified."
+    }
+  ]
+}

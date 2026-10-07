@@ -1,0 +1,10 @@
+glaze/build/
+glaze/main/glaze-swift.d.ts
+glaze/native/*/.build/
+glaze/native/*/.swiftpm/
+native-agent/.build/
+native-agent/.swiftpm/
+node_modules/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

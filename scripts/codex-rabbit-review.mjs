@@ -1,7 +1,6 @@
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
-import { hashValue } from "../lib/transactions/contract.mjs";
+import { prepareReviewStateDirectory, reviewStatePath } from "../lib/reviews/state-path.mjs";
 import { approveRepositoryReview, runRepositoryReview } from "../lib/reviews/engine.mjs";
 
 function parseArgs(argv) {
@@ -16,6 +15,9 @@ function parseArgs(argv) {
     if (value === "--repo") args.root = take("--repo");
     else if (value === "--config") args.config = take("--config");
     else if (value === "--state") args.state = take("--state");
+    else if (value === "--task") args.taskId = take("--task");
+    else if (value === "--session") args.sessionId = take("--session");
+    else if (value === "--run") args.runId = take("--run");
     else if (value === "--pass") args.passId = take("--pass");
     else if (value === "--findings") args.findings = take("--findings");
     else if (value === "--approve") args.approve = true;
@@ -40,9 +42,12 @@ const args = parseArgs(process.argv.slice(2));
 const root = path.resolve(args.root);
 const configPath = path.resolve(root, args.config ?? "config/reviews/singleton-systems.json");
 const config = readJson(configPath, "cannot read config");
-const statePath = args.state
-  ? path.resolve(root, args.state)
-  : path.join(os.tmpdir(), "singleton-systems", "reviews", `${hashValue(root).slice(0, 12)}-${config.reviewId}.json`);
+if (args.taskId || args.sessionId || args.runId) {
+  if (!args.taskId || !args.sessionId || !args.runId) throw new Error("--task, --session and --run must be supplied together");
+  config.completionBinding = { taskId: args.taskId, sessionId: args.sessionId, runId: args.runId };
+}
+const statePath = reviewStatePath(root, config, args.state);
+prepareReviewStateDirectory(statePath, args.state);
 
 let state;
 if (args.approve) {

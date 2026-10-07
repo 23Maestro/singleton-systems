@@ -3,8 +3,11 @@
 For 745 Creative visual edits, follow `docs/745-creative-visual-contract.md`
 and `config/745-creative/visual-contract.json`. Bind the exact client/content
 lane and Premiere sequence before visual mutation. Jerami permits 10%
-adjustments within the locked treatment. Premiere owns visuals/covers;
-Opus Clip owns captions. Jev suggests lanes and never binds automatically.
+adjustments within the locked treatment. Figma authors lane masters and covers;
+HyperFrames + GSAP is an optional renderer. Review designs in Figma and test the
+first opening over real footage in Premiere, which owns final assembly.
+Role-matched UI components may refine containers while retaining the treatment. Opus Clip owns
+captions. Jev suggests lanes and never binds automatically.
 
 This is the secondary Claude Code entrypoint. Read `CODEX.md` first. It is the
 canonical shared repository guide and wins when these files disagree. The

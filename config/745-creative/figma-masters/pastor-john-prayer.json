@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "clientId": "pastor_john",
+  "laneId": "prayer",
+  "sourceTitle": "Afraid of Tomorrow",
+  "createdOn": "2026-10-06",
+  "visualApproval": "Native opening fade and larger typography approved for same-lane reuse on 2026-10-06; per-video covers and full edits still require review.",
+  "approval": {
+    "status": "approved for same-lane reuse",
+    "clientId": "pastor_john",
+    "laneId": "prayer",
+    "approvedOn": "2026-10-06",
+    "authority": "Jerami: Yeah, that looks good. Lock that into the workflow as the default.",
+    "proof": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-native-final.png",
+    "excludes": "Approval of the opening style does not approve other lanes, all covers, cuts, sound, final exports or delivery."
+  },
+  "approvedBaseline": {
+    "canvas": {"width": 1080, "height": 1920},
+    "title": {"x": 96, "y": 1236, "width": 900, "height": 352, "font": "Poppins", "style": "Bold", "fontSize": 112, "lineHeight": 123, "letterSpacingPercent": -1.5, "lead": "#FFFFFF", "emphasis": "#A85CF9"},
+    "badge": {"width": 331, "height": 76, "paddingX": 24, "paddingY": 12, "cornerRadius": 12, "font": "Poppins", "style": "SemiBold", "fontSize": 39, "lineHeight": 52, "letterSpacingPercent": 3, "label": "A PRAYER FOR", "fill": "#A85CF9", "text": "#101014"},
+    "labelToHeadlineGap": 30,
+    "openingSeconds": 3,
+    "maxAdjustmentPercent": 10,
+    "nativeBacking": {"shapeSizePixels": [1080, 978], "shapePositionNormalized": [0.5, 0.75], "shapeAnchorNormalized": [0.5, 0.2546875], "rampStartNormalized": [0.5, 0.4953125], "rampEndNormalized": [0.5, 0.78], "rampStartColor": "#FFFFFF", "rampEndColor": "#000000", "rampScatter": 1, "blendMode": "Multiply", "nativeBlendModeValue": 17, "uiBlendModeValue": 4, "opacity": 100}
+  },
+  "reusableNativeTemplate": {
+    "projectFile": "premiere-masters/john-prayer-native-fade-v1.prproj",
+    "projectPath": "/Users/singleton23/Documents/Development/singleton-systems/config/745-creative/premiere-masters/john-prayer-native-fade-v1.prproj",
+    "sequenceId": "d6db8248-a298-425a-b5e0-c9c4521cddbd",
+    "sequenceName": "745_PJ_Prayer_NATIVE_FADE_v01_APPROVED",
+    "graphicClipId": "000f4293",
+    "videoTrackIndex": 2,
+    "durationSeconds": 3.003,
+    "referenceSequenceId": "c0a472ea-7647-4865-a8e2-b9f0bbae2267",
+    "verified": "Graphic-only sequence, no source video or audio; exported as a separate 12 KiB Premiere project.",
+    "reuse": "Copy the Graphic clip, not a nested sequence. Keep Multiply blending with destination footage. Title text comes from the existing Figma lockup."
+  },
+  "authoring": "Figma",
+  "batchManifest": "john-prayer-batch.json",
+  "titleExport": {
+    "format": "PNG",
+    "scale": 1,
+    "contentsOnly": true,
+    "verification": "Check 1080x1920 and an alpha range of 0 to 255. An alpha channel alone is insufficient; the first default export had an opaque canvas background."
+  },
+  "fileKey": "H6qeI4wk4w3bqv5mBeb4PL",
+  "fileUrl": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL?node-id=2-34",
+  "nodes": {
+    "page": "0:1",
+    "badge": "2:18",
+    "titleLockup": "2:20",
+    "opening": "2:26",
+    "cover": "2:34",
+    "coverSourceFrame": "2:35",
+    "openingOverFootageReview": "2:44",
+    "openingSourceFrame": "2:45",
+    "grid3x4Review": "8:22",
+    "grid4x5Review": "8:33"
+  },
+  "componentProperties": {
+    "headlineLead": "Headline lead#2:0",
+    "headlineEmphasis": "Headline emphasis#2:1"
+  },
+  "componentProvenance": {
+    "kind": "original client-owned",
+    "role": "series-label UI badge",
+    "source": "Ian visual direction and Jerami's supplied Prayer example",
+    "thirdPartyArtwork": "none",
+    "libraryDiscovery": "SDS Tag inspected for role. No third-party library component used in delivered masters."
+  },
+  "baseline": {
+    "status": "measured; approval pending",
+    "canvas": {
+      "width": 1080,
+      "height": 1920
+    },
+    "title": {
+      "x": 96,
+      "y": 1372,
+      "width": 900,
+      "height": 328,
+      "font": "Poppins",
+      "style": "Bold",
+      "fontSize": 104,
+      "lineHeight": 114,
+      "letterSpacingPercent": -1.5,
+      "lead": "#FFFFFF",
+      "emphasis": "#A85CF9"
+    },
+    "badge": {
+      "width": 310,
+      "height": 72,
+      "paddingX": 24,
+      "paddingY": 12,
+      "cornerRadius": 12,
+      "font": "Poppins",
+      "style": "SemiBold",
+      "fontSize": 36,
+      "lineHeight": 48,
+      "letterSpacingPercent": 3,
+      "label": "A PRAYER FOR",
+      "fill": "#A85CF9",
+      "text": "#101014"
+    },
+    "labelToHeadlineGap": 28,
+    "lowerFade": {
+      "x": 0,
+      "y": 1000,
+      "width": 1080,
+      "height": 920
+    },
+    "openingSeconds": 3,
+    "maxAdjustmentPercent": 10
+  },
+  "source": {
+    "durablePath": "/Volumes/MediaSSD/01_INCOMING/745_Creative/PastorJohn_Prayer/Afraid of Tomorrow.mov",
+    "premiereMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MUNOXORC7HRI2.info/Afraid of Tomorrow.mov",
+    "sha256": "8bd0519117d14fbb532e94d11afae76d2a0ce9fe0b59debd2f4b3bee43ef2e0a",
+    "durableAndPremiereCopiesMatch": true,
+    "coverSequenceTime": 39.5,
+    "openingReviewSequenceTime": 0.5
+  },
+  "premiere": {
+    "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/745Creative/2026-09-30_pastorjohn-test.prproj",
+    "sequenceId": "db95fd6e-2826-4b79-b9b8-7d78125bdb78",
+    "sequenceName": "745_PJ_Prayer_AfraidOfTomorrow_v01_REVIEW - (9x16)",
+    "videoTrackIndex": 3,
+    "projectItemId": "000f4280",
+    "timelineClipId": "000f4283",
+    "nativeBacking": {
+      "timelineClipId": "000f4282",
+      "videoTrackIndex": 2,
+      "effect": "Ramp",
+      "blendMode": "Multiply",
+      "nativeBlendModeValue": 17,
+      "uiBlendModeValue": 4,
+      "start": 0,
+      "end": 3
+    },
+    "disabledPreviousOpeningClipId": "000f4281",
+    "start": 0,
+    "end": 3,
+    "projectSaved": true,
+    "openingMediaPath": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/opening-title-only-native.png",
+    "existingVideoCuts": 4,
+    "existingAudioCuts": 4,
+    "captionOwner": "Opus Clip",
+    "nativeCaptions": "preserved and disabled; no caption changes in this pass"
+  },
+  "outputs": {
+    "cover": {
+      "format": "png",
+      "width": 1080,
+      "height": 1920,
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/cover.png"
+    },
+    "opening": {
+      "format": "png",
+      "alpha": true,
+      "audio": false,
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/opening-title-only-native.png",
+      "role": "Title only; editable native Premiere backing is a separate timeline graphic. Figma cover remains v03."
+    }
+  },
+  "graphicsPlanPath": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/graphics-plan.json",
+  "checks": {
+    "manualGraphicsGate": "Historical Figma PNG pair passed; native Premiere backing verified by effect readback and actual composite, not by the PNG-pair gate.",
+    "actualAlphaRange": [
+      0,
+      255
+    ],
+    "premiereComposite": "Native Ramp/Multiply composite inspected in exported frame at 0.5 s; no hard upper edge after ramp alignment.",
+    "afterOpening": "Native backing and title both end at 3 s; refreshed clean frame inspected at 3.5 s.",
+    "playback": "Premiere played across opening boundary; stopped at 3.970633 s",
+    "hookAutomaticActivation": "not verified; manual checks used"
+  },
+  "reviewProof": {
+    "premiereOpening": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-premiere-opening.png",
+    "afterOpening": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-after-opening.png",
+    "premiereOpeningV02": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-premiere-opening-v02.png",
+    "premiereOpeningV03": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-premiere-opening-v03-relinked.png",
+    "nativeOpening": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-native-final.png",
+    "nativeAfterOpening": "/Volumes/HomeSSD/Generated/745_CREATIVE/references/2026-10-06-prayer-native-after-opening.png"
+  },
+  "handoff": "Reuse this approved opening treatment across John Prayer. Review each video's cover, crop and full edit before Jerami exports for Opus captions. Keep captions clear of the lockup. Other lanes need their own masters.",
+  "revisions": [
+    {
+      "id": "v07-native-premiere-backing",
+      "requestedOn": "2026-10-06",
+      "intent": "Replace baked opening fade with native editable lower black gradient. Preserve larger v02 title geometry, footage framing, and 3-second hold.",
+      "visualApproval": "approved by Jerami for same-lane reuse on 2026-10-06",
+      "nativeBacking": {
+        "timelineClipId": "000f4282",
+        "shapeSizePixels": [1080, 978],
+        "shapePositionNormalized": [0.5, 0.75],
+        "shapeAnchorNormalized": [0.5, 0.2546875],
+        "rampStartNormalized": [0.5, 0.4953125],
+        "rampEndNormalized": [0.5, 0.78],
+        "rampStartColor": "#FFFFFF",
+        "rampEndColor": "#000000",
+        "rampShape": "linear",
+        "rampScatter": 1,
+        "blendMode": "Multiply",
+        "opacity": 100,
+        "method": "White-to-black Ramp multiplied over footage; upper white is neutral, lower black darkens. Native graphic and title are separate editable timeline layers."
+      },
+      "premiereHandoff": "Saved in the existing project. Native backing on V3 and title-only Figma PNG on V4, both 0–3 s. Previous V2 clip disabled. Four source video/audio cuts and Opus caption ownership unchanged. Actual 0.5 s composite and 3.5 s clean frame inspected. Cover remains v03; no premium asset used."
+    },
+    {
+      "id": "v03-reference-black-fade",
+      "requestedOn": "2026-10-06",
+      "intent": "Semi-transparent black lower backing from Jerami's Prayer reference only. Keep larger text and placement unchanged.",
+      "visualApproval": "pending Jerami review",
+      "lowerFade": {
+        "nodeId": "2:27",
+        "x": 0,
+        "y": 950,
+        "width": 1080,
+        "height": 970,
+        "color": "#101014",
+        "alphaStops": [[0, 0], [0.2, 0.85], [0.42, 0.96], [1, 0.98]]
+      },
+      "exports": {
+        "cover": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/cover-v03.png",
+        "opening": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/opening-v03.png"
+      },
+      "premiereHandoff": "Applied to existing V2 opening, 0–3 seconds; actual composite inspected. Project saved. Premiere renders the translucent fade lighter than Figma. Opaque tests v04–v06 showed unwanted bands or hard edges and are not active. v03 is the selected clean semi-transparent version. Pixel-exact reference matching and batch approval are not claimed."
+    },
+    {
+      "id": "v02-reels-grid",
+      "requestedOn": "2026-10-06",
+      "intent": "Larger text on Reels and grid; keep the John Prayer treatment.",
+      "visualApproval": "pending Jerami review",
+      "geometry": {
+        "headlineFontSize": 112,
+        "headlineLineHeight": 123,
+        "labelFontSize": 39,
+        "labelLineHeight": 52,
+        "badgeWidth": 331,
+        "badgeHeight": 76,
+        "labelToHeadlineGap": 30,
+        "titleX": 96,
+        "titleY": 1236,
+        "titleWidth": 900,
+        "titleHeight": 352,
+        "titleBottom": 1588,
+        "fadeY": 950,
+        "fadeHeight": 970
+      },
+      "relativeToOriginalBaseline": {
+        "headlineFontSizePercent": 7.6923077,
+        "labelFontSizePercent": 8.3333333,
+        "labelToHeadlineGapPercent": 7.1428571,
+        "titleOffsetYPercent": -9.9125364
+      },
+      "cropProofs": {
+        "method": "centered crop simulation; not verified by an Instagram upload",
+        "grid3x4": {
+          "nodeId": "8:22",
+          "width": 1080,
+          "height": 1440,
+          "cropTop": 240,
+          "cropBottom": 1680,
+          "titleBoxBottomClearance": 92,
+          "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/previews/2026-10-06-john-prayer-grid3x4-v02.png"
+        },
+        "grid4x5": {
+          "nodeId": "8:33",
+          "width": 1080,
+          "height": 1350,
+          "cropTop": 285,
+          "cropBottom": 1635,
+          "titleBoxBottomClearance": 47,
+          "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/previews/2026-10-06-john-prayer-grid4x5-v02.png"
+        }
+      },
+      "exports": {
+        "cover": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/cover-v02.png",
+        "opening": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/pastor_john/prayer/db95fd6e-2826-4b79-b9b8-7d78125bdb78/opening-v02.png"
+      },
+      "premiereHandoff": "Applied to the existing 0–3 second V2 clip. Composite inspected at 0.5 seconds. Project saved after Jerami approved application and saving. Original PNGs retained as cover-v01.png and opening-v01.png. Batch approval remains pending."
+    }
+  ],
+  "futureReadabilityCheck": {
+    "scope": "745 client/lane graphics",
+    "rule": "Review the complete 9:16 cover at phone scale and a centered grid crop before batch export. Keep the full series label and headline visible. Confirm the actual publishing crop in Instagram; simulations do not guarantee platform display.",
+    "preserve": "Exact client and lane treatment. These FaithTalk screenshots are readability examples; they do not replace John's Prayer brand."
+  }
+}

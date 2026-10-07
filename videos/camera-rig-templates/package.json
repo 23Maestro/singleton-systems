@@ -1,0 +1,17 @@
+{
+  "name": "camera-rig-templates",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "text:bake": "node scripts/bake-text.mjs --client VIDEO_WORKFLOWS",
+    "test": "npm run text:bake && node --test tests/*.test.mjs",
+    "dev": "npm run text:bake && npx --yes hyperframes@0.8.134 preview",
+    "check": "npm run text:bake && npx --yes hyperframes@0.8.134 check",
+    "render": "npm run text:bake && npx --yes hyperframes@0.8.134 render",
+    "publish": "npm run text:bake && npx --yes hyperframes@0.8.134 publish"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0",
+    "sharp": "0.35.5"
+  }
+}

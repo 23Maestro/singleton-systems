@@ -1,0 +1,542 @@
+{
+  "version": 2,
+  "status": "isolated-caption-test-not-delivery",
+  "title": "Afraid of Tomorrow — 10-second caption test",
+  "duration": 10,
+  "fps": 60,
+  "sourceFps": "60000/1001",
+  "sourceSequenceId": "44156161-368e-4381-aeda-e87db379b184",
+  "testSequenceId": "44156161-368e-4381-aeda-e87db379b184",
+  "transcriptProvider": "Adobe Premiere Pro",
+  "transcriptStatus": "Completed",
+  "words": [
+    {
+      "start": 0,
+      "end": 0.310067,
+      "text": "For",
+      "confidence": 1,
+      "sourceStart": 3.26993333333333,
+      "sourceEnd": 3.58,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 0.310067,
+      "end": 0.390067,
+      "text": "the",
+      "confidence": 1,
+      "sourceStart": 3.58,
+      "sourceEnd": 3.66,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 0.390067,
+      "end": 0.750067,
+      "text": "person",
+      "confidence": 1,
+      "sourceStart": 3.66,
+      "sourceEnd": 4.02,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 0.750067,
+      "end": 1.110067,
+      "text": "carrying",
+      "confidence": 0.6200000047683716,
+      "sourceStart": 4.02,
+      "sourceEnd": 4.38,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 1.150067,
+      "end": 1.730067,
+      "text": "tomorrow's",
+      "confidence": 1,
+      "sourceStart": 4.42,
+      "sourceEnd": 5,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 1.750067,
+      "end": 2.270067,
+      "text": "fears",
+      "confidence": 0.8199999928474426,
+      "sourceStart": 5.02,
+      "sourceEnd": 5.54,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 2.310067,
+      "end": 2.630067,
+      "text": "right",
+      "confidence": 1,
+      "sourceStart": 5.58,
+      "sourceEnd": 5.9,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 2.630067,
+      "end": 2.950067,
+      "text": "now.",
+      "confidence": 1,
+      "sourceStart": 5.9,
+      "sourceEnd": 6.22,
+      "placementClipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 3.06605,
+      "end": 3.38605,
+      "text": "Let's",
+      "confidence": 1,
+      "sourceStart": 7.02,
+      "sourceEnd": 7.34,
+      "placementClipId": "000f4324",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 3.38605,
+      "end": 3.78605,
+      "text": "pray.",
+      "confidence": 1,
+      "sourceStart": 7.34,
+      "sourceEnd": 7.74,
+      "placementClipId": "000f4324",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 3.86525,
+      "end": 4.54525,
+      "text": "Father,",
+      "confidence": 1,
+      "sourceStart": 8.62,
+      "sourceEnd": 9.3,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 4.82525,
+      "end": 5.14525,
+      "text": "I",
+      "confidence": 1,
+      "sourceStart": 9.58,
+      "sourceEnd": 9.9,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 5.14525,
+      "end": 5.42525,
+      "text": "pray",
+      "confidence": 1,
+      "sourceStart": 9.9,
+      "sourceEnd": 10.18,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 5.42525,
+      "end": 5.54525,
+      "text": "for",
+      "confidence": 1,
+      "sourceStart": 10.18,
+      "sourceEnd": 10.3,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 5.54525,
+      "end": 5.62525,
+      "text": "the",
+      "confidence": 1,
+      "sourceStart": 10.3,
+      "sourceEnd": 10.38,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 5.62525,
+      "end": 5.98525,
+      "text": "person",
+      "confidence": 1,
+      "sourceStart": 10.38,
+      "sourceEnd": 10.74,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 5.98525,
+      "end": 6.10525,
+      "text": "who",
+      "confidence": 1,
+      "sourceStart": 10.74,
+      "sourceEnd": 10.86,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 6.10525,
+      "end": 6.22525,
+      "text": "is",
+      "confidence": 1,
+      "sourceStart": 10.86,
+      "sourceEnd": 10.98,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 6.22525,
+      "end": 6.58525,
+      "text": "afraid",
+      "confidence": 1,
+      "sourceStart": 10.98,
+      "sourceEnd": 11.34,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 6.58525,
+      "end": 6.78525,
+      "text": "of",
+      "confidence": 1,
+      "sourceStart": 11.34,
+      "sourceEnd": 11.54,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 6.78525,
+      "end": 7.38525,
+      "text": "tomorrow.",
+      "confidence": 1,
+      "sourceStart": 11.54,
+      "sourceEnd": 12.14,
+      "placementClipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 7.408167,
+      "end": 7.728167,
+      "text": "Their",
+      "confidence": 1,
+      "sourceStart": 12.58,
+      "sourceEnd": 12.9,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 7.728167,
+      "end": 7.968167,
+      "text": "mind",
+      "confidence": 1,
+      "sourceStart": 12.9,
+      "sourceEnd": 13.14,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 8.008167,
+      "end": 8.168167,
+      "text": "has",
+      "confidence": 1,
+      "sourceStart": 13.18,
+      "sourceEnd": 13.34,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 8.168167,
+      "end": 8.528167,
+      "text": "already",
+      "confidence": 1,
+      "sourceStart": 13.34,
+      "sourceEnd": 13.7,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 8.528167,
+      "end": 8.728167,
+      "text": "gone",
+      "confidence": 1,
+      "sourceStart": 13.7,
+      "sourceEnd": 13.9,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 8.728167,
+      "end": 8.888167,
+      "text": "to",
+      "confidence": 1,
+      "sourceStart": 13.9,
+      "sourceEnd": 14.06,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 8.888167,
+      "end": 8.968167,
+      "text": "the",
+      "confidence": 1,
+      "sourceStart": 14.06,
+      "sourceEnd": 14.14,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 8.968167,
+      "end": 9.248167,
+      "text": "worst",
+      "confidence": 1,
+      "sourceStart": 14.14,
+      "sourceEnd": 14.42,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 9.248167,
+      "end": 9.528167,
+      "text": "case",
+      "confidence": 1,
+      "sourceStart": 14.42,
+      "sourceEnd": 14.7,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    },
+    {
+      "start": 9.528167,
+      "end": 10.243567,
+      "text": "scenario.",
+      "confidence": 1,
+      "sourceStart": 14.7,
+      "sourceEnd": 15.4154,
+      "placementClipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0
+    }
+  ],
+  "placements": [
+    {
+      "clipId": "000f4311",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 0,
+      "timelineEnd": 3.05305,
+      "sourceIn": 3.26993333333333,
+      "sourceOut": 6.32298333333333
+    },
+    {
+      "clipId": "000f4324",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 3.05305,
+      "timelineEnd": 3.83716666666667,
+      "sourceIn": 7.007,
+      "sourceOut": 7.79111666666667
+    },
+    {
+      "clipId": "000f4312",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 3.83716666666667,
+      "timelineEnd": 7.39071666666667,
+      "sourceIn": 8.59191666666667,
+      "sourceOut": 12.1454666666667
+    },
+    {
+      "clipId": "000f4328",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 7.39071666666667,
+      "timelineEnd": 10.2435666666667,
+      "sourceIn": 12.56255,
+      "sourceOut": 15.4154
+    },
+    {
+      "clipId": "000f4320",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 10.2435666666667,
+      "timelineEnd": 26.7600666666667,
+      "sourceIn": 16.1161,
+      "sourceOut": 32.6326
+    },
+    {
+      "clipId": "000f4313",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 26.7600666666667,
+      "timelineEnd": 34.3676666666667,
+      "sourceIn": 33.4667666666667,
+      "sourceOut": 41.0743666666667
+    },
+    {
+      "clipId": "000f4314",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 34.3676666666667,
+      "timelineEnd": 40.4070333333333,
+      "sourceIn": 41.9752666666667,
+      "sourceOut": 48.0146333333333
+    },
+    {
+      "clipId": "000f432c",
+      "trackType": "video",
+      "trackIndex": 0,
+      "timelineStart": 40.4070333333333,
+      "timelineEnd": 48.9322166666667,
+      "sourceIn": 48.69865,
+      "sourceOut": 57.2238333333333
+    }
+  ],
+  "cues": [
+    {
+      "id": "phrase-1",
+      "firstWord": 0,
+      "lastWord": 3,
+      "text": "For the person\ncarrying",
+      "accentPhrases": [],
+      "startFrame": 0,
+      "endFrame": 67
+    },
+    {
+      "id": "phrase-2",
+      "firstWord": 4,
+      "lastWord": 7,
+      "text": "tomorrow’s fears\nright now.",
+      "accentPhrases": [
+        "tomorrow’s fears"
+      ],
+      "startFrame": 69,
+      "endFrame": 177
+    },
+    {
+      "id": "phrase-3",
+      "firstWord": 8,
+      "lastWord": 9,
+      "text": "Let’s pray.",
+      "accentPhrases": [],
+      "startFrame": 184,
+      "endFrame": 227
+    },
+    {
+      "id": "phrase-4",
+      "firstWord": 10,
+      "lastWord": 10,
+      "text": "Father,",
+      "accentPhrases": [],
+      "startFrame": 232,
+      "endFrame": 273
+    },
+    {
+      "id": "phrase-5",
+      "firstWord": 11,
+      "lastWord": 15,
+      "text": "I pray for\nthe person",
+      "accentPhrases": [],
+      "startFrame": 290,
+      "endFrame": 359
+    },
+    {
+      "id": "phrase-6",
+      "firstWord": 16,
+      "lastWord": 20,
+      "text": "who is afraid\nof tomorrow.",
+      "accentPhrases": [
+        "tomorrow."
+      ],
+      "startFrame": 359,
+      "endFrame": 443
+    },
+    {
+      "id": "phrase-7",
+      "firstWord": 21,
+      "lastWord": 23,
+      "text": "Their mind has",
+      "accentPhrases": [],
+      "startFrame": 444,
+      "endFrame": 490
+    },
+    {
+      "id": "phrase-8",
+      "firstWord": 24,
+      "lastWord": 27,
+      "text": "already gone\nto the",
+      "accentPhrases": [],
+      "startFrame": 490,
+      "endFrame": 538
+    },
+    {
+      "id": "phrase-9",
+      "firstWord": 28,
+      "lastWord": 30,
+      "text": "worst case\nscenario.",
+      "accentPhrases": [
+        "worst case"
+      ],
+      "startFrame": 538,
+      "endFrame": 600
+    }
+  ],
+  "style": {
+    "font": "Poppins",
+    "weight": 600,
+    "fontSize": 80,
+    "centerY": 1080,
+    "maxWidth": 864,
+    "maxLines": 2,
+    "fill": "#FFFFFF",
+    "stroke": "#101014",
+    "strokeWidth": 5,
+    "animation": "none; hard phrase switches",
+    "textTransform": "uppercase",
+    "accentColor": "#A85CF9",
+    "accentUsage": "Selected static phrases, not per-word animation",
+    "paletteSource": "config/745-creative/visual-contract.json:clients.pastor_john.brand.palette"
+  },
+  "reviewRequired": [
+    "carrying confidence 0.62",
+    "fears confidence 0.82",
+    "10-second excerpt ends during scenario",
+    "uppercase violet accents pending playback approval"
+  ],
+  "sourceSequenceName": "745_PJ_Prayer_AfraidOfTomorrow_CAPTION_TEST_10s_20261006",
+  "sourceSequenceDuration": 48.9322166666667
+}

@@ -138,7 +138,10 @@ For 745 Creative visual edits, read `docs/745-creative-visual-contract.md`.
 Bind the exact client/content lane and Premiere sequence in
 `config/745-creative/active-edit.json`. The source-backed JSON and supplied
 reference govern the look, with Jerami's 10% adjustment allowance.
-Premiere owns visuals/covers; Opus Clip owns captions. Jev suggests lanes;
+Figma authors contract-bound lane masters and covers; HyperFrames + GSAP is an
+optional renderer. Review designs in Figma and test the first opening over real
+footage in Premiere, which owns final assembly. Role-matched UI components may
+refine containers without changing the locked treatment. Opus Clip owns captions. Jev suggests lanes;
 it never overrides the supplied direction or binds automatically.
 
 - Preserve unrelated changes in a dirty worktree.

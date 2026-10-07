@@ -1,0 +1,373 @@
+{
+  "entryPackage": "@annotorious/annotorious",
+  "entryVersion": "3.9.4",
+  "scanMethod": "Trusted vet-and-install scanner; compiled distribution folders included",
+  "foreignCodeExecuted": false,
+  "packages": [
+    {
+      "name": "@annotorious/annotorious",
+      "version": "3.9.4",
+      "license": "BSD-3-Clause",
+      "dependencies": {
+        "uuid": "^14.0.2",
+        "rbush": "^4.0.1",
+        "dequal": "^2.0.3",
+        "simplify-js": "^1.2.4",
+        "@annotorious/core": "3.9.4"
+      },
+      "engines": {},
+      "gitHead": "3fbefb2cb4646c11e2d0d0b9fb4977fe028186a4",
+      "tarball": "https://registry.npmjs.org/@annotorious/annotorious/-/annotorious-3.9.4.tgz",
+      "integrity": "sha512-08PzkKY43CZxC+G14chHlVG/5rfu4RGvNV167bHoE3DK3UbG4YWpOVThY0dJXoj/GSpRQPN0KVnoeRxwA0Jo+Q==",
+      "integrityVerified": true,
+      "filesScanned": 177,
+      "risk": "medium",
+      "findings": [
+        [
+          "medium",
+          "dist/annotorious.js.map:1",
+          "{\"version\":3,\"file\":\"annotorious.js\",\"sources\":[\"../../../node_modules/svelte/src/runtime/internal/utils.js\",\"../../../node_modules/svelt..."
+        ],
+        [
+          "medium",
+          "dist/annotorious.es.js:618",
+          ").exec(n);"
+        ],
+        [
+          "medium",
+          "dist/annotorious.es.js:756",
+          "for (; (s = o.exec(n)) !== null; ) {"
+        ],
+        [
+          "medium",
+          "dist/annotorious.es.js.map:1",
+          "{\"version\":3,\"file\":\"annotorious.es.js\",\"sources\":[\"../../../node_modules/svelte/src/runtime/internal/utils.js\",\"../../../node_modules/sv..."
+        ],
+        [
+          "medium",
+          "dist/annotorious.js:1",
+          "(function(R,Z){typeof exports==\"object\"&&typeof module<\"u\"?Z(exports):typeof define==\"function\"&&define.amd?define([\"exports\"],Z):(R=type..."
+        ],
+        [
+          "medium",
+          "src/model/w3c/svg/pathParser.ts:197",
+          "while ((match = commandRegex.exec(cleanPath)) !== null) {"
+        ],
+        [
+          "medium",
+          "src/model/w3c/fragment/FragmentSelector.ts:53",
+          "const matches = regex.exec(fragment);"
+        ]
+      ],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "uuid",
+      "version": "14.0.2",
+      "license": "MIT",
+      "dependencies": {},
+      "engines": {},
+      "gitHead": "fd59f0277549d22cc7ec00a7b3b5c9bccb4d3c1d",
+      "tarball": "https://registry.npmjs.org/uuid/-/uuid-14.0.2.tgz",
+      "integrity": "sha512-xZe/16rV4aa+HGSOCiY2YeLT1OybRLrrkL/Rqaq7p7GMVXjFh+6wN4oMYgjFmnSnhY8t6Xpdl2l9qmnHYuMHwQ==",
+      "integrityVerified": true,
+      "filesScanned": 70,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {
+        "prepare": "lefthook install"
+      }
+    },
+    {
+      "name": "rbush",
+      "version": "4.0.1",
+      "license": "MIT",
+      "dependencies": {
+        "quickselect": "^3.0.0"
+      },
+      "engines": {},
+      "gitHead": "c3f6ad06f1e47ccec58998461f3383aa90066ecd",
+      "tarball": "https://registry.npmjs.org/rbush/-/rbush-4.0.1.tgz",
+      "integrity": "sha512-IP0UpfeWQujYC8Jg162rMNc01Rf0gWMMAb2Uxus/Q0qOFw4lCcq6ZnQEZwUoJqWyUGJ9th7JjwI4yIWo+uvoAQ==",
+      "integrityVerified": true,
+      "filesScanned": 6,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "dequal",
+      "version": "2.0.3",
+      "license": "MIT",
+      "dependencies": {},
+      "engines": {
+        "node": ">=6"
+      },
+      "gitHead": "37d4f27de03fa6264e406cd03288cec8255fca4c",
+      "tarball": "https://registry.npmjs.org/dequal/-/dequal-2.0.3.tgz",
+      "integrity": "sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==",
+      "integrityVerified": true,
+      "filesScanned": 11,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "simplify-js",
+      "version": "1.2.4",
+      "license": "BSD-2-Clause",
+      "dependencies": {},
+      "engines": {},
+      "gitHead": "4f566b7368d4f4be8a9db40608bba557a2b5f643",
+      "tarball": "https://registry.npmjs.org/simplify-js/-/simplify-js-1.2.4.tgz",
+      "integrity": "sha512-vITfSlwt7h/oyrU42R83mtzFpwYk3+mkH9bOHqq/Qw6n8rtR7aE3NZQ5fbcyCUVVmuMJR6ynsAhOfK2qoah8Jg==",
+      "integrityVerified": true,
+      "filesScanned": 5,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "@annotorious/core",
+      "version": "3.9.4",
+      "license": "BSD-3-Clause",
+      "dependencies": {
+        "uuid": "^14.0.2",
+        "dequal": "^2.0.3",
+        "nanoid": "^6.0.1",
+        "nanoevents": "^10.0.0",
+        "nanostores": "^1.5.3"
+      },
+      "engines": {},
+      "gitHead": "3fbefb2cb4646c11e2d0d0b9fb4977fe028186a4",
+      "tarball": "https://registry.npmjs.org/@annotorious/core/-/core-3.9.4.tgz",
+      "integrity": "sha512-nO20Ek9h/pA2HdnH9IGS3PXmp/xt9Y1J8WRO62S/CkxCa8unqu08pDyc1E5V1FkkjezgFKOjxN48DRgQGwJssw==",
+      "integrityVerified": true,
+      "filesScanned": 65,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "quickselect",
+      "version": "3.0.0",
+      "license": "ISC",
+      "dependencies": {},
+      "engines": {},
+      "gitHead": "c26429fd0a6f7b63b48a269e04748c34e8c0c5f4",
+      "tarball": "https://registry.npmjs.org/quickselect/-/quickselect-3.0.0.tgz",
+      "integrity": "sha512-XdjUArbK4Bm5fLLvlm5KpTFOiOThgfWWI4axAZDWg4E/0mKdZyI9tNEfds27qCi1ze/vwTR16kvmmGhRra3c2g==",
+      "integrityVerified": true,
+      "filesScanned": 5,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "nanoid",
+      "version": "6.0.2",
+      "license": "MIT",
+      "dependencies": {},
+      "engines": {
+        "node": "^22 || ^24 || >=26"
+      },
+      "gitHead": "3167e108865702c0539d8e552365ed840ac9d8d9",
+      "tarball": "https://registry.npmjs.org/nanoid/-/nanoid-6.0.2.tgz",
+      "integrity": "sha512-hIvVOb9Qr1p/9CNNLOe0OlWvgx/ziTsVwKN/GDSsuArN2K0wDiafP3s0SWmsm7o2BdnyS8Z9Z64NFBUbn6ziBg==",
+      "integrityVerified": true,
+      "filesScanned": 11,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "nanoevents",
+      "version": "10.0.0",
+      "license": "MIT",
+      "dependencies": {},
+      "engines": {
+        "node": "^22.0.0 || ^24.0.0 || >=26.0.0"
+      },
+      "gitHead": "5f33bc60bbb5fa8b5b39d1959f777b72b2258b36",
+      "tarball": "https://registry.npmjs.org/nanoevents/-/nanoevents-10.0.0.tgz",
+      "integrity": "sha512-PmIJ3BNxOzgVgnS1r/Pvyj6eZx/xUV2JCPogh0brD6smDIwjRlr1KBl9yoRX323PlfaNrBDDnfCgC9SL00OjSg==",
+      "integrityVerified": true,
+      "filesScanned": 5,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    },
+    {
+      "name": "nanostores",
+      "version": "1.5.5",
+      "license": "MIT",
+      "dependencies": {},
+      "engines": {
+        "node": "^20.0.0 || >=22.0.0"
+      },
+      "gitHead": "72e14516001d419edb77f24da41caac90aa79a6e",
+      "tarball": "https://registry.npmjs.org/nanostores/-/nanostores-1.5.5.tgz",
+      "integrity": "sha512-FixtE239Gl6Gz0ZGCK0WzvNwObNCIwVT+L7zQcf1QgcA6AzBxblzqe9OT88qiucNkhsjSOqiogSaF5jVbJiqSA==",
+      "integrityVerified": true,
+      "filesScanned": 30,
+      "risk": "low",
+      "findings": [],
+      "lifecycleScripts": {}
+    }
+  ],
+  "registryAdvisories": {},
+  "reviewedAt": "2026-10-06",
+  "selectedRepository": "https://github.com/annotorious/annotorious",
+  "sourceCommitForPublishedPackage": "3fbefb2cb4646c11e2d0d0b9fb4977fe028186a4",
+  "repositoryScan": {
+    "filesScanned": 272,
+    "risk": "medium",
+    "skillCandidates": 0,
+    "findings": [
+      "packages/annotorious/src/model/w3c/svg/pathParser.ts:197 — RegExp.exec",
+      "packages/annotorious/src/model/w3c/fragment/FragmentSelector.ts:53 — RegExp.exec"
+    ]
+  },
+  "findingAssessment": "All reported exec calls are regular-expression parsing. No blocking finding identified in this bounded review.",
+  "installation": {
+    "method": "npm dependency",
+    "directPackage": "@annotorious/annotorious@3.9.4",
+    "lifecycleScriptsDisabled": true,
+    "packageManifest": "package.json",
+    "lockfile": "package-lock.json"
+  },
+  "validation": {
+    "installedFileIntegrity": [
+      {
+        "name": "@annotorious/annotorious",
+        "version": "3.9.4",
+        "installedCopies": [
+          {
+            "path": "node_modules/@annotorious/annotorious",
+            "filesVerified": 177
+          }
+        ]
+      },
+      {
+        "name": "uuid",
+        "version": "14.0.2",
+        "installedCopies": [
+          {
+            "path": "node_modules/@annotorious/annotorious/node_modules/uuid",
+            "filesVerified": 70
+          },
+          {
+            "path": "node_modules/@annotorious/core/node_modules/uuid",
+            "filesVerified": 70
+          }
+        ]
+      },
+      {
+        "name": "rbush",
+        "version": "4.0.1",
+        "installedCopies": [
+          {
+            "path": "node_modules/rbush",
+            "filesVerified": 6
+          }
+        ]
+      },
+      {
+        "name": "dequal",
+        "version": "2.0.3",
+        "installedCopies": [
+          {
+            "path": "node_modules/dequal",
+            "filesVerified": 11
+          }
+        ]
+      },
+      {
+        "name": "simplify-js",
+        "version": "1.2.4",
+        "installedCopies": [
+          {
+            "path": "node_modules/simplify-js",
+            "filesVerified": 5
+          }
+        ]
+      },
+      {
+        "name": "@annotorious/core",
+        "version": "3.9.4",
+        "installedCopies": [
+          {
+            "path": "node_modules/@annotorious/core",
+            "filesVerified": 65
+          }
+        ]
+      },
+      {
+        "name": "quickselect",
+        "version": "3.0.0",
+        "installedCopies": [
+          {
+            "path": "node_modules/quickselect",
+            "filesVerified": 5
+          }
+        ]
+      },
+      {
+        "name": "nanoid",
+        "version": "6.0.2",
+        "installedCopies": [
+          {
+            "path": "node_modules/@annotorious/core/node_modules/nanoid",
+            "filesVerified": 11
+          }
+        ]
+      },
+      {
+        "name": "nanoevents",
+        "version": "10.0.0",
+        "installedCopies": [
+          {
+            "path": "node_modules/nanoevents",
+            "filesVerified": 5
+          }
+        ]
+      },
+      {
+        "name": "nanostores",
+        "version": "1.5.5",
+        "installedCopies": [
+          {
+            "path": "node_modules/nanostores",
+            "filesVerified": 30
+          }
+        ]
+      }
+    ],
+    "newAdvisoryPackages": [],
+    "auditBefore": {
+      "info": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 2,
+      "critical": 1,
+      "total": 4
+    },
+    "auditAfter": {
+      "info": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 2,
+      "critical": 1,
+      "total": 4
+    },
+    "existingAdvisoryPackages": [
+      "fflate",
+      "next",
+      "sharp",
+      "source-map-js"
+    ],
+    "esmApiSmoke": "passed",
+    "typecheck": "failed in tools/business-time/glaze; missing @glaze/core imports and Window.glazeAPI",
+    "protectedFileHashes": "unchanged"
+  }
+}

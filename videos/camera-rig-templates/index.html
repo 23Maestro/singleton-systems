@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="assets/gsap.min.js"></script>
+    <script src="assets/CustomEase.min.js"></script>
+    <script src="stable-text.js"></script>
+    <script src="assets/stable-text/manifest.js"></script>
+    <link rel="stylesheet" href="rig.css">
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter_18pt-SemiBold.ttf"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/Inter_18pt-Bold.ttf"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/Inter_18pt-Bold.ttf"); }
+      @font-face { font-family: "Inter"; font-weight: 900; src: url("assets/fonts/Inter_18pt-Black.ttf"); }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #05070c; }
+      /* ---- Environment: neutral studio (swap this block to change the world; the move does not care) ---- */
+      .env-studio { background: radial-gradient(120% 90% at 50% 35%, #142238 0%, #0a1120 45%, #04060b 100%); }
+      .env-studio .beam { position: absolute; top: -10%; width: 14%; height: 120%; background: linear-gradient(180deg, rgba(120,190,255,0.16), rgba(120,190,255,0) 70%); filter: blur(30px); transform: skewX(-12deg); }
+      .env-studio .dot { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(140,200,255,0.5), rgba(140,200,255,0) 70%); }
+      .floor-grid { background-image: repeating-linear-gradient(0deg, rgba(76,194,255,0) 0, rgba(76,194,255,0.20) 6px, rgba(76,194,255,0) 12px, transparent 12px 400px), repeating-linear-gradient(90deg, rgba(76,194,255,0) 0, rgba(76,194,255,0.13) 6px, rgba(76,194,255,0) 12px, transparent 12px 400px);
+        -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.7) 35%, transparent 80%); mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,0.7) 35%, transparent 80%); }
+      .rig-flare { background: radial-gradient(50% 60% at 18% 8%, rgba(255,255,255,0.95) 0%, rgba(150,215,255,0.55) 30%, rgba(76,194,255,0) 70%),
+        conic-gradient(from 200deg at 18% 0%, transparent 0deg, rgba(200,235,255,0.35) 8deg, transparent 16deg, rgba(200,235,255,0.25) 30deg, transparent 40deg); mix-blend-mode: screen; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-ku67" id="root" class="rig-root" data-composition-id="main" data-start="0" data-duration="21.4" data-fps="30000/1001" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-r938" class="rig-env env-studio">
+        <div data-hf-id="hf-7bf8" class="rig-env-far">
+          <div data-hf-id="hf-02gs" class="beam" style="left: 12%"></div><div data-hf-id="hf-5i3g" class="beam" style="left: 44%; opacity: 0.7"></div><div data-hf-id="hf-e2ha" class="beam" style="left: 76%"></div>
+          <div data-hf-id="hf-wvbl" id="dots"></div>
+        </div>
+      </div>
+      <div data-hf-id="hf-azsz" class="rig-stage"><div class="rig-dolly"><div data-hf-id="hf-1d31" class="rig-world"><div data-hf-id="hf-vu36" class="rig-floor floor-grid"></div></div></div></div>
+      <div data-hf-id="hf-flg1" class="rig-flare"></div>
+      <div data-hf-id="hf-0dn3" class="rig-flash"></div>
+    </div>
+    <script src="rig.data.js"></script>
+    <script src="rig.js"></script>
+    <script>
+      // static bokeh field, seeded so every render matches
+      (function () { let s = 7; const r = () => ((s = (s * 16807) % 2147483647) / 2147483647); const box = document.getElementById("dots");
+        for (let i = 0; i < 26; i++) { const d = document.createElement("div"); d.className = "dot"; const z = 20 + r() * 90;
+          Object.assign(d.style, { left: r() * 100 + "%", top: r() * 70 + "%", width: z + "px", height: z + "px", opacity: 0.25 + r() * 0.5 }); box.appendChild(d); } })();
+      (async function () {
+        await document.fonts.ready;
+        const root = document.getElementById("root");
+        const { tl, total } = Rig.build(root, window.RIG_DATA);
+        await document.fonts.ready;
+        await RigText.apply(root, tl, window.RIG_TEXT_ASSETS);
+        root.dataset.rigTotal = total.toFixed(2);   // must match data-duration
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+        tl.seek(0);
+      })();
+    </script>
+  </body>
+</html>

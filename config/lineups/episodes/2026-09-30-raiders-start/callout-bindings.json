@@ -1,0 +1,59 @@
+{
+  "pageId": "1509:9",
+  "scenes": [
+    {
+      "sceneId": "S01",
+      "rootNodeId": "1509:22",
+      "roleNodeIds": {
+        "wrapper": "1509:35",
+        "panel": "1509:36",
+        "text": "1509:37"
+      }
+    },
+    {
+      "sceneId": "S02",
+      "rootNodeId": "1509:55",
+      "roleNodeIds": {
+        "wrapper": "1509:68",
+        "panel": "1509:69",
+        "text": "1509:70"
+      }
+    },
+    {
+      "sceneId": "S04",
+      "rootNodeId": "1509:100",
+      "roleNodeIds": {
+        "wrapper": "1509:113",
+        "panel": "1509:114",
+        "text": "1509:115"
+      }
+    },
+    {
+      "sceneId": "S11",
+      "rootNodeId": "1509:647",
+      "roleNodeIds": {
+        "wrapper": "1509:660",
+        "panel": "1509:661",
+        "text": "1509:662"
+      }
+    },
+    {
+      "sceneId": "S13",
+      "rootNodeId": "1509:692",
+      "roleNodeIds": {
+        "wrapper": "1509:705",
+        "panel": "1509:706",
+        "text": "1509:707"
+      }
+    },
+    {
+      "sceneId": "S22",
+      "rootNodeId": "1509:1387",
+      "roleNodeIds": {
+        "wrapper": "1509:1400",
+        "panel": "1509:1401",
+        "text": "1509:1402"
+      }
+    }
+  ]
+}

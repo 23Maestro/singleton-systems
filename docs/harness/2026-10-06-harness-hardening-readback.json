@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "slice": [
+    "H10",
+    "H18"
+  ],
+  "baseline": {
+    "demonstrated": 16,
+    "possible": 24,
+    "coveragePercent": 66.66666666666667,
+    "unchanged": true
+  },
+  "headCommit": "4a686d493db00ee1c48820ff47e5a9cae535cfba",
+  "sourceSnapshotHashesMatchedBeforeEditing": 18,
+  "protectedSnapshotHashesUnchanged": {
+    ".codex/hooks.json": true,
+    "lib/reviews/repository-adapter.mjs": true,
+    "lib/transactions/engine.mjs": true,
+    "lib/transactions/state-store.mjs": true,
+    "lib/transactions/system-adapters.mjs": true,
+    "scripts/check-codex-rabbit-review.mjs": true,
+    "scripts/check-cross-surface-transactions.mjs": true,
+    "scripts/check-cross-surface-staleness.mjs": true,
+    "scripts/check-cerebral-hook-routing.mjs": true,
+    "config/reviews/singleton-systems.json": true,
+    "config/reviews/coderabbit-findings.fixture.json": true,
+    "CODEX.md": true,
+    "package-lock.json": true
+  },
+  "scopedFiles": [
+    ".codex/hooks/cerebral_singleton_guard.py",
+    "lib/reviews/contract.mjs",
+    "lib/reviews/engine.mjs",
+    "scripts/codex-rabbit-review.mjs",
+    "package.json",
+    "config/reviews/review-state.schema.json",
+    "docs/harness/codex-rabbit.md",
+    "lib/reviews/completion.mjs",
+    "lib/reviews/state-path.mjs",
+    "scripts/code-delivery-stop.mjs",
+    "scripts/check-code-delivery-stop.mjs",
+    "docs/harness/2026-10-06-agentafk-ledger.json",
+    "docs/harness/2026-10-06-harness-hardening-readback.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run check:drift",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:cerebral",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:cerebral:registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:transactions",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:codex-rabbit",
+      "status": "passed"
+    },
+    {
+      "command": "npm run check:cerebral:hook-routing",
+      "status": "passed_after_network_permission",
+      "result": "22 natural prompts, 22 exact routes, 28 guards"
+    },
+    {
+      "command": "node scripts/check-agent-guidance.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/check-tells.mjs --strict docs/harness/codex-rabbit.md",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "integration": {
+    "contractSource": "https://developers.openai.com/codex/hooks",
+    "installedBinary": "/Users/singleton23/.codex/packages/standalone/current/bin/codex",
+    "installedBinaryFieldsFound": [
+      "stop_hook_active",
+      "last_assistant_message",
+      "hook_event_name"
+    ],
+    "configuredPythonToNodeBridge": "fixture_verified",
+    "productionDesktopStop": "unverified",
+    "humanDesktopCancellation": "unverified"
+  },
+  "review": {
+    "config": "/Users/singleton23/Documents/Development/singleton-systems/.scratch/review-artifacts/2026-10-06-harness-hardening-config.json",
+    "state": "/Users/singleton23/Documents/Development/singleton-systems/.scratch/review-artifacts/2026-10-06-harness-hardening.json",
+    "scope": "local slice checks; canonical whole-repository delivery contract not run",
+    "humanApproval": "pending",
+    "statusSource": "/Users/singleton23/Documents/Development/singleton-systems/.scratch/review-artifacts/2026-10-06-harness-hardening.json"
+  },
+  "boundaries": {
+    "commitPushReleaseExternalWrites": "not performed; approval pending",
+    "H11andH19toH24": "unchanged",
+    "legacyTemporaryState": "not migrated or removed",
+    "wholeRepositoryBuildAndTypecheck": "not run in this slice; historical Glaze failures and dependency advisories not reused as fresh evidence"
+  },
+  "dirtyStatus": [
+    " M .codex/hooks.json",
+    " M .codex/hooks/cerebral_singleton_guard.py",
+    " M .codex/hooks/creative_745.py",
+    " M CLAUDE.md",
+    " M CODEX.md",
+    " M app/decision-maps/page.tsx",
+    " M config/745-creative/active-edit.json",
+    " M config/745-creative/visual-contract.json",
+    " D config/lineups/active-scene.json",
+    " M config/reviews/review-state.schema.json",
+    " M docs/745-creative-visual-contract.md",
+    " M docs/harness/codex-rabbit.md",
+    " M docs/ui-reference/README.md",
+    " M eslint.config.mjs",
+    " M lib/reviews/contract.mjs",
+    " M lib/reviews/engine.mjs",
+    " M package-lock.json",
+    " M package.json",
+    " M scripts/745-visual-contract.test.mjs",
+    " M scripts/codex-rabbit-review.mjs",
+    " M tsconfig.json",
+    "?? .codex/hooks/creative_745_graphics.py",
+    "?? config/745-creative/figma-masters/",
+    "?? config/745-creative/john-prayer-batch.json",
+    "?? config/745-creative/premiere-masters/",
+    "?? config/745-creative/visual-intake-map.json",
+    "?? config/lineups/episodes/2026-09-30-nfl-week-4-power-rankings/",
+    "?? config/lineups/episodes/2026-09-30-raiders-start/",
+    "?? default.profraw",
+    "?? docs/handoffs/2026-10-06-harness-hardening.md",
+    "?? docs/harness/2026-10-06-agentafk-comparison.md",
+    "?? docs/harness/2026-10-06-agentafk-jev.json",
+    "?? docs/harness/2026-10-06-agentafk-ledger.json",
+    "?? docs/harness/2026-10-06-agentafk-source-snapshot.json",
+    "?? docs/offer/2026-10-03-diy-smartcode-sonnet-handoff.md",
+    "?? docs/planning/2026-10-04-business-time-intelligence-spec.md",
+    "?? docs/planning/2026-10-05-745-visual-intake-map.md",
+    "?? docs/planning/2026-10-05-video-review-annotations.md",
+    "?? docs/planning/2026-10-06-john-figma-lane-masters-spec.md",
+    "?? docs/planning/2026-10-06-video-review-proof.md",
+    "?? docs/planning/business-time-intelligence/",
+    "?? docs/planning/video-review/",
+    "?? docs/reviews/",
+    "?? lib/reviews/completion.mjs",
+    "?? lib/reviews/state-path.mjs",
+    "?? public/decision-maps/2026-10-04-business-time-fork/",
+    "?? public/decision-maps/2026-10-04-business-time-intelligence/",
+    "?? public/nylamaree/",
+    "?? scripts/check-code-delivery-stop.mjs",
+    "?? scripts/code-delivery-stop.mjs",
+    "?? tests/nylamaree-homepage.test.mjs",
+    "?? tools/api-key-intake/",
+    "?? tools/business-time/",
+    "?? tools/ui/",
+    "?? videos/camera-rig-templates/",
+    "?? videos/john-prayer-caption-probe/"
+  ]
+}

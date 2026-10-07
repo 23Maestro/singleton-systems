@@ -1,0 +1,239 @@
+{
+  "date": "2026-10-04",
+  "fork": "https://github.com/23Maestro/TimeScribe",
+  "upstream": "https://github.com/WINBIGFOX/TimeScribe",
+  "upstreamSha": "15c067e0336abd35b5eefd70a386016f437c7f30",
+  "localCheckout": "/Users/singleton23/Documents/Development/business-time-intelligence-fork",
+  "license": "GPL-3.0",
+  "decisionStatus": "Fork created; application stack change is proposed, not applied. Product implementation remains stopped.",
+  "recommendation": "Adapt the complete TimeScribe application; retain its Vue/Laravel/NativePHP desktop foundation, our Swift Financial Engine and independent Swift tracker. Preserve the locked six-region UI.",
+  "architectureChange": "Glaze/React is replaced by the fork’s NativePHP/Electron/Vue application. Laravel owns business SQLite; the independent Swift agent owns separate raw-activity SQLite. This intentionally changes the previous one-agent/one-store architecture and needs explicit acceptance before ticket contracts change.",
+  "estimate": "80% less build time is a target, not a verified result. Source coverage does not equal time saved. A whole fork retains working CRUD, report controls, persistence and packaging; custom economics, rich context, attribution and learning remain. No runtime build has been validated yet.",
+  "tickets": [
+    {
+      "id": "23M-215",
+      "reuse": "Existing",
+      "current": "Desktop packaging and window components are reusable. The current Glaze foundation remains completed history; a fork packaging gate is new.",
+      "paths": [
+        "app/Providers/NativeAppServiceProvider.php",
+        "app/Services/WindowService.php"
+      ],
+      "remaining": "Verify a local fork build, signing, telemetry disabled and desktop lifecycle. Do not mark fork integration complete from upstream screenshots.",
+      "blockers": []
+    },
+    {
+      "id": "23M-216",
+      "title": "Define the manual project workflow",
+      "status": "Done",
+      "url": "https://linear.app/23maestro/issue/23M-216/define-the-manual-project-workflow",
+      "reuse": "Adapt",
+      "current": "Reuse Project/Create, Timestamp/Create and existing edit forms.",
+      "paths": [
+        "resources/js/Pages/Project/Create.vue",
+        "resources/js/Pages/Timestamp/Create.vue"
+      ],
+      "remaining": "Add clients, fixed price, actual versus billed hours, itemized costs and fee provenance. Preserve the approved manual input contract.",
+      "blockers": []
+    },
+    {
+      "id": "23M-217",
+      "title": "Build the shared Financial Engine",
+      "status": "In Progress",
+      "url": "https://linear.app/23maestro/issue/23M-217/build-the-shared-financial-engine",
+      "reuse": "Keep ours",
+      "current": "Keep the existing Swift calculator. Replace upstream PHP and Vue hourly billing formulas with canonical outputs.",
+      "paths": [
+        "app/Models/Project.php",
+        "resources/js/Pages/Project/Show.vue"
+      ],
+      "remaining": "One calculator; no PHP, Vue, reporting or learning copy. Verify the complete Swift contract before consumers.",
+      "blockers": [
+        "23M-216"
+      ]
+    },
+    {
+      "id": "23M-218",
+      "title": "Save project and activity records locally",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-218/save-project-and-activity-records-locally",
+      "reuse": "Adapt",
+      "current": "Reuse business SQLite models, migrations, CRUD and backups.",
+      "paths": [
+        "database/migrations/2025_05_23_082734_create_projects_table.php",
+        "app/Services/BackupService.php"
+      ],
+      "remaining": "Extend clients, financial inputs and costs. Proposed fork route splits append-only activity storage from business records; each database has one writer.",
+      "blockers": [
+        "23M-217"
+      ]
+    },
+    {
+      "id": "23M-219",
+      "title": "Build the desktop project workspace",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-219/build-the-desktop-project-workspace",
+      "reuse": "Adapt",
+      "current": "Reuse project lists, time rows, forms and dialogs; fit them into the six-region layout.",
+      "paths": [
+        "resources/js/Components/ProjectListItem.vue",
+        "resources/js/Components/ProjectTimestampListItem.vue",
+        "resources/js/Components/AppSidebar.vue"
+      ],
+      "remaining": "Restore the locked rail, project sidebar, tabs, wide center, correction inspector and status bar. Economics submits through Swift.",
+      "blockers": [
+        "23M-218"
+      ]
+    },
+    {
+      "id": "23M-220",
+      "title": "Add quick Raycast commands",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-220/add-quick-raycast-commands",
+      "reuse": "Adapt",
+      "current": "Reuse timer deep-link handling as a starting point.",
+      "paths": [
+        "app/Listeners/OpenedFromURL.php"
+      ],
+      "remaining": "Add the complete Raycast command set and shared data access. Deep links alone do not cover forms or report readback.",
+      "blockers": [
+        "23M-219"
+      ]
+    },
+    {
+      "id": "23M-221",
+      "title": "Record active work in the background",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-221/record-active-work-in-the-background",
+      "reuse": "Replace",
+      "current": "Reuse app-usage UI. Replace the existing Mac sampler, which is gated by a running work timer.",
+      "paths": [
+        "app/Console/Commands/ActiveApp.php",
+        "routes/console.php"
+      ],
+      "remaining": "Independent Swift agent, durable raw activity, permission identity, crash gaps and explicit login settings. No fake independence on full app quit.",
+      "blockers": [
+        "23M-219",
+        "23M-220"
+      ]
+    },
+    {
+      "id": "23M-222",
+      "title": "Separate idle time from work time",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-222/separate-idle-time-from-work-time",
+      "reuse": "Adapt",
+      "current": "Reuse idle settings and lock handling as reference.",
+      "paths": [
+        "routes/console.php",
+        "app/Listeners/StandbyOrLocked.php"
+      ],
+      "remaining": "Prove retrospective idle boundaries and sleep accounting. Add the timed footage-review exemption.",
+      "blockers": [
+        "23M-221"
+      ]
+    },
+    {
+      "id": "23M-223",
+      "title": "Recover useful activity context",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-223/recover-useful-activity-context",
+      "reuse": "New",
+      "current": "Upstream activity schema has app identity only; there are no document/title/URL fields.",
+      "paths": [
+        "app/Models/ActivityHistory.php"
+      ],
+      "remaining": "Add scoped AX/browser/Premiere context adapters and privacy filtering. Solidtime supplies useful capture patterns.",
+      "blockers": [
+        "23M-222"
+      ]
+    },
+    {
+      "id": "23M-224",
+      "title": "Assign work to projects and fix mistakes",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-224/assign-work-to-projects-and-fix-mistakes",
+      "reuse": "New",
+      "current": "Project selection exists. Automatic project attribution and reusable correction rules do not.",
+      "paths": [
+        "resources/js/Pages/Project/Index.vue"
+      ],
+      "remaining": "Build deterministic rules, conflict handling and historical correction preview. Measure 95% on reviewed actual work.",
+      "blockers": [
+        "23M-223"
+      ]
+    },
+    {
+      "id": "23M-225",
+      "title": "Show project earnings and time reports",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-225/show-project-earnings-and-time-reports",
+      "reuse": "Adapt",
+      "current": "Reuse date range, day/week reporting and project time rows.",
+      "paths": [
+        "resources/js/Pages/Overview/Day/Show.vue",
+        "resources/js/Pages/Overview/Week/Show.vue",
+        "app/Http/Controllers/AppActivityController.php"
+      ],
+      "remaining": "Show lifetime project economics from Swift; distinguish daily hours, idle, unassigned and missing coverage. Add DST/window tests.",
+      "blockers": [
+        "23M-224"
+      ]
+    },
+    {
+      "id": "23M-213",
+      "title": "Add real-project business math learning engine",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-213/add-real-project-business-math-learning-engine",
+      "reuse": "New",
+      "current": "No matching real-project business math learning exists upstream.",
+      "paths": [],
+      "remaining": "Consume Swift values, operands and formulas; save mastery locally. No duplicate calculator or generic brain games.",
+      "blockers": [
+        "23M-225",
+        "23M-217"
+      ]
+    },
+    {
+      "id": "23M-226",
+      "title": "Keep billing ready for future adapters",
+      "status": "Todo",
+      "url": "https://linear.app/23maestro/issue/23M-226/keep-billing-ready-for-future-adapters",
+      "reuse": "New",
+      "current": "Upstream project hourly rate is a useful field, not a billing adapter.",
+      "paths": [
+        "app/Models/Project.php"
+      ],
+      "remaining": "Normalize manual/future Upwork inputs with billed versus actual time and settled fees. No OAuth or API work.",
+      "blockers": [
+        "23M-213"
+      ]
+    }
+  ],
+  "nonNegotiables": [
+    "One Swift Financial Engine; own labor separate from cash profit",
+    "95% measured automatic attribution; no manual inflation",
+    "Local-only capture; no screenshots, recordings, keystrokes or clipboard",
+    "No DaVinci, Upwork OAuth, invoicing, payroll, CRM or tax preparation",
+    "Locked six-region layout and useful functional copy",
+    "TDD at approved calculation, persistence, time, rules and consumer seams"
+  ],
+  "route": [
+    "Prove the fork starts locally; disable telemetry and preserve license attribution",
+    "Connect fixed-price manual project to the complete Swift calculator",
+    "Adapt project persistence; establish raw versus business ownership",
+    "Fit working project forms and rows into the locked shell",
+    "Connect independent tracking/idle and scoped adapters",
+    "Add rules/corrections; verify 95% attribution before reporting closure",
+    "Canonical reports, real-project learning, future billing boundary"
+  ],
+  "visuals": [
+    {
+      "name": "TimeScribe project detail",
+      "source": "https://github.com/WINBIGFOX/TimeScribe/blob/15c067e0336abd35b5eefd70a386016f437c7f30/.github/images/project_detail_en_light.webp"
+    },
+    {
+      "name": "TimeScribe app activity",
+      "source": "https://github.com/WINBIGFOX/TimeScribe/blob/15c067e0336abd35b5eefd70a386016f437c7f30/.github/images/app_activity_en_light.webp"
+    }
+  ]
+}
