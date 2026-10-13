@@ -12,7 +12,7 @@ the `Content Editor` project (`1218890014545436`) under `Catena`. Record:
 
 - episode title and stable slug;
 - source delivery and Eagle folder;
-- confirmed delivery deadline as the Asana due date;
+- confirmed delivery deadline as the Asana due date and time (10 AM America/New_York when only a date is supplied);
 - transcript and client notes;
 - Pre-Figma and Post-Figma review paths;
 - Premiere project and final export target.
@@ -159,18 +159,22 @@ Use this record shape for each active episode:
 
 ## closeout
 
-When the Asana task is complete, confirm the approved renders and final export
-remain in Eagle. Then remove only that episode's:
+When the Asana task is complete, run the deadline checker described in [Lineups episode closeout](lineups-episode-closeout.md).
+At intake, enroll the exact Asana task ID, due date, transcript/discovery paths,
+and optional exact final-export name in `config/lineups/review-gates.json`.
 
-- Pre-Figma and Post-Figma public Decision Map directories;
-- Decision Maps index entries and redirects;
-- active review-gate record;
-- episode proof and readback files;
-- temporary local preview exports.
+The scheduled check reads current Asana status and dates. A completed task or
+exact bound Drive video retires its enrollment. More than four hours past the
+deadline, assume submitted and probe Jerami about continued editing. Archive
+the enrollment and matching active scene before clearing them. An assumption
+cannot complete Asana or satisfy a scene's delivery/readback gates.
 
-Keep the Asana task, durable evidence receipts, this lifecycle, shared UI
-rules, generic gate code, framing tests, Figma source components, and all Eagle
-assets. Cleanup cannot remove another active episode.
+Keep receipts, proof, readback, transcripts, public review pages, Figma sources,
+and Eagle assets as history. Removing review pages, previews, or client media
+is a separate cleanup action with its own exact targets and approval. Never
+clear another active episode. Cleanup cannot remove another active episode.
+Restore a closed episode only with a revised
+deadline and current evidence; never carry approval across changed evidence.
 
 Discovery is a separate prerequisite: every lane must cover the complete current
 Whisper transcript and record candidates, rejected opportunities or a reasoned

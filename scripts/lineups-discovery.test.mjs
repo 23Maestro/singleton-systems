@@ -5,6 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import {test} from 'node:test';
 import crypto from 'node:crypto';
+import {hashValue} from '../lib/transactions/contract.mjs';
+import {createLineupsReconciliation} from '../lib/transactions/lineups-adapter.mjs';
 import {prepareSceneEvidence, prepareMediaEvidence} from './lib/lineups-test-evidence.mjs';
 
 const root = process.cwd();
@@ -293,6 +295,83 @@ test('Figma progression requires measured motion tracks on the matching scene', 
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });
 
+test('native float precision preserves valid photo pushes while changed motion stays blocked', () => {
+  const c = sceneCase();
+  try {
+    c.manifest.scene.lane = 'stat breakdown'; c.manifest.scene.approvedOption = 'stat breakdown';
+    c.manifest.figma.background = {setting: 'Field Night / No football', nodeId: 'background', imageHash: '6c84d05a7f038c5e3f9f14a4103cd9b533251e70', locked: true, separateFromArtwork: true};
+    c.manifest.figma.motionTracks.push({cueId: 'photo-push', nodeId: 'photo', property: 'scale', duration: 14.2, keyframes: [{time: 0, value: 1}, {time: 14.2, value: 1.025}]});
+    assert.equal(c.approve().status, 0);
+    const f = c.manifest.figma;
+    const response = {rootNodeId: f.rootNodeId, sourceComponentId: f.sourceComponentId, episodeInstanceId: f.episodeInstanceId,
+      nodeType: 'FRAME', sourceRevision: f.sourceRevision, rootDimensions: {width: 1920, height: 1080}, background: f.background,
+      motionTracks: structuredClone(f.motionTracks)};
+    response.motionTracks.at(-1).keyframes[1].value = 1.024999976158142;
+    const read = () => c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: f.fileKey}, response);
+    const actual = read();
+    assert.match(actual.hookSpecificOutput?.additionalContext || '', /readback passed/, JSON.stringify(actual));
+    response.motionTracks.at(-1).keyframes[1].value = 1.03;
+    assert.equal(read().decision, 'block');
+    response.motionTracks.at(-1).keyframes[1].value = null;
+    assert.equal(read().decision, 'block');
+  } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
+});
+
+test('a detached data scene binds its measured episode background instead of requiring a source child ID', () => {
+  const c = sceneCase();
+  try {
+    c.manifest.scene.lane = 'stat breakdown'; c.manifest.scene.approvedOption = 'stat breakdown';
+    c.manifest.figma.background = {setting: 'Field Night / No football', nodeId: 'pending:scene-07/BACKGROUND', imageHash: '6c84d05a7f038c5e3f9f14a4103cd9b533251e70', locked: true, separateFromArtwork: true};
+    assert.equal(c.approve().status, 0);
+    const f = c.manifest.figma;
+    const response = {rootNodeId: f.rootNodeId, sourceComponentId: f.sourceComponentId, episodeInstanceId: f.episodeInstanceId,
+      nodeType: 'FRAME', sourceRevision: f.sourceRevision, rootDimensions: {width: 1920, height: 1080},
+      background: {...f.background, nodeId: 'CLONED:6', plannedNodeId: 'pending:scene-07/BACKGROUND'}, motionTracks: structuredClone(f.motionTracks)};
+    const read = () => c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: f.fileKey}, response);
+    const actual = read();
+    assert.match(actual.hookSpecificOutput?.additionalContext || '', /readback passed/, JSON.stringify(actual));
+    response.background.imageHash = 'WRONG';
+    assert.equal(read().decision, 'block');
+    response.background.imageHash = f.background.imageHash;
+    response.background.locked = false;
+    assert.equal(read().decision, 'block');
+  } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
+});
+
+test('export and delivery readback cannot bypass a missing or failed native Figma measurement', async () => {
+  const c = sceneCase();
+  try {
+    const f = c.manifest.figma;
+    const readback = {rootNodeId: f.rootNodeId, sourceComponentId: f.sourceComponentId, episodeInstanceId: f.episodeInstanceId,
+      nodeType: 'FRAME', sourceRevision: f.sourceRevision, rootDimensions: {width: 1920, height: 1080},
+      motionTracks: structuredClone(f.motionTracks),
+      focalAssets: f.focalAssets.map(a => ({...a, opaqueBounds: {x: a.centerX - 100, y: 100, width: 200, height: 200}}))};
+    const directory = path.join(c.dir, 'receipts'); fs.mkdirSync(directory);
+    const receipt = JSON.parse(fs.readFileSync(path.join(root, 'config/lineups/fixtures/valid/receipts/scene-07.figma-to-export.receipt.json')));
+    receipt.episodeId = c.manifest.scene.episodeId;
+    receipt.manifestSha256 = hashValue(c.manifest);
+    receipt.evidence.sceneReadback = readback;
+    const save = () => {delete receipt.receiptSha256; receipt.receiptSha256 = hashValue(receipt);
+      fs.writeFileSync(path.join(directory, 'scene-07.figma-to-export.receipt.json'), JSON.stringify(receipt));};
+    save();
+    const pre = () => c.run('PreToolUse', 'mcp__codex_apps__figma_export_video', {fileKey: f.fileKey, nodeId: f.rootNodeId});
+    assert.equal(pre().hookSpecificOutput?.permissionDecision, 'deny', 'A reviewed receipt cannot invent a successful PostToolUse measurement');
+    assert.match(c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: f.fileKey}, readback).hookSpecificOutput?.additionalContext || '', /readback passed/);
+    assert.deepEqual(pre(), {});
+    const valid = createLineupsReconciliation({root, manifestPath: path.join(c.dir, 'scene.json'), receiptDirectory: directory});
+    assert.equal((await valid.adapters['figma-scene'].verify({readback: await valid.adapters['figma-scene'].readback()})).ok, true);
+    c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: f.fileKey}, {success: false, error: 'Native motion failed'});
+    assert.equal(pre().hookSpecificOutput?.permissionDecision, 'deny', 'Failed Post must invalidate earlier successful proof');
+    c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: f.fileKey}, readback);
+    delete receipt.evidence.sceneReadback.motionTracks;
+    save();
+    assert.equal(pre().hookSpecificOutput?.permissionDecision, 'deny');
+    const proof = createLineupsReconciliation({root, manifestPath: path.join(c.dir, 'scene.json'), receiptDirectory: directory});
+    const measured = await proof.adapters['figma-scene'].verify({readback: await proof.adapters['figma-scene'].readback()});
+    assert.equal(measured.ok, false, 'Delivery must consume the same measured scene contract');
+  } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
+});
+
 test('a timing flag alone cannot advance an enrolled scene', () => {
   const c = sceneCase();
   try {
@@ -473,4 +552,77 @@ test('delivery proof requires actual decoded images at every transcript cue', ()
     assert.notEqual(result.status, 0);
     assert.match(result.stderr, /decoded image.*cue/);
   } finally {fs.rmSync(c.dir, {recursive: true, force: true}); if (mediaDirectory) fs.rmSync(mediaDirectory, {recursive: true, force: true});}
+});
+
+test('emitted canonical Quick Stat executes with native float tracks and actual cloned callout IDs', async () => {
+  const c = sceneCase();
+  try {
+    const fileKey = 'o7E24iymIT80MTXGYIogVH';
+    const sceneId = 'S03';
+    const configPath = path.join(c.dir, 'quick.json');
+    fs.writeFileSync(configPath, JSON.stringify({episodeId: c.manifest.scene.episodeId,
+      transcriptPath: c.manifest.timing.transcriptPath, discoveryPath: c.manifest.discoveryPath,
+      duration: 14.2, frameRate: {numerator: 25, denominator: 1}, fileKey, pageId: 'PAGE',
+      scenes: [{sceneId, lane: 'quick stat', approvedOption: 'Single-frame statement', anchor: 312.4,
+        cueTime: 1.2, triggerText: 'four', sourceComponentId: '653:184', sectionId: 'SECTION',
+        sourceRevision: 'quick-source-v1', topicSmall: 'Defense', topicLarge: 'Takeaways',
+        statement: 'FOUR TAKEAWAYS', x: 0, y: 0}]}));
+    const result = spawnSync(process.execPath, ['scripts/prepare-lineups-motion-scene.mjs', sceneId, '--config', configPath], {encoding: 'utf8'});
+    assert.equal(result.status, 0, result.stderr);
+    const plan = JSON.parse(result.stdout);
+    const measured = JSON.parse(fs.readFileSync('config/lineups/fixtures/valid/callout-readback.json')).callouts[0];
+    const canonical = JSON.parse(fs.readFileSync('config/lineups/canonical-template-verification.json')).callout;
+    const all = [];
+    function node(id, name, type, properties = {}) {
+      const n = {id, name, type, width: 1920, height: 1080, children: [], manualKeyframeTracks: {}, animationStyles: [],
+        ...structuredClone(properties),
+        appendChild(child) {child.parent = this; this.children.push(child);},
+        findAll(predicate) {return this.children.flatMap(child => [child, ...child.findAll(() => true)]).filter(predicate);},
+        findOne(predicate) {return this.findAll(predicate)[0];},
+        detachInstance() {this.type = 'FRAME'; return this;},
+        applyManualKeyframeTrack(property, track) {
+          this.manualKeyframeTracks[property.name] = structuredClone(track);
+          for (const frame of this.manualKeyframeTracks[property.name].keyframes) {
+            if (frame.value.type === 'VECTOR') for (const key of ['x', 'y']) frame.value.value[key] = Math.fround(frame.value.value[key]);
+            else frame.value.value = Math.fround(frame.value.value);
+          }
+          this.timelines = [{id: 'timeline', duration: 14.2}];
+        },
+        setTimelineDuration(id, duration) {this.timelines[0].duration = duration;},
+      };
+      all.push(n); return n;
+    }
+    const section = node('SECTION', 'Episode', 'SECTION');
+    const source = node('653:184', 'Quick Stat', 'COMPONENT');
+    source.createInstance = () => {
+      const frame = node('CLONED:ROOT', 'Quick Stat', 'INSTANCE'); frame.mainComponent = source;
+      frame.appendChild(node('CLONED:SMALL', 'TOPIC SMALL', 'TEXT'));
+      frame.appendChild(node('CLONED:LARGE', 'TOPIC LARGE', 'TEXT'));
+      frame.appendChild(node('CLONED:PHOTO', 'EDIT / PHOTO 1 / FILL 1920x1080', 'RECTANGLE'));
+      const wrapper = node('CLONED:WRAPPER', 'STATEMENT / CYAN CALLOUT', 'FRAME', measured.wrapper);
+      const panel = node('CLONED:PANEL', 'Panel', 'FRAME', measured.panel);
+      const text = node('CLONED:TEXT', 'Statement', 'TEXT', measured.text);
+      // The API assigns fresh IDs; sample measurements supply independent style/geometry.
+      wrapper.id = 'CLONED:WRAPPER'; panel.id = 'CLONED:PANEL'; text.id = 'CLONED:TEXT';
+      frame.appendChild(wrapper); wrapper.appendChild(panel); panel.appendChild(text);
+      return frame;
+    };
+    for (const role of ['wrapper', 'panel', 'text']) {
+      const n = node(canonical[role].id, role, role === 'text' ? 'TEXT' : 'FRAME', canonical[role]);
+      n.parent = {id: canonical[role].parentId};
+    }
+    const figma = {fileKey, mixed: Symbol('mixed'), getNodeByIdAsync: async id => all.find(n => n.id === id), loadFontAsync: async () => {}};
+    const runCode = new (Object.getPrototypeOf(async function() {}).constructor)('figma', plan.toolInput.code);
+    const readback = await runCode(figma);
+    Object.assign(c.manifest, plan.manifest);
+    c.manifest.timing.manimTimingValidated = true;
+    c.manifest.review = {status: "approved", reviewer: "Jerami", reviewedAt: "2026-10-13T14:00:00Z", correctionPayloadId: "fixture-only"};
+    assert.equal(c.approve().status, 0);
+    const post = () => c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', plan.toolInput, readback);
+    assert.match(post().hookSpecificOutput?.additionalContext || '', /readback passed/, JSON.stringify(post()));
+    assert.equal(readback.calloutReadback.panel.id, 'CLONED:PANEL');
+    assert.equal(readback.motionTracks[0].keyframes.at(-1).value, 1.024999976158142);
+    readback.calloutReadback.panel.height = 90;
+    assert.match(JSON.stringify(post()), /panel.height/);
+  } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });

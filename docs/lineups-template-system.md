@@ -99,3 +99,29 @@ verified HomeSSD storage under `CATENA_MEDIA/previews`.
 Both scene generators require `--config <episode timing JSON>`. They print a
 pending manifest and tool input without writing active enrollment. The rank
 inspector also prints its readback input without changing files or Components.
+
+## current scene readback
+
+A `figma-to-export` receipt carries `evidence.sceneReadback`: the actual matching
+scene returned by successful Figma PostToolUse validation. The hook persists its
+hash with the current manifest hash in `<sceneId>.figma-readback.json`. Export
+and delivery reconciliation require both. Starting another approved Figma
+attempt invalidates the prior measurement; failed or malformed responses cannot
+reuse it. Native float measurements allow 0.000001 scale/opacity variance and
+0.0001 seconds of timing variance. Changed tracks still fail.
+
+Detached backgrounds and Quick Stat callout roles return actual episode IDs
+alongside exact planned IDs. Pending IDs are planning references only; source
+child IDs cannot stand in for cloned nodes. Quick Stat measures source style and
+episode callout geometry. The single-photo planner accepts Single-frame
+statement only; Two-photo progression uses a separate two-photo plan.
+
+Premiere replacement requires the approved project item/media path, an approved
+live editorial/source timing baseline, and a successful matching readback from
+the last ten minutes. Its intent remains pending through errors and timeouts.
+Fresh clip/sequence readback must confirm media identity, trims, and source
+In/Out before retries or delivery completion. A returned clip ID alone cannot
+prove preservation.
+
+Episode activation expires through [the deadline closeout check](lineups-episode-closeout.md).
+Closure preserves evidence and does not satisfy the delivery gates above.

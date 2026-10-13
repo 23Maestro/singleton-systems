@@ -242,9 +242,21 @@ def validate_manifest_readback(manifest, readback):
     if not manifest.get("figma", {}).get("templateBinding"):
         return
     binding = manifest["figma"]["templateBinding"]
+    pending_root = str(manifest['figma']['rootNodeId']).startswith('pending:')
+    actual_ids = []
     for role, node_id in binding["roleNodeIds"].items():
-        if (readback.get(role) or {}).get("id") != node_id:
+        actual_id = (readback.get(role) or {}).get('id')
+        actual_ids.append(actual_id)
+        if pending_root and node_id == f"pending:{manifest['scene']['sceneId']}/callout/{role}":
+            if ((readback.get('plannedRoleNodeIds') or {}).get(role) != node_id or not actual_id
+                    or str(actual_id).startswith('pending:')):
+                raise TemplateError(f'{role} readback is missing its actual episode node binding')
+        elif actual_id != node_id:
             raise TemplateError(f"{role} readback targets a different episode node")
-    if readback.get("rootNodeId") != manifest["figma"]["rootNodeId"]:
+    if len(set(actual_ids)) != 3:
+        raise TemplateError('callout readback requires distinct actual episode nodes')
+    root_matches = (readback.get('plannedRootNodeId') == manifest['figma']['rootNodeId']
+                    and readback.get('rootNodeId') and not str(readback['rootNodeId']).startswith('pending:')) if pending_root else readback.get('rootNodeId') == manifest['figma']['rootNodeId']
+    if not root_matches:
         raise TemplateError("callout readback targets a different scene root")
     validate_callout(readback, fit_override=binding.get("fitOverride"))

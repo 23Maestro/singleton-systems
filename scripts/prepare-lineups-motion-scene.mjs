@@ -15,8 +15,17 @@ if (!scene) throw new Error("Usage: node scripts/prepare-lineups-motion-scene.mj
 const duration = config.duration;
 const pendingId = `pending:${scene.sceneId}`;
 const cueDuration = 0.4;
-const background = { setting: "Field Night / No football", nodeId: "594:1256", imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70", locked: true, separateFromArtwork: true };
+const background = { setting: "Field Night / No football", nodeId: `pending:${scene.sceneId}/BACKGROUND`, imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70", locked: true, separateFromArtwork: true };
 const isQuick = scene.lane === "quick stat";
+const registry = JSON.parse(fs.readFileSync(path.join(root, 'config/lineups/template-registry.json')));
+const calloutContract = JSON.parse(fs.readFileSync(path.join(root, 'config/lineups/callout-contract.json')));
+const guardedQuick = isQuick && config.fileKey === registry.fileKey;
+const quickTemplate = guardedQuick && registry.templates.find(item => item.lane === scene.lane && item.option === scene.approvedOption && item.source.componentId === scene.sourceComponentId);
+if (guardedQuick && !quickTemplate) throw new Error('Quick Stat source must match its registered option');
+if (isQuick && scene.approvedOption !== 'Single-frame statement') throw new Error('This single-photo planner requires Single-frame statement; Two-photo progression requires its two-photo scene plan');
+const roleNodeIds = Object.fromEntries(['wrapper', 'panel', 'text'].map(role => [role, `pending:${scene.sceneId}/callout/${role}`]));
+const templateBinding = guardedQuick ? {key: quickTemplate.key, contractId: calloutContract.id, sourceFingerprint: calloutContract.sourceFingerprint, roleNodeIds} : null;
+const measuredFields = [...new Set([...Object.values(calloutContract.protected).flatMap(role => Object.keys(role)), 'x', 'y', 'width', 'height'])];
 const cues = [{ cueId: `${scene.sceneId}-photo-push`, elementId: "photo", triggerType: "EDIT", triggerText: "scene start", transcriptTimestamp: scene.anchor, sceneTime: 0, action: "slow-photo-push", duration: 0 }];
 if (isQuick) {
   cues.push({ cueId: `${scene.sceneId}-statement`, elementId: "statement", triggerType: "WORD", triggerText: scene.triggerText, transcriptTimestamp: Number((scene.anchor + scene.cueTime).toFixed(3)), sceneTime: scene.cueTime, action: "reveal-statement", duration: cueDuration });
@@ -72,7 +81,20 @@ if (callout.type === "INSTANCE") callout = callout.detachInstance();
 const statementText = callout.findOne((item) => item.type === "TEXT");
 if (!statementText) throw new Error("Missing statement text");
 statementText.fontName = { family: "Inter", style: "Bold" };
-statementText.characters = ${JSON.stringify(scene.statement)};` : `setText("SUBJECT", ${JSON.stringify(scene.subject)}, { family: "Inter", style: "Bold" });
+statementText.characters = ${JSON.stringify(scene.statement)};
+${guardedQuick ? `const panel = statementText.parent;
+if (panel.parent !== callout || callout.parent !== working) throw new Error("Unexpected callout node hierarchy");
+function measureCalloutNode(node) {
+ const result = {id: node.id, parentId: node.parent.id};
+ for (const key of ${JSON.stringify(measuredFields)}) if (node[key] !== undefined && node[key] !== figma.mixed) result[key] = node[key];
+ return result;
+}
+const sourceCallout = {};
+for (const [role, id] of Object.entries(${JSON.stringify(calloutContract.source.roleNodeIds)})) {
+ const node = await figma.getNodeByIdAsync(id);
+ if (!node) throw new Error("Missing canonical callout " + role);
+ sourceCallout[role] = measureCalloutNode(node);
+}` : ''}` : `setText("SUBJECT", ${JSON.stringify(scene.subject)}, { family: "Inter", style: "Bold" });
 setText("HEADLINE", ${JSON.stringify(scene.headline)}, { family: "Anton", style: "Regular" });
 ${scene.stats.map((stat, index) => `setText("VALUE ${index + 1}", ${JSON.stringify(stat.value)}, { family: "Anton", style: "Regular" });\nsetText("LABEL ${index + 1}", ${JSON.stringify(stat.label)}, { family: "Inter", style: "Semi Bold" });`).join("\n")}`}
 const trackDefs = ${JSON.stringify(tracks)};
@@ -93,11 +115,11 @@ const photo = working.findOne((item) => item.name === ${JSON.stringify(isQuick ?
 if (!photo) throw new Error("Missing photo slot");
 ${isQuick ? "" : `const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
 if (!backgroundNode) throw new Error("Measured Field Night background is missing");
-const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id,
+const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id, plannedNodeId: ${JSON.stringify(background.nodeId)},
  imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
  locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
 `}
-return { plannedRootNodeId: ${JSON.stringify(pendingId)}, rootNodeId: working.id, sourceComponentId: source.id, episodeInstanceId: working.id, nodeType: working.type, rootDimensions: {width: working.width, height: working.height}, sourceRevision: ${JSON.stringify(scene.sourceRevision)}, ${isQuick ? "" : `background: measuredBackground,`} photoNodeId: photo.id, mutatedNodeIds, timelineDuration: first.timelines[0].duration, motionTracks: trackDefs.map(track => {
+return { plannedRootNodeId: ${JSON.stringify(pendingId)}, rootNodeId: working.id, sourceComponentId: source.id, episodeInstanceId: working.id, nodeType: working.type, rootDimensions: {width: working.width, height: working.height}, sourceRevision: ${JSON.stringify(scene.sourceRevision)}, ${guardedQuick ? `sourceCallout, calloutReadback: {rootNodeId: working.id, plannedRootNodeId: ${JSON.stringify(pendingId)}, rootDimensions: {width: working.width, height: working.height}, plannedRoleNodeIds: ${JSON.stringify(roleNodeIds)}, wrapper: measureCalloutNode(callout), panel: measureCalloutNode(panel), text: measureCalloutNode(statementText)},` : ''} ${isQuick ? "" : `background: measuredBackground,`} photoNodeId: photo.id, mutatedNodeIds, timelineDuration: first.timelines[0].duration, motionTracks: trackDefs.map(track => {
  const node = working.findOne(item => item.name === track.nodeName);
  const field = track.property === "scale" ? "SCALE_XY" : "OPACITY";
  const measured = node.manualKeyframeTracks[field];
@@ -125,4 +147,5 @@ const manifest = {
   premiere: { sequenceId: "pending-episode-sequence", trackIndex: 2, approvedStartTime: scene.anchor, approvedDuration: duration, approvedEndTime: Number((scene.anchor + duration).toFixed(3)), projectItemId: `pending-${scene.sceneId}`, nameReadback: `${scene.sceneId}.mp4`, treePath: `${config.episodeId}/06 Motion Renders/${scene.sceneId}.mp4`, labelReadback: "pending", timelineClipId: `pending-${scene.sceneId}` },
   review: { status: "pending", reviewer: null, reviewedAt: null, correctionPayloadId: null }
 };
+if (templateBinding) manifest.figma.templateBinding = templateBinding;
 process.stdout.write(`${JSON.stringify({ toolInput, manifest, assetPath: scene.asset ? path.resolve(path.dirname(configPath), scene.asset) : null, scene })}\n`);

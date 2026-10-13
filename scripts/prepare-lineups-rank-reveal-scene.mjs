@@ -87,7 +87,7 @@ tracks.push(
 
 const background = {
   setting: "Field Night / No football",
-  nodeId: "594:1256",
+  nodeId: `pending:${scene.sceneId}/BACKGROUND`,
   imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70",
   locked: true,
   separateFromArtwork: true,
@@ -166,7 +166,7 @@ if (!timeline) throw new Error("Figma Motion timeline was not created");
 firstTarget.setTimelineDuration(timeline.id, ${duration});
 const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
 if (!backgroundNode) throw new Error("Measured Field Night background is missing");
-const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id,
+const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id, plannedNodeId: ${JSON.stringify(background.nodeId)},
  imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
  locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
 ${rankReadbackCode}
@@ -204,7 +204,7 @@ const motionTracks = definitions.map(track => {
 });
 const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
 if (!backgroundNode) throw new Error("Measured Field Night background is missing");
-const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id,
+const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id, plannedNodeId: ${JSON.stringify(background.nodeId)},
  imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
  locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
 ${rankReadbackCode}

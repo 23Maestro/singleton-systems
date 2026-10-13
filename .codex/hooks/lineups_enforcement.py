@@ -8,6 +8,7 @@ import math
 import os
 import re
 import sys
+import time
 from pathlib import Path
 
 SOURCE_ROOT = Path(__file__).resolve().parents[2]
@@ -779,6 +780,10 @@ def load_receipt(root, manifest, directory, stage, previous_stage=None, require_
     review = receipt.get("review") or {}
     if review.get("status") != "approved" or review.get("reviewer") != "Jerami":
         raise EnforcementError(f"{stage} receipt lacks Jerami approval")
+    if stage == "figma-to-export":
+        validate_figma_stage(manifest, receipt.get("evidence") or {}, directory)
+    if stage == "premiere-placement" and (directory / f"{manifest['scene']['sceneId']}.premiere-edit.intent.json").exists():
+        raise EnforcementError('Premiere edit already attempted; recover live readback before further mutation or completion')
     if stage in {"figma-to-export", "export-to-premiere"}:
         evidence = receipt.get("evidence") or {}
         if evidence.get("sourceRevision") != required(manifest, "figma.sourceRevision"):
@@ -983,6 +988,7 @@ def preflight(root, manifest, directory, tool_name, tool_input):
         validate_figma_skill_contract(tool_input)
         if sha256_value(tool_input) != manifest["enforcement"]["approvedToolInputSha256"]:
             raise EnforcementError("Figma mutation input does not match the approved transaction hash")
+        (directory / f"{manifest['scene']['sceneId']}.figma-readback.json").unlink(missing_ok=True)
         return
     if tool_name == FIGMA_EXPORT:
         if bool(tool_input.get('nodeId')) == bool(tool_input.get('jobId')):
@@ -1013,6 +1019,10 @@ def preflight(root, manifest, directory, tool_name, tool_input):
     if tool_name in PREMIERE_DESTRUCTIVE:
         raise EnforcementError("destructive Premiere mutations are outside the approved Lineups transaction")
     if tool_name in PREMIERE_PLACEMENT:
+        if tool_name == 'mcp__premiere_pro__replace_clip' and tool_input.get('newProjectItemId') != premiere.get('projectItemId'):
+            raise EnforcementError('replacement uses the wrong approved project item')
+        if tool_name == 'mcp__premiere_pro__replace_clip_media' and tool_input.get('filePath') != str(resolved_export_path(root, manifest)):
+            raise EnforcementError('replacement uses the wrong approved media path')
         load_receipt(root, manifest, directory, "premiere-import", "export-to-premiere")
         if tool_name == "mcp__premiere_pro__add_to_timeline":
             if tool_input.get("projectItemId") != premiere["projectItemId"]:
@@ -1037,9 +1047,95 @@ def preflight(root, manifest, directory, tool_name, tool_input):
             raise EnforcementError("the clip cannot move before the verified transcript anchor")
         if tool_name == "mcp__premiere_pro__replace_clip" and tool_input.get("preserveEffects", True) is not False:
             raise EnforcementError("replace_clip must set preserveEffects=false while effects are forbidden")
+        if tool_name in {'mcp__premiere_pro__replace_clip', 'mcp__premiere_pro__replace_clip_media', 'mcp__premiere_pro__trim_clip'}:
+            if not editorial:
+                raise EnforcementError('replacement requires approved live editorial trims and source In/Out')
+            baseline = read_json(directory / f"{manifest['scene']['sceneId']}.premiere-readback.json", 'fresh Premiere source readback')
+            age = time.time() - finite_number(baseline.get('measuredAt'), 'Premiere readback time')
+            if baseline.get('manifestSha256') != manifest_hash(manifest) or baseline.get('status') != 'passed' or not -1 <= age <= 600:
+                raise EnforcementError('replacement requires a fresh current Premiere source readback')
+            marker = directory / f"{manifest['scene']['sceneId']}.premiere-edit.intent.json"
+            with marker.open('x', encoding='utf-8') as handle:
+                json.dump({'manifestSha256': manifest_hash(manifest), 'inputSha256': sha256_value(tool_input)}, handle)
+                handle.flush()
+                os.fsync(handle.fileno())
+            (directory / f"{manifest['scene']['sceneId']}.premiere-readback.json").unlink(missing_ok=True)
+
+
+def validate_figma_readback(manifest, tool_response):
+    figma = manifest["figma"]
+    scene_readback = figma_scene_readback(tool_response, figma)
+    if scene_readback is None:
+        raise EnforcementError("Figma readback did not confirm the root, source component, and episode instance")
+    if scene_readback.get("sourceRevision") != figma["sourceRevision"]:
+        raise EnforcementError("Figma readback did not confirm the current approved source revision")
+    if scene_readback.get("rootDimensions") != figma["rootDimensions"]:
+        raise EnforcementError("Figma readback is missing the actual approved scene dimensions")
+    actual_tracks = scene_readback.get("motionTracks")
+    if not isinstance(actual_tracks, list) or not actual_tracks:
+        raise EnforcementError("Figma readback is missing measured motion tracks on the matching scene")
+    def track_key(track):
+        node_id = track.get('nodeId')
+        planned = track.get('plannedNodeId')
+        if planned and planned.startswith(manifest['scene']['sceneId'] + '/') and node_id:
+            node_id = planned
+        return (node_id, track.get("property"), track.get("cueId"))
+    actual_by_key = {track_key(track): track for track in actual_tracks}
+    expected_by_key = {track_key(track): track for track in figma["motionTracks"]}
+    if len(actual_by_key) != len(actual_tracks) or set(actual_by_key) != set(expected_by_key):
+        raise EnforcementError("Figma readback motion track identities differ from the approved scene")
+    for key, expected in expected_by_key.items():
+        actual = actual_by_key[key]
+        actual_frames = actual.get("keyframes")
+        if not isinstance(actual_frames, list) or len(actual_frames) != len(expected["keyframes"]):
+            raise EnforcementError("Figma readback motion keyframes or duration differ from the approved scene")
+        if not values_match(finite_number(actual.get("duration"), "measured duration"), expected["duration"], 0.0001):
+            raise EnforcementError("Figma readback motion keyframes or duration differ from the approved scene")
+        for measured, planned in zip(actual_frames, expected["keyframes"]):
+            if set(measured) != set(planned) or any(
+                not values_match(finite_number(measured[field], f"measured keyframe {field}"), planned[field],
+                                 0.0001 if field == "time" or expected["property"] in {"x", "y"} else 0.000001)
+                for field in planned
+            ):
+                raise EnforcementError("Figma readback motion keyframes or duration differ from the approved scene")
+    validate_cinematic(manifest, scene_readback)
+    if figma.get("templateBinding"):
+        validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
+        validate_callout(scene_readback.get("sourceCallout") or {}, source=True)
+    if is_data_driven(manifest):
+        background = dict(scene_readback.get("background") or {})
+        expected_background = figma["background"]
+        planned_id = background.pop("plannedNodeId", None)
+        if str(expected_background["nodeId"]).startswith("pending:"):
+            if (planned_id != expected_background["nodeId"] or not background.get("nodeId")
+                    or str(background["nodeId"]).startswith("pending:") or background["nodeId"] == scene_readback["rootNodeId"]):
+                raise EnforcementError("Figma background readback is missing its actual episode node binding")
+            background["nodeId"] = planned_id
+        if background != expected_background:
+            raise EnforcementError("Figma readback did not confirm the locked no-football background and separate artwork")
+    if is_rank_reveal(manifest):
+        returned_contract = scene_readback.get("rankReveal")
+        if returned_contract != figma["rankReveal"]:
+            raise EnforcementError("Figma readback did not confirm the canonical source, normalized logos, and cumulative Rank Reveal state")
+    validate_focal_asset_readback(manifest, scene_readback)
+    return scene_readback
+
+
+def validate_figma_stage(manifest, evidence, directory):
+    measured = evidence.get("sceneReadback")
+    validate_tool_response(measured)
+    scene = validate_figma_readback(manifest, measured)
+    record = read_json(directory / f"{manifest['scene']['sceneId']}.figma-readback.json", "successful Figma readback")
+    if record != {"status": "passed", "manifestSha256": manifest_hash(manifest),
+                  "readbackSha256": sha256_value(scene)}:
+        raise EnforcementError("Figma stage receipt does not bind a successful current measured readback")
 
 
 def postflight(root, manifest, directory, tool_name, payload):
+    if tool_name == "mcp__codex_apps__figma_use_figma":
+        (directory / f"{manifest['scene']['sceneId']}.figma-readback.json").unlink(missing_ok=True)
+    if tool_name in {'mcp__premiere_pro__get_full_sequence_info', 'mcp__premiere_pro__get_clip_properties'}:
+        (directory / f"{manifest['scene']['sceneId']}.premiere-readback.json").unlink(missing_ok=True)
     validate_manifest(manifest, require_export=tool_name not in {"mcp__codex_apps__figma_use_figma", FIGMA_EXPORT})
     validate_alpha_assets(root, manifest)
     validate_timing_receipt(root, manifest)
@@ -1048,41 +1144,14 @@ def postflight(root, manifest, directory, tool_name, payload):
     premiere = manifest["premiere"]
 
     if tool_name == "mcp__codex_apps__figma_use_figma":
-        scene_readback = figma_scene_readback(payload.get("tool_response"), figma)
-        if scene_readback is None:
-            raise EnforcementError("Figma readback did not confirm the root, source component, and episode instance")
-        if scene_readback.get("sourceRevision") != figma["sourceRevision"]:
-            raise EnforcementError("Figma readback did not confirm the current approved source revision")
-        if scene_readback.get("rootDimensions") != figma["rootDimensions"]:
-            raise EnforcementError("Figma readback is missing the actual approved scene dimensions")
-        actual_tracks = scene_readback.get("motionTracks")
-        if not isinstance(actual_tracks, list) or not actual_tracks:
-            raise EnforcementError("Figma readback is missing measured motion tracks on the matching scene")
-        def track_key(track):
-            node_id = track.get('nodeId')
-            planned = track.get('plannedNodeId')
-            if planned and planned.startswith(manifest['scene']['sceneId'] + '/') and node_id:
-                node_id = planned
-            return (node_id, track.get("property"), track.get("cueId"))
-        actual_by_key = {track_key(track): track for track in actual_tracks}
-        expected_by_key = {track_key(track): track for track in figma["motionTracks"]}
-        if len(actual_by_key) != len(actual_tracks) or set(actual_by_key) != set(expected_by_key):
-            raise EnforcementError("Figma readback motion track identities differ from the approved scene")
-        for key, expected in expected_by_key.items():
-            actual = actual_by_key[key]
-            if actual.get("duration") != expected["duration"] or actual.get("keyframes") != expected["keyframes"]:
-                raise EnforcementError("Figma readback motion keyframes or duration differ from the approved scene")
-        validate_cinematic(manifest, scene_readback)
-        if figma.get("templateBinding"):
-            validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
-            validate_callout(scene_readback.get("sourceCallout") or {}, source=True)
-        if is_data_driven(manifest) and scene_readback.get("background") != figma["background"]:
-            raise EnforcementError("Figma readback did not confirm the locked no-football background and separate artwork")
-        if is_rank_reveal(manifest):
-            returned_contract = scene_readback.get("rankReveal")
-            if returned_contract != figma["rankReveal"]:
-                raise EnforcementError("Figma readback did not confirm the canonical source, normalized logos, and cumulative Rank Reveal state")
-        validate_focal_asset_readback(manifest, scene_readback)
+        scene_readback = validate_figma_readback(manifest, payload.get("tool_response"))
+        directory.mkdir(parents=True, exist_ok=True)
+        record = {"status": "passed", "manifestSha256": manifest_hash(manifest),
+                  "readbackSha256": sha256_value(scene_readback)}
+        target = directory / f"{manifest['scene']['sceneId']}.figma-readback.json"
+        temporary = target.with_suffix(f".{os.getpid()}.tmp")
+        temporary.write_text(json.dumps(record))
+        temporary.replace(target)
         post_context("Lineups Figma mutation readback passed. Export still requires a current figma-to-export receipt.")
         return
     if tool_name == FIGMA_EXPORT:
@@ -1142,6 +1211,8 @@ def postflight(root, manifest, directory, tool_name, payload):
             raise EnforcementError("timeline mutation did not return the expected clip ID")
         post_context("Lineups timeline mutation returned the expected clip. Completion still requires sequence readback and a premiere-placement receipt.")
         return
+    if tool_name in {'mcp__premiere_pro__replace_clip', 'mcp__premiere_pro__replace_clip_media', 'mcp__premiere_pro__trim_clip'}:
+        raise EnforcementError('Premiere edit requires fresh sequence or clip-property readback to confirm media identity, live trims and source In/Out before progression')
     if tool_name in {"mcp__premiere_pro__get_full_sequence_info", "mcp__premiere_pro__get_clip_properties"}:
         clip = premiere_clip_readback(payload.get("tool_response"), premiere)
         if clip is None:
@@ -1161,6 +1232,18 @@ def postflight(root, manifest, directory, tool_name, payload):
             for key in ('sourceIn', 'sourceOut'):
                 if not values_match(finite_number(clip.get(key), f'Premiere clip {key}'), expected[key]):
                     raise EnforcementError('Premiere readback changed the live source In/Out')
+            marker = directory / f"{manifest['scene']['sceneId']}.premiere-edit.intent.json"
+            project_item_id = clip.get('projectItemId') or (clip.get('projectItem') or {}).get('nodeId')
+            if marker.exists() and project_item_id != premiere['projectItemId']:
+                raise EnforcementError('Premiere recovery readback is missing the approved project item identity')
+            if project_item_id == premiere['projectItemId']:
+                directory.mkdir(parents=True, exist_ok=True)
+                record = {'status': 'passed', 'manifestSha256': manifest_hash(manifest), 'measuredAt': time.time(), 'clip': clip}
+                target = directory / f"{manifest['scene']['sceneId']}.premiere-readback.json"
+                temporary = target.with_suffix(f'.{os.getpid()}.tmp')
+                temporary.write_text(json.dumps(record))
+                temporary.replace(target)
+                marker.unlink(missing_ok=True)
         post_context("Lineups Premiere placement readback passed. Record the chained premiere-placement receipt before marking the scene complete.")
 
 

@@ -49,5 +49,48 @@
       }
     },
     "receiptSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "allOf": [
+  {
+    "if": {
+      "properties": {
+        "stage": {
+          "const": "figma-to-export"
+        }
+      },
+      "required": [
+        "stage"
+      ]
+    },
+    "then": {
+      "properties": {
+        "evidence": {
+          "required": [
+            "sceneReadback"
+          ],
+          "properties": {
+            "sceneReadback": {
+              "type": "object",
+              "required": [
+                "rootNodeId",
+                "sourceComponentId",
+                "episodeInstanceId",
+                "nodeType",
+                "sourceRevision",
+                "rootDimensions",
+                "motionTracks"
+              ],
+              "properties": {
+                "motionTracks": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
+]
 }

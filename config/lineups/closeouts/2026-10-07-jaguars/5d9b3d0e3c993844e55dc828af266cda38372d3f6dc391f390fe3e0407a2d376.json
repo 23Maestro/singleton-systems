@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-13T19:28:29.743Z",
+  "status": "completed-in-asana",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1219329520096056",
+      "completed": true,
+      "due_at": "2026-10-09T14:00:00.000Z",
+      "due_on": "2026-10-09"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-07-jaguars",
+    "asanaTask": "1219329520096056",
+    "dueDate": "2026-10-09",
+    "transcriptPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/transcript/2026-10-07-jaguars-whisper.json",
+    "discoveryPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/storyboard/lane-discovery.json",
+    "preFigma": {
+      "path": "public/decision-maps/2026-10-07-jaguars-pre-figma-review/index.html",
+      "title": "Jaguars",
+      "candidateCount": 13
+    },
+    "cueMapPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/storyboard/cue-map.json",
+    "timingProofPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/storyboard/cue-proof-receipt.json"
+  },
+  "activeScene": {
+    "schemaVersion": 2,
+    "enforcement": {
+      "active": true,
+      "approvedToolInputSha256": "d2100e24fe891b95a8d39e5b2e5fc722a17a4babe309c1989e17156e4b6b2d6d"
+    },
+    "scene": {
+      "episodeId": "2026-10-07-jaguars",
+      "sceneId": "S12",
+      "lane": "quick action photo",
+      "approvedOption": "quick action photo",
+      "setting": "requested 4.5 seconds; 113 frames / 4.52 actual at 25 fps",
+      "editorialDuration": {
+        "requestedDurationSeconds": 4.5,
+        "durationFrames": 113,
+        "actualDurationSeconds": 4.52,
+        "rounding": "nearest-half-up"
+      }
+    },
+    "discoveryPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/storyboard/lane-discovery.json",
+    "figma": {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "sourceComponentId": "1425:630",
+      "rootNodeId": "1629:7",
+      "episodeInstanceId": "1629:7",
+      "sourceRevision": "live-2026-10-08-82f2cd8ae349ff41",
+      "motionTracks": [
+        {
+          "nodeName": "EDIT / ACTION PHOTO / FILL 1920x1080",
+          "nodeId": "1629:8",
+          "property": "scale",
+          "cueId": "S12-photo-push",
+          "duration": 10,
+          "keyframes": [
+            {
+              "time": 0,
+              "value": 1
+            },
+            {
+              "time": 4.52,
+              "value": 1.025
+            }
+          ]
+        }
+      ],
+      "pageId": "1625:45",
+      "episodeUsesInstance": false,
+      "motionWorkingCopyMode": "detached-from-canonical-instance",
+      "rootDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "exposedSlots": [
+        "photo",
+        "copy",
+        "logos",
+        "reveal timing"
+      ],
+      "allowedReplacementProperties": [
+        "photo",
+        "copy",
+        "logos",
+        "reveal timing"
+      ],
+      "focalAssets": [],
+      "instanceStatus": "native Figma motion built; no export requested"
+    },
+    "motion": {
+      "engine": "figma",
+      "engineVersion": "figma-motion",
+      "timingValidator": "manim",
+      "frameRate": {
+        "numerator": 25,
+        "denominator": 1
+      },
+      "cues": [
+        {
+          "cueId": "S12-photo-push",
+          "elementId": "photo",
+          "triggerType": "EDIT",
+          "triggerText": "scene opening",
+          "transcriptTimestamp": 648.94,
+          "sceneTime": 0,
+          "action": "slow-photo-push",
+          "duration": 0
+        },
+        {
+          "cueId": "S12-content-1",
+          "elementId": "content-1",
+          "triggerType": "WORD",
+          "triggerText": "Liam",
+          "transcriptTimestamp": 648.94,
+          "sceneTime": 0,
+          "action": "photo-open",
+          "duration": 0
+        }
+      ],
+      "sourcePath": null,
+      "sceneClass": null
+    },
+    "timing": {
+      "transcriptPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/transcript/2026-10-07-jaguars-whisper.json",
+      "transcriptSource": "whisper",
+      "timestampResolution": "word",
+      "verifiedAnchorTimestamp": 648.94,
+      "anchorVerified": true,
+      "manimTimingValidated": true,
+      "entranceTimes": [
+        0,
+        0
+      ],
+      "lastEntrance": 0,
+      "contentEnd": 0,
+      "paddedCompositionEnd": 10.04,
+      "finalStateVisible": true,
+      "noExitAnimation": true,
+      "transcriptPhrase": "because they have the quarterback and head coach combination now with Trevor Lawrence and Liam Cohen. Thank you guys for tuning in to another episode with me, your host Mark Gunnels here on",
+      "finalHoldSeconds": 5.48,
+      "nativeCompositionEnd": 10
+    },
+    "export": {
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "validationStatus": "passed",
+      "path": "/Volumes/HomeSSD/Content Editor.library/images/MV09D5TJ5QGHY.info/2026-10-08-jaguars-S12-figma-v1.mp4",
+      "fileSha256": "dee46ba3e1b7f48828e79a1124fca44f17c186a78e762227b9e52f53140e3d64",
+      "artifactRole": "final-premiere-render",
+      "motionProof": {
+        "status": "passed",
+        "engine": "figma",
+        "sampleTimes": [
+          0,
+          10
+        ],
+        "frames": [
+          {
+            "time": 0,
+            "width": 1920,
+            "height": 1080,
+            "sha256": "0393d58995bcf76aa6737947e7d9ee5ded1bb3cae94d14d83dcf8fd212534f35",
+            "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-10-08-jaguars-figma-v1/S12-opening.png"
+          },
+          {
+            "time": 10,
+            "width": 1920,
+            "height": 1080,
+            "sha256": "a39a6ea3a9cfaedf206b1590372889488892cc37821e2ac4cc3a77d9695474e6",
+            "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-10-08-jaguars-figma-v1/S12-final.png"
+          }
+        ],
+        "validationPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/storyboard/figma-build/native-export-validation.json"
+      }
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "Jerami",
+      "approvalEvidence": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-07-jaguars/storyboard/figma-build/2026-10-07-jaguars-pre-figma-decisions.json",
+      "scope": "Approved nine-clip Eagle ingest and Premiere placement; alternate labels; 15-frame head and tail transitions",
+      "deliveryAuthorization": "Jerami: Import the nine clips; alternate imports with different color labels please; please add transitions per the MCP skill 15 frames"
+    },
+    "policy": {
+      "transitionsApproved": true,
+      "effectsApproved": false,
+      "lutsApproved": false,
+      "opacityChangesApproved": false,
+      "approvalNote": "Jerami: Import the nine clips; alternate imports with different color labels please; please add transitions per the MCP skill 15 frames"
+    },
+    "ownership": {
+      "eaglePath": "Episode / 06 Motion Renders",
+      "duplicateFinalFolderIn23Projects": false
+    },
+    "premiere": {
+      "approvedStartTime": 648.94,
+      "approvedDuration": 10.04,
+      "approvedEndTime": 658.98,
+      "placementStatus": "editorial trim verified",
+      "sequenceId": "1d87a35c-266a-4a9b-9d90-012c50814421",
+      "trackIndex": 3,
+      "projectItemId": "000f42d8",
+      "timelineClipId": "000f42e2",
+      "editorialTiming": {
+        "startTime": 648.96,
+        "duration": 4.52,
+        "endTime": 653.48,
+        "sourceIn": 0,
+        "sourceOut": 4.52
+      },
+      "treePath": "\\2026-10-08_JaguarsStart.prproj\\06 Motion Renders\\2026-10-08-jaguars-S12-figma-v1.mp4",
+      "nameReadback": "2026-10-08-jaguars-S12-figma-v1.mp4",
+      "labelReadback": 3
+    },
+    "assets": [
+      {
+        "originalFilename": "2026-08-16T000521Z_1003022888_MT1USATODAY29593977_RTRMADP_3_NFL-JACKSONVILLE-JAGUARS-AT-NEW-ORLEANS-SAINTS.JPG",
+        "sourcePath": "/Users/singleton23/Downloads/OneDrive_1_10-7-2026/2026-08-16T000521Z_1003022888_MT1USATODAY29593977_RTRMADP_3_NFL-JACKSONVILLE-JAGUARS-AT-NEW-ORLEANS-SAINTS.JPG",
+        "durablePath": "/Volumes/MediaSSD/02_EDITING/23Projects/CATENA_MEDIA/2026-10-07_Jaguars_Source/2026-08-16T000521Z_1003022888_MT1USATODAY29593977_RTRMADP_3_NFL-JACKSONVILLE-JAGUARS-AT-NEW-ORLEANS-SAINTS.JPG",
+        "sha256": "ef60e5831efee3012f0b417d18bfbcf99fd3f0c7e95c859cba768239ea2fab90",
+        "bytes": 3769775,
+        "role": "client-still",
+        "identityStatus": "unreviewed",
+        "eagleItemId": "MV00X30I4K229",
+        "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MV00X30I4K229.info/MV00X30I4K229.jpg",
+        "eagleFolders": [
+          "MV00W79V413YK"
+        ],
+        "hashVerified": true
+      }
+    ]
+  }
+}

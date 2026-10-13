@@ -233,6 +233,7 @@ function refreshReceiptChain(testCase, preserveFrames = false) {
     const receiptPath = path.join(testCase.receiptDir, `scene-07.${stage}.receipt.json`);
     const receipt = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
     receipt.manifestSha256 = manifestSha256;
+    if (stage === "figma-to-export") receipt.evidence.sceneReadback = figmaReadback(manifest);
     if (receipt.evidence?.proofFrames && !preserveFrames) receipt.evidence.proofFrames = manifest.export.motionProof.frames;
     if (receipt.artifactSha256) receipt.artifactSha256 = manifest.export.fileSha256;
     if (receipt.evidence?.exportPath) receipt.evidence.exportPath = manifest.export.path;
@@ -243,6 +244,7 @@ function refreshReceiptChain(testCase, preserveFrames = false) {
     previousReceiptSha256 = receipt.receiptSha256;
     fs.writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
   }
+  post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, figmaReadback(manifest));
 }
 
 function expectAllowed(result, label) {
@@ -285,6 +287,8 @@ function figmaReadback(manifest, overrides = {}) {
     sourceRevision: manifest.figma.sourceRevision,
     rootDimensions: manifest.figma.rootDimensions,
     motionTracks: structuredClone(manifest.figma.motionTracks),
+    ...(manifest.figma.background ? {background: manifest.figma.background} : {}),
+    ...(manifest.figma.rankReveal ? {rankReveal: manifest.figma.rankReveal} : {}),
     focalAssets: manifest.figma.focalAssets.map(({ nodeId, kind, layoutRole, centerX }) => ({
       nodeId,
       kind,
@@ -338,6 +342,27 @@ function withCase(callback) {
 }
 
 try {
+  withCase((testCase) => {
+    const m = readManifest(testCase), p = m.premiere;
+    p.editorialTiming = {startTime: 312.8, duration: 4.52, endTime: 317.32, sourceIn: 0.4, sourceOut: 4.92};
+    writeManifest(testCase, m); refreshReceiptChain(testCase);
+    const input = {clipId: p.timelineClipId, newProjectItemId: p.projectItemId, preserveEffects: false};
+    const wrong = pre(testCase, "mcp__premiere_pro__replace_clip", {...input, newProjectItemId: "unapproved-item"});
+    expectDenied(wrong, /wrong.*project item/, "replacement cannot bypass approved media identity");
+    const measured = {sequenceId: p.sequenceId, clipId: p.timelineClipId, projectItemId: p.projectItemId, trackIndex: p.trackIndex, ...p.editorialTiming};
+    expectPostPass(post(testCase, "mcp__premiere_pro__get_clip_properties", {clipId: p.timelineClipId}, measured), /placement readback passed/, "fresh source and editorial baseline");
+    expectAllowed(pre(testCase, "mcp__premiere_pro__replace_clip", input), "approved replacement after fresh baseline");
+    expectDenied(pre(testCase, "mcp__premiere_pro__replace_clip", input), /readback|attempted/, "uncertain replacement cannot be replayed");
+    expectPostBlock(post(testCase, "mcp__premiere_pro__replace_clip", input, {success: true, clipId: p.timelineClipId}), /readback/, "replacement return cannot invent preserved trims");
+    const changed = {...measured, sourceIn: 0, sourceOut: 4.52};
+    expectPostBlock(post(testCase, "mcp__premiere_pro__get_clip_properties", {clipId: p.timelineClipId}, changed), /source In\/Out/, "source reset stays blocked");
+    expectPostPass(post(testCase, "mcp__premiere_pro__get_clip_properties", {clipId: p.timelineClipId}, measured), /placement readback passed/, "recover matching live clip without replacement retry");
+    assert.equal(fs.existsSync(path.join(testCase.receiptDir, "scene-07.premiere-edit.intent.json")), false);
+    const trim = {clipId: p.timelineClipId, inPoint: 0.4, outPoint: 4.92};
+    expectAllowed(pre(testCase, "mcp__premiere_pro__trim_clip", trim), "trim preserves approved source boundaries");
+    expectDenied(pre(testCase, "mcp__premiere_pro__replace_clip", input), /readback|attempted/, "trim requires recovery before another edit");
+    expectPostPass(post(testCase, "mcp__premiere_pro__get_clip_properties", {clipId: p.timelineClipId}, measured), /placement readback passed/, "trim source readback");
+  });
   withCase((testCase) => {
     const manifest = readManifest(testCase);
     manifest.export.path = null;
@@ -929,6 +954,8 @@ try {
     exportReceipt.episodeId = manifest.scene.episodeId;
     exportReceipt.sceneId = manifest.scene.sceneId;
     exportReceipt.manifestSha256 = hashValue(manifest);
+    expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", input, figmaReadback(manifest, {calloutReadback: measured, sourceCallout: canonical.callout})), /readback passed/, "current review-export measurement");
+    exportReceipt.evidence.sceneReadback = figmaReadback(manifest, {calloutReadback: measured, sourceCallout: canonical.callout});
     exportReceipt.evidence.calloutReadback = measured;
     exportReceipt.evidence.sourceCallout = canonical.callout;
     delete exportReceipt.receiptSha256;
