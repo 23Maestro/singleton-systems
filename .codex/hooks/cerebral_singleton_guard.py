@@ -998,8 +998,16 @@ def run_completion_stop_gate(payload):
         return None
     script = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "scripts", "code-delivery-stop.mjs")
     try:
+        node_binary = os.environ.get("NODE_BINARY")
+        if node_binary is None:
+            # Desktop hook PATH may omit Homebrew and the Node installer directory.
+            node_binary = shutil.which("node") or next(
+                (candidate for candidate in ("/opt/homebrew/bin/node", "/usr/local/bin/node")
+                 if os.path.isfile(candidate) and os.access(candidate, os.X_OK)),
+                "node",
+            )
         result = subprocess.run(
-            [os.environ.get("NODE_BINARY", "node"), script],
+            [node_binary, script],
             input=json.dumps(payload), capture_output=True, text=True, timeout=45,
         )
         if result.returncode != 0 or not result.stdout.strip():

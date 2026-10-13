@@ -82,9 +82,12 @@ try {
 
   // Invoke the configured Python hook, not just its JS helper. Cleanup stays in the fixture.
   const hookConfig = JSON.parse(fs.readFileSync(path.join(source, ".codex/hooks.json"), "utf8"));
-  assert.ok(hookConfig.hooks.Stop.some((group) => group.hooks.some((hook) => hook.command.includes("cerebral_singleton_guard.py"))));
+  const stopHook = hookConfig.hooks.Stop.flatMap((group) => group.hooks).find((hook) => hook.command.includes("cerebral_singleton_guard.py"));
+  assert.ok(stopHook);
   const hook = (input, env = {}) => {
-    const result = spawnSync("python3", [path.join(source, ".codex/hooks/cerebral_singleton_guard.py")], { cwd: root, input: JSON.stringify(input), encoding: "utf8", env: { ...process.env, NODE_BINARY: process.execPath, CEREBRAL_CODEX_GIT_TEMP_ROOT: path.join(fixture, "git-temp"), ...env } });
+    const hookEnv = { ...process.env, NODE_BINARY: process.execPath, CEREBRAL_CODEX_GIT_TEMP_ROOT: path.join(fixture, "git-temp"), ...env };
+    if (env.NODE_BINARY === null) delete hookEnv.NODE_BINARY;
+    const result = spawnSync(stopHook.command.split(" ")[0], [path.join(source, ".codex/hooks/cerebral_singleton_guard.py")], { cwd: root, input: JSON.stringify(input), encoding: "utf8", env: hookEnv });
     assert.equal(result.status, 0, result.stderr);
     return result.stdout.trim() ? JSON.parse(result.stdout) : null;
   };
@@ -93,6 +96,13 @@ try {
   assert.equal(hook(payload({ taskId: "wrong" }, { stop_hook_active: true })).continue, false);
   assert.equal(hook({ ...payload(), last_assistant_message: "Research is complete." }), null);
   rejected(hook(payload(), { NODE_BINARY: path.join(fixture, "missing-node") }), /bridge unavailable/);
+  // Desktop hooks can have only the system PATH, without a NODE_BINARY override.
+  const desktopEnv = { PATH: "/usr/bin:/bin", NODE_BINARY: null };
+  assert.match(hook(payload(), desktopEnv).systemMessage, /readiness verified/);
+  rejected(hook(payload({ taskId: "wrong" }), desktopEnv), /binding does not match/);
+  assert.equal(hook(payload({ taskId: "wrong" }, { stop_hook_active: true }), desktopEnv).continue, false);
+  assert.match(hook(payload({ outcome: "incomplete" }), desktopEnv).systemMessage, /is incomplete/);
+  assert.match(hook(payload({ outcome: "cancelled" }), desktopEnv).systemMessage, /is cancelled/);
 
   // Retained paths survive fresh processes; explicit paths retain their prior resolution.
   const home = path.join(fixture, "private-home");
