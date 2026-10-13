@@ -1,17 +1,19 @@
 import crypto from "node:crypto";
+import {requireDiscovery} from "../lib/lineups/discovery.mjs";
 import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const episodeDir = path.join(root, "config/lineups/episodes/2026-09-15-nfl-week-2-power-rankings");
-const auditPath = path.join(episodeDir, "rank-reveal-timing.json");
-const activePath = path.join(root, "config/lineups/active-scene.json");
+const configIndex = process.argv.indexOf("--config");
+if (configIndex === -1 || !process.argv[configIndex + 1]) throw new Error("Usage: node scripts/prepare-lineups-rank-reveal-scene.mjs <sceneId> --config <rank-reveal-timing.json> [--inspect]");
+const auditPath = path.resolve(root, process.argv[configIndex + 1]);
 const sceneId = process.argv[2];
 const inspectOnly = process.argv.includes("--inspect");
 
 if (!sceneId) throw new Error("Usage: node scripts/prepare-lineups-rank-reveal-scene.mjs <sceneId>");
 
 const audit = JSON.parse(fs.readFileSync(auditPath, "utf8"));
+if (!inspectOnly) requireDiscovery({...audit, transcriptPath: audit.transcriptPath ?? audit.transcript.source}, root);
 const scene = audit.scenes.find((item) => item.sceneId === sceneId);
 if (!scene) throw new Error(`Unknown Rank Reveal scene: ${sceneId}`);
 
@@ -110,20 +112,33 @@ const rankReveal = {
   }),
 };
 
+const rankReadbackCode = `const rankSlots = Array.from({length: 10}, (_, index) => {
+ const rank = index + 1;
+ const text = working.findOne(node => node.name === "TEAM NAME / RANK " + rank && node.type === "TEXT");
+ const slot = working.findOne(node => node.name === "LOGO SLOT / RANK " + rank);
+ const logo = slot?.type === "INSTANCE" ? slot : slot?.findOne(node => node.type === "INSTANCE");
+ if (!text || !slot || !logo?.mainComponent) throw new Error("Missing measured rank content " + rank);
+ const visibleAtEnd = node => node.visible !== false && (node.manualKeyframeTracks?.OPACITY?.keyframes?.at(-1)?.value?.value ?? node.opacity) > 0;
+ if (visibleAtEnd(text) !== visibleAtEnd(slot)) throw new Error("Rank text and logo visibility differ");
+ return {rank, team: text.characters, componentId: logo.mainComponent.id, componentName: logo.mainComponent.name,
+  shown: visibleAtEnd(text), width: slot.width, height: slot.height};
+});
+if (rankSlots.some(slot => slot.width !== rankSlots[0].width || slot.height !== rankSlots[0].height)) throw new Error("Rank logo wrappers differ");
+const measuredRankReveal = {...${JSON.stringify(rankReveal)},
+ canonicalSourceComponentId: working.getPluginData("lineupsSourceComponentId"), canonicalSourceName: source.name,
+ logoWrapperDimensions: {width: rankSlots[0].width, height: rankSlots[0].height},
+ visibleRanks: rankSlots.filter(slot => slot.shown).map(slot => slot.rank).sort((a,b) => b-a),
+ logoAssignments: rankSlots.map(({rank, team, componentId, componentName}) => ({rank, team, componentId, componentName}))};`;
+
 const mutationCode = `const source = await figma.getNodeByIdAsync("1277:558");
 const target = await figma.getNodeByIdAsync(${JSON.stringify(motionTargetId)});
 if (!source || source.type !== "COMPONENT") throw new Error("Expected canonical Rank Reveal component");
-if (!target || !["INSTANCE", "FRAME"].includes(target.type)) throw new Error("Expected Week 2 Rank Reveal instance or detached motion frame");
-const sourceComponentId = target.type === "INSTANCE" ? target.mainComponent.id : "1277:558";
+if (!target || !["INSTANCE", "FRAME"].includes(target.type)) throw new Error("Expected episode Rank Reveal instance or detached motion frame");
+const sourceComponentId = target.type === "INSTANCE" ? target.mainComponent.id : target.getPluginData("lineupsSourceComponentId");
+if (sourceComponentId !== source.id) throw new Error("Detached frame lacks verified canonical source provenance");
 const mutatedNodeIds = [];
-${scene.rank === 10 ? `source.description = "Canonical weekly Rank Reveal visual source. Motion-free by design. Verify the episode instance, then detach the episode working copy for transcript-timed Figma Motion. Rank 10 alone cascades row shells 10 through 1 from scene time 0; ranks 9 through 1 animate only the new team name and normalized 96 x 78 logo. Manim validates cue math; Figma Motion is the sole visual engine.";
-mutatedNodeIds.push(source.id);
-for (const node of source.findAll((item) => item.name.startsWith("ROW / RANK ") || item.name.startsWith("TEAM NAME / RANK ") || item.name.startsWith("LOGO SLOT / RANK "))) {
-  node.manualKeyframeTracks = {};
-  node.animationStyles = [];
-  mutatedNodeIds.push(node.id);
-}` : ""}
 const working = target.type === "INSTANCE" ? target.detachInstance() : target;
+working.setPluginData("lineupsSourceComponentId", sourceComponentId);
 working.name = ${JSON.stringify(`MOTION / ${scene.sceneId} / RANK ${scene.rank}`)};
 mutatedNodeIds.push(working.id);
 for (const node of working.findAll((item) => item.name.startsWith("ROW / RANK ") || item.name.startsWith("TEAM NAME / RANK ") || item.name.startsWith("LOGO SLOT / RANK "))) {
@@ -131,7 +146,7 @@ for (const node of working.findAll((item) => item.name.startsWith("ROW / RANK ")
   node.animationStyles = [];
   mutatedNodeIds.push(node.id);
 }
-const targets = ${JSON.stringify(tracks.map((track) => ({ nodeName: track.nodeName, keyframes: track.keyframes })))};
+const targets = ${JSON.stringify(tracks)};
 for (const target of targets) {
   const node = working.findOne((item) => item.name === target.nodeName);
   if (!node) throw new Error("Missing motion target " + target.nodeName);
@@ -149,41 +164,59 @@ const firstTarget = working.findOne((item) => item.name === targets[0].nodeName)
 const timeline = firstTarget?.timelines?.[0];
 if (!timeline) throw new Error("Figma Motion timeline was not created");
 firstTarget.setTimelineDuration(timeline.id, ${duration});
+const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
+if (!backgroundNode) throw new Error("Measured Field Night background is missing");
+const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id,
+ imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
+ locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
+${rankReadbackCode}
 return {
   rootNodeId: working.id,
   sourceComponentId,
   episodeInstanceId: working.id,
   nodeType: working.type,
+  rootDimensions: {width: working.width, height: working.height},
   sourceRevision: "rank-reveal-normalized-v2-scene-motion",
-  background: ${JSON.stringify(background)},
-  rankReveal: ${JSON.stringify(rankReveal)},
+  background: measuredBackground,
+  rankReveal: measuredRankReveal,
   mutatedNodeIds,
   timelineDuration: firstTarget.timelines[0].duration,
-  motionTracks: targets.map((target) => ({ nodeName: target.nodeName, keyframes: target.keyframes })),
+  motionTracks: targets.map(target => {
+ const node = working.findOne(item => item.name === target.nodeName);
+ const measured = node.manualKeyframeTracks.OPACITY;
+ if (!measured?.keyframes?.length) throw new Error("Missing measured motion track " + target.nodeName);
+ return {nodeId: node.id, plannedNodeId: target.nodeId, property: target.property, cueId: target.cueId,
+  duration: node.timelines[0].duration, keyframes: measured.keyframes.map(frame => ({time: frame.timelinePosition, value: frame.value.value}))};
+}),
 };`;
 
-const inspectCode = `const working = await figma.getNodeByIdAsync(${JSON.stringify(motionTargetId)});
+const inspectCode = `const source = await figma.getNodeByIdAsync("1277:558");
+if (!source || source.type !== "COMPONENT") throw new Error("Missing canonical Rank Reveal source");
+const working = await figma.getNodeByIdAsync(${JSON.stringify(motionTargetId)});
 if (!working || working.type !== "FRAME") throw new Error("Expected detached Rank Reveal motion frame");
-const nodeNames = ${JSON.stringify(tracks.map((track) => track.nodeName))};
-const motionTracks = nodeNames.map((nodeName) => {
-  const node = working.findOne((item) => item.name === nodeName);
-  if (!node) throw new Error("Missing motion target " + nodeName);
-  return {
-    nodeId: node.id,
-    nodeName,
-    manualKeyframeTracks: node.manualKeyframeTracks,
-    animationStyles: node.animationStyles,
-    timelines: node.timelines,
-  };
+const definitions = ${JSON.stringify(tracks)};
+const motionTracks = definitions.map(track => {
+ const node = working.findOne(item => item.name === track.nodeName);
+ const measured = node?.manualKeyframeTracks?.OPACITY;
+ if (!measured?.keyframes?.length) throw new Error("Missing measured motion track " + track.nodeName);
+ return {nodeId: node.id, plannedNodeId: track.nodeId, property: track.property, cueId: track.cueId,
+  duration: node.timelines[0].duration, keyframes: measured.keyframes.map(frame => ({time: frame.timelinePosition, value: frame.value.value}))};
 });
+const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
+if (!backgroundNode) throw new Error("Measured Field Night background is missing");
+const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id,
+ imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
+ locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
+${rankReadbackCode}
 return {
   rootNodeId: working.id,
-  sourceComponentId: "1277:558",
+  sourceComponentId: working.getPluginData("lineupsSourceComponentId"),
   episodeInstanceId: working.id,
   nodeType: working.type,
+  rootDimensions: {width: working.width, height: working.height},
   sourceRevision: "rank-reveal-normalized-v2-scene-motion",
-  background: ${JSON.stringify(background)},
-  rankReveal: ${JSON.stringify(rankReveal)},
+  background: measuredBackground,
+  rankReveal: measuredRankReveal,
   motionTracks,
 };`;
 const code = inspectOnly ? inspectCode : mutationCode;
@@ -191,8 +224,8 @@ const code = inspectOnly ? inspectCode : mutationCode;
 const toolInput = {
   code,
   description: inspectOnly
-    ? `Week 2 ${scene.sceneId} rank ${scene.rank} Figma Motion timing readback`
-    : `Week 2 ${scene.sceneId} rank ${scene.rank} transcript-timed Figma Motion correction`,
+    ? `${audit.episodeId} ${scene.sceneId} rank ${scene.rank} Figma Motion timing readback`
+    : `${audit.episodeId} ${scene.sceneId} rank ${scene.rank} transcript-timed Figma Motion correction`,
   fileKey: audit.figma.fileKey,
   skillNames: "figma-use,figma-use-motion,figma-generate-library,singleton-figma-system,file-hygiene,layer-cleanup",
 };
@@ -209,6 +242,7 @@ const approvedToolInputSha256 = crypto.createHash("sha256").update(canonicalJson
 const lastEntrance = Math.max(...cues.map((cue) => cue.sceneTime));
 const manifest = {
   schemaVersion: 2,
+  discoveryPath: audit.discoveryPath,
   enforcement: { active: true, approvedToolInputSha256 },
   scene: {
     episodeId: audit.episodeId,
@@ -248,7 +282,7 @@ const manifest = {
     transcriptSource: "whisper",
     transcriptPath: audit.transcript.source,
     timestampResolution: "word",
-    manimTimingValidated: true,
+    manimTimingValidated: false,
     verifiedAnchorTimestamp: scene.verifiedAnchorTimestamp,
     anchorVerified: true,
     entranceTimes: cues.map((cue) => cue.sceneTime),
@@ -285,18 +319,18 @@ const manifest = {
   },
   ownership: { eaglePath: "Episode / 06 Motion Renders", duplicateFinalFolderIn23Projects: false },
   premiere: {
-    sequenceId: "pending-week-2-sequence",
+    sequenceId: "pending-episode-sequence",
     trackIndex: 2,
     approvedStartTime: scene.verifiedAnchorTimestamp,
     approvedDuration: duration,
     approvedEndTime: Number((scene.verifiedAnchorTimestamp + duration).toFixed(3)),
     projectItemId: `pending-${scene.sceneId}`,
+    nameReadback: `${scene.sceneId}.mp4`,
     treePath: `${audit.episodeId}/06 Motion Renders/${scene.sceneId}.mp4`,
     labelReadback: "pending",
     timelineClipId: `pending-${scene.sceneId}`,
   },
-  review: { status: "pending", reviewer: "Jerami", reviewedAt: "2026-09-16T00:00:00Z", correctionPayloadId: null },
+  review: { status: "pending", reviewer: null, reviewedAt: null, correctionPayloadId: null },
 };
 
-fs.writeFileSync(activePath, `${JSON.stringify(manifest, null, 2)}\n`);
-process.stdout.write(`${JSON.stringify(toolInput)}\n`);
+process.stdout.write(`${JSON.stringify({toolInput, manifest})}\n`);

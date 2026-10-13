@@ -71,8 +71,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
-            "timeout": 10,
+            "command": "/Users/singleton23/.pyenv/versions/3.12.3/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
+            "timeout": 90,
             "statusMessage": "Checking Lineups transaction"
           }
         ]
@@ -106,8 +106,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
-            "timeout": 10,
+            "command": "/Users/singleton23/.pyenv/versions/3.12.3/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/lineups_enforcement.py\"",
+            "timeout": 90,
             "statusMessage": "Verifying Lineups transaction readback"
           }
         ]

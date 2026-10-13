@@ -2,10 +2,11 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import {requireDiscovery, checkTiming} from '../lib/lineups/discovery.mjs';
 
 const root = process.cwd();
 const readJson = relative => JSON.parse(fs.readFileSync(path.resolve(root, relative), 'utf8'));
-const hash = relative => crypto.createHash('sha256').update(fs.readFileSync(path.join(root, relative))).digest('hex');
+const hash = relative => crypto.createHash('sha256').update(fs.readFileSync(path.resolve(root, relative))).digest('hex');
 const publicRoute = file => `/${file.replace(/^public\//, '').replace(/\/index\.html$/, '')}`;
 const registryPath = process.env.LINEUPS_REVIEW_GATES_PATH ?? 'config/lineups/review-gates.json';
 
@@ -14,6 +15,43 @@ for (const entry of readJson(registryPath)) {
   assert.match(entry.asanaTask, /^\d+$/, `${entry.episodeSlug}: missing Asana task`);
   assert.match(entry.dueDate, /^\d{4}-\d{2}-\d{2}$/, `${entry.episodeSlug}: missing confirmed due date`);
   assert.ok(entry.preFigma?.path && entry.preFigma?.title && Number.isInteger(entry.preFigma?.candidateCount), `${entry.episodeSlug}: incomplete Pre-Figma stage record`);
+  requireDiscovery(entry, root);
+  if (entry.preFigma.candidateCount > 0) {
+    assert.ok(entry.timingProofPath && entry.cueMapPath, 'Pre-Figma timing proof and cue map are required');
+    const timingProof = readJson(entry.timingProofPath);
+    const cueMap = readJson(entry.cueMapPath);
+    assert.equal(timingProof.result, 'passed', 'Pre-Figma timing proof must pass');
+    const pageHtml = fs.readFileSync(path.resolve(root, entry.preFigma.path), 'utf8');
+    const pageData = pageHtml.match(/const beats=(\[.*?\]);\s*const key=/s);
+    assert.ok(pageData, 'Pre-Figma candidate data is missing');
+    const pageCandidates = JSON.parse(pageData[1]);
+    assert.deepEqual(pageCandidates.map(scene => scene.id), cueMap.candidates.map(scene => scene.id), 'Pre-Figma page candidate roster is stale');
+    for (const [index, candidate] of cueMap.candidates.entries()) {
+      for (const field of ['lane', 'option', 'anchor', 'duration', 'copy', 'excerpt', 'assetIds']) {
+        assert.deepEqual(pageCandidates[index][field], candidate[field], `Pre-Figma ${candidate.id} ${field} drifted from the proved cue map`);
+      }
+    }
+    assert.ok(pageHtml.includes(timingProof.cueMapSha256), 'Pre-Figma decision export must bind the proved cue map');
+    assert.equal(timingProof.episodeId, entry.episodeSlug, 'Timing proof episode mismatch');
+    assert.equal(timingProof.transcriptSha256, hash(entry.transcriptPath), 'Timing proof transcript is stale');
+    assert.equal(timingProof.discoverySha256, hash(entry.discoveryPath), 'Timing proof discovery is stale');
+    assert.equal(timingProof.cueMapSha256, hash(entry.cueMapPath), 'Timing proof cue map is stale');
+    assert.equal(timingProof.sceneCount, entry.preFigma.candidateCount, 'Timing proof candidate count changed');
+    assert.deepEqual(timingProof.scenes.map(scene => scene.sceneId), cueMap.candidates.map(scene => scene.id), 'Timing proof scenes changed');
+    for (const scene of timingProof.scenes) {
+      assert.equal(scene.result, 'passed', 'Scene timing proof must pass');
+      assert.equal(scene.manifestSha256, hash(scene.manifestPath), 'Scene timing manifest is stale');
+      const manifest = readJson(scene.manifestPath);
+      requireDiscovery(manifest, root);
+      const timing = checkTiming(manifest, root, false);
+      assert.equal(timing.status, 0, timing.stderr || timing.error?.message || 'Current Manim timing receipt is required before Pre-Figma review');
+    }
+  }
+  if (!entry.postFigma) {
+    assert.ok(fs.readFileSync(path.resolve(root, entry.preFigma.path), 'utf8').includes(entry.preFigma.title), 'Pre-Figma title is missing');
+    console.log(`${entry.episodeSlug}: discovery passed for Pre-Figma review`);
+    continue;
+  }
   assert.ok(entry.postFigma?.readyLabel && entry.postFigma?.dateLabel && Number.isInteger(entry.postFigma?.built) && Number.isInteger(entry.postFigma?.needsReview), `${entry.episodeSlug}: incomplete Post-Figma stage record`);
 
   const proof = readJson(entry.proof);

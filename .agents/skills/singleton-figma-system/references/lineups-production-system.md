@@ -66,6 +66,18 @@ Auto Layout conversion or sizing refactor, also load
 `safe-auto-layout-conversion`. Before color or contrast work, also load
 `accessibility-review` and use its static-media mode.
 
+Quick Action Photo requests 4.5 seconds. Record `scene.editorialDuration` using
+nearest-half-up frame rounding: 113 frames and 4.52 seconds at 25 fps. Padded
+Figma composition duration remains separate.
+
+Cinematic manifests bind `figma.cinematic2Up`: `titlePosition: top-left` and
+two `photos` with distinct `nodeId`, `sourceId`, `imageHash`,
+`assetTreatment: full-photo`, `originalBackground: true`, `visibleFrom: 0`,
+and measured `openingBounds` (`x`, `y`, `width`, `height`). Read these values
+from the actual scene. Both photos must intersect the opening frame; photo
+opacity tracks cannot hide or delay either subject. Human screenshot review
+confirms coverage, the original title position and the complete composition.
+
 ## approved source families
 
 Build one source family for each lane:
@@ -133,9 +145,11 @@ set supports it.
 
 ## alpha player assets
 
-Asset Swap and Comparison require real-alpha player assets for player
-compositing. This applies to Cinematic 2-up, Simple comparison, and Full
-comparison with two, three, or four subjects. A period-only comparison with no
+Asset Swap, Simple comparison and Full comparison require real-alpha player
+assets for player compositing. Cinematic 2-up always uses full photos with
+original backgrounds. Both are visible together from the opening frame. Keep
+the established top-left title position. Never use alpha cutouts, Asset Swap
+treatment or a delayed second-photo reveal for Cinematic 2-up. A period-only comparison with no
 players needs no player cutouts. The other five lanes have no automatic
 player-cutout requirement. Player-asset alpha and final scene-export alpha are
 separate decisions.
@@ -216,8 +230,8 @@ reference gap until its canonical source is registered.
 
 For lane fit, pass reviewed requirements to
 `python3 scripts/lineups-templates.py fit <candidate.json>`. Include transcript
-evidence, visual purpose, supported counts, and comparison kind. Player
-compositing requires verified real alpha; team-logo and period comparisons do
+evidence, visual purpose, supported counts, and comparison kind. Simple and Full player
+compositing require verified real alpha; Cinematic 2-up requires full photos; team-logo and period comparisons do
 not need player cutouts. Multiple eligible looks require review. The resolver
 checks declared requirements; it does not infer or approve transcript meaning.
 
@@ -294,8 +308,10 @@ The manifest records the approved Figma source revision and at least two hashed
 1920 x 1080 proof frames. Both values must match the Figma-to-export and
 export-to-Premiere receipts. Asset Swap delivery uses artifact role
 `final-premiere-render` with background policy `football-visible-baked`.
-Premiere readback must match the exact sequence, clip, track, start, duration,
-and end values in the current manifest.
+Premiere readback must match the exact sequence, clip and track. Preserve live
+editorial trims and source In/Out in `premiere.editorialTiming`; verify these
+values separately from the canonical padded render. Do not reset live trims
+from an older manifest. Initial placement uses the verified transcript anchor.
 
 ## lifecycle
 
@@ -316,3 +332,5 @@ fresh screenshot of the source family and one 1920 x 1080 episode example.
 Check long names, maximum count, minimum count, image coverage, face visibility,
 equal spacing, text overflow, and setting replacement before promoting the next
 family.
+
+Runtime evidence follows [the Lineups template system](../../../../docs/lineups-template-system.md). Native motion readback must match the approved tracks. Scene generators emit pending plans and never enroll or approve a scene.

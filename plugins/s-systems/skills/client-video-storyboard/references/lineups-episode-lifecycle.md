@@ -28,6 +28,8 @@ ingest files
   -> create or update Asana task and due date
   -> file source media and packet in Eagle
   -> complete the Whisper word-level transcript
+  -> review the full transcript against all seven lanes; bind discoveryPath to its hash
+  -> select supported candidates without a scene quota
   -> run Manim timing validation and write the passed cue proof
   -> create the episode scene manifests with the validated Whisper/Manim timing
   -> generate and publish the locked Pre-Figma review
@@ -46,6 +48,8 @@ The timing order is a hard stop, not a suggestion:
 ```text
 source media
   -> Whisper word-level transcript
+  -> full-transcript seven-lane discovery with excerpts, outcomes and asset-search evidence
+  -> candidate selection and pacing
   -> Manim timing validation and cue proof
   -> scene manifest with the passed timing receipt
   -> generate and publish the Pre-Figma review page
@@ -167,3 +171,21 @@ remain in Eagle. Then remove only that episode's:
 Keep the Asana task, durable evidence receipts, this lifecycle, shared UI
 rules, generic gate code, framing tests, Figma source components, and all Eagle
 assets. Cleanup cannot remove another active episode.
+
+Discovery is a separate prerequisite: every lane must cover the complete current
+Whisper transcript and record candidates, rejected opportunities or a reasoned
+no-fit. Active review records and scene manifests carry `transcriptPath` and
+`discoveryPath`. Candidate reviews also bind `cueMapPath` and `timingProofPath`
+to the passed current receipt. Timing proof never substitutes for discovery.
+
+## review publication
+
+`localhost` is a QA address. Do not put it in the episode's review handoff as
+its published URL. Verify the hosted episode page, its evidence links and its
+entry on the hosted Decision Maps index before calling publication complete.
+Record the actual hosted review URL in Asana. Keep the durable local packet as
+the recovery source. When the checked-out index differs from production,
+prepare a scoped publication from the verified live source; do not deploy
+unrelated checkout changes. Follow the deployment skill's production gate.
+
+Runtime evidence and retry handling follow [the Lineups template system](../../../../../docs/lineups-template-system.md). A boolean timing flag cannot replace a current Manim receipt. Bind human approval to the scene and evidence revision.

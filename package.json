@@ -16,7 +16,7 @@
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
     "check:cerebral:hook-routing": "node scripts/check-cerebral-hook-routing.mjs",
     "check:storage-gate": "node --test scripts/developer-storage/storage-gate.test.mjs scripts/developer-storage/git-media-policy.test.mjs",
-    "check:lineups:enforcement": "node scripts/check-lineups-enforcement.mjs",
+    "check:lineups:enforcement": "node --test scripts/lineups-discovery.test.mjs && node scripts/check-lineups-enforcement.mjs",
     "check:745:visual": "node --test scripts/745-visual-contract.test.mjs",
     "check:lineups:framing": "node scripts/check-lineups-framing.test.mjs && node scripts/check-lineups-framing.mjs",
     "check:lineups:motion": "python3 -m unittest tools.lineups_motion.tests.test_cue_contract",
@@ -94,7 +94,8 @@
     "check:tells": "node scripts/check-tells.mjs",
     "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs",
     "check:lineups:templates": "node scripts/check-lineups-templates.mjs",
-    "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py"
+    "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py",
+    "check:lineups:discovery": "node --test scripts/lineups-discovery.test.mjs"
   },
   "dependencies": {
     "@annotorious/annotorious": "3.9.4",

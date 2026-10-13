@@ -18,7 +18,10 @@ implementation notes.
 ### 1. quick action photo
 
 Use for an ordinary player or team mention with no data that changes the
-argument. Stay on Mark when a photo adds no value.
+argument. Stay on Mark when a photo adds no value. Requested default: 4.5 seconds.
+Record requested seconds separately from actual frame-rounded duration. Use
+nearest-half-up: 113 frames at 25 fps is 4.52 seconds. Render padding remains
+separate; this default does not shorten other lanes.
 
 ### 2. quick stat
 
@@ -77,8 +80,15 @@ Show them only when the transcript supplies a true like-for-like comparison.
 Leave the fields blank when the comparison is conceptual. Do not fill empty
 space with jersey numbers, years, or unrelated values.
 
-Player assets for every Comparison option follow the alpha-player workflow
-below. A period-only comparison with no players needs no player cutouts.
+Cinematic 2-up always uses full photos with original backgrounds. Both photos
+are visible together from the opening visual frame. Never delay the second
+photo until its spoken mention. Shared motion may move both photos together;
+text cues may follow speech. Keep the established top-left title position.
+Never suggest alpha cutouts or Alpha/Asset Swap for this option. Lamar/Huntley,
+Mahomes/Purdy and Pacheco/Walker use this same rule.
+
+Simple and Full player comparisons follow the alpha-player workflow below.
+A period-only comparison with no players needs no player cutouts.
 
 ### 5. year-by-year
 
@@ -151,9 +161,9 @@ keep their photos. Asset Swap keeps its football-visible Field Night background.
 
 ## alpha player assets and scene exports
 
-Asset Swap and Comparison are the two lanes that require real-alpha player
-assets for player compositing. Comparison includes Cinematic 2-up, Simple, and
-Full with two, three, or four subjects. Alpha belongs to the replaceable player
+Asset Swap, Simple comparison and Full comparison require real-alpha player
+assets for player compositing. Cinematic 2-up uses full photos with original
+backgrounds and never uses player cutouts. Alpha belongs to the replaceable player
 asset; it does not make the complete scene a transparent export.
 
 Search Eagle for a suitable existing player cutout first. If one is unavailable,
@@ -171,6 +181,31 @@ Export complete motion scenes with their approved backgrounds included.
 Keeping background and artwork as separate editable Figma layers does not
 require separate transparent artwork exports. Export a transparent overlay only
 when Jerami explicitly requests that deliverable.
+
+## full-transcript discovery
+
+After obvious rankings and Quick Action opportunities, attempt the complete
+transcript against all seven lanes before pacing or scene selection. Record
+supported candidates, rejected possibilities with reasons, or genuine no-fit
+outcomes. No scene quota creates filler. Missing assets remain explicit search
+work; lack of an asset does not erase a supported passage.
+
+The ledger records `schemaVersion: 1`, `episodeId`, the exact transcript file's
+`transcriptSha256`, `fullTranscriptReviewed: true`, and seven `lanes` rows. Each
+row records `lane`, all zero-based Whisper `reviewedSegmentIds` in source order,
+and `findings`. Every finding records `outcome` and `reason`. Candidates and
+rejections also record contiguous `segmentIds`, an actual `excerpt`, and `start`
+and `end` in seconds within those segments. Candidates record `assetSearch`
+with `status` (`needed`, `verified`, or `not-required`) and `evidence` naming
+search work or source IDs. A no-fit row explains the lack of transcript support.
+
+Bind `discoveryPath` and `transcriptPath` in the review-stage registry. Bind
+`discoveryPath` and `timing.transcriptPath` in scene manifests. Run
+`npm run check:lineups:framing` before advancing the review. Scoped mutation and
+review-export preflight consume the same ledger. Missing, incomplete or stale
+evidence blocks progression. Timing proof cannot satisfy discovery. These
+checks establish structure, excerpts, coverage and freshness; human review
+judges editorial reasoning.
 
 ## automatic routing
 
@@ -292,8 +327,11 @@ Before placement, inspect a fresh 1920 x 1080 screenshot and confirm:
 - the photo is relevant and is not repeated nearby;
 - no source note, unexplained wash, or unapproved background appears;
 - all episode values and art can be replaced without rebuilding the design.
-- Asset Swap and Comparison player assets have real alpha and clean edges.
+- Asset Swap, Simple and Full comparison player assets have real alpha and clean edges.
+- Cinematic 2-up has both full photos visible at the opening and the top-left title.
 - Asset Swap inherits the guarded background, geometry, layer order, crop
   roles, and motion from the approved component.
 
 Premiere placement waits until this gate passes.
+
+Runtime evidence and retry handling follow [the Lineups template system](../../../../../docs/lineups-template-system.md). A boolean timing flag cannot replace a current Manim receipt. Bind human approval to the scene and evidence revision.

@@ -4,6 +4,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from fractions import Fraction
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "config/lineups/template-registry.json"
@@ -12,6 +13,16 @@ CALLOUT_PATH = ROOT / "config/lineups/callout-contract.json"
 
 class TemplateError(ValueError):
     pass
+
+
+def quick_action_duration(frame_rate):
+    fps = Fraction(frame_rate['numerator'], frame_rate['denominator'])
+    if fps <= 0:
+        raise TemplateError('Quick Action frame rate must be positive')
+    count = Fraction(9, 2) * fps + Fraction(1, 2)
+    frames = count.numerator // count.denominator
+    return {'requestedDurationSeconds': 4.5, 'durationFrames': frames,
+            'actualDurationSeconds': float(frames / fps), 'rounding': 'nearest-half-up'}
 
 
 def load_registry():
@@ -77,10 +88,8 @@ def eligible(candidate, registry=None):
         return {"status": "needs-review", "reason": "Missing capacity setting: " + ", ".join(requirements), "templates": []}
     if purpose == "cast" and (type(candidate["subjects"]) is not int or not 1 <= candidate["subjects"] <= 4):
         return {"status": "reference-gap", "reason": "Asset Swap supports 1 to 4 subjects.", "templates": []}
-    player_slots = purpose == "cast" or (purpose == "comparison" and candidate["comparisonKind"] == "players")
-    if player_slots and candidate.get("realAlpha") is not True:
-        return {"status": "asset-blocked", "reason": "Player compositing requires verified real alpha.", "templates": []}
     matches = []
+    asset_blocked = False
     for row in registry["templates"]:
         if row["lane"] != lanes[purpose]:
             continue
@@ -93,11 +102,51 @@ def eligible(candidate, registry=None):
             continue
         if any(candidate.get(key) != value for key, value in row["settings"].items()):
             continue
+        if row['option'] == 'Cinematic 2-up':
+            if (candidate.get('assetTreatment') != 'full-photo' or candidate.get('originalBackgrounds') is not True
+                    or candidate.get('openingTogether') is not True or candidate.get('titlePosition') != 'top-left'):
+                asset_blocked = True
+                continue
+        elif (purpose == 'cast' or (purpose == 'comparison' and candidate['comparisonKind'] == 'players')) and candidate.get('realAlpha') is not True:
+            asset_blocked = True
+            continue
         matches.append(row["key"])
+    if not matches and asset_blocked:
+        return {'status': 'asset-blocked', 'reason': 'Cinematic 2-up requires full photos with original backgrounds together at frame zero and the top-left title. Player compositing in other options requires real alpha.', 'templates': []}
     return {"status": "eligible" if len(matches) == 1 else "needs-review" if matches else "reference-gap",
             "reason": "Fits the registered capacity." if len(matches) == 1 else
                       "Choose between the eligible approved looks." if matches else "No registered approved source fits these requirements.",
             "templates": matches}
+
+
+def validate_cinematic(manifest, readback=None):
+    if manifest.get('scene', {}).get('approvedOption') != 'Cinematic 2-up':
+        return
+    layout = manifest.get('figma', {}).get('cinematic2Up') or {}
+    photos = layout.get('photos') or []
+    if layout.get('titlePosition') != 'top-left' or len(photos) != 2:
+        raise TemplateError('Cinematic 2-up requires 2 full photos with original backgrounds and the top-left title')
+    if (len({p.get('nodeId') for p in photos}) != 2 or len({p.get('sourceId') for p in photos}) != 2
+            or len({p.get('imageHash') for p in photos}) != 2):
+        raise TemplateError('Cinematic 2-up requires distinct source photos, node IDs and image hashes')
+    for photo in photos:
+        if (not photo.get('nodeId') or not photo.get('sourceId') or not photo.get('imageHash')
+                or photo.get('assetTreatment') != 'full-photo' or photo.get('originalBackground') is not True
+                or photo.get('visibleFrom') != 0):
+            raise TemplateError('Cinematic 2-up requires full photos visible together from frame zero')
+        bounds = photo.get('openingBounds') or {}
+        if any(type(bounds.get(k)) not in (int, float) or not math.isfinite(bounds[k]) for k in ('x', 'y', 'width', 'height')):
+            raise TemplateError('Cinematic opening visibility requires measured photo bounds')
+        if bounds['width'] <= 0 or bounds['height'] <= 0 or bounds['x'] >= 1920 or bounds['y'] >= 1080 or bounds['x'] + bounds['width'] <= 0 or bounds['y'] + bounds['height'] <= 0:
+            raise TemplateError('Cinematic photos must both intersect the opening frame')
+        for track in manifest.get('figma', {}).get('motionTracks', []):
+            if track.get('nodeId') != photo['nodeId'] or track.get('property') != 'opacity':
+                continue
+            frames = track.get('keyframes') or []
+            if not frames or frames[0].get('time') != 0 or any(type(f.get('value')) not in (int, float) or f['value'] <= 0 for f in frames):
+                raise TemplateError('Cinematic photos cannot have delayed or hidden opacity reveals')
+    if readback is not None and readback.get('cinematic2Up') != layout:
+        raise TemplateError('Cinematic readback must confirm full photos, opening visibility and top-left title')
 
 
 def validate_callout(readback, contract=None, source=False, fit_override=None):

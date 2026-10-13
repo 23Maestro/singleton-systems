@@ -2,6 +2,7 @@
 """Fail-closed gates for an enrolled Catena Media Lineups scene."""
 
 import hashlib
+import importlib.util
 import json
 import math
 import os
@@ -14,8 +15,12 @@ if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
 from tools.lineups_motion import CueContract, CueContractError
+from tools.lineups_motion.discovery import validate_discovery, validate_scene_discovery
+from tools.lineups_motion.timing_evidence import validate_timing_receipt
+from tools.lineups_motion.assets import validate_alpha_assets
+from tools.lineups_motion.media_evidence import validate_media
 from tools.lineups_motion.templates import (
-    validate_callout, validate_manifest_binding, validate_manifest_readback,
+    validate_callout, validate_manifest_binding, validate_manifest_readback, validate_cinematic, quick_action_duration,
 )
 
 
@@ -393,20 +398,35 @@ def validate_focal_asset_readback(manifest, tool_response):
 
 
 def premiere_clip_readback(tool_response, premiere):
+    clip_id = premiere.get('timelineClipId')
+    if not clip_id or str(clip_id).startswith('pending'):
+        return None
+    matches = []
     for container in response_objects(tool_response):
-        if container.get("sequenceId") != premiere["sequenceId"]:
+        if container.get("sequenceId") == premiere['sequenceId']:
+            candidates = container.get('clips', [])
+            if container.get('clipId') == clip_id:
+                candidates = [container]
+            matches.extend(candidate for candidate in candidates if candidate.get('clipId') == clip_id)
+        if container.get('id') != premiere['sequenceId'] or not isinstance(container.get('videoTracks'), list):
             continue
-        for candidate in response_objects(container):
-            if candidate.get("clipId") == premiere["timelineClipId"]:
-                return candidate
-    return None
+        for index, track in enumerate(container['videoTracks']):
+            for candidate in track.get('clips', []):
+                if candidate.get('nodeId') == clip_id:
+                    start = finite_number(candidate.get('start'), 'Premiere clip start')
+                    end = finite_number(candidate.get('end'), 'Premiere clip end')
+                    matches.append({**candidate, 'clipId': clip_id, 'trackIndex': track.get('index', index),
+                                    'startTime': start, 'endTime': end, 'duration': end - start,
+                                    'sourceIn': candidate.get('inPoint'), 'sourceOut': candidate.get('outPoint')})
+    if len(matches) != 1:
+        return None
+    return matches[0]
 
 
 def figma_scene_readback(tool_response, figma):
     expected_node_type = "INSTANCE" if figma.get("episodeUsesInstance") is True else "FRAME"
     pending_root = str(figma.get("rootNodeId") or "").startswith("pending:")
-    return next(
-        (
+    matches = [
             item
             for item in response_objects(tool_response)
             if (
@@ -419,9 +439,8 @@ def figma_scene_readback(tool_response, figma):
                 or item.get("episodeInstanceId") == figma["episodeInstanceId"]
             )
             and item.get("nodeType") == expected_node_type
-        ),
-        None,
-    )
+    ]
+    return matches[0] if len(matches) == 1 else None
 
 
 def validate_manifest(manifest, require_export=False):
@@ -437,11 +456,16 @@ def validate_manifest(manifest, require_export=False):
     option = required(manifest, "scene.approvedOption")
     if lane not in APPROVED_OPTIONS or option not in APPROVED_OPTIONS[lane]:
         raise EnforcementError(f"{option!r} is not an approved option for the {lane!r} lane")
+    if lane == 'comparison' and option != 'Cinematic 2-up' and manifest['scene'].get('comparisonKind') not in {'players', 'teams', 'periods'}:
+        raise EnforcementError('comparison treatment must declare players, teams or periods before asset requirements')
     for field in ("episodeId", "sceneId", "setting"):
         if not required(manifest, f"scene.{field}"):
             raise EnforcementError(f"scene.{field} cannot be empty")
 
     validate_data_background(manifest)
+    validate_cinematic(manifest)
+    if lane == 'quick action photo' and manifest['scene'].get('editorialDuration') != quick_action_duration(required(manifest, 'motion.frameRate')):
+        raise EnforcementError('Quick Action Photo requires requested 4.5 seconds and separate actual frame-rounded duration using nearest-half-up')
 
     figma = manifest.get("figma") or {}
     uses_instance = required(manifest, "figma.episodeUsesInstance")
@@ -468,6 +492,9 @@ def validate_manifest(manifest, require_export=False):
             raise EnforcementError("asset swap subjectCount must be an integer from 1 to 4")
         if not isinstance(asset_ledger, list) or not asset_ledger:
             raise EnforcementError("asset swap scenes require the episode asset ledger")
+    if asset_ledger is not None:
+        if not isinstance(asset_ledger, list):
+            raise EnforcementError('episode asset ledger must be a list')
         source_ids = set()
         image_hashes = set()
         for entry in asset_ledger:
@@ -590,17 +617,7 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError("the final state must remain visible with no exit animation")
 
     try:
-        contract = CueContract(manifest)
-        from manim import config as manim_config
-        manim_config.pixel_width = contract.pixel_width
-        manim_config.pixel_height = contract.pixel_height
-        manim_config.frame_rate = float(contract.frame_rate)
-        if (
-            manim_config.pixel_width != 1920
-            or manim_config.pixel_height != 1080
-            or not values_match(float(manim_config.frame_rate), numerator / denominator)
-        ):
-            raise EnforcementError("Manim did not accept the manifest dimensions and rational frame rate")
+        CueContract(manifest)
     except CueContractError as error:
         raise EnforcementError(f"Manim timing gate rejected the cue contract: {error}") from error
 
@@ -670,6 +687,12 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError("Premiere duration must equal the approved render duration")
     if not values_match(approved_end, anchor + approved_duration):
         raise EnforcementError("Premiere end time must equal start time plus duration")
+    editorial = (manifest.get('premiere') or {}).get('editorialTiming')
+    if editorial is not None:
+        start, duration, end, source_in, source_out = [finite_number(editorial.get(key), f'editorialTiming.{key}') for key in ('startTime', 'duration', 'endTime', 'sourceIn', 'sourceOut')]
+        if (start < 0 or duration <= 0 or source_in < 0 or source_out > padded_end + TIMING_EPSILON
+                or not values_match(end, start + duration) or not values_match(source_out - source_in, duration)):
+            raise EnforcementError('editorial trims must preserve source In/Out within the padded render without retiming')
 
     review = required(manifest, "review")
     if review.get("status") != "approved" or review.get("reviewer") != "Jerami":
@@ -712,6 +735,28 @@ def manifest_hash(manifest):
 
 def receipt_path(directory, scene_id, stage):
     return directory / f"{scene_id}.{stage}.receipt.json"
+
+
+def reserve_attempt(directory, manifest, stage, tool_input):
+    # An uncertain mutation stays reserved across tool crashes and manifest edits.
+    # Recovery reads existing media/clip IDs and reconciles; it never blindly replays.
+    identity = sha256_value([manifest['scene']['episodeId'], manifest['scene']['sceneId'], stage])
+    directory.mkdir(parents=True, exist_ok=True)
+    intent = directory / f"{identity}.{stage}.intent.json"
+    completed = receipt_path(directory, manifest['scene']['sceneId'], stage)
+    if completed.exists():
+        receipt = read_json(completed, f"{stage} existing receipt")
+        if receipt.get('episodeId') == manifest['scene']['episodeId'] and receipt.get('status') == 'passed':
+            raise EnforcementError(f'{stage} already completed; use readback to reconcile the existing item or clip')
+    try:
+        with intent.open('x', encoding='utf-8') as handle:
+            json.dump({'episodeId': manifest['scene']['episodeId'], 'sceneId': manifest['scene']['sceneId'],
+                       'stage': stage, 'manifestSha256': manifest_hash(manifest),
+                       'inputSha256': sha256_value(tool_input), 'status': 'attempted'}, handle)
+            handle.flush()
+            os.fsync(handle.fileno())
+    except FileExistsError as error:
+        raise EnforcementError(f'{stage} already attempted; use live readback before any retry to prevent duplicates') from error
 
 
 def load_receipt(root, manifest, directory, stage, previous_stage=None, require_artifact=False):
@@ -757,11 +802,23 @@ def load_receipt(root, manifest, directory, stage, previous_stage=None, require_
         expected = required(manifest, "export.fileSha256")
         if actual_artifact_hash != expected or receipt.get("artifactSha256") != expected:
             raise EnforcementError("exported render hash does not match the manifest and receipt")
+        validate_media(root, manifest)
     return receipt
 
 
 def response_text(payload):
     return json.dumps(payload.get("tool_response"), sort_keys=True, ensure_ascii=False)
+
+
+def validate_tool_response(response):
+    objects = list(response_objects(response))
+    if not objects:
+        raise EnforcementError("the tool response is missing or malformed")
+    for item in objects:
+        if (item.get("isError") is True or ("success" in item and item["success"] is not True)
+                or str(item.get("status", "")).lower() in {"failed", "error", "cancelled"}
+                or item.get("error") not in (None, "", False)):
+            raise EnforcementError("the tool response reports an error; recover live state before retrying")
 
 
 def input_path_matches(root, manifest, tool_input):
@@ -778,13 +835,11 @@ def is_scoped(root, manifest, tool_name, tool_input, payload=None):
         premiere.get("projectItemId"), premiere.get("timelineClipId"), premiere.get("sequenceId"),
     } - {None, ""}
     if tool_name == "mcp__codex_apps__figma_weave_run_tool":
-        return True
+        return tool_input.get("fileKey") == figma.get("fileKey")
     if tool_name in FIGMA_MUTATIONS or tool_name == FIGMA_EXPORT:
         return tool_input.get("fileKey") == figma.get("fileKey")
     if tool_name == PREMIERE_IMPORT:
         return input_path_matches(root, manifest, tool_input)
-    if tool_name in PREMIERE_DESTRUCTIVE:
-        return True
     if tool_name in PREMIERE_READBACK and payload is not None:
         input_identifiers = {
             tool_input.get("projectItemId"),
@@ -807,6 +862,8 @@ def is_scoped(root, manifest, tool_name, tool_input, payload=None):
         tool_input.get("clipId2"),
         tool_input.get("sequenceId"),
     }
+    identifiers.update(tool_input.get("projectItemIds") or [])
+    identifiers.update(tool_input.get("clipIds") or [])
     return bool(identifiers & premiere_identifiers)
 
 
@@ -820,6 +877,24 @@ def post_block(reason):
 
 def post_context(message):
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": message}}))
+
+
+def registered_readback(tool_name, tool_input, manifest=None):
+    if tool_name != 'mcp__codex_apps__figma_use_figma' or tool_input.get('fileKey') != LINEUPS_FIGMA_FILE_KEY:
+        return False
+    spec = importlib.util.spec_from_file_location('lineups_templates', SOURCE_ROOT / 'scripts/lineups-templates.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    registry, callout = module.load_registry(), module.load_callout_contract()
+    bindings = [{'sceneId': 'canonical-callout', 'rootNodeId': callout['source']['componentId'],
+                 'roleNodeIds': callout['source']['roleNodeIds']}]
+    codes = [module.collector_code(registry['componentsPageId'], bindings, sources=True)]
+    if manifest and manifest.get('figma', {}).get('templateBinding'):
+        figma = manifest['figma']
+        codes.append(module.collector_code(figma['pageId'], [{'sceneId': manifest['scene']['sceneId'],
+            'rootNodeId': figma['rootNodeId'], 'roleNodeIds': figma['templateBinding']['roleNodeIds']}]))
+    return (tool_input.get('code') in codes and tool_input.get('skillNames') == 'figma-use'
+            and set(tool_input) <= {'code', 'description', 'fileKey', 'skillNames'})
 
 
 def review_export_roster(root, manifest):
@@ -872,16 +947,16 @@ def review_export_roster(root, manifest):
     return roster
 
 
-def review_export_preflight(roster, tool_input):
+def review_export_preflight(roster, tool_input, manifest):
     if tool_input.get("fileKey") != roster["fileKey"]:
         raise EnforcementError("review export uses the wrong Figma file")
     node_id, job_id = tool_input.get("nodeId"), tool_input.get("jobId")
     if bool(node_id) == bool(job_id):
         raise EnforcementError("review export requires one scene node or one polling job")
     if job_id:
-        if not isinstance(job_id, str) or len(job_id) < 8:
-            raise EnforcementError("review export polling job ID is invalid")
         return
+    if node_id != manifest['figma']['rootNodeId']:
+        raise EnforcementError('review export must enroll and approve the exact scene node before export')
     if node_id not in {item["nodeId"] for item in roster["scenes"]}:
         raise EnforcementError("review export node is not in the approved episode roster")
     if tool_input.get("fps") != roster["fps"] or tool_input.get("quality") != "high":
@@ -892,8 +967,11 @@ def review_export_preflight(roster, tool_input):
 
 
 def preflight(root, manifest, directory, tool_name, tool_input):
-    require_export = tool_name != "mcp__codex_apps__figma_use_figma"
+    validate_scene_discovery(root, manifest)
+    require_export = tool_name not in {"mcp__codex_apps__figma_use_figma", FIGMA_EXPORT}
     validate_manifest(manifest, require_export=require_export)
+    validate_alpha_assets(root, manifest)
+    validate_timing_receipt(root, manifest)
     figma = manifest["figma"]
     timing = manifest["timing"]
     premiere = manifest["premiere"]
@@ -907,14 +985,22 @@ def preflight(root, manifest, directory, tool_name, tool_input):
             raise EnforcementError("Figma mutation input does not match the approved transaction hash")
         return
     if tool_name == FIGMA_EXPORT:
+        if bool(tool_input.get('nodeId')) == bool(tool_input.get('jobId')):
+            raise EnforcementError('export requires exactly one scene node or one bound polling job')
         if tool_input.get("nodeId") and tool_input.get("nodeId") != figma["rootNodeId"]:
             raise EnforcementError("export must target the manifest root node")
         load_receipt(root, manifest, directory, "figma-to-export")
+        if tool_input.get('jobId'):
+            job = read_json(directory / f"{sha256_value(tool_input['jobId'])}.figma-export.job.json", 'bound export job')
+            if job != {'jobId': tool_input['jobId'], 'episodeId': manifest['scene']['episodeId'],
+                       'sceneId': manifest['scene']['sceneId'], 'manifestSha256': manifest_hash(manifest)}:
+                raise EnforcementError('export polling job belongs to a different scene, version or evidence')
         return
     if tool_name == PREMIERE_IMPORT:
         if tool_input.get("binName") != "06 Motion Renders":
             raise EnforcementError("Premiere import must target the 06 Motion Renders bin")
         load_receipt(root, manifest, directory, "export-to-premiere", "figma-to-export", require_artifact=True)
+        reserve_attempt(directory, manifest, "premiere-import", tool_input)
         return
     if tool_name in PREMIERE_TRANSITIONS and not policy["transitionsApproved"]:
         raise EnforcementError("Premiere transitions are not approved for this scene")
@@ -935,8 +1021,17 @@ def preflight(root, manifest, directory, tool_name, tool_input):
                 raise EnforcementError("timeline placement uses the wrong sequence or track")
             if abs(finite_number(tool_input.get("time"), "timeline placement time") - timing["verifiedAnchorTimestamp"]) > 0.001:
                 raise EnforcementError("timeline placement must start at the verified transcript anchor")
+            reserve_attempt(directory, manifest, "premiere-placement", tool_input)
             return
         load_receipt(root, manifest, directory, "premiere-placement", "premiere-import")
+        editorial = premiere.get("editorialTiming")
+        if editorial:
+            fields = {"newTime": "startTime", "time": "startTime", "startTime": "startTime",
+                      "duration": "duration", "endTime": "endTime", "inPoint": "sourceIn",
+                      "outPoint": "sourceOut", "sourceIn": "sourceIn", "sourceOut": "sourceOut"}
+            for key, expected_key in fields.items():
+                if key in tool_input and not values_match(finite_number(tool_input[key], key), editorial[expected_key]):
+                    raise EnforcementError("mutation would reset approved live editorial trims or source In/Out")
         movement_time = tool_input.get("newTime", tool_input.get("time"))
         if movement_time is not None and finite_number(movement_time, "movement time") + 0.001 < timing["verifiedAnchorTimestamp"]:
             raise EnforcementError("the clip cannot move before the verified transcript anchor")
@@ -945,11 +1040,10 @@ def preflight(root, manifest, directory, tool_name, tool_input):
 
 
 def postflight(root, manifest, directory, tool_name, payload):
-    validate_manifest(manifest, require_export=tool_name != "mcp__codex_apps__figma_use_figma")
-    response = response_text(payload)
-    lowered = response.lower()
-    if '"iserror": true' in lowered or '"status": "failed"' in lowered or '"error"' in lowered and '"error": null' not in lowered:
-        raise EnforcementError("the tool response reports an error")
+    validate_manifest(manifest, require_export=tool_name not in {"mcp__codex_apps__figma_use_figma", FIGMA_EXPORT})
+    validate_alpha_assets(root, manifest)
+    validate_timing_receipt(root, manifest)
+    validate_tool_response(payload.get("tool_response"))
     figma = manifest["figma"]
     premiere = manifest["premiere"]
 
@@ -959,43 +1053,92 @@ def postflight(root, manifest, directory, tool_name, payload):
             raise EnforcementError("Figma readback did not confirm the root, source component, and episode instance")
         if scene_readback.get("sourceRevision") != figma["sourceRevision"]:
             raise EnforcementError("Figma readback did not confirm the current approved source revision")
+        if scene_readback.get("rootDimensions") != figma["rootDimensions"]:
+            raise EnforcementError("Figma readback is missing the actual approved scene dimensions")
+        actual_tracks = scene_readback.get("motionTracks")
+        if not isinstance(actual_tracks, list) or not actual_tracks:
+            raise EnforcementError("Figma readback is missing measured motion tracks on the matching scene")
+        def track_key(track):
+            node_id = track.get('nodeId')
+            planned = track.get('plannedNodeId')
+            if planned and planned.startswith(manifest['scene']['sceneId'] + '/') and node_id:
+                node_id = planned
+            return (node_id, track.get("property"), track.get("cueId"))
+        actual_by_key = {track_key(track): track for track in actual_tracks}
+        expected_by_key = {track_key(track): track for track in figma["motionTracks"]}
+        if len(actual_by_key) != len(actual_tracks) or set(actual_by_key) != set(expected_by_key):
+            raise EnforcementError("Figma readback motion track identities differ from the approved scene")
+        for key, expected in expected_by_key.items():
+            actual = actual_by_key[key]
+            if actual.get("duration") != expected["duration"] or actual.get("keyframes") != expected["keyframes"]:
+                raise EnforcementError("Figma readback motion keyframes or duration differ from the approved scene")
+        validate_cinematic(manifest, scene_readback)
         if figma.get("templateBinding"):
             validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
             validate_callout(scene_readback.get("sourceCallout") or {}, source=True)
-        if is_data_driven(manifest) and figma["background"] not in list(response_backgrounds(payload.get("tool_response"))):
+        if is_data_driven(manifest) and scene_readback.get("background") != figma["background"]:
             raise EnforcementError("Figma readback did not confirm the locked no-football background and separate artwork")
         if is_rank_reveal(manifest):
-            returned_contract = next(
-                (
-                    item.get("rankReveal")
-                    for item in response_objects(payload.get("tool_response"))
-                    if isinstance(item.get("rankReveal"), dict)
-                ),
-                None,
-            )
+            returned_contract = scene_readback.get("rankReveal")
             if returned_contract != figma["rankReveal"]:
                 raise EnforcementError("Figma readback did not confirm the canonical source, normalized logos, and cumulative Rank Reveal state")
-        validate_focal_asset_readback(manifest, payload.get("tool_response"))
+        validate_focal_asset_readback(manifest, scene_readback)
         post_context("Lineups Figma mutation readback passed. Export still requires a current figma-to-export receipt.")
         return
     if tool_name == FIGMA_EXPORT:
-        if "processing" not in lowered and "download" not in lowered and ".mp4" not in lowered:
-            raise EnforcementError("Figma export response has no render job or MP4 result")
+        objects = list(response_objects(payload.get('tool_response')))
+        jobs = {item['jobId'] for item in objects if isinstance(item.get('jobId'), str) and item.get('status') in {'processing', 'completed'}}
+        downloads = [item.get('downloadUrl') or item.get('downloadPath') for item in objects]
+        if len(jobs) > 1 or (not jobs and not any(isinstance(url, str) and url for url in downloads)):
+            raise EnforcementError("Figma export response has no unique render job or MP4 result")
+        if jobs:
+            job_id = next(iter(jobs))
+            requested_job = payload['tool_input'].get('jobId')
+            if requested_job and requested_job != job_id:
+                raise EnforcementError('export polling response identifies a different render job')
+            if not requested_job and payload['tool_input'].get('nodeId') != figma['rootNodeId']:
+                raise EnforcementError('export job did not originate from the approved scene node')
+            directory.mkdir(parents=True, exist_ok=True)
+            job_record = {'jobId': job_id, 'episodeId': manifest['scene']['episodeId'],
+                          'sceneId': manifest['scene']['sceneId'], 'manifestSha256': manifest_hash(manifest)}
+            job_path = directory / f'{sha256_value(job_id)}.figma-export.job.json'
+            if job_path.exists() and read_json(job_path, 'bound export job') != job_record:
+                raise EnforcementError('export job cannot be rebound to changed scene evidence')
+            with job_path.open('w', encoding='utf-8') as handle:
+                json.dump(job_record, handle)
         post_context("Lineups export response passed. Premiere import remains blocked until the file hash, motion proof, Eagle ownership, and export-to-premiere receipt pass.")
         return
     if tool_name == PREMIERE_IMPORT:
-        if premiere["projectItemId"] not in response:
+        expected_id = premiere.get('projectItemId')
+        if not expected_id or str(expected_id).startswith('pending'):
+            ids = {item.get('projectItemId') for item in response_objects(payload.get('tool_response')) if item.get('projectItemId')}
+            if len(ids) != 1:
+                raise EnforcementError('import may have succeeded; recover its project item by media-path readback before retrying')
+            post_context(f'Lineups import returned {next(iter(ids))}. Bind this ID after readback; verify move, label, name and treePath before placement. Do not repeat the import.')
+            return
+        if not any(item.get("projectItemId") == expected_id for item in response_objects(payload.get("tool_response"))):
             raise EnforcementError("Premiere import response did not return the expected project item ID")
         post_context("Lineups import returned the expected project item. Timeline placement still requires exact treePath and label readback plus a premiere-import receipt.")
         return
     if tool_name in {"mcp__premiere_pro__get_project_item_info", "mcp__premiere_pro__find_items_by_media_path"}:
-        for value, label in ((premiere["projectItemId"], "project item ID"), (premiere["treePath"], "treePath"), (premiere["labelReadback"], "label readback")):
-            if value not in response:
-                raise EnforcementError(f"Premiere import readback is missing the expected {label}")
+        matches = [item for item in response_objects(payload.get("tool_response"))
+                   if item.get("projectItemId", item.get("nodeId")) == premiere.get("projectItemId")]
+        if not any(item.get("treePath") == premiere["treePath"]
+                   and item.get("labelReadback", item.get("colorLabel")) == premiere["labelReadback"]
+                   and (not premiere.get("nameReadback") or item.get("name") == premiere["nameReadback"])
+                   for item in matches):
+            raise EnforcementError("Premiere import readback is missing the expected project item ID, treePath or label readback on the same item")
         post_context("Lineups Premiere import readback passed. Timeline placement still requires a current premiere-import receipt.")
         return
     if tool_name == "mcp__premiere_pro__add_to_timeline":
-        if premiere["timelineClipId"] not in response:
+        expected_id = premiere.get('timelineClipId')
+        if not expected_id or str(expected_id).startswith('pending'):
+            ids = {item.get('clipId') or item.get('nodeId') for item in response_objects(payload.get('tool_response')) if item.get('clipId') or item.get('nodeId')}
+            if len(ids) != 1:
+                raise EnforcementError('placement may have succeeded; recover the clip by sequence readback before retrying')
+            post_context(f'Lineups placement returned {next(iter(ids))}. Bind this ID after sequence readback. Preserve live trims and source In/Out. Do not repeat placement.')
+            return
+        if not any(item.get("clipId", item.get("nodeId")) == expected_id for item in response_objects(payload.get("tool_response"))):
             raise EnforcementError("timeline mutation did not return the expected clip ID")
         post_context("Lineups timeline mutation returned the expected clip. Completion still requires sequence readback and a premiere-placement receipt.")
         return
@@ -1006,13 +1149,18 @@ def postflight(root, manifest, directory, tool_name, payload):
         actual_start = finite_number(clip.get("startTime"), "Premiere clip startTime")
         actual_duration = finite_number(clip.get("duration"), "Premiere clip duration")
         actual_end = finite_number(clip.get("endTime"), "Premiere clip endTime")
+        expected = premiere.get('editorialTiming') or {'startTime': premiere['approvedStartTime'], 'duration': premiere['approvedDuration'], 'endTime': premiere['approvedEndTime']}
         if (
             clip.get("trackIndex") != premiere["trackIndex"]
-            or not values_match(actual_start, premiere["approvedStartTime"])
-            or not values_match(actual_duration, premiere["approvedDuration"])
-            or not values_match(actual_end, premiere["approvedEndTime"])
+            or not values_match(actual_start, expected['startTime'])
+            or not values_match(actual_duration, expected['duration'])
+            or not values_match(actual_end, expected['endTime'])
         ):
             raise EnforcementError("Premiere placement readback does not match the exact start, duration, end, and track")
+        if premiere.get('editorialTiming'):
+            for key in ('sourceIn', 'sourceOut'):
+                if not values_match(finite_number(clip.get(key), f'Premiere clip {key}'), expected[key]):
+                    raise EnforcementError('Premiere readback changed the live source In/Out')
         post_context("Lineups Premiere placement readback passed. Record the chained premiere-placement receipt before marking the scene complete.")
 
 
@@ -1023,6 +1171,23 @@ def main():
     event = payload.get("hook_event_name") or ""
     tool_name = str(payload.get("tool_name") or "")
     tool_input = payload.get("tool_input") or {}
+    try:
+        canonical_measurement = registered_readback(tool_name, tool_input)
+    except Exception as error:
+        if tool_input.get("fileKey") == LINEUPS_FIGMA_FILE_KEY:
+            if event == "PreToolUse":
+                deny(str(error))
+            elif event == "PostToolUse":
+                post_block(str(error))
+        return
+    if canonical_measurement:
+        if event == 'PostToolUse':
+            try:
+                validate_tool_response(payload.get('tool_response'))
+                post_context('Lineups source measurement returned. Validate the measured properties before binding or approving a scene.')
+            except EnforcementError as error:
+                post_block(str(error))
+        return
     if not manifest_path.exists():
         if (
             event == "PreToolUse"
@@ -1036,19 +1201,23 @@ def main():
         return
     try:
         manifest = read_json(manifest_path, "active Lineups manifest")
+        if registered_readback(tool_name, tool_input, manifest):
+            if event == 'PostToolUse':
+                validate_tool_response(payload.get('tool_response'))
+                post_context('Lineups callout measurement returned. Validate the measured properties before scene approval.')
+            return
         if not is_scoped(root, manifest, tool_name, tool_input, payload if event == "PostToolUse" else None):
             return
         if tool_name == FIGMA_EXPORT:
+            if event == 'PreToolUse':
+                validate_discovery(root, required(manifest, 'scene.episodeId'),
+                                   (manifest.get('timing') or {}).get('transcriptPath'), manifest.get('discoveryPath'))
             roster = review_export_roster(root, manifest)
             if roster is not None:
+                validate_manifest(manifest, require_export=False)
+                validate_timing_receipt(root, manifest)
                 if event == "PreToolUse":
-                    review_export_preflight(roster, tool_input)
-                elif event == "PostToolUse":
-                    response = response_text(payload).lower()
-                    if '"iserror": true' in response or '"error"' in response and '"error": null' not in response:
-                        raise EnforcementError("review export tool reported an error")
-                    post_context("Lineups review export returned. Inspect the MP4 and record proof before Premiere delivery.")
-                return
+                    review_export_preflight(roster, tool_input, manifest)
         directory = receipt_dir(root, manifest_path)
         if event == "PreToolUse":
             preflight(root, manifest, directory, tool_name, tool_input)
@@ -1062,4 +1231,8 @@ def main():
 
 
 if __name__ == "__main__":
+    if importlib.util.find_spec("manim") is None:
+        timing_python = Path.home() / ".pyenv/versions/3.12.3/bin/python3"
+        if timing_python.is_file() and timing_python.resolve() != Path(sys.executable).resolve():
+            os.execv(str(timing_python), [str(timing_python), *sys.argv])
     main()

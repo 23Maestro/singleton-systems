@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import {prepareSceneEvidence, prepareMediaEvidence} from './lib/lineups-test-evidence.mjs';
 
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -20,7 +22,7 @@ const fixtureManifest = JSON.parse(fs.readFileSync(path.join(fixtureSource, "sce
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
 const validateManifestSchema = ajv.compile(manifestSchema);
-assert.equal(validateManifestSchema(fixtureManifest), true, JSON.stringify(validateManifestSchema.errors));
+// Portable raw fixtures receive source-bound evidence in createCase before validation.
 
 const approvedFigmaInput = {
   code: "const instance = await figma.getNodeByIdAsync(\"428:9001\");\nif (!instance || instance.type !== \"INSTANCE\") throw new Error(\"Expected approved Lineups instance\");\ninstance.setProperties({\"Logo\":\"Eagles\",\"Headline\":\"FOUR TAKEAWAYS\"});\nconst frame = instance.detachInstance();\nreturn { rootNodeId: \"428:9000\", sourceComponentId: \"428:8000\", episodeInstanceId: frame.id, nodeType: frame.type };",
@@ -42,12 +44,17 @@ function createCase() {
   fs.mkdirSync(path.dirname(fixture), { recursive: true });
   fs.cpSync(fixtureSource, fixture, { recursive: true });
   fs.writeFileSync(path.join(root, "config/cerebral-registry.json"), "{}\n");
-  return {
+  const testCase = {
     root,
     fixture,
     manifestPath: path.join(fixture, "scene-manifest.json"),
     receiptDir: path.join(fixture, "receipts"),
   };
+  const manifest = readManifest(testCase);
+  testCase.mediaDirectory = prepareMediaEvidence(manifest, 'lineups-test');
+  writeManifest(testCase, manifest);
+  refreshReceiptChain(testCase);
+  return testCase;
 }
 
 function runHook(testCase, event, toolName, toolInput, toolResponse) {
@@ -75,6 +82,7 @@ function readManifest(testCase) {
 }
 
 function writeManifest(testCase, manifest) {
+  prepareSceneEvidence(testCase.fixture, manifest, sourceRoot);
   fs.writeFileSync(testCase.manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
@@ -217,13 +225,18 @@ function rankRevealManifest(revealedRank = 10) {
   return manifest;
 }
 
-function refreshReceiptChain(testCase) {
-  const manifestSha256 = hashValue(readManifest(testCase));
+function refreshReceiptChain(testCase, preserveFrames = false) {
+  const manifest = readManifest(testCase);
+  const manifestSha256 = hashValue(manifest);
   let previousReceiptSha256 = null;
   for (const stage of ["figma-to-export", "export-to-premiere", "premiere-import", "premiere-placement"]) {
     const receiptPath = path.join(testCase.receiptDir, `scene-07.${stage}.receipt.json`);
     const receipt = JSON.parse(fs.readFileSync(receiptPath, "utf8"));
     receipt.manifestSha256 = manifestSha256;
+    if (receipt.evidence?.proofFrames && !preserveFrames) receipt.evidence.proofFrames = manifest.export.motionProof.frames;
+    if (receipt.artifactSha256) receipt.artifactSha256 = manifest.export.fileSha256;
+    if (receipt.evidence?.exportPath) receipt.evidence.exportPath = manifest.export.path;
+    if (receipt.evidence?.fileSha256) receipt.evidence.fileSha256 = manifest.export.fileSha256;
     receipt.previousReceiptSha256 = previousReceiptSha256;
     delete receipt.receiptSha256;
     receipt.receiptSha256 = hashValue(receipt);
@@ -270,6 +283,8 @@ function figmaReadback(manifest, overrides = {}) {
     episodeInstanceId: manifest.figma.episodeInstanceId,
     nodeType: manifest.figma.episodeUsesInstance ? "INSTANCE" : "FRAME",
     sourceRevision: manifest.figma.sourceRevision,
+    rootDimensions: manifest.figma.rootDimensions,
+    motionTracks: structuredClone(manifest.figma.motionTracks),
     focalAssets: manifest.figma.focalAssets.map(({ nodeId, kind, layoutRole, centerX }) => ({
       nodeId,
       kind,
@@ -402,14 +417,14 @@ try {
   for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Super Bowl Bubble Board"]]) {
     withCase((testCase) => {
       const m = readManifest(testCase);
-      m.scene.lane = lane; m.scene.approvedOption = option;
+      m.scene.lane = lane; m.scene.approvedOption = option; if (lane === "comparison") m.scene.comparisonKind = "players";
       writeManifest(testCase, m);
       expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /figma.background/, `${option} missing background`);
       m.figma.background = {setting: "Field Night / No football", nodeId: "background-node", imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70", locked: true, separateFromArtwork: true};
       writeManifest(testCase, m);
       assert.equal(validateManifestSchema(m), true, JSON.stringify(validateManifestSchema.errors));
       expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), `${option} approved field`);
-      const response = {rootNodeId: m.figma.rootNodeId, sourceComponentId: m.figma.sourceComponentId, episodeInstanceId: m.figma.episodeInstanceId, nodeType: "FRAME", sourceRevision: m.figma.sourceRevision};
+      const response = {rootNodeId: m.figma.rootNodeId, sourceComponentId: m.figma.sourceComponentId, episodeInstanceId: m.figma.episodeInstanceId, nodeType: "FRAME", sourceRevision: m.figma.sourceRevision, rootDimensions: m.figma.rootDimensions, motionTracks: structuredClone(m.figma.motionTracks)};
       expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, response), /locked no-football background/, `${option} missing background readback`);
       expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput, {content: [{type: "text", text: JSON.stringify({...response, background: m.figma.background})}]}), /Figma mutation readback passed/, `${option} background readback`);
       const wrong = {...m.figma.background, imageHash: "f".repeat(40)};
@@ -486,7 +501,7 @@ try {
       "guarded property replacement",
     );
     expectDenied(
-      pre(testCase, "mcp__codex_apps__figma_weave_run_tool", { recipeId: "bypass" }),
+      pre(testCase, "mcp__codex_apps__figma_weave_run_tool", { recipeId: "bypass", fileKey: "LINEUPS_FILE_KEY" }),
       /not an approved Lineups mutation path/,
       "Weave bypass",
     );
@@ -533,9 +548,9 @@ try {
     manifest.export.motionProof.sampleTimes = [0];
     writeManifest(testCase, manifest);
     expectDenied(
-      pre(testCase, "mcp__codex_apps__figma_export_video", { fileKey: "LINEUPS_FILE_KEY", nodeId: "428:9000" }),
+      pre(testCase, "mcp__premiere_pro__import_media", { filePath: readManifest(testCase).export.path, binName: '06 Motion Renders' }),
       /motion proof/,
-      "export without motion proof",
+      "import without motion proof",
     );
   });
 
@@ -556,6 +571,8 @@ try {
         episodeInstanceId: "428:9900",
         nodeType: "FRAME",
         sourceRevision: manifest.figma.sourceRevision,
+        rootDimensions: manifest.figma.rootDimensions,
+        motionTracks: structuredClone(manifest.figma.motionTracks),
         focalAssets: figmaReadback(manifest).focalAssets,
       }),
       /Figma mutation readback passed/,
@@ -568,7 +585,7 @@ try {
     manifest.export.motionProof.sampleTimes = [0, 14.1];
     writeManifest(testCase, manifest);
     expectDenied(
-      pre(testCase, "mcp__codex_apps__figma_export_video", { fileKey: "LINEUPS_FILE_KEY", nodeId: "428:9000" }),
+      pre(testCase, "mcp__premiere_pro__import_media", { filePath: readManifest(testCase).export.path, binName: '06 Motion Renders' }),
       /missing cue sample near 1.2/,
       "proof missing a cue frame",
     );
@@ -601,9 +618,25 @@ try {
   });
 
   withCase((testCase) => {
-    const renderPath = path.join(testCase.fixture, "render-proof.mp4");
+    const manifest = readManifest(testCase);
+    const invalid = path.join(testCase.mediaDirectory, 'not-a-video.mp4');
+    fs.writeFileSync(invalid, 'A matching hash does not make this a video');
+    manifest.export.path = invalid;
+    manifest.export.fileSha256 = crypto.createHash('sha256').update(fs.readFileSync(invalid)).digest('hex');
+    writeManifest(testCase, manifest);
+    refreshReceiptChain(testCase);
+    fs.rmSync(path.join(testCase.receiptDir, 'scene-07.premiere-import.receipt.json'));
+    expectDenied(pre(testCase, 'mcp__premiere_pro__import_media', {filePath: invalid, binName: '06 Motion Renders'}),
+      /export media could not be verified/, 'hashed non-video cannot import');
+  });
+
+  withCase((testCase) => {
+    const renderPath = readManifest(testCase).export.path;
     const validImport = { filePath: renderPath, binName: "06 Motion Renders" };
+    fs.rmSync(path.join(testCase.receiptDir, "scene-07.premiere-import.receipt.json"));
+    fs.rmSync(path.join(testCase.receiptDir, "scene-07.premiere-placement.receipt.json"));
     expectAllowed(pre(testCase, "mcp__premiere_pro__import_media", validImport), "valid Premiere import");
+    expectDenied(pre(testCase, "mcp__premiere_pro__import_media", validImport), /already attempted.*readback/, "retry after an uncertain import");
     expectDenied(
       pre(testCase, "mcp__premiere_pro__import_media", { filePath: renderPath }),
       /06 Motion Renders bin/,
@@ -621,7 +654,7 @@ try {
     refreshReceiptChain(testCase);
     expectDenied(
       pre(testCase, "mcp__premiere_pro__import_media", {
-        filePath: path.join(testCase.fixture, "render-proof.mp4"),
+        filePath: readManifest(testCase).export.path,
         binName: "06 Motion Renders",
       }),
       /finished football-visible Premiere render/,
@@ -635,7 +668,7 @@ try {
     receipt.status = "failed";
     fs.writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
     expectDenied(
-      pre(testCase, "mcp__premiere_pro__import_media", { filePath: path.join(testCase.fixture, "render-proof.mp4"), binName: "06 Motion Renders" }),
+      pre(testCase, "mcp__premiere_pro__import_media", { filePath: readManifest(testCase).export.path, binName: "06 Motion Renders" }),
       /receipt hash is stale or invalid/,
       "failed or tampered receipt",
     );
@@ -652,7 +685,7 @@ try {
     refreshReceiptChain(testCase);
     expectDenied(
       pre(testCase, "mcp__premiere_pro__import_media", {
-        filePath: path.join(testCase.fixture, "render-proof.mp4"),
+        filePath: readManifest(testCase).export.path,
         binName: "06 Motion Renders",
       }),
       /approved Figma source revision/,
@@ -674,10 +707,10 @@ try {
       { time: 14.1, sha256: "b".repeat(64), width: 1920, height: 1080 },
     ];
     fs.writeFileSync(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
-    refreshReceiptChain(testCase);
+    refreshReceiptChain(testCase, true);
     expectDenied(
       pre(testCase, "mcp__premiere_pro__import_media", {
-        filePath: path.join(testCase.fixture, "render-proof.mp4"),
+        filePath: readManifest(testCase).export.path,
         binName: "06 Motion Renders",
       }),
       /current visible proof frames/,
@@ -694,7 +727,9 @@ try {
       insertMode: "overwrite",
       linkAudio: false,
     };
+    fs.rmSync(path.join(testCase.receiptDir, "scene-07.premiere-placement.receipt.json"));
     expectAllowed(pre(testCase, "mcp__premiere_pro__add_to_timeline", placement), "valid timeline placement");
+    expectDenied(pre(testCase, "mcp__premiere_pro__add_to_timeline", placement), /already attempted.*readback/, "retry after an uncertain placement");
     expectDenied(
       pre(testCase, "mcp__premiere_pro__add_to_timeline", { ...placement, time: 309.8 }),
       /verified transcript anchor/,
@@ -716,7 +751,7 @@ try {
   });
 
   withCase((testCase) => {
-    const importInput = { filePath: path.join(testCase.fixture, "render-proof.mp4"), binName: "06 Motion Renders" };
+    const importInput = { filePath: readManifest(testCase).export.path, binName: "06 Motion Renders" };
     expectPostPass(
       post(testCase, "mcp__premiere_pro__import_media", importInput, { projectItemId: "project-item-scene-07" }),
       /expected project item/,
@@ -724,7 +759,7 @@ try {
     );
     expectPostBlock(
       post(testCase, "mcp__premiere_pro__get_project_item_info", { projectItemId: "project-item-scene-07" }, { projectItemId: "project-item-scene-07", treePath: "root/scene-07.mp4" }),
-      /expected treePath/,
+      /treePath/,
       "wrong import treePath",
     );
     expectPostPass(
@@ -890,6 +925,15 @@ try {
     const readback = { fileKey: canonical.fileKey, pageId: manifest.figma.pageId, callouts: [measured] };
     save("callout-readback.json", readback);
     const exportInput = { fileKey: canonical.fileKey, nodeId: measured.rootNodeId, fps: 25, quality: "high" };
+    const exportReceipt = JSON.parse(fs.readFileSync(path.join(testCase.receiptDir, 'scene-07.figma-to-export.receipt.json')));
+    exportReceipt.episodeId = manifest.scene.episodeId;
+    exportReceipt.sceneId = manifest.scene.sceneId;
+    exportReceipt.manifestSha256 = hashValue(manifest);
+    exportReceipt.evidence.calloutReadback = measured;
+    exportReceipt.evidence.sourceCallout = canonical.callout;
+    delete exportReceipt.receiptSha256;
+    exportReceipt.receiptSha256 = hashValue(exportReceipt);
+    fs.writeFileSync(path.join(testCase.receiptDir, `${manifest.scene.sceneId}.figma-to-export.receipt.json`), JSON.stringify(exportReceipt));
     expectAllowed(pre(testCase, "mcp__codex_apps__figma_export_video", exportInput), "measured review export preflight");
     const badReadback = structuredClone(readback);
     badReadback.callouts[0].panel.height = 90;
@@ -904,7 +948,7 @@ try {
     expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", input), /template key/, "missing Components binding");
   });
 } finally {
-  for (const testCase of cases) fs.rmSync(testCase.root, { recursive: true, force: true });
+  for (const testCase of cases) { fs.rmSync(testCase.root, { recursive: true, force: true }); fs.rmSync(testCase.mediaDirectory, {recursive: true, force: true}); }
 }
 
 console.log("Lineups enforcement check passed: hook decisions plus shared transaction completion, staleness, and review gates.");

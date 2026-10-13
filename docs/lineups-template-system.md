@@ -29,8 +29,10 @@ The build order is:
 4. Create the episode copy and replace allowed content.
 5. Compare actual measurements against the source and inspect the finished frame.
 
-A team matchup with 2 records fits Simple comparison with team logos. A direct
-player comparison needs player art and verified alpha. An unclear passage
+A team matchup with 2 records fits Simple comparison with team logos. Simple and Full
+player comparison tables need verified alpha. Cinematic 2-up needs
+full photos with original backgrounds visible together from the opening frame
+and the established top-left title. An unclear passage
 returns a review reason and eligible choices. Missing capacity returns a
 reference gap.
 
@@ -52,3 +54,48 @@ Clear the environment override and remove the temporary active file when the
 scene finishes or work switches projects. Episode history never supplies the
 default binding. The no-enrollment guard still requires a scene manifest before
 mutating or exporting the shared Lineups Figma file.
+
+## Runtime evidence
+
+Discovery covers every Whisper segment in all seven lanes. Each selected scene
+must match one candidate in its lane and stay inside that source passage.
+Editorial fit and source meaning still need human review.
+
+Run `python3 -m tools.lineups_motion.timing_evidence --issue` with stdin JSON
+`{"root":"/absolute/repository","manifest":{...}}`. It checks actual Whisper
+word timestamps and runs Manim timing configuration. Save its JSON receipt as
+`timing.proofPath`. It creates no visuals and grants no approval. Pre-Figma
+candidate checks require this current receipt before review generation.
+
+Approval stores `review.approvedEvidenceSha256`, the SHA-256 of
+`tools.lineups_motion.timing_evidence.approval_state(manifest, receipt)` using
+that module's canonical JSON. Record it only after Jerami approves that scene,
+Figma version, timing receipt and Premiere intent. Evidence changes invalidate
+approval. Figma produces the visuals and must return measured motion tracks.
+The exact template measurement collector may run without scene enrollment.
+
+For Asset Swap and player comparison tables, each photo/cutout needs an
+`alphaProof` bound to its ledger slot: source ID, image hash, alpha and preserved
+original paths with SHA-256 hashes, and `edgesReviewedBy: "Jerami"`. Runtime
+checks file hashes and nonempty alpha pixels. Jerami reviews identity and edges.
+Cinematic 2-up uses full photos; the other lanes inherit no cutout requirement.
+
+Premiere import and placement reserve an intent before the call. An error or
+missing response leaves that intent in place. Recover existing item/clip IDs by
+live readback and reconcile receipts. Never delete an intent just to replay a
+mutation. Only a verified absence of the attempted mutation permits a deliberate
+retry. Keep receipt directories episode-specific.
+
+Review exports require the enrolled scene's receipt. Polling jobs bind the scene,
+manifest and evidence version. Render proof gates Premiere import; it cannot be
+required before producing the first export. Preserve approved editorial trims
+and source In/Out separately from padded composition duration.
+
+Before import, ffprobe verifies video dimensions, frame rate and padded duration.
+Each visible proof frame needs a `path`, file SHA-256 and matching decoded video
+pixels. These checks do not grant visual approval. Cue proof extraction uses
+verified HomeSSD storage under `CATENA_MEDIA/previews`.
+
+Both scene generators require `--config <episode timing JSON>`. They print a
+pending manifest and tool input without writing active enrollment. The rank
+inspector also prints its readback input without changing files or Components.

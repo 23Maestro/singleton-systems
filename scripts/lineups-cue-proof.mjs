@@ -48,6 +48,18 @@ const repoRelativeExport = path.resolve(root, manifest.export.path);
 const videoPath = fs.existsSync(repoRelativeExport) ? repoRelativeExport : exportPath;
 if (!fs.existsSync(videoPath)) fail(`Rendered video is missing: ${videoPath}`);
 
+const gate = spawnSync(process.execPath, [path.join(root, "scripts/developer-storage/storage-gate.mjs"),
+  "route", "--client", "CATENA_MEDIA", "--kind", "previews"], {encoding: "utf8"});
+if (gate.status !== 0) fail(`Lineups preview storage gate failed: ${gate.stderr || gate.error?.message}`);
+const previewRoot = fs.realpathSync(gate.stdout.trim());
+let ancestor = outputDirectory;
+const missingParts = [];
+while (!fs.existsSync(ancestor)) { missingParts.unshift(path.basename(ancestor)); ancestor = path.dirname(ancestor); }
+const physicalOutput = path.join(fs.realpathSync(ancestor), ...missingParts);
+const relativeOutput = path.relative(previewRoot, physicalOutput);
+if (relativeOutput.startsWith("..") || path.isAbsolute(relativeOutput)) {
+  fail(`Cue proof must use the external Catena preview directory: ${previewRoot}`);
+}
 fs.mkdirSync(outputDirectory, { recursive: true });
 const frameDuration = denominator / numerator;
 const proof = {

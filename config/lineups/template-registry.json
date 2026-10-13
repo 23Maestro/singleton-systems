@@ -29,7 +29,11 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "editorialDefault": {
+        "requestedDurationSeconds": 4.5,
+        "rounding": "nearest-half-up"
+      }
     },
     {
       "key": "quick-stat.single",
@@ -181,7 +185,13 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "assetPolicy": {
+        "assetTreatment": "full-photo",
+        "originalBackgrounds": true,
+        "openingTogether": true,
+        "titlePosition": "top-left"
+      }
     },
     {
       "key": "comparison.simple.2",

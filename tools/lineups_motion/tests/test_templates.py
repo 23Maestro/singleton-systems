@@ -113,13 +113,18 @@ class TemplateTests(unittest.TestCase):
         result = eligible({"purpose": "comparison", "comparisonKind": "teams", "subjects": 2, "rows": 1, "evidence": "Both teams 3-0"})
         self.assertEqual(result["templates"], ["comparison.simple.2"])
 
-    def test_player_candidates_need_alpha_and_explicit_option(self):
+    def test_player_compositing_and_full_photo_comparison_have_distinct_asset_policies(self):
         candidate = {"purpose": "comparison", "comparisonKind": "players", "subjects": 2, "rows": 1, "evidence": "Direct player comparison"}
         self.assertEqual(eligible(candidate)["status"], "asset-blocked")
         candidate["realAlpha"] = True
-        self.assertEqual(eligible(candidate)["status"], "needs-review")
+        self.assertEqual(eligible(candidate)["templates"], ["comparison.simple.2"])
         candidate["option"] = "Cinematic 2-up"
+        self.assertEqual(eligible(candidate)["status"], "asset-blocked")
+        candidate.update(assetTreatment="full-photo", originalBackgrounds=True, openingTogether=True, titlePosition="top-left")
+        candidate.pop("realAlpha")
         self.assertEqual(eligible(candidate)["templates"], ["comparison.cinematic.2"])
+        candidate["openingTogether"] = False
+        self.assertEqual(eligible(candidate)["status"], "asset-blocked")
 
     def test_unregistered_capacity_fails_without_fallback(self):
         result = eligible({"purpose": "stats", "stats": 5, "evidence": "5 values"})

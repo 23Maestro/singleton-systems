@@ -66,6 +66,18 @@ due date from the confirmed delivery deadline. Use the locked Pre-Figma and
 Post-Figma review UIs. A team or topic is episode data; it cannot change the
 shared UI or create a new option.
 
+Always attempt full-transcript discovery across all seven lanes after obvious
+rankings/Quick Action opportunities. Bind the ledger to the transcript hash.
+Record excerpts/timestamps, rejected possibilities or genuine no-fit outcomes;
+keep asset search work explicit. Run the review progression Gate before pacing
+and selection. Timing proof cannot replace discovery.
+
+Cinematic 2-up uses full photos with original backgrounds, both visible from
+the opening frame, and the established top-left title. Never suggest cutouts
+or Asset Swap for that option. Quick Action Photo requests 4.5 seconds, with
+actual frame-rounded duration recorded separately. Preserve live Premiere trims
+and source In/Out.
+
 Use its seven lanes, approved options, automatic routing, action-first asset
 rules, transcript-copy rule, pacing profile, pruning rule, and pre-Premiere
 screenshot gate. Keep Jerami's working language to lane, option, and setting.

@@ -1,10 +1,14 @@
 import crypto from "node:crypto";
+import {requireDiscovery} from "../lib/lineups/discovery.mjs";
 import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
-const episodeDir = path.join(root, "config/lineups/episodes/2026-09-15-nfl-week-2-power-rankings");
-const config = JSON.parse(fs.readFileSync(path.join(episodeDir, "motion-scene-timing.json"), "utf8"));
+const configIndex = process.argv.indexOf("--config");
+if (configIndex === -1 || !process.argv[configIndex + 1]) throw new Error("Usage: node scripts/prepare-lineups-motion-scene.mjs <sceneId> --config <motion-scene-timing.json>");
+const configPath = path.resolve(root, process.argv[configIndex + 1]);
+const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+requireDiscovery(config, root);
 const scene = config.scenes.find((item) => item.sceneId === process.argv[2]);
 if (!scene) throw new Error("Usage: node scripts/prepare-lineups-motion-scene.mjs <S03|S05|S09|S12|S21|S24|S27>");
 
@@ -43,7 +47,7 @@ const mutationCode = `const source = await figma.getNodeByIdAsync(${JSON.stringi
 const section = await figma.getNodeByIdAsync(${JSON.stringify(scene.sectionId)});
 if (!source || source.type !== "COMPONENT") throw new Error("Expected canonical Lineups source component");
 if (!section || section.type !== "SECTION") throw new Error("Expected episode destination section");
-for (const child of [...section.children]) if (child.name.startsWith(${JSON.stringify(`MOTION / ${scene.sceneId} /`)})) child.remove();
+if (section.children.some(child => child.name.startsWith(${JSON.stringify(`MOTION / ${scene.sceneId} /`)}))) throw new Error("Scene already exists; inspect and reconcile its node IDs before retrying");
 const instance = source.createInstance();
 section.appendChild(instance);
 instance.x = ${scene.x}; instance.y = ${scene.y};
@@ -87,24 +91,38 @@ if (!timeline) throw new Error("Figma Motion timeline was not created");
 first.setTimelineDuration(timeline.id, ${duration});
 const photo = working.findOne((item) => item.name === ${JSON.stringify(isQuick ? "EDIT / PHOTO 1 / FILL 1920x1080" : "EDIT / ACTION PHOTO / FILL LEFT PANEL")});
 if (!photo) throw new Error("Missing photo slot");
-return { plannedRootNodeId: ${JSON.stringify(pendingId)}, rootNodeId: working.id, sourceComponentId: source.id, episodeInstanceId: working.id, nodeType: working.type, sourceRevision: ${JSON.stringify(scene.sourceRevision)}, ${isQuick ? "" : `background: ${JSON.stringify(background)},`} photoNodeId: photo.id, mutatedNodeIds, timelineDuration: first.timelines[0].duration, motionTracks: trackDefs.map((track) => ({ nodeName: track.nodeName, keyframes: track.keyframes })) };`;
+${isQuick ? "" : `const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
+if (!backgroundNode) throw new Error("Measured Field Night background is missing");
+const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id,
+ imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
+ locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
+`}
+return { plannedRootNodeId: ${JSON.stringify(pendingId)}, rootNodeId: working.id, sourceComponentId: source.id, episodeInstanceId: working.id, nodeType: working.type, rootDimensions: {width: working.width, height: working.height}, sourceRevision: ${JSON.stringify(scene.sourceRevision)}, ${isQuick ? "" : `background: measuredBackground,`} photoNodeId: photo.id, mutatedNodeIds, timelineDuration: first.timelines[0].duration, motionTracks: trackDefs.map(track => {
+ const node = working.findOne(item => item.name === track.nodeName);
+ const field = track.property === "scale" ? "SCALE_XY" : "OPACITY";
+ const measured = node.manualKeyframeTracks[field];
+ if (!measured?.keyframes?.length) throw new Error("Missing measured motion track " + track.nodeName);
+ return {nodeId: node.id, plannedNodeId: track.nodeId, property: track.property, cueId: track.cueId,
+  duration: node.timelines[0].duration, keyframes: measured.keyframes.map(frame => ({time: frame.timelinePosition,
+   value: track.property === "scale" ? frame.value.value.x : frame.value.value}))};
+}) };`;
 
-const toolInput = { code: mutationCode, description: `Week 2 ${scene.sceneId} transcript-timed ${isQuick ? "Quick Stat" : "Stat Breakdown"} Figma Motion scene`, fileKey: config.fileKey, skillNames: "figma-use,figma-use-motion,singleton-figma-system,file-hygiene,layer-cleanup,safe-auto-layout-conversion" };
+const toolInput = { code: mutationCode, description: `${config.episodeId} ${scene.sceneId} transcript-timed ${isQuick ? "Quick Stat" : "Stat Breakdown"} Figma Motion scene`, fileKey: config.fileKey, skillNames: "figma-use,figma-use-motion,singleton-figma-system,file-hygiene,layer-cleanup,safe-auto-layout-conversion" };
 const canonicalJson = (value) => Array.isArray(value) ? `[${value.map(canonicalJson).join(",")}]` : value && typeof value === "object" ? `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}` : JSON.stringify(value);
 const approvedToolInputSha256 = crypto.createHash("sha256").update(canonicalJson(toolInput)).digest("hex");
 const contentEnd = Math.max(...cues.map((cue) => cue.sceneTime + cue.duration));
 const manifest = {
   schemaVersion: 2,
+  discoveryPath: config.discoveryPath,
   enforcement: { active: true, approvedToolInputSha256 },
   scene: { episodeId: config.episodeId, sceneId: scene.sceneId, lane: scene.lane, approvedOption: scene.approvedOption, setting: isQuick ? "single-frame photo statement" : `${scene.stats.length}-point photo-left data panel` },
   figma: { fileKey: config.fileKey, pageId: config.pageId, rootNodeId: pendingId, sourceComponentId: scene.sourceComponentId, episodeInstanceId: pendingId, sourceRevision: scene.sourceRevision, episodeUsesInstance: false, motionWorkingCopyMode: "detached-from-canonical-instance", rootDimensions: { width: 1920, height: 1080 }, ...(isQuick ? {} : { background }), exposedSlots: isQuick ? ["Photo", "Topic Small", "Topic Large", "Statement"] : ["Photo", "Subject", "Headline", ...scene.stats.flatMap((_, index) => [`Value ${index + 1}`, `Label ${index + 1}`])], allowedReplacementProperties: isQuick ? ["TOPIC SMALL", "TOPIC LARGE", "STATEMENT"] : ["SUBJECT", "HEADLINE", ...scene.stats.flatMap((_, index) => [`VALUE ${index + 1}`, `LABEL ${index + 1}`])], focalAssets: [], motionTracks: tracks.map(({ nodeName, ...track }) => track) },
   motion: { engine: "figma", engineVersion: "figma-motion", timingValidator: "manim", frameRate: config.frameRate, sourcePath: null, sceneClass: null, cues },
-  timing: { transcriptPhrase: cues.map((cue) => cue.triggerText).join(" "), transcriptSource: "whisper", transcriptPath: config.transcriptPath, timestampResolution: "word", manimTimingValidated: true, verifiedAnchorTimestamp: scene.anchor, anchorVerified: true, entranceTimes: cues.map((cue) => cue.sceneTime), lastEntrance: Math.max(...cues.map((cue) => cue.sceneTime)), contentEnd, paddedCompositionEnd: duration, finalStateVisible: true, noExitAnimation: true },
+  timing: { transcriptPhrase: cues.map((cue) => cue.triggerText).join(" "), transcriptSource: "whisper", transcriptPath: config.transcriptPath, timestampResolution: "word", manimTimingValidated: false, verifiedAnchorTimestamp: scene.anchor, anchorVerified: true, entranceTimes: cues.map((cue) => cue.sceneTime), lastEntrance: Math.max(...cues.map((cue) => cue.sceneTime)), contentEnd, paddedCompositionEnd: duration, finalStateVisible: true, noExitAnimation: true },
   policy: { transitionsApproved: false, effectsApproved: false, lutsApproved: false, opacityChangesApproved: false, approvalNote: null },
   export: { dimensions: { width: 1920, height: 1080 }, path: `pending/${config.episodeId}/${scene.sceneId}.mp4`, fileSha256: "0".repeat(64), artifactRole: "final-premiere-render", backgroundPolicy: isQuick ? "football-visible-baked" : "no-football-baked", validationStatus: "pending", motionProof: { type: "cue-frame-proof", engine: "figma", status: "failed", sampleTimes: [0, ...cues.slice(1).map((cue) => cue.sceneTime), duration - 0.1], frames: [{ time: 0, sha256: "0".repeat(64), width: 1920, height: 1080 }, { time: duration - 0.1, sha256: "0".repeat(64), width: 1920, height: 1080 }] } },
   ownership: { eaglePath: "Episode / 06 Motion Renders", duplicateFinalFolderIn23Projects: false },
-  premiere: { sequenceId: "pending-week-2-sequence", trackIndex: 2, approvedStartTime: scene.anchor, approvedDuration: duration, approvedEndTime: Number((scene.anchor + duration).toFixed(3)), projectItemId: `pending-${scene.sceneId}`, treePath: `${config.episodeId}/06 Motion Renders/${scene.sceneId}.mp4`, labelReadback: "pending", timelineClipId: `pending-${scene.sceneId}` },
-  review: { status: "approved", reviewer: "Jerami", reviewedAt: "2026-09-16T00:00:00Z", correctionPayloadId: null }
+  premiere: { sequenceId: "pending-episode-sequence", trackIndex: 2, approvedStartTime: scene.anchor, approvedDuration: duration, approvedEndTime: Number((scene.anchor + duration).toFixed(3)), projectItemId: `pending-${scene.sceneId}`, nameReadback: `${scene.sceneId}.mp4`, treePath: `${config.episodeId}/06 Motion Renders/${scene.sceneId}.mp4`, labelReadback: "pending", timelineClipId: `pending-${scene.sceneId}` },
+  review: { status: "pending", reviewer: null, reviewedAt: null, correctionPayloadId: null }
 };
-fs.writeFileSync(path.join(root, "config/lineups/active-scene.json"), `${JSON.stringify(manifest, null, 2)}\n`);
-process.stdout.write(`${JSON.stringify({ toolInput, assetPath: path.join(root, "public/decision-maps/2026-09-15-nfl-week-2-power-rankings-pre-figma-review/assets", scene.asset), scene })}\n`);
+process.stdout.write(`${JSON.stringify({ toolInput, manifest, assetPath: scene.asset ? path.resolve(path.dirname(configPath), scene.asset) : null, scene })}\n`);
