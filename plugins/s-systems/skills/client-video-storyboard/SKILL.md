@@ -30,6 +30,11 @@ Codex     -> source mapping, storyboard, checklist
 4. Prefer native captions, then local Whisper. Use ffprobe, scene detection,
    adaptive sampling, a compact frame manifest, and contact sheets only when
    the profile needs visual analysis.
+   Preserve client speech and supplied scripts as source material. When exporting
+   readable source text, record `<file>.writing-origin.json` with
+   `origin: "client-source"`, a source description, and `contentSha256` for its
+   exact bytes before the writing tool returns. Authored summaries and storyboard
+   copy still receive the prose pass. Do not rewrite supplied words to pass it.
 5. Keep each storyboard row to one meaningful screen change and one primary
    engine.
 6. When a mapped beat needs animation, read

@@ -148,10 +148,11 @@ their own semi-independent codebases, not part of the Next.js build.
 
 ## Writing Rules
 
-Applies to every reviewable non-code artifact — Markdown, Linear, Asana, GitHub,
-Notion, memory, emails, cover letters, proposals, briefs, handoffs, captions,
-site copy, public HTML/pages, visual/source notes, and review docs. Not to
-source code, generated bundles, code blocks, or conversation.
+Apply the prose rules to writing we author or rewrite for a reader: emails,
+Upwork proposals, documentation, reviews, and Asana or Linear updates. Keep
+sentences short and words plain. Preserve client-supplied words and verbatim
+transcripts. Capturing them in a file does not make them our prose. Source code,
+generated bundles, code blocks and conversation stay outside this gate.
 
 Canonical source: `docs/harness/writing-rules.md` (full deny-list, voice, and
 the client-repo hook payload). Pinned summary in `docs/harness/README.md` →

@@ -118,7 +118,8 @@ owns dependencies, caches, runtimes, and Git worktrees.
 ## writing
 
 The canonical writing rules live in `docs/harness/writing-rules.md`. Apply them
-to every reviewable non-code artifact.
+to prose we author or rewrite for a reader. Preserve supplied client words and
+verbatim speech transcripts. Code stays outside the prose gate.
 
 - Fix corrections silently.
 - State facts and results only.

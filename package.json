@@ -91,7 +91,7 @@
     "blender:scene-three:assemble": "/Applications/Blender.app/Contents/MacOS/Blender --background --python scripts/blender_scene_3_food_mania.py",
     "check:brand": "node scripts/check-brand-assets.mjs",
     "brand:favicon:generate": "node scripts/generate-singleton-systems-favicon.mjs",
-    "check:tells": "node scripts/check-tells.mjs",
+    "check:tells": "node --test scripts/check-tells.test.mjs && node scripts/check-tells.mjs",
     "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs",
     "check:lineups:templates": "node scripts/check-lineups-templates.mjs",
     "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py",

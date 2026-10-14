@@ -943,6 +943,8 @@ def commonmark_spacing_hits(text):
 
 
 def writing_hits(text):
+    text = re.sub(r"<!--\s*writing-source:start\s*-->[\s\S]*?<!--\s*writing-source:end\s*-->",
+                  _blank_non_newline, text, flags=re.I)
     spacing_hits = commonmark_spacing_hits(text)
     text = strip_writing_code(text)
     hits = []

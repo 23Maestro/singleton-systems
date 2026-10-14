@@ -5,6 +5,7 @@
 // Markdown is always scanned. HTML and text artifacts are scanned too.
 
 import { execSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
 import { extname, relative, sep } from "node:path";
 
@@ -34,6 +35,19 @@ function isReviewable(file) {
 
 function isScanned(file) {
   return isReviewable(file);
+}
+
+function isClientSource(file) {
+  const record = `${file}.writing-origin.json`;
+  if (!existsSync(record)) return false;
+  const origin = JSON.parse(readFileSync(record, "utf8"));
+  if (origin?.origin === "authored") return false;
+  if (origin?.origin !== "client-source" || typeof origin.source !== "string" || !origin.source.trim()) {
+    throw new Error(`Invalid writing origin: ${record}`);
+  }
+  const actual = createHash("sha256").update(readFileSync(file)).digest("hex");
+  if (origin.contentSha256 !== actual) throw new Error(`Client-source provenance is stale: ${file}`);
+  return true;
 }
 
 function bannedWords() {
@@ -116,6 +130,10 @@ function commonMarkSpacingHits(text, file) {
   return hits;
 }
 
+function stripSourceMaterial(text) {
+  return text.replace(/<!--\s*writing-source:start\s*-->[\s\S]*?<!--\s*writing-source:end\s*-->/gi, blankNonNewline);
+}
+
 function blankNonNewline(text) {
   return text.replace(/[^\n]/g, " ");
 }
@@ -168,7 +186,8 @@ function emDashDensity(text) {
 
 function scan(file, rules, options = {}) {
   const raw = readFileSync(file, "utf8");
-  const text = stripReviewCode(raw, file);
+  const authored = stripSourceMaterial(raw);
+  const text = stripReviewCode(authored, file);
   const lines = text.split("\n");
   const hits = [];
   const level = "fail";
@@ -180,7 +199,7 @@ function scan(file, rules, options = {}) {
     }
   }
   const warns = [];
-  hits.push(...commonMarkSpacingHits(raw, file));
+  hits.push(...commonMarkSpacingHits(authored, file));
   if (options.strict) warns.push(...titleCaseHeadings(text));
   const dash = emDashDensity(text);
   if (options.strict && dash) warns.push({ line: 1, rule: "em dash density", text: `${dash}% of sentences` });
@@ -265,7 +284,7 @@ if (!existsSync(RULES)) {
 
 const rules = phraseRules(bannedWords());
 const forceStrict = argv.includes("--strict");
-const files = targets(argv).filter((f) => f && !isExempt(f) && existsSync(f) && isScanned(f, forceStrict));
+const files = targets(argv).filter((f) => f && !isExempt(f) && existsSync(f) && isScanned(f, forceStrict) && !isClientSource(f));
 const all = files.flatMap((f) => scan(f, rules, { strict: forceStrict }));
 
 const fails = all.filter((h) => h.level === "fail");

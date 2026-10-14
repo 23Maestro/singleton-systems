@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -347,6 +348,13 @@ assert.match(blockedWriting.stdout, /"decision": "block"/);
 assert.match(blockedWriting.stdout, /Outbound writing gate blocked/);
 assert.match(blockedWriting.stdout, /banned word/);
 
+const quotedSourceWriting = runStop(
+  "Write an email with a client quotation.",
+  "Client words:\n\n<!-- writing-source:start -->\nThis is a robust plan.\n<!-- writing-source:end -->\n\nI can edit the footage this week.",
+);
+assert.equal(quotedSourceWriting.status, 0);
+assert.equal(quotedSourceWriting.stdout.trim(), "", "supplied quotation must not trigger the outbound prose gate");
+
 const cleanWriting = runStop(
   "Write a LinkedIn post I can publish about AI hooks.",
   "AI output gets better when standards become checks.\n\nPrompts help. Plans help. Hooks force review.",
@@ -466,6 +474,18 @@ try {
   assert.equal(blockedHtml.status, 0);
   assert.match(blockedHtml.stdout, /"continue": false/);
   assert.match(blockedHtml.stdout, /AI writing-tells check failed after the write/);
+
+  const clientWords = "This is a testament to a robust defense.\n";
+  const clientSourcePath = path.join(tempDir, "client-transcript.txt");
+  fs.writeFileSync(clientSourcePath, clientWords);
+  fs.writeFileSync(`${clientSourcePath}.writing-origin.json`, JSON.stringify({
+    origin: "client-source", source: "Client recording",
+    contentSha256: createHash("sha256").update(clientWords).digest("hex"),
+  }));
+  const suppliedTranscript = runPostTool("Write", { file_path: clientSourcePath });
+  assert.equal(suppliedTranscript.status, 0);
+  assert.equal(suppliedTranscript.stdout.trim(), "", "supplied speech must not trigger the prose gate");
+  assert.equal(fs.readFileSync(clientSourcePath, "utf8"), clientWords);
 
   const sourceCodePath = path.join(tempDir, "source.tsx");
   fs.writeFileSync(sourceCodePath, "export const copy = 'robust';\n", "utf8");

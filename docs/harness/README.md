@@ -46,10 +46,11 @@ LikeC4       -> reviewed architecture
 
 ## Writing Rules
 
-Applies to every reviewable non-code artifact: Markdown, Linear, Asana, GitHub,
-Notion, memory, emails, cover letters, proposals, briefs, handoffs, captions,
-site copy, public HTML/pages, visual/source notes, and review docs. Not to
-source code, generated bundles, code blocks, or conversation.
+Apply the prose rules to writing we author or rewrite for a reader: emails,
+Upwork proposals, documentation, reviews, and Asana or Linear updates. Keep
+sentences short and words plain. Preserve client-supplied words and verbatim
+transcripts. Capturing them in a file does not make them our prose. Source code,
+generated bundles, code blocks and conversation stay outside this gate.
 
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.

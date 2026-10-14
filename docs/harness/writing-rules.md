@@ -5,16 +5,32 @@ repo hooks. Never hand-edit a copy.
 
 ## Scope
 
-Applies to every reviewable non-code artifact created here:
+Applies to prose we author or rewrite for a reader:
 
 Markdown and MDX, Linear issues and docs, Asana projects and tasks, GitHub commit
 and PR bodies, Notion,
 memory files, emails, cover letters, proposals, briefs, client handoffs,
 captions, site copy, public HTML/pages, visual/source notes, and review docs.
 
-The checker scans Markdown everywhere, plus plain-text, email, and HTML review
-artifacts. It does not scan source code, generated bundles, code blocks, or
-conversation. Talk normally in chat.
+Keep emails, Upwork proposals, documentation, reviews, and Asana or Linear
+updates short and plain. These rules apply before sharing or writing them.
+Source code, generated bundles, code blocks and conversation stay outside this
+prose gate. Talk normally in chat.
+
+Client-supplied text, verbatim quotations and speech transcriptions are source
+material. Creating a transcript file does not make its words our writing.
+Preserve those words. Summaries, recommendations and rewritten copy we author
+from that source still receive the writing pass.
+
+When capturing supplied text, the agent records its origin in
+`<file>.writing-origin.json` before the text-writing tool returns. Use
+`origin: "client-source"`, a `source` description, and `contentSha256` for the
+exact bytes. The checker excludes that source while the hash matches. Changed
+content needs a fresh source record or classification as authored copy. The
+agent owns this record; Jerami does not maintain it. Unmarked prose is checked.
+For source excerpts inside an authored resource, wrap only the supplied passage
+with `<!-- writing-source:start -->` and `<!-- writing-source:end -->`.
+Do not mark our own analysis or rewrites as source material.
 
 ## Edit instructions
 
@@ -30,7 +46,7 @@ Second person when addressing a reader.
 
 ## Human pass
 
-- Rewrite the supplied draft. Preserve verified facts, scope, attribution,
+- Rewrite a supplied draft only when requested. Preserve verified facts, scope, attribution,
   causal ownership, and sequence. Do not replace source-backed writing with a
   generic reconstruction.
 - Run the swap test on hooks, landing pages, proposals, and portfolio copy. If
@@ -147,11 +163,16 @@ Copy this block verbatim into a client repo at `.claude/writing-rules.md`.
 Fires on `UserPromptSubmit` via `cat`. Keep it near 150 tokens.
 
 ```text
-Writing rules — apply to every reviewable non-code artifact created here:
+Writing rules — apply to prose we author or rewrite for a reader:
 Markdown, Linear docs, Asana tasks, GitHub and Notion copy, memory, emails, cover letters,
 proposals, briefs, handoffs, captions, site copy, public HTML/pages, and
 visual/source notes. Not to source code, generated bundles, code blocks, or
 conversation.
+
+Preserve client-supplied words and verbatim transcriptions. Creating a file from
+client speech is source capture, not authored copy. Exclude supplied passages;
+check our summaries, recommendations and rewrites. The agent records source
+origin and its content hash for file checks. Keep code outside this prose gate.
 
 Correction = edit instruction. Fix the artifact silently. Never restate the
 correction.
