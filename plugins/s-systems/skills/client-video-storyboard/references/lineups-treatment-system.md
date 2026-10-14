@@ -104,12 +104,18 @@ Use the approved Field Night background, centered team logo, replaceable action
 art, and transcript-timed swaps. The Patriots and 49ers scenes are locked
 references.
 
-Field Night, its 2040 x 1166 background geometry, the 1920 x 1080 export frame,
+Field Night, its measured source background geometry, the 1920 x 1080 export frame,
 layer order, crop roles, and approved motion pattern are guarded. Episode
 cutouts, team logos, transcript-derived copy, and reveal timing are replaceable.
 Every subject in a cutout slot must have real alpha. Do not place a rectangular
 photo, fake background, blur mask, or full-frame crop in that slot. Stop when an
 approved component cannot support the episode without changing a guarded part.
+
+The reviewed Asset Swap background keeps its 3424 x 1956.9296875 crop and
+native motion. Its exact offset, image, blur and tracks are recorded in
+`config/lineups/source-guards.json`. Lock this source background; preserve the
+1920 x 1080 export frame. The former 2040 x 1166 rule does not resize existing
+sources or episodes.
 
 Record every selected source ID and Figma image hash in the episode asset
 ledger. A source image may appear only once in an episode, including use as a

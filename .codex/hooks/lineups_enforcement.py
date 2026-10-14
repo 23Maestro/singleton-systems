@@ -22,6 +22,7 @@ from tools.lineups_motion.assets import validate_alpha_assets
 from tools.lineups_motion.media_evidence import validate_media
 from tools.lineups_motion.templates import (
     validate_callout, validate_manifest_binding, validate_manifest_readback, validate_cinematic, quick_action_duration,
+    validate_source_guards, load_source_guards,
 )
 
 
@@ -898,8 +899,17 @@ def registered_readback(tool_name, tool_input, manifest=None):
         figma = manifest['figma']
         codes.append(module.collector_code(figma['pageId'], [{'sceneId': manifest['scene']['sceneId'],
             'rootNodeId': figma['rootNodeId'], 'roleNodeIds': figma['templateBinding']['roleNodeIds']}]))
-    return (tool_input.get('code') in codes and tool_input.get('skillNames') == 'figma-use'
+    return (tool_input.get('code') in codes and tool_input.get('skillNames') in {'figma-use', 'figma-use,figma-use-motion'}
             and set(tool_input) <= {'code', 'description', 'fileKey', 'skillNames'})
+
+
+def registered_source_locks(tool_name, tool_input):
+    if tool_name != 'mcp__codex_apps__figma_use_figma' or tool_input.get('fileKey') != LINEUPS_FIGMA_FILE_KEY:
+        return False
+    spec = importlib.util.spec_from_file_location('lineups_templates', SOURCE_ROOT / 'scripts/lineups-templates.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return tool_input == module.source_lock_input()
 
 
 def review_export_roster(root, manifest):
@@ -1256,11 +1266,29 @@ def main():
     tool_input = payload.get("tool_input") or {}
     try:
         canonical_measurement = registered_readback(tool_name, tool_input)
+        source_lock = registered_source_locks(tool_name, tool_input)
     except Exception as error:
         if tool_input.get("fileKey") == LINEUPS_FIGMA_FILE_KEY:
             if event == "PreToolUse":
                 deny(str(error))
             elif event == "PostToolUse":
+                post_block(str(error))
+        return
+    if source_lock:
+        if event == 'PostToolUse':
+            try:
+                validate_tool_response(payload.get('tool_response'))
+                measurements = [item for item in response_objects(payload.get('tool_response'))
+                                if isinstance(item.get('sourceGuards'), list)]
+                if len(measurements) != 1:
+                    raise EnforcementError('source lock response requires one complete measured readback')
+                validate_source_guards(measurements[0])
+                changed = measurements[0].get('mutatedNodeIds')
+                permitted = {row['protected']['background']['id'] for row in load_source_guards()['sources']}
+                if not isinstance(changed, list) or len(set(changed)) != len(changed) or not set(changed) <= permitted:
+                    raise EnforcementError('source lock response has missing or unexpected mutated node IDs')
+                post_context('Lineups reviewed source backgrounds are locked. Geometry and native motion passed measured readback; episode approval remains separate.')
+            except Exception as error:
                 post_block(str(error))
         return
     if canonical_measurement:

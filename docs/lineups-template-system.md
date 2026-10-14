@@ -41,6 +41,23 @@ new detailed style and geometry comparison. Other lanes retain their existing
 checks and require visual review; they do not yet have complete style snapshots.
 Simple board and some Asset Swap counts still need source registration.
 
+The four reviewed backgrounds have measured guards for geometry, lock state,
+image fills, layer order and native background tracks. Their source IDs are
+441:50, 598:215, 594:1254 and 1413:664. The matchup guard does not register a new
+option. Asset Swap retains its measured 3424 x 1956.9296875 crop; the former
+2040 x 1166 rule was stale. Quick Stat's 1920 x 1087 wrapper stays unchanged.
+
+Use `python3 scripts/lineups-templates.py check <readback.json> --live` for
+current canvas evidence. It requires a timestamp from the last hour and the
+current source-guard fingerprint. The default check reports saved-readback
+evidence. Neither mode replaces human composition review or episode approvals.
+
+After Jerami approves source maintenance, `lock-source-backgrounds` emits the
+exact scoped Figma input. It checks every protected value before the first write
+and locks only the four reviewed background nodes. Repeating it skips locks
+already applied. The hook rejects added mutations and malformed readback.
+Episode construction and exports still require their existing scene gates.
+
 Run `npm run check:lineups:templates` to test retrieval, candidate fit, canonical
 source measurements, and a generic callout fixture. Fetch fresh Figma properties
 after each mutation and before delivery. Passing an old JSON file does not prove

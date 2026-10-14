@@ -1,4 +1,5 @@
 {
+  "checkedAt": "2026-10-14T19:35:59.441Z",
   "fileKey": "o7E24iymIT80MTXGYIogVH",
   "pageId": "428:27",
   "sources": [
@@ -495,5 +496,621 @@
       "x": 72,
       "y": 56.5
     }
-  }
+  },
+  "sourceGuards": [
+    {
+      "sourceComponentId": "441:50",
+      "root": {
+        "id": "441:50",
+        "width": 1920,
+        "height": 1080,
+        "clipsContent": true,
+        "childNodeIds": [
+          "441:51",
+          "441:61",
+          "441:62"
+        ]
+      },
+      "background": {
+        "id": "441:51",
+        "type": "RECTANGLE",
+        "parentId": "441:50",
+        "x": -821.760009765625,
+        "y": -361.6800537109375,
+        "width": 3424,
+        "height": 1956.9296875,
+        "locked": true,
+        "visible": true,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            -821.760009765625
+          ],
+          [
+            0,
+            1,
+            -361.6800537109375
+          ]
+        ],
+        "fills": [
+          {
+            "type": "IMAGE",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "scaleMode": "FILL",
+            "scalingFactor": 0.5,
+            "rotation": 0,
+            "filters": {
+              "exposure": 0,
+              "contrast": 0,
+              "saturation": 0,
+              "temperature": 0,
+              "tint": 0,
+              "highlights": 0,
+              "shadows": 0
+            },
+            "imageTransform": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ],
+            "imageHash": "508bd3cdcf3b17bf83fe30c50b1b2b11c66e3043"
+          }
+        ],
+        "effects": [
+          {
+            "type": "LAYER_BLUR",
+            "visible": true,
+            "radius": 26.399999618530273,
+            "boundVariables": {},
+            "blurType": "NORMAL"
+          }
+        ],
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "manualKeyframeTracks": {
+          "WIDTH": {
+            "id": "KeyframeTrackId:441:52",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 3424
+            },
+            "keyframes": [
+              {
+                "id": "441:53",
+                "easing": {
+                  "type": "LINEAR",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 1,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 3787.3232421875
+                },
+                "timelinePosition": 0
+              }
+            ]
+          },
+          "HEIGHT": {
+            "id": "KeyframeTrackId:441:54",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1957
+            },
+            "keyframes": [
+              {
+                "id": "441:55",
+                "easing": {
+                  "type": "LINEAR",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 1,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 2164.5810546875
+                },
+                "timelinePosition": 0
+              }
+            ]
+          },
+          "TRANSLATION_XY": {
+            "id": "KeyframeTrackId:441:56",
+            "baseValue": {
+              "type": "VECTOR",
+              "value": {
+                "x": 0,
+                "y": 0
+              }
+            },
+            "keyframes": [
+              {
+                "id": "441:57",
+                "easing": {
+                  "type": "LINEAR",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 1,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "VECTOR",
+                  "value": {
+                    "x": -109.0525894165039,
+                    "y": -157.81939697265625
+                  }
+                },
+                "timelinePosition": 0
+              }
+            ]
+          },
+          "SCALE_XY": {
+            "id": "KeyframeTrackId:441:58",
+            "baseValue": {
+              "type": "VECTOR",
+              "value": {
+                "x": 1,
+                "y": 1
+              }
+            },
+            "keyframes": [
+              {
+                "id": "441:59",
+                "easing": {
+                  "type": "CUSTOM_CUBIC_BEZIER",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0.5,
+                    "y1": 0,
+                    "x2": 0.5,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "VECTOR",
+                  "value": {
+                    "x": 0.5199999809265137,
+                    "y": 0.5199999809265137
+                  }
+                },
+                "timelinePosition": 0
+              }
+            ]
+          }
+        },
+        "animations": {
+          "WIDTH": {
+            "tracks": [
+              {
+                "id": "KeyframeTrackId:441:52",
+                "keyframes": [
+                  {
+                    "id": "441:53",
+                    "easing": {
+                      "type": "LINEAR",
+                      "easingFunctionCubicBezier": {
+                        "x1": 0,
+                        "y1": 0,
+                        "x2": 1,
+                        "y2": 1
+                      }
+                    },
+                    "value": {
+                      "type": "FLOAT",
+                      "value": 3787.3232421875
+                    },
+                    "timelinePosition": 0
+                  }
+                ],
+                "keyframeOperation": "SET"
+              }
+            ],
+            "timelineDuration": 2,
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 3424
+            }
+          },
+          "HEIGHT": {
+            "tracks": [
+              {
+                "id": "KeyframeTrackId:441:54",
+                "keyframes": [
+                  {
+                    "id": "441:55",
+                    "easing": {
+                      "type": "LINEAR",
+                      "easingFunctionCubicBezier": {
+                        "x1": 0,
+                        "y1": 0,
+                        "x2": 1,
+                        "y2": 1
+                      }
+                    },
+                    "value": {
+                      "type": "FLOAT",
+                      "value": 2164.5810546875
+                    },
+                    "timelinePosition": 0
+                  }
+                ],
+                "keyframeOperation": "SET"
+              }
+            ],
+            "timelineDuration": 2,
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1957
+            }
+          },
+          "TRANSLATION_XY": {
+            "tracks": [
+              {
+                "id": "KeyframeTrackId:441:56",
+                "keyframes": [
+                  {
+                    "id": "441:57",
+                    "easing": {
+                      "type": "LINEAR",
+                      "easingFunctionCubicBezier": {
+                        "x1": 0,
+                        "y1": 0,
+                        "x2": 1,
+                        "y2": 1
+                      }
+                    },
+                    "value": {
+                      "type": "VECTOR",
+                      "value": {
+                        "x": -109.0525894165039,
+                        "y": -157.81939697265625
+                      }
+                    },
+                    "timelinePosition": 0
+                  }
+                ],
+                "keyframeOperation": "SET"
+              }
+            ],
+            "timelineDuration": 2,
+            "baseValue": {
+              "type": "VECTOR",
+              "value": {
+                "x": 0,
+                "y": 0
+              }
+            }
+          },
+          "SCALE_XY": {
+            "tracks": [
+              {
+                "id": "KeyframeTrackId:441:58",
+                "keyframes": [
+                  {
+                    "id": "441:59",
+                    "easing": {
+                      "type": "CUSTOM_CUBIC_BEZIER",
+                      "easingFunctionCubicBezier": {
+                        "x1": 0.5,
+                        "y1": 0,
+                        "x2": 0.5,
+                        "y2": 1
+                      }
+                    },
+                    "value": {
+                      "type": "VECTOR",
+                      "value": {
+                        "x": 0.5199999809265137,
+                        "y": 0.5199999809265137
+                      }
+                    },
+                    "timelinePosition": 0
+                  }
+                ],
+                "keyframeOperation": "SET"
+              }
+            ],
+            "timelineDuration": 2,
+            "baseValue": {
+              "type": "VECTOR",
+              "value": {
+                "x": 1,
+                "y": 1
+              }
+            }
+          }
+        },
+        "timelines": [
+          {
+            "id": "441:50",
+            "duration": 2
+          }
+        ]
+      }
+    },
+    {
+      "sourceComponentId": "598:215",
+      "root": {
+        "id": "598:215",
+        "width": 1920,
+        "height": 1080,
+        "clipsContent": true,
+        "childNodeIds": [
+          "598:222",
+          "598:216",
+          "598:217",
+          "598:218",
+          "598:221",
+          "1035:6322",
+          "598:232",
+          "598:241",
+          "598:250",
+          "1035:6320",
+          "1035:6331",
+          "598:261",
+          "598:270",
+          "1035:6315",
+          "598:220"
+        ]
+      },
+      "background": {
+        "id": "598:216",
+        "type": "FRAME",
+        "parentId": "598:215",
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080,
+        "locked": true,
+        "visible": true,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "fills": [
+          {
+            "type": "IMAGE",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "scaleMode": "FILL",
+            "scalingFactor": 0.5,
+            "rotation": 0,
+            "filters": {
+              "exposure": 0,
+              "contrast": 0,
+              "saturation": 0,
+              "temperature": 0,
+              "tint": 0,
+              "highlights": 0,
+              "shadows": 0
+            },
+            "imageTransform": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ],
+            "imageHash": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+          }
+        ],
+        "effects": [],
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "manualKeyframeTracks": {},
+        "animations": {},
+        "timelines": [
+          {
+            "id": "598:494",
+            "duration": 2
+          }
+        ]
+      }
+    },
+    {
+      "sourceComponentId": "594:1254",
+      "root": {
+        "id": "594:1254",
+        "width": 1920,
+        "height": 1080,
+        "clipsContent": true,
+        "childNodeIds": [
+          "594:1164",
+          "594:1211"
+        ]
+      },
+      "background": {
+        "id": "594:1164",
+        "type": "RECTANGLE",
+        "parentId": "594:1254",
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080,
+        "locked": true,
+        "visible": true,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "fills": [
+          {
+            "type": "IMAGE",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "scaleMode": "FILL",
+            "scalingFactor": 0.5,
+            "rotation": 0,
+            "filters": {
+              "exposure": 0,
+              "contrast": 0,
+              "saturation": 0,
+              "temperature": 0,
+              "tint": 0,
+              "highlights": 0,
+              "shadows": 0
+            },
+            "imageTransform": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ],
+            "imageHash": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+          }
+        ],
+        "effects": [],
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "manualKeyframeTracks": {},
+        "animations": {},
+        "timelines": [
+          {
+            "id": "1103:783",
+            "duration": 2
+          }
+        ]
+      }
+    },
+    {
+      "sourceComponentId": "1413:664",
+      "root": {
+        "id": "1413:664",
+        "width": 1920,
+        "height": 1080,
+        "clipsContent": true,
+        "childNodeIds": [
+          "1413:610",
+          "1413:611",
+          "1413:612",
+          "1413:636",
+          "1413:665",
+          "1413:673",
+          "1413:685"
+        ]
+      },
+      "background": {
+        "id": "1413:610",
+        "type": "FRAME",
+        "parentId": "1413:664",
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1080,
+        "locked": true,
+        "visible": true,
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "fills": [
+          {
+            "type": "IMAGE",
+            "visible": true,
+            "opacity": 1,
+            "blendMode": "NORMAL",
+            "scaleMode": "FILL",
+            "scalingFactor": 0.5,
+            "rotation": 0,
+            "filters": {
+              "exposure": 0,
+              "contrast": 0,
+              "saturation": 0,
+              "temperature": 0,
+              "tint": 0,
+              "highlights": 0,
+              "shadows": 0
+            },
+            "imageTransform": [
+              [
+                1,
+                0,
+                0
+              ],
+              [
+                0,
+                1,
+                0
+              ]
+            ],
+            "imageHash": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+          }
+        ],
+        "effects": [],
+        "constraints": {
+          "horizontal": "MIN",
+          "vertical": "MIN"
+        },
+        "manualKeyframeTracks": {},
+        "animations": {},
+        "timelines": [
+          {
+            "id": "1413:664",
+            "duration": 13.42
+          }
+        ]
+      }
+    }
+  ],
+  "sourceGuardFingerprint": "f3245f680db2d8505870b22cf3a415ce328290c4f08a27511bac050d566eec1e"
 }

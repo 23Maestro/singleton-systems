@@ -120,7 +120,7 @@ visibility. Use image slots, text properties, booleans, instance swaps, named
 slots, and count variants where they fit.
 
 Guard typography, spacing, accent color, divider width, safe areas, Field Night
-art, its 2040 x 1166 background geometry, layer order, crop roles, approved
+art, measured background geometry, layer order, crop roles, approved
 motion, and 1920 x 1080 export geometry. Guarded layers cannot be detached,
 replaced, resized, or animated in an episode copy. Use equal repeated spacing.
 Use a solid 100% center divider in Cinematic comparison with enough width for
@@ -129,6 +129,13 @@ Use a solid 100% center divider in Cinematic comparison with enough width for
 The guarded Asset Swap background comes from the approved football-visible
 Field Night layer in the Components source. Do not replace it with an episode
 photo, regenerate it, or cover it with full-frame episode art.
+
+`config/lineups/source-guards.json` records the reviewed source measurements.
+Asset Swap background `441:51` stays 3424 x 1956.9296875 at
+(-821.760009765625, -361.6800537109375). Preserve its native width, height,
+translation and scale tracks. The former 2040 x 1166 rule was stale; it must not
+resize this source or existing episodes. The four reviewed backgrounds stay
+locked and separate from artwork. Quick Stat's 1920 x 1087 wrapper is unchanged.
 
 Every Asset Swap subject slot requires a true-alpha image. Reject rectangular
 photos, fake backgrounds, blur masks, and full-frame crops in those slots. Stop
@@ -223,7 +230,7 @@ search keywords, or an episode name. Template names are display labels.
 Use `python3 scripts/lineups-templates.py resolve quick-stat.single` to retrieve
 a source. `fetch-sources` emits a read-only Figma tool input; execute it with
 `figma-use`, save its actual JSON response, then run
-`python3 scripts/lineups-templates.py check <readback.json>`.
+`python3 scripts/lineups-templates.py check <readback.json> --live`.
 Missing IDs, wrong source ownership, and unsupported capacities fail without
 substituting an old episode design. The unbound Simple board option remains a
 reference gap until its canonical source is registered.
@@ -250,6 +257,14 @@ historical callout regressions against saved live readbacks. Registry entries
 declare visual-check coverage. The other lanes retain their existing geometry,
 background, alpha, asset, and motion gates; full style comparisons for them
 remain uncovered. Review their screenshots before calling them complete.
+
+Source checks also compare the four reviewed backgrounds against their current
+fingerprint, including actual locks and native tracks. `--live` requires a readback
+from the last hour. A saved fixture is regression evidence. Source maintenance
+may use the exact generated `lock-source-backgrounds` input after Jerami approves
+that operation. It checks all protected values before locking and returns every
+changed ID. The hook rejects added writes; this exception grants no episode or
+export approval.
 
 ## repeated logo alignment
 

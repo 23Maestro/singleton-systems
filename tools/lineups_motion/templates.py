@@ -9,6 +9,7 @@ from fractions import Fraction
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "config/lineups/template-registry.json"
 CALLOUT_PATH = ROOT / "config/lineups/callout-contract.json"
+SOURCE_GUARDS_PATH = ROOT / "config/lineups/source-guards.json"
 
 
 class TemplateError(ValueError):
@@ -31,6 +32,59 @@ def load_registry():
 
 def load_callout_contract():
     return json.loads(CALLOUT_PATH.read_text())
+
+
+def load_source_guards():
+    contract = json.loads(SOURCE_GUARDS_PATH.read_text())
+    if source_guard_fingerprint(contract) != contract['sourceFingerprint']:
+        raise TemplateError('source guard contract fingerprint is stale')
+    return contract
+
+
+def source_guard_fingerprint(contract):
+    return fingerprint({key: contract[key] for key in ('schemaVersion', 'fileKey', 'componentsPageId', 'tolerance', 'sources')})
+
+
+def validate_source_guards(readback, contract=None):
+    contract = contract or load_source_guards()
+    if source_guard_fingerprint(contract) != contract['sourceFingerprint']:
+        raise TemplateError('source guard contract fingerprint is stale')
+    if readback.get('fileKey') != contract['fileKey'] or readback.get('pageId') != contract['componentsPageId']:
+        raise TemplateError('source guards identify a different file or page')
+    measured = readback.get('sourceGuards')
+    if not isinstance(measured, list) or len(measured) != len(contract['sources']):
+        raise TemplateError('missing or duplicate source guard measurements')
+    by_id = {row.get('sourceComponentId'): row for row in measured if isinstance(row, dict)}
+    if len(by_id) != len(measured) or set(by_id) != {row['sourceComponentId'] for row in contract['sources']}:
+        raise TemplateError('missing, duplicate or mismatched source guard identities')
+
+    def same(label, actual, expected):
+        if type(expected) in (int, float):
+            okay = type(actual) in (int, float) and math.isfinite(actual) and abs(actual - expected) <= contract['tolerance']
+        elif isinstance(expected, dict):
+            okay = isinstance(actual, dict) and set(actual) == set(expected)
+            if okay:
+                for key, value in expected.items():
+                    same(f'{label}.{key}', actual[key], value)
+                return
+        elif isinstance(expected, list):
+            okay = isinstance(actual, list) and len(actual) == len(expected)
+            if okay:
+                for index, value in enumerate(expected):
+                    same(f'{label}[{index}]', actual[index], value)
+                return
+        else:
+            okay = type(actual) is type(expected) and actual == expected
+        if not okay:
+            raise TemplateError(f'{label}: expected {expected!r}, got {actual!r}')
+
+    for source in contract['sources']:
+        actual = by_id[source['sourceComponentId']]
+        for role, expected in source['protected'].items():
+            same(f"{source['id']}.{role}", actual.get(role), expected)
+    if readback.get('sourceGuardFingerprint') != contract['sourceFingerprint']:
+        raise TemplateError('source guard readback fingerprint is stale or missing')
+    return {'sourceGuards': len(measured), 'sourceGuardFingerprint': contract['sourceFingerprint']}
 
 
 def normalize(value):

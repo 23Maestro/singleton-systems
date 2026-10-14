@@ -221,8 +221,10 @@
         "supported count variant",
         "transcript reveal timing"
       ],
-      "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "guards": [
+        "comparison.simple.2.background.v1"
+      ],
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered"
     },
     {
       "key": "comparison.simple.3",
@@ -347,8 +349,10 @@
         "supported count variant",
         "transcript reveal timing"
       ],
-      "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "guards": [
+        "comparison.full.2.3.background.v1"
+      ],
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered"
     },
     {
       "key": "comparison.full.3.2",
@@ -563,8 +567,10 @@
         "supported count variant",
         "transcript reveal timing"
       ],
-      "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "guards": [
+        "asset-swap.background.v1"
+      ],
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered"
     },
     {
       "key": "recurring.rank-reveal.10",
@@ -634,6 +640,9 @@
     }
   ],
   "contracts": {
-    "quick-stat.callout.v1": "config/lineups/callout-contract.json"
+    "quick-stat.callout.v1": "config/lineups/callout-contract.json",
+    "asset-swap.background.v1": "config/lineups/source-guards.json",
+    "comparison.simple.2.background.v1": "config/lineups/source-guards.json",
+    "comparison.full.2.3.background.v1": "config/lineups/source-guards.json"
   }
 }
