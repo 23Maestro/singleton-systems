@@ -101,21 +101,27 @@ try {
   assert.equal(duplicateMatches.length, 2);
 
   const lockedNames = nextNames(
-    ["mike-tomlin-1", "patrick-mahomes-11"],
+    ["mike-tomlin-1", "patrick-mahomes-11", "howie-roseman-4"],
     [
       { id: "tomlin", subject: "Mike Tomlin", league: "NFL", team: "Pittsburgh Steelers", role: "Coach", photoType: "Action", confidence: "high" },
       { id: "mahomes", subject: "Patrick Mahomes", league: "NFL", team: "Kansas City Chiefs", role: "Player", photoType: "Transparent", confidence: "high" },
       { id: "steelers", subject: "Pittsburgh Steelers", league: "NFL", team: "Pittsburgh Steelers", role: null, photoType: "Logo", confidence: "high" },
+      { id: "roseman", subject: "Howie Roseman", league: "NFL", team: "Philadelphia Eagles", role: "GM", photoType: "Action", confidence: "high" },
     ],
   );
   assert.deepEqual(lockedNames, [
     { id: "tomlin", name: "mike-tomlin-2", tags: ["NFL", "Pittsburgh Steelers", "Coach", "Action"] },
     { id: "mahomes", name: "patrick-mahomes-12", tags: ["NFL", "Kansas City Chiefs", "Player", "Transparent"] },
     { id: "steelers", name: "pittsburgh-steelers-1", tags: ["NFL", "Pittsburgh Steelers", "Logo"] },
+    { id: "roseman", name: "howie-roseman-5", tags: ["NFL", "Philadelphia Eagles", "GM", "Action"] },
   ]);
   assert.throws(
     () => nextNames([], [{ id: "guess", subject: "Unknown", league: "NFL", team: "Pittsburgh Steelers", role: "Player", photoType: "Action", confidence: "review" }]),
     /identity needs review/,
+  );
+  assert.throws(
+    () => nextNames([], [{ id: "owner", subject: "Jeffrey Lurie", league: "NFL", team: "Philadelphia Eagles", role: "Owner", photoType: "Action", confidence: "high" }]),
+    /person photos require Player, Coach, or GM/,
   );
   assert.equal(
     planUpdates(

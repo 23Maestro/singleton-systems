@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "skill": "git-cleanup",
+      "url": "https://github.com/trailofbits/skills",
+      "commit": "8e54050ae63c2f62224c35b1616efe71865b4777",
+      "sourcePaths": [
+        "plugins/git-cleanup/commands/git-cleanup.md",
+        "plugins/git-cleanup/references/merge-evidence.md"
+      ],
+      "adaptations": [
+        "Standalone inline Codex workflow; no Workflow tool, background workers, hooks or network services.",
+        "Retains evidence categories, protected refs, dirty-worktree refusal and exact-target confirmation."
+      ],
+      "license": "CC-BY-SA-4.0; the Git cleanup adaptation retains this license"
+    },
+    {
+      "skill": "repo-maintenance",
+      "url": "https://github.com/tyroneross/build-loop",
+      "commit": "a72c1b3e91936d4d8b438dc6cc0e2eefbc0b0367",
+      "sourcePaths": [
+        "skills/repo-maintenance",
+        "scripts/ref_goals.py",
+        "scripts/atomic_io.py",
+        "scripts/merge_risk.py"
+      ],
+      "adaptations": [
+        "Bundle the three required helpers and resolve imports against the skill directory.",
+        "Use the bundled merge-risk path and Codex namespace; remove unsupported frontmatter.",
+        "Omit the publication phase because its framework dependencies are outside this standalone skill.",
+        "Normalize inherited CommonMark and phrasing without changing audit behavior.",
+        "Branch removals use the bundled Git cleanup skill confirmation and evidence rules."
+      ],
+      "license": "Apache-2.0"
+    },
+    {
+      "skill": "repo-prune-review",
+      "source": "Singleton Systems local skill",
+      "baselineHead": "e66e9ae9032bfc457a084014d78274fd616ff198",
+      "adaptations": [
+        "Move the existing uncommitted skill into this plugin; retain its repository alias.",
+        "Prefer the repository canonical alias for helper execution when its runtime hook owns that path."
+      ]
+    }
+  ],
+  "review": "Selected contents were reviewed locally. This is not an independent security certification."
+}

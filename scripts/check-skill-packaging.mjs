@@ -11,7 +11,12 @@ const repoLocalSkillsRoot = path.join(root, ".agents", "skills");
 const repoLocalSkillRoots = fs.readdirSync(repoLocalSkillsRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(repoLocalSkillsRoot, entry.name, "SKILL.md")))
   .map((entry) => path.join(repoLocalSkillsRoot, entry.name));
+const housekeepingRoot = path.join(root, "plugins", "repo-housekeeping", "skills");
+const housekeepingSkills = fs.readdirSync(housekeepingRoot, { withFileTypes: true })
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => path.join(housekeepingRoot, entry.name));
 const skillRoots = [
+  ...housekeepingSkills,
   path.join(root, "skills", "html-playground"),
   ...fs.readdirSync(path.join(root, "plugins", "s-systems", "skills"), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
@@ -115,9 +120,14 @@ function assertParity(canonical, generated, label) {
 for (const skillRoot of skillRoots) checkSkill(skillRoot);
 console.log(`resource paths ok: ${skillRoots.length} canonical skills`);
 for (const skillRoot of repoLocalSkillRoots) checkOwnedScriptCommandPaths(skillRoot);
+for (const skillRoot of housekeepingSkills) checkOwnedScriptCommandPaths(skillRoot);
 console.log(`runtime paths ok: ${repoLocalSkillRoots.length} repo-local standalone skills`);
 
 if (checkInstalled) {
+  const housekeepingSource = path.join(root, "plugins", "repo-housekeeping");
+  const housekeepingManifest = JSON.parse(fs.readFileSync(path.join(housekeepingSource, ".codex-plugin", "plugin.json"), "utf8"));
+  const housekeepingCache = path.join(home, ".codex", "plugins", "cache", "singleton-housekeeping", "repo-housekeeping", housekeepingManifest.version);
+  assertParity(housekeepingSource, housekeepingCache, `repo-housekeeping installed cache ${housekeepingManifest.version}`);
   const htmlSource = path.join(root, "skills", "html-playground");
   assertParity(htmlSource, path.join(home, ".codex", "skills", "html-playground"), "html-playground global mirror");
 

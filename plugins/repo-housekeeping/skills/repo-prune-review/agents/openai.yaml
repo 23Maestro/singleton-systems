@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo prune review"
+  short_description: "Check what is used before pruning one folder"
+  default_prompt: "Use $repo-prune-review to review one repo folder. Show Keep, Update, Archive candidate, or Check first, with evidence. Delete nothing."

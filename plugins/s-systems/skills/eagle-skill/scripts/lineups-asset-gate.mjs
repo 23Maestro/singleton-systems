@@ -10,7 +10,7 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const eagleCli = path.join(scriptDir, "eagle-api-cli.js");
 const proposalSchema = path.join(scriptDir, "..", "references", "lineups-asset-proposals.schema.json");
 const leagues = new Set(["NFL", "CFB"]);
-const roles = new Set(["Player", "Coach"]);
+const roles = new Set(["Player", "Coach", "GM"]);
 const photoTypes = new Set(["Action", "Transparent", "Logo"]);
 
 function slug(value) {
@@ -31,7 +31,7 @@ function validateProposal(proposal) {
   if (proposal.photoType === "Logo") {
     if (proposal.role != null) throw new Error(`${proposal.id}: logos cannot have a role`);
   } else if (!roles.has(proposal.role)) {
-    throw new Error(`${proposal.id}: person photos require Player or Coach`);
+    throw new Error(`${proposal.id}: person photos require Player, Coach, or GM`);
   }
   if (proposal.confidence !== "high") throw new Error(`${proposal.id}: identity needs review`);
 }
@@ -85,7 +85,7 @@ function lockedGroups(proposals) {
   const groups = new Map((response.data ?? []).map((group) => [group.name, group]));
   const fixed = new Map([
     ["League", ["NFL", "CFB"]],
-    ["Role", ["Player", "Coach"]],
+    ["Role", ["Player", "Coach", "GM"]],
     ["Photo Type", ["Action", "Transparent", "Logo"]],
   ]);
   for (const [name, tags] of fixed) {

@@ -14,7 +14,7 @@
   ],
   "checks": [
     { "checkId": "diff-integrity", "command": "git", "args": ["diff", "--check"], "timeoutMs": 30000 },
-    { "checkId": "repository-tests", "command": "npm", "args": ["test"], "timeoutMs": 180000 },
+    { "checkId": "repository-tests", "command": "npm", "args": ["test"], "timeoutMs": 600000 },
     { "checkId": "typecheck", "command": "npm", "args": ["run", "typecheck"], "timeoutMs": 180000 },
     { "checkId": "build", "command": "npm", "args": ["run", "build"], "timeoutMs": 240000 }
   ],

@@ -11,7 +11,7 @@
           "subject": { "type": "string" },
           "league": { "enum": ["NFL", "CFB"] },
           "team": { "type": "string" },
-          "role": { "enum": ["Player", "Coach", null] },
+          "role": { "enum": ["Player", "Coach", "GM", null] },
           "photoType": { "enum": ["Action", "Transparent", "Logo"] },
           "confidence": { "enum": ["high", "review"] }
         },

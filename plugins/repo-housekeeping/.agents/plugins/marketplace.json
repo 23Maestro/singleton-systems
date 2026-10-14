@@ -1,0 +1,20 @@
+{
+  "name": "singleton-housekeeping",
+  "interface": {
+    "displayName": "Singleton Housekeeping"
+  },
+  "plugins": [
+    {
+      "name": "repo-housekeeping",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Git cleanup"
+  short_description: "Inspect branches and preserve unique work"
+  default_prompt: "Use $repo-housekeeping:git-cleanup to inspect branches and worktrees before any removal."
+policy:
+  allow_implicit_invocation: false

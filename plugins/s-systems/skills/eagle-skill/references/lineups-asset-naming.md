@@ -18,7 +18,7 @@ Person photos have exactly four tags:
 
 1. League: `NFL` or `CFB`
 2. Team: the official team name
-3. Role: `Player` or `Coach`
+3. Role: `Player`, `Coach`, or `GM` (general manager)
 4. Photo Type: `Action` or `Transparent`
 
 Logos have exactly three tags: League, Team, and `Logo`. Logos do not have a

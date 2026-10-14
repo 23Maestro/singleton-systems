@@ -82,3 +82,27 @@ supabase/.temp/
 /videos/faithtalk-logo-reveal/archive/
 /videos/faithtalk-logo-reveal/figma/*.png
 !videos/faithtalk-drawn-seed-preview/review-v23-36_5.html
+
+# Local client drafts and production evidence. Keep files available to runtime.
+/.scratch/
+/config/lineups/episodes/
+/config/lineups/intake/
+/config/lineups/receipts/
+
+# Local media links and renderer outputs; composition source remains visible.
+/videos/faithtalk-episode-2-social/*/assets
+/videos/faithtalk-episode-2-social/*/snapshots
+/videos/faithtalk-episode-2-social/*/.hyperframes
+/videos/faithtalk-episode-2-social/*/renders
+/videos/faithtalk-lower-third-sting/assets
+/videos/faithtalk-lower-third-sting/renders
+/videos/lineups-template-2-5/assets
+/videos/lineups-template-2-5/renders
+/videos/trevor-stadium-depthflow/assets
+/videos/trevor-stadium-depthflow/renders
+/videos/lineups-template-2-5/vendor
+/videos/lineups-template-2-5/vendor-gsap.js
+/videos/trevor-stadium-depthflow/vendor/
+
+# Generated client review packets stay local unless publication is explicitly approved.
+/public/decision-maps/*-pre-figma-review/
