@@ -1,0 +1,1671 @@
+{
+  "title": "Prospect Pipeline: the work behind the bridge",
+  "reviewed_at": "2026-10-15",
+  "source_repo": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/ARCHIVE/CODE_PROJECTS/prospect-pipeline",
+  "head": "7d650ea8cd36052faf45c9ca8b8743aa77a4d876",
+  "decision": "Ask Turing to assess the AI-assisted integration archive: legacy forms, JSON translation, verified changes, and the work records linked to them.",
+  "commercial_hypothesis": "The record of teaching AI and software to operate a custom legacy system may support training tasks or tests for business AI. Buyer demand for this archive is unconfirmed.",
+  "claim_scope": {
+    "backend_age_years": 15,
+    "backend_age_source": "Jerami, in this conversation",
+    "backend_languages": "Laravel/PHP with AngularJS, as described by the repository and Jerami",
+    "owned_source_reviewed": "Raycast/TypeScript and Python/FastAPI integration layer, schemas, tests, and records",
+    "original_php_source": "No tracked PHP files or composer manifest found in current tracked files or the local PHP-path history search.",
+    "development_history_range": [
+      "2025-10-04",
+      "2026-07-06"
+    ],
+    "not_claimed": "Fifteen years of preserved operating data, ownership of the remote backend, or a training-ready dataset."
+  },
+  "inventory": {
+    "tracked_files": 681,
+    "head_reachable_commits": 408,
+    "all_local_ref_commits": 442,
+    "bridge_routes": 75,
+    "raycast_commands": 12,
+    "sql_migrations": 68,
+    "test_files": 121,
+    "line_counts": {
+      "python": 17363,
+      "typescript": 59081,
+      "tsx": 24391,
+      "sql": 7664
+    },
+    "top_level_file_counts": {
+      ".agent": 1,
+      ".claude": 21,
+      ".coderabbit.yaml": 1,
+      ".codex": 6,
+      ".env.example": 1,
+      ".gitbook.yaml": 1,
+      ".github": 12,
+      ".gitignore": 1,
+      ".kiro": 13,
+      ".prettierignore": 1,
+      ".prettierrc": 1,
+      "AGENTS.md": 1,
+      "\"Icon\\r\"": 1,
+      "Procfile.dev": 1,
+      "README.md": 1,
+      "apps": 74,
+      "assets": 24,
+      "call_tracker_data_model_diagnosis.md": 1,
+      "config": 1,
+      "dev-all.sh": 1,
+      "docs": 74,
+      "eslint.config.js": 1,
+      "n8n": 3,
+      "npid-api-layer": 46,
+      "package-lock.json": 1,
+      "package.json": 1,
+      "references": 2,
+      "scripts": 69,
+      "src": 215,
+      "supabase": 100,
+      "swift": 4,
+      "tsconfig.json": 1
+    }
+  },
+  "git_database_history": {
+    "distinct_snapshots": 34,
+    "distinct_task_ids": 1163,
+    "distinct_raw_row_versions": 20344,
+    "distinct_business_row_versions": 3113,
+    "excluded_refresh_columns": [
+      "cached_at",
+      "updated_at",
+      "last_seen_at"
+    ],
+    "snapshot_date_range": [
+      "2026-01-27",
+      "2026-05-26"
+    ],
+    "snapshots": [
+      {
+        "blob": "4cccff715e5ccf50118dd81f959dd3a0022b2e9d",
+        "sample_commit": "a124ba2afc121c19aa8735e7b65ea02696f40daf",
+        "date": "2026-05-26",
+        "video_rows": 562,
+        "bytes": 643072
+      },
+      {
+        "blob": "72268dcb047550b10197126db944025d0e664c3b",
+        "sample_commit": "05636952a61646292ca984af5fbe4b56785f8130",
+        "date": "2026-05-18",
+        "video_rows": 557,
+        "bytes": 643072
+      },
+      {
+        "blob": "c8c9d80d8707e404218687b9499c13ef727ce983",
+        "sample_commit": "523e94fdb81ed52113305ff24035ef606d5813c9",
+        "date": "2026-05-15",
+        "video_rows": 550,
+        "bytes": 643072
+      },
+      {
+        "blob": "56ffc54e59874578e12525249274902d1ba599c7",
+        "sample_commit": "60902fae191e96654d03a9a29cc3da17154c09d7",
+        "date": "2026-05-11",
+        "video_rows": 547,
+        "bytes": 643072
+      },
+      {
+        "blob": "ce5158ddf5c7d186c958444456b103a9ca2feccb",
+        "sample_commit": "85a20d0b0d920ba040f18d464f9c60db69cea7a6",
+        "date": "2026-05-05",
+        "video_rows": 532,
+        "bytes": 643072
+      },
+      {
+        "blob": "c9053180443c55b19f53a76eeada53c1e97dcd07",
+        "sample_commit": "3342bff0b51586ae8ea38b3e4cc8406af8547d90",
+        "date": "2026-04-30",
+        "video_rows": 532,
+        "bytes": 643072
+      },
+      {
+        "blob": "807cdf2fe9c5046fbcebf0f846a134345e0cd2f0",
+        "sample_commit": "14db32f8117eac4f4c7ede3415088e69e54b71f6",
+        "date": "2026-04-28",
+        "video_rows": 528,
+        "bytes": 643072
+      },
+      {
+        "blob": "112ed0952a8742f071bf5278f4c1489f0fe7f1c1",
+        "sample_commit": "ef1ef316fd7d9c65933d1a9e641fc760c3ccbac2",
+        "date": "2026-04-28",
+        "video_rows": 526,
+        "bytes": 643072
+      },
+      {
+        "blob": "1c495bd74f4faf55d3dafb5963adb8e19c142bb6",
+        "sample_commit": "5b3318f6d0d63852b08f27ffd1c0da0e2a31a6ab",
+        "date": "2026-04-27",
+        "video_rows": 525,
+        "bytes": 643072
+      },
+      {
+        "blob": "5e837e1f9f902e64445deaf2ce234db65bab1d1e",
+        "sample_commit": "f5bc9a52eb8aabca0465aa4075645b40571bfd6b",
+        "date": "2026-04-25",
+        "video_rows": 523,
+        "bytes": 643072
+      },
+      {
+        "blob": "4b78c0894790dc1c86844638e5bac377e4ec594e",
+        "sample_commit": "40e56a1586a775bef292932f8403746c056c41d8",
+        "date": "2026-04-20",
+        "video_rows": 517,
+        "bytes": 643072
+      },
+      {
+        "blob": "126aeb3207a87c71cfb225c4e3e5030e370e3b32",
+        "sample_commit": "21d1720d9312bc5569abd8d60d6e6383253eb210",
+        "date": "2026-04-19",
+        "video_rows": 511,
+        "bytes": 643072
+      },
+      {
+        "blob": "484998bc3dc24a04a0ff145d025f015f4df09163",
+        "sample_commit": "36b85c13a60ed40ef18ec9022ea107d7421ed481",
+        "date": "2026-04-17",
+        "video_rows": 511,
+        "bytes": 643072
+      },
+      {
+        "blob": "0e98371113839afb100ca4e0a3d13e25e9401ffb",
+        "sample_commit": "1e7fa5ee882aaf8aeee02f9d64ab2767ab9f7e96",
+        "date": "2026-04-15",
+        "video_rows": 509,
+        "bytes": 643072
+      },
+      {
+        "blob": "db91668083cfc77c60ba3aa5ba996b23bc9ad491",
+        "sample_commit": "1209a803687ec973d605e90762959d3ac8c15335",
+        "date": "2026-04-14",
+        "video_rows": 505,
+        "bytes": 643072
+      },
+      {
+        "blob": "a34d6f732605dafb5867db49f3343dd66c73b3e2",
+        "sample_commit": "ca445c299542b2d60a0ccc68aeb9358155bc11c7",
+        "date": "2026-04-09",
+        "video_rows": 504,
+        "bytes": 643072
+      },
+      {
+        "blob": "a354c88fb3c9bcd2f6148175abc7262f435836bf",
+        "sample_commit": "412518561aa71c486757b87b983101ae1c69b9d4",
+        "date": "2026-04-09",
+        "video_rows": 503,
+        "bytes": 643072
+      },
+      {
+        "blob": "8fc81cf8887d7cfdc3533ba5438bf778f7d74e10",
+        "sample_commit": "8d5991e25d72a483b8f23ec1ec38376e67fca220",
+        "date": "2026-04-09",
+        "video_rows": 503,
+        "bytes": 643072
+      },
+      {
+        "blob": "7040c0281dc78cb860d963bad8e5d818b7ee5ae8",
+        "sample_commit": "348b7a0039a7515d723821356568df5d554fcf86",
+        "date": "2026-04-09",
+        "video_rows": 503,
+        "bytes": 643072
+      },
+      {
+        "blob": "3b06c269ea206c490753121f04672b841f24fb1f",
+        "sample_commit": "b06866cc2cb336e3ba01ff0a505222abee3f4a23",
+        "date": "2026-04-08",
+        "video_rows": 503,
+        "bytes": 643072
+      },
+      {
+        "blob": "2a18c9c9f710260169e086b2171d8bb22717828e",
+        "sample_commit": "6d329b237bec1f86d5d9d11abfc3e05d8b8afd93",
+        "date": "2026-03-26",
+        "video_rows": 879,
+        "bytes": 643072
+      },
+      {
+        "blob": "e69e4d3499fc292b9dc28db89ec025fa4df58b4b",
+        "sample_commit": "ce1d5f67bc6b40462ba11b52dac34720c7f633cf",
+        "date": "2026-03-19",
+        "video_rows": 873,
+        "bytes": 643072
+      },
+      {
+        "blob": "87f57ccfb6930c393dbdeb79d7926b3d7ba0b8ce",
+        "sample_commit": "c6bf1ea0d12682ee8f1f4fa47f6fcb1eaa090a07",
+        "date": "2026-03-09",
+        "video_rows": 863,
+        "bytes": 643072
+      },
+      {
+        "blob": "e736b43f62860a044ce73a9e5d640acd6efd27e9",
+        "sample_commit": "d9e34b2e484fc86a7287b807e1d9d711dca7eff0",
+        "date": "2026-03-07",
+        "video_rows": 859,
+        "bytes": 643072
+      },
+      {
+        "blob": "6eef1ca030a385181b6487e602c57944924584dc",
+        "sample_commit": "7557db3cacaa855a9efa6bb9cb64f1960de9c897",
+        "date": "2026-03-06",
+        "video_rows": 859,
+        "bytes": 643072
+      },
+      {
+        "blob": "0e0bf3240ffc62be5f7cd25909301b077fd3ded7",
+        "sample_commit": "b92c9e28850f3662f827edaba824863b5ee9f3b8",
+        "date": "2026-02-23",
+        "video_rows": 850,
+        "bytes": 643072
+      },
+      {
+        "blob": "d91514af551140b98883fba7732feedeb94216b8",
+        "sample_commit": "5fe6c2d4a1429fea62e8cebef820c8ede242c3dc",
+        "date": "2026-02-20",
+        "video_rows": 845,
+        "bytes": 643072
+      },
+      {
+        "blob": "9cd90ca359b18a138866951398cb0bc6905914f8",
+        "sample_commit": "cd191d900beb4d262365b006e6677ed937cc0954",
+        "date": "2026-02-07",
+        "video_rows": 838,
+        "bytes": 643072
+      },
+      {
+        "blob": "a8fda7e4ba94b2ae563a7a49a198aeccadd23982",
+        "sample_commit": "acc5c701c931f4ac7062d2d52155223b703963c2",
+        "date": "2026-02-06",
+        "video_rows": 836,
+        "bytes": 643072
+      },
+      {
+        "blob": "653924a3aa91aa220f74c09f020b00fba99bf8f3",
+        "sample_commit": "0a1bf370be8846998cc8a97c9ed14031c6cf1741",
+        "date": "2026-01-29",
+        "video_rows": 829,
+        "bytes": 643072
+      },
+      {
+        "blob": "6714284f5a3320b562aad85f224c35639b6dfc51",
+        "sample_commit": "af52224907cde40f9d3ccb5134a018caa2dfc336",
+        "date": "2026-01-29",
+        "video_rows": 829,
+        "bytes": 643072
+      },
+      {
+        "blob": "6dbaa4ff91dced54d187f2b521b906159a8250a2",
+        "sample_commit": "829401b3fa56587a08055ce3b001f9287b1e156d",
+        "date": "2026-01-29",
+        "video_rows": 829,
+        "bytes": 643072
+      },
+      {
+        "blob": "875cecc5a8da7fb3b6aa96652b51af5daa0c85f3",
+        "sample_commit": "85108fdbe6b4b1add35acba243fcacdc2c1e63bf",
+        "date": "2026-01-27",
+        "video_rows": 857,
+        "bytes": 643072
+      },
+      {
+        "blob": "fadd483b304a8cf5c057957d013e7ac2479b3936",
+        "sample_commit": "c3acfd974f4a7d504442e9d4b0ead13487b72e02",
+        "date": "2026-01-27",
+        "video_rows": 857,
+        "bytes": 643072
+      }
+    ],
+    "limitation": "Snapshot differences cannot establish an action sequence or cause. Do not add snapshot row counts to estimate unique tasks."
+  },
+  "local_databases": [
+    {
+      "path": ".sensitive-archive/progress.db",
+      "lines": null,
+      "bytes": 643072,
+      "sha256": "6bc25b87b9ea66e4f0b75cb99a252fb1e8ef4a20a7cf656d323f09e82b72e96d",
+      "table_rows": {
+        "video_tasks": 562,
+        "contact_info": 76
+      }
+    },
+    {
+      "path": "progress.db",
+      "lines": null,
+      "bytes": 651264,
+      "sha256": "c9ed2d3f57de243ed17eca2461a3e955294e53ec0de81214c8796027b25019c9",
+      "table_rows": {
+        "video_tasks": 141,
+        "contact_info": 29
+      }
+    },
+    {
+      "path": ".sensitive-archive/local-db-backups/progress.db.2026-07-03T20-55-01-197Z.bak",
+      "lines": null,
+      "bytes": 643072,
+      "sha256": "7e21076840d6de215d78f223f9890da0c0f2e58c210d9693d5f08bc72ca2b43c",
+      "table_rows": {
+        "video_tasks": 1781,
+        "contact_info": 28
+      }
+    },
+    {
+      "path": ".sensitive-archive/local-db-backups/progress.db.2026-07-04T02-20-59-163Z.bak",
+      "lines": null,
+      "bytes": 651264,
+      "sha256": "bc14cc01df22fb585a22730af33b87aaf732c43b374c4b3a9065c10413ff00e1",
+      "table_rows": {
+        "video_tasks": 41,
+        "contact_info": 29
+      }
+    },
+    {
+      "path": ".sensitive-archive/local-db-backups/video-progress-cache.sqlite.2026-07-03T20-55-01-261Z.bak",
+      "lines": null,
+      "bytes": 643072,
+      "sha256": "09159ffdbc6316f6a534028eeada2de62598bb6b7d3ae40099c11e311f80cf44",
+      "table_rows": {
+        "video_tasks": 1781,
+        "contact_info": 28
+      }
+    },
+    {
+      "path": ".sensitive-archive/local-db-backups/video-progress-cache.sqlite.2026-07-04T02-20-59-239Z.bak",
+      "lines": null,
+      "bytes": 643072,
+      "sha256": "8f0aeee5274f57db81a886646541a9283ea13c613f2d6e1b30db71a0996e6cb4",
+      "table_rows": {
+        "video_tasks": 1781,
+        "contact_info": 28
+      }
+    }
+  ],
+  "sales_backfill": {
+    "path": ".tmp/call_log_backfill.sql",
+    "lines": null,
+    "bytes": 2100740,
+    "sha256": "95a3bd906f06530039e8f6180cf22c6e6b390ba83b36e6389e04c41c91f4ffcd",
+    "tuple_rows": 723,
+    "distinct_dedupe_keys": 723,
+    "distinct_athlete_keys": 362,
+    "fact_types": {
+      "call_activity": 578,
+      "meeting_set": 85,
+      "post_meeting_outcome": 60
+    },
+    "source_families": {
+      "lifecycle_events": 85,
+      "meeting_events": 84,
+      "call_activity_events": 554
+    },
+    "method": "Parse the INSERT VALUES tuples while respecting SQL string quotes; verify all 39 fields are present in each tuple. No SQL executed.",
+    "limitation": "Saved generated backfill, not proof of successful database import or independent raw events."
+  },
+  "communications": {
+    "path": "tmp/10x-communications-evidence-audit.json",
+    "lines": null,
+    "bytes": 61162,
+    "sha256": "2cbd3bf6f82d3da42488baa159322db4eb3b22b5911c592f5cc9419d0af8f86e",
+    "generated_at": "2026-06-18T13:20:40.220Z",
+    "counts": {
+      "pendingAppointments": 20,
+      "messagesChatsScanned": 270,
+      "contactCacheResolutions": 124,
+      "matchedChats": 121,
+      "sampledMatchedChats": 100,
+      "replyThemeRows": 12,
+      "replyThemeNearMisses": 0,
+      "pendingClientReplyMatches": 5,
+      "pendingClientReviewReplies": 0
+    },
+    "decoder_coverage": {
+      "totalMessages": 566,
+      "attributedBodiesPresent": 564,
+      "attributedBodiesDecoded": 564,
+      "textFallbackCount": 0,
+      "emptyCount": 2,
+      "emptyReasonCounts": {
+        "attachment": 1,
+        "summary": 1
+      },
+      "undecodedAttributedBodyWithoutText": 0
+    },
+    "pending_actions": 5,
+    "audit_status": "review",
+    "limitation": "Historical audit output. Full raw message text, human labels, and complete tool action traces are not established by this review.",
+    "contact_index_rows": 44
+  },
+  "workflow_candidates": [
+    {
+      "id": "legacy-forms",
+      "name": "Make old forms work",
+      "lane": "Legacy integration",
+      "summary": "Translate clean tool requests into the exact forms the Laravel backend accepts. Check the returned state before claiming success.",
+      "buyer_value": "Tasks for AI that must use older business software.",
+      "evidence": [
+        {
+          "path": "npid-api-layer/app/translators/legacy.py",
+          "lines": "696-817; 897-1034; 3156-3315; 4887-5004",
+          "bytes": 219214,
+          "sha256": "c95710b42a1dbc1f664392b0d4571d240977a9e602446411cd18c179d17769d4"
+        },
+        {
+          "path": "npid-api-layer/app/session.py",
+          "lines": "158-305; 312-489",
+          "bytes": 18897,
+          "sha256": "147cd7128044c540c2f6e754bd9235e5af1e61a53e8689aff5f1f6a00caaa82c"
+        },
+        {
+          "path": "npid-api-layer/app/routers/inbox.py",
+          "lines": "141-195",
+          "bytes": 15351,
+          "sha256": "dbc886f96181c3cb8503b65d3be24fd892621e1c58200bde4955700321541548"
+        },
+        {
+          "path": "docs/api-specs/legacy-assignment-debug-template.md",
+          "lines": null,
+          "bytes": 2649,
+          "sha256": "ad8b92bb0e8e238875c13490957664ca8fad751183f9490bdbeca1fb6fa54062"
+        }
+      ],
+      "test_sources": [
+        "npid-api-layer/test_task_update_translator.py",
+        "npid-api-layer/test_sales_stage_parser.py"
+      ],
+      "status": "code and repair history verified; original live service not exercised"
+    },
+    {
+      "id": "identity",
+      "name": "Match the right person",
+      "lane": "Sales and editing",
+      "summary": "Keep the contact ID and profile ID together. Use more than a matching name before marking another profile as a repeat.",
+      "buyer_value": "Hard matching cases for customer and client records.",
+      "evidence": [
+        {
+          "path": "src/domain/athlete-identity.ts",
+          "lines": null,
+          "bytes": 2002,
+          "sha256": "3a2ff7c48588ded18fb67d9acc1925f9aa96763c82c587ea58d0cd0a123ea411"
+        },
+        {
+          "path": "src/lib/scout-duplicate-profiles.ts",
+          "lines": null,
+          "bytes": 41200,
+          "sha256": "ceefff60ae28497f48dc5a1b95d17b70492cde16e63f40f4f987afacea2283c4"
+        },
+        {
+          "path": "src/domain/workflow-context.ts",
+          "lines": null,
+          "bytes": 6387,
+          "sha256": "c0d98c3caf1f0d5063c9448e87f288b842b6f8e3d361f20595c5c609f112b6d5"
+        }
+      ],
+      "test_sources": [
+        "src/domain/athlete-identity.test.ts",
+        "src/domain/workflow-context.test.ts",
+        "src/lib/scout-duplicate-profiles.test.ts"
+      ],
+      "status": "identity and workflow tests passed; duplicate-profile tests inspected but not run"
+    },
+    {
+      "id": "video-ops",
+      "name": "Finish video work",
+      "lane": "Editing operations",
+      "summary": "Upload a video, send the right notice, update the stage, and complete the right editing task. Track each step and its failures.",
+      "buyer_value": "Multi-step tasks with partial success and stale local state.",
+      "evidence": [
+        {
+          "path": "src/lib/video-post-upload.ts",
+          "lines": "193-374",
+          "bytes": 11909,
+          "sha256": "fcc13219b77cc1ba809ad4f70e2b580ee553895e67570c7b0fcba97d880651e5"
+        },
+        {
+          "path": "src/lib/video-progress-cache.ts",
+          "lines": "246-345; 350-477",
+          "bytes": 26486,
+          "sha256": "22ac92cb69a036f9cfcab167013cc32487c1e34eb0faa8199977fb2c3c80638f"
+        },
+        {
+          "path": "npid-api-layer/app/routers/video.py",
+          "lines": "163-266; 453-610",
+          "bytes": 28550,
+          "sha256": "0194b4659ecd497136dc7165c074a95da5bfd33bf9ad779143d15b8b8fb86e89"
+        }
+      ],
+      "test_sources": [
+        "npid-api-layer/test_video_endpoints.py"
+      ],
+      "status": "code and database snapshots verified; live video tests were not run",
+      "failure_seed": "The stage write is caught independently; local cache can still be marked Done. This is a source-based failure candidate, not an observed event from this review."
+    },
+    {
+      "id": "sales-ledger",
+      "name": "Count the sales work once",
+      "lane": "Sales reporting",
+      "summary": "Keep call activity, meeting bookings, and outcomes as separate facts. Preserve the event time and prevent duplicate counts.",
+      "buyer_value": "Tests for AI that updates or repairs business reports.",
+      "evidence": [
+        {
+          "path": "src/domain/call-tracker-facts.ts",
+          "lines": null,
+          "bytes": 35826,
+          "sha256": "a6d3e0b90fe4ee2301d27b00bbab243252d61ffbb124825d004bed288e96ee2e"
+        },
+        {
+          "path": "src/lib/supabase-lifecycle.ts",
+          "lines": null,
+          "bytes": 59941,
+          "sha256": "db2e4ef57f45310e3f7215d4209538f9b15920fc8e0e1170e7370636538d0713"
+        },
+        {
+          "path": "supabase/migrations/20260602090000_call_log_canonical_ledger.sql",
+          "lines": null,
+          "bytes": 6421,
+          "sha256": "fd66ecb2a6b0e3d92a9c56134de6c548c934d333b7dbc0da401b146e452e4cdb"
+        },
+        {
+          "path": ".tmp/call_log_backfill.sql",
+          "lines": null,
+          "bytes": 2100740,
+          "sha256": "95a3bd906f06530039e8f6180cf22c6e6b390ba83b36e6389e04c41c91f4ffcd"
+        }
+      ],
+      "test_sources": [
+        "src/domain/call-tracker-facts.test.ts",
+        "src/domain/supabase-lifecycle-translator.test.ts"
+      ],
+      "status": "local business tests passed; saved backfill parsed; database execution unverified"
+    },
+    {
+      "id": "reschedules",
+      "name": "Move a meeting correctly",
+      "lane": "Sales operations",
+      "summary": "Choose a new slot, preserve the previous meeting link, and keep a pending result out of the active meeting list.",
+      "buyer_value": "Agent tasks that cross schedules, customer records, and reporting.",
+      "evidence": [
+        {
+          "path": "src/domain/appointment-truth.ts",
+          "lines": null,
+          "bytes": 5353,
+          "sha256": "3dff6d2e474c8e5cf4c088f6ec376310e1f92eea0d58c416e5889b9342690fc6"
+        },
+        {
+          "path": "src/domain/parent-reschedule-slot-selection.ts",
+          "lines": null,
+          "bytes": 2996,
+          "sha256": "165d132192fc28b9a98aba49c14c0988bee452a6186ca19b154e5ec58e544422"
+        },
+        {
+          "path": "src/domain/meeting-set-contract.ts",
+          "lines": null,
+          "bytes": 2459,
+          "sha256": "c33d75ceb7ba39060d4cb29505ef15aa5f39d8ae440816ecb7713f63443a907d"
+        },
+        {
+          "path": "npid-api-layer/app/routers/sales.py",
+          "lines": "192-246; 612-879",
+          "bytes": 31643,
+          "sha256": "9b9c88dc023deebcb472e865f29a11daed938abb2b2ea88227e18bbd49629e7c"
+        }
+      ],
+      "test_sources": [
+        "src/domain/appointment-truth.test.ts",
+        "src/domain/parent-reschedule-slot-selection.test.ts",
+        "src/domain/meeting-set-contract.test.ts"
+      ],
+      "status": "local business tests passed; live booking untested"
+    },
+    {
+      "id": "client-replies",
+      "name": "Choose the next reply action",
+      "lane": "Sales and client service",
+      "summary": "Distinguish a reply needing action from a client waiting on proposed times. Keep the evidence and proposed action in separate records.",
+      "buyer_value": "Examples for testing AI follow-up decisions.",
+      "evidence": [
+        {
+          "path": "src/lib/client-message-reply-themes.ts",
+          "lines": null,
+          "bytes": 54038,
+          "sha256": "f45b9576f8e2a68b718a214475134a21721e26549313258257d3b8d3adff2316"
+        },
+        {
+          "path": "src/lib/client-message-action-proposals.ts",
+          "lines": null,
+          "bytes": 10054,
+          "sha256": "c33642e9e7a703bbc83c2f36cc97fb4ecbfca512594773f85f576a74772c5a2d"
+        },
+        {
+          "path": "src/lib/client-message-evidence-receipts.ts",
+          "lines": null,
+          "bytes": 5683,
+          "sha256": "f8186c6de6a584c96c0a41e8a3f7d929ae1f9ab046d7943a383c0d75ab2a2d07"
+        },
+        {
+          "path": "tmp/10x-communications-evidence-audit.json",
+          "lines": null,
+          "bytes": 61162,
+          "sha256": "2cbd3bf6f82d3da42488baa159322db4eb3b22b5911c592f5cc9419d0af8f86e"
+        },
+        {
+          "path": "tmp/client-message-inbox-export.json",
+          "lines": null,
+          "bytes": 38369,
+          "sha256": "95ee792a6ae3d410f40728de1ba48a571d859108e4c67e74d330db96d35bf834"
+        }
+      ],
+      "test_sources": [
+        "src/lib/client-message-reply-themes.test.ts",
+        "src/lib/client-message-action-proposals.test.ts",
+        "src/lib/client-message-evidence-receipts.test.ts"
+      ],
+      "status": "local tests passed; saved audit reports 566 messages processed; complete raw thread archive not established"
+    }
+  ],
+  "historical_change_examples": [
+    {
+      "name": "Laravel video form repair",
+      "commit": "3ef15c442e089346b6a93f8579f11e6dafbc87fc",
+      "parent": "a46cc94e544d4c1ab1da54d1e0b22e391e599615",
+      "date": "2025-11-25",
+      "path": "src/python/npid_api_client.py",
+      "summary": "An HTTP status was being used as success evidence. The change maps the expected form fields and reads the response result.",
+      "verification": "Historical repair; no live replay performed.",
+      "kind": "summary of an actual historical code change; not a recorded agent trajectory",
+      "before_blob": "c2921dc3fc689011de00b23de75e1a9bdebb109d",
+      "after_blob": "015c5a8495520d2ab4d6f0b19ed8c8c7070be4db"
+    },
+    {
+      "name": "Sales stage readback",
+      "commit": "1daf9a7d7a4d3ed8720802c81dcd06ce1c3a5fe8",
+      "parent": "6140dd61577d7080207f7debbcab0eab158a59ca",
+      "date": "2026-05-01",
+      "path": "npid-api-layer/app/routers/sales.py",
+      "summary": "The change checks the selected stage after a write and rejects a blank or mismatched result.",
+      "verification": "Current readback function inspected; parser fixture tests exist.",
+      "kind": "summary of an actual historical code change; not a recorded agent trajectory",
+      "before_blob": "884b65e3dc344765fb90b75943d5dd090ce69996",
+      "after_blob": "af00a55cf37a6a22877b5b084a0a3ca4e9a46224"
+    },
+    {
+      "name": "Merge manual and server video tasks",
+      "commit": "5fe6c2d4a1429fea62e8cebef820c8ede242c3dc",
+      "parent": "cd191d900beb4d262365b006e6677ed937cc0954",
+      "date": "2026-02-20",
+      "path": "src/lib/video-progress-cache.ts",
+      "summary": "The change preserves useful local fields while merging a manual task into a server task for the same person.",
+      "verification": "Patch inspected; current merge behavior not executed against a cache.",
+      "kind": "summary of an actual historical code change; not a recorded agent trajectory",
+      "before_blob": "7d4926dc1fed34aba1c5d09f4189b606b43eebe6",
+      "after_blob": "636320d5f80dabc3e08d20e969b423722f3d82f4"
+    }
+  ],
+  "route_inventory": [
+    {
+      "file": "npid-api-layer/app/routers/assignments.py",
+      "method": "GET",
+      "route": "",
+      "function": "get_assignments",
+      "line": 25
+    },
+    {
+      "file": "npid-api-layer/app/routers/assignments.py",
+      "method": "GET",
+      "route": "/pending",
+      "function": "get_pending_assignments",
+      "line": 79
+    },
+    {
+      "file": "npid-api-layer/app/routers/assignments.py",
+      "method": "GET",
+      "route": "/in-progress",
+      "function": "get_in_progress_assignments",
+      "line": 85
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{any_id}/scout-prep-resolve",
+      "function": "resolve_athlete_for_scout_prep",
+      "line": 114
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{any_id}/resolve",
+      "function": "resolve_athlete",
+      "line": 249
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{athlete_id}/measurables",
+      "function": "get_athlete_measurables",
+      "line": 498
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{contact_id}/admin/payments",
+      "function": "get_admin_payments",
+      "line": 557
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{contact_id}/admin/emails",
+      "function": "get_admin_emails",
+      "line": 619
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{contact_id}/admin/campaigns",
+      "function": "get_admin_campaigns",
+      "line": 670
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "POST",
+      "route": "/admin-duplicate-search",
+      "function": "admin_duplicate_search",
+      "line": 748
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "POST",
+      "route": "/raw-search",
+      "function": "raw_search",
+      "line": 820
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/athletetaskid/{task_id}/resolve",
+      "function": "resolve_from_task_id",
+      "line": 958
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{athlete_id}/details",
+      "function": "get_athlete_details",
+      "line": 1010
+    },
+    {
+      "file": "npid-api-layer/app/routers/athlete.py",
+      "method": "GET",
+      "route": "/{athlete_id}/name",
+      "function": "get_athlete_name",
+      "line": 1062
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "GET",
+      "route": "/head-scout-slots",
+      "function": "get_head_scout_slots",
+      "line": 36
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "POST",
+      "route": "/booked-meeting/description",
+      "function": "update_booked_meeting_description",
+      "line": 139
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "GET",
+      "route": "/open-meetings",
+      "function": "get_open_meetings",
+      "line": 231
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "GET",
+      "route": "/booked-meetings",
+      "function": "get_head_scout_booked_meetings",
+      "line": 309
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "GET",
+      "route": "/athlete-booked-meetings",
+      "function": "get_athlete_booked_meetings",
+      "line": 378
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "GET",
+      "route": "/booked-meeting",
+      "function": "get_booked_meeting",
+      "line": 452
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "GET",
+      "route": "/booked-meeting/details",
+      "function": "get_booked_meeting_details",
+      "line": 550
+    },
+    {
+      "file": "npid-api-layer/app/routers/calendar.py",
+      "method": "POST",
+      "route": "/booked-meeting/title",
+      "function": "update_booked_meeting_title",
+      "line": 617
+    },
+    {
+      "file": "npid-api-layer/app/routers/call_tracker.py",
+      "method": "GET",
+      "route": "/sync",
+      "function": "get_call_tracker_sync_status",
+      "line": 126
+    },
+    {
+      "file": "npid-api-layer/app/routers/call_tracker.py",
+      "method": "POST",
+      "route": "/sync",
+      "function": "sync_call_tracker",
+      "line": 131
+    },
+    {
+      "file": "npid-api-layer/app/routers/commissions.py",
+      "method": "POST",
+      "route": "/stripe",
+      "function": "get_stripe_commissions",
+      "line": 25
+    },
+    {
+      "file": "npid-api-layer/app/routers/commissions.py",
+      "method": "POST",
+      "route": "/stripe-payroll",
+      "function": "get_stripe_payroll_commissions",
+      "line": 63
+    },
+    {
+      "file": "npid-api-layer/app/routers/contacts.py",
+      "method": "GET",
+      "route": "/{contact_id}/enriched",
+      "function": "get_enriched_contact",
+      "line": 23
+    },
+    {
+      "file": "npid-api-layer/app/routers/email.py",
+      "method": "GET",
+      "route": "/templates/{athlete_id}",
+      "function": "get_email_templates",
+      "line": 28
+    },
+    {
+      "file": "npid-api-layer/app/routers/email.py",
+      "method": "POST",
+      "route": "/template-data",
+      "function": "get_template_data",
+      "line": 55
+    },
+    {
+      "file": "npid-api-layer/app/routers/email.py",
+      "method": "POST",
+      "route": "/send",
+      "function": "send_email",
+      "line": 88
+    },
+    {
+      "file": "npid-api-layer/app/routers/email.py",
+      "method": "GET",
+      "route": "/recipients/{athlete_id}",
+      "function": "get_email_recipients",
+      "line": 118
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/threads",
+      "function": "get_inbox_threads",
+      "line": 79
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/message",
+      "function": "get_message_detail",
+      "line": 112
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/assignment-modal",
+      "function": "get_assignment_modal",
+      "line": 141
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/assign",
+      "function": "assign_thread",
+      "line": 167
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/contacts/search",
+      "function": "search_contacts",
+      "line": 196
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/assignment-defaults",
+      "function": "get_assignment_defaults",
+      "line": 220
+    },
+    {
+      "file": "npid-api-layer/app/routers/inbox.py",
+      "method": "POST",
+      "route": "/reply",
+      "function": "send_reply",
+      "line": 244
+    },
+    {
+      "file": "npid-api-layer/app/routers/mobile.py",
+      "method": "POST",
+      "route": "/coach-risner/login",
+      "function": "login_coach_risner",
+      "line": 79
+    },
+    {
+      "file": "npid-api-layer/app/routers/mobile.py",
+      "method": "GET",
+      "route": "/calendar/head-scout-slots",
+      "function": "get_mobile_head_scout_slots",
+      "line": 162
+    },
+    {
+      "file": "npid-api-layer/app/routers/mobile.py",
+      "method": "GET",
+      "route": "/calendar/booked-meetings",
+      "function": "get_mobile_booked_meetings",
+      "line": 476
+    },
+    {
+      "file": "npid-api-layer/app/routers/mobile.py",
+      "method": "GET",
+      "route": "/set-meetings",
+      "function": "get_mobile_set_meetings",
+      "line": 507
+    },
+    {
+      "file": "npid-api-layer/app/routers/mobile.py",
+      "method": "GET",
+      "route": "/coach-risner/set-meetings",
+      "function": "get_coach_risner_set_meetings",
+      "line": 522
+    },
+    {
+      "file": "npid-api-layer/app/routers/mobile.py",
+      "method": "POST",
+      "route": "/contact-reminder-intake",
+      "function": "contact_reminder_intake",
+      "line": 567
+    },
+    {
+      "file": "npid-api-layer/app/routers/notes.py",
+      "method": "POST",
+      "route": "/list",
+      "function": "list_athlete_notes",
+      "line": 29
+    },
+    {
+      "file": "npid-api-layer/app/routers/notes.py",
+      "method": "POST",
+      "route": "/add",
+      "function": "add_athlete_note",
+      "line": 57
+    },
+    {
+      "file": "npid-api-layer/app/routers/sales.py",
+      "method": "GET",
+      "route": "/stages/{athlete_id}",
+      "function": "get_sales_stage_options",
+      "line": 248
+    },
+    {
+      "file": "npid-api-layer/app/routers/sales.py",
+      "method": "GET",
+      "route": "/meeting-set-template",
+      "function": "get_meeting_set_template",
+      "line": 320
+    },
+    {
+      "file": "npid-api-layer/app/routers/sales.py",
+      "method": "GET",
+      "route": "/reschedule-meeting-template",
+      "function": "get_reschedule_meeting_template",
+      "line": 414
+    },
+    {
+      "file": "npid-api-layer/app/routers/sales.py",
+      "method": "POST",
+      "route": "/stage",
+      "function": "update_sales_stage",
+      "line": 490
+    },
+    {
+      "file": "npid-api-layer/app/routers/sales.py",
+      "method": "POST",
+      "route": "/meeting-set",
+      "function": "submit_meeting_set",
+      "line": 612
+    },
+    {
+      "file": "npid-api-layer/app/routers/sales.py",
+      "method": "POST",
+      "route": "/reschedule-meeting",
+      "function": "submit_reschedule_meeting",
+      "line": 745
+    },
+    {
+      "file": "npid-api-layer/app/routers/scout.py",
+      "method": "GET",
+      "route": "/tasks",
+      "function": "get_scout_portal_tasks",
+      "line": 66
+    },
+    {
+      "file": "npid-api-layer/app/routers/scout.py",
+      "method": "GET",
+      "route": "/recent-profiles",
+      "function": "get_scout_recent_profiles",
+      "line": 173
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/list",
+      "function": "list_tasks",
+      "line": 251
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/popup",
+      "function": "task_popup",
+      "line": 284
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/update",
+      "function": "update_task",
+      "line": 340
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/create-completed",
+      "function": "create_completed_task",
+      "line": 421
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/create",
+      "function": "create_task",
+      "line": 526
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/complete",
+      "function": "complete_task",
+      "line": 626
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/call-attempt-3-sent",
+      "function": "call_attempt_3_sent",
+      "line": 724
+    },
+    {
+      "file": "npid-api-layer/app/routers/tasks.py",
+      "method": "POST",
+      "route": "/follow-up-message-sent",
+      "function": "follow_up_message_sent",
+      "line": 770
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/seasons",
+      "function": "proxy_seasons",
+      "line": 127
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/submit",
+      "function": "submit_video",
+      "line": 163
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/{video_msg_id}/stage",
+      "function": "update_stage",
+      "line": 217
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "GET",
+      "route": "/seasons/{athlete_id}",
+      "function": "get_seasons",
+      "line": 268
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/{video_msg_id}/status",
+      "function": "update_status",
+      "line": 346
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/{video_msg_id}/duedate",
+      "function": "update_due_date",
+      "line": 400
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/progress",
+      "function": "get_video_progress",
+      "line": 453
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/materialize",
+      "function": "materialize_video_task",
+      "line": 530
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "GET",
+      "route": "/attachments",
+      "function": "get_video_attachments",
+      "line": 612
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "GET",
+      "route": "/sortable",
+      "function": "get_video_sortable",
+      "line": 650
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/remove",
+      "function": "remove_video",
+      "line": 678
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "GET",
+      "route": "/edit",
+      "function": "get_video_edit",
+      "line": 720
+    },
+    {
+      "file": "npid-api-layer/app/routers/video.py",
+      "method": "POST",
+      "route": "/update",
+      "function": "update_video",
+      "line": 769
+    }
+  ],
+  "buyers": [
+    {
+      "name": "Turing Lazarus",
+      "priority": 1,
+      "role": "Direct operating-archive acquisition program",
+      "program_url": "https://lazarus.turing.com/",
+      "intake_url": "https://lazarus.turing.com/get-in-touch",
+      "fit": "Jerami\u2019s AI-assisted legacy-integration history, with company operating records subject to approval.",
+      "public_claims": [
+        "Source code, communications, tickets, wikis, and databases are considered.",
+        "Source code alone is not purchased, according to the current FAQ.",
+        "The initial form needs no files.",
+        "Reply within one business day; sample assessment usually within a week of access."
+      ],
+      "price": "Sample-based quote. No current fixed rate verified.",
+      "payment_timing": "Not published on the current intake page.",
+      "eligibility_status": "Our archive has not been assessed.",
+      "first_action": "After review, ask for fit and sample requirements. Describe company approval as pending until confirmed.",
+      "source_note": "Current landing page and intake inspected in the in-app browser on 2026-10-15. The newsletter has older rate claims and internally inconsistent dates; those rates are not treated as a current quote."
+    },
+    {
+      "name": "Mercor Data",
+      "priority": 2,
+      "role": "Workflow-data licensing and preparation",
+      "program_url": "https://www.mercor.com/data/",
+      "intake_url": "https://www.mercor.com/partner/",
+      "fit": "Combined code history and operational records from an operator-run business.",
+      "public_claims": [
+        "GitHub, email, Salesforce, Drive, Notion and other business-tool records are listed.",
+        "Compensation depends on volume, tool coverage, and depth.",
+        "The program says it covers extraction and preparation costs."
+      ],
+      "price": "Quote only.",
+      "payment_timing": "Program says wire payment on delivery, typically two to four weeks after the signed agreement.",
+      "eligibility_status": "Our archive has not been assessed.",
+      "first_action": "Request a supplier fit assessment using the prepared draft."
+    },
+    {
+      "name": "Defined.ai",
+      "priority": 3,
+      "role": "AI data partner marketplace",
+      "program_url": "https://defined.ai/partnership-programs",
+      "intake_url": "https://defined.ai/partnership-programs",
+      "fit": "Coding and technical workflow data; possible later fit for editorial data.",
+      "public_claims": [
+        "Coding datasets are explicitly sought.",
+        "Code archives with commits, reviews, and tickets are described.",
+        "Data partners can earn licensing fees."
+      ],
+      "price": "Quote only.",
+      "payment_timing": "No public schedule verified.",
+      "eligibility_status": "Our archive has not been assessed.",
+      "first_action": "Use the Data Partner route, then provide the inventory if requested."
+    }
+  ],
+  "public_availability": {
+    "verified_at": "2026-10-15",
+    "repo": "23Maestro/prospect-pipeline",
+    "visibility": "PUBLIC",
+    "historical_repair_commit_accessible": true,
+    "historical_progress_blob_accessible": true,
+    "historical_progress_blob": "4cccff715e5ccf50118dd81f959dd3a0022b2e9d",
+    "historical_progress_blob_bytes": 643072,
+    "commercial_effect": "Availability recorded for buyer diligence. No price penalty is inferred and no claim of exclusivity is made.",
+    "verification_method": "Authenticated GitHub CLI metadata reads. No record values fetched from GitHub.",
+    "training_use": "No evidence established that an AI lab copied or trained on this repository."
+  },
+  "verification": {
+    "typescript_tests": 80,
+    "passed": 80,
+    "failed": 0,
+    "test_files": [
+      "src/domain/athlete-identity.test.ts",
+      "src/domain/appointment-truth.test.ts",
+      "src/domain/meeting-set-contract.test.ts",
+      "src/domain/call-tracker-facts.test.ts",
+      "src/domain/supabase-lifecycle-translator.test.ts",
+      "src/domain/parent-reschedule-slot-selection.test.ts",
+      "src/domain/workflow-context.test.ts",
+      "src/lib/client-message-reply-themes.test.ts",
+      "src/lib/client-message-action-proposals.test.ts",
+      "src/lib/client-message-evidence-receipts.test.ts"
+    ],
+    "runner": "Node test runner with the existing Singleton Systems tsx loader; archive-local tsx is unavailable.",
+    "python": "Offline parser and owner fixture checks executed; see python-test-receipt.json.",
+    "live_backend": "Not tested.",
+    "hosted_database": "Not queried.",
+    "refresh": {
+      "date": "2026-10-15",
+      "evidence_file_hashes_checked": 23,
+      "historical_blob_ids_checked": 6,
+      "mismatches": 0,
+      "typescript_tests_rerun": {
+        "tests": 80,
+        "pass": 80,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    "test_receipt": "test-receipt.json",
+    "python_receipt": "python-test-receipt.json",
+    "python_results": {
+      "verified_at": "2026-10-15T16:16:06.704165+00:00",
+      "runner": "Existing tests; Python unittest in a temporary uv dependency environment; bytecode disabled.",
+      "scope": "Offline parser fixtures and owner configuration; no network requests or live writes.",
+      "configuration": "Current demo owner configuration; selectolax 0.3.34 matches the imported pre-1.0 parser API.",
+      "tests": 35,
+      "passed": 29,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "failure_test_names": [
+        "unittest.case.FunctionTestCase (test_parse_head_scout_slots_response_filters_and_orders_slots)",
+        "unittest.case.FunctionTestCase (test_head_scout_slots_request_preserves_selected_owner_ids_and_fields)",
+        "unittest.case.FunctionTestCase (test_booked_meeting_lookup_request_preserves_calendar_access_fields)",
+        "unittest.case.FunctionTestCase (test_shared_owner_config_loads_active_operator_and_tim_profile)",
+        "unittest.case.FunctionTestCase (test_head_scout_config_preserves_legacy_shape_and_order)",
+        "unittest.case.FunctionTestCase (test_head_scout_calendar_owner_ids_match_current_legacy_behavior)"
+      ],
+      "setup_notes": "First attempts exposed missing dependencies, the selectolax 1.0 API break, and incompatible original-owner fixtures. The recorded result uses the compatible parser dependency and current checked-out configuration."
+    }
+  },
+  "scope": {
+    "covered": [
+      "All tracked path inventory and source language counts",
+      "Local Git refs and original pre-demo SQLite versions",
+      "Six workflow paths through code and rule tests",
+      "Local archived databases and saved report exports",
+      "Three historical code-change diffs",
+      "Current primary buyer routes and intake fields",
+      "AI attribution markers, a saved Codex implementation brief, and the Raycast AI inbox-draft code path",
+      "All reachable local-ref path roles and all eligible non-build text versions",
+      "Complete saved 928-event contract and eight weekly JSON exports, with overlap checks",
+      "Offline Python parser fixtures and current owner fixture comparison"
+    ],
+    "not_covered": [
+      "Exhaustive correctness review of every line",
+      "Live remote PHP implementation",
+      "Live operational record counts in hosted databases",
+      "Private email or messaging account extraction",
+      "Premiere timelines and frame-level edit decisions outside this repo",
+      "A legal transfer review or buyer valuation"
+    ]
+  },
+  "next_action": {
+    "target": "Turing Lazarus",
+    "deliverable": "Concise fit brief and source-linked assessment inventory",
+    "success_measure": "Buyer fit decision, required sample scope, and a written price/payment proposal",
+    "status": "Prepared for Jerami review; not submitted"
+  },
+  "authorship": {
+    "source": "Jerami, in this conversation on 2026-10-15; implementation inspected in the repository.",
+    "system": "Jerami states that he designed and built the surrounding system, including the FastAPI middleware and Raycast workflows.",
+    "product_input": "Jerami states that he created or pitched the need for the sports-editing video progress page.",
+    "company_input": "The company supplied the custom legacy system and its operating data, including appointment and video inbox records.",
+    "ai_work": "Jerami reports extensive AI-assisted work on this unusual setup. Git attribution and saved agent instructions support part of that account.",
+    "rights": "Treat Jerami-created original software as his contribution based on his contractor and authorship account. Company-derived operating records remain a separate licensing contribution. File counts are not legal ownership percentages.",
+    "engagement": "Jerami reports independent contractor; no code ownership clause, in this conversation on 2026-10-15."
+  },
+  "bridge": {
+    "steps": [
+      {
+        "title": "Company system",
+        "body": "Custom Laravel/PHP pages, HTML tables, and web forms."
+      },
+      {
+        "title": "Jerami\u2019s FastAPI bridge",
+        "body": "Reads the old pages, maps exact form fields, and returns clean JSON."
+      },
+      {
+        "title": "Raycast work tools",
+        "body": "Uses that JSON for video tasks, inbox work, and appointments."
+      },
+      {
+        "title": "Check the result",
+        "body": "Reads back key changes and keeps task and sales records."
+      }
+    ],
+    "hard_parts": [
+      "Map the exact form fields and checkboxes.",
+      "Keep contact and profile IDs together.",
+      "Use the right session and form token.",
+      "Tell a login page from an ordinary HTML response.",
+      "Check that a saved stage really changed.",
+      "Keep manual and server tasks from becoming duplicates."
+    ],
+    "why_assess": "These failures and fixes give a buyer concrete tasks to assess. Record count alone does not establish training value."
+  },
+  "ai_evidence": {
+    "coauthored_commits": 22,
+    "coauthored_commit_refs": [
+      {
+        "commit": "c1fdff3693dea2ce3e82a773e9ce2f6d4e092cab",
+        "date": "2025-12-30"
+      },
+      {
+        "commit": "e1b54ee57ad9b1b646b03cd6a26434305cb97e4b",
+        "date": "2025-11-26"
+      },
+      {
+        "commit": "a1657a6d99964539f556c1ebd1f71353793cd2ab",
+        "date": "2025-11-26"
+      },
+      {
+        "commit": "9688b2ff68172817cb67d1ac236f6fa04109f29c",
+        "date": "2025-11-22"
+      },
+      {
+        "commit": "af621b7c9c4353b305327407a7122961cb52afa7",
+        "date": "2025-11-22"
+      },
+      {
+        "commit": "9c859633d9822e07295dc1ab5a27452284addb3b",
+        "date": "2025-11-22"
+      },
+      {
+        "commit": "1aad208f13e1a99cfa51446e611493ef790609b2",
+        "date": "2025-11-21"
+      },
+      {
+        "commit": "b87ab5866687df4ab79b41c49982fd5ac1cc00ce",
+        "date": "2025-11-21"
+      },
+      {
+        "commit": "d3db88f6e1bf9c5a2c7058c855a9eae37a71bfee",
+        "date": "2025-11-15"
+      },
+      {
+        "commit": "6a221740a6f78a89308b7b705b7a5bf7074665e8",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "9fe77660c88d3c6727bc20a0b90bf0c2cfe80f63",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "c99eabf620fa6495379e49121cd56a568fc3dc99",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "bc1178ee423a49e627044516388e9ab657ca534e",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "9fe08ce96fc1407ce4010523d361fe0d547b975d",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "b0c0b73d02fe3aadeb35688de3bf22101e2d58d0",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "618c4fa030cedeffe4fe6ccbed88e7e128f8bf06",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "b73b7fdfd04f7fa0c6bb3b830b0ecdddc8daa4c9",
+        "date": "2025-11-07"
+      },
+      {
+        "commit": "c333658358b7a88a66fd87899aee7313a16889e8",
+        "date": "2025-10-25"
+      },
+      {
+        "commit": "7f3152da5e197ad362806b39e0b58c4dd5853535",
+        "date": "2025-10-22"
+      },
+      {
+        "commit": "b4ecdc6c27a47d51e26fff61da93adcba48e543b",
+        "date": "2025-10-22"
+      },
+      {
+        "commit": "02b150542fc24d7bfd7a5221e14c70aa1126c69d",
+        "date": "2025-10-19"
+      },
+      {
+        "commit": "443a251c73b18b85e777324e8bf9c30dc6bf6bf5",
+        "date": "2025-10-18"
+      }
+    ],
+    "method": "Case-insensitive co-authored-by trailers containing Claude, Codex, Anthropic, or OpenAI in commits reachable from HEAD.",
+    "evidence": [
+      {
+        "path": ".codex/INVARIANT-ENFORCEMENT-TASK.md",
+        "lines": "1-31",
+        "bytes": 11494,
+        "sha256": "4759c9bcb4e0c1bcf04dd952e44eaeffa3679956df2a09a92209c4b73249359c",
+        "meaning": "Saved Codex implementation brief with ten rules for the legacy bridge. The brief includes proposed checks; it does not prove every check was enforced."
+      },
+      {
+        "path": "src/lib/inbox-ai-draft.ts",
+        "lines": "50-78; 275-305",
+        "bytes": 9672,
+        "sha256": "812d14b8f41cd687001f6e92ef482ae1ca8d6e708ee860daf03e5cbff74ddc7f",
+        "meaning": "Code sends a workflow-specific prompt to Raycast AI and returns a parsed reply draft. Current execution was not tested."
+      },
+      {
+        "path": "docs/api-specs/legacy-assignment-debug-template.md",
+        "lines": "1-53",
+        "bytes": 2649,
+        "sha256": "ad8b92bb0e8e238875c13490957664ca8fad751183f9490bdbeca1fb6fa54062",
+        "meaning": "Sanitized troubleshooting note records the browser-form comparison and readback approach. It is a later summary, not a raw session recording."
+      }
+    ],
+    "limit": "Git and repository evidence establishes AI-assisted build activity. This package offers saved briefs, repair notes, code changes and tests; it does not advertise a full raw conversation dataset."
+  },
+  "published_prices": {
+    "source": "https://www.turing.com/blog/agi-advance-newsletter-57",
+    "verified_at": "2026-10-15",
+    "rows": [
+      {
+        "material": "Legacy codebases",
+        "published": "Typically $10,000\u2013$100,000+, depending on complexity."
+      },
+      {
+        "material": "Modern codebases",
+        "published": "$1,000 per PR; up to $10,000 per codebase."
+      },
+      {
+        "material": "Supporting records",
+        "published": "$50 per artifact when bundled with a codebase."
+      }
+    ],
+    "current_program_ceiling": "Current landing page advertises up to $1 million for a company operating archive. This is a ceiling, not an expected payout.",
+    "limits": "Newsletter carries conflicting March and October dates. Current site prices by sample and says code is not bought alone. Applicability of the published rates is unconfirmed. Commits are not paid PRs.",
+    "current_source": "https://lazarus.turing.com/",
+    "our_quote": null,
+    "payment_date": null
+  },
+  "buyer_questions": [
+    "Does the AI-assisted bridge and operating archive fit Lazarus?",
+    "Which sample sources and repair histories would help your assessment?",
+    "What license and price would you propose for the selected combined archive?",
+    "When does payment occur after the accepted scope and agreement?"
+  ],
+  "packet_scope": "This packet contains summaries, code references, aggregate counts, and buyer sources. Original databases, private messages, session tokens, and full source files are outside the packet.",
+  "saved_event_contract": {
+    "path": "apps/prospect-web/public/prospect-call-tracker/data-contract.json",
+    "sha256": "89697cc0164d77500c771fc7f6f6f550e0b2cd361057c83a35ecc1a261e9a4ce",
+    "event_rows": 928,
+    "distinct_dedupe_keys": 928,
+    "distinct_athlete_keys": 458,
+    "fact_types": {
+      "meeting_set": 116,
+      "call_activity": 725,
+      "enrollment_payment": 15,
+      "post_meeting_outcome": 72
+    },
+    "weekly_exports": [
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-04-27_to_2026-05-01.json",
+        "rows": 117,
+        "dedupe_keys": 92,
+        "keys_also_in_contract": 87,
+        "sha256": "13bef2078cbfca4e422906f32490e4ab120ebdf0b07aa514401ad9be43b36f31"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-05-11_to_2026-05-15.json",
+        "rows": 164,
+        "dedupe_keys": 163,
+        "keys_also_in_contract": 162,
+        "sha256": "04a61a7385f0dfb5837c431c5d3f00aba7d61cd8187a536509ea1a2ef93b66a9"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-05-18_to_2026-05-22.json",
+        "rows": 103,
+        "dedupe_keys": 101,
+        "keys_also_in_contract": 99,
+        "sha256": "3affb2d511ea6e595b52bff8a477e67176a3eeec1d994ac8bac92083b8115446"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-05-25_to_2026-05-29.json",
+        "rows": 160,
+        "dedupe_keys": 158,
+        "keys_also_in_contract": 156,
+        "sha256": "6994f054f7060cbbcb323c9db4763f4ef17ae6532f20ffb44ee3d76dfed701c4"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-06-01_to_2026-06-05.json",
+        "rows": 138,
+        "dedupe_keys": 138,
+        "keys_also_in_contract": 138,
+        "sha256": "0c8eab4fb009d0e1cace93ee127c8b4ced5691d0ac241733bce2c8b3a17c78c8"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-06-08_to_2026-06-12.json",
+        "rows": 109,
+        "dedupe_keys": 109,
+        "keys_also_in_contract": 74,
+        "sha256": "3c4759cd0cd6a65ba24eded5c80f7d4a7a3750f1ed87bb1213fec6275fb24bbd"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-06-15_to_2026-06-19.json",
+        "rows": 69,
+        "dedupe_keys": 69,
+        "keys_also_in_contract": 1,
+        "sha256": "4f121dd3561cee1f5c2a02ed607ebaa0eb70104afffdb852532063d09979ac36"
+      },
+      {
+        "path": "apps/prospect-web/public/prospect-call-tracker/weekly-results/2026-06-22_to_2026-06-26.json",
+        "rows": 0,
+        "dedupe_keys": 0,
+        "keys_also_in_contract": 0,
+        "sha256": "e80a778d3ecad5e241737c3f73b31ec064bf30fe1d84af11fd0fc5ad635a3449"
+      }
+    ],
+    "method": "Parsed saved JSON completely; counted /data/events, key sets and fact_type values. Weekly exports overlap with the contract and are not added to it.",
+    "origin": "Derived company work records within a Jerami-created event contract. The wrapper and data have distinct contributions."
+  },
+  "deal_proposal": {
+    "type": "Negotiation recommendation, not a measured entitlement or market rate",
+    "combined_license_usd": 10000,
+    "jerami_percent": 75,
+    "company_percent": 25,
+    "jerami_usd": 7500,
+    "company_usd": 2500,
+    "recipient": "Prospect ID company entity; internal allocation is its decision",
+    "jev_result": "needs_review",
+    "jev_interpretation": "Jev preferred waiting for the buyer price allocation; it did not select a percentage. The 75/25 opening is Codex assessment, separate from Jev output."
+  },
+  "composition_audit": {
+    "path": "composition-audit.json",
+    "method_path": "audit_composition.py",
+    "sha256": "542e518c2f9f6f91f39caa895a549b9383034f47749bad958237b090d429566c",
+    "historical_non_build_paths": 1010,
+    "historical_implementation_paths": 896,
+    "historical_company_record_paths": 30,
+    "historical_other_paths": 84,
+    "text_blob_versions_scanned": 3569,
+    "text_bytes_scanned": 119447748,
+    "source_paths_with_identifier_matches": 54,
+    "local_only_non_build_files": 110,
+    "method": "One path is one unit; all reachable local refs. Build dependencies excluded. Identifier matches are review signals, not ownership findings.",
+    "ownership_percentage": "Not inferred from file composition."
+  }
+}

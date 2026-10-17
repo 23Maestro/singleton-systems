@@ -5,17 +5,19 @@ repo hooks. Never hand-edit a copy.
 
 ## Scope
 
-Applies to prose we author or rewrite for a reader:
+Applies by default to all client-facing and internal prose we author or rewrite
+for a reader:
 
-Markdown and MDX, Linear issues and docs, Asana projects and tasks, GitHub commit
-and PR bodies, Notion,
+Markdown and MDX, Linear issues and docs, Asana projects and tasks, Google Sheets
+and other spreadsheet cell text, documents, GitHub commit and PR bodies, Notion,
 memory files, emails, cover letters, proposals, briefs, client handoffs,
 captions, site copy, public HTML/pages, visual/source notes, and review docs.
 
 Keep emails, Upwork proposals, documentation, reviews, and Asana or Linear
 updates short and plain. These rules apply before sharing or writing them.
-Source code, generated bundles, code blocks and conversation stay outside this
-prose gate. Talk normally in chat.
+Source code, schemas, generated bundles, code blocks and conversation stay outside
+this prose gate. Preserve machine timestamps, durations and video timecodes.
+Talk normally in chat.
 
 Client-supplied text, verbatim quotations and speech transcriptions are source
 material. Creating a transcript file does not make its words our writing.
@@ -46,9 +48,19 @@ Second person when addressing a reader.
 
 ## Human pass
 
+- Use plain, brief writing at about a third-grade reading level by default.
+  Use common words, short sentences, and one clear action at a time. Cut words
+  the reader does not need. Keep full grammar and required technical precision.
+  Example: "Wait for Sam’s call. Offer 4 short clips for $250."
+- Use numerals in authored copy, including counts, fractions and compound terms.
+  Write `3-peat`, `3-run`, `1/3` and `1 year`. Preserve verbatim source speech.
+- Show human clock times in 12-hour format with AM/PM, such as `2:04 PM`.
+  Omit needless seconds. Keep the same date, time, and time zone. Do not guess
+  a missing AM/PM or time zone. Preserve exact machine timestamps, durations,
+  video timecodes, quotes and source capture; a video timecode is not a clock time.
 - Rewrite a supplied draft only when requested. Preserve verified facts, scope, attribution,
-  causal ownership, and sequence. Do not replace source-backed writing with a
-  generic reconstruction.
+  causal ownership, sequence, dates and names. Preserve quotes and client speech.
+  Do not replace source-backed writing with a generic reconstruction.
 - Run the swap test on hooks, landing pages, proposals, and portfolio copy. If
   another company could use the line unchanged, make it specific or delete it.
 - Review in this order: truth and attribution, swap test, plain-language
@@ -163,11 +175,23 @@ Copy this block verbatim into a client repo at `.claude/writing-rules.md`.
 Fires on `UserPromptSubmit` via `cat`. Keep it near 150 tokens.
 
 ```text
-Writing rules — apply to prose we author or rewrite for a reader:
-Markdown, Linear docs, Asana tasks, GitHub and Notion copy, memory, emails, cover letters,
-proposals, briefs, handoffs, captions, site copy, public HTML/pages, and
-visual/source notes. Not to source code, generated bundles, code blocks, or
-conversation.
+Writing rules — apply by default to client-facing and internal prose we author
+or rewrite for a reader: Markdown, Linear docs, Asana tasks, Google Sheets and
+other spreadsheet cell text, documents, GitHub and Notion copy, memory, emails,
+cover letters, proposals, briefs, handoffs, captions, site copy, public HTML/pages,
+and visual/source notes. Not to source code, schemas, generated bundles, code
+blocks, or conversation.
+
+Use plain, brief writing at about a third-grade reading level. Use common words,
+short sentences, full grammar, and one clear action at a time. Cut needless words.
+Keep required technical precision. Example: Wait for Sam’s call. Offer 4 short
+clips for $250.
+Use numerals in authored copy, including counts, fractions and compound terms.
+Write 3-peat, 3-run, 1/3 and 1 year. Preserve verbatim source speech.
+Human clock times: use 12-hour format with AM/PM, such as 2:04 PM, without needless
+seconds. Keep dates, the same time and time zone; do not guess missing AM/PM or
+zones. Preserve machine timestamps, durations, video timecodes, quotes and source
+capture. Never turn video timecodes into clock times.
 
 Preserve client-supplied words and verbatim transcriptions. Creating a file from
 client speech is source capture, not authored copy. Exclude supplied passages;
@@ -178,7 +202,8 @@ Correction = edit instruction. Fix the artifact silently. Never restate the
 correction.
 No process commentary. No preamble, no recap. Deliver the artifact only.
 
-Rewrite drafts; preserve facts, scope, attribution, and sequence.
+Rewrite drafts only when requested; preserve facts, scope, attribution, sequence,
+dates and names.
 Swap test hooks and site copy: if another company could reuse a line unchanged,
 make it specific or delete it.
 Linear: CommonMark headings, bullets, fenced code, and blank lines.

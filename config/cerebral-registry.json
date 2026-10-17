@@ -612,6 +612,11 @@
   ],
   "skills": [
     {
+      "skill_key": "firecrawl-research",
+      "activation": "core",
+      "reason": "General public-source inspection, hashed research evidence and component reference audits."
+    },
+    {
       "skill_key": "agency-growth",
       "activation": "core",
       "reason": "Direct B2B acquisition and outbound."

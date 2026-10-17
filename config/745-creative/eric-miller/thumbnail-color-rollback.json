@@ -1,0 +1,332 @@
+{
+  "date": "2026-10-13",
+  "reason": "Jerami reported an unrelated woman in the live mobile Figma color review; requested immediate undo.",
+  "restored": [
+    {
+      "id": "138:560",
+      "before": [
+        "c5de40ee933f1382d70102f1ec4aabd07f8a4164"
+      ],
+      "after": [
+        "c5de40ee933f1382d70102f1ec4aabd07f8a4164"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:567",
+      "before": [
+        "b92703a1c50aa226f0e2d9f56889e1a7f289ad71"
+      ],
+      "after": [
+        "1f4989c18f56f48455a594b3e236939e6fde060b"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:578",
+      "before": [
+        "233e1d79abbcf4a6306c1779d94cb3b56ac8e5ab"
+      ],
+      "after": [
+        "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:585",
+      "before": [
+        "233e1d79abbcf4a6306c1779d94cb3b56ac8e5ab"
+      ],
+      "after": [
+        "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:596",
+      "before": [
+        "35414e97e508b98b6a67e2125e8a3dd497be2f87"
+      ],
+      "after": [
+        "c64de95d56069baa2e930603fba525b179e5866f"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:603",
+      "before": [
+        "35414e97e508b98b6a67e2125e8a3dd497be2f87"
+      ],
+      "after": [
+        "c64de95d56069baa2e930603fba525b179e5866f"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:614",
+      "before": [
+        "1cb91f17f326f82717c7e276c9ca4d0ad5ad0c67"
+      ],
+      "after": [
+        "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:621",
+      "before": [
+        "1cb91f17f326f82717c7e276c9ca4d0ad5ad0c67"
+      ],
+      "after": [
+        "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:632",
+      "before": [
+        "5e6a77a0b3977bb0b04afffcdfb88f1a20802d5d"
+      ],
+      "after": [
+        "a16adbe88d43c38fbc3b3c8a5af695b55716621a"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:639",
+      "before": [
+        "5e6a77a0b3977bb0b04afffcdfb88f1a20802d5d"
+      ],
+      "after": [
+        "a16adbe88d43c38fbc3b3c8a5af695b55716621a"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:650",
+      "before": [
+        "0a3206e11a2a7a905b131e9c099e6d102ba6a007"
+      ],
+      "after": [
+        "2584c607ae4b156c161120bbc79f3172c3e428dd"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:655",
+      "before": [
+        "0a3206e11a2a7a905b131e9c099e6d102ba6a007"
+      ],
+      "after": [
+        "2584c607ae4b156c161120bbc79f3172c3e428dd"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:664",
+      "before": [
+        "56edc19eb9e347a2b82f649b977800767657d0c8"
+      ],
+      "after": [
+        "92088770cc87cacdc6524b7b0746bff4b42d6677"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "138:669",
+      "before": [
+        "56edc19eb9e347a2b82f649b977800767657d0c8"
+      ],
+      "after": [
+        "92088770cc87cacdc6524b7b0746bff4b42d6677"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:560",
+      "before": [
+        "49671b8a1668a6b7e9b6670c40615ae58972465a"
+      ],
+      "after": [
+        "8638bcc215263efa7786c54b85182269e4544be1"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:565",
+      "before": [
+        "49671b8a1668a6b7e9b6670c40615ae58972465a"
+      ],
+      "after": [
+        "8638bcc215263efa7786c54b85182269e4544be1"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:574",
+      "before": [
+        "d46cacf0863380ea84b56ce4ddae49e3116803ff"
+      ],
+      "after": [
+        "1291400391b92a15fd73cfece6fb8d6711ed251c"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:579",
+      "before": [
+        "d46cacf0863380ea84b56ce4ddae49e3116803ff"
+      ],
+      "after": [
+        "1291400391b92a15fd73cfece6fb8d6711ed251c"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:588",
+      "before": [
+        "d7620768c3d2066f1c5299e8a3742636db6b2c82"
+      ],
+      "after": [
+        "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:593",
+      "before": [
+        "d7620768c3d2066f1c5299e8a3742636db6b2c82"
+      ],
+      "after": [
+        "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:602",
+      "before": [
+        "211f31330abe17b096d186d229c5597a3430b3e7"
+      ],
+      "after": [
+        "d7cb2b51a4d085fec87feaaa05d3a9191117af68"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:607",
+      "before": [
+        "211f31330abe17b096d186d229c5597a3430b3e7"
+      ],
+      "after": [
+        "d7cb2b51a4d085fec87feaaa05d3a9191117af68"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:616",
+      "before": [
+        "4b6b428e5420ec5b1f9d09998786c1d28a14ccf0"
+      ],
+      "after": [
+        "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:621",
+      "before": [
+        "4b6b428e5420ec5b1f9d09998786c1d28a14ccf0"
+      ],
+      "after": [
+        "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:630",
+      "before": [
+        "dc1d5b7029ebaff704cdd650b0e9bc4ed564793f"
+      ],
+      "after": [
+        "b74b7db50269384624ea0f5f48550f8b97cec188"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:635",
+      "before": [
+        "dc1d5b7029ebaff704cdd650b0e9bc4ed564793f"
+      ],
+      "after": [
+        "b74b7db50269384624ea0f5f48550f8b97cec188"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:644",
+      "before": [
+        "008744314b558c00f257bfb6bf988aeaf14ce530"
+      ],
+      "after": [
+        "ae868f79722ceeba9be30be72824862aae8e1547"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "139:649",
+      "before": [
+        "008744314b558c00f257bfb6bf988aeaf14ce530"
+      ],
+      "after": [
+        "ae868f79722ceeba9be30be72824862aae8e1547"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "245:602",
+      "before": [
+        "b92703a1c50aa226f0e2d9f56889e1a7f289ad71"
+      ],
+      "after": [
+        "1f4989c18f56f48455a594b3e236939e6fde060b"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "245:603",
+      "before": [
+        "2b0fc5c81a033117d3e1e197140812d7ac94cc69"
+      ],
+      "after": [
+        "740ea15e6c3d4195432bd39857b201075f529899"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "245:605",
+      "before": [
+        "b92703a1c50aa226f0e2d9f56889e1a7f289ad71"
+      ],
+      "after": [
+        "1f4989c18f56f48455a594b3e236939e6fde060b"
+      ],
+      "fillsRestored": true
+    },
+    {
+      "id": "245:606",
+      "before": [
+        "2b0fc5c81a033117d3e1e197140812d7ac94cc69"
+      ],
+      "after": [
+        "740ea15e6c3d4195432bd39857b201075f529899"
+      ],
+      "fillsRestored": true
+    }
+  ],
+  "removedReviewFrameIds": [
+    "257:598"
+  ],
+  "missing": [],
+  "verified": "Actual Figma desktop shows Eric again in the revised Reel and visible original cover pairs. Tool-generated previews did not reveal the mismatch.",
+  "next": "Do not reuse the replacement image upload path until the asset mismatch is understood."
+}

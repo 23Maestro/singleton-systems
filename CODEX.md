@@ -135,6 +135,10 @@ verbatim speech transcripts. Code stays outside the prose gate.
 
 ## conventions
 
+For CAD component builds and reference reviews, read
+`docs/cad-component-review-workflow.md`. Geometry checks and visual approval
+remain separate gates. Linear owns component state.
+
 For 745 Creative visual edits, read `docs/745-creative-visual-contract.md`.
 Bind the exact client/content lane and Premiere sequence in
 `config/745-creative/active-edit.json`. The source-backed JSON and supplied

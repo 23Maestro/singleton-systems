@@ -11,6 +11,8 @@ Create or update one Asana task when the episode files are ingested. Keep it in
 the `Content Editor` project (`1218890014545436`) under `Catena`. Record:
 
 - episode title and stable slug;
+- actual workday or workday range, America/New_York time zone, and the work
+  record that supports it; keep source dates and deadlines separate;
 - source delivery and Eagle folder;
 - confirmed delivery deadline as the Asana due date and time (10 AM America/New_York when only a date is supplied);
 - transcript and client notes;
@@ -20,6 +22,23 @@ the `Content Editor` project (`1218890014545436`) under `Catena`. Record:
 Leave the task incomplete from intake through review. Complete it only after
 the finished edit, required delivery readback, and Eagle filing pass. Do not
 invent a due date. Ask for the delivery deadline when it is missing.
+
+## episode workspace at start
+
+Load `singleton-figma-system` when the episode starts. It owns the shared Figma
+workspace standard and the Lineups lane specs. At the first authorized build,
+make the episode area with a simple title and actual-workday label, both at
+exactly 300 px. Add it to the left-to-right row by known work date, with wide
+gaps and a shared top baseline for a quick Loom pan. Keep month-only dates
+explicit; do not turn them into guessed weekdays.
+
+Use native Sections for the approved lanes in use. Each lane spec records its
+approved option/source, scene IDs, output size, supported counts, asset and copy
+slots, timing, guarded values, and review proof. Keep loose cutouts, logos,
+original photos, extra render parts, and old versions on the existing
+`Player Cut Outs + Logos` page, grouped by episode. Preserve current scene
+artwork, IDs, master links, and motion. Inspect the overview and provide a
+direct episode link. Intake does not authorize Figma construction before review.
 
 ## fixed flow
 
@@ -73,41 +92,72 @@ reason to defer validation until Figma or Premiere.
 
 ## locked Pre-Figma UI
 
+Jerami approved the photo-first review template on October 13, 2026.
+The shared source is `tools/lineups_review/`. Its version and file hashes are
+locked in `config/lineups/review-template.json`.
+
 Use the same hierarchy for every episode:
 
-1. Client and Lineups stage label.
-2. Episode title and due date.
-3. Source runtime, planned scene count, and review status.
-4. Transcript-order candidate list.
-5. One candidate card per beat with time range, lane, option, setting, copy,
-   source state, and review decision.
-6. Links back to Decision Maps and forward to Post-Figma review.
+1. Client and stage label, compact episode title, and confirmed due date.
+2. The fixed **Flow**, **Assets needed**, **Asset ledger / lanes** tabs.
+3. Full-width photos or color-driven scene plans above their supporting context.
+4. Scene title, exact time range, lane, option, and the words spoken in that range.
+5. Quiet source links and consistent review controls. Keep production notes in
+   collapsed details or the evidence tab.
 
-Keep the approved typography, spacing, colors, card geometry, responsive
-behavior, and navigation. Replace only project-record data and candidate
-content. Do not redesign the page for a team, subject, or episode.
+Use one candidate card per beat in transcript order. Group alternatives separately.
+Keep the full transcript with lane labels on every passage behind its own
+expander. A candidate excerpt includes only words fully inside that candidate's
+source interval. A full team passage cannot be labeled with a five-second range.
 
-Anchor every compact visual-preview pill at the top center of its image or
-motion frame with a safe inset. This includes source-preview, motion-placeholder,
-and missing-asset labels. Never bottom-align these pills or let them overlap the
-candidate title, team name, subject, or key image content.
+Tab 2 uses the shared photo-subject navigation and at most two original photo
+choices per asset. Show the photos first, then full-photo/source links and the
+scene's timestamp, lane, option, and timed transcript below. Keep Google search
+strings, Google Images, and Firecrawl under **Find another photo**. Persist photo
+choices and retain the review export. Missing photos remain explicit search work;
+they cannot remove a supported scene from Flow or approve a scene.
+
+Preserve original photo backgrounds and use contain sizing in the review. Never
+turn a wide photo into a narrow cropped column. Board plans without
+finished artwork use the established color-driven fallback: blue rank-reveal
+plans and charcoal/blue comparison and stat plans. These are review placeholders;
+they do not change the approved Figma background or motion source.
+
+Anchor compact visual-preview pills at the top center of the image or motion
+frame with a safe inset. Keep typography, spacing, colors, geometry, responsive
+behavior, and navigation in the shared bundle. Episode records supply content.
+Do not copy an older episode's HTML or add episode-specific CSS overrides.
 
 ## locked Post-Figma UI
 
-Use the same hierarchy for every episode:
+Post-Figma uses the same header, typography, media sizing, spacing, source-link
+style, and review controls as Pre-Figma. The shared bundle owns both stages.
+Use fixed filters for all seven approved lanes. Show verified scene media first,
+then its title, timestamp, lane, option, timed transcript, Figma source, proof
+link, and review state. Scene details retain this order.
 
-1. Client and Lineups stage label.
-2. Episode title, due date, current scene count, and review status.
-3. Fixed lane filters.
-4. One scene card per candidate with poster or motion preview, transcript
-   context, Figma source link, proof note, and review state.
-5. Fixed scene-detail view with the same metadata and timed proof frames.
-6. Links back to Decision Maps and the matching Pre-Figma review.
+An empty stage says that scene previews are pending. Never label a source photo
+or color plan as a finished Figma scene. Bind Post-Figma choices to the current
+preview evidence so changing a render makes its old choices stale.
 
-Keep the approved typography, spacing, colors, card geometry, filters,
-responsive behavior, and navigation. Replace only project-record data, scene
-content, proof, and source links. New UI ideas remain outside the episode until
-Jerami approves a template change.
+Generate both stages with the repository command:
+
+```bash
+python3 scripts/render-lineups-review.py --episode EPISODE_DIRECTORY --preview-root SITE_DIST
+npm run check:lineups:review
+```
+
+Each episode supplies `review.json`, its current cue map, passed timing receipt,
+word transcript, discovery ledger, photo proposals, and optional verified scene
+previews. The renderer writes one packet under `public/decision-maps/` and copies
+that same packet to Sites. Vercel serves the same generated public packet when
+production publication is authorized. A preview host cannot introduce another
+layout, stylesheet, or set of controls.
+
+`npm run check:lineups:review` verifies the source lock, both generated pages,
+and copied styles/scripts. It also runs before the Vercel build. A template hash
+mismatch stops publication. New UI ideas remain outside the episode until
+Jerami approves a template change and its lock is updated.
 
 ## project-driven gate
 

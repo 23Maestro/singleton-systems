@@ -16,11 +16,24 @@ bold headline; his teaching video stays minimal. Cambria remains pending.
 Eric uses After Hours with the daytime warm base and Roboto/Arial. His later
 brand direction supplies the palette missing from the estimate brief.
 
+Eric's static thumbnails also follow `client.thumbnailSystem` in his contract.
+Jerami authorized four type treatments on 2026-10-13: light/regular Roboto, bold Roboto,
+heavy Playfair Display, and italic Playfair Display. These are close matches to
+his supplied Kantor screenshots. The After Hours palette stays active. Phrase
+layers can sit behind a foreground copy of the same real Eric photo, cut out
+with native Figma Remove background. Reduce excess headroom and omit outlined
+boxes. East of the River covers include “with Eric.” Jerami accepted his revised
+Reel layout on 2026-10-13. Its measured thumbnail baseline is recorded in Eric’s
+`thumbnail-reference-baseline.json`. Grid review remains open before batch reuse. Trim each cutout to its visible alpha bounds, preserve its
+source alignment, and lock image/fade layers. Text phrases keep tight, unlocked
+boxes for direct selection. This revision applies only to static thumbnails.
+
 Each client file records framing, color, opening treatment, on-screen text,
 cover direction, source links, and review checks for all four listed lanes.
 There is no invented mandatory intro or universal series label. Family/music
 and property reference lanes do not add work to the requested 14 Ben and 16
-Eric videos. Their Premiere templates and measured baselines remain unbuilt.
+Eric videos. Their Premiere templates remain unbuilt. Eric’s thumbnail baseline
+applies only to the revised Local Reel.
 
 John Prayer uses the supplied reference: John prominent, violet “A Prayer For”
 label, short white/violet headline, dark lower fade, and breathing room. The
@@ -70,9 +83,22 @@ component source and reuse permission; review the first choice before reuse.
 The ±10% limit applies to measured geometry. Shape substitution has no numerical
 visual-similarity score. The FigJam intake map is not a production master.
 
+## Thumbnail color preparation
+
+Before background removal, check every selected photo's source color space and
+existing grade. Normalize unconverted HDR footage to SDR with Rec.709 primaries.
+Use a color-managed sRGB PNG in Figma. Review exposure and skin color before
+making the cutout. Preserve correct baked grading and existing Figma adjustments;
+check them separately so the image does not receive the same correction twice.
+Both photo layers must come from the same graded image. Keep source tags, frame
+time, image hashes and grade decisions in the image record.
+
 ## Graphics handoff
 
-The shared `workflow.graphics` policy applies to all three clients. Build only
+The shared `workflow.graphics` policy applies to all three clients.
+Its `editableLayerBounds` rule requires tight cutout, background and text bounds
+in Figma. Lock completed image/fade layers and keep text directly selectable.
+Preserve the source crop alignment and inspect the result after trimming. Build only
 lanes represented in the current batch. John has Prayer and Bold Beliefs.
 Ben and Eric still require source inspection before lane selection. Reference
 lanes add no deliverables. Cambria remains pending.

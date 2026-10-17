@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-14T18:29:48.535Z",
+  "status": "completed-in-asana",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1219467998258463",
+      "completed": true,
+      "due_at": "2026-10-14T14:00:00.000Z",
+      "due_on": "2026-10-14"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-13-nfl-week-6-power-rankings",
+    "asanaTask": "1219467998258463",
+    "dueDate": "2026-10-14",
+    "dueAt": "2026-10-14T14:00:00Z",
+    "timeZone": "America/New_York",
+    "transcriptPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/transcript/whisper.json",
+    "discoveryPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/lane-discovery.json",
+    "cueMapPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/cue-map.json",
+    "timingProofPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/cue-proof-receipt.json",
+    "preFigma": {
+      "path": "public/decision-maps/2026-10-13-nfl-week-6-power-rankings-pre-figma-review/index.html",
+      "title": "NFL Week 6 power rankings",
+      "candidateCount": 25
+    },
+    "postFigma": null
+  },
+  "activeScene": {
+    "schemaVersion": 2,
+    "enforcement": {
+      "active": true,
+      "approvedToolInputSha256": "7abdee343e9114cc43b21cd9ea2d7510a86fa9a5f7a9e8a4fbd649c24d2f4755"
+    },
+    "scene": {
+      "episodeId": "2026-10-13-nfl-week-6-power-rankings",
+      "sceneId": "R04",
+      "lane": "comparison",
+      "approvedOption": "Simple comparison",
+      "setting": "two teams; bubble-board layout requested by Jerami",
+      "comparisonKind": "teams"
+    },
+    "discoveryPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/lane-discovery.json",
+    "figma": {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "sourceComponentId": "601:215",
+      "rootNodeId": "1688:591",
+      "episodeInstanceId": "1688:591",
+      "sourceRevision": "canonical-601:215-two-team-adaptation-approved-2026-10-14",
+      "motionTracks": [
+        {
+          "nodeId": "1700:1008",
+          "plannedNodeId": "R04/team1",
+          "property": "opacity",
+          "cueId": "R04-content-1",
+          "duration": 10,
+          "keyframes": [
+            {
+              "time": 0.01,
+              "value": 0
+            },
+            {
+              "time": 0.41,
+              "value": 100
+            }
+          ]
+        },
+        {
+          "nodeId": "1700:1009",
+          "plannedNodeId": "R04/team2",
+          "property": "opacity",
+          "cueId": "R04-content-1",
+          "duration": 10,
+          "keyframes": [
+            {
+              "time": 0.01,
+              "value": 0
+            },
+            {
+              "time": 0.41,
+              "value": 100
+            }
+          ]
+        }
+      ],
+      "pageId": "1657:1114",
+      "episodeUsesInstance": false,
+      "motionWorkingCopyMode": "detached-from-canonical-instance",
+      "rootDimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "exposedSlots": [
+        "approved artwork",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "allowedReplacementProperties": [
+        "approved artwork",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "focalAssets": [],
+      "assetLedger": [
+        {
+          "sceneId": "P09",
+          "slotId": "MV72TFF083BOG",
+          "sourceId": "MV72TFF083BOG",
+          "imageHash": "b12ee8a3263403e503bca6dd2c8ffb3f7470aa0f"
+        },
+        {
+          "sceneId": "Q08",
+          "slotId": "MV72TEJZKL9SP",
+          "sourceId": "MV72TEJZKL9SP",
+          "imageHash": "273bb84ad51c608cf9a3c33b5123fc1fd1e2feb9"
+        },
+        {
+          "sceneId": "P07",
+          "slotId": "MV72TF26WU8ID",
+          "sourceId": "MV72TF26WU8ID",
+          "imageHash": "e32730cafd1f4f5d65cfcde38b28b166b40e557c"
+        },
+        {
+          "sceneId": "P06",
+          "slotId": "MV72TFA5IS6UL",
+          "sourceId": "MV72TFA5IS6UL",
+          "imageHash": "66c2e98af9916e8faf67c26f64e3dab99b8cb707"
+        },
+        {
+          "sceneId": "Q05",
+          "slotId": "MV72TEBEI4JZS",
+          "sourceId": "MV72TEBEI4JZS",
+          "imageHash": "1f41844cf9fc7abb11c8f0ce4fc7e187e0a78c83"
+        },
+        {
+          "sceneId": "Q04",
+          "slotId": "MV72TEDKYT5PZ",
+          "sourceId": "MV72TEDKYT5PZ",
+          "imageHash": "a17e46ce52c03ba3c10217958d65b34b83cab31b"
+        },
+        {
+          "sceneId": "P01",
+          "slotId": "MV72TF5AMAPBT",
+          "sourceId": "MV72TF5AMAPBT",
+          "imageHash": "431c5b7a7f729bdb0cbbbbb84be4c1a66268d86a"
+        },
+        {
+          "sceneId": "Q08",
+          "slotId": "patriots-maye-dive",
+          "sourceId": "patriots-maye-dive",
+          "imageHash": "fcd50ba3fdc0cc38cd70f785deb2a798ddbfa8f8"
+        },
+        {
+          "sceneId": "R03",
+          "slotId": "left",
+          "sourceId": "walker-chiefs-run",
+          "imageHash": "bd19a5836995f70d90fb8ca5af96856b4258d14d"
+        },
+        {
+          "sceneId": "R03",
+          "slotId": "right",
+          "sourceId": "charbonnet-divisional-run",
+          "imageHash": "09ee094037e931999fa0d086d4613bb284cefb43"
+        },
+        {
+          "sceneId": "R02",
+          "slotId": "1692:4853",
+          "sourceId": "Jerami-Figma-selection-1692:4853",
+          "imageHash": "7ece9a148c18af480268038484223898a14af460"
+        },
+        {
+          "sceneId": "R02",
+          "slotId": "1692:4837",
+          "sourceId": "Jerami-Figma-selection-1692:4837",
+          "imageHash": "b2990f204fd17a6c8c5f57abc279c69768a99d24"
+        }
+      ],
+      "background": {
+        "nodeId": "1700:823",
+        "setting": "Field Night / No football",
+        "imageHash": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70",
+        "locked": true,
+        "separateFromArtwork": true
+      },
+      "userVisualOverride": {
+        "sceneId": "R04",
+        "status": "approved",
+        "reviewer": "Jerami",
+        "request": "so for the mark’s top 2. kinda steal from the 6 bubble teams but make it only feature 2 teams instead. to change up the view",
+        "sourceComponentId": "601:215",
+        "originalSourceComponentId": "598:215",
+        "visibleTeams": [
+          "San Francisco 49ers",
+          "Kansas City Chiefs"
+        ],
+        "layout": "2-team bubble comparison",
+        "title": "MARK’S CLEAR TOP 2",
+        "teamColors": {
+          "San Francisco 49ers": [
+            "#AA0000",
+            "#B3995D"
+          ],
+          "Kansas City Chiefs": [
+            "#E31837",
+            "#FFB81C"
+          ]
+        },
+        "latestRequest": "fix the order. and fix the supporting colors to match the team. fix the title card?"
+      }
+    },
+    "motion": {
+      "engine": "figma",
+      "engineVersion": "figma-motion",
+      "timingValidator": "manim",
+      "frameRate": {
+        "numerator": 25,
+        "denominator": 1
+      },
+      "cues": [
+        {
+          "cueId": "R04-content-1",
+          "elementId": "content-1",
+          "triggerType": "WORD",
+          "triggerText": "clearly",
+          "transcriptTimestamp": 686.37,
+          "sceneTime": 0.01,
+          "action": "reveal-text",
+          "duration": 0.4
+        }
+      ]
+    },
+    "timing": {
+      "transcriptPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/transcript/whisper.json",
+      "transcriptSource": "whisper",
+      "timestampResolution": "word",
+      "verifiedAnchorTimestamp": 686.36,
+      "anchorVerified": true,
+      "manimTimingValidated": true,
+      "entranceTimes": [
+        0.01
+      ],
+      "lastEntrance": 0.01,
+      "contentEnd": 0.41000000000000003,
+      "paddedCompositionEnd": 10,
+      "finalStateVisible": true,
+      "noExitAnimation": true,
+      "proofPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/figma-build/R04/timing.json",
+      "transcriptPhrase": "clearly separate themselves and should be everybody's top two despite the order and number two the"
+    },
+    "export": {
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "validationStatus": "passed",
+      "motionProof": {
+        "type": "validation-sample",
+        "engine": "figma",
+        "status": "passed",
+        "sampleTimes": [
+          0.01,
+          1,
+          9.96
+        ],
+        "frames": [
+          {
+            "time": 0.01,
+            "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/week6-export-proof/R04-00.png",
+            "sha256": "533a217dc6f28186a06f9dcdadaf3b6b21e56d9e58890b0e56df2138bfc03a44",
+            "width": 1920,
+            "height": 1080
+          },
+          {
+            "time": 1,
+            "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/week6-export-proof/R04-01.png",
+            "sha256": "f6511244bc76beae79424c7426d088c32b5649656b4d86adc139754e2e90ecba",
+            "width": 1920,
+            "height": 1080
+          },
+          {
+            "time": 9.96,
+            "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/week6-export-proof/R04-02.png",
+            "sha256": "d40fff45805a89a503b86192af07c2095e1f50933d11039cc473d37580aa8559",
+            "width": 1920,
+            "height": 1080
+          }
+        ]
+      },
+      "path": "/Volumes/HomeSSD/Content Editor.library/images/MV7S16PR1EZHU.info/W6-S21-R04-mark-s-clear-top-2.mp4",
+      "fileSha256": "4623748a0e7557f8502a1403e62306e5e697ad74943eb137aa883a2c287b2135",
+      "artifactRole": "final-premiere-render",
+      "backgroundPolicy": "approved-background-baked"
+    },
+    "review": {
+      "status": "approved",
+      "reviewer": "Jerami",
+      "approvalSource": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/primary-flow-approval.json",
+      "approvedEvidenceSha256": "bc22af5ee372ea44efb08af6203dc6f4c4edfa6011625f39bf0a19a93bb18d7e",
+      "exportApproval": {
+        "reviewer": "Jerami",
+        "request": "export. NO FIGMA REVIEW. i have to get this done",
+        "websiteReview": "waived"
+      },
+      "deliveryApproval": {
+        "status": "approved",
+        "reviewer": "Jerami",
+        "request": "export. NO FIGMA REVIEW. i have to get this done",
+        "reviewWebsiteRequired": false
+      },
+      "placementApproval": {
+        "reviewer": "Jerami",
+        "request": "Jerami: place all approved motion renders on V5 using the transition flow, with light leaks for rankings; finish within 15 minutes."
+      }
+    },
+    "policy": {
+      "transitionsApproved": true,
+      "effectsApproved": false,
+      "lutsApproved": false,
+      "opacityChangesApproved": false,
+      "approvalNote": "Jerami: place all approved motion renders on V5 using the transition flow, with light leaks for rankings; finish within 15 minutes."
+    },
+    "ownership": {
+      "eaglePath": "Episode / 06 Motion Renders",
+      "duplicateFinalFolderIn23Projects": false,
+      "eagleItemId": "MV7S16PR1EZHU",
+      "eagleFolderId": "MV7RXDP7P9AN5",
+      "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MV7S16PR1EZHU.info/W6-S21-R04-mark-s-clear-top-2.mp4"
+    },
+    "premiere": {
+      "sequenceId": "1d87a35c-266a-4a9b-9d90-012c50814421",
+      "trackIndex": 4,
+      "approvedStartTime": 686.36,
+      "approvedDuration": 10,
+      "approvedEndTime": 696.36,
+      "editorialTiming": {
+        "startTime": 686.36,
+        "duration": 6.52,
+        "endTime": 692.88,
+        "sourceIn": 0,
+        "sourceOut": 6.52
+      },
+      "binId": "000f42be",
+      "projectItemId": "000f4302",
+      "treePath": "\\2026-10-14_w5_powerrankings.prproj\\06 Motion Renders\\W6-S21-R04-mark-s-clear-top-2.mp4",
+      "labelReadback": 3,
+      "nameReadback": "W6-S21-R04-mark-s-clear-top-2.mp4",
+      "timelineClipId": "000f430c"
+    },
+    "assetPreparation": {
+      "operation": "MCP original-photo upload",
+      "ledgerPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-13-nfl-week-6-power-rankings/storyboard/figma-import-ledger.json",
+      "pageId": "1657:1114"
+    }
+  }
+}

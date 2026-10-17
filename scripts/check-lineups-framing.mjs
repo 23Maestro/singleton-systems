@@ -23,8 +23,9 @@ for (const entry of readJson(registryPath)) {
     assert.equal(timingProof.result, 'passed', 'Pre-Figma timing proof must pass');
     const pageHtml = fs.readFileSync(path.resolve(root, entry.preFigma.path), 'utf8');
     const pageData = pageHtml.match(/const beats=(\[.*?\]);\s*const key=/s);
-    assert.ok(pageData, 'Pre-Figma candidate data is missing');
-    const pageCandidates = JSON.parse(pageData[1]);
+    const sharedData = pageHtml.match(/<script>const reviewData=(.*?);const reviewerPhotoChoices=/s);
+    assert.ok(pageData || sharedData, 'Pre-Figma candidate data is missing');
+    const pageCandidates = sharedData ? JSON.parse(sharedData[1]).candidates : JSON.parse(pageData[1]);
     assert.deepEqual(pageCandidates.map(scene => scene.id), cueMap.candidates.map(scene => scene.id), 'Pre-Figma page candidate roster is stale');
     for (const [index, candidate] of cueMap.candidates.entries()) {
       for (const field of ['lane', 'option', 'anchor', 'duration', 'copy', 'excerpt', 'assetIds']) {

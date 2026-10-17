@@ -1,0 +1,38 @@
+{
+  "verified_at": "2026-10-15T16:16:06.704165+00:00",
+  "runner": "Existing tests; Python unittest in a temporary uv dependency environment; bytecode disabled.",
+  "scope": "Offline parser fixtures and owner configuration; no network requests or live writes.",
+  "configuration": "Current demo owner configuration; selectolax 0.3.34 matches the imported pre-1.0 parser API.",
+  "tests": 35,
+  "passed": 29,
+  "failures": 6,
+  "errors": 0,
+  "skipped": 0,
+  "files": [
+    {
+      "path": "npid-api-layer/test_sales_stage_parser.py",
+      "sha256": "449c788c08b02e8691cf73c43e84c44e547fbf26fa6b76d90b040c31d36403ef"
+    },
+    {
+      "path": "npid-api-layer/test_head_scout_slots.py",
+      "sha256": "e621da1938cc5944be250d9fe2e86868745987a7f6792f0a234191464c8db67d"
+    },
+    {
+      "path": "npid-api-layer/test_scout_prep_resolve.py",
+      "sha256": "4ce7b5c3767bb86cce831b12d62cad196f675592f03ee9963f95b5b5eeb3967f"
+    },
+    {
+      "path": "npid-api-layer/test_prospect_id_owners.py",
+      "sha256": "2a66c2437a6b77b6139fa0890bac974017649b720db22d0b041f755088666235"
+    }
+  ],
+  "failure_test_names": [
+    "unittest.case.FunctionTestCase (test_parse_head_scout_slots_response_filters_and_orders_slots)",
+    "unittest.case.FunctionTestCase (test_head_scout_slots_request_preserves_selected_owner_ids_and_fields)",
+    "unittest.case.FunctionTestCase (test_booked_meeting_lookup_request_preserves_calendar_access_fields)",
+    "unittest.case.FunctionTestCase (test_shared_owner_config_loads_active_operator_and_tim_profile)",
+    "unittest.case.FunctionTestCase (test_head_scout_config_preserves_legacy_shape_and_order)",
+    "unittest.case.FunctionTestCase (test_head_scout_calendar_owner_ids_match_current_legacy_behavior)"
+  ],
+  "setup_notes": "First attempts exposed missing dependencies, the selectolax 1.0 API break, and incompatible original-owner fixtures. The recorded result uses the compatible parser dependency and current checked-out configuration."
+}

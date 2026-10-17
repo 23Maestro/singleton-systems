@@ -2,6 +2,7 @@
 import json
 import os
 import re
+import runpy
 import shlex
 import shutil
 import signal
@@ -87,9 +88,17 @@ LINEUPS_RE = re.compile(
     r"cowboys\s+expectations|super\s*bowl\s+bubble|top\s*5\s+(?:offenses|defenses))\b",
     re.I | re.S,
 )
+FIGMA_RE = re.compile(r"\bfigma\b|singleton-figma-system", re.I)
+FIGMA_WORK_TOOLS = {
+    "mcp__codex_apps__figma_use_figma",
+    "mcp__codex_apps__figma_weave_run_tool",
+    "mcp__codex_apps__figma_export_video",
+}
+LINEUPS_FIGMA_FILE_KEY = "o7E24iymIT80MTXGYIogVH"
 CLAUSE_RE = re.compile(r"\bclause\b|claude-specific|claude naming|claude code", re.I)
 ARTIFACT_KIND_RE = (
-    r"(?:markdown|mdx|linear(?:\s+(?:issue|doc|document))?|documents?|"
+    r"(?:markdown|mdx|linear(?:\s+(?:issue|doc|document))?|asana|"
+    r"(?:google\s+)?sheets?|spreadsheets?|documents?|"
     r"emails?|cover\s+(?:letters?|notes?)|proposals?|briefs?|handoffs?|"
     r"(?:public\s+)?(?:html|pages?|sites?|websites?)|captions?|bios?|"
     r"(?:source\s+)?notes?|reports?|memos?|visuals?|canvases?|maps?|"
@@ -259,6 +268,37 @@ def in_repo(payload):
 def tool_text(payload):
     tool_input = payload.get("tool_input") or {}
     return json.dumps(tool_input) if isinstance(tool_input, dict) else str(tool_input)
+
+
+def lineups_asset_search_error(payload):
+    if str(payload.get("tool_name") or "") not in ("Bash", "exec_command"):
+        return None
+    tool_input = payload.get("tool_input") or {}
+    if not isinstance(tool_input, dict):
+        return None
+    command = str(tool_input.get("command") or tool_input.get("cmd") or "")
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        return "Lineups Firecrawl hook could not parse the helper command." if "firecrawl-source-inspect.py" in command else None
+    invocations = [i for i, token in enumerate(tokens) if os.path.basename(token) == "firecrawl-source-inspect.py"
+                   and (i == 0 or re.fullmatch(r"python(?:3(?:\.\d+)?)?", os.path.basename(tokens[i - 1])))]
+    if not invocations:
+        return None
+    start = invocations[0]
+    args = tokens[start + 1:]
+    if len(invocations) != 1 or len(args) not in (2, 3) or args[0] != "--request" or (len(args) == 3 and args[2] != "--check"):
+        return "Lineups Firecrawl hook requires one helper invocation with --request EPISODE_REQUEST [--check]."
+    root = repo_root_from(payload.get("cwd"))
+    script = os.path.join(root, "plugins/s-systems/skills/client-video-storyboard/scripts/firecrawl-source-inspect.py")
+    cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
+    request_path = os.path.abspath(os.path.join(cwd, os.path.expanduser(args[1])))
+    try:
+        validate_request = runpy.run_path(script)["validate_request"]
+        validate_request(request_path, root)
+    except (OSError, ValueError, ImportError, AttributeError) as error:
+        return "Lineups Firecrawl hook blocked the request: " + str(error)
+    return None
 
 
 def repo_root_from(cwd=None):
@@ -584,6 +624,14 @@ def context(reason, text):
             "- [substitution-block] Do not continue on the substitute. Verify and repair or upgrade the requested path first. "
             "Ask Jerami only when that repair changes scope, adds cost or authentication, is destructive, or carries unresolved risk."
         )
+    if FIGMA_RE.search(text) or LINEUPS_RE.search(text):
+        lines.extend([
+            "- [figma-system] Load singleton-figma-system at the start of Figma work or a new Lineups episode. Its shared workspace standard owns structure and lane specs.",
+            "- [workspace-titles] Use simple episode/work-area titles and actual-workday labels at exactly 300 px. Verify weekdays and dates from work records in the project's time zone; Lineups uses America/New_York. Keep workday ranges and partial dates explicit. Source dates, deadlines, import dates, and archive-cleanup dates alone do not prove workdays.",
+            "- [workspace-order] Arrange episodes or dated work areas left to right by known work dates on a shared top baseline, with wide, even gaps for a fast Loom pan; start with 6000 canvas px between episodes. Keep scenes inside their approved lane grids and preserve already organized work.",
+            "- [workspace-assets] Keep loose cutouts, logos, original photos, extra render parts, and old versions on the existing asset/reference page in named groups by episode. Lineups uses Player Cut Outs + Logos. Preserve assets inside actual scenes. New pages still require approval.",
+            "- [lane-specs] Use the client's approved lanes and link each used lane's purpose, option/source, supported counts, output size, copy/asset slots, timing, protected values, and review proof. Preserve scene IDs, approved masters, artwork, instance links, and native motion. Verify hierarchy, exact title sizes, asset-page placement, and readable screenshots before handoff.",
+        ])
     if LINEUPS_RE.search(text):
         lines.extend([
             "- [profile] Catena Media Lineups",
@@ -591,7 +639,7 @@ def context(reason, text):
             "- [menu] Use the seven approved lanes. Choose an approved option and adjust its settings. Do not invent a new option during an edit.",
             "- [discovery] Always attempt full-transcript discovery across all seven lanes after obvious rankings/Quick Action opportunities, before pacing and selection. Bind excerpts/timestamps, candidate/rejection/no-fit evidence and explicit asset search work to the transcript revision. No scene quota or filler. Timing proof cannot satisfy discovery.",
             "- [quick-action] Requested default is 4.5 seconds; report actual frame-rounded duration separately using nearest-half-up (113 frames / 4.52 seconds at 25 fps). Preserve live Premiere editorial trims and source In/Out.",
-            "- [assets] Use suitable client-provided Eagle assets. For new searches, prefer action photos and avoid roster portraits; contextual photos are allowed when the transcript supports them. Search Eagle, then SportsDB or OpenWiki. Fill the 1920 x 1080 frame and keep faces clear.",
+            "- [assets] Use suitable client-provided Eagle assets. For new searches, prefer action photos and avoid roster portraits; contextual photos are allowed when the transcript supports them. Search Eagle, then Google or Google Images using {missing asset} {episode year} week {episode week}. Inspect recorded source pages with scripts/firecrawl-source-inspect.py --request EPISODE_REQUEST from the canonical client-video-storyboard skill. The PreToolUse hook checks scene, asset, Google lead and current evidence hashes before the helper reads the Firecrawl Keychain entry. Read references/lineups-asset-search.md for the request schema. If Firecrawl fails, inspect the source page in the browser and record the failure. Verify original photos, dates, team context and credits. Missing artwork stays explicit search work; never reject a supported scene because its photo is missing. Fill the 1920 x 1080 frame and keep faces clear.",
             "- [asset-integrity] One source image may appear only once per episode. Record source IDs and image hashes in the episode asset ledger before Figma or Premiere work.",
             "- [asset-layout] Three-subject swaps use left, center, and right thirds. The logo and middle subject share the 960 px centerline; side subjects face inward when a suitable asset exists.",
             "- [copy] Preserve transcript meaning, attribution, causal ownership, and spoken order. Compress or closely paraphrase; do not invent an editorial angle.",
@@ -1044,6 +1092,7 @@ def run_writing_stop_gate(payload):
     return (
         "Outbound writing gate blocked the final answer. Rewrite the artifact with the AI writing pass before stopping.\n"
         + details
+        + "\n\n" + writing_context()
     )
 
 
@@ -1068,11 +1117,21 @@ def main():
 
     if event == "PreToolUse":
         try:
+            asset_search_error = lineups_asset_search_error(payload)
+            if asset_search_error:
+                emit_block(asset_search_error)
+                return
             skill_path_error = canonical_skill_script_error(payload)
             if skill_path_error:
                 emit_block(skill_path_error)
                 return
-            emit(context(f"before {payload.get('tool_name') or 'tool'} can change or inspect implementation", tool_text(payload)), event)
+            routing_text = tool_text(payload)
+            if str(payload.get("tool_name") or "") in FIGMA_WORK_TOOLS:
+                routing_text = "Figma\n" + routing_text
+                tool_input = payload.get("tool_input") or {}
+                if isinstance(tool_input, dict) and tool_input.get("fileKey") == LINEUPS_FIGMA_FILE_KEY:
+                    routing_text = "Lineups\n" + routing_text
+            emit(context(f"before {payload.get('tool_name') or 'tool'} can change or inspect implementation", routing_text), event)
         except RegistryUnavailable as error:
             emit_block(str(error))
         return

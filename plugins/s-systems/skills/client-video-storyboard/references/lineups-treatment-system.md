@@ -13,6 +13,16 @@ building a scene, or touching Premiere.
 Keep component, variant, instance, and property language inside the Figma
 implementation notes.
 
+## episode workspace
+
+At episode start, use `singleton-figma-system` for the shared Figma structure.
+Use simple episode titles and actual-workday labels at exactly 300 px. Keep
+episodes left to right by known work date, with wide gaps for a quick Loom pan.
+Keep a spec for each approved lane used. Loose cutouts, logos, original photos,
+extra render parts, and old versions live on `Player Cut Outs + Logos`, grouped
+by episode. Preserve the scene artwork, IDs, approved sources, and motion.
+Apply this at the first authorized Figma build; the review gates still apply.
+
 ## seven lanes
 
 ### 1. quick action photo
@@ -253,8 +263,23 @@ TAKEAWAYS WEREN'T ENOUGH`. It must not imply that Arch committed four turnovers.
   portraits and players posed at the camera. Sideline, event, archival, and
   contextual photos are approved when they fit the transcript, especially for
   coaches and retired players. Action-first is a search preference, not a veto.
-- Search Eagle first. Then use the approved SportsDB or OpenWiki player path.
-  Do not report an asset as missing before both paths are checked.
+- Search Eagle first. For missing artwork, use Google or Google Images with
+  `{missing asset} {episode year} week {episode week}`. Add the team, opponent,
+  or `action photo` when it narrows the result. For this episode, for example:
+  `Tyler Huntley Baltimore Ravens 2026 week 6 action photo`.
+- Read `lineups-asset-search.md` and use the Keychain-backed
+  `scripts/firecrawl-source-inspect.py` helper to inspect recorded candidate
+  source pages for original image links, captions, dates, and credits. Its
+  PreToolUse hook binds each request to the scene and current search evidence.
+  If Firecrawl fails, record the failure and inspect the pages through the
+  browser. Search thumbnails
+  are leads; verify the original photo before selecting it. Record its source
+  URL, date, team context, credit or license, and checksum in the asset ledger.
+- Use the episode's year and week, even when preparing an older episode.
+  Broaden to the prior game week or a verified archival action photo when the
+  exact search has no suitable result. Record that fallback. Keep supported
+  scenes in the review with `assetSearch.status: "needed"` until selection;
+  missing artwork cannot reject a transcript-supported candidate.
 - Every photo scene exports at 1920 x 1080. Scale the photo until it fills or
   extends beyond the frame. Side bars and uncovered edges fail review.
 - Keep faces clear. Match the action to the claim. Avoid nearby photo repeats.

@@ -162,6 +162,26 @@ assert.match(offerPacket.stdout, /Swap test hooks and site copy/, "offer packet:
 assert.match(offerPacket.stdout, /Linear: CommonMark/, "offer packet: missing Linear operational format");
 assert.match(offerPacket.stdout, /Asana: convert drafts to supported HTML in `html_notes`/, "offer packet: missing Asana rich-text transport");
 assert.match(offerPacket.stdout, /`notes` is plain text/, "offer packet: missing Asana plain-text boundary");
+assert.match(offerPacket.stdout, /client-facing and internal prose/, "offer packet: missing shared writing scope");
+assert.match(offerPacket.stdout, /third-grade reading level/, "offer packet: missing plain writing default");
+assert.match(offerPacket.stdout, /12-hour format with AM\/PM, such as 2:04 PM/, "offer packet: missing human clock format");
+assert.match(offerPacket.stdout, /Keep required technical precision/, "offer packet: missing precision safeguard");
+assert.match(offerPacket.stdout, /Never turn video timecodes into clock times/, "offer packet: missing timecode safeguard");
+
+for (const prompt of ["Update Asana.", "Write Google Sheets cells.", "Draft spreadsheet copy.", "Write an internal handoff."]) {
+  const packet = runHook(prompt);
+  assert.equal(packet.status, 0, prompt);
+  assert.match(packet.stdout, /Writing rules for reviewable artifacts/, prompt);
+  assert.match(packet.stdout, /third-grade reading level/, prompt);
+  const blocked = runStop(prompt, "This is a robust plan.");
+  assert.equal(blocked.status, 0, prompt);
+  assert.match(blocked.stdout, /"decision": "block"/, prompt);
+  assert.match(blocked.stdout, /third-grade reading level/, "repair must reuse the canonical human pass");
+  assert.match(blocked.stdout, /Preserve machine timestamps, durations, video timecodes, quotes and source/, prompt);
+  const clean = runStop(prompt, "Wait for Sam’s call at 2:04 PM. Offer 4 short clips for $250.");
+  assert.equal(clean.status, 0, prompt);
+  assert.equal(clean.stdout.trim(), "", prompt);
+}
 
 const socialPrompt = runHook("Write a LinkedIn post I can publish about AI hooks.");
 assert.equal(socialPrompt.status, 0);
@@ -272,6 +292,7 @@ for (const snippet of [
 for (const prompt of [
   "Use client video storyboard for this Lineups football edit.",
   "Build the Catena Media college football edit from the transcript.",
+  "Start a new Lineups episode.",
 ]) {
   const lineups = runHook(prompt);
   assert.equal(lineups.status, 0, `Lineups hook exited ${lineups.status}: ${lineups.stderr}`);
@@ -289,6 +310,10 @@ for (const prompt of [
     "Preserve live Premiere editorial trims and source In/Out",
     "prefer action photos and avoid roster portraits",
     "contextual photos are allowed",
+    "Google or Google Images using {missing asset} {episode year} week {episode week}",
+    "Inspect recorded source pages with scripts/firecrawl-source-inspect.py",
+    "PreToolUse hook checks scene, asset, Google lead and current evidence hashes",
+    "never reject a supported scene because its photo is missing",
     "One source image may appear only once per episode",
     "logo and middle subject share the 960 px centerline",
     "Preserve transcript meaning, attribution, causal ownership",
@@ -297,6 +322,14 @@ for (const prompt of [
     "100% to 102.5%",
     "One point has no pipe",
     "singleton-figma-system",
+    "[workspace-titles]",
+    "actual-workday labels at exactly 300 px",
+    "America/New_York",
+    "Keep workday ranges and partial dates explicit",
+    "left to right by known work dates",
+    "6000 canvas px",
+    "Player Cut Outs + Logos",
+    "[lane-specs]",
     ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
     "file-hygiene and layer-cleanup",
     "safe-auto-layout-conversion",
@@ -325,6 +358,39 @@ for (const prompt of [
     assert.ok(lineups.stdout.includes(snippet), `Lineups hook: missing ${snippet}`);
   }
 }
+
+// Figma calls need workspace guidance even without an episode name in the code.
+const figmaWorkTools = ["use_figma", "weave_run_tool", "export_video"];
+const hookConfig = JSON.parse(fs.readFileSync(path.join(root, ".codex/hooks.json"), "utf8"));
+for (const suffix of figmaWorkTools) {
+  const toolName = `mcp__codex_apps__figma_${suffix}`;
+  assert.ok(hookConfig.hooks.PreToolUse.some((entry) =>
+    new RegExp(entry.matcher).test(toolName) && entry.hooks.some((item) => item.command.includes("cerebral_singleton_guard.py"))),
+  `${toolName}: missing Cerebral pre-tool registration`);
+  for (const fileKey of ["o7E24iymIT80MTXGYIogVH", "another-client-file"]) {
+    const result = spawnSync(python, [hook], {
+      cwd: root,
+      input: JSON.stringify({ hook_event_name: "PreToolUse", cwd: root, tool_name: toolName,
+        tool_input: { fileKey, code: "return figma.currentPage.name;" } }),
+      encoding: "utf8",
+      env: { ...process.env },
+    });
+    assert.equal(result.status, 0, result.stderr);
+    const packet = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
+    assert.match(packet, /\[figma-system\]/);
+    assert.match(packet, /actual-workday labels at exactly 300 px/);
+    assert.match(packet, /\[lane-specs\]/);
+    if (fileKey === "o7E24iymIT80MTXGYIogVH") {
+      assert.match(packet, /\[profile\] Catena Media Lineups/);
+      assert.match(packet, /lineups-production-system\.md/);
+    } else {
+      assert.doesNotMatch(packet, /\[profile\] Catena Media Lineups/);
+    }
+  }
+}
+const unrelatedWorkspace = runHook("Check the current account balance.");
+assert.equal(unrelatedWorkspace.status, 0);
+assert.doesNotMatch(unrelatedWorkspace.stdout, /\[workspace-titles\]|\[lane-specs\]/);
 
 const enforcedDrift = runPostTool("Edit", {
   file_path: path.join(root, "plugins/s-systems/skills/opportunity-hq-updater/SKILL.md"),

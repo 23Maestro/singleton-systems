@@ -106,3 +106,6 @@ supabase/.temp/
 
 # Generated client review packets stay local unless publication is explicitly approved.
 /public/decision-maps/*-pre-figma-review/
+
+# Regenerable file census; keep its generator and authored assessment.
+/docs/offer/research/2026-10-15-prospect-data-review/composition-audit.json

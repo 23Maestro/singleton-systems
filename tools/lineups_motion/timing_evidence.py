@@ -34,11 +34,14 @@ def source_state(root, manifest):
 
 
 def approval_state(manifest, receipt):
-    return {'scene': manifest['scene'], 'figma': manifest['figma'], 'motion': manifest['motion'],
+    state = {'scene': manifest['scene'], 'figma': manifest['figma'], 'motion': manifest['motion'],
             'policy': manifest['policy'], 'premiereIntent': {key: manifest['premiere'].get(key) for key in
                 ('sequenceId', 'trackIndex', 'approvedStartTime', 'approvedDuration', 'approvedEndTime', 'editorialTiming')},
             'timingSha256': receipt['timingSha256'], 'timingReceiptSha256': receipt['receiptSha256'],
             'approvedToolInputSha256': manifest['enforcement']['approvedToolInputSha256']}
+    if 'timelineMapping' in manifest['premiere']:
+        state['premiereIntent']['timelineMapping'] = manifest['premiere']['timelineMapping']
+    return state
 
 
 def issue_receipt(root, manifest):

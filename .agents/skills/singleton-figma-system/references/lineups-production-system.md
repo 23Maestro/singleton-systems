@@ -14,6 +14,9 @@ review notes. Use lane, option, and setting there.
   measured reference examples.
 - `Components` holds the only editable source for every approved option.
 - `Episode Workspace` holds episode copies and motion work.
+- `Player Cut Outs + Logos` holds loose cutouts, logos, original photos, extra
+  render parts, and old scene versions in named groups by episode. Keep assets
+  used inside a scene in place. Reuse this page; do not split scene artwork.
 - `V1 Lineups` remains an idea and reference board until an option is promoted.
 
 Do not keep duplicate source components on two pages. When an option is
@@ -26,8 +29,18 @@ loose substitute layers.
 
 ## canvas rules
 
-- Do not create black, white, or image background planes behind documentation
-  sections. The Figma page is the canvas.
+Apply the shared `singleton-figma-system` workspace standard at episode start,
+before the first authorized Figma build. Keep the episode title and actual
+workday label at exactly **300 px**, using simple words and a verified weekday
+and date in America/New_York. Keep known month-only dates explicit. Arrange
+episode areas left to right by known work dates on one top baseline, with
+wide, even gaps for a fast Loom pan; start with 6000 canvas px between areas.
+This orders episodes, while the lane grid below orders scenes within them.
+Preserve already organized episodes and approved scene typography.
+
+- Use native white Figma Sections for episode lane columns, matching Jerami's
+  approved October 14, 2026 organization reference. Do not create black, white, or image background planes
+  behind documentation.
 - Use black documentation text by default. Keep section headings at 112 px or
   larger and support labels at 48 px or larger.
 - Center scene-title text. Use Auto Width or a hugging container with tight
@@ -50,12 +63,23 @@ loose substitute layers.
 - Align comparison subjects by their visible head tops and optical scale,
   then check the final motion state. Equal image-container heights alone do
   not establish visual alignment.
-- Organize episode pages as horizontal lane columns with a shared top baseline.
-  Order active columns as Quick Action Photos, Quick Stats, Stat Breakdowns,
-  Comparison, Asset Swap, Year-by-Year, and Recurring Boards. Omit unused lanes
-  and number the visible columns consecutively. Use a two-column scene grid
-  inside lanes with multiple scenes and one column for a single scene. Keep
-  each scene's centered title and timing label above its composition.
+- Organize every episode in native lane Sections arranged horizontally, with
+  aligned top and bottom edges. Keep the canonical lane numbers: 1 Quick Action
+  Photos, 2 Quick Stats, 3 Stat Breakdowns, 4 Comparison, 5 Asset Swap,
+  6 Year-by-Year, and 7 Recurring Boards. Omit unused lanes without renumbering.
+  Name each Section `<number> / <lane>` in simple words. Use a two-column scene grid
+  inside lanes with multiple scenes and one column for a single scene. Order
+  scenes by transcript time within each lane; Rank Reveal runs 10 through 1.
+  Use equal scene sizes, row gaps, and internal padding. Keep each scene's
+  compact, centered title and one timing/lane/frame-rate line directly above
+  the 1920 x 1080 composition. Keep loose source material on `Player Cut Outs + Logos`
+  in named groups by episode. Preserve existing scene IDs and native motion
+  when regrouping. Verify a readable overview and provide a direct lane link
+  before continuing construction; an off-screen write is not a visible handoff.
+- Bind each used lane to its approved option and source from the template
+  registry. Its spec records the scene IDs, transcript order, supported counts,
+  output size, copy and asset slots, timing, guarded values, and review proof.
+  The episode changes allowed content; Components still owns the source.
 - Every episode composition has native Figma motion, including Quick Action
   Photos. Verify transcript entrances and retain at least five seconds of the
   final held state after the last motion keyframe. Keep editorial trim lengths

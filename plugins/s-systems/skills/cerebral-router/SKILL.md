@@ -53,6 +53,16 @@ Do not copy task state into the dashboard or full ticket/template text into
 Supabase. Keep credentials server-side.
 The dashboard reads owner state and opens owner links.
 
+## Figma work
+
+Load `singleton-figma-system` when Figma work or a new Lineups episode starts.
+It owns workspace structure and lane specs: simple titles and actual-workday
+labels at exactly 300 px, episodes left to right by known work dates with wide
+gaps, and loose sources on the existing asset page. Keep partial dates explicit.
+For Lineups, also use its approved seven-lane reference. Keep approved art,
+master links, scene IDs, and native motion intact. Apply the structure at the
+first authorized Figma build; keep the current scene and review gates.
+
 ## Output
 
 ```text

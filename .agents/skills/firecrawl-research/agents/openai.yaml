@@ -1,0 +1,4 @@
+interface:
+  display_name: "Firecrawl Research"
+  short_description: "Inspect public sources and retain hashed evidence"
+  default_prompt: "Use $firecrawl-research to inspect this source and bind its evidence to the subject."

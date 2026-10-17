@@ -1,1 +1,5 @@
+# Tests create temporary repositories; do not pass this checkout's Git environment.
+for repo_git_variable in $(git rev-parse --local-env-vars); do
+  unset "$repo_git_variable"
+done
 npm run verify

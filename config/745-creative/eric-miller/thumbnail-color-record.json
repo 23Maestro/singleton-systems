@@ -1,0 +1,3126 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-13",
+  "clientId": "eric_miller",
+  "fileKey": "H6qeI4wk4w3bqv5mBeb4PL",
+  "pageId": "130:556",
+  "scope": "Color preparation for Eric's 14 existing selected stills; retain design and crop geometry.",
+  "before": {
+    "boards": [
+      {
+        "id": "138:556",
+        "name": "1 / Eric / local / cover pair",
+        "photos": [
+          {
+            "id": "138:560",
+            "name": "Selected 1A snapshot",
+            "parentId": "138:559",
+            "images": [
+              {
+                "hash": "c5de40ee933f1382d70102f1ec4aabd07f8a4164",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": -0.06666666517655055,
+                  "saturation": 0,
+                  "temperature": 0.14000000059604645,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:567",
+            "name": "Selected 1A snapshot",
+            "parentId": "138:566",
+            "images": [
+              {
+                "hash": "1f4989c18f56f48455a594b3e236939e6fde060b",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.17000000178813934,
+                  "contrast": -0.1333333303531011,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "138:574",
+        "name": "2 / Eric / local / cover pair",
+        "photos": [
+          {
+            "id": "138:578",
+            "name": "Selected 2A snapshot",
+            "parentId": "138:577",
+            "images": [
+              {
+                "hash": "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:585",
+            "name": "Selected 2A snapshot",
+            "parentId": "138:584",
+            "images": [
+              {
+                "hash": "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "138:592",
+        "name": "4 / Eric / local / cover pair",
+        "photos": [
+          {
+            "id": "138:596",
+            "name": "Selected 4A snapshot",
+            "parentId": "138:595",
+            "images": [
+              {
+                "hash": "c64de95d56069baa2e930603fba525b179e5866f",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.11999999731779099,
+                  "contrast": -0.06666666517655055,
+                  "saturation": 0.2800000011920929,
+                  "temperature": 0.05000000074505806,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:603",
+            "name": "Selected 4A snapshot",
+            "parentId": "138:602",
+            "images": [
+              {
+                "hash": "c64de95d56069baa2e930603fba525b179e5866f",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.11999999731779099,
+                  "contrast": -0.06666666517655055,
+                  "saturation": 0.2800000011920929,
+                  "temperature": 0.05000000074505806,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "138:610",
+        "name": "5 / Eric / local / cover pair",
+        "photos": [
+          {
+            "id": "138:614",
+            "name": "Selected 5B snapshot",
+            "parentId": "138:613",
+            "images": [
+              {
+                "hash": "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.03999999910593033,
+                  "contrast": -0.09999999776482582,
+                  "saturation": 0.25,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:621",
+            "name": "Selected 5B snapshot",
+            "parentId": "138:620",
+            "images": [
+              {
+                "hash": "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "138:628",
+        "name": "14 / Eric / local / cover pair",
+        "photos": [
+          {
+            "id": "138:632",
+            "name": "Selected 14A snapshot",
+            "parentId": "138:631",
+            "images": [
+              {
+                "hash": "a16adbe88d43c38fbc3b3c8a5af695b55716621a",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:639",
+            "name": "Selected 14A snapshot",
+            "parentId": "138:638",
+            "images": [
+              {
+                "hash": "a16adbe88d43c38fbc3b3c8a5af695b55716621a",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "138:646",
+        "name": "6 / Eric / market / cover pair",
+        "photos": [
+          {
+            "id": "138:650",
+            "name": "Selected 6B snapshot",
+            "parentId": "138:649",
+            "images": [
+              {
+                "hash": "2584c607ae4b156c161120bbc79f3172c3e428dd",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:655",
+            "name": "Selected 6B snapshot",
+            "parentId": "138:654",
+            "images": [
+              {
+                "hash": "2584c607ae4b156c161120bbc79f3172c3e428dd",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "138:660",
+        "name": "3 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "138:664",
+            "name": "Selected 3B snapshot",
+            "parentId": "138:663",
+            "images": [
+              {
+                "hash": "92088770cc87cacdc6524b7b0746bff4b42d6677",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.14000000059604645,
+                  "contrast": -0.09999999776482582,
+                  "saturation": 0.07999999821186066,
+                  "temperature": 0.05000000074505806,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "138:669",
+            "name": "Selected 3B snapshot",
+            "parentId": "138:668",
+            "images": [
+              {
+                "hash": "92088770cc87cacdc6524b7b0746bff4b42d6677",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.09000000357627869,
+                  "contrast": 0,
+                  "saturation": 0.2199999988079071,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:556",
+        "name": "13 / Eric / market / cover pair",
+        "photos": [
+          {
+            "id": "139:560",
+            "name": "Selected 13A snapshot",
+            "parentId": "139:559",
+            "images": [
+              {
+                "hash": "8638bcc215263efa7786c54b85182269e4544be1",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.15000000596046448,
+                  "contrast": -0.033333332588275276,
+                  "saturation": 0.23999999463558197,
+                  "temperature": -0.10999999940395355,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:565",
+            "name": "Selected 13A snapshot",
+            "parentId": "139:564",
+            "images": [
+              {
+                "hash": "8638bcc215263efa7786c54b85182269e4544be1",
+                "visible": true,
+                "filters": {
+                  "exposure": -0.15000000596046448,
+                  "contrast": -0.033333332588275276,
+                  "saturation": 0.23999999463558197,
+                  "temperature": -0.10999999940395355,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:570",
+        "name": "7 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "139:574",
+            "name": "Selected 7A snapshot",
+            "parentId": "139:573",
+            "images": [
+              {
+                "hash": "1291400391b92a15fd73cfece6fb8d6711ed251c",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": -0.16666666915019354,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:579",
+            "name": "Selected 7A snapshot",
+            "parentId": "139:578",
+            "images": [
+              {
+                "hash": "1291400391b92a15fd73cfece6fb8d6711ed251c",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:584",
+        "name": "8 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "139:588",
+            "name": "Selected 8B snapshot",
+            "parentId": "139:587",
+            "images": [
+              {
+                "hash": "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:593",
+            "name": "Selected 8B snapshot",
+            "parentId": "139:592",
+            "images": [
+              {
+                "hash": "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:598",
+        "name": "9 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "139:602",
+            "name": "Selected 9A snapshot",
+            "parentId": "139:601",
+            "images": [
+              {
+                "hash": "d7cb2b51a4d085fec87feaaa05d3a9191117af68",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:607",
+            "name": "Selected 9A snapshot",
+            "parentId": "139:606",
+            "images": [
+              {
+                "hash": "d7cb2b51a4d085fec87feaaa05d3a9191117af68",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:612",
+        "name": "10 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "139:616",
+            "name": "Selected 10B snapshot",
+            "parentId": "139:615",
+            "images": [
+              {
+                "hash": "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:621",
+            "name": "Selected 10B snapshot",
+            "parentId": "139:620",
+            "images": [
+              {
+                "hash": "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:626",
+        "name": "11 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "139:630",
+            "name": "Selected 11A snapshot",
+            "parentId": "139:629",
+            "images": [
+              {
+                "hash": "b74b7db50269384624ea0f5f48550f8b97cec188",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:635",
+            "name": "Selected 11A snapshot",
+            "parentId": "139:634",
+            "images": [
+              {
+                "hash": "b74b7db50269384624ea0f5f48550f8b97cec188",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "139:640",
+        "name": "12 / Eric / education / cover pair",
+        "photos": [
+          {
+            "id": "139:644",
+            "name": "Selected 12A snapshot",
+            "parentId": "139:643",
+            "images": [
+              {
+                "hash": "ae868f79722ceeba9be30be72824862aae8e1547",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "139:649",
+            "name": "Selected 12A snapshot",
+            "parentId": "139:648",
+            "images": [
+              {
+                "hash": "ae868f79722ceeba9be30be72824862aae8e1547",
+                "visible": true,
+                "filters": {
+                  "exposure": 0,
+                  "contrast": 0,
+                  "saturation": 0,
+                  "temperature": 0,
+                  "tint": 0,
+                  "highlights": 0,
+                  "shadows": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "referenceSample": {
+      "id": "245:604",
+      "name": "1 / Local / Reel / reference type test",
+      "children": [
+        {
+          "id": "245:605",
+          "type": "RECTANGLE",
+          "name": "Real Eric / background / cropped to cover",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 1920,
+          "cornerRadius": 0,
+          "locked": true,
+          "fills": [
+            {
+              "type": "IMAGE",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "scaleMode": "CROP",
+              "scalingFactor": 0.5,
+              "filters": {
+                "exposure": -0.17000000178813934,
+                "contrast": -0.1333333303531011,
+                "saturation": 0,
+                "temperature": 0,
+                "tint": 0,
+                "highlights": 0,
+                "shadows": 0
+              },
+              "imageTransform": [
+                [
+                  0.800000011920929,
+                  0,
+                  0.07555555552244186
+                ],
+                [
+                  0,
+                  0.800000011920929,
+                  0.19166666269302368
+                ]
+              ],
+              "imageHash": "1f4989c18f56f48455a594b3e236939e6fde060b"
+            }
+          ]
+        },
+        {
+          "id": "246:605",
+          "type": "RECTANGLE",
+          "name": "Soft upper contrast / no border",
+          "x": 0,
+          "y": 0,
+          "width": 1080,
+          "height": 730,
+          "cornerRadius": 0,
+          "locked": true,
+          "fills": [
+            {
+              "type": "GRADIENT_LINEAR",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "gradientStops": [
+                {
+                  "color": {
+                    "r": 0.08627451211214066,
+                    "g": 0.0941176488995552,
+                    "b": 0.10588235408067703,
+                    "a": 0.6100000143051147
+                  },
+                  "position": 0,
+                  "boundVariables": {}
+                },
+                {
+                  "color": {
+                    "r": 0.08627451211214066,
+                    "g": 0.0941176488995552,
+                    "b": 0.10588235408067703,
+                    "a": 0.20000000298023224
+                  },
+                  "position": 0.6000000238418579,
+                  "boundVariables": {}
+                },
+                {
+                  "color": {
+                    "r": 0.08627451211214066,
+                    "g": 0.0941176488995552,
+                    "b": 0.10588235408067703,
+                    "a": 0
+                  },
+                  "position": 1,
+                  "boundVariables": {}
+                }
+              ],
+              "gradientTransform": [
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  -1,
+                  0,
+                  1
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "246:607",
+          "type": "TEXT",
+          "name": "Title / RIVER / rear serif",
+          "x": 61,
+          "y": 200,
+          "width": 956,
+          "height": 304,
+          "locked": false,
+          "characters": "RIVER",
+          "font": {
+            "family": "Playfair Display",
+            "style": "Black",
+            "variationSettings": {
+              "wght": 900
+            }
+          },
+          "size": 300,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 304
+          },
+          "fills": [
+            {
+              "type": "SOLID",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "color": {
+                "r": 0.8509804010391235,
+                "g": 0.5411764979362488,
+                "b": 0.239215686917305
+              },
+              "boundVariables": {}
+            }
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "visible": true,
+              "radius": 4,
+              "boundVariables": {},
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0.25
+              },
+              "offset": {
+                "x": 0,
+                "y": 4
+              },
+              "spread": 0,
+              "blendMode": "NORMAL",
+              "showShadowBehindNode": false
+            }
+          ]
+        },
+        {
+          "id": "241:963",
+          "type": "RECTANGLE",
+          "name": "Rectangle 1",
+          "x": 610,
+          "y": 504,
+          "width": 436,
+          "height": 144,
+          "cornerRadius": 29,
+          "locked": false,
+          "fills": [
+            {
+              "type": "SOLID",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "color": {
+                "r": 0.24313725531101227,
+                "g": 0.2980392277240753,
+                "b": 0.3490196168422699
+              },
+              "boundVariables": {}
+            }
+          ]
+        },
+        {
+          "id": "246:608",
+          "type": "TEXT",
+          "name": "Signature / with Eric / italic serif",
+          "x": 631,
+          "y": 527,
+          "width": 417,
+          "height": 116,
+          "locked": false,
+          "characters": "with Eric",
+          "font": {
+            "family": "Playfair Display",
+            "style": "Bold Italic",
+            "variationSettings": {
+              "wght": 700
+            }
+          },
+          "size": 95,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 84
+          },
+          "fills": [
+            {
+              "type": "SOLID",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "color": {
+                "r": 0.95686274766922,
+                "g": 0.9450980424880981,
+                "b": 0.9176470637321472
+              },
+              "boundVariables": {}
+            }
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "visible": true,
+              "radius": 4,
+              "boundVariables": {},
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0.5299999713897705
+              },
+              "offset": {
+                "x": 0,
+                "y": 4
+              },
+              "spread": 0,
+              "blendMode": "NORMAL",
+              "showShadowBehindNode": false
+            }
+          ]
+        },
+        {
+          "id": "245:606",
+          "type": "RECTANGLE",
+          "name": "Real Eric / tight cutout / unlock to recrop",
+          "x": 211.125,
+          "y": 400.625,
+          "width": 590.625,
+          "height": 1519.375,
+          "cornerRadius": 0,
+          "locked": false,
+          "fills": [
+            {
+              "type": "IMAGE",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "scaleMode": "CROP",
+              "scalingFactor": 0.5,
+              "filters": {
+                "exposure": 0,
+                "contrast": -0.1333333303531011,
+                "saturation": 0.10000000149011612,
+                "temperature": 0,
+                "tint": 0,
+                "highlights": 0,
+                "shadows": 0
+              },
+              "imageTransform": [
+                [
+                  0.4375,
+                  0,
+                  0.23194444179534912
+                ],
+                [
+                  0,
+                  0.6330729126930237,
+                  0.35859376192092896
+                ]
+              ],
+              "imageHash": "740ea15e6c3d4195432bd39857b201075f529899"
+            }
+          ]
+        },
+        {
+          "id": "246:609",
+          "type": "RECTANGLE",
+          "name": "Soft lower contrast / no card",
+          "x": 0,
+          "y": 1280,
+          "width": 1080,
+          "height": 640,
+          "cornerRadius": 0,
+          "locked": true,
+          "fills": [
+            {
+              "type": "GRADIENT_LINEAR",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "gradientStops": [
+                {
+                  "color": {
+                    "r": 0.08627451211214066,
+                    "g": 0.0941176488995552,
+                    "b": 0.10588235408067703,
+                    "a": 0
+                  },
+                  "position": 0,
+                  "boundVariables": {}
+                },
+                {
+                  "color": {
+                    "r": 0.08627451211214066,
+                    "g": 0.0941176488995552,
+                    "b": 0.10588235408067703,
+                    "a": 0.550000011920929
+                  },
+                  "position": 0.19230769574642181,
+                  "boundVariables": {}
+                },
+                {
+                  "color": {
+                    "r": 0.08627451211214066,
+                    "g": 0.0941176488995552,
+                    "b": 0.10588235408067703,
+                    "a": 0.9300000071525574
+                  },
+                  "position": 0.6442307829856873,
+                  "boundVariables": {}
+                }
+              ],
+              "gradientTransform": [
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  -1,
+                  0,
+                  1
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "246:611",
+          "type": "TEXT",
+          "name": "Hook / to the river / light sans",
+          "x": 110,
+          "y": 1622,
+          "width": 937,
+          "height": 153,
+          "locked": false,
+          "characters": "to the River",
+          "font": {
+            "family": "Roboto",
+            "style": "Condensed Italic",
+            "variationSettings": {
+              "wght": 400,
+              "wdth": 75
+            }
+          },
+          "size": 215,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 108
+          },
+          "fills": [
+            {
+              "type": "SOLID",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1
+              },
+              "boundVariables": {}
+            }
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "visible": true,
+              "radius": 4,
+              "boundVariables": {},
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              },
+              "offset": {
+                "x": 0,
+                "y": 4
+              },
+              "spread": 0,
+              "blendMode": "NORMAL",
+              "showShadowBehindNode": false
+            }
+          ]
+        },
+        {
+          "id": "246:606",
+          "type": "TEXT",
+          "name": "Title / East of the / light sans",
+          "x": 46,
+          "y": 145,
+          "width": 956,
+          "height": 100,
+          "locked": false,
+          "characters": "East of the",
+          "font": {
+            "family": "Roboto",
+            "style": "Regular",
+            "variationSettings": {
+              "wght": 400,
+              "wdth": 100
+            }
+          },
+          "size": 200,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 100
+          },
+          "fills": [
+            {
+              "type": "SOLID",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "color": {
+                "r": 0.95686274766922,
+                "g": 0.9450980424880981,
+                "b": 0.9176470637321472
+              },
+              "boundVariables": {}
+            }
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "visible": true,
+              "radius": 4,
+              "boundVariables": {},
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0.25
+              },
+              "offset": {
+                "x": 0,
+                "y": 4
+              },
+              "spread": 0,
+              "blendMode": "NORMAL",
+              "showShadowBehindNode": false
+            }
+          ]
+        },
+        {
+          "id": "246:610",
+          "type": "TEXT",
+          "name": "Hook / Welcome / bold sans",
+          "x": 30,
+          "y": 1424,
+          "width": 1021,
+          "height": 170,
+          "locked": false,
+          "characters": "Welcome",
+          "font": {
+            "family": "Roboto",
+            "style": "Black",
+            "variationSettings": {
+              "wght": 900,
+              "wdth": 100
+            }
+          },
+          "size": 245,
+          "lineHeight": {
+            "unit": "PIXELS",
+            "value": 170
+          },
+          "fills": [
+            {
+              "type": "SOLID",
+              "visible": true,
+              "opacity": 1,
+              "blendMode": "NORMAL",
+              "color": {
+                "r": 0.95686274766922,
+                "g": 0.9450980424880981,
+                "b": 0.9176470637321472
+              },
+              "boundVariables": {}
+            }
+          ],
+          "effects": [
+            {
+              "type": "DROP_SHADOW",
+              "visible": true,
+              "radius": 4,
+              "boundVariables": {},
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              },
+              "offset": {
+                "x": 0,
+                "y": 4
+              },
+              "spread": 0,
+              "blendMode": "NORMAL",
+              "showShadowBehindNode": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sourceAuditPath": "/Volumes/HomeSSD/Generated/745_CREATIVE/previews/2026-10-13-eric-type-test/source-color-audit.json",
+  "preparedManifestPath": "/Volumes/HomeSSD/Generated/745_CREATIVE/previews/2026-10-13-eric-type-test/color-prepared/manifest.json",
+  "status": "ROLLED BACK at Jerami's request on 2026-10-13. Original image fills and filters restored; color review sheet removed.",
+  "preservedPhotos": [
+    {
+      "id": "138:560",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "c5de40ee933f1382d70102f1ec4aabd07f8a4164",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.9587216973304749,
+              0,
+              -0.0008420136291533709
+            ],
+            [
+              0,
+              0.8695651888847351,
+              0.1307036280632019
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": -0.06666666517655055,
+            "saturation": 0,
+            "temperature": 0.14000000059604645,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "138:567",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "1f4989c18f56f48455a594b3e236939e6fde060b",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.17000000178813934,
+            "contrast": -0.1333333303531011,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:578",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:585",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:596",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "c64de95d56069baa2e930603fba525b179e5866f",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.11999999731779099,
+            "contrast": -0.06666666517655055,
+            "saturation": 0.2800000011920929,
+            "temperature": 0.05000000074505806,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:603",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "c64de95d56069baa2e930603fba525b179e5866f",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.11999999731779099,
+            "contrast": -0.06666666517655055,
+            "saturation": 0.2800000011920929,
+            "temperature": 0.05000000074505806,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:614",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": -0.03999999910593033,
+            "contrast": -0.09999999776482582,
+            "saturation": 0.25,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "138:621",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "138:632",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "a16adbe88d43c38fbc3b3c8a5af695b55716621a",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:639",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "a16adbe88d43c38fbc3b3c8a5af695b55716621a",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:650",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "2584c607ae4b156c161120bbc79f3172c3e428dd",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "138:655",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "2584c607ae4b156c161120bbc79f3172c3e428dd",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "138:664",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "92088770cc87cacdc6524b7b0746bff4b42d6677",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.14000000059604645,
+            "contrast": -0.09999999776482582,
+            "saturation": 0.07999999821186066,
+            "temperature": 0.05000000074505806,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "138:669",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "92088770cc87cacdc6524b7b0746bff4b42d6677",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.09000000357627869,
+            "contrast": 0,
+            "saturation": 0.2199999988079071,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:560",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "8638bcc215263efa7786c54b85182269e4544be1",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.15000000596046448,
+            "contrast": -0.033333332588275276,
+            "saturation": 0.23999999463558197,
+            "temperature": -0.10999999940395355,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:565",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "8638bcc215263efa7786c54b85182269e4544be1",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": -0.15000000596046448,
+            "contrast": -0.033333332588275276,
+            "saturation": 0.23999999463558197,
+            "temperature": -0.10999999940395355,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:574",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "1291400391b92a15fd73cfece6fb8d6711ed251c",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": -0.16666666915019354,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:579",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "1291400391b92a15fd73cfece6fb8d6711ed251c",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:588",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "139:593",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "139:602",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "d7cb2b51a4d085fec87feaaa05d3a9191117af68",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:607",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "d7cb2b51a4d085fec87feaaa05d3a9191117af68",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:616",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "139:621",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.7599999904632568,
+              0,
+              0.11999999731779099
+            ],
+            [
+              0,
+              0.7599999904632568,
+              0.11999999731779099
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "139:630",
+      "x": 0,
+      "y": -340,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "b74b7db50269384624ea0f5f48550f8b97cec188",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:635",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "b74b7db50269384624ea0f5f48550f8b97cec188",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:644",
+      "x": 0,
+      "y": -100,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "ae868f79722ceeba9be30be72824862aae8e1547",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "139:649",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "ae868f79722ceeba9be30be72824862aae8e1547",
+          "scaleMode": "FILL",
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5,
+          "rotation": 0
+        }
+      ]
+    },
+    {
+      "id": "245:602",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1440,
+      "locked": true,
+      "paints": [
+        {
+          "imageHash": "1f4989c18f56f48455a594b3e236939e6fde060b",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.800000011920929,
+              0,
+              0.07555555552244186
+            ],
+            [
+              0,
+              0.6000000238418579,
+              0.19166666269302368
+            ]
+          ],
+          "filters": {
+            "exposure": -0.17000000178813934,
+            "contrast": -0.1333333303531011,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "245:603",
+      "x": 211.125,
+      "y": 400.625,
+      "w": 590.625,
+      "h": 1039.375,
+      "locked": true,
+      "paints": [
+        {
+          "imageHash": "740ea15e6c3d4195432bd39857b201075f529899",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.4375,
+              0,
+              0.23194444179534912
+            ],
+            [
+              0,
+              0.43307292461395264,
+              0.35859376192092896
+            ]
+          ],
+          "filters": {
+            "exposure": -0.17000000178813934,
+            "contrast": -0.1333333303531011,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "245:605",
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "locked": true,
+      "paints": [
+        {
+          "imageHash": "1f4989c18f56f48455a594b3e236939e6fde060b",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.800000011920929,
+              0,
+              0.07555555552244186
+            ],
+            [
+              0,
+              0.800000011920929,
+              0.19166666269302368
+            ]
+          ],
+          "filters": {
+            "exposure": -0.17000000178813934,
+            "contrast": -0.1333333303531011,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    },
+    {
+      "id": "245:606",
+      "x": 211.125,
+      "y": 400.625,
+      "w": 590.625,
+      "h": 1519.375,
+      "locked": false,
+      "paints": [
+        {
+          "imageHash": "740ea15e6c3d4195432bd39857b201075f529899",
+          "scaleMode": "CROP",
+          "imageTransform": [
+            [
+              0.4375,
+              0,
+              0.23194444179534912
+            ],
+            [
+              0,
+              0.6330729126930237,
+              0.35859376192092896
+            ]
+          ],
+          "filters": {
+            "exposure": 0,
+            "contrast": -0.1333333303531011,
+            "saturation": 0.10000000149011612,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scalingFactor": 0.5
+        }
+      ]
+    }
+  ],
+  "sourceReplacements": {
+    "1f4989c18f56f48455a594b3e236939e6fde060b": "b92703a1c50aa226f0e2d9f56889e1a7f289ad71",
+    "ad60c53e8a4b55e75dde7497711c5e0e8e7357a2": "233e1d79abbcf4a6306c1779d94cb3b56ac8e5ab",
+    "92088770cc87cacdc6524b7b0746bff4b42d6677": "56edc19eb9e347a2b82f649b977800767657d0c8",
+    "c64de95d56069baa2e930603fba525b179e5866f": "35414e97e508b98b6a67e2125e8a3dd497be2f87",
+    "7fcb5a84eef2a1a835b491a17c8f8d3be1402c72": "1cb91f17f326f82717c7e276c9ca4d0ad5ad0c67",
+    "2584c607ae4b156c161120bbc79f3172c3e428dd": "0a3206e11a2a7a905b131e9c099e6d102ba6a007",
+    "1291400391b92a15fd73cfece6fb8d6711ed251c": "d46cacf0863380ea84b56ce4ddae49e3116803ff",
+    "24bd4bfa1fd21f34acc133afd3b20d002f4f8aea": "d7620768c3d2066f1c5299e8a3742636db6b2c82",
+    "d7cb2b51a4d085fec87feaaa05d3a9191117af68": "211f31330abe17b096d186d229c5597a3430b3e7",
+    "1a2d48eb9d50867d7fcf76a08b709abdd4fc6cfc": "4b6b428e5420ec5b1f9d09998786c1d28a14ccf0",
+    "b74b7db50269384624ea0f5f48550f8b97cec188": "dc1d5b7029ebaff704cdd650b0e9bc4ed564793f",
+    "ae868f79722ceeba9be30be72824862aae8e1547": "008744314b558c00f257bfb6bf988aeaf14ce530",
+    "8638bcc215263efa7786c54b85182269e4544be1": "49671b8a1668a6b7e9b6670c40615ae58972465a",
+    "a16adbe88d43c38fbc3b3c8a5af695b55716621a": "5e6a77a0b3977bb0b04afffcdfb88f1a20802d5d",
+    "740ea15e6c3d4195432bd39857b201075f529899": "2b0fc5c81a033117d3e1e197140812d7ac94cc69"
+  },
+  "placementReadback": {
+    "mutatedNodeIds": [
+      "138:567",
+      "138:578",
+      "138:585",
+      "138:596",
+      "138:603",
+      "138:614",
+      "138:621",
+      "138:632",
+      "138:639",
+      "138:650",
+      "138:655",
+      "138:664",
+      "138:669",
+      "139:560",
+      "139:565",
+      "139:574",
+      "139:579",
+      "139:588",
+      "139:593",
+      "139:602",
+      "139:607",
+      "139:616",
+      "139:621",
+      "139:630",
+      "139:635",
+      "139:644",
+      "139:649",
+      "245:602",
+      "245:603",
+      "245:605",
+      "245:606"
+    ],
+    "readback": [
+      {
+        "id": "138:567",
+        "imageHashes": [
+          "b92703a1c50aa226f0e2d9f56889e1a7f289ad71"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:578",
+        "imageHashes": [
+          "233e1d79abbcf4a6306c1779d94cb3b56ac8e5ab"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:585",
+        "imageHashes": [
+          "233e1d79abbcf4a6306c1779d94cb3b56ac8e5ab"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:596",
+        "imageHashes": [
+          "35414e97e508b98b6a67e2125e8a3dd497be2f87"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:603",
+        "imageHashes": [
+          "35414e97e508b98b6a67e2125e8a3dd497be2f87"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:614",
+        "imageHashes": [
+          "1cb91f17f326f82717c7e276c9ca4d0ad5ad0c67"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:621",
+        "imageHashes": [
+          "1cb91f17f326f82717c7e276c9ca4d0ad5ad0c67"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:632",
+        "imageHashes": [
+          "5e6a77a0b3977bb0b04afffcdfb88f1a20802d5d"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:639",
+        "imageHashes": [
+          "5e6a77a0b3977bb0b04afffcdfb88f1a20802d5d"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:650",
+        "imageHashes": [
+          "0a3206e11a2a7a905b131e9c099e6d102ba6a007"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:655",
+        "imageHashes": [
+          "0a3206e11a2a7a905b131e9c099e6d102ba6a007"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:664",
+        "imageHashes": [
+          "56edc19eb9e347a2b82f649b977800767657d0c8"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "138:669",
+        "imageHashes": [
+          "56edc19eb9e347a2b82f649b977800767657d0c8"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:560",
+        "imageHashes": [
+          "49671b8a1668a6b7e9b6670c40615ae58972465a"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:565",
+        "imageHashes": [
+          "49671b8a1668a6b7e9b6670c40615ae58972465a"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:574",
+        "imageHashes": [
+          "d46cacf0863380ea84b56ce4ddae49e3116803ff"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:579",
+        "imageHashes": [
+          "d46cacf0863380ea84b56ce4ddae49e3116803ff"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:588",
+        "imageHashes": [
+          "d7620768c3d2066f1c5299e8a3742636db6b2c82"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:593",
+        "imageHashes": [
+          "d7620768c3d2066f1c5299e8a3742636db6b2c82"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:602",
+        "imageHashes": [
+          "211f31330abe17b096d186d229c5597a3430b3e7"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:607",
+        "imageHashes": [
+          "211f31330abe17b096d186d229c5597a3430b3e7"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:616",
+        "imageHashes": [
+          "4b6b428e5420ec5b1f9d09998786c1d28a14ccf0"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:621",
+        "imageHashes": [
+          "4b6b428e5420ec5b1f9d09998786c1d28a14ccf0"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:630",
+        "imageHashes": [
+          "dc1d5b7029ebaff704cdd650b0e9bc4ed564793f"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:635",
+        "imageHashes": [
+          "dc1d5b7029ebaff704cdd650b0e9bc4ed564793f"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:644",
+        "imageHashes": [
+          "008744314b558c00f257bfb6bf988aeaf14ce530"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "139:649",
+        "imageHashes": [
+          "008744314b558c00f257bfb6bf988aeaf14ce530"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "245:602",
+        "imageHashes": [
+          "b92703a1c50aa226f0e2d9f56889e1a7f289ad71"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "245:603",
+        "imageHashes": [
+          "2b0fc5c81a033117d3e1e197140812d7ac94cc69"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "245:605",
+        "imageHashes": [
+          "b92703a1c50aa226f0e2d9f56889e1a7f289ad71"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      },
+      {
+        "id": "245:606",
+        "imageHashes": [
+          "2b0fc5c81a033117d3e1e197140812d7ac94cc69"
+        ],
+        "filtersPreserved": true,
+        "cropPreserved": true,
+        "geometryPreserved": true,
+        "lockedPreserved": true
+      }
+    ],
+    "skipped": [
+      {
+        "id": "138:560",
+        "reason": "Existing override has unknown color provenance; retain its image and grade"
+      }
+    ]
+  },
+  "targetedGradeTrims": [
+    {
+      "id": "138:567",
+      "filters": {
+        "exposure": -0.17000000178813934,
+        "contrast": -0.1333333303531011,
+        "saturation": -0.029999999329447746,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Ease warm skin after normalization"
+    },
+    {
+      "id": "245:602",
+      "filters": {
+        "exposure": -0.17000000178813934,
+        "contrast": -0.1333333303531011,
+        "saturation": -0.029999999329447746,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Ease warm skin after normalization"
+    },
+    {
+      "id": "245:605",
+      "filters": {
+        "exposure": -0.17000000178813934,
+        "contrast": -0.1333333303531011,
+        "saturation": -0.029999999329447746,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Ease warm skin after normalization"
+    },
+    {
+      "id": "245:603",
+      "filters": {
+        "exposure": -0.17000000178813934,
+        "contrast": -0.1333333303531011,
+        "saturation": -0.03999999910593033,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Keep the existing subject brightness, reduce warm saturation"
+    },
+    {
+      "id": "245:606",
+      "filters": {
+        "exposure": 0,
+        "contrast": -0.1333333303531011,
+        "saturation": -0.03999999910593033,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Keep the existing subject brightness, reduce warm saturation"
+    },
+    {
+      "id": "138:578",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.029999999329447746,
+        "temperature": 0,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Restrain bright courtyard highlights"
+    },
+    {
+      "id": "138:585",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.029999999329447746,
+        "temperature": 0,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Restrain bright courtyard highlights"
+    },
+    {
+      "id": "138:596",
+      "filters": {
+        "exposure": -0.11999999731779099,
+        "contrast": -0.06666666517655055,
+        "saturation": 0.07999999821186066,
+        "temperature": 0.019999999552965164,
+        "tint": 0,
+        "highlights": -0.07999999821186066,
+        "shadows": 0
+      },
+      "reason": "Rebase the former 0.28 saturation boost after normalization"
+    },
+    {
+      "id": "138:603",
+      "filters": {
+        "exposure": -0.11999999731779099,
+        "contrast": -0.06666666517655055,
+        "saturation": 0.07999999821186066,
+        "temperature": 0.019999999552965164,
+        "tint": 0,
+        "highlights": -0.07999999821186066,
+        "shadows": 0
+      },
+      "reason": "Rebase the former 0.28 saturation boost after normalization"
+    },
+    {
+      "id": "138:614",
+      "filters": {
+        "exposure": -0.03999999910593033,
+        "contrast": -0.09999999776482582,
+        "saturation": 0.05000000074505806,
+        "temperature": 0,
+        "tint": 0,
+        "highlights": -0.029999999329447746,
+        "shadows": 0
+      },
+      "reason": "Rebase the former 0.25 saturation boost after normalization"
+    },
+    {
+      "id": "138:621",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.029999999329447746,
+        "temperature": 0,
+        "tint": 0,
+        "highlights": -0.029999999329447746,
+        "shadows": 0
+      },
+      "reason": "Restrain sunlight without repeating the Grid grade"
+    },
+    {
+      "id": "139:588",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.03999999910593033,
+        "temperature": 0,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Keep bright shirt and daylight controlled"
+    },
+    {
+      "id": "139:593",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.03999999910593033,
+        "temperature": 0,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Keep bright shirt and daylight controlled"
+    },
+    {
+      "id": "139:602",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.05999999865889549,
+        "temperature": 0,
+        "tint": -0.019999999552965164,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Reduce the visible pink cast in skin"
+    },
+    {
+      "id": "139:607",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.05999999865889549,
+        "temperature": 0,
+        "tint": -0.019999999552965164,
+        "highlights": 0,
+        "shadows": 0
+      },
+      "reason": "Reduce the visible pink cast in skin"
+    },
+    {
+      "id": "139:630",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.019999999552965164,
+        "temperature": -0.029999999329447746,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Keep indoor warmth and reduce orange highlights"
+    },
+    {
+      "id": "139:635",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.019999999552965164,
+        "temperature": -0.029999999329447746,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Keep indoor warmth and reduce orange highlights"
+    },
+    {
+      "id": "139:644",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.03999999910593033,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Restrain cyan shirt and warm highlights"
+    },
+    {
+      "id": "139:649",
+      "filters": {
+        "exposure": 0,
+        "contrast": 0,
+        "saturation": -0.03999999910593033,
+        "temperature": -0.019999999552965164,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Restrain cyan shirt and warm highlights"
+    },
+    {
+      "id": "139:560",
+      "filters": {
+        "exposure": -0.15000000596046448,
+        "contrast": -0.033333332588275276,
+        "saturation": 0.05000000074505806,
+        "temperature": -0.07000000029802322,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Rebase the former 0.24 saturation boost; keep a mild cool balance"
+    },
+    {
+      "id": "139:565",
+      "filters": {
+        "exposure": -0.15000000596046448,
+        "contrast": -0.033333332588275276,
+        "saturation": 0.05000000074505806,
+        "temperature": -0.07000000029802322,
+        "tint": 0,
+        "highlights": -0.05000000074505806,
+        "shadows": 0
+      },
+      "reason": "Rebase the former 0.24 saturation boost; keep a mild cool balance"
+    }
+  ],
+  "colorReviewFrameId": "257:598",
+  "verification": {
+    "cutoutAlphaIdentical": true,
+    "opaqueCutoutRgbMatchesPreparedPhoto": true,
+    "sourceMask": "Figma native background removal",
+    "peopleRegenerated": false,
+    "boundsPreserved": true,
+    "existingGrades": "Existing exposure/contrast preserved. Selected saturation, white balance and highlight values were adjusted after review; no repeated HDR transform.",
+    "gradedOverrideException": {
+      "photoId": "138:560",
+      "hash": "c5de40ee933f1382d70102f1ec4aabd07f8a4164",
+      "decision": "Retained the existing raster override and its grade. Its baked color provenance is unknown; do not apply another HDR transform.",
+      "review": "Needs provenance check before a new cutout."
+    },
+    "visualApproval": "Rejected after the live mobile file displayed an unrelated woman. Do not treat the prior tool previews as delivery evidence."
+  },
+  "rollbackRecord": "thumbnail-color-rollback.json"
+}

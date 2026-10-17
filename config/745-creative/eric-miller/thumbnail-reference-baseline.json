@@ -1,0 +1,247 @@
+{
+  "baseline": {
+    "authority": "Jerami's revised Reel screenshot accepted as the layout reference on 2026-10-13; later color revision awaits review.",
+    "scope": "Local thumbnails only",
+    "frameId": "245:604",
+    "width": 1080,
+    "height": 1920,
+    "texts": [
+      {
+        "id": "246:607",
+        "characters": "RIVER",
+        "font": {
+          "family": "Playfair Display",
+          "style": "Black",
+          "variationSettings": {
+            "wght": 900
+          }
+        },
+        "fontSize": 300,
+        "x": 61,
+        "y": 200,
+        "width": 956,
+        "height": 304,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 304
+        },
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true,
+            "radius": 4,
+            "boundVariables": {},
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.25
+            },
+            "offset": {
+              "x": 0,
+              "y": 4
+            },
+            "spread": 0,
+            "blendMode": "NORMAL",
+            "showShadowBehindNode": false
+          }
+        ]
+      },
+      {
+        "id": "246:608",
+        "characters": "with Eric",
+        "font": {
+          "family": "Playfair Display",
+          "style": "Bold Italic",
+          "variationSettings": {
+            "wght": 700
+          }
+        },
+        "fontSize": 95,
+        "x": 631,
+        "y": 527,
+        "width": 417,
+        "height": 116,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 84
+        },
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true,
+            "radius": 4,
+            "boundVariables": {},
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.5299999713897705
+            },
+            "offset": {
+              "x": 0,
+              "y": 4
+            },
+            "spread": 0,
+            "blendMode": "NORMAL",
+            "showShadowBehindNode": false
+          }
+        ]
+      },
+      {
+        "id": "246:611",
+        "characters": "to the River",
+        "font": {
+          "family": "Roboto",
+          "style": "Condensed Italic",
+          "variationSettings": {
+            "wght": 400,
+            "wdth": 75
+          }
+        },
+        "fontSize": 215,
+        "x": 110,
+        "y": 1622,
+        "width": 937,
+        "height": 153,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 108
+        },
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true,
+            "radius": 4,
+            "boundVariables": {},
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            },
+            "offset": {
+              "x": 0,
+              "y": 4
+            },
+            "spread": 0,
+            "blendMode": "NORMAL",
+            "showShadowBehindNode": false
+          }
+        ]
+      },
+      {
+        "id": "246:606",
+        "characters": "East of the",
+        "font": {
+          "family": "Roboto",
+          "style": "Regular",
+          "variationSettings": {
+            "wght": 400,
+            "wdth": 100
+          }
+        },
+        "fontSize": 200,
+        "x": 46,
+        "y": 145,
+        "width": 956,
+        "height": 100,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 100
+        },
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true,
+            "radius": 4,
+            "boundVariables": {},
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0.25
+            },
+            "offset": {
+              "x": 0,
+              "y": 4
+            },
+            "spread": 0,
+            "blendMode": "NORMAL",
+            "showShadowBehindNode": false
+          }
+        ]
+      },
+      {
+        "id": "246:610",
+        "characters": "Welcome",
+        "font": {
+          "family": "Roboto",
+          "style": "Black",
+          "variationSettings": {
+            "wght": 900,
+            "wdth": 100
+          }
+        },
+        "fontSize": 245,
+        "x": 30,
+        "y": 1424,
+        "width": 1021,
+        "height": 170,
+        "lineHeight": {
+          "unit": "PIXELS",
+          "value": 170
+        },
+        "effects": [
+          {
+            "type": "DROP_SHADOW",
+            "visible": true,
+            "radius": 4,
+            "boundVariables": {},
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            },
+            "offset": {
+              "x": 0,
+              "y": 4
+            },
+            "spread": 0,
+            "blendMode": "NORMAL",
+            "showShadowBehindNode": false
+          }
+        ]
+      }
+    ],
+    "signatureBacking": {
+      "id": "241:963",
+      "type": "RECTANGLE",
+      "name": "Rectangle 1",
+      "x": 610,
+      "y": 504,
+      "width": 436,
+      "height": 144,
+      "cornerRadius": 29,
+      "locked": false,
+      "fills": [
+        {
+          "type": "SOLID",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "color": {
+            "r": 0.24313725531101227,
+            "g": 0.2980392277240753,
+            "b": 0.3490196168422699
+          },
+          "boundVariables": {}
+        }
+      ]
+    },
+    "colorApproval": "Color pass rejected and rolled back. This layout reference uses the restored original photo and native mask."
+  },
+  "source": "1f4989c18f56f48455a594b3e236939e6fde060b",
+  "cutout": "740ea15e6c3d4195432bd39857b201075f529899"
+}

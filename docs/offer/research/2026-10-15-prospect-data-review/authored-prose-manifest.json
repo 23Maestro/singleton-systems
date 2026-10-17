@@ -1,0 +1,33 @@
+{
+  "origin": "Codex-authored prose based on this conversation, archived source evidence and linked primary sources. User factual statements are attributed in the packet.",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "b7c30f6d1b9175df98d5c79c44d37775ca32182fa292b58df8cd4ff47068f89f"
+    },
+    {
+      "path": "buyer-drafts.md",
+      "sha256": "617e2078343e43a992494ae6aa5963d24b71a1b1e478e1bd5a5999eabd49d688"
+    },
+    {
+      "path": "evidence.md",
+      "sha256": "c151b3c503cfef6bb84673d41a5499000cf0ba22ecaba02275311a79d5cee6be"
+    },
+    {
+      "path": "ownership-and-split.md",
+      "sha256": "2dc26c4d4cb7561ba7c8a298377d41dbfd2e699bc452bc915491049495d9b02a"
+    },
+    {
+      "path": "review.html",
+      "sha256": "250910b797addb84a28e37a49f74d9a29e9c7970f060330be9be3d22291254b6"
+    },
+    {
+      "path": "turing-brief.md",
+      "sha256": "cc22c26292dfa45d8c4337fd0d9eb236a6e7cc9c9ef81fba19f80ce3d2d05ae7"
+    },
+    {
+      "path": "verification.md",
+      "sha256": "31a9e0253cd63d5e2413ff73d6b95df637fcd0e42f86249c71e9b0e5a6c64b34"
+    }
+  ]
+}

@@ -3,17 +3,29 @@
   "id": "745-eric-miller-visual-direction-v1",
   "clientId": "eric_miller",
   "sharedContract": "../visual-contract.json",
-  "inherits": ["workflow", "jeramiWiggleRoom"],
+  "inherits": [
+    "workflow",
+    "jeramiWiggleRoom"
+  ],
   "sources": {
     "visualDirection": "https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit",
     "editBrief": "https://docs.google.com/document/d/1YsDSsA1NJq_UZPMMqTy9ZPiamBr2PUbZ/edit",
     "brandBook": "https://docs.google.com/presentation/d/1r87O8pBLcHNn_Y7H0giZaNo5kv0LhwFc/edit",
     "verifiedOn": "2026-09-30",
-    "authority": "Brief sets batch scope. Ian's later Visual Direction sets lane treatments. Brand-book recommendation supplies After Hours with the daytime warm base and Roboto/Arial. Jerami adopted this direction with the shared 10% allowance; separate client sign-off is not claimed."
+    "authority": "Brief sets batch scope. Ian's later Visual Direction sets lane treatments. Brand-book recommendation supplies After Hours with the daytime warm base and Roboto/Arial. Jerami adopted this direction with the shared 10% allowance; separate client sign-off is not claimed.",
+    "thumbnailRevision": {
+      "date": "2026-10-13",
+      "authority": "Jerami requested a static Eric thumbnail test from the supplied Kantor reference screenshots. He authorized more font variants and the East of the River signature with Eric. Sample approval and batch rollout remain pending.",
+      "figma": "https://www.figma.com/design/H6qeI4wk4w3bqv5mBeb4PL/745-Creative-Client-Review?node-id=130-556",
+      "scope": "Thumbnails only. Video typography, openings, edits and captions retain their existing rules."
+    }
   },
   "client": {
     "name": "Eric Miller",
-    "aliases": ["eric miller", "eric / east of the river"],
+    "aliases": [
+      "eric miller",
+      "eric / east of the river"
+    ],
     "batch": {
       "requestedDeliverables": 16,
       "sourceFormat": "Direct-to-camera",
@@ -24,15 +36,26 @@
     },
     "references": {
       "account": "https://www.instagram.com/kantorwithak/",
-      "inspection": "Link resolved from Ian's document in the earlier source audit. Full reference-account and embedded-image visual audit remains pending.",
+      "inspection": "Four supplied Kantor screenshot references reviewed on 2026-10-13 for static thumbnail composition. Exact reference fonts are unverified. The chosen fonts are close matches, verified available in the target Figma file.",
       "estimateLimitation": "No Eric thumbnail reference or brand palette was included in the source document used for the estimate. The later Visual Direction and Eric brand book supply the current direction; exact cover geometry still needs a sample.",
       "placeholderPolicy": "Use Eric's actual approved source frame, real source-supported locations and video-specific copy. Brand-book portraits, prices, headlines and example labels are placeholders."
     },
     "brand": {
       "paletteName": "After Hours with River Valley warm base for daytime",
-      "palette": { "inkBlack": "#16181B", "duskSlate": "#3E4C59", "amber": "#D98A3D", "fieldstone": "#C9BFB1", "paper": "#F4F1EA" },
+      "palette": {
+        "inkBlack": "#16181B",
+        "duskSlate": "#3E4C59",
+        "amber": "#D98A3D",
+        "fieldstone": "#C9BFB1",
+        "paper": "#F4F1EA"
+      },
       "font": "Roboto / Arial",
-      "typography": { "primaryFamily": "Roboto", "documentedAlternateFamily": "Arial", "pairingName": "Modern Confident", "weightAuthority": "No exact weights or pixel sizes supplied. Verify installed fonts and record the sample baseline." },
+      "typography": {
+        "primaryFamily": "Roboto",
+        "documentedAlternateFamily": "Arial",
+        "pairingName": "Modern Confident",
+        "weightAuthority": "No exact weights or pixel sizes supplied. Verify installed fonts and record the sample baseline."
+      },
       "colorUse": "Ink black/dusk slate carry editorial show and market energy. Amber is the signal accent. Fieldstone/paper soften daytime and educational graphics. Preserve natural footage; the palette does not mandate a dusk grade.",
       "authority": "Use the recommendation's five-color combination. Other standalone palette options in the brand book are not active treatments."
     },
@@ -48,28 +71,48 @@
       "premiereTemplate": "not built or verified",
       "pixelBaseline": null,
       "referenceImageBinding": null,
-      "pending": ["First 9:16 sample and matching cover", "Measured geometry and phone-readability review", "Source-to-deliverable reconciliation"],
+      "pending": [
+        "First 9:16 sample and matching cover",
+        "Measured geometry and phone-readability review",
+        "Source-to-deliverable reconciliation"
+      ],
       "limits": "JSON and hook checks validate enrollment and declared adjustment bounds. They do not certify rendered style alignment. Only verified affected sources go on hold."
     },
     "lanes": {
       "local": {
         "name": "East of the River / Local",
-        "aliases": ["east of the river", "local"],
+        "aliases": [
+          "east of the river",
+          "local"
+        ],
         "treatment": "Recurring-show feel. Strong location-led visuals, clear titles, editorial/local-media energy.",
         "requiredLabel": null,
-        "labelAuthority": "Recurring-show identity is required direction. No universal literal label is supplied. Use East of the River only when the source belongs to that series.",
+        "labelAuthority": "The video keeps its source-supported recurring-show identity with no universal literal label. Verified East of the River thumbnails use the title and with Eric signature in client.thumbnailSystem.localSeries.",
         "visualPasses": {
           "framing": "Source-supported location carries the 9:16 frame. Preserve Eric's presence when he is on camera.",
           "color": "After Hours editorial graphics; fieldstone/paper for daylight warmth. Keep locations recognizable and natural.",
           "opening": "No mandatory intro card. A clear source-backed show or location title can establish recurring-show identity over footage.",
           "onScreenText": "Clear Roboto/Arial titles with local-media hierarchy. Do not invent town names or series membership.",
-          "cover": "Location-led approved source still, clear title and recurring-show identity. Keep palette/type consistent; exact layout remains unmeasured."
+          "cover": "Location-led approved source still, clear title and recurring-show identity. Static thumbnail type and composition follow client.thumbnailSystem. The first sample is recorded and awaits Jerami review before a measured baseline or batch reuse."
         },
-        "visualReview": ["Location supported by source", "Recurring-show identity clear", "Readable title", "After Hours with appropriate daytime base", "No generic Realtor cover"]
+        "visualReview": [
+          "Location supported by source",
+          "Recurring-show identity clear",
+          "Readable title",
+          "After Hours with appropriate daytime base",
+          "No generic Realtor cover",
+          "East of the River thumbnail includes with Eric; video label rules are unchanged"
+        ]
       },
       "market": {
         "name": "Market Takes / Talking Head",
-        "aliases": ["market", "market takes", "talking head", "direct-to-camera", "dtc"],
+        "aliases": [
+          "market",
+          "market takes",
+          "talking head",
+          "direct-to-camera",
+          "dtc"
+        ],
         "treatment": "Direct and simple. Eric is the focal point. Minimal graphics and a strong hook.",
         "requiredLabel": null,
         "labelAuthority": "No mandatory MARKET TAKE label. Example label in the brand book is not a universal requirement.",
@@ -78,13 +121,24 @@
           "color": "Natural footage with After Hours graphic accents. Use fieldstone/paper for softer daytime treatment when appropriate.",
           "opening": "No mandatory intro card. Keep the source hook direct; optional title stays concise and does not add a sales pitch.",
           "onScreenText": "Minimal Roboto/Arial graphics with a strong video-specific hook. No persistent ad-like overlays.",
-          "cover": "Eric's approved still plus a clear hook in the After Hours system. Match the video without inventing prices, statistics or sales claims."
+          "cover": "Eric's approved still plus a clear hook in the After Hours system. Match the video without inventing prices, statistics or sales claims. Static thumbnail type and composition follow client.thumbnailSystem."
         },
-        "visualReview": ["Eric focal point", "Strong source-backed hook", "Minimal graphics", "Readable matching cover", "No ad-like or unsupported claims", "Native captions absent from the clean Opus master"]
+        "visualReview": [
+          "Eric focal point",
+          "Strong source-backed hook",
+          "Minimal graphics",
+          "Readable matching cover",
+          "No ad-like or unsupported claims",
+          "Native captions absent from the clean Opus master"
+        ]
       },
       "property": {
         "name": "Listings / Property",
-        "aliases": ["listing", "listings", "property"],
+        "aliases": [
+          "listing",
+          "listings",
+          "property"
+        ],
         "treatment": "Let the property do the work. Clean title treatment. Avoid generic listing templates.",
         "requiredLabel": null,
         "batchScope": "Reference lane only until a current source is verified as a listing/property clip. No added listing deliverables.",
@@ -93,13 +147,24 @@
           "color": "Natural property color. After Hours type and restrained accents support the picture; no forced luxury grade.",
           "opening": "No mandatory intro card. A clean property title is allowed when supported by the source.",
           "onScreenText": "Clean Roboto/Arial title. Include address, price or property facts only when verified from client/source assets.",
-          "cover": "Approved property still with a clean source-backed title. No generic listing frame or invented luxury branding."
+          "cover": "Approved property still with a clean source-backed title. No generic listing frame or invented luxury branding. Static thumbnail type and composition follow client.thumbnailSystem."
         },
-        "visualReview": ["Property remains the hero", "Clean title", "Verified property facts only", "Natural color", "No generic listing template", "No added batch scope"]
+        "visualReview": [
+          "Property remains the hero",
+          "Clean title",
+          "Verified property facts only",
+          "Natural color",
+          "No generic listing template",
+          "No added batch scope"
+        ]
       },
       "education": {
         "name": "Buyer / Seller Education",
-        "aliases": ["buyer", "seller", "education"],
+        "aliases": [
+          "buyer",
+          "seller",
+          "education"
+        ],
         "treatment": "Slightly more structured. Clear, scannable headline. Simple graphics or solid-color cards when useful.",
         "requiredLabel": null,
         "labelAuthority": "No mandatory BUYER + SELLER label or fixed card count is supplied.",
@@ -108,10 +173,119 @@
           "color": "Use fieldstone/paper for softer educational surfaces, with ink/slate and restrained amber in the adopted palette.",
           "opening": "No mandatory intro card. A concise educational headline or simple card is optional when useful.",
           "onScreenText": "Scannable Roboto/Arial headline. Simple graphics or solid-color cards support source-backed information; no heavy animation.",
-          "cover": "Approved Eric/source still or a simple adopted-color surface with a clear educational headline. Exact layout is a sample default, not a supplied fixed template."
+          "cover": "Approved Eric/source still or a simple adopted-color surface with a clear educational headline. Exact layout is a sample default, not a supplied fixed template. Static thumbnail type and composition follow client.thumbnailSystem."
         },
-        "visualReview": ["Headline scannable on phone", "Source-backed information", "Simple useful graphics", "Daytime warm palette base", "Matching readable cover", "No heavy animation"]
+        "visualReview": [
+          "Headline scannable on phone",
+          "Source-backed information",
+          "Simple useful graphics",
+          "Daytime warm palette base",
+          "Matching readable cover",
+          "No heavy animation"
+        ]
       }
+    },
+    "thumbnailSystem": {
+      "revision": "2026-10-13-reference-type-test",
+      "status": "Jerami accepted the revised Reel as the thumbnail reference on 2026-10-13. Color preparation is required before background removal. Other lane samples and batch designs remain pending.",
+      "scope": "Static covers in the existing 1080x1920 Reel and 1080x1440 Grid formats. No video changes.",
+      "referenceTreatmentCount": 4,
+      "fontFamilyCount": 2,
+      "fontAuthority": "Close matches to supplied screenshots. Roboto and Playfair Display styles verified available in Figma on 2026-10-13. No claim of exact reference font identification.",
+      "typeTreatments": [
+        {
+          "id": "light-sans",
+          "family": "Roboto",
+          "styles": [
+            "Light",
+            "Regular",
+            "Light Italic",
+            "Italic",
+            "Condensed Italic"
+          ],
+          "role": "Short setup and connector phrases"
+        },
+        {
+          "id": "bold-sans",
+          "family": "Roboto",
+          "styles": [
+            "Black",
+            "Bold"
+          ],
+          "role": "Strong hook words and compact support"
+        },
+        {
+          "id": "heavy-serif",
+          "family": "Playfair Display",
+          "styles": [
+            "Black",
+            "ExtraBold"
+          ],
+          "role": "Dominant keyword or location"
+        },
+        {
+          "id": "italic-serif",
+          "family": "Playfair Display",
+          "styles": [
+            "Bold Italic",
+            "Italic"
+          ],
+          "role": "Short signature or secondary phrase"
+        }
+      ],
+      "composition": [
+        "Split approved copy into editable phrase layers. Use scale and font contrast to rank the words. Four treatments are available; each cover need not use all four.",
+        "Keep the adopted After Hours palette. Amber carries keyword emphasis. Paper carries readable support. Reference colors do not expand the brand palette.",
+        "Remove decorative white outlines and outlined boxes. Keep contrast in the photo or a soft fade. No mandatory headline card.",
+        "Reduce excess headroom and place Eric higher in the frame. Keep his face clear and the real location recognizable.",
+        "For depth, duplicate the same approved image and use native Figma Remove background on the foreground copy. Preserve the source pixel scale and placement when trimming the cutout bounds.",
+        "Stack the background photo, optional rear type, unchanged-person cutout, then foreground type. A small keyword overlap may cross the crown or shoulder; it must remain readable.",
+        "Do not regenerate or retouch Eric, his face, body or clothes. Do not copy reference towns, property facts or headlines into client covers.",
+        "Compose Grid and Reel separately. Keep important text inside the frame and inspect both at phone scale."
+      ],
+      "localSeries": {
+        "title": "East of the River",
+        "signature": "with Eric",
+        "authority": "Jerami relayed Darzell's requested signature on 2026-10-13.",
+        "membership": "Use this title and signature only for verified East of the River content. Keep the video-specific hook separate."
+      },
+      "sample": {
+        "sourceBoardId": "138:556",
+        "sourceReelPhotoId": "138:567",
+        "sourceGridPhotoId": "138:560",
+        "approvedBaseline": "thumbnail-reference-baseline.json",
+        "review": "Jerami accepted his revised Reel direction on 2026-10-13 with the words this is swagger. This records the thumbnail look; it does not approve unreviewed batch covers or video delivery.",
+        "reviewBoardId": "245:598",
+        "gridFrameId": "245:601",
+        "reelFrameId": "245:604",
+        "sourceImageHash": "1f4989c18f56f48455a594b3e236939e6fde060b",
+        "nativeCutoutImageHash": "740ea15e6c3d4195432bd39857b201075f529899",
+        "sourcePixelSize": {
+          "width": 720,
+          "height": 1280
+        },
+        "cutoutAlphaBoundsPixels": [
+          167,
+          459,
+          482,
+          1280
+        ],
+        "referenceAcceptedOn": "2026-10-13",
+        "referenceFrameId": "245:604",
+        "colorAudit": "source-color-audit.json in the HomeSSD 2026-10-13-eric-type-test previews",
+        "colorRecord": "thumbnail-color-record.json",
+        "colorReview": "Color pass rejected and rolled back. Original photo fills and filters restored. Replacement upload path requires investigation before reuse.",
+        "colorRollback": "thumbnail-color-rollback.json"
+      },
+      "editableBounds": {
+        "authority": "Jerami correction on 2026-10-13: selectable image and text bounds must be tight for easy Figma editing.",
+        "cutouts": "Crop the foreground rectangle to its actual nontransparent subject bounds, intersected with the cover bounds. Preserve image scale and source alignment through the image crop transform. Do not retain a full-photo transparent hit box.",
+        "text": "Use separate phrase layers with Auto width or Auto height. Keep text boxes close to the rendered phrase; no full-cover text hit areas or empty oversized wrappers.",
+        "locking": "Lock background photos, foreground cutouts and decorative fades after composition. Keep every text phrase unlocked for direct selection. Unlock a named image layer only when its crop needs editing.",
+        "readback": "Check alpha bounds, crop transform, cover containment and unlocked text layers before review. Inspect that clicking type is not intercepted by a large transparent image rectangle.",
+        "sharedPolicy": "workflow.graphics.editableLayerBounds"
+      },
+      "colorPreparation": "workflow.graphics.thumbnailColorPreparation"
     }
   }
 }

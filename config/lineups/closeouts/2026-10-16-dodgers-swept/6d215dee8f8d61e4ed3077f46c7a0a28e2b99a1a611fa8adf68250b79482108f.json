@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-16T18:10:24.183Z",
+  "status": "assumed-submitted",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1219589503882808",
+      "completed": false,
+      "due_at": null,
+      "due_on": "2026-10-16"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-16-dodgers-swept",
+    "asanaTask": "1219589503882808",
+    "dueDate": "2026-10-16",
+    "dueAt": "2026-10-16T22:00:00Z",
+    "transcriptPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-16-dodgers-swept/transcript/whisper.json",
+    "discoveryPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-16-dodgers-swept/storyboard/lane-discovery.json",
+    "cueMapPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-16-dodgers-swept/storyboard/cue-map.json",
+    "timingProofPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-16-dodgers-swept/storyboard/cue-proof-receipt.json",
+    "sourceDelivery": "OneDrive_1_10-16-2026",
+    "eagleFolder": "MVB985GP0VAEH",
+    "preFigma": {
+      "path": "public/decision-maps/2026-10-16-dodgers-swept-pre-figma-review/index.html",
+      "title": "Nikki: Dodgers swept",
+      "candidateCount": 15
+    },
+    "candidates": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15"
+    ],
+    "sourceCandidates": [],
+    "premiereProject": null,
+    "finalExportTarget": null
+  },
+  "activeScene": null
+}

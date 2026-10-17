@@ -1,0 +1,88 @@
+{
+  "verified_at": "2026-10-15T16:22:20.166565+00:00",
+  "status": "passed",
+  "checks": [
+    {
+      "check": "All packet JSON parses",
+      "passed": true
+    },
+    {
+      "check": "Embedded source matches canonical JSON",
+      "passed": true
+    },
+    {
+      "check": "Embedded brief matches canonical Markdown",
+      "passed": true
+    },
+    {
+      "check": "HTML IDs unique",
+      "passed": true
+    },
+    {
+      "check": "No external runtime dependency",
+      "passed": true
+    },
+    {
+      "check": "Relative files and anchors exist",
+      "passed": true,
+      "detail": {
+        "checked": 35,
+        "errors": []
+      }
+    },
+    {
+      "check": "Inline JavaScript parses",
+      "passed": true
+    },
+    {
+      "check": "Current evidence file hashes match",
+      "passed": true,
+      "detail": {
+        "checked": 44,
+        "mismatches": []
+      }
+    },
+    {
+      "check": "Historical before and after blobs match",
+      "passed": true,
+      "detail": {
+        "checked": 6
+      }
+    },
+    {
+      "check": "File-role totals reconcile",
+      "passed": true
+    },
+    {
+      "check": "Event totals reconcile",
+      "passed": true
+    },
+    {
+      "check": "Jev result schema and selected option valid",
+      "passed": true
+    },
+    {
+      "check": "Buyer introduction avoids unsupported exclusivity and prior-training claims",
+      "passed": true
+    }
+  ],
+  "research_scope": "A packet-integrity check; not a claim that every archived application test passes.",
+  "browser_checks": {
+    "verified_at": "2026-10-15T16:23:42.858325+00:00",
+    "keyboard_arrow_tab_selection": true,
+    "records_disclosure_expands": true,
+    "mobile_panels_checked": 4,
+    "requested_viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "observed_content_width": 375,
+    "horizontal_overflow": false,
+    "print_all_four_panels_visible": true,
+    "print_navigation_hidden": true,
+    "viewport_and_print_override_reset": true,
+    "copy_brief_matches": true,
+    "download_brief_matches_bytes": true,
+    "download_source_facts_matches_json": true
+  }
+}

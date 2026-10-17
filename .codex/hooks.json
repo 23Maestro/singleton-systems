@@ -56,7 +56,7 @@
         ]
       },
       {
-        "matcher": "apply_patch|Edit|Write|Bash",
+        "matcher": "^(?:apply_patch|Edit|Write|Bash|exec_command|mcp__codex_apps__figma_(?:use_figma|weave_run_tool|export_video))$",
         "hooks": [
           {
             "type": "command",

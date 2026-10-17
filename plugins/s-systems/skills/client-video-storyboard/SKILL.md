@@ -71,11 +71,29 @@ due date from the confirmed delivery deadline. Use the locked Pre-Figma and
 Post-Figma review UIs. A team or topic is episode data; it cannot change the
 shared UI or create a new option.
 
+At the start of each Lineups episode, load `singleton-figma-system` for the
+shared workspace standard. Plan simple episode titles and actual-workday labels
+at exactly 300 px, a left-to-right row of episodes with wide gaps, and a spec
+for each approved lane used. Keep loose source material on the existing asset
+page. Apply this structure at the first authorized Figma build and preserve it
+as work grows. Starting an episode does not bypass its scene and review gates.
+
+Use the repository-owned review renderer and template lock defined in
+`references/lineups-episode-lifecycle.md`. Run its review-template check before
+preview publication or an authorized Vercel deployment. Keep photos above short,
+timestamp-matched excerpts; production instructions stay in details.
+
 Always attempt full-transcript discovery across all seven lanes after obvious
 rankings/Quick Action opportunities. Bind the ledger to the transcript hash.
 Record excerpts/timestamps, rejected possibilities or genuine no-fit outcomes;
 keep asset search work explicit. Run the review progression Gate before pacing
 and selection. Timing proof cannot replace discovery.
+
+For missing artwork, read `references/lineups-asset-search.md`. Search Eagle,
+then Google with the episode year and week. Inspect recorded source-page leads
+with `scripts/firecrawl-source-inspect.py`. Its hook validates the episode
+request before the helper reads the named Firecrawl key from macOS Keychain.
+Keep returned image links as leads until the original photo is verified.
 
 Cinematic 2-up uses full photos with original backgrounds, both visible from
 the opening frame, and the established top-left title. Never suggest cutouts

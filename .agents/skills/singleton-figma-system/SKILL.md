@@ -1,6 +1,6 @@
 ---
 name: singleton-figma-system
-description: Create or refactor Singleton Systems Figma files into reusable client design systems with measured references, variables, components, variants, scenes, alpha overlays, buttery motion workspaces, review states, and export modes. Use for client labs, broadcast packages, storyboard libraries, branded template sets, or any Figma file that must support repeatable asset and data replacement.
+description: Organize Singleton Systems Figma work from the start with simple titles, workday labels, clear lane specs, and separate source assets. Create or refactor client design systems, broadcast packages, episode workspaces, storyboard libraries, and reusable scene families while preserving approved art and motion.
 ---
 
 # Singleton Figma system
@@ -35,7 +35,41 @@ implements the approved seven-lane menu and the active-page pruning rule.
 
 ## file contract
 
-Keep work on the user's requested page. Add pages only when the user approves them. Within one lab page, use indexed sections in this order when they apply:
+Apply the workspace standard when work starts, including a new Lineups episode.
+Inspect the live file first. Keep an area that already meets the standard.
+
+- Give each episode or main work area a simple, clear title above its contents.
+  Set the title and its workday label to exactly **300 px**. Use centered dark
+  text with Auto Width and tight bounds. This scale is for canvas labels;
+  preserve the approved type inside designs and scene previews.
+- Label the actual day worked, with weekday, date, year, and the project's time
+  zone. For Lineups, use America/New_York. Use a workday range when records show
+  work across days. Check work logs, build/export records, or Jerami's account.
+  A source date, deadline, import date, or archive-cleanup date alone does not
+  prove the workday. For new work, record the day work begins. Keep a partial
+  date explicit, such as `Worked August 2026 / day not confirmed`.
+- Arrange episodes or dated work areas left to right by known work dates on
+  one shared top baseline. Keep partial dates at their known month or year;
+  do not invent their order within that period. Leave wide, even gaps for a
+  fast Loom pan. Use 6000 canvas px as the starting episode gap and adjust it
+  to the existing file. Keep each episode's scenes in its approved lane grid.
+- Group work by the client's approved lanes. Each lane spec names its purpose,
+  approved option and source, supported counts, output size, copy and asset
+  slots, timing, protected values, and review proof. Keep this spec linked to
+  the working group. Use the client's lane names and numbers. Omit unused
+  lanes without renumbering or making up new ones.
+- Keep loose cutouts, logos, original photos, extra render parts, and old
+  scene versions on the existing asset/reference page in named groups by
+  episode. Keep the parts used by a scene inside that scene. Reuse the current
+  asset page; follow the page-creation approval rule below if none exists.
+- Preserve scene IDs, approved masters, artwork, instance links, and native
+  motion when organizing. Read back the hierarchy, titles, type sizes, and
+  source-page placement. Inspect a wide overview and a readable episode view.
+  Return a direct link to the start of the walkthrough.
+
+Keep active designs on the user's requested page. Use the existing approved
+asset/reference page for loose sources. Add pages only when the user approves
+them. Within one lab page, use indexed sections in this order when they apply:
 
 1. `00 / cover + handoff`
 2. `01 / measured references`

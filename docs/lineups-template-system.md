@@ -8,7 +8,8 @@ approved design.
 | --- | --- |
 | Foundations | Brand assets and measured references |
 | Components | Approved reusable sources, grouped by the 7 lanes |
-| Episode pages | Copy, photos, logos, and native motion for each episode |
+| Episode Workspace | Episode scenes in approved lane groups, with native motion |
+| Player Cut Outs + Logos | Loose assets and old parts, grouped by episode |
 | Legacy | Old examples and ideas; excluded from template retrieval |
 
 Page count does not decide which design code retrieves. Each template has a
@@ -72,6 +73,36 @@ scene finishes or work switches projects. Episode history never supplies the
 default binding. The no-enrollment guard still requires a scene manifest before
 mutating or exporting the shared Lineups Figma file.
 
+## episode canvas standard
+
+Jerami approved the lane-section organization on October 14, 2026 and the
+workday walkthrough layout on October 16, 2026. Apply it from each episode's
+first authorized Figma build. The shared workspace rules live in
+`.agents/skills/singleton-figma-system/SKILL.md`; the Lineups lane specs live in
+`.agents/skills/singleton-figma-system/references/lineups-production-system.md`.
+
+Use simple episode titles and actual-workday labels at exactly 300 px. Verify
+weekdays and dates from work records in America/New_York. Keep partial dates
+explicit. Order episode areas left to right by known work dates on one top
+baseline, with wide gaps for a fast Loom pan. Start with 6000 canvas px between
+episodes and fit the existing file. Keep scenes in their lane grids.
+
+Use native white Sections side by side with aligned top and bottom edges.
+Keep the canonical lane numbers 1 through 7 and omit unused lanes without
+renumbering. Each Section uses `<number> / <lane>` in simple words. Arrange multiple
+scenes in two columns, or one column for a single scene. Order each lane by
+transcript time, with Rank Reveal running 10 through 1. Put a compact centered
+scene title and one timing/lane/frame-rate line directly above each preview.
+Keep loose photos, cutouts, logos, render parts, and old versions on the existing
+`Player Cut Outs + Logos` page in named groups by episode. Preserve assets
+inside the actual scene.
+
+For each used lane, link the spec for its approved option/source, counts,
+output size, asset and copy slots, timing, guarded values, and review proof.
+
+Regroup existing scene nodes without replacing their IDs or native motion.
+Verify a readable overview and provide a direct lane link before continuing.
+
 ## Runtime evidence
 
 Discovery covers every Whisper segment in all seven lanes. Each selected scene
@@ -108,6 +139,17 @@ manifest and evidence version. Render proof gates Premiere import; it cannot be
 required before producing the first export. Preserve approved editorial trims
 and source In/Out separately from padded composition duration.
 
+When an intro is trimmed, retain the original Figma timing evidence. Bind
+`premiere.timelineMapping` to the native Premiere transcript file and SHA-256,
+sequence, source clip, source word time and exact phrase. Map that word through
+the retained source In/Out and round to the nearest frame, with halves rounded
+up. Include this mapping in the approval hash. The native transcript must come
+from Premiere without retranscription.
+
+If Jerami removes all motion from a scene, record `figma.staticByUserRequest`
+with his approval and 0-duration cues. Measured readback must still match the
+empty track list. This exception does not grant permission to change visuals.
+
 Before import, ffprobe verifies video dimensions, frame rate and padded duration.
 Each visible proof frame needs a `path`, file SHA-256 and matching decoded video
 pixels. These checks do not grant visual approval. Cue proof extraction uses
@@ -142,3 +184,24 @@ prove preservation.
 
 Episode activation expires through [the deadline closeout check](lineups-episode-closeout.md).
 Closure preserves evidence and does not satisfy the delivery gates above.
+
+## review website template
+
+Jerami approved the photo-first Pre-Figma review on October 13, 2026.
+`tools/lineups_review/` owns the UI for both stages. The approved version and
+source hashes are in `config/lineups/review-template.json`.
+
+Generate both stages with `scripts/render-lineups-review.py`. Episode
+`review.json` files supply the title, deadline, links, photo-subject labels,
+and optional verified Post-Figma media. Scene excerpts come from words inside
+that scene's time interval. Full passages stay in the transcript view.
+
+The generated packet has one shared style and component set for Sites and
+Vercel. `npm run check:lineups:review` rejects changed template bytes, copied
+asset drift, page edits, and episode CSS overrides. The Vercel prebuild runs
+this check. Production publication still requires its own authorization.
+
+Photos fill the card above their context. Color-driven plans remain the fallback
+for boards without finished artwork. They do not replace the locked Figma
+backgrounds. Post-Figma keeps the same layout and shows verified renders when
+available.

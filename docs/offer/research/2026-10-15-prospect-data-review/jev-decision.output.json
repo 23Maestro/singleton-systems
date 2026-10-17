@@ -1,0 +1,71 @@
+{
+  "id": "prospect-combined-license-split",
+  "option_ids": [
+    "jerami80_company20",
+    "jerami75_company25",
+    "jerami50_company50",
+    "needs_review"
+  ],
+  "probabilities": [
+    0.1570725276422565,
+    0.06429077705480843,
+    0.34738962096283393,
+    0.4312470743401012
+  ],
+  "option_logits": [
+    23.51689910888672,
+    22.623607635498047,
+    24.310638427734375,
+    24.526872634887695
+  ],
+  "answer_token_ids": [
+    32,
+    33,
+    34,
+    35
+  ],
+  "input_tokens": 468,
+  "allowed_token_mass": 0.9995333306718058,
+  "full_vocab_argmax_id": 35,
+  "prompt_sha256": "7f3a6925f1de6dea80cb731f861cf547ab508aab78e5e918e9d7bdc2e00cf2b8",
+  "prompt_version": "direct-options-v1",
+  "model": {
+    "source": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "backend": "llamacpp",
+    "dtype": "gguf-quantized",
+    "gguf": {
+      "file": "Qwen_Qwen3.5-4B-Q4_K_M.gguf",
+      "bytes": 3013027808,
+      "sha256": "13c16f426047e2de38cd075bdade4a7bcbc8c774384876f677740cda65f8a983"
+    },
+    "vocab_size": 248320,
+    "threads": 8,
+    "n_gpu_layers": 0,
+    "max_prompt_tokens": 4096,
+    "context_tokens": 4352,
+    "decode_chunk": 512,
+    "llama_cpp_python_version": "0.3.35",
+    "transformers_version": "5.17.0",
+    "serving_config": "llamacpp-state-restore-v1"
+  },
+  "readout": "quantized branch last-position logits over a restored prefix state",
+  "probability_status": "conditional option score over quantized weights; uncalibrated as decision confidence",
+  "cache_hit": false,
+  "prefix_tokens": 290,
+  "prefix_sha256": "1a4ee06cbdee123ab8da77fc5f325cd90c8a6ee050d550fbd59fa2e9b21b2efb",
+  "branch_state_bytes": 62200276,
+  "prefill_seconds": 4.039052792002622,
+  "copy_seconds": 0.003647333003755193,
+  "suffix_forward_seconds": 2.494793749996461,
+  "forward_seconds": 6.5338465419990825,
+  "total_seconds": 6.559375500000897,
+  "selected_option_id": "needs_review",
+  "_jev": {
+    "server_pid": 75348,
+    "request_count": 1,
+    "loaded_at_unix": 1792080809.149765,
+    "idle_seconds": 300,
+    "home": "/Volumes/HomeSSD/Jev"
+  }
+}

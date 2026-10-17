@@ -10,6 +10,7 @@ import re
 import sys
 import time
 from pathlib import Path
+from fractions import Fraction
 
 SOURCE_ROOT = Path(__file__).resolve().parents[2]
 if str(SOURCE_ROOT) not in sys.path:
@@ -445,6 +446,57 @@ def figma_scene_readback(tool_response, figma):
     return matches[0] if len(matches) == 1 else None
 
 
+def approved_static_scene(manifest):
+    """An explicit, evidence-bound user choice may remove a scene's last track."""
+    return ((manifest.get('figma') or {}).get('staticByUserRequest') is True
+            and (manifest.get('review') or {}).get('status') == 'approved'
+            and (manifest.get('review') or {}).get('reviewer') == 'Jerami'
+            and all(cue.get('duration') == 0 for cue in (manifest.get('motion') or {}).get('cues', [])))
+
+
+def premiere_anchor(manifest):
+    """Map an actual Premiere source word through its retained timeline clip."""
+    mapping = (manifest.get('premiere') or {}).get('timelineMapping')
+    if mapping is None:
+        return required(manifest, 'timing.verifiedAnchorTimestamp')
+    path = Path(required(mapping, 'transcriptPath'))
+    if not path.is_absolute() or sha256_file(path) != required(mapping, 'transcriptSha256'):
+        raise EnforcementError('Premiere timeline transcript is missing or stale')
+    transcript = read_json(path, 'Premiere timeline transcript')
+    provenance = transcript.get('provenance') or {}
+    if (transcript.get('success') is not True or provenance.get('provider') != 'Adobe Premiere Pro'
+            or provenance.get('reTranscribed') is not False or transcript.get('timebase') != 'sequence'
+            or transcript.get('sequenceId') != required(manifest, 'premiere.sequenceId')):
+        raise EnforcementError('timeline mapping requires the current native Premiere sequence transcript')
+    placements = [p for p in transcript.get('placements', [])
+                  if p.get('clipId') == mapping.get('sourceClipId') and p.get('trackType') == 'video']
+    if len(placements) != 1:
+        raise EnforcementError('timeline mapping must identify exactly 1 source placement')
+    placement = placements[0]
+    source_anchor = finite_number(required(mapping, 'sourceAnchor'), 'mapped source anchor')
+    if not placement['sourceIn'] <= source_anchor < placement['sourceOut']:
+        raise EnforcementError('mapped source anchor is outside the retained edit')
+    phrase = re.findall(r'\w+', required(mapping, 'phrase').casefold())
+    words = transcript.get('words') or []
+    matched = False
+    for i, word in enumerate(words):
+        if not values_match(word.get('sourceStart', -1), source_anchor):
+            continue
+        tokens = []
+        for following in words[i:]:
+            tokens.extend(re.findall(r'\w+', following.get('text', '').casefold()))
+            if len(tokens) >= len(phrase):
+                break
+        if phrase and tokens == phrase and values_match(word['start'], placement['timelineStart'] + source_anchor - placement['sourceIn']):
+            matched = True
+            break
+    if not matched:
+        raise EnforcementError('mapped phrase and source anchor do not match the native Premiere words')
+    fps = Fraction(required(manifest, 'motion.frameRate.numerator'), required(manifest, 'motion.frameRate.denominator'))
+    mapped = Fraction(str(placement['timelineStart'])) + Fraction(str(source_anchor)) - Fraction(str(placement['sourceIn']))
+    return float(math.floor(mapped * fps + Fraction(1, 2)) / fps)
+
+
 def validate_manifest(manifest, require_export=False):
     if manifest.get("schemaVersion") != 2:
         raise EnforcementError("manifest schemaVersion must be 2")
@@ -624,7 +676,7 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError(f"Manim timing gate rejected the cue contract: {error}") from error
 
     motion_tracks = required(manifest, "figma.motionTracks")
-    if engine == "figma" and not motion_tracks:
+    if engine == "figma" and not motion_tracks and not approved_static_scene(manifest):
         raise EnforcementError("Figma motion needs at least one motion track")
     for track in motion_tracks:
         duration = finite_number(track.get("duration"), "motion track duration")
@@ -681,13 +733,13 @@ def validate_manifest(manifest, require_export=False):
         raise EnforcementError("Eagle ownership must be Episode / 06 Motion Renders")
     if required(manifest, "ownership.duplicateFinalFolderIn23Projects") is not False:
         raise EnforcementError("a duplicate final render folder in 23Projects is forbidden")
-    if not values_match(finite_number(required(manifest, "premiere.approvedStartTime"), "approvedStartTime"), anchor):
+    if not values_match(finite_number(required(manifest, "premiere.approvedStartTime"), "approvedStartTime"), premiere_anchor(manifest)):
         raise EnforcementError("Premiere start time must equal the verified transcript anchor")
     approved_duration = finite_number(required(manifest, "premiere.approvedDuration"), "approvedDuration")
     approved_end = finite_number(required(manifest, "premiere.approvedEndTime"), "approvedEndTime")
     if approved_duration <= 0 or not values_match(approved_duration, padded_end):
         raise EnforcementError("Premiere duration must equal the approved render duration")
-    if not values_match(approved_end, anchor + approved_duration):
+    if not values_match(approved_end, premiere_anchor(manifest) + approved_duration):
         raise EnforcementError("Premiere end time must equal start time plus duration")
     editorial = (manifest.get('premiere') or {}).get('editorialTiming')
     if editorial is not None:
@@ -1039,7 +1091,7 @@ def preflight(root, manifest, directory, tool_name, tool_input):
                 raise EnforcementError("timeline placement uses the wrong project item")
             if tool_input.get("sequenceId") != premiere["sequenceId"] or tool_input.get("trackIndex") != premiere["trackIndex"]:
                 raise EnforcementError("timeline placement uses the wrong sequence or track")
-            if abs(finite_number(tool_input.get("time"), "timeline placement time") - timing["verifiedAnchorTimestamp"]) > 0.001:
+            if abs(finite_number(tool_input.get("time"), "timeline placement time") - premiere_anchor(manifest)) > 0.001:
                 raise EnforcementError("timeline placement must start at the verified transcript anchor")
             reserve_attempt(directory, manifest, "premiere-placement", tool_input)
             return
@@ -1053,7 +1105,7 @@ def preflight(root, manifest, directory, tool_name, tool_input):
                 if key in tool_input and not values_match(finite_number(tool_input[key], key), editorial[expected_key]):
                     raise EnforcementError("mutation would reset approved live editorial trims or source In/Out")
         movement_time = tool_input.get("newTime", tool_input.get("time"))
-        if movement_time is not None and finite_number(movement_time, "movement time") + 0.001 < timing["verifiedAnchorTimestamp"]:
+        if movement_time is not None and finite_number(movement_time, "movement time") + 0.001 < premiere_anchor(manifest):
             raise EnforcementError("the clip cannot move before the verified transcript anchor")
         if tool_name == "mcp__premiere_pro__replace_clip" and tool_input.get("preserveEffects", True) is not False:
             raise EnforcementError("replace_clip must set preserveEffects=false while effects are forbidden")
@@ -1082,7 +1134,7 @@ def validate_figma_readback(manifest, tool_response):
     if scene_readback.get("rootDimensions") != figma["rootDimensions"]:
         raise EnforcementError("Figma readback is missing the actual approved scene dimensions")
     actual_tracks = scene_readback.get("motionTracks")
-    if not isinstance(actual_tracks, list) or not actual_tracks:
+    if not isinstance(actual_tracks, list) or (not actual_tracks and not approved_static_scene(manifest)):
         raise EnforcementError("Figma readback is missing measured motion tracks on the matching scene")
     def track_key(track):
         node_id = track.get('nodeId')

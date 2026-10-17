@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-15T18:06:33.240Z",
+  "status": "assumed-submitted",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1219468242162178",
+      "completed": false,
+      "due_at": "2026-10-15T14:00:00.000Z",
+      "due_on": "2026-10-15"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-13-eagles-qb",
+    "asanaTask": "1219468242162178",
+    "dueDate": "2026-10-15",
+    "dueAt": "2026-10-15T14:00:00Z",
+    "timeZone": "America/New_York",
+    "transcriptPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-13-eagles-qb/transcript/whisper.json",
+    "discoveryPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-13-eagles-qb/storyboard/lane-discovery.json",
+    "cueMapPath": "config/lineups/episodes/2026-10-13-eagles-qb/storyboard/cue-map.json",
+    "timingProofPath": "/Users/singleton23/Documents/Client-Work/Catena/2026-10-13-eagles-qb/storyboard/cue-proof-receipt.json",
+    "preFigma": {
+      "path": "/Users/singleton23/.codex/visualizations/2026/10/13/01a13429-7e79-7123-95f0-dacad593fe14/eagles-review-site/dist/decision-maps/2026-10-13-eagles-qb-pre-figma-review/index.html",
+      "title": "Eagles QB: Jalen Hurts",
+      "candidateCount": 15,
+      "url": "https://eagles-qb-oct15-review.super-cedar-2285.chatgpt.site/decision-maps/2026-10-13-eagles-qb-pre-figma-review/"
+    },
+    "postFigma": null
+  },
+  "activeScene": null
+}

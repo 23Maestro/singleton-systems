@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-10-15",
+  "command": [
+    "node",
+    "--import",
+    "/Users/singleton23/Documents/Development/singleton-systems/node_modules/tsx/dist/loader.mjs",
+    "--test",
+    "--test-reporter=tap",
+    "src/domain/athlete-identity.test.ts",
+    "src/domain/appointment-truth.test.ts",
+    "src/domain/meeting-set-contract.test.ts",
+    "src/domain/call-tracker-facts.test.ts",
+    "src/domain/supabase-lifecycle-translator.test.ts",
+    "src/domain/parent-reschedule-slot-selection.test.ts",
+    "src/domain/workflow-context.test.ts",
+    "src/lib/client-message-reply-themes.test.ts",
+    "src/lib/client-message-action-proposals.test.ts",
+    "src/lib/client-message-evidence-receipts.test.ts"
+  ],
+  "cwd": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/ARCHIVE/CODE_PROJECTS/prospect-pipeline",
+  "exit_code": 0,
+  "summary": {
+    "tests": 80,
+    "pass": 80,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "test_file_sha256": {
+    "src/domain/athlete-identity.test.ts": "9d514547fa4208cb56fc7bdccf5ba64ffd4c9b0ab5bcefaef1b7250ec3ff199e",
+    "src/domain/appointment-truth.test.ts": "8f6edde5e4b3722299914888117622dc0fbf215efd4a1d0e1d0b6f8739909846",
+    "src/domain/meeting-set-contract.test.ts": "e54bbc202c838bbfcff8af8cf9e30fc7fd0232241ba0572a21b8ec8daaeeba89",
+    "src/domain/call-tracker-facts.test.ts": "296250f97dd35ffe6c76786d685976f259c788723652753c89ce4e1a7a44b1d9",
+    "src/domain/supabase-lifecycle-translator.test.ts": "b5b718f7e248e047c4a01898dc18292ebc1ee0f0afedbb4a311d894226ad6da3",
+    "src/domain/parent-reschedule-slot-selection.test.ts": "71faed008edc77ec975e31d61e462eca3069d3541c6243788b6f19adad161753",
+    "src/domain/workflow-context.test.ts": "256a7639affa3b107b6db8bcdf70b6b9a81dda95da202ad8a0c3ff00f83cb134",
+    "src/lib/client-message-reply-themes.test.ts": "b0af62531912cf61df15ca03cd2a1e31de424a36a0883c78ba064d9349a9434e",
+    "src/lib/client-message-action-proposals.test.ts": "afa6a834fa9100041dfcf473b5367f72ad334f6fc2a17cfb9bb2aa3d1d636109",
+    "src/lib/client-message-evidence-receipts.test.ts": "bd0694dc82c2eaccb1385a64bb59c9961236565e90a909cfa232cf164b7d803b"
+  },
+  "scope": "Offline TypeScript business-rule tests. No live backend requests."
+}

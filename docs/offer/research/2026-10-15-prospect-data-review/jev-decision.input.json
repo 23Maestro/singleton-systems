@@ -1,0 +1,23 @@
+{
+  "id": "prospect-combined-license-split",
+  "state": "Decision is a proposed opening revenue split, not a legal ownership finding or measured market price. User reports independent contractor, no code ownership assignment, and sole authorship of surrounding software. Repository census: 1,010 distinct historical non-build paths; 896 implementation/support paths, 31 direct work-record paths, remainder assets, generated/vendor references, access configuration and archive containers. Some authored source files also contain company-derived examples. Jerami built and maintained the FastAPI HTML/form-to-JSON adapter, Raycast tools, repair notes, tests and operating workflow, and would originate and package the deal. Company supplied its underlying Laravel backend and original operating/customer data. Buyer seeks combined real-world operating archive and does not buy code on its own; records therefore contribute essential context even though fewer files. Assume company approval and a 10,000 USD non-exclusive license of the combined archive, no transfer of Jerami code ownership and no hidden preparation costs. No buyer allocation of price between contributions, no industry-standard split, no signed revenue agreement. User wants one concrete fair opening proposal that recognizes his build work and pays the company for approved data. Payment should be to company entity, not a personal fee to each director.",
+  "question": "Which opening proposal best reflects the stated contributions for this combined archive license?",
+  "options": [
+    {
+      "id": "jerami80_company20",
+      "description": "Jerami receives 8,000 USD and company receives 2,000 USD; one approved combined-data license."
+    },
+    {
+      "id": "jerami75_company25",
+      "description": "Jerami receives 7,500 USD and company receives 2,500 USD; one approved combined-data license."
+    },
+    {
+      "id": "jerami50_company50",
+      "description": "Jerami receives 5,000 USD and company receives 5,000 USD; one approved combined-data license."
+    },
+    {
+      "id": "needs_review",
+      "description": "Defer the opening percentage until the buyer allocates its quoted price between software history and company records."
+    }
+  ]
+}

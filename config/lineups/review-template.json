@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "templateId": "lineups-photo-first-review",
+  "version": 4,
+  "approvedBy": "Jerami",
+  "approvedOn": "2026-10-14",
+  "stages": [
+    "pre-figma",
+    "post-figma"
+  ],
+  "publicationTargets": [
+    "Sites preview",
+    "Vercel"
+  ],
+  "files": {
+    "asset-selection.css": "e6a41f2daaa8882ab29a6952353669ddc41563acbce8bd43d71fc9b20f154470",
+    "asset-selection.js": "e1591380b5fdd8a9378a146dbbeb7b74c47dd78c09d2925267f861280977ff9b",
+    "post.html": "42d49d7d9295556bbceb27e6f360d0f384c5122cabb47c671d0c56d1c6ee8839",
+    "post.js": "6cd9f5fe70f559cf0b9e3033bf87aaa6318bd1647ec53673706e9771f31cd282",
+    "pre.html": "f8b0b9dfddec050df166992fc10f7bc08b003fee5f4cd7defb5a476024c076ea",
+    "pre.js": "45443bfa69699430e80340c2de4f73716af3a864d62928e455b3279445590fe4",
+    "review-base.css": "f6bbf7d5f0e93333ce96b1b43d14d499d9e3ba10bddb9d7c0600ea412ea8667d",
+    "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
+    "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
+  },
+  "previousVersions": [
+    {
+      "version": 1,
+      "files": {
+        "asset-selection.css": "e6a41f2daaa8882ab29a6952353669ddc41563acbce8bd43d71fc9b20f154470",
+        "asset-selection.js": "e2e1d6ab18fdd608253b461a8ab72cd4cd872852a081f7a064ccad58db956a29",
+        "post.html": "42d49d7d9295556bbceb27e6f360d0f384c5122cabb47c671d0c56d1c6ee8839",
+        "post.js": "6cd9f5fe70f559cf0b9e3033bf87aaa6318bd1647ec53673706e9771f31cd282",
+        "pre.html": "8df589b9109bd2d73e3a8b0bf3e89bf6f5ec68da88550c51e9540a62983b9acc",
+        "pre.js": "68952a87efaaad9292fddd48fe597d232d40cafbe98467134a78a19dcf78e260",
+        "review-base.css": "61aaebd28dcd4b2f8222c922cd6848534755cefb42c6ada21ebbb18b24c68c2b",
+        "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
+        "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
+      }
+    },
+    {
+      "version": 2,
+      "files": {
+        "asset-selection.css": "e6a41f2daaa8882ab29a6952353669ddc41563acbce8bd43d71fc9b20f154470",
+        "asset-selection.js": "e1591380b5fdd8a9378a146dbbeb7b74c47dd78c09d2925267f861280977ff9b",
+        "post.html": "42d49d7d9295556bbceb27e6f360d0f384c5122cabb47c671d0c56d1c6ee8839",
+        "post.js": "6cd9f5fe70f559cf0b9e3033bf87aaa6318bd1647ec53673706e9771f31cd282",
+        "pre.html": "60514911e82682d2372486071290425be4ad1fb91b9628d3cba49d8a733a83fc",
+        "pre.js": "de25a5962d32715d0176436eb9c2bd8be6d1649281dc3babdbc728d0946b8e8a",
+        "review-base.css": "61aaebd28dcd4b2f8222c922cd6848534755cefb42c6ada21ebbb18b24c68c2b",
+        "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
+        "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
+      }
+    },
+    {
+      "version": 3,
+      "files": {
+        "asset-selection.css": "e6a41f2daaa8882ab29a6952353669ddc41563acbce8bd43d71fc9b20f154470",
+        "asset-selection.js": "e1591380b5fdd8a9378a146dbbeb7b74c47dd78c09d2925267f861280977ff9b",
+        "post.html": "42d49d7d9295556bbceb27e6f360d0f384c5122cabb47c671d0c56d1c6ee8839",
+        "post.js": "6cd9f5fe70f559cf0b9e3033bf87aaa6318bd1647ec53673706e9771f31cd282",
+        "pre.html": "f8b0b9dfddec050df166992fc10f7bc08b003fee5f4cd7defb5a476024c076ea",
+        "pre.js": "45443bfa69699430e80340c2de4f73716af3a864d62928e455b3279445590fe4",
+        "review-base.css": "61aaebd28dcd4b2f8222c922cd6848534755cefb42c6ada21ebbb18b24c68c2b",
+        "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
+        "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
+      }
+    }
+  ]
+}
