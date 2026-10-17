@@ -5,25 +5,22 @@ export const siteName = "Singleton Systems";
 export const founderName = "Jerami Singleton";
 
 export const siteDescription =
-  "Practical AI workflow consulting for established operators who want to improve one recurring task at a time.";
+  "Video editing from footage you supply. Try a free test edit, then choose 4 long-form videos + 2 shorts for $1,306 or 8 + 4 for $2,396.";
 
 export const nicheKeywords = [
-  "AI workflow consultant",
-  "video workflow consultant",
-  "Premiere Pro workflow systems",
-  "Notion workflow dashboards",
-  "creator operations systems",
-  "course video migration workflow",
-  "sports recruiting video production workflow",
-  "file organization systems",
-  "review link workflow",
-  "delivery system cleanup",
+  "recurring video editing",
+  "Tampa video editor",
+  "episode editing service",
+  "Figma video graphics kit",
+  "educational video editing",
+  "YouTube video editing",
+  "video editing bundles",
 ];
 
-export const serviceName = "AI Workflow Consulting for Established Operators";
+export const serviceName = "Video Editing Bundles";
 
 export const serviceDescription =
-  "Singleton Systems helps established operators improve one recurring workflow at a time with practical AI-assisted systems for intake, files, review, follow-up, delivery, and repeat work.";
+  "Singleton Systems edits organized client footage into branded videos. Choose four long-form videos and two short cutdowns or eight and four. Basic brand style setup and two revision rounds per video with Frame.io feedback are included. Pay 50% to start, with the balance due after approval and before final delivery.";
 
 export const CAL_LINK = "workflow-chat/15min";
 

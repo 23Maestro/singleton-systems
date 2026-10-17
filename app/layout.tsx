@@ -19,7 +19,7 @@ const verification: Metadata["verification"] = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${founderName} | AI Workflow Consultant`,
+    default: `${founderName} | Video Editor`,
     template: `%s | ${siteName}`,
   },
   description: siteDescription,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   creator: founderName,
   publisher: siteName,
   keywords: nicheKeywords,
-  category: "workflow consulting",
+  category: "video production",
   alternates: {
     canonical: "/",
   },

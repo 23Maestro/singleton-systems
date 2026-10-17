@@ -39,7 +39,10 @@ const projects = [
 const SWIPE_DISTANCE = 50;
 const SWIPE_VELOCITY = 0.5;
 
-export default function PortfolioVideoCarousel() {
+type PortfolioProject = { name: string; source: string; caption: string; src: string; poster: string };
+
+export default function PortfolioVideoCarousel({ projects: selectedProjects = projects, heading = "Solutions Built With AI" }: { projects?: readonly PortfolioProject[]; heading?: string }) {
+  const projects = selectedProjects;
   const [activeIndex, setActiveIndex] = useState(0);
   const [deckWidth, setDeckWidth] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
@@ -181,7 +184,7 @@ export default function PortfolioVideoCarousel() {
       className="mt-14 w-full outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-8 sm:mt-16"
     >
       <h2 className="text-center text-3xl font-semibold tracking-normal text-neutral-950 sm:text-4xl">
-        Solutions Built With AI
+        {heading}
       </h2>
       <div
         ref={deckRef}

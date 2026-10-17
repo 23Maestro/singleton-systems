@@ -1,4 +1,5 @@
 import Image from "next/image";
+import EvilIcon from "@/components/site/EvilIcon";
 import {
   Check,
   CheckCircle,
@@ -14,17 +15,19 @@ import {
   VideoCamera,
   Wrench,
 } from "@phosphor-icons/react/dist/ssr";
-import PortfolioVideoCarousel from "@/components/PortfolioVideoCarousel";
-import { ProofSection, RealProblemSection, TriedSection } from "@/components/home/BuyerStorySections";
+import EditingPortfolio from "@/components/home/EditingPortfolio";
+import { VideoRealProblemSection, VideoTriedSection } from "@/components/home/VideoBuyerStorySections";
 import ReviewsSection from "@/components/home/ReviewsSection";
-import { CAL_URL, ORGANIZATION_PROFILES, PERSON_PROFILES, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
-import BookSection from "@/components/site/BookSection";
-import OffersSection from "@/components/site/OffersSection";
+import { ORGANIZATION_PROFILES, PERSON_PROFILES, founderName, serviceDescription, serviceName, siteDescription, siteName, siteUrl } from "./site";
+import VideoBookSection from "@/components/site/VideoBookSection";
+import VideoOffersSection from "@/components/site/VideoOffersSection";
+import { VIDEO_OFFERS, VIDEO_FAQ, videoInquiryUrl } from "@/lib/video-offers";
 import SiteFooter from "@/components/site/SiteFooter";
 import ProfileCard from "@/components/site/ProfileCard";
 import Hero from "@/components/site/Hero";
 import SiteHeader from "@/components/site/SiteHeader";
-import { siteNavFor } from "@/components/site/nav";
+import { videoNav } from "@/components/site/nav";
+import "./video-offer.css";
 
 const jsonLd = [
   {
@@ -33,9 +36,9 @@ const jsonLd = [
     "@id": `${siteUrl}/#person`,
     name: founderName,
     url: siteUrl,
-    jobTitle: "AI Workflow Consultant",
+    jobTitle: "Video Editor",
     hasOccupation: [
-      { "@type": "Occupation", name: "AI Workflow Consultant" },
+      { "@type": "Occupation", name: "Video Editor" },
       { "@type": "Occupation", name: "Broadcast Production Specialist" },
     ],
     homeLocation: {
@@ -47,11 +50,11 @@ const jsonLd = [
       "@id": `${siteUrl}/#organization`,
     },
     knowsAbout: [
-      "AI workflow consulting",
-      "AI-assisted workflow systems",
+      "recurring video editing",
+      "reusable Figma graphics kits",
       "video production workflows",
       "Premiere Pro workflow systems",
-      "Notion workflow dashboards",
+      "episode review and delivery",
       "course video migration",
       "sports recruiting video operations",
     ],
@@ -85,7 +88,7 @@ const jsonLd = [
     "@type": "Service",
     "@id": `${siteUrl}/#service`,
     name: serviceName,
-    serviceType: "AI workflow consulting",
+    serviceType: "recurring video editing",
     provider: {
       "@id": `${siteUrl}/#organization`,
     },
@@ -94,73 +97,43 @@ const jsonLd = [
       { "@type": "Country", name: "United States" },
     ],
     description: serviceDescription,
+    url: siteUrl,
+    offers: VIDEO_OFFERS.map((offer) => ({
+      "@type": "Offer", name: offer.name, description: offer.summary, priceCurrency: "USD", url: `${siteUrl}${videoInquiryUrl(offer.value)}`,
+      price: offer.price,
+    })),
     audience: {
       "@type": "Audience",
-      audienceType: "established operators with recurring work",
+      audienceType: "teams recording recurring lessons, episodes or tutorials",
     },
   },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "@id": `${siteUrl}/#faq`,
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: "What does Singleton Systems do?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Singleton Systems helps established operators turn repeated work into clear, reusable AI-assisted workflows.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Can Singleton Systems improve video workflows?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes. AI video workflow consulting can cover Premiere Pro editing pipelines, footage organization, course video migrations, review links, delivery systems, and repeatable production handoffs.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "Does Singleton Systems build AI workflows?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "Yes, when AI fits the real workflow. Practical AI-assisted steps can help summarize, sort, route, prep review, and turn messy inputs into usable next actions.",
-        },
-      },
-    ],
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    "@id": `${siteUrl}/#recruiting-ops-video`,
-    name: "Recruiting Ops Command Center workflow preview",
-    description: "A workflow preview showing how athlete video work moved through lookup, review, follow-up, and delivery without losing status.",
-    thumbnailUrl: `${siteUrl}/portfolio-2-ssystems-poster.jpg`,
-    contentUrl: `${siteUrl}/portfolio-2-ssystems.mp4`,
-    uploadDate: "2026-07-02",
+    mainEntity: VIDEO_FAQ.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })),
   },
 ];
 
 const solutions = [
   {
-    title: "Show Me What Takes Too Long",
-    copy: "Send a note, voice memo, or Loom showing how you do it now.",
+    title: "Send Your Recording",
+    copy: "Share organized footage, your topic and a reference for the edit.",
     tone: "blue",
   },
   {
-    title: "See Where to Start",
-    copy: "I review what you send and come to the call with 1-2 AI fixes built around the way you work.",
+    title: "Set Your Editing Style",
+    copy: "We lock in the pacing, then use your existing brand for simple titles and captions.",
     tone: "yellow",
   },
   {
-    title: "Choose What Happens Next",
-    copy: "Take the plan and do it yourself, or have me build it for you.",
+    title: "Review Your Cut",
+    copy: "Leave timestamped feedback in Frame.io. Each video includes two revision rounds to refine the cut.",
     tone: "coral",
   },
   {
-    title: "Keep Making Things Easier",
-    copy: "See what changed and the time it saves. Stop there, or keep me around for the next fix.",
+    title: "Keep the Series Moving",
+    copy: "Choose 4 or 8 main videos, with short cutdowns from the same footage.",
     tone: "green",
   },
 ] as const;
@@ -188,9 +161,9 @@ function SolutionIcon({ tone }: { tone: (typeof solutions)[number]["tone"] }) {
   );
 }
 
-function IntakeTabIcon({ tab }: { tab: "Note" | "Voice memo" | "Loom" }) {
-  const Icon = tab === "Note" ? NotePencil : tab === "Voice memo" ? Microphone : VideoCamera;
-  const color = tab === "Note" ? "bg-[#22c7c8]" : tab === "Voice memo" ? "bg-[#ffc83d]" : "bg-[#22c86a]";
+function IntakeTabIcon({ tab }: { tab: "Footage" | "Brief" | "Brand" }) {
+  const Icon = tab === "Footage" ? NotePencil : tab === "Brief" ? Microphone : VideoCamera;
+  const color = tab === "Footage" ? "bg-[#22c7c8]" : tab === "Brief" ? "bg-[#ffc83d]" : "bg-[#22c86a]";
 
   return (
     <span className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-[1.35px] border-black ${color}`} aria-hidden="true">
@@ -199,33 +172,33 @@ function IntakeTabIcon({ tab }: { tab: "Note" | "Voice memo" | "Loom" }) {
   );
 }
 
-function IntakeRowIcon({ title }: { title: "What takes too long?" | "How do you do it now?" | "What do you use?" | "What would feel easier?" }) {
-  const Icon = title === "What takes too long?" ? Clock : title === "How do you do it now?" ? ClipboardText : title === "What do you use?" ? Wrench : CheckCircle;
+function IntakeRowIcon({ title }: { title: "Your recording" | "Your topic" | "Your brand" | "Your reference" }) {
+  const Icon = title === "Your recording" ? Clock : title === "Your topic" ? ClipboardText : title === "Your brand" ? Wrench : CheckCircle;
   return <Icon className="mt-0.5 h-4 w-4 shrink-0 text-neutral-600" weight="bold" aria-hidden="true" />;
 }
 
 function IntakePreview() {
-  const tabs = ["Note", "Voice memo", "Loom"] as const;
+  const tabs = ["Footage", "Brief", "Brand"] as const;
   const rows = [
-    ["What takes too long?", "The thing you want to make easier"],
-    ["How do you do it now?", "Show the steps you follow today"],
-    ["What do you use?", "The apps, files, or messages involved"],
-    ["What would feel easier?", "Tell me what you want off your plate"],
+    ["Your recording", "Up to 60 minutes of organized footage"],
+    ["Your topic", "What this episode should cover"],
+    ["Your brand", "Existing assets and approved rules"],
+    ["Your reference", "A sample of the finish you want"],
   ] as const;
 
   return (
-    <div data-illustration className="-mb-7 -mr-7 mt-8 flex flex-col overflow-hidden rounded-l-[1.35rem] border-y border-l border-neutral-200 bg-[#f7f7f5] px-4 pb-0 pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:-mb-8 sm:-mr-8 sm:px-5 lg:min-h-[455px] lg:flex-1">
+    <div data-illustration data-workflow-art="intake" className="-mb-7 -mr-7 mt-8 flex flex-col overflow-hidden rounded-l-[1.35rem] border-y border-l border-neutral-200 bg-[#f7f7f5] px-4 pb-0 pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] sm:-mb-8 sm:-mr-8 sm:px-5 lg:min-h-[455px] lg:flex-1">
       <div className="flex justify-end pr-1 sm:pr-3">
         <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-700 shadow-[0_8px_20px_rgba(15,23,42,0.11)]">
           <svg viewBox="0 0 18 18" className="h-4 w-4 shrink-0" fill="none" aria-hidden="true">
             <circle cx="9" cy="9" r="6.8" fill="#f7f7f5" stroke="#050505" strokeWidth="1.4" />
             <path d="M9 5.5v7M5.5 9h7" stroke="#050505" strokeWidth="1.7" strokeLinecap="round" />
           </svg>
-          Show me your task
+          Your episode handoff
         </span>
       </div>
       <div className="-mr-4 ml-1 mt-10 flex-1 rounded-tl-[1.1rem] border-l border-t border-neutral-200 bg-white shadow-[0_18px_36px_rgba(15,23,42,0.08)] sm:-mr-5 sm:ml-2">
-        <div className="px-5 pt-5 text-base font-semibold text-neutral-600">4 quick answers</div>
+        <div className="px-5 pt-5 text-base font-semibold text-neutral-600">Ready for the edit</div>
         <div className="relative mt-4 grid grid-cols-3 border-b-2 border-neutral-200 text-sm font-bold text-neutral-800">
           <span className="absolute bottom-[-2px] left-0 h-0.5 w-1/3 bg-black" aria-hidden="true" />
           {tabs.map((tab, index) => (
@@ -254,22 +227,22 @@ function IntakePreview() {
 }
 
 function AssetsPreview() {
-  const tabs = ["Option 1", "Option 2", "Start here"] as const;
+  const tabs = ["Brand", "Titles", "Style"] as const;
   const rows = [
-    ["First AI fix", "Fix the task costing you the most time", "Option 1", "bg-[#dbeafe] text-[#075985] border-[#93c5fd]"],
-    ["Second AI fix", "Take another repeated task off your plate", "Option 2", "bg-[#fee2e2] text-[#9f1239] border-[#fca5a5]"],
-    ["My pick", "Where I’d start", "Start here", "bg-[#dcfce7] text-[#166534] border-[#86efac]"],
+    ["Your brand", "Existing fonts and colors", "Brand", "bg-[#dbeafe] text-[#075985] border-[#93c5fd]"],
+    ["Simple titles", "Names and key information", "Titles", "bg-[#fee2e2] text-[#9f1239] border-[#fca5a5]"],
+    ["Approved style", "The same look across your videos", "Style", "bg-[#dcfce7] text-[#166534] border-[#86efac]"],
   ] as const;
 
   return (
-    <div data-illustration className="-mx-7 -mb-7 mt-8 flex h-[600px] flex-col overflow-hidden rounded-b-[1.75rem] bg-[#efefec] px-3 pb-0 pt-7 max-[359px]:h-[650px] sm:-mx-8 sm:-mb-8 sm:h-[560px] sm:px-4 lg:flex-1">
+    <div data-illustration data-workflow-art="assets" className="-mx-7 -mb-7 mt-8 flex h-[600px] flex-col overflow-hidden rounded-b-[1.75rem] bg-[#efefec] px-3 pb-0 pt-7 max-[359px]:h-[650px] sm:-mx-8 sm:-mb-8 sm:h-[560px] sm:px-4 lg:flex-1">
       <div className="mx-auto flex w-full max-w-[420px] justify-end sm:max-w-[480px]">
         <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-800 shadow-[0_8px_20px_rgba(15,23,42,0.11)]">
           <svg viewBox="0 0 18 18" className="h-4 w-4" fill="none" aria-hidden="true">
             <circle cx="9" cy="9" r="6.7" stroke="#050505" strokeWidth="1.5" />
             <path d="m6.1 9.2 1.9 1.9 4-4.3" stroke="#050505" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Your options are ready
+          Your editing style is set
         </span>
       </div>
       <div className="mx-auto mt-8 flex w-full max-w-[420px] flex-1 flex-col overflow-hidden rounded-t-2xl border border-b-0 border-neutral-200 bg-white shadow-[0_18px_36px_rgba(15,23,42,0.08)] sm:max-w-[480px]">
@@ -312,20 +285,20 @@ function AssetsPreview() {
   );
 }
 
-function NotesTabIcon({ tab }: { tab: "Your plan" | "I’ll do it" | "Build it for me" }) {
-  const Icon = tab === "Your plan" ? ClipboardText : tab === "I’ll do it" ? CheckCircle : Wrench;
+function NotesTabIcon({ tab }: { tab: "First cut" | "Notes" | "Approved" }) {
+  const Icon = tab === "First cut" ? ClipboardText : tab === "Notes" ? CheckCircle : Wrench;
   return <Icon className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" weight="bold" aria-hidden="true" />;
 }
 
 function NotesPreview() {
-  const tabs = ["Your plan", "I’ll do it", "Build it for me"] as const;
+  const tabs = ["First cut", "Notes", "Approved"] as const;
   const rows = [
-    ["I’ll do it", "Follow the steps and set it up yourself.", "Your choice", "bg-blue-100 text-blue-700", "task"],
-    ["Build it for me", "I set it up and show you how it works.", "Built for you", "bg-green-100 text-green-700", "people"],
+    ["Notes", "Two revision rounds in Frame.io.", "Review", "bg-blue-100 text-blue-700", "task"],
+    ["Approved", "The finished episode and caption file.", "Delivery", "bg-green-100 text-green-700", "people"],
   ] as const;
 
   return (
-    <div data-illustration className="-mx-7 -mb-7 mt-8 flex h-[600px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#f55252] px-3 pt-8 max-[359px]:h-[680px] sm:-mx-8 sm:-mb-8 sm:h-[560px] sm:px-4">
+    <div data-illustration data-workflow-art="notes" className="-mx-7 -mb-7 mt-8 flex h-[600px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#f55252] px-3 pt-8 max-[359px]:h-[680px] sm:-mx-8 sm:-mb-8 sm:h-[560px] sm:px-4">
       <div className="flex h-[585px] w-full max-w-[420px] flex-col gap-4 rounded-t-2xl bg-white p-6 shadow-2xl sm:h-[545px] sm:max-w-[480px]">
         <div className="flex items-center gap-3">
           <div className="rounded-lg border border-neutral-200 p-2">
@@ -333,17 +306,17 @@ function NotesPreview() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-5l-5 5v-5Z" />
             </svg>
           </div>
-          <span className="rounded-md bg-neutral-100 px-3 py-1.5 text-base font-bold text-neutral-800">Your plan is ready</span>
+          <span className="rounded-md bg-neutral-100 px-3 py-1.5 text-base font-bold text-neutral-800">Your cut is ready</span>
         </div>
 
-        <p className="text-base font-medium text-neutral-600">Choose what works for you.</p>
+        <p className="text-base font-medium text-neutral-600">Timestamped feedback in Frame.io.</p>
 
         <div className="grid grid-cols-3 gap-1 border-b border-neutral-100 pb-2 text-sm font-semibold leading-none">
           {tabs.map((tab) => (
             <span
               key={tab}
               className={`flex min-w-0 items-center justify-center gap-0.5 text-center max-[359px]:whitespace-normal sm:gap-1.5 ${
-                tab === "Your plan" ? "relative z-10 -mb-[9px] border-b-2 border-black pb-2 text-black" : "text-neutral-600"
+                tab === "First cut" ? "relative z-10 -mb-[9px] border-b-2 border-black pb-2 text-black" : "text-neutral-600"
               }`}
             >
               <NotesTabIcon tab={tab} />
@@ -357,8 +330,8 @@ function NotesPreview() {
             <ClipboardText className="h-5 w-5" weight="bold" />
           </span>
           <div className="min-w-0 flex-1">
-            <span className="text-base font-bold text-neutral-950">The first step</span>
-            <p className="mt-1 text-base font-medium text-neutral-600">Start with one small change.</p>
+            <span className="text-base font-bold text-neutral-950">Your review notes</span>
+            <p className="mt-1 text-base font-medium text-neutral-600">Send one consolidated set of changes.</p>
           </div>
         </div>
 
@@ -394,13 +367,13 @@ function NotesPreview() {
 
 function PackagePreview() {
   const rows = [
-    ["Check-ins", "Monthly", "bg-purple-100 text-purple-700"],
-    ["Updates", "Covered", "bg-blue-100 text-blue-700"],
-    ["Next AI fix", "Ready", "bg-green-100 text-green-700"],
+    ["Main videos", "4 or 8", "bg-purple-100 text-purple-700"],
+    ["Short cutdowns", "2 or 4", "bg-blue-100 text-blue-700"],
+    ["Delivery day", "Confirmed", "bg-green-100 text-green-700"],
   ] as const;
 
   return (
-    <div data-illustration className="-mx-7 -mb-7 mt-8 flex h-[760px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#4eba6b] px-3 pt-8 max-[359px]:h-[780px] sm:-mx-8 sm:-mb-8 sm:h-[500px] sm:px-4 lg:h-auto lg:min-h-[500px] lg:flex-1">
+    <div data-illustration data-workflow-art="delivery" className="-mx-7 -mb-7 mt-8 flex h-[760px] justify-center overflow-hidden rounded-b-[1.75rem] bg-[#4eba6b] px-3 pt-8 max-[359px]:h-[780px] sm:-mx-8 sm:-mb-8 sm:h-[500px] sm:px-4 lg:h-auto lg:min-h-[500px] lg:flex-1">
       <div className="relative h-full w-full max-w-[420px] sm:max-w-[500px]">
         <div className="absolute -left-5 bottom-0 right-14 top-0 overflow-hidden rounded-t-xl border border-neutral-100 bg-white p-5 shadow-sm max-[359px]:-left-3 max-[359px]:right-8 sm:-left-6 sm:right-16">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
@@ -412,19 +385,19 @@ function PackagePreview() {
               >
                 1
               </span>
-              <span className="text-base font-bold text-neutral-900">Your progress</span>
+              <span className="text-base font-bold text-neutral-900">Your episode files</span>
             </div>
             <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-sm font-bold text-green-700">
               Easy to find <span className="text-green-500">✓</span>
             </span>
           </div>
-          <p className="mb-5 pr-4 text-base leading-snug text-neutral-600">Keep your instructions and what we&apos;ve built in one place.</p>
+          <p className="mb-5 pr-4 text-base leading-snug text-neutral-600">Your finished edit and caption file in one handoff.</p>
 
           <ul className="space-y-4 text-base font-medium text-neutral-600">
             {[
-              ["What changed", "check"],
-              ["Time saved", "clock"],
-              ["What worked", "notes"],
+              ["1080p export", "check"],
+              ["Audio cleanup", "clock"],
+              ["Caption file", "notes"],
             ].map(([item, icon]) => (
               <li key={item} className="flex items-center gap-3">
                 {icon === "check" ? (
@@ -450,14 +423,14 @@ function PackagePreview() {
               >
                 2
               </span>
-              <span className="text-base font-bold text-neutral-900">Next up</span>
+              <span className="text-base font-bold text-neutral-900">Your next recording</span>
             </div>
             <span className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-sm font-bold text-green-700">
-              Ready when you are <span className="text-green-500">✓</span>
+              Scheduled <span className="text-green-500">✓</span>
             </span>
           </div>
 
-          <p className="mb-4 border-b border-neutral-100 pb-2 text-sm font-semibold uppercase tracking-wide text-neutral-600">Keep going</p>
+          <p className="mb-4 border-b border-neutral-100 pb-2 text-sm font-semibold uppercase tracking-wide text-neutral-600">Your video bundle</p>
 
           <div className="flex flex-col gap-4">
             {rows.map(([title, status, statusClassName]) => (
@@ -478,35 +451,36 @@ function PackagePreview() {
 
 export default function Page() {
   return (
-    <main className="overflow-x-clip bg-[#fbfbfb] text-[#080808]">
+    <main className="video-offer-page overflow-x-clip bg-[#fbfbfb] text-[#080808]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <SiteHeader items={siteNavFor("")} homeHref="#start" />
+      <SiteHeader items={videoNav} homeHref="#start" />
 
       <Hero
-        title="Take the Busy Work off Your Team"
-        body="Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you."
-        ctaLabel="Book a free call"
-        ctaHref={CAL_URL}
+        title="Your Next Episode, Already on Brand"
+        pill="Video editing from your footage"
+        body="I turn your footage into finished videos and short cutdowns with a consistent style, so you don’t have to explain the same details every episode."
+        ctaLabel="Try my footage free"
+        ctaHref={videoInquiryUrl("free-test-edit")}
       />
 
       <section className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 sm:px-8 sm:pb-18 lg:px-10">
-        <ProfileCard />
+        <ProfileCard video />
 
-        <PortfolioVideoCarousel />
+        <EditingPortfolio />
       </section>
 
-      <TriedSection />
-      <RealProblemSection />
+      <VideoTriedSection />
+      <VideoRealProblemSection />
 
       <section id="how-it-starts" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="start-heading">
         <div className="mx-auto max-w-5xl">
           <h2 id="start-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            How It Starts
+            Try an Edit With Your Own Footage
           </h2>
           <div
             id="beta-session"
@@ -523,18 +497,30 @@ export default function Page() {
                 </span>
               </span>
               <p className="max-w-4xl text-[1.42rem] font-semibold leading-tight tracking-[-0.025em] text-neutral-950 sm:text-3xl">
-                The Process
+                See Your Footage Edited First
               </p>
             </div>
             <p className="mt-7 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Tell me what you wish took less time. Send a <strong className="font-bold">note</strong>, <strong className="font-bold">voice memo</strong>, or <strong className="font-bold">Loom</strong>. Explain it in your own words.
+              Send a recording link and an example of the style you like. I’ll check the footage and confirm a delivery date for your free sample.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              I review it before our call and bring 1-2 AI fixes. I ask questions to understand what matters to you and how the work should be done.
+              You’ll receive a 30–45-second edit using your own footage and branding, so you can see how I handle the pacing and finish before you book.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              Follow the plan yourself, or have me build it for you.
+              Like the sample? Choose the bundle that fits your recordings, and we’ll confirm the full scope and delivery dates before payment.
             </p>
+            <div className="mt-8 grid gap-5 border-t border-neutral-200 pt-8 sm:grid-cols-2">
+              <div><h3 className="text-xl font-bold">Who This Is For</h3><ul className="mt-4 space-y-3 text-lg leading-relaxed text-neutral-700">
+                <li className="flex items-start gap-2"><EvilIcon name="camera" className="h-7 w-7 shrink-0 text-[#126f39]" /><span>You record lessons, episodes or walkthroughs.</span></li>
+                <li className="flex items-start gap-2"><EvilIcon name="user" className="h-7 w-7 shrink-0 text-[#126f39]" /><span>You want a regular editor who knows your style.</span></li>
+                <li className="flex items-start gap-2"><EvilIcon name="check" className="h-7 w-7 shrink-0 text-[#126f39]" /><span>Someone on your team can review each cut.</span></li>
+              </ul></div>
+              <div><h3 className="text-xl font-bold">What I Need From You</h3><ul className="mt-4 space-y-3 text-lg leading-relaxed text-neutral-700">
+                <li className="flex items-start gap-2"><EvilIcon name="clock" className="h-7 w-7 shrink-0 text-[#126f39]" /><span>Up to 60 minutes of organized footage per main video.</span></li>
+                <li className="flex items-start gap-2"><EvilIcon name="archive" className="h-7 w-7 shrink-0 text-[#126f39]" /><span>The episode topic and any files I’ll need.</span></li>
+                <li className="flex items-start gap-2"><EvilIcon name="comment" className="h-7 w-7 shrink-0 text-[#126f39]" /><span>Review directly in Frame.io, with your team’s feedback in one place.</span></li>
+              </ul></div>
+            </div>
           </div>
         </div>
       </section>
@@ -542,10 +528,10 @@ export default function Page() {
       <section id="what-i-fix" className="px-6 py-16 sm:px-8 sm:py-20 lg:px-10" aria-labelledby="what-i-fix-heading">
         <div className="mx-auto max-w-6xl">
           <h2 id="what-i-fix-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
-            What I Fix
+            How Your Editing Works
           </h2>
           <p className="mx-auto mt-5 max-w-3xl text-center text-lg font-medium leading-relaxed text-neutral-600 sm:text-xl">
-            I map repeated work into one clear workflow AI handles the busywork while you keep the decisions
+            With your approved style saved in the project, I can carry the same fonts, colors and pacing into the next edit.
           </p>
           <div className="mt-10 grid gap-5 lg:grid-cols-2">
             {solutions.map((solution, index) => (
@@ -586,16 +572,15 @@ export default function Page() {
         </div>
       </section>
 
-      <ProofSection />
-      <ReviewsSection />
+      <ReviewsSection videoTestimonial />
 
-      <OffersSection />
-
-
-      <BookSection />
+      <VideoOffersSection />
 
 
-      <SiteFooter items={siteNavFor("")} />
+      <VideoBookSection />
+
+
+      <SiteFooter items={videoNav} description="Video editing from footage you supply. Based in Tampa, editing course lessons, episodes and tutorials for clients across the US." />
     </main>
   );
 }

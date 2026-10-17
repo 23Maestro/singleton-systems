@@ -124,7 +124,7 @@ const jsonLd = [
 ];
 
 export default function TampaAiConsultantPage() {
-  const nav = siteNavFor("/");
+  const nav = siteNavFor("/AI-consultant");
 
   return (
     <main className="overflow-x-clip bg-[#fbfbfb] text-[#080808]">
@@ -132,7 +132,7 @@ export default function TampaAiConsultantPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <SiteHeader items={nav} homeHref="/" />
+      <SiteHeader items={nav} homeHref="/AI-consultant#start" />
 
       <Hero
         title="AI Consultant in Tampa for Small Businesses"

@@ -92,9 +92,10 @@
     "check:brand": "node scripts/check-brand-assets.mjs",
     "brand:favicon:generate": "node scripts/generate-singleton-systems-favicon.mjs",
     "check:tells": "node scripts/check-tells.mjs",
-    "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs",
+    "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs tests/ai-consulting-page.test.mjs tests/ai-inquiry-delivery.test.cjs",
     "check:lineups:templates": "node scripts/check-lineups-templates.mjs",
-    "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py"
+    "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py",
+    "test:video-launch": "node --test tests/video-offer-page.test.mjs tests/video-inquiry-delivery.test.cjs tests/video-offer-flow.test.cjs"
   },
   "dependencies": {
     "@annotorious/annotorious": "3.9.4",

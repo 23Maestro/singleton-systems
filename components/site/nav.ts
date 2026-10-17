@@ -1,6 +1,16 @@
 export type NavItem = { label: string; href: string };
 
-// Homepage anchors. Landing pages call siteNavFor("/") to point back at the homepage.
+export const videoNav: NavItem[] = [
+  { label: "Start", href: "#start" },
+  { label: "Work", href: "#portfolio" },
+  { label: "How it works", href: "#how-it-starts" },
+  { label: "Your edit", href: "#what-i-fix" },
+  { label: "Pricing", href: "#offers" },
+  { label: "AI consulting", href: "/AI-consultant" },
+  { label: "Free test edit", href: "/video-inquiry?offer=free-test-edit" },
+];
+
+// AI consulting anchors. Landing pages can point back to the preserved AI site.
 const NAV: NavItem[] = [
   { label: "Start", href: "#start" },
   { label: "Links", href: "/links" },
@@ -12,7 +22,7 @@ const NAV: NavItem[] = [
   { label: "Book", href: "#book" },
 ];
 
-export function siteNavFor(basePath: "" | "/"): NavItem[] {
+export function siteNavFor(basePath: "" | "/" | "/AI-consultant"): NavItem[] {
   if (basePath === "") return NAV;
-  return NAV.map((item) => (item.href.startsWith("#") ? { ...item, href: `/${item.href}` } : item));
+  return NAV.map((item) => (item.href.startsWith("#") ? { ...item, href: `${basePath}${item.href}` } : item));
 }

@@ -5,9 +5,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: siteUrl,
-      lastModified: new Date("2026-07-02"),
+      lastModified: new Date("2026-10-10"),
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${siteUrl}/AI-consultant`,
+      lastModified: new Date("2026-10-09"),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${siteUrl}/tampa-ai-consultant`,
