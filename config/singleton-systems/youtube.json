@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "lane": "singleton-systems",
+  "status": "needs-grill",
+  "client": "Singleton Systems (personal)",
+  "note": "Confirmed lane. YouTube prerequisites not captured yet. Run /grill-with-docs for this lane before any yt-* skill writes for it."
+}

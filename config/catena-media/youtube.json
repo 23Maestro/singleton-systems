@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "lane": "catena-media",
+  "status": "needs-grill",
+  "client": "Catena Media",
+  "note": "Confirmed lane. YouTube prerequisites not captured yet. Run /grill-with-docs for this lane before any yt-* skill writes for it."
+}

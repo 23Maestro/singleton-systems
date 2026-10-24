@@ -717,6 +717,61 @@
       "reason": "Video working-copy and generated-output routing to HomeSSD, durable source preservation, retention, and exact-path cleanup."
     },
     {
+      "skill_key": "yt-script",
+      "activation": "core",
+      "reason": "Lane-aware YouTube script with scored hooks and on-screen beats."
+    },
+    {
+      "skill_key": "yt-package",
+      "activation": "core",
+      "reason": "Lane-aware YouTube title and thumbnail pair check."
+    },
+    {
+      "skill_key": "yt-edit",
+      "activation": "core",
+      "reason": "Lane-aware cut review list from a transcript; cuts land in measured pauses."
+    },
+    {
+      "skill_key": "yt-comment",
+      "activation": "core",
+      "reason": "Lane-aware YouTube comment sorting and reply drafts."
+    },
+    {
+      "skill_key": "yt-plan",
+      "activation": "core",
+      "reason": "Lane-aware YouTube upload plan sized to real hours."
+    },
+    {
+      "skill_key": "yt-viral",
+      "activation": "core",
+      "reason": "Lane-aware niche research ranked by each channel's own median."
+    },
+    {
+      "skill_key": "yt-retention",
+      "activation": "core",
+      "reason": "Lane-aware YouTube retention export reading with one fix."
+    },
+    {
+      "skill_key": "yt-shorts",
+      "activation": "core",
+      "reason": "Lane-aware Short picks from a long video under the lane's Short rules."
+    },
+    {
+      "skill_key": "yt-seo",
+      "activation": "core",
+      "reason": "Lane-aware YouTube description, tags and search queries."
+    },
+    {
+      "skill_key": "yt-chapters",
+      "activation": "core",
+      "reason": "Lane-aware YouTube chapters checked against YouTube rules."
+    },
+    {
+      "skill_key": "yt-audit",
+      "activation": "core",
+      "reason": "Lane-aware YouTube channel audit ending in one fix."
+    },
+    {
       "skill_key": "wayfinder",
       "activation": "core",
       "reason": "Fuzzy or multi-session build direction."

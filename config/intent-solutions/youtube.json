@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "lane": "intent-solutions",
+  "status": "ready",
+  "client": "Intent Solutions",
+  "host": "Max Sheahan",
+  "sources": [
+    "Intent Keys E01 outline and storyboard (Max, 2026-10-21), Eagle MVLQY7ALBA4UJ",
+    "Intent Keys E01 quick reference, Eagle MVLQY7AL9P9VG",
+    "Max's E01 selects list and recorded transcripts, Eagle MVLEH2L0ZHHBD"
+  ],
+  "series": {
+    "intent-keys": {
+      "title": "Intent Keys",
+      "promise": "Learn the keyboard keys that replace the mouse, one tool at a time.",
+      "episodes": ["e01"]
+    }
+  },
+  "audience": "People who have vibe coded for about a year and still steer with the mouse.",
+  "voice": {
+    "howMaxTalks": [
+      "Casual and first person. He learns the keys with the viewer: \"I'm learning them too, so the mistakes stay in.\"",
+      "Says the key out loud, then presses it.",
+      "Short reactions after a key lands: \"Boom.\" \"Hey, look at that.\" \"There it is.\"",
+      "Names his own mistakes on camera: \"See, I made a mistake.\" \"Another flub, add to the counter.\""
+    ],
+    "wordsHeUses": ["boom", "hey, look at that", "there it is", "alright", "flub"],
+    "wordsHeNeverUses": [],
+    "willNotClaim": [],
+    "openQuestions": ["Max has not supplied a list of words he never uses or claims he will not make."]
+  },
+  "format": {
+    "longFormRuntimeMinutes": [12, 15],
+    "payoffBySeconds": 15,
+    "openingBrandCard": false,
+    "ending": "Closing brand card and 10-second bumper end the video.",
+    "mistakesStay": true,
+    "flubbedSentencesCanGo": true,
+    "screenChangeEverySeconds": [30, 60],
+    "maxOnScreen": "Max stays on screen the whole episode: camera full frame for the sheet and homework, a corner box everywhere else.",
+    "callsToAction": "One subscribe ask, in the close, with its reason: next week's payoff.",
+    "captions": {
+      "mainVideo": "Separate SRT, no burned-in captions.",
+      "short": "Burned-in captions on a dark backing.",
+      "keySpelling": ["Ctrl A", "Ctrl E", "Ctrl W", "Ctrl U", "Ctrl R", "Option B", "Cmd N", "Cmd `", "Ctrl ← / →", "Cmd Tab", "Alacritty", "zsh", "Intent Solutions"]
+    },
+    "chapters": {
+      "required": true,
+      "minimumSeconds": 10,
+      "e01Targets": ["0:00 Cold open", "~0:30 The sheet", "~1:30 Learn", "~9:00 Real task", "~12:30 Homework", "~13:30 Next week"]
+    }
+  },
+  "short": {
+    "lengthSeconds": 60,
+    "aspect": "9:16",
+    "rules": [
+      "Tight crop so the command and the key overlay read on a phone.",
+      "Real audio only, no music.",
+      "Use Max's supplied Short title and end cards.",
+      "List the source range for each moment."
+    ]
+  },
+  "packaging": {
+    "thumbnail": "Max's face, the tool name, and one key in big type on the sheet's color. Max makes it.",
+    "titlePattern": "Intent Keys E<NN>: <promise> (<tool>)",
+    "description": "Carries the sheet link, so the homework card can say \"link in the description\".",
+    "pinnedComment": "The homework, plus \"Post your clip and tag us.\""
+  },
+  "editing": {
+    "cutRule": "Cut in a measured pause. Never cut on caption or Whisper word times alone.",
+    "keepNamedMistakes": true,
+    "privacy": "Blur home-folder names and personal widgets. Flag any other name, email, key or notification."
+  },
+  "publishing": {
+    "reviewer": "Jeremy reviews.",
+    "publisher": "Max posts.",
+    "weDoNotPublish": true
+  }
+}

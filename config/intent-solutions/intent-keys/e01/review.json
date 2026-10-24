@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "fps": {
+    "numerator": 30,
+    "denominator": 1
+  },
+  "inputs": {
+    "cutMap": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-23-e01-storyboard/proposed-cut-map.json",
+    "sourceManifest": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-23-e01-storyboard/source-manifest.json",
+    "legacyCues": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/e01-keystroke-cards/keystroke-cues.json",
+    "wordWindows": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/e01-keystroke-cards/window-sources.json",
+    "wordDirectory": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/e01-keystroke-cards",
+    "transcriptDirectory": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-23-e01-storyboard",
+    "storyboard": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-22-e01-prep/Intent Keys E01 - outline and storyboard.txt",
+    "quickReference": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-22-e01-prep/Intent Keys E01 - quick reference.txt",
+    "selectsList": "/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-23-e01-storyboard/Max-selects-list.md"
+  },
+  "cardSource": "https://www.figma.com/design/zBDLSbTNPZhBgrWs5az58z/Intent-Solutions?node-id=2-20",
+  "cueCorrections": [
+    {
+      "card": "tab",
+      "oldPhrase": "tab tab",
+      "newPhrase": "tab",
+      "reason": "The word-level transcript contains one tab at source 254.98 seconds, followed by button. The raw transcript stays unchanged."
+    }
+  ],
+  "sourceTimeCorrections": [
+    {
+      "card": "ctrl-a",
+      "sourceClip": "01-cold-open-screen.mp4",
+      "oldSeconds": 16,
+      "newSeconds": 16.01,
+      "reason": "The old cue rounded the actual Whisper Control token start down by 10 milliseconds."
+    }
+  ],
+  "requiredRetainedMoments": [
+    {
+      "id": "cold-payoff",
+      "sourceClip": "01-cold-open-screen.mp4",
+      "sourceSeconds": 16,
+      "latestTargetSeconds": 15
+    },
+    {
+      "id": "option-failure",
+      "sourceClip": "02-the-sheet-screen.mp4",
+      "sourceSeconds": 82
+    },
+    {
+      "id": "option-callback",
+      "sourceClip": "02-the-sheet-screen.mp4",
+      "sourceSeconds": 96.6
+    },
+    {
+      "id": "option-fix",
+      "sourceClip": "03d-option-key-fix-screen.mp4",
+      "sourceSeconds": 256.6
+    }
+  ],
+  "candidates": [
+    {
+      "id": "shortcut-card",
+      "kind": "alpha graphic",
+      "status": "proposed",
+      "scope": "Reuse 1 Figma card for 13 spoken cues. Center it. Keep the command and recorded key badge visible.",
+      "primaryEngine": "HyperFrames",
+      "priority": "core"
+    },
+    {
+      "id": "flubs",
+      "kind": "persistent graphic",
+      "status": "client-required",
+      "scope": "Small corner badge starts at 0 in Learn, then changes to 1, 2, 3 and 4 at Max's listed edit cues. No mouse counter.",
+      "primaryEngine": "HyperFrames",
+      "priority": "core"
+    },
+    {
+      "id": "sheet",
+      "kind": "HyperFrames graphic",
+      "status": "review build",
+      "scope": "Show Max holding the real sheet. Use the enlarged overview during the print prompt. Footer copy is 40 px. The full reference keeps all 22 entries across 3 panels.",
+      "sourceClip": "02-the-sheet-screen.mp4",
+      "sourceSeconds": 5.72,
+      "triggerType": "PHRASE",
+      "triggerText": "These are our keys, our shortcuts.",
+      "durationSeconds": 8.82,
+      "primaryEngine": "HyperFrames",
+      "priority": "core",
+      "graphicSource": "/Users/singleton23/Documents/Development/motion-studio/comps/intent-keys-sheet/index.html"
+    },
+    {
+      "id": "config-focus",
+      "kind": "screen emphasis",
+      "status": "proposed",
+      "scope": "Tight crop and a simple outline on the actual option_as_alt setting. Preserve the failure, flubs and successful B/F test. Do not replace the real config with stock code.",
+      "sourceClip": "03d-option-key-fix-screen.mp4",
+      "sourceSeconds": 219.56,
+      "triggerType": "PHRASE",
+      "triggerText": "Goodness. So I go in here to go to option as alt backwards command s.",
+      "durationSeconds": 9.12,
+      "primaryEngine": "HyperFrames",
+      "priority": "core"
+    },
+    {
+      "id": "task-strip",
+      "kind": "alpha graphic",
+      "status": "approved scope; visual review",
+      "scope": "Use the linked shadcn Progress Bar only during the real-task section: folder \u2192 Git \u2192 stop process \u2192 Chrome. Drive its 4 stages from retained edit cues. No episode-wide bar.",
+      "sourceClip": "04a-recap-and-folder-screen.mp4",
+      "sourceSeconds": 135,
+      "triggerType": "EDIT",
+      "triggerText": "Start of retained real-task passage",
+      "durationSeconds": 5,
+      "primaryEngine": "HyperFrames",
+      "priority": "core",
+      "designSource": "https://www.figma.com/design/zBDLSbTNPZhBgrWs5az58z/Intent-Solutions?node-id=13-13"
+    },
+    {
+      "id": "homework",
+      "kind": "supplied still",
+      "status": "supplied",
+      "scope": "Use the supplied homework card with Max. Preserve Ctrl R practice plus 30 minutes a day. Check the card's comments wording against the actual recording.",
+      "sourceClip": "05-homework-screen.mp4",
+      "sourceSeconds": 3.38,
+      "triggerType": "PHRASE",
+      "triggerText": "I want you to press Control + R.",
+      "durationSeconds": 10,
+      "primaryEngine": "HyperFrames",
+      "priority": "core"
+    },
+    {
+      "id": "next-week",
+      "kind": "supplied still",
+      "status": "supplied",
+      "scope": "Use the supplied next-week card under the short close. One subscribe ask, then closing brand card and 10-second bumper.",
+      "sourceClip": "06-close-screen.mp4",
+      "sourceSeconds": 0,
+      "triggerType": "PHRASE",
+      "triggerText": "Thanks for sitting with me for this video. I've learned a ton. I imagine you've learned a little bit, hopefully a little bit more. Next week, the editor, where three keys change the whole word. Subscribe and it shows up in your feed. Tonight, press Ctrl R. Alright, thank you. My name's Max. This is Intent Solutions. See you next week.",
+      "durationSeconds": 28,
+      "primaryEngine": "HyperFrames",
+      "priority": "core"
+    },
+    {
+      "id": "mouse-broll",
+      "kind": "B-roll",
+      "status": "near-match found; optional review",
+      "scope": "At most 1 brief cutaway of a mouse going into a drawer at the homework line. Use only an existing licensed clip that fits; skip if search/build exceeds 5 minutes.",
+      "sourceClip": "05-homework-screen.mp4",
+      "sourceSeconds": 29.74,
+      "triggerType": "PHRASE",
+      "triggerText": "Mouse in the drawer, 30 minutes a day.",
+      "durationSeconds": 2,
+      "primaryEngine": "HyperFrames",
+      "priority": "optional",
+      "searchResult": "Closest real clip: Envato MB6D3V2 tucks a mouse and keyboard under a monitor stand. It puts glasses into a drawer, not the mouse. Watermarked preview inspected. Exact mouse-into-drawer shot remains missing; no license acquired."
+    },
+    {
+      "id": "sheet-six-keys",
+      "kind": "HyperFrames graphic",
+      "status": "review build",
+      "scope": "6 keys in spoken order: A, E, W, U, R, C. Keep every card visible; move the curved corner glow to the key being named. 68 px keys, 44 px meanings, 40 px footer. Separate cue file binds Whisper words and Manim timing. The 16-second source-audio preview is a review fragment.",
+      "sourceClip": "02-the-sheet-screen.mp4",
+      "sourceSeconds": 44,
+      "triggerType": "EDIT",
+      "triggerText": "Start of the 6-key list review fragment; word cues are in e01-sheet-focus-cues.json",
+      "durationSeconds": 16,
+      "primaryEngine": "HyperFrames",
+      "priority": "core",
+      "graphicSource": "/Users/singleton23/Documents/Development/motion-studio/comps/intent-keys-sheet-focus/index.html"
+    }
+  ],
+  "reviewLimits": [
+    "This is a transcript and source-map review, not full-picture approval of every trim.",
+    "Word timestamps come from existing local Whisper token alignment; sync still needs an audio/picture check.",
+    "Client flub cues are edit points, not invented word-level timestamps.",
+    "No visual cadence claim is made from transcript timing alone. Check long retained screen stretches for useful movement.",
+    "Shortcut and sheet visuals await Jerami review. Progress scope is approved for the real-task section. No full timeline build.",
+    "The 90-minute edit budget is internal. Drop optional B-roll and extra sheet panels first.",
+    "VEED testing is tabled. This plan does not submit paid jobs."
+  ],
+  "delivery": {
+    "main": {
+      "video": "MP4",
+      "subtitles": "separate SRT",
+      "burnedInCaptions": false
+    },
+    "short": {
+      "captionTreatment": "Max brief asks burned-in captions; keep separate from main-video rule"
+    }
+  }
+}
