@@ -33,9 +33,9 @@
 .ledger-app .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; background: var(--text-1); color: var(--surface); border-radius: 11px; font-size: 24px; font-weight: 700; letter-spacing: -.07em; }
 .ledger-app .wordmark strong { display: block; font-size: 16px; letter-spacing: -.03em; line-height: 1.2; }
 .ledger-app .wordmark small { display: block; font-size: 11px; color: var(--text-2); margin-top: 3px; }
-.ledger-app nav { display: flex; gap: 3px; background: var(--neutral-bg); padding: 4px; border-radius: 13px; }
-.ledger-app nav button { border: 0; border-radius: 10px; background: transparent; padding: 10px 18px; font-size: 14px; font-weight: 550; min-height: 40px; color: var(--text-2); }
-.ledger-app nav button.active { color: var(--text-1); background: var(--surface); box-shadow: 0 1px 4px #0000000c; }
+.ledger-app .app-header nav { display: flex; gap: 3px; background: var(--neutral-bg); padding: 4px; border-radius: 13px; }
+.ledger-app .app-header nav button { border: 0; border-radius: 10px; background: transparent; padding: 10px 18px; font-size: 14px; font-weight: 550; min-height: 40px; color: var(--text-2); }
+.ledger-app .app-header nav button.active { color: var(--text-1); background: var(--surface); box-shadow: 0 1px 4px #0000000c; }
 .ledger-app .icon-button { width: 44px; height: 44px; min-width: 44px; border: 0; border-radius: 12px; background: transparent; display: inline-grid; place-items: center; font-size: 22px; color: var(--text-2); }
 .ledger-app .icon-button:hover { background: var(--neutral-bg); }
 .ledger-app .theme-button { border: 1px solid var(--border); font-size: 21px; }
@@ -175,11 +175,14 @@
 .ledger-app .choice.selected { color: var(--c2); background: var(--c2-bg); border-color: var(--c2); }
 .ledger-app .two-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .ledger-app .check-label { display: flex; align-items: center; gap: 9px; font-size: 14px; min-height: 44px; }
+.ledger-app .plan-item-flags { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.ledger-app .delete-label,.ledger-app .delete-hint { color: var(--expense-text); }
 .ledger-app .check-label input { width: 18px; height: 18px; accent-color: var(--c2); }
 .ledger-app .payment-history { border-top: 1px solid var(--border); padding-top: 15px; font-size: 13px; color: var(--text-2); }
-.ledger-app .payment-history summary { min-height: 44px; cursor: pointer; }
-.ledger-app .payment-history > div { display: flex; justify-content: space-between; padding: 8px 0; gap: 12px; }
+.ledger-app .payment-history .history-trigger { min-height: 44px; cursor: pointer; justify-content: flex-start; color: var(--text-2); background: transparent; }
+.ledger-app .payment-history .history-content > div { display: flex; justify-content: space-between; padding: 8px 0; gap: 12px; }
 .ledger-app .toast { pointer-events: none; position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 12px); opacity: 0; background: var(--text-1); color: var(--surface); padding: 12px 20px; border-radius: 14px; font-size: 14px; box-shadow: 0 4px 20px #0002; transition: opacity .2s,transform .2s; z-index: 10; }
+.ledger-app .toast { width: max-content; max-width: calc(100% - 32px); border: 0; }
 .ledger-app .toast.visible { opacity: 1; transform: translate(-50%,0); }
 @media(max-width: 600px) {
   .ledger-app .header-inner { padding: 12px; gap: 7px; }
@@ -187,8 +190,8 @@
   .ledger-app .wordmark small { display: none; }
   .ledger-app .brand-mark { width: 28px; height: 30px; font-size: 21px; border-radius: 8px; }
   .ledger-app .wordmark strong { font-size: 14px; }
-  .ledger-app nav { padding: 3px; gap: 0; }
-  .ledger-app nav button { padding: 9px 11px; font-size: 13px; min-height: 40px; }
+  .ledger-app .app-header nav { padding: 3px; gap: 0; }
+  .ledger-app .app-header nav button { padding: 9px 11px; font-size: 13px; min-height: 40px; }
   .ledger-app .theme-button { width: 36px; min-width: 36px; border: 0; }
   .ledger-app .page { padding: 22px 14px 40px; }
   .ledger-app .balance-block { padding: 6px 6px 26px; }
@@ -230,7 +233,7 @@
 .ledger-app[data-theme="dark"] .singleton-wordmark { filter: invert(1); }
 .ledger-app .wordmark { gap: 16px; }
 .ledger-app .wordmark strong { font-size: 18px; }
-.ledger-app nav button, .ledger-app .btn, .ledger-app .type-choice,
+.ledger-app .app-header nav button, .ledger-app .btn, .ledger-app .type-choice,
 .ledger-app .field, .ledger-app legend, .ledger-app .amount-field > span,
 .ledger-app .balance-label, .ledger-app .filter-tabs button,
 .ledger-app .add-button, .ledger-app .check-label, .ledger-app .choice,
@@ -303,8 +306,8 @@
   .ledger-app .header-inner { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
   .ledger-app .wordmark { flex: 1; gap: 12px; }
   .ledger-app .singleton-wordmark { width: 94px; }
-  .ledger-app nav { order: 3; width: 100%; }
-  .ledger-app nav button { flex: 1; min-height: 44px; padding: 8px; }
+  .ledger-app .app-header nav { order: 3; width: 100%; }
+  .ledger-app .app-header nav button { flex: 1; min-height: 44px; padding: 8px; }
   .ledger-app .theme-button { width: 44px; min-width: 44px; }
   .ledger-app .page { padding: 20px 12px 32px; }
   .ledger-app .access-page { padding: 16px; }
@@ -326,4 +329,75 @@
   .ledger-app .modal { padding: 8px; }
   .ledger-app .modal-panel { padding: 14px 14px 0; max-height: calc(var(--visual-height) - 16px); }
   .ledger-app .schedule-fields { gap: 10px; }
+}
+
+/* shadcn controls share the finance theme, including portals and small screens. */
+.ledger-app .icon-button { padding: 0; }
+.ledger-app .native-select-wrap { position: relative; width: 100%; min-width: 0; }
+.ledger-app [data-slot="native-select"] { appearance: none; padding-right: 36px; height: 46px; }
+.ledger-app .native-select-arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.ledger-app .check-label [role="checkbox"] { width: 22px; height: 22px; min-width: 22px; padding: 0; border-color: var(--border); }
+.ledger-app .app-header nav [role="tablist"] { background: transparent; padding: 0; height: auto; display: flex; }
+.ledger-app .app-header nav [role="tab"] { display: flex; gap: 5px; align-items: center; padding: 8px 12px; }
+.ledger-app .app-header nav [role="tab"][data-state="active"] { background: var(--surface); color: var(--text-1); }
+.ledger-app .finance-dialog { display: flex; flex-direction: column; gap: 0; width: min(520px,calc(100vw - 24px)); max-height: calc(var(--visual-height,100dvh) - 24px); top: calc(var(--visual-top,0px) + var(--visual-height,100dvh)/2); border: 1px solid var(--border); border-radius: 20px; padding: 20px 20px 0; background: var(--surface); color: var(--text-1); overflow: hidden; }
+.ledger-app .finance-dialog > form { display: flex; flex-direction: column; min-height: 0; overflow: hidden; gap: 0; }
+.ledger-app .date-picker-calendar { min-height: 0; overflow-y: auto; padding-bottom: 16px; }
+.ledger-app [data-slot="calendar"] { width: 100%; padding: 16px; --cell-size: 2.75rem; }
+.ledger-app .rdp-months { width: 100%; }
+.ledger-app .rdp-month { gap: 12px; }
+.ledger-app .rdp-month_caption { height: 44px; }
+.ledger-app .rdp-caption_label { font-size: 17px; }
+.ledger-app .rdp-nav { height: 44px; }
+.ledger-app .rdp-button_previous,.ledger-app .rdp-button_next { height: 44px; width: 44px; padding: 0; background: transparent; }
+.ledger-app .rdp-button_previous svg,.ledger-app .rdp-button_next svg { width: 28px; height: 28px; }
+.ledger-app .rdp-month_grid { width: 100%; }
+.ledger-app .rdp-weekdays,.ledger-app .rdp-week { display: flex; width: 100%; margin-top: 4px; }
+.ledger-app .rdp-weekday { flex: 1; font-size: 12px; font-weight: 500; padding: 8px 0; color: var(--text-2); }
+.ledger-app td.rdp-day { flex: 1; min-width: 0; aspect-ratio: auto; }
+.ledger-app .rdp-day button { display: flex; flex-direction: column; justify-content: center; gap: 4px; width: 100%; min-width: 0; height: 48px; padding: 4px 0; background: transparent; border-radius: 10px; font-size: 14px; }
+.ledger-app .rdp-day button:hover { background: var(--neutral-bg); }
+.ledger-app .rdp-day button[data-selected-single="true"] { background: var(--c2-bg); color: var(--c2); box-shadow: inset 0 0 0 2px var(--c2); }
+.ledger-app .rdp-today { background: var(--neutral-bg); border-radius: 10px; }
+.ledger-app .rdp-today button { font-weight: 700; }
+.ledger-app .rdp-day button > span { font-size: inherit; opacity: 1; }
+.ledger-app .rdp-dropdowns { display: flex; gap: 12px; }
+.ledger-app .rdp-dropdown_root { border-color: var(--border); padding: 4px; }
+.ledger-app .rdp-dropdown { background: var(--surface); }
+.ledger-app .budget-calendar-page { max-width: 1100px; }
+.ledger-app .calendar-eyebrow { color: var(--text-2); font-size: 13px; margin-bottom: 5px; }
+.ledger-app .calendar-summary { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 22px; color: var(--text-2); font-size: 14px; }
+.ledger-app .calendar-summary strong { color: var(--text-1); font-variant-numeric: tabular-nums; }
+.ledger-app .budget-calendar-layout { display: grid; grid-template-columns: minmax(0,1.5fr) minmax(280px,1fr); gap: 20px; align-items: start; }
+.ledger-app .calendar-month-card [data-slot="calendar"] { padding: 20px; }
+.ledger-app .calendar-month-card .rdp-day button { height: 62px; }
+.ledger-app .day-markers { height: 7px; display: flex; justify-content: center; gap: 3px; }
+.ledger-app .day-markers i,.ledger-app .calendar-legend i { display: inline-block; width: 6px; height: 6px; border-radius: 50%; }
+.ledger-app .due-dot { background: var(--p2); }
+.ledger-app .income-dot { background: var(--income-text); }
+.ledger-app .expense-dot { background: var(--expense-text); }
+.ledger-app .calendar-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; color: var(--text-2); font-size: 12px; padding: 0 18px 16px; }
+.ledger-app .calendar-legend span { display: flex; align-items: center; gap: 6px; }
+.ledger-app .calendar-note { border-top: 1px solid var(--border); padding: 16px 20px; font-size: 12px; color: var(--text-2); }
+.ledger-app .calendar-agenda .section-heading h2 { font-size: 20px; margin-top: 4px; }
+.ledger-app .calendar-event { display: flex; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--border); align-items: flex-start; }
+.ledger-app .calendar-event .row-copy > span { display: block; margin-top: 8px; font-variant-numeric: tabular-nums; font-size: 14px; }
+.ledger-app .calendar-day-empty { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; gap: 10px; color: var(--text-2); }
+.ledger-app .calendar-day-empty h3 { color: var(--text-1); font-size: 16px; margin: 0; }
+.ledger-app .calendar-day-empty p { font-size: 13px; }
+.ledger-app .calendar-agenda-actions { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--border); padding: 16px; }
+.ledger-app .calendar-agenda-actions .btn { flex: 1; padding: 10px; }
+.ledger-app .undated-card { margin-top: 20px; }
+.ledger-app .undated-card > p { padding: 0 22px 20px; color: var(--text-2); font-size: 13px; overflow-wrap: anywhere; }
+@media(max-width:760px) {
+  .ledger-app .budget-calendar-layout { grid-template-columns: 1fr; }
+  .ledger-app .header-inner { flex-wrap: wrap; }
+  .ledger-app .app-header nav { order: 3; width: 100%; }
+  .ledger-app .app-header nav > div,.ledger-app .app-header nav [role="tablist"] { width: 100%; }
+  .ledger-app .app-header nav [role="tab"] { flex: 1; padding: 8px 4px; font-size: 13px; }
+  .ledger-app .calendar-summary { flex-direction: column; gap: 5px; }
+  .ledger-app .calendar-month-card [data-slot="calendar"] { padding: 12px; }
+  .ledger-app .calendar-month-card .rdp-day button { height: 48px; }
+  .ledger-app .finance-dialog { padding: 16px 16px 0; }
+  .ledger-app .undated-card .section-heading { align-items: flex-start; flex-direction: column; }
 }

@@ -2,7 +2,7 @@ export type Category = "Food" | "Transportation" | "Health" | "Household" | "Fam
 
 export type PlanType = "bill" | "subscription" | "advance" | "debt"
 export type TxType = "income" | "expense" | "reconcile"
-export type Page = "home" | "entry" | "plan"
+export type Page = "home" | "entry" | "calendar" | "plan"
 export type Recurrence = "none" | "weekly" | "biweekly" | "semimonthly" | "monthly" | "annually"
 
 export interface Transaction {

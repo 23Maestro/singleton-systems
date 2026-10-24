@@ -27,7 +27,8 @@ export const commandSchema = z.discriminatedUnion("type", [
   }).strict() }).strict(),
   z.object({ type: z.literal("payment"), id: z.string().uuid(), entryId: z.string().min(1).max(100), amount: money.nonnegative(), date, resolve: z.boolean().optional() }).strict().refine(command => command.resolve || command.amount > 0, "Enter a valid amount."),
   z.object({ type: z.literal("reconcile"), id: z.string().uuid(), amount: money, previousBalance: money.optional() }).strict(),
-  z.object({ type: z.literal("save-item"), id: z.string().uuid(), entry: item, previous: item.optional() }).strict(),
+  z.object({ type: z.literal("save-item"), id: z.string().uuid(), entry: item, previous: item.optional(), remove: z.literal(true).optional() }).strict()
+    .refine(command => !command.remove || (command.previous != null && command.previous.id === command.entry.id), "Removal needs the saved item snapshot."),
 ]);
 export type LedgerCommand = z.infer<typeof commandSchema>;
 
@@ -60,5 +61,7 @@ export function applyCommand(data: AppData, command: LedgerCommand, timestamp: s
   if (command.previous && (!existing || canonical(existing) !== canonical(command.previous)))
     throw new Error("This item changed. Close and reopen the editor to use its latest values.");
   if (existing && !command.previous) throw new Error("This item already exists. Reopen its editor.");
+  // Removing a plan item never reverses money already recorded or deletes history.
+  if (command.remove) return { ...data, planEntries: data.planEntries.filter(e => e.id !== entry.id) };
   return { ...data, planEntries: existing ? data.planEntries.map(e => e.id === entry.id ? entry : e) : [...data.planEntries, entry] };
 }

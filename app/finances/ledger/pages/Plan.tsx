@@ -1,6 +1,15 @@
+import { ErrorNotice } from "../components/Feedback"
+import { Label } from "@/components/finances/ui/label"
+import { Card } from "@/components/finances/ui/card"
+import { Badge } from "@/components/finances/ui/badge"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/finances/ui/collapsible"
+import { Textarea } from "@/components/finances/ui/textarea"
+import { Checkbox } from "@/components/finances/ui/checkbox"
+import { Input } from "@/components/finances/ui/input"
+import { Button } from "@/components/finances/ui/button"
 import { useRef, useState, type FormEvent } from "react"
 import { AnimatePresence } from "framer-motion"
-import { ArrowUpRight, Check, CreditCard, Pencil, Plus, Receipt, Repeat2 } from "lucide-react"
+import { ArrowUpRight, Check, CreditCard, Pencil, Plus, Receipt, Repeat2 } from "@/components/icons/evil"
 import { useApp } from "../context"
 import {
   Modal,
@@ -68,10 +77,10 @@ function ResolveModal({ entry, onClose }: { entry: PlanEntry; onClose: () => voi
         <p className="hint">This payment will be deducted from your current balance. Based on the balance when you opened this, you will have {fmtCurrency(subtract(cashBefore, amount!))} remaining.</p>
         <DateField label="Payment date" value={date} max={today} onChange={setDate} />
       </> : <p>Use the pencil to set an exact remaining balance before resolving this item.</p>}
-      {error && <p className="error" role="alert">{error}</p>}
+      {error && <ErrorNotice>{error}</ErrorNotice>}
       <div className="modal-actions">
-        <button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</button>
-        <button className="btn btn-primary" disabled={busy || !ready}>{busy ? "Saving…" : "Resolve in full"}</button>
+        <Button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</Button>
+        <Button className="btn btn-primary" disabled={busy || !ready}>{busy ? "Saving…" : "Resolve in full"}</Button>
       </div>
     </form>
   </Modal>
@@ -155,19 +164,19 @@ function PaymentModal({
                 : scheduleLabel(entry)}
             </small>
           </div>
-          <span className={`action-pill ${payoff ? "p2" : "c2"}`}>
+          <Badge className={`action-pill ${payoff ? "p2" : "c2"}`}>
             {payoff ? "P²" : "C²"}
-          </span>
+          </Badge>
         </div>
-        <label className="field">
+        <Label className="field">
           <span>Payment amount</span>
-          <input
+          <Input
             inputMode="decimal"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0.00"
           />
-        </label>
+        </Label>
         <DateField
           label="Paid on"
           value={date}
@@ -199,25 +208,25 @@ function PaymentModal({
         )}
         <p className="hint">Confirming records money you have paid.</p>
         {error && (
-          <p role="alert" className="error">
+          <ErrorNotice>
             {error}
-          </p>
+          </ErrorNotice>
         )}
         <div className="modal-actions">
-          <button
+          <Button
             type="button"
             className="btn btn-neutral"
             onClick={onClose}
             disabled={busy}
           >
             Cancel
-          </button>
-          <button
+          </Button>
+          <Button
             className={`btn ${payoff ? "btn-p2" : "btn-c2"}`}
             disabled={busy}
           >
             {busy ? "Saving…" : "Confirm payment"}
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>
@@ -233,8 +242,11 @@ function EditModal({
   isNew: boolean
   onClose: () => void
 }) {
-  const { saveEntry, data } = useApp()
+  const { saveEntry, deleteEntry, data } = useApp()
   const [draft, setDraft] = useState(entry)
+  const [remove, setRemove] = useState(false)
+  const deleteId = useRef(crypto.randomUUID())
+  const deleteSnapshot = useRef(entry)
   const [amount, setAmount] = useState(
     isPayoff(entry)
       ? entry.paymentAmount == null
@@ -260,6 +272,13 @@ function EditModal({
     if (saving.current) return
     setError("")
     try {
+      if (remove && !isNew) {
+        saving.current = true
+        setBusy(true)
+        await deleteEntry(deleteSnapshot.current, deleteId.current)
+        onClose()
+        return
+      }
       let next = { ...draft, name: draft.name.trim() }
       if (payoff) {
         next.paymentAmount = amount.trim() ? parseAmount(amount) : undefined
@@ -305,19 +324,19 @@ function EditModal({
         if (!busy) onClose()
       }}
     >
-      <form onSubmit={save} className={`stack edit-form ${payoff ? "payoff" : ""}`}>
-        <label className="field">
+      <form onSubmit={save} noValidate={remove} className={`stack edit-form ${payoff ? "payoff" : ""}`}>
+        <Label className="field">
           <span>Name</span>
-          <input
+          <Input
             value={draft.name}
             maxLength={160}
             onChange={(e) => setDraft({ ...draft, name: e.target.value })}
             required
           />
-        </label>
-        <label className="field">
+        </Label>
+        <Label className="field">
           <span>{payoff ? "Usual payment" : "Amount"}</span>
-          <input
+          <Input
             inputMode="decimal"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -325,11 +344,11 @@ function EditModal({
               payoff ? "Set when ready" : (draft.amountDisplay ?? "0.00")
             }
           />
-        </label>
+        </Label>
         {payoff && (
-          <label className="field">
+          <Label className="field">
             <span>Remaining balance</span>
-            <input
+            <Input
               inputMode="decimal"
               value={balance}
               onChange={(e) => setBalance(e.target.value)}
@@ -341,52 +360,58 @@ function EditModal({
                 estimate.
               </small>
             )}
-          </label>
+          </Label>
         )}
         <DuePicker entry={draft} onChange={setDraft} />
-        <label className="field">
+        <Label className="field">
           <span>Notes</span>
-          <textarea
+          <Textarea
             rows={2}
             value={draft.notes}
             maxLength={2000}
             onChange={(e) => setDraft({ ...draft, notes: e.target.value })}
           />
-        </label>
+        </Label>
         {entry.settlementAmount != null && (
           <p className="hint">
             Settlement option: {fmtCurrency(entry.settlementAmount)}
           </p>
         )}
-        <label className="check-label">
-          <input
-            type="checkbox"
+        <div className="plan-item-flags"><Label className="check-label">
+          <Checkbox
             checked={draft.isActive}
-            onChange={(e) => setDraft({ ...draft, isActive: e.target.checked })}
+            disabled={busy || remove}
+            onCheckedChange={(checked) => setDraft({ ...draft, isActive: checked === true })}
           />
           Active
-        </label>
+        </Label>
+        {!isNew && <Label className="check-label delete-label">
+          Delete
+          <Checkbox checked={remove} disabled={busy} onCheckedChange={checked => setRemove(checked === true)} />
+        </Label>}</div>
+        {remove && <p className="hint delete-hint">Delete {entry.name} from Plan and future due reminders. Recorded payments and cash stay unchanged.</p>}
         {error && (
-          <p className="error" role="alert">
+          <ErrorNotice>
             {error}
-          </p>
+          </ErrorNotice>
         )}
         <div className="modal-actions">
-          <button
+          <Button
             type="button"
             className="btn btn-neutral"
             onClick={onClose}
             disabled={busy}
           >
             Cancel
-          </button>
-          <button className="btn btn-primary" disabled={busy}>
-            {busy ? "Saving…" : "Save details"}
-          </button>
+          </Button>
+          <Button className={`btn ${remove ? "btn-expense" : "btn-primary"}`} disabled={busy}>
+            {busy ? (remove ? "Deleting…" : "Saving…") : (remove ? "Delete item" : "Save details")}
+          </Button>
         </div>
         {(data.plannedPayments.some((p) => p.planEntryId === entry.id) || data.transactions.some(t => t.planEntryId === entry.id)) && (
-          <details className="payment-history">
-            <summary>Payment history</summary>
+          <Collapsible className="payment-history">
+            <CollapsibleTrigger asChild><Button type="button" variant="ghost" className="history-trigger">Payment history</Button></CollapsibleTrigger>
+            <CollapsibleContent className="history-content">
             {data.transactions.filter(t => t.planEntryId === entry.id).map(t => <div key={t.id}>
               <span>{fmtDate(t.date)} · {t.historical ? "First payment · before cash reset" : "Paid"}</span><strong>{fmtCurrency(t.amount)}</strong>
             </div>)}
@@ -401,7 +426,8 @@ function EditModal({
                   <strong>{fmtCurrency(p.amount)}</strong>
                 </div>
               ))}
-          </details>
+            </CollapsibleContent>
+          </Collapsible>
         )}
       </form>
     </Modal>
@@ -444,22 +470,22 @@ export default function Plan() {
         </div>
       </div>
       <div className="filter-tabs" role="group" aria-label="Plan filter">
-        <button
+        <Button
           aria-pressed={filter === "all"}
           className={filter === "all" ? "active" : ""}
           onClick={() => setFilter("all")}
         >
           All
-        </button>
+        </Button>
         {TYPES.map((type) => (
-          <button
+          <Button
             key={type}
             aria-pressed={filter === type}
             className={filter === type ? "active" : ""}
             onClick={() => setFilter(type)}
           >
             {LABELS[type]}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="plan-groups" key={filter}>
@@ -473,7 +499,7 @@ export default function Plan() {
               )
             const GroupIcon = GROUP_ICONS[type]
             return (
-              <section key={type} className="card plan-group">
+              <Card key={type} asChild><section className="card plan-group">
                 <header className="section-heading">
                   <h2>
                     <span className={`group-icon ${type}`} aria-hidden="true">
@@ -481,13 +507,13 @@ export default function Plan() {
                     </span>
                     {LABELS[type]}
                   </h2>
-                  <button
+                  <Button
                     className="add-button"
                     aria-label={`Add ${LABELS[type].toLowerCase()}`}
                     onClick={() => add(type)}
                   >
                     <Plus size={18} aria-hidden="true" /> Add
-                  </button>
+                  </Button>
                 </header>
                 {entries.length === 0 ? (
                   <p className="empty-state">
@@ -524,12 +550,12 @@ export default function Plan() {
                           </div>
                           <span className="row-amount">{displayAmount(e)}</span>
                           <div className="row-actions">
-                            {payoff && e.isActive && <button
+                            {payoff && e.isActive && <Button
                               className="resolve-button"
                               aria-label={`Resolve ${e.name} in full`}
                               onClick={() => setDialog({ mode: "resolve", entry: e })}
-                            ><Check size={16} aria-hidden="true" /> Resolve</button>}
-                            <button
+                            ><Check size={16} aria-hidden="true" /> Resolve</Button>}
+                            <Button
                               disabled={
                                 !e.isActive ||
                                 (payoff &&
@@ -552,8 +578,8 @@ export default function Plan() {
                               }
                             >
                               {payoff ? "P²" : "C²"}
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                               className="icon-button edit-button"
                               aria-label={`Edit ${e.name}`}
                               onClick={() =>
@@ -561,14 +587,14 @@ export default function Plan() {
                               }
                             >
                               <Pencil size={20} aria-hidden="true" />
-                            </button>
+                            </Button>
                           </div>
                         </li>
                       )
                     })}
                   </ul>
                 )}
-              </section>
+              </section></Card>
             )
           },
         )}

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import assets from "@/lib/ledger/icon-sources.json"
-import { BriefcaseBusiness, Car, Cloud, CreditCard, Dumbbell, GraduationCap, HeartPulse, House, LayoutGrid, Receipt, UserRound, UsersRound, Utensils, Zap, type LucideIcon } from "lucide-react"
+import { BriefcaseBusiness, Car, Cloud, CreditCard, Dumbbell, GraduationCap, HeartPulse, House, LayoutGrid, Receipt, UserRound, UsersRound, Utensils, Zap, type EvilIcon } from "@/components/icons/evil"
 import type { Category } from "@/lib/ledger/types"
 
 // Bundled assets: opening the ledger never contacts an icon provider.
@@ -51,8 +51,8 @@ export default function SourceIcon({
   const source = SOURCES[name]
   const file = assets.find((asset) => "id" in asset && asset.id === source)
     ?.file
-  const categoryIcons: Record<Category, LucideIcon> = { Food: Utensils, Transportation: Car, Health: HeartPulse, Household: House, Family: UsersRound, Work: BriefcaseBusiness, Personal: UserRound, Miscellaneous: LayoutGrid }
-  const namedIcons: Record<string, LucideIcon> = { Rent: House, "Light Bill": Zap, "Constellation Academy": GraduationCap, "2024 taxes": Receipt, "Mirage Host": Cloud, "Gym membership": Dumbbell }
+  const categoryIcons: Record<Category, EvilIcon> = { Food: Utensils, Transportation: Car, Health: HeartPulse, Household: House, Family: UsersRound, Work: BriefcaseBusiness, Personal: UserRound, Miscellaneous: LayoutGrid }
+  const namedIcons: Record<string, EvilIcon> = { Rent: House, "Light Bill": Zap, "Constellation Academy": GraduationCap, "2024 taxes": Receipt, "Mirage Host": Cloud, "Gym membership": Dumbbell }
   const Fallback = namedIcons[name] ?? (category ? categoryIcons[category] : CreditCard)
   return (
     <span
@@ -71,7 +71,7 @@ export default function SourceIcon({
           onError={() => setFailed(true)}
         />
       ) : (
-        <Fallback size={24} strokeWidth={1.8} />
+        <Fallback size={24} />
       )}
     </span>
   )

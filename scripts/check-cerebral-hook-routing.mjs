@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { repoSkillRows } from "./lib/repo-skill-registry.mjs";
 
 const root = process.cwd();
 const hook = path.join(root, ".codex/hooks/cerebral_singleton_guard.py");
@@ -11,51 +12,70 @@ const python = process.env.PYTHON || "python3";
 const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
 const routes = registry.routes.filter((route) => route.enabled);
 
-function runHook(prompt, env = {}) {
-  return spawnSync(python, [hook], {
+// Exercise the real HTTP loader against this checkout's contract. Never contact
+// the live registry: newer, unrelated skills must not change these fixtures.
+const fixtureRows = {
+  cerebral_routes: routes,
+  harness_skills: repoSkillRows(root, registry.skills).filter((skill) => skill.activation === "core"),
+  harness_capabilities: registry.capabilities,
+};
+const fixtureRunner = `
+import io, json, runpy, sys, urllib.error, urllib.parse, urllib.request
+test = json.load(sys.stdin)
+sys.stdin = io.StringIO(json.dumps(test["payload"]))
+def fixture_urlopen(request, timeout=None):
+    url = urllib.parse.urlparse(request.full_url)
+    if url.scheme != "https" or url.netloc != "registry.test":
+        raise urllib.error.URLError("routing fixture forbids external requests")
+    table = url.path.removeprefix("/rest/v1/")
+    if table not in test["rows"]:
+        raise urllib.error.URLError("unknown routing fixture table")
+    return io.BytesIO(json.dumps(test["rows"][table]).encode())
+urllib.request.urlopen = fixture_urlopen
+runpy.run_path(sys.argv[1], run_name="__main__")
+`;
+
+function runEvent(payload, env = {}, rows = fixtureRows) {
+  return spawnSync(python, ["-c", fixtureRunner, hook], {
     cwd: root,
-    input: JSON.stringify({ hook_event_name: "UserPromptSubmit", cwd: root, prompt }),
+    input: JSON.stringify({ payload, rows }),
     encoding: "utf8",
-    env: { ...process.env, ...env },
+    env: {
+      ...process.env,
+      CEREBRAL_SUPABASE_ENV_FILE: path.join(root, ".missing-supabase-env"),
+      SUPABASE_URL: "https://registry.test",
+      SUPABASE_PUBLISHABLE_KEY: "routing-fixture",
+      SUPABASE_ANON_KEY: "",
+      ...env,
+    },
   });
+}
+
+function runHook(prompt, env = {}) {
+  return runEvent({ hook_event_name: "UserPromptSubmit", cwd: root, prompt }, env);
 }
 
 function runPostTool(toolName, toolInput, env = {}) {
-  return spawnSync(python, [hook], {
-    cwd: root,
-    input: JSON.stringify({ hook_event_name: "PostToolUse", cwd: root, tool_name: toolName, tool_input: toolInput }),
-    encoding: "utf8",
-    env: { ...process.env, ...env },
-  });
+  return runEvent({ hook_event_name: "PostToolUse", cwd: root, tool_name: toolName, tool_input: toolInput }, env);
 }
 
 function runPreTool(command, workdir = root, env = {}) {
-  return spawnSync(python, [hook], {
-    cwd: root,
-    input: JSON.stringify({
+  return runEvent({
       hook_event_name: "PreToolUse",
       cwd: root,
       tool_name: "Bash",
       tool_input: { command, workdir },
-    }),
-    encoding: "utf8",
-    env: { ...process.env, SUPABASE_URL: "", SUPABASE_ANON_KEY: "", ...env },
-  });
+    }, env);
 }
 
 function runStop(prompt, lastAssistantMessage, stopHookActive = false, env = {}) {
-  return spawnSync(python, [hook], {
-    cwd: root,
-    input: JSON.stringify({
+  return runEvent({
       hook_event_name: "Stop",
       cwd: root,
       prompt,
       stop_hook_active: stopHookActive,
       last_assistant_message: lastAssistantMessage,
-    }),
-    encoding: "utf8",
-    env: { ...process.env, ...env },
-  });
+    }, env);
 }
 
 for (const route of routes) {
@@ -216,6 +236,26 @@ assert.equal(unavailableRegistry.status, 0);
 assert.match(unavailableRegistry.stdout, /"continue": false/);
 assert.match(unavailableRegistry.stdout, /No local registry fallback is allowed/);
 
+for (const rows of [[], [{ route_key: "incomplete" }]]) {
+  const invalidRegistry = runEvent(
+    { hook_event_name: "UserPromptSubmit", cwd: root, prompt: "Review the site typography." },
+    {},
+    { ...fixtureRows, cerebral_routes: rows },
+  );
+  assert.equal(invalidRegistry.status, 0, invalidRegistry.stderr);
+  assert.match(invalidRegistry.stdout, /"continue": false/);
+  assert.match(invalidRegistry.stdout, /returned no registry rows|returned an incomplete registry row/);
+}
+
+const missingSkill = runEvent(
+  { hook_event_name: "PreToolUse", cwd: root, tool_name: "Bash", tool_input: { command: "node scripts/check-cerebral-registry.mjs", workdir: root } },
+  {},
+  { ...fixtureRows, harness_skills: [{ skill_key: "missing", canonical_path: "plugins/s-systems/skills/missing-test-skill" }] },
+);
+assert.equal(missingSkill.status, 0, missingSkill.stderr);
+assert.match(missingSkill.stdout, /"continue": false/);
+assert.match(missingSkill.stdout, /missing-test-skill\/SKILL.md does not exist/);
+
 const wrongEagleDocument = runPreTool("sed -n '1,240p' .agents/skills/eagle-skill/SKILL.md");
 assert.equal(wrongEagleDocument.status, 0);
 assert.match(wrongEagleDocument.stdout, /"continue": false/);
@@ -368,13 +408,8 @@ for (const suffix of figmaWorkTools) {
     new RegExp(entry.matcher).test(toolName) && entry.hooks.some((item) => item.command.includes("cerebral_singleton_guard.py"))),
   `${toolName}: missing Cerebral pre-tool registration`);
   for (const fileKey of ["o7E24iymIT80MTXGYIogVH", "another-client-file"]) {
-    const result = spawnSync(python, [hook], {
-      cwd: root,
-      input: JSON.stringify({ hook_event_name: "PreToolUse", cwd: root, tool_name: toolName,
-        tool_input: { fileKey, code: "return figma.currentPage.name;" } }),
-      encoding: "utf8",
-      env: { ...process.env },
-    });
+    const result = runEvent({ hook_event_name: "PreToolUse", cwd: root, tool_name: toolName,
+      tool_input: { fileKey, code: "return figma.currentPage.name;" } });
     assert.equal(result.status, 0, result.stderr);
     const packet = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
     assert.match(packet, /\[figma-system\]/);

@@ -1,6 +1,12 @@
+import { ErrorNotice } from "../components/Feedback"
+import { Label } from "@/components/finances/ui/label"
+import { Card } from "@/components/finances/ui/card"
+import { NativeSelect } from "@/components/finances/ui/native-select"
+import { Input } from "@/components/finances/ui/input"
+import { Button } from "@/components/finances/ui/button"
 import { useRef, useState, type FormEvent } from "react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
-import { Minus, Plus } from "lucide-react"
+import { Minus, Plus } from "@/components/icons/evil"
 import { useApp } from "../context"
 import { DateField } from "../components/Controls"
 import { CATEGORY_STYLES, parseAmount } from "@/lib/ledger/ledger"
@@ -50,10 +56,10 @@ export default function Entry() {
       <div className="page-title">
         <h1>New entry</h1>
       </div>
-      <form onSubmit={submit} className="card entry-card">
+      <Card asChild><form onSubmit={submit} className="card entry-card">
         <div className="entry-toggle" aria-label="Entry type">
           {(["income", "expense"] as const).map((t) => (
-            <button
+            <Button
               type="button"
               key={t}
               className={`type-choice ${t} ${type === t ? "selected" : ""}`}
@@ -62,14 +68,14 @@ export default function Entry() {
             >
               {t === "income" ? <Plus size={20} aria-hidden="true" /> : <Minus size={20} aria-hidden="true" />}
               {t === "income" ? "Income" : "Expense"}
-            </button>
+            </Button>
           ))}
         </div>
-        <label className={`amount-field ${type}`}>
+        <Label className={`amount-field ${type}`}>
           <span>Amount</span>
           <div>
             <span aria-hidden="true">$</span>
-            <input
+            <Input
               aria-label="Amount"
               inputMode="decimal"
               placeholder="0.00"
@@ -78,39 +84,39 @@ export default function Entry() {
               autoComplete="off"
             />
           </div>
-        </label>
+        </Label>
         <div className="stack">
-          <label className="field">
+          <Label className="field">
             <span>Description</span>
-            <input
+            <Input
               maxLength={160}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
-          </label>
+          </Label>
           <DateField label="Date" value={date} onChange={setDate} max={today} />
           <AnimatePresence initial={false}>
             {type === "expense" && <motion.div key="category" className="category-reveal"
               initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }} transition={{ duration: reduced ? 0 : 0.22 }}>
-              <label className="field"><span>Category</span>
-                <select value={category} onChange={e => setCategory(e.target.value as Category)}>
+              <Label className="field"><span>Category</span>
+                <NativeSelect value={category} onChange={e => setCategory(e.target.value as Category)}>
                   {(Object.keys(CATEGORY_STYLES) as Category[]).map(c => <option key={c}>{c}</option>)}
-                </select>
-              </label>
+                </NativeSelect>
+              </Label>
             </motion.div>}
           </AnimatePresence>
           {error && (
-            <p role="alert" className="error">
+            <ErrorNotice>
               {error}
-            </p>
+            </ErrorNotice>
           )}
-          <div className="form-actions"><button className={`btn btn-${type} submit-button`} disabled={busy}>
+          <div className="form-actions"><Button className={`btn btn-${type} submit-button`} disabled={busy}>
             {busy ? "Saving…" : `Record ${type}`}
-          </button></div>
+          </Button></div>
         </div>
-      </form>
+      </form></Card>
     </div>
   )
 }

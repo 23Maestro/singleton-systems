@@ -104,6 +104,33 @@ that uses dates for when money should be available:
 https://everydollar.help.ramseysolutions.com/hc/en-us/articles/360032786691-Getting-Started-with-EveryDollar
 https://everydollar.help.ramseysolutions.com/hc/en-us/articles/11298446782477-Paycheck-Planning-FAQ
 
+## Remove a Plan item
+
+The Plan editor has a Delete checkbox opposite Active. Checking Delete changes
+the save action to Delete item. Confirmation sends `save-item` with
+`remove: true` and the saved item snapshot to `/api/finances/ledger`. The server rejects
+stale snapshots and commits removal through the existing Supabase transaction.
+Cash, recorded transactions, and payment history stay unchanged. The item no
+longer appears in Plan or future calendar reminders.
+
+## Calendar view
+
+The finance tabs are Home, Entry, Calendar, and Plan. Calendar uses
+`/finances-calendar`. The route keeps the finance layout and noindex headers.
+
+Calendar shows saved due dates and recorded cash activity. Repeats use the
+saved date or day of month. A day beyond the month ends on that month's last
+day. Weekly repeats keep their day across daylight saving changes.
+
+Due dates do not change cash or mark a bill paid. Amount ranges stay as ranges.
+Debt reminders use the saved payment amount. A missing payment amount stays
+unset. Active items with no usable schedule stay in a list below the month.
+
+Home, Entry, Calendar, and Plan use local shadcn controls, cards, tabs, dialogs,
+date pickers, labels, alerts, and payment-history expansion. Icons use bundled
+Evil Icons. Provider logos stay
+local. Calendar reads the same ledger snapshot as Home and Plan.
+
 ## Database safety
 
 Debt promotion uses one database function. It locks the debt row, rejects an

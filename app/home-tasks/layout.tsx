@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
+import localFont from "next/font/local";
 
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+const roboto = localFont({
+  src: "./fonts/Roboto-Variable.ttf",
+  weight: "100 900",
   display: "swap",
 });
 

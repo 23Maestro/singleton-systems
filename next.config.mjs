@@ -14,6 +14,7 @@ const nextConfig = {
       "/finances/:path*",
       "/finances-form/:path*",
       "/finances-plan/:path*",
+      "/finances-calendar/:path*",
       "/fitness/:path*",
       "/flowzone/:path*",
       "/home-tasks/:path*",

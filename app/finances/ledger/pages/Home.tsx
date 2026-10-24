@@ -1,6 +1,9 @@
+import { ErrorNotice } from "../components/Feedback"
+import { Card } from "@/components/finances/ui/card"
+import { Button } from "@/components/finances/ui/button"
 import { useRef, useState, type FormEvent } from "react"
 import { AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, Inbox, Minus, Plus } from "lucide-react"
+import { ChevronLeft, ChevronRight, Inbox, Minus, Plus } from "@/components/icons/evil"
 import { useApp } from "../context"
 import SourceIcon from "../components/SourceIcon"
 import { Modal } from "../components/Controls"
@@ -32,10 +35,10 @@ function ClearBalanceModal({ balance, onClose }: { balance: number; onClose: () 
   return <Modal title="Clear and start fresh?" onClose={() => { if (!saving.current) onClose() }}>
     <form className="stack" onSubmit={submit}>
       <p>Set your current balance from {fmtCurrency(balance)} to $0.00 without adding a log entry.</p>
-      {error && <p className="error" role="alert">{error}</p>}
+      {error && <ErrorNotice>{error}</ErrorNotice>}
       <div className="modal-actions">
-        <button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</button>
-        <button className="btn btn-primary" disabled={busy}>{busy ? "Saving…" : "Clear"}</button>
+        <Button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</Button>
+        <Button className="btn btn-primary" disabled={busy}>{busy ? "Saving…" : "Clear"}</Button>
       </div>
     </form>
   </Modal>
@@ -105,27 +108,27 @@ export default function Home() {
       <section className="balance-block">
         <div className="balance-label">
           <span>Current balance</span>
-          <button className="btn btn-neutral" disabled={data.currentBalance === 0} onClick={() => setClearAmount(data.currentBalance)}>Clear</button>
+          <Button className="btn btn-neutral" disabled={data.currentBalance === 0} onClick={() => setClearAmount(data.currentBalance)}>Clear</Button>
         </div>
         <h1 className="cash-value">
           {fmtCurrency(data.currentBalance)}
         </h1>
         <div className="quick-actions">
-          <button
+          <Button
             className="btn btn-income"
             onClick={() => navigate("entry", { entryType: "income" })}
           >
             <Plus size={20} aria-hidden="true" /> Income
-          </button>
-          <button
+          </Button>
+          <Button
             className="btn btn-expense"
             onClick={() => navigate("entry", { entryType: "expense" })}
           >
             <Minus size={20} aria-hidden="true" /> Expense
-          </button>
+          </Button>
         </div>
       </section>
-      <section className="card weekly-card">
+      <Card asChild><section className="card weekly-card">
         <header className="section-heading">
           <div>
             <h2>
@@ -136,21 +139,21 @@ export default function Home() {
             </p>
           </div>
           <div className="week-arrows">
-            <button
+            <Button
               className="icon-button"
               aria-label="Previous week"
               onClick={() => setWeekOffset((v) => v - 1)}
             >
               <ChevronLeft size={22} aria-hidden="true" />
-            </button>
-            <button
+            </Button>
+            <Button
               className="icon-button"
               aria-label="Next week"
               disabled={weekOffset === 0}
               onClick={() => setWeekOffset((v) => Math.min(0, v + 1))}
             >
               <ChevronRight size={22} aria-hidden="true" />
-            </button>
+            </Button>
           </div>
         </header>
         {rows.length ? (
@@ -186,7 +189,7 @@ export default function Home() {
             <Inbox size={24} aria-hidden="true" /> No entries this week.
           </p>
         )}
-      </section>
+      </section></Card>
       <AnimatePresence>{clearAmount !== null && <ClearBalanceModal balance={clearAmount} onClose={() => setClearAmount(null)} />}</AnimatePresence>
     </div>
   )

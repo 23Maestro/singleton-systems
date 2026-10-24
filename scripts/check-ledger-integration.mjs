@@ -63,6 +63,31 @@ const negative = { ...beforeClear, currentBalance: -42.15 };
 const clearedNegative = applyCommand(negative, commandSchema.parse({ ...clear, id: id(), previousBalance: -42.15 }), new Date().toISOString());
 assert.equal(clearedNegative.currentBalance, 0);
 assert.deepEqual(clearedNegative.transactions, negative.transactions);
+// Deleting an item removes reminders without erasing cash or payment history.
+const beforeDelete = structuredClone(beforeClear);
+const deleteEntry = beforeDelete.planEntries.find(e => e.id === "b1");
+const deletion = { type: "save-item", id: id(), entry: deleteEntry, previous: deleteEntry, remove: true };
+const deleted = applyCommand(beforeDelete, commandSchema.parse(deletion), new Date().toISOString());
+assert.equal(deleted.planEntries.some(e => e.id === deleteEntry.id), false);
+assert.equal(deleted.planEntries.length, beforeDelete.planEntries.length - 1);
+assert.equal(deleted.currentBalance, beforeDelete.currentBalance);
+assert.equal(deleted.balanceSet, beforeDelete.balanceSet);
+assert.deepEqual(deleted.transactions, beforeDelete.transactions);
+assert.deepEqual(deleted.plannedPayments, beforeDelete.plannedPayments);
+assert.ok(deleted.plannedPayments.some(p => p.planEntryId === deleteEntry.id));
+assert.ok(beforeDelete.planEntries.some(e => e.id === deleteEntry.id));
+assert.throws(() => applyCommand(deleted, commandSchema.parse({ ...deletion, id: id() }), new Date().toISOString()), /changed/);
+assert.throws(() => applyCommand(beforeDelete, commandSchema.parse({ ...deletion, previous: { ...deleteEntry, amount: deleteEntry.amount + 1 } }), new Date().toISOString()), /changed/);
+assert.throws(() => commandSchema.parse({ ...deletion, previous: undefined }), /saved item snapshot/);
+assert.throws(() => commandSchema.parse({ ...deletion, previous: { ...deleteEntry, id: "other" } }), /saved item snapshot/);
+assert.throws(() => commandSchema.parse({ ...deletion, remove: "true" }));
+assert.throws(() => commandSchema.parse({ ...deletion, remove: true, id: "invalid-operation" }));
+for (const type of ["bill", "subscription", "advance", "debt"]) {
+  const entry = beforeDelete.planEntries.find(e => e.planType === type);
+  const result = applyCommand(beforeDelete, commandSchema.parse({ ...deletion, id: id(), entry, previous: entry }), new Date().toISOString());
+  assert.equal(result.planEntries.some(e => e.id === entry.id), false);
+  assert.equal(result.currentBalance, beforeDelete.currentBalance);
+}
 const old = [{ id: id(), name: "Macy's (PRA)", amount: "111.07", kind: "debt", category: "Debt", paid: false, entry_date: "2026-08-20", created_at: "2026-08-21T00:00:00Z", updated_at: "2026-08-21T00:00:00Z" },
   { id: id(), name: "Daycare", amount: "340.00", kind: "bill", category: "Child Support", paid: true, entry_date: "2026-08-20", created_at: "2026-08-21T00:00:00Z", updated_at: "2026-08-21T00:00:00Z" }];
 const imported = importLegacy(old, SEED);
@@ -78,5 +103,33 @@ assert.ok(pkg.dependencies?.next || pkg.devDependencies?.next);
 assert.ok(!pkg.dependencies?.vite && !pkg.devDependencies?.vite);
 const css = readFileSync(new URL("app/finances/ledger/ledger.css", root), "utf8");
 assert.doesNotMatch(css, /@import|:root/);
-for (const route of ["finances", "finances-form", "finances-plan"]) assert.ok(readFileSync(new URL(`app/${route}/page.tsx`, root), "utf8"));
+for (const route of ["finances", "finances-form", "finances-calendar", "finances-plan"]) assert.ok(readFileSync(new URL(`app/${route}/page.tsx`, root), "utf8"));
 console.log("PASS: server commands, full debt resolution, cash clearing, duplicate and stale confirmation safety, strict input, legacy preservation, Next.js routes, scoped CSS.");
+
+// Calendar reminders never post cash and preserve amount uncertainty.
+const { isDueOn, hasSchedule, monthEvents } = await import("../lib/ledger/calendar.ts");
+const bill = { id: "calendar-bill", name: "Month-end bill", amount: 80, amountDisplay: "around $77–$80", dueDate: "2026-01-31", recurrence: "monthly", dueDay: 31, notes: "", planType: "bill", isActive: true };
+assert.equal(isDueOn(bill, "2026-02-28"), true);
+assert.equal(isDueOn(bill, "2026-03-31"), true);
+assert.equal(isDueOn(bill, "2026-01-30"), false);
+assert.equal(isDueOn({ ...bill, isActive: false }, "2026-02-28"), false);
+assert.equal(isDueOn({ ...bill, recurrence: "annually", dueDate: "2024-02-29" }, "2025-02-28"), true);
+assert.equal(isDueOn({ ...bill, recurrence: "biweekly", dueDate: "2026-03-01" }, "2026-03-15"), true);
+assert.equal(isDueOn({ ...bill, recurrence: "biweekly", dueDate: "2026-03-01" }, "2026-03-08"), false);
+assert.equal(isDueOn({ ...bill, recurrence: "weekly", dueDate: "2026-10-25" }, "2026-11-01"), true);
+assert.equal(isDueOn({ ...bill, recurrence: "semimonthly", dueDate: "", dueDay: 30, secondDueDay: 31 }, "2026-02-28"), true);
+assert.equal(hasSchedule({ ...bill, dueDate: "", dueDay: undefined, recurrence: "none" }), false);
+assert.equal(hasSchedule({ ...bill, dueDate: "", dueDay: 1 }), true);
+const calendarData = { balanceSet: true, currentBalance: 100, transactions: [], plannedPayments: [], planEntries: [bill] };
+const beforeCalendar = structuredClone(calendarData);
+const calendarRows = monthEvents(calendarData, new Date(2026, 1, 1));
+assert.equal(calendarRows.length, 1);
+assert.equal(calendarRows[0].date, "2026-02-28");
+assert.equal(calendarRows[0].amountLabel, "around $77–$80");
+assert.deepEqual(calendarData, beforeCalendar);
+const payoffReminder = monthEvents({ ...calendarData, planEntries: [{ ...bill, planType: "debt", balance: 8000, paymentAmount: undefined }] }, new Date(2026, 1));
+assert.equal(payoffReminder[0].amountLabel, "Payment not set");
+const activityRows = monthEvents({ ...calendarData, transactions: [{ id: "activity", name: "Income", type: "income", date: "2026-02-14", amount: 100, status: "paid", createdAt: "2026-02-14" }], plannedPayments: [{ id: "paid", planEntryId: bill.id, name: bill.name, amount: 78, date: "2026-02-20", cycleStart: "2026-02-16", status: "paid", planType: "bill" }] }, new Date(2026, 1));
+assert.deepEqual(activityRows.map(row => row.kind), ["income", "payment", "due"]);
+assert.equal(activityRows[1].amountLabel, "-$78.00");
+console.log("Calendar recurrence, DST, ranges, activity, and read-only checks passed.");

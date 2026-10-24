@@ -12,6 +12,17 @@ const config: Config = {
         mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
+        finance: {
+          background: "var(--surface)", foreground: "var(--text-1)",
+          card: { DEFAULT: "var(--surface)", foreground: "var(--text-1)" },
+          popover: { DEFAULT: "var(--surface)", foreground: "var(--text-1)" },
+          primary: { DEFAULT: "var(--text-1)", foreground: "var(--surface)" },
+          secondary: { DEFAULT: "var(--neutral-bg)", foreground: "var(--text-1)" },
+          muted: { DEFAULT: "var(--raised)", foreground: "var(--text-2)" },
+          accent: { DEFAULT: "var(--neutral-bg)", foreground: "var(--text-1)" },
+          destructive: { DEFAULT: "var(--expense)", foreground: "var(--expense-text)" },
+          border: "var(--border)", input: "var(--border)", ring: "var(--c2)",
+        },
         // Decorative/large-fill only (badge circle, buttons at size) — fail WCAG as text.
         brand: {
           blue: "#2383e2",
