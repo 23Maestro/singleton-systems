@@ -1096,6 +1096,25 @@ def run_writing_stop_gate(payload):
     )
 
 
+def run_task_closeout_gate(payload):
+    if not payload.get("session_id"):
+        return None
+    script = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "scripts", "task-closeout.mjs")
+    try:
+        node_binary = os.environ.get("NODE_BINARY") or shutil.which("node") or next(
+            (p for p in ("/opt/homebrew/bin/node", "/usr/local/bin/node") if os.path.isfile(p) and os.access(p, os.X_OK)), "node")
+        result = subprocess.run([node_binary, script, "hook"], input=json.dumps(payload), capture_output=True, text=True, timeout=5)
+        if result.returncode != 0:
+            raise ValueError("closeout state could not be checked")
+        return json.loads(result.stdout) if result.stdout.strip() else None
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        reason = f"Task closeout is unverified: {error}. Keep the task open and report the check failure."
+        if payload.get("hook_event_name") != "Stop":
+            return {"context": "- [task-closeout] " + reason}
+        return ({"continue": False, "stopReason": reason, "systemMessage": reason}
+                if payload.get("stop_hook_active") is True else {"decision": "block", "reason": reason})
+
+
 def main():
     payload = read_input()
     if not in_repo(payload):
@@ -1107,6 +1126,9 @@ def main():
         prompt = str(payload.get("prompt") or "")
         try:
             packet = context("repo prompt should stay aligned across surfaces", prompt)
+            closeout = run_task_closeout_gate(payload)
+            if closeout:
+                packet += "\n" + closeout["context"]
             if payload.get("session_id") and payload.get("turn_id"):
                 packet += "\n- [completion-binding] " + json.dumps({"sessionId": payload["session_id"], "runId": payload["turn_id"]})
                 packet += "\n- [completion] For a declared code-delivery result, run the repository review with --task, --session and --run. End with one standalone [code-delivery] JSON declaration. Outcomes: ready, approved, incomplete, cancelled. Research and progress replies need no declaration. See docs/harness/codex-rabbit.md."
@@ -1139,7 +1161,11 @@ def main():
     if event == "SessionStart":
         cleanup_codex_git_temp()
         try:
-            emit(context("session should start from canonical Singleton Systems routing", ""), event)
+            packet = context("session should start from canonical Singleton Systems routing", "")
+            closeout = run_task_closeout_gate(payload)
+            if closeout:
+                packet += "\n" + closeout["context"]
+            emit(packet, event)
         except RegistryUnavailable as error:
             emit_block(str(error))
         return
@@ -1148,6 +1174,10 @@ def main():
         completion_result = run_completion_stop_gate(payload)
         if completion_result and (completion_result.get("decision") == "block" or completion_result.get("continue") is False):
             print(json.dumps(completion_result))
+            return
+        closeout = run_task_closeout_gate(payload)
+        if closeout:
+            print(json.dumps(closeout))
             return
         cleanup_result = cleanup_codex_git_temp(stop_writers=True)
         if cleanup_result["removed"]:

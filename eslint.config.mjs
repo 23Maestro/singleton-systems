@@ -15,6 +15,7 @@ export default defineConfig([
     "out/**",
     "build/**",
     "docs/visual-maps/dist/**",
+    "sites/**/dist/**",
     "output/**",
     "public/visual-maps/**",
     "next-env.d.ts",

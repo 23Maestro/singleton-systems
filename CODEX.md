@@ -115,6 +115,21 @@ Video storage is a separate front-facing tool. `s-systems:video-storage` owns
 HomeSSD placement, migration, retention, and video-media cleanup. `dev-storage`
 owns dependencies, caches, runtimes, and Git worktrees.
 
+## task closeout
+
+Keep the task tracker current during normal work. Jerami does not need to name
+a skill. For selected work, find the existing Asana or Linear task and follow
+the shared closeout steps in `docs/agents/issue-tracker.md`.
+
+Bind the exact task before work. Check the result before ending. Close proven
+subtasks first, then the parent. Read each change back. Keep work open when
+approval or proof is missing. Record the exact next step with `defer`.
+
+The normal prompt and resume hooks show missed closeout. The Stop hook asks
+for 1 correction, then leaves a visible pending result. It runs no external
+writes and starts no background work. Research alone needs no task binding.
+
+
 ## writing
 
 The canonical writing rules live in `docs/harness/writing-rules.md`. Apply them
