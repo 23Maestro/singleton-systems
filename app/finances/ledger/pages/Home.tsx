@@ -79,7 +79,7 @@ export default function Home() {
         pending: false,
       }
     }),
-    ...data.plannedPayments.filter(pp => !pp.resolved && !resolvedIds.has(pp.planEntryId)).map((pp) => ({
+    ...data.plannedPayments.filter(pp => pp.cashDeducted !== false && !pp.progressOnly && !pp.resolved && !resolvedIds.has(pp.planEntryId)).map((pp) => ({
       id: pp.id,
       name: pp.name,
       date: pp.date,

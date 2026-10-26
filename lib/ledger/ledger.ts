@@ -1,5 +1,6 @@
 import type { AppData, PlanEntry, Transaction } from "./types.ts"
 import { fmtCurrency, isDate, mondayFor, todayISO } from "./dates.ts"
+import { nextDueAfter } from "./schedule.ts"
 
 export const STORAGE_KEY = "freelance-ledger-v4"
 export const TYPES = ["bill", "subscription", "advance", "debt"] as const
@@ -86,6 +87,13 @@ export function validateEntry(e: PlanEntry) {
   for (const day of [e.dueDay, e.secondDueDay])
     if (day != null && (!Number.isInteger(day) || day < 1 || day > 31))
       throw new Error("Choose a day from 1 to 31.")
+  if (e.paymentsRemaining != null || e.repeatUntil) {
+    if (e.planType !== "debt") throw new Error("Repeat endings are available for debts only.")
+    if (!e.recurrence || e.recurrence === "none" || !isDate(e.dueDate)) throw new Error("Choose a first remaining due date and repeat option.")
+    if (e.paymentsRemaining != null && (!Number.isInteger(e.paymentsRemaining) || e.paymentsRemaining < 0 || e.paymentsRemaining > 1000)) throw new Error("Choose 0 to 1000 remaining payments.")
+    if (e.repeatUntil && (!isDate(e.repeatUntil) || e.repeatUntil < e.dueDate)) throw new Error("The end date must follow the first due date.")
+    if (e.paymentsRemaining != null && e.repeatUntil) throw new Error("Choose a payment count or an end date.")
+  }
 }
 
 export function migrate(raw: AppData, seed: AppData): AppData {
@@ -194,6 +202,7 @@ export function recordPayment(
   date: string,
   id: string,
   resolve = false,
+  options: { deductCash?: boolean; progressOnly?: boolean; previousCash?: number; previousDebt?: number } = {},
 ): AppData {
   if (data.plannedPayments.some((p) => p.id === id && p.status === "paid"))
     return data
@@ -204,14 +213,22 @@ export function recordPayment(
   const e = data.planEntries.find((item) => item.id === entryId)
   if (!e)
     throw new Error("This item no longer exists. Close and reopen the payment.")
-  if (!e.isActive)
+  const payoff = isPayoff(e)
+  if (payoff && typeof options.deductCash !== "boolean") throw new Error("Choose Yes or No for deducting cash.")
+  if (!payoff && (options.progressOnly || options.deductCash === false)) throw new Error("Non-cash payments are available for debts and advances only.")
+  if (options.progressOnly && (resolve || options.deductCash)) throw new Error("Progress-only credit cannot change cash or resolve a debt.")
+  const deductCash = options.deductCash ?? true
+  if (deductCash && options.previousCash != null && options.previousCash !== data.currentBalance) throw new Error("Cash changed. Close and reopen the confirmation.")
+  if (!options.progressOnly && options.previousDebt != null && options.previousDebt !== e.balance) throw new Error("The debt balance changed. Close and reopen the confirmation.")
+  if (!e.isActive && !options.progressOnly)
     throw new Error("This item is inactive. Reopen its details to check the balance.")
   const changed = { ...e }
-  if (isPayoff(e)) {
+  if (payoff && !options.progressOnly) {
     if (e.balance == null)
       throw new Error(
         "Set a balance with the pencil first. An estimate is fine.",
       )
+    if (amount > e.balance) throw new Error("Payment exceeds the remaining debt balance.")
     if (resolve) {
       if (e.balanceHigh != null && e.balanceHigh !== e.balance)
         throw new Error("Set an exact remaining balance with the pencil before resolving this item.")
@@ -227,12 +244,17 @@ export function recordPayment(
       changed.balanceHigh = subtract(e.balanceHigh, amount)
     if (amount > 0) changed.paymentAmount = amount
     changed.balanceDisplay = undefined
+    if (e.planType === "debt" && e.paymentsRemaining != null) {
+      changed.paymentsRemaining = resolve ? 0 : Math.max(0, e.paymentsRemaining - 1)
+      const next = nextDueAfter(e, e.dueDate)
+      if (next) changed.dueDate = next
+    }
   }
   else if (resolve) throw new Error("Only an advance or debt can be resolved.")
   return {
     ...data,
-    balanceSet: true,
-    currentBalance: subtract(data.currentBalance, amount),
+    balanceSet: deductCash ? true : data.balanceSet,
+    currentBalance: deductCash ? subtract(data.currentBalance, amount) : data.currentBalance,
     planEntries: data.planEntries.map((item) =>
       item.id === entryId ? changed : item,
     ),
@@ -249,6 +271,9 @@ export function recordPayment(
         ...(resolve ? { resolved: true } : {}),
         planType: e.planType,
         dueDate: e.dueDate,
+        cashDeducted: deductCash,
+        ...(payoff ? { countsTowardProgress: true } : {}),
+        ...(options.progressOnly ? { progressOnly: true } : {}),
       },
       ...data.plannedPayments.filter((p) => p.id !== id),
     ],

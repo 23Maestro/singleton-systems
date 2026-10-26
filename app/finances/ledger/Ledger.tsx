@@ -3,6 +3,7 @@ import { AppProvider, useApp } from "./context"
 import { Tabs, TabsContent } from "@/components/finances/ui/tabs"
 import { Alert, AlertDescription } from "@/components/finances/ui/alert"
 import type { Page } from "@/lib/ledger/types"
+import PayoffReward from "./components/PayoffReward"
 import Nav from "./components/Nav"
 import Home from "./pages/Home"
 import Entry from "./pages/Entry"
@@ -12,7 +13,7 @@ import { AnimatePresence, motion, MotionConfig, useReducedMotion } from "framer-
 import { Check } from "@/components/icons/evil"
 
 function AppShell() {
-  const { page, notice, entryType, navigate } = useApp()
+  const { page, notice, entryType, navigate, reward } = useApp()
   const reduced = useReducedMotion()
   return (
     <Tabs className="app-shell" value={page} onValueChange={value => navigate(value as Page)} activationMode="manual">
@@ -27,6 +28,7 @@ function AppShell() {
           </motion.div></TabsContent>
         </AnimatePresence>
       </main>
+      <PayoffReward reward={reward} />
       <Alert className={`toast ${notice ? "visible" : ""}`} role="status">
         {notice && <><span aria-hidden="true"><Check size={20} /></span><AlertDescription className="text-base">{notice}</AlertDescription></>}
       </Alert>

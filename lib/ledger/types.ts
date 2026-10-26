@@ -32,6 +32,9 @@ export interface PlannedPayment {
   resolved?: boolean
   planType: PlanType
   dueDate?: string
+  cashDeducted?: boolean
+  progressOnly?: boolean
+  countsTowardProgress?: boolean
 }
 
 export interface PlanEntry {
@@ -45,6 +48,9 @@ export interface PlanEntry {
   recurrence?: Recurrence
   dueDay?: number
   secondDueDay?: number
+  /** First remaining due date anchors these debt-only repeat limits. */
+  paymentsRemaining?: number
+  repeatUntil?: string
   paymentAmount?: number
   notes: string
   planType: PlanType
@@ -69,4 +75,6 @@ export interface AppData {
   transactions: Transaction[]
   plannedPayments: PlannedPayment[]
   planEntries: PlanEntry[]
+  /** Approved opening progress; older imported payment rows are not added again. */
+  debtProgress?: { openingPaid: number; openedAt: string }
 }

@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/finances/ui/dia
 import { Calendar } from "@/components/finances/ui/calendar"
 import type { PlanEntry, Recurrence } from "@/lib/ledger/types"
 import { fmtDate, todayISO, toISODate } from "@/lib/ledger/dates"
+import { lastDueDate } from "@/lib/ledger/schedule"
 
 export function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
   const heading = useRef<HTMLHeadingElement>(null)
@@ -57,21 +58,44 @@ export function DateField({ label, value, onChange, max }: { label: string; valu
 }
 
 export const REPEAT: Record<Recurrence, string> = { none: "Does not repeat", weekly: "Weekly", biweekly: "Every two weeks", semimonthly: "Twice a month", monthly: "Monthly", annually: "Annually" }
-export function scheduleLabel(e: Pick<PlanEntry, "dueDate" | "recurrence" | "dueDay" | "secondDueDay">): string {
+export function scheduleLabel(e: Pick<PlanEntry, "dueDate" | "recurrence" | "dueDay" | "secondDueDay" | "paymentsRemaining" | "repeatUntil">): string {
   const repeat = e.recurrence ?? "none"
+  if (e.paymentsRemaining != null) return `${e.paymentsRemaining} ${e.paymentsRemaining === 1 ? "payment" : "payments"} left · ${REPEAT[repeat]}`
+  if (e.repeatUntil) return `${REPEAT[repeat]} · ends ${fmtDate(e.repeatUntil)}`
   if (repeat === "semimonthly") return `${e.dueDay ?? 1} & ${e.secondDueDay ?? 15} each month`
   if (repeat === "monthly" && e.dueDay && !e.dueDate) return `Monthly · day ${e.dueDay}`
   return [e.dueDate ? fmtDate(e.dueDate) : "", repeat !== "none" ? REPEAT[repeat] : ""].filter(Boolean).join(" · ") || "Date not set"
 }
 export function DuePicker({ entry, onChange }: { entry: PlanEntry; onChange: (e: PlanEntry) => void }) {
+  const finite = entry.planType === "debt" && entry.recurrence && entry.recurrence !== "none"
+  const [end, setEnd] = useState(entry.paymentsRemaining != null ? "count" : entry.repeatUntil ? "date" : "never")
+  const last = finite ? lastDueDate(entry) : ""
   return <div className="schedule-fields">
     <DateField label="Due date" value={entry.dueDate} onChange={date => onChange({ ...entry, dueDate: date, dueDay: date ? Number(date.slice(-2)) : entry.dueDay })} />
-    <Label className="field"><span>Repeat</span><NativeSelect value={entry.recurrence ?? "none"} onChange={e => onChange({ ...entry, recurrence: e.target.value as Recurrence, ...(e.target.value === "semimonthly" ? { dueDay: entry.dueDay ?? 1, secondDueDay: entry.secondDueDay ?? 15 } : {}) })}>
+    <Label className="field"><span>Repeat</span><NativeSelect value={entry.recurrence ?? "none"} onChange={e => { if (e.target.value === "none") setEnd("never"); onChange({ ...entry, recurrence: e.target.value as Recurrence, ...(e.target.value === "none" ? { paymentsRemaining: undefined, repeatUntil: undefined } : {}), ...(e.target.value === "semimonthly" ? { dueDay: entry.dueDay ?? 1, secondDueDay: entry.secondDueDay ?? 15 } : {}) }) }}>
       {Object.entries(REPEAT).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
     </NativeSelect></Label>
     {((entry.recurrence === "monthly" && !entry.dueDate) || entry.recurrence === "semimonthly") && <div className="two-fields schedule-days">
       <Label className="field"><span>Day of month</span><Input type="number" min="1" max="31" value={entry.dueDay ?? ""} onChange={e => onChange({ ...entry, dueDay: Number(e.target.value) || undefined })} /></Label>
       {entry.recurrence === "semimonthly" && <Label className="field"><span>Second day</span><Input type="number" min="1" max="31" value={entry.secondDueDay ?? 15} onChange={e => onChange({ ...entry, secondDueDay: Number(e.target.value) || undefined })} /></Label>}
     </div>}
+    {finite && <>
+      <Label className="field"><span>Ends</span><NativeSelect value={end} onChange={e => { setEnd(e.target.value); onChange({ ...entry,
+        paymentsRemaining: e.target.value === "count" ? Math.min(1000, Math.max(1, entry.paymentAmount && entry.balance ? Math.ceil(entry.balance / entry.paymentAmount) : 1)) : undefined,
+        repeatUntil: e.target.value === "date" ? entry.dueDate || todayISO() : undefined }) }}>
+        <option value="never">No end set</option><option value="count">After payments</option><option value="date">On a date</option>
+      </NativeSelect></Label>
+      {end === "count" && <Label className="field"><span>Payments remaining</span><Input type="number" min="0" max="1000" step="1" required value={entry.paymentsRemaining ?? ""} onChange={e => onChange({ ...entry, paymentsRemaining: e.target.value === "" ? undefined : Number(e.target.value) })} /></Label>}
+      {end === "date" && <DateField label="End date" value={entry.repeatUntil ?? ""} onChange={value => { if (!value) setEnd("never"); onChange({ ...entry, repeatUntil: value || undefined }) }} />}
+      {end !== "never" && last && <p className="hint schedule-days">Last payment: {fmtDate(last)}</p>}
+    </>}
   </div>
+}
+
+export function CashChoice({ amount, value, onChange }: { amount: string; value: boolean | null; onChange: (value: boolean) => void }) {
+  return <fieldset className="cash-choice"><legend>Deduct {amount} from your current cash balance?</legend>
+    <div className="cash-choice-options">{[true, false].map(choice => <Label key={String(choice)} className={`choice ${value === choice ? "selected" : ""}`}>
+      <Input className="cash-radio" type="radio" name="deduct-cash" value={String(choice)} checked={value === choice} onChange={() => onChange(choice)} required />
+      {choice ? "Yes, deduct cash" : "No, cash unchanged"}
+    </Label>)}</div></fieldset>
 }

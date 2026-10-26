@@ -64,17 +64,17 @@ const inputReference = data
 data = recordPayment(data, "s1", 100, todayISO(), "chatgpt-1")
 assert.equal(data.planEntries.find((e) => e.id === "s1").amount, 20)
 assert.equal(data.currentBalance, 1259)
-data = recordPayment(data, "d2", 51.6, todayISO(), "hsn-1")
+data = recordPayment(data, "d2", 51.6, todayISO(), "hsn-1", false, { deductCash: true })
 assert.equal(data.planEntries.find((e) => e.id === "d2").balance, 717.64)
 assert.equal(data.planEntries.find((e) => e.id === "d2").paymentAmount, 51.6)
-data = recordPayment(data, "a1", 50, todayISO(), "cleo-1")
+data = recordPayment(data, "a1", 50, todayISO(), "cleo-1", false, { deductCash: true })
 assert.equal(data.planEntries.find((e) => e.id === "a1").balance, 54.98)
-data = recordPayment(data, "d5", 50, todayISO(), "discover-1")
+data = recordPayment(data, "d5", 50, todayISO(), "discover-1", false, { deductCash: true })
 assert.equal(
   displayBalance(data.planEntries.find((e) => e.id === "d5")),
   "around $9,950.00",
 )
-data = recordPayment(data, "d8", 50, todayISO(), "spectrum-1")
+data = recordPayment(data, "d8", 50, todayISO(), "spectrum-1", false, { deductCash: true })
 assert.equal(
   displayBalance(data.planEntries.find((e) => e.id === "d8")),
   "around $100.00–$300.00",

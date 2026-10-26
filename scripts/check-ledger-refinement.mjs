@@ -21,7 +21,7 @@ assert.deepEqual(
 assert.deepEqual(applyCommand(income, command, "2026-09-03T00:00:01Z"), income);
 const expense = applyCommand(income, commandSchema.parse({ type: "entry", id: "64f586d8-6548-4215-8e65-86ef4fe9e53a", entry: { type: "expense", name: "Expense", amount: 40, date: "2026-08-22", category: "Food" } }), "2026-09-03T00:00:00Z");
 assert.equal(expense.currentBalance, 460);
-const paid = recordPayment({ ...base, balanceSet: false }, "d2", 51.6, "2026-08-22", "new-payment");
+const paid = recordPayment({ ...base, balanceSet: false }, "d2", 51.6, "2026-08-22", "new-payment", false, { deductCash: true });
 assert.equal(paid.currentBalance, -51.6);
 assert.equal(paid.planEntries.find(e => e.id === "d2").balance, 717.64);
 const read = path => fs.readFileSync(path, "utf8");
@@ -34,7 +34,7 @@ for (const file of ["Entry", "Plan"]) assert.doesNotMatch(read(`app/finances/led
 const controls = read("app/finances/ledger/components/Controls.tsx");
 assert.doesNotMatch(controls, /showPicker|input\?\.focus|Use date/);
 assert.match(controls, /heading\.current\?\.focus/);
-assert.match(controls, /onChange\(date\); setOpen\(false\)/);
+assert.match(controls, /onChange\(toISODate\(date\)\); setOpen\(false\)/);
 const css = read("app/finances/ledger/ledger.css");
 assert.match(css, /--bg: #08090b/);
 assert.match(css, /--visual-height/);

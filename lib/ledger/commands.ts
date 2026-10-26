@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { AppData, PlanEntry } from "./types.ts";
-import { recordEntry, recordPayment, subtract, validateEntry } from "./ledger.ts";
+import { isPayoff, recordEntry, recordPayment, subtract, validateEntry } from "./ledger.ts";
 import { todayISO } from "./dates.ts";
 
 const money = z.number().finite().min(-999999999).max(999999999).refine(n => Math.abs(n * 100 - Math.round(n * 100)) < 0.00001, "Use two decimal places.");
@@ -11,6 +11,7 @@ const item = z.object({
   dueDate: z.union([date, z.literal("")]),
   recurrence: z.enum(["none", "weekly", "biweekly", "semimonthly", "monthly", "annually"]).optional(),
   dueDay: z.number().int().min(1).max(31).optional(), secondDueDay: z.number().int().min(1).max(31).optional(),
+  paymentsRemaining: z.number().int().min(0).max(1000).optional(), repeatUntil: date.optional(),
   paymentAmount: money.positive().optional(), notes: z.string().max(2000),
   planType: z.enum(["bill", "subscription", "advance", "debt"]), isActive: z.boolean(),
   balance: money.optional(), balanceHigh: money.optional(),
@@ -25,7 +26,12 @@ export const commandSchema = z.discriminatedUnion("type", [
     type: z.enum(["income", "expense"]), name: z.string().trim().min(1).max(160),
     amount: money.positive(), date, category: z.enum(["Family", "Food", "Health", "Household", "Miscellaneous", "Personal", "Transportation", "Work"]).optional(),
   }).strict() }).strict(),
-  z.object({ type: z.literal("payment"), id: z.string().uuid(), entryId: z.string().min(1).max(100), amount: money.nonnegative(), date, resolve: z.boolean().optional() }).strict().refine(command => command.resolve || command.amount > 0, "Enter a valid amount."),
+  z.object({ type: z.literal("payment"), id: z.string().uuid(), entryId: z.string().min(1).max(100), amount: money.nonnegative(), date, resolve: z.boolean().optional(),
+    deductCash: z.boolean().optional(), progressOnly: z.literal(true).optional(), previousCash: money.optional(), previousDebt: money.optional(),
+  }).strict().refine(command => command.resolve || command.amount > 0, "Enter a valid amount.")
+    .refine(command => !command.progressOnly || (command.deductCash === false && !command.resolve), "Progress-only credit cannot deduct cash or resolve a debt."),
+  z.object({ type: z.literal("debt-progress"), id: z.string().uuid(), amount: money.nonnegative(), date, opening: z.literal(true).optional() }).strict()
+    .refine(command => command.opening || command.amount > 0, "Enter a valid amount."),
   z.object({ type: z.literal("reconcile"), id: z.string().uuid(), amount: money, previousBalance: money.optional() }).strict(),
   z.object({ type: z.literal("save-item"), id: z.string().uuid(), entry: item, previous: item.optional(), remove: z.literal(true).optional() }).strict()
     .refine(command => !command.remove || (command.previous != null && command.previous.id === command.entry.id), "Removal needs the saved item snapshot."),
@@ -34,7 +40,18 @@ export type LedgerCommand = z.infer<typeof commandSchema>;
 
 export function applyCommand(data: AppData, command: LedgerCommand, timestamp: string): AppData {
   if (command.type === "entry") return recordEntry(data, { ...command.entry, category: command.entry.type === "income" ? undefined : command.entry.category ?? "Miscellaneous", id: command.id, status: "paid", createdAt: timestamp });
-  if (command.type === "payment") return recordPayment(data, command.entryId, command.amount, command.date, command.id, command.resolve);
+  if (command.type === "payment") return recordPayment(data, command.entryId, command.amount, command.date, command.id, command.resolve, command);
+  if (command.type === "debt-progress") {
+    if (command.date > todayISO()) throw new Error("A recorded payment cannot have a future date.");
+    if (command.opening) {
+      if (data.debtProgress) throw new Error("Opening payoff progress is already saved.");
+      return { ...data, debtProgress: { openingPaid: command.amount, openedAt: timestamp } };
+    }
+    if (data.plannedPayments.some(p => p.id === command.id)) return data;
+    return { ...data, plannedPayments: [{ id: command.id, planEntryId: "debt-progress", name: "Past debt payment", amount: command.amount,
+      date: command.date, cycleStart: command.date, status: "paid", paidAt: timestamp, planType: "debt", progressOnly: true,
+      cashDeducted: false, countsTowardProgress: true }, ...data.plannedPayments] };
+  }
   if (command.type === "reconcile") {
     if (data.transactions.some(t => t.id === command.id)) return data;
     // Clear starts a fresh cash balance without adding an activity row.
@@ -55,6 +72,8 @@ export function applyCommand(data: AppData, command: LedgerCommand, timestamp: s
   }
   const entry = command.entry as PlanEntry;
   validateEntry(entry);
+  if ((entry.paymentsRemaining != null || entry.repeatUntil) && (!isPayoff(entry) || entry.planType !== "debt"))
+    throw new Error("Repeat endings are available for debts only.");
   const existing = data.planEntries.find(e => e.id === entry.id);
   // Check fields independent of JSONB's key order.
   const canonical = (value: unknown): string => JSON.stringify(value, Object.keys(value as object).sort());

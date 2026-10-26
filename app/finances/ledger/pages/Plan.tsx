@@ -10,9 +10,11 @@ import { Button } from "@/components/finances/ui/button"
 import { useRef, useState, type FormEvent } from "react"
 import { AnimatePresence } from "framer-motion"
 import { ArrowUpRight, Check, CreditCard, Pencil, Plus, Receipt, Repeat2 } from "@/components/icons/evil"
+import DebtProgress from "../components/DebtProgress"
 import { useApp } from "../context"
 import {
   Modal,
+  CashChoice,
   DateField,
   DuePicker,
   scheduleLabel,
@@ -46,6 +48,8 @@ const GROUP_ICONS = {
 function ResolveModal({ entry, onClose }: { entry: PlanEntry; onClose: () => void }) {
   const { data, resolve, today } = useApp()
   const [cashBefore] = useState(data.currentBalance)
+  const [deductCash, setDeductCash] = useState<boolean | null>(null)
+  const previousDebt = useRef(entry.balance)
   const [date, setDate] = useState(today)
   const [error, setError] = useState("")
   const [busy, setBusy] = useState(false)
@@ -55,12 +59,12 @@ function ResolveModal({ entry, onClose }: { entry: PlanEntry; onClose: () => voi
   const ready = amount != null && amount >= 0 && (entry.balanceHigh == null || entry.balanceHigh === amount)
   async function submit(event: FormEvent) {
     event.preventDefault()
-    if (saving.current || !ready) return
+    if (saving.current || !ready || deductCash == null) return
     saving.current = true
     setBusy(true)
     setError("")
     try {
-      await resolve(entry.id, amount!, date, id.current)
+      await resolve(entry.id, amount!, date, id.current, { deductCash, previousCash: cashBefore, previousDebt: previousDebt.current })
       onClose()
     } catch (e) {
       setError((e as Error).message)
@@ -74,13 +78,14 @@ function ResolveModal({ entry, onClose }: { entry: PlanEntry; onClose: () => voi
       {ready ? <>
         <p>Record the entire remaining balance of {fmtCurrency(amount!)} as paid and mark {entry.name} resolved.</p>
         {entry.isApproximate && <p className="hint">This uses the saved estimate. Edit the remaining balance first if the amount paid was different.</p>}
-        <p className="hint">This payment will be deducted from your current balance. Based on the balance when you opened this, you will have {fmtCurrency(subtract(cashBefore, amount!))} remaining.</p>
+        <CashChoice amount={fmtCurrency(amount!)} value={deductCash} onChange={setDeductCash} />
+        <p className="hint">{deductCash === true ? `Cash after payment: ${fmtCurrency(subtract(cashBefore, amount!))}.` : deductCash === false ? "Cash stays unchanged. The debt is recorded as paid in full." : "Choose Yes or No before confirming."}</p>
         <DateField label="Payment date" value={date} max={today} onChange={setDate} />
       </> : <p>Use the pencil to set an exact remaining balance before resolving this item.</p>}
       {error && <ErrorNotice>{error}</ErrorNotice>}
       <div className="modal-actions">
         <Button type="button" className="btn btn-neutral" onClick={onClose} disabled={busy}>Cancel</Button>
-        <Button className="btn btn-primary" disabled={busy || !ready}>{busy ? "Saving…" : "Resolve in full"}</Button>
+        <Button className="btn btn-primary" disabled={busy || !ready || deductCash == null}>{busy ? "Saving…" : "Resolve in full"}</Button>
       </div>
     </form>
   </Modal>
@@ -95,8 +100,12 @@ function PaymentModal({
 }) {
   const { data, pay, today } = useApp()
   const payoff = isPayoff(entry)
+  const [deductCash, setDeductCash] = useState<boolean | null>(null)
+  const [progressOnly, setProgressOnly] = useState(false)
+  const [cashBefore] = useState(data.currentBalance)
+  const previousDebt = useRef(entry.balance)
   const preset = payoff
-    ? entry.paymentAmount
+    ? entry.paymentAmount == null ? undefined : entry.balance == null ? entry.paymentAmount : Math.min(entry.paymentAmount, Math.max(0, entry.balance))
     : entry.isApproximate
       ? undefined
       : entry.amount
@@ -116,7 +125,7 @@ function PaymentModal({
     number = parseAmount(amount)
   } catch {}
   const remaining =
-    number == null || entry.balance == null
+    progressOnly || number == null || entry.balance == null
       ? undefined
       : {
           ...entry,
@@ -132,9 +141,10 @@ function PaymentModal({
     setError("")
     try {
       const value = parseAmount(amount)
+      if (payoff && !progressOnly && deductCash == null) throw new Error("Choose Yes or No for deducting cash.")
       saving.current = true
       setBusy(true)
-      await pay(entry.id, value, date, id.current)
+      await pay(entry.id, value, date, id.current, payoff ? { deductCash: progressOnly ? false : deductCash!, ...(progressOnly ? { progressOnly: true } : {}), previousCash: cashBefore, previousDebt: previousDebt.current } : undefined)
       onClose()
     } catch (e) {
       setError((e as Error).message)
@@ -144,11 +154,11 @@ function PaymentModal({
     }
   }
   const previous = data.plannedPayments.find(
-    (p) => p.planEntryId === entry.id && p.status === "paid",
+    (p) => p.planEntryId === entry.id && p.status === "paid" && !p.progressOnly,
   )
   return (
     <Modal
-      title={payoff ? "Promote payment" : "Add to current cycle"}
+      title={payoff ? "Record debt payment" : "Add to current cycle"}
       onClose={() => {
         if (!busy) onClose()
       }}
@@ -183,13 +193,15 @@ function PaymentModal({
           onChange={setDate}
           max={today}
         />
+        {payoff && <>
+          <Label className="check-label"><Checkbox checked={progressOnly} onCheckedChange={checked => setProgressOnly(checked === true)} disabled={busy} /> Progress only — already reflected in my debt balance</Label>
+          {progressOnly ? <p className="hint">Adds to total paid off. Cash, debt balance and payments remaining stay unchanged.</p> : <CashChoice amount={number == null ? "this payment" : fmtCurrency(number)} value={deductCash} onChange={setDeductCash} />}
+        </>}
         <div className="payment-preview">
           <div>
             <span>Cash after payment</span>
             <strong>
-              {number != null
-                ? fmtCurrency(subtract(data.currentBalance, number))
-                : "—"}
+              {payoff && (progressOnly || deductCash === false) ? fmtCurrency(data.currentBalance) : payoff && deductCash == null ? "Choose Yes or No" : number != null ? fmtCurrency(subtract(cashBefore, number)) : "—"}
             </strong>
           </div>
           {payoff && (
@@ -223,9 +235,9 @@ function PaymentModal({
           </Button>
           <Button
             className={`btn ${payoff ? "btn-p2" : "btn-c2"}`}
-            disabled={busy}
+            disabled={busy || (payoff && !progressOnly && deductCash == null)}
           >
-            {busy ? "Saving…" : "Confirm payment"}
+            {busy ? "Saving…" : progressOnly ? "Save progress" : "Confirm payment"}
           </Button>
         </div>
       </form>
@@ -421,7 +433,7 @@ function EditModal({
                 <div key={p.id}>
                   <span>
                     {fmtDate(p.date)} ·{" "}
-                    {p.status === "paid" ? "Paid" : "Previously planned"}
+                    {p.progressOnly ? "Progress only · balances unchanged" : p.status === "paid" ? p.cashDeducted === false ? "Paid · cash unchanged" : "Paid" : "Previously planned"}
                   </span>
                   <strong>{fmtCurrency(p.amount)}</strong>
                 </div>
@@ -469,6 +481,7 @@ export default function Plan() {
           </strong>
         </div>
       </div>
+      {(filter === "all" || filter === "debt" || filter === "advance") && <DebtProgress />}
       <div className="filter-tabs" role="group" aria-label="Plan filter">
         <Button
           aria-pressed={filter === "all"}
@@ -524,7 +537,7 @@ export default function Plan() {
                     {entries.map((e) => {
                       const payoff = isPayoff(e)
                       const paid = data.plannedPayments.find(
-                        (p) => p.planEntryId === e.id && p.status === "paid",
+                        (p) => p.planEntryId === e.id && p.status === "paid" && !p.progressOnly,
                       )
                       return (
                         <li
@@ -549,12 +562,7 @@ export default function Plan() {
                             {!e.isActive && <small>{payoff && e.balance === 0 ? "Resolved" : "Inactive"}</small>}
                           </div>
                           <span className="row-amount">{displayAmount(e)}</span>
-                          <div className="row-actions">
-                            {payoff && e.isActive && <Button
-                              className="resolve-button"
-                              aria-label={`Resolve ${e.name} in full`}
-                              onClick={() => setDialog({ mode: "resolve", entry: e })}
-                            ><Check size={16} aria-hidden="true" /> Resolve</Button>}
+                          <div className="row-actions" role="group" aria-label={`Actions for ${e.name}`}>
                             <Button
                               disabled={
                                 !e.isActive ||
@@ -565,12 +573,12 @@ export default function Plan() {
                               className={`action-pill ${payoff ? "p2" : "c2"}`}
                               aria-label={`${
                                 payoff
-                                  ? "Promote payment for"
+                                  ? "Record payment for"
                                   : "Add payment for"
                               } ${e.name}`}
                               title={
                                 payoff
-                                  ? "Promote payment"
+                                  ? "Record payment"
                                   : "Add to current cycle"
                               }
                               onClick={() =>
@@ -579,14 +587,21 @@ export default function Plan() {
                             >
                               {payoff ? "P²" : "C²"}
                             </Button>
+                            {payoff && e.isActive && <Button
+                              variant="outline"
+                              className="resolve-button"
+                              aria-label={`Resolve ${e.name} in full`}
+                              onClick={() => setDialog({ mode: "resolve", entry: e })}
+                            ><Check size={16} aria-hidden="true" /> Resolve</Button>}
                             <Button
-                              className="icon-button edit-button"
+                              variant="ghost"
+                              className="edit-button"
                               aria-label={`Edit ${e.name}`}
                               onClick={() =>
                                 setDialog({ mode: "edit", entry: e })
                               }
                             >
-                              <Pencil size={20} aria-hidden="true" />
+                              <Pencil size={16} aria-hidden="true" /> Edit
                             </Button>
                           </div>
                         </li>

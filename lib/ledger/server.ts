@@ -26,7 +26,8 @@ export async function executeCommand(command: LedgerCommand): Promise<Snapshot> 
     const data = applyCommand(current.data, command, timestamp);
     const result = await supabaseRest("rpc/commit_finance_ledger", {
       method: "POST", cache: "no-store", signal: AbortSignal.timeout(15000),
-      body: JSON.stringify({ p_id: command.id, p_hash: hash, p_revision: current.revision, p_data: data, p_kind: command.type }),
+      // Progress credits are non-cash payments in the existing operation journal.
+      body: JSON.stringify({ p_id: command.id, p_hash: hash, p_revision: current.revision, p_data: data, p_kind: command.type === "debt-progress" ? "payment" : command.type }),
     });
     if (!result.conflict) return { data: result.data, revision: result.revision };
   }

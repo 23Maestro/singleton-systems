@@ -139,3 +139,61 @@ Both changes commit together or neither does.
 
 Repository checks do not apply migrations. Review and approve the live
 Supabase migration before running it against production.
+
+## Debt payoff progress
+
+The reviewed build adds the payoff tracker to Plan. Live release is
+pending Jerami's review. The tracker covers debts and advances. Habitica was
+the gamification reference: reward saved progress and milestones. This pass
+adds a brief success animation and milestones every $500. It adds no streak
+penalties, avatars or new animation package.
+
+Total paid off starts from an approved opening total. Imported Resolve rows
+are not counted again. Only new payments marked for payoff progress and new
+progress-only credits increase it. Remaining debt includes positive debt and
+advance balances. Unknown balances and ranges stay labeled.
+
+Debt payments and Resolve require an explicit Yes or No to cash deduction.
+Yes deducts cash. No records the payment and reduces debt while preserving
+cash. Progress-only credits increase paid-off progress without changing cash,
+remaining balances, or schedules. The aggregate Add past payment form needs
+no creditor name. All writes use the existing ledger transaction and replay
+checks. Success rewards fire after a confirmed write, not on reload or polling.
+Reduced motion removes the burst animation.
+
+The `debt-progress` command can set the opening total once or add a catch-up
+credit. The opening figures stay in saved user data, not source. These writes
+use the payment category in the existing operation journal. No SQL migration
+or access change is required. Payment rows retain cash-deduction and progress
+flags. Cash-only activity views exclude non-cash credits.
+
+## Debt repeat endings
+
+Only `planType: debt` has Ends controls: No end set, After payments, or On a
+date. Bills, subscriptions and advances keep their repeat fields. Deleting an
+item ends future reminders and preserves its history.
+
+A count means payments still remaining, excluding payments already made.
+The first remaining due date anchors the schedule. The form suggests a count
+from the remaining balance and usual payment; it stays editable. Each recorded
+debt payment consumes 1 occurrence and advances the first remaining due date.
+Progress-only credits leave that count and date unchanged. An exhausted
+schedule leaves any unpaid debt visible. Only an actual payment reduces debt.
+
+Repeat bounds are validated on the server. End dates include the selected day.
+Month-end clamping and daylight-saving behavior stay in the shared schedule
+helper. The date picker and keyboard viewport handling are reused.
+
+## Mobile review
+
+Form scroll areas leave 8 px for the shared 6 px focus outline. Plan filters
+wrap. Date-picker actions and modal footers have room for focus rings and
+shadows. A short viewport is checked in Chrome; actual iPhone keyboard behavior
+still needs Jerami's device review.
+
+Plan actions share 1 horizontal row below each item on mobile and tablet.
+Payment comes first, followed by Resolve when shown, then a labeled Edit
+button. Targets are at least 44 px. The small press response respects reduced
+motion. Desktop keeps the same action order beside the amount.
+
+Reference: https://github.com/habitrpg/habitica

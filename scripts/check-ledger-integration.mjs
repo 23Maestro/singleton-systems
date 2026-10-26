@@ -12,18 +12,18 @@ data = apply({ type: "reconcile", id: id(), amount: 59 });
 const income = { type: "entry", id: id(), entry: { type: "income", name: "Regression income", amount: 2000, date: "2026-08-31", category: "Work" } };
 data = apply(income); assert.equal(data.currentBalance, 2059);
 assert.equal(apply(income).currentBalance, 2059);
-data = apply({ type: "payment", id: id(), entryId: "b1", amount: 700, date: "2026-08-31" });
+data = apply({ type: "payment", deductCash: true, id: id(), entryId: "b1", amount: 700, date: "2026-08-31" });
 assert.equal(data.currentBalance, 1359);
 const previous = structuredClone(data.planEntries.find(e => e.id === "s1"));
 data = apply({ type: "save-item", id: id(), previous, entry: { ...previous, amount: 25 } });
 assert.equal(data.currentBalance, 1359);
 assert.throws(() => apply({ type: "save-item", id: id(), previous, entry: { ...previous, amount: 30 } }), /changed/);
 assert.throws(() => commandSchema.parse({ ...income, extra: "injected" }));
-assert.throws(() => commandSchema.parse({ type: "payment", id: id(), entryId: "b1", amount: 1.234, date: "2026-08-31" }));
+assert.throws(() => commandSchema.parse({ type: "payment", deductCash: true, id: id(), entryId: "b1", amount: 1.234, date: "2026-08-31" }));
 // Full resolution uses the remaining balance, not the usual installment.
 const cleo = data.planEntries.find(e => e.id === "a1");
 const cashBeforeResolve = data.currentBalance;
-const resolution = { type: "payment", id: id(), entryId: cleo.id, amount: cleo.balance, date: "2026-08-31", resolve: true };
+const resolution = { type: "payment", deductCash: true, id: id(), entryId: cleo.id, amount: cleo.balance, date: "2026-08-31", resolve: true };
 const beforeResolve = structuredClone(data);
 data = apply(resolution);
 const resolved = data.planEntries.find(e => e.id === cleo.id);
@@ -40,7 +40,7 @@ const albert = data.planEntries.find(e => e.id === "a2");
 assert.throws(() => apply({ ...resolution, id: id(), entryId: albert.id, amount: albert.balance - 1 }), /balance changed/);
 assert.throws(() => apply({ ...resolution, id: id(), entryId: "b1", amount: 700 }), /Only an advance or debt/);
 assert.throws(() => apply({ ...resolution, id: id(), entryId: "d8", amount: data.planEntries.find(e => e.id === "d8").balance }), /exact remaining balance/);
-assert.throws(() => commandSchema.parse({ type: "payment", id: id(), entryId: albert.id, amount: 0, date: "2026-08-31" }));
+assert.throws(() => commandSchema.parse({ type: "payment", deductCash: true, id: id(), entryId: albert.id, amount: 0, date: "2026-08-31" }));
 // A debt already at zero can be closed without deducting money again.
 const zeroBalanceData = { ...data, planEntries: data.planEntries.map(e => e.id === albert.id ? { ...e, balance: 0 } : e) };
 const zeroResolved = applyCommand(zeroBalanceData, commandSchema.parse({ ...resolution, id: id(), entryId: albert.id, amount: 0 }), new Date().toISOString());
@@ -107,7 +107,8 @@ for (const route of ["finances", "finances-form", "finances-calendar", "finances
 console.log("PASS: server commands, full debt resolution, cash clearing, duplicate and stale confirmation safety, strict input, legacy preservation, Next.js routes, scoped CSS.");
 
 // Calendar reminders never post cash and preserve amount uncertainty.
-const { isDueOn, hasSchedule, monthEvents } = await import("../lib/ledger/calendar.ts");
+const { monthEvents } = await import("../lib/ledger/calendar.ts");
+const { isDueOn, hasSchedule } = await import("../lib/ledger/schedule.ts");
 const bill = { id: "calendar-bill", name: "Month-end bill", amount: 80, amountDisplay: "around $77–$80", dueDate: "2026-01-31", recurrence: "monthly", dueDay: 31, notes: "", planType: "bill", isActive: true };
 assert.equal(isDueOn(bill, "2026-02-28"), true);
 assert.equal(isDueOn(bill, "2026-03-31"), true);
@@ -133,3 +134,5 @@ const activityRows = monthEvents({ ...calendarData, transactions: [{ id: "activi
 assert.deepEqual(activityRows.map(row => row.kind), ["income", "payment", "due"]);
 assert.equal(activityRows[1].amountLabel, "-$78.00");
 console.log("Calendar recurrence, DST, ranges, activity, and read-only checks passed.");
+
+await import("./check-debt-progress.mjs");
