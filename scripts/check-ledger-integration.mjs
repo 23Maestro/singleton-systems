@@ -106,6 +106,29 @@ assert.doesNotMatch(css, /@import|:root/);
 for (const route of ["finances", "finances-form", "finances-calendar", "finances-plan"]) assert.ok(readFileSync(new URL(`app/${route}/page.tsx`, root), "utf8"));
 console.log("PASS: server commands, full debt resolution, cash clearing, duplicate and stale confirmation safety, strict input, legacy preservation, Next.js routes, scoped CSS.");
 
+// Group headers use active subscription charges and outstanding payoff balances.
+const { groupTotal } = await import("../lib/ledger/progress.ts");
+const totalItem = { id: "total", name: "Sample", amount: 999, dueDate: "", notes: "", isActive: true };
+const totalEntries = [
+  { ...totalItem, planType: "subscription", amount: 19.99 },
+  { ...totalItem, planType: "subscription", amount: 0.02 },
+  { ...totalItem, planType: "subscription", amount: 100, isActive: false },
+  { ...totalItem, planType: "advance", balance: 64 },
+  { ...totalItem, planType: "advance", balance: 14.98, isActive: false },
+  { ...totalItem, planType: "debt", balance: 222.14, paymentAmount: 111.07 },
+  { ...totalItem, planType: "debt", balance: 0, isActive: false },
+  { ...totalItem, planType: "debt", balance: -20 },
+];
+const totalBefore = structuredClone(totalEntries);
+assert.equal(groupTotal(totalEntries, "subscription"), "$20.01");
+assert.equal(groupTotal(totalEntries, "advance"), "$78.98");
+assert.equal(groupTotal(totalEntries, "debt"), "$222.14");
+assert.equal(groupTotal([], "debt"), "$0.00");
+assert.equal(groupTotal(totalEntries, "bill"), null);
+assert.equal(groupTotal([{ ...totalItem, planType: "debt", balance: 20, balanceHigh: 30, isApproximate: true }], "debt"), "≈ $20.00–$30.00");
+assert.equal(groupTotal([{ ...totalItem, planType: "debt" }], "debt"), "$0.00+");
+assert.deepEqual(totalEntries, totalBefore);
+
 // Calendar reminders never post cash and preserve amount uncertainty.
 const { monthEvents } = await import("../lib/ledger/calendar.ts");
 const { isDueOn, hasSchedule } = await import("../lib/ledger/schedule.ts");

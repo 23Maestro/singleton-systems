@@ -11,6 +11,7 @@ import { useRef, useState, type FormEvent } from "react"
 import { AnimatePresence } from "framer-motion"
 import { ArrowUpRight, Check, CreditCard, Pencil, Plus, Receipt, Repeat2 } from "@/components/icons/evil"
 import DebtProgress from "../components/DebtProgress"
+import { groupTotal } from "@/lib/ledger/progress"
 import { useApp } from "../context"
 import {
   Modal,
@@ -511,6 +512,7 @@ export default function Plan() {
                   sortAmount(b) - sortAmount(a) || a.name.localeCompare(b.name),
               )
             const GroupIcon = GROUP_ICONS[type]
+            const total = groupTotal(entries, type)
             return (
               <Card key={type} asChild><section className="card plan-group">
                 <header className="section-heading">
@@ -520,6 +522,7 @@ export default function Plan() {
                     </span>
                     {LABELS[type]}
                   </h2>
+                  {total != null && <strong className="group-total" aria-label={`${LABELS[type]} total ${total}`}>{total}</strong>}
                   <Button
                     className="add-button"
                     aria-label={`Add ${LABELS[type].toLowerCase()}`}

@@ -10,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${siteUrl}/AI-consultant`,
+      lastModified: new Date("2026-10-26"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/tampa-ai-consultant`,
       lastModified: new Date("2026-09-26"),
       changeFrequency: "monthly",

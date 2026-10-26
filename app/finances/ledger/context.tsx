@@ -7,6 +7,7 @@ import type { AppData, Page, PlanEntry, Transaction } from "@/lib/ledger/types";
 import { paidOff } from "@/lib/ledger/progress"
 import type { LedgerCommand } from "@/lib/ledger/commands";
 import { todayISO } from "@/lib/ledger/dates";
+import { financePaths as paths, financePageInfo } from "@/lib/ledger/metadata";
 
 export type PaymentOptions = { deductCash: boolean; progressOnly?: true; previousCash?: number; previousDebt?: number };
 export type PayoffReward = { id: string; amount: number; milestone?: number };
@@ -23,7 +24,6 @@ type Context = {
   deleteEntry: (entry: PlanEntry, id: string) => Promise<void>;
 };
 const AppContext = createContext<Context | null>(null);
-const paths: Record<Page, string> = { home: "/finances", entry: "/finances-form", calendar: "/finances-calendar", plan: "/finances-plan" };
 export function AppProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const page: Page = pathname === paths.entry ? "entry" : pathname === paths.plan ? "plan" : pathname === paths.calendar ? "calendar" : "home";
@@ -35,6 +35,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [today, setToday] = useState(todayISO);
   const revision = useRef(-1); const pending = useRef(0);
   const editIds = useRef(new Map<string, string>());
+  useEffect(() => {
+    const { title, description, url } = financePageInfo(page);
+    document.title = title;
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
+    for (const [selector, content] of [
+      ['meta[name="description"]', description], ['meta[property="og:title"]', title],
+      ['meta[property="og:description"]', description], ['meta[property="og:url"]', url],
+      ['meta[name="twitter:title"]', title], ['meta[name="twitter:description"]', description],
+    ]) document.querySelector(selector)?.setAttribute("content", content);
+  }, [page]);
   useEffect(() => {
     const type = new URLSearchParams(window.location.search).get("type");
     setEntryType(type === "income" || type === "expense" ? type : null);

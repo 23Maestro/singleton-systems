@@ -55,6 +55,9 @@ const nextConfig = {
     const wemby = "https://wemby-shot-lab.vercel.app";
     const flowzone = "https://flowzone-23maestros-projects.vercel.app";
     return {
+      afterFiles: [
+        { source: "/ai-consultant", destination: "/AI-consultant" },
+      ],
       beforeFiles: [
         {
           source: "/decision-maps/2026-09-15-kedasha-preview",

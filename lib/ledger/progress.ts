@@ -1,5 +1,19 @@
-import type { AppData } from "./types.ts"
-import { isPayoff } from "./ledger.ts"
+import type { AppData, PlanEntry, PlanType } from "./types.ts"
+import { isPayoff, sortAmount } from "./ledger.ts"
+import { fmtCurrency } from "./dates.ts"
+
+export function groupTotal(entries: PlanEntry[], type: PlanType): string | null {
+  if (type === "bill") return null
+  const items = entries.filter(e => e.planType === type && (type !== "subscription" || e.isActive))
+  const sum = (high: boolean) => items.reduce((cents, e) => {
+    const amount = type === "subscription" ? (high ? sortAmount(e) : e.amount) : (high ? e.balanceHigh ?? e.balance : e.balance)
+    return cents + Math.round(Math.max(0, amount ?? 0) * 100)
+  }, 0) / 100
+  const low = sum(false), high = sum(true)
+  const approximate = items.some(e => type === "subscription" ? Boolean(e.amountDisplay) : e.isApproximate)
+  const unknown = type !== "subscription" && items.some(e => e.balance == null)
+  return `${approximate ? "≈ " : ""}${fmtCurrency(low)}${high !== low ? `–${fmtCurrency(high)}` : ""}${unknown ? "+" : ""}`
+}
 
 export function paidOff(data: AppData): number {
   const cents = Math.round((data.debtProgress?.openingPaid ?? 0) * 100)

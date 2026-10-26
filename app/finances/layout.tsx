@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import LedgerTheme from "./ledger/theme";
 import "./ledger/ledger.css";
+import { financeMetadata } from "@/lib/ledger/metadata";
 
 export const metadata: Metadata = {
-  title: "Finances",
+  ...financeMetadata("home"),
   manifest: "/finances/manifest.webmanifest",
-  description: "Personal income, expenses, bills, and debt.",
   robots: {
     index: false,
     follow: false,
