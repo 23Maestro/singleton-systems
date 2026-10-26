@@ -73,7 +73,10 @@ the approved interface, assets, and tested domain rules with the existing stack.
 The app uses Next.js App Router, React 19, and Tailwind. The `@/*` path alias
 points to the repository root.
 
-- `/` is the marketing and portfolio site.
+- `/` is the video-editing offer and portfolio. `/AI-consultant` owns the
+  separate AI consulting offer. Keep their page content and metadata separate.
+- `npm run build` checks the rendered public offers after compilation. Keep
+  that check in the release path, including releases for private tools.
 - `/home-tasks` is backed by Google Sheets through
   `lib/home-tasks-google.ts`.
 - `/linear-inbox` is the capture path into Linear. Its server route writes

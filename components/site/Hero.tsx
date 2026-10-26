@@ -6,11 +6,13 @@ export default function Hero({
   body,
   ctaLabel,
   ctaHref,
+  pill = "First simple problem solved free",
 }: {
   title: string;
   body: string;
   ctaLabel: string;
   ctaHref: string;
+  pill?: string;
 }) {
   return (
     <section id="start" data-hero className="px-3 sm:px-6 lg:px-8">
@@ -29,7 +31,7 @@ export default function Hero({
               <path d="M12 9.2L12.4 10.4L13.6 10.8L12.4 11.2L12 12.5L11.6 11.2L10.4 10.8L11.6 10.4L12 9.2Z" fill="currentColor" stroke="#050505" strokeWidth="0.35" strokeLinejoin="round" />
             </svg>
           </span>
-          First simple problem solved free
+          {pill}
         </p>
         <h1 className="mt-7 max-w-4xl text-balance text-[2.6rem] font-semibold leading-[1.03] tracking-[-0.02em] sm:text-6xl lg:text-[4.5rem]">
           {title}

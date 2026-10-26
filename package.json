@@ -93,14 +93,17 @@
     "check:brand": "node scripts/check-brand-assets.mjs",
     "brand:favicon:generate": "node scripts/generate-singleton-systems-favicon.mjs",
     "check:tells": "node --test scripts/check-tells.test.mjs && node scripts/check-tells.mjs",
-    "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs",
+    "test:pages": "node --test tests/homepage-copy.test.mjs tests/tampa-ai-consultant.test.mjs tests/ai-consulting-page.test.mjs tests/ai-inquiry-delivery.test.cjs",
     "check:lineups:templates": "node scripts/check-lineups-templates.mjs && node --test scripts/lineups-review.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 scripts/lineups-review.test.py && npm run check:lineups:review",
     "check:faithtalk:storage": "python3 scripts/faithtalk-storage.test.py",
     "check:lineups:discovery": "node --test scripts/lineups-discovery.test.mjs",
     "check:housekeeping": "node --test scripts/repo-housekeeping.test.mjs plugins/repo-housekeeping/skills/repo-prune-review/scripts/doc-evidence.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s plugins/repo-housekeeping/skills/repo-maintenance/scripts -p \"test_*.py\"",
     "check:lineups:review": "node scripts/check-lineups-review.mjs",
     "check:task-closeout": "node --test tests/task-closeout.test.mjs tests/task-lifecycle.test.mjs tests/task-lifecycle-asana.test.mjs",
-    "task:closeout": "node --env-file=.env.local scripts/task-closeout.mjs"
+    "task:closeout": "node --env-file=.env.local scripts/task-closeout.mjs",
+    "test:video-launch": "node --test tests/video-offer-page.test.mjs tests/video-inquiry-delivery.test.cjs tests/video-offer-flow.test.cjs",
+    "check:public-offers": "node --test tests/video-offer-page.test.mjs",
+    "postbuild": "npm run check:public-offers"
   },
   "dependencies": {
     "@annotorious/annotorious": "3.9.4",

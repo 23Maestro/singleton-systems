@@ -1,5 +1,7 @@
 import RevealText from "@/components/home/RevealText";
 import ReviewsCarousel, { type Review } from "@/components/home/ReviewsCarousel";
+import YouTubeSample from "@/components/home/YouTubeSample";
+import { CLIENT_TESTIMONIAL } from "@/lib/video-portfolio";
 
 // Exact review text only (23M-160). Upwork reviews carry the email-signature Upwork mark.
 const reviews: Review[] = [
@@ -38,15 +40,22 @@ const reviews: Review[] = [
   },
 ];
 
-export default function ReviewsSection() {
+export default function ReviewsSection({ videoTestimonial = false }: { videoTestimonial?: boolean }) {
   return (
     <section id="reviews" className="py-16 sm:py-20" aria-labelledby="reviews-heading">
       <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10">
         <h2 id="reviews-heading" className="text-center text-4xl font-semibold tracking-normal sm:text-5xl">
           <RevealText as="span">What People Say</RevealText>
         </h2>
+        {videoTestimonial && <dl className="mx-auto mt-10 grid max-w-4xl grid-cols-1 gap-7 text-center sm:grid-cols-3">
+          <div><dt className="text-base font-medium text-neutral-600">Clients across platforms</dt><dd className="mt-2 text-4xl font-bold">20+</dd></div>
+          <div><dt className="text-base font-medium text-neutral-600">Earned on Upwork</dt><dd className="mt-2 text-4xl font-bold">$30K+</dd></div>
+          <div><dt className="text-base font-medium text-neutral-600">Upwork rating</dt><dd className="mt-2 text-4xl font-bold">4.9/5</dd></div>
+        </dl>}
+        {videoTestimonial && <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-neutral-700">At Prospect ID, I increased my output from 30 to 70 athlete videos a month, working solo.</p>}
       </div>
       <ReviewsCarousel reviews={reviews} />
+      {videoTestimonial && <div className="mx-auto mt-10 max-w-2xl px-6 sm:px-8"><YouTubeSample sample={CLIENT_TESTIMONIAL} /></div>}
     </section>
   );
 }

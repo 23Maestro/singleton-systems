@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { NavItem } from "@/components/site/nav";
 
-export default function SiteFooter({ items }: { items: NavItem[] }) {
+export default function SiteFooter({ items, description = "Workflow sessions for people who want AI to handle repeated work while they stay in charge" }: { items: NavItem[]; description?: string }) {
   return (
     <footer className="border-t border-neutral-200 bg-[#fbfbfb] px-6 py-10 sm:px-8 lg:px-10">
       <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1.2fr_0.8fr]">
@@ -15,7 +15,7 @@ export default function SiteFooter({ items }: { items: NavItem[] }) {
             className="h-auto w-44"
           />
           <p className="mt-4 max-w-xl text-lg font-semibold leading-relaxed text-neutral-600">
-            Workflow sessions for people who want AI to handle repeated work while they stay in charge
+            {description}
           </p>
         </div>
         <nav aria-label="Footer" className="grid gap-3 text-lg font-bold">

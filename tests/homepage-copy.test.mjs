@@ -1,4 +1,4 @@
-// Seam tests for the buyer-order homepage and outbound copy humanizing.
+// Seam tests for the preserved AI consulting site and outbound copy humanizing.
 // Run against a running build: BASE_URL=http://localhost:3999 node --test tests/homepage-copy.test.mjs
 // Writing rules source: docs/harness/writing-rules.md (enforced by scripts/check-tells.mjs, the same
 // checker the Codex Stop hook runs on outbound writing).
@@ -10,6 +10,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3999";
+const AI_HOME = "/AI-consultant";
 
 async function html(path) {
   const res = await fetch(new URL(path, BASE_URL));
@@ -22,7 +23,7 @@ function visibleCopyOnly(page) {
   return page.replace(/<script\b[\s\S]*?<\/script>/gi, "");
 }
 
-for (const path of ["/", "/tampa-ai-consultant"]) {
+for (const path of [AI_HOME, "/tampa-ai-consultant"]) {
   test(`${path} copy passes the repo writing-tells check`, async () => {
     const dir = mkdtempSync(join(tmpdir(), "tells-"));
     const file = join(dir, "page.html");
@@ -32,8 +33,8 @@ for (const path of ["/", "/tampa-ai-consultant"]) {
   });
 }
 
-test("homepage tells the buyer story in order: problem, what they tried, real problem, proof, offer, booking", async () => {
-  const page = await html("/");
+test("AI consulting tells the buyer story in order: problem, what they tried, real problem, proof, offer, booking", async () => {
+  const page = await html(AI_HOME);
   const order = ["start", "tried", "real-problem", "proof", "reviews", "offers", "book"];
   const positions = order.map((id) => page.indexOf(`id="${id}"`));
   for (const [i, id] of order.entries()) assert.ok(positions[i] >= 0, `missing section #${id}`);
@@ -41,8 +42,8 @@ test("homepage tells the buyer story in order: problem, what they tried, real pr
   assert.deepEqual(positions, sorted, `sections out of order: ${order.join(" > ")}`);
 });
 
-test("homepage proof shows the Prospect ID output jump", async () => {
-  const page = await html("/");
+test("AI consulting proof shows the Prospect ID output jump", async () => {
+  const page = await html(AI_HOME);
   assert.match(page, /My output went from 30 videos a month to 70, by myself\./);
 });
 
@@ -64,8 +65,8 @@ function textOf(page) {
     .replace(/\s+/g, " ");
 }
 
-test("homepage reviews show exact client words with who said them", async () => {
-  const page = await html("/");
+test("AI consulting reviews show exact client words with who said them", async () => {
+  const page = await html(AI_HOME);
   const start = page.indexOf('id="reviews"');
   assert.ok(start >= 0, "reviews section present");
   const section = textOf(page.slice(start, page.indexOf("</section>", start)));
@@ -79,8 +80,8 @@ test("homepage reviews show exact client words with who said them", async () => 
   assert.match(page.slice(start), /src="[^"]*upwork-50\.png[^"]*"/, "Upwork logo from the email signature");
 });
 
-test("homepage links to the Tampa AI consultant page", async () => {
-  const page = await html("/");
+test("AI consulting links to the Tampa AI consultant page", async () => {
+  const page = await html(AI_HOME);
   assert.match(page, /href="\/tampa-ai-consultant"/);
 });
 
@@ -90,7 +91,7 @@ test("reviews stay readable with JavaScript off and with reduced motion", async 
   try {
     for (const options of [{ javaScriptEnabled: false }, { reducedMotion: "reduce" }]) {
       const page = await browser.newPage(options);
-      await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+      await page.goto(new URL(AI_HOME, BASE_URL).href, { waitUntil: "load" });
       const quote = page.locator("#reviews [data-review-card] blockquote").first();
       await quote.scrollIntoViewIfNeeded();
       await page.waitForTimeout(300);
@@ -104,7 +105,7 @@ test("reviews stay readable with JavaScript off and with reduced motion", async 
 });
 
 test("portfolio carousel names each video on its selector and explains the one showing", async () => {
-  const page = visibleCopyOnly(await html("/"));
+  const page = visibleCopyOnly(await html(AI_HOME));
   const selectors = page.match(/<div[^>]*aria-label="Choose a project"[^>]*>[\s\S]*?<\/div>/)?.[0] ?? "";
   for (const name of ["1-Click Follow-Up", "$300 Job. 2 Hours.", "AI Preps the Project", "140+ Videos. 6 Weeks."]) {
     assert.match(selectors, new RegExp(`<button[^>]*>[^<]*${name.replace(/[.$+]/g, "\\$&")}[^<]*</button>`), `no named selector for ${name}`);
@@ -116,7 +117,7 @@ test("portfolio carousel names each video on its selector and explains the one s
 });
 
 test("search engines can tie the site to Jerami's and the brand's social profiles", async () => {
-  const page = await html("/");
+  const page = await html(AI_HOME);
   for (const url of [
     "https://www.linkedin.com/in/jeramisingleton",
     "https://x.com/23Maestro_",
@@ -125,8 +126,8 @@ test("search engines can tie the site to Jerami's and the brand's social profile
   ]) assert.ok(page.includes(JSON.stringify(url)), `missing sameAs ${url}`);
 });
 
-test("homepage hero offers the free first problem and books a call", async () => {
-  const page = visibleCopyOnly(await html("/"));
+test("AI consulting hero offers the free first problem and books a call", async () => {
+  const page = visibleCopyOnly(await html(AI_HOME));
   const start = page.indexOf("data-hero");
   const hero = page.slice(start, page.indexOf("</section>", start));
   assert.ok(hero.includes("First simple problem solved free"), "hero kicker should name the free first problem");
@@ -135,7 +136,7 @@ test("homepage hero offers the free first problem and books a call", async () =>
 });
 
 test("profile card and Person data show broadcast production since 2014 without naming a station", async () => {
-  const page = await html("/");
+  const page = await html(AI_HOME);
   const text = textOf(visibleCopyOnly(page));
   assert.ok(text.includes("Broadcast Production since 2014"), "profile card missing broadcast years");
   assert.ok(!text.includes("WFLA"), "profile card should not name a station");
@@ -146,7 +147,7 @@ test("no reading text renders under 16px on phone or desktop", async () => {
   const { chromium } = await import("@playwright/test");
   const browser = await chromium.launch();
   try {
-    for (const path of ["/", "/tampa-ai-consultant"]) {
+    for (const path of [AI_HOME, "/tampa-ai-consultant"]) {
       for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
         const page = await browser.newPage({ viewport, reducedMotion: "reduce" });
         await page.goto(new URL(path, BASE_URL).href, { waitUntil: "load" });
@@ -182,7 +183,7 @@ test("choosing each portfolio video announces its caption", async () => {
   };
   try {
     const page = await browser.newPage({ reducedMotion: "reduce" });
-    await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+    await page.goto(new URL(AI_HOME, BASE_URL).href, { waitUntil: "load" });
     const live = page.locator("#portfolio [aria-live]");
     for (const [name, caption] of Object.entries(captions)) {
       await page.locator('#portfolio [aria-label="Choose a project"]').getByRole("button", { name, exact: true }).click();
@@ -199,7 +200,7 @@ test("each profile card line fits on one row on phone and desktop", async () => 
   try {
     for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
       const page = await browser.newPage({ viewport });
-      await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+      await page.goto(new URL(AI_HOME, BASE_URL).href, { waitUntil: "load" });
       const lines = page.locator("[data-profile-card] p span");
       assert.ok((await lines.count()) >= 4, "profile card lines not found");
       const wrapped = await lines.evaluateAll((spans) =>
@@ -217,7 +218,7 @@ test("header uses one menu button at every width", async () => {
   const { chromium } = await import("@playwright/test");
   const browser = await chromium.launch();
   try {
-    for (const path of ["/", "/tampa-ai-consultant"]) {
+    for (const path of [AI_HOME, "/tampa-ai-consultant"]) {
       for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
         const page = await browser.newPage({ viewport });
         await page.goto(new URL(path, BASE_URL).href, { waitUntil: "load" });
@@ -242,7 +243,7 @@ test("hero owns its own framed section on both pages", async () => {
   const { chromium } = await import("@playwright/test");
   const browser = await chromium.launch();
   try {
-    for (const path of ["/", "/tampa-ai-consultant"]) {
+    for (const path of [AI_HOME, "/tampa-ai-consultant"]) {
       for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
         const page = await browser.newPage({ viewport, reducedMotion: "reduce" });
         await page.goto(new URL(path, BASE_URL).href, { waitUntil: "load" });
@@ -298,7 +299,7 @@ test("menu closes after jumping to a section", async () => {
   try {
     for (const viewport of [{ width: 375, height: 812 }, { width: 1440, height: 900 }]) {
       const page = await browser.newPage({ viewport, reducedMotion: "reduce" });
-      await page.goto(new URL("/", BASE_URL).href, { waitUntil: "load" });
+      await page.goto(new URL(AI_HOME, BASE_URL).href, { waitUntil: "load" });
       const header = page.locator("header").first();
       await header.getByLabel("Open navigation").click();
       await header.getByRole("link", { name: "Pricing", exact: true }).click();

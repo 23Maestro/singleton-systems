@@ -1,0 +1,11 @@
+{
+  "provider": "sites",
+  "project_id": "appgprj_6ac9bc27c1e48191b257300b52d40c63",
+  "slug": "singleton-website-preview",
+  "checkout": ".scratch/review-artifacts/sites/singleton-website-preview",
+  "expected_url": "https://singleton-website-preview.super-cedar-2285.chatgpt.site",
+  "production_origin": "https://singleton-systems.com",
+  "routes": ["/", "/AI-consultant", "/tampa-ai-consultant", "/video-inquiry"],
+  "server_forms": { "ai": "production", "video": "review-only" },
+  "localhost_handoff": false
+}

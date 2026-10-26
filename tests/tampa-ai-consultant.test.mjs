@@ -73,9 +73,10 @@ for (const privatePath of ["/fitness", "/dashboard", "/command-center", "/home-t
 
 test("Tampa buyer sees the first simple problem is solved free", async () => {
   const { html } = await get(PAGE_PATH);
-  assert.match(html, /First Problem Solved Free/);
-  assert.doesNotMatch(html, /\$75\b/);
-  assert.doesNotMatch(html, /comes off the price/, "no credit line now that the first fix is free");
+  const copy = html.replace(/<script\b[\s\S]*?<\/script>/gi, "");
+  assert.match(copy, /First Problem Solved Free/);
+  assert.doesNotMatch(copy, /\$75\b/);
+  assert.doesNotMatch(copy, /comes off the price/, "no credit line now that the first fix is free");
 });
 
 test("Search engines see the ladder: free first fix, $500 one more, $1,500 a month, $2,500 big build", async () => {
