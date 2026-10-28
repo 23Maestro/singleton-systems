@@ -337,7 +337,7 @@ for (const prompt of [
   const lineups = runHook(prompt);
   assert.equal(lineups.status, 0, `Lineups hook exited ${lineups.status}: ${lineups.stderr}`);
   for (const snippet of [
-    "[route] client-video",
+    "[route] lineups-editor",
     "[profile] Catena Media Lineups",
     "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
     "Use the seven approved lanes",

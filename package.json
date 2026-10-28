@@ -14,7 +14,7 @@
     "check:agents": "node scripts/check-agent-guidance.mjs",
     "check:drift": "node scripts/check-opportunity-hq-drift.mjs",
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
-    "check:cerebral:hook-routing": "node scripts/check-cerebral-hook-routing.mjs",
+    "check:cerebral:hook-routing": "npm run check:lineups:skill-routing && node scripts/check-cerebral-hook-routing.mjs",
     "check:storage-gate": "node --test scripts/developer-storage/storage-gate.test.mjs scripts/developer-storage/git-media-policy.test.mjs",
     "check:lineups:enforcement": "node --test scripts/lineups-discovery.test.mjs scripts/lineups-episode-check.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 scripts/lineups-asset-search.test.py && node scripts/check-lineups-enforcement.mjs",
     "check:745:visual": "node --test scripts/745-visual-contract.test.mjs",
@@ -83,7 +83,6 @@
     "visual-maps:export-portfolio": "sh -c 'rm -rf public/portfolio/likec4-light public/portfolio/likec4-dark && mkdir -p public/portfolio/likec4-light public/portfolio/likec4-dark && likec4 export png docs/visual-maps --light --flat -o public/portfolio/likec4-light -f ai_workflow_readme_map -f scouting_coordinator_bucket_map -f resume_timeline_map -f review_first_implementation_loop -t 45 --max-attempts 3 && likec4 export png docs/visual-maps --dark --flat -o public/portfolio/likec4-dark -f ai_workflow_readme_map -f scouting_coordinator_bucket_map -f resume_timeline_map -f review_first_implementation_loop -t 45 --max-attempts 3 && node scripts/generate-likec4-artifact-svgs.mjs'",
     "verify:ai-workflow-mobile": "node scripts/check-ai-workflow-mobile.mjs",
     "remotion:studio": "remotion studio remotion/index.ts",
-    "remotion:future-voices:render": "node scripts/render-future-voices-callouts.mjs",
     "remotion:scene-one:still": "remotion still remotion/index.ts ClinicalSetup1944 output/clinical-setup-1944.png --frame=110",
     "remotion:scene-one:render": "remotion render remotion/index.ts ClinicalSetup1944 output/clinical-setup-1944.mp4",
     "remotion:scene-two:assets": "node scripts/export-scene-2-remotion-assets.mjs",
@@ -103,7 +102,8 @@
     "task:closeout": "node --env-file=.env.local scripts/task-closeout.mjs",
     "test:video-launch": "node --test tests/video-offer-page.test.mjs tests/video-inquiry-delivery.test.cjs tests/video-offer-flow.test.cjs",
     "check:public-offers": "node --test tests/video-offer-page.test.mjs",
-    "postbuild": "npm run check:public-offers"
+    "postbuild": "npm run check:public-offers",
+    "check:lineups:skill-routing": "node scripts/check-lineups-skill-routing.mjs"
   },
   "dependencies": {
     "@annotorious/annotorious": "3.9.4",

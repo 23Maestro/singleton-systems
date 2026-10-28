@@ -182,7 +182,7 @@ const captions = captionRows(words);
 const duration = words.at(-1)?.end ?? 0;
 
 const textOutput = [
-  "MICHELLE STROY — FUTURE VOICES INTERVIEW",
+  `${basename(projectPath).replace(/\.prproj$/i, "")} — TRANSCRIPT`,
   `Recovered from: ${basename(projectPath)}`,
   `Premiere transcript object: ${objectId}`,
   `Duration: ${displayTime(duration, false)}`,

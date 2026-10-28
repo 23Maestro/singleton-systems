@@ -55,11 +55,8 @@ one primary engine for each target beat.
 
 - Catena / LSR short: use the locked vertical timeline mold; prove the next
   full run before calling the path repeatable.
-- Catena / Lineups long: use the approved Figma broadcast kit, timed transcript,
-  and Eagle episode assets before Premiere.
-- Future Voices cleanup: inspect source and audio, map rough cuts and filler
-  cleanup, then stop for review; skip scene sampling and asset matching unless
-  the edit needs them.
+- Catena / Lineups long: load `s-systems:lineups-editor` for its approved
+  sources, timing and episode delivery gates.
 
 ## Client Note Compression
 

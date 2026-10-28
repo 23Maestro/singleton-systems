@@ -3,7 +3,7 @@
 Use this internal reference for Catena Media Lineups work. Read the approved
 front-facing contract first:
 
-`plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md`
+`plugins/s-systems/skills/lineups-editor/references/lineups-treatment-system.md`
 
 Do not expose Figma implementation terms in Jerami's menus, storyboards, or
 review notes. Use lane, option, and setting there.

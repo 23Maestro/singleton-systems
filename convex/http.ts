@@ -1,6 +1,7 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { videoReviewHttp } from "./videoReviewHttp";
 const http = httpRouter();
 const route = httpAction(async (ctx, request) => {
   const token = process.env.FITNESS_BACKEND_TOKEN;
@@ -33,4 +34,7 @@ const route = httpAction(async (ctx, request) => {
 });
 http.route({ path: "/fitness", method: "GET", handler: route });
 http.route({ path: "/fitness", method: "POST", handler: route });
+http.route({ path: "/video-reviews", method: "GET", handler: videoReviewHttp });
+http.route({ path: "/video-reviews", method: "POST", handler: videoReviewHttp });
+http.route({ path: "/video-review-uploads", method: "POST", handler: videoReviewHttp });
 export default http;

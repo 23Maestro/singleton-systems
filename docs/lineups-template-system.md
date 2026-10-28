@@ -1,5 +1,9 @@
 # Lineups template system
 
+`s-systems:lineups-editor` owns the Lineups workflow. Shared intake and storyboard
+handoff stay in `s-systems:client-video-storyboard`. Its old Lineups reference
+paths forward to the focused skill so existing hooks and saved chats still work.
+
 Figma holds the editable designs. The registry holds their exact addresses and
 supported settings. JSON measurements check whether an episode preserves the
 approved design.
@@ -182,7 +186,7 @@ Fresh clip/sequence readback must confirm media identity, trims, and source
 In/Out before retries or delivery completion. A returned clip ID alone cannot
 prove preservation.
 
-Episode activation expires through [the deadline closeout check](lineups-episode-closeout.md).
+Episode activation expires through [the deadline closeout check](../plugins/s-systems/skills/lineups-editor/references/lineups-episode-closeout.md).
 Closure preserves evidence and does not satisfy the delivery gates above.
 
 ## review website template

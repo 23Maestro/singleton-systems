@@ -7,7 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { SOCIAL_CALLOUT_STYLE } from "../social/socialCalloutStyle";
+import { SOCIAL_CALLOUT_STYLE } from "./socialCalloutStyle";
 
 const { fontFamily } = loadFont("normal", {
   weights: ["700", "800", "900"],

@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-09-29-live-skill-path-storage-gate-v1a",
+  "source_revision": "2026-10-27-lineups-editor-v1",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -578,6 +578,27 @@
       "enabled": true
     },
     {
+      "route_key": "lineups-editor",
+      "bucket": "lineups-editor",
+      "trigger_patterns": [
+        "lineups",
+        "catena(?: media)?.{0,40}football"
+      ],
+      "example_prompt": "Prepare the next Lineups episode.",
+      "surface": "client video",
+      "lane": "Content Editor",
+      "owner": "Eagle",
+      "intent": "Prepare Catena Media Lineups episodes with the approved lanes, per-scene engines, source-bound timing and review gates.",
+      "shape": "portfolio",
+      "required_tools": [
+        "s-systems:lineups-editor",
+        "s-systems:eagle"
+      ],
+      "review_gate": "Preserve approved artwork, IDs and motion. Verify current scene timing, engine choice and human review before production handoff.",
+      "priority": 77,
+      "enabled": true
+    },
+    {
       "route_key": "client-video",
       "bucket": "client-video",
       "trigger_patterns": [
@@ -640,6 +661,11 @@
       "skill_key": "client-video-storyboard",
       "activation": "core",
       "reason": "Profile-aware video breakdown, Eagle asset matching, storyboard prep, and reviewed Premiere handoff."
+    },
+    {
+      "skill_key": "lineups-editor",
+      "activation": "core",
+      "reason": "Catena Media Lineups lanes, source assets, Figma/Unreal routing, timing and review/delivery gates."
     },
     {
       "skill_key": "codex-rabbit",
