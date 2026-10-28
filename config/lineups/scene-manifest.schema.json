@@ -374,80 +374,154 @@
           }
         },
         "templateBinding": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "key",
-            "contractId",
-            "sourceFingerprint",
-            "roleNodeIds"
-          ],
-          "properties": {
-            "key": {
-              "enum": [
-                "quick-stat.single",
-                "quick-stat.progression"
-              ]
-            },
-            "contractId": {
-              "const": "quick-stat.callout.v1"
-            },
-            "sourceFingerprint": {
-              "type": "string",
-              "pattern": "^[a-f0-9]{64}$"
-            },
-            "roleNodeIds": {
+          "oneOf": [
+            {
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "wrapper",
-                "panel",
-                "text"
+                "key",
+                "contractId",
+                "sourceFingerprint",
+                "roleNodeIds"
               ],
               "properties": {
-                "wrapper": {
-                  "type": "string",
-                  "minLength": 1
+                "key": {
+                  "enum": [
+                    "quick-stat.single",
+                    "quick-stat.progression"
+                  ]
                 },
-                "panel": {
-                  "type": "string",
-                  "minLength": 1
+                "contractId": {
+                  "const": "quick-stat.callout.v1"
                 },
-                "text": {
+                "sourceFingerprint": {
                   "type": "string",
-                  "minLength": 1
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "roleNodeIds": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "wrapper",
+                    "panel",
+                    "text"
+                  ],
+                  "properties": {
+                    "wrapper": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "panel": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "fitOverride": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "fontSize",
+                    "reason",
+                    "textWidthAt64",
+                    "evidence"
+                  ],
+                  "properties": {
+                    "fontSize": {
+                      "type": "number",
+                      "minimum": 44,
+                      "exclusiveMaximum": 64
+                    },
+                    "reason": {
+                      "const": "long-copy-safe-width"
+                    },
+                    "evidence": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "textWidthAt64": {
+                      "type": "number",
+                      "exclusiveMinimum": 1632
+                    }
+                  }
                 }
               }
             },
-            "fitOverride": {
+            {
               "type": "object",
               "additionalProperties": false,
               "required": [
-                "fontSize",
-                "reason",
-                "textWidthAt64",
-                "evidence"
+                "key",
+                "contractId",
+                "sourceFingerprint",
+                "roleNodeIds"
               ],
               "properties": {
-                "fontSize": {
-                  "type": "number",
-                  "minimum": 44,
-                  "exclusiveMaximum": 64
+                "key": {
+                  "const": "quick-stat.team-callout"
                 },
-                "reason": {
-                  "const": "long-copy-safe-width"
+                "contractId": {
+                  "const": "quick-stat.team-callout.v1"
                 },
-                "evidence": {
+                "sourceFingerprint": {
                   "type": "string",
-                  "minLength": 1
+                  "pattern": "^[a-f0-9]{64}$"
                 },
-                "textWidthAt64": {
-                  "type": "number",
-                  "exclusiveMinimum": 1632
+                "roleNodeIds": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "wrapper",
+                    "panel",
+                    "logoBlock",
+                    "header",
+                    "body",
+                    "subject",
+                    "text",
+                    "accent"
+                  ],
+                  "properties": {
+                    "wrapper": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "panel": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "logoBlock": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "header": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "body": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "subject": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "accent": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
                 }
               }
             }
-          }
+          ]
         },
         "fileKey": {
           "type": "string",
@@ -636,6 +710,34 @@
                     "type": "string",
                     "pattern": "^Asset/Team Logo/Normalized/"
                   }
+                }
+              }
+            },
+            "contentNodeIds": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "teamText",
+                "logo",
+                "currentTeamPanel",
+                "rowHighlight"
+              ],
+              "properties": {
+                "teamText": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "logo": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "currentTeamPanel": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "rowHighlight": {
+                  "type": "string",
+                  "minLength": 1
                 }
               }
             }
@@ -1342,6 +1444,45 @@
         "approvedEvidenceSha256": {
           "type": "string",
           "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "engineChoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine",
+        "reviewer",
+        "answer",
+        "selectionSha256"
+      ],
+      "properties": {
+        "engine": {
+          "enum": [
+            "figma",
+            "unreal"
+          ]
+        },
+        "reviewer": {
+          "const": "Jerami"
+        },
+        "answer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selectionSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "scope": {
+          "const": "episode"
+        },
+        "episodeId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "previousEngine": {
+          "const": "unreal"
         }
       }
     }

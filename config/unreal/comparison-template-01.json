@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "templateNumber": 1,
+  "templateKey": "comparison.unreal.two-up",
+  "name": "Comparison",
+  "lane": 4,
+  "status": "visual-approved",
+  "approval": {
+    "approvedBy": "Jerami",
+    "approvedAt": "2026-10-18T23:57:17-04:00",
+    "sessionId": "01a14b9a-c69c-7873-b94a-012e11728769",
+    "runId": "01a1524b-f507-7d80-b684-d0b6779d0891",
+    "statement": "I\u2019m good to lock this in as our first template",
+    "scope": "Visual composition, player framing, and restrained native motion baseline"
+  },
+  "sourceFigma": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=593-107",
+  "nativeMaster": {
+    "project": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+    "map": "/Game/Lineups/ReviewV1/LV_ComparisonReview",
+    "sequence": "/Game/Lineups/ReviewV1/LS_FullBodySmoothReview",
+    "assets": [
+      {
+        "assetPath": "/Game/Lineups/ReviewV1/LV_ComparisonReview",
+        "projectRelativeFile": "Content/Lineups/ReviewV1/LV_ComparisonReview.umap",
+        "sha256": "d7d0722d58959d494900acea736a9e15a6f5b3592f69a96f5e81eeb1d14af4ca"
+      },
+      {
+        "assetPath": "/Game/Lineups/ReviewV1/LS_FullBodySmoothReview",
+        "projectRelativeFile": "Content/Lineups/ReviewV1/LS_FullBodySmoothReview.uasset",
+        "sha256": "16fd0206320590be278ddff4908e2b4bf76f24d256055cec9439435fc3b1e7db"
+      }
+    ],
+    "frozenAuthoredBackup": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261018-235205-fullbody-smooth-final",
+    "frozenBackupManifestSha256": "9a071332a9e2285a011e33be8f5b3f2bf2a27d7ea92fcb3fc7a586e630532397",
+    "reuseRule": "Create a separate working copy; preserve the approved baseline and its hashes"
+  },
+  "rules": {
+    "contract": "config/unreal/comparison-motion-contract.json",
+    "approvedContractSha256": "1beb04248429058ba7ecfbf44f8c780adb15ec0eb7c8fef7a23403f73ba53d3b",
+    "maskOnlyForegroundExtraction": true,
+    "fullerPlayerFraming": true,
+    "approvedHelmetTopPixels": 240,
+    "maximumUpwardHelmetShiftPixels": 10,
+    "playerAndNameplateEntrancesCoupled": true,
+    "smoothRestrainedMotion": true,
+    "conceptualCardPolicy": "Hide the stat card when the speaker is not breaking down numbers",
+    "statisticsCardPolicy": "1\u20135 sourced rows; minimum 36 px type; 3 px border; at least 20 px nameplate clearance"
+  },
+  "approvedReview": {
+    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-full-body-smooth-v1/Mahomes-Allen-Full-Body-Smooth-Review.mp4",
+    "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Allen-Full-Body-Smooth-Review.mp4",
+    "sha256": "192d82d3bde70c6b2710bf7d605488e0b418b18833f5fa5f65d3034761b47139",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "frameRate": 60,
+    "frameCount": 480,
+    "seconds": 8,
+    "visualDemoOnly": true,
+    "demoGeneratedCutoutsApproved": true,
+    "productionGeneratedCutoutsApproved": false,
+    "renderedContractSha256": "37e87f9a16f5ae5bff1316d58cc9b3c981b83316492475db550738fb4e1aaf0d",
+    "nativeVerification": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/fullbody-smooth-verification.json",
+    "nativeVerificationSha256": "3f17f6f9a3118ac297982ab3b65fbfde44def2a49dda526221bb40e2bf141919"
+  },
+  "productionGates": {
+    "episodeDialogueAndSameRevisionManimCuesRequired": true,
+    "templateDoesNotSetFixedEditorialHold": true,
+    "currentExampleHasReviewedExitCue": false,
+    "automationCodeReview": "pending",
+    "productionRendererChangeApproved": false,
+    "premiereHandoffApproved": false,
+    "nextTemplateStartsAutomatically": false
+  }
+}

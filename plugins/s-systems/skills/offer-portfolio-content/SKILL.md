@@ -5,6 +5,9 @@ description: Turn a documented portfolio work asset or operator lesson into a co
 
 # Offer Portfolio Content
 
+Read `business/offer-and-audience.md` in the Singleton Systems repository
+before choosing the offer angle. Keep business facts in that file.
+
 Use only with documented portfolio work. Read `references/portfolio-content-playbook.md` for the
 working shape and Final Human Pass.
 

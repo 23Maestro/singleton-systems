@@ -302,13 +302,29 @@ Do not apply this global push to Asset Swap, Comparison, or other motion comps.
 
 ## motion engine
 
-Every animated Lineups beat uses the same fixed contract. Figma Motion is the
-sole visual motion engine. Manim validates the Whisper word anchors, cue math,
+Read `config/lineups/engine-routing.json` after transcript candidate selection.
+Player 2-ups ask Jerami to choose Figma or Unreal. Period comparisons reuse
+their registered Figma source. Fixed options keep their recorded route; a
+different episode route needs a fresh, source-bound answer from Jerami.
+
+The Figma production path uses Figma Motion as its sole visual motion engine.
+An Unreal review master does not bypass its open production gates. Manim validates the Whisper word anchors, cue math,
 frame rate, and composition timing; it never renders the scene. The required
 order is Whisper word-level transcript -> Manim timing validation and cue proof
 -> Pre-Figma review page -> human candidate decisions -> Figma Motion. The cue
 list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The hook
 checks the math and motion proof before Figma mutation or export.
+
+Team callout uses `config/lineups/team-callout-contract.json`, including its
+current source fingerprint and all 8 protected node roles. It does not use
+the Single-frame statement callout contract. Fetch the exact bound nodes and
+check their measured properties. Keep the normal episode approval receipts.
+
+For Rank Reveal with the current-team panel and row highlight, bind all 4
+`figma.rankReveal.contentNodeIds` roles: `teamText`, `logo`, `currentTeamPanel`,
+and `rowHighlight`. Their opacity tracks use the same team-content cue.
+The earlier 2-node layout remains readable for prior records. New nodes cannot
+be added as unnamed tracks or used to replay the whole board.
 
 Every composition is at least 10 seconds long and extends at least two seconds
 beyond its last content cue. This padding is intentional so Premiere can trim a

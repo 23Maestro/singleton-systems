@@ -426,6 +426,29 @@ try {
     assert.equal(validateManifestSchema(laterReveal), true, JSON.stringify(validateManifestSchema.errors));
     expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput), "valid later Rank Reveal");
 
+    const expanded = rankRevealManifest(9);
+    expanded.figma.rankReveal.contentNodeIds = {
+      teamText: 'rank-9-team-text', logo: 'rank-9-logo',
+      currentTeamPanel: 'rank-9-panel', rowHighlight: 'rank-9-highlight',
+    };
+    for (const nodeId of ['rank-9-panel', 'rank-9-highlight']) {
+      expanded.figma.motionTracks.push({...structuredClone(expanded.figma.motionTracks[0]), nodeId});
+    }
+    writeManifest(testCase, expanded);
+    refreshReceiptChain(testCase);
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput), "Rank Reveal with bound current-team panel and row highlight");
+    for (const mutate of [
+      m => { m.figma.rankReveal.contentNodeIds.rowHighlight = 'another-node'; },
+      m => { m.figma.rankReveal.contentNodeIds.rowHighlight = m.figma.rankReveal.contentNodeIds.logo; },
+      m => { m.figma.motionTracks.pop(); },
+    ]) {
+      const invalid = structuredClone(expanded);
+      mutate(invalid);
+      writeManifest(testCase, invalid);
+      refreshReceiptChain(testCase);
+      expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput), /Rank Reveal.*(?:bound|binding|distinct)/, "Rank Reveal rejects unbound or duplicate panel tracks");
+    }
+
     const replayedCascade = rankRevealManifest(9);
     const initialReveal = rankRevealManifest(10);
     replayedCascade.motion.cues.unshift(initialReveal.motion.cues[0]);
@@ -442,8 +465,15 @@ try {
   for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Super Bowl Bubble Board"]]) {
     withCase((testCase) => {
       const m = readManifest(testCase);
-      m.scene.lane = lane; m.scene.approvedOption = option; if (lane === "comparison") m.scene.comparisonKind = "players";
+      m.scene.lane = lane; m.scene.approvedOption = option; if (lane === "comparison") { m.scene.comparisonKind = "players"; m.scene.subjectCount = 2; }
       writeManifest(testCase, m);
+      if (lane === 'comparison') {
+        const answer = spawnSync(python, [path.join(sourceRoot, 'scripts/lineups-templates.py'),
+          'engine-choice', testCase.manifestPath, '--root', testCase.root,
+          '--engine', 'figma', '--answer', 'Fixture-only Figma choice'], {encoding:'utf8'});
+        assert.equal(answer.status, 0, answer.stderr);
+        m.engineChoice = readManifest(testCase).engineChoice;
+      }
       expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /figma.background/, `${option} missing background`);
       m.figma.background = {setting: "Field Night / No football", nodeId: "background-node", imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70", locked: true, separateFromArtwork: true};
       writeManifest(testCase, m);

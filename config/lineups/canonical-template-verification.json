@@ -258,6 +258,20 @@
       "height": 1080,
       "name": "Recurring Board / Super Bowl Bubble",
       "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "1843:1021",
+      "type": "COMPONENT",
+      "parentId": "1870:1105",
+      "width": 1920,
+      "height": 1080,
+      "name": "Team=Kansas City Chiefs",
+      "variantProperties": {
+        "Team": "Kansas City Chiefs"
+      },
+      "observedAt": "2026-10-21T22:38:47.530Z"
     }
   ],
   "callout": {

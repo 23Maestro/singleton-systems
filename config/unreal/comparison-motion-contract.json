@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "lineups-comparison-motion-v1",
+  "status": "approved",
+  "approvedBy": "Jerami",
+  "approvedOn": "2026-10-18",
+  "approvalSession": "01a14b9a-c69c-7873-b94a-012e11728769",
+  "scope": "First Mahomes\u2013Allen Lane 4 Unreal comparison and the reviewed mold for later copies",
+  "treatments": {
+    "lighting": "Team-colored edge lights against dark, textured surfaces",
+    "logos": "Solid depth, beveled edges and restrained reflections",
+    "camera": "One small push through the shallow set",
+    "entrance": "Background settles, players enter, then the card",
+    "hold": "Card stays readable; Mark and Manim cues determine the exit"
+  },
+  "timing": {
+    "authority": [
+      "Mark dialogue",
+      "Manim cues from the same dialogue revision"
+    ],
+    "fixedEditorialHoldSeconds": null,
+    "exitRequiresReviewedCue": true,
+    "missingCueBehavior": "Allow a clearly labeled visual demo; block timing approval and production handoff",
+    "exportHandlesAreSeparate": true
+  },
+  "layout": {
+    "resolution": [
+      1920,
+      1080
+    ],
+    "sharedConceptualAndStatisticsFamily": true,
+    "conceptualCardVisible": false,
+    "statisticsRows": {
+      "minimum": 1,
+      "maximum": 5,
+      "sourceRequired": true
+    },
+    "cardMinimumFontSize": 36,
+    "tableBorderPixels": 3,
+    "nameplateClearancePixels": 20,
+    "logosShareHorizontalPlane": true,
+    "preserveApprovedPlayerNameplates": true,
+    "playerFraming": {
+      "preserveAvailableFullBody": true,
+      "preserveLegsAndFeetInSource": true,
+      "avoidFloatingWaistCropDuringEntrance": true,
+      "headPlacementReference": "Previous approved Unreal review v6 helmet tops",
+      "maximumUpwardHelmetShiftPixels": 10,
+      "scaleAndPositionDoNotReplaceMissingBodySource": true,
+      "nameplatesEnterWithPlayers": true,
+      "approvedHelmetTopPixels": 240
+    }
+  },
+  "sources": {
+    "editableBase": "sports-broadcast-motion-design",
+    "baseScene": "/Game/_Scenes/FS_PlayerVSPlayer",
+    "lightingAndMotionReference": "https://redefinefx.com/realtime/",
+    "legacyHypeChamberRequired": false
+  },
+  "review": {
+    "showExactSourceAndReference": true,
+    "nativeStillAndPlayableMotionRequired": true,
+    "humanApprovalRequiredBeforeNextTemplate": true,
+    "productionRendererChangeApproved": false,
+    "premiereHandoffApproved": false,
+    "speakerTriggeredEmphasisApproved": false,
+    "templateVisualApproval": {
+      "approvedBy": "Jerami",
+      "approvedAt": "2026-10-18T23:57:17-04:00",
+      "sessionId": "01a14b9a-c69c-7873-b94a-012e11728769",
+      "runId": "01a1524b-f507-7d80-b684-d0b6779d0891",
+      "statement": "I\u2019m good to lock this in as our first template",
+      "scope": "Visual composition, player framing, and restrained native motion baseline",
+      "templateNumber": 1,
+      "manifest": "config/unreal/comparison-template-01.json"
+    }
+  },
+  "enforcement": "Approved build and review contract. Automated motion checks are not implemented.",
+  "revisions": [
+    {
+      "approvedBy": "Jerami",
+      "approvedOn": "2026-10-18",
+      "runId": "01a1523b-6180-7a01-8b79-05c249ca4a19",
+      "scope": "Mask-only extraction, fuller player framing, restrained smoothness, and helmet-height constraint. AI cutouts are accepted only for this demo."
+    }
+  ],
+  "imagery": {
+    "backgroundRemoval": "mask-only",
+    "preserveOriginalForegroundPixels": true,
+    "noForegroundRegeneration": true,
+    "noFaceUniformPoseColorOrEquipmentEdits": true,
+    "preserveSourcePhoto": true,
+    "requireAlphaReadbackAndSourceComparison": true,
+    "demoException": {
+      "approvedBy": "Jerami",
+      "approvalRunId": "01a1523b-6180-7a01-8b79-05c249ca4a19",
+      "scope": "The two generated full-body cutouts from the supplied Mahomes and Allen photos may be used for this visual demo only",
+      "productionUseApproved": false
+    }
+  },
+  "motionQuality": {
+    "direction": "Smooth and restrained, not flashy",
+    "cameraPushCount": 1,
+    "smallTravel": true,
+    "continuousEasing": true,
+    "opacityRampsInsteadOfVisibilityPops": true,
+    "noBounceOrOvershoot": true,
+    "noFlashesOrWhipTransitions": true,
+    "staticReadableHold": true,
+    "demoReviewFrameRate": 60,
+    "editorialTimingAuthorityUnchanged": true
+  }
+}

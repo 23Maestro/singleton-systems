@@ -5,6 +5,21 @@ Each video is one episode project. The subject, team, league, or ranking is
 episode data. It cannot create a new workflow, review-page design, lane, or
 Figma source family.
 
+## recover prior production first
+
+Before planning reuse or declaring a gap, read the latest matching production
+handoff and episode closeout. Follow its source IDs into the template registry
+and saved readback. Compare the working source with the current rule.
+
+Week 7 used 23 Figma and 4 Unreal exports. Its period comparison used Figma
+source `598:215`. A same-team rank change can reuse that source. The player
+2-up engine question does not apply to period comparisons. Team callout and
+Rank Reveal reuse must retain their recorded source bindings and current look.
+
+When a rule conflicts, name the exact rule and source. A prior export does not
+replace a fresh episode's timing proof or human review. Preserve the engine
+owner for the selected option; do not invent approval for a new template.
+
 ## project record
 
 Create or update one Asana task when the episode files are ingested. Keep it in

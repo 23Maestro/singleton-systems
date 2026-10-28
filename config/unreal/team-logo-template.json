@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "id": "lineups-team-logo-cards-v1",
+  "reviewStatus": "pending-unreal-review",
+  "productionReady": false,
+  "sourcePackageScene": "/Game/_Scenes/FS_TeamVSTeam",
+  "engine": "unreal",
+  "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+  "output": {
+    "width": 1920,
+    "height": 1080
+  },
+  "variants": {
+    "comparison.team-matchup.2": {
+      "mapPath": "/Game/Lineups/TeamCardsV1/LV_BrownsRavens",
+      "sequencePath": "/Game/Lineups/TeamCardsV1/LS_BrownsRavens",
+      "status": "unapproved-prototype-not-master"
+    },
+    "comparison.logo-stat-cards.2": {
+      "mapPath": "/Game/Lineups/RamsSeahawksMotionV1/LV_RamsSeahawks",
+      "sequencePath": "/Game/Lineups/RamsSeahawksMotionV1/LS_RamsSeahawks",
+      "status": "visual-approved-timing-pending"
+    }
+  },
+  "appearance": {
+    "grass": "dry matte realistic turf; no wet or glossy reflections",
+    "lighting": "team accents in stands and roofline; restrained neutral field light",
+    "logos": "canonical supplied logo artwork, solid depth and beveled edges, restrained reflections; same horizontal plane",
+    "panels": "One shared Rams/Seahawks card style: angled team-color stripes, large team logo, thin shiny metallic border and dark team-name footer.",
+    "teamReplacement": "Replace team colors, supplied team logo and team name. Optional record or rank uses the same layout family.",
+    "variantPolicy": "Every pairing uses this one card style, including Browns/Ravens and Chiefs/Chargers. Do not reproduce the separate Browns/Ravens texture or invent a new card treatment.",
+    "fieldContact": "Soft card-bound contact shadow planes lie at turf height and move with each card. They are a composited contact-shadow treatment, not a shadow-catcher simulation."
+  },
+  "timing": {
+    "entrance": "Mark dialogue and same-revision Manim cues",
+    "hold": "static after entrance",
+    "animationOut": false,
+    "transitionOwner": "Premiere"
+  },
+  "references": {
+    "A01": {
+      "teams": [
+        "Browns",
+        "Ravens"
+      ],
+      "headline": "BROWNS WON HEAD-TO-HEAD",
+      "values": [
+        "#9",
+        "#10"
+      ],
+      "backgroundPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/team-logo-cards/browns-ravens-stadium-dry-v2.png"
+    },
+    "S03": {
+      "teams": [
+        "Rams",
+        "Seahawks"
+      ],
+      "values": [
+        "2\u20134",
+        "3\u20133"
+      ],
+      "backgroundPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/team-logo-cards/rams-seahawks-stadium-dry-v2.png"
+    }
+  },
+  "remainingReview": [
+    "episode-specific Mark/Manim cues",
+    "production handoff"
+  ],
+  "visualReference": {
+    "status": "locked",
+    "approvedBy": "Jerami",
+    "approvedAt": "2026-10-21",
+    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/team-cards-rams-seahawks-locked-reference.jpg",
+    "sha256": "fca0999199f531aa073988302006994e503d02a78ea7c2b415e6541fab21f261",
+    "sourceAttachment": "/tmp/codex-remote-attachments/01a14b9a-c69c-7873-b94a-012e11728769/4F407F59-0E3A-4143-A055-6D6C136D6724/1-Photo-1.jpg",
+    "statement": "The LA Rams and Seattle Seahawks cards are the ones that we lock in as our template."
+  },
+  "workflow": {
+    "assetGeneration": "Three.js creates one reusable Rams/Seahawks-style card shell as standard PBR GLB geometry. Team colors are material inputs.",
+    "unreal": "Import the GLB; add canonical logo depth, lighting, camera and smooth entrance. Hold static with no animation out.",
+    "scope": "Rams-Seahawks paired-logo motion review on the shared shell. No additional team pairings or component rebuilds.",
+    "nextStep": "Bind actual episode Mark dialogue and same-revision Manim entrance cues to the visually approved Rams-Seahawks baseline, then verify production handoff."
+  },
+  "nativeImplementationStatus": "Rams-Seahawks v4 visual design and motion approved by Jerami. Episode timing, production handoff and current-scope code review remain pending.",
+  "shellAsset": {
+    "status": "engineering-proof-awaiting-review",
+    "generator": "tools/lineups_three/card-shell.mjs",
+    "source": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/team-card-shell-three-v1/TeamCardShell.glb",
+    "sha256": "dfd0170236e9dac2f7aa9a28d13eda4c5f7490d8e7149c618f2a1fde19d9a60e",
+    "nativeMesh": "/Game/Lineups/TeamCardShellV1/Imported/TeamCardShell/StaticMeshes/TeamCardShell.TeamCardShell",
+    "proofMap": "/Game/Lineups/TeamCardShellV1/LV_CardShellProof",
+    "proofSequence": "/Game/Lineups/TeamCardShellV1/LS_CardShellProof",
+    "proofOnly": true,
+    "nativeStill": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/team-card-shell-three-v4/CardShellProof.0000.png"
+  },
+  "motionPreview": {
+    "mapPath": "/Game/Lineups/RamsSeahawksMotionV1/LV_RamsSeahawks",
+    "sequencePath": "/Game/Lineups/RamsSeahawksMotionV1/LS_RamsSeahawks",
+    "fps": 30,
+    "frameCount": 180,
+    "holdFromFrame": 60,
+    "animationOut": false,
+    "editorialTimingApproved": false,
+    "visualApproval": true,
+    "sourceCandidate": "S03",
+    "values": [
+      "2\u20134",
+      "3\u20133"
+    ],
+    "valuePolicy": "Retained from the selected episode candidate; not a current standings claim.",
+    "outputPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/rams-seahawks-motion-v4/Rams-Seahawks-preview.mp4",
+    "vsTreatment": "Stationary material-driven fade from frame 60 to 75 after cards and camera settle.",
+    "fullHoldFromFrame": 75,
+    "logoGeometryVersion": 2,
+    "rebuildScripts": [
+      "tools/lineups_unreal/build_rams_seahawks_motion.py",
+      "tools/lineups_unreal/polish_rams_seahawks_motion.py"
+    ],
+    "renderSamples": 16,
+    "temporalAntialiasing": false,
+    "approval": {
+      "approvedBy": "Jerami",
+      "approvedAt": "2026-10-21",
+      "statement": "this is great.",
+      "scope": "Rams-Seahawks v4 visual design and motion baseline; episode timing and production handoff remain pending.",
+      "outputPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/rams-seahawks-motion-v4/Rams-Seahawks-preview.mp4",
+      "sha256": "61f85c4256b943e26f65215ae7ee48cfc5f7500d1dc4770cf51d79e907fd8a3d",
+      "authoredBackupPath": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-rams-seahawks-polish-v2",
+      "sessionId": "01a14b9a-c69c-7873-b94a-012e11728769"
+    }
+  }
+}

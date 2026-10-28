@@ -1,6 +1,6 @@
 # Docs pruning proposal
 
-This proposal sorts docs/ against the October 6 direction: short-form video editing first for Tampa service businesses, AI workflow consulting as the upsell after paid delivery. It covers offer, planning, reviews, handoffs, archive, every date-prefixed file, the root docs, and the undated docs that carry offer positioning.
+Current offer and audience rules live in `business/offer-and-audience.md`. Video editing leads now. Roughly 70% AI consulting remains the long-term goal. Local outreach comes first. This is a candidate list, not permission to remove files; verify callers and task state for each remaining item.
 
 Classes: current, superseded, misaligned, dead. "Pinned" means `scripts/check-cerebral-drift.mjs` (or another check script, where named) reads the file; keep it or update the check in the same change.
 
@@ -24,16 +24,10 @@ Classes: current, superseded, misaligned, dead. "Pinned" means `scripts/check-ce
 
 | path | class | reason | proposed action |
 | --- | --- | --- | --- |
-| 2026-07-28_Ginain Clean up.md | current | Source transcript for the Ginain cohort talk, the top warm lead. | keep (rename without spaces) |
-| 2026-07-28_Homepage Fix List.md | superseded | Line fixes target copy that is gone; live copy is in app/site.ts. | archive to docs/archive after its "say video in the hero" point moves into confirmed-copy.md |
-| 2026-09-11-paid-content-plan.md | misaligned | Positions Jerami as an AI consultant at a 70/30 AI-to-video split; Oct 1 target passed. | archive to docs/archive |
-| 2026-09-17-creator-review-pilot.md, research/2026-09-17-profile-sample.json | misaligned | AI-creator references picked for the AI-consultant brand. | archive to docs/archive |
-| 2026-09-22-purple-cow-handoff.md | misaligned | Through-line is general problem solving with no video lead; proof order is still useful. | merge proof order into confirmed-copy.md, then archive |
+| 2026-07-28_Ginain Clean up.md | current | Source transcript; current lead state belongs in Asana. | keep (rename without spaces) |
+| 2026-09-17-creator-review-pilot.md, research/2026-09-17-profile-sample.json | misaligned | Source research; the consulting goal still applies. | check the owning task |
 | 2026-10-03-diy-smartcode-sonnet-handoff.md | current | Live paid-style editing test with Oct 4 asset status. | keep |
-| confirmed-copy.md | misaligned | "Workflow cleanup" for five audiences, no video lead; proposal contract still reads it. | keep and rewrite video-first for Tampa service businesses |
-| freelance-proposal-contract.md | current | Proposal shape still holds; depends on confirmed-copy.md. | keep |
-| portfolio-content-playbook.md | superseded | Older copy of the playbook in plugins/s-systems/skills/offer-portfolio-content/references. | delete |
-| upwork-pending-projects-2026-07-17.md, upwork-reference-screenshots/2026-07-17/ (5 PNG) | dead | July Upwork catalog at $28/hr; the lane is now local Tampa clients. | archive to docs/archive |
+| upwork-pending-projects-2026-07-17.md, upwork-reference-screenshots/2026-07-17/ (5 PNG) | dead | July source snapshot; its prices and task status need current owner readback. | check first |
 | upwork-project-assets/2026-09-10/ (3 PNG) | dead | No doc or skill links these grids. | archive to docs/archive |
 
 ## docs/planning
@@ -111,7 +105,7 @@ Classes: current, superseded, misaligned, dead. "Pinned" means `scripts/check-ce
 
 | path | class | reason | proposed action |
 | --- | --- | --- | --- |
-| operating-system/phase-one-operating-system.md | misaligned | North star is workflow cleanup; links confirmed-copy.md. | archive to docs/archive |
+| operating-system/phase-one-operating-system.md | check first | Links current business facts; task and policy callers need review. | check callers before any cleanup |
 | operating-system/singleton-systems-sprint.md | misaligned | June lanes; promise is workflow cleanup for small teams. | archive to docs/archive |
 | outreach/pending-outreach-loom-pattern.md | misaligned | Outreach scripts pitch AI and workflow cleanup. | archive to docs/archive |
 | outreach/video-editing-tutor-loom-talk-track.md | dead | Premiere tutoring pitch outside the current lane. | archive to docs/archive |

@@ -54,6 +54,19 @@ function sceneCase() {
   return {...c, manifest, run, approve: () => prepareSceneEvidence(c.dir, manifest)};
 }
 
+function approveCinematicFixture(c) {
+  c.manifest.scene.subjectCount = 2;
+  c.manifest.scene.comparisonKind = 'players';
+  assert.equal(c.approve().status, 0);
+  const manifestPath = path.join(c.dir, 'scene.json');
+  fs.writeFileSync(manifestPath, JSON.stringify(c.manifest));
+  const choice = spawnSync(python, ['scripts/lineups-templates.py', 'engine-choice', manifestPath,
+    '--root', c.dir, '--engine', 'figma', '--answer', 'Fixture-only Figma choice'], {cwd: root, encoding: 'utf8'});
+  assert.equal(choice.status, 0, choice.stderr);
+  c.manifest.engineChoice = JSON.parse(fs.readFileSync(manifestPath)).engineChoice;
+  return c.approve();
+}
+
 test('Pre-Figma progression rejects an episode without discovery even with timing proof', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'lineups-discovery-'));
   try {
@@ -155,7 +168,7 @@ test('Cinematic 2-up preflight requires full photos visible together at frame ze
   try {
     c.manifest.scene.lane = 'comparison';
     c.manifest.scene.approvedOption = 'Cinematic 2-up';
-    assert.equal(c.approve().status, 0);
+    assert.equal(approveCinematicFixture(c).status, 0);
     const result = c.run('PreToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: c.manifest.figma.fileKey});
     assert.match(result.hookSpecificOutput?.permissionDecisionReason || '', /Cinematic.*full photos/i);
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
@@ -225,7 +238,7 @@ test('Cinematic layout passes MCP fixture readback; cutouts, delayed or hidden p
     c.manifest.scene.lane = 'comparison';
     c.manifest.scene.approvedOption = 'Cinematic 2-up';
     c.manifest.figma.cinematic2Up = {titlePosition: 'top-left', photos: [0, 1].map(i => ({nodeId: `photo-${i}`, sourceId: `source-${i}`, imageHash: String(i).repeat(40), assetTreatment: 'full-photo', originalBackground: true, visibleFrom: 0, openingBounds: {x: i * 960, y: 0, width: 960, height: 1080}}))};
-    assert.equal(c.approve().status, 0);
+    assert.equal(approveCinematicFixture(c).status, 0);
     const p = c.manifest.premiere;
     const response = {success: true, data: {id: p.sequenceId, videoTracks: [{index: p.trackIndex, clips: [{nodeId: p.timelineClipId, start: p.approvedStartTime, end: p.approvedEndTime}]}]}};
     const read = () => c.run('PostToolUse', 'mcp__premiere_pro__get_full_sequence_info', {sequenceId: p.sequenceId}, response);
@@ -448,7 +461,7 @@ test('Cinematic cannot reuse the same image hash under two source IDs', () => {
   try {
     c.manifest.scene.lane = 'comparison'; c.manifest.scene.approvedOption = 'Cinematic 2-up';
     c.manifest.figma.cinematic2Up = {titlePosition: 'top-left', photos: [0, 1].map(i => ({nodeId: `photo-${i}`, sourceId: `source-${i}`, imageHash: 'same-photo', assetTreatment: 'full-photo', originalBackground: true, visibleFrom: 0, openingBounds: {x: i * 960, y: 0, width: 960, height: 1080}}))};
-    assert.equal(c.approve().status, 0);
+    assert.equal(approveCinematicFixture(c).status, 0);
     const result = c.run('PreToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: c.manifest.figma.fileKey});
     assert.match(JSON.stringify(result), /distinct source photos.*hash/);
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}

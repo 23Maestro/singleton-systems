@@ -60,7 +60,7 @@ Purpose:
 
 Current source files:
 
-- `docs/offer/confirmed-copy.md`
+- `business/offer-and-audience.md`
 - `app/page.tsx`
 
 Use these skills when useful:

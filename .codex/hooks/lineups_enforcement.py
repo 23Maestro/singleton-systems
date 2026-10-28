@@ -86,9 +86,9 @@ PREMIERE_READBACK = {
 
 APPROVED_OPTIONS = {
     "quick action photo": {"quick action photo"},
-    "quick stat": {"Single-frame statement", "Two-photo progression"},
+    "quick stat": {"Single-frame statement", "Two-photo progression", "Team callout"},
     "stat breakdown": {"stat breakdown"},
-    "comparison": {"Cinematic 2-up", "Simple comparison", "Full comparison: 2", "Full comparison: 3", "Full comparison: 4"},
+    "comparison": {"Cinematic 2-up", "Simple comparison", "Full comparison: 2", "Full comparison: 3", "Full comparison: 4", "Team matchup", "Logo stat cards"},
     "year-by-year": {"Trend table", "Simple board"},
     "asset swap": {"asset swap"},
     "recurring board": {"Rank Reveal", "Super Bowl Bubble Board"},
@@ -219,7 +219,16 @@ def validate_rank_reveal(manifest, cues, motion_tracks, frame_duration):
         track for track in motion_tracks
         if track.get("cueId") == team_cue.get("cueId") and track.get("property") == "opacity"
     ]
-    if len(team_tracks) != 2:
+    content_nodes = contract.get('contentNodeIds')
+    if content_nodes is not None:
+        roles = {'teamText', 'logo', 'currentTeamPanel', 'rowHighlight'}
+        if (not isinstance(content_nodes, dict) or set(content_nodes) != roles
+                or any(not isinstance(node, str) or not node.strip() for node in content_nodes.values())
+                or len(set(content_nodes.values())) != 4):
+            raise EnforcementError('Rank Reveal requires 4 distinct content node bindings')
+        if len(team_tracks) != 4 or {track.get('nodeId') for track in team_tracks} != set(content_nodes.values()):
+            raise EnforcementError('Rank Reveal team cue must animate each bound text, logo, current-team panel and row highlight once')
+    elif len(team_tracks) != 2:
         raise EnforcementError("Rank Reveal team cue needs Figma Motion opacity tracks for both team text and normalized logo")
 
 
@@ -1008,6 +1017,15 @@ def review_export_roster(root, manifest):
             bound = [row for row in bindings.get("scenes", []) if row.get("rootNodeId") == item["nodeId"] and row.get("sceneId") == item["id"]]
             if len(matches) != 1 or len(bound) != 1:
                 raise EnforcementError("review export is missing an exact Quick Stat source comparison")
+            if item.get('option') == 'Team callout' or bound[0].get('key') == 'quick-stat.team-callout':
+                validate_manifest_readback({
+                    'scene': {'lane': 'quick stat', 'approvedOption': 'Team callout'},
+                    'figma': {'fileKey': roster['fileKey'], 'rootNodeId': item['nodeId'],
+                              'sourceComponentId': bound[0].get('sourceComponentId'),
+                              'templateBinding': {key: bound[0].get(key) for key in
+                                                  ('key', 'contractId', 'sourceFingerprint', 'roleNodeIds')}}
+                }, matches[0])
+                continue
             if bound[0].get("roleNodeIds") != {role: (matches[0].get(role) or {}).get("id") for role in ("wrapper", "panel", "text")}:
                 raise EnforcementError("review callout nodes drifted from their registered episode bindings")
             validate_callout(matches[0], fit_override=matches[0].get("fitOverride"))
@@ -1034,7 +1052,7 @@ def review_export_preflight(roster, tool_input, manifest):
 
 
 def preflight(root, manifest, directory, tool_name, tool_input):
-    validate_scene_discovery(root, manifest)
+    validate_scene_discovery(root, manifest, require_engine_choice=True)
     require_export = tool_name not in {"mcp__codex_apps__figma_use_figma", FIGMA_EXPORT}
     validate_manifest(manifest, require_export=require_export)
     validate_alpha_assets(root, manifest)

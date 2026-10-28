@@ -44,6 +44,11 @@ Content Editor tasks through that gateway.
 
 ## Route
 
+For business, audience, offer, or outreach work, read the current repository's
+`business/brand-foundation.md`, `business/offer-and-audience.md`, and
+`business/voice-rules.md`. Those files own business facts. Keep plans and
+progress in the named task owner; do not create dated repo plans.
+
 1. Name one owner.
 2. Select the smallest skill or tool stack.
 3. State the review gate before mutation.

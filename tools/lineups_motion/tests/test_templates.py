@@ -37,6 +37,43 @@ def bound_manifest():
 
 
 class TemplateTests(unittest.TestCase):
+    def test_team_callout_reuses_its_own_contract_and_rejects_stale_or_changed_readback(self):
+        root = Path(__file__).resolve().parents[3]
+        contract = json.loads((root / 'config/lineups/team-callout-contract.json').read_text())
+        # Exercise the same manifest/readback boundary used by production preflight.
+        roles = {role: 'episode-' + role for role in contract['protected']}
+        manifest = {'scene': {'lane': 'quick stat', 'approvedOption': 'Team callout'},
+                    'figma': {'fileKey': load_registry()['fileKey'], 'rootNodeId': 'scene',
+                              'sourceComponentId': '1843:1021', 'templateBinding': {
+                                  'key': 'quick-stat.team-callout', 'contractId': contract['id'],
+                                  'sourceFingerprint': contract['sourceFingerprint'], 'roleNodeIds': roles}}}
+        measured = copy.deepcopy(contract['protected'])
+        for role, node in measured.items():
+            node['id'] = roles[role]
+        measured['wrapper']['parentId'] = 'scene'
+        measured['panel'].update(parentId=roles['wrapper'], x=500, y=0, width=920)
+        measured['logoBlock']['parentId'] = roles['panel']
+        measured['accent']['parentId'] = roles['panel']
+        measured['header'].update(parentId='copy-stack', width=680)
+        measured['body'].update(parentId='copy-stack', width=680)
+        measured['text'].update(parentId=roles['body'], x=48, width=584, height=86)
+        measured['subject'].update(parentId=roles['header'], x=48, width=450, height=58)
+        readback = {'rootNodeId': 'scene', 'rootDimensions': {'width':1920, 'height':1080}, **measured}
+        for variant in contract['teamVariants']:
+            manifest['figma']['sourceComponentId'] = variant['componentId']
+            validate_manifest_binding(manifest)
+            validate_manifest_readback(manifest, readback)
+        for change in [lambda m,r: m['figma'].update(sourceComponentId='unregistered-source'),lambda m,r: m['figma']['templateBinding'].update(sourceFingerprint='a'*64),
+                       lambda m,r: r['body'].update(layoutSizingHorizontal='FIXED'),
+                       lambda m,r: r['text'].update(id='wrong-scene'),
+                       lambda m,r: r['accent'].update(strokeWeight=1),
+                       lambda m,r: r['panel'].update(width=2000),
+                       lambda m,r: r['text'].update(width=True)]:
+            m, r = copy.deepcopy(manifest), copy.deepcopy(readback)
+            change(m,r)
+            with self.assertRaises(TemplateError):
+                validate_manifest_readback(m,r)
+
     def test_public_source_check_rejects_missing_stale_and_changed_guard_evidence(self):
         root = Path(__file__).resolve().parents[3]
         baseline = json.loads((root / 'config/lineups/canonical-template-verification.json').read_text())
@@ -188,10 +225,10 @@ process.stdout.write('source-lock recovery passed');
     def test_registry_has_unique_exact_sources_and_seven_lanes(self):
         rows = load_registry()["templates"]
         self.assertEqual(len(set(row["key"] for row in rows)), len(rows))
-        self.assertEqual(len(set(row["source"]["componentId"] for row in rows)), len(rows))
+        self.assertEqual(len({row["source"].get("componentId") or row["source"]["sequencePath"] for row in rows}), len(rows))
         self.assertEqual(len(set(row["lane"] for row in rows)), 7)
         for row in rows:
-            self.assertEqual(row["source"]["type"], "COMPONENT")
+            self.assertEqual(row["source"]["type"], "UNREAL_SCENE" if row["source"].get("engine") == "unreal" else "COMPONENT")
             self.assertEqual((row["source"]["width"], row["source"]["height"]), (1920, 1080))
 
     def test_display_rename_does_not_break_retrieval(self):

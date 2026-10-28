@@ -58,7 +58,7 @@ def validate_discovery(root, episode_id, transcript_path, discovery_path):
     return ledger
 
 
-def validate_scene_discovery(root, manifest):
+def validate_scene_discovery(root, manifest, require_engine_choice=False):
     scene = manifest['scene']
     ledger = validate_discovery(root, scene['episodeId'], manifest.get('timing', {}).get('transcriptPath'),
                                 manifest.get('discoveryPath'))
@@ -71,6 +71,9 @@ def validate_scene_discovery(root, manifest):
     anchor = manifest['timing']['verifiedAnchorTimestamp']
     if not candidate['start'] <= anchor < candidate['end']:
         raise ValueError('selected scene anchor falls outside its discovered source passage')
+    if require_engine_choice:
+        from .engine_choice import engine_route
+        engine_route(manifest, ledger, require_choice=True, enforce_engine=True)
     return ledger
 
 

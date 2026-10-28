@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "label": "Lane 4 / Comparison / 2-up",
+  "question": "Figma or Unreal?",
+  "engines": [
+    "figma",
+    "unreal"
+  ],
+  "defaultEngine": null,
+  "askAfter": "transcript-candidate-selection",
+  "unrealTemplateManifest": "config/unreal/comparison-template-01.json",
+  "productionUnrealEnabled": false,
+  "lanes": [
+    {
+      "number": 1,
+      "key": "quick action photo",
+      "name": "Quick Action Photo"
+    },
+    {
+      "number": 2,
+      "key": "quick stat",
+      "name": "Quick Stat"
+    },
+    {
+      "number": 3,
+      "key": "stat breakdown",
+      "name": "Stat Breakdown"
+    },
+    {
+      "number": 4,
+      "key": "comparison",
+      "name": "Comparison"
+    },
+    {
+      "number": 5,
+      "key": "year-by-year",
+      "name": "Year-by-Year"
+    },
+    {
+      "number": 6,
+      "key": "asset swap",
+      "name": "Asset Swap"
+    },
+    {
+      "number": 7,
+      "key": "recurring board",
+      "name": "Recurring Board"
+    }
+  ],
+  "fixedRoutes": [
+    {
+      "lane": "quick stat",
+      "option": "Team callout",
+      "engine": "figma",
+      "templateKey": "quick-stat.team-callout",
+      "reviewStatus": "client-review"
+    },
+    {
+      "lane": "comparison",
+      "option": "Team matchup",
+      "subjects": 2,
+      "comparisonKind": "teams",
+      "engine": "unreal",
+      "templateKey": "comparison.team-matchup.2",
+      "templateManifest": "config/unreal/team-logo-template.json",
+      "reviewStatus": "pending-unreal-review"
+    },
+    {
+      "lane": "comparison",
+      "option": "Logo stat cards",
+      "subjects": 2,
+      "comparisonKind": "teams",
+      "engine": "unreal",
+      "templateKey": "comparison.logo-stat-cards.2",
+      "templateManifest": "config/unreal/team-logo-template.json",
+      "reviewStatus": "pending-unreal-review"
+    }
+  ],
+  "fixedRouteAuthority": "Jerami selected Figma for Team callout and Unreal for the two paired-logo options, October 21, 2026. Pending review is not production approval."
+}

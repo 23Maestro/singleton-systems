@@ -625,6 +625,250 @@
       ],
       "guards": [],
       "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+    },
+    {
+      "key": "comparison.logo-stat-cards.2",
+      "lane": "comparison",
+      "option": "Logo stat cards",
+      "settings": {
+        "subjects": 2,
+        "rows": 1
+      },
+      "source": {
+        "engine": "unreal",
+        "type": "UNREAL_SCENE",
+        "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+        "mapPath": "/Game/Lineups/RamsSeahawksMotionV1/LV_RamsSeahawks",
+        "sequencePath": "/Game/Lineups/RamsSeahawksMotionV1/LS_RamsSeahawks",
+        "manifestPath": "config/unreal/team-logo-template.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "visual-approved-timing-pending"
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Jerami approved the exact Rams-Seahawks v4 visual baseline: shared angled-stripe cards, beveled logos, stationary VS fade after landing, field contact shadows and no animation out. Episode-specific timing and production handoff remain pending. Other prototype scenes are not approved masters.",
+      "reviewStatus": "pending-unreal-review",
+      "provenance": {
+        "originalNodeId": "1710:5989",
+        "routeDecisionId": "cardinals_chargers",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Original preserved on Player Cut Outs + Logos; existing live instances retain their source."
+      },
+      "assetPolicy": {
+        "assetTreatment": "logos",
+        "comparisonKinds": [
+          "teams"
+        ]
+      },
+      "legacyFigmaSource": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1812:4542",
+        "name": "Comparison / Logo stat cards / 2",
+        "type": "COMPONENT",
+        "parentId": "1796:1133",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4542",
+        "variantProperties": null
+      },
+      "legacyFigmaEditableFields": [
+        {
+          "nodeId": "1812:4491",
+          "type": "TEXT",
+          "property": "Title#1812:179",
+          "fontSize": 96
+        },
+        {
+          "nodeId": "1812:6210",
+          "type": "INSTANCE_SWAP",
+          "property": "Team 1 logo#1812:188"
+        },
+        {
+          "nodeId": "1812:4506",
+          "type": "TEXT",
+          "property": "Team 1 label and value#1812:180",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1812:6230",
+          "type": "INSTANCE_SWAP",
+          "property": "Team 2 logo#1812:189"
+        },
+        {
+          "nodeId": "1812:4518",
+          "type": "TEXT",
+          "property": "Team 2 label and value#1812:181",
+          "fontSize": 48
+        }
+      ],
+      "editableFields": [
+        "leftTeam",
+        "rightTeam",
+        "leftLogo",
+        "rightLogo",
+        "headline",
+        "leftValue",
+        "rightValue",
+        "entranceCues"
+      ],
+      "visualStyle": "rams-seahawks-angled-stripes",
+      "visualApproval": {
+        "approvedBy": "Jerami",
+        "approvedAt": "2026-10-21",
+        "statement": "this is great.",
+        "scope": "Rams-Seahawks v4 visual design and motion baseline; episode timing and production handoff remain pending.",
+        "outputPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/rams-seahawks-motion-v4/Rams-Seahawks-preview.mp4",
+        "sha256": "61f85c4256b943e26f65215ae7ee48cfc5f7500d1dc4770cf51d79e907fd8a3d",
+        "authoredBackupPath": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-rams-seahawks-polish-v2",
+        "sessionId": "01a14b9a-c69c-7873-b94a-012e11728769"
+      }
+    },
+    {
+      "key": "comparison.team-matchup.2",
+      "lane": "comparison",
+      "option": "Team matchup",
+      "settings": {
+        "subjects": 2,
+        "rows": 0
+      },
+      "source": {
+        "engine": "unreal",
+        "type": "UNREAL_SCENE",
+        "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+        "mapPath": "/Game/Lineups/TeamCardsV1/LV_BrownsRavens",
+        "sequencePath": "/Game/Lineups/TeamCardsV1/LS_BrownsRavens",
+        "manifestPath": "config/unreal/team-logo-template.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "unapproved-prototype-not-master"
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Rams/Seahawks reference locked. Shared Three.js shell imported; native paired-logo motion requires human review. Do not treat unapproved scenes as masters.",
+      "reviewStatus": "pending-unreal-review",
+      "provenance": {
+        "originalNodeId": "1413:664",
+        "routeDecisionId": "matchup",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Existing source retained in place."
+      },
+      "assetPolicy": {
+        "assetTreatment": "logos",
+        "comparisonKinds": [
+          "teams"
+        ]
+      },
+      "legacyFigmaSource": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1413:664",
+        "name": "Matchup / Team matchup",
+        "type": "COMPONENT",
+        "parentId": "1796:1133",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1413-664",
+        "variantProperties": null
+      },
+      "legacyFigmaEditableFields": [
+        {
+          "nodeId": "1413:665",
+          "type": "INSTANCE_SWAP",
+          "property": "Left Logo#1413:0"
+        },
+        {
+          "nodeId": "1413:673",
+          "type": "INSTANCE_SWAP",
+          "property": "Right Logo#1413:1"
+        },
+        {
+          "nodeId": "1413:685",
+          "type": "EXPOSED_INSTANCE",
+          "properties": {
+            "Stats#440:1": {
+              "type": "TEXT",
+              "value": "NFL SACK RECORD"
+            },
+            "Statement#868:0": {
+              "type": "TEXT",
+              "value": "DOMINATED THE PITTSBURGH STEELERS 20\u20133"
+            }
+          }
+        }
+      ],
+      "editableFields": [
+        "leftTeam",
+        "rightTeam",
+        "leftLogo",
+        "rightLogo",
+        "headline",
+        "leftValue",
+        "rightValue",
+        "entranceCues"
+      ],
+      "visualStyle": "rams-seahawks-angled-stripes"
+    },
+    {
+      "key": "quick-stat.team-callout",
+      "lane": "quick stat",
+      "option": "Team callout",
+      "settings": {
+        "photos": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1843:1021",
+        "name": "Team=Kansas City Chiefs",
+        "type": "COMPONENT",
+        "parentId": "1870:1105",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1843-1021",
+        "variantProperties": {
+          "Team": "Kansas City Chiefs"
+        }
+      },
+      "allowedChanges": [
+        "original photo",
+        "team logo",
+        "sourced team colors",
+        "transcript subject and talking point",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Native Hug resizing and resting screenshot checked; human review and episode motion remain pending.",
+      "reviewStatus": "client-review",
+      "contractPath": "config/lineups/team-callout-contract.json",
+      "editableFields": [
+        {
+          "nodeId": "1843:1029",
+          "type": "TEXT",
+          "property": "Subject#1870:0",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1843:1031",
+          "type": "TEXT",
+          "property": "Talking point#1870:1",
+          "fontSize": 72
+        },
+        {
+          "nodeId": "1843:1025",
+          "type": "INSTANCE_SWAP",
+          "property": "Team logo#1870:2"
+        }
+      ]
     }
   ],
   "unboundOptions": [

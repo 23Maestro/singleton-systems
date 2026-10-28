@@ -34,6 +34,7 @@ Notion, and Supabase delivery.
 - Supabase holds integration receipts and temporary drafts when the workflow
   needs them.
 - Repo docs and skills own policy.
+- `business/` owns current business facts; task owners hold plans and progress.
 - `config/cerebral-registry.json` is the machine-readable gate contract.
 - A delivery outcome uses `pending`, `delivered`, or `failed`. It names the
   owner and includes the record ID, record URL, and error fields.

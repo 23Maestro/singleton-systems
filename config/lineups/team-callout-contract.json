@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "id": "quick-stat.team-callout.v1",
+  "reviewStatus": "client-review",
+  "sourceComponentId": "1843:1021",
+  "reviewInstanceId": "1844:1022",
+  "lane": "quick stat",
+  "option": "Team callout",
+  "engine": "figma",
+  "frame": {
+    "width": 1920,
+    "height": 1080
+  },
+  "layout": {
+    "anchorY": 804,
+    "bottomPadding": 36,
+    "logoSize": 240,
+    "headerHeight": 80,
+    "bodyHeight": 160,
+    "textPaddingLeft": 48,
+    "textPaddingRight": 48,
+    "bodyWidth": "HUG",
+    "rowAlignment": "CENTER",
+    "subjectFontSize": 48,
+    "calloutFontSize": 72
+  },
+  "teamColorRecipe": {
+    "logoBlock": "team primary",
+    "subjectTab": "team primary",
+    "subjectText": "white",
+    "body": "white",
+    "calloutText": "dark ink",
+    "requires": "Selected team primary/secondary colors and source URL"
+  },
+  "shadow": {
+    "styleId": "S:d54f9fca17b0946bc6a064483636b4f346cb2fea,",
+    "opacity": 0.3,
+    "offsetX": 0,
+    "offsetY": 6,
+    "blur": 14
+  },
+  "photo": "Original photo pixels and background; no AI replacement players.",
+  "timing": {
+    "entrance": "Mark dialogue and same-revision Manim cues",
+    "hold": "static",
+    "animationOut": false,
+    "transitionOwner": "Premiere"
+  },
+  "productionReady": false,
+  "componentSetId": "1870:1105",
+  "teamVariants": [
+    {
+      "team": "Kansas City Chiefs",
+      "componentId": "1843:1021"
+    },
+    {
+      "team": "Jacksonville Jaguars",
+      "componentId": "1870:1070"
+    },
+    {
+      "team": "Chicago Bears",
+      "componentId": "1875:1114"
+    },
+    {
+      "team": "San Francisco 49ers",
+      "componentId": "1875:1170"
+    }
+  ],
+  "designDirection": "current user-adjusted Team callout look",
+  "polishTrial": {
+    "status": "Applied to all 4 episode cards and reusable Team variants",
+    "rootNodeId": "1860:7863",
+    "accentNodeId": "1887:3580",
+    "cornerRadius": 18,
+    "corners": [
+      "top left",
+      "bottom right"
+    ],
+    "accent": "Curved inverted-L at top left, ending at the bottom border",
+    "accentColor": "team secondary",
+    "strokeWidth": 3,
+    "glow": "6 native glow layers copied from the user-adjusted Bears accent; each uses its team secondary color",
+    "appliedToReusableVariants": true,
+    "userAdjustedReferencePath": "config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/figma-build/team-card-baseline-v2.json",
+    "responsiveAnchor": "Accent is an absolute child of the Hug card at x=2.625, y=4.013436794281006; it follows text-width changes.",
+    "currentEvidence": "config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/figma-build/team-card-baseline-v2-sources.json",
+    "logoBlockStrokeWidth": 5,
+    "strokeCap": "SQUARE",
+    "strokeJoin": "ROUND",
+    "episodeEvidence": "config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/figma-build/team-card-baseline-v2-episode.json",
+    "previewPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/previews/week7-team-card-baseline-v2.png"
+  },
+  "protected": {
+    "wrapper": {
+      "x": 0,
+      "y": 804
+    },
+    "panel": {
+      "height": 240,
+      "topLeftRadius": 18,
+      "topRightRadius": 0,
+      "bottomLeftRadius": 0,
+      "bottomRightRadius": 18,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 14,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.30000001192092896
+          },
+          "offset": {
+            "x": 0,
+            "y": 6
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": true
+        }
+      ]
+    },
+    "logoBlock": {
+      "width": 240,
+      "height": 240,
+      "strokeWeight": 5
+    },
+    "header": {
+      "height": 80
+    },
+    "body": {
+      "height": 160,
+      "layoutSizingHorizontal": "HUG",
+      "paddingLeft": 48,
+      "paddingRight": 48
+    },
+    "subject": {
+      "fontSize": 48
+    },
+    "text": {
+      "fontSize": 72,
+      "textAutoResize": "WIDTH_AND_HEIGHT"
+    },
+    "accent": {
+      "x": 2.625,
+      "y": 4.013436794281006,
+      "width": 234.875,
+      "height": 234.0509033203125,
+      "vectorPaths": [
+        {
+          "windingRule": "NONZERO",
+          "data": "M 234.875 0.05054725706577301 L 29.375 0.05091531574726105 C 9.875 -0.5136718600988388 1.5 3.486186981201172 1.5 18.630313873291016 L 0 234.0509033203125"
+        }
+      ],
+      "strokeWeight": 3,
+      "strokeCap": "SQUARE",
+      "strokeJoin": "ROUND"
+    }
+  },
+  "sourceFingerprint": "aec09a8358dbbcfd3d31c61a256655c3c1fc05e525f566df11739d7adca80a3c",
+  "bindingPolicy": "Reuse needs this contract hash, exact episode nodes, measured readback and the normal human review receipts. Source existence alone is not episode approval."
+}

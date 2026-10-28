@@ -13,6 +13,11 @@ Before exploring or changing the repository, read:
 - `docs/agents/issue-tracker.md` for Linear ownership and workflow;
 - `docs/agents/triage-labels.md` for tracker-label mappings.
 
+For offer, audience, outreach, or business work, also read
+`business/brand-foundation.md`, `business/offer-and-audience.md`, and
+`business/voice-rules.md`. `business/` is the single home for current business
+facts. Skills and old source notes must defer to it.
+
 Before downloading, generating, moving, or cleaning video media, read
 `docs/video-storage-workflow.md` and use `s-systems:video-storage`.
 
@@ -60,8 +65,9 @@ npm run visual-maps:build
 npm run visual-maps:export-portfolio
 ```
 
-There is no single-file test runner. Use the whole-repo checks or run the
-relevant Node script directly while iterating.
+For a focused check, use `node --test path/to/test.mjs` or
+`python3 -m unittest package.test_module`. Run the required repo checks before
+delivery; a focused pass alone does not prove the full change.
 
 ## application architecture
 
@@ -72,6 +78,12 @@ the approved interface, assets, and tested domain rules with the existing stack.
 
 The app uses Next.js App Router, React 19, and Tailwind. The `@/*` path alias
 points to the repository root.
+
+Use Sites for a review preview and verify its hosted HTTPS link on the review
+surface. Keep production on Vercel and the existing domain. Start a local
+server only when Jerami asks or an automated check needs it; stop an owned test
+server after the check. Preview publication and production publication are
+separate steps.
 
 - `/` is the video-editing offer and portfolio. `/AI-consultant` owns the
   separate AI consulting offer. Keep their page content and metadata separate.
@@ -95,28 +107,47 @@ Cerebral registry writes go through migrations and seed scripts.
 Cerebral routes natural-language requests to the right owner system:
 
 ```text
-config/cerebral-registry.json
+Supabase runtime registry
   -> .codex/hooks/cerebral_singleton_guard.py
   -> plugins/s-systems/skills/*/SKILL.md
-  -> docs/*.md
+  -> current business facts and domain contracts
 ```
+
+`config/cerebral-registry.json` is the versioned contract and seed source.
+The runtime hook reads Supabase; the JSON file is not a local fallback.
 
 If any layer changes, run all three Cerebral checks before completion. Keep
 machine-specific capabilities such as `homebrew` and `pdf-skill` at
 `status: "verify-on-use"` with `path: null`.
 
 `plugins/s-systems/` is the versioned Codex and Claude plugin source. Installed
-copies are generated outputs. Use `scripts/sync-s-systems-mirrors.mjs` to check
-or apply mirror updates.
+copies are generated outputs. `scripts/sync-s-systems-mirrors.mjs` checks or
+updates development mirrors. `scripts/release-s-systems-plugin.mjs` owns the
+installed Codex plugin release. A source edit or mirror sync alone does not
+update an installed plugin. Validate and release only the approved scope.
 
 ## documentation
 
-`docs/` holds planning, operating, handoff, and visual-map material. Update it
-when the task changes a durable contract or a drift check pins the text.
+`docs/` holds durable operating contracts, source records, handoffs, and visual
+maps. Update it when a contract changes or a drift check pins the text.
+Put Development plans, specs, progress, and next steps in Linear. Put client
+editing and consulting work in Asana. Do not create dated repo plans or keep
+superseded business facts as a second source of truth.
 
 Video storage is a separate front-facing tool. `s-systems:video-storage` owns
 HomeSSD placement, migration, retention, and video-media cleanup. `dev-storage`
 owns dependencies, caches, runtimes, and Git worktrees.
+
+For Unreal setup, use `s-systems:unreal-storage`. It owns engine and project
+placement, Unreal caches, and the native agent script path. Follow each scene's
+recorded engine route. A reviewed Unreal master does not prove episode timing,
+finished visual approval, or delivery.
+
+Before calling a Lineups source or workflow missing, recover the last matching
+production handoff and episode closeout. Follow the prior-production lookup in
+`plugins/s-systems/skills/client-video-storyboard/references/lineups-episode-lifecycle.md`.
+Name the exact conflict when saved work and a validation rule disagree. Fix
+that rule at its owner; do not ask Jerami to rebuild an existing source.
 
 ## task closeout
 
@@ -164,7 +195,8 @@ reference govern the look, with Jerami's 10% adjustment allowance.
 Figma authors contract-bound lane masters and covers; HyperFrames + GSAP is an
 optional renderer. Review designs in Figma and test the first opening over real
 footage in Premiere, which owns final assembly. Role-matched UI components may
-refine containers without changing the locked treatment. Opus Clip owns captions. Jev suggests lanes;
+refine containers without changing the locked treatment. The client visual
+contract owns caption routing and its lane-specific renderer choices. Jev suggests lanes;
 it never overrides the supplied direction or binds automatically.
 
 - Preserve unrelated changes in a dirty worktree.
