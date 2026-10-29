@@ -1,0 +1,14 @@
+{
+  "sourceKind": "user-provided Craft API bundle",
+  "sourceFileName": "document_instructions_to_agent.md",
+  "sha256": "238fc994be2c6c5e31acf75d66f5b1f93fec1229316da4329f34f1379363420e",
+  "excludes": "bundled personal document examples and private API server URL",
+  "endpointCount": 46,
+  "verifiedSpaceId": "f5b0a75f-1553-cc83-3804-f83592a53df1",
+  "liveVerification": [
+    "GET /connection",
+    "GET /documents",
+    "GET /blocks"
+  ],
+  "liveWriteTest": false
+}

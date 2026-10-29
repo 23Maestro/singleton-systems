@@ -1,0 +1,8 @@
+
+# Preserve verbatim imported references and their recorded source hashes.
+plugins/craft-inbox/skills/craft-inbox/references/blocks-and-comments.md whitespace=-blank-at-eof
+plugins/craft-inbox/skills/craft-inbox/references/collections.md whitespace=-blank-at-eof
+plugins/craft-inbox/skills/craft-inbox/references/documents-and-folders.md whitespace=-blank-at-eof
+plugins/craft-inbox/skills/craft-inbox/references/overview.md whitespace=-blank-at-eof
+plugins/craft-inbox/skills/craft-inbox/references/search.md whitespace=-blank-at-eof
+plugins/craft-inbox/skills/craft-inbox/references/tasks-and-reminders.md whitespace=-blank-at-eof

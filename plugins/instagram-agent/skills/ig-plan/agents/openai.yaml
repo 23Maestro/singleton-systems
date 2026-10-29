@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram plan"
+  short_description: "Draft and review plan content in Codex"
+  default_prompt: "Use $ig-plan with my own work and voice."

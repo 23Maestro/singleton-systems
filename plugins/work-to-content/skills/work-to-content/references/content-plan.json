@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "intent": "Turn real client work into useful proof of Jerami's editing and workflow systems, with little extra capture work.",
+  "defaultAction": "plan",
+  "firstCase": "Catena Media / Lineups",
+  "savedPlanUrl": "https://linear.app/23maestro/issue/23M-193/plan-lineups-proof-posts",
+  "savedPlanRole": "Prior plan reference; Asana owns current content task state.",
+  "resumeBeforeNewIdeas": true,
+  "workspace": {
+    "volumeRoot": "/Volumes/HomeSSD",
+    "expectedVolumeUUID": "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A",
+    "notePath": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/work-to-content.md",
+    "mediaRoots": {
+      "source": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/source",
+      "audio": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/audio",
+      "renders": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/renders",
+      "previews": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/previews"
+    },
+    "sourceRoot": "plugins/work-to-content",
+    "beforeWrite": "node scripts/developer-storage/storage-gate.mjs route --client SINGLETON_SYSTEMS --kind references",
+    "internalMediaFallback": false
+  },
+  "firstStory": ["script cue", "timed graphic", "verified Premiere placement"],
+  "suggestedSeconds": 30,
+  "suggestedBeats": 3,
+  "offerConnection": {
+    "current": "Client video editing",
+    "growth": "AI workflow consulting"
+  },
+  "proofRules": [
+    "Use real work and source-linked claims.",
+    "Keep scene IDs, word cues and source times bound.",
+    "Name a staged demo or replay accurately.",
+    "Retain Jerami's review and creative choices."
+  ],
+  "actions": {
+    "plan": { "capture": false, "publish": false },
+    "setup": { "capture": false, "publish": false },
+    "record": { "capture": "requested segment only", "publish": false },
+    "edit": { "capture": false, "publish": false },
+    "publish": { "capture": false, "publish": "explicit approval of clip, copy and destination" }
+  },
+  "automaticDelegation": false,
+  "automaticRecording": false,
+  "automaticPublishing": false
+}

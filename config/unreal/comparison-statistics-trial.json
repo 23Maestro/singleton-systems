@@ -1,0 +1,38 @@
+{
+  "mode": "statistics",
+  "headline": "2025 STATS",
+  "assetName": "WBP_TwoPlayerComparison",
+  "players": [
+    "PATRICK MAHOMES",
+    "JOSH ALLEN"
+  ],
+  "card": {
+    "fontSize": 44,
+    "rows": [
+      {
+        "label": "GAMES",
+        "left": "14",
+        "right": "17",
+        "source": "https://www.nfl.com/players/patrick-mahomes/stats/ ; https://www.nfl.com/players/josh-allen/stats/"
+      },
+      {
+        "label": "PASS YDS",
+        "left": "3,587",
+        "right": "3,668",
+        "source": "https://www.nfl.com/players/patrick-mahomes/stats/ ; https://www.nfl.com/players/josh-allen/stats/"
+      },
+      {
+        "label": "PASS TD",
+        "left": "22",
+        "right": "25",
+        "source": "https://www.nfl.com/players/patrick-mahomes/stats/ ; https://www.nfl.com/players/josh-allen/stats/"
+      },
+      {
+        "label": "INT",
+        "left": "11",
+        "right": "10",
+        "source": "https://www.nfl.com/players/patrick-mahomes/stats/ ; https://www.nfl.com/players/josh-allen/stats/"
+      }
+    ]
+  }
+}

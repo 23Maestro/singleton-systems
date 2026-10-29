@@ -56,7 +56,24 @@ Figma PNG sits above it. Set PNG export `contentsOnly: true` on the title frame.
 Check actual transparent pixels; an alpha channel alone does not prove this.
 The opening hold is 3 seconds. Each video's own
 headline, crop and cover frame still need inspection. Full-edit review and
-export remain with Jerami, followed by captions in Opus Clip.
+export remain with Jerami. The Anxiety video was captioned in Opus Clip. On
+2026-10-17 Jerami moved the other 17 Prayer captions to a John caption lane in
+motion-studio. It burns Opus-matched captions into the CLEAN exports and keeps
+Premiere native captions blocked. The lane is recorded under
+`clients.pastor_john.lanes.prayer.captions`.
+
+## FaithTalk
+
+FaithTalk has its own [visual contract](../config/745-creative/faithtalk/visual-contract.json)
+and [source index](../config/745-creative/faithtalk/references.jsonl). Read both
+before a FaithTalk job. Jerami adopted Marco's supplied social kit on October
+28, 2026. Eagle keeps its masters, photos, layout samples and complete source
+archive under FaithTalk TV / Social Brand - 2026-10.
+
+Use separate carousel, Story, Reel and broadcast-outro lanes. The social
+artboards do not replace the locked broadcast outro. Episode 2 labels and
+airtimes in the samples are old copy. The current brief sets each episode's
+details. Include the episode and part in task and export titles.
 
 ## Locked and adjustable
 
@@ -74,7 +91,8 @@ Figma authors reusable lane masters and covers. HyperFrames + GSAP is an optiona
 renderer when the native export or motion handoff cannot meet the requirement.
 Review designs and batch cover contact sheets in Figma. Test each lane's first
 opening over real footage in Premiere, which owns footage and final assembly.
-Opus Clip owns captions. Asana owns task state. The JSON contract does not mark
+Opus Clip owns captions, except the motion-studio caption lanes for John
+Prayer, John Bold Beliefs and Pastor Ben. Asana owns task state. The JSON contract does not mark
 videos done or send client messages.
 
 Role-matched UI components can replace plain label containers or accents.
@@ -82,6 +100,44 @@ Keep fonts, palette, wording, hierarchy, density and face clearance. Record the
 component source and reuse permission; review the first choice before reuse.
 The ±10% limit applies to measured geometry. Shape substitution has no numerical
 visual-similarity score. The FigJam intake map is not a production master.
+
+## Talking-head cut and color in Premiere
+
+This covers the direct-to-camera batches: John Bold Beliefs, Pastor Ben and
+Eric Miller. The order is transcript, forced alignment, cut plan, Premiere cut
+and color, Premiere export, then captions on the export. Jerami reviews and
+exports in Premiere. The motion-studio lanes hold the scripts and the cut plans.
+
+Import the raw `.mov` with the MCP `import_media`. iPhone takes carry a −90°
+rotation tag, and a native import keeps it. Never use FCP XML or
+`import_fcp_xml`. XML import drops the tag and the picture lands sideways.
+Do not call `create_sequence`. It opens a modal dialog and hangs the MCP.
+Duplicate a finished sequence from the same batch, rename it, then replace its
+footage.
+
+Before each write, call `set_active_sequence` and read the name back. Most
+tools act on the active sequence, and Jerami may switch it. Overwrite the
+source at 0 with `add_to_timeline`. Razor every planned time, then check the
+piece count and in points. Remove pause pieces from last to first: the video
+piece, then the audio piece, each with ripple. Removing only the video leaves a
+gap. Do not use `trim_clip`, `ripple_delete`, `set_source_in_out`,
+`set_effect_property` or `execute_extendscript`. Their parameters do not reach
+Premiere, or they corrupt in and out points. MCP undo is unreliable. Do not edit
+while Jerami works in the project, and leave his sequences alone.
+
+Set every sequence to Rec.709 in Sequence Settings. The working color space is
+BT.709, 8-bit, display-referred, and Auto Tone Map Media is on. The source is
+BT.2100 HLG. The saved project records this as `OutputColorSpace` BT.709 with
+`autoToneMapEnabled: true`. The MCP cannot read or set this. Set it on the
+first sequence before duplicating, then check each copy in the dialog. Apply
+Lumetri with `apply_effect` and a parameters map, only on the active sequence
+and only with the grade Jerami names. Read the values back.
+
+`export_sequence` queues Adobe Media Encoder. On 2026-10-20 the queued
+Compassion export started the picture late while its audio was right. Jerami's
+direct Premiere exports were correct. Check every export's opening frames
+against its audio. Probe each file for 1080×1920, 60 fps, bt709 transfer and
+the sequence's duration.
 
 ## Thumbnail color preparation
 

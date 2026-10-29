@@ -43,19 +43,11 @@ Use this equation:
 sceneTime = transcriptTimestamp - verifiedAnchorTimestamp
 ```
 
-The Lineups hook rejects cue math that differs by more than 0.001 seconds. It
-also requires `entranceTimes` to match the cue list in order. The frame rate is
-stored as a numerator and denominator. Use `24000 / 1001` for a 23.976 Premiere
-sequence.
+Store the frame rate as a numerator and denominator. Use `24000 / 1001` for a
+23.976 Premiere sequence.
 
 Name one engine for the beat. Figma and Manim can share the same cue contract.
 They cannot both own the same animation.
-
-For Lineups `Rank Reveal`, the fixed relationship is narrower: Figma Motion is
-the engine and Manim is the timing validator. Set `motion.engine` to `figma`,
-`motion.engineVersion` to `figma-motion`, and `motion.timingValidator` to
-`manim`. Manim checks the transcript anchor, cue equation, frame rate, order,
-and duration. It does not render or rebuild the ranking board.
 
 ## Figma Motion workspace
 
@@ -73,60 +65,8 @@ Load `figma-use` and `figma-use-motion`.
    `CUE / medications`.
 8. Read back tracks and export one low-resolution motion sample before handoff.
 
-For Rank Reveal, a static Figma instance does not pass. Rank 10 is the only
-state that animates the full board: begin at scene time 0 and stagger the row
-shells 10 through 1. At the verified team cue, reveal the rank-10 team name and
-normalized logo. Ranks 9 through 1 keep the board and every previously revealed
-rank visible; animate only the newly revealed team name and normalized logo at
-that scene's verified team cue. Never inherit or replay Rank 10's board cascade
-on a later state. The manifest and live track readback must agree before export.
-The detached copy is the motion artifact; the canonical component remains the
-only reusable visual source.
-
 Figma Motion owns phrase-timed 2D scenes and alpha overlays when it is the named
 engine. Premiere owns dialogue timing, pacing, sound, assembly, and export.
-
-## Manim timing gate
-
-Manim does not render Lineups scenes. It runs after Whisper has produced the
-word-level transcript and before the associated Pre-Figma review page is
-generated. It validates the Whisper word anchors, scene-time math, frame rate,
-and duration before the candidate review is published or Figma Motion work
-begins.
-
-1. Keep Figma as the approved visual source and Figma Motion as the sole engine.
-2. Set `motion.engine` to `figma`, `motion.engineVersion` to `figma-motion`, and
-   `motion.timingValidator` to `manim`.
-3. Keep `motion.sourcePath` and `motion.sceneClass` null.
-4. Run Manim against the completed Whisper transcript and cue map.
-5. Record the passed cue-proof receipt before generating the Pre-Figma review page.
-6. Load the validated contract with `validate_manim_timing_from_manifest()`.
-7. Write the validated cue times into Figma Motion manual keyframes.
-8. Make every composition at least 10 seconds long and keep at least two seconds
-   after its final content cue for trim-safe Premiere placement.
-
-```bash
-node scripts/lineups-cue-proof.mjs \
-  --manifest path/to/scene-manifest.json \
-  --output path/to/cue-proof
-```
-
-The proof command captures the frame before, at, and after every cue. Review
-those images before setting the manifest proof status to `passed`.
-
-```python
-from tools.lineups_motion.manim_scene import validate_manim_timing_from_manifest
-
-CONTRACT = validate_manim_timing_from_manifest()
-```
-
-Run the timing validation from the repository root so it can import the shared
-helper:
-
-```bash
-PYTHONPATH=. LINEUPS_MANIFEST_PATH=path/to/scene-manifest.json \
-  python3 -c 'from tools.lineups_motion.manim_scene import validate_manim_timing_from_manifest; validate_manim_timing_from_manifest()'
-```
 
 ## canonical client profile
 
@@ -137,3 +77,6 @@ then maps new transcript passages to the same families.
 
 After delivery, compare the final edit against the profile. Record approved
 changes in the client profile before the next video.
+
+For Catena Media Lineups only, use `s-systems:lineups-editor` for its timing
+proof, engine exceptions and Rank Reveal rules.

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "owner": "linear",
+  "lane": "Development",
+  "requestId": "task-management-boundary-2026-10-25-v1",
+  "projectId": "b9aced70-96eb-46f5-8bb7-7a61253c11b1",
+  "parent": {
+    "existingId": "8997065d-0044-472a-b68a-e740aaef9366",
+    "title": "Route client delivery",
+    "description": "Existing 23M-288. Preserve its current description and state. These two children cover the remaining shared intake/deadline and free-Asana paths. This build has no fixed deadline.",
+    "doneWhen": "The shared intake, startup and closeout pass the reviewed Linear and real free-Asana proofs, with remaining work visibly open."
+  },
+  "tasks": [
+    {
+      "key": "plan-reviewed-work",
+      "title": "Plan reviewed work",
+      "description": "## What to build\n\nExtend the existing Task Updater and lifecycle. Read existing context, ask for missing real due dates, propose editable attention/tool/waiting estimates, and review small tasks, blockers and finish checks before creation. Reuse clear deadline answers. An explicit no-deadline answer stays undated; work dates remain separate. Use the recovered Opportunity HQ planning structure and current task owners. This build has no fixed deadline.\n\n## First tracer bullet\n\nReview a small Development plan with one confirmed deadline and one undated child. Create it in Linear, reopen context, start a selected child and close only proven work through the shared closeout.\n\n## Completion signal\n\nThe conversational walkthrough and public lifecycle/closeout commands prove native deadline readback, separate estimates, exact-ID binding, safe retry, preserved edits and open unfinished work. Invalid calendar dates fail before writes; existing plans stay usable without guessed deadlines.\n\n## Expansion boundary\n\nNo new task app, estimate-learning service, automatic calendar placement, outreach or daily-capacity planning.\n\n## Acceptance criteria\n\n- Ask only for missing deadline information.\n- Propose rough estimates with a basis; split attention work into pieces of two hours or less and count children once.\n- Reopen dates and estimates through startup context and use the existing closeout.\n- TDD boundaries are preapproved: conversational intake, public lifecycle/closeout commands and native owner API. Mock external services only; one red-to-green behavior per cycle.\n- Complete the real integration proof and required repository review before delivery.",
+      "doneWhen": "Jerami reviews the intake behavior and the Linear lifecycle proof confirms dates, estimates, retries and the existing exact-ID closeout.",
+      "estimate": { "attentionMinutes": 5, "toolMinutes": 60, "waitingMinutes": 0 },
+      "blockedBy": []
+    },
+    {
+      "key": "finish-asana-routing",
+      "title": "Finish Asana routing",
+      "description": "## What to build\n\nComplete the existing free-Asana lifecycle with linked task references for blockers. Carry reviewed dates and attention/tool/waiting estimates through the fixed client project and section. Preserve production notes and rich text. Startup and closeout use the same task ID and existing commands. This build has no fixed deadline.\n\n## First tracer bullet\n\nSelect one real client deliverable and review its child work. Create subtasks, reopen context, update one proven child, reload the existing dashboard and leave remaining work open.\n\n## Completion signal\n\nNative owner readback proves reference links, current blocker states, due dates, estimates and completion state without paid dependency APIs. Public commands preserve IDs after lost replies/retries and preserve later source edits. The selected real client proof passes; mocked tests alone do not complete the slice.\n\n## Expansion boundary\n\nNo new client projects, production-media changes, client messages or dashboard redesign.\n\n## Acceptance criteria\n\n- Select the proof deliverable and approve its child work before production writes.\n- Verify linked references, including missing or unrelated targets.\n- Keep the exact owner ID through context, startup and closeout.\n- Finish only proven children; leave unfinished work and required review open.\n- TDD boundaries are preapproved: public lifecycle/closeout commands, native Asana API and the existing dashboard reload. Mock external services only; one red-to-green behavior per cycle.\n- Complete live readback and required repository review before delivery.",
+      "doneWhen": "Jerami reviews the selected real free-Asana proof; owner and dashboard readback confirm dates, linked blockers, estimates and verified child closeout with remaining work open.",
+      "estimate": { "attentionMinutes": 10, "toolMinutes": 60, "waitingMinutes": null },
+      "blockedBy": ["plan-reviewed-work"]
+    }
+  ]
+}

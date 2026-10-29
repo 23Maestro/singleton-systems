@@ -1,5 +1,9 @@
 # Lineups template system
 
+`s-systems:lineups-editor` owns the Lineups workflow. Shared intake and storyboard
+handoff stay in `s-systems:client-video-storyboard`. Its old Lineups reference
+paths forward to the focused skill so existing hooks and saved chats still work.
+
 Figma holds the editable designs. The registry holds their exact addresses and
 supported settings. JSON measurements check whether an episode preserves the
 approved design.
@@ -26,12 +30,12 @@ The build order is:
 
 1. Record transcript evidence and the visual purpose.
 2. Test the candidate's counts and asset requirements against registered looks.
-3. Retrieve the exact approved source and verify it exists in Components.
-4. Create the episode copy and replace allowed content.
-5. Compare actual measurements against the source and inspect the finished frame.
+3. After candidate selection, ask **Figma or Unreal?** for **Lane 4 / Comparison / player 2-up**. Save the explicit answer per scene. There is no default.
+4. Retrieve the chosen engine’s approved source. Figma uses Components; Unreal uses `config/unreal/comparison-template-01.json` for player comparisons.
+5. Create the episode copy, replace allowed content, compare measurements and inspect the finished frame. Unreal production timing and handoff still require their separate proof.
 
 A team matchup with 2 records fits Simple comparison with team logos. Simple and Full
-player comparison tables need verified alpha. Cinematic 2-up needs
+player comparison tables need verified alpha. Figma Cinematic 2-up needs
 full photos with original backgrounds visible together from the opening frame
 and the established top-left title. An unclear passage
 returns a review reason and eligible choices. Missing capacity returns a
@@ -82,7 +86,8 @@ first authorized Figma build. The shared workspace rules live in
 `.agents/skills/singleton-figma-system/references/lineups-production-system.md`.
 
 Use simple episode titles and actual-workday labels at exactly 300 px. Verify
-weekdays and dates from work records in America/New_York. Keep partial dates
+weekdays and dates from work records in America/New_York. Omit the time zone
+from visible canvas titles and workday labels. Keep partial dates
 explicit. Order episode areas left to right by known work dates on one top
 baseline, with wide gaps for a fast Loom pan. Start with 6000 canvas px between
 episodes and fit the existing file. Keep scenes in their lane grids.
@@ -96,6 +101,49 @@ scene title and one timing/lane/frame-rate line directly above each preview.
 Keep loose photos, cutouts, logos, render parts, and old versions on the existing
 `Player Cut Outs + Logos` page in named groups by episode. Preserve assets
 inside the actual scene.
+
+## source curation
+
+The October 17, 2026 cleanup keeps seven lanes and registers eight source
+capacities for visual review. The registry now has 28 exact scene sources.
+`client-review` means the source is reusable and registered; Jerami's visual
+approval is still needed before episode use. The fit command returns
+`needs-review` for these sources. The episode enforcement allowlist remains
+the approval gate.
+
+| Existing lane | Registered option | Capacity |
+| --- | --- | --- |
+| Quick Stats | Logo statement | One logo and statement; selected team colors |
+| Stat Breakdowns | Grouped stats | 3-2-2 facts |
+| Stat Breakdowns | Grouped logo facts | 3-2-2 or 2-2-3 items |
+| Comparison | Team matchup | Two logos and one result; zero stat rows |
+| Comparison | Logo row | Three teams and one value each |
+| Comparison | Logo stat cards | Two teams and one shared metric |
+| Asset Swap | Logo pair | Title and two logos |
+
+Grouped logo facts cover different topics in each row. A comparison repeats
+one metric across its subjects. A Year-by-Year board follows one subject
+across periods. This distinction routes Conference Pulse and Snapshot to
+Stat Breakdowns, and National Champions to Comparison.
+
+Grouped type follows Jaguars defense (`1732:2227`): 82 px title; three-item
+rows use 48/56/30 px heading/primary/detail; two-item rows use 56/64/36 px.
+Logo statement has one neutral placeholder (`quick-stat.logo`). Build a team
+treatment only when the scene calls for it. Use that candidate's primary and
+secondary brand colors. Supply `teamId` and `teamColors` with `primary`,
+`secondary` (#RRGGBB), and `source`, then run
+`python3 scripts/lineups-templates.py logo-statement-paint <candidate.json>`.
+Apply its gradient to the episode background, replace the logo and statement,
+and leave the source neutral. Missing colors require verification; do not
+fallback to an old team palette. Retain 64 px text, 190 px panel height, and
+72 px side padding.
+Logos and text are exposed as edit controls. Refit swapped logo artwork with
+its aspect ratio intact and verify long labels before episode use.
+
+The asset page holds 52 logo/person sources, a neutral logo placeholder, saved originals, older photo
+statements, and four cast examples awaiting alpha and slot review. Existing
+National Champions and Snapshot instance links are preserved. Components holds
+scene sources and four shared helpers: the callout and three table bases.
 
 For each used lane, link the spec for its approved option/source, counts,
 output size, asset and copy slots, timing, guarded values, and review proof.
@@ -126,7 +174,7 @@ For Asset Swap and player comparison tables, each photo/cutout needs an
 `alphaProof` bound to its ledger slot: source ID, image hash, alpha and preserved
 original paths with SHA-256 hashes, and `edgesReviewedBy: "Jerami"`. Runtime
 checks file hashes and nonempty alpha pixels. Jerami reviews identity and edges.
-Cinematic 2-up uses full photos; the other lanes inherit no cutout requirement.
+Figma Cinematic 2-up uses full photos; the other lanes inherit no cutout requirement.
 
 Premiere import and placement reserve an intent before the call. An error or
 missing response leaves that intent in place. Recover existing item/clip IDs by
@@ -182,7 +230,7 @@ Fresh clip/sequence readback must confirm media identity, trims, and source
 In/Out before retries or delivery completion. A returned clip ID alone cannot
 prove preservation.
 
-Episode activation expires through [the deadline closeout check](lineups-episode-closeout.md).
+Episode activation expires through [the deadline closeout check](../plugins/s-systems/skills/lineups-editor/references/lineups-episode-closeout.md).
 Closure preserves evidence and does not satisfy the delivery gates above.
 
 ## review website template
@@ -205,3 +253,81 @@ Photos fill the card above their context. Color-driven plans remain the fallback
 for boards without finished artwork. They do not replace the locked Figma
 backgrounds. Post-Figma keeps the same layout and shows verified renders when
 available.
+
+Both stages keep the same stage links and word-cue panel. The plan shows
+which word starts each reveal. The built scene shows the cues saved with its
+export. Keep the client’s spoken words exact. Use short, plain labels for
+review actions. Keep the save button visible even when no photos are missing.
+Load saved choices only for the current cue-map hash. A recorded chat approval
+supersedes an earlier page export. Browser choices use a key bound to that
+decision revision, so an old tab cannot hide the later approval.
+
+When `review.json` has no `postScenes`, the renderer reads the episode’s
+`storyboard/figma-build/<scene>/final-export.json` and scene manifest. It checks
+scene identity, transcript, anchor, passed export evidence, and media hashes.
+It makes small video previews under the verified HomeSSD preview folder.
+Changed or missing build evidence stops the page build. A scene with no export
+stays out of Post-Figma; the page does not use its source photo as a finished
+scene. Older review packets keep their recorded template version.
+
+## Saved engine choice
+
+The canonical routing contract is `config/lineups/engine-routing.json`. It names
+all seven lanes and separates Lane 4 / Comparison / 2-up from its engine.
+Discovery stays engine-neutral. After selection, run:
+
+```bash
+python3 scripts/lineups-templates.py engine-choice /absolute/path/scene-manifest.json
+python3 scripts/lineups-templates.py engine-choice /absolute/path/scene-manifest.json --engine unreal --answer 'Unreal for this scene'
+```
+
+The second command is an example; record Jerami's actual answer. It persists a
+hash of the selected scene, discovery candidate, transcript revision and routing
+contract. Preflight blocks missing or stale answers and rejects an engine mismatch.
+It does not change `motion.engine` or create a render. The native player master
+is visually approved; production Unreal routing remains disabled pending episode
+Mark/Manim timing and handoff proof. Other unregistered team/period Unreal
+selections expose a reference gap. The fixed team routes below take precedence.
+
+## selected team routes
+
+Jerami selected these engine routes on October 21, 2026:
+
+| Lane | Option | Engine | Source |
+| --- | --- | --- | --- |
+| 2 / Quick Stat | Team callout | Figma | `quick-stat.team-callout`, component `1843:1021` |
+| 4 / Comparison | Team matchup, 2 teams | Unreal | `comparison.team-matchup.2` |
+| 4 / Comparison | Logo stat cards, 2 teams | Unreal | `comparison.logo-stat-cards.2` |
+
+These routes do not ask for the engine again. The selected transcript candidate
+and revision must still match. Player 2-up keeps the Figma/Unreal question.
+The two team-logo entries use `config/unreal/team-logo-template.json`; their old
+Figma nodes are preserved for recovery, not used as fallback authoring targets.
+They remain pending native and human review.
+
+Team callout uses the team's primary color for the logo block and name tab,
+white text for the name, and dark copy on white. The body hugs the copy
+with 48 px on each side. The 240 px logo block and full callout sit 36 px from
+the bottom at 1920 × 1080. Keep the clean soft shadow. See
+`config/lineups/team-callout-contract.json`. Human review and episode motion
+proof remain open.
+
+Team stadium plates use dry matte grass. Keep colored light in the stands and
+roofline, with restrained neutral field light. Logos and panels stay editable.
+Entrance cues follow Mark and same-revision Manim. Hold static with no animation
+out; Premiere owns the cut or transition.
+
+### locked paired-logo card style
+
+Rams/Seahawks is the sole card style for both team options. Use angled stripes
+near the team's colors, a large team logo, a thin shiny border and a dark name
+strip. Swap team colors, logo and name; show a record or rank only when needed.
+Browns/Ravens and Chiefs/Chargers use this same style.
+
+Use Three.js to generate one reusable GLB card shell with real geometry and
+standard PBR materials. Team colors are replaceable material inputs. Review
+one native Unreal still against the locked reference before adding logos,
+text, stadium or motion. Unreal owns logo depth, lighting, camera and a smooth
+entrance, then static hold with no animation out. Prototype maps and the shell
+proof are not approved reusable masters.
+The source image and hash are in `config/unreal/team-logo-template.json`.

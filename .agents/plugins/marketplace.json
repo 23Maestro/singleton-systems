@@ -1,0 +1,13 @@
+{
+  "name": "singleton-content",
+  "interface": { "displayName": "Singleton Content" },
+  "plugins": [
+    {
+      "name": "work-to-content",
+      "source": { "source": "local", "path": "./plugins/work-to-content" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity",
+      "interface": { "displayName": "Work to Content" }
+    }
+  ]
+}

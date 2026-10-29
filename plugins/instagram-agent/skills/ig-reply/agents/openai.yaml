@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram reply"
+  short_description: "Draft and review reply content in Codex"
+  default_prompt: "Use $ig-reply with my own work and voice."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram Thumbnail"
+  short_description: "Measure grid crops and align Reel cover text"
+  default_prompt: "Use $instagram-thumbnail to check this Reel cover against the tested Instagram grid crop and fix its text placement."

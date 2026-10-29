@@ -1,0 +1,1636 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-21T21:53:20.118203+00:00",
+  "kind": "read-only handoff snapshot; config/lineups/template-registry.json remains authoritative",
+  "scope": "Reusable Figma components only. Unreal builds stay in session 01a14b9a-c69c-7873-b94a-012e11728769. Episode scenes are not bound.",
+  "registryPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/template-registry.json",
+  "registrySha256": "1c8e4606f41086a25b5209ae9e0ba1b488afa65aec960bc60d04fea6fd127d48",
+  "fileKey": "o7E24iymIT80MTXGYIogVH",
+  "componentsPageId": "428:27",
+  "counts": {
+    "establishedFigma": 20,
+    "pendingFigmaReview": 7,
+    "unrealExcluded": 2
+  },
+  "jevDecision": {
+    "id": "lineups-figma-handoff-first-batch",
+    "selected_option_id": "team_callout_first",
+    "option_ids": [
+      "team_callout_first",
+      "core_audit_first",
+      "grouped_first",
+      "needs_review"
+    ],
+    "probabilities": [
+      0.994605744433041,
+      0.001334638960862938,
+      0.0004477307162359382,
+      0.00361188588986025
+    ],
+    "prompt_sha256": "0905c73d0ac3369d95cd4e05064181064046ed10e776c2f5046137c671e5ecca",
+    "resultValidation": "Runtime exit 0; valid JSON; selected ID supplied; option IDs match; one finite score per option.",
+    "interpretation": "Relative scores, not calibrated confidence. Team callout is the first review/build batch; pending sources remain pending.",
+    "model": "Qwen/Qwen3.5-4B Q4_K_M; local Jev"
+  },
+  "templates": [
+    {
+      "key": "quick-action.full-frame",
+      "lane": "quick action photo",
+      "option": "quick action photo",
+      "settings": {},
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1425:630",
+        "name": "Quick Action Photo / Full Frame / 5.5s Hook",
+        "type": "COMPONENT",
+        "parentId": "1796:1108",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "editorialDefault": {
+        "requestedDurationSeconds": 4.5,
+        "rounding": "nearest-half-up"
+      },
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630"
+    },
+    {
+      "key": "quick-stat.single",
+      "lane": "quick stat",
+      "option": "Single-frame statement",
+      "settings": {
+        "photos": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "653:184",
+        "name": "Option=Single-frame statement",
+        "type": "COMPONENT",
+        "parentId": "653:226",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184",
+        "variantProperties": {
+          "Option": "Single-frame statement"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "quick-stat.callout.v1"
+      ],
+      "visualGuardCoverage": "callout geometry and style",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184"
+    },
+    {
+      "key": "quick-stat.progression",
+      "lane": "quick stat",
+      "option": "Two-photo progression",
+      "settings": {
+        "photos": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "653:196",
+        "name": "Option=Two-photo progression",
+        "type": "COMPONENT",
+        "parentId": "653:226",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-196",
+        "variantProperties": {
+          "Option": "Two-photo progression"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "quick-stat.callout.v1"
+      ],
+      "visualGuardCoverage": "callout geometry and style",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-196"
+    },
+    {
+      "key": "stat-breakdown.3",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "settings": {
+        "stats": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "591:105",
+        "name": "Points=3",
+        "type": "COMPONENT",
+        "parentId": "591:124",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-105",
+        "variantProperties": {
+          "Points": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-105"
+    },
+    {
+      "key": "stat-breakdown.4",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "settings": {
+        "stats": 4
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "591:123",
+        "name": "Points=4",
+        "type": "COMPONENT",
+        "parentId": "591:124",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-123",
+        "variantProperties": {
+          "Points": "4"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-123"
+    },
+    {
+      "key": "comparison.cinematic.2",
+      "lane": "comparison",
+      "option": "Cinematic 2-up",
+      "settings": {
+        "subjects": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "593:107",
+        "name": "Comparison / Cinematic 2-up",
+        "type": "COMPONENT",
+        "parentId": "1796:1133",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=593-107",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "assetPolicy": {
+        "assetTreatment": "full-photo",
+        "originalBackgrounds": true,
+        "openingTogether": true,
+        "titlePosition": "top-left"
+      },
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=593-107"
+    },
+    {
+      "key": "comparison.simple.2",
+      "lane": "comparison",
+      "option": "Simple comparison",
+      "settings": {
+        "subjects": 2,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "598:215",
+        "name": "Subjects=2",
+        "type": "COMPONENT",
+        "parentId": "598:494",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-215",
+        "variantProperties": {
+          "Subjects": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "comparison.simple.2.background.v1"
+      ],
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-215"
+    },
+    {
+      "key": "comparison.simple.3",
+      "lane": "comparison",
+      "option": "Simple comparison",
+      "settings": {
+        "subjects": 3,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "598:279",
+        "name": "Subjects=3",
+        "type": "COMPONENT",
+        "parentId": "598:494",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-279",
+        "variantProperties": {
+          "Subjects": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-279"
+    },
+    {
+      "key": "comparison.simple.4",
+      "lane": "comparison",
+      "option": "Simple comparison",
+      "settings": {
+        "subjects": 4,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "598:372",
+        "name": "Subjects=4",
+        "type": "COMPONENT",
+        "parentId": "598:494",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-372",
+        "variantProperties": {
+          "Subjects": "4"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-372"
+    },
+    {
+      "key": "comparison.full.2.2",
+      "lane": "comparison",
+      "option": "Full comparison: 2",
+      "settings": {
+        "subjects": 2,
+        "rows": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1103:649",
+        "name": "Subjects=2, Rows=2",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-649",
+        "variantProperties": {
+          "Subjects": "2",
+          "Rows": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-649"
+    },
+    {
+      "key": "comparison.full.2.3",
+      "lane": "comparison",
+      "option": "Full comparison: 2",
+      "settings": {
+        "subjects": 2,
+        "rows": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "594:1254",
+        "name": "Subjects=2, Rows=3",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1254",
+        "variantProperties": {
+          "Subjects": "2",
+          "Rows": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "comparison.full.2.3.background.v1"
+      ],
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1254"
+    },
+    {
+      "key": "comparison.full.3.2",
+      "lane": "comparison",
+      "option": "Full comparison: 3",
+      "settings": {
+        "subjects": 3,
+        "rows": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1103:694",
+        "name": "Subjects=3, Rows=2",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-694",
+        "variantProperties": {
+          "Subjects": "3",
+          "Rows": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-694"
+    },
+    {
+      "key": "comparison.full.3.3",
+      "lane": "comparison",
+      "option": "Full comparison: 3",
+      "settings": {
+        "subjects": 3,
+        "rows": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "594:1345",
+        "name": "Subjects=3, Rows=3",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1345",
+        "variantProperties": {
+          "Subjects": "3",
+          "Rows": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1345"
+    },
+    {
+      "key": "comparison.full.4.2",
+      "lane": "comparison",
+      "option": "Full comparison: 4",
+      "settings": {
+        "subjects": 4,
+        "rows": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1103:738",
+        "name": "Subjects=4, Rows=2",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-738",
+        "variantProperties": {
+          "Subjects": "4",
+          "Rows": "2"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1103-738"
+    },
+    {
+      "key": "comparison.full.4.3",
+      "lane": "comparison",
+      "option": "Full comparison: 4",
+      "settings": {
+        "subjects": 4,
+        "rows": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "594:1437",
+        "name": "Subjects=4, Rows=3",
+        "type": "COMPONENT",
+        "parentId": "1103:783",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1437",
+        "variantProperties": {
+          "Subjects": "4",
+          "Rows": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=594-1437"
+    },
+    {
+      "key": "year-by-year.trend.3",
+      "lane": "year-by-year",
+      "option": "Trend table",
+      "settings": {
+        "periods": 3
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "654:199",
+        "name": "Periods=3",
+        "type": "COMPONENT",
+        "parentId": "654:225",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=654-199",
+        "variantProperties": {
+          "Periods": "3"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=654-199"
+    },
+    {
+      "key": "year-by-year.trend.7",
+      "lane": "year-by-year",
+      "option": "Trend table",
+      "settings": {
+        "periods": 7
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "599:215",
+        "name": "Periods=7",
+        "type": "COMPONENT",
+        "parentId": "654:225",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=599-215",
+        "variantProperties": {
+          "Periods": "7"
+        }
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=599-215"
+    },
+    {
+      "key": "asset-swap.standard",
+      "lane": "asset swap",
+      "option": "asset swap",
+      "settings": {
+        "subjects": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "441:50",
+        "name": "Asset Swap",
+        "type": "COMPONENT",
+        "parentId": "1796:1148",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=441-50",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [
+        "asset-swap.background.v1"
+      ],
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=441-50"
+    },
+    {
+      "key": "recurring.rank-reveal.10",
+      "lane": "recurring board",
+      "option": "Rank Reveal",
+      "settings": {
+        "items": 10
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1277:558",
+        "name": "Recurring Board / Rank Reveal / 10 Teams",
+        "type": "COMPONENT",
+        "parentId": "1796:1162",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558"
+    },
+    {
+      "key": "recurring.super-bowl-bubble",
+      "lane": "recurring board",
+      "option": "Super Bowl Bubble Board",
+      "settings": {},
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "601:215",
+        "name": "Recurring Board / Super Bowl Bubble",
+        "type": "COMPONENT",
+        "parentId": "1796:1162",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=601-215",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "supported count variant",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "handoffState": "established-master-preserve-and-verify-live",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=601-215"
+    },
+    {
+      "key": "stat-breakdown.grouped-stats.3-2-2",
+      "lane": "stat breakdown",
+      "option": "Grouped stats",
+      "settings": {
+        "stats": 7,
+        "groupSizes": [
+          3,
+          2,
+          2
+        ],
+        "layout": "grouped-stats"
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1812:4211",
+        "name": "Stat Breakdown / Grouped stats / 3-2-2",
+        "type": "COMPONENT",
+        "parentId": "1793:1153",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4211",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Source identity checked live; editable fields and resting-state screenshot reviewed. Full source-style regression and motion playback remain outside this check.",
+      "reviewStatus": "client-review",
+      "provenance": {
+        "originalNodeId": "1732:2227",
+        "routeDecisionId": "jaguars_groups",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Original preserved on Player Cut Outs + Logos; existing live instances retain their source."
+      },
+      "editableFields": [
+        {
+          "nodeId": "1812:4114",
+          "type": "TEXT",
+          "property": "Title#1812:93",
+          "fontSize": 82
+        },
+        {
+          "nodeId": "1812:4116",
+          "type": "TEXT",
+          "property": "Group 1 heading#1812:94",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1812:4117",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 1#1812:101"
+        },
+        {
+          "nodeId": "1812:4118",
+          "type": "TEXT",
+          "property": "Group 1 item 1 primary#1812:95",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4119",
+          "type": "TEXT",
+          "property": "Group 1 item 1 detail#1812:96",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4120",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 2#1812:102"
+        },
+        {
+          "nodeId": "1812:4121",
+          "type": "TEXT",
+          "property": "Group 1 item 2 primary#1812:97",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4122",
+          "type": "TEXT",
+          "property": "Group 1 item 2 detail#1812:98",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4123",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 3#1812:103"
+        },
+        {
+          "nodeId": "1812:4124",
+          "type": "TEXT",
+          "property": "Group 1 item 3 primary#1812:99",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4125",
+          "type": "TEXT",
+          "property": "Group 1 item 3 detail#1812:100",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4127",
+          "type": "TEXT",
+          "property": "Group 2 heading#1812:104",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4128",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 2 logo 1#1812:109"
+        },
+        {
+          "nodeId": "1812:4129",
+          "type": "TEXT",
+          "property": "Group 2 item 1 primary#1812:105",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4130",
+          "type": "TEXT",
+          "property": "Group 2 item 1 detail#1812:106",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4131",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 2 logo 2#1812:110"
+        },
+        {
+          "nodeId": "1812:4132",
+          "type": "TEXT",
+          "property": "Group 2 item 2 primary#1812:107",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4133",
+          "type": "TEXT",
+          "property": "Group 2 item 2 detail#1812:108",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4135",
+          "type": "TEXT",
+          "property": "Group 3 heading#1812:111",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4136",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 1#1812:116"
+        },
+        {
+          "nodeId": "1812:4137",
+          "type": "TEXT",
+          "property": "Group 3 item 1 primary#1812:112",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4138",
+          "type": "TEXT",
+          "property": "Group 3 item 1 detail#1812:113",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4139",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 2#1812:117"
+        },
+        {
+          "nodeId": "1812:4140",
+          "type": "TEXT",
+          "property": "Group 3 item 2 primary#1812:114",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4141",
+          "type": "TEXT",
+          "property": "Group 3 item 2 detail#1812:115",
+          "fontSize": 36
+        }
+      ],
+      "typographyReference": {
+        "nodeId": "1732:2227",
+        "title": 82,
+        "threeItemRow": {
+          "heading": 48,
+          "primary": 56,
+          "detail": 30
+        },
+        "twoItemRow": {
+          "heading": 56,
+          "primary": 64,
+          "detail": 36
+        }
+      },
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-236",
+      "taskLink": "https://linear.app/23maestro/issue/23M-236",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4211"
+    },
+    {
+      "key": "stat-breakdown.grouped-logos.3-2-2",
+      "lane": "stat breakdown",
+      "option": "Grouped logo facts",
+      "settings": {
+        "stats": 7,
+        "groupSizes": [
+          3,
+          2,
+          2
+        ],
+        "layout": "grouped-logo-facts"
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1812:4299",
+        "name": "Stat Breakdown / Grouped logo facts / 3-2-2",
+        "type": "COMPONENT",
+        "parentId": "1793:1153",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4299",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Source identity checked live; editable fields and resting-state screenshot reviewed. Full source-style regression and motion playback remain outside this check.",
+      "reviewStatus": "client-review",
+      "provenance": {
+        "originalNodeId": "731:193",
+        "routeDecisionId": "grouped_logo_facts",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Original preserved on Player Cut Outs + Logos; existing live instances retain their source."
+      },
+      "editableFields": [
+        {
+          "nodeId": "1812:4301",
+          "type": "TEXT",
+          "property": "Title#1812:118",
+          "fontSize": 82
+        },
+        {
+          "nodeId": "1812:4303",
+          "type": "TEXT",
+          "property": "Group 1 heading#1812:119",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1812:4304",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 1#1812:126"
+        },
+        {
+          "nodeId": "1812:4305",
+          "type": "TEXT",
+          "property": "Group 1 item 1 primary#1812:120",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4306",
+          "type": "TEXT",
+          "property": "Group 1 item 1 detail#1812:121",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4307",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 2#1812:127"
+        },
+        {
+          "nodeId": "1812:4308",
+          "type": "TEXT",
+          "property": "Group 1 item 2 primary#1812:122",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4309",
+          "type": "TEXT",
+          "property": "Group 1 item 2 detail#1812:123",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4310",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 3#1812:128"
+        },
+        {
+          "nodeId": "1812:4311",
+          "type": "TEXT",
+          "property": "Group 1 item 3 primary#1812:124",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4312",
+          "type": "TEXT",
+          "property": "Group 1 item 3 detail#1812:125",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4314",
+          "type": "TEXT",
+          "property": "Group 2 heading#1812:129",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4315",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 2 logo 1#1812:134"
+        },
+        {
+          "nodeId": "1812:4316",
+          "type": "TEXT",
+          "property": "Group 2 item 1 primary#1812:130",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4317",
+          "type": "TEXT",
+          "property": "Group 2 item 1 detail#1812:131",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4318",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 2 logo 2#1812:135"
+        },
+        {
+          "nodeId": "1812:4319",
+          "type": "TEXT",
+          "property": "Group 2 item 2 primary#1812:132",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4320",
+          "type": "TEXT",
+          "property": "Group 2 item 2 detail#1812:133",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4322",
+          "type": "TEXT",
+          "property": "Group 3 heading#1812:136",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4323",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 1#1812:141"
+        },
+        {
+          "nodeId": "1812:4324",
+          "type": "TEXT",
+          "property": "Group 3 item 1 primary#1812:137",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4325",
+          "type": "TEXT",
+          "property": "Group 3 item 1 detail#1812:138",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4326",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 2#1812:142"
+        },
+        {
+          "nodeId": "1812:4327",
+          "type": "TEXT",
+          "property": "Group 3 item 2 primary#1812:139",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4328",
+          "type": "TEXT",
+          "property": "Group 3 item 2 detail#1812:140",
+          "fontSize": 36
+        }
+      ],
+      "typographyReference": {
+        "nodeId": "1732:2227",
+        "title": 82,
+        "threeItemRow": {
+          "heading": 48,
+          "primary": 56,
+          "detail": 30
+        },
+        "twoItemRow": {
+          "heading": 56,
+          "primary": 64,
+          "detail": 36
+        }
+      },
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-236",
+      "taskLink": "https://linear.app/23maestro/issue/23M-236",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4299"
+    },
+    {
+      "key": "stat-breakdown.grouped-logos.2-2-3",
+      "lane": "stat breakdown",
+      "option": "Grouped logo facts",
+      "settings": {
+        "stats": 7,
+        "groupSizes": [
+          2,
+          2,
+          3
+        ],
+        "layout": "grouped-logo-facts"
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1812:4356",
+        "name": "Stat Breakdown / Grouped logo facts / 2-2-3",
+        "type": "COMPONENT",
+        "parentId": "1793:1153",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4356",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Source identity checked live; editable fields and resting-state screenshot reviewed. Full source-style regression and motion playback remain outside this check.",
+      "reviewStatus": "client-review",
+      "provenance": {
+        "originalNodeId": "745:216",
+        "routeDecisionId": "grouped_logo_facts",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Original preserved on Player Cut Outs + Logos; existing live instances retain their source."
+      },
+      "editableFields": [
+        {
+          "nodeId": "1812:4358",
+          "type": "TEXT",
+          "property": "Title#1812:143",
+          "fontSize": 82
+        },
+        {
+          "nodeId": "1812:4360",
+          "type": "TEXT",
+          "property": "Group 3 heading#1812:158",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1812:4361",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 1#1812:165"
+        },
+        {
+          "nodeId": "1812:4362",
+          "type": "TEXT",
+          "property": "Group 3 item 1 primary#1812:159",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4363",
+          "type": "TEXT",
+          "property": "Group 3 item 1 detail#1812:160",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4364",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 2#1812:166"
+        },
+        {
+          "nodeId": "1812:4365",
+          "type": "TEXT",
+          "property": "Group 3 item 2 primary#1812:161",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4366",
+          "type": "TEXT",
+          "property": "Group 3 item 2 detail#1812:162",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4367",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 3 logo 3#1812:167"
+        },
+        {
+          "nodeId": "1812:4368",
+          "type": "TEXT",
+          "property": "Group 3 item 3 primary#1812:163",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4369",
+          "type": "TEXT",
+          "property": "Group 3 item 3 detail#1812:164",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4371",
+          "type": "TEXT",
+          "property": "Group 1 heading#1812:144",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4372",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 1#1812:149"
+        },
+        {
+          "nodeId": "1812:4373",
+          "type": "TEXT",
+          "property": "Group 1 item 1 primary#1812:145",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4374",
+          "type": "TEXT",
+          "property": "Group 1 item 1 detail#1812:146",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4375",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 2#1812:150"
+        },
+        {
+          "nodeId": "1812:4376",
+          "type": "TEXT",
+          "property": "Group 1 item 2 primary#1812:147",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4377",
+          "type": "TEXT",
+          "property": "Group 1 item 2 detail#1812:148",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4379",
+          "type": "TEXT",
+          "property": "Group 2 heading#1812:151",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4380",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 2 logo 1#1812:156"
+        },
+        {
+          "nodeId": "1812:4381",
+          "type": "TEXT",
+          "property": "Group 2 item 1 primary#1812:152",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4382",
+          "type": "TEXT",
+          "property": "Group 2 item 1 detail#1812:153",
+          "fontSize": 36
+        },
+        {
+          "nodeId": "1812:4383",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 2 logo 2#1812:157"
+        },
+        {
+          "nodeId": "1812:4384",
+          "type": "TEXT",
+          "property": "Group 2 item 2 primary#1812:154",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4385",
+          "type": "TEXT",
+          "property": "Group 2 item 2 detail#1812:155",
+          "fontSize": 36
+        }
+      ],
+      "typographyReference": {
+        "nodeId": "1732:2227",
+        "title": 82,
+        "threeItemRow": {
+          "heading": 48,
+          "primary": 56,
+          "detail": 30
+        },
+        "twoItemRow": {
+          "heading": 56,
+          "primary": 64,
+          "detail": 36
+        }
+      },
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-236",
+      "taskLink": "https://linear.app/23maestro/issue/23M-236",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4356"
+    },
+    {
+      "key": "comparison.logo-row.3",
+      "lane": "comparison",
+      "option": "Logo row",
+      "settings": {
+        "subjects": 3,
+        "rows": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1812:4435",
+        "name": "Comparison / Logo row / 3",
+        "type": "COMPONENT",
+        "parentId": "1796:1133",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4435",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Source identity checked live; editable fields and resting-state screenshot reviewed. Full source-style regression and motion playback remain outside this check.",
+      "reviewStatus": "client-review",
+      "provenance": {
+        "originalNodeId": "742:359",
+        "routeDecisionId": "champions",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Original preserved on Player Cut Outs + Logos; existing live instances retain their source."
+      },
+      "editableFields": [
+        {
+          "nodeId": "1812:4437",
+          "type": "TEXT",
+          "property": "Title#1812:168",
+          "fontSize": 82
+        },
+        {
+          "nodeId": "1812:4439",
+          "type": "TEXT",
+          "property": "Group 1 heading#1812:169",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1812:4440",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 1#1812:176"
+        },
+        {
+          "nodeId": "1812:4441",
+          "type": "TEXT",
+          "property": "Group 1 item 1 primary#1812:170",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4442",
+          "type": "TEXT",
+          "property": "Group 1 item 1 detail#1812:171",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4443",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 2#1812:177"
+        },
+        {
+          "nodeId": "1812:4444",
+          "type": "TEXT",
+          "property": "Group 1 item 2 primary#1812:172",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4445",
+          "type": "TEXT",
+          "property": "Group 1 item 2 detail#1812:173",
+          "fontSize": 30
+        },
+        {
+          "nodeId": "1812:4446",
+          "type": "INSTANCE_SWAP",
+          "property": "Group 1 logo 3#1812:178"
+        },
+        {
+          "nodeId": "1812:4447",
+          "type": "TEXT",
+          "property": "Group 1 item 3 primary#1812:174",
+          "fontSize": 56
+        },
+        {
+          "nodeId": "1812:4448",
+          "type": "TEXT",
+          "property": "Group 1 item 3 detail#1812:175",
+          "fontSize": 30
+        }
+      ],
+      "assetPolicy": {
+        "assetTreatment": "logos",
+        "comparisonKinds": [
+          "teams"
+        ]
+      },
+      "typographyReference": {
+        "nodeId": "1732:2227",
+        "title": 82,
+        "threeItemRow": {
+          "heading": 48,
+          "primary": 56,
+          "detail": 30
+        },
+        "twoItemRow": {
+          "heading": 56,
+          "primary": 64,
+          "detail": 36
+        }
+      },
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-236",
+      "taskLink": "https://linear.app/23maestro/issue/23M-236",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4435"
+    },
+    {
+      "key": "quick-stat.logo",
+      "lane": "quick stat",
+      "option": "Logo statement",
+      "settings": {
+        "photos": 0,
+        "logos": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1812:4570",
+        "name": "Quick Stat / Logo statement / Placeholder",
+        "type": "COMPONENT",
+        "parentId": "1796:1114",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4570",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing",
+        "selected team primary and secondary background colors"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Source identity checked live; editable fields and resting-state screenshot reviewed. Full source-style regression and motion playback remain outside this check.",
+      "reviewStatus": "client-review",
+      "provenance": {
+        "routeDecisionId": "logo_statements",
+        "authority": "Jerami neutral placeholder and per-team color request, October 17, 2026",
+        "originalPolicy": "Original preserved on Player Cut Outs + Logos; existing live instances retain their source.",
+        "originalNodeIds": [
+          "1732:1519",
+          "1732:1545"
+        ]
+      },
+      "editableFields": [
+        {
+          "nodeId": "1812:4551",
+          "type": "TEXT",
+          "property": "Statement#1817:0",
+          "fontSize": 64
+        },
+        {
+          "nodeId": "1812:4552",
+          "type": "INSTANCE_SWAP",
+          "property": "Team logo#1817:1"
+        },
+        {
+          "nodeId": "1812:4545",
+          "type": "PAINT",
+          "role": "team-background"
+        }
+      ],
+      "calloutGeometry": {
+        "fontSize": 64,
+        "panelHeight": 190,
+        "sidePadding": 72,
+        "wrapperHeight": 1087
+      },
+      "palettePolicy": {
+        "mode": "team-candidate",
+        "colorCount": 2,
+        "roles": [
+          "primary",
+          "secondary"
+        ],
+        "requiredCandidateFields": [
+          "teamId",
+          "teamColors.primary",
+          "teamColors.secondary",
+          "teamColors.source"
+        ],
+        "selection": "Use the selected team primary and secondary brand colors from sourced candidate metadata; verify missing colors before building.",
+        "targetRoleNodeId": "1812:4545",
+        "applyTo": "episode working copy only",
+        "sourceMustRemainNeutral": true,
+        "paintCommand": "python3 scripts/lineups-templates.py logo-statement-paint <candidate.json>",
+        "preserve": [
+          "contrast wash",
+          "callout styling",
+          "logo geometry",
+          "native motion"
+        ]
+      },
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-237",
+      "taskLink": "https://linear.app/23maestro/issue/23M-237",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4570"
+    },
+    {
+      "key": "asset-swap.logo-pair",
+      "lane": "asset swap",
+      "option": "Logo pair",
+      "settings": {
+        "subjects": 2
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "711:184",
+        "name": "Asset Swap / Logo Pair",
+        "type": "COMPONENT",
+        "parentId": "1796:1148",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=711-184",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Source identity checked live; editable fields and resting-state screenshot reviewed. Full source-style regression and motion playback remain outside this check.",
+      "reviewStatus": "client-review",
+      "provenance": {
+        "originalNodeId": "711:184",
+        "routeDecisionId": "logo_pair",
+        "authority": "Jerami source-curation request, October 17, 2026",
+        "originalPolicy": "Existing source retained in place."
+      },
+      "editableFields": [
+        {
+          "nodeId": "711:206",
+          "type": "TEXT",
+          "property": "Title2#1812:190",
+          "fontSize": 96
+        },
+        {
+          "nodeId": "711:207",
+          "type": "INSTANCE_SWAP",
+          "property": "Left logo#1812:191"
+        },
+        {
+          "nodeId": "728:23",
+          "type": "INSTANCE_SWAP",
+          "property": "Right logo#1812:192"
+        }
+      ],
+      "assetPolicy": {
+        "assetTreatment": "logos"
+      },
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-235",
+      "taskLink": "https://linear.app/23maestro/issue/23M-235",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=711-184"
+    },
+    {
+      "key": "quick-stat.team-callout",
+      "lane": "quick stat",
+      "option": "Team callout",
+      "settings": {
+        "photos": 1
+      },
+      "source": {
+        "fileKey": "o7E24iymIT80MTXGYIogVH",
+        "pageId": "428:27",
+        "componentId": "1843:1021",
+        "name": "Quick Stat / Team callout / Single-frame",
+        "type": "COMPONENT",
+        "parentId": "1796:1114",
+        "width": 1920,
+        "height": 1080,
+        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1843-1021",
+        "variantProperties": null
+      },
+      "allowedChanges": [
+        "original photo",
+        "team logo",
+        "sourced team colors",
+        "transcript subject and talking point",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "Native Hug resizing and resting screenshot checked; human review and episode motion remain pending.",
+      "reviewStatus": "client-review",
+      "contractPath": "config/lineups/team-callout-contract.json",
+      "editableFields": [
+        {
+          "nodeId": "1843:1029",
+          "type": "TEXT",
+          "property": "Subject#1843:0",
+          "fontSize": 48
+        },
+        {
+          "nodeId": "1843:1031",
+          "type": "TEXT",
+          "property": "Talking point#1843:1",
+          "fontSize": 72
+        },
+        {
+          "nodeId": "1843:1025",
+          "type": "INSTANCE_SWAP",
+          "property": "Team logo#1843:2"
+        }
+      ],
+      "handoffState": "awaiting-visual-review",
+      "taskKey": "23M-271",
+      "taskLink": "https://linear.app/23maestro/issue/23M-271",
+      "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1843-1021"
+    }
+  ]
+}

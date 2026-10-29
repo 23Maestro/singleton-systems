@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 
-const skillParents = [".agents/skills", "plugins/s-systems/skills", "skills"];
+const skillParents = [".agents/skills", "plugins/s-systems/skills", "plugins/work-to-content/skills", "skills"];
 
 export function repoSkillRows(root, configuredSkills = []) {
   const configured = new Map(configuredSkills.map((skill) => [skill.skill_key, skill]));

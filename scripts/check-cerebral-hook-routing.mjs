@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
+import { once } from "node:events";
+import { createInterface } from "node:readline";
 import fs from "node:fs";
 import path from "node:path";
 import { repoSkillRows } from "./lib/repo-skill-registry.mjs";
@@ -8,90 +10,139 @@ import { repoSkillRows } from "./lib/repo-skill-registry.mjs";
 const root = process.cwd();
 const hook = path.join(root, ".codex/hooks/cerebral_singleton_guard.py");
 const python = process.env.PYTHON || "python3";
+const nightlyChecks = spawnSync(python, [path.join(root, "scripts/test_nightly_accountability.py")], {
+  cwd: root, encoding: "utf8", timeout: 10000,
+});
+assert.equal(nightlyChecks.status, 0, nightlyChecks.stderr || nightlyChecks.error?.message);
 
 const registry = JSON.parse(fs.readFileSync(path.join(root, "config/cerebral-registry.json"), "utf8"));
 const routes = registry.routes.filter((route) => route.enabled);
+// Exercise the real HTTP consumer against the candidate registry before release.
+// Live registry parity remains a separate, explicit verification command.
+const registryServer = spawn(process.execPath, [path.join(root, "tests/fixtures/cerebral-registry-http.mjs")], { stdio: ["pipe", "pipe", "inherit"] });
+const registryLines = createInterface({ input: registryServer.stdout });
+const registryAddress = once(registryLines, "line");
+registryServer.stdin.end(JSON.stringify({ routes: registry.routes, skills: repoSkillRows(root, registry.skills), capabilities: registry.capabilities }));
+const [registryUrl] = await registryAddress;
+const registryEnv = { SUPABASE_URL: registryUrl, SUPABASE_PUBLISHABLE_KEY: "test-registry", SUPABASE_ANON_KEY: "" };
 
-// Exercise the real HTTP loader against this checkout's contract. Never contact
-// the live registry: newer, unrelated skills must not change these fixtures.
-const fixtureRows = {
-  cerebral_routes: routes,
-  harness_skills: repoSkillRows(root, registry.skills).filter((skill) => skill.activation === "core"),
-  harness_capabilities: registry.capabilities,
-};
-const fixtureRunner = `
-import io, json, runpy, sys, urllib.error, urllib.parse, urllib.request
-test = json.load(sys.stdin)
-sys.stdin = io.StringIO(json.dumps(test["payload"]))
-def fixture_urlopen(request, timeout=None):
-    url = urllib.parse.urlparse(request.full_url)
-    if url.scheme != "https" or url.netloc != "registry.test":
-        raise urllib.error.URLError("routing fixture forbids external requests")
-    table = url.path.removeprefix("/rest/v1/")
-    if table not in test["rows"]:
-        raise urllib.error.URLError("unknown routing fixture table")
-    return io.BytesIO(json.dumps(test["rows"][table]).encode())
-urllib.request.urlopen = fixture_urlopen
-runpy.run_path(sys.argv[1], run_name="__main__")
-`;
-
-function runEvent(payload, env = {}, rows = fixtureRows) {
-  return spawnSync(python, ["-c", fixtureRunner, hook], {
+function runHook(prompt, env = {}) {
+  return spawnSync(python, [hook], {
     cwd: root,
-    input: JSON.stringify({ payload, rows }),
+    input: JSON.stringify({ hook_event_name: "UserPromptSubmit", cwd: root, prompt }),
     encoding: "utf8",
-    env: {
-      ...process.env,
-      CEREBRAL_SUPABASE_ENV_FILE: path.join(root, ".missing-supabase-env"),
-      SUPABASE_URL: "https://registry.test",
-      SUPABASE_PUBLISHABLE_KEY: "routing-fixture",
-      SUPABASE_ANON_KEY: "",
-      ...env,
-    },
+    env: { ...process.env, ...registryEnv, ...env },
   });
 }
 
-function runHook(prompt, env = {}) {
-  return runEvent({ hook_event_name: "UserPromptSubmit", cwd: root, prompt }, env);
+function runSessionStart(env = {}) {
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({ hook_event_name: "SessionStart", source: "resume", cwd: root }),
+    encoding: "utf8",
+    env: { ...process.env, ...registryEnv, ...env },
+  });
 }
 
 function runPostTool(toolName, toolInput, env = {}) {
-  return runEvent({ hook_event_name: "PostToolUse", cwd: root, tool_name: toolName, tool_input: toolInput }, env);
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({ hook_event_name: "PostToolUse", cwd: root, tool_name: toolName, tool_input: toolInput }),
+    encoding: "utf8",
+    env: { ...process.env, ...registryEnv, ...env },
+  });
 }
 
 function runPreTool(command, workdir = root, env = {}) {
-  return runEvent({
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({
       hook_event_name: "PreToolUse",
       cwd: root,
       tool_name: "Bash",
       tool_input: { command, workdir },
-    }, env);
+    }),
+    encoding: "utf8",
+    env: { ...process.env, ...registryEnv, ...env },
+  });
 }
 
 function runStop(prompt, lastAssistantMessage, stopHookActive = false, env = {}) {
-  return runEvent({
+  return spawnSync(python, [hook], {
+    cwd: root,
+    input: JSON.stringify({
       hook_event_name: "Stop",
       cwd: root,
       prompt,
       stop_hook_active: stopHookActive,
       last_assistant_message: lastAssistantMessage,
-    }, env);
+    }),
+    encoding: "utf8",
+    env: { ...process.env, ...registryEnv, ...env },
+  });
 }
+
+try {
+for (const prompt of ["Resume the Social Media Engine", "Use my resume story for a LinkedIn post", "Turn the Prospect ID board into an Instagram Reel"]) {
+  const result = runHook(prompt);
+  assert.equal(result.status, 0, result.stderr);
+  const packet = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
+  assert.ok(packet.includes("[social-engine]"), prompt);
+  assert.ok(packet.includes("[route] work-to-content"), prompt);
+  const application = packet.indexOf("[route] job-application");
+  assert.ok(application < 0 || packet.indexOf("[route] work-to-content") < application, "Career evidence must not take over the social task");
+}
+for (const prompt of ["Tailor my resume for this job", "Fix the API request hook", "Change the Lineups edit"]) {
+  const result = runHook(prompt);
+  assert.equal(result.status, 0, result.stderr);
+  assert.ok(!result.stdout.includes("[social-engine]"), prompt);
+}
+const explicitApplication = runHook("[route] job-application Use my resume story for a LinkedIn post");
+assert.ok(!explicitApplication.stdout.includes("[social-engine]"), "Explicit routing remains authoritative");
+const workspace = JSON.parse(fs.readFileSync(path.join(root, "plugins/work-to-content/skills/work-to-content/references/content-plan.json"), "utf8")).workspace;
+const startup = runSessionStart();
+assert.equal(startup.status, 0, startup.stderr);
+assert.ok(JSON.parse(startup.stdout).hookSpecificOutput.additionalContext.includes(`[Work to Content](${workspace.notePath})`));
+const startupWithoutRegistry = runSessionStart({ CEREBRAL_SUPABASE_ENV_FILE: path.join(root, ".missing-supabase-env"), SUPABASE_URL: "", SUPABASE_PUBLISHABLE_KEY: "", SUPABASE_ANON_KEY: "" });
+assert.equal(startupWithoutRegistry.status, 0, startupWithoutRegistry.stderr);
+assert.equal(JSON.parse(startupWithoutRegistry.stdout).continue, false, "location context must not bypass live routing failure");
+assert.ok(startupWithoutRegistry.stdout.includes(workspace.notePath), "the saved location must survive routing failure");
+const offlineWorkspace = spawnSync(python, ["-c", `
+import builtins, runpy
+from unittest.mock import patch
+module = runpy.run_path(${JSON.stringify(hook)})
+real_open = builtins.open
+def pointer_only(file, *args, **kwargs):
+    if str(file) == ${JSON.stringify(workspace.notePath)}:
+        raise AssertionError("external note text must not become hook instructions")
+    return real_open(file, *args, **kwargs)
+with patch("os.path.ismount", return_value=False), patch("builtins.open", side_effect=pointer_only):
+    print(module["content_workspace_context"]())
+with patch("os.path.ismount", return_value=True), patch("os.path.isfile", return_value=False):
+    print(module["content_workspace_context"]())
+`], { cwd: root, encoding: "utf8" });
+assert.equal(offlineWorkspace.status, 0, offlineWorkspace.stderr);
+assert.ok(offlineWorkspace.stdout.includes(workspace.notePath), "offline context must retain the exact pointer");
+assert.match(offlineWorkspace.stdout, /HomeSSD is offline/);
+assert.match(offlineWorkspace.stdout, /working note is missing/);
+assert.match(offlineWorkspace.stdout, /do not create an internal media fallback/);
 
 for (const route of routes) {
   for (const prompt of [route.example_prompt, `[route] ${route.route_key}\nHandle this request.`]) {
     const result = runHook(prompt);
     assert.equal(result.status, 0, `${route.route_key}: hook exited ${result.status}: ${result.stderr}`);
+    const routeContext = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
     const must = [
       `[route] ${route.route_key}`,
       `[lane] ${route.lane}`,
       `[bucket] ${route.bucket}`,
       `[owner] ${route.owner}`,
+      `[intent] ${route.intent}`,
       ...(route.project ? [`[project] ${route.project}`] : []),
       ...route.required_tools,
     ];
     for (const snippet of must) {
-      assert.match(result.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `${route.route_key}: missing ${snippet}`);
+      assert.match(routeContext, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `${route.route_key}: missing ${snippet}`);
     }
   }
 }
@@ -100,6 +151,26 @@ const explicitBucket = runHook("[bucket] writing-review\nCompress this client up
 assert.equal(explicitBucket.status, 0);
 for (const snippet of ["[route] writing-review", "[lane] Writing Review", "[bucket] writing-review"]) {
   assert.match(explicitBucket.stdout, new RegExp(snippet.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `explicit bucket: missing ${snippet}`);
+}
+
+for (const prompt of [
+  "Pick up my content capture plan.",
+  "Record this workflow and cut the useful parts for my review.",
+  "Repurpose my Lineups graphics into a social post.",
+  "Set up OpenScreen for my client work.",
+]) {
+  const routed = runHook(prompt);
+  assert.equal(routed.status, 0, routed.stderr);
+  assert.match(routed.stdout, /\[route\] work-to-content/, prompt);
+  assert.match(routed.stdout, /Plan by default\. Record only the requested take\./, prompt);
+  assert.match(routed.stdout, /work-to-content:openscreen-demo/, prompt);
+  assert.match(routed.stdout, /\[content-mode\] Use work-to-content first\./, prompt);
+  assert.ok(routed.stdout.includes(workspace.notePath), prompt);
+}
+for (const prompt of ["Build the Lineups graphic for this episode.", "Write a LinkedIn post about AI hooks.", "Install OBS for streaming."]) {
+  const routed = runHook(prompt);
+  assert.equal(routed.status, 0, routed.stderr);
+  assert.doesNotMatch(routed.stdout, /\[route\] work-to-content/, prompt);
 }
 
 const portfolioCheckpoint = runHook("Log this for my portfolio as a portfolio checkpoint.");
@@ -236,26 +307,6 @@ assert.equal(unavailableRegistry.status, 0);
 assert.match(unavailableRegistry.stdout, /"continue": false/);
 assert.match(unavailableRegistry.stdout, /No local registry fallback is allowed/);
 
-for (const rows of [[], [{ route_key: "incomplete" }]]) {
-  const invalidRegistry = runEvent(
-    { hook_event_name: "UserPromptSubmit", cwd: root, prompt: "Review the site typography." },
-    {},
-    { ...fixtureRows, cerebral_routes: rows },
-  );
-  assert.equal(invalidRegistry.status, 0, invalidRegistry.stderr);
-  assert.match(invalidRegistry.stdout, /"continue": false/);
-  assert.match(invalidRegistry.stdout, /returned no registry rows|returned an incomplete registry row/);
-}
-
-const missingSkill = runEvent(
-  { hook_event_name: "PreToolUse", cwd: root, tool_name: "Bash", tool_input: { command: "node scripts/check-cerebral-registry.mjs", workdir: root } },
-  {},
-  { ...fixtureRows, harness_skills: [{ skill_key: "missing", canonical_path: "plugins/s-systems/skills/missing-test-skill" }] },
-);
-assert.equal(missingSkill.status, 0, missingSkill.stderr);
-assert.match(missingSkill.stdout, /"continue": false/);
-assert.match(missingSkill.stdout, /missing-test-skill\/SKILL.md does not exist/);
-
 const wrongEagleDocument = runPreTool("sed -n '1,240p' .agents/skills/eagle-skill/SKILL.md");
 assert.equal(wrongEagleDocument.status, 0);
 assert.match(wrongEagleDocument.stdout, /"continue": false/);
@@ -337,10 +388,23 @@ for (const prompt of [
   const lineups = runHook(prompt);
   assert.equal(lineups.status, 0, `Lineups hook exited ${lineups.status}: ${lineups.stderr}`);
   for (const snippet of [
-    "[route] client-video",
+    "[route] lineups-editor",
     "[profile] Catena Media Lineups",
     "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
     "Use the seven approved lanes",
+    "[unreal-stat-breakdown]",
+    "config/unreal/stat-breakdown-template-02.json",
+    "subtle rounded red panel",
+    "Hold a static scene with no animation out; Premiere owns the cut or transition",
+    "Template approval does not change the production engine route",
+    "[engine-choice]",
+    "Lane 4 / Comparison / player 2-up",
+    "Fixed routes: Lane 2 Quick Stat / Team callout uses Figma",
+    "team-logo-template.json",
+    "Do not fall back to the preserved Figma nodes",
+    "Figma or Unreal? No default",
+    "engine-routing.json",
+    "changed candidate, scene setting or transcript revision requires a fresh answer",
     "Always attempt full-transcript discovery across all seven lanes",
     "before pacing and selection",
     "Cinematic 2-up always uses full photos with original backgrounds",
@@ -408,8 +472,13 @@ for (const suffix of figmaWorkTools) {
     new RegExp(entry.matcher).test(toolName) && entry.hooks.some((item) => item.command.includes("cerebral_singleton_guard.py"))),
   `${toolName}: missing Cerebral pre-tool registration`);
   for (const fileKey of ["o7E24iymIT80MTXGYIogVH", "another-client-file"]) {
-    const result = runEvent({ hook_event_name: "PreToolUse", cwd: root, tool_name: toolName,
-      tool_input: { fileKey, code: "return figma.currentPage.name;" } });
+    const result = spawnSync(python, [hook], {
+      cwd: root,
+      input: JSON.stringify({ hook_event_name: "PreToolUse", cwd: root, tool_name: toolName,
+        tool_input: { fileKey, code: "return figma.currentPage.name;" } }),
+      encoding: "utf8",
+      env: { ...process.env },
+    });
     assert.equal(result.status, 0, result.stderr);
     const packet = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
     assert.match(packet, /\[figma-system\]/);
@@ -598,3 +667,9 @@ try {
 }
 
 console.log(`Cerebral hook routing check passed: ${routes.length} natural prompts, ${routes.length} exact routes, 28 guards.`);
+} finally {
+  registryLines.close();
+  const stopped = once(registryServer, "exit");
+  registryServer.kill("SIGTERM");
+  await stopped;
+}

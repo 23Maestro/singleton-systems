@@ -1,0 +1,12 @@
+{
+  "source": "https://github.com/getopenscreen/openscreen",
+  "ref": "v2.1.1",
+  "license": "MIT",
+  "upstreamSkillPath": "skills/openscreen-demo/SKILL.md",
+  "upstreamSkillSha256": "e4b6a895e61512eee2549e8ae8bdcd57d5f3722a35373241fa9b571a03c242ef",
+  "bundledReference": "skills/openscreen-demo/references/upstream-SKILL.md",
+  "bundledReferenceSha256": "9f2056e485eda8047e61264a6411ca2d4bf770ac7992b3c997eef3897e99222f",
+  "licensePath": "skills/openscreen-demo/references/upstream-LICENSE.txt",
+  "licenseSha256": "0b7901acee37b04fc948fa01ac25a9d283f78900a43f0f9062a7759cb6bbaa5b",
+  "adaptation": "Local entrypoint binds the content plan, storage, browser use and human review; upstream text is retained as source."
+}

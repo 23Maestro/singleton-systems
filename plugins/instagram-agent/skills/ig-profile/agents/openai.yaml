@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram profile"
+  short_description: "Draft and review profile content in Codex"
+  default_prompt: "Use $ig-profile with my own work and voice."

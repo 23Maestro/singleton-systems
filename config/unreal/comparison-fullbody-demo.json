@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "assets": {
+    "leftPlayer": {
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal-full-body-demo/Mahomes-full-body-demo.png",
+      "sha256": "4101bc15b0fb1c90ac5e576357832a2b356756c6eab4e0629518c2649a554cf4",
+      "size": [
+        1535,
+        1024
+      ],
+      "alphaBounds": [
+        41,
+        21,
+        1507,
+        1024
+      ],
+      "primaryBodyBounds": [
+        507,
+        25,
+        1160,
+        1016
+      ],
+      "demoOnly": true,
+      "foregroundPixelPreserving": false
+    },
+    "rightPlayer": {
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal-full-body-demo/Allen-full-body-demo.png",
+      "sha256": "ad5e47fe487ee1168cef117ed474b7864f5b70a1ec6813b8b09ec35c7e4ea474",
+      "size": [
+        1122,
+        1402
+      ],
+      "alphaBounds": [
+        31,
+        0,
+        1078,
+        1402
+      ],
+      "primaryBodyBounds": [
+        165,
+        8,
+        854,
+        1396
+      ],
+      "demoOnly": true,
+      "foregroundPixelPreserving": false
+    }
+  },
+  "helmetTopPx": 240,
+  "bodyHeightPx": 825,
+  "frameRate": 60,
+  "frameCount": 480,
+  "visualDemoOnly": true,
+  "beforeBackup": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261018-234045-before-full-body",
+  "approvedDemoException": true
+}

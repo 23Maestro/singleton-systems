@@ -1,0 +1,290 @@
+[
+ {
+  "frame": "383:609 01 Grid",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.1,
+   "saturation": 0.07,
+   "temperature": 0.05,
+   "shadows": 0.07
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:613 01 Reel",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:638 05 Grid",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:642 05 Reel",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:714 13 Grid",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:718 13 Reel",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:656 07 Grid",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:660 07 Reel",
+  "section": "Growth & maturity",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:618 02 Grid",
+  "section": "Courage & perseverance",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:622 02 Reel",
+  "section": "Courage & perseverance",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:627 03 Grid",
+  "section": "Courage & perseverance",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:632 03 Reel",
+  "section": "Courage & perseverance",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:676 09 Grid",
+  "section": "Courage & perseverance",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:680 09 Reel",
+  "section": "Courage & perseverance",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:665 08 Grid",
+  "section": "Seasons & purpose",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:670 08 Reel",
+  "section": "Seasons & purpose",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:685 10 Grid",
+  "section": "Seasons & purpose",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:689 10 Reel",
+  "section": "Seasons & purpose",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:703 12 Grid",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:708 12 Reel",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:694 11 Grid",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:698 11 Reel",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:723 14 Grid",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:727 14 Reel",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:647 06 Grid",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ },
+ {
+  "frame": "383:651 06 Reel",
+  "section": "Peace & relationships",
+  "foreground": {
+   "exposure": 0.05,
+   "saturation": 0.08
+  },
+  "background": {
+   "exposure": 0.08
+  }
+ }
+]

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "packages": [
+    {
+      "key": "sports-broadcast-motion-design",
+      "title": "Sports Broadcast: Motion Design Sample",
+      "publisher": "Epic Games",
+      "url": "https://www.fab.com/listings/a7a18cf4-1020-4d84-921f-949b8c9233e9",
+      "priceAtInspection": "Free",
+      "state": "acquired",
+      "localProject": "/Volumes/UnrealSSD/Generated/SINGLETON_SYSTEMS/source/unreal/samples/SportsBroadcastMotionDesi/SportsBroadcastMotionDesi.uproject",
+      "engineVersion": "5.6",
+      "licenseAccepted": null,
+      "noAiMetadata": true,
+      "accountLibraryVerified": true,
+      "licenseAcceptanceEvidence": "Account entitlement verified; acceptance action not separately observed.",
+      "workingProject": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+      "workingEngineVersion": "5.8",
+      "compatibilityWithWorkingEngine": "native-open-save-and-entrance-playback-verified",
+      "acquisitionReceipt": "/Volumes/UnrealSSD/Generated/SINGLETON_SYSTEMS/source/unreal/receipts/sports-broadcast-acquisition-01a150aa-b594-7fe3-a423-c0c86da38d51.json",
+      "nativeIntakeProof": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/sports-native-intake-proof.json",
+      "productionRenderVerified": false
+    },
+    {
+      "key": "broadcast-hype-chamber",
+      "title": "Broadcast Hype Chamber",
+      "listingTitle": "Broadcast Sample",
+      "publisher": "Epic Games",
+      "url": "https://www.fab.com/listings/2a00c181-7721-45ad-a6dd-106896ac6eef",
+      "priceAtInspection": "Free",
+      "state": "saved-in-fab-library",
+      "localProject": null,
+      "engineVersion": null,
+      "licenseAccepted": null,
+      "noAiMetadata": true,
+      "accountLibraryVerified": true,
+      "licenseAcceptanceEvidence": "Account entitlement verified; acceptance action not separately observed.",
+      "role": "optional-visual-reference",
+      "requiredForComparison": false,
+      "launcherOfferedPackageVersion": "4.27",
+      "localAssetsAcquired": false
+    }
+  ]
+}

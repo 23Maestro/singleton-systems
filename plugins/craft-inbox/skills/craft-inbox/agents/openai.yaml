@@ -1,0 +1,4 @@
+interface:
+  display_name: "Craft Inbox"
+  short_description: "Read and update Craft notes through verified IDs"
+  default_prompt: "Use $craft-inbox to find my note and read the relevant blocks."

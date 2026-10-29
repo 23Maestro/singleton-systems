@@ -3,6 +3,7 @@
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 from fractions import Fraction
 
@@ -14,6 +15,30 @@ SOURCE_GUARDS_PATH = ROOT / "config/lineups/source-guards.json"
 
 class TemplateError(ValueError):
     pass
+
+
+def logo_statement_paint(candidate):
+    """Build episode paint from a selected team's supplied brand colors."""
+    if not isinstance(candidate, dict):
+        raise TemplateError('Logo statement requires a selected team candidate.')
+    colors = candidate.get('teamColors') or {}
+    if (not isinstance(candidate.get('teamId'), str) or not candidate['teamId'].strip()
+            or not isinstance(colors, dict) or not isinstance(colors.get('source'), str)
+            or not colors['source'].strip()):
+        raise TemplateError('Logo statement requires the selected team and a color source.')
+    values = [colors.get(role) for role in ('primary', 'secondary')]
+    if any(not isinstance(value, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', value) for value in values):
+        raise TemplateError('Supply the team primary and secondary colors as #RRGGBB.')
+    if values[0].lower() == values[1].lower():
+        raise TemplateError('Supply 2 distinct team colors; do not reuse one color.')
+    rgb = [dict(zip(('r', 'g', 'b'), (int(value[i:i+2], 16)/255 for i in (1, 3, 5))), a=1)
+           for value in values]
+    return {'teamId': candidate['teamId'], 'colorSource': colors['source'],
+            'backgroundFill': {'type': 'GRADIENT_LINEAR',
+                               'gradientStops': [{'position': 0, 'color': rgb[0]},
+                                                 {'position': 0.62, 'color': rgb[0]},
+                                                 {'position': 1, 'color': rgb[1]}],
+                               'gradientTransform': [[0, 1, 0], [-1, 0, 1]]}}
 
 
 def quick_action_duration(frame_rate):
@@ -32,13 +57,6 @@ def load_registry():
 
 def load_callout_contract():
     return json.loads(CALLOUT_PATH.read_text())
-
-
-def load_team_callout_contract():
-    contract = json.loads((ROOT / 'config/lineups/team-callout-contract.json').read_text())
-    if fingerprint(contract['protected']) != contract['sourceFingerprint']:
-        raise TemplateError('Team callout contract fingerprint is stale')
-    return contract
 
 
 def load_source_guards():
@@ -120,12 +138,10 @@ def resolve(key, registry=None):
 def validate_source_identity(template, readback):
     """Names/ordering may change; source ID, page, type, and capacity may not."""
     expected = template["source"]
-    if expected.get('engine') == 'unreal':
-        for key in ('engine', 'type', 'projectPath', 'mapPath', 'sequencePath', 'manifestPath', 'width', 'height'):
-            if readback.get(key) != expected.get(key):
-                raise TemplateError(f'{template["key"]}: native source.{key} differs from the registry')
-        return
-    for key in ("fileKey", "pageId", "componentId", "type", "parentId", "width", "height", "variantProperties"):
+    keys = (("engine", "type", "projectPath", "mapPath", "sequencePath", "manifestPath", "width", "height")
+            if expected.get('engine') == 'unreal' else
+            ("fileKey", "pageId", "componentId", "type", "parentId", "width", "height", "variantProperties"))
+    for key in keys:
         if readback.get(key) != expected[key]:
             raise TemplateError(f'{template["key"]}: source.{key} expected {expected[key]!r}, got {readback.get(key)!r}')
 
@@ -156,6 +172,7 @@ def eligible(candidate, registry=None):
         return {"status": "reference-gap", "reason": "Asset Swap supports 1 to 4 subjects.", "templates": []}
     matches = []
     asset_blocked = False
+    visual_review = False
     for row in registry["templates"]:
         if row["lane"] != lanes[purpose]:
             continue
@@ -164,23 +181,28 @@ def eligible(candidate, registry=None):
         if row["option"] == "Cinematic 2-up":
             if purpose != "comparison" or candidate["comparisonKind"] != "players" or candidate["rows"] != 1:
                 continue
-        elif purpose == "comparison" and candidate["rows"] == 1 and row["option"] != "Simple comparison":
-            continue
         if any(candidate.get(key) != value for key, value in row["settings"].items()):
+            continue
+        policy = row.get('assetPolicy', {})
+        if policy.get('comparisonKinds') and candidate.get('comparisonKind') not in policy['comparisonKinds']:
+            continue
+        if policy.get('assetTreatment') == 'logos' and candidate.get('assetTreatment') != 'logos':
+            asset_blocked = True
             continue
         if row['option'] == 'Cinematic 2-up':
             if (candidate.get('assetTreatment') != 'full-photo' or candidate.get('originalBackgrounds') is not True
                     or candidate.get('openingTogether') is not True or candidate.get('titlePosition') != 'top-left'):
                 asset_blocked = True
                 continue
-        elif (purpose == 'cast' or (purpose == 'comparison' and candidate['comparisonKind'] == 'players')) and candidate.get('realAlpha') is not True:
+        elif policy.get('assetTreatment') != 'logos' and (purpose == 'cast' or (purpose == 'comparison' and candidate['comparisonKind'] == 'players')) and candidate.get('realAlpha') is not True:
             asset_blocked = True
             continue
         matches.append(row["key"])
+        visual_review = visual_review or row.get('reviewStatus') in ('client-review', 'pending-unreal-review')
     if not matches and asset_blocked:
-        return {'status': 'asset-blocked', 'reason': 'Cinematic 2-up requires full photos with original backgrounds together at frame zero and the top-left title. Player compositing in other options requires real alpha.', 'templates': []}
-    return {"status": "eligible" if len(matches) == 1 else "needs-review" if matches else "reference-gap",
-            "reason": "Fits the registered capacity." if len(matches) == 1 else
+        return {'status': 'asset-blocked', 'reason': 'Logo options require declared logo artwork. Cinematic 2-up requires full photos with original backgrounds together at frame zero and the top-left title. Player compositing in other options requires real alpha.', 'templates': []}
+    return {"status": "eligible" if len(matches) == 1 and not visual_review else "needs-review" if matches else "reference-gap",
+            "reason": "Registered source fits; Jerami visual review is pending." if len(matches) == 1 and visual_review else "Fits the registered capacity." if len(matches) == 1 else
                       "Choose between the eligible approved looks." if matches else "No registered approved source fits these requirements.",
             "templates": matches}
 
@@ -215,8 +237,79 @@ def validate_cinematic(manifest, readback=None):
         raise TemplateError('Cinematic readback must confirm full photos, opening visibility and top-left title')
 
 
-def validate_callout(readback, contract=None, source=False, fit_override=None):
+def load_team_callout_contract():
+    return json.loads((ROOT / "config/lineups/team-callout-contract.json").read_text())
+
+
+def team_callout_fingerprint(contract=None):
+    c = contract or load_team_callout_contract()
+    return fingerprint({k: c[k] for k in ('id', 'sourceComponentId', 'frame', 'layout', 'shadow', 'measuredSource')})
+
+
+def validate_team_callout(readback, source=False):
+    c = load_team_callout_contract()
+    measured = c['measuredSource']
+    def same(label, got, expected):
+        if type(expected) in (int, float):
+            okay = type(got) in (int, float) and math.isfinite(got) and abs(got - expected) <= .05
+        else:
+            okay = normalize(got) == normalize(expected)
+        if not okay:
+            raise TemplateError(f'Team callout {label}: expected {expected!r}, got {got!r}')
+    same('contractId', readback.get('contractId'), c['id'])
+    same('rootDimensions', readback.get('rootDimensions'), c['frame'])
+    if source:
+        same('rootNodeId', readback.get('rootNodeId'), c['sourceComponentId'])
+    parents = {'wrapper': None, 'card':'wrapper', 'logoBlock':'card', 'copyStack':'card',
+               'subjectPanel':'copyStack', 'subject':'subjectPanel', 'panel':'copyStack', 'text':'panel'}
+    ids = []
+    for role, parent in parents.items():
+        actual = readback.get(role) or {}
+        ids.append(actual.get('id'))
+        if not actual.get('id'):
+            raise TemplateError(f'Team callout {role}: missing live node')
+        if source:
+            same(role+'.id', actual['id'], measured[role]['id'])
+        same(role+'.parentId', actual.get('parentId'), readback[parent]['id'] if parent else readback['rootNodeId'])
+        for key in ('type','layoutMode','primaryAxisSizingMode','counterAxisSizingMode',
+                    'primaryAxisAlignItems','counterAxisAlignItems','paddingLeft','paddingRight',
+                    'paddingTop','paddingBottom','itemSpacing','textAutoResize','fontSize','fontName','effects'):
+            same(role+'.'+key, actual.get(key), measured[role][key])
+        for key in ('x','y','width','height'):
+            if type(actual.get(key)) not in (int,float) or not math.isfinite(actual[key]):
+                raise TemplateError(f'Team callout {role}.{key}: missing finite live measurement')
+        same(role+'.height', actual['height'], measured[role]['height'])
+    if len(set(ids)) != len(parents):
+        raise TemplateError('Team callout requires distinct role nodes')
+    w, card, block, stack, head, subject, panel, text = (readback[k] for k in parents)
+    for key in ('x','y','width'):
+        same('wrapper.'+key, w[key], measured['wrapper'][key])
+    same('card.centerX', card['x']+card['width']/2, 960)
+    same('card.y', card['y'], 0)
+    same('logoBlock.width', block['width'], c['layout']['logoSize'])
+    same('logoBlock.x', block['x'], 0)
+    same('copyStack.x', stack['x'], block['width'])
+    same('card.hugWidth', card['width'], block['width']+stack['width'])
+    same('copyStack.hugWidth', stack['width'], max(head['width'],panel['width']))
+    for role, body, copy in [('subject',head,subject),('text',panel,text)]:
+        same(role+'.hugWidth', body['width'], copy['width']+96)
+        same(role+'.x', copy['x'], 48)
+        same(role+'.verticalCenter', copy['y']+copy['height']/2, body['height']/2)
+    same('subjectPanel.y', head['y'], 0)
+    same('panel.y', panel['y'], 80)
+    if card['width'] > 1824 or card['width'] <= 240:
+        raise TemplateError('Team callout exceeds safe frame width')
+    return {'status':'passed','contractId':c['id'],'sourceFingerprint':team_callout_fingerprint(c)}
+
+
+def validate_callout(readback, contract=None, source=False, fit_override=None, expected_contract_id=None):
     """Compare actual node properties, plus relationships affected by text Hug."""
+    if expected_contract_id == 'quick-stat.team-callout.v1' and readback.get('contractId') != expected_contract_id:
+        raise TemplateError('Team callout requires its own measured source and episode contract')
+    if readback.get('contractId') == 'quick-stat.team-callout.v1':
+        if fit_override is not None:
+            raise TemplateError('Team callout does not accept a font fit override')
+        return validate_team_callout(readback, source=source)
     contract = contract or load_callout_contract()
     if fingerprint(contract["protected"]) != contract["sourceFingerprint"]:
         raise TemplateError("callout contract fingerprint is stale")
@@ -293,19 +386,18 @@ def validate_manifest_binding(manifest):
         return
     binding = manifest["figma"].get("templateBinding") or {}
     template = resolve(binding.get("key"))
-    team_callout = template['key'] == 'quick-stat.team-callout'
-    contract = load_team_callout_contract() if team_callout else load_callout_contract()
-    source_ids = {row['componentId'] for row in contract['teamVariants']} if team_callout else {template['source']['componentId']}
+    source_ids = {template["source"]["componentId"]}
+    if template['key'] == 'quick-stat.team-callout':
+        source_ids.update(row['componentId'] for row in load_team_callout_contract().get('teamVariants', []))
     if template["lane"] != manifest["scene"]["lane"] or template["option"] != manifest["scene"]["approvedOption"] or manifest["figma"]["sourceComponentId"] not in source_ids:
         raise TemplateError("template binding differs from the selected lane, option, or canonical source")
-    if binding.get("contractId") != contract["id"] or binding.get("sourceFingerprint") != contract["sourceFingerprint"]:
+    contract = load_team_callout_contract() if template['key'] == 'quick-stat.team-callout' else load_callout_contract()
+    source_fingerprint = team_callout_fingerprint(contract) if template['key'] == 'quick-stat.team-callout' else contract['sourceFingerprint']
+    if binding.get("contractId") != contract["id"] or binding.get("sourceFingerprint") != source_fingerprint:
         raise TemplateError("Quick Stat requires the current Components callout fingerprint")
     roles = binding.get("roleNodeIds") or {}
-    expected_roles = set(contract['protected'])
-    if set(roles) != expected_roles or any(not isinstance(node, str) or not node.strip() for node in roles.values()) or len(set(roles.values())) != len(expected_roles):
-        raise TemplateError('Quick Stat requires distinct exact episode nodes for every protected callout role')
-    if team_callout and binding.get('fitOverride'):
-        raise TemplateError('Team callout uses its own Hug contract; generic fit overrides do not apply')
+    if set(roles) != {"wrapper", "panel", "text"} or any(not isinstance(node, str) or not node for node in roles.values()) or len(set(roles.values())) != 3:
+        raise TemplateError("Quick Stat requires 3 distinct exact episode callout node IDs")
 
 
 def validate_manifest_readback(manifest, readback):
@@ -324,57 +416,10 @@ def validate_manifest_readback(manifest, readback):
                 raise TemplateError(f'{role} readback is missing its actual episode node binding')
         elif actual_id != node_id:
             raise TemplateError(f"{role} readback targets a different episode node")
-    if len(set(actual_ids)) != len(binding['roleNodeIds']):
+    if len(set(actual_ids)) != 3:
         raise TemplateError('callout readback requires distinct actual episode nodes')
     root_matches = (readback.get('plannedRootNodeId') == manifest['figma']['rootNodeId']
                     and readback.get('rootNodeId') and not str(readback['rootNodeId']).startswith('pending:')) if pending_root else readback.get('rootNodeId') == manifest['figma']['rootNodeId']
     if not root_matches:
         raise TemplateError("callout readback targets a different scene root")
-    if binding['key'] == 'quick-stat.team-callout':
-        validate_team_callout(readback)
-    else:
-        validate_callout(readback, fit_override=binding.get("fitOverride"))
-
-
-def validate_team_callout(readback):
-    """Check the reused Team card at the normal measured readback boundary."""
-    contract = load_team_callout_contract()
-
-    def same(label, actual, expected):
-        if type(expected) in (int, float):
-            valid = type(actual) in (int, float) and math.isfinite(actual) and abs(actual - expected) <= 0.01
-        else:
-            valid = normalize(actual) == normalize(expected)
-        if not valid:
-            raise TemplateError(f'Team callout {label} differs from the current source')
-
-    for role, properties in contract['protected'].items():
-        for key, expected in properties.items():
-            same(f'{role}.{key}', (readback.get(role) or {}).get(key), expected)
-    same('frame', readback.get('rootDimensions'), contract['frame'])
-    wrapper, panel, body, text, header, subject = (readback[role] for role in
-                                                 ('wrapper', 'panel', 'body', 'text', 'header', 'subject'))
-    for child, parent in [('panel', 'wrapper'), ('logoBlock', 'panel'), ('accent', 'panel'),
-                          ('text', 'body'), ('subject', 'header')]:
-        same(f'{child}.parentId', readback[child].get('parentId'), readback[parent]['id'])
-    same('wrapper.parentId', wrapper.get('parentId'), readback['rootNodeId'])
-    if not header.get('parentId') or header['parentId'] != body.get('parentId'):
-        raise TemplateError('Team callout header and body must share their copy stack')
-    for role, keys in [('panel', ('x', 'y', 'width')), ('body', ('width',)),
-                       ('header', ('width',)), ('subject', ('x', 'width', 'height')),
-                       ('text', ('x', 'width', 'height'))]:
-        for key in keys:
-            value = readback[role].get(key)
-            if type(value) not in (int, float) or not math.isfinite(value):
-                raise TemplateError(f'Team callout {role}.{key} needs a finite measurement')
-    same('panel center', panel['x'] + panel['width'] / 2, 960)
-    same('panel bottom', wrapper['y'] + panel['y'] + panel['height'], 1044)
-    same('body Hug width', body['width'], text['width'] + 96)
-    same('header width', header['width'], body['width'])
-    same('panel width', panel['width'], body['width'] + 240)
-    same('text padding', text['x'], 48)
-    if (not 0 < panel['width'] <= 1728 or not 0 < text['width'] or not 0 < text['height'] <= 160
-            or not 0 < subject['height'] <= 80 or subject['x'] < 0
-            or subject['width'] <= 0 or subject['x'] + subject['width'] > header['width']):
-        raise TemplateError('Team callout text or card exceeds its readable bounds')
-    return {'status': 'passed', 'contractId': contract['id'], 'sourceFingerprint': contract['sourceFingerprint']}
+    validate_callout(readback, fit_override=binding.get("fitOverride"), expected_contract_id=binding.get("contractId"))

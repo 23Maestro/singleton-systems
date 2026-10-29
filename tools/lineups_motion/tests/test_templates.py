@@ -38,36 +38,33 @@ def bound_manifest():
 
 class TemplateTests(unittest.TestCase):
     def test_team_callout_reuses_its_own_contract_and_rejects_stale_or_changed_readback(self):
-        root = Path(__file__).resolve().parents[3]
-        contract = json.loads((root / 'config/lineups/team-callout-contract.json').read_text())
-        # Exercise the same manifest/readback boundary used by production preflight.
-        roles = {role: 'episode-' + role for role in contract['protected']}
+        from tools.lineups_motion.templates import load_team_callout_contract, team_callout_fingerprint
+        contract = load_team_callout_contract()
+        readback = copy.deepcopy(contract['measuredSource'])
+        readback['rootNodeId'] = 'scene'
+        roles = ('wrapper', 'card', 'logoBlock', 'copyStack', 'subjectPanel', 'subject', 'panel', 'text')
+        renamed = {readback[role]['id']: 'episode-' + role for role in roles}
+        renamed[contract['sourceComponentId']] = 'scene'
+        for role in roles:
+            node = readback[role]
+            node.update(id=renamed[node['id']], parentId=renamed[node['parentId']])
         manifest = {'scene': {'lane': 'quick stat', 'approvedOption': 'Team callout'},
                     'figma': {'fileKey': load_registry()['fileKey'], 'rootNodeId': 'scene',
-                              'sourceComponentId': '1843:1021', 'templateBinding': {
+                              'sourceComponentId': contract['sourceComponentId'], 'templateBinding': {
                                   'key': 'quick-stat.team-callout', 'contractId': contract['id'],
-                                  'sourceFingerprint': contract['sourceFingerprint'], 'roleNodeIds': roles}}}
-        measured = copy.deepcopy(contract['protected'])
-        for role, node in measured.items():
-            node['id'] = roles[role]
-        measured['wrapper']['parentId'] = 'scene'
-        measured['panel'].update(parentId=roles['wrapper'], x=500, y=0, width=920)
-        measured['logoBlock']['parentId'] = roles['panel']
-        measured['accent']['parentId'] = roles['panel']
-        measured['header'].update(parentId='copy-stack', width=680)
-        measured['body'].update(parentId='copy-stack', width=680)
-        measured['text'].update(parentId=roles['body'], x=48, width=584, height=86)
-        measured['subject'].update(parentId=roles['header'], x=48, width=450, height=58)
-        readback = {'rootNodeId': 'scene', 'rootDimensions': {'width':1920, 'height':1080}, **measured}
+                                  'sourceFingerprint': team_callout_fingerprint(),
+                                  'roleNodeIds': {role: renamed[contract['measuredSource'][role]['id']]
+                                                  for role in ('wrapper', 'panel', 'text')}}}}
         for variant in contract['teamVariants']:
             manifest['figma']['sourceComponentId'] = variant['componentId']
             validate_manifest_binding(manifest)
             validate_manifest_readback(manifest, readback)
-        for change in [lambda m,r: m['figma'].update(sourceComponentId='unregistered-source'),lambda m,r: m['figma']['templateBinding'].update(sourceFingerprint='a'*64),
-                       lambda m,r: r['body'].update(layoutSizingHorizontal='FIXED'),
+        for change in [lambda m,r: m['figma'].update(sourceComponentId='unregistered-source'),
+                       lambda m,r: m['figma']['templateBinding'].update(sourceFingerprint='a'*64),
+                       lambda m,r: r['panel'].update(primaryAxisSizingMode='FIXED'),
                        lambda m,r: r['text'].update(id='wrong-scene'),
-                       lambda m,r: r['accent'].update(strokeWeight=1),
-                       lambda m,r: r['panel'].update(width=2000),
+                       lambda m,r: r['copyStack'].update(parentId='unbound-copy-stack'),
+                       lambda m,r: r['card'].update(width=2000),
                        lambda m,r: r['text'].update(width=True)]:
             m, r = copy.deepcopy(manifest), copy.deepcopy(readback)
             change(m,r)
@@ -225,11 +222,19 @@ process.stdout.write('source-lock recovery passed');
     def test_registry_has_unique_exact_sources_and_seven_lanes(self):
         rows = load_registry()["templates"]
         self.assertEqual(len(set(row["key"] for row in rows)), len(rows))
-        self.assertEqual(len({row["source"].get("componentId") or row["source"]["sequencePath"] for row in rows}), len(rows))
+        self.assertEqual(len({row['source'].get('componentId', row['source'].get('mapPath')) for row in rows}), len(rows))
         self.assertEqual(len(set(row["lane"] for row in rows)), 7)
         for row in rows:
-            self.assertEqual(row["source"]["type"], "UNREAL_SCENE" if row["source"].get("engine") == "unreal" else "COMPONENT")
+            self.assertEqual(row["source"]["type"], "UNREAL_SCENE" if row['source'].get('engine') == 'unreal' else "COMPONENT")
             self.assertEqual((row["source"]["width"], row["source"]["height"]), (1920, 1080))
+
+    def test_unreal_options_reject_the_preserved_figma_identity(self):
+        for key in ('comparison.team-matchup.2', 'comparison.logo-stat-cards.2'):
+            template = resolve(key)
+            validate_source_identity(template, template['source'])
+            with self.assertRaisesRegex(TemplateError, 'source.engine'):
+                validate_source_identity(template, template['legacyFigmaSource'])
+            self.assertEqual(template['reviewStatus'], 'pending-unreal-review')
 
     def test_display_rename_does_not_break_retrieval(self):
         template = resolve("quick-stat.single")
@@ -304,6 +309,76 @@ process.stdout.write('source-lock recovery passed');
     def test_team_matchup_uses_logos_without_player_alpha(self):
         result = eligible({"purpose": "comparison", "comparisonKind": "teams", "subjects": 2, "rows": 1, "evidence": "Both teams 3-0"})
         self.assertEqual(result["templates"], ["comparison.simple.2"])
+
+    def test_registered_logo_sources_fit_without_allowing_player_substitution(self):
+        for option, subjects, rows, key in [
+            ('Logo stat cards', 2, 1, 'comparison.logo-stat-cards.2'),
+            ('Logo row', 3, 1, 'comparison.logo-row.3'),
+            ('Team matchup', 2, 0, 'comparison.team-matchup.2'),
+        ]:
+            with self.subTest(option=option):
+                candidate = {'purpose': 'comparison', 'comparisonKind': 'teams',
+                             'assetTreatment': 'logos', 'option': option,
+                             'subjects': subjects, 'rows': rows,
+                             'evidence': 'Reviewed shared team metric or game result'}
+                fit = eligible(candidate)
+                self.assertEqual(fit['templates'], [key])
+                self.assertEqual(fit['status'], 'needs-review')
+                self.assertIn('visual review', fit['reason'])
+                candidate.update(comparisonKind='players', realAlpha=True)
+                self.assertEqual(eligible(candidate)['templates'], [])
+
+    def test_grouped_stats_and_logo_statements_require_their_actual_structure(self):
+        grouped = {'purpose': 'stats', 'stats': 7, 'groupSizes': [3, 2, 2],
+                   'layout': 'grouped-stats', 'evidence': 'Three Jaguars defense topics'}
+        self.assertEqual(eligible(grouped)['templates'], ['stat-breakdown.grouped-stats.3-2-2'])
+        grouped['layout'] = 'grouped-logo-facts'
+        self.assertEqual(eligible(grouped)['templates'], ['stat-breakdown.grouped-logos.3-2-2'])
+        grouped['groupSizes'] = [2, 2, 3]
+        self.assertEqual(eligible(grouped)['templates'], ['stat-breakdown.grouped-logos.2-2-3'])
+        grouped['groupSizes'] = [2, 3, 2]
+        self.assertEqual(eligible(grouped)['status'], 'reference-gap')
+        statement = {'purpose': 'statement', 'photos': 0, 'logos': 1,
+                     'evidence': 'One team statement'}
+        self.assertEqual(eligible(statement)['templates'], ['quick-stat.logo'])
+        statement['logos'] = 2
+        self.assertEqual(eligible(statement)['status'], 'reference-gap')
+
+    def test_logo_statement_paint_uses_the_selected_team_colors_without_presets(self):
+        root = Path(__file__).resolve().parents[3]
+        with tempfile.TemporaryDirectory() as directory:
+            candidate = Path(directory) / 'candidate.json'
+            for team, primary, secondary, first, last in [
+                ('team-a', '#112233', '#AABBCC',
+                 {'r': 17/255, 'g': 34/255, 'b': 51/255, 'a': 1},
+                 {'r': 170/255, 'g': 187/255, 'b': 204/255, 'a': 1}),
+                ('team-b', '#FF6600', '#101010',
+                 {'r': 1, 'g': 102/255, 'b': 0, 'a': 1},
+                 {'r': 16/255, 'g': 16/255, 'b': 16/255, 'a': 1}),
+            ]:
+                candidate.write_text(json.dumps({'teamId': team, 'teamColors': {
+                    'primary': primary, 'secondary': secondary, 'source': 'approved candidate metadata'}}))
+                result = subprocess.run([sys.executable, str(root / 'scripts/lineups-templates.py'),
+                                         'logo-statement-paint', str(candidate)], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                paint = json.loads(result.stdout)
+                self.assertEqual(paint['teamId'], team)
+                stops = paint['backgroundFill']['gradientStops']
+                self.assertEqual(stops[0]['color'], first)
+                self.assertEqual(stops[-1]['color'], last)
+            for colors in [{}, {'primary': '#112233', 'secondary': '#112233', 'source': 'proof'},
+                           {'primary': 'purple', 'secondary': 'gold', 'source': 'proof'}]:
+                candidate.write_text(json.dumps({'teamId': 'team-a', 'teamColors': colors}))
+                result = subprocess.run([sys.executable, str(root / 'scripts/lineups-templates.py'),
+                                         'logo-statement-paint', str(candidate)], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 1)
+
+    def test_logo_pair_does_not_inherit_player_alpha_requirements(self):
+        candidate = {'purpose': 'cast', 'subjects': 2, 'option': 'Logo pair',
+                     'assetTreatment': 'logos', 'evidence': 'Two conference logos'}
+        self.assertEqual(eligible(candidate)['templates'], ['asset-swap.logo-pair'])
+        candidate['assetTreatment'] = 'players'
+        self.assertEqual(eligible(candidate)['templates'], [])
 
     def test_player_compositing_and_full_photo_comparison_have_distinct_asset_policies(self):
         candidate = {"purpose": "comparison", "comparisonKind": "players", "subjects": 2, "rows": 1, "evidence": "Direct player comparison"}

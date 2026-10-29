@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "craft-inbox",
+  "version": "0.1.0",
+  "description": "Read and update Craft notes with stable IDs and readback.",
+  "author": {
+    "name": "Jerami Singleton"
+  }
+}

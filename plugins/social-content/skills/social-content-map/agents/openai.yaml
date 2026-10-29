@@ -1,0 +1,4 @@
+interface:
+  display_name: "Social Content Map"
+  short_description: "Match a real story to a content purpose and format"
+  default_prompt: "Use $social-content-map with my story and the selected post purpose."

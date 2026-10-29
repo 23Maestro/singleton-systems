@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "templateKey": "stat-breakdown.unreal.player",
+  "laneNumber": 3,
+  "lane": "stat breakdown",
+  "supportedPoints": [
+    3,
+    4
+  ],
+  "points": 4,
+  "status": "visual-template-approved",
+  "nativeSource": "/Game/_Scenes/FS_PlayerStats",
+  "contentRoot": "/Game/Lineups/StatBreakdownV1",
+  "player": {
+    "name": "PATRICK MAHOMES",
+    "firstName": "PATRICK",
+    "lastName": "MAHOMES",
+    "position": "QB",
+    "number": "15",
+    "pose": "flexing",
+    "source": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/mahomes-stat-breakdown/Mahomes-flex-mask-only.png"
+  },
+  "season": "2025 REGULAR SEASON",
+  "stats": [
+    {
+      "label": "PASS YDS",
+      "value": "3,587"
+    },
+    {
+      "label": "PASS TD",
+      "value": "22"
+    },
+    {
+      "label": "INT",
+      "value": "11"
+    },
+    {
+      "label": "GAMES",
+      "value": "14"
+    }
+  ],
+  "statsSource": "https://www.nfl.com/players/patrick-mahomes/stats/",
+  "statsEvidence": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/unreal-adaptation-review-2026-10-18/mahomes-allen/20261018T042340.224140Z-551877a719da/page.md",
+  "figmaSources": {
+    "3": "591:105",
+    "4": "591:123"
+  },
+  "referenceImage": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/unreal-three-stat-player-card-reference.jpg",
+  "background": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/field-night-no-football.png",
+  "teamColors": {
+    "primary": "#E31837",
+    "secondary": "#FFB81C"
+  },
+  "minimumCardTextPx": 36,
+  "visualDemoOnly": true,
+  "editorialTimingApproved": false,
+  "exitCue": null,
+  "holdAuthority": "Animate entrances from Mark dialogue and same-revision Manim cues; hold static after entrance; no animation out",
+  "minimumColumnGapPx": 16,
+  "readabilityRevision": 2,
+  "readability": {
+    "labelMaskWorldZ": -253.416667,
+    "logoTextureTiling": [
+      1,
+      1
+    ],
+    "qbScale": 0.45,
+    "qbWorldZ": 174.2,
+    "qbTagScaleZ": 1.6,
+    "qbTagWorldZ": 184,
+    "seasonTypeface": "Bold",
+    "rejectMaskedTextClipping": true
+  },
+  "layoutRevision": 6,
+  "statLayout": {
+    "mode": "equal-columns-when-fit-otherwise-content-width",
+    "paddingPx": 32,
+    "minimumGapPx": 16,
+    "centerValueAndLabel": true,
+    "shrinkTypeToFit": false,
+    "variants": {
+      "3": {
+        "mode": "space-evenly",
+        "equalOuterPadding": true
+      }
+    }
+  },
+  "speakerCallout": {
+    "textSlot": "season",
+    "role": "Mark talking point, matching the Figma callout slot",
+    "background": "#000000",
+    "paddingXPx": 20,
+    "paddingYPx": 10,
+    "hugText": true
+  },
+  "redPanelOpacity": 0.9,
+  "inheritedHighlights": "removed-from-owned-maps-and-all-sequence-bindings",
+  "layoutRevisionByPoints": {
+    "3": 6,
+    "4": 3
+  },
+  "reviewCamera": {
+    "location": [
+      -500,
+      0,
+      0
+    ],
+    "rotation": [
+      0,
+      0,
+      0
+    ],
+    "focalLength": 35
+  },
+  "teamLogo": {
+    "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/leftLogo.png",
+    "sha256": "24fbbcef22bf4afd54b67b8317cd0d917648e1f131baf717c7e793ac06c1f00f",
+    "size": [
+      500,
+      500
+    ],
+    "alphaBounds": [
+      0,
+      86,
+      500,
+      414
+    ]
+  },
+  "redPanelCorners": {
+    "radiusPx": 16,
+    "subdivisions": 8,
+    "type": "CurveIn"
+  },
+  "visualApproval": {
+    "reviewer": "Jerami",
+    "evidence": "User approved even spacing and final template with a small red-panel corner rounding adjustment on 2026-10-20.",
+    "productionTimingApproved": false
+  },
+  "exitPolicy": "none; Premiere owns the cut or transition",
+  "playbackCompletion": "KeepState"
+}

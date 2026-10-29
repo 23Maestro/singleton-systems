@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram viral"
+  short_description: "Draft and review viral content in Codex"
+  default_prompt: "Use $ig-viral with my own work and voice."

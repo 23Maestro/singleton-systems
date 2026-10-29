@@ -1,0 +1,312 @@
+{
+  "schemaVersion": 1,
+  "id": "745-faithtalk-social-brand-2026-10-v1",
+  "clientId": "faithtalk",
+  "adoptedOn": "2026-10-28",
+  "authority": "Jerami adopted Darzell and Marco's supplied social kit for repeat use. The current episode brief sets scope, copy and broadcast details.",
+  "references": {
+    "manifest": "references.jsonl",
+    "sourceRoot": "/Users/singleton23/Downloads/SOCIAL-BRAND-CONCEPT",
+    "eagleFolderId": "MVSH4R12PBOQB",
+    "eagleFolderPath": "745 Productions/FaithTalk TV/Social Brand - 2026-10",
+    "episodeMaster": "FT-EPISODE-CARO-TEMP-1080x1080.ai",
+    "conceptMaster": "FT-SOCIAL-BRAND-CONCEPT.ai",
+    "conceptPdf": "FT-SOCIAL-BRAND-CONCEPT.pdf",
+    "cleanLayoutPreview": "CAROUSEL-TEMP-PREVIEW-02.png",
+    "archive": "SOCIAL-BRAND-CONCEPT-source-package.zip",
+    "sourceEmail": "https://mail.google.com/mail/u/?authuser=jerami%40singleton-systems.com#all/1a159cd483c364fb",
+    "archiveUse": "Extract the complete source package before editing the Illustrator masters. Keep Links and all source paths together.",
+    "samplePolicy": "Episode 2, Bishop Coffman and all sample airtimes are placeholders. They are not the current episode brief.",
+    "figmaProduction": {
+      "fileKey": "v6sFPJsZp0u3CqyjYy50yV",
+      "pageId": "24:736",
+      "sectionId": "430:1486",
+      "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=430-1486",
+      "status": "New native components exported for Jerami review. No rendered-template approval is claimed.",
+      "sourceLogoNode": "135:1230",
+      "storyComponents": {
+        "episode": "429:1448",
+        "airdate": "429:1469",
+        "brand": "429:1510"
+      },
+      "feedComponents": {
+        "episode": "429:1545",
+        "airdate": "429:1566",
+        "brand": "429:1607"
+      },
+      "reelEndCardInstance": "429:1642",
+      "reelThumbnail": "453:1692",
+      "reelDateMaster": "436:1686",
+      "reviewGuideOverlays": [
+        "436:1748",
+        "436:1753",
+        "453:1744"
+      ],
+      "copyRules": "Current Episode 4: Reel cover and video date card have no guest-name row. Carousel page 1 uses Aaron Crabb. Page 2 uses the exact current brief title. All public episode labels read Episode 4.",
+      "scenicThumbnailReference": "401:1380"
+    }
+  },
+  "client": {
+    "name": "FaithTalk TV",
+    "aliases": [
+      "FaithTalk",
+      "Faith Talk",
+      "My Faith Talk TV"
+    ],
+    "brand": {
+      "logos": "Use the official FaithTalk and Greater Love TV artwork in the supplied masters. Keep their shapes and color.",
+      "people": "Use supplied photos or stills from the actual program. Keep real faces unchanged.",
+      "palette": {
+        "greenSample": "#04522A",
+        "goldSample": "#CC9200",
+        "white": "#FFFFFF",
+        "black": "#000000"
+      },
+      "paletteAuthority": "Green and gold are measured flat-color samples from EP02-POST-02.jpg. JPEG samples are comparison values. The color-managed Illustrator master owns the production swatches.",
+      "typography": {
+        "episodeTextFamily": "Convergence",
+        "sourceBoardEmbeddedFonts": [
+          "Geist-Regular",
+          "Geist-Bold",
+          "Montserrat-Thin"
+        ],
+        "sourceLettering": "Keep supplied logo and brand lettering intact. Do not replace it with newly typed text.",
+        "newText": "Use Convergence Regular for episode labels and Reel headlines. Use Montserrat SemiBold and ExtraBold for support copy, guest names and the schedule, matching the established FaithTalk promos. Keep official logo lettering unchanged.",
+        "baseline": "The source artboards own geometry. No new text-size baseline or numerical similarity score is claimed.",
+        "supportingTextFamily": "Montserrat",
+        "supportingStyles": [
+          "SemiBold",
+          "ExtraBold"
+        ],
+        "promoReferenceNodes": [
+          "367:1280",
+          "367:1448"
+        ],
+        "currentEpisodeSizes": {
+          "reelEpisode": 180,
+          "storyEpisode": 144,
+          "feedEpisode": 118
+        }
+      },
+      "hierarchy": [
+        "Real episode photo and clear episode details",
+        "Green airtime card with white time and gold day labels",
+        "Real portrait brand card with the official logos"
+      ],
+      "fixed": [
+        "Official logos",
+        "Real people",
+        "Green and gold identity",
+        "Card order",
+        "Source hierarchy",
+        "Caption ownership"
+      ],
+      "editable": [
+        "Episode label",
+        "Part number",
+        "Guest name",
+        "Episode photo",
+        "Current date",
+        "Current airtimes",
+        "Source-backed headline"
+      ],
+      "approval": "The supplied source kit is adopted. New episode exports still need Jerami's visual and playback review."
+    },
+    "lanes": {
+      "episode_carousel": {
+        "name": "Episode promo carousel",
+        "master": "FT-EPISODE-CARO-TEMP-1080x1080.ai",
+        "cards": [
+          {
+            "role": "episode_title",
+            "artboard": 1,
+            "sample": "_FINAL_FLATS/EPISODE-02/EP02-POST-01.jpg",
+            "edit": "Swap the linked photo and current episode details."
+          },
+          {
+            "role": "airtimes",
+            "artboard": 2,
+            "sample": "_FINAL_FLATS/EPISODE-02/EP02-POST-02.jpg",
+            "edit": "Use only the current broadcast schedule."
+          },
+          {
+            "role": "brand_close",
+            "artboard": 3,
+            "sample": "_FINAL_FLATS/EPISODE-02/EP02-POST-03.jpg",
+            "edit": "Retain the supplied brand card unless a new brief changes it."
+          }
+        ],
+        "masterSize": [
+          1080,
+          1080
+        ],
+        "suppliedFlatSize": [
+          2160,
+          2160
+        ],
+        "defaultExportSize": [
+          1080,
+          1080
+        ],
+        "clipRequired": false,
+        "review": [
+          "Correct episode and part",
+          "Correct guest or program photo",
+          "Current airtimes",
+          "Readable on a phone",
+          "All 3 cards match the source kit"
+        ],
+        "copySlots": "Page 1: full guest name. Page 2: user-approved story title from the current brief. Do not repeat a bare first name as filler."
+      },
+      "episode_stories": {
+        "name": "Episode promo Stories",
+        "master": "FT-EPISODE-CARO-TEMP-1080x1080.ai",
+        "artboards": [
+          4,
+          5,
+          6
+        ],
+        "cardRoles": [
+          "episode_title",
+          "airtimes",
+          "brand_close"
+        ],
+        "samplePattern": "_FINAL_FLATS/EPISODE-02/EP02-STORIES-0{1,2,3}.jpg",
+        "masterSize": [
+          1080,
+          1920
+        ],
+        "suppliedFlatSize": [
+          2160,
+          3840
+        ],
+        "defaultExportSize": [
+          1080,
+          1920
+        ],
+        "clipRequired": false,
+        "layout": "Use the separate vertical artboards. Keep their spacing and logo placement.",
+        "review": [
+          "Correct episode and part",
+          "Current airtimes",
+          "Real faces clear",
+          "Phone-scale text",
+          "Matching card order"
+        ]
+      },
+      "social_reel": {
+        "name": "Episode social Reel",
+        "source": "The episode being promoted",
+        "clipOwner": "Opus Clip",
+        "captions": "Keep the supplied cut, complete audio and baked captions. A new brand direction alone does not authorize a recut.",
+        "brand": "Use this social kit for any requested cover or end card. Weekly promo copy uses ALL-NEW EPISODE.",
+        "defaultExportSize": [
+          1080,
+          1920
+        ],
+        "clipRequired": true,
+        "review": [
+          "Correct source episode",
+          "Complete source audio",
+          "No duplicated captions",
+          "Official logos",
+          "Matching carousel identity",
+          "Use the public episode label and guest-name rule in workflow.currentEpisode. Do not infer either from source filenames."
+        ],
+        "thumbnail": {
+          "size": [
+            1080,
+            1920
+          ],
+          "filename": "COVER_{Video Title}.png",
+          "source": "Use the cover style chosen in the current brief: supplied real episode still or scenic art with official logos. Do not generate or reconstruct real people.",
+          "cropSkill": "instagram-thumbnail",
+          "testedGridCrop": {
+            "x": 0,
+            "y": 240,
+            "width": 1080,
+            "height": 1440,
+            "source": "Jerami Instagram test, 2026-10-22"
+          },
+          "verticalBufferPx": 80,
+          "review": "Cyan crop and amber buffer lines in review only. Keep all copy and logos within measured buffer. Check the actual upload crop before posting.",
+          "guideExport": "Never burn guides into delivered covers or videos.",
+          "scope": "Reel cover and video date card only. Story and square feed cards retain their supplied artboard measurements."
+        }
+      },
+      "broadcast_outro": {
+        "name": "Standalone broadcast outro",
+        "master": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-20-episode-4-outro/Episode 4 Outro - EP5 Tease.mov",
+        "masterSha256": "2e71ac8da1cb2294030ab7faae131db9793acee08d910f84eb97d12cce23dcd3",
+        "frameRate": "30000/1001",
+        "frames": 2166,
+        "seconds": 72.2722,
+        "masterSize": [
+          3840,
+          2160
+        ],
+        "reviewSize": [
+          1920,
+          1080
+        ],
+        "sections": {
+          "retainedCardsFrames": [
+            0,
+            1179
+          ],
+          "teaserFirstFrameHoldFrames": [
+            1179,
+            1254
+          ],
+          "teaserDialogueSlotFrames": [
+            1254,
+            2017
+          ],
+          "retainedStingFrames": [
+            2017,
+            2166
+          ]
+        },
+        "teaserSource": "A different program, supplied in the current brief as the next-episode teaser",
+        "visuals": "Keep the prior broadcast cards, Next Week overlay and closing sting. The new social kit does not replace the broadcast master.",
+        "audio": "Keep dialogue, retained voice-over and native sting separate. No new music, gain change or whole-mix normalization. Any extra hold is silent.",
+        "shortClipRule": "Keep the supplied excerpt intact. Fit unused time with a still hold and silence inside the fixed teaser slot.",
+        "delivery": "Export the standalone outro. GLT attaches it. Do not append it to a full episode without that instruction.",
+        "review": [
+          "2166 frames",
+          "Full supplied excerpt retained",
+          "Active speaker clear of the left green panel",
+          "Voice-over and sting retained",
+          "No added music tail",
+          "Playback review"
+        ]
+      }
+    }
+  },
+  "workflow": {
+    "scopeOwner": "Asana Content Editor",
+    "assetOwner": "Eagle",
+    "contractOwner": "This canonical JSON file in Git",
+    "sourceCapture": "references.jsonl stores 1 source per line, its SHA-256 and its verified Eagle item.",
+    "masters": "Use the supplied editable Illustrator artboards. Any Figma version must be checked against those exact source references.",
+    "assembly": "Use the existing FaithTalk FFmpeg / HyperFrames path.",
+    "titles": "Include FaithTalk, the audience-facing episode number and deliverable. Include a part only when the current brief requests a public part label. Source filenames may combine the current episode and next-episode teaser; never publish that source notation as an episode label.",
+    "titleExample": "FaithTalk Episode 4 - Aaron - Social Promo",
+    "scopeLimit": "The broad pillar calendar and its Opus clip cadence do not add deliverables to an episode assignment.",
+    "currentEpisode": {
+      "episode": 4,
+      "guest": "Aaron Crabb",
+      "publicPartLabel": null,
+      "outroTeaserEpisode": 5,
+      "authority": "Jerami clarified in chat on2026-10-28:4/5 is source routing,current episode4 and episode5 outro teaser.",
+      "socialReelGuestLabel": null,
+      "reelHeadline": "Episode 4",
+      "carouselPage1Guest": "Aaron Crabb",
+      "carouselPage2Title": "Aaron - \"A Dream, Or a Warning?\"",
+      "currentExportRoot": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current",
+      "thumbnailStyle": "Distinct warm forest path and lantern. Keep the official FaithTalk layout, logos, Episode4 and current schedule. No guest-name row.",
+      "approvedAaronStill": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/photo-review/source-match.json",
+      "reelTitleCentering": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/centering-verification.json"
+    }
+  }
+}

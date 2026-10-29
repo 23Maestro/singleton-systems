@@ -25,6 +25,10 @@ LikeC4       -> reviewed architecture
 ## Source Rules
 
 - `plugins/s-systems` is the versioned skill source. Installed plugin copies are outputs.
+- `plugins/work-to-content` owns Jerami's work-to-content intent and bundled
+  OpenScreen recipe. Its repo marketplace is `.agents/plugins/marketplace.json`.
+  Plan first; capture only a requested take; return a draft for review. The
+  package does not start recording or publish content by itself.
 - `.agents/skills` is the versioned source for repo-local standalone skills.
 - Supabase `harness_skills` owns live canonical-path resolution for every
   repository skill. The hook loads `.env.local` directly and stops when the
@@ -80,7 +84,7 @@ For SSystems skill or route work:
 4. Keep Development work in the Linear `Singleton Systems` project. Keep AI
    Consulting and Content Editor work in their matching Asana projects.
 5. Run `npm run check:cerebral:registry` before completion. It verifies the
-   42 versioned repository skill paths before they are seeded to Supabase.
+   versioned repository skill paths before they are seeded to Supabase.
 6. Run `npm run check:skills` for every versioned skill. Run
    `npm run check:skills:installed` when an installed personal mirror exists.
 

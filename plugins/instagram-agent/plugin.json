@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "instagram-agent",
+  "version": "0.1.0",
+  "description": "Codex Instagram research and drafts from real work. Adapted from Jake Schincariol\u2019s MIT skills.",
+  "author": {
+    "name": "Jerami Singleton"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram dm"
+  short_description: "Draft and review dm content in Codex"
+  default_prompt: "Use $ig-dm with my own work and voice."

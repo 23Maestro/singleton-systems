@@ -144,7 +144,7 @@
         "pastor john",
         "john prayer",
         "john's prayer",
-        "john\u2019s prayer"
+        "john’s prayer"
       ],
       "references": {
         "northStar": "https://drive.google.com/file/d/1nlXvFz2dbpCcI0iK6Xpbw37GzP9DnhHn/view",
@@ -263,7 +263,15 @@
             "Poppins and Stadium Lights colors",
             "Quiet matching cover",
             "No duplicate native captions in the Opus master"
-          ]
+          ],
+          "captions": {
+            "owner": "motion-studio John Prayer caption lane",
+            "authority": "Jerami, 2026-10-17: caption the 17 remaining Prayer exports with the Opus-floor caption template in a John lane. The approved Anxiety video, captioned in Opus Clip, is the style reference.",
+            "lane": "/Users/singleton23/Documents/Development/motion-studio/comps/pastor-john-prayer-captions/lane.json",
+            "template": "/Users/singleton23/Documents/Development/motion-studio/scripts/opus-captions.mjs",
+            "method": "Burned into the finished CLEAN exports by HyperFrames. Premiere native caption tracks stay blocked; the Premiere edit and Opus Clip ownership for other lanes are unchanged.",
+            "status": "Jerami approved all 17 captioned exports on 2026-10-17."
+          }
         },
         "bold_beliefs": {
           "name": "Bold Beliefs",

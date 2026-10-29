@@ -156,6 +156,23 @@ try {
     const realAdapter = createRepositoryAdapter();
     const symlinkSnapshot = realAdapter.snapshot(repo, { ...config, baseRef: "HEAD" });
     assert.deepEqual(symlinkSnapshot.untrackedFiles, ["broken-link"]);
+    const nested = path.join(repo, "preview");
+    fs.mkdirSync(nested);
+    fs.writeFileSync(path.join(nested, "page.html"), "first\n");
+    for (const args of [["init", "-q"], ["config", "user.email", "fixture@example.com"], ["config", "user.name", "Fixture"], ["add", "page.html"], ["commit", "-qm", "fixture"]]) {
+      const git = spawnSync("git", args, { cwd: nested, encoding: "utf8" });
+      assert.equal(git.status, 0, git.stderr);
+    }
+    const before = realAdapter.snapshot(repo, { ...config, baseRef: "HEAD" });
+    assert.deepEqual(before.untrackedFiles, ["broken-link", "preview/"]);
+    fs.writeFileSync(path.join(nested, "page.html"), "edited\n");
+    const edited = realAdapter.snapshot(repo, { ...config, baseRef: "HEAD" });
+    assert.notEqual(edited.diffHash, before.diffHash, "Nested tracked edits must invalidate review");
+    fs.writeFileSync(path.join(nested, "new.html"), "new page\n");
+    const added = realAdapter.snapshot(repo, { ...config, baseRef: "HEAD" });
+    assert.notEqual(added.diffHash, edited.diffHash, "Nested untracked files must invalidate review");
+    fs.symlinkSync("missing-target", path.join(nested, "broken-link"));
+    assert.notEqual(realAdapter.snapshot(repo, { ...config, baseRef: "HEAD" }).diffHash, added.diffHash);
   }
 
   {

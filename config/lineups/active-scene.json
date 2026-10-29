@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 2,
+  "scene": {
+    "episodeId": "2026-10-20-texans-rebound",
+    "sceneId": "P05",
+    "lane": "quick action photo",
+    "option": "quick action photo",
+    "setting": "{}; hold final state; Premiere owns the cut.",
+    "approvedOption": "quick action photo",
+    "editorialDuration": {
+      "requestedDurationSeconds": 4.5,
+      "durationFrames": 113,
+      "actualDurationSeconds": 4.52,
+      "rounding": "nearest-half-up"
+    }
+  },
+  "discoveryPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/storyboard/lane-discovery.json",
+  "motion": {
+    "engine": "figma",
+    "engineVersion": "figma-motion",
+    "timingValidator": "manim",
+    "sourcePath": null,
+    "sceneClass": null,
+    "frameRate": {
+      "numerator": 25,
+      "denominator": 1
+    },
+    "cues": [
+      {
+        "cueId": "P05-opening",
+        "elementId": "visual",
+        "triggerType": "PHRASE",
+        "triggerText": "I'm looking",
+        "transcriptTimestamp": 608.7,
+        "sceneTime": 0,
+        "action": "Open the scene plan; hold the final state.",
+        "duration": 0.4
+      }
+    ]
+  },
+  "timing": {
+    "transcriptSource": "whisper",
+    "timestampResolution": "word",
+    "transcriptPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/transcript/whisper.json",
+    "verifiedAnchorTimestamp": 608.7,
+    "contentEnd": 4.52,
+    "paddedCompositionEnd": 10.0,
+    "entranceTimes": [
+      0
+    ],
+    "proofPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/storyboard/delivery/P05.manim-timing.json",
+    "manimTimingValidated": true,
+    "transcriptPhrase": "I'm looking at the quarterback, I'm looking at the weapons, the talent on defense and the fact that the division leader just lost to them. So I'm not saying they're going to",
+    "anchorVerified": true,
+    "lastEntrance": 0,
+    "finalStateVisible": true,
+    "noExitAnimation": true
+  },
+  "export": {
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "path": "/Volumes/HomeSSD/Content Editor.library/images/MVLC0SWNWFONM.info/18-of-18_P05_More-weapons-for-Stroud.mp4",
+    "fileSha256": "fda11b01fabeb0a4e05096bd9667f370611b92086c4c5ef99df4c4a471e78ada",
+    "validationStatus": "passed",
+    "motionProof": {
+      "status": "passed",
+      "engine": "figma",
+      "sampleTimes": [
+        0,
+        4.44
+      ],
+      "frames": [
+        {
+          "time": 0,
+          "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-10-23-texans-delivery/P05-00-0.000.png",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9d835741b40c7c78eb347d47944654a1d6122ae7dfe65dec82357c76ffd60a21"
+        },
+        {
+          "time": 4.44,
+          "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-10-23-texans-delivery/P05-01-4.440.png",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "33942c0b2fed1f1a53231342188f9502999e68202f52c3afca23ad69075e0e5e"
+        }
+      ]
+    }
+  },
+  "figma": {
+    "templateKey": "quick-action.full-frame",
+    "sourceComponentId": "1425:630",
+    "episodeRootNodeId": null,
+    "fileKey": "o7E24iymIT80MTXGYIogVH",
+    "pageId": "428:28",
+    "rootNodeId": "1902:7892",
+    "episodeInstanceId": "1902:7892",
+    "sourceRevision": "Components measured 2026-10-23; approved sources retained",
+    "episodeUsesInstance": false,
+    "motionWorkingCopyMode": "detached-from-canonical-instance",
+    "rootDimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "exposedSlots": [
+      "Photo",
+      "Copy"
+    ],
+    "allowedReplacementProperties": [
+      "Photo",
+      "Copy"
+    ],
+    "focalAssets": [],
+    "motionTracks": [
+      {
+        "nodeId": "1902:7893",
+        "property": "scale",
+        "cueId": "P05-opening",
+        "duration": 10,
+        "keyframes": [
+          {
+            "time": 0,
+            "value": 1
+          },
+          {
+            "time": 0.4,
+            "value": 1.002
+          },
+          {
+            "time": 4.52,
+            "value": 1.035
+          },
+          {
+            "time": 10,
+            "value": 1.035
+          }
+        ]
+      }
+    ]
+  },
+  "review": {
+    "status": "approved",
+    "reviewer": "Jerami",
+    "scope": "Native Figma export, Eagle production library, labeled Premiere ingest and approved timeline placement with transitions",
+    "approvalSource": "Direct chat: export all motion candidates into Eagle 06 Motion; bins and color labels; Manim approved stamps; with transitions as Usual",
+    "approvedEvidenceSha256": "09b657a69c7e3340dfb9aa7391f39b8f23cff8f27eb63f6e88a932541af26c09"
+  },
+  "purpose": "Approved production render and Premiere motion placement.",
+  "policy": {
+    "transitionsApproved": true,
+    "effectsApproved": false,
+    "lutsApproved": false,
+    "opacityChangesApproved": false,
+    "approvalNote": "Jerami: with transitions as Usual. Matching 15-frame head/tail Blur Dissolve or Grunge."
+  },
+  "ownership": {
+    "eaglePath": "Episode / 06 Motion Renders",
+    "duplicateFinalFolderIn23Projects": false,
+    "eagleItemId": "MVLC0SWNWFONM",
+    "eagleFolderId": "MVHEBR7KNTYJ2"
+  },
+  "premiere": {
+    "approvedStartTime": 608.72,
+    "approvedDuration": 10.0,
+    "approvedEndTime": 618.72,
+    "editorialTiming": {
+      "startTime": 608.72,
+      "duration": 4.52,
+      "endTime": 613.24,
+      "sourceIn": 0,
+      "sourceOut": 4.52
+    },
+    "sequenceId": "1d87a35c-266a-4a9b-9d90-012c50814421",
+    "trackIndex": 3,
+    "timelineMapping": {
+      "provider": "approved-whisper-source-placement",
+      "sourceClipId": "000f4288",
+      "sourceProjectItemId": "000f4285",
+      "sourceMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5DQKT7A.info/10-20 Texans Rebound Video.mp4",
+      "sourceMediaSha256": "61f2391ac1020644c8d5a77673ecb590c376e9f91b710de79fadc99ce1c488ed",
+      "readbackPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/storyboard/delivery/source-binding.json",
+      "readbackSha256": "e24da26ea50faa4d941157f4eca1b5431e9ee8a0159bb7efcbe25fe56fed5dd5"
+    },
+    "projectItemId": "000f42e4",
+    "timelineClipId": "000f42e5",
+    "treePath": "\\2026-10-23_TexansHoldEm.prproj\\06 Motion Renders\\18-of-18_P05_More-weapons-for-Stroud.mp4",
+    "labelReadback": 3,
+    "nameReadback": "18-of-18_P05_More-weapons-for-Stroud.mp4"
+  },
+  "enforcement": {
+    "active": true,
+    "approvedToolInputSha256": "6ce623c53d6f655eef3c1abf4f203299cd2abaa5a363f68979b959135b9adbf3"
+  }
+}

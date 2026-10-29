@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { getSheetsClient } from "./google-sheets";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
@@ -7,12 +7,6 @@ const TASKS_SHEET = "Chores";
 const TASK_OPTIONS_SHEET = "Task Options";
 const TASK_HEADERS = ["Task ID", "Room", "Task", "Duration", "Plan", "Notes"] as const;
 const TASK_OPTION_HEADERS = ["Room", "Task", "Duration", "Notes"] as const;
-const LOCAL_CLIENT_FILE = path.join(process.cwd(), "config/google-workspace/oauth-client.json");
-const LOCAL_TOKEN_FILES = [
-  path.join(process.cwd(), ".google-workspace/repo-ops-token.json"),
-  path.join(process.cwd(), ".google-workspace/workspace-token.json"),
-  path.join(process.cwd(), ".google-workspace/flow-token.json"),
-];
 const LOCAL_RESULT_FILE = path.join(process.cwd(), ".google-workspace/personal-ops-chores.json");
 
 export const HOME_TASK_ROOMS = ["Auto", "Bathroom", "Garage", "Kitchen", "Laundry", "Living Room", "Office"] as const;
@@ -314,42 +308,6 @@ function isDuration(value: string): value is HomeTaskDuration {
 
 function isPlan(value: string): value is HomeTaskPlan {
   return HOME_TASK_PLANS.includes(value as HomeTaskPlan);
-}
-
-async function getSheetsClient() {
-  const clientId = process.env.HOME_TASKS_GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.HOME_TASKS_GOOGLE_CLIENT_SECRET;
-  const refreshToken = process.env.HOME_TASKS_GOOGLE_REFRESH_TOKEN;
-
-  if (clientId && clientSecret && refreshToken) {
-    const oauth2Client = new google.auth.OAuth2(clientId, clientSecret);
-    oauth2Client.setCredentials({ refresh_token: refreshToken });
-    return google.sheets({ version: "v4", auth: oauth2Client });
-  }
-
-  const [clientRaw, tokenRaw] = await Promise.all([
-    fs.readFile(LOCAL_CLIENT_FILE, "utf8"),
-    readLocalGoogleToken(),
-  ]);
-  const keys = JSON.parse(clientRaw);
-  const token = JSON.parse(tokenRaw);
-  const credentials = keys.installed || keys.web;
-  const oauth2Client = new google.auth.OAuth2(credentials.client_id, credentials.client_secret);
-  oauth2Client.setCredentials(token);
-  return google.sheets({ version: "v4", auth: oauth2Client });
-}
-
-async function readLocalGoogleToken() {
-  for (const tokenFile of LOCAL_TOKEN_FILES) {
-    try {
-      return await fs.readFile(/* turbopackIgnore: true */ tokenFile, "utf8");
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-    }
-  }
-  throw new Error(
-    `Missing repository Google token. Run npm run google:repo:auth to create ${LOCAL_TOKEN_FILES[0]}.`
-  );
 }
 
 async function getSpreadsheetId() {

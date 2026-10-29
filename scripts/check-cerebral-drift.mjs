@@ -82,6 +82,10 @@ const checks = [
   },
   {
     file: skillPath("client-video-storyboard"),
+    must: ["s-systems:lineups-editor", "Other clients keep their"],
+  },
+  {
+    file: skillPath("lineups-editor"),
     must: [
       "references/lineups-treatment-system.md",
       "references/lineups-episode-lifecycle.md",
@@ -105,7 +109,7 @@ const checks = [
     ],
   },
   {
-    file: path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-treatment-system.md"),
+    file: path.join(pluginRoot, "skills", "lineups-editor", "references", "lineups-treatment-system.md"),
     must: [
       "quick action photo",
       "quick stat",
@@ -125,7 +129,7 @@ const checks = [
     ],
   },
   {
-    file: path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-episode-lifecycle.md"),
+    file: path.join(pluginRoot, "skills", "lineups-editor", "references", "lineups-episode-lifecycle.md"),
     must: [
       "Each video is one episode project",
       "confirmed delivery deadline as the Asana due date",
@@ -198,7 +202,7 @@ for (const check of checks) {
 
 const lineupsActiveFiles = [
   skillPath("client-video-storyboard"),
-  path.join(pluginRoot, "skills", "client-video-storyboard", "references", "lineups-treatment-system.md"),
+  path.join(pluginRoot, "skills", "lineups-editor", "references", "lineups-treatment-system.md"),
   ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
 ];
 for (const file of lineupsActiveFiles) {

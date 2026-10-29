@@ -5,7 +5,7 @@ import { taskCloseout } from "../lib/task-closeout.mjs";
 try {
   const [command, ...args] = process.argv.slice(2);
   if (command === "--help" || command === "help") {
-    console.log("Task lifecycle: plan --file PLAN; create --file PLAN --approved-hash HASH; context --id TASK [--owner linear|asana]; start --id TASK [--owner linear|asana] --session SESSION --turn TURN [--done-when TEXT]; check|finish|defer --id TASK [--owner linear|asana] --session SESSION --turn TURN [--children IDS] [--evidence TEXT] [--reason TEXT]. Plans support Linear Development and the fixed Asana client projects.");
+    console.log("Task lifecycle: plan --file PLAN; create --file PLAN --approved-hash HASH; context --id TASK [--owner linear|asana]; start --id TASK [--owner linear|asana] --session SESSION --turn TURN [--done-when TEXT]; check|finish|defer --id TASK [--owner linear|asana] --session SESSION --turn TURN [--children IDS] [--evidence TEXT] [--reason TEXT]. Plans support Linear Development and the fixed Asana client projects. Parent/tasks accept dueDate: YYYY-MM-DD or null for no deadline; omit only when unknown. Dates use native owner fields. Free-Asana blockers use linked task references within the selected deliverable.");
   } else {
     const options = {};
     for (let i = 0; i < args.length; i += 2) {

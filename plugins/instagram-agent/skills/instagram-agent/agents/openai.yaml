@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram Agent"
+  short_description: "Research and draft Instagram content in Codex"
+  default_prompt: "Use $instagram-agent to turn my real work into 1 post."

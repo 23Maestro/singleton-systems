@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-14T19:35:59.441Z",
+  "checkedAt": "2026-10-21T19:05:17.019Z",
   "fileKey": "o7E24iymIT80MTXGYIogVH",
   "pageId": "428:27",
   "sources": [
@@ -8,7 +8,7 @@
       "pageId": "428:27",
       "componentId": "1425:630",
       "type": "COMPONENT",
-      "parentId": "428:27",
+      "parentId": "1796:1108",
       "width": 1920,
       "height": 1080,
       "name": "Quick Action Photo / Full Frame / 5.5s Hook",
@@ -71,7 +71,7 @@
       "pageId": "428:27",
       "componentId": "593:107",
       "type": "COMPONENT",
-      "parentId": "428:27",
+      "parentId": "1796:1133",
       "width": 1920,
       "height": 1080,
       "name": "Comparison / Cinematic 2-up",
@@ -231,7 +231,7 @@
       "pageId": "428:27",
       "componentId": "441:50",
       "type": "COMPONENT",
-      "parentId": "428:27",
+      "parentId": "1796:1148",
       "width": 1920,
       "height": 1080,
       "name": "Asset Swap",
@@ -242,7 +242,7 @@
       "pageId": "428:27",
       "componentId": "1277:558",
       "type": "COMPONENT",
-      "parentId": "428:27",
+      "parentId": "1796:1162",
       "width": 1920,
       "height": 1080,
       "name": "Recurring Board / Rank Reveal / 10 Teams",
@@ -253,10 +253,76 @@
       "pageId": "428:27",
       "componentId": "601:215",
       "type": "COMPONENT",
-      "parentId": "428:27",
+      "parentId": "1796:1162",
       "width": 1920,
       "height": 1080,
       "name": "Recurring Board / Super Bowl Bubble",
+      "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "1812:4211",
+      "type": "COMPONENT",
+      "parentId": "1793:1153",
+      "width": 1920,
+      "height": 1080,
+      "name": "Stat Breakdown / Grouped stats / 3-2-2",
+      "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "1812:4299",
+      "type": "COMPONENT",
+      "parentId": "1793:1153",
+      "width": 1920,
+      "height": 1080,
+      "name": "Stat Breakdown / Grouped logo facts / 3-2-2",
+      "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "1812:4356",
+      "type": "COMPONENT",
+      "parentId": "1793:1153",
+      "width": 1920,
+      "height": 1080,
+      "name": "Stat Breakdown / Grouped logo facts / 2-2-3",
+      "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "1812:4435",
+      "type": "COMPONENT",
+      "parentId": "1796:1133",
+      "width": 1920,
+      "height": 1080,
+      "name": "Comparison / Logo row / 3",
+      "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "1812:4570",
+      "type": "COMPONENT",
+      "parentId": "1796:1114",
+      "width": 1920,
+      "height": 1080,
+      "name": "Quick Stat / Logo statement / Placeholder",
+      "variantProperties": null
+    },
+    {
+      "fileKey": "o7E24iymIT80MTXGYIogVH",
+      "pageId": "428:27",
+      "componentId": "711:184",
+      "type": "COMPONENT",
+      "parentId": "1796:1148",
+      "width": 1920,
+      "height": 1080,
+      "name": "Asset Swap / Logo Pair",
       "variantProperties": null
     },
     {
@@ -283,7 +349,7 @@
     },
     "wrapper": {
       "id": "868:776",
-      "parentId": "428:27",
+      "parentId": "1796:1114",
       "bottomLeftRadius": 0,
       "bottomRightRadius": 0,
       "clipsContent": true,
@@ -304,8 +370,8 @@
       "topLeftRadius": 0,
       "topRightRadius": 0,
       "width": 1920,
-      "x": 8600,
-      "y": 3980
+      "x": 2260,
+      "y": 690
     },
     "panel": {
       "id": "868:777",

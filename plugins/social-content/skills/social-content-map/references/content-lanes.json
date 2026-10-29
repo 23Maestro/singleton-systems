@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "status": "source_recovered_user_mapping_pending",
+  "source_url": "https://www.instagram.com/reel/DeFM-KMu_Xi/",
+  "creator": "bryanbuildbrands",
+  "craft_document_id": "57C593E6-221E-4E7A-A0DB-C3B2628E4772",
+  "craft_block_id": "d6901d7c-4c42-970b-aca9-3ec08f4f7cf4",
+  "confirmed_lane_count": 8,
+  "requested_lane_count": 9,
+  "count_note": "The saved reference enumerates 8. No ninth lane is added without a source or Jerami’s choice.",
+  "lanes": [
+    {
+      "id": "origins",
+      "name": "Origins",
+      "purpose": "How the work began.",
+      "candidate_story_ids": [
+        "early-broadcast",
+        "music-fatherhood-and-development"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "dogma",
+      "name": "Beliefs",
+      "purpose": "What experience taught Jerami to believe about the work.",
+      "candidate_story_ids": [
+        "hsn-live-coordination",
+        "video-first-offer"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "exceptional",
+      "name": "Strengths and wins",
+      "purpose": "Specific results, skills and unusual work experience.",
+      "candidate_story_ids": [
+        "prospect-id-2",
+        "nursehub-and-current-work",
+        "hnoc-and-social-direction"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "enemies",
+      "name": "Enemies",
+      "purpose": "Work habits or systems he wants to improve.",
+      "candidate_story_ids": [
+        "prospect-id-1",
+        "prospect-id-2"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "flaws",
+      "name": "Flaws",
+      "purpose": "A real limit or mistake and what changed.",
+      "candidate_story_ids": [
+        "hsn-live-coordination",
+        "music-fatherhood-and-development"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "associations",
+      "name": "Associations",
+      "purpose": "People, work and communities connected to the story.",
+      "candidate_story_ids": [
+        "preparation-and-hsn",
+        "nursehub-and-current-work"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "language",
+      "name": "Shared language",
+      "purpose": "Words and methods he actually uses and has named.",
+      "candidate_story_ids": [
+        "prospect-id-2",
+        "social-engine-intake"
+      ],
+      "application_status": "candidate_for_review"
+    },
+    {
+      "id": "likability",
+      "name": "Human side",
+      "purpose": "Interests and habits beyond the service.",
+      "candidate_story_ids": [
+        "early-broadcast",
+        "music-fatherhood-and-development"
+      ],
+      "application_status": "candidate_for_review"
+    }
+  ],
+  "primary_source_url": "https://www.youtube.com/watch?v=DkTFTehW7ZE",
+  "primary_caption_source": "2026-10-26-hormozi-brand-columns-primary.json"
+}

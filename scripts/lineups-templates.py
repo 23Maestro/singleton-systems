@@ -9,10 +9,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tools.lineups_motion.templates import (
-    TemplateError, eligible, load_registry, load_callout_contract, load_team_callout_contract,
-    resolve, validate_callout, validate_team_callout, validate_source_identity, load_source_guards, validate_source_guards,
+    TemplateError, eligible, load_registry, load_callout_contract, load_team_callout_contract, logo_statement_paint,
+    resolve, validate_callout, validate_source_identity, load_source_guards, validate_source_guards,
 )
-
 from tools.lineups_motion.discovery import validate_scene_discovery
 from tools.lineups_motion.engine_choice import engine_route, record_engine_choice
 
@@ -20,7 +19,9 @@ from tools.lineups_motion.engine_choice import engine_route, record_engine_choic
 def collector_code(page_id, bindings, sources=False, lock_backgrounds=False):
     contract = load_callout_contract()
     # Runtime values come from node properties; no literal style/readback claims.
-    fields = sorted({key for c in (contract, load_team_callout_contract()) for role in c["protected"].values() for key in role})
+    team = load_team_callout_contract()['measuredSource']
+    fields = sorted({key for role in contract["protected"].values() for key in role}
+                    | {key for role in team.values() if isinstance(role, dict) for key in role})
     fields += ["x", "y", "width", "height"]
     code = """const page=await figma.getNodeByIdAsync(__PAGE_ID__);
 if(!page||page.type!=='PAGE')throw new Error('Missing registered page');
@@ -39,7 +40,7 @@ for(const binding of __BINDINGS__){
  if(!root)throw new Error('Missing bound scene root');
  let owner=root; while(owner&&owner.type!=='PAGE')owner=owner.parent;
  if(owner?.id!==page.id)throw new Error('Bound root is on another page');
- callouts.push({sceneId:binding.sceneId,rootNodeId:root.id,rootDimensions:{width:root.width,height:root.height},...roles});
+ callouts.push({key:binding.key,contractId:binding.contractId,sceneId:binding.sceneId,rootNodeId:root.id,rootDimensions:{width:root.width,height:root.height},...roles});
 }
 """
     code = code.replace("__PAGE_ID__", json.dumps(page_id)).replace("__FIELDS__", json.dumps(fields)).replace("__BINDINGS__", json.dumps(bindings))
@@ -51,7 +52,7 @@ for(const id of SOURCEIDS){
  let owner=n;while(owner&&owner.type!=='PAGE')owner=owner.parent;
  sources.push({fileKey:figma.fileKey,pageId:owner?.id,componentId:n.id,type:n.type,parentId:n.parent.id,width:n.width,height:n.height,name:n.name,variantProperties:n.variantProperties??null});
 }
-""".replace("SOURCEIDS", json.dumps([row["source"]["componentId"] for row in load_registry()["templates"] if row["source"].get("engine", "figma") == "figma"]))
+""".replace("SOURCEIDS", json.dumps([row["source"]["componentId"] for row in load_registry()["templates"] if row['source'].get('engine', 'figma') == 'figma']))
         guards = load_source_guards()
         code += """const sourceGuards=[];
 const guardBindings=GUARDBINDINGS;
@@ -117,11 +118,13 @@ def main():
     get.add_argument("key")
     fit = sub.add_parser("fit")
     fit.add_argument("candidate", type=Path)
-    engine = sub.add_parser('engine-choice', help='Inspect the route or save Jerami’s player engine answer')
+    engine = sub.add_parser('engine-choice', help='Ask after transcript candidate selection; save only an explicit answer')
     engine.add_argument('manifest', type=Path)
     engine.add_argument('--root', type=Path, default=ROOT)
     engine.add_argument('--engine', choices=['figma', 'unreal'])
-    engine.add_argument('--answer')
+    engine.add_argument('--answer', help='Jerami’s actual answer; never infer a default')
+    palette = sub.add_parser('logo-statement-paint')
+    palette.add_argument('candidate', type=Path, help='Selected teamId and sourced teamColors.primary/secondary')
     sub.add_parser("fetch-sources")
     sub.add_parser('lock-source-backgrounds')
     fetch = sub.add_parser("fetch-callouts")
@@ -145,6 +148,8 @@ def main():
             args.manifest.write_text(json.dumps(manifest, indent=2) + '\n')
         else:
             result = engine_route(manifest, ledger)
+    elif args.command == 'logo-statement-paint':
+        result = logo_statement_paint(json.loads(args.candidate.read_text()))
     elif args.command == 'lock-source-backgrounds':
         result = source_lock_input()
     elif args.command.startswith("fetch-"):
@@ -172,10 +177,10 @@ def main():
             raise TemplateError("readback identifies a different Figma file")
         result = {"status": "passed", "evidenceMode": "live" if args.live else "saved-readback", "sources": 0, "callouts": 0, "sourceFingerprint": load_callout_contract()["sourceFingerprint"]}
         if "sources" in readback:
-            result["pendingUnrealSources"] = []
+            result['pendingUnrealSources'] = []
             for template in registry["templates"]:
-                if template["source"].get("engine") == "unreal":
-                    result["pendingUnrealSources"].append(template["key"])
+                if template['source'].get('engine') == 'unreal':
+                    result['pendingUnrealSources'].append(template['key'])
                     continue
                 matches = [row for row in readback["sources"] if row.get("componentId") == template["source"]["componentId"]]
                 if len(matches) != 1:
@@ -185,10 +190,7 @@ def main():
             validate_callout(readback.get("callout") or {}, source=True)
             result.update(validate_source_guards(readback))
         for callout in readback.get("callouts", []):
-            if callout.get('key') == 'quick-stat.team-callout':
-                validate_team_callout(callout)
-            else:
-                validate_callout(callout, fit_override=callout.get("fitOverride"))
+            validate_callout(callout, fit_override=callout.get("fitOverride"))
             result["callouts"] += 1
         if result["sources"] == 0 and result["callouts"] == 0:
             raise TemplateError("readback contains no measurable source or callout")

@@ -84,7 +84,7 @@ if (fs.existsSync(pluginSkillsRoot)) {
     .sort();
   assert.deepEqual(pluginSkills, bundledSkills, "registry must classify every bundled SSystems skill");
 }
-assert.equal(catalogSkills.length, 55, "registry must classify every repository skill");
+assert.equal(catalogSkills.length, 62, "registry must classify every repository skill");
 assert.ok(repoSkills.every((skill) => skill.activation === "core"));
 
 const skillNames = new Set(pluginSkills);
@@ -101,6 +101,9 @@ for (const route of registry.routes) {
         ? "eagle-skill"
         : tool.replace(/^s-systems:/, "");
       assert.ok(skillNames.has(skillName), `${route.route_key} requires missing SSystems skill ${tool}`);
+    } else if (tool.startsWith("work-to-content:")) {
+      const skillName = tool.slice("work-to-content:".length);
+      assert.ok(repoSkills.some((skill) => skill.skill_key === skillName && skill.canonical_path === `plugins/work-to-content/skills/${skillName}`), `${route.route_key} requires missing content skill ${tool}`);
     } else {
       assert.ok(allowedExternalTools.has(tool), `${route.route_key} requires unclassified external tool ${tool}`);
     }

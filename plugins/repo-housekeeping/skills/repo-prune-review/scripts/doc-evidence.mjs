@@ -93,22 +93,86 @@ export function collectEvidence({ repo, targets, extraRoots = [] }) {
   };
 }
 
+export function checkEvidence(saved) {
+  const hashPattern = /^[a-f0-9]{64}$/;
+  if (saved?.schemaVersion !== 1 || saved.workflow !== "repo-pruning"
+    || typeof saved.repository !== "string" || !path.isAbsolute(saved.repository)
+    || !Array.isArray(saved.searchedRoots) || !saved.searchedRoots.length
+    || !Array.isArray(saved.items) || !saved.items.length
+    || saved.items.some((item) => !item || typeof item.file !== "string" || !item.file
+      || !hashPattern.test(item.sourceRevision) || !Array.isArray(item.references)
+      || !Array.isArray(item.commands))) throw new Error("Invalid saved evidence record.");
+  if (saved.searchedRoots.some((root) => !root || typeof root.path !== "string" || !path.isAbsolute(root.path)
+    || !["repository", "installed-skill"].includes(root.kind))
+    || saved.searchedRoots.filter((root) => root.kind === "repository").length !== 1
+    || !saved.searchedRoots.some((root) => root.kind === "repository" && root.path === saved.repository)) {
+    throw new Error("Invalid saved evidence search scope.");
+  }
+  const mirrors = saved.mirrors ?? [];
+  if (!Array.isArray(mirrors) || mirrors.some((mirror) => !mirror || !saved.items.some((item) => item.file === mirror.file)
+    || typeof mirror.installedPath !== "string" || !path.isAbsolute(mirror.installedPath))) {
+    throw new Error("Each mirror must name a reviewed file and an absolute installedPath.");
+  }
+  const issues = [];
+  let current;
+  try {
+    current = collectEvidence({
+      repo: saved.repository,
+      targets: saved.items.map((item) => item.file),
+      extraRoots: saved.searchedRoots.filter((root) => root.kind === "installed-skill").map((root) => root.path),
+    });
+  } catch (error) {
+    return { schemaVersion: 1, status: "needs-review", checkedAt: new Date().toISOString(), issues: [{ code: "scope-unavailable", reason: error.message }] };
+  }
+  const references = (item) => JSON.stringify(item.references.map((reference) => [reference.root, reference.file, reference.line, reference.kind, reference.callerSha256]).sort());
+  for (const [index, item] of saved.items.entries()) {
+    const latest = current.items[index];
+    if (item.sourceRevision !== latest.sourceRevision) issues.push({ file: item.file, code: "source-changed" });
+    if (references(item) !== references(latest)) issues.push({ file: item.file, code: "callers-changed" });
+    if (JSON.stringify(item.commands) !== JSON.stringify(latest.commands)) issues.push({ file: item.file, code: "commands-changed" });
+  }
+  for (const mirror of mirrors) {
+    const source = current.items.find((item) => item.file === mirror.file);
+    try {
+      const stat = fs.statSync(mirror.installedPath);
+      if (!stat.isFile() || stat.size > 1024 * 1024) throw new Error("Installed copy is not a permitted text file.");
+      if (digest(fs.readFileSync(mirror.installedPath)) !== source.sourceRevision) {
+        issues.push({ file: mirror.file, installedPath: mirror.installedPath, code: "installed-copy-differs" });
+      }
+    } catch (error) {
+      issues.push({ file: mirror.file, installedPath: mirror.installedPath, code: error.code === "ENOENT" ? "installed-copy-missing" : "installed-copy-unreadable" });
+    }
+  }
+  return {
+    schemaVersion: 1, status: issues.length ? "needs-review" : "current", checkedAt: current.checkedAt,
+    issues, checkedFiles: saved.items.length, checkedMirrors: mirrors.length,
+    limits: "Current means the checked inputs still match. It does not prove the document is true or approve removal.",
+  };
+}
+
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    const options = { repo: process.cwd(), targets: [], extraRoots: [] };
     const args = process.argv.slice(2);
-    for (let index = 0; index < args.length; index++) {
-      const argument = args[index];
-      if (argument === "--repo" || argument === "--extra-root") {
-        const value = args[++index];
-        if (!value || value.startsWith("--")) throw new Error(`Missing value for ${argument}`);
-        if (argument === "--repo") options.repo = value;
-        else options.extraRoots.push(value);
-      } else if (argument.startsWith("--")) throw new Error(`Unknown option: ${argument}`);
-      else options.targets.push(argument);
+    if (args[0] === "--check") {
+      if (args.length !== 2) throw new Error("Use --check SAVED_EVIDENCE.json.");
+      const result = checkEvidence(JSON.parse(fs.readFileSync(args[1], "utf8")));
+      process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+      if (result.status !== "current") process.exitCode = 1;
+    } else {
+      const options = { repo: process.cwd(), targets: [], extraRoots: [] };
+      for (let index = 0; index < args.length; index++) {
+        const argument = args[index];
+        if (argument === "--repo" || argument === "--extra-root") {
+          const value = args[++index];
+          if (!value || value.startsWith("--")) throw new Error(`Missing value for ${argument}`);
+          if (argument === "--repo") options.repo = value;
+          else options.extraRoots.push(value);
+        } else if (argument.startsWith("--")) throw new Error(`Unknown option: ${argument}`);
+        else options.targets.push(argument);
+      }
+      if (!options.targets.length) throw new Error("Provide at least one document path.");
+      process.stdout.write(`${JSON.stringify(collectEvidence(options), null, 2)}\n`);
     }
-    if (!options.targets.length) throw new Error("Provide at least one document path.");
-    process.stdout.write(`${JSON.stringify(collectEvidence(options), null, 2)}\n`);
   } catch (error) {
     process.stderr.write(`${error.message}\n`);
     process.exitCode = 1;

@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-10-18T02:52:47.515328+00:00",
+  "device": "CT2000X9SSD9",
+  "capacityTB": 2,
+  "usbLinkGbps": 10,
+  "sequentialTest": {
+    "file_bytes": 8589934592,
+    "F_NOCACHE": 48,
+    "F_FULLFSYNC": 51,
+    "cache_bypassed": true,
+    "queue_depth": 1,
+    "device": "CT2000X9SSD9",
+    "temporary_file_removed": true,
+    "write_MBps": [
+      943.1,
+      943.8,
+      906.9
+    ],
+    "read_MBps": [
+      838.0,
+      856.2,
+      855.5
+    ]
+  },
+  "physicalReadCheck": {
+    "file": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/source/unreal/engines/UE_5.8/Engine/DerivedDataCache/Compressed.ddp",
+    "bytes_read": 3023025037,
+    "seconds": 5.123763374984264,
+    "read_MBps": 590.0009067083985,
+    "iostat_disk6_MB_increase": 2882.99,
+    "physical_activity_observed": true
+  },
+  "physicalWriteCheck": {
+    "bytes_written": 8589934592,
+    "seconds": 9.040212166961282,
+    "write_MBps": 950.1917027338269,
+    "iostat_disk6_MB_increase": 8193.99,
+    "physical_activity_observed": true,
+    "temporary_file_removed": true
+  },
+  "decision": "Suitable for the short Lineups trial; scene and render checks remain required.",
+  "scope": "Three 8 GiB passes plus physical-device counter checks. Sustained full-drive performance was not tested.",
+  "manufacturerSource": "https://www.crucial.com/ssd/x9/ct2000x9ssd9",
+  "manufacturerReceipt": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/unreal-external-storage-research/20261018T024621.183304Z-6557b169dc77/receipt.json"
+}

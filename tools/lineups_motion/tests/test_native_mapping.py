@@ -3,6 +3,7 @@ import importlib.util
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -78,6 +79,54 @@ class NativeMappingTests(unittest.TestCase):
             self.assertFalse(gate.approved_static_scene(changed))
         m['motion']['cues'][0]['duration'] = .4
         self.assertFalse(gate.approved_static_scene(m))
+
+
+class WhisperPlacementTests(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        root = Path(self.directory.name)
+        self.media = root / 'source.mp4'; self.media.write_bytes(b'verified-source')
+        self.path = root / 'placement.json'
+        self.placement = {'success': True, 'sequenceId': 'seq', 'clipId': 'clip',
+                          'projectItemId': 'source', 'mediaPath': str(self.media),
+                          'start': .24, 'end': 100.24, 'inPoint': 0, 'outPoint': 100, 'speed': 1}
+        self.manifest = {'timing': {'verifiedAnchorTimestamp': 28.26},
+                         'motion': {'frameRate': {'numerator': 25, 'denominator': 1}},
+                         'premiere': {'sequenceId': 'seq', 'timelineMapping': {
+                             'provider': 'approved-whisper-source-placement',
+                             'readbackPath': str(self.path), 'sourceClipId': 'clip',
+                             'sourceProjectItemId': 'source', 'sourceMediaPath': str(self.media),
+                             'sourceMediaSha256': gate.sha256_file(self.media)}}}
+        self.write()
+        mocked = patch.object(gate, 'validate_timing_receipt')
+        self.timing = mocked.start(); self.addCleanup(mocked.stop)
+
+    def write(self):
+        self.path.write_text(json.dumps(self.placement))
+        self.manifest['premiere']['timelineMapping']['readbackSha256'] = gate.sha256_file(self.path)
+
+    def test_source_offset_is_frame_rounded_and_requires_manim_receipt(self):
+        self.assertEqual(gate.premiere_anchor(self.manifest), 28.52)
+        self.timing.assert_called_once_with(gate.SOURCE_ROOT, self.manifest)
+
+    def test_changed_media_and_stale_readback_fail(self):
+        self.media.write_bytes(b'wrong-source')
+        with self.assertRaises(gate.EnforcementError): gate.premiere_anchor(self.manifest)
+        self.media.write_bytes(b'verified-source'); self.path.write_text('{}')
+        with self.assertRaises(gate.EnforcementError): gate.premiere_anchor(self.manifest)
+
+    def test_native_identity_trim_and_speed_must_match(self):
+        for key, value in [('sequenceId', 'wrong'), ('projectItemId', 'wrong'),
+                           ('mediaPath', '/wrong'), ('speed', 2), ('inPoint', 30), ('end', 99)]:
+            with self.subTest(key=key):
+                original = self.placement[key]; self.placement[key] = value; self.write()
+                with self.assertRaises(gate.EnforcementError): gate.premiere_anchor(self.manifest)
+                self.placement[key] = original; self.write()
+
+    def test_failed_timing_receipt_cannot_be_bypassed(self):
+        self.timing.side_effect = ValueError('stale timing')
+        with self.assertRaisesRegex(ValueError, 'stale timing'): gate.premiere_anchor(self.manifest)
 
 
 if __name__ == '__main__': unittest.main()

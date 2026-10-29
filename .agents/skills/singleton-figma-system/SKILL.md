@@ -25,6 +25,10 @@ For Catena Media Lineups work, read
 [lineups-production-system.md](references/lineups-production-system.md). It
 implements the approved seven-lane menu and the active-page pruning rule.
 
+For the Lineups curved corner glow and its reuse in other client systems, read
+[corner-glow.md](references/corner-glow.md). It records the measured vector, 6-layer
+blur recipe, client variables, type hierarchy and renderer helper.
+
 ## ownership
 
 - Figma owns geometry, variables, components, variants, scene examples, and review comments.
@@ -42,9 +46,10 @@ Inspect the live file first. Keep an area that already meets the standard.
   Set the title and its workday label to exactly **300 px**. Use centered dark
   text with Auto Width and tight bounds. This scale is for canvas labels;
   preserve the approved type inside designs and scene previews.
-- Label the actual day worked, with weekday, date, year, and the project's time
-  zone. For Lineups, use America/New_York. Use a workday range when records show
-  work across days. Check work logs, build/export records, or Jerami's account.
+- Label the actual day worked with weekday, date, and year. Omit the time
+  zone from canvas titles and workday labels. Verify the date in the project's
+  time zone (America/New_York for Lineups). Use a workday range when records
+  show work across days. Check work logs, build/export records, or Jerami's account.
   A source date, deadline, import date, or archive-cleanup date alone does not
   prove the workday. For new work, record the day work begins. Keep a partial
   date explicit, such as `Worked August 2026 / day not confirmed`.

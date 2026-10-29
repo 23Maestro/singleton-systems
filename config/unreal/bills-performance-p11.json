@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "sceneId": "P11",
+  "episodeSlug": "2026-10-20-nfl-week-7-power-rankings",
+  "title": "Buffalo wins and moves to 5\u20131",
+  "engine": "unreal",
+  "status": "final-exported-eagle",
+  "visualApproval": true,
+  "editorialTimingApproved": false,
+  "productionReady": false,
+  "mapPath": "/Game/Lineups/Week7_P11_FinalV2/LV_P11",
+  "sequencePath": "/Game/Lineups/Week7_P11_FinalV2/LS_P11",
+  "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+  "sourcePackageScene": "/Game/_Scenes/FS_BarChart",
+  "designDirectionPath": "docs/handoffs/2026-10-21-week7-p11-bills-direction.json",
+  "layout": {
+    "header": "BUFFALO BILLS",
+    "headerAlignment": "center",
+    "logo": "Buffalo Bills",
+    "logoPlacement": "Former Most Direct Free-Kicks headline area, centered below header",
+    "teamFacts": [
+      {
+        "value": "33",
+        "label": "POINTS SCORED"
+      },
+      {
+        "value": "30",
+        "label": "POINTS ALLOWED"
+      },
+      {
+        "value": "5\u20131",
+        "label": "RECORD"
+      }
+    ],
+    "equalHeightFactPanels": true,
+    "panelHeightMeaning": "Layout only; not a common quantitative axis",
+    "playerPortraitsVisible": false,
+    "sampleSponsorsVisible": false,
+    "paperTexture": "/Game/_Textures/T_WheatPaste_D"
+  },
+  "timing": {
+    "mode": "Mark-spoken-cues-approved-camera",
+    "animationOut": false,
+    "entranceCuesPending": false,
+    "sourceCueMap": "config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/cue-map.json",
+    "sourcePassageSeconds": [
+      637.58,
+      647.58
+    ],
+    "sourceCueSeconds": [
+      637.83,
+      638.62,
+      642.13
+    ],
+    "fps": 25,
+    "leadInFrames": 37,
+    "cueFrames": [
+      43,
+      63,
+      151
+    ],
+    "cardSettledFrames": [
+      53,
+      73,
+      161
+    ],
+    "cameraMoves": [
+      {
+        "frames": [
+          0,
+          37
+        ],
+        "action": "approved push to both score cards and logo"
+      },
+      {
+        "frames": [
+          37,
+          135
+        ],
+        "action": "hold both score cards and logo"
+      },
+      {
+        "frames": [
+          135,
+          174
+        ],
+        "action": "open toward record"
+      },
+      {
+        "frames": [
+          181,
+          221
+        ],
+        "action": "pull back to full board and hold"
+      }
+    ],
+    "staticHoldFromFrame": 221,
+    "totalFrames": 400,
+    "durationSeconds": 16,
+    "verifiedIdenticalHoldFrames": 175,
+    "sourcePlan": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/timing/P11.manifest.json",
+    "sourceManimReceiptSha256": "18726e23b38ef1b3070e1746b90914249bc2aef6acd03993613f92b99624cbb8",
+    "nativeTimingAdapter": "Same-revision Manim word cues; original approved 37-frame lead-in and camera keys preserved",
+    "sourceAnchorSeconds": 637.58,
+    "individualSpokenBeatReveals": true,
+    "sourceAudioStartSeconds": 636.1
+  },
+  "render": {
+    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/week7-finals-v2/23-of-30_P11_Bills-performance-v2.mov",
+    "sha256": "ed9d0da3ccd3c38231615c0b7c42668ab5793bfe2ba1508cf5736a05fe9a0b8f",
+    "bytes": 381962333,
+    "sceneId": "P11",
+    "presentationOrder": 23,
+    "of": 30,
+    "durationSeconds": 16,
+    "fps": 25,
+    "frames": 400,
+    "width": 1920,
+    "height": 1080,
+    "codec": "prores",
+    "profile": "HQ",
+    "motionBlurAmount": 0.25,
+    "animationOut": false,
+    "identicalStaticHoldFrames": 175,
+    "staticHoldCheckedFromFrame": 225,
+    "reviewPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/week7-finals-v2/23-of-30_P11_Bills-performance-v2-review.mp4",
+    "sourceAudioStartSeconds": 636.1,
+    "sourceAnchorSeconds": 637.58,
+    "cueFrames": [
+      43,
+      63,
+      151
+    ],
+    "cueSeconds": [
+      637.83,
+      638.62,
+      642.13
+    ],
+    "approvedCameraKeysPreserved": true,
+    "eagleVerified": true,
+    "eagleItemId": "MVIWQ7MPP4YEO",
+    "eagleFolderId": "MVHEBR73ZGKA6",
+    "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MVIWQ7MPP4YEO.info/23-of-30_P11_Bills-performance-v2.mov"
+  },
+  "nativeReadback": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/week7-p11-repair-spoken-v2.json",
+  "authoredBackup": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-week7-spoken-repair-v2-saved",
+  "backupFileCount": 2,
+  "scripts": [
+    "tools/lineups_unreal/prepare_bills_performance.py",
+    "tools/lineups_unreal/build_bills_performance.py",
+    "tools/lineups_unreal/render_bills_performance.py",
+    "tools/lineups_unreal/build_bills_motion.py",
+    "tools/lineups_unreal/polish_bills_motion.py",
+    "tools/lineups_unreal/render_bills_motion.py",
+    "tools/lineups_unreal/verify_bills_motion.py",
+    "tools/lineups_unreal/widen_bills_motion.py"
+  ],
+  "nextStep": "Review the exported final in Eagle. It is silent and has no animation out. The episode edit and Figma exports remain separate.",
+  "approvedStaticLayout": {
+    "mapPath": "/Game/Lineups/BillsPerformanceV1/LV_BillsPerformance",
+    "sequencePath": "/Game/Lineups/BillsPerformanceV1/LS_BillsPerformance",
+    "render": {
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-v1/BillsPerformance.0000.png",
+      "sha256": "a9a85e97f5878bb96c1f59890d222532bf02171312cf1ee338993cba0d335bb2",
+      "width": 1920,
+      "height": 1080,
+      "receipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/bills-performance-render-v1.json"
+    },
+    "authoredBackup": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-bills-performance-v1",
+    "approved": true,
+    "approval": "Jerami approved the first Bills layout and requested its motion."
+  },
+  "motionApproval": true,
+  "stockCleanup": {
+    "workingSceneStockActorsRemaining": 0,
+    "readback": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/bills-performance-motion-polish-v1.json",
+    "sourceSamplePreserved": true,
+    "sharedLightingLevelPreserved": true
+  },
+  "previousMotionReviews": [
+    {
+      "sequencePath": "/Game/Lineups/BillsPerformanceMotionV1/LS_BillsPerformanceMotion",
+      "render": {
+        "reviewPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-motion-v2/Bills-P11-Mark-cues-review.mp4",
+        "sha256": "e730cefc336fc24ccd49aa7653ee61a7b2fb6fc27775d4456dcc70df5da2d532",
+        "bytes": 5027319,
+        "width": 1920,
+        "height": 1080,
+        "fps": 25,
+        "frameCount": 412,
+        "duration": 16.48,
+        "verification": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-motion-v2/review-verification.json"
+      },
+      "status": "replaced-by-paired-framing"
+    }
+  ],
+  "cameraFraming": {
+    "direction": "Approved pair focus restored exactly; both score cards and full logo, then pull back to all3",
+    "pairZoom": 1.22,
+    "allCardsZoom": 1.08,
+    "receipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/week7-p11-repair-spoken-v2.json"
+  },
+  "approvedReviewBaseline": {
+    "mapPath": "/Game/Lineups/BillsPerformanceMotionV1/LV_BillsPerformanceMotion",
+    "sequencePath": "/Game/Lineups/BillsPerformanceMotionV1/LS_BillsPerformanceMotionPairFocus",
+    "render": {
+      "reviewPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-motion-v3/Bills-P11-paired-focus-review.mp4",
+      "sha256": "c20a440afa8bcf29a7e52a86d88d7b93f049f0330d02c28eb4f584f7bda36af2",
+      "bytes": 4795745,
+      "width": 1920,
+      "height": 1080,
+      "fps": 25,
+      "frameCount": 412,
+      "duration": 16.48,
+      "verification": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-motion-v3/review-verification.json"
+    },
+    "authoredBackup": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-bills-performance-motion-v3-pair-final",
+    "approval": "Jerami: looks good; requested final motion blur and 10-second export"
+  },
+  "finalOverrides": {
+    "durationSeconds": 16,
+    "motionBlurAmount": 0.25,
+    "breakdownCardsEnterTogether": false,
+    "individualSpokenBeatReveals": true,
+    "animationOut": false,
+    "sourceCueProvenancePreserved": true
+  },
+  "backupManifestSha256": "3847568abe1e5300e0319888e6b8660ba0ac468ffc04e0cba70f76994e64c44b",
+  "supersededFinalRender": {
+    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/week7-finals-v1/23-of-30_P11_Bills-performance.mov",
+    "sha256": "45382a730077e62b38d6e39c2ac213becdc77ef44128c9cfd120dd2e065cd0a2",
+    "bytes": 238860652,
+    "width": 1920,
+    "height": 1080,
+    "codec": "prores",
+    "profile": "HQ",
+    "pixelFormat": "yuv422p10le",
+    "fps": 25,
+    "frames": 250,
+    "durationSeconds": 10,
+    "audioStreams": 0,
+    "identicalStaticHoldFrames": 123,
+    "staticHoldCheckedFromFrame": 127,
+    "motionBlur": {
+      "nativeCameraAmount": 0.25,
+      "temporalSamples": 4,
+      "spatialSamples": 4
+    },
+    "sceneId": "P11",
+    "presentationOrder": 23,
+    "of": 30,
+    "sourceAnchorSeconds": 637.58,
+    "eagleItemId": "MVIUIC281LX7Q",
+    "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MVIUIC281LX7Q.info/Superseded_23-of-30_P11_Bills-performance-v1.mov",
+    "eagleFolderId": "MVIWVUM9B71X8",
+    "eagleVerified": true
+  }
+}

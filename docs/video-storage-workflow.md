@@ -17,6 +17,10 @@ retention, and exact-path cleanup.
 - `dev-storage` owns dependencies, runtimes, worktrees, and general developer
   caches. The HyperFrames extracted-frame media cache is the explicit exception
   owned by this gate. `dev-storage` does not organize or retire video media.
+- `s-systems:unreal-storage` owns Unreal engine installs, complete project
+  placement, and Unreal caches. Its renders still use this client/type gate.
+  Original authored Unreal assets need a durable backup internally or on a
+  separate physical device. UnrealSSD, HomeSSD, and MediaSSD share one X9 here.
 
 Run `npm run storage:gate -- route --client "<name>" --kind <kind>` before
 placing new work. The command verifies HomeSSD UUID

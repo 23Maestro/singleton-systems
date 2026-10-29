@@ -102,7 +102,7 @@
         ]
       },
       {
-        "matcher": "^(?:mcp__codex_apps__figma_(?:use_figma|export_video)|mcp__premiere_pro__(?:import_media|add_to_timeline|replace_clip|replace_clip_media|trim_clip|get_project_item_info|find_items_by_media_path|get_full_sequence_info|get_clip_properties))$",
+        "matcher": "^(?:mcp__codex_apps__figma_(?:use_figma|export_video)|mcp__premiere_pro__(?:import_media|add_to_timeline|replace_clip|replace_clip_media|trim_clip|add_transition_to_clip|get_project_info|get_project_item_info|find_items_by_media_path|get_full_sequence_info|get_clip_properties|list_sequence_tracks))$",
         "hooks": [
           {
             "type": "command",

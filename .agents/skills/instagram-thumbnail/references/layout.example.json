@@ -1,0 +1,6 @@
+{
+  "canvas": {"width": 1080, "height": 1920},
+  "crop": {"x": 0, "y": 240, "width": 1080, "height": 1440, "source": "Jerami Instagram profile-grid test, 2026-10-22", "status": "observed"},
+  "inset": {"top": 80, "bottom": 80, "left": 0, "right": 0},
+  "groups": [{"id": "bottom-copy", "node_ids": [], "bounds": {"x": 64, "y": 1332, "width": 952, "height": 524}}]
+}

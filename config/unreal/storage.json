@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "mountPoint": "/Volumes/UnrealSSD",
+  "volumeUuid": "70A7DE2A-B889-42A5-B2E4-96FADCAC40A0",
+  "minimumFreeGiB": 50,
+  "filesystem": "APFS",
+  "caseSensitive": false,
+  "physicalDevice": "CT2000X9SSD9",
+  "sharesPhysicalDeviceWith": ["HomeSSD", "MediaSSD"],
+  "sourceRoot": "Generated"
+}

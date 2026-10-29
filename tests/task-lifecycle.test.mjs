@@ -24,13 +24,15 @@ function fixture(t) {
     if (query.includes("LifecycleOwner")) return { teams: { nodes: [{ id: "team", key: "23M", states: { nodes: [{ id: "todo", name: "Todo" }] } }] }, project: { id: projectId, teams: { nodes: [{ key: "23M" }] } } };
     if (query.includes("LifecycleIssue")) {
       const issue = issues.get(variables.id) ?? [...issues.values()].find(x => x.identifier === variables.id);
-      return { issue: issue ? structuredClone(issue) : null };
+      const result = issue ? structuredClone(issue) : null;
+      if (result && faults.omitDeadline) delete result.dueDate;
+      return { issue: result };
     }
     if (query.includes("LifecycleCreate")) {
       const record = variables.input;
       assert.match(record.id, /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/, "Linear requires a version-4 UUID");
       assert.equal(issues.has(record.id), false, "A repeated create reached the owner");
-      const issue = { id: record.id, identifier: `23M-${issues.size + 1}`, title: record.title, description: record.description, url: `https://linear.app/23maestro/issue/${record.id}`, parent: record.parentId ? { id: record.parentId } : null, project: { id: record.projectId }, team: { key: "23M" }, state: { name: "Todo", type: "unstarted" } };
+      const issue = { id: record.id, identifier: `23M-${issues.size + 1}`, title: record.title, description: record.description, dueDate: record.dueDate ?? null, url: `https://linear.app/23maestro/issue/${record.id}`, parent: record.parentId ? { id: record.parentId } : null, project: { id: record.projectId }, team: { key: "23M" }, state: { name: "Todo", type: "unstarted" } };
       issues.set(record.id, issue); writes.push({ operation: "create", id: record.id });
       if (faults.lostReply) { delete faults.lostReply; throw new Error("Connection lost after owner applied the task"); }
       return { issueCreate: { success: true, issue: { id: record.id } } };
@@ -129,4 +131,51 @@ test("entry loads current task, children, discussion and blockers before binding
   assert.equal(bindings[0][1]["done-when"], "Jerami confirms the choice is correct.");
   f.faults.moreComments = true;
   await assert.rejects(() => startTask(selected.id, { ...f.options, session: "chat", turn: "turn" }), /incomplete/);
+});
+
+test("a reviewed deadline survives creation and entry while no-deadline work stays undated", async t => {
+  const f = fixture(t), plan = input();
+  plan.parent.dueDate = null;
+  plan.tasks[0].dueDate = "2026-11-04";
+  plan.tasks[1].dueDate = null;
+  const created = await f.create(plan);
+  assert.equal(created.outcome, "created", created.error);
+  const dated = await taskEntryContext(created.tasks.find(x => x.key === "save-choice").id, f.options);
+  const undated = await taskEntryContext(created.tasks.find(x => x.key === "review-choice").id, f.options);
+  assert.equal(dated.task.dueDate, "2026-11-04");
+  assert.equal(undated.task.dueDate, null);
+  assert.match(dated.task.description, /Attention: 20 min/);
+});
+
+test("invalid or incomplete deadline answers fail before creating any owner record", async t => {
+  const f = fixture(t);
+  for (const dueDate of ["2026-02-30", "2026-13-01", "2026-2-04", "Friday", "2026-11-04T09:00:00Z", undefined]) {
+    const plan = input(); plan.tasks[0].dueDate = dueDate;
+    await assert.rejects(async () => f.create(plan), /dueDate/);
+  }
+  const plan = input(); plan.parent.dueDate = "2026-02-29";
+  await assert.rejects(async () => f.create(plan), /dueDate/);
+  assert.equal(f.writes.length, 0);
+});
+
+test("an explicit no-deadline answer requires native date readback before creation is confirmed", async t => {
+  const f = fixture(t), plan = input();
+  plan.parent.dueDate = null;
+  f.faults.omitDeadline = true;
+  assert.equal((await f.create(plan)).outcome, "incomplete");
+  f.faults.omitDeadline = false;
+  assert.equal((await f.create(plan)).outcome, "created");
+});
+
+test("a selected existing subtask can own a plan without losing its original parent", async t => {
+  const f = fixture(t), original = await f.create();
+  const selected = original.tasks.find(x => x.key === "save-choice");
+  const plan = input(); plan.requestId = "nested-plan-v1";
+  plan.parent.existingId = selected.id;
+  plan.parent.title = "Save the choice";
+  const created = await f.create(plan, { statePath: path.join(path.dirname(f.options.statePath), "nested.json") });
+  assert.equal(created.outcome, "created", created.error);
+  const entry = await taskEntryContext(created.parentId, f.options);
+  assert.equal(entry.task.parent.id, original.parentId);
+  assert.equal(entry.children.length, 2);
 });

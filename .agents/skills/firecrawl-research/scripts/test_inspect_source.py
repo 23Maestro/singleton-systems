@@ -14,6 +14,14 @@ spec.loader.exec_module(module)
 
 
 class InspectionTests(unittest.TestCase):
+    def test_keychain_interaction_denial_is_not_reported_as_missing(self):
+        import subprocess
+        result = subprocess.CompletedProcess([], 36, stdout=b'', stderr=b'')
+        with patch.dict(module.os.environ, {'FIRECRAWL_API_KEY': ''}), \
+             patch.object(module.subprocess, 'run', return_value=result):
+            with self.assertRaisesRegex(module.InspectionError, 'access was denied.*exit 36'):
+                module.load_key()
+
     def payload(self, **metadata):
         return {"success": True, "data": {"markdown": "LKW housing reference", "html": "<h1>LKW housing</h1>",
                 "metadata": {"statusCode": 200, "title": "Housing", **metadata}}}

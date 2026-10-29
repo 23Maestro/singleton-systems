@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "templateNumber": 2,
+  "templateKey": "stat-breakdown.unreal.player",
+  "name": "Stat Breakdown",
+  "lane": 3,
+  "status": "visual-template-approved",
+  "sourceConfig": "config/unreal/stat-breakdown-template.json",
+  "sourceConfigSha256": "2e016374b16756f42106a066ca9711bfa941c9104afbf225f937d4a162d740a8",
+  "sourceFigma": {
+    "3": "591:105",
+    "4": "591:123"
+  },
+  "sourceEpicScene": "/Game/_Scenes/FS_PlayerStats",
+  "referenceImage": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/unreal-three-stat-player-card-reference.jpg",
+  "nativeProject": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+  "nativeVariants": [
+    {
+      "points": 3,
+      "map": "/Game/Lineups/StatBreakdownV1/LV_MahomesStat3",
+      "sequence": "/Game/Lineups/StatBreakdownV1/LS_MahomesStat3"
+    },
+    {
+      "points": 4,
+      "map": "/Game/Lineups/StatBreakdownV1/LV_MahomesStat4",
+      "sequence": "/Game/Lineups/StatBreakdownV1/LS_MahomesStat4"
+    }
+  ],
+  "authoredAssets": [
+    {
+      "relative": "Assets/T_ChiefsGold_c7ce4880c43e.uasset",
+      "sha256": "42e47dd4dbd555e5a9c1ab0b15023a1b7db195a9e218ee97367401d9fe4a0039",
+      "bytes": 11772
+    },
+    {
+      "relative": "Assets/T_ChiefsLogo_24fbbcef22bf.uasset",
+      "sha256": "f5d759a909976694c9d73a2e7f8d91c8fe6e1a5bb4e441b9e588db73056d2808",
+      "bytes": 108230
+    },
+    {
+      "relative": "Assets/T_ChiefsPrimary_e9ec2bac4489.uasset",
+      "sha256": "bea0624389141042a7b99e6ad45d98122c2ad7fac0bdbfff5aff4984ee811285",
+      "bytes": 11852
+    },
+    {
+      "relative": "Assets/T_FieldNight_af80f6fe0669.uasset",
+      "sha256": "0506cd8cc972a717770f10563bbf509b557c5365656603545d01b10c61872194",
+      "bytes": 2271355
+    },
+    {
+      "relative": "Assets/T_MahomesFlex_01137e9bd195.uasset",
+      "sha256": "ed6a04f0f0c36cc3cf36e44196bae84a195c098d2ac3c8c4bc0cb98c1e453421",
+      "bytes": 451469
+    },
+    {
+      "relative": "LS_MahomesStat3.uasset",
+      "sha256": "8c0fbd700d373731791b31f4138c75493c7e6aafe6cf16eae691e145bb276999",
+      "bytes": 195660
+    },
+    {
+      "relative": "LS_MahomesStat4.uasset",
+      "sha256": "8270c2fb328c28ecae4663a9b305d766e6754f5f7bef1cfc058cf2e4031aeb87",
+      "bytes": 206184
+    },
+    {
+      "relative": "LV_MahomesStat3.umap",
+      "sha256": "5a21c4a358f4a169e8a80c3bd23efc914cdbeb66e2a9c2ced4cf290625374918",
+      "bytes": 1880951
+    },
+    {
+      "relative": "LV_MahomesStat4.umap",
+      "sha256": "f20091c97b29b9bf66f450c8dac8a64ba943351ca89a24decba3204dd281111d",
+      "bytes": 2090064
+    },
+    {
+      "relative": "Materials/M_FieldNight.uasset",
+      "sha256": "35b9778eed0ccdd406d6ab71d9d27d7e033aa088844d29f7a1c6a7f79cb008e4",
+      "bytes": 13474
+    },
+    {
+      "relative": "Materials/M_SpeakerCallout.uasset",
+      "sha256": "14939078dd3b2695fc11b8bc64a0fdb7542d5da420dfee995b4c3355a0bc40b1",
+      "bytes": 9046
+    }
+  ],
+  "frozenAuthoredBackup": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261020-212153-stat-final-v7",
+  "backupManifestSha256": "45cddda33c2d8f7d4d9ee0d8a06974bbd6bb5d74509d53c93f4d8a356adc8238",
+  "reviewExports": [
+    {
+      "points": 3,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v7/Mahomes-Stat-Breakdown-3-Point-Final-v7.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-3-Point-Final-v7.mp4",
+      "sha256": "78e79221c0c8f6a1914941a517d7aa04be07b96d67d8e61e4ba2d2bedb2becab",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v7/frames-3/mahomes_stat.0200.png",
+      "stillSha256": "65351bb5b2b0605df9aa30fd86b83e0cc86c08043c05b21bab5fc3ad6035c502",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-final-motion-3-v7.json",
+      "nativeReceiptSha256": "b680ffd6f115d19d9206cfed3aad29042ee35cb47c753be200b3a425e4fc083f"
+    },
+    {
+      "points": 4,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v7/Mahomes-Stat-Breakdown-4-Point-Final-v7.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-4-Point-Final-v7.mp4",
+      "sha256": "be72b1b3e9d27b6900d5d68ade6b85ce0ce6b139d3e5259aa1f4cebab441e75b",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v7/frames-4/mahomes_stat.0200.png",
+      "stillSha256": "57dd3effbaa867acf6facaee1e800c24e3863273a72292ae473d50b84012596a",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-final-motion-4-v7.json",
+      "nativeReceiptSha256": "cdbb7fb6beb4a706e952f5c96e0469351095da5e735c615d12537a2054b0fa87"
+    }
+  ],
+  "verification": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-final-verification-v7.json",
+  "verificationSha256": "3770aaf80234655309f945ce2f2e1cf5e73b052df0f45f7f0182670aa37b959d",
+  "productionGates": {
+    "visualApproval": "approved",
+    "episodeDialogueAndSameRevisionManimCuesRequired": true,
+    "reviewDurationSetsEditorialHold": false,
+    "exitCue": null,
+    "productionRendererChangeApproved": false,
+    "premiereHandoffApproved": false,
+    "nextTemplateStartsAutomatically": false,
+    "animationOutAllowed": false,
+    "transitionOwner": "Premiere",
+    "episodeCueScope": "entrances only"
+  },
+  "supersededReviewExports": [
+    {
+      "points": 3,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v1/Mahomes-Stat-Breakdown-3-Point-Review.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-3-Point-Review.mp4",
+      "sha256": "af2fd5245f4d8eb9517d5485f19f28bad0721c025597d816d960f118a05d33ae",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v1/frames-3/mahomes_stat.0200.png",
+      "stillSha256": "31a94193a68890003f951ffc8d78ff0d93d121b3a850afc680cad23b5ddb3170",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-render-motion-3.json",
+      "nativeReceiptSha256": "f226ed09d14a67efa1077aac96c12e1349dfb1e6e140d21f56cdffe8ef1f3b02"
+    },
+    {
+      "points": 4,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v1/Mahomes-Stat-Breakdown-4-Point-Review-v2.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-4-Point-Review.mp4",
+      "sha256": "a36dbd7e1f588ca767fd72d8b7f4aa0278cf7878488ef7d11b16f7b3bbec4406",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v1/frames-4-v2/mahomes_stat.0200.png",
+      "stillSha256": "8863f564f8dcc6a99efbe665846b08a9a333122d7ff19d223758f835292072ac",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-render-motion-4-v2.json",
+      "nativeReceiptSha256": "2eef842cf1172f4d2caa5c136b0e35207267c954c11f2746055912804ee71abb"
+    },
+    {
+      "points": 3,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v2/Mahomes-Stat-Breakdown-3-Point-Corrected-v2.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-3-Point-Corrected-v2.mp4",
+      "sha256": "57c41304f842d31b1990a384fc2a7cabf523b969aac0c2ec619ad0c3eb57d79d",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v2/frames-3/mahomes_stat.0200.png",
+      "stillSha256": "7ba001f64b624f7489c2130e0df71f3561efee8617da6cc5aab51b4a7830ac5b",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-corrected-motion-3.json",
+      "nativeReceiptSha256": "b2f0b4efce40127f29fa8775fa817c83de37c7544cdbf01bedccda5c3eba441d"
+    },
+    {
+      "points": 4,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v2/Mahomes-Stat-Breakdown-4-Point-Corrected-v2.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-4-Point-Corrected-v2.mp4",
+      "sha256": "155a4f1f15f788e93cb840f808a8ac1627b4bfe8bca5ae05a639ec90dd9e6fb6",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v2/frames-4/mahomes_stat.0200.png",
+      "stillSha256": "542edd64115cbbe779cddb37ad01e36f1a499ee13f9ab440e3f3368dd5f7f963",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-corrected-motion-4.json",
+      "nativeReceiptSha256": "0ab14312d3b67775e57040dc7c30f544cdb9cf734c2ecf9b9980d1714a03e791"
+    },
+    {
+      "points": 3,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v3/Mahomes-Stat-Breakdown-3-Point-Layout-v3.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-3-Point-Layout-v3.mp4",
+      "sha256": "24da10ffd93337a4874f51dad022ce52ac73a77efe030c4f9fd19d140ae295a0",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v3/frames-3-final/mahomes_stat.0200.png",
+      "stillSha256": "92e6cb43e50c5cdacde6b99f6e62b91472490670569df945c9f08af52210cd56",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-layout-motion-3-final-v3.json",
+      "nativeReceiptSha256": "81155590db4391054080602f15e982328e64a94e7b1e4487af8180f32649da52"
+    },
+    {
+      "points": 4,
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v3/Mahomes-Stat-Breakdown-4-Point-Layout-v3.mp4",
+      "iCloudCopy": "/Users/singleton23/Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/Mahomes-Stat-Breakdown-4-Point-Layout-v3.mp4",
+      "sha256": "c7df2d51ed957d759fa8290c5367e9262816d802fc84b4c748a0d1f1a1a3069a",
+      "still": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-mahomes-stat-breakdown-v3/frames-4-final/mahomes_stat.0200.png",
+      "stillSha256": "e391a7b48adea2cdc15bf7f7e55045fce0d5bca35cbc38127f3884927522b8cf",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "frameRate": {
+        "numerator": 60000,
+        "denominator": 1001
+      },
+      "frameCount": 480,
+      "seconds": 8.008,
+      "decodeVerified": true,
+      "nativeReceipt": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-layout-motion-4-final-v3.json",
+      "nativeReceiptSha256": "5d20b92ae3c232aaf72389fae53a92aa12c3c0c980831acae4ef5e4dd5ca2c86"
+    }
+  ],
+  "readabilityRevision": 2,
+  "readabilityCorrection": {
+    "labelMaskWorldZ": -253.416667,
+    "logoTextureTiling": [
+      1,
+      1
+    ],
+    "qbScale": 0.45,
+    "qbWorldZ": 174.2,
+    "qbTagScaleZ": 1.6,
+    "qbTagWorldZ": 184,
+    "seasonTypeface": "Bold",
+    "rejectMaskedTextClipping": true
+  },
+  "layoutRevision": 6,
+  "statLayout": {
+    "mode": "equal-columns-when-fit-otherwise-content-width",
+    "paddingPx": 32,
+    "minimumGapPx": 16,
+    "centerValueAndLabel": true,
+    "shrinkTypeToFit": false,
+    "variants": {
+      "3": {
+        "mode": "space-evenly",
+        "equalOuterPadding": true
+      }
+    }
+  },
+  "speakerCallout": {
+    "textSlot": "season",
+    "role": "Mark talking point, matching the Figma callout slot",
+    "background": "#000000",
+    "paddingXPx": 20,
+    "paddingYPx": 10,
+    "hugText": true
+  },
+  "redPanelOpacity": 0.9,
+  "inheritedHighlights": "removed-from-owned-maps-and-all-sequence-bindings",
+  "nativeLayoutProofs": [
+    {
+      "points": 3,
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-spacing-correction-3-v6.json",
+      "sha256": "5e81d59d11fc429304a2bb9114a09b12658fddfb15867c2175c3ccc5fbeb5fca"
+    },
+    {
+      "points": 4,
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-layout-correction-4-v3.json",
+      "sha256": "90561ddf891b35da0c63b6d19c9984afbd8f894bd8311435af68ffc75fe4a3cc"
+    }
+  ],
+  "visualApproval": {
+    "reviewer": "Jerami",
+    "evidence": "User approved even spacing and final template with a small red-panel corner rounding adjustment on 2026-10-20.",
+    "productionTimingApproved": false
+  },
+  "redPanelCorners": {
+    "radiusPx": 16,
+    "subdivisions": 8,
+    "type": "CurveIn"
+  },
+  "layoutRevisionByPoints": {
+    "3": 6,
+    "4": 3
+  },
+  "exitPolicy": "none; Premiere owns the cut or transition",
+  "holdAuthority": "Animate entrances from Mark dialogue and same-revision Manim cues; hold static after entrance; no animation out",
+  "staticHoldProof": {
+    "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-static-hold-proof-v7.json",
+    "sha256": "f964e994515b5a39c9b36a3361954a60e98c53edcce075ef68232dee0d657f35"
+  },
+  "cornerProofs": [
+    {
+      "points": 3,
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-panel-corners-3-v7.json",
+      "sha256": "201bec51615322c6be4d83f0804441f4c4e2a9422ec3f6a69addfef345ea0422"
+    },
+    {
+      "points": 4,
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/stat-panel-corners-4-v7.json",
+      "sha256": "7d071c62fc1b1da225abf436225b882638b2f393439d2b1787e2a22312cff075"
+    }
+  ]
+}

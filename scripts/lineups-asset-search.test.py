@@ -10,7 +10,8 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "plugins/s-systems/skills/client-video-storyboard/scripts/firecrawl-source-inspect.py"
+SCRIPT = ROOT / "plugins/s-systems/skills/lineups-editor/scripts/firecrawl-source-inspect.py"
+LEGACY_SCRIPT = ROOT / "plugins/s-systems/skills/client-video-storyboard/scripts/firecrawl-source-inspect.py"
 
 
 def module_at(name, path):
@@ -32,6 +33,9 @@ class AssetSearchTests(unittest.TestCase):
         bundled_script = self.root / SCRIPT.relative_to(ROOT)
         bundled_script.parent.mkdir(parents=True)
         bundled_script.write_text(SCRIPT.read_text())
+        legacy_script = self.root / LEGACY_SCRIPT.relative_to(ROOT)
+        legacy_script.parent.mkdir(parents=True, exist_ok=True)
+        legacy_script.write_text(LEGACY_SCRIPT.read_text())
         self.episode = self.root / "config/lineups/episodes/test-week-6"
         self.directory = self.episode / "storyboard/asset-search"
         self.directory.mkdir(parents=True)

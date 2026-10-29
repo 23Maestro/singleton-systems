@@ -1,0 +1,278 @@
+[
+  {
+    "method": "GET",
+    "path": "/blocks",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/folders",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/documents",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/tasks",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "POST",
+    "path": "/folders",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "POST",
+    "path": "/documents",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/blocks?id={documentId}",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/documents/search",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "PUT",
+    "path": "/documents/move",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/tasks?scope=active",
+    "reference": "documents-and-folders.md",
+    "heading": "Craft \u2013 API for API for All Documents"
+  },
+  {
+    "method": "POST",
+    "path": "/blocks",
+    "reference": "blocks-and-comments.md",
+    "heading": "Insert Blocks"
+  },
+  {
+    "method": "DELETE",
+    "path": "/blocks",
+    "reference": "blocks-and-comments.md",
+    "heading": "Delete Blocks"
+  },
+  {
+    "method": "PUT",
+    "path": "/blocks",
+    "reference": "blocks-and-comments.md",
+    "heading": "Update Blocks"
+  },
+  {
+    "method": "PUT",
+    "path": "/blocks/move",
+    "reference": "blocks-and-comments.md",
+    "heading": "Move Blocks"
+  },
+  {
+    "method": "GET",
+    "path": "/collections/{collectionId}/items",
+    "reference": "collections.md",
+    "heading": "Get Collection Items"
+  },
+  {
+    "method": "POST",
+    "path": "/collections/{collectionId}/items",
+    "reference": "collections.md",
+    "heading": "Add Collection Items"
+  },
+  {
+    "method": "DELETE",
+    "path": "/collections/{collectionId}/items",
+    "reference": "collections.md",
+    "heading": "Delete Collection Items"
+  },
+  {
+    "method": "PUT",
+    "path": "/collections/{collectionId}/items",
+    "reference": "collections.md",
+    "heading": "Update Collection Items"
+  },
+  {
+    "method": "PUT",
+    "path": "/collections/{collectionId}/active-view",
+    "reference": "collections.md",
+    "heading": "Set Active Collection View"
+  },
+  {
+    "method": "GET",
+    "path": "/collections/{collectionId}/views",
+    "reference": "collections.md",
+    "heading": "List Collection Views"
+  },
+  {
+    "method": "POST",
+    "path": "/collections/{collectionId}/views",
+    "reference": "collections.md",
+    "heading": "Create Collection View"
+  },
+  {
+    "method": "DELETE",
+    "path": "/collections/{collectionId}/views/{viewId}",
+    "reference": "collections.md",
+    "heading": "Delete Collection View"
+  },
+  {
+    "method": "PUT",
+    "path": "/collections/{collectionId}/views/{viewId}",
+    "reference": "collections.md",
+    "heading": "Update Collection View"
+  },
+  {
+    "method": "GET",
+    "path": "/collections",
+    "reference": "collections.md",
+    "heading": "List Collections"
+  },
+  {
+    "method": "POST",
+    "path": "/collections",
+    "reference": "collections.md",
+    "heading": "Create Collection"
+  },
+  {
+    "method": "GET",
+    "path": "/collections/{collectionId}/schema",
+    "reference": "collections.md",
+    "heading": "Get Collection Schema"
+  },
+  {
+    "method": "PUT",
+    "path": "/collections/{collectionId}/schema",
+    "reference": "collections.md",
+    "heading": "Update Collection Schema"
+  },
+  {
+    "method": "POST",
+    "path": "/comments",
+    "reference": "blocks-and-comments.md",
+    "heading": "Add comments"
+  },
+  {
+    "method": "GET",
+    "path": "/connection",
+    "reference": "overview.md",
+    "heading": "Get Connection Info"
+  },
+  {
+    "method": "DELETE",
+    "path": "/documents",
+    "reference": "documents-and-folders.md",
+    "heading": "Delete Documents"
+  },
+  {
+    "method": "GET",
+    "path": "/reminders",
+    "reference": "tasks-and-reminders.md",
+    "heading": "List Reminders"
+  },
+  {
+    "method": "POST",
+    "path": "/reminders",
+    "reference": "tasks-and-reminders.md",
+    "heading": "Create Reminders"
+  },
+  {
+    "method": "DELETE",
+    "path": "/reminders",
+    "reference": "tasks-and-reminders.md",
+    "heading": "Delete Reminders"
+  },
+  {
+    "method": "PUT",
+    "path": "/reminders",
+    "reference": "tasks-and-reminders.md",
+    "heading": "Update Reminders"
+  },
+  {
+    "method": "DELETE",
+    "path": "/folders",
+    "reference": "documents-and-folders.md",
+    "heading": "Delete Folders"
+  },
+  {
+    "method": "PUT",
+    "path": "/folders/move",
+    "reference": "documents-and-folders.md",
+    "heading": "Move Folders"
+  },
+  {
+    "method": "GET",
+    "path": "/blocks/search",
+    "reference": "search.md",
+    "heading": "Search in Document"
+  },
+  {
+    "method": "POST",
+    "path": "/tasks",
+    "reference": "tasks-and-reminders.md",
+    "heading": "Add Tasks"
+  },
+  {
+    "method": "DELETE",
+    "path": "/tasks",
+    "reference": "tasks-and-reminders.md",
+    "heading": "Delete Tasks"
+  },
+  {
+    "method": "PUT",
+    "path": "/tasks",
+    "reference": "tasks-and-reminders.md",
+    "heading": "Update Tasks"
+  },
+  {
+    "method": "POST",
+    "path": "/upload",
+    "reference": "files-and-whiteboards.md",
+    "heading": "Upload File"
+  },
+  {
+    "method": "POST",
+    "path": "/whiteboards",
+    "reference": "files-and-whiteboards.md",
+    "heading": "Create Whiteboard"
+  },
+  {
+    "method": "GET",
+    "path": "/whiteboards/{whiteboardBlockId}/elements",
+    "reference": "files-and-whiteboards.md",
+    "heading": "Get Whiteboard Elements"
+  },
+  {
+    "method": "POST",
+    "path": "/whiteboards/{whiteboardBlockId}/elements",
+    "reference": "files-and-whiteboards.md",
+    "heading": "Add Whiteboard Elements"
+  },
+  {
+    "method": "DELETE",
+    "path": "/whiteboards/{whiteboardBlockId}/elements",
+    "reference": "files-and-whiteboards.md",
+    "heading": "Delete Whiteboard Elements"
+  },
+  {
+    "method": "PUT",
+    "path": "/whiteboards/{whiteboardBlockId}/elements",
+    "reference": "files-and-whiteboards.md",
+    "heading": "Update Whiteboard Elements"
+  }
+]

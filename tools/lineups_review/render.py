@@ -94,6 +94,66 @@ def fill(template, values):
     return re.sub(r'\{\{([a-zA-Z]+)\}\}', replace, template)
 
 
+def discovered_post_scenes(episode, candidates, preview_dir):
+    """Recover built scenes from verified exports, never from source photos."""
+    scenes = []
+    for candidate in candidates:
+        folder = episode / 'storyboard/figma-build' / candidate['id']
+        if not (folder / 'final-export.json').exists():
+            continue
+        manifest = read_json(folder / 'scene-manifest.json')
+        exported = read_json(folder / 'final-export.json')
+        export = manifest['export']
+        receipt_path = folder / 'receipts' / (candidate['id'] + '.figma-to-export.receipt.json')
+        receipt = read_json(receipt_path)
+        if (manifest['scene']['sceneId'] != candidate['id']
+                or manifest['scene']['episodeId'] != episode.name
+                or exported['sceneId'] != candidate['id']
+                or receipt['sceneId'] != candidate['id']
+                or receipt['episodeId'] != episode.name
+                or receipt['status'] != 'passed'
+                or export['validationStatus'] != 'passed'
+                or exported['mediaValidation'] != 'passed'
+                or export['fileSha256'] != exported['sha256']
+                or manifest['timing']['verifiedAnchorTimestamp'] != candidate['anchor']
+                or sha(manifest['timing']['transcriptPath']) != sha(episode / 'transcript/whisper.json')
+                or not manifest['timing']['manimTimingValidated']):
+            raise ValueError(f"Post-Figma export does not match scene: {candidate['id']}")
+        original = Path(export['path'])
+        if sha(original) != export['fileSha256']:
+            raise ValueError(f"Post-Figma export changed: {candidate['id']}")
+        if preview_dir is None:
+            raise ValueError('Post-Figma media requires a verified HomeSSD preview directory')
+        preview_dir.mkdir(parents=True, exist_ok=True)
+        proxy = preview_dir / (candidate['id'] + '-' + export['fileSha256'][:16] + '-review.mp4')
+        cache = proxy.with_suffix('.json')
+        cached = read_json(cache) if cache.exists() and proxy.exists() else {}
+        if cached.get('sourceSha256') != export['fileSha256'] or cached.get('sha256') != (sha(proxy) if proxy.exists() else None):
+            pending = proxy.with_suffix('.pending.mp4')
+            subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(original),
+                            '-vf', 'scale=-2:540', '-an', '-c:v', 'libx264', '-preset', 'fast',
+                            '-crf', '28', '-movflags', '+faststart', str(pending)], check=True)
+            pending.replace(proxy)
+            cache.write_text(json.dumps({'sourceSha256': export['fileSha256'], 'sha256': sha(proxy)}) + '\n')
+        if proxy.stat().st_size > 25 * 1024 * 1024:
+            raise ValueError('Review video exceeds the website asset limit')
+        frames = export.get('motionProof', {}).get('frames', [])
+        poster = frames[-1] if frames else None
+        if poster and sha(poster['path']) != poster['sha256']:
+            raise ValueError(f"Post-Figma proof frame changed: {candidate['id']}")
+        scenes.append({'sceneId': candidate['id'],
+                       'preview': {'kind': 'video', 'path': str(proxy), 'sha256': sha(proxy)},
+                       'poster': poster,
+                       'sourceUrl': 'https://www.figma.com/design/' + manifest['figma']['fileKey']
+                           + '/lineups?node-id=' + manifest['figma']['rootNodeId'].replace(':', '-'),
+                       'proofUrl': 'evidence/' + candidate['id'] + '-figma-to-export.json',
+                       'cues': [{'timestamp': c['transcriptTimestamp'], 'word': c['triggerText'],
+                                 'sceneTime': c['sceneTime']} for c in manifest['motion']['cues']
+                                if c.get('triggerType') == 'WORD'],
+                       'receiptPath': str(receipt_path)})
+    return scenes
+
+
 def render_episode(episode, destination, preview_root=None):
     episode, destination = Path(episode).resolve(), Path(destination).resolve()
     lock = template_lock()
@@ -137,7 +197,18 @@ def render_episode(episode, destination, preview_root=None):
     slug = meta.get('reviewSlug', cm['episodeId'] + '-pre-figma-review')
     if not re.fullmatch(r'[a-z0-9][a-z0-9-]+', slug):
         raise ValueError('Invalid review slug')
-    preview_dir = verified_preview_directory(meta['previewDirectory']) if any(c['assets'] for c in candidates) else None
+    has_built = any((source / 'figma-build' / c['id'] / 'final-export.json').exists() for c in candidates)
+    preview_dir = verified_preview_directory(meta['previewDirectory']) if any(c['assets'] for c in candidates) or has_built else None
+    built_scenes = meta.get('postScenes') or discovered_post_scenes(episode, candidates, preview_dir)
+    # Validate all built media before touching the existing review packet.
+    built_ids = set()
+    for built in built_scenes:
+        if built['sceneId'] in built_ids or not any(c['id'] == built['sceneId'] for c in candidates):
+            raise ValueError('Post-Figma scene does not match a unique current candidate')
+        built_ids.add(built['sceneId'])
+        preview = built['preview']
+        if preview['kind'] not in ['image', 'video'] or sha(preview['path']) != preview['sha256']:
+            raise ValueError('Post-Figma preview hash or kind is stale')
     packet = destination / slug
     assets, evidence = packet / 'assets', packet / 'evidence'
     assets.mkdir(parents=True, exist_ok=True)
@@ -178,8 +249,20 @@ def render_episode(episode, destination, preview_root=None):
             shutil.copy2(original, target)
     choices_path = source / 'reviewer-photo-choices.json'
     choices = read_json(choices_path) if choices_path.exists() else {}
+    decision_path = source / 'reviewer-pre-figma-decisions.json'
+    saved_review = read_json(decision_path) if decision_path.exists() else {}
+    initial_decisions = saved_review.get('decisions', {}) if saved_review.get('cueMapSha256') == cue_hash else {}
+    approval_path = source / 'primary-flow-approval.json'
+    approval = read_json(approval_path) if approval_path.exists() else {}
+    if (approval.get('cueMapSha256') == cue_hash and approval.get('episodeId') == cm['episodeId']
+            and approval.get('stage') == 'pre-figma' and approval.get('status') == 'approved'
+            and approval.get('reviewer')):
+        initial_decisions = {scene_id: 'approved' for scene_id in approval.get('approvedSceneIds', [])}
+        initial_decisions.update({scene_id: 'denied' for scene_id in approval.get('deniedSceneIds', [])})
+    decision_revision = hashlib.sha256(json.dumps({'cueMapSha256': cue_hash,
+                                                  'decisions': initial_decisions}, sort_keys=True).encode()).hexdigest()[:16]
     post = []
-    for built in meta.get('postScenes', []):
+    for built in built_scenes:
         matches = [c for c in candidates if c['id'] == built['sceneId']]
         if len(matches) != 1:
             raise ValueError('Post-Figma scene does not match current candidate')
@@ -193,18 +276,28 @@ def render_episode(episode, destination, preview_root=None):
         target = Path('assets') / ('post-' + c['id'] + '-' + preview['sha256'][:12] + original.suffix)
         shutil.copy2(original, packet / target)
         c['preview'] = {'image': str(target), 'kind': preview['kind'], 'sha256': preview['sha256']}
+        if built.get('poster'):
+            poster = built['poster']
+            name = 'post-' + c['id'] + '-poster-' + poster['sha256'][:12] + Path(poster['path']).suffix
+            shutil.copy2(poster['path'], assets / name)
+            c['preview']['poster'] = 'assets/' + name
+        if 'cues' in built:
+            c['cues'] = built['cues']
         c['proofUrl'] = safe_url(built.get('proofUrl', 'evidence/cue-proof-receipt.json'))
         c['sourceUrl'] = safe_url(built.get('sourceUrl', c.get('sourceUrl', '')))
+        if built.get('receiptPath'):
+            shutil.copy2(built['receiptPath'], evidence / (c['id'] + '-figma-to-export.json'))
         post.append(c)
     rows = read_json(source / 'lane-marked-transcript.json')['rows']
     lanes = [l['lane'] for l in discovery['lanes']]
     data = {'episodeId': cm['episodeId'], 'templateId': lock['templateId'], 'cueMapSha256': cue_hash,
-            'sceneStorageKey': meta.get('sceneStorageKey', 'lineups-scenes-' + cm['episodeId'] + '-' + cue_hash[:16]),
+            'sceneStorageKey': 'lineups-scenes-' + cm['episodeId'] + '-' + decision_revision,
             'assetProposals': proposals, 'assetProposalsSha256': sha(proposals_path) if proposals_path.exists() else None,
-            'photoChoices': choices, 'presenterName': meta.get('presenterName', 'Mark'), 'assetSubjects': meta.get('assetSubjects', {}),
+            'photoChoices': choices, 'initialDecisions': initial_decisions,
+            'presenterName': meta.get('presenterName', 'Mark'), 'assetSubjects': meta.get('assetSubjects', {}),
             'initialReviewSlot': meta.get('initialReviewSlot'), 'candidates': candidates,
             'transcriptRows': rows, 'lanes': lanes, 'postScenes': post,
-            'postEvidenceSha256': hashlib.sha256(json.dumps({'cueMapSha256': cue_hash, 'scenes': meta.get('postScenes', [])}, sort_keys=True).encode()).hexdigest()}
+            'postEvidenceSha256': hashlib.sha256(json.dumps({'cueMapSha256': cue_hash, 'scenes': built_scenes}, sort_keys=True).encode()).hexdigest()}
     pct = cm['primaryInsertSeconds'] / cm['sourceRuntime'] * 100
     esc = html.escape
     lane_rows = ''.join('<tr><th scope="row">' + esc(l['lane']) + '</th><td>' + esc(' '.join(f['outcome'].upper() + ': ' + f['reason'] for f in l['findings'])) + '</td></tr>' for l in discovery['lanes'])

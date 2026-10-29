@@ -20,6 +20,8 @@ async function fixture(t) {
     permalink_url: `https://app.asana.com/0/0/${id}`, num_subtasks: id === "100" ? 1 : 0,
     notes: "Review is pending. Keep the source link.",
     html_notes: '<body>Review is pending. <a href="https://example.com/source">Keep the source link.</a></body>',
+    due_on: null,
+    memberships: [{ project: { gid: "1218890014545436" }, section: { gid: "1218890014545438" } }],
   }]));
   const writes = [];
   const faults = {};
@@ -32,7 +34,7 @@ async function fixture(t) {
   }]));
   const server = createServer(async (req, res) => {
     const url = new URL(req.url, "http://localhost");
-    const match = url.pathname.match(/^\/api\/1\.0\/tasks\/(\d+)(\/subtasks)?$/);
+    const match = url.pathname.match(/^\/api\/1\.0\/tasks\/(\d+)(\/subtasks|\/stories)?$/);
     let status = 200;
     let result;
     if (url.pathname === "/rest/v1/cerebral_routes") result = registry.routes;
@@ -42,7 +44,12 @@ async function fixture(t) {
       const chunks = []; for await (const chunk of req) chunks.push(chunk);
       const body = JSON.parse(Buffer.concat(chunks));
       const issue = issues.get(body.variables.id) || [...issues.values()].find(x => x.identifier === body.variables.id);
-      if (body.query.startsWith("mutation")) {
+      if (body.query.includes("LifecycleContext")) result = { data: { issue: {
+        children: { nodes: [...issues.values()].filter(x => x.parent?.id === issue.id), pageInfo: { hasNextPage: false } },
+        comments: { nodes: [], pageInfo: { hasNextPage: false } },
+        inverseRelations: { nodes: [], pageInfo: { hasNextPage: false } },
+      } } };
+      else if (body.query.startsWith("mutation")) {
         if (faults.rejectLinear || (issue.id === "issue-1" && issues.get("issue-2").state.type !== "completed")) result = { data: { issueUpdate: { success: false } } };
         else {
           if (!faults.ignoreWrite) {
@@ -53,6 +60,7 @@ async function fixture(t) {
         }
       } else result = { data: { issue: issue ? { ...issue, children: { nodes: [...issues.values()].filter(x => x.parent?.id === issue.id).map(x => ({ id: x.id })), pageInfo: { hasNextPage: false, endCursor: null } } } : null } };
     }
+    else if (match?.[2] === "/stories") result = { data: [], next_page: null };
     else if (match?.[2]) result = { data: [...tasks.values()].filter(x => x.parent?.gid === match[1]), next_page: null };
     else if (match && req.method === "GET") {
       if (faults.readUnavailable) { status = 503; result = {}; }
@@ -84,8 +92,8 @@ async function fixture(t) {
   t.after(() => { server.close(); rmSync(directory, { recursive: true, force: true }); });
   const env = { ...process.env, TASK_CLOSEOUT_STATE_DIR: directory, TASK_CLOSEOUT_TEST_ORIGIN: `http://127.0.0.1:${server.address().port}`,
     ASANA_ACCESS_TOKEN: "test-token", LINEAR_API_KEY: "test-key", COMPOSIO_API_KEY: "", COMMAND_CENTER_ASANA_CONNECTION_ID: "" };
-  const run = async (command, options = {}) => {
-    const args = ["--import", preload, cli, command, "--session", "chat-a", "--turn", "turn-a"];
+  const run = async (command, options = {}, entrypoint = cli) => {
+    const args = ["--import", preload, entrypoint, command, "--session", "chat-a", "--turn", "turn-a"];
     for (const [key, value] of Object.entries(options)) args.push(`--${key}`, value);
     try { const r = await exec(process.execPath, args, { cwd: root, env }); return { code: 0, ...JSON.parse(r.stdout) }; }
     catch (error) { return { code: error.code, ...JSON.parse(error.stdout || "{}"), stderr: error.stderr }; }
@@ -102,7 +110,7 @@ async function fixture(t) {
     });
     child.stdin.end(JSON.stringify({ hook_event_name: event, cwd: root, session_id: "chat-a", turn_id: "turn-a", ...extra }));
   });
-  return { run, hook, env, tasks, issues, writes, faults };
+  return { run, lifecycle: (command, options) => run(command, options, path.join(root, "scripts/task-lifecycle.mjs")), hook, env, tasks, issues, writes, faults };
 }
 
 test("Asana closes only the named finished children, then verifies the parent", async t => {
@@ -286,4 +294,42 @@ test("Linear closeout puts current completion before old review notes and detect
   assert.match(f.issues.get("issue-1").description, /\[Source\]\(https:\/\/example.com\/source\)/);
   f.issues.get("issue-2").description = "Review is pending again.";
   assert.equal((await f.run("check", { owner: "linear", id: "23M-1" })).outcome, "pending");
+});
+
+test("the lifecycle CLI starts and finishes dated work through the existing closeout without closing its parent", async t => {
+  const f = await fixture(t);
+  const id = "11111111-1111-4111-a111-111111111111";
+  f.issues.set(id, { ...structuredClone(f.issues.get("issue-2")), id, identifier: "23M-3", dueDate: "2026-11-04", project: { id: "project" }, description: "Attention: 20 min\n\n## Done when\n\nThe date survives shared closeout." });
+  const context = await f.lifecycle("context", { id, owner: "linear" });
+  assert.equal(context.task.dueDate, "2026-11-04", context.error);
+  const started = await f.lifecycle("start", { id, owner: "linear" });
+  assert.equal(started.binding.tasks[0].id, id, started.error);
+  const finished = await f.lifecycle("finish", { id, owner: "linear", evidence: "The dated child passed its finish check." });
+  assert.equal(finished.outcome, "complete", finished.error);
+  assert.equal(finished.tasks[0].dueDate, "2026-11-04");
+  const remaining = await f.run("bind", { owner: "linear", id: "23M-1", "done-when": "All required children pass." });
+  assert.equal(remaining.outcome, "pending");
+  assert.equal(remaining.tasks.find(x => x.id === "issue-1").completed, false);
+});
+
+test("free-Asana lifecycle CLI keeps dates and blocker links through the shared closeout", async t => {
+  const f = await fixture(t);
+  f.tasks.set("102", { ...structuredClone(f.tasks.get("101")), gid: "102", name: "Check source", completed: true });
+  f.tasks.get("100").num_subtasks = 2;
+  Object.assign(f.tasks.get("101"), {
+    due_on: "2026-11-04",
+    notes: "Keep the source.\n\nBlocked by\n\nCheck source\n\nDone when\n\nThe edit check passes.",
+    html_notes: '<body>Keep the source.\n\n<h2>Blocked by</h2>\n\n<a data-asana-gid="102" data-asana-dynamic="false">Check source</a>\n\n<h2>Done when</h2>\n\nThe edit check passes.</body>',
+  });
+  const context = await f.lifecycle("context", { owner: "asana", id: "101" });
+  assert.equal(context.blockers[0].gid, "102", context.error);
+  const start = await f.lifecycle("start", { owner: "asana", id: "101" });
+  assert.equal(start.binding.tasks[0].id, "101", start.error);
+  const done = await f.lifecycle("finish", { owner: "asana", id: "101", evidence: "The dated edit passed its check." });
+  assert.equal(done.outcome, "complete", done.error);
+  assert.equal(done.tasks[0].dueDate, "2026-11-04");
+  assert.match(done.tasks[0].html_notes, /data-asana-gid="102"/);
+  assert.match(done.tasks[0].html_notes, /Keep the source/);
+  const parent = await f.lifecycle("context", { owner: "asana", id: "100" });
+  assert.equal(parent.task.completed, false);
 });

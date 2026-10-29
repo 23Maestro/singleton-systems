@@ -1,0 +1,34 @@
+{
+  "sceneId": "P11",
+  "candidateTitle": "Buffalo wins and moves to 5–1",
+  "owner": "current-unreal-chat",
+  "engine": "unreal",
+  "routeState": "proposed-native-copy-reserved-here",
+  "creativeDirection": {
+    "authority": "Jerami: use this for bills focused performance - not a josh allen brakdown",
+    "referencePath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/week7-p11-bills-team-performance-reference.png",
+    "referenceSha256": "bf82b8efce1b14fc157040dea01bf77469061e84e56a0f7feb2f3de496723d9f",
+    "focus": "Buffalo Bills team performance",
+    "lane": "stat breakdown",
+    "supportedPoints": 3,
+    "designReferenceStatus": "user-selected reference; adapted native scene not built or visually reviewed",
+    "treatment": [
+      "Adapt the reference header, light textured content area and multi-column hierarchy for Buffalo Bills.",
+      "Use Bills logo and team colors; remove sample soccer players, names, statistics and package sponsor/network branding.",
+      "Keep 3 readable fact columns: 33 points scored, 30 points allowed, 5–1 record. Do not add a fourth fact or unsupported player values.",
+      "Keep any illustrative column heights equal; scored points, allowed points and a win-loss record are not one comparable bar-chart series.",
+      "Josh Allen is not the subject or featured portrait. Preserve the original source asset and ledger; this direction supersedes the Allen-photo instruction in the archived candidate reason.",
+      "Mark and same-revision Manim cues govern entrances. Hold the final state; no animation out."
+    ],
+    "timingStatus": "Existing transcript anchors retained; new native layout and its cues still require verification.",
+    "buildStatus": "first-native-layout-awaiting-visual-review",
+    "header": "BUFFALO BILLS centered in the top band, replacing the package sponsors/network.",
+    "logoPlacement": "Bills logo in the former Most Direct Free-Kicks headline area.",
+    "headerReference": {
+      "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/week7-p11-bills-header-reference.png",
+      "sha256": "07e4e1dc4c0bf6cb9649b47737b094e07de66b6989e1195dce57e2eba3895837"
+    }
+  },
+  "nativeManifestPath": "config/unreal/bills-performance-p11.json",
+  "nativeRenderPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-v1/BillsPerformance.0000.png"
+}

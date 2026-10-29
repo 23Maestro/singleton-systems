@@ -465,13 +465,14 @@ try {
   for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Super Bowl Bubble Board"]]) {
     withCase((testCase) => {
       const m = readManifest(testCase);
-      m.scene.lane = lane; m.scene.approvedOption = option; if (lane === "comparison") { m.scene.comparisonKind = "players"; m.scene.subjectCount = 2; }
+      m.scene.lane = lane; m.scene.approvedOption = option; if (lane === "comparison") m.scene.comparisonKind = "players";
+      if (lane === 'comparison') m.scene.subjectCount = 2;
       writeManifest(testCase, m);
       if (lane === 'comparison') {
-        const answer = spawnSync(python, [path.join(sourceRoot, 'scripts/lineups-templates.py'),
-          'engine-choice', testCase.manifestPath, '--root', testCase.root,
-          '--engine', 'figma', '--answer', 'Fixture-only Figma choice'], {encoding:'utf8'});
-        assert.equal(answer.status, 0, answer.stderr);
+        expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', approvedFigmaInput), /Figma or Unreal/, 'missing engine answer');
+        const choice = spawnSync(python, [path.join(sourceRoot, 'scripts/lineups-templates.py'), 'engine-choice', testCase.manifestPath,
+          '--root', testCase.root, '--engine', 'figma', '--answer', 'Figma for this fixture'], {encoding: 'utf8'});
+        assert.equal(choice.status, 0, choice.stderr);
         m.engineChoice = readManifest(testCase).engineChoice;
       }
       expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", approvedFigmaInput), /figma.background/, `${option} missing background`);

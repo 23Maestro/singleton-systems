@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-22T18:05:09.393Z",
+  "status": "completed-in-asana",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1219719334956962",
+      "completed": true,
+      "due_at": "2026-10-22T14:00:00.000Z",
+      "due_on": "2026-10-22"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-20-nfl-week-7-power-rankings",
+    "asanaTask": "1219719334956962",
+    "dueDate": "2026-10-22",
+    "transcriptPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/transcript/whisper.json",
+    "discoveryPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/lane-discovery.json",
+    "episodeRecordPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-20-nfl-week-7-power-rankings/episode.json",
+    "cueMapPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/cue-map.json",
+    "timingProofPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/cue-proof-receipt.json",
+    "preFigma": {
+      "path": "public/decision-maps/2026-10-20-nfl-week-7-power-rankings-pre-figma-review/index.html",
+      "title": "Week 7 Power Rankings",
+      "candidateCount": 30
+    }
+  },
+  "activeScene": null
+}

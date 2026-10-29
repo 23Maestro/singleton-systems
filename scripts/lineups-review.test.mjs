@@ -22,6 +22,20 @@ test('verified Post-Figma media takes precedence over source photography',()=>{
   assert.match(html,/<video controls playsinline/);assert.doesNotMatch(html,/source.jpg/);
 });
 
+test('both stages share word cues and recover safely from invalid saved choices',()=>{
+  const context=vm.createContext({localStorage:{getItem(){return 'null'}},reviewEscape:s=>String(s).replaceAll('<','&lt;')});
+  vm.runInContext(fs.readFileSync('tools/lineups_review/context.js','utf8'),context);
+  assert.equal(Object.keys(context.readReviewChoices('key',[{id:'S01'}])).length,0);
+  context.localStorage.getItem=()=>'{"S01":"approved","S02":"surprise","OLD":"approved"}';
+  assert.deepEqual(Object.keys(context.readReviewChoices('key',[{id:'S01'},{id:'S02'}])),['S01']);
+  context.localStorage.getItem=()=>null;
+  assert.equal(context.readReviewChoices('key',[{id:'S01'}],{S01:'approved'}).S01,'approved');
+  context.localStorage.getItem=()=>'{}';
+  assert.equal(Object.keys(context.readReviewChoices('key',[{id:'S01'}],{S01:'approved'})).length,0);
+  const html=context.renderReviewContext({anchor:54.8,cues:[{word:'Broncos',timestamp:55.21,sceneTime:0.41}]});
+  assert.match(html,/00:54.80/);assert.match(html,/Broncos/);assert.match(html,/00:55.21/);assert.match(html,/0.41 seconds/);
+});
+
 test('the review gate rejects a changed active packet outside public',()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'lineups-review-gate-'));
   try {

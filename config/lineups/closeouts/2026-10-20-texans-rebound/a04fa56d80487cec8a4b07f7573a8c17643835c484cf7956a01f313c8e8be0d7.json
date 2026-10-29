@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-23T18:04:04.009Z",
+  "status": "assumed-submitted",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1219719334864456",
+      "completed": false,
+      "due_at": "2026-10-23T14:00:00.000Z",
+      "due_on": "2026-10-23"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-20-texans-rebound",
+    "asanaTask": "1219719334864456",
+    "dueDate": "2026-10-23",
+    "transcriptPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/transcript/whisper.json",
+    "discoveryPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/storyboard/lane-discovery.json",
+    "episodeRecordPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/episode.json",
+    "cueMapPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/storyboard/cue-map.json",
+    "timingProofPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-texans-rebound/storyboard/cue-proof-receipt.json",
+    "preFigma": {
+      "path": "public/decision-maps/2026-10-20-texans-rebound-pre-figma-review/index.html",
+      "title": "Texans Rebound",
+      "candidateCount": 19
+    }
+  },
+  "activeScene": null
+}

@@ -1,11 +1,13 @@
 "use client";
 
+import { HOME_ADMIN_PROJECT, HOME_ADMIN_COLOR, isDashboardProject, dashboardLane, dashboardLaneLabel, type DashboardLane } from "@/lib/command-center-projects";
 import type { AsanaProject } from "@/lib/command-center-asana";
 
 import {
   type FormEvent,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useEffectEvent,
   useMemo,
   useRef,
@@ -21,6 +23,7 @@ import {
   Check,
   Clock,
   EnvelopeSimple,
+  Tray,
   Moon,
   Plus,
   Sun,
@@ -34,10 +37,14 @@ import type {
   Interaction,
   Lane,
   WorkItem,
+  TaskPlan,
 } from "@/lib/command-center";
 import { getTheme, getServerTheme, setTheme, subscribeTheme } from "./theme";
 import TaskEditor, { type TaskEdit } from "./TaskEditor";
 import SchedulePicker from "./SchedulePicker";
+import ClientBoard from "./ClientBoard";
+import { Button } from "@/components/ui/button";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import {
   SNAP_MINUTES,
   blockSpan,
@@ -53,11 +60,17 @@ type Snapshot = {
   contacts: Contact[];
   interactions: Interaction[];
   blocks: Block[];
+  plans?: TaskPlan[];
   drafts: Draft[];
   work: WorkItem[];
   failures: string[];
   asanaProjects: AsanaProject[];
 };
+const taskViews = [
+  ["inbox", "Inbox"], ["today", "Today"], ["week", "Week"],
+  ["month", "Month"], ["someday", "Someday"], ["all", "All tasks"],
+] as const;
+type TaskView = (typeof taskViews)[number][0];
 type MailView = {
   configured: boolean;
   messages: {
@@ -70,12 +83,14 @@ type MailView = {
   gmailUrl?: string;
   error?: string;
 };
-type Surface = "planner" | "updates" | "clients";
+type Surface = "inbox" | "planner" | "updates" | "clients";
 const lanes: Lane[] = ["AI Consultant", "Content Editor", "Development"];
-const laneColors: Record<Lane, string> = {
+const laneColors: Record<DashboardLane, string> = {
   "AI Consultant": "#e25555",
   "Content Editor": "#3488e8",
   Development: "#27a88a",
+  Unassigned: "#9b9ba3",
+  "Home Admin": HOME_ADMIN_COLOR,
 };
 const HOUR_PX = 56;
 const GRID_TOP = 14;
@@ -196,13 +211,25 @@ function placeOverlaps(blocks: Block[]): TimedPlacement[] {
 export default function CommandCenterApp() {
   const theme = useSyncExternalStore(subscribeTheme, getTheme, getServerTheme);
   const [surface, setSurface] = useState<Surface>("planner");
+  const [taskView, setTaskView] = useState<TaskView>("all");
+  const [railCollapsed, setRailCollapsed] = useState(false);
+  const [clientDirectory, setClientDirectory] = useState(false);
+  const [preferencesReady, setPreferencesReady] = useState(false);
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState<{message: string; undo?: () => Promise<boolean>} | null>(null);
+  useEffect(() => { if (!notice) return; const timer = setTimeout(() => setNotice(null), 12000); return () => clearTimeout(timer); }, [notice]);
+  const [captureText, setCaptureText] = useState("");
+  const captureId = useRef<string | null>(null);
+  const taskCreateId = useRef<string | null>(null);
+  const captureLock = useRef(false);
   const [busy, setBusy] = useState(false);
-  const [filters, setFilters] = useState<Record<Lane, boolean>>({
+  const [filters, setFilters] = useState<Record<DashboardLane, boolean>>({
     "AI Consultant": true,
     "Content Editor": true,
     Development: false,
+    Unassigned: true,
+    "Home Admin": true,
   });
   const [selectedWork, setSelectedWork] = useState<string | null>(null);
   const [shortcutMode, setShortcutMode] = useState<
@@ -220,6 +247,19 @@ export default function CommandCenterApp() {
     null,
   );
   const [contactForm, setContactForm] = useState<ContactForm>(emptyContact);
+  const contactDialog = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    if (contactEditor === null) return;
+    const dialog = contactDialog.current!;
+    const previous = document.activeElement as HTMLElement | null;
+    dialog.showModal();
+    dialog.querySelector<HTMLInputElement>("input")?.focus();
+    return () => {
+      dialog.close();
+      previous?.focus();
+    };
+  }, [contactEditor]);
   const [interactionText, setInteractionText] = useState("");
   const [interactionChannel, setInteractionChannel] = useState("call");
   const [draftMenu, setDraftMenu] = useState(false);
@@ -232,6 +272,11 @@ export default function CommandCenterApp() {
   const [dayCount, setDayCount] = useState<1 | 3 | 5 | 7>(7);
   const [dayOffset, setDayOffset] = useState(0);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const calendarScroll = useRef(0);
+  const retainCalendar = useCallback((node: HTMLDivElement | null) => {
+    if (!node && calendarRef.current) calendarScroll.current = calendarRef.current.scrollTop;
+    calendarRef.current = node;
+  }, []);
   const columnRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [dropPreview, setDropPreview] = useState<{
     date: string;
@@ -255,7 +300,7 @@ export default function CommandCenterApp() {
     moved: boolean;
   } | null>(null);
   const justDragged = useRef(false);
-  const wantNow = useRef(false);
+  const wantNow = useRef(true);
   const [now, setNow] = useState(() => new Date());
 
   const load = useCallback(async () => {
@@ -298,7 +343,25 @@ export default function CommandCenterApp() {
   useEffect(() => {
     const width = window.innerWidth;
     setDayCount(width < 680 ? 1 : width < 1100 ? 3 : 7);
+    setRailCollapsed(width < 680);
+    try {
+      const saved = JSON.parse(localStorage.getItem("singleton-command-center-view-v1") ?? "null");
+      if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+        if (["inbox", "planner", "updates", "clients"].includes(saved.surface)) setSurface(saved.surface);
+        if ([1, 3, 5, 7].includes(saved.dayCount)) setDayCount(saved.dayCount);
+        if (typeof saved.railCollapsed === "boolean") setRailCollapsed(saved.railCollapsed);
+        if (typeof saved.clientDirectory === "boolean") setClientDirectory(saved.clientDirectory);
+        if (taskViews.some(([id]) => id === saved.taskView)) setTaskView(saved.taskView);
+      }
+    } catch { /* View controls still work when storage is unavailable. */ }
+    setPreferencesReady(true);
   }, []);
+  useEffect(() => {
+    if (!preferencesReady) return;
+    try {
+      localStorage.setItem("singleton-command-center-view-v1", JSON.stringify({ surface, dayCount, railCollapsed, clientDirectory, taskView }));
+    } catch { /* Keep this session's choices when storage is unavailable. */ }
+  }, [preferencesReady, surface, dayCount, railCollapsed, clientDirectory, taskView]);
   useEffect(() => {
     if (selectedContact === null && snapshot?.contacts.length)
       setSelectedContact(snapshot.contacts[0].id);
@@ -333,7 +396,7 @@ export default function CommandCenterApp() {
     };
   }, [selectedContact]);
   const handleShortcut = useEffectEvent((event: KeyboardEvent) => {
-    if (taskEditor) return;
+    if (taskEditor || contactEditor !== null) return;
     if (
       event.target instanceof HTMLInputElement ||
       event.target instanceof HTMLTextAreaElement ||
@@ -389,20 +452,16 @@ export default function CommandCenterApp() {
   useEffect(() => {
     setShortcutMode("closed");
   }, [selectedWork, surface]);
-  useEffect(() => {
-    if (surface !== "planner") return;
-    const frame = requestAnimationFrame(() => {
-      if (!calendarRef.current) return;
-      if (wantNow.current) {
-        wantNow.current = false;
-        const current = new Date();
-        calendarRef.current.scrollTop = Math.max(
-          0,
-          GRID_TOP + ((current.getHours() * 60 + current.getMinutes()) / 60) * HOUR_PX - 140,
-        );
-      } else calendarRef.current.scrollTop = 0;
-    });
-    return () => cancelAnimationFrame(frame);
+  useLayoutEffect(() => {
+    if (surface !== "planner" || !calendarRef.current) return;
+    if (wantNow.current) {
+      wantNow.current = false;
+      const current = new Date();
+      calendarRef.current.scrollTop = Math.max(
+        0,
+        GRID_TOP + ((current.getHours() * 60 + current.getMinutes()) / 60) * HOUR_PX - 140,
+      );
+    } else calendarRef.current.scrollTop = calendarScroll.current;
   }, [surface, dayCount, dayOffset, calendarReady]);
 
   async function command(payload: Record<string, unknown>, reload = true) {
@@ -453,8 +512,8 @@ export default function CommandCenterApp() {
       (item) => block.owner === "crm" && String(item.id) === block.owner_id,
     )?.next_action ??
     "Unavailable source";
-  const laneForBlock = (block: Block): Lane =>
-    workForBlock(block)?.lane ??
+  const laneForBlock = (block: Block): DashboardLane =>
+    (workForBlock(block) ? dashboardLane(workForBlock(block)!) : undefined) ??
     contacts.find(
       (item) => block.owner === "crm" && String(item.id) === block.owner_id,
     )?.lane ??
@@ -476,14 +535,30 @@ export default function CommandCenterApp() {
         .map((item) => [item.projectId!, item.projectName!]),
     ).entries(),
   );
-  const ready = work.filter(
-    (item) =>
-      !item.blocked &&
-      ["Todo", "To Do", "In Progress", "Today", "Queued", "In Motion"].includes(
-        item.status,
-      ) &&
-      filters[item.lane],
-  );
+  const weekStart = new Date(`${today}T12:00:00`);
+  weekStart.setDate(weekStart.getDate() - (weekStart.getDay() + 6) % 7);
+  const weekEnd = new Date(weekStart); weekEnd.setDate(weekEnd.getDate() + 6);
+  const monthStart = `${today.slice(0, 7)}-01`;
+  const monthEnd = dateKey(new Date(Number(today.slice(0, 4)), Number(today.slice(5, 7)), 0, 12));
+  const inRange = (date: string | null, start: string, end: string) => !!date && date >= start && date <= end;
+  const ready = work.filter((item) => {
+    if (!filters[dashboardLane(item)] || ["done", "completed", "cancelled", "canceled"].includes(item.status.toLowerCase())) return false;
+    if (taskView === "all") return true;
+    const plan = snapshot?.plans?.find((entry) => entry.owner === item.owner && entry.owner_id === item.id);
+    const placements = blocks.filter((entry) => entry.owner === item.owner && entry.owner_id === item.id);
+    if (taskView === "inbox") return (!plan || plan.period === "inbox") && !placements.length;
+    if (taskView === "someday") return plan?.period === "someday";
+    if (taskView === "today") return (plan?.period === "day" && !!plan.planned_date && plan.planned_date <= today) || placements.some((entry) => entry.selected_date <= today);
+    if (taskView === "week") return (plan?.period === "week" && plan.planned_date === dateKey(weekStart)) ||
+      (plan?.period === "day" && inRange(plan.planned_date, dateKey(weekStart), dateKey(weekEnd))) ||
+      placements.some((entry) => inRange(entry.selected_date, dateKey(weekStart), dateKey(weekEnd)));
+    if (plan?.period === "month" && plan.planned_date === monthStart) return true;
+    if (plan?.period === "week" && plan.planned_date) {
+      const end = new Date(`${plan.planned_date}T12:00:00`); end.setDate(end.getDate() + 6);
+      if (plan.planned_date <= monthEnd && dateKey(end) >= monthStart) return true;
+    }
+    return (plan?.period === "day" && inRange(plan.planned_date, monthStart, monthEnd)) || placements.some((entry) => inRange(entry.selected_date, monthStart, monthEnd));
+  });
   const selected =
     ready.find((item) => item.id === selectedWork) ?? ready[0] ?? null;
   const updates = work.filter(
@@ -798,7 +873,19 @@ export default function CommandCenterApp() {
     setShortcutMode("closing");
     window.setTimeout(() => setShortcutMode("closed"), 190);
   }
+  function savedNotice(before: WorkItem, after: WorkItem, task: Record<string, unknown>, message: string) {
+    setNotice({message, undo: async () => {
+      const result = await command({action: "inboxUpdate", id: before.id, expectedUpdatedAt: after.updatedAt, task});
+      if (result) { setNotice({message: "Change undone"}); return true; }
+      return false;
+    }});
+  }
   async function setWorkState(item: WorkItem, state: string) {
+    if (item.owner === "dashboard") {
+      const result = await command({action: "inboxUpdate", id: item.id, expectedUpdatedAt: item.updatedAt, task: {status: state}});
+      if (result) savedNotice(item, result.result, {status: item.status}, state === "Done" ? "Task completed" : "Task updated");
+      return result;
+    }
     return command(
       item.owner === "linear"
         ? { action: "linearStatus", issueId: item.id, state }
@@ -843,9 +930,12 @@ export default function CommandCenterApp() {
           entry.owner_id === item.id &&
           entry.selected_date === today,
       ) ??
+      blocks.find(
+        (entry) => entry.owner === item.owner && entry.owner_id === item.id && entry.selected_date >= today,
+      ) ??
+      blocks.find((entry) => entry.owner === item.owner && entry.owner_id === item.id) ??
       null;
     setSelectedWork(item.id);
-    setSurface("planner");
     setError("");
     setTaskEditor({
       work: item,
@@ -853,8 +943,18 @@ export default function CommandCenterApp() {
       session: ++editorSequence.current,
     });
   }
+  async function captureThought(event: FormEvent) {
+    event.preventDefault();
+    if (!captureText.trim() || captureLock.current) return;
+    captureLock.current = true;
+    captureId.current ??= crypto.randomUUID();
+    try {
+      const saved = await command({action: "inboxCreate", id: captureId.current, title: captureText.trim()});
+      if (saved) { setCaptureText(""); captureId.current = null; }
+    } finally { captureLock.current = false; }
+  }
   function newTask() {
-    setSurface("planner");
+    taskCreateId.current = crypto.randomUUID();
     setError("");
     setTaskEditor({
       work: null,
@@ -865,11 +965,12 @@ export default function CommandCenterApp() {
   async function saveTask(edit: TaskEdit): Promise<boolean> {
     if (!taskEditor) return false;
     let item = taskEditor.work;
+    const beforeEdit = item;
     if (!item) {
       const asanaProject = snapshot?.asanaProjects?.find(
         (project) => project.id === edit.projectId,
       );
-      const created = await command({
+      const created = await command(isDashboardProject(edit.projectId) ? {action: "inboxCreate", id: taskCreateId.current ?? (taskCreateId.current = crypto.randomUUID()), title: edit.title, description: edit.description} : {
         action: asanaProject ? "asanaCreate" : "linearCreate",
         title: edit.title,
         description: edit.description,
@@ -884,15 +985,22 @@ export default function CommandCenterApp() {
       if (!created?.result?.id) return false;
       item = {
         ...created.result,
-        owner: asanaProject ? "asana" : "linear",
+        owner: isDashboardProject(edit.projectId) ? "dashboard" : asanaProject ? "asana" : "linear",
         description: edit.description,
         status: created.result.status ?? "Todo",
-        lane: asanaProject?.lane ?? "Development",
+        lane: isDashboardProject(edit.projectId) ? "Unassigned" : asanaProject?.lane ?? "Development",
         blocked: false,
       } as WorkItem;
       setTaskEditor({ ...taskEditor, work: item });
       setSelectedWork(item.id);
       setFilters((current) => ({ ...current, [item!.lane]: true }));
+    } else if (item.owner === "dashboard") {
+      const context = snapshot?.asanaProjects.flatMap((project) => project.sections).find((section) => section.id === edit.projectId);
+      const task = {title: edit.title, description: edit.description, lane: edit.lane === "Unassigned" ? null : edit.lane, due_date: edit.dueDate, project_id: edit.projectId === "dashboard" ? null : edit.projectId, project_name: edit.projectId === HOME_ADMIN_PROJECT.id ? HOME_ADMIN_PROJECT.name : context?.name ?? null};
+      const updated = await command({action: "inboxUpdate", id: item.id, expectedUpdatedAt: item.updatedAt, task, children: edit.children});
+      if (!updated) return false;
+      item = {...item, ...updated.result};
+      setTaskEditor({...taskEditor, work: item});
     } else if (item.owner === "linear" || item.owner === "asana") {
       const task: Record<string, unknown> = {};
       if (edit.title !== item.title) task.title = edit.title;
@@ -914,6 +1022,20 @@ export default function CommandCenterApp() {
       }
     }
     if (!item) return false;
+    if (!beforeEdit && item.owner === "dashboard" && (edit.children.length || edit.projectId === HOME_ADMIN_PROJECT.id)) {
+      const updated=await command({action:"inboxUpdate",id:item.id,expectedUpdatedAt:item.updatedAt,task:{title:item.title,...(edit.projectId === HOME_ADMIN_PROJECT.id ? {project_id:HOME_ADMIN_PROJECT.id,project_name:HOME_ADMIN_PROJECT.name} : {})},children:edit.children});
+      if(!updated)return false;
+      item={...item,...updated.result};
+      setTaskEditor({...taskEditor,work:item});
+    }
+    if (!item) return false;
+    const savedItem = item;
+    const planSaved = await command({
+      action: "taskPlanSave", owner: savedItem.owner, ownerId: savedItem.id,
+      period: edit.period, plannedDate: edit.date || null,
+      durationMinutes: edit.duration || null,
+    });
+    if (!planSaved) return false;
     const start = edit.start ? localDateTime(edit.date, edit.start) : null;
     const end = start
       ? new Date(Date.parse(start) + edit.duration * 60000).toISOString()
@@ -923,19 +1045,28 @@ export default function CommandCenterApp() {
       edit.date !== taskEditor.block.selected_date ||
       start !== taskEditor.block.starts_at ||
       end !== taskEditor.block.ends_at;
-    if (edit.start && placementChanged) {
+    if (edit.period !== "day" && taskEditor.block) {
+      const removed = await command({ action: "blockDelete", id: taskEditor.block.id });
+      if (!removed) return false;
+    } else if (edit.period === "day" && edit.date && placementChanged) {
       const saved = await command({
         action: "blockSave",
         id: taskEditor.block?.id,
-        owner: item.owner,
-        ownerId: item.id,
+        owner: savedItem.owner,
+        ownerId: savedItem.id,
         selectedDate: edit.date,
         startsAt: start,
         endsAt: end,
       });
       if (!saved) return false;
     }
+    const priorPlan = snapshot?.plans?.find((plan) => plan.owner === savedItem.owner && plan.owner_id === savedItem.id);
+    const planChanged = edit.children.length > 0 || edit.period !== (taskEditor.block ? "day" : priorPlan?.period ?? "inbox") || edit.date !== (taskEditor.block?.selected_date ?? priorPlan?.planned_date ?? "") || edit.duration !== (taskEditor.block?.starts_at && taskEditor.block.ends_at ? (Date.parse(taskEditor.block.ends_at)-Date.parse(taskEditor.block.starts_at))/60000 : priorPlan?.duration_minutes ?? 0) || edit.start !== (taskEditor.block?.starts_at ? new Date(taskEditor.block.starts_at).toTimeString().slice(0,5) : "");
+    if (!planChanged && beforeEdit?.owner === "dashboard" && savedItem.owner === "dashboard") {
+      savedNotice(beforeEdit, savedItem, {title: beforeEdit.title, description: beforeEdit.description ?? "", lane: beforeEdit.lane === "Unassigned" ? null : beforeEdit.lane, due_date: beforeEdit.dueDate, project_id: beforeEdit.projectId ?? null, project_name: beforeEdit.projectName ?? null}, "Task updated");
+    } else setNotice({message: "Task saved"});
     setTaskEditor(null);
+    taskCreateId.current = null;
     return true;
   }
   async function saveDraft(event: FormEvent<HTMLFormElement>) {
@@ -956,61 +1087,69 @@ export default function CommandCenterApp() {
   }
 
   return (
-    <main className="cc" data-theme={theme}>
-      <aside className="cc-nav" aria-label="Command Center navigation">
-        <div className="cc-mark" title="Singleton Systems">
-          S
-        </div>
+    <main className="cc" data-theme={theme} data-surface={surface}>
+      <nav className="cc-nav" aria-label="Primary navigation">
+        <div className="cc-brand"><div className="cc-mark" title="Singleton Systems">S</div><span>Singleton<span>YOUR WORKSPACE</span></span></div>
+        <span className="cc-nav-label">WORKSPACE</span>
         {(
           [
+            ["inbox", Tray, "Inbox", "I"],
             ["planner", CalendarBlank, "Planner", "P"],
             ["updates", Clock, "Updates", "U"],
             ["clients", UsersThree, "Clients", "C"],
           ] as const
         ).map(([id, Icon, label, key]) => (
-          <button
+          <Button variant="ghost"
             key={id}
             className={surface === id ? "active" : ""}
             onClick={() => setSurface(id)}
             title={`${label} (${key})`}
             aria-label={label}
+            aria-current={surface === id ? "page" : undefined}
           >
             <Icon size={20} weight={surface === id ? "fill" : "regular"} />
             <span>{label}</span>
-          </button>
+          </Button>
         ))}
-      </aside>
+        <nav className="cc-task-views" aria-label="Task views">
+          {taskViews.filter(([id]) => id !== "inbox").map(([id, label]) => <Button key={id} variant="ghost" aria-current={surface === "planner" && taskView === id ? "page" : undefined} onClick={() => { setTaskView(id); setSurface("planner"); setRailCollapsed(false); }}>{label}</Button>)}
+        </nav>
+        <div className="cc-nav-footer"><span className="cc-profile">JS</span><span>Jerami Singleton<small>Personal workspace</small></span></div>
+      </nav>
+      <Button variant="ghost" size="icon" className="cc-mobile-add" aria-label="Add task" onClick={newTask} disabled={!snapshot}>
+        <Plus size={26} />
+      </Button>
+      {notice && <div className="cc-notice" role="status"><Check size={20}/><span>{notice.message}</span>{notice.undo && <Button variant="ghost" disabled={busy} aria-label="Undo" onClick={() => void notice.undo?.()}>↶</Button>}<Button variant="ghost" aria-label="Dismiss notification" onClick={() => setNotice(null)}><X size={16}/></Button></div>}
       <section className="cc-main">
         <header className="cc-header">
           <div>
-            <span className="cc-overline">SINGLETON SYSTEMS</span>
             <h1>
-              {surface === "clients"
+              {surface === "inbox" ? "Inbox" : surface === "clients"
                 ? "Clients"
                 : surface === "planner"
-                  ? "Planner"
+                  ? <><span className="cc-desktop-title">Planner</span><span className="cc-mobile-date">{days[Math.floor(days.length / 2)].toLocaleDateString(undefined, { month: "short", year: "numeric" })}</span></>
                   : surface === "updates"
                     ? "Updates"
                     : "Planner"}
             </h1>
           </div>
           <div className="cc-header-actions">
-            <button
+            <Button variant="ghost"
               className="cc-icon"
               title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
               {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-            <button
+            </Button>
+            <Button variant="ghost"
               className="cc-icon"
               title="Refresh"
               aria-label="Refresh"
               onClick={() => load().catch((cause) => setError(String(cause)))}
             >
               <ArrowClockwise size={18} />
-            </button>
+            </Button>
           </div>
         </header>
         {error && (
@@ -1028,16 +1167,32 @@ export default function CommandCenterApp() {
             </div>
           ))}
         {!snapshot && <div className="cc-empty">Loading live work…</div>}
+        {snapshot && surface === "inbox" && (
+          <section className="cc-inbox" aria-label="Inbox tasks">
+            <form onSubmit={captureThought} className="cc-inbox-capture">
+              <Plus size={22} />
+              <input aria-label="Add to Inbox" placeholder="Add task" value={captureText} maxLength={255} disabled={busy} onChange={(event) => { setCaptureText(event.target.value); captureId.current = null; }} />
+              {captureText.trim() && <Button type="submit" variant="ghost" disabled={busy} aria-label="Capture thought"><Check size={20} /></Button>}
+            </form>
+            {work.filter((item) => item.owner === "dashboard" && item.lane === "Unassigned" && !["Done", "Completed"].includes(item.status) && (!snapshot.plans?.some((plan) => plan.owner === item.owner && plan.owner_id === item.id && plan.period !== "inbox")) && !blocks.some((block) => block.owner === item.owner && block.owner_id === item.id)).map((item) => (
+              <div key={`${item.owner}:${item.id}`} className="cc-inbox-row">
+                <Button variant="ghost" size="icon" aria-label={`Complete ${item.title}`} disabled={busy} onClick={() => setWorkState(item, "Done")} className="cc-inbox-check" />
+                <button type="button" aria-label={`Open ${item.title}`} onClick={() => openBlock(item)}>{item.title}</button>
+              </div>
+            ))}
+          </section>
+        )}
         {snapshot && surface === "planner" && (
           <>
             <div className="cc-toolbar">
-              <button onClick={() => setDayOffset((old) => old - dayCount)}>
+              <Button variant="ghost" onClick={() => setRailCollapsed((old) => !old)} aria-label={railCollapsed ? "Show task queue" : "Hide task queue"} aria-expanded={!railCollapsed} aria-controls="cc-task-queue">{railCollapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}<span>Tasks</span></Button>
+              <Button variant="ghost" aria-label="Previous calendar period" onClick={() => setDayOffset((old) => old - dayCount)}>
                 ←
-              </button>
-              <button onClick={goToNow} title="Today (T)">Today</button>
-              <button onClick={() => setDayOffset((old) => old + dayCount)}>
+              </Button>
+              <Button variant="ghost" onClick={goToNow} title="Today (T)">Today</Button>
+              <Button variant="ghost" aria-label="Next calendar period" onClick={() => setDayOffset((old) => old + dayCount)}>
                 →
-              </button>
+              </Button>
               <strong className="cc-range">
                 {days[Math.floor(days.length / 2)].toLocaleDateString(undefined, {
                   month: "long",
@@ -1046,29 +1201,29 @@ export default function CommandCenterApp() {
                 {dayCount === 7 && <small>W{isoWeek(days[0])}</small>}
               </strong>
               <span className="cc-spacer" />
-              {([1, 3, 5, 7] as const).map((count) => (
-                <button
-                  key={count}
-                  className={dayCount === count ? "cc-toggle on" : "cc-toggle"}
-                  onClick={() => setDayCount(count)}
-                >
-                  {count === 7
-                    ? "Full week"
-                    : `${count} day${count === 1 ? "" : "s"}`}
-                </button>
-              ))}
+              <label className="cc-calendar-view">
+                <span className="sr-only">Calendar view</span>
+                <select value={dayCount} onChange={(event) => setDayCount(Number(event.target.value) as 1 | 3 | 5 | 7)}>
+                  <option value={1}>Day</option>
+                  <option value={3}>3 days</option>
+                  <option value={5}>Work week</option>
+                  <option value={7}>Week</option>
+                </select>
+              </label>
             </div>
             <div className="cc-planner-workspace">
-              <div className="cc-list cc-planner-rail">
+              <div id="cc-task-queue" className="cc-list cc-planner-rail" hidden={railCollapsed}>
                 <div className="cc-rail-head">
-                  <button className="cc-secondary" onClick={newTask}>
+                  <div className="cc-queue-title"><h2>Task queue</h2><span>{ready.length}</span></div>
+                  <Button variant="ghost" className="cc-secondary" onClick={newTask}>
                     <Plus size={16} /> New task
-                  </button>
+                  </Button>
                 </div>
+                <label className="cc-task-view-select"><span className="sr-only">Task view</span><select value={taskView} onChange={(event) => setTaskView(event.target.value as TaskView)}>{taskViews.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
                 <div className="cc-rail-filters">
-                  {lanes.map((laneName) => (
-                    <button
-                      key={laneName}
+                  {([...lanes, "Home Admin"] as DashboardLane[]).map((laneName) => (
+                    <Button variant="ghost"
+                      key={dashboardLaneLabel(laneName)}
                       className={`cc-toggle ${filters[laneName] ? "on" : ""}`}
                       style={
                         {
@@ -1084,24 +1239,24 @@ export default function CommandCenterApp() {
                       }
                     >
                       <i className="cc-lane-dot" />
-                      {laneName}
-                    </button>
+                      {dashboardLaneLabel(laneName)}
+                    </Button>
                   ))}
                 </div>
                 {ready.length === 0 && (
-                  <p className="cc-empty">No ready work in these lanes.</p>
+                  <p className="cc-empty">No tasks in this view.</p>
                 )}
                 {ready.length > 0 && (
                   <div className="cc-list-section cc-rail-section">
-                    To-dos <span className="cc-count">{ready.length}</span>
+                    {taskViews.find(([id]) => id === taskView)?.[1]} <span className="cc-count">{ready.length}</span>
                   </div>
                 )}
                 {ready.map((item) => (
                   <div
                     key={`${item.owner}:${item.id}`}
                     className={`cc-row ${selected?.id === item.id ? "selected" : ""}`}
-                    role="button"
-                    tabIndex={0}
+                    role="group"
+                    aria-label={`Task ${item.title}`}
                     draggable
                     onDragStart={(event) => {
                       event.dataTransfer.setData(
@@ -1133,20 +1288,27 @@ export default function CommandCenterApp() {
                       className="cc-lane-bar"
                       style={
                         {
-                          "--lane": laneColors[item.lane],
+                          "--lane": laneColors[dashboardLane(item)],
                         } as React.CSSProperties
                       }
                     />
-                    <span className="cc-task-name" title={item.title}>
+                    <Button variant="ghost" className="cc-task-name" title={item.title} aria-label={`Open ${item.title}`}
+                      onClick={() => openBlock(item)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          openBlock(item);
+                        }
+                      }}>
                       {item.title}
-                    </span>
+                    </Button>
                     {selected?.id === item.id && shortcutMode !== "closed" ? (
                       <div
                         className={`cc-shortcut-chips ${shortcutMode === "closing" ? "closing" : ""}`}
                         onClick={(event) => event.stopPropagation()}
                       >
                         {[
-                          ["1", "Today", laneColors[item.lane]],
+                          ["1", "Today", laneColors[dashboardLane(item)]],
                           ["2", "Block", "#2383e2"],
                           ["3", "Start", "#149b67"],
                           [
@@ -1165,7 +1327,7 @@ export default function CommandCenterApp() {
                               ),
                           )
                           .map(([key, label, tone], index) => (
-                            <button
+                            <Button variant="ghost"
                               key={key}
                               type="button"
                               style={
@@ -1179,7 +1341,7 @@ export default function CommandCenterApp() {
                             >
                               <kbd>{key}</kbd>
                               {label}
-                            </button>
+                            </Button>
                           ))}
                       </div>
                     ) : (
@@ -1194,7 +1356,7 @@ export default function CommandCenterApp() {
                             {shortDate(item.dueDate)}
                           </time>
                         ) : null}
-                        <button
+                        <Button variant="ghost"
                           type="button"
                           className="cc-row-schedule"
                           aria-label={`Schedule ${item.title}`}
@@ -1205,7 +1367,7 @@ export default function CommandCenterApp() {
                           }}
                         >
                           <CalendarPlus size={18} />
-                        </button>
+                        </Button>
                       </>
                     )}
                   </div>
@@ -1215,7 +1377,7 @@ export default function CommandCenterApp() {
                 {dueContacts
                   .filter((item) => filters[item.lane])
                   .map((item) => (
-                    <button
+                    <Button variant="ghost"
                       key={`contact:${item.id}`}
                       className="cc-row"
                       onClick={() => {
@@ -1227,29 +1389,25 @@ export default function CommandCenterApp() {
                         {item.name} · {item.next_action}
                       </span>
                       <time>{shortDate(item.next_action_at)}</time>
-                    </button>
+                    </Button>
                   ))}
               </div>
               <div
                 className="cc-calendar"
-                ref={calendarRef}
+                ref={retainCalendar}
+                onScroll={(event) => { calendarScroll.current = event.currentTarget.scrollTop; }}
                 style={{ "--day-count": dayCount } as React.CSSProperties}
               >
                 <div className="cc-calendar-head">
-                  <div className="cc-time-corner" />
+                  <div className="cc-time-corner">{new Intl.DateTimeFormat(undefined, { timeZoneName: "short" }).formatToParts(now).find((part) => part.type === "timeZoneName")?.value}</div>
                   {days.map((date) => (
-                    <div className="cc-day-head" key={dateKey(date)}>
-                      <strong>
+                    <div className="cc-day-head" key={dateKey(date)} aria-current={dateKey(date) === today ? "date" : undefined}>
+                      <span>
                         {date.toLocaleDateString(undefined, {
                           weekday: "short",
                         })}
-                      </strong>
-                      <span>
-                        {date.toLocaleDateString(undefined, {
-                          month: "short",
-                          day: "numeric",
-                        })}
                       </span>
+                      <strong>{date.getDate()}</strong>
                     </div>
                   ))}
                 </div>
@@ -1488,7 +1646,7 @@ export default function CommandCenterApp() {
               <p className="cc-empty">No follow-ups due.</p>
             )}
             {dueContacts.map((item) => (
-              <button
+              <Button variant="ghost"
                 className="cc-update"
                 key={item.id}
                 onClick={() => {
@@ -1500,20 +1658,22 @@ export default function CommandCenterApp() {
                   {item.name} · {item.next_action}
                 </span>
                 <small>{shortDate(item.next_action_at)}</small>
-              </button>
+              </Button>
             ))}
           </div>
         )}
         {snapshot && surface === "clients" && (
           <>
             <div className="cc-toolbar">
-              <span>{contacts.length} records</span>
+              <Button variant={clientDirectory ? "outline" : "secondary"} onClick={() => setClientDirectory(false)} aria-pressed={!clientDirectory}>Work board</Button>
+              <Button variant={clientDirectory ? "secondary" : "ghost"} onClick={() => setClientDirectory(true)} aria-pressed={clientDirectory}>Contacts <span className="cc-tab-count">{contacts.length}</span></Button>
               <span className="cc-spacer" />
-              <button className="cc-primary" onClick={() => editContact()}>
-                <Plus size={16} /> New lead
-              </button>
+              <Button variant="ghost" className="cc-primary" onClick={() => editContact()}>
+                <Plus size={16} /> New contact
+              </Button>
             </div>
-            <div className="cc-split cc-clients">
+            {!clientDirectory && <ClientBoard work={work} projects={snapshot.asanaProjects} onOpenTask={(item) => openBlock(item)} />}
+            {clientDirectory && <div className="cc-split cc-clients">
               <div className="cc-list">
                 {contacts.length === 0 && (
                   <p className="cc-empty">
@@ -1521,7 +1681,7 @@ export default function CommandCenterApp() {
                   </p>
                 )}
                 {contacts.map((item) => (
-                  <button
+                  <Button variant="ghost"
                     key={item.id}
                     className={`cc-client-row ${selectedContact === item.id ? "selected" : ""}`}
                     onClick={() => {
@@ -1539,7 +1699,7 @@ export default function CommandCenterApp() {
                     <span className="cc-client-due">
                       {shortDate(item.next_action_at)}
                     </span>
-                  </button>
+                  </Button>
                 ))}
               </div>
               <div className="cc-detail">
@@ -1553,23 +1713,23 @@ export default function CommandCenterApp() {
                         <h2>{client.name}</h2>
                         <p>{client.company}</p>
                       </div>
-                      <button
+                      <Button variant="ghost"
                         className="cc-secondary"
                         onClick={() => editContact(client)}
                       >
                         Edit
-                      </button>
+                      </Button>
                     </div>
                     <div className="cc-actions">
-                      <button
+                      <Button variant="ghost"
                         onClick={() => setDraftMenu((old) => !old)}
                         disabled={!client.email}
                       >
                         <EnvelopeSimple size={16} /> Outreach
-                      </button>
-                      <button onClick={() => setDraftEditor(true)}>
+                      </Button>
+                      <Button variant="ghost" onClick={() => setDraftEditor(true)}>
                         <Plus size={16} /> Save draft
-                      </button>
+                      </Button>
                     </div>
                     {draftMenu && (
                       <div className="cc-drafts">
@@ -1742,14 +1902,14 @@ export default function CommandCenterApp() {
                         placeholder="Add interaction note"
                         required
                       />
-                      <button disabled={busy}>Log</button>
+                      <Button variant="ghost" disabled={busy}>Log</Button>
                     </form>
                   </>
                 ) : (
                   <p className="cc-empty">Select a lead or client.</p>
                 )}
               </div>
-            </div>
+            </div>}
           </>
         )}
       </section>
@@ -1772,11 +1932,13 @@ export default function CommandCenterApp() {
           key={taskEditor.session}
           work={taskEditor.work}
           block={taskEditor.block}
+          plan={snapshot?.plans?.find((plan) => plan.owner === taskEditor.work?.owner && plan.owner_id === taskEditor.work?.id)}
           today={today}
           busy={busy}
           error={error}
           laneColors={laneColors}
           projects={snapshot?.asanaProjects ?? []}
+          captureMode={surface === "inbox"}
           onSave={saveTask}
           onSubtask={async (title) => {
             if (!taskEditor.work || taskEditor.work.owner === "notion")
@@ -1815,7 +1977,8 @@ export default function CommandCenterApp() {
           onSubtaskComplete={async (childId) => {
             const parent = taskEditor.work;
             if (!parent || parent.owner === "notion") return false;
-            const result = await command({
+            const child = parent.children?.find((item) => item.id === childId);
+            const result = await command(parent.owner === "dashboard" ? {action:"inboxUpdate",id:childId,expectedUpdatedAt:child?.updatedAt,task:{status:"Done"}} : {
               action:
                 parent.owner === "asana"
                   ? "asanaSubtaskComplete"
@@ -1874,26 +2037,42 @@ export default function CommandCenterApp() {
         />
       )}
       {contactEditor !== null && (
-        <div
-          className="cc-modal-backdrop"
+        <dialog
+          ref={contactDialog}
+          className="cc-contact-dialog"
+          aria-labelledby="cc-contact-title"
+          onCancel={(event) => {
+            event.preventDefault();
+            setContactEditor(null);
+          }}
+          onKeyDown={(event) => {
+            if (event.key !== "Tab") return;
+            const first = event.currentTarget.querySelector<HTMLButtonElement>('button[aria-label="Close"]');
+            const last = event.currentTarget.querySelector<HTMLButtonElement>('button[type="submit"]');
+            if (!event.shiftKey && event.target === last && first) {
+              event.preventDefault();
+              first.focus();
+            } else if (event.shiftKey && event.target === first && last && !last.disabled) {
+              event.preventDefault();
+              last.focus();
+            }
+          }}
           onMouseDown={() => setContactEditor(null)}
         >
           <section
             className="cc-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="cc-contact-title"
             onMouseDown={(event) => event.stopPropagation()}
           >
             <div className="cc-modal-head">
               <h2 id="cc-contact-title">
-                {contactEditor === "new" ? "New lead" : "Edit contact"}
+                {contactEditor === "new" ? "New contact" : "Edit contact"}
               </h2>
-              <button onClick={() => setContactEditor(null)} aria-label="Close">
+              <Button variant="ghost" onClick={() => setContactEditor(null)} aria-label="Close">
                 <X size={18} />
-              </button>
+              </Button>
             </div>
             <form onSubmit={saveContact}>
+              {error && <p role="alert">{error}</p>}
               <div className="cc-form-grid">
                 <label>
                   Name
@@ -1933,6 +2112,10 @@ export default function CommandCenterApp() {
                     }
                   />
                 </label>
+              </div>
+              <details className="cc-contact-details" key={contactEditor}>
+                <summary>More details</summary>
+                <div className="cc-form-grid">
                 <label>
                   Phone
                   <input
@@ -1949,7 +2132,7 @@ export default function CommandCenterApp() {
                   <legend>Lane</legend>
                   <div className="cc-lane-values">
                     {lanes.map((item) => (
-                      <button
+                      <Button variant="ghost"
                         key={item}
                         type="button"
                         className={contactForm.lane === item ? "selected" : ""}
@@ -1962,7 +2145,7 @@ export default function CommandCenterApp() {
                       >
                         <i />
                         {item}
-                      </button>
+                      </Button>
                     ))}
                   </div>
                 </fieldset>
@@ -2099,17 +2282,18 @@ export default function CommandCenterApp() {
                   />
                 </label>
               </div>
+              </details>
               <div className="cc-modal-actions">
-                <button type="button" onClick={() => setContactEditor(null)}>
+                <Button variant="ghost" type="button" onClick={() => setContactEditor(null)}>
                   Cancel
-                </button>
-                <button className="cc-primary" disabled={busy}>
+                </Button>
+                <Button variant="ghost" type="submit" className="cc-primary" disabled={busy}>
                   <Check size={16} /> Save
-                </button>
+                </Button>
               </div>
             </form>
           </section>
-        </div>
+        </dialog>
       )}
       {draftEditor && (
         <div
@@ -2125,9 +2309,9 @@ export default function CommandCenterApp() {
           >
             <div className="cc-modal-head">
               <h2 id="cc-draft-title">Save draft</h2>
-              <button onClick={() => setDraftEditor(false)} aria-label="Close">
+              <Button variant="ghost" onClick={() => setDraftEditor(false)} aria-label="Close">
                 <X size={18} />
-              </button>
+              </Button>
             </div>
             <form onSubmit={saveDraft}>
               <label>
@@ -2165,12 +2349,12 @@ export default function CommandCenterApp() {
                 />
               </label>
               <div className="cc-modal-actions">
-                <button type="button" onClick={() => setDraftEditor(false)}>
+                <Button variant="ghost" type="button" onClick={() => setDraftEditor(false)}>
                   Cancel
-                </button>
-                <button className="cc-primary" disabled={busy}>
+                </Button>
+                <Button variant="ghost" className="cc-primary" disabled={busy}>
                   Save draft
-                </button>
+                </Button>
               </div>
             </form>
           </section>

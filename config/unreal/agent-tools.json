@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "skill": {
+    "name": "unreal-mcp",
+    "publisher": "Epic Games",
+    "repository": "https://github.com/EpicGames/unreal-engine-skills-for-claude-code-plugin",
+    "revision": "a6aa73ada02a9fb1f5415bec491f9942c519b297",
+    "sourceFolder": "skills/unreal-mcp",
+    "license": "MIT",
+    "scanRisk": "low",
+    "validation": "passed",
+    "installed": true
+  },
+  "connection": {
+    "documentation": "https://dev.epicgames.com/documentation/unreal-engine/unreal-mcp-in-unreal-editor",
+    "engineVersionFamily": "5.8",
+    "requiredPlugins": [
+      "ModelContextProtocol",
+      "AllToolsets"
+    ],
+    "supportedClient": "Codex",
+    "state": "live-read-and-edit-passed",
+    "enabledInProject": true,
+    "liveReadbackPassed": true,
+    "installedEngineVersion": "5.8.3",
+    "liveEditPassed": true,
+    "url": "http://127.0.0.1:18180/mcp",
+    "bindAddress": "127.0.0.1",
+    "codexConfigured": true,
+    "trialProject": "LineupsAgentTrial",
+    "proof": "Created LineupsAgentConnectionTest through native MCP; read back its label and captured the editor. Render and sample intake remain pending."
+  }
+}

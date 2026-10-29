@@ -1,8 +1,10 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{{title}} · Post-Figma review</title><link rel="stylesheet" href="assets/review-base.css"><link rel="stylesheet" href="assets/asset-selection.css"></head><body><main class="shell">
 <header class="top"><span class="meta">Singleton Systems</span><a class="back" href="index.html">Pre-Figma review</a></header>
 <p class="meta">{{clientLabel}} · Post-Figma review</p><h1>{{title}}</h1><p class="meta">{{dueLabel}}</p>
+<nav class="stage-nav" aria-label="Review stage"><a class="tab" href="index.html">1. Pre-Figma</a><a class="tab" href="post-figma.html" aria-current="page">2. Post-Figma</a></nav>
+<p class="review-help">Play each built scene. Check its words and timing. Choose what can move on.</p>
 <nav class="tabs lane-filters" aria-label="Scene lanes" id="lane-filters"></nav>
-<p class="post-count" id="post-count" role="status"></p><div class="list" id="post-scenes"></div><footer class="review-footer" id="post-footer" hidden><button class="tab" id="export-post">Export review choices</button></footer>
-<article class="asset empty-review" id="post-empty" hidden><h2>No scene previews yet</h2><p>Choose scenes in the <a href="index.html">Pre-Figma review</a>.</p></article>
+<p class="post-count" id="post-count" role="status"></p><div class="list" id="post-scenes"></div><footer class="review-footer" id="post-footer" hidden><button class="tab" id="export-post">Save my choices</button></footer><p class="review-help">Choices stay in this browser. Save the file and send it in this chat to hand them back.</p>
+<article class="asset empty-review" id="post-empty" hidden><h2>No scene previews yet</h2><p>Built previews will appear here after export checks pass. You can still review the <a href="index.html">plan</a>.</p></article>
 </main><dialog class="scene-dialog" id="scene-dialog" aria-labelledby="scene-dialog-title"><div id="scene-detail"></div><button class="tab" id="close-scene">Close</button></dialog>
-<script>const reviewData={{reviewData}};</script><script src="assets/visuals.js"></script><script src="assets/post.js"></script></body></html>
+<script>const reviewData={{reviewData}};</script><script src="assets/visuals.js"></script><script src="assets/context.js"></script><script src="assets/post.js"></script></body></html>

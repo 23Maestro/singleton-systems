@@ -145,7 +145,7 @@ finished visual approval, or delivery.
 
 Before calling a Lineups source or workflow missing, recover the last matching
 production handoff and episode closeout. Follow the prior-production lookup in
-`plugins/s-systems/skills/client-video-storyboard/references/lineups-episode-lifecycle.md`.
+`plugins/s-systems/skills/lineups-editor/references/lineups-episode-lifecycle.md`.
 Name the exact conflict when saved work and a validation rule disagree. Fix
 that rule at its owner; do not ask Jerami to rebuild an existing source.
 
@@ -162,7 +162,6 @@ approval or proof is missing. Record the exact next step with `defer`.
 The normal prompt and resume hooks show missed closeout. The Stop hook asks
 for 1 correction, then leaves a visible pending result. It runs no external
 writes and starts no background work. Research alone needs no task binding.
-
 
 ## writing
 

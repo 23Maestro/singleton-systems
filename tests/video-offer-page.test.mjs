@@ -53,7 +53,11 @@ test("editing proof leads with sports and preserves the 12 existing samples", ()
   assert.equal((portfolio.match(/data-video-sample=/g) ?? []).length, 14);
   assert.doesNotMatch(portfolio, /HTtsQg2Mow4|<iframe/);
   const firstSamples = [...portfolio.matchAll(/data-video-sample="([^"]+)"/g)].slice(0, 3).map((match) => match[1]);
-  assert.deepEqual(firstSamples, ["lineups-sports-analysis-reel", "wemby-perimeter-v-paint", "txnYIYJMs88"]);
+  assert.deepEqual(firstSamples, ["oI07KwkIIuQ", "NsK_vIA9m30", "txnYIYJMs88"]);
+  for (const id of ["oI07KwkIIuQ", "NsK_vIA9m30"]) {
+    assert.ok(portfolio.includes(`href="https://www.youtube.com/watch?v=${id}"`), "sports samples open their verified YouTube uploads");
+  }
+  assert.doesNotMatch(portfolio, /drive\.google\.com|Watch on Google Drive/);
   assert.match(portfolio, /Test edit · Basketball/);
   assert.match(html, /<section id="reviews"[\s\S]*?HTtsQg2Mow4[\s\S]*?<\/section>/);
 });

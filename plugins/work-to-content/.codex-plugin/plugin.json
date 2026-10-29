@@ -1,0 +1,21 @@
+{
+  "name": "work-to-content",
+  "version": "0.1.0",
+  "description": "Turn real client work into a short proof clip for Jerami to review.",
+  "author": { "name": "Jerami Singleton" },
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json",
+  "requires_local_executor": true,
+  "interface": {
+    "displayName": "Work to Content",
+    "shortDescription": "Capture real work. Review one useful clip.",
+    "longDescription": "Use Lineups work to show the editing and the system behind it. Plan one proof clip, record a chosen window, cut useful moments and return a draft for Jerami to review.",
+    "developerName": "Singleton Systems",
+    "category": "Productivity",
+    "capabilities": ["Workflow", "Video", "Writing"],
+    "defaultPrompt": [
+      "Turn this Lineups work into one proof clip.",
+      "Record this workflow and cut the useful parts for my review."
+    ]
+  }
+}

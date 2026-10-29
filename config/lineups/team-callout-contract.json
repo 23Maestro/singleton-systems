@@ -90,17 +90,77 @@
     "episodeEvidence": "config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/figma-build/team-card-baseline-v2-episode.json",
     "previewPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/previews/week7-team-card-baseline-v2.png"
   },
-  "protected": {
-    "wrapper": {
-      "x": 0,
-      "y": 804
+  "measuredSource": {
+    "contractId": "quick-stat.team-callout.v1",
+    "rootNodeId": "1843:1021",
+    "rootDimensions": {
+      "width": 1920,
+      "height": 1080
     },
-    "panel": {
+    "wrapper": {
+      "id": "1844:1021",
+      "type": "FRAME",
+      "parentId": "1843:1021",
+      "x": 0,
+      "y": 804,
+      "width": 1920,
       "height": 240,
-      "topLeftRadius": 18,
-      "topRightRadius": 0,
-      "bottomLeftRadius": 0,
-      "bottomRightRadius": 18,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "FIXED",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "CENTER",
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "itemSpacing": 0,
+      "textAutoResize": null,
+      "fontName": null,
+      "fontSize": null,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 22.100000381469727,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.4399999976158142
+          },
+          "offset": {
+            "x": 0,
+            "y": 25
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": false
+        }
+      ]
+    },
+    "card": {
+      "id": "1843:1023",
+      "type": "FRAME",
+      "parentId": "1844:1021",
+      "x": 274,
+      "y": 0,
+      "width": 1372,
+      "height": 240,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "AUTO",
+      "counterAxisSizingMode": "AUTO",
+      "primaryAxisAlignItems": "MIN",
+      "counterAxisAlignItems": "MAX",
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "itemSpacing": 0,
+      "textAutoResize": null,
+      "fontName": null,
+      "fontSize": null,
       "effects": [
         {
           "type": "DROP_SHADOW",
@@ -124,42 +184,180 @@
       ]
     },
     "logoBlock": {
+      "id": "1843:1024",
+      "type": "FRAME",
+      "parentId": "1843:1023",
+      "x": 0,
+      "y": 0,
       "width": 240,
       "height": 240,
-      "strokeWeight": 5
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "FIXED",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "CENTER",
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "itemSpacing": 0,
+      "textAutoResize": null,
+      "fontName": null,
+      "fontSize": null,
+      "effects": []
     },
-    "header": {
-      "height": 80
+    "copyStack": {
+      "id": "1843:1027",
+      "type": "FRAME",
+      "parentId": "1843:1023",
+      "x": 240,
+      "y": 0,
+      "width": 1132,
+      "height": 240,
+      "layoutMode": "VERTICAL",
+      "primaryAxisSizingMode": "AUTO",
+      "counterAxisSizingMode": "AUTO",
+      "primaryAxisAlignItems": "MIN",
+      "counterAxisAlignItems": "MIN",
+      "paddingLeft": 0,
+      "paddingRight": 0,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "itemSpacing": 0,
+      "textAutoResize": null,
+      "fontName": null,
+      "fontSize": null,
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "visible": true,
+          "radius": 4,
+          "boundVariables": {},
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0.25
+          },
+          "offset": {
+            "x": 0,
+            "y": 4
+          },
+          "spread": 0,
+          "blendMode": "NORMAL",
+          "showShadowBehindNode": true
+        }
+      ]
     },
-    "body": {
-      "height": 160,
-      "layoutSizingHorizontal": "HUG",
+    "subjectPanel": {
+      "id": "1843:1028",
+      "type": "FRAME",
+      "parentId": "1843:1027",
+      "x": 0,
+      "y": 0,
+      "width": 518,
+      "height": 80,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "AUTO",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "CENTER",
       "paddingLeft": 48,
-      "paddingRight": 48
+      "paddingRight": 48,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "itemSpacing": 0,
+      "textAutoResize": null,
+      "fontName": null,
+      "fontSize": null,
+      "effects": []
     },
     "subject": {
-      "fontSize": 48
+      "id": "1843:1029",
+      "type": "TEXT",
+      "parentId": "1843:1028",
+      "x": 48,
+      "y": 12,
+      "width": 422,
+      "height": 56,
+      "layoutMode": null,
+      "primaryAxisSizingMode": null,
+      "counterAxisSizingMode": null,
+      "primaryAxisAlignItems": null,
+      "counterAxisAlignItems": null,
+      "paddingLeft": null,
+      "paddingRight": null,
+      "paddingTop": null,
+      "paddingBottom": null,
+      "itemSpacing": null,
+      "textAutoResize": "WIDTH_AND_HEIGHT",
+      "fontName": {
+        "family": "Roboto Condensed",
+        "style": "Bold",
+        "variationSettings": {
+          "wght": 700
+        }
+      },
+      "fontSize": 48,
+      "effects": []
+    },
+    "panel": {
+      "id": "1843:1030",
+      "type": "FRAME",
+      "parentId": "1843:1027",
+      "x": 0,
+      "y": 80,
+      "width": 1132,
+      "height": 160,
+      "layoutMode": "HORIZONTAL",
+      "primaryAxisSizingMode": "AUTO",
+      "counterAxisSizingMode": "FIXED",
+      "primaryAxisAlignItems": "CENTER",
+      "counterAxisAlignItems": "CENTER",
+      "paddingLeft": 48,
+      "paddingRight": 48,
+      "paddingTop": 0,
+      "paddingBottom": 0,
+      "itemSpacing": 0,
+      "textAutoResize": null,
+      "fontName": null,
+      "fontSize": null,
+      "effects": []
     },
     "text": {
-      "fontSize": 72,
-      "textAutoResize": "WIDTH_AND_HEIGHT"
-    },
-    "accent": {
-      "x": 2.625,
-      "y": 4.013436794281006,
-      "width": 234.875,
-      "height": 234.0509033203125,
-      "vectorPaths": [
-        {
-          "windingRule": "NONZERO",
-          "data": "M 234.875 0.05054725706577301 L 29.375 0.05091531574726105 C 9.875 -0.5136718600988388 1.5 3.486186981201172 1.5 18.630313873291016 L 0 234.0509033203125"
+      "id": "1843:1031",
+      "type": "TEXT",
+      "parentId": "1843:1030",
+      "x": 48,
+      "y": 36.5,
+      "width": 1036,
+      "height": 87,
+      "layoutMode": null,
+      "primaryAxisSizingMode": null,
+      "counterAxisSizingMode": null,
+      "primaryAxisAlignItems": null,
+      "counterAxisAlignItems": null,
+      "paddingLeft": null,
+      "paddingRight": null,
+      "paddingTop": null,
+      "paddingBottom": null,
+      "itemSpacing": null,
+      "textAutoResize": "WIDTH_AND_HEIGHT",
+      "fontName": {
+        "family": "Inter",
+        "style": "Bold",
+        "variationSettings": {
+          "wght": 700,
+          "slnt": 0
         }
-      ],
-      "strokeWeight": 3,
-      "strokeCap": "SQUARE",
-      "strokeJoin": "ROUND"
+      },
+      "fontSize": 72,
+      "effects": []
     }
   },
-  "sourceFingerprint": "aec09a8358dbbcfd3d31c61a256655c3c1fc05e525f566df11739d7adca80a3c",
-  "bindingPolicy": "Reuse needs this contract hash, exact episode nodes, measured readback and the normal human review receipts. Source existence alone is not episode approval."
+  "authoringApproval": {
+    "date": "2026-10-28",
+    "answer": "Apply the narrow repair and finish",
+    "scope": "Week 8 authoring and review exports; final visual approval remains separate"
+  }
 }

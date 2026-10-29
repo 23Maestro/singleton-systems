@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "phase": "trial",
+  "templateKey": "comparison.unreal.two-up",
+  "contentRoot": "/Game/Lineups/Trials/TwoUp",
+  "projectName": "LineupsAgentTrial",
+  "assets": {
+    "background": {
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/background.png",
+      "sha256": "1d7101b034b2ef2e5bc21fc8383a3c71a4e787a9a54a5656fcd53ed1a7f0fbef",
+      "size": [
+        1672,
+        941
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1672,
+        941
+      ]
+    },
+    "leftPlayer": {
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/leftPlayer.png",
+      "sha256": "665f997c7f20953a9c6068297c20e640dce750d03b16d7851296797b2e55504e",
+      "size": [
+        1536,
+        1024
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1506,
+        1024
+      ]
+    },
+    "rightPlayer": {
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/rightPlayer.png",
+      "sha256": "3ddbe049dc0cd763b938a9ba152d251cebc8f3ffe8ac9411d027d3e9571f91d7",
+      "size": [
+        1536,
+        1024
+      ],
+      "alphaBounds": [
+        41,
+        11,
+        1500,
+        1024
+      ]
+    },
+    "leftLogo": {
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/leftLogo.png",
+      "sha256": "24fbbcef22bf4afd54b67b8317cd0d917648e1f131baf717c7e793ac06c1f00f",
+      "size": [
+        500,
+        500
+      ],
+      "alphaBounds": [
+        0,
+        86,
+        500,
+        414
+      ]
+    },
+    "rightLogo": {
+      "path": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/rightLogo.png",
+      "sha256": "a5dd8f419e9e521feffb53562a0cc5957dd8528268ed2ae11149bc1565c393be",
+      "size": [
+        503,
+        503
+      ],
+      "alphaBounds": [
+        0,
+        80,
+        503,
+        421
+      ]
+    }
+  },
+  "fontSource": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/LineupsAgentTrial/SourceArt/TwoUp/BebasNeueBold.ttf",
+  "output": {
+    "width": 1920,
+    "height": 1080
+  },
+  "minimumCardFont": 36,
+  "maximumRows": 5,
+  "logoCenterY": 350,
+  "productionRendererChanged": false,
+  "approvedNativeTemplateManifest": "config/unreal/comparison-template-01.json",
+  "configurationRole": "Legacy static request-to-widget trial; the approved animated native master is pinned in approvedNativeTemplateManifest"
+}

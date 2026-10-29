@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram comment"
+  short_description: "Draft and review comment content in Codex"
+  default_prompt: "Use $ig-comment with my own work and voice."

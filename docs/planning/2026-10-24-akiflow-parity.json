@@ -1,0 +1,195 @@
+{
+  "contract": "docs/planning/2026-10-24-akiflow-clone-plan.md",
+  "referencePhotos": "Linear 23M-273 resources; retained HomeSSD references/2026-10-24-akiflow-mobile/",
+  "desktopEvidence": [
+    "docs/planning/2026-10-24-akiflow-desktop-observation.md",
+    "docs/planning/2026-10-24-akiflow-responsive-ux.md"
+  ],
+  "statuses": "implemented_unaccepted means technical UI proof only. Human parity acceptance remains open.",
+  "items": [
+    {
+      "reference": "photo-1",
+      "requirement": "Task capture and title-first details",
+      "tickets": [
+        "23M-277",
+        "23M-300"
+      ],
+      "expected": "Task/Slot, compact Plan and Duration controls, quiet description and bottom metadata.",
+      "status": "partial"
+    },
+    {
+      "reference": "photo-2",
+      "requirement": "Mobile duration dial",
+      "tickets": [
+        "23M-300"
+      ],
+      "expected": "Hours/minutes dial, short duration, keyboard/direct-entry equivalent, persisted chosen value.",
+      "status": "partial",
+      "proof": [
+        "tools/dashboard-preview/planning.test.mjs: duration wheels, keyboard and presets; 5-minute timed save/reload against HTTP boundary stub",
+        "HomeSSD clone-proof/duration-390.png",
+        "Untimed 5-minute duration survives UI reload; public route save/retry/readback on proof issue 23M-294",
+        "Desktop duration search confirms with Enter and cancels typed text with Escape without changing the prior duration"
+      ],
+      "remaining": "Mobile wheel alignment, active-task owner UI proof and integrated comparison."
+    },
+    {
+      "reference": "photo-3",
+      "requirement": "Repeat sheet",
+      "tickets": [
+        "23M-277",
+        "23M-284"
+      ],
+      "expected": "Separate repeat choices, custom ending and scoped recurring edits through declared owner.",
+      "status": "missing"
+    },
+    {
+      "reference": "photo-4",
+      "requirement": "Quick Plan sheet",
+      "tickets": [
+        "23M-276",
+        "23M-300"
+      ],
+      "expected": "Today/Tomorrow/week/month/Someday with separate optional time and duration.",
+      "status": "partial",
+      "proof": [
+        "tools/dashboard-preview/planning.test.mjs: Tomorrow, day-only save/reload, Someday clearing date/time",
+        "Week/month horizons survive UI reload and public route readback; Remove time preserves day and duration; full-width phone sheet geometry passes",
+        "HomeSSD clone-proof/plan-sheet-fixed-390.png",
+        "Plan Tab boundary and Escape return to the task draft pass rendered UI proof",
+        "Plan footer has native date, time and duration controls; confirmed natural date/time preserves 9:10 AM and a 5-minute duration through UI save/reload",
+        "Nested duration picker retains Plan underneath and returns to it",
+        "HomeSSD clone-proof/plan-footer-390.png"
+      ],
+      "remaining": "Integrated human reference comparison and active-task owner UI proof."
+    },
+    {
+      "reference": "photo-5",
+      "requirement": "Bottom mobile navigation",
+      "tickets": [
+        "23M-299"
+      ],
+      "expected": "Bottom dock, separate add action, clear named destinations, safe-area clearance.",
+      "status": "implemented_unaccepted",
+      "proof": [
+        "tools/dashboard-preview/responsive.test.mjs: phone navigation at 390 and 430 px",
+        "HomeSSD clone-proof/planner-390.png",
+        "HomeSSD clone-proof/task-sheet-390.png"
+      ]
+    },
+    {
+      "reference": "photo-6",
+      "requirement": "Calendar-first mobile screen",
+      "tickets": [
+        "23M-299",
+        "23M-278"
+      ],
+      "expected": "Day-first grid, clear day/timezone, current-time position/line, restrained toolbar and on-demand queue.",
+      "status": "implemented_unaccepted",
+      "proof": [
+        "tools/dashboard-preview/responsive.test.mjs: phone calendar opens around current time",
+        "HomeSSD clone-proof/planner-current-time-390.png"
+      ]
+    },
+    {
+      "reference": "desktop-notes",
+      "requirement": "Desktop shell and preferences",
+      "tickets": [
+        "23M-275"
+      ],
+      "expected": "Left navigation, named work views and remembered theme/view/queue state.",
+      "status": "partial",
+      "proof": [
+        "tools/dashboard-preview/responsive.test.mjs: chosen calendar, queue, client work view and theme survive reload",
+        "Named Inbox/Today/Week/Month/Someday/All tasks filter by planning choice and persist through reload; sidebar and queue share selection",
+        "Client navigation retains the chosen calendar position",
+        "Calendar return position restored before paint; regression passed 10 repeated runs"
+      ],
+      "remaining": "Integrated phone/tablet/desktop reference comparison and active-owner UI proof."
+    },
+    {
+      "reference": "desktop-notes",
+      "requirement": "Untimed and timed planning",
+      "tickets": [
+        "23M-276",
+        "23M-278",
+        "23M-300"
+      ],
+      "expected": "Day-only plan persists, timed placement persists, Remove time preserves day and duration.",
+      "status": "partial",
+      "proof": [
+        "tools/dashboard-preview/planning.test.mjs: day-only, short timed duration, untimed duration, week/month horizons, Remove time",
+        "tests/command-center-task-plans.test.mjs: public save/read and duplicate retry; invalid period/date rejected"
+      ]
+    },
+    {
+      "reference": "desktop-notes",
+      "requirement": "Command capture and task actions",
+      "tickets": [
+        "23M-279"
+      ],
+      "expected": "Search/open/capture/Plan/Duration/Complete/Assign to slot with keyboard, focus and touch equivalents.",
+      "status": "missing"
+    },
+    {
+      "reference": "desktop-notes",
+      "requirement": "Task and Slot behavior",
+      "tickets": [
+        "23M-297",
+        "23M-284"
+      ],
+      "expected": "Observe complete slot journey, then persist named container/membership, move/resize and progress.",
+      "status": "missing",
+      "referenceProof": "docs/planning/2026-10-24-akiflow-slot-observation.md"
+    },
+    {
+      "reference": "singleton-contract",
+      "requirement": "Client board and estimates",
+      "tickets": [
+        "23M-281",
+        "23M-277"
+      ],
+      "expected": "Company-column deliverables and shared subtasks, with human/background estimates distinct from blocks.",
+      "status": "partial"
+    },
+    {
+      "reference": "singleton-contract",
+      "requirement": "Contact entry",
+      "tickets": [
+        "23M-298"
+      ],
+      "expected": "3 basic fields, hidden values retained, failure/cancel/focus and owner save/reload.",
+      "status": "implemented_unaccepted"
+    },
+    {
+      "reference": "singleton-contract",
+      "requirement": "Updates, unsent drafts and availability",
+      "tickets": [
+        "23M-280",
+        "23M-282",
+        "23M-283"
+      ],
+      "expected": "Keep owner/context, retry, unsent review and read-only authorized calendar events.",
+      "status": "partial"
+    },
+    {
+      "reference": "component-contract",
+      "requirement": "Free registry and controls",
+      "tickets": [
+        "23M-274"
+      ],
+      "expected": "Registered free Studio catalog; only installed used free controls, source/license and full-route smoke proof.",
+      "status": "partial"
+    },
+    {
+      "reference": "acceptance-contract",
+      "requirement": "Integrated comparison and delivery",
+      "tickets": [
+        "23M-285"
+      ],
+      "expected": "All reference flows compared at phone/tablet/desktop; real owner proof, human acceptance, code review and approved merge.",
+      "status": "missing"
+    }
+  ],
+  "proofDirectory": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/2026-10-24-akiflow-clone-proof"
+}

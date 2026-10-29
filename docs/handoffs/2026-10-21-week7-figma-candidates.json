@@ -1,0 +1,1860 @@
+{
+  "schemaVersion": 1,
+  "episodeSlug": "2026-10-20-nfl-week-7-power-rankings",
+  "createdAt": "2026-10-21T21:56:17.856939+00:00",
+  "scopeAuthority": "Jerami requested a new task for Figma work from the 30 Week 7 proposed candidates on October 21, 2026. Rankings stay Figma this week and adopt the supplied reference using the shadcn Figma kit.",
+  "supersedesHandoff": "docs/handoffs/2026-10-21-lineups-figma-components.md for this episode request only; that earlier document covered the broader library and is not the build scope.",
+  "cueMapPath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/storyboard/cue-map.json",
+  "cueMapSha256": "4d7df78fac90285b1851d457ec826d206dfb7cd8c478e67b71e6eb93f4678953",
+  "episodePath": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-10-20-nfl-week-7-power-rankings/episode.json",
+  "asanaTaskId": "1219719334956962",
+  "sourceFps": {
+    "numerator": 25,
+    "denominator": 1
+  },
+  "reference": {
+    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/week7-marks-rankings-figma-reference-2026-10-21.png",
+    "sha256": "5458862087e4055420938775ef23918de58e421f59af81b01aea6706eb12e5e2",
+    "originalPath": "/var/folders/7c/r1c1nlcn7yx4cvn6jnvb3klh0000gn/T/codex-clipboard-bd7ef971-2240-4bd3-9bcd-674b2c96c298.png",
+    "authority": "Supplied layout/style reference; exact teams, ranks and wording must come from the episode transcript and candidate data."
+  },
+  "shadcn": {
+    "requested": true,
+    "status": "not listed by get_libraries on October 21; locate exact published kit or local components before import",
+    "policy": "Use suitable table/row/cell/card primitives inside the supplied broadcast direction. Do not substitute another UI kit silently."
+  },
+  "counts": {
+    "candidates": 30,
+    "figmaPrimary": 23,
+    "figmaAlternativesReviewOnly": 2,
+    "unrealTeamCards": 2,
+    "unrealStatBreakdownsProposed": 2,
+    "playerComparisonEnginePending": 1
+  },
+  "candidates": [
+    {
+      "candidate": {
+        "id": "R10",
+        "title": "10. Baltimore Ravens",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 62.03,
+        "duration": 6.5,
+        "time": "01:02.03\u201301:08.53",
+        "copy": "Baltimore Ravens",
+        "excerpt": "starting from number 10. And then number 10. I have the Baltimore Ravens. They had a massive drop in my rankings last week. They were number three. Now they fell all the way down to number",
+        "trigger": "number 10. I",
+        "reason": "Show the spoken rank. Keep ranks 10 through 10 visible. Only this first board has the 10-to-1 row-shell cascade.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          9,
+          10
+        ],
+        "rank": 10,
+        "team": "Baltimore Ravens",
+        "revealedRanks": [
+          10
+        ],
+        "boardCascade": true,
+        "plannedCues": [
+          {
+            "rough": 64.3,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "S01",
+        "title": "Ravens fall from 3 to 10",
+        "lane": "comparison",
+        "option": "Simple comparison",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 68.57,
+        "duration": 10,
+        "time": "01:08.57\u201301:18.57",
+        "copy": "LAST WEEK: #3 \u2192 THIS WEEK: #10",
+        "excerpt": "drop in my rankings last week. They were number three. Now they fell all the way down to number 10 because not only do they not have Lamar Jackson and that's probably a big reason why they lost",
+        "trigger": "rankings last week",
+        "reason": "A missed numeric comparison: one team, two periods, one rank per period. Use the approved Simple comparison with period labels and the Ravens logo; no player art or third period is needed.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "comparison.simple.2",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-215",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          10,
+          11
+        ],
+        "plannedCues": [
+          {
+            "rough": 71.31,
+            "element": "previous-rank",
+            "action": "Reveal last week: 3"
+          },
+          {
+            "rough": 75.56,
+            "element": "current-rank",
+            "action": "Reveal this week: 10"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "P01",
+        "title": "Ravens nearly lost in Atlanta",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 88.73,
+        "duration": 4.52,
+        "time": "01:28.73\u201301:33.25",
+        "copy": "",
+        "excerpt": "right now and they could have very well have lost to the Atlanta Falcons two weeks ago, but now they",
+        "trigger": "have very well",
+        "reason": "The supplied Bateman photo is from that Atlanta game. Show it once during the Ravens passage.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CI8YZ9"
+        },
+        "assetRequests": [
+          {
+            "name": "rashod-bateman-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CI8YZ9"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CI8YZ9",
+            "name": "rashod-bateman-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CI8YZ9.info/rashod-bateman-1.jpg",
+            "sha256": "d66da9331859f4d37e1199c24da3701d052d572ebbd168602b20e98f9db58267",
+            "sourceUrl": "eagle://item/MVHECO5CI8YZ9",
+            "width": 5340,
+            "height": 3612,
+            "provenance": "Original filename: 2026-10-12T034146Z_1466880974_MT1USATODAY30063237_RTRMADP_3_NFL-BALTIMORE-RAVENS-AT-ATLANTA-FALCONS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: d66da9331859f4d37e1199c24da3701d052d572ebbd168602b20e98f9db58267",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CI8YZ9"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          13
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "P02",
+        "title": "Cincinnati is next",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 126.0,
+        "duration": 4.52,
+        "time": "02:06.00\u201302:10.52",
+        "copy": "",
+        "excerpt": "that doesn't sound very reassuring, especially when you have a well-rested Cincinnati Bengals team coming into town this week and you're foreign to that division is a bloodbath. Everybody's over",
+        "trigger": "Cincinnati Bengals team",
+        "reason": "The supplied Burrow throwing photo supports the coming Bengals matchup; it is not a Ravens-game photo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CQMSTO"
+        },
+        "assetRequests": [
+          {
+            "name": "joe-burrow-3",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CQMSTO"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CQMSTO",
+            "name": "joe-burrow-3",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CQMSTO.info/joe-burrow-3.jpg",
+            "sha256": "817816b938c7c2eac58e5176e9499cf553a09f93df3e7430f9b1f3798dd694a6",
+            "sourceUrl": "eagle://item/MVHECO5CQMSTO",
+            "width": 4236,
+            "height": 2826,
+            "provenance": "Original filename: 2026-10-11T194412Z_1518807901_MT1USATODAY30059269_RTRMADP_3_NFL-CINCINNATI-BENGALS-AT-MIAMI-DOLPHINS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 817816b938c7c2eac58e5176e9499cf553a09f93df3e7430f9b1f3798dd694a6",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CQMSTO"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          18,
+          19
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "R09",
+        "title": "9. Cleveland Browns",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 159.77,
+        "duration": 6.5,
+        "time": "02:39.77\u201302:46.27",
+        "copy": "Cleveland Browns",
+        "excerpt": "the Ravens are hanging on by a thread in my top 10 number 10 and number nine, the aforementioned Cleveland Browns. Look, they're foreign to just like the Baltimore Ravens. They just beat them",
+        "trigger": "nine, the aforementioned",
+        "reason": "Show the spoken rank. Keep ranks 9 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          23,
+          24
+        ],
+        "rank": 9,
+        "team": "Cleveland Browns",
+        "revealedRanks": [
+          10,
+          9
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 162.3,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "A01",
+        "title": "Browns above Ravens",
+        "lane": "comparison",
+        "option": "Team matchup",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 166.56,
+        "duration": 10,
+        "time": "02:46.56\u201302:56.56",
+        "copy": "BROWNS WON HEAD-TO-HEAD",
+        "excerpt": "Cleveland Browns. Look, they're foreign to just like the Baltimore Ravens. They just beat them head to head. I think it's only right that I ranked them ahead of Baltimore right now and welcome Cleveland. You're in my top 10 for the first time this year and you've been playing good",
+        "trigger": "Baltimore Ravens. They",
+        "reason": "Mark puts Cleveland above Baltimore because of the head-to-head result. A short team matchup can replace part of the camera passage. Use approved team logos; no player cutouts or invented numbers.",
+        "recommendation": "Optional choice",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "comparison.team-matchup.2",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1413-664",
+        "primaryEngine": "Figma Motion",
+        "alternative": true,
+        "optional": true,
+        "sourceSegmentIds": [
+          24,
+          25,
+          26
+        ],
+        "plannedCues": []
+      },
+      "owner": "current-unreal-chat",
+      "engine": "unreal",
+      "routeState": "user-selected-team-logo-route",
+      "work": "Shared Rams-Seahawks paired-card mold. Preserve candidate timing and optional status."
+    },
+    {
+      "candidate": {
+        "id": "P03",
+        "title": "Watson does his part",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 194.36,
+        "duration": 4.52,
+        "time": "03:14.36\u201303:18.88",
+        "copy": "",
+        "excerpt": "games. Deshaun Watson's playing good complimentary football. So I have to give credit where credit",
+        "trigger": "games. Deshaun Watson",
+        "reason": "The client photo shows Watson passing against Baltimore. Keep Mark\u2019s judgment in his voice.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CQ0C7N"
+        },
+        "assetRequests": [
+          {
+            "name": "deshaun-watson-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CQ0C7N"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CQ0C7N",
+            "name": "deshaun-watson-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CQ0C7N.info/deshaun-watson-1.jpg",
+            "sha256": "354d4735973ce54ce5fa5d3937088b7d96288549fe57ccb78a62bb8a7d38667c",
+            "sourceUrl": "eagle://item/MVHECO5CQ0C7N",
+            "width": 4230,
+            "height": 2820,
+            "provenance": "Original filename: 2026-10-18T174104Z_573357207_MT1USATODAY30123466_RTRMADP_3_NFL-BALTIMORE-RAVENS-AT-CLEVELAND-BROWNS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 354d4735973ce54ce5fa5d3937088b7d96288549fe57ccb78a62bb8a7d38667c",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CQ0C7N"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          29
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "R08",
+        "title": "8. Chicago Bears",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 214.86,
+        "duration": 6.5,
+        "time": "03:34.86\u201303:41.36",
+        "copy": "Chicago Bears",
+        "excerpt": "I think they're back. They're Chicago Bears and guess who is back? Caleb Williams at number eight. I have the Bears. The score doesn't really reflect how this game went. The Falcons made a late run,",
+        "trigger": "They're Chicago",
+        "reason": "Show the spoken rank. Keep ranks 8 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          32,
+          33
+        ],
+        "rank": 8,
+        "team": "Chicago Bears",
+        "revealedRanks": [
+          10,
+          9,
+          8
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 215.41,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P04",
+        "title": "Bears led big",
+        "lane": "quick stat",
+        "option": "Team callout",
+        "setting": "Team colors, white upper text, 240 px logo block, low centered Hug body. Preserve the original photo push and reveal cue.",
+        "anchor": 229.72,
+        "duration": 6.5,
+        "time": "03:49.72\u201303:56.22",
+        "copy": "BEARS LED 31\u20137",
+        "excerpt": "ended up being 31 to 23. But if you watch this game, the Bears were dominating. They're up 31 to seven at one point. So I like what I'm seeing from Chicago. I think they have potential to keep",
+        "trigger": "31 to 23",
+        "reason": "Mark says the final score hid Chicago\u2019s lead. The supplied Burden photo is from the Falcons game.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CHXG3M"
+        },
+        "assetRequests": [
+          {
+            "name": "luther-burden-iii-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CHXG3M"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CHXG3M",
+            "name": "luther-burden-iii-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CHXG3M.info/luther-burden-iii-1.jpg",
+            "sha256": "1666fc77bbe2145ec3dc23b01a9a7c3d5525f3d0484f3970882ccaaeba6f5afc",
+            "sourceUrl": "eagle://item/MVHECO5CHXG3M",
+            "width": 5274,
+            "height": 3522,
+            "provenance": "Original filename: 2026-10-18T194312Z_1300695912_MT1USATODAY30124600_RTRMADP_3_NFL-CHICAGO-BEARS-AT-ATLANTA-FALCONS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 1666fc77bbe2145ec3dc23b01a9a7c3d5525f3d0484f3970882ccaaeba6f5afc",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CHXG3M"
+        ],
+        "templateKey": "quick-stat.team-callout",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1875-1114",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          34,
+          35
+        ],
+        "plannedCues": [
+          {
+            "rough": 234.1,
+            "element": "statement",
+            "action": "Reveal the 31\u20137 lead"
+          }
+        ],
+        "previousTreatment": {
+          "option": "Single-frame statement",
+          "setting": "Single-frame statement, 6.5 seconds. Photo push 100% to 102.5%; one short line.",
+          "templateKey": "quick-stat.single",
+          "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184"
+        },
+        "teamVariant": "Chicago Bears",
+        "sourceComponentId": "1875:1114"
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "User-requested Team callout treatment, matching Chiefs and Jaguars. Preserve original photo, copy and cues."
+    },
+    {
+      "candidate": {
+        "id": "S02",
+        "title": "Bears final versus earlier lead",
+        "lane": "comparison",
+        "option": "Simple comparison",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 229.72,
+        "duration": 10,
+        "time": "03:49.72\u201303:59.72",
+        "copy": "FINAL: 31\u201323 \u00b7 EARLIER LEAD: 31\u20137",
+        "excerpt": "ended up being 31 to 23. But if you watch this game, the Bears were dominating. They're up 31 to seven at one point. So I like what I'm seeing from Chicago. I think they have potential to keep",
+        "trigger": "31 to 23",
+        "reason": "Alternative to P04. Compare two game states with the same score measure. Preserve spoken order: Mark gives the final first, then the earlier lead. Do not place both S02 and P04; use period labels and team logos, with no repeated client photo.",
+        "recommendation": "Optional choice",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "comparison.simple.2",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=598-215",
+        "primaryEngine": "Figma Motion",
+        "alternative": true,
+        "optional": true,
+        "sourceSegmentIds": [
+          34,
+          35
+        ],
+        "plannedCues": [
+          {
+            "rough": 229.72,
+            "element": "final-score",
+            "action": "Reveal the final: 31\u201323"
+          },
+          {
+            "rough": 234.16,
+            "element": "earlier-lead",
+            "action": "Reveal the earlier lead: 31\u20137"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "optional-review-only",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "R07",
+        "title": "7. Green Bay Packers",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 267.51,
+        "duration": 8.52,
+        "time": "04:27.51\u201304:36.03",
+        "copy": "Green Bay Packers",
+        "excerpt": "right. At number seven, their favorite op, probably not their favorite op, but the Green Bay Packers at number seven. Now this team started off looking really, really bad. I was really concerned that",
+        "trigger": "seven, their favorite",
+        "reason": "Show the spoken rank. Keep ranks 7 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          40,
+          41
+        ],
+        "rank": 7,
+        "team": "Green Bay Packers",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 273.89,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P05",
+        "title": "Love finds his rhythm",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 308.1,
+        "duration": 4.52,
+        "time": "05:08.10\u201305:12.62",
+        "copy": "",
+        "excerpt": "starting to play a really good ball. He arguably has the best deep ball in the league right now.",
+        "trigger": "to play a",
+        "reason": "Use this Eagle action photo as Packers context. Its game date is unconfirmed; do not label it Week 6.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MTPJ7IH3ZBQAD"
+        },
+        "assetRequests": [
+          {
+            "name": "jordan-love-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MTPJ7IH3ZBQAD"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MTPJ7IH3ZBQAD",
+            "name": "jordan-love-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MTPJ7IH3ZBQAD.info/jordan-love-1.jpg",
+            "sha256": "307df0740201c0c9b04448478e8d104f5d2909a13e9978bcd334bbdc1db73ed0",
+            "sourceUrl": "eagle://item/MTPJ7IH3ZBQAD",
+            "width": 1280,
+            "height": 720,
+            "provenance": "",
+            "sourceRole": "archival context; not represented as Week 6 game footage"
+          }
+        ],
+        "assetIds": [
+          "MTPJ7IH3ZBQAD"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          46
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "R06",
+        "title": "6. Minnesota Vikings",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 340.53,
+        "duration": 8,
+        "time": "05:40.53\u201305:48.53",
+        "copy": "Minnesota Vikings",
+        "excerpt": "around. I'm starting to come around. And number six, this is three straight NFC North teams in a row. The Minnesota Vikings. Now, there's no new information to talk about this team because they",
+        "trigger": "And number six",
+        "reason": "Show the spoken rank. Keep ranks 6 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          50,
+          51
+        ],
+        "rank": 6,
+        "team": "Minnesota Vikings",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7,
+          6
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 346,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P06",
+        "title": "Jefferson is there",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 377.34,
+        "duration": 4.52,
+        "time": "06:17.34\u201306:21.86",
+        "copy": "",
+        "excerpt": "rhythm, I think Calamari is still a very talented quarterback. You have Justin Jefferson there. We have Jordan Addison. If they can get that offense to just be middle of the pack",
+        "trigger": "You have Justin",
+        "reason": "Mark names Jefferson as a weapon. This supplied archive photo is from September 13, not a Week 6 game; Minnesota had a bye.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MUD0SEKTCLRUQ"
+        },
+        "assetRequests": [
+          {
+            "name": "justin-jefferson-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MUD0SEKTCLRUQ"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MUD0SEKTCLRUQ",
+            "name": "justin-jefferson-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MUD0SEKTCLRUQ.info/justin-jefferson-1.jpg",
+            "sha256": "af4147e7d29b3057c848a7af2a3a2bc7ba9592d1fb8d6d72914fdba0e6c52943",
+            "sourceUrl": "eagle://item/MUD0SEKTCLRUQ",
+            "width": 5746,
+            "height": 3830,
+            "provenance": "",
+            "sourceRole": "archival context; not represented as Week 6 game footage"
+          }
+        ],
+        "assetIds": [
+          "MUD0SEKTCLRUQ"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          55,
+          56
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "R05",
+        "title": "5. New England Patriots",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 418.89,
+        "duration": 6.5,
+        "time": "06:58.89\u201307:05.39",
+        "copy": "New England Patriots",
+        "excerpt": "Now it's time to get into the top five. And number five, the New England Patriots. Yes.",
+        "trigger": "five, the New",
+        "reason": "Show the spoken rank. Keep ranks 5 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          61
+        ],
+        "rank": 5,
+        "team": "New England Patriots",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 420.43,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P07",
+        "title": "Maye starts to rise",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 437.61,
+        "duration": 4.52,
+        "time": "07:17.61\u201307:22.13",
+        "copy": "",
+        "excerpt": "not buying their stock. They were writing them off. But Drake may just like Jordan Love starting to play some good football. And the team is starting to play some good football.",
+        "trigger": "Drake may just",
+        "reason": "The September 20 action photo is context for Maye\u2019s progress, not a claim about this week\u2019s play.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MUD0SEKTOD3IC"
+        },
+        "assetRequests": [
+          {
+            "name": "drake-maye-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MUD0SEKTOD3IC"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MUD0SEKTOD3IC",
+            "name": "drake-maye-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MUD0SEKTOD3IC.info/drake-maye-1.jpg",
+            "sha256": "9b7266d8b1165eb86967885884d51da7a3682f8c0b996ec0bc3b6c8a8092be56",
+            "sourceUrl": "eagle://item/MUD0SEKTOD3IC",
+            "width": 4133,
+            "height": 2756,
+            "provenance": "",
+            "sourceRole": "archival context; not represented as Week 6 game footage"
+          }
+        ],
+        "assetIds": [
+          "MUD0SEKTOD3IC"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          63,
+          64
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "A03",
+        "title": "Patriots receivers keep changing",
+        "lane": "asset swap",
+        "option": "asset swap",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 466.32,
+        "duration": 10,
+        "time": "07:46.32\u201307:56.32",
+        "copy": "BROWN HURT \u2192 BROWN BACK \u2192 DOUBS OUT",
+        "excerpt": "A.J. Brown gets hurt week one. Soon as he comes back now, Dobbs is Dobbs is out for the next four weeks. So you can get both those guys in sync together. I think you're looking at a really,",
+        "trigger": "A.J. Brown",
+        "reason": "The spoken sequence supports 3 timed states. Use current Patriots art and real alpha. Older Eagles Brown photos do not fill the current-team slot. Search work remains open.",
+        "recommendation": "Optional \u00b7 photo work",
+        "assetSearch": {
+          "status": "needed",
+          "evidence": "Eagle searched first. Exact Google queries and source-page leads are in google-asset-search.json. Current photo or real-alpha work remains open."
+        },
+        "assetRequests": [
+          {
+            "name": "A.J. Brown, Patriots",
+            "query": "A.J. Brown New England Patriots 2026 week 7 action photo",
+            "asset": "A.J. Brown, Patriots",
+            "status": "needed",
+            "eagleItemId": null
+          },
+          {
+            "name": "Romeo Doubs, Patriots",
+            "query": "Romeo Doubs New England Patriots 2026 week 7 action photo",
+            "asset": "Romeo Doubs, Patriots",
+            "status": "needed",
+            "eagleItemId": null
+          }
+        ],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "asset-swap.standard",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=441-50",
+        "primaryEngine": "Figma Motion",
+        "alternative": true,
+        "optional": true,
+        "sourceSegmentIds": [
+          68,
+          69
+        ],
+        "plannedCues": [
+          {
+            "rough": 467,
+            "element": "injury",
+            "action": "Brown hurt in Week 1"
+          },
+          {
+            "rough": 469,
+            "element": "return",
+            "action": "Brown comes back"
+          },
+          {
+            "rough": 471.4,
+            "element": "doubs",
+            "action": "Doubs out for 4 weeks"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "optional-review-only",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "P08",
+        "title": "Patriots defense holds up",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 490.4,
+        "duration": 4.52,
+        "time": "08:10.40\u201308:14.92",
+        "copy": "",
+        "excerpt": "We know their defense is always going to be stingy with Mike variable there as head coach.",
+        "trigger": "We know their",
+        "reason": "The supplied Woods interception reaction supports the team-defense point. Do not label him as the head coach.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CLBHOB"
+        },
+        "assetRequests": [
+          {
+            "name": "charles-woods-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CLBHOB"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CLBHOB",
+            "name": "charles-woods-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CLBHOB.info/charles-woods-1.jpg",
+            "sha256": "ddb607bc8efcc56407e135d34f56f1dcfde631ad7415835fcb209761b3f52978",
+            "sourceUrl": "eagle://item/MVHECO5CLBHOB",
+            "width": 4682,
+            "height": 3121,
+            "provenance": "Original filename: 2026-10-18T205025Z_443345287_MT1USATODAY30125501_RTRMADP_3_NFL-NEW-YORK-JETS-AT-NEW-ENGLAND-PATRIOTS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: ddb607bc8efcc56407e135d34f56f1dcfde631ad7415835fcb209761b3f52978",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CLBHOB"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          72
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "R04",
+        "title": "4. Jacksonville Jaguars",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 499.92,
+        "duration": 8,
+        "time": "08:19.92\u201308:27.92",
+        "copy": "Jacksonville Jaguars",
+        "excerpt": "And number four. Now, I didn't move this team down even after their loss. The Jacksonville Jaguars, they were four last week. They're still staying for right now. Look, they were in London for two",
+        "trigger": "And number four",
+        "reason": "Show the spoken rank. Keep ranks 4 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          74,
+          75
+        ],
+        "rank": 4,
+        "team": "Jacksonville Jaguars",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 506.2,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P09",
+        "title": "Stroud is playing well",
+        "lane": "quick action photo",
+        "option": "quick action photo",
+        "setting": "Requested 4.5 seconds; actual 113 frames / 4.52 seconds at 25 fps. Full photo, no added copy.",
+        "anchor": 564.43,
+        "duration": 4.52,
+        "time": "09:24.43\u201309:28.95",
+        "copy": "",
+        "excerpt": "this bad all season. I just don't see that happening. And CJ Strauss playing some of the best football of his career. So that was a bad spot for the Jags. I still think they're a really",
+        "trigger": "And CJ Strauss",
+        "reason": "The supplied Stroud photo is from the Jaguars game. It supports Mark\u2019s player mention without adding a statistic.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CFEK6H"
+        },
+        "assetRequests": [
+          {
+            "name": "cj-stroud-4",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CFEK6H"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CFEK6H",
+            "name": "cj-stroud-4",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CFEK6H.info/cj-stroud-4.jpg",
+            "sha256": "1d6f3c700e9f795ffac8acffd91039f96827d13833be67affcb7fc349c9c5390",
+            "sourceUrl": "eagle://item/MVHECO5CFEK6H",
+            "width": 6782,
+            "height": 4518,
+            "provenance": "Original filename: 2026-10-18T140209Z_952362351_MT1USATODAY30121998_RTRMADP_3_NFL-HOUSTON-TEXANS-AT-JACKSONVILLE-JAGUARS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 1d6f3c700e9f795ffac8acffd91039f96827d13833be67affcb7fc349c9c5390",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CFEK6H"
+        ],
+        "templateKey": "quick-action.full-frame",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1425-630",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          83,
+          84
+        ],
+        "requestedDurationSeconds": 4.5,
+        "actualFrames": 113,
+        "plannedCues": []
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Preserve existing registered source, candidate copy, photo provenance and matching timing proof."
+    },
+    {
+      "candidate": {
+        "id": "P10",
+        "title": "Lawrence throws 4",
+        "lane": "quick stat",
+        "option": "Single-frame statement",
+        "setting": "Single-frame statement, 6.5 seconds. Photo push 100% to 102.5%; one short line.",
+        "anchor": 583.76,
+        "duration": 6.5,
+        "time": "09:43.76\u201309:50.26",
+        "copy": "LAWRENCE: 4 TOUCHDOWNS",
+        "excerpt": "but I still believe in what they got. That game could have went either way. Trevor Lawrence played amazing through for four touchdowns. He's playing some of the best ball of his career. The defense is stingy. I still am buying stock for now on this Jags team, but I'm going to have a little",
+        "trigger": "played amazing through",
+        "reason": "Use the supplied Lawrence photo from this game. The number comes from Mark\u2019s line.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5C1QFWN"
+        },
+        "assetRequests": [
+          {
+            "name": "trevor-lawrence-3",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5C1QFWN"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5C1QFWN",
+            "name": "trevor-lawrence-3",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5C1QFWN.info/trevor-lawrence-3.jpg",
+            "sha256": "6c0ecfabb09cf2892a07393dacdd12f5339c0631f182d28f129e06fb654b445c",
+            "sourceUrl": "eagle://item/MVHECO5C1QFWN",
+            "width": 4886,
+            "height": 3079,
+            "provenance": "Original filename: 2026-10-18T145415Z_853941678_UP1EMAI15EESB_RTRMADP_3_FOOTBALL-NFL-HOU-JAC.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 6c0ecfabb09cf2892a07393dacdd12f5339c0631f182d28f129e06fb654b445c",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5C1QFWN"
+        ],
+        "templateKey": "quick-stat.single",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          86,
+          87,
+          88
+        ],
+        "plannedCues": [
+          {
+            "rough": 585.17,
+            "element": "statement",
+            "action": "Reveal the touchdown count"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Use selected Team callout Figma design; lower placement, larger logo, team colors, white text-hugging body and clean soft shadow. Preserve original scene ID and bind any source change to refreshed timing/readback."
+    },
+    {
+      "candidate": {
+        "id": "R03",
+        "title": "3. Buffalo Bills",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 602.81,
+        "duration": 6.5,
+        "time": "10:02.81\u201310:09.31",
+        "copy": "Buffalo Bills",
+        "excerpt": "bit of worry, but I'm not going to jump off just yet. And number three, the Buffalo Bills.",
+        "trigger": "three, the Buffalo",
+        "reason": "Show the spoken rank. Keep ranks 3 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          89
+        ],
+        "rank": 3,
+        "team": "Buffalo Bills",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 604.46,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P11",
+        "title": "Buffalo wins and moves to 5\u20131",
+        "lane": "stat breakdown",
+        "option": "stat breakdown",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 637.58,
+        "duration": 10,
+        "time": "10:37.58\u201310:47.58",
+        "copy": "33 POINTS SCORED \u00b7 30 POINTS ALLOWED \u00b7 5\u20131 RECORD",
+        "excerpt": "who's out there. They won 33 to 30 against the Las Vegas Raiders. They're five and one. And like I said, Josh Allen, I mean, he covers up a lot of issues. He truly does. And that is why he's one",
+        "trigger": "won 33 to",
+        "reason": "Three spoken data points about Buffalo: 33 scored, 30 allowed, 5\u20131 record. This replaces the thin one-line score card. Use the supplied Allen action photo once.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5COUO88"
+        },
+        "assetRequests": [
+          {
+            "name": "josh-allen-5",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5COUO88"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5COUO88",
+            "name": "josh-allen-5",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5COUO88.info/josh-allen-5.jpg",
+            "sha256": "1620a2d8954e575ed394e553f9bd51f671913c17bbb3ff3e9156230fa43efaa2",
+            "sourceUrl": "eagle://item/MVHECO5COUO88",
+            "width": 2826,
+            "height": 1884,
+            "provenance": "Original filename: 2026-10-18T232426Z_220132009_MT1USATODAY30126844_RTRMADP_3_NFL-BUFFALO-BILLS-AT-LAS-VEGAS-RAIDERS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 1620a2d8954e575ed394e553f9bd51f671913c17bbb3ff3e9156230fa43efaa2",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5COUO88"
+        ],
+        "templateKey": "stat-breakdown.3",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-105",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          94,
+          95
+        ],
+        "plannedCues": [
+          {
+            "rough": 637.83,
+            "element": "points-for",
+            "action": "Reveal 33 points scored"
+          },
+          {
+            "rough": 638.62,
+            "element": "points-against",
+            "action": "Reveal 30 points allowed"
+          },
+          {
+            "rough": 642.13,
+            "element": "record",
+            "action": "Reveal the 5\u20131 record"
+          }
+        ]
+      },
+      "owner": "current-unreal-chat",
+      "engine": "unreal",
+      "routeState": "proposed-native-copy-reserved-here",
+      "work": "Build a Bills team-performance treatment from the supplied multi-column Sports Broadcast reference. Keep 3 team facts: 33 points scored, 30 points allowed, 5\u20131 record. Use Bills identity and team colors. Supersede the original Allen-photo emphasis; do not use an individual Josh Allen breakdown.",
+      "creativeDirection": {
+        "authority": "Jerami: use this for bills focused performance - not a josh allen brakdown",
+        "referencePath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/week7-p11-bills-team-performance-reference.png",
+        "referenceSha256": "bf82b8efce1b14fc157040dea01bf77469061e84e56a0f7feb2f3de496723d9f",
+        "focus": "Buffalo Bills team performance",
+        "lane": "stat breakdown",
+        "supportedPoints": 3,
+        "designReferenceStatus": "user-selected reference; adapted native scene not built or visually reviewed",
+        "treatment": [
+          "Adapt the reference header, light textured content area and multi-column hierarchy for Buffalo Bills.",
+          "Use Bills logo and team colors; remove sample soccer players, names, statistics and package sponsor/network branding.",
+          "Keep 3 readable fact columns: 33 points scored, 30 points allowed, 5\u20131 record. Do not add a fourth fact or unsupported player values.",
+          "Keep any illustrative column heights equal; scored points, allowed points and a win-loss record are not one comparable bar-chart series.",
+          "Josh Allen is not the subject or featured portrait. Preserve the original source asset and ledger; this direction supersedes the Allen-photo instruction in the archived candidate reason.",
+          "Mark and same-revision Manim cues govern entrances. Hold the final state; no animation out."
+        ],
+        "timingStatus": "Existing transcript anchors retained; new native layout and its cues still require verification.",
+        "buildStatus": "pending-native-adaptation"
+      }
+    },
+    {
+      "candidate": {
+        "id": "R02",
+        "title": "2. Kansas City Chiefs",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 678.65,
+        "duration": 6.5,
+        "time": "11:18.65\u201311:25.15",
+        "copy": "Kansas City Chiefs",
+        "excerpt": "game. And they may not happen until a very long time. So at number two is the Kansas City Chiefs.",
+        "trigger": "very long time",
+        "reason": "Show the spoken rank. Keep ranks 2 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          99
+        ],
+        "rank": 2,
+        "team": "Kansas City Chiefs",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 681.5,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P12",
+        "title": "Chiefs make mistakes",
+        "lane": "stat breakdown",
+        "option": "stat breakdown",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 703.71,
+        "duration": 14,
+        "time": "11:43.71\u201311:57.71",
+        "copy": "FUMBLE \u00b7 END-ZONE INT \u00b7 MISSED XP \u00b7 MISSED FG",
+        "excerpt": "football game. They fumbled the ball. They threw an interception in the end zone. They missed the extra point. They missed the field goal. They did a lot of things wrong in that game, had some dumb",
+        "trigger": "fumbled the ball",
+        "reason": "One team, 4 distinct mistakes from the same game. Keep this longer beat as the one long panel in the main flow. Mark\u2019s 22\u20136 result stays in his narration.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5CUBTUY"
+        },
+        "assetRequests": [
+          {
+            "name": "patrick-mahomes-6",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5CUBTUY"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5CUBTUY",
+            "name": "patrick-mahomes-6",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CUBTUY.info/patrick-mahomes-6.jpg",
+            "sha256": "26f8f0cf4d2507cac6c8b41ad534bcbaf0489fc380beda619c890c9e88f4449f",
+            "sourceUrl": "eagle://item/MVHECO5CUBTUY",
+            "width": 1973,
+            "height": 1311,
+            "provenance": "Original filename: 2026-10-19T070239Z_1600850051_MT1USATODAY30125173_RTRMADP_3_FOOTBALL-NFL-KC-LAC.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: 26f8f0cf4d2507cac6c8b41ad534bcbaf0489fc380beda619c890c9e88f4449f",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5CUBTUY"
+        ],
+        "templateKey": "stat-breakdown.4",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=591-123",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          102,
+          103
+        ],
+        "plannedCues": [
+          {
+            "rough": 703.71,
+            "element": "fumble",
+            "action": "Reveal fumble"
+          },
+          {
+            "rough": 707.01,
+            "element": "interception",
+            "action": "Reveal end-zone interception"
+          },
+          {
+            "rough": 711.62,
+            "element": "extra-point",
+            "action": "Reveal missed extra point"
+          },
+          {
+            "rough": 713.63,
+            "element": "field-goal",
+            "action": "Reveal missed field goal"
+          }
+        ]
+      },
+      "owner": "current-unreal-chat",
+      "engine": "unreal",
+      "routeState": "proposed-native-copy-reserved-here",
+      "work": "Adapt approved 3/4-point Unreal Stat Breakdown. Candidate engine assignment is proposed; do not change the episode route or claim production readiness."
+    },
+    {
+      "candidate": {
+        "id": "P13",
+        "title": "Walker is Mark\u2019s pick",
+        "lane": "quick stat",
+        "option": "Single-frame statement",
+        "setting": "Single-frame statement, 6.5 seconds. Photo push 100% to 102.5%; one short line.",
+        "anchor": 754.29,
+        "duration": 6.5,
+        "time": "12:34.29\u201312:40.79",
+        "copy": "MARK\u2019S OPOY PICK: WALKER",
+        "excerpt": "be Superman every single Sunday. And that is why Kenneth Walker right now is the front runner for offensive player of the year. And if they gave MVPs to nine quarterbacks, he should be the MVP",
+        "trigger": "Kenneth Walker right",
+        "reason": "Keep the award claim as Mark\u2019s pick. Jerami requires a Week 6 Chargers game-action photo. Training camp and Broncos photos are excluded.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHET752WD8CV"
+        },
+        "assetRequests": [
+          {
+            "name": "kenneth-walker-iii-3",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHET752WD8CV"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHET752WD8CV",
+            "name": "kenneth-walker-iii-3",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHET752WD8CV.info/kenneth-walker-iii-3.jpg",
+            "sha256": "847af803940624ddcb1386c557d8c91f052a14a91c965c5c4dc73f87f2025069",
+            "sourceUrl": "https://www.hjnews.com/sports/nation/chargers-chiefs-football/image_4ee7a251-9ed7-53fb-b67f-2840fe56f7e9.html",
+            "width": 1763,
+            "height": 1175,
+            "provenance": "Kenneth Walker III, Kansas City Chiefs #9. Week 6 vs Los Angeles Chargers, October 18, 2026. Touchdown dive. Credit: Charlie Riedel / AP. Source: https://www.hjnews.com/sports/nation/chargers-chiefs-football/image_4ee7a251-9ed7-53fb-b67f-2840fe56f7e9.html. Original page and photo visually verified. Jerami requested Chargers game action; training camp is excluded.",
+            "sourceRole": "verified Week 6 Chargers game photo"
+          }
+        ],
+        "assetIds": [
+          "MVHET752WD8CV"
+        ],
+        "templateKey": "quick-stat.single",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          108,
+          109
+        ],
+        "plannedCues": [
+          {
+            "rough": 758.8,
+            "element": "statement",
+            "action": "Reveal Mark\u2019s OPOY pick"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Use selected Team callout Figma design; lower placement, larger logo, team colors, white text-hugging body and clean soft shadow. Preserve original scene ID and bind any source change to refreshed timing/readback."
+    },
+    {
+      "candidate": {
+        "id": "R01",
+        "title": "1. San Francisco 49ers",
+        "lane": "recurring board",
+        "option": "Rank Reveal",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 777.72,
+        "duration": 6.5,
+        "time": "12:57.72\u201313:04.22",
+        "copy": "San Francisco 49ers",
+        "excerpt": "they lose a game. But this team at number one will be at number one until they lose the game. And that is the San Francisco 49ers. The score is not indicative of how this game went, ended up",
+        "trigger": "game. And that",
+        "reason": "Show the spoken rank. Keep ranks 1 through 10 visible. Keep the board still; reveal only this team and normalized logo.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "recurring.rank-reveal.10",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1277-558",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          111,
+          112
+        ],
+        "rank": 1,
+        "team": "San Francisco 49ers",
+        "revealedRanks": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "boardCascade": false,
+        "plannedCues": [
+          {
+            "rough": 779.08,
+            "element": "team",
+            "action": "Reveal current team and normalized logo"
+          }
+        ]
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "Refresh existing Figma Rank Reveal using supplied reference and located shadcn kit primitives; cumulative 10-to-1 reveals, current-team highlight and right-hand team panel."
+    },
+    {
+      "candidate": {
+        "id": "P14",
+        "title": "49ers win 23\u201317",
+        "lane": "quick stat",
+        "option": "Team callout",
+        "setting": "Team colors, white upper text, 240 px logo block, low centered Hug body. Preserve the original photo push and reveal cue.",
+        "anchor": 786.41,
+        "duration": 6.5,
+        "time": "13:06.41\u201313:12.91",
+        "copy": "49ERS WIN 23\u201317",
+        "excerpt": "And that is the San Francisco 49ers. The score is not indicative of how this game went, ended up being 23 to 17. But if you watch the game, they control the game. They let their foot off the gas",
+        "trigger": "ended up being",
+        "reason": "The supplied Warner photo is from the Commanders game. The score comes from Mark, who says the final made the game look closer than it was.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MVHECO5C5TR4G"
+        },
+        "assetRequests": [
+          {
+            "name": "fred-warner-1",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MVHECO5C5TR4G"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MVHECO5C5TR4G",
+            "name": "fred-warner-1",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5C5TR4G.info/fred-warner-1.jpg",
+            "sha256": "b5264b49020166aa3112efec42e45a3e2f938710168d5edb233e60d293ca39bf",
+            "sourceUrl": "eagle://item/MVHECO5C5TR4G",
+            "width": 5149,
+            "height": 3436,
+            "provenance": "Original filename: 2026-10-20T025746Z_561810066_MT1USATODAY30133956_RTRMADP_3_NFL-WASHINGTON-COMMANDERS-AT-SAN-FRANCISCO-49ERS.JPG\nSource: Edward Murphy / Catena Media, October 20, 2026.\nSHA-256: b5264b49020166aa3112efec42e45a3e2f938710168d5edb233e60d293ca39bf",
+            "sourceRole": "client-provided"
+          }
+        ],
+        "assetIds": [
+          "MVHECO5C5TR4G"
+        ],
+        "templateKey": "quick-stat.team-callout",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1875-1170",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          112,
+          113
+        ],
+        "plannedCues": [
+          {
+            "rough": 787.19,
+            "element": "statement",
+            "action": "Reveal the 23\u201317 final score"
+          }
+        ],
+        "previousTreatment": {
+          "option": "Single-frame statement",
+          "setting": "Single-frame statement, 6.5 seconds. Photo push 100% to 102.5%; one short line.",
+          "templateKey": "quick-stat.single",
+          "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184"
+        },
+        "teamVariant": "San Francisco 49ers",
+        "sourceComponentId": "1875:1170"
+      },
+      "owner": "new-figma-task",
+      "engine": "figma",
+      "routeState": "primary-build",
+      "work": "User-requested Team callout treatment, matching Chiefs and Jaguars. Preserve original photo, copy and cues."
+    },
+    {
+      "candidate": {
+        "id": "A02",
+        "title": "A gap between the top 2?",
+        "lane": "comparison",
+        "option": "Cinematic 2-up",
+        "setting": "Both full photos visible from the opening. Keep the top-left title. Figma or Unreal choice follows candidate selection.",
+        "anchor": 810.8,
+        "duration": 13,
+        "time": "13:30.80\u201313:43.80",
+        "copy": "MARK SEES A GAP",
+        "excerpt": "not going to let them nearly let in a big league slip change my mind. Now the question is, is the gap between the Niners and the Chiefs? Is it a real gap? Or is it basically non-existent? I think right now there is a decent gap between the Niners and the Chiefs. I don't think it's humongous. But as the injuries continue to pile up for the Niners, I do worry that it's eventually",
+        "trigger": "the gap between",
+        "reason": "Mark compares the Chiefs and 49ers. Both full photos appear together at the opening; no invented side-by-side stats. These archive photos are context. Engine choice is pending after candidate selection.",
+        "recommendation": "Optional choice",
+        "assetSearch": {
+          "status": "verified",
+          "evidence": "Client source captions, contact sheets, local originals and SHA-256 verified: MUOLFMLI836U1, MUOLFMLIPICZB"
+        },
+        "assetRequests": [
+          {
+            "name": "patrick-mahomes-5",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MUOLFMLI836U1"
+          },
+          {
+            "name": "brock-purdy-3",
+            "query": "",
+            "status": "verified",
+            "eagleItemId": "MUOLFMLIPICZB"
+          }
+        ],
+        "assets": [
+          {
+            "eagleItemId": "MUOLFMLI836U1",
+            "name": "patrick-mahomes-5",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MUOLFMLI836U1.info/patrick-mahomes-5.jpg",
+            "sha256": "f9cddbe4ef678e0839b0df2dc346ead09d09ec20a15ade34453dd519144cf800",
+            "sourceUrl": "eagle://item/MUOLFMLI836U1",
+            "width": 2160,
+            "height": 1440,
+            "provenance": "",
+            "sourceRole": "archival context; not represented as Week 6 game footage"
+          },
+          {
+            "eagleItemId": "MUOLFMLIPICZB",
+            "name": "brock-purdy-3",
+            "eagleMediaPath": "/Volumes/HomeSSD/Content Editor.library/images/MUOLFMLIPICZB.info/brock-purdy-3.jpg",
+            "sha256": "e66fa4b1170f77ec7b19bd94bed278561edbfccd01d2c867c14df92bd6dd4461",
+            "sourceUrl": "eagle://item/MUOLFMLIPICZB",
+            "width": 6297,
+            "height": 4198,
+            "provenance": "",
+            "sourceRole": "archival context; not represented as Week 6 game footage"
+          }
+        ],
+        "assetIds": [
+          "MUOLFMLI836U1",
+          "MUOLFMLIPICZB"
+        ],
+        "templateKey": "comparison.cinematic.2",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=593-107",
+        "primaryEngine": "Pending Figma or Unreal choice",
+        "alternative": true,
+        "optional": true,
+        "sourceSegmentIds": [
+          115,
+          116,
+          117,
+          118
+        ],
+        "plannedCues": [
+          {
+            "rough": 819.45,
+            "element": "statement",
+            "action": "Reveal Mark\u2019s view of the gap"
+          }
+        ],
+        "selected": false,
+        "selectionDecision": "Skip this candidate"
+      },
+      "owner": "current-unreal-chat",
+      "engine": null,
+      "routeState": "skipped-by-Jerami",
+      "work": "Skipped by Jerami. Keep original presentation slot 29/30; build in neither engine."
+    },
+    {
+      "candidate": {
+        "id": "S03",
+        "title": "Rams and Seahawks records",
+        "lane": "comparison",
+        "option": "Logo stat cards",
+        "setting": "Keep the last state through the trim. Figma Motion owns the visual; Manim proves cue math.",
+        "anchor": 850.8,
+        "duration": 7,
+        "time": "14:10.80\u201314:17.80",
+        "copy": "RAMS: 2\u20134 \u00b7 SEAHAWKS: 3\u20133",
+        "excerpt": "The Rams are two and four. The Seahawks are three and three. They already beat both those teams. If you look at the NFC North, the Vikings are undefeated, but we don't really believe in them.",
+        "trigger": "The Rams are",
+        "reason": "A missed like-for-like record comparison in Mark\u2019s NFC argument. The next sentence says San Francisco already beat both. Use the registered logo stat cards: one record per team, no guessed 49ers record or player photos.",
+        "recommendation": "Proposed",
+        "assetSearch": {
+          "status": "not-required",
+          "evidence": "Approved board or team-logo source; no new photo required."
+        },
+        "assetRequests": [],
+        "assets": [],
+        "assetIds": [],
+        "templateKey": "comparison.logo-stat-cards.2",
+        "sourceUrl": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1812-4542",
+        "primaryEngine": "Figma Motion",
+        "alternative": false,
+        "optional": false,
+        "sourceSegmentIds": [
+          122,
+          123
+        ],
+        "plannedCues": [
+          {
+            "rough": 850.8,
+            "element": "rams-record",
+            "action": "Reveal Rams: 2\u20134"
+          },
+          {
+            "rough": 853.26,
+            "element": "seahawks-record",
+            "action": "Reveal Seahawks: 3\u20133"
+          }
+        ]
+      },
+      "owner": "current-unreal-chat",
+      "engine": "unreal",
+      "routeState": "user-selected-team-logo-route",
+      "work": "Shared Rams-Seahawks paired-card mold. Preserve candidate timing and optional status."
+    }
+  ],
+  "thread": {
+    "threadId": "01a16077-6f5b-7792-b4af-b2ae992f3054",
+    "hostId": "local",
+    "title": "Build Week 7 Figma scenes"
+  }
+}

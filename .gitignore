@@ -109,3 +109,8 @@ supabase/.temp/
 
 # Regenerable file census; keep its generator and authored assessment.
 /docs/offer/research/2026-10-15-prospect-data-review/composition-audit.json
+
+# Rebuildable HyperFrames state for the October 26 FaithTalk compositions.
+/videos/faithtalk-october-26-all-new-card/.hyperframes/
+/videos/faithtalk-october-26-card/.hyperframes/
+/videos/faithtalk-october-26-monday-card/.hyperframes/

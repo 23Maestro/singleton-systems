@@ -24,6 +24,18 @@ The helper reads files and prints JSON. It never runs document commands.
 Add verified installed skill directories with `--extra-root PATH` when external
 callers matter. Report searched roots and skipped surfaces.
 
+Recheck saved evidence before reusing a review:
+
+```bash
+node "$PRUNE_SKILL_ROOT/scripts/doc-evidence.mjs" --check "$REVIEW_JSON"
+```
+
+This rescans the recorded scope for changed sources, callers, and command
+availability. Optional `mirrors` entries pair a reviewed `file` with an absolute
+`installedPath`. A missing or different installed copy needs review. Exit 1
+means the evidence needs review. It never rewrites the saved picks. Matching
+inputs do not prove the document is true or authorize removal.
+
 For documents, read each whole file. Trace rules to the current guide, route,
 hook, check, or owner skill. Classify sections when a file mixes useful and
 stale material. A test requiring old wording proves that the test depends on

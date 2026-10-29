@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "templateId": "lineups-photo-first-review",
-  "version": 4,
+  "version": 5,
   "approvedBy": "Jerami",
   "approvedOn": "2026-10-14",
   "stages": [
@@ -13,15 +13,16 @@
     "Vercel"
   ],
   "files": {
-    "asset-selection.css": "e6a41f2daaa8882ab29a6952353669ddc41563acbce8bd43d71fc9b20f154470",
+    "asset-selection.css": "df57d655e42b12e464600b469bbc2f5f02d3c87313ad6f0c29b4d59aa2c5612a",
     "asset-selection.js": "e1591380b5fdd8a9378a146dbbeb7b74c47dd78c09d2925267f861280977ff9b",
-    "post.html": "42d49d7d9295556bbceb27e6f360d0f384c5122cabb47c671d0c56d1c6ee8839",
-    "post.js": "6cd9f5fe70f559cf0b9e3033bf87aaa6318bd1647ec53673706e9771f31cd282",
-    "pre.html": "f8b0b9dfddec050df166992fc10f7bc08b003fee5f4cd7defb5a476024c076ea",
-    "pre.js": "45443bfa69699430e80340c2de4f73716af3a864d62928e455b3279445590fe4",
+    "post.html": "20c7780183eb554fb64e26f748cf031d8a6b400663f6b8cb8ae8189cec50cdf0",
+    "post.js": "b27581ccc34d2b0c60702e7950ffc2c6069342b8756f77381b71fb8b64f2749b",
+    "pre.html": "f9ad667506ab86214286b48458595709a6c9226c8a68063afa83a4fc4c857859",
+    "pre.js": "4aa0bd553d2b1d90798a5f5c0e31f62ee99cb464ca89745b2ab65c8919b48178",
     "review-base.css": "f6bbf7d5f0e93333ce96b1b43d14d499d9e3ba10bddb9d7c0600ea412ea8667d",
     "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
-    "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
+    "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed",
+    "context.js": "bdae74505f446b6ee1821bfb90660391d0ac29225fb3d0c06cb5aa700ce925fd"
   },
   "previousVersions": [
     {
@@ -62,6 +63,20 @@
         "pre.html": "f8b0b9dfddec050df166992fc10f7bc08b003fee5f4cd7defb5a476024c076ea",
         "pre.js": "45443bfa69699430e80340c2de4f73716af3a864d62928e455b3279445590fe4",
         "review-base.css": "61aaebd28dcd4b2f8222c922cd6848534755cefb42c6ada21ebbb18b24c68c2b",
+        "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
+        "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
+      }
+    },
+    {
+      "version": 4,
+      "files": {
+        "asset-selection.css": "e6a41f2daaa8882ab29a6952353669ddc41563acbce8bd43d71fc9b20f154470",
+        "asset-selection.js": "e1591380b5fdd8a9378a146dbbeb7b74c47dd78c09d2925267f861280977ff9b",
+        "post.html": "42d49d7d9295556bbceb27e6f360d0f384c5122cabb47c671d0c56d1c6ee8839",
+        "post.js": "6cd9f5fe70f559cf0b9e3033bf87aaa6318bd1647ec53673706e9771f31cd282",
+        "pre.html": "f8b0b9dfddec050df166992fc10f7bc08b003fee5f4cd7defb5a476024c076ea",
+        "pre.js": "45443bfa69699430e80340c2de4f73716af3a864d62928e455b3279445590fe4",
+        "review-base.css": "f6bbf7d5f0e93333ce96b1b43d14d499d9e3ba10bddb9d7c0600ea412ea8667d",
         "review-layout.js": "413e76fe7be800a21b71f66a5eeaa11d56405710c59649a4a90dd052f00aaf2d",
         "visuals.js": "d301c67391c49c27dec599c4e4be07c3e63baaddf56bfc0895a2c31ac6ad33ed"
       }

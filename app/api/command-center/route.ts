@@ -8,6 +8,8 @@ import {
 import { z } from "zod";
 import {
   commandCenterSnapshot,
+  inboxWork,
+  type InboxRow,
   createLinearTask,
   createLinearSubtask,
   completeLinearSubtask,
@@ -48,6 +50,23 @@ const contactFields = z.object({
   source_url: z.url().startsWith("https://").nullable(),
 });
 const actionSchema = z.discriminatedUnion("action", [
+  z.object({action: z.literal("inboxUpdate"), id: z.uuid(), expectedUpdatedAt: z.iso.datetime({offset: true}), children: z.array(z.object({id:z.uuid(),title:z.string().trim().min(1).max(80)})).max(30).optional(), task: z.object({title: z.string().trim().min(1).max(255).optional(), description: z.string().max(10000).optional(), lane: lane.nullable().optional(), status: z.enum(["Todo", "In Progress", "Done"]).optional(), project_id: z.string().max(160).nullable().optional(), project_name: z.string().max(160).nullable().optional(), due_date: z.iso.date().nullable().optional()}).refine((task) => Object.keys(task).length > 0)}),
+  z.object({action: z.literal("inboxCreate"), id: z.uuid(), title: z.string().trim().min(1).max(255), description: z.string().max(10000).default(""), parentId: z.uuid().optional()}),
+  z.object({
+    action: z.literal("taskPlanSave"),
+    owner: z.enum(["linear", "asana", "notion", "dashboard"]),
+    ownerId: z.string().trim().min(1).max(160),
+    period: z.enum(["inbox", "day", "week", "month", "someday"]),
+    plannedDate: z.iso.date().nullable(),
+    durationMinutes: z.number().int().min(5).max(1440).multipleOf(5).nullable(),
+  }).refine((plan) => {
+    if (plan.period === "inbox" || plan.period === "someday") return plan.plannedDate === null;
+    if (!plan.plannedDate) return false;
+    const day = new Date(`${plan.plannedDate}T12:00:00Z`);
+    if (plan.period === "week") return day.getUTCDay() === 1;
+    if (plan.period === "month") return day.getUTCDate() === 1;
+    return true;
+  }, "Use the matching date for the planning period."),
   z.object({ action: z.literal("contactCreate"), contact: contactFields }),
   z.object({
     action: z.literal("contactUpdate"),
@@ -65,7 +84,7 @@ const actionSchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("blockSave"),
     id: z.uuid().optional(),
-    owner: z.enum(["linear", "asana", "notion", "home", "crm"]),
+    owner: z.enum(["linear", "asana", "notion", "home", "crm", "dashboard"]),
     ownerId: z.string().trim().min(1).max(160),
     selectedDate: z.iso.date(),
     startsAt: z.iso.datetime({ offset: true }).nullable(),
@@ -190,6 +209,36 @@ export async function POST(request: Request) {
   try {
     let result: unknown;
     switch (command.action) {
+      case "inboxUpdate": {
+        const rows = (command.children?.length
+          ? await supabaseRest("rpc/command_center_inbox_edit", {method: "POST", body: JSON.stringify({p_id:command.id,p_expected:command.expectedUpdatedAt,p_patch:command.task,p_children:command.children})})
+          : await supabaseRest(`command_center_inbox?id=eq.${command.id}&updated_at=eq.${encodeURIComponent(command.expectedUpdatedAt)}&select=*`, {method: "PATCH", headers: {Prefer: "return=representation"}, body: JSON.stringify({...command.task, updated_at: new Date().toISOString()})})) as InboxRow[];
+        if (rows.length !== 1) return Response.json({error: "This task changed. Refresh it before editing or undoing."}, {status: 409, headers});
+        result = inboxWork(rows[0]);
+        break;
+      }
+      case "inboxCreate": {
+        if (command.parentId) {
+          const parent = await supabaseRest(`command_center_inbox?id=eq.${command.parentId}&select=id,parent_id`);
+          if (parent.length !== 1 || parent[0].parent_id) throw new Error("Choose an existing parent task.");
+        }
+        await supabaseRest("command_center_inbox?on_conflict=id", {method: "POST", headers: {Prefer: "resolution=ignore-duplicates"}, body: JSON.stringify({id: command.id, title: command.title, description: command.description, parent_id: command.parentId ?? null})});
+        const rows = await supabaseRest(`command_center_inbox?id=eq.${command.id}&select=*`) as InboxRow[];
+        if (rows.length !== 1 || rows[0].title !== command.title || rows[0].description !== command.description) throw new Error("Capture was not confirmed. Keep the draft and retry.");
+        result = inboxWork(rows[0]);
+        break;
+      }
+      case "taskPlanSave": {
+        result = await supabaseRest("command_center_task_plans?on_conflict=owner,owner_id&select=*", {
+          method: "POST",
+          headers: { Prefer: "resolution=merge-duplicates,return=representation" },
+          body: JSON.stringify({ owner: command.owner, owner_id: command.ownerId,
+            period: command.period, planned_date: command.plannedDate,
+            duration_minutes: command.durationMinutes, updated_at: new Date().toISOString() }),
+        });
+        if (!Array.isArray(result) || result.length !== 1) throw new Error("Task plan was not confirmed.");
+        break;
+      }
       case "contactCreate":
         result = await supabaseRest("contacts?select=*", {
           method: "POST",

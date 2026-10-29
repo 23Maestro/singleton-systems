@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "work-to-content",
+  "version": "0.1.0",
+  "description": "Turn real client work into a short proof clip for Jerami to review.",
+  "author": { "name": "Jerami Singleton" }
+}

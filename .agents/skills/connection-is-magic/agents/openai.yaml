@@ -1,0 +1,4 @@
+interface:
+  display_name: "Connection Is Magic"
+  short_description: "Prepare podcast sources and natural 4K upscale trials"
+  default_prompt: "Use $connection-is-magic to make a 10-second 4K trial from this episode link."

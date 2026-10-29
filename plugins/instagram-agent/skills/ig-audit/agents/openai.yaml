@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram audit"
+  short_description: "Draft and review audit content in Codex"
+  default_prompt: "Use $ig-audit with my own work and voice."

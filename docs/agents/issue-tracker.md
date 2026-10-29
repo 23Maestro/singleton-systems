@@ -56,6 +56,26 @@ or background task.
 
 ### Development task entry
 
+The `task-management` skill joins intake to this same lifecycle. Ask for a real
+deadline only when its answer is missing. Reuse a confirmed date or no-deadline
+answer. Propose editable attention, tool and waiting estimates before creation.
+Keep planned work dates separate from deadlines.
+
+Plans accept `dueDate` on the parent and each child: `YYYY-MM-DD` for a
+confirmed calendar date, `null` for no deadline, or omitted for older plans.
+The date uses Linear's native `dueDate` or Asana's native `due_on` field and is
+read back at entry and closeout.
+Do not clear or replace an existing record's date to make a plan match.
+
+Free Asana uses native task links under a `Blocked by` heading in each subtask's
+rich-text description. Blockers belong to the same deliverable. Entry loads
+their current state; missing, unrelated or incomplete links leave context open
+for review. Creation writes links with the child, so retry needs no later
+dependency edit. Preserve an adopted deliverable's production notes. An old
+request that used paid dependency APIs needs owner readback and a reviewed new
+request; do not reset its receipt. 23M-313 stays open for the first real client
+proof, which Jerami chose to await on October 27.
+
 `scripts/task-lifecycle.mjs` uses the same Linear owner and closeout path.
 Review a JSON plan with `plan --file PLAN`. Create its tasks with
 `create --file PLAN --approved-hash HASH` only after scope review. The plan

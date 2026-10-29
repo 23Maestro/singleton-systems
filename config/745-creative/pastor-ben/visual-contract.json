@@ -49,6 +49,13 @@
       "consistency": "Recognizable grid treatment using Ben's own palette.",
       "distinction": "Bold cover hierarchy does not require heavy video overlays or oversized bold text throughout each edit. Reflective, family and music lanes keep their quieter treatment."
     },
+    "captions": {
+      "owner": "motion-studio Pastor Ben caption lane",
+      "authority": "Jerami, 2026-10-20: caption Ben's direct-to-camera videos with the John caption lane (Opus Poppins SemiBold floor) in #3C6E91.",
+      "lane": "/Users/singleton23/Documents/Development/motion-studio/comps/pastor-ben-dtc/lane.json",
+      "method": "Burned into Jerami's finished Premiere exports by HyperFrames. Premiere native captions stay off.",
+      "status": "Lane prepped 2026-10-20. No captioned video approved yet."
+    },
     "productionStatus": {
       "direction": "source-backed; adopted by Jerami",
       "premiereTemplate": "not built or verified",

@@ -1,0 +1,39 @@
+{
+  "duration": 5.3053,
+  "assertions": [
+    {
+      "kind": "appearsBy",
+      "selector": "#episode",
+      "bySec": 1.6
+    },
+    {
+      "kind": "appearsBy",
+      "selector": "#time-0",
+      "bySec": 2.1
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#episode"
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#day-0"
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#date-0"
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#time-0"
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#watch"
+    },
+    {
+      "kind": "staysInFrame",
+      "selector": "#url"
+    }
+  ]
+}

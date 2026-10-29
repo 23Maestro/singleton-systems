@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram caption"
+  short_description: "Draft and review caption content in Codex"
+  default_prompt: "Use $ig-caption with my own work and voice."

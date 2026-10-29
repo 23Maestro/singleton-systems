@@ -9,6 +9,19 @@ Versioned source for the Singleton Systems Codex plugin.
 Installed Codex and Claude copies are release outputs. Do not edit them as a
 source of truth.
 
+## Video skill ownership
+
+`client-video-storyboard` owns shared intake, reference analysis and storyboard
+handoff. `lineups-editor` owns Catena Media Lineups lanes, assets, engine routes,
+timing and delivery gates. Figma mechanics stay in `singleton-figma-system`.
+Frame annotations, online batches and source-chat delivery belong to the shared
+review engine.
+
+The old Lineups reference and helper paths in `client-video-storyboard` forward
+to `lineups-editor`. They preserve existing hooks and saved chats. These entries
+contain no duplicate policy or validation. Keep them until the hook
+and saved entry points have a reviewed migration.
+
 Use the repo-owned release command after changing this plugin:
 
 ```bash

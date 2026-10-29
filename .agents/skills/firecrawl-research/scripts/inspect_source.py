@@ -49,6 +49,8 @@ def load_key():
                 capture_output=True, timeout=10, check=False)
         except (OSError, subprocess.SubprocessError):
             raise InspectionError("Firecrawl credential lookup failed.") from None
+        if result.returncode == 36:
+            raise InspectionError("Firecrawl Keychain access was denied (security exit 36: user interaction not allowed). The saved service is com.singleton-systems.api-keys.Firecrawl, account singleton23. Check the GUI login session; do not report this as a missing credential.")
         key = result.stdout.decode("utf-8", errors="replace").strip() if result.returncode == 0 else ""
     if not re.fullmatch(r"fc-[A-Za-z0-9_-]+", key):
         raise InspectionError("No valid existing Firecrawl credential was found.")

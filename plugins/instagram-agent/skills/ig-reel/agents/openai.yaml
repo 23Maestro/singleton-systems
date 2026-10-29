@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram reel"
+  short_description: "Draft and review reel content in Codex"
+  default_prompt: "Use $ig-reel with my own work and voice."

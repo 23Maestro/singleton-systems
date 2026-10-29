@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html, body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+.preview-banner { height: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; background: #eaf0fe; color: #31508e; border-bottom: 1px solid #d5dff3; font-size: 9px; font-weight: 600; letter-spacing: .08em; }
+.preview-banner span { font-weight: 400; letter-spacing: 0; }
+body .cc { min-height: calc(100dvh - 28px); }
+body .cc .cc-main { height: calc(100dvh - 28px); }
+@media(max-width: 680px) { body .cc { height: calc(100dvh - 28px); } body .cc .cc-main { height: 100%; } }

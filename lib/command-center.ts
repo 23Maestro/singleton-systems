@@ -1,12 +1,14 @@
 import { listAsanaWork, listAsanaProjects } from "@/lib/command-center-asana";
 import { supabaseRest } from "@/lib/supabase-rest";
+import { linearGraphql } from "./linear-api";
+export { linearGraphql } from "./linear-api";
 
 export const LANES = [
   "AI Consultant",
   "Content Editor",
   "Development",
 ] as const;
-export type Lane = (typeof LANES)[number];
+export type Lane = (typeof LANES)[number] | "Unassigned";
 export type Contact = {
   id: number;
   name: string;
@@ -35,11 +37,18 @@ export type Interaction = {
 };
 export type Block = {
   id: string;
-  owner: "linear" | "asana" | "notion" | "home" | "crm";
+  owner: "linear" | "asana" | "notion" | "home" | "crm" | "dashboard";
   owner_id: string;
   selected_date: string;
   starts_at: string | null;
   ends_at: string | null;
+};
+export type TaskPlan = {
+  owner: WorkItem["owner"];
+  owner_id: string;
+  period: "inbox" | "day" | "week" | "month" | "someday";
+  planned_date: string | null;
+  duration_minutes: number | null;
 };
 export type Draft = {
   id: string;
@@ -50,15 +59,18 @@ export type Draft = {
 };
 export type WorkItem = {
   id: string;
-  owner: "linear" | "asana" | "notion";
+  owner: "linear" | "asana" | "notion" | "dashboard";
   title: string;
   description?: string | null;
+  updatedAt?: string;
+  parentId?: string | null;
   children?: {
     id: string;
     title: string;
     url: string;
     status: string;
     dueDate?: string | null;
+    updatedAt?: string;
   }[];
   url: string;
   dueDate: string | null;
@@ -110,31 +122,6 @@ type LinearIssue = {
     nodes: { type: string; issue: { state: { type: string } } }[];
   };
 };
-
-export async function linearGraphql<T>(
-  query: string,
-  variables?: Record<string, unknown>,
-): Promise<T> {
-  const key = process.env.LINEAR_API_KEY;
-  if (!key) throw new Error("Linear is not configured.");
-  const response = await fetch("https://api.linear.app/graphql", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: key },
-    body: JSON.stringify({ query, variables }),
-    cache: "no-store",
-  });
-  const payload = (await response.json()) as {
-    data?: T;
-    errors?: { message: string }[];
-  };
-  if (!response.ok || payload.errors?.length || !payload.data) {
-    throw new Error(
-      payload.errors?.map((error) => error.message).join("; ") ||
-        `Linear request failed: ${response.status}`,
-    );
-  }
-  return payload.data;
-}
 
 function issueLane(issue: Pick<LinearIssue, "labels" | "project">): Lane {
   const labels = issue.labels.nodes.map(({ name }) => name.toLowerCase());
@@ -233,7 +220,7 @@ export async function listNotionWork(): Promise<WorkItem[]> {
     const portfolioProject = page.properties.Project?.relation?.some(
       (item) => item.id === "38b4c8bd-6c26-816c-a26c-f6b3fd022bba",
     );
-    const lane: Lane = LANES.includes(explicitLane as Lane)
+    const lane: Lane = LANES.some((lane) => lane === explicitLane)
       ? (explicitLane as Lane)
       : portfolioProject
         ? "Content Editor"
@@ -332,6 +319,8 @@ export async function commandCenterSnapshot() {
     asana,
     asanaProjects,
     laneOverrides,
+    plans,
+    inbox,
   ] = await Promise.allSettled([
     supabaseRest(
       "contacts?select=id,name,company,email,phone,lane,status,relationship_context,notes,next_action,next_action_at,linear_project_id,invoice_url,payment_note,source_url,updated_at&order=name.asc",
@@ -349,6 +338,8 @@ export async function commandCenterSnapshot() {
     listAsanaWork(),
     listAsanaProjects(),
     supabaseRest("command_center_work_lanes?select=owner,owner_id,lane"),
+    supabaseRest("command_center_task_plans?select=owner,owner_id,period,planned_date,duration_minutes"),
+    supabaseRest("command_center_inbox?select=*&order=created_at.desc"),
   ]);
   const failures: string[] = [];
   const take = <T>(
@@ -372,7 +363,9 @@ export async function commandCenterSnapshot() {
     "Lane choices",
     [] as { owner: string; owner_id: string; lane: Lane }[],
   );
+  const inboxRows = take(inbox, "Inbox", [] as InboxRow[]) as InboxRow[];
   const allWork = [
+    ...inboxRows.filter((row) => !row.parent_id).map((row) => inboxWork(row, inboxRows)),
     ...take(linear, "Linear", [] as WorkItem[]),
     ...take(asana, "Asana", [] as WorkItem[]),
   ];
@@ -384,6 +377,7 @@ export async function commandCenterSnapshot() {
       [] as Interaction[],
     ) as Interaction[],
     blocks: take(blocks, "Planner", [] as Block[]) as Block[],
+    plans: take(plans, "Task plans", [] as TaskPlan[]) as TaskPlan[],
     drafts: take(drafts, "Drafts", [] as Draft[]) as Draft[],
     asanaProjects: take(asanaProjects, "Asana", []),
     work: allWork.map((item) => ({
@@ -664,4 +658,9 @@ export async function completeLinearSubtask(parentId: string, childId: string) {
     status: "Done",
     dueDate: readback.issue.dueDate,
   };
+}
+
+export type InboxRow = { id: string; title: string; description: string; lane: Lane | null; status: string; parent_id: string | null; project_id: string | null; project_name: string | null; due_date: string | null; updated_at: string };
+export function inboxWork(row: InboxRow, all: InboxRow[] = []): WorkItem {
+  return { id: row.id, owner: "dashboard", title: row.title, description: row.description, lane: row.lane ?? "Unassigned", status: row.status, blocked: false, url: "/dashboard", updatedAt: row.updated_at, parentId: row.parent_id, projectId: row.project_id, projectName: row.project_name, dueDate: row.due_date ?? null, states: ["Todo", "In Progress", "Done"], children: all.filter((child) => child.parent_id === row.id).map((child) => ({id: child.id, title: child.title, status: child.status, updatedAt: child.updated_at, url: "/dashboard"})) };
 }

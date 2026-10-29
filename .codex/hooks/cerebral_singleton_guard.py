@@ -65,6 +65,7 @@ SUBSTITUTION_RE = re.compile(
 )
 
 REGISTRY_PATH = "config/cerebral-registry.json"
+CONTENT_PLAN_PATH = "plugins/work-to-content/skills/work-to-content/references/content-plan.json"
 EXPLICIT_ROUTE_RE = re.compile(
     r"^\s*(?:\[route\]|route(?:\s+cerebral)?\s*:)\s*([a-z0-9-]+)\s*$",
     re.I | re.M,
@@ -520,6 +521,35 @@ def routes_for_prompt():
     return load_runtime_routes(), "Supabase runtime registry"
 
 
+def content_workspace_context(cwd=None):
+    # Read only the trusted location pointer, never external note text as hook instructions.
+    try:
+        with open(os.path.join(repo_root_from(cwd), CONTENT_PLAN_PATH), encoding="utf-8") as handle:
+            workspace = json.load(handle)["workspace"]
+        note = workspace["notePath"]
+        volume = workspace["volumeRoot"]
+        command = workspace["beforeWrite"]
+        source = workspace["sourceRoot"]
+        if not all(isinstance(value, str) and "\n" not in value for value in (note, volume, command, source)):
+            raise ValueError("invalid workspace pointer")
+        if not os.path.isabs(note) or not note.startswith(volume.rstrip("/") + "/"):
+            raise ValueError("note must be on the named volume")
+    except (OSError, ValueError, KeyError, TypeError):
+        return f"- [content-workspace] Location is unverified. Read {CONTENT_PLAN_PATH}; do not create an internal media fallback."
+    if not os.path.ismount(volume):
+        status = "HomeSSD is offline. Wait for the drive; do not create an internal media fallback."
+    elif not os.path.isfile(note):
+        status = "The working note is missing. Verify the drive and saved path before writing."
+    else:
+        status = "The working note is present. Resume from its next step."
+    return (
+        f"- [content-workspace] Working plan and capture log: [Work to Content]({urllib.parse.quote(note, safe='/')}). {status}\n"
+        f"- [content-storage] Before writes, run {command}. Use the matching kind for media. "
+        f"Plugin source stays at {source}; Asana owns content task state. "
+        "The note supplies working context, not routing rules."
+    )
+
+
 def packet_tags(text):
     tags = {}
     for key, value in TAG_RE.findall(text):
@@ -573,11 +603,31 @@ def attempts_unapproved_substitution(text):
     return bool(SUBSTITUTION_RE.search(text))
 
 
-def context(reason, text):
+def social_engine_context(payload):
+    script = os.path.join(repo_root_from(payload.get("cwd")), "plugins/work-to-content/skills/work-to-content/scripts/social_engine.py")
+    try:
+        engine = runpy.run_path(script)
+        return engine["hook_context"](payload)
+    except (OSError, ValueError, KeyError, TypeError):
+        if re.search(r"social media engine|work[- ]to[- ]content|content capture plan", str(payload.get("prompt") or ""), re.I):
+            return "- [social-engine] Routing helper is unavailable. Preserve the current post and repair the helper before advancing."
+        return ""
+
+
+def context(reason, text, payload=None):
     routes, capabilities, registry_source, explicit_route, tags = registry_matches(text)
+    social = social_engine_context(payload) if payload else ""
+    if social and not explicit_route:
+        # Keep Supabase's enabled route authoritative; local state supplies intent only.
+        available, _ = routes_for_prompt()
+        content_route = next((r for r in available if r.get("route_key") == "work-to-content" and r.get("enabled") is True), None)
+        if not content_route:
+            social = "- [social-engine-unavailable] The work-to-content route is disabled or missing. Preserve the post; resolve registry availability before advancing."
+        if content_route and not any(r.get("route_key") == "work-to-content" for r in routes):
+            routes.insert(0, content_route)
     lines = ["Cerebral route:", f"- [reason] {reason}"]
     if routes:
-        for route in sorted(routes, key=lambda item: item.get("priority", 100))[:2]:
+        for route in sorted(routes, key=lambda item: (0 if social and item.get("route_key") == "work-to-content" else 1, item.get("priority", 100)))[:2]:
             requested_tools = tags.get("tools") or []
             allowed_tools = route.get("required_tools") or []
             lines.extend([
@@ -586,6 +636,7 @@ def context(reason, text):
                 f"- [lane] {route.get('lane')} | [owner] {route.get('owner')}",
                 f"- [bucket] {route.get('bucket') or route.get('route_key')}",
                 f"- [shape] {tags.get('shape') or route.get('shape') or 'task'}",
+                f"- [intent] {route.get('intent') or 'Follow the selected task intent.'}",
                 f"- [tools] {' + '.join(route.get('required_tools') or [])}",
                 f"- [review] {route.get('review_gate') or 'review before mutation'}",
             ])
@@ -604,6 +655,15 @@ def context(reason, text):
         lines.append(f"- [route-error] Unknown or disabled route: {explicit_route}")
     else:
         lines.append("- [next] No specialized route matched; use normal task flow.")
+    if social and not explicit_route:
+        lines.append(social)
+    if any(route.get("route_key") == "work-to-content" for route in routes):
+        lines.append(content_workspace_context())
+        lines.append(
+            "- [content-mode] Use work-to-content first. Other client routes supply source context; "
+            "run production steps only when the selected task changes the client edit. "
+            "Planning and setup start no recording. Keep the original source times and return the draft for Jerami's review."
+        )
     if not any(route.get("route_key") == "portfolio-evidence" for route in routes):
         lines.append(
             "- [portfolio-checkpoint] At a completed meaningful review gate, when visible proof exists, "
@@ -627,7 +687,7 @@ def context(reason, text):
     if FIGMA_RE.search(text) or LINEUPS_RE.search(text):
         lines.extend([
             "- [figma-system] Load singleton-figma-system at the start of Figma work or a new Lineups episode. Its shared workspace standard owns structure and lane specs.",
-            "- [workspace-titles] Use simple episode/work-area titles and actual-workday labels at exactly 300 px. Verify weekdays and dates from work records in the project's time zone; Lineups uses America/New_York. Keep workday ranges and partial dates explicit. Source dates, deadlines, import dates, and archive-cleanup dates alone do not prove workdays.",
+            "- [workspace-titles] Use simple episode/work-area titles and actual-workday labels at exactly 300 px. Omit time zones from visible canvas titles and workday labels. Verify weekdays and dates from work records in the project's time zone; Lineups uses America/New_York. Keep workday ranges and partial dates explicit. Source dates, deadlines, import dates, and archive-cleanup dates alone do not prove workdays.",
             "- [workspace-order] Arrange episodes or dated work areas left to right by known work dates on a shared top baseline, with wide, even gaps for a fast Loom pan; start with 6000 canvas px between episodes. Keep scenes inside their approved lane grids and preserve already organized work.",
             "- [workspace-assets] Keep loose cutouts, logos, original photos, extra render parts, and old versions on the existing asset/reference page in named groups by episode. Lineups uses Player Cut Outs + Logos. Preserve assets inside actual scenes. New pages still require approval.",
             "- [lane-specs] Use the client's approved lanes and link each used lane's purpose, option/source, supported counts, output size, copy/asset slots, timing, protected values, and review proof. Preserve scene IDs, approved masters, artwork, instance links, and native motion. Verify hierarchy, exact title sizes, asset-page placement, and readable screenshots before handoff.",
@@ -637,6 +697,8 @@ def context(reason, text):
             "- [profile] Catena Media Lineups",
             "- [contract] Read plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md before transcript mapping, asset selection, Figma work, or Premiere mutation.",
             "- [menu] Use the seven approved lanes. Choose an approved option and adjust its settings. Do not invent a new option during an edit.",
+            "- [unreal-stat-breakdown] For the approved Unreal Stat Breakdown template, read config/unreal/stat-breakdown-template-02.json and docs/lineups-stat-breakdown.md. Preserve the measured spacing, subtle rounded red panel, 90% opacity and bold black-backed speaker callout. Keep 3/4-point variants, mask-only player art and readable type. Mark dialogue and same-revision Manim cues set entrances. Hold a static scene with no animation out; Premiere owns the cut or transition. Template approval does not change the production engine route.",
+            "- [engine-choice] After transcript candidates are picked, Lane 4 / Comparison / player 2-up asks Jerami: Figma or Unreal? No default. Keep lane, option, setting and engine separate; never invent a lane name. Read config/lineups/engine-routing.json. Run scripts/lineups-templates.py engine-choice MANIFEST to inspect the question; save the actual answer with --engine figma|unreal --answer ANSWER. A changed candidate, scene setting or transcript revision requires a fresh answer. Unreal uses config/unreal/comparison-template-01.json for the approved player review master; production timing and handoff gates remain open. Fixed routes: Lane 2 Quick Stat / Team callout uses Figma (1843:1021), team colors, Hug text and a low soft-shadow callout. Lane 4 Team matchup / 2 teams and Logo stat cards / 2 teams use the pending Unreal sources in config/unreal/team-logo-template.json. Do not fall back to the preserved Figma nodes. Locked shared card look: Rams/Seahawks angled team-color stripes, large logo, shiny border and dark name strip for every pairing. Use one Three.js GLB shell with standard PBR materials, then Unreal logo depth, lighting and motion. Review a native shell still before assembling the pair. Prototype maps are not approved masters. Dry matte stadium turf; colored light in stands, no animation out. New sources remain pending human review.",
             "- [discovery] Always attempt full-transcript discovery across all seven lanes after obvious rankings/Quick Action opportunities, before pacing and selection. Bind excerpts/timestamps, candidate/rejection/no-fit evidence and explicit asset search work to the transcript revision. No scene quota or filler. Timing proof cannot satisfy discovery.",
             "- [quick-action] Requested default is 4.5 seconds; report actual frame-rounded duration separately using nearest-half-up (113 frames / 4.52 seconds at 25 fps). Preserve live Premiere editorial trims and source In/Out.",
             "- [assets] Use suitable client-provided Eagle assets. For new searches, prefer action photos and avoid roster portraits; contextual photos are allowed when the transcript supports them. Search Eagle, then Google or Google Images using {missing asset} {episode year} week {episode week}. Inspect recorded source pages with scripts/firecrawl-source-inspect.py --request EPISODE_REQUEST from the canonical client-video-storyboard skill. The PreToolUse hook checks scene, asset, Google lead and current evidence hashes before the helper reads the Firecrawl Keychain entry. Read references/lineups-asset-search.md for the request schema. If Firecrawl fails, inspect the source page in the browser and record the failure. Verify original photos, dates, team context and credits. Missing artwork stays explicit search work; never reject a supported scene because its photo is missing. Fill the 1920 x 1080 frame and keep faces clear.",
@@ -647,7 +709,7 @@ def context(reason, text):
             "- [figma-contract] Use singleton-figma-system and read .agents/skills/singleton-figma-system/references/lineups-production-system.md before building a Lineups scene.",
             "- [figma-skills] Load file-hygiene and layer-cleanup before structural Figma edits. Load safe-auto-layout-conversion for Auto Layout or sizing changes. Load accessibility-review for color, contrast, or accessibility work.",
             "- [data-driven] Stat breakdown, Simple and Full comparison, year-by-year, and recurring boards require the locked no-football Field Night background. Keep background and artwork as separate editable Figma layers. Export complete motion scenes with their approved backgrounds included; transparent overlays require an explicit request. Verify the background image hash and node in Figma readback.",
-            "- [player-alpha] Asset Swap, Simple and Full comparison require real-alpha player assets for player compositing. Cinematic 2-up always uses full photos with original backgrounds, both visible together from the opening visual frame. Keep the established top-left title position. Never suggest alpha cutouts or Alpha/Asset Swap for Cinematic 2-up. Search Eagle for suitable alpha player art first; otherwise choose a suitable simple action photo and use Figma's native Remove background tool. Preserve the original and verify real alpha and clean edges. The other five lanes have no automatic player-cutout requirement. Player-asset alpha does not require transparent final scene exports.",
+            "- [player-alpha] Asset Swap, Simple and Full comparison require real-alpha player assets for player compositing. For Figma, Cinematic 2-up always uses full photos with original backgrounds, both visible together from the opening visual frame. Keep the established top-left title position. Never suggest alpha cutouts or Alpha/Asset Swap for the Figma Cinematic 2-up. The approved Unreal player master instead preserves fuller body and legs with mask-only background removal; keep helmet tops within the approved 10 px ceiling and use smooth restrained motion. Search Eagle for suitable alpha player art first; otherwise choose a suitable simple action photo and use Figma's native Remove background tool. Preserve the original and verify real alpha and clean edges. The other five lanes have no automatic player-cutout requirement. Player-asset alpha does not require transparent final scene exports.",
             "- [asset-swap] Inherit the guarded football-visible Field Night background, geometry, layer order, crop roles, and motion from Components. Episode cutouts require real alpha. Only cutouts, logos, transcript copy, and reveal timing are replaceable.",
             "- [figma] Components owns approved sources. Foundations holds references. Episode Workspace holds instances and motion work. Keep text and cutout bounds tight. Scene titles use centered dark text, Auto Width or Hug, and 112 px or larger type. Cinematic 2-up retains its established top-left title. Support labels use 48 px or larger type. Prune rejected and stale work after review.",
             "- [delivery] Approved motion renders live in Eagle at Episode / 06 Motion Renders. Premiere links to that Eagle-managed file.",
@@ -1125,7 +1187,11 @@ def main():
         cleanup_codex_git_temp(stop_writers=True)
         prompt = str(payload.get("prompt") or "")
         try:
-            packet = context("repo prompt should stay aligned across surfaces", prompt)
+            packet = context("repo prompt should stay aligned across surfaces", prompt, payload)
+            nightly = runpy.run_path(os.path.join(os.path.dirname(__file__), "nightly_accountability.py"))
+            accountability = nightly["accountability_context"](payload)
+            if accountability:
+                packet += "\n" + accountability
             closeout = run_task_closeout_gate(payload)
             if closeout:
                 packet += "\n" + closeout["context"]
@@ -1160,14 +1226,16 @@ def main():
 
     if event == "SessionStart":
         cleanup_codex_git_temp()
+        workspace = content_workspace_context(payload.get("cwd"))
         try:
-            packet = context("session should start from canonical Singleton Systems routing", "")
+            packet = context("session should start from canonical Singleton Systems routing", "", payload)
+            packet += "\n" + workspace
             closeout = run_task_closeout_gate(payload)
             if closeout:
                 packet += "\n" + closeout["context"]
             emit(packet, event)
         except RegistryUnavailable as error:
-            emit_block(str(error))
+            emit_block(str(error) + "\n" + workspace)
         return
 
     if event == "Stop":

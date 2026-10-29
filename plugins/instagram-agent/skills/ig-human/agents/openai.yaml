@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram human"
+  short_description: "Draft and review human content in Codex"
+  default_prompt: "Use $ig-human with my own work and voice."

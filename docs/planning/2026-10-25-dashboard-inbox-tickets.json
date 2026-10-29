@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "owner": "linear",
+  "lane": "Development",
+  "requestId": "dashboard-inbox-20261025-v1",
+  "projectId": "b9aced70-96eb-46f5-8bb7-7a61253c11b1",
+  "parent": {
+    "existingId": "23M-273",
+    "title": "Define Akiflow parity",
+    "description": "Add the reviewed Inbox experience with Singleton brand colors. Skip priority. Reuse 23M-299 for colors and navigation shell and 23M-300 for the compact duration dial. Preserve the existing parent description.",
+    "doneWhen": "The approved Inbox slices and existing color/dial scopes pass public UI and route proof and human hosted review."
+  },
+  "tasks": [
+    {
+      "key": "capture-inbox",
+      "title": "Capture Inbox thoughts",
+      "description": "## What to build\n\nOpen Inbox from the far-left mobile dock button or desktop sidebar. Show a quiet list with inline Add task. Save a title-only thought to durable dashboard storage without asking for a lane, project or date. Keep imported tasks separate from newly captured thoughts.\n\n## First tracer bullet\n\nCapture 1 title, reload and reopen it with no lane or external task created.\n\n## Completion signal\n\nUse the approved rendered dashboard UI and public HTTP route seams. Start with a failing behavior test, implement the smallest complete path, then prove save/reload through the public route. Check 390/430 px mobile and 1440 px desktop; provide a hosted HTTPS preview for human visual review. Preserve imported task identity and existing production records.\n\n## Expansion boundary\n\nLane assignment, provider handoff, Home taxonomy, description formatting, subtasks and Undo belong to later slices.\n\n## Acceptance criteria\n\n- [ ] Inbox is leftmost in the mobile dock; the separate + action remains reachable.\n- [ ] A saved capture survives reload and stays unassigned; no automatic Linear or Asana routing occurs.\n- [ ] A failed save keeps the typed thought and shows an error; retry creates 1 record.\n- [ ] Existing mobile calendar, desktop sidebar and brand colors stay intact.\n\n## Blocked by\n\nNone \u2014 can start immediately.",
+      "doneWhen": "Capture 1 title, reload and reopen it with no lane or external task created. All acceptance checks pass and Jerami reviews the hosted UI.",
+      "estimate": {
+        "attentionMinutes": null,
+        "toolMinutes": null,
+        "waitingMinutes": null
+      },
+      "blockedBy": []
+    },
+    {
+      "key": "organize-inbox",
+      "title": "Organize Inbox tasks",
+      "description": "## What to build\n\nOpen a captured thought, explicitly choose an existing lane/project, and plan a day or time block. An unassigned capture can also be planned without forced routing. Imported tasks retain their owners. Any explicit provider handoff must preserve context and avoid duplicate tasks or calendar blocks.\n\n## First tracer bullet\n\nPlan 1 unassigned capture, save/reload it, then explicitly assign 1 selected capture and reopen the same logical task in its destination.\n\n## Completion signal\n\nUse the approved rendered dashboard UI and public HTTP route seams. Start with a failing behavior test, implement the smallest complete path, then prove save/reload through the public route. Check 390/430 px mobile and 1440 px desktop; provide a hosted HTTPS preview for human visual review. Preserve imported task identity and existing production records.\n\n## Expansion boundary\n\nHome as a new lane, tag systems, retiring the old Home Tasks page and bulk migration are excluded.\n\n## Acceptance criteria\n\n- [ ] No destination is chosen automatically.\n- [ ] An unassigned thought can be time-blocked and reopened without creating an external task.\n- [ ] Explicit assignment persists with a stable task identity and the same notes and plan.\n- [ ] Provider handoff failure leaves the original capture visible; retry does not duplicate it.\n\n## Blocked by\n\ncapture-inbox",
+      "doneWhen": "Plan 1 unassigned capture, save/reload it, then explicitly assign 1 selected capture and reopen the same logical task in its destination. All acceptance checks pass and Jerami reviews the hosted UI.",
+      "estimate": {
+        "attentionMinutes": null,
+        "toolMinutes": null,
+        "waitingMinutes": null
+      },
+      "blockedBy": [
+        "capture-inbox"
+      ]
+    },
+    {
+      "key": "format-description",
+      "title": "Format task notes",
+      "description": "## What to build\n\nOpen a dedicated description editing view from a task. Support bold, italic and checklist notes. Return to the task draft, then use Save to persist. Keep checklist entries as notes rather than separate child tasks.\n\n## First tracer bullet\n\nAdd bold text and a checked description item to 1 Inbox task; save, reload and reopen with the same formatting and checked state.\n\n## Completion signal\n\nUse the approved rendered dashboard UI and public HTTP route seams. Start with a failing behavior test, implement the smallest complete path, then prove save/reload through the public route. Check 390/430 px mobile and 1440 px desktop; provide a hosted HTTPS preview for human visual review. Preserve imported task identity and existing production records.\n\n## Expansion boundary\n\nReal subtasks and checklist conversion belong to the next slice. Do not add tags, links or location toolbar buttons.\n\n## Acceptance criteria\n\n- [ ] Mobile uses the focused description sheet and bottom formatting toolbar from photo 2; desktop has the same editing behavior.\n- [ ] Bold, italic and checklist notes persist after save/reload.\n- [ ] Returning from description editing preserves the task draft; cancelling the task does not save it.\n- [ ] Imported owner content round-trips without losing unsupported existing content; unsupported edits are explicit.\n\n## Blocked by\n\ncapture-inbox",
+      "doneWhen": "Add bold text and a checked description item to 1 Inbox task; save, reload and reopen with the same formatting and checked state. All acceptance checks pass and Jerami reviews the hosted UI.",
+      "estimate": {
+        "attentionMinutes": null,
+        "toolMinutes": null,
+        "waitingMinutes": null
+      },
+      "blockedBy": [
+        "capture-inbox"
+      ]
+    },
+    {
+      "key": "manage-subtasks",
+      "title": "Create task subtasks",
+      "description": "## What to build\n\nAdd an official child task while editing a task, or explicitly turn a description checklist item into a child. Keep ordinary description checkboxes as notes. Save through the correct task owner and show the same child from Inbox, Planner and the client task editor where applicable.\n\n## First tracer bullet\n\nConvert 1 checklist item into a real child, save/reload and complete that child without completing the parent.\n\n## Completion signal\n\nUse the approved rendered dashboard UI and public HTTP route seams. Start with a failing behavior test, implement the smallest complete path, then prove save/reload through the public route. Check 390/430 px mobile and 1440 px desktop; provide a hosted HTTPS preview for human visual review. Preserve imported task identity and existing production records.\n\n## Expansion boundary\n\nAutomatic breakdowns, child estimates, recurrence and rebuilding client views are excluded.\n\n## Acceptance criteria\n\n- [ ] Direct subtask creation and explicit checklist conversion create 1 child each, with duplicate-safe retries.\n- [ ] Checklist conversion preserves the item text and leaves no ambiguous duplicate checklist item.\n- [ ] Parent and child completion remain separate; child state survives reload.\n- [ ] A failed child write preserves the draft and original checklist item.\n\n## Blocked by\n\nformat-description",
+      "doneWhen": "Convert 1 checklist item into a real child, save/reload and complete that child without completing the parent. All acceptance checks pass and Jerami reviews the hosted UI.",
+      "estimate": {
+        "attentionMinutes": null,
+        "toolMinutes": null,
+        "waitingMinutes": null
+      },
+      "blockedBy": [
+        "format-description"
+      ]
+    },
+    {
+      "key": "undo-task-change",
+      "title": "Undo task changes",
+      "description": "## What to build\n\nAfter a successful task edit or completion, show a brief rounded banner with a thin border, subtle glow and Undo for the last successful action. Undo restores that action through the same durable owner and updates the visible task.\n\n## First tracer bullet\n\nComplete 1 selected Inbox task, use Undo in the banner, then reload and confirm the task is open again.\n\n## Completion signal\n\nUse the approved rendered dashboard UI and public HTTP route seams. Start with a failing behavior test, implement the smallest complete path, then prove save/reload through the public route. Check 390/430 px mobile and 1440 px desktop; provide a hosted HTTPS preview for human visual review. Preserve imported task identity and existing production records.\n\n## Expansion boundary\n\nBulk Undo, full history, external concurrent-write reversal and deleting newly created tasks are excluded. Refuse stale reversal rather than overwriting newer task changes.\n\n## Acceptance criteria\n\n- [ ] Show success only after the write succeeds.\n- [ ] Undo restores the last edit or completion and survives reload; failed Undo shows a clear error.\n- [ ] Use the photo 3 banner style with readable text, a subtle glow and an accessible Undo action in both themes.\n- [ ] A newer successful action replaces the prior Undo; keyboard and touch users can reach it.\n\n## Blocked by\n\ncapture-inbox",
+      "doneWhen": "Complete 1 selected Inbox task, use Undo in the banner, then reload and confirm the task is open again. All acceptance checks pass and Jerami reviews the hosted UI.",
+      "estimate": {
+        "attentionMinutes": null,
+        "toolMinutes": null,
+        "waitingMinutes": null
+      },
+      "blockedBy": [
+        "capture-inbox"
+      ]
+    }
+  ]
+}

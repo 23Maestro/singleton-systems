@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "openscreen": {
+      "type": "stdio",
+      "command": "/Applications/Openscreen.app/Contents/MacOS/Openscreen",
+      "args": ["mcp"]
+    }
+  }
+}

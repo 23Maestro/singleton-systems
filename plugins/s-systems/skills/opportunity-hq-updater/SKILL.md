@@ -11,6 +11,10 @@ Ideas. Implementation evidence belongs in GitHub.
 Linear owns Development task state. Asana owns AI Consulting and Content Editor
 task state.
 
+Use `s-systems:task-management` for the shared intake, estimates, deadlines,
+startup and closeout. It calls the existing lifecycle and closeout commands.
+Keep this skill's owner and task-sizing rules; do not create a second backlog.
+
 ## Runtime Route
 
 Development task reads and mutations go through Linear GraphQL at

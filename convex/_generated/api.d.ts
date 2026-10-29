@@ -10,6 +10,8 @@
 
 import type * as fitness from "../fitness.js";
 import type * as http from "../http.js";
+import type * as taskRequests from "../taskRequests.js";
+import type * as videoReviews from "../videoReviews.js";
 
 import type {
   ApiFromModules,
@@ -20,6 +22,8 @@ import type {
 declare const fullApi: ApiFromModules<{
   fitness: typeof fitness;
   http: typeof http;
+  taskRequests: typeof taskRequests;
+  videoReviews: typeof videoReviews;
 }>;
 
 /**

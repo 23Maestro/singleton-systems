@@ -3,7 +3,7 @@
 Use this internal reference for Catena Media Lineups work. Read the approved
 front-facing contract first:
 
-`plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md`
+`plugins/s-systems/skills/lineups-editor/references/lineups-treatment-system.md`
 
 Do not expose Figma implementation terms in Jerami's menus, storyboards, or
 review notes. Use lane, option, and setting there.
@@ -32,8 +32,9 @@ loose substitute layers.
 Apply the shared `singleton-figma-system` workspace standard at episode start,
 before the first authorized Figma build. Keep the episode title and actual
 workday label at exactly **300 px**, using simple words and a verified weekday
-and date in America/New_York. Keep known month-only dates explicit. Arrange
-episode areas left to right by known work dates on one top baseline, with
+and date. Omit the time zone from visible titles and labels; use
+America/New_York only to verify the workday. Keep known month-only dates
+explicit. Arrange episode areas left to right by known work dates on one top baseline, with
 wide, even gaps for a fast Loom pan; start with 6000 canvas px between areas.
 This orders episodes, while the lane grid below orders scenes within them.
 Preserve already organized episodes and approved scene typography.
@@ -117,12 +118,52 @@ Build one source family for each lane:
    subjects and permits empty supporting-stat fields. Simple uses two to four
    subjects or periods and one main value. Full uses subject-count settings of
    two, three, and four.
-5. Year-by-year with `Trend table` and `Simple board` layouts and adjustable
-   period count.
-6. Asset swap with guarded Field Night art, centered logo, alpha-only
+5. Asset swap with guarded Field Night art, centered logo, alpha-only
    replaceable people, start/end states, and transcript-timed motion copies.
+6. Year-by-year with `Trend table` and `Simple board` layouts and adjustable
+   period count.
 7. Recurring board with `Rank Reveal` and `Super Bowl Bubble` layouts and
    adjustable item count.
+
+The October 17 source curation keeps these seven lanes. New sources are
+registered as `client-review`, separate from approved episode choices:
+
+- Quick Stats: One neutral Logo statement placeholder from S02 and S18.
+  Create its team treatment only when a selected scene needs it. Use the
+  selected team logo and its 2 main brand colors, not fixed palette presets.
+  Preserve the 64 px callout.
+- Stat Breakdowns: Grouped stats from Jaguars defense, plus Grouped logo facts
+  from Conference Pulse and Big Ten/SEC Snapshot. The latter are mixed factual
+  groups, not repeated metrics across the same subjects. Capacities are
+  3-2-2 and 2-2-3 in top-to-bottom order.
+- Comparison: Team matchup (two logos and one shared result), Logo row (three
+  teams with one comparable value each), and Logo stat cards (two teams and
+  one shared metric). National Champions belongs here, not in Year-by-Year:
+  its subjects are distinct teams.
+- Asset Swap: Logo pair, with a title and two graphic slots. Player-alpha
+  requirements do not apply to its logo slots. It is not a player option.
+
+For Logo statement, resolve `quick-stat.logo`. Keep the source neutral. At
+episode build time, supply `teamId` and `teamColors.primary`, `secondary`, and
+`source` from the selected candidate. Use the team's primary and secondary
+brand colors; verify missing colors before building. Run
+`python3 scripts/lineups-templates.py logo-statement-paint <candidate.json>`
+and apply its `backgroundFill` only to the episode background. The command
+rejects missing, invalid, or identical colors. Swap the logo and statement,
+then check the result. Keep the contrast wash, callout, geometry, and native
+motion. Do not add a reusable master for each team or palette.
+
+The Jaguars source `1732:2227` owns the grouped-board type reference: title
+82 px; three-item rows use 48/56/30 px for heading/primary/detail; two-item
+rows use 56/64/36 px. Older logo boards use these sizes in their new masters.
+Original examples and linked legacy sources remain on the asset page. Do not
+edit their episode instances to update the reusable master.
+
+Check these new sources through the registry and obtain Jerami's visual
+approval before adding them to approved episode choices. Registration alone
+does not update the episode enforcement allowlist or waive motion, asset-fit,
+callout, background, and transcript checks. Saved three-person and championship
+cast examples remain in Asset Swap review until alpha and slot checks pass.
 
 Stat breakdown, Simple comparison, Full comparison, year-by-year, and recurring
 boards use the locked no-football Field Night art. The approved image hash is
@@ -177,7 +218,7 @@ set supports it.
 ## alpha player assets
 
 Asset Swap, Simple comparison and Full comparison require real-alpha player
-assets for player compositing. Cinematic 2-up always uses full photos with
+assets for player compositing in Figma. Figma Cinematic 2-up always uses full photos with
 original backgrounds. Both are visible together from the opening frame. Keep
 the established top-left title position. Never use alpha cutouts, Asset Swap
 treatment or a delayed second-photo reveal for Cinematic 2-up. A period-only comparison with no
@@ -311,11 +352,25 @@ the transcript-proven cue. Verify the canonical instance first, then detach the
 episode motion copy because Figma cannot write keyframes to instance sublayers.
 Do not turn that detached copy into another reusable master.
 
+## Lane 4 engine choice
+
+After transcript candidates are selected, **Lane 4 / Comparison / player 2-up** asks
+**Figma or Unreal?** Keep Comparison as the lane, the approved look as the option,
+2-up as the subject setting and Figma/Unreal as a separate engine choice. Use
+`config/lineups/engine-routing.json` and `scripts/lineups-templates.py engine-choice
+MANIFEST`. Save the actual answer with `--engine` and `--answer`; a changed
+transcript, candidate or scene setting invalidates it. No default engine answer.
+
+These Figma asset and source rules apply when Figma is chosen. Unreal uses the
+approved player master in `config/unreal/comparison-template-01.json` with fuller
+cutouts and mask-only removal. The choice does not authorize production Unreal
+handoff or bypass Mark/Manim timing proof. The fixed team routes below take precedence.
+
 ## motion-render ownership
 
-All Lineups motion uses a fixed split of responsibility. Figma owns the
-approved visual source and Figma Motion is the sole visual motion engine. Manim
-is the transcript timing validator only. The active
+The existing Figma production path uses a fixed split of responsibility. Figma
+owns its approved visual source and Figma Motion renders that path. Manim
+is the transcript timing validator only. A Figma production
 manifest must set `motion.engine` to `figma`, `motion.engineVersion` to
 `figma-motion`, and `motion.timingValidator` to `manim`. Validate the cue math
 through `validate_manim_timing_from_manifest()`, then write those cue times into
@@ -373,3 +428,46 @@ equal spacing, text overflow, and setting replacement before promoting the next
 family.
 
 Runtime evidence follows [the Lineups template system](../../../../docs/lineups-template-system.md). Native motion readback must match the approved tracks. Scene generators emit pending plans and never enroll or approve a scene.
+
+## selected team routes
+
+Jerami selected these engine routes on October 21, 2026:
+
+| Lane | Option | Engine | Source |
+| --- | --- | --- | --- |
+| 2 / Quick Stat | Team callout | Figma | `quick-stat.team-callout`, component `1843:1021` |
+| 4 / Comparison | Team matchup, 2 teams | Unreal | `comparison.team-matchup.2` |
+| 4 / Comparison | Logo stat cards, 2 teams | Unreal | `comparison.logo-stat-cards.2` |
+
+These routes do not ask for the engine again. The selected transcript candidate
+and revision must still match. Player 2-up keeps the Figma/Unreal question.
+The two team-logo entries use `config/unreal/team-logo-template.json`; their old
+Figma nodes are preserved for recovery, not used as fallback authoring targets.
+They remain pending native and human review.
+
+Team callout uses the team's primary color for the logo block and name tab,
+white text for the name, and dark copy on white. The body hugs the copy
+with 48 px on each side. The 240 px logo block and full callout sit 36 px from
+the bottom at 1920 × 1080. Keep the clean soft shadow. See
+`config/lineups/team-callout-contract.json`. Human review and episode motion
+proof remain open.
+
+Team stadium plates use dry matte grass. Keep colored light in the stands and
+roofline, with restrained neutral field light. Logos and panels stay editable.
+Entrance cues follow Mark and same-revision Manim. Hold static with no animation
+out; Premiere owns the cut or transition.
+
+### locked paired-logo card style
+
+Rams/Seahawks is the sole card style for both team options. Use angled stripes
+near the team's colors, a large team logo, a thin shiny border and a dark name
+strip. Swap team colors, logo and name; show a record or rank only when needed.
+Browns/Ravens and Chiefs/Chargers use this same style.
+
+Use Three.js to generate one reusable GLB card shell with real geometry and
+standard PBR materials. Team colors are replaceable material inputs. Review
+one native Unreal still against the locked reference before adding logos,
+text, stadium or motion. Unreal owns logo depth, lighting, camera and a smooth
+entrance, then static hold with no animation out. Prototype maps and the shell
+proof are not approved reusable masters.
+The source image and hash are in `config/unreal/team-logo-template.json`.

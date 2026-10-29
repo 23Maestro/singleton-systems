@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram carousel"
+  short_description: "Draft and review carousel content in Codex"
+  default_prompt: "Use $ig-carousel with my own work and voice."

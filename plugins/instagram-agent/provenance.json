@@ -1,0 +1,32 @@
+{
+  "source": "https://github.com/Jakeschincariol/instagram-agent-skill",
+  "commit": "d03c56bb598be770c60b201f94237e5d1a4268a6",
+  "license": "MIT",
+  "scan": {
+    "files": 28,
+    "risk": "low",
+    "skills": 13
+  },
+  "changes": [
+    "Codex entrypoints and private paths",
+    "ScrapeCreators public research",
+    "Draft-only account boundary",
+    "Voice and score limits",
+    "Median-only outlier ranking"
+  ],
+  "upstreamSkills": [
+    "ig-audit",
+    "ig-caption",
+    "ig-carousel",
+    "ig-comment",
+    "ig-dm",
+    "ig-human",
+    "ig-plan",
+    "ig-profile",
+    "ig-reel",
+    "ig-reply",
+    "ig-repurpose",
+    "ig-story",
+    "ig-viral"
+  ]
+}

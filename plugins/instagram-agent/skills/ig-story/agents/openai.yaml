@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram story"
+  short_description: "Draft and review story content in Codex"
+  default_prompt: "Use $ig-story with my own work and voice."

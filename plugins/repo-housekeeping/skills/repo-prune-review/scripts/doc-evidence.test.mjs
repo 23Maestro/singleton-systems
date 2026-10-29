@@ -2,9 +2,11 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { collectEvidence } from "./doc-evidence.mjs";
+import * as evidenceTools from "./doc-evidence.mjs";
 
 function fixture(t) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "prune-evidence-test-"));
@@ -67,4 +69,76 @@ test("rejects outside targets and symlinks that could leave the reviewed reposit
   for (const target of ["../outside/outside.md", "file-link.md", "directory-link/outside.md"]) {
     assert.throws(() => collectEvidence({ repo, targets: [target] }), /outside|permitted/);
   }
+});
+
+test("a saved review becomes stale when its source, caller, or command availability changes", (t) => {
+  const { repo, write } = fixture(t);
+  write("docs/rule.md", "Current rule. npm run verify");
+  write("scripts/reader.mjs", 'readFileSync("docs/rule.md");');
+  write("package.json", JSON.stringify({ scripts: { verify: "echo check" } }));
+  const saved = collectEvidence({ repo, targets: ["docs/rule.md"] });
+  assert.equal(evidenceTools.checkEvidence(saved).status, "current");
+  write("scripts/reader.mjs", 'readFileSync("docs/rule.md");\n// Changed reader behavior.');
+  assert.ok(evidenceTools.checkEvidence(saved).issues.some((issue) => issue.code === "callers-changed"));
+  write("scripts/reader.mjs", 'readFileSync("docs/rule.md");');
+  write("package.json", JSON.stringify({ scripts: {} }));
+  assert.ok(evidenceTools.checkEvidence(saved).issues.some((issue) => issue.code === "commands-changed"));
+  write("docs/rule.md", "New rule.");
+  assert.ok(evidenceTools.checkEvidence(saved).issues.some((issue) => issue.code === "source-changed"));
+});
+
+test("adding or removing a caller invalidates a review even when the document stays unchanged", (t) => {
+  const { repo, write } = fixture(t);
+  write("docs/rule.md", "Current rule.");
+  const saved = collectEvidence({ repo, targets: ["docs/rule.md"] });
+  write("scripts/new-reader.mjs", 'readFileSync("docs/rule.md");');
+  assert.equal(evidenceTools.checkEvidence(saved).status, "needs-review");
+  const withCaller = collectEvidence({ repo, targets: ["docs/rule.md"] });
+  fs.unlinkSync(path.join(repo, "scripts/new-reader.mjs"));
+  assert.ok(evidenceTools.checkEvidence(withCaller).issues.some((issue) => issue.code === "callers-changed"));
+  assert.equal(fs.readFileSync(path.join(repo, "docs/rule.md"), "utf8"), "Current rule.");
+});
+
+test("missing and different installed skills hold the review without modifying either copy", (t) => {
+  const { directory, repo, write } = fixture(t);
+  write("skills/editor/SKILL.md", "Use the approved engine for this scene.");
+  const installedPath = path.join(directory, "installed-skill.md");
+  fs.writeFileSync(installedPath, "Use the approved engine for this scene.");
+  const saved = collectEvidence({ repo, targets: ["skills/editor/SKILL.md"] });
+  saved.mirrors = [{ file: "skills/editor/SKILL.md", installedPath }];
+  assert.equal(evidenceTools.checkEvidence(saved).status, "current");
+  fs.writeFileSync(installedPath, "Always use the old engine.");
+  assert.ok(evidenceTools.checkEvidence(saved).issues.some((issue) => issue.code === "installed-copy-differs"));
+  assert.equal(fs.readFileSync(installedPath, "utf8"), "Always use the old engine.");
+  fs.unlinkSync(installedPath);
+  assert.ok(evidenceTools.checkEvidence(saved).issues.some((issue) => issue.code === "installed-copy-missing"));
+  assert.equal(fs.readFileSync(path.join(repo, "skills/editor/SKILL.md"), "utf8"), "Use the approved engine for this scene.");
+});
+
+test("malformed records and unavailable evidence never count as current", (t) => {
+  const { repo, write } = fixture(t);
+  assert.throws(() => evidenceTools.checkEvidence({}), /saved evidence/);
+  write("docs/rule.md", "Current rule.");
+  const saved = collectEvidence({ repo, targets: ["docs/rule.md"] });
+  assert.throws(() => evidenceTools.checkEvidence({ ...saved, mirrors: [{ file: "unreviewed.md", installedPath: "/tmp/unused" }] }), /reviewed file/);
+  fs.unlinkSync(path.join(repo, "docs/rule.md"));
+  assert.equal(evidenceTools.checkEvidence(saved).status, "needs-review");
+});
+
+test("the check command prints clean JSON and fails for stale input without changing the saved review", (t) => {
+  const { directory, repo, write } = fixture(t);
+  write("docs/rule.md", "Current rule.");
+  const saved = JSON.stringify(collectEvidence({ repo, targets: ["docs/rule.md"] }));
+  const file = path.join(directory, "saved-review.json");
+  fs.writeFileSync(file, saved);
+  const script = fileURLToPath(new URL("./doc-evidence.mjs", import.meta.url));
+  const run = () => spawnSync(process.execPath, [script, "--check", file], { cwd: directory, encoding: "utf8" });
+  const current = run();
+  assert.equal(current.status, 0, current.stderr);
+  assert.equal(JSON.parse(current.stdout).status, "current");
+  write("docs/rule.md", "Changed rule.");
+  const stale = run();
+  assert.equal(stale.status, 1, stale.stderr);
+  assert.equal(JSON.parse(stale.stdout).status, "needs-review");
+  assert.equal(fs.readFileSync(file, "utf8"), saved);
 });

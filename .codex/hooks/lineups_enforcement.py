@@ -468,6 +468,35 @@ def premiere_anchor(manifest):
     mapping = (manifest.get('premiere') or {}).get('timelineMapping')
     if mapping is None:
         return required(manifest, 'timing.verifiedAnchorTimestamp')
+    if mapping.get('provider') == 'approved-whisper-source-placement':
+        # Retain Manim-approved words when Premiere exposes a mismatched cache.
+        # Bind those words to an actual native clip and the identical source bytes.
+        validate_timing_receipt(SOURCE_ROOT, manifest)
+        path = Path(required(mapping, 'readbackPath'))
+        if not path.is_absolute() or sha256_file(path) != required(mapping, 'readbackSha256'):
+            raise EnforcementError('native source placement readback is missing or stale')
+        records = [item for item in response_objects(read_json(path, 'native source placement'))
+                   if item.get('success') is True and item.get('clipId') == mapping.get('sourceClipId')]
+        if len(records) != 1:
+            raise EnforcementError('source mapping requires exactly 1 native clip readback')
+        placement = records[0]
+        source = Path(required(mapping, 'sourceMediaPath'))
+        if (placement.get('sequenceId') != required(manifest, 'premiere.sequenceId')
+                or placement.get('projectItemId') != required(mapping, 'sourceProjectItemId')
+                or placement.get('mediaPath') != str(source) or not source.is_absolute()
+                or sha256_file(source) != required(mapping, 'sourceMediaSha256')
+                or placement.get('speed') != 1):
+            raise EnforcementError('source mapping identity, media hash, sequence or speed differs')
+        anchor = finite_number(required(manifest, 'timing.verifiedAnchorTimestamp'), 'source anchor')
+        source_in = finite_number(placement.get('inPoint'), 'native source In')
+        source_out = finite_number(placement.get('outPoint'), 'native source Out')
+        start = finite_number(placement.get('start'), 'native timeline start')
+        end = finite_number(placement.get('end'), 'native timeline end')
+        if not source_in <= anchor < source_out or not values_match(end - start, source_out - source_in):
+            raise EnforcementError('source anchor is outside the retained edit or timing differs')
+        fps = Fraction(required(manifest, 'motion.frameRate.numerator'), required(manifest, 'motion.frameRate.denominator'))
+        mapped = Fraction(str(start)) + Fraction(str(anchor)) - Fraction(str(source_in))
+        return float(math.floor(mapped * fps + Fraction(1, 2)) / fps)
     path = Path(required(mapping, 'transcriptPath'))
     if not path.is_absolute() or sha256_file(path) != required(mapping, 'transcriptSha256'):
         raise EnforcementError('Premiere timeline transcript is missing or stale')
@@ -519,6 +548,14 @@ def validate_manifest(manifest, require_export=False):
     option = required(manifest, "scene.approvedOption")
     if lane not in APPROVED_OPTIONS or option not in APPROVED_OPTIONS[lane]:
         raise EnforcementError(f"{option!r} is not an approved option for the {lane!r} lane")
+    if lane == 'comparison' and option in {'Team matchup', 'Logo stat cards'}:
+        from tools.lineups_motion.engine_choice import episode_engine_override
+        discovery_path = Path(required(manifest, 'discoveryPath'))
+        if not discovery_path.is_absolute():
+            discovery_path = SOURCE_ROOT / discovery_path
+        route = episode_engine_override(manifest, json.loads(discovery_path.read_text()))
+        if not route or manifest.get('motion', {}).get('engine') != route['engine']:
+            raise EnforcementError('paired-logo Figma authoring requires an explicit episode engine override')
     if lane == 'comparison' and option != 'Cinematic 2-up' and manifest['scene'].get('comparisonKind') not in {'players', 'teams', 'periods'}:
         raise EnforcementError('comparison treatment must declare players, teams or periods before asset requirements')
     for field in ("episodeId", "sceneId", "setting"):
@@ -852,7 +889,7 @@ def load_receipt(root, manifest, directory, stage, previous_stage=None, require_
             raise EnforcementError(f"{stage} receipt does not bind the approved Figma source revision")
         if manifest.get("figma", {}).get("templateBinding"):
             validate_manifest_readback(manifest, evidence.get("calloutReadback") or {})
-            validate_callout(evidence.get("sourceCallout") or {}, source=True)
+            validate_callout(evidence.get("sourceCallout") or {}, source=True, expected_contract_id=manifest["figma"]["templateBinding"].get("contractId"))
         if evidence.get("proofFrames") != required(manifest, "export.motionProof.frames"):
             raise EnforcementError(f"{stage} receipt does not bind the current visible proof frames")
     if previous_stage:
@@ -1181,7 +1218,7 @@ def validate_figma_readback(manifest, tool_response):
     validate_cinematic(manifest, scene_readback)
     if figma.get("templateBinding"):
         validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
-        validate_callout(scene_readback.get("sourceCallout") or {}, source=True)
+        validate_callout(scene_readback.get("sourceCallout") or {}, source=True, expected_contract_id=figma["templateBinding"].get("contractId"))
     if is_data_driven(manifest):
         background = dict(scene_readback.get("background") or {})
         expected_background = figma["background"]
@@ -1334,6 +1371,18 @@ def main():
     event = payload.get("hook_event_name") or ""
     tool_name = str(payload.get("tool_name") or "")
     tool_input = payload.get("tool_input") or {}
+    # A completed multi-engine handoff owns Premiere delivery independently of
+    # the authoring scene. Template sequence IDs are reused across projects.
+    try:
+        from tools.lineups_motion.premiere_delivery import handle as handle_premiere_delivery
+        if handle_premiere_delivery(root, payload):
+            return
+    except Exception as error:
+        if event == "PreToolUse":
+            deny(str(error))
+        elif event == "PostToolUse":
+            post_block(str(error))
+        return
     try:
         canonical_measurement = registered_readback(tool_name, tool_input)
         source_lock = registered_source_locks(tool_name, tool_input)

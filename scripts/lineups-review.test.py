@@ -57,6 +57,77 @@ class ReviewTests(unittest.TestCase):
         excerpt_rows(scenes,words)
         self.assertEqual(scenes[0]['reviewExcerpt'],'Actual')
 
+    def built_fixture(self, root):
+        ep = self.fixture(root)
+        folder = ep / 'storyboard/figma-build/S01'
+        (folder / 'receipts').mkdir(parents=True)
+        original = root / 'render.mp4'; original.write_bytes(b'verified export fixture')
+        preview = root / 'previews'; preview.mkdir()
+        proxy = preview / ('S01-' + sha(original)[:16] + '-review.mp4')
+        proxy.write_bytes(b'small review fixture')
+        proxy.with_suffix('.json').write_text(json.dumps({'sourceSha256':sha(original),'sha256':sha(proxy)}))
+        (folder / 'final-export.json').write_text(json.dumps({'sceneId':'S01','mediaValidation':'passed','sha256':sha(original)}))
+        (folder / 'scene-manifest.json').write_text(json.dumps({
+            'scene':{'sceneId':'S01','episodeId':ep.name},
+            'export':{'path':str(original),'fileSha256':sha(original),'validationStatus':'passed'},
+            'timing':{'verifiedAnchorTimestamp':0,'manimTimingValidated':True,'transcriptPath':str(ep/'transcript/whisper.json')},
+            'figma':{'fileKey':'TEST','rootNodeId':'1:2'},
+            'motion':{'cues':[{'triggerType':'WORD','triggerText':'Short','transcriptTimestamp':0.2,'sceneTime':0.2}]}}))
+        (folder / 'receipts/S01.figma-to-export.receipt.json').write_text(json.dumps({'sceneId':'S01','episodeId':ep.name,'status':'passed'}))
+        meta=json.loads((ep/'review.json').read_text());meta['previewDirectory']=str(preview)
+        (ep/'review.json').write_text(json.dumps(meta))
+        return ep, preview
+
+    def test_empty_post_metadata_recovers_verified_build_and_its_word_cues(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);ep,preview=self.built_fixture(root)
+            with patch('tools.lineups_review.render.verified_preview_directory',return_value=preview):
+                out=render_episode(ep,root/'public')
+            markup=(out/'post-figma.html').read_text()
+            data=json.loads(re.search(r'const reviewData=(.*?);</script>',markup).group(1))
+            scene=data['postScenes'][0]
+            self.assertEqual(scene['id'],'S01')
+            self.assertEqual(scene['cues'][0]['word'],'Short')
+            self.assertEqual(scene['sourceUrl'],'https://www.figma.com/design/TEST/lineups?node-id=1-2')
+            self.assertTrue((out/scene['preview']['image']).exists())
+            self.assertTrue((out/scene['proofUrl']).exists())
+            for name in ['index.html','post-figma.html']:
+                page=(out/name).read_text()
+                self.assertIn('aria-label="Review stage"',page)
+                self.assertIn('assets/context.js',page)
+                self.assertIn('Save my choices',page)
+
+    def test_changed_export_does_not_overwrite_the_existing_review(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);ep,preview=self.built_fixture(root)
+            out=root/'public/another-episode-pre-figma-review';out.mkdir(parents=True)
+            (out/'index.html').write_text('Keep this review')
+            (root/'render.mp4').write_bytes(b'changed media')
+            with patch('tools.lineups_review.render.verified_preview_directory',return_value=preview):
+                with self.assertRaisesRegex(ValueError,'export changed'):render_episode(ep,root/'public')
+            self.assertEqual((out/'index.html').read_text(),'Keep this review')
+
+    def test_recorded_chat_approval_replaces_older_page_choices_without_reusing_browser_state(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);ep=self.fixture(root)
+            out=render_episode(ep,root/'public')
+            def data():return json.loads(re.search(r'const reviewData=(.*?);const reviewerPhotoChoices=',(out/'index.html').read_text()).group(1))
+            old_key=data()['sceneStorageKey']
+            cue_hash=sha(ep/'storyboard/cue-map.json')
+            (ep/'storyboard/reviewer-pre-figma-decisions.json').write_text(json.dumps({'cueMapSha256':cue_hash,'decisions':{'S01':'denied'}}))
+            (ep/'storyboard/primary-flow-approval.json').write_text(json.dumps({'cueMapSha256':cue_hash,'episodeId':'another-episode','stage':'pre-figma','reviewer':'Jerami','status':'approved','approvedSceneIds':['S01']}))
+            render_episode(ep,root/'public')
+            self.assertEqual(data()['initialDecisions'],{'S01':'approved'})
+            self.assertNotEqual(data()['sceneStorageKey'],old_key)
+
+    def test_build_from_a_different_anchor_cannot_enter_post_review(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);ep,preview=self.built_fixture(root)
+            f=ep/'storyboard/figma-build/S01/scene-manifest.json';d=json.loads(f.read_text());d['timing']['verifiedAnchorTimestamp']=99;f.write_text(json.dumps(d))
+            with patch('tools.lineups_review.render.verified_preview_directory',return_value=preview):
+                with self.assertRaisesRegex(ValueError,'does not match scene'):render_episode(ep,root/'public')
+            self.assertFalse((root/'public').exists())
+
     def test_missing_words_fail_closed(self):
         with self.assertRaises(ValueError):excerpt_rows([{'id':'S','anchor':1,'duration':1}],[])
 

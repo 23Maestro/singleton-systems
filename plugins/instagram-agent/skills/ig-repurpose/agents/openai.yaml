@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instagram repurpose"
+  short_description: "Draft and review repurpose content in Codex"
+  default_prompt: "Use $ig-repurpose with my own work and voice."

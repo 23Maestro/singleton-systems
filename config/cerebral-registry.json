@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-09-29-live-skill-path-storage-gate-v1a",
+  "source_revision": "2026-10-27-lineups-editor-v1",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -342,7 +342,10 @@
         "career project",
         "plan today",
         "work date",
-        "goal horizon"
+        "goal horizon",
+        "task management",
+        "taskmanagement",
+        "task lifecycle"
       ],
       "example_prompt": "Add this as an Opportunity HQ task and choose the right page shape.",
       "surface": "task",
@@ -351,7 +354,8 @@
       "intent": "Shape durable project or task work before mutation.",
       "shape": "task",
       "required_tools": [
-        "s-systems:opportunity-hq-updater"
+        "s-systems:opportunity-hq-updater",
+        "s-systems:task-management"
       ],
       "review_gate": "Show task shape before mutation unless directly requested.",
       "priority": 60,
@@ -552,6 +556,28 @@
       "enabled": true
     },
     {
+      "route_key": "unreal-storage",
+      "bucket": "unreal-storage",
+      "trigger_patterns": [
+        "unreal storage",
+        "install.*unreal",
+        "unreal.*(?:install|cache|storage|agent pathway)",
+        "ingest.*graphic packages"
+      ],
+      "example_prompt": "Set up Unreal storage, native agent scripts, and the Epic graphics sample projects.",
+      "surface": "Unreal setup",
+      "lane": "System Maintenance",
+      "owner": "Docs/skills",
+      "intent": "Route Unreal engines, complete projects, caches, and renders by file purpose; use native editor scripts and preserve authored source.",
+      "shape": "operating rule",
+      "required_tools": [
+        "s-systems:unreal-storage"
+      ],
+      "review_gate": "Verify UnrealSSD format and identity, HomeSSD media routing, native editor access, package files, and a short render. Keep current Lineups renderer until the trial passes.",
+      "priority": 76,
+      "enabled": true
+    },
+    {
       "route_key": "video-storage",
       "bucket": "video-storage",
       "trigger_patterns": [
@@ -574,6 +600,27 @@
         "s-systems:video-storage"
       ],
       "review_gate": "Verify the physical HomeSSD UUID, write access, and 50 GiB free-space floor before intake or rendering; never use the internal SSD as fallback; require explicit approval before retiring an existing copy.",
+      "priority": 77,
+      "enabled": true
+    },
+    {
+      "route_key": "lineups-editor",
+      "bucket": "lineups-editor",
+      "trigger_patterns": [
+        "lineups",
+        "catena(?: media)?.{0,40}football"
+      ],
+      "example_prompt": "Prepare the next Lineups episode.",
+      "surface": "client video",
+      "lane": "Content Editor",
+      "owner": "Eagle",
+      "intent": "Prepare Catena Media Lineups episodes with the approved lanes, per-scene engines, source-bound timing and review gates.",
+      "shape": "portfolio",
+      "required_tools": [
+        "s-systems:lineups-editor",
+        "s-systems:eagle"
+      ],
+      "review_gate": "Preserve approved artwork, IDs and motion. Verify current scene timing, engine choice and human review before production handoff.",
       "priority": 77,
       "enabled": true
     },
@@ -608,9 +655,40 @@
       "review_gate": "Record the delivery envelope and name one primary engine per beat before Premiere mutation.",
       "priority": 78,
       "enabled": true
+    },
+    {
+      "route_key": "work-to-content",
+      "bucket": "work-to-content",
+      "trigger_patterns": [
+        "work[- ]to[- ]content",
+        "openscreen",
+        "content capture plan",
+        "(?:record|capture).{0,45}(?:workflow|work session|useful (?:parts|moments))",
+        "(?:turn|repurpos\\w*).{0,45}(?:lineups|catena|client work).{0,45}(?:post|social|proof clip)",
+        "(?:lineups|catena).{0,45}(?:proof (?:clip|post)|social (?:clip|post))"
+      ],
+      "example_prompt": "Turn this Lineups work into one proof clip.",
+      "surface": "content capture",
+      "lane": "Content Editor",
+      "owner": "Asana",
+      "project": "Content Editor",
+      "intent": "Turn real client work into one useful proof clip of Jerami\u2019s editing and workflow systems, then return it for his review.",
+      "shape": "review result",
+      "required_tools": [
+        "work-to-content:work-to-content",
+        "work-to-content:openscreen-demo"
+      ],
+      "review_gate": "Plan by default. Record only the requested take. Keep source work and timestamps bound. Jerami reviews the clip; publishing needs explicit approval of clip, copy and destination.",
+      "priority": 40,
+      "enabled": true
     }
   ],
   "skills": [
+    {
+      "skill_key": "connection-is-magic",
+      "activation": "core",
+      "reason": "Connection Is Magic episode intake, non-AI 4K trials, and approved catalog upscaling."
+    },
     {
       "skill_key": "firecrawl-research",
       "activation": "core",
@@ -640,6 +718,11 @@
       "skill_key": "client-video-storyboard",
       "activation": "core",
       "reason": "Profile-aware video breakdown, Eagle asset matching, storyboard prep, and reviewed Premiere handoff."
+    },
+    {
+      "skill_key": "lineups-editor",
+      "activation": "core",
+      "reason": "Catena Media Lineups lanes, source assets, Figma/Unreal routing, timing and review/delivery gates."
     },
     {
       "skill_key": "codex-rabbit",
@@ -775,6 +858,26 @@
       "skill_key": "wayfinder",
       "activation": "core",
       "reason": "Fuzzy or multi-session build direction."
+    },
+    {
+      "skill_key": "work-to-content",
+      "activation": "core",
+      "reason": "Bind real-work content intent, source evidence and review."
+    },
+    {
+      "skill_key": "openscreen-demo",
+      "activation": "core",
+      "reason": "Capture and edit requested workflow takes for the content plan."
+    },
+    {
+      "skill_key": "unreal-storage",
+      "activation": "core",
+      "reason": "Unreal runtime, project, cache, and native agent setup with source backup rules."
+    },
+    {
+      "skill_key": "task-management",
+      "activation": "core",
+      "reason": "Reviewed task intake, estimates, deadlines and shared startup/closeout."
     }
   ],
   "capabilities": [
@@ -825,6 +928,18 @@
       "verification_command": "ls -l node_modules/.bin/<tool>",
       "evidence": "Package binaries may be repo-local rather than global PATH commands.",
       "source_revision": "2026-07-16"
+    },
+    {
+      "capability_key": "work-to-content-plugin",
+      "capability_type": "plugin",
+      "canonical_name": "work-to-content@singleton-content",
+      "installed": null,
+      "status": "verify-on-use",
+      "path": "plugins/work-to-content",
+      "command": "codex plugin list --json",
+      "verification_command": "codex plugin list --json",
+      "evidence": "The versioned repo source binds content intent and the pinned OpenScreen skill. Verify the installed and enabled cache, app executable and capture tools before use.",
+      "source_revision": "2026-10-17"
     }
   ]
 }

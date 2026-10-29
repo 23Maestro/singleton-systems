@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+
 import { useEffect, useRef, useState } from "react";
 import { Minus, Plus, X } from "@phosphor-icons/react";
 import { DEFAULT_MINUTES, SNAP_MINUTES } from "@/lib/command-center-schedule";
@@ -85,18 +87,18 @@ export default function SchedulePicker({
     >
       <header>
         <strong title={title}>{title}</strong>
-        <button
+        <Button variant="ghost"
           type="button"
           onClick={onClose}
           disabled={locked}
           aria-label="Close"
         >
           <X size={18} />
-        </button>
+        </Button>
       </header>
       <div className="cc-picker-days" role="group" aria-label="Day">
         {days.map((day) => (
-          <button
+          <Button variant="ghost"
             key={day}
             type="button"
             aria-pressed={day === date}
@@ -104,17 +106,17 @@ export default function SchedulePicker({
             onClick={() => setDate(day)}
           >
             {label(day)}
-          </button>
+          </Button>
         ))}
       </div>
       <div className="cc-picker-time" role="group" aria-label="Start time">
-        <button
+        <Button variant="ghost"
           type="button"
           aria-label="15 minutes earlier"
           onClick={() => step(-SNAP_MINUTES)}
         >
           <Minus size={18} />
-        </button>
+        </Button>
         <input
           type="time"
           aria-label="Start time"
@@ -131,17 +133,17 @@ export default function SchedulePicker({
               );
           }}
         />
-        <button
+        <Button variant="ghost"
           type="button"
           aria-label="15 minutes later"
           onClick={() => step(SNAP_MINUTES)}
         >
           <Plus size={18} />
-        </button>
+        </Button>
       </div>
       <div className="cc-picker-durations" role="group" aria-label="Duration">
         {[15, 30, 60, 90, 120].map((minutes) => (
-          <button
+          <Button variant="ghost"
             key={minutes}
             type="button"
             aria-pressed={minutes === duration}
@@ -149,17 +151,17 @@ export default function SchedulePicker({
             onClick={() => setDuration(minutes)}
           >
             {minutes >= 60 ? `${minutes / 60}h` : `${minutes}m`}
-          </button>
+          </Button>
         ))}
       </div>
-      <button
+      <Button variant="ghost"
         type="button"
         className="cc-picker-place"
         disabled={locked}
         onClick={() => void place()}
       >
         {saving ? "Scheduling…" : "Schedule"}
-      </button>
+      </Button>
     </dialog>
   );
 }
