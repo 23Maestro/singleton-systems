@@ -79,7 +79,7 @@ test("a phone or desktop visitor selects each video offer and gets an honest sub
       await video.evaluate((element) => element.pause());
     }
     const portfolio = page.locator("#portfolio");
-    assert.equal(await portfolio.locator("[data-video-sample]:visible").count(), 8);
+    assert.equal(await portfolio.locator("[data-video-sample]:visible").count(), 9);
     assert.equal(await portfolio.locator("iframe").count(), 0, "players load only after a click");
     await portfolio.getByRole("button", { name: "Play NurseHub Course Lesson", exact: true }).click();
     assert.match(await portfolio.locator("iframe").first().getAttribute("src"), /youtube-nocookie.com\/embed\/txnYIYJMs88\?autoplay=1/);

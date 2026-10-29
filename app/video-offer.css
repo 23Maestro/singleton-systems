@@ -32,7 +32,6 @@
 }
 
 .video-offer-page #what-i-fix article {
-  padding: clamp(1.25rem, 2.5vw, 2rem);
   background: white;
 }
 
@@ -47,62 +46,9 @@
   line-height: 1.6;
 }
 
-.video-offer-page [data-workflow-art] {
-  flex: 0 0 auto;
-  height: auto;
-  min-height: 0;
-  margin: 1.5rem 0 0;
-  padding: 1rem;
-  border: 1px solid #e1e5e1;
-  border-radius: 1rem;
-  background: #f4f6f3;
-  box-shadow: none;
-}
-
 .video-offer-page [data-workflow-art] p {
   font-size: 0.9375rem;
   line-height: 1.45;
-}
-
-.video-offer-page [data-workflow-art="intake"] > div:last-child,
-.video-offer-page [data-workflow-art="assets"] > div:last-child {
-  flex: 0 0 auto;
-  margin: 1.25rem 0 0;
-  border: 1px solid #e1e5e1;
-  border-radius: 0.75rem;
-  box-shadow: 0 3px 10px rgb(17 24 18 / 0.025);
-}
-
-.video-offer-page [data-workflow-art="notes"] > div {
-  height: auto;
-  padding: 1rem;
-  border: 1px solid #e1e5e1;
-  border-radius: 0.75rem;
-  box-shadow: 0 3px 10px rgb(17 24 18 / 0.025);
-}
-
-.video-offer-page [data-workflow-art="delivery"] > div {
-  display: grid;
-  gap: 1rem;
-  height: auto;
-}
-
-.video-offer-page [data-workflow-art="delivery"] > div > div {
-  position: relative;
-  inset: auto;
-  height: auto;
-  padding: 1rem;
-  border: 1px solid #e1e5e1;
-  border-radius: 0.75rem;
-  box-shadow: 0 3px 10px rgb(17 24 18 / 0.025);
-}
-
-.video-offer-page [data-workflow-art="delivery"] > div > div:first-child {
-  margin-right: 0.75rem;
-}
-
-.video-offer-page [data-workflow-art="delivery"] > div > div:last-child {
-  margin-left: 0.75rem;
 }
 
 .video-offer-page [data-workflow-art="delivery"] [aria-label^="Step"] {

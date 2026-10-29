@@ -17,7 +17,7 @@ export function videoInquiryUrl(value: VideoOffer) {
 }
 
 export const VIDEO_FAQ = [
-  ["What Do I Get in the Free Test Edit?", "A 30–45-second sample from footage you supply, using your existing branding. One sample per business considering recurring editing. It lets you check the editing style before booking a bundle."],
+  ["What Do I Get in the Free Test Edit?", "A 30-45 second sample from footage you supply, using your existing branding. One sample per business considering recurring editing. It lets you check the editing style before booking a bundle."],
   ["How Do the Bundle Prices Work?", "The 4 + 2 bundle is $1,306: four main videos at $305 each and two shorts at $43 each. The 8 + 4 bundle is $2,396: eight main videos at $278 each and four shorts at $43 each. Basic brand style setup is included."],
   ["How Does Payment Work?", "We confirm the footage, scope and delivery dates first. Pay a 50% deposit to start: $653 for the 4 + 2 bundle or $1,198 for the 8 + 4 bundle. The remaining 50% is due after approval, before final delivery. The test edit is free."],
   ["When Will My Videos Arrive?", "We confirm delivery dates after reviewing your footage and before payment. You can book one bundle or arrange ongoing monthly delivery. Timely footage and one consolidated set of notes per revision round keep that schedule moving."],

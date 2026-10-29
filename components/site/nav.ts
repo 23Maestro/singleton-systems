@@ -3,11 +3,11 @@ export type NavItem = { label: string; href: string };
 export const videoNav: NavItem[] = [
   { label: "Start", href: "#start" },
   { label: "Work", href: "#portfolio" },
-  { label: "How it works", href: "#how-it-starts" },
-  { label: "Your edit", href: "#what-i-fix" },
+  { label: "How It Works", href: "#how-it-starts" },
+  { label: "Your Edit", href: "#what-i-fix" },
   { label: "Pricing", href: "#offers" },
-  { label: "AI consulting", href: "/AI-consultant" },
-  { label: "Free test edit", href: "/video-inquiry?offer=free-test-edit" },
+  { label: "AI Consulting", href: "/AI-consultant" },
+  { label: "Free Test Edit", href: "/video-inquiry?offer=free-test-edit" },
 ];
 
 // AI consulting anchors. Landing pages can point back to the preserved AI site.

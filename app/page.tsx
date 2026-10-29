@@ -504,7 +504,7 @@ export default function Page() {
               Send a recording link and an example of the style you like. I’ll check the footage and confirm a delivery date for your free sample.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
-              You’ll receive a 30–45-second edit using your own footage and branding, so you can see how I handle the pacing and finish before you book.
+              You’ll receive a 30-45 second edit using your own footage and branding, so you can see how I handle the pacing and finish before you book.
             </p>
             <p className="mt-6 max-w-none text-xl leading-relaxed text-neutral-800 sm:text-2xl">
               Like the sample? Choose the bundle that fits your recordings, and we’ll confirm the full scope and delivery dates before payment.

@@ -52,11 +52,15 @@ test("editing proof leads with sports and athlete highlights while preserving th
     const url = `${sample.watch_url}${sample.start_seconds ? `&amp;t=${sample.start_seconds}s` : ""}`;
     assert.ok(portfolio.includes(`href="${url}"`), `direct playback for ${sample.title}`);
   }
-  assert.equal((portfolio.split("<details")[0].match(/data-video-sample=/g) ?? []).length, 8);
+  const visiblePortfolio = portfolio.split("<details")[0];
+  assert.equal((visiblePortfolio.match(/data-video-sample=/g) ?? []).length, 9);
+  assert.ok(visiblePortfolio.includes('data-video-sample="wDASc9Aw38E"'), "Command Canine takes the visible social-ad slot");
+  assert.ok(!visiblePortfolio.includes('data-video-sample="QIDtMWo8VDE"'));
+  assert.equal(portfolio.split("<details")[1].match(/data-video-sample="([^"]+)"/)?.[1], "QIDtMWo8VDE", "Casual Fanatic leads the toggle");
   assert.equal((portfolio.match(/data-video-sample=/g) ?? []).length, 15);
   assert.doesNotMatch(portfolio, /HTtsQg2Mow4|<iframe/);
-  const firstSamples = [...portfolio.matchAll(/data-video-sample="([^"]+)"/g)].slice(0, 3).map((match) => match[1]);
-  assert.deepEqual(firstSamples, ["oI07KwkIIuQ", "TwVFo-mhHXs", "txnYIYJMs88"]);
+  const firstSamples = [...portfolio.matchAll(/data-video-sample="([^"]+)"/g)].slice(0, 4).map((match) => match[1]);
+  assert.deepEqual(firstSamples, ["oI07KwkIIuQ", "NsK_vIA9m30", "txnYIYJMs88", "TwVFo-mhHXs"]);
   for (const id of ["oI07KwkIIuQ", "TwVFo-mhHXs", "NsK_vIA9m30"]) {
     assert.ok(portfolio.includes(`href="https://www.youtube.com/watch?v=${id}"`), "sports samples open their verified YouTube uploads");
   }
