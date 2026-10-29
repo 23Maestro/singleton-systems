@@ -55,9 +55,50 @@ items.
    Delete its branch separately only when merged, patch-equivalent, or explicitly
    retired.
 4. Run the repository's own generated-artifact cleaner before generic cleanup.
-5. Restore npm dependencies with `npm ci`. Keep the lockfile.
+5. Follow the repository's pinned package manager and frozen lockfile. Run
+   diagnostics before reinstalling. With pnpm, use `pnpm install --frozen-lockfile`;
+   keep its store on the checkout's disk so package files can be shared. npm-only
+   projects may use `npm ci` after confirming the install is needed and inactive.
+   Never share a mutable `node_modules` directory between worktrees. Docs-only
+   work needs no install. Do not copy build caches into release folders.
 
 ## Machine Pass
+
+CAD tooling uses HomeSSD. Follow [the CAD route](references/cad-storage.md).
+Use its managed uv update command so an update preserves the CAD launcher.
+
+Whisper is a retained tool, not a cleanup candidate. Keep `ggml-medium.en.bin`
+at `/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/source/whisper-models/`.
+Keep `~/.cache/whisper-models/ggml-medium.en.bin` linked to that file so existing
+transcription commands work. Never delete the model or its link during cache
+cleanup, even when unused or over budget. Removal needs a new request that
+specifically names Whisper. Downloads and replacements must use the verified
+HomeSSD route; never rebuild internally when the drive is absent. The guard
+reports a missing model or changed link without moving or downloading files.
+
+Use the companion guard when free space drops or cleanup must recur. It covers
+the known cache, browser-clone, Codex checkout, model, and app-data locations,
+plus bounded project-cache discovery. It checks Hazel's actual execution health.
+
+```bash
+DEV_STORAGE_SKILL="${CODEX_HOME:-$HOME/.codex}/skills/dev-storage"
+python3 "$DEV_STORAGE_SKILL/scripts/dev_storage.py" --machine
+python3 "$DEV_STORAGE_SKILL/scripts/storage_guard.py" run
+python3 "$DEV_STORAGE_SKILL/scripts/storage_guard.py" health
+```
+
+`run` saves a bounded growth history. It is report-only unless the user has
+approved the explicit `--maintain chrome-clones,uv-prune` rules. Those rules
+require 48 observed idle hours and fresh process/open-file checks. Gaps over
+12 hours reset the grace. No process is killed. uv owns its own pruning; never
+delete its cached environments by hand or use `--force`.
+
+The guard never deletes projects, Git, worktrees, history, media, models, or
+app-managed data. Over-budget locations remain visible with their class. Use
+the existing project classifier for project-cache review. Before making a
+release checkout, reuse a suitable managed Git worktree and shared dependencies;
+avoid full local clones with duplicated Git history. See
+[the guard policy and sources](references/storage-guard.md).
 
 - Run `pnpm store prune` for unreferenced shared pnpm packages.
 - Clean npm or uv caches only when storage recovery is requested; caches are

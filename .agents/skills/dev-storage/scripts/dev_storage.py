@@ -8,7 +8,9 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
+import whisper_storage
 
 
 CANDIDATES = {
@@ -23,11 +25,15 @@ SKIP = {".git", ".hg", ".svn", "_BLOAT_REVIEW"}
 def candidate_paths(root: Path):
     for dirpath, dirnames, _ in os.walk(root, followlinks=False):
         directory = Path(dirpath)
+        if directory.resolve().is_relative_to(whisper_storage.ROOT.resolve()) or directory == Path.home() / '.cache/whisper-models':
+            dirnames[:] = []
+            continue
         depth = len(directory.relative_to(root).parts)
         if depth > 6:
             dirnames[:] = []
             continue
-        matches = [directory / name for name in dirnames if name in CANDIDATES]
+        matches = [directory / name for name in dirnames
+                   if name in CANDIDATES and not whisper_storage.protected(directory / name)]
         dirnames[:] = [name for name in dirnames if name not in CANDIDATES | SKIP]
         yield from matches
 
@@ -62,12 +68,20 @@ def parse_args():
         "--classifier", type=Path, default=Path.home() / ".local/bin/development-veil"
     )
     parser.add_argument("--apply-reviewed", action="store_true")
+    parser.add_argument("--machine", action="store_true", help="Audit known machine-wide storage offenders with the storage guard")
     parser.add_argument("--json", action="store_true", dest="as_json")
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    if args.machine:
+        if args.apply_reviewed:
+            raise SystemExit("Machine cleanup requires the storage guard's explicit maintenance rules.")
+        command = [sys.executable, str(Path(__file__).with_name("storage_guard.py")), "audit"]
+        if args.as_json:
+            command.append("--json")
+        return subprocess.run(command, check=False).returncode
     root = args.root.expanduser().resolve(strict=True)
     classifier = args.classifier.expanduser().resolve(strict=True)
     reviewed = [
@@ -78,6 +92,9 @@ def main() -> int:
     total = sum(item["size_bytes"] for item in reviewed)
 
     if args.apply_reviewed:
+        # Validate the classifier's returned paths before deleting anything.
+        if any(whisper_storage.protected(item['candidate_path']) for item in reviewed):
+            raise SystemExit('Whisper is retained on HomeSSD and excluded from cleanup.')
         for item in reviewed:
             shutil.rmtree(item["candidate_path"])
 

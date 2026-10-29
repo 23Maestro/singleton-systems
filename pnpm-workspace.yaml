@@ -1,4 +1,12 @@
+packages:
+  - .
+
+# pnpm uses APFS clones here and native links on CI filesystems without clones.
+packageImportMethod: auto
+
+# A check or build must not silently install packages while other work is running.
+verifyDepsBeforeRun: warn
+
 allowBuilds:
-  esbuild: set this to true or false
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
+  esbuild: true
+  unrs-resolver: true

@@ -48,6 +48,30 @@ npm test
 
 Husky runs `npm run verify` before every commit.
 
+## dependency setup and storage
+
+Use the pinned pnpm version and `pnpm install --frozen-lockfile` when a task
+needs dependencies. `pnpm-lock.yaml` owns the exact versions. npm remains valid
+for running the scripts above; do not use `npm install` or `npm ci` for setup.
+The pnpm store stays on the same disk as the checkout. Its native import setting
+uses APFS clones here and supports other filesystems in CI. Each checkout keeps
+its own dependency layout while unchanged package files share storage.
+Script runs warn about stale dependencies; they do not silently install them.
+
+Reuse a suitable checkout before creating another. Docs-only work needs no
+dependency install or build. Never link an entire `node_modules` directory to
+another checkout, copy `.next` into a release folder, or make a full repository
+clone for release prep. Keep builds local to the checkout that needs them.
+
+For an existing checkout, inspect its dependency errors and active processes
+before changing its install. Do not replace dependencies in a live session.
+Keep its old tree until the replacement passes checks. Name a missing package
+or lock mismatch before reinstalling; do not use a clean install as a routine
+repair. `npm run check:dependencies` catches undeclared direct imports.
+
+Before retiring a worktree, check its Git state, task owner and live use. Then
+remove only the reviewed checkout or generated paths. Age alone is not approval.
+
 Cerebral contract checks:
 
 ```bash

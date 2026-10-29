@@ -63,7 +63,11 @@ When carrying over approved work, copy only the named files after the worktree e
 After creation:
 
 1. Detect the package manager and project setup from tracked files.
-2. Install dependencies only when required for verification.
+2. Install dependencies only when required for verification. Use the repository's
+   pinned package manager and frozen lockfile. Reuse a native package store on
+   the same disk; do not symlink another checkout's whole `node_modules` tree.
+   Docs-only work needs no install. Diagnose a missing package or version drift
+   before reinstalling an existing tree, and preserve active sessions.
 3. Keep dependency folders ignored; never stage `node_modules`, caches, or generated junk accidentally.
 4. Check tools that store absolute paths. Repoint development registrations or watchers such as Figma plugin manifests after relocation.
 5. Run the repository’s relevant verification commands inside the linked worktree.
