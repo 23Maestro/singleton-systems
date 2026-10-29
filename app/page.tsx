@@ -463,7 +463,7 @@ export default function Page() {
       <Hero
         title="Your Next Episode, Already on Brand"
         pill="Video editing from your footage"
-        body="I turn your footage into finished videos and short cutdowns with a consistent style, so you don’t have to explain the same details every episode."
+        body="I turn your footage into long-form and short-form content with a consistent style, so you don’t have to explain the same details every episode."
         ctaLabel="Try my footage free"
         ctaHref={videoInquiryUrl("free-test-edit")}
       />

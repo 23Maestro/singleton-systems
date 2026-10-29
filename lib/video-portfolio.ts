@@ -1,8 +1,8 @@
 // Public Carrd URLs and start times: docs/offer/2026-10-10-carrd-video-sources.json.
 export type VideoSample = { id: string; title: string; category: string; start: number; embedUrl?: string; poster?: string; watchUrl?: string };
 export const FEATURED_EDITS: VideoSample[] = [
-  { id: "lineups-sports-analysis-reel", title: "Sports Analysis in Motion — Lineups Reel", category: "Client work · Sports editing", start: 0, embedUrl: "https://drive.google.com/file/d/1fxmGeI5fMLMLBYmnuK4hO2Ih-KL9pwo-/preview", poster: "/portfolio/video-offer/lineups-reel-poster.jpg", watchUrl: "https://drive.google.com/file/d/1fxmGeI5fMLMLBYmnuK4hO2Ih-KL9pwo-/view" },
-  { id: "wemby-perimeter-v-paint", title: "Wemby — Perimeter vs. Paint", category: "Test edit · Basketball", start: 0, embedUrl: "https://drive.google.com/file/d/18Yyal3BUlNYu3XqwGMOykMvHmUl07SgH/preview", poster: "/portfolio/video-offer/wemby-test-edit-poster.jpg", watchUrl: "https://drive.google.com/file/d/18Yyal3BUlNYu3XqwGMOykMvHmUl07SgH/view" },
+  { id: "oI07KwkIIuQ", title: "Sports Analysis in Motion — Lineups Reel", category: "Client work · Sports editing", start: 0, poster: "/portfolio/video-offer/lineups-reel-poster.jpg" },
+  { id: "NsK_vIA9m30", title: "Wemby — Perimeter vs. Paint", category: "Test edit · Basketball", start: 0, poster: "/portfolio/video-offer/wemby-test-edit-poster.jpg" },
   { id: "txnYIYJMs88", title: "NurseHub Course Lesson", category: "Course editing", start: 0 },
   { id: "QLSmwi8LyJ8", title: "Rethinking Cheer Practice Lesson", category: "Course editing", start: 0 },
   { id: "OiHYbc1MyqE", title: "Academic Page Walkthrough", category: "Software tutorial", start: 131 },
