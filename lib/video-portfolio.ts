@@ -2,7 +2,7 @@
 export type VideoSample = { id: string; title: string; category: string; start: number; embedUrl?: string; poster?: string; watchUrl?: string };
 export const FEATURED_EDITS: VideoSample[] = [
   { id: "oI07KwkIIuQ", title: "Sports Analysis in Motion — Lineups Reel", category: "Client work · Sports editing", start: 0, poster: "/portfolio/video-offer/lineups-reel-poster.jpg" },
-  { id: "NsK_vIA9m30", title: "Wemby — Perimeter vs. Paint", category: "Test edit · Basketball", start: 0, poster: "/portfolio/video-offer/wemby-test-edit-poster.jpg" },
+  { id: "TwVFo-mhHXs", title: "Athlete Highlight Reels", category: "Demo reel · Athlete highlights", start: 0 },
   { id: "txnYIYJMs88", title: "NurseHub Course Lesson", category: "Course editing", start: 0 },
   { id: "QLSmwi8LyJ8", title: "Rethinking Cheer Practice Lesson", category: "Course editing", start: 0 },
   { id: "OiHYbc1MyqE", title: "Academic Page Walkthrough", category: "Software tutorial", start: 131 },
@@ -11,6 +11,7 @@ export const FEATURED_EDITS: VideoSample[] = [
   { id: "QIDtMWo8VDE", title: "Casual Fanatic Social Ad", category: "Short-form editing", start: 0 },
 ];
 export const MORE_EDITS: VideoSample[] = [
+  { id: "NsK_vIA9m30", title: "Wemby — Perimeter vs. Paint", category: "Test edit · Basketball", start: 0, poster: "/portfolio/video-offer/wemby-test-edit-poster.jpg" },
   { id: "wDASc9Aw38E", title: "Command Canine Test Edit", category: "Test edit", start: 0 },
   { id: "SbHius0Rz0U", title: "NurseHub Course Lesson", category: "Course editing", start: 0 },
   { id: "YZ0jRokso0s", title: "NurseHub Course Lesson", category: "Course editing", start: 0 },

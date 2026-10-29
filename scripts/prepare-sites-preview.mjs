@@ -52,7 +52,7 @@ function collect(directory) {
 collect(path.join(root, ".next/static"));
 
 // New proof media is not on production yet. Ship only this intentional asset set.
-for (const name of ["catena-figma-reel.mp4", "catena-figma-reel-poster.jpg", "jaguars-graphics.mp4", "jaguars-graphics-poster.jpg", "lineups-reel-poster.jpg", "wemby-test-edit-poster.jpg"]) {
+for (const name of ["catena-figma-reel.mp4", "catena-figma-reel-poster.jpg", "lineups-reel-poster.jpg", "wemby-test-edit-poster.jpg"]) {
   const filename = path.join(root, "public/portfolio/video-offer", name);
   const bytes = readFileSync(filename);
   assert.ok(bytes.length <= 25 * 1024 * 1024, "Website media must stay within the delivery asset limit");
@@ -102,7 +102,7 @@ export default {
 mkdirSync(path.join(checkout, "worker"), { recursive: true });
 writeFileSync(path.join(checkout, "worker/index.js"), worker);
 writeFileSync(path.join(checkout, "package.json"), `${JSON.stringify({ private: true, type: "module", scripts: { build: "bash scripts/build.sh && node scripts/validate-artifact.mjs" } }, null, 2)}\n`);
-const starterScripts = "/Users/singleton23/.codex/plugins/cache/openai-curated-remote/sites/1.0.2-remix-a.1/skills/sites/templates/worker-esm-starter/scripts";
+const starterScripts = "/Users/singleton23/.codex/plugins/cache/openai-curated-remote/sites/1.1.2/skills/sites/templates/worker-esm-starter/scripts";
 cpSync(starterScripts, path.join(checkout, "scripts"), { recursive: true });
 delete manifest.static;
 writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

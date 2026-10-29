@@ -4,23 +4,27 @@ export const siteName = "Singleton Systems";
 
 export const founderName = "Jerami Singleton";
 
+export const siteTitle = "Video Editing Services | Jerami Singleton";
+
 export const siteDescription =
-  "Video editing from footage you supply. Try a free test edit, then choose 4 long-form videos + 2 shorts for $1,306 or 8 + 4 for $2,396.";
+  "Video editing for YouTube episodes, courses, tutorials, sports and social clips. Send your footage to Jerami Singleton in Tampa. Try a free test edit.";
 
 export const nicheKeywords = [
   "recurring video editing",
   "Tampa video editor",
   "episode editing service",
-  "Figma video graphics kit",
-  "educational video editing",
-  "YouTube video editing",
+  "course video editing",
+  "software tutorial video editing",
+  "YouTube video editing services",
+  "sports video editing",
+  "short-form video editing",
   "video editing bundles",
 ];
 
 export const serviceName = "Video Editing Bundles";
 
 export const serviceDescription =
-  "Singleton Systems edits organized client footage into branded videos. Choose four long-form videos and two short cutdowns or eight and four. Basic brand style setup and two revision rounds per video with Frame.io feedback are included. Pay 50% to start, with the balance due after approval and before final delivery.";
+  "Singleton Systems edits client footage into YouTube episodes, course lessons, software tutorials, sports videos, webinar highlights and short social clips. Choose four long-form videos and two short cutdowns or eight and four. Basic brand style setup and two revision rounds per video with Frame.io feedback are included. Pay 50% to start, with the balance due after approval and before final delivery.";
 
 export const CAL_LINK = "workflow-chat/15min";
 

@@ -23,7 +23,7 @@ test("a recording team can compare a free sample and two fixed video bundles", (
 
 test("search and sharing describe video editing while AI consulting keeps its own identity", () => {
   const page = readFileSync(".next/server/app/index.html", "utf8");
-  assert.ok(page.includes("<title>Jerami Singleton | Video Editor</title>"), "video editing is the main site's identity");
+  assert.ok(page.includes("<title>Video Editing Services | Jerami Singleton</title>"), "video editing is the main site's identity");
   assert.ok(page.includes('<link rel="canonical" href="https://singleton-systems.com"'), "root keeps its production canonical");
   assert.match(page, /name="description" content="Video editing/);
   const schema = JSON.parse(page.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
@@ -35,12 +35,15 @@ test("search and sharing describe video editing while AI consulting keeps its ow
   const ai = readFileSync(".next/server/app/AI-consultant.html", "utf8");
   assert.ok(ai.includes("<title>Jerami Singleton | AI Workflow Consultant</title>"));
   assert.ok(ai.includes('<link rel="canonical" href="https://singleton-systems.com/AI-consultant"'));
+  const tampa = readFileSync(".next/server/app/tampa-ai-consultant.html", "utf8");
+  assert.match(tampa, /name="twitter:title" content="AI Consultant in Tampa for Small Businesses/);
+  assert.doesNotMatch(tampa, /name="twitter:title" content="Video Editing/);
   const sitemap = readFileSync(".next/server/app/sitemap.xml.body", "utf8");
   assert.ok(sitemap.includes("<loc>https://singleton-systems.com</loc>"));
   assert.ok(sitemap.includes("<loc>https://singleton-systems.com/AI-consultant</loc>"));
 });
 
-test("editing proof leads with sports and preserves the 12 existing samples", () => {
+test("editing proof leads with sports and athlete highlights while preserving the existing samples", () => {
   const html = readFileSync(".next/server/app/index.html", "utf8").replace(/<script\b[\s\S]*?<\/script>/gi, "");
   const portfolio = html.match(/<section id="portfolio"[\s\S]*?<\/section>/)?.[0];
   assert.ok(portfolio, "editing samples have a portfolio section");
@@ -50,14 +53,21 @@ test("editing proof leads with sports and preserves the 12 existing samples", ()
     assert.ok(portfolio.includes(`href="${url}"`), `direct playback for ${sample.title}`);
   }
   assert.equal((portfolio.split("<details")[0].match(/data-video-sample=/g) ?? []).length, 8);
-  assert.equal((portfolio.match(/data-video-sample=/g) ?? []).length, 14);
+  assert.equal((portfolio.match(/data-video-sample=/g) ?? []).length, 15);
   assert.doesNotMatch(portfolio, /HTtsQg2Mow4|<iframe/);
   const firstSamples = [...portfolio.matchAll(/data-video-sample="([^"]+)"/g)].slice(0, 3).map((match) => match[1]);
-  assert.deepEqual(firstSamples, ["oI07KwkIIuQ", "NsK_vIA9m30", "txnYIYJMs88"]);
-  for (const id of ["oI07KwkIIuQ", "NsK_vIA9m30"]) {
+  assert.deepEqual(firstSamples, ["oI07KwkIIuQ", "TwVFo-mhHXs", "txnYIYJMs88"]);
+  for (const id of ["oI07KwkIIuQ", "TwVFo-mhHXs", "NsK_vIA9m30"]) {
     assert.ok(portfolio.includes(`href="https://www.youtube.com/watch?v=${id}"`), "sports samples open their verified YouTube uploads");
   }
   assert.doesNotMatch(portfolio, /drive\.google\.com|Watch on Google Drive/);
   assert.match(portfolio, /Test edit · Basketball/);
+  assert.match(portfolio, /Athlete Highlight Reels/);
+  assert.match(portfolio, /Demo reel · Athlete highlights/);
   assert.match(html, /<section id="reviews"[\s\S]*?HTtsQg2Mow4[\s\S]*?<\/section>/);
+  const graphicsProof = html.match(/<section id="real-problem"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(graphicsProof, "the recurring-style proof stays on the page");
+  assert.match(graphicsProof, /Lineups Figma Graphics/);
+  assert.equal((graphicsProof.match(/<video\b/g) ?? []).length, 1);
+  assert.doesNotMatch(html, /Jaguars Finished Edit|jaguars-graphics\.mp4/);
 });

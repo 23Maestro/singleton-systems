@@ -21,10 +21,13 @@ function pageContent(page) {
     .replace(/<footer\b[\s\S]*?<\/footer>/gi, "");
 }
 
-test("AI consulting page preserves every homepage section and offer", async () => {
+test("AI consulting preserves every section and offer with the approved service copy", async () => {
   const content = pageContent(await html("/AI-consultant"));
   const text = content.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-  assert.equal(text, preserved.text, "the complete pre-pivot reading copy should survive");
+  const expected = preserved.text
+    .replace("Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you.", "I help small business teams automate intake, follow-ups and content prep in the software they already use. We start with one repeated task and test it on real examples.")
+    .replace("Solutions Built With AI", "Workflow Automation From My Own Work");
+  assert.equal(text, expected, "only the approved hero and proof heading should change");
   assert.deepEqual(
     [...content.matchAll(/<section\b[^>]*\bid="([^"]+)"/g)].map((match) => match[1]),
     preserved.sections,

@@ -19,6 +19,7 @@ const NAV: NavItem[] = [
   { label: "What I Fix", href: "#what-i-fix" },
   { label: "Pricing", href: "#offers" },
   { label: "Tampa", href: "/tampa-ai-consultant" },
+  { label: "Video editing", href: "/" },
   { label: "Book", href: "#book" },
 ];
 

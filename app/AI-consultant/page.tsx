@@ -124,7 +124,7 @@ const jsonLd = [
     description: serviceDescription,
     audience: {
       "@type": "Audience",
-      audienceType: "established operators with recurring work",
+      audienceType: "small business teams with recurring work",
     },
   },
   {
@@ -137,7 +137,7 @@ const jsonLd = [
         name: "What does Singleton Systems do?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Singleton Systems helps established operators turn repeated work into clear, reusable AI-assisted workflows.",
+          text: "Singleton Systems helps small business teams turn repeated work into clear, reusable AI-assisted workflows.",
         },
       },
       {
@@ -517,7 +517,7 @@ export default function Page() {
 
       <Hero
         title="Take the Busy Work off Your Team"
-        body="Same steps, same clicks, every week. I build AI into the software you already use so those steps run without you."
+        body="I help small business teams automate intake, follow-ups and content prep in the software they already use. We start with one repeated task and test it on real examples."
         ctaLabel="Book a free call"
         ctaHref={CAL_URL}
       />
@@ -525,7 +525,7 @@ export default function Page() {
       <section className="mx-auto flex w-full max-w-5xl flex-col items-center px-7 pb-14 sm:px-8 sm:pb-18 lg:px-10">
         <ProfileCard />
 
-        <PortfolioVideoCarousel />
+        <PortfolioVideoCarousel heading="Workflow Automation From My Own Work" />
       </section>
 
       <TriedSection />

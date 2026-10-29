@@ -33,6 +33,8 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
+  keywords: ["AI consultant Tampa", "Tampa AI consulting", "workflow automation consultant"],
+  category: "workflow consulting",
   alternates: { canonical: PAGE_PATH },
   openGraph: {
     type: "website",
@@ -41,6 +43,12 @@ export const metadata: Metadata = {
     title: `${TITLE} | ${siteName}`,
     description: DESCRIPTION,
     images: [{ url: "/23-hero.png", width: 1254, height: 1254, alt: founderName }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${TITLE} | ${siteName}`,
+    description: DESCRIPTION,
+    images: ["/23-hero.png"],
   },
 };
 

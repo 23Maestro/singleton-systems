@@ -60,7 +60,8 @@ test("a phone or desktop visitor selects each video offer and gets an honest sub
       await route.fulfill({ status: response.status, headers: Object.fromEntries(response.headers), body: Buffer.from(await response.arrayBuffer()) });
     });
     await page.goto(previewRoot, { waitUntil: "load" });
-    for (const label of ["Lineups Figma Graphics", "Jaguars Finished Edit"]) {
+    assert.equal(await page.getByLabel("Jaguars Finished Edit", { exact: true }).count(), 0);
+    for (const label of ["Lineups Figma Graphics"]) {
       const video = page.getByLabel(label, { exact: true });
       await video.waitFor({ timeout: 3000 });
       assert.equal(await video.getAttribute("controls"), "", "visitors control playback");
@@ -86,7 +87,7 @@ test("a phone or desktop visitor selects each video offer and gets an honest sub
     assert.match(await portfolio.locator('iframe[title="Academic Page Walkthrough"]').getAttribute("src"), /start=131/);
     assert.match(await portfolio.locator('[data-video-sample="OiHYbc1MyqE"] a').getAttribute("href"), /&t=131s$/);
     await portfolio.locator("summary").click();
-    assert.equal(await portfolio.locator("[data-video-sample]:visible").count(), 14);
+    assert.equal(await portfolio.locator("[data-video-sample]:visible").count(), 15);
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `expanded portfolio fits ${width}px`);
     for (const offer of ["free-test-edit", "four-video-bundle", "eight-video-bundle"]) {
       await page.goto(previewRoot, { waitUntil: "load" });

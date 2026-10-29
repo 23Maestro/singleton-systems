@@ -15,14 +15,10 @@ export function VideoRealProblemSection() {
     <h2 id="real-problem-heading" className="text-4xl font-semibold tracking-normal sm:text-5xl">The Next Video Should Already Feel Like Yours</h2>
     <p className="mt-6 text-balance text-xl font-medium leading-relaxed text-neutral-700">I build reusable Figma graphics for Lineups’ sports betting videos so each episode carries the same look. Once we lock in your style, I keep your fonts, colors and titles with the project, ready for your next recording.</p>
   </div>
-    <div className="mx-auto mt-10 grid max-w-5xl gap-6 lg:grid-cols-2">
+    <div className="mx-auto mt-10 max-w-3xl">
       <figure className="overflow-hidden rounded-[1.5rem] border border-neutral-200 bg-white">
         <video className="aspect-video w-full bg-[#1b1b1b]" src="/portfolio/video-offer/catena-figma-reel.mp4" poster="/portfolio/video-offer/catena-figma-reel-poster.jpg" aria-label="Lineups Figma Graphics" controls playsInline muted loop preload="none" />
         <figcaption className="px-6 py-5 text-lg font-semibold">Lineups Figma Graphics</figcaption>
-      </figure>
-      <figure className="overflow-hidden rounded-[1.5rem] border border-neutral-200 bg-white">
-        <video className="aspect-video w-full bg-black" src="/portfolio/video-offer/jaguars-graphics.mp4" poster="/portfolio/video-offer/jaguars-graphics-poster.jpg" aria-label="Jaguars Finished Edit" controls playsInline muted loop preload="none" />
-        <figcaption className="px-6 py-5 text-lg font-semibold">Jaguars Finished Edit</figcaption>
       </figure>
     </div>
   </section>;

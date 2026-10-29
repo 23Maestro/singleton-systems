@@ -2,15 +2,18 @@
 export const aiConsultingPath = "/AI-consultant";
 
 export const siteDescription =
-  "Practical AI workflow consulting for established operators who want to improve one recurring task at a time.";
+  "AI workflow consulting for small businesses. Jerami Singleton helps with intake, follow-ups and content prep in the tools your team already uses.";
 
-export const serviceName = "AI Workflow Consulting for Established Operators";
+export const serviceName = "AI Workflow Consulting for Small Businesses";
 
 export const serviceDescription =
-  "Singleton Systems helps established operators improve one recurring workflow at a time with practical AI-assisted systems for intake, files, review, follow-up, delivery, and repeat work.";
+  "Singleton Systems helps small business teams automate one recurring workflow at a time. Intake, follow-ups, content prep and reporting are built around the tools the team already uses, tested on real examples and handed over with written steps.";
 
 export const nicheKeywords = [
   "AI workflow consultant",
+  "workflow automation consultant",
+  "AI workflow automation",
+  "AI consulting services",
   "video workflow consultant",
   "Premiere Pro workflow systems",
   "Notion workflow dashboards",
