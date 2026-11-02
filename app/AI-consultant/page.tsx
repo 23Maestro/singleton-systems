@@ -166,7 +166,7 @@ const jsonLd = [
     description: "A workflow preview showing how athlete video work moved through lookup, review, follow-up, and delivery without losing status.",
     thumbnailUrl: `${siteUrl}/portfolio-2-ssystems-poster.jpg`,
     contentUrl: `${siteUrl}/portfolio-2-ssystems.mp4`,
-    uploadDate: "2026-07-02",
+    uploadDate: "2026-07-02T03:53:36-04:00",
   },
 ];
 

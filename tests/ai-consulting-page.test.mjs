@@ -65,6 +65,8 @@ test("AI consulting has a self-referencing canonical and sitemap entry", async (
   assert.equal(service["@id"], `${url}#service`, "the AI service should not share the video service identity");
   const webpage = jsonLd.find((entity) => entity["@type"] === "WebPage");
   assert.equal(webpage.url, url, "structured data should describe this AI page");
+  const video = jsonLd.find((entity) => entity["@type"] === "VideoObject");
+  assert.equal(video.uploadDate, "2026-07-02T03:53:36-04:00", "video upload date should include a time and timezone");
   const sitemap = await html("/sitemap.xml");
   assert.ok(sitemap.includes(`<loc>${url}</loc>`), "AI consulting should be discoverable in the sitemap");
 });
