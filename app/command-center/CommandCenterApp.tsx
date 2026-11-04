@@ -302,13 +302,18 @@ export default function CommandCenterApp() {
   const justDragged = useRef(false);
   const wantNow = useRef(true);
   const [now, setNow] = useState(() => new Date());
+  const loadSequence = useRef(0);
+  const craftRefreshing = useRef(false);
+  const [craftBusy, setCraftBusy] = useState(false);
 
   const load = useCallback(async () => {
+    const sequence = ++loadSequence.current;
     const response = await fetch("/api/command-center", { cache: "no-store" });
     const result = await response.json();
     if (!response.ok)
       throw new Error(result.error || "Could not load Command Center.");
     const next = result as Snapshot;
+    if (sequence !== loadSequence.current) return;
     setSnapshot(next);
     setError("");
     setSelectedWork(
@@ -330,6 +335,34 @@ export default function CommandCenterApp() {
         null,
     );
   }, []);
+
+  const refreshCraft = useCallback(async () => {
+    if (craftRefreshing.current) return;
+    craftRefreshing.current = true;
+    setCraftBusy(true);
+    let failure = "";
+    try {
+      const response = await fetch("/api/command-center", {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({action: "craftRefresh"}),
+      });
+      const result = await response.json();
+      if (!response.ok) failure = result.error || "Craft refresh failed. Your saved plans are unchanged.";
+    } catch {
+      failure = "Craft refresh failed. Your saved plans are unchanged. Try Refresh again.";
+    }
+    try { await load(); }
+    catch { failure ||= "Saved work could not be refreshed. Try Refresh again."; }
+    finally {
+      if (failure) setError(failure);
+      craftRefreshing.current = false;
+      setCraftBusy(false);
+    }
+  }, [load]);
+
+  useEffect(() => {
+    if (surface === "inbox") void refreshCraft();
+  }, [surface, refreshCraft]);
 
   useEffect(() => {
     load().catch((cause) =>
@@ -1146,7 +1179,9 @@ export default function CommandCenterApp() {
               className="cc-icon"
               title="Refresh"
               aria-label="Refresh"
-              onClick={() => load().catch((cause) => setError(String(cause)))}
+              disabled={craftBusy || busy}
+              aria-busy={craftBusy}
+              onClick={() => surface === "inbox" ? void refreshCraft() : void load().catch((cause) => setError(String(cause)))}
             >
               <ArrowClockwise size={18} />
             </Button>
@@ -1177,7 +1212,8 @@ export default function CommandCenterApp() {
             {work.filter((item) => item.owner === "dashboard" && item.lane === "Unassigned" && !["Done", "Completed"].includes(item.status) && (!snapshot.plans?.some((plan) => plan.owner === item.owner && plan.owner_id === item.id && plan.period !== "inbox")) && !blocks.some((block) => block.owner === item.owner && block.owner_id === item.id)).map((item) => (
               <div key={`${item.owner}:${item.id}`} className="cc-inbox-row">
                 <Button variant="ghost" size="icon" aria-label={`Complete ${item.title}`} disabled={busy} onClick={() => setWorkState(item, "Done")} className="cc-inbox-check" />
-                <button type="button" aria-label={`Open ${item.title}`} onClick={() => openBlock(item)}>{item.title}</button>
+                <button className="cc-inbox-title" type="button" aria-label={`Open ${item.title}`} onClick={() => openBlock(item)}>{item.title}</button>
+                {item.source?.provider === "craft" && <a className="cc-craft-source" href={item.source.url} aria-label={`Open ${item.title} in Craft`}>Craft{item.dueDate ? ` · ${shortDate(item.dueDate)}` : ""}</a>}
               </div>
             ))}
           </section>

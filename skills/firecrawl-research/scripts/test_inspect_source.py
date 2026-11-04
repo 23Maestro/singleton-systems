@@ -14,6 +14,32 @@ spec.loader.exec_module(module)
 
 
 class InspectionTests(unittest.TestCase):
+    def test_background_keychain_denial_uses_login_session(self):
+        payload = self.payload()
+        with patch.object(module, "load_key", side_effect=module.KeychainSessionError("denied")), \
+             patch.object(module, "fetch_via_login_agent", return_value=payload) as bridge, \
+             patch.object(module, "fetch", side_effect=AssertionError("direct request")):
+            result, transport = module.inspect_url("https://example.com/source")
+        self.assertIs(result, payload)
+        self.assertEqual(transport, "login-session")
+        bridge.assert_called_once_with("https://example.com/source")
+
+    def test_provider_error_does_not_duplicate_a_paid_request(self):
+        with patch.object(module, "load_key", return_value="fc-disposable-test"), \
+             patch.object(module, "fetch", side_effect=module.InspectionError("HTTP 429")), \
+             patch.object(module, "fetch_via_login_agent") as bridge:
+            with self.assertRaisesRegex(module.InspectionError, "429"):
+                module.inspect_url("https://example.com/source")
+        bridge.assert_not_called()
+
+    def test_unsafe_bridge_directory_is_refused(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            root.chmod(0o755)
+            with patch.object(module, "login_agent_root", return_value=root):
+                with self.assertRaisesRegex(module.InspectionError, "unsafe ownership"):
+                    module.fetch_via_login_agent("https://example.com/source")
+
     def test_keychain_interaction_denial_is_not_reported_as_missing(self):
         import subprocess
         result = subprocess.CompletedProcess([], 36, stdout=b'', stderr=b'')
@@ -60,6 +86,14 @@ class InspectionTests(unittest.TestCase):
             self.assertEqual(json.loads(path.read_text())["subject"], "part-01")
             for file in receipt["files"]:
                 self.assertEqual(hashlib.sha256(Path(file["path"]).read_bytes()).hexdigest(), file["sha256"])
+
+    def test_receipt_records_the_credential_path_without_a_key(self):
+        with tempfile.TemporaryDirectory() as folder:
+            args = argparse.Namespace(url="https://example.com/manual", subject="part", purpose="inspect",
+                                      out_dir=folder, expect_text=["LKW"])
+            _, receipt = module.write_receipt(args, self.payload(), transport="login-session")
+            self.assertEqual(receipt["credential_transport"], "login-session")
+            self.assertNotIn("api_key", json.dumps(receipt))
 
     def test_credential_and_private_urls_are_refused(self):
         for url in ["http://example.com/", "https://localhost/", "https://10.0.0.1/a", "https://user:secret@example.com/"]:

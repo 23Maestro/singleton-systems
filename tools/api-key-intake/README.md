@@ -7,6 +7,16 @@ Both capture routes write to `~/Library/Keychains/login.keychain-db`.
 
 The Mac must be online, with Remote Login enabled and the login Keychain unlocked. Authorize the iPhone's Shortcuts SSH public key once. Use a dedicated `authorized_keys` entry with `restrict` and a forced command pointing to the helper's `--stdin` mode. That key should only submit capture requests. Verify the Mac's SSH host fingerprint during the first connection.
 
+## Key use from background sessions
+
+Use a provider-specific login-session helper when a background or SSH request
+cannot read the Keychain. The helper reads the named key, runs the approved
+operation, and returns the result. It never returns the key. Firecrawl follows
+this pattern in `skills/firecrawl-research/scripts/login_agent.py`.
+
+This intake bridge stays write-only. Do not add a generic key-read or shell
+command to it.
+
 The helper accepts runtime JSON through stdin. It returns status and storage metadata, never the value. It passes password bytes to Apple's `security -i` through a private pipe; child output is discarded. New entries trust `/usr/bin/security`, matching the existing CLI workflow. Updating an existing entry does not supply a new access list.
 
 SSH sessions have a separate Keychain security session. Remote requests pass through a private Unix socket to LaunchAgent `com.singleton-systems.api-key-intake`, which runs in the desktop login session. The socket has mode `600` inside the helper's mode `700` directory. The agent has no network listener, stores no request files, and writes no logs. It starts at Mac login.

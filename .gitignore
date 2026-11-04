@@ -114,3 +114,6 @@ supabase/.temp/
 /videos/faithtalk-october-26-all-new-card/.hyperframes/
 /videos/faithtalk-october-26-card/.hyperframes/
 /videos/faithtalk-october-26-monday-card/.hyperframes/
+
+# Local Sites workspaces and generated review previews.
+/sites/

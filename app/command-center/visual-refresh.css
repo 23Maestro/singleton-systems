@@ -311,7 +311,8 @@
 .cc .cc-inbox-capture { display: flex; gap: 12px; align-items: center; min-height: 50px; color: var(--cc-muted); }
 .cc .cc-inbox-capture input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--cc-text); padding: 12px 0; font-size: 17px; }
 .cc .cc-inbox-row { display: flex; gap: 14px; align-items: center; min-height: 56px; }
-.cc .cc-inbox-row > button:last-child { flex: 1; text-align: left; font-size: 17px; font-weight: 550; background: transparent; border: 0; padding: 10px 0; color: var(--cc-text); }
+.cc .cc-inbox-row > .cc-inbox-title { flex: 1; min-width: 0; text-align: left; font-size: 17px; font-weight: 550; background: transparent; border: 0; padding: 10px 0; color: var(--cc-text); overflow-wrap: anywhere; }
+.cc .cc-craft-source { flex-shrink: 0; color: var(--cc-muted); font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
 .cc .cc-inbox-check { width: 23px; height: 23px; min-width: 23px; border: 1.5px solid var(--cc-muted); border-radius: 7px; padding: 0; }
 @media(max-width:680px) { .cc .cc-inbox { padding: 0 22px 110px; } .cc .cc-nav > button span { display: none; } .cc .cc-nav > button svg { width: 24px; height: 24px; } }
 
@@ -350,7 +351,6 @@
 .cc .cc-description-sheet .tiptap ul[data-type="taskList"] > li > label { flex: 0 0 20px; width: 20px; margin: 0; }
 .cc .cc-description-sheet .tiptap ul[data-type="taskList"] > li > div { flex: 1; min-width: 0; }
 .cc[data-surface="inbox"] .cc-header .cc-icon { background: transparent; color: var(--cc-muted); }
-.cc[data-surface="inbox"] .cc-header button[aria-label="Refresh"] { display: none; }
 @media(max-width:680px){ .cc .cc-duration-picker .cc-duration-options { display: none; } }
 
 .cc .cc-description-sheet { bottom: auto; height: 100%; }

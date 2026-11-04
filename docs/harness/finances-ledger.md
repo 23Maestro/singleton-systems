@@ -104,6 +104,32 @@ that uses dates for when money should be available:
 https://everydollar.help.ramseysolutions.com/hc/en-us/articles/360032786691-Getting-Started-with-EveryDollar
 https://everydollar.help.ramseysolutions.com/hc/en-us/articles/11298446782477-Paycheck-Planning-FAQ
 
+## Shortcut entries
+
+`POST /api/finances/entries` saves income and expense entries to the same
+ledger as the page. It needs `FINANCE_LEDGER_ENABLED=true` and a separate
+`FINANCES_SHORTCUT_TOKEN` of at least 32 characters. Send the key in an
+`Authorization: Bearer` header. Keep the key out of source control.
+
+Send JSON with `requestId`, `type`, `name`, `amount`, `date`, and `category`.
+Use `income` or `expense`, a positive dollar amount with at most 2 decimal
+places, and a `YYYY-MM-DD` date. Categories match the Entry page. Income does
+not keep a category. The body limit is 4,096 bytes.
+
+Reuse the same request ID and fields when retrying a save. The API maps that
+ID to the current ledger operation journal. Changed fields with the same ID
+are rejected. Success returns only `status: saved` and the operation ID.
+It does not return the ledger. Existing page routes keep their current access.
+
+Build the Apple Shortcut with `scripts/shortcuts/build_finance_entry.py`.
+Its output must be under the verified HomeSSD references route. Validate and
+sign it with the Shortcuts Playground skill. Set its private key in the Text
+action after release. Each manual run has a new request ID. After a connection
+failure, check the page before starting another run.
+
+Release and a real device save are separate review steps. Local tests use
+test records and do not change live finances.
+
 ## Remove a Plan item
 
 The Plan editor has a Delete checkbox opposite Active. Checking Delete changes

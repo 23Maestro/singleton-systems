@@ -1,4 +1,4 @@
 interface:
   display_name: "Social Content Map"
-  short_description: "Match a real story to a content purpose and format"
-  default_prompt: "Use $social-content-map with my story and the selected post purpose."
+  short_description: "Draft from real work and learn from scoped voice feedback"
+  default_prompt: "Use $social-content-map to draft or revise my post from real work, my voice guide and the selected purpose. Plan the visuals and retain my feedback."

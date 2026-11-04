@@ -6,6 +6,8 @@ import ipaddress
 import json
 import os
 import re
+import socket
+import stat
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -21,6 +23,14 @@ MAX_BYTES = 25 * 1024 * 1024
 
 class InspectionError(ValueError):
     pass
+
+
+class KeychainSessionError(InspectionError):
+    pass
+
+
+def login_agent_root():
+    return Path.home() / "Library/Application Support/Singleton Systems/firecrawl-research"
 
 
 def public_https(value):
@@ -50,7 +60,7 @@ def load_key():
         except (OSError, subprocess.SubprocessError):
             raise InspectionError("Firecrawl credential lookup failed.") from None
         if result.returncode == 36:
-            raise InspectionError("Firecrawl Keychain access was denied (security exit 36: user interaction not allowed). The saved service is com.singleton-systems.api-keys.Firecrawl, account singleton23. Check the GUI login session; do not report this as a missing credential.")
+            raise KeychainSessionError("Firecrawl Keychain access was denied (security exit 36: user interaction not allowed).")
         key = result.stdout.decode("utf-8", errors="replace").strip() if result.returncode == 0 else ""
     if not re.fullmatch(r"fc-[A-Za-z0-9_-]+", key):
         raise InspectionError("No valid existing Firecrawl credential was found.")
@@ -134,7 +144,53 @@ def fetch(url, key):
         raise InspectionError("Firecrawl network request or response decoding failed.") from None
 
 
-def write_receipt(args, payload):
+def fetch_via_login_agent(url):
+    """Use the same Firecrawl endpoint inside the desktop security session."""
+    root = login_agent_root()
+    address = root / "firecrawl.sock"
+    try:
+        for path, kind in ((root, stat.S_ISDIR), (address, stat.S_ISSOCK)):
+            info = path.lstat()
+            if not kind(info.st_mode) or info.st_uid != os.getuid() or info.st_mode & 0o077:
+                raise InspectionError("Firecrawl login helper has unsafe ownership or permissions.")
+        with socket.socket(socket.AF_UNIX, socket.SOCK_STREAM) as connection:
+            connection.settimeout(65)
+            connection.connect(str(address))
+            connection.sendall(json.dumps({"operation": "scrape", "url": public_https(url)}).encode())
+            connection.shutdown(socket.SHUT_WR)
+            chunks = bytearray()
+            while len(chunks) <= MAX_BYTES:
+                part = connection.recv(min(65536, MAX_BYTES + 1 - len(chunks)))
+                if not part:
+                    break
+                chunks.extend(part)
+        if len(chunks) > MAX_BYTES:
+            raise InspectionError("Firecrawl login response exceeded the 25 MiB limit.")
+        response = json.loads(chunks)
+        if not isinstance(response, dict):
+            raise ValueError("Invalid envelope")
+        if response.get("status") != "ok":
+            raise InspectionError("Firecrawl login helper could not complete the request: " +
+                                  str(response.get("message", "unknown error"))[:300])
+        payload = response.get("payload")
+        if not isinstance(payload, dict):
+            raise ValueError("Invalid payload")
+        return payload
+    except InspectionError:
+        raise
+    except (OSError, ValueError):
+        raise InspectionError("Firecrawl login helper is unavailable. Run this skill's scripts/install_login_agent.py, then retry. The saved Keychain item has not been changed.") from None
+
+
+def inspect_url(url):
+    try:
+        key = load_key()
+    except KeychainSessionError:
+        return fetch_via_login_agent(url), "login-session"
+    return fetch(url, key), "direct"
+
+
+def write_receipt(args, payload, transport=None):
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
     url_hash = hashlib.sha256(args.url.encode()).hexdigest()[:12]
     directory = Path(args.out_dir).expanduser().resolve() / f"{stamp}-{url_hash}"
@@ -164,6 +220,8 @@ def write_receipt(args, payload):
                "source_status": metadata.get("statusCode"), "title": metadata.get("title"),
                "expected_text": args.expect_text, "verdict": verdict, "files": files,
                "image_leads": parser.items, "provider": "firecrawl_v2"}
+    if transport is not None:
+        receipt["credential_transport"] = transport
     path = directory / "receipt.json"
     path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
     return path, receipt
@@ -185,9 +243,11 @@ def main(argv=None):
         if args.check:
             print(json.dumps({"status": "inputs_valid", "source_url": args.url, "subject": args.subject}))
             return 0
-        path, receipt = write_receipt(args, fetch(args.url, load_key()))
+        payload, transport = inspect_url(args.url)
+        path, receipt = write_receipt(args, payload, transport=transport)
         print(json.dumps({"receipt": str(path), "subject": args.subject, "verdict": receipt["verdict"],
-                          "source_status": receipt["source_status"], "image_leads": len(receipt["image_leads"])}))
+                          "source_status": receipt["source_status"], "image_leads": len(receipt["image_leads"]),
+                          "transport": transport}))
         return 0 if receipt["verdict"]["status"] == "passed" else 1
     except (InspectionError, OSError, ValueError) as error:
         print(str(error), file=sys.stderr)

@@ -5,6 +5,11 @@ front-facing contract first:
 
 `plugins/s-systems/skills/lineups-editor/references/lineups-treatment-system.md`
 
+Also read the lane and condition checklist before each build or visual handoff:
+`plugins/s-systems/skills/lineups-editor/references/lineups-corrections.md`.
+Resolve the path from the repository root. It carries Jerami's corrections,
+their applicable lanes and conditions, source examples and review limits.
+
 Do not expose Figma implementation terms in Jerami's menus, storyboards, or
 review notes. Use lane, option, and setting there.
 
@@ -29,6 +34,45 @@ loose substitute layers.
 
 ## canvas rules
 
+Jerami's October 29, 2026 corrections apply to new scenes and their Components
+sources. Keep every wash overlay locked so a canvas click reaches the photo or
+text. Cap effective darkening at 20%. Do not stack a second wash.
+The cyan/blue Quick Stat callout is retired. Use the current white Team callout
+source `1843:1021`; do not copy `653:184` or `653:196` into a new episode.
+
+When a source conflicts with an agreed rule, fix the source, verify the repair,
+then build the episode copy. Do not knowingly copy a stale source and repair
+only the episode. Preserve unrelated source properties and Jerami's live edits.
+
+Stat Breakdown uses the live Mahomes example `1976:5088` as its readable type
+baseline: the Inter Bold subject is 40 px; Inter italic support labels are
+36 px, with Bold Italic for labels 1–2 and Semi Bold Italic for label 3. A
+4-point source repeats the label-3 style for label 4. Use 48 px subject line
+height and 44 px label line height, with tight Auto Width bounds. Do not restore
+the former 28 px subject or 26 px labels from an older source. Preserve the
+headline and main-value styles.
+
+Subject framing means placing the visible person within the available photo
+slot. A centered image rectangle does not prove a centered person. Inspect the
+person's head and body against that slot and its neighboring data panel. Keep
+faces clear of type. Preserve Jerami's live crop transforms. The Mahomes photo
+`1976:5089` and Downs photo `1976:4924` record his corrections; their different
+horizontal crops show why a generic center crop fails.
+Preserve available headroom in the initial framing: when the source has space
+above a person's head or helmet, do not crop off its top at the start. This
+applies to full-frame, half-width and stat-panel photo slots. Reposition the
+crop before increasing its scale. Keep the frame covered and preserve Jerami's
+corrected crop as the baseline. Headroom at the end of the inherited push-in
+is not a separate approval requirement.
+
+Center a person's label above their visible head and upper body, not the image
+rectangle or full alpha bounds. Match paired era labels to the same approved
+white title treatment; reuse its outline/shadow on a bright background rather
+than changing one label to black. This does not change dark type on white cards
+or canvas documentation. Kelce `2008:4494` records the corrected example, with
+final review pending. Apply its alignment and text-treatment corrections when
+the same conditions occur; set the copy and positions from the current subjects.
+
 Apply the shared `singleton-figma-system` workspace standard at episode start,
 before the first authorized Figma build. Keep the episode title and actual
 workday label at exactly **300 px**, using simple words and a verified weekday
@@ -36,6 +80,8 @@ and date. Omit the time zone from visible titles and labels; use
 America/New_York only to verify the workday. Keep known month-only dates
 explicit. Arrange episode areas left to right by known work dates on one top baseline, with
 wide, even gaps for a fast Loom pan; start with 6000 canvas px between areas.
+Use at most 6 episode boards across each canvas row, then start another row.
+Read and preserve Jerami's live board moves before placing a new episode.
 This orders episodes, while the lane grid below orders scenes within them.
 Preserve already organized episodes and approved scene typography.
 
@@ -66,8 +112,10 @@ Preserve already organized episodes and approved scene typography.
   not establish visual alignment.
 - Organize every episode in native lane Sections arranged horizontally, with
   aligned top and bottom edges. Keep the canonical lane numbers: 1 Quick Action
-  Photos, 2 Quick Stats, 3 Stat Breakdowns, 4 Comparison, 5 Asset Swap,
-  6 Year-by-Year, and 7 Recurring Boards. Omit unused lanes without renumbering.
+  Photos, 2 Quick Stats, 3 Stat Breakdowns, 4 Comparison, 5 Year-by-Year,
+  6 Asset Swap, and 7 Recurring Boards, matching `config/lineups/engine-routing.json`.
+  Omit unused lanes without renumbering. Preserve existing scene IDs and art;
+  stale live labels do not authorize automatic board moves.
   Name each Section `<number> / <lane>` in simple words. Use a two-column scene grid
   inside lanes with multiple scenes and one column for a single scene. Order
   scenes by transcript time within each lane; Rank Reveal runs 10 through 1.
@@ -118,10 +166,13 @@ Build one source family for each lane:
    subjects and permits empty supporting-stat fields. Simple uses two to four
    subjects or periods and one main value. Full uses subject-count settings of
    two, three, and four.
-5. Asset swap with guarded Field Night art, centered logo, alpha-only
+5. Year-by-year + Value Metrics with existing table and bar layouts. Use for
+   period trends or related metrics supporting one point. The Seattle example
+   `1949:3691` shows points scored, points allowed and KC red-zone trips;
+   this use does not require years or multiple periods. Keep the stable lane
+   key `year-by-year`.
+6. Asset swap with guarded Field Night art, centered logo, alpha-only
    replaceable people, start/end states, and transcript-timed motion copies.
-6. Year-by-year with `Trend table` and `Simple board` layouts and adjustable
-   period count.
 7. Recurring board with `Rank Reveal` and `Super Bowl Bubble` layouts and
    adjustable item count.
 
@@ -279,8 +330,9 @@ For Single-frame statement, build a 6.5-second master and keyframe scale from
 100% on the first frame to 102.5% on the final frame. For Two-photo progression,
 build one 10-second scene with two five-second states. Keep the upper-left topic
 present across both states, reveal the supporting statement on state two, and
-reset the 100% to 102.5% push for each photo. Text and faces must remain inside
-the safe area at 102.5%.
+reset the 100% to 102.5% push for each photo. Keep text inside the safe area.
+Preserve available headroom at the initial frame; the inherited push's final
+frame does not add a separate headroom requirement.
 
 Do not bake the light leak or Blur Dissolve into the Figma render. Premiere owns
 the opening and closing Blur Dissolves and the midpoint light leak. This is the

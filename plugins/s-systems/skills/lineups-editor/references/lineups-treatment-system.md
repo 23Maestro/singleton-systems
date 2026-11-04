@@ -3,6 +3,10 @@
 Read this before mapping a Catena Media Lineups transcript, finding player art,
 building a scene, or touching Premiere.
 
+Read [corrections by lane and condition](lineups-corrections.md) before selecting
+candidates, retrieving a source, authoring or handing off a visual. Apply each
+correction by its lane and condition, using the named scenes as examples.
+
 ## plain language
 
 - **Lane** names the type of visual the transcript needs.
@@ -44,6 +48,20 @@ production handoff gate. No production renderer default changes. Review-only
 copies must remain labeled Unreal; never send them through Figma receipts.
 
 ## episode workspace
+
+Jerami's October 29, 2026 corrections supersede older source styling: lock all
+wash overlays, keep photo darkening at or below 20%, and use the current white
+Team callout `1843:1021`. The blue callout sources `653:184` and `653:196` are
+retired for new episode builds. Stat Breakdown subjects use 40 px Inter Bold;
+support labels use 36 px Inter italic, following the live Mahomes example
+`1976:5088`. The Figma production reference owns the exact role styles and line
+heights. Frame the visible person within the available photo slot and preserve
+Jerami's live crop edits. Centering the image rectangle alone does not pass.
+Keep available headroom in the initial framing so heads and helmets are intact
+when the source allows. Preserve Jerami's adjustments. Headroom at the end of
+the inherited push-in is not a separate approval requirement.
+When a source conflicts with these agreed rules, fix the source, verify it,
+then build the episode copy.
 
 At episode start, use `singleton-figma-system` for the shared Figma structure.
 Use simple episode titles and actual-workday labels at exactly 300 px. Keep
@@ -130,12 +148,15 @@ Mahomes/Purdy and Pacheco/Walker use this same rule.
 Simple and Full player comparisons follow the alpha-player workflow below.
 A period-only comparison with no players needs no player cutouts.
 
-### 5. year-by-year
+### 5. year-by-year + value metrics
 
-Use one subject across three or more seasons or periods. Choose the compact
-trend table when the sequence matters. Choose the simple comparison board when
-one value per period is enough. The Mahomes touchdown trend is the locked trend
-table reference.
+Use for trends over time or related metrics that support one point. Choose the
+compact trend table when the sequence matters, or the existing bar treatment
+for value metrics. The Mahomes touchdown trend is the trend-table reference.
+The [Seattle statement-win scene](https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1949-3691)
+shows the value-metrics use: 20 points scored, 3 points allowed and 0 KC red-zone
+trips. Review both uses during discovery; value metrics do not require years
+or multiple periods. The stable lane key remains `year-by-year`.
 
 ### 6. asset swap
 
@@ -262,7 +283,7 @@ judges editorial reasoning.
 2 subjects and a visual argument       -> cinematic 2-up
 2-4 subjects or periods, one value     -> simple comparison
 2-4 subjects, several shared values    -> full comparison
-1 subject across 3+ periods            -> year-by-year
+period trend or related value metrics  -> year-by-year
 named recurring premise                -> recurring board
 progression that needs movement        -> asset swap
 ```
@@ -319,15 +340,20 @@ TAKEAWAYS WEREN'T ENOUGH`. It must not imply that Arch committed four turnovers.
 
 ## pacing
 
-Preserve the delivered Lineups profile unless new finished-export evidence
-changes it: about 84% Mark, about 16% inserts, a typical five-second insert, 75%
-at eight seconds or less, 90% at twelve seconds or less, and about one insert
-every 41 seconds.
+Use 80–84% Mark as a loose guide, following Jerami's clarification. It is not
+a threshold that blocks a good candidate. Short videos may differ. Review the
+full transcript and gaps for stronger lane choices before trimming the pool.
+Do not reduce 17 candidates to 13 merely to hit a ratio; neither count is a quota.
+The delivered profile remains useful context: a typical five-second insert,
+75% at eight seconds or less, 90% at twelve seconds or less, and about one
+insert every 41 seconds. These observations do not replace editorial judgment.
 
 Photo-led Quick Stat and Stat Breakdown scenes use a full-clip push from 100%
 on the first frame to 102.5% on the final frame. Build the standard single-photo
 master at 6.5 seconds. In a Two-photo Quick Stat, reset the push for each
-five-second photo state. Keep text and faces inside the safe area at 102.5%.
+five-second photo state. Keep text inside the safe area. Preserve available
+headroom at the initial frame; the inherited push's final frame does not add a
+separate headroom requirement.
 Do not apply this global push to Asset Swap, Comparison, or other motion comps.
 
 ## motion engine

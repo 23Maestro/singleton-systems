@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "test": "npm run check:dependencies && npm run check:task-closeout && npm run check:command-center && npm run check:agents && npm run check:drift && npm run check:skills && npm run check:firecrawl:research && npm run check:cerebral && npm run check:cerebral:hook-routing && npm run check:storage-gate && npm run check:storage-guard && npm run check:faithtalk:storage && npm run check:lineups:enforcement && npm run check:745:visual && npm run check:lineups:framing && npm run check:lineups:motion && npm run check:lineups:templates && npm run check:upwork-hourly && npm run check:finances && npm run check:cerebral:registry && npm run check:supabase-cli && npm run check:transactions && npm run check:codex-rabbit && npm run check:plugin-release && npm run check:client-content-editor-prep && npm run check:vercel-storage-cleanup && npm run check:tells && npm run check:brand && npm run check:housekeeping && npm run check:work-to-content && npm run check:unreal-storage",
-    "check:command-center": "node --test tests/command-center-schedule.test.mjs tests/command-center-asana-subtask.test.mjs tests/command-center-task-plans.test.mjs tests/command-center-inbox.test.mjs",
+    "check:command-center": "node --test tests/command-center-schedule.test.mjs tests/command-center-asana-subtask.test.mjs tests/command-center-task-plans.test.mjs tests/command-center-inbox.test.mjs tests/command-center-craft.test.mjs",
     "check:agents": "node scripts/check-agent-guidance.mjs",
     "check:drift": "node scripts/check-opportunity-hq-drift.mjs",
     "check:cerebral": "node scripts/check-cerebral-drift.mjs",
@@ -21,7 +21,7 @@
     "check:lineups:framing": "node scripts/check-lineups-framing.test.mjs && node scripts/check-lineups-framing.mjs",
     "check:lineups:motion": "python3 -m unittest tools.lineups_motion.tests.test_cue_contract tools.lineups_motion.tests.test_native_mapping tools.lineups_unreal.test_stat_readability tools.lineups_unreal.test_stat_layout",
     "check:upwork-hourly": "node scripts/check-upwork-hourly-rubric.mjs",
-    "check:finances": "node scripts/check-finance-cycle.mjs && node scripts/check-finance-ledger.mjs && node scripts/check-ledger-integration.mjs",
+    "check:finances": "node scripts/check-finance-cycle.mjs && node scripts/check-finance-ledger.mjs && node scripts/check-ledger-integration.mjs && node --test tests/finance-shortcut.test.mjs",
     "check:cerebral:registry": "node scripts/check-cerebral-registry.mjs",
     "plugins:sync": "node scripts/sync-s-systems-mirrors.mjs",
     "plugins:sync:apply": "node scripts/sync-s-systems-mirrors.mjs --apply",
@@ -29,7 +29,7 @@
     "skills:sync": "node scripts/sync-html-playground-mirror.mjs",
     "skills:sync:apply": "node scripts/sync-html-playground-mirror.mjs --apply",
     "check:skills": "node scripts/check-skill-packaging.mjs",
-    "check:firecrawl:research": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s .agents/skills/firecrawl-research/scripts -p 'test_*.py'",
+    "check:firecrawl:research": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s skills/firecrawl-research/scripts -p 'test_*.py'",
     "check:skills:installed": "node scripts/check-skill-packaging.mjs --installed",
     "check:plugin-release": "node scripts/check-plugin-release.mjs",
     "check:client-content-editor-prep": "node scripts/check-client-content-editor-prep.mjs",
@@ -109,7 +109,9 @@
     "check:work-to-content": "node scripts/check-work-to-content.mjs",
     "check:unreal-storage": "python3 plugins/s-systems/skills/unreal-storage/scripts/test_unreal_workspace.py && node --test scripts/activate-unreal-storage.test.mjs",
     "check:lineups:skill-routing": "node scripts/check-lineups-skill-routing.mjs",
-    "check:dependencies": "node scripts/check-direct-dependencies.mjs"
+    "check:dependencies": "node scripts/check-direct-dependencies.mjs",
+    "workflow-ledger:generate": "node scripts/workflow-ledger.mjs generate",
+    "check:workflow-ledger": "node --test scripts/workflow-ledger.test.mjs && node scripts/workflow-ledger.mjs check"
   },
   "dependencies": {
     "@annotorious/annotorious": "3.9.4",

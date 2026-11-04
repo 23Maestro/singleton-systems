@@ -128,6 +128,16 @@ Cerebral registry writes go through migrations and seed scripts.
 
 ## cerebral
 
+### Keychain access
+
+Background and SSH requests use a provider-specific login-session helper when
+macOS blocks direct Keychain access. Keep the key inside that helper and return
+the operation result. Do not treat a session denial as a missing key or ask to
+switch providers. Repair the owned helper within the requested scope.
+
+Firecrawl uses `skills/firecrawl-research/scripts/install_login_agent.py`.
+The API key intake helper stays write-only. See `tools/api-key-intake/README.md`.
+
 Cerebral routes natural-language requests to the right owner system:
 
 ```text

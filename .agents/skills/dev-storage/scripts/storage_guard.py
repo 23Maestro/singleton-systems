@@ -23,6 +23,7 @@ import whisper_storage
 GB = 10**9
 GRACE = 48 * 3600
 MAX_GAP = 12 * 3600
+TREND_WINDOW = 48 * 3600
 RULES = {"chrome-clones", "uv-prune"}
 POLICY_VERSION = 1
 STATE = Path.home() / ".local/state/singleton-systems/storage-guard"
@@ -80,6 +81,7 @@ def clone_root():
 def watched_paths(home, chrome):
     entries = [
         ("uv", ".cache/uv", "uv-prune", 8),
+        ("Internal CAD cache", ".cache/cad", "review", 0),
         ("npm downloads", ".npm/_cacache", "review", 3),
         ("npm tools", ".npm/_npx", "review", 5),
         ("pip", "Library/Caches/pip", "review", 2),
@@ -93,6 +95,9 @@ def watched_paths(home, chrome):
         ("Chrome cache", "Library/Caches/Google", "review", 3),
         ("Browser engines", "Library/Caches/ms-playwright", "protected-runtime", 4),
         ("Claude VM", "Library/Application Support/Claude/vm_bundles", "app-managed", 10),
+        ("Frame.io Drive local cache", "Library/Application Support/Frame.io Drive/MountedStorageCache", "app-managed", 2),
+        ("iCloud Intent Keys E02 local media", "Library/Mobile Documents/com~apple~CloudDocs/Jerami Intent Keys/E02", "protected-media", 2),
+        ("iCloud Intent Keys E02 local review export", "Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/intent-keys-e02-review-v05.mp4", "protected-media", 0),
         ("HyperFrames cache and history", ".cache/hyperframes", "protected-media", 5),
         ("Whisper model links (keep)", ".cache/whisper-models", "protected-runtime", 1),
         ("Background removal models", ".rembg", "model-placement-review", 1),
@@ -106,6 +111,7 @@ def watched_paths(home, chrome):
         {"name": "CAD tooling on HomeSSD", "path": str(cad_storage.ROOT), "class": "protected-external-runtime", "budget_bytes": 8*GB},
         {"name": "Chrome signing copies", "path": str(chrome), "class": "chrome-clones", "budget_bytes": 2*GB},
         {"name": "Apple downloaded assets", "path": "/System/Volumes/Data/System/Library/AssetsV2", "class": "system-managed", "budget_bytes": 45*GB},
+        {"name": "macOS swap", "path": "/System/Volumes/VM", "class": "system-managed", "budget_bytes": 4*GB},
     ]
     # Bounded discovery; never descend into dependencies, Git, media, or links.
     roots = [home / "Documents/Development", home / ".codex/worktrees"]
@@ -304,7 +310,7 @@ def hazel_health(home, now):
         return {"healthy": False, "reason": str(error)}
 
 
-def add_trends(report, previous):
+def add_trends(report, previous, history=()):
     old = {x["path"]: x for x in previous.get("items", [])}
     prior_time = previous.get("timestamp", report["timestamp"])
     fresh = 0 < report["timestamp"]-prior_time <= 2*86400
@@ -313,9 +319,14 @@ def add_trends(report, previous):
         item["delta_bytes"] = item["bytes"]-before if fresh and item["bytes"] is not None and before is not None else None
     report["comparison_hours"] = round((report["timestamp"]-prior_time)/3600, 1) if previous else None
     report["free_delta_bytes"] = report["free_bytes"]-previous["free_bytes"] if fresh and "free_bytes" in previous else None
+    recent_free = [run["free_bytes"] for run in history if run["complete"]
+                   and 0 < report["timestamp"] - run["timestamp"] <= TREND_WINDOW]
+    report["free_48h_delta_bytes"] = report["free_bytes"] - max(recent_free) if recent_free else None
     report["alerts"] = []
     if report["free_bytes"] < 60*GB:
         report["alerts"].append("critical: under 30 GB free" if report["free_bytes"] < 30*GB else "warning: under 60 GB free")
+    if (report["free_48h_delta_bytes"] or 0) <= -5*GB:
+        report["alerts"].append("Internal free space fell by 5 GB or more within 48 hours")
     for item in report["items"]:
         if item["status"] == "error":
             report["alerts"].append(f"Scan failed: {item['name']}")
@@ -335,7 +346,7 @@ def add_trends(report, previous):
     return report
 
 
-def audit(home, previous, maintain=()):
+def audit(home, previous, maintain=(), *, history=()):
     now = time.time()
     disk = shutil.disk_usage(home)
     report = {"schema_version": 1, "policy_version": POLICY_VERSION, "timestamp": now,
@@ -369,7 +380,7 @@ def audit(home, previous, maintain=()):
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
         report["error"] = str(error)
     report["complete"] = not report.get("error") and not any(x["status"] == "error" for x in report["items"])
-    return add_trends(report, previous)
+    return add_trends(report, previous, history)
 
 
 def atomic_json(path, value):
@@ -424,6 +435,8 @@ def record(report, directory):
 
 def summary(report):
     print(f"Internal free: {report['free_bytes']/GB:.1f} GB. Scan: {'complete' if report['complete'] else 'INCOMPLETE'}.")
+    if report["free_48h_delta_bytes"] is not None:
+        print(f"Change from the 48-hour high: {report['free_48h_delta_bytes']/GB:+.1f} GB.")
     print("Grace: 48 observed idle hours; a missed 12-hour check resets the grace.")
     print("Maintenance: " + (", ".join(report["maintenance_rules"]) or "report only"))
     for item in sorted(report["items"], key=lambda x: x.get("bytes") or 0, reverse=True)[:18]:
@@ -453,10 +466,12 @@ def main(argv=None):
             return 0 if healthy else 2
         if args.mode == "run":
             with state_lock(STATE):
-                report = audit(Path.home(), load_state(STATE / "latest.json"), rules)
+                history = load_state(STATE / "history.json").get("runs", [])
+                report = audit(Path.home(), load_state(STATE / "latest.json"), rules, history=history)
                 record(report, STATE)
         else:
-            report = audit(Path.home(), load_state(STATE / "latest.json"))
+            history = load_state(STATE / "history.json").get("runs", [])
+            report = audit(Path.home(), load_state(STATE / "latest.json"), history=history)
         print(json.dumps(report)) if args.json else summary(report)
         return 0 if report["complete"] else 2
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:

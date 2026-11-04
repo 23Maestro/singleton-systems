@@ -49,7 +49,7 @@ Test normal HTTP access first. Use Firecrawl for access failure on the known
 source. Use GM for a remaining gap, then outside sources only for that gap.
 Adequate evidence with mismatched CAD requires geometry repair.
 
-Use `.agents/skills/firecrawl-research/SKILL.md` and its LEMON access notes.
+Use `skills/firecrawl-research/SKILL.md` and its LEMON access notes.
 Keep credentials out of commands, logs and handoffs. Route replaceable assets
 through the 3D HomeSSD gate.
 

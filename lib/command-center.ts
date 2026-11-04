@@ -1,6 +1,7 @@
 import { listAsanaWork, listAsanaProjects } from "@/lib/command-center-asana";
 import { supabaseRest } from "@/lib/supabase-rest";
 import { linearGraphql } from "./linear-api";
+import type { CraftSource } from "./command-center-craft";
 export { linearGraphql } from "./linear-api";
 
 export const LANES = [
@@ -58,6 +59,7 @@ export type Draft = {
   body: string;
 };
 export type WorkItem = {
+  source?: CraftSource | null;
   id: string;
   owner: "linear" | "asana" | "notion" | "dashboard";
   title: string;
@@ -660,7 +662,7 @@ export async function completeLinearSubtask(parentId: string, childId: string) {
   };
 }
 
-export type InboxRow = { id: string; title: string; description: string; lane: Lane | null; status: string; parent_id: string | null; project_id: string | null; project_name: string | null; due_date: string | null; updated_at: string };
+export type InboxRow = { id: string; title: string; description: string; lane: Lane | null; status: string; parent_id: string | null; project_id: string | null; project_name: string | null; due_date: string | null; updated_at: string; source?: CraftSource | null };
 export function inboxWork(row: InboxRow, all: InboxRow[] = []): WorkItem {
-  return { id: row.id, owner: "dashboard", title: row.title, description: row.description, lane: row.lane ?? "Unassigned", status: row.status, blocked: false, url: "/dashboard", updatedAt: row.updated_at, parentId: row.parent_id, projectId: row.project_id, projectName: row.project_name, dueDate: row.due_date ?? null, states: ["Todo", "In Progress", "Done"], children: all.filter((child) => child.parent_id === row.id).map((child) => ({id: child.id, title: child.title, status: child.status, updatedAt: child.updated_at, url: "/dashboard"})) };
+  return { source: row.source ?? null, id: row.id, owner: "dashboard", title: row.title, description: row.description, lane: row.lane ?? "Unassigned", status: row.status, blocked: false, url: "/dashboard", updatedAt: row.updated_at, parentId: row.parent_id, projectId: row.project_id, projectName: row.project_name, dueDate: row.due_date ?? null, states: ["Todo", "In Progress", "Done"], children: all.filter((child) => child.parent_id === row.id).map((child) => ({id: child.id, title: child.title, status: child.status, updatedAt: child.updated_at, url: "/dashboard"})) };
 }

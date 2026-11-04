@@ -3,441 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mirage Key Swaps</title>
+  <meta name="description" content="Transfer a shortcut idea into Mirage Host: the keys you press on iPad and the keys your Mac receives.">
+  <title>Shortcut ideas to Mirage Host</title>
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0f1115;
-      --panel: #171b22;
-      --tile: #202632;
-      --line: #333b49;
-      --text: #f6f8fb;
-      --muted: #a9b3c2;
-      --blue: #49a4ff;
-      --green: #4fd184;
-      --yellow: #f4c95d;
-      --red: #ff6f6f;
-      --radius: 8px;
-    }
-
+    :root { color-scheme: light dark; --bg: #faf9f6; --ink: #202521; --muted: #535c55; --line: #d7dcd5; --accent: #236045; }
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      letter-spacing: 0;
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.5 system-ui, sans-serif; }
+    main { max-width: 1040px; margin: auto; padding: 48px 28px; }
+    h1 { margin: 0 0 12px; font-size: clamp(28px, 5vw, 40px); line-height: 1.15; letter-spacing: -.025em; }
+    p { margin: 0 0 22px; max-width: 70ch; }
+    .intro { color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; margin: 28px 0; text-align: left; }
+    th, td { padding: 16px 12px; vertical-align: top; border-bottom: 1px solid var(--line); }
+    thead th { font-size: 15px; color: var(--muted); font-weight: 500; }
+    th:first-child, td:first-child { padding-left: 0; }
+    tbody th { width: 33%; font-weight: 600; }
+    td { width: 33.5%; }
+    small { display: block; margin-top: 4px; color: var(--muted); font-size: 15px; font-weight: 400; }
+    kbd { font: inherit; color: var(--accent); }
+    .note { font-size: 16px; }
+    footer { color: var(--muted); font-size: 14px; }
+    @media (max-width: 620px) {
+      main { padding: 28px 20px; }
+      thead { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+      table, tbody, tr, tbody th, td { display: block; width: 100%; }
+      tr { padding: 16px 0; border-bottom: 1px solid var(--line); }
+      tbody th, td { padding: 3px 0; border: 0; }
+      tbody th { margin-bottom: 8px; }
+      td::before { content: attr(data-label); display: inline-block; min-width: 76px; color: var(--muted); font-size: 15px; }
     }
-
-    button {
-      font: inherit;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    .app {
-      min-height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: end;
-      padding: 18px 22px 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 22px;
-      line-height: 1.1;
-    }
-
-    .sub {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .legend {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 5px 9px;
-      white-space: nowrap;
-    }
-
-    .board {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(230px, 1fr));
-      gap: 14px;
-      padding: 16px;
-      min-width: 0;
-    }
-
-    .lane {
-      min-width: 0;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 10px;
-    }
-
-    .lane-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .card {
-      width: 100%;
-      display: grid;
-      gap: 8px;
-      text-align: left;
-      background: var(--tile);
-      border: 1px solid var(--line);
-      border-left-width: 4px;
-      border-radius: var(--radius);
-      padding: 11px;
-      margin: 0 0 9px;
-    }
-
-    .card:hover,
-    .card:focus-visible {
-      border-color: var(--blue);
-      outline: none;
-    }
-
-    .try { border-left-color: var(--green); }
-    .maybe { border-left-color: var(--yellow); }
-    .skip { border-left-color: var(--red); }
-
-    .name {
-      font-weight: 780;
-      line-height: 1.2;
-      overflow-wrap: anywhere;
-    }
-
-    .swap {
-      color: var(--muted);
-      font-size: 13px;
-      overflow-wrap: anywhere;
-    }
-
-    .rule {
-      color: var(--blue);
-      font-size: 12px;
-      overflow-wrap: anywhere;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: none;
-      background: rgba(9, 11, 15, 0.96);
-      padding: 18px;
-    }
-
-    .modal.open {
-      display: grid;
-      place-items: center;
-    }
-
-    .sheet {
-      width: min(820px, 100%);
-      max-height: calc(100vh - 36px);
-      overflow: auto;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
-
-    .sheet-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: start;
-      margin-bottom: 14px;
-    }
-
-    .sheet h2 {
-      margin: 0;
-      font-size: 25px;
-      line-height: 1.1;
-      overflow-wrap: anywhere;
-    }
-
-    .close {
-      min-width: 42px;
-      min-height: 38px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--tile);
-      font-size: 20px;
-    }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .detail {
-      min-width: 0;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--tile);
-      padding: 12px;
-    }
-
-    .detail strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 13px;
-    }
-
-    .detail p {
-      margin: 0;
-      color: var(--muted);
-      overflow-wrap: anywhere;
-    }
-
-    @media (max-width: 780px) {
-      header {
-        display: grid;
-        align-items: start;
-        padding: 15px;
-      }
-
-      .legend {
-        justify-content: start;
-      }
-
-      .board {
-        grid-template-columns: 1fr;
-        padding: 12px;
-      }
-
-      .detail-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #181d1a; --ink: #f1f4ef; --muted: #adb9af; --line: #39483c; --accent: #a4dfba; }
     }
   </style>
 </head>
 <body>
-  <main class="app">
-    <header>
-      <div>
-        <h1>Mirage Key Swaps</h1>
-        <p class="sub">iPad shortcut to Mac output. Click a card. Esc closes.</p>
-      </div>
-      <div class="legend">
-        <span class="pill">Source = iPad</span>
-        <span class="pill">Target = Mac</span>
-        <span class="pill">Rule = Karabiner name</span>
-      </div>
-    </header>
-    <section class="board" id="board"></section>
+  <main>
+    <h1>Shortcut ideas → Mirage Host</h1>
+    <p class="intro">Pick an action. Set <strong>Source</strong> to the keys you press on iPad. Set <strong>Target</strong> to the keys your Mac needs. Save, then try it.</p>
+    <p class="note"><strong>Hyper</strong> = Control + Option + Shift + Command. Select all 4 modifiers in the Target.</p>
+
+    <table aria-label="Mirage Host shortcut translations">
+      <thead><tr><th scope="col">Action</th><th scope="col">Source · iPad</th><th scope="col">Target · Mac</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Open Raycast<small>Raycast must use Command + Space.</small></th><td data-label="Source"><kbd>Option + Space</kbd></td><td data-label="Target"><kbd>Command + Space</kbd></td></tr>
+        <tr><th scope="row">Switch apps<small>Test your existing Command + Tab remap.</small></th><td data-label="Source"><kbd>Option + Tab</kbd></td><td data-label="Target"><kbd>Command + Tab</kbd></td></tr>
+        <tr><th scope="row">Switch windows<small>Within the same app.</small></th><td data-label="Source"><kbd>Option + `</kbd></td><td data-label="Target"><kbd>Command + `</kbd></td></tr>
+        <tr><th scope="row">Chrome DevTools<small>Focus Chrome. Test this Hyper binding first.</small></th><td data-label="Source"><kbd>Option + X</kbd></td><td data-label="Target"><kbd>Hyper + X</kbd></td></tr>
+        <tr><th scope="row">Finder / Downloads<small>Uses your Finder Hyper rule.</small></th><td data-label="Source"><kbd>Option + F</kbd></td><td data-label="Target"><kbd>Hyper + F</kbd></td></tr>
+        <tr><th scope="row">Move up<small>Uses your UHJK rule. Add each direction separately.</small></th><td data-label="Source"><kbd>Option + U</kbd></td><td data-label="Target"><kbd>Hyper + U</kbd></td></tr>
+        <tr><th scope="row">Move left</th><td data-label="Source"><kbd>Option + H</kbd></td><td data-label="Target"><kbd>Hyper + H</kbd></td></tr>
+        <tr><th scope="row">Move down</th><td data-label="Source"><kbd>Option + J</kbd></td><td data-label="Target"><kbd>Hyper + J</kbd></td></tr>
+        <tr><th scope="row">Move right</th><td data-label="Source"><kbd>Option + K</kbd></td><td data-label="Target"><kbd>Hyper + K</kbd></td></tr>
+        <tr><th scope="row">Mouse mode<small>Test the exit/reset before relying on it.</small></th><td data-label="Source"><kbd>Option + 8</kbd></td><td data-label="Target"><kbd>Hyper + 8</kbd></td></tr>
+      </tbody>
+    </table>
+
+    <p class="note">For a Caps Lock, tap/hold, right-side modifier, or <kbd>d + f</kbd> idea, pick the final action. Give that action a Mac shortcut, then use it as the Target. For KB-X, bind <kbd>Option + D</kbd> to your KB-X launcher shortcut.</p>
+    <p class="note">Hyper rows depend on Mirage input reaching your Karabiner rules. If the Chrome test fails, use the action’s direct Mac shortcut as the Target.</p>
+    <footer>November 1, 2026 · Translated from your supplied board. Bindings still need a test on your Mac.</footer>
   </main>
-
-  <div class="modal" id="modal" aria-hidden="true">
-    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="sheet-top">
-        <h2 id="modal-title"></h2>
-        <button class="close" id="close" type="button" aria-label="Close">x</button>
-      </div>
-      <div class="detail-grid" id="details"></div>
-    </section>
-  </div>
-
-  <script>
-    const lanes = [
-      { id: "try", title: "Try First" },
-      { id: "maybe", title: "Test Once" },
-      { id: "skip", title: "Skip / Substitute" }
-    ];
-
-    const cards = [
-      {
-        lane: "try",
-        name: "Raycast",
-        source: "Option Space",
-        target: "Command Space",
-        rule: "none",
-        note: "You already have this pattern working. Use it as the model."
-      },
-      {
-        lane: "try",
-        name: "App Switcher",
-        source: "Option Tab",
-        target: "Command Tab",
-        rule: "Change Command + Tab to Shift + Tab",
-        note: "If your Karabiner remap catches this badly, swap target to a Keyboard Maestro app switcher chord."
-      },
-      {
-        lane: "try",
-        name: "Chrome DevTools",
-        source: "Option X",
-        target: "Control Option Shift Command X",
-        rule: "Google Chrome: Hyper + X -> Developer Tools",
-        note: "Focus Chrome first. This should hit the real Hyper rule."
-      },
-      {
-        lane: "try",
-        name: "Finder",
-        source: "Option F",
-        target: "Control Option Shift Command F",
-        rule: "Finder: Hyper + F brings Finder to front (or opens Downloads)",
-        note: "Fast portable replacement for Caps Lock + F."
-      },
-      {
-        lane: "try",
-        name: "Home-row Arrows",
-        source: "Option U / H / J / K",
-        target: "Control Option Shift Command U / H / J / K",
-        rule: "Caps Lock + UHJK to arrow keys",
-        note: "Make four Mirage bindings. This preserves the useful part of Hyper navigation."
-      },
-      {
-        lane: "maybe",
-        name: "Mouse Mode",
-        source: "Option 8",
-        target: "Control Option Shift Command 8",
-        rule: "Mouse Mode: ZX toggle, tab speed toggle, movement and target state",
-        note: "Stateful. Pair it with an Escape reset binding before trusting it."
-      },
-      {
-        lane: "maybe",
-        name: "KB-X / DFX",
-        source: "Option D",
-        target: "Open KB-X directly",
-        rule: "Global: KB-X palette launcher (d+f)",
-        note: "The real rule is simultaneous d+f. A single direct launcher is the cleaner iPad substitute."
-      },
-      {
-        lane: "maybe",
-        name: "EventViewer Check",
-        source: "Any Mirage binding",
-        target: "Observe key_down / key_up",
-        rule: "Karabiner EventViewer",
-        note: "One quick verification test. If EventViewer cannot see Mirage, stop trying to route Mirage through Karabiner."
-      },
-      {
-        lane: "skip",
-        name: "Caps Lock Hyper",
-        source: "Caps Lock",
-        target: "Held Control Option Shift Command",
-        rule: "Hyper Key: Caps Lock -> left shift + left option + left command + left control",
-        note: "Do per-action swaps instead. Mirage is better at Option X -> Hyper X than true held Hyper."
-      },
-      {
-        lane: "skip",
-        name: "Tab Hold Control",
-        source: "Hold Tab",
-        target: "Left Control",
-        rule: "Tab key: Tap for Tab, Hold for Left Control",
-        note: "Tap/hold timing belongs to Karabiner. Mirage source-target bindings are too blunt for this."
-      },
-      {
-        lane: "skip",
-        name: "Backslash Hold Option",
-        source: "Hold Backslash",
-        target: "Left Option",
-        rule: "Backslash: Tap for Backslash, Hold for Left Option",
-        note: "Same issue: use explicit downstream shortcuts instead."
-      }
-    ];
-
-    function esc(value) {
-      return String(value).replace(/[&<>"']/g, (char) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      }[char]));
-    }
-
-    function render() {
-      const board = document.getElementById("board");
-      board.innerHTML = lanes.map((lane) => {
-        const laneCards = cards.filter((card) => card.lane === lane.id);
-        return `
-          <section class="lane">
-            <h2 class="lane-title">${esc(lane.title)} <span>${laneCards.length}</span></h2>
-            ${laneCards.map((card) => {
-              const index = cards.indexOf(card);
-              return `
-                <button class="card ${esc(card.lane)}" type="button" data-index="${index}">
-                  <span class="name">${esc(card.name)}</span>
-                  <span class="swap">${esc(card.source)} -> ${esc(card.target)}</span>
-                  <span class="rule">${esc(card.rule)}</span>
-                </button>
-              `;
-            }).join("")}
-          </section>
-        `;
-      }).join("");
-    }
-
-    function openCard(index) {
-      const card = cards[index];
-      document.getElementById("modal-title").textContent = card.name;
-      document.getElementById("details").innerHTML = [
-        ["Mirage Source", card.source],
-        ["Mirage Target", card.target],
-        ["Karabiner Rule", card.rule],
-        ["Decision", card.note]
-      ].map(([label, value]) => `
-        <div class="detail">
-          <strong>${esc(label)}</strong>
-          <p>${esc(value)}</p>
-        </div>
-      `).join("");
-      const modal = document.getElementById("modal");
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      document.getElementById("close").focus();
-    }
-
-    function closeModal() {
-      const modal = document.getElementById("modal");
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-    }
-
-    document.addEventListener("click", (event) => {
-      const card = event.target.closest("[data-index]");
-      if (card) openCard(Number(card.dataset.index));
-      if (event.target.id === "close" || event.target.id === "modal") closeModal();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeModal();
-    });
-
-    render();
-  </script>
 </body>
 </html>

@@ -191,6 +191,24 @@ class StorageGuardTests(unittest.TestCase):
         self.assertTrue(any("Grew" in a for a in report["alerts"]))
         self.assertTrue(any("critical" in a for a in report["alerts"]))
 
+    def test_48_hour_drawdown_notifies_on_entry(self):
+        now = 72*3600
+        history = [
+            {"timestamp": now-49*3600, "free_bytes": 80*guard.GB, "complete": True},
+            {"timestamp": now-36*3600, "free_bytes": 62*guard.GB, "complete": False},
+            {"timestamp": now-30*3600, "free_bytes": 55*guard.GB, "complete": True},
+            {"timestamp": now-6*3600, "free_bytes": 51*guard.GB, "complete": True},
+        ]
+        previous = {**history[-1], "alerts": ["warning: under 60 GB free"]}
+        report = {"timestamp": now, "free_bytes": 49*guard.GB, "hazel": {"healthy": True}, "items": []}
+        guard.add_trends(report, previous, history)
+        self.assertEqual(report["free_delta_bytes"], -2*guard.GB)
+        self.assertEqual(report["free_48h_delta_bytes"], -6*guard.GB)
+        self.assertTrue(report["notify"])
+        next_report = {**report, "timestamp": now+6*3600}
+        guard.add_trends(next_report, report, history)
+        self.assertFalse(next_report["notify"])
+
     def test_whisper_link_destination_and_parent_deletions_are_blocked(self):
         external = self.root / 'external-whisper'
         external.mkdir()

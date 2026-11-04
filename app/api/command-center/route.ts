@@ -18,6 +18,7 @@ import {
   updateNotionStatus,
 } from "@/lib/command-center";
 import { supabaseRest } from "@/lib/supabase-rest";
+import { refreshCraftInbox, setCraftCompletion } from "@/lib/command-center-craft";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -50,6 +51,7 @@ const contactFields = z.object({
   source_url: z.url().startsWith("https://").nullable(),
 });
 const actionSchema = z.discriminatedUnion("action", [
+  z.object({action: z.literal("craftRefresh")}),
   z.object({action: z.literal("inboxUpdate"), id: z.uuid(), expectedUpdatedAt: z.iso.datetime({offset: true}), children: z.array(z.object({id:z.uuid(),title:z.string().trim().min(1).max(80)})).max(30).optional(), task: z.object({title: z.string().trim().min(1).max(255).optional(), description: z.string().max(10000).optional(), lane: lane.nullable().optional(), status: z.enum(["Todo", "In Progress", "Done"]).optional(), project_id: z.string().max(160).nullable().optional(), project_name: z.string().max(160).nullable().optional(), due_date: z.iso.date().nullable().optional()}).refine((task) => Object.keys(task).length > 0)}),
   z.object({action: z.literal("inboxCreate"), id: z.uuid(), title: z.string().trim().min(1).max(255), description: z.string().max(10000).default(""), parentId: z.uuid().optional()}),
   z.object({
@@ -209,7 +211,28 @@ export async function POST(request: Request) {
   try {
     let result: unknown;
     switch (command.action) {
+      case "craftRefresh":
+        result = await refreshCraftInbox();
+        break;
       case "inboxUpdate": {
+        if (command.task.title !== undefined || command.task.due_date !== undefined || command.task.status !== undefined) {
+          const existing = await supabaseRest(`command_center_inbox?id=eq.${command.id}&select=source,status,updated_at`) as InboxRow[];
+          const row = existing[0];
+          const source = row?.source;
+          if (source?.provider === "craft" &&
+            (command.task.title !== undefined && command.task.title !== source.title ||
+             command.task.due_date !== undefined && command.task.due_date !== source.deadlineDate))
+            return Response.json({error: "Edit the source title and deadline in Craft, then Refresh."}, {status: 409, headers});
+          if (source?.provider === "craft" && command.task.status !== undefined &&
+            (command.task.status === "Done" || row.status === "Done")) {
+            const local = ["localhost", "127.0.0.1", "[::1]"].includes(new URL(request.url).hostname);
+            if (!local || process.env.NODE_ENV === "production" || process.env.COMMAND_CENTER_CRAFT_WRITEBACK !== "1")
+              return Response.json({error: "Change completion in Craft, then Refresh."}, {status: 403, headers});
+            if (row.updated_at !== command.expectedUpdatedAt)
+              return Response.json({error: "This task changed. Refresh before changing its status."}, {status: 409, headers});
+            await setCraftCompletion(source, command.task.status === "Done");
+          }
+        }
         const rows = (command.children?.length
           ? await supabaseRest("rpc/command_center_inbox_edit", {method: "POST", body: JSON.stringify({p_id:command.id,p_expected:command.expectedUpdatedAt,p_patch:command.task,p_children:command.children})})
           : await supabaseRest(`command_center_inbox?id=eq.${command.id}&updated_at=eq.${encodeURIComponent(command.expectedUpdatedAt)}&select=*`, {method: "PATCH", headers: {Prefer: "return=representation"}, body: JSON.stringify({...command.task, updated_at: new Date().toISOString()})})) as InboxRow[];

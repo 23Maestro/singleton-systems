@@ -24,6 +24,32 @@ Notion, and Supabase delivery.
 - Receipt: the Supabase record of an integration attempt when that workflow
   needs one.
 
+### Social content
+
+**Content purpose**:
+The value or ask a post is meant to offer its audience. Jab, feint and right
+hook are its boxing labels; an opening hook is a separate choice.
+
+**Story lane**:
+The part of Jerami's story used to frame a post, such as origins or beliefs.
+It is separate from the work Lane and the platform's post format.
+
+**Voice guide**:
+Jerami's stated writing preferences and accepted examples of how he speaks.
+_Avoid_: trained model, creator persona.
+
+**Voice feedback**:
+A specific edit or preference from Jerami, with its source and intended scope.
+A suggested lesson from that feedback remains a candidate until accepted.
+
+**Approved draft**:
+The exact version Jerami has accepted for a stated use. Draft approval is
+separate from permission to publish.
+
+**Illustration**:
+A hypothetical example used to explain a point. It is separate from a claim
+about Jerami's real work.
+
 ## Locked decisions
 
 - The gate owns route, Lane, Bucket resolution, review result, delivery result,

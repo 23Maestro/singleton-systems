@@ -4,6 +4,9 @@ The guard adds machine-wide checks to Hazel's project scan. Run it every
 6 hours. Check actual free space, growth since the last run, and Hazel health.
 Warn below 60 GB free; mark below 30 GB as critical. Flag a location that grows
 by 2 GB between fresh checks. These are review limits, not deletion quotas.
+Flag a drop of at least 5 GB since the last check or from the highest complete
+reading in the past 48 hours. The 48-hour alert stays visible and sends a new
+notification when it first appears.
 
 ## Cleanup rules
 
@@ -37,6 +40,8 @@ Age and size do not permit removal. A new request naming Whisper is required.
 Watch uv, npm, pip, Homebrew, pnpm, Chrome copies, Codex temporary data,
 worktrees and history, browser engines, Claude's VM, HyperFrames, Whisper,
 background-removal and Audio Hijack models, Premiere cache, and Apple assets.
+Report macOS swap, the Frame.io Drive local cache, the internal CAD cache, and
+the local iCloud copies of Intent Keys E02 media and its v05 review export.
 Find project dependencies, build output, scratch copies, and Git data within
 3 directory levels of Development and Codex worktrees.
 

@@ -40,19 +40,28 @@ access, or writes. Each live request creates a new receipt directory.
 
 ## Credentials and outcomes
 
-The helper uses an existing `FIRECRAWL_API_KEY` environment value or the macOS
-Keychain service `com.singleton-systems.api-keys.Firecrawl`, account
-`singleton23`. It keeps the key in process memory. Never put it in arguments,
-logs, receipts, or source files. Do not create new authentication or purchase
-credits without the user's authorization.
+The helper uses an existing `FIRECRAWL_API_KEY` value or the macOS Keychain item
+`com.singleton-systems.api-keys.Firecrawl`, account `singleton23`. If macOS
+blocks a background session with exit 36, the helper sends the same Firecrawl
+request through its private login-session helper. This is the standard recovery
+path. It uses the same provider and saved key. Do not ask to change tools for
+this session error.
 
-If lookup fails, inspect only Keychain metadata to confirm that service and
-account before calling the key missing. `security` exit 36 means macOS denied
-interaction. A shell whose `launchctl managername` is `Background` may lack the
-GUI login session. Check the existing credential workflow before choosing a
-new route or sending the user terminal steps. Do not reveal the key, change
-its access controls, or guess a password. Keep a session access failure distinct
-from a missing key.
+The login helper accepts public-source scrapes and a health check. It returns
+page results, never keys. It has no shell command or arbitrary credential
+operation. The separate API key intake helper stays write-only.
+
+If the login helper is missing or stale, run this skill's installer, then retry:
+
+```sh
+python3 "$FIRECRAWL_SKILL_ROOT/scripts/install_login_agent.py"
+```
+
+Inspect Keychain metadata before calling a saved key missing. Keep session
+access, missing keys, and provider errors distinct. Do not change Keychain
+access controls, create new authentication, or buy credits without approval.
+Keep keys out of arguments, logs, receipts, and files. A provider error does
+not trigger a second paid request through the login helper.
 
 A pass requires provider success, a 2xx source status, nonempty page content,
 and the requested text. A failed or blocked response stays failed in the

@@ -10,6 +10,9 @@ shared intake, full reference review, transcript mapping and a reviewed Premiere
 handoff. Other clients keep their own profiles and tools.
 
 Read the treatment and motion references before transcript mapping or authoring.
+Read `references/lineups-corrections.md` before selection, source retrieval,
+authoring or visual handoff. Apply corrections by lane and condition. Named
+examples do not impose an episode restriction. A passed validator is not visual approval.
 Read `references/lineups-delivery-contract.md` before Premiere import or delivery.
 Keep frame comments, online batches and sending in the shared review engine
 for all clients and Figma/Unreal renders. This skill owns the Lineups review

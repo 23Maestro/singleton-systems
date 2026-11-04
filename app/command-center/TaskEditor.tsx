@@ -405,9 +405,9 @@ export default function TaskEditor({
         >
           <ArrowsOutSimple size={18} />
         </Button>
-        {work && work.owner !== "dashboard" && (
+        {work && (work.owner !== "dashboard" || work.source?.provider === "craft") && (
           <a
-            href={work.url}
+            href={work.source?.url ?? work.url}
             target="_blank"
             rel="noreferrer"
             aria-label="Open source"
@@ -590,6 +590,7 @@ export default function TaskEditor({
                 className={`cc-editor-deadline ${dueDate ? "set" : ""}`}
                 onClick={() => toggle("deadline")}
                 aria-label="Due date"
+                disabled={work?.source?.provider === "craft"}
                 aria-expanded={panel === "deadline"}
                 title={dueDate ? `Due ${dueDate}` : "Due date"}
               >
@@ -641,8 +642,8 @@ export default function TaskEditor({
               maxLength={work ? 255 : 80}
               required
               autoFocus
-              readOnly={!editable}
-              title={!editable ? "Edit in Notion" : undefined}
+              readOnly={!editable || work?.source?.provider === "craft"}
+              title={work?.source?.provider === "craft" ? "Edit title and deadline in Craft" : !editable ? "Edit in Notion" : undefined}
             />
           </div>
           <div className="cc-editor-description-row">

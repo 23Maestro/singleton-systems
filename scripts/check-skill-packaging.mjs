@@ -17,10 +17,14 @@ const housekeepingSkills = fs.readdirSync(housekeepingRoot, { withFileTypes: tru
   .map((entry) => path.join(housekeepingRoot, entry.name));
 const skillRoots = [
   ...housekeepingSkills,
+  ...fs.readdirSync(path.join(root, "plugins", "social-content", "skills"), { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => path.join(root, "plugins", "social-content", "skills", entry.name)),
   ...fs.readdirSync(path.join(root, "plugins", "work-to-content", "skills"), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => path.join(root, "plugins", "work-to-content", "skills", entry.name)),
   path.join(root, "skills", "html-playground"),
+  path.join(root, "skills", "firecrawl-research"),
   ...fs.readdirSync(path.join(root, "plugins", "s-systems", "skills"), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => path.join(root, "plugins", "s-systems", "skills", entry.name)),
@@ -121,6 +125,9 @@ function assertParity(canonical, generated, label) {
 }
 
 for (const skillRoot of skillRoots) checkSkill(skillRoot);
+assert.ok(!fs.existsSync(path.join(repoLocalSkillsRoot, "firecrawl-research", "SKILL.md")),
+  "firecrawl-research: keep the source under skills/ and one personal entry; a repo discovery copy creates a second command");
+checkOwnedScriptCommandPaths(path.join(root, "skills", "firecrawl-research"));
 console.log(`resource paths ok: ${skillRoots.length} canonical skills`);
 for (const skillRoot of repoLocalSkillRoots) checkOwnedScriptCommandPaths(skillRoot);
 for (const skillRoot of housekeepingSkills) checkOwnedScriptCommandPaths(skillRoot);
@@ -133,6 +140,11 @@ if (checkInstalled) {
   assertParity(housekeepingSource, housekeepingCache, `repo-housekeeping installed cache ${housekeepingManifest.version}`);
   const htmlSource = path.join(root, "skills", "html-playground");
   assertParity(htmlSource, path.join(home, ".codex", "skills", "html-playground"), "html-playground global mirror");
+  assertParity(path.join(root, "skills", "firecrawl-research"),
+    path.join(home, ".codex", "skills", "firecrawl-research"), "firecrawl-research personal entry");
+  assert.equal(fs.realpathSync(path.join(home, ".codex", "skills", "firecrawl-research")),
+    fs.realpathSync(path.join(root, "skills", "firecrawl-research")),
+    "firecrawl-research: personal entry must point to the versioned source, not a second copy");
 
   for (const canonical of repoLocalSkillRoots) {
     const installed = path.join(home, ".codex", "skills", path.basename(canonical));

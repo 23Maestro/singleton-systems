@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "name": "Video Workflow Pipeline",
+  "scope": "Selected workflows: Lineups and Intent Keys. Matching component roles use each client’s own sources. Other workflows are not yet indexed.",
+  "repositories": [
+    {
+      "id": "singleton-systems",
+      "name": "Singleton Systems",
+      "root": "..",
+      "browserBase": "https://github.com/23Maestro/singleton-systems/blob/aa7a9447a9d6174a912ad9ec39770b3302ebd065"
+    },
+    {
+      "id": "motion-studio",
+      "name": "Motion Studio",
+      "root": "../../motion-studio"
+    }
+  ],
+  "workflows": [
+    {
+      "id": "lineups",
+      "name": "Lineups",
+      "client": "Catena Media",
+      "summary": "Transcript-led football edits with linked production rules and proof.",
+      "components": [
+        {
+          "id": "playbook",
+          "name": "Skills + contracts",
+          "purpose": "Keep the client rules and approved work steps available in each chat.",
+          "sources": [
+            {
+              "label": "Lineups skill",
+              "repository": "singleton-systems",
+              "path": "plugins/s-systems/skills/lineups-editor/SKILL.md"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Routing tests",
+              "repository": "singleton-systems",
+              "path": "scripts/check-lineups-skill-routing.mjs"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "The source playbook exists. Installed discovery is a separate check."
+          }
+        },
+        {
+          "id": "manifest",
+          "name": "Scene manifest + schema",
+          "purpose": "Give each scene a build sheet with its source, assets, timing and export settings.",
+          "sources": [
+            {
+              "label": "Scene schema",
+              "repository": "singleton-systems",
+              "path": "config/lineups/scene-manifest.schema.json"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Enforcement tests",
+              "repository": "singleton-systems",
+              "path": "scripts/check-lineups-enforcement.mjs"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "Schema found. A filled build sheet is not proof of a finished scene."
+          }
+        },
+        {
+          "id": "words",
+          "name": "Whisper word timestamps",
+          "purpose": "Attach a clock to each spoken word so graphics can follow the right phrase.",
+          "sources": [
+            {
+              "label": "Transcript checks",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/timing_evidence.py"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Cue tests",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/tests/test_cue_contract.py"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "The contract requires word timestamps. A new transcript still needs source review."
+          }
+        },
+        {
+          "id": "timing",
+          "name": "CueContract + Manim",
+          "purpose": "Check that each graphic enters on its spoken cue and uses the right frame rate.",
+          "sources": [
+            {
+              "label": "CueContract",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/cue_contract.py"
+            },
+            {
+              "label": "Manim proof",
+              "repository": "singleton-systems",
+              "path": "scripts/lineups-cue-proof.mjs"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Timing tests",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/tests/test_cue_contract.py"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "This is the Figma production timing path. Manim checks math, not artwork."
+          }
+        },
+        {
+          "id": "templates",
+          "name": "Template registry + source guards",
+          "purpose": "Point to the approved parts and protect the values an episode must keep.",
+          "sources": [
+            {
+              "label": "Template registry",
+              "repository": "singleton-systems",
+              "path": "config/lineups/template-registry.json"
+            },
+            {
+              "label": "Source guards",
+              "repository": "singleton-systems",
+              "path": "config/lineups/source-guards.json"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Template tests",
+              "repository": "singleton-systems",
+              "path": "scripts/check-lineups-templates.mjs"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Rank Reveal source",
+              "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/Lineups?node-id=1277-558"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "Registered sources exist. Each engine keeps its own review state."
+          }
+        },
+        {
+          "id": "hooks",
+          "name": "Enforcement hooks",
+          "purpose": "Stop covered tool actions when required scene or timing proof is missing.",
+          "sources": [
+            {
+              "label": "Lineups hook",
+              "repository": "singleton-systems",
+              "path": ".codex/hooks/lineups_enforcement.py"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Hook tests",
+              "repository": "singleton-systems",
+              "path": "scripts/check-lineups-enforcement.mjs"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "Source found. This page does not prove the hook is active in every app."
+          }
+        },
+        {
+          "id": "discovery",
+          "name": "Discovery ledger",
+          "purpose": "Record which transcript moments were considered across all 7 lanes and why.",
+          "sources": [
+            {
+              "label": "Discovery checks",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/discovery.py"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Discovery tests",
+              "repository": "singleton-systems",
+              "path": "scripts/lineups-discovery.test.mjs"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "The ledger requires coverage evidence. An agent must still review the whole transcript."
+          }
+        },
+        {
+          "id": "regression",
+          "name": "Regression tests",
+          "purpose": "Try known good and bad cases so later changes do not restore old errors.",
+          "sources": [
+            {
+              "label": "Test entry points",
+              "repository": "singleton-systems",
+              "path": "package.json"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Behavior tests",
+              "repository": "singleton-systems",
+              "path": "scripts/check-lineups-enforcement.mjs"
+            },
+            {
+              "label": "Cue tests",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/tests/test_cue_contract.py"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "Test sources found. Their latest run is not claimed by this ledger."
+          }
+        },
+        {
+          "id": "readback",
+          "name": "Readbacks + hashes + receipts",
+          "purpose": "Check the actual file or app result and bind that proof to the version checked.",
+          "sources": [
+            {
+              "label": "Media evidence",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/media_evidence.py"
+            },
+            {
+              "label": "Premiere delivery",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/premiere_delivery.py"
+            }
+          ],
+          "checks": [
+            {
+              "label": "Delivery tests",
+              "repository": "singleton-systems",
+              "path": "tools/lineups_motion/tests/test_premiere_delivery.py"
+            }
+          ],
+          "examples": [
+            {
+              "label": "Week 7 handoff",
+              "repository": "singleton-systems",
+              "path": "docs/handoffs/2026-10-21-week7-figma-review.md"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "Week 7 records export hashes and readback. Its Premiere gate was still open in that record."
+          }
+        },
+        {
+          "id": "corrections",
+          "name": "Correction records",
+          "purpose": "Save your feedback with its lane and condition so the next build can apply it.",
+          "sources": [
+            {
+              "label": "Correction guide",
+              "repository": "singleton-systems",
+              "path": "plugins/s-systems/skills/lineups-editor/references/lineups-corrections.md",
+              "localOnly": true
+            }
+          ],
+          "checks": [],
+          "examples": [
+            {
+              "label": "Edited crop example",
+              "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=1976-5089"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "Current local guide found. No automatic visual-approval check is claimed."
+          }
+        }
+      ]
+    },
+    {
+      "id": "intent-keys",
+      "name": "Intent Keys",
+      "client": "Intent Solutions",
+      "summary": "Max provides screen recordings and a brief. The edit teaches one keyboard lesson.",
+      "components": [
+        {
+          "id": "playbook",
+          "name": "Skills + contracts",
+          "purpose": "Keep client rules and lesson steps with the edit.",
+          "sources": [
+            {
+              "label": "Video workflow skill",
+              "repository": "motion-studio",
+              "path": "skills/video-workflows/SKILL.md",
+              "localOnly": true
+            },
+            {
+              "label": "Intent Keys guide",
+              "repository": "motion-studio",
+              "path": "skills/video-workflows/references/intent-solutions.md",
+              "localOnly": true
+            }
+          ],
+          "checks": [],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "Client instructions and locked style exist locally."
+          }
+        },
+        {
+          "id": "manifest",
+          "name": "Edit plan + source ranges",
+          "purpose": "Record the chosen source ranges and the cut clock.",
+          "sources": [
+            {
+              "label": "E02 Short edit plan",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/edit.json",
+              "localOnly": true
+            },
+            {
+              "label": "E02 cut script",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/make-cut.py",
+              "localOnly": true
+            }
+          ],
+          "checks": [],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "This is one Short’s edit plan. A reusable Intent scene schema is not verified."
+          }
+        },
+        {
+          "id": "words",
+          "name": "Word timestamps",
+          "purpose": "Align the words with the audio from this cut.",
+          "sources": [
+            {
+              "label": "Audio alignment",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/align-captions.py",
+              "localOnly": true
+            },
+            {
+              "label": "Aligned words",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/aligned-words.json",
+              "localOnly": true
+            }
+          ],
+          "checks": [
+            {
+              "label": "Caption timing check",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/test_timing.py",
+              "localOnly": true
+            }
+          ],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "The alignment is tied to this cut’s audio. Listening still matters."
+          }
+        },
+        {
+          "id": "timing",
+          "name": "Caption timing + Manim",
+          "purpose": "Drive the active caption from the aligned word times.",
+          "sources": [
+            {
+              "label": "Manim captions",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/manim_captions.py",
+              "localOnly": true
+            }
+          ],
+          "checks": [
+            {
+              "label": "Rendered word checks",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/test_timing.py",
+              "localOnly": true
+            }
+          ],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "The check samples 4 rendered words. It does not prove every word is correct."
+          }
+        },
+        {
+          "id": "templates",
+          "name": "Style + composition",
+          "purpose": "Keep the client’s caption style and lesson framing.",
+          "sources": [
+            {
+              "label": "Short caption style",
+              "repository": "motion-studio",
+              "path": "styles/intent-keys/short-captions.json",
+              "localOnly": true
+            },
+            {
+              "label": "E02 Short composition",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/build.mjs",
+              "localOnly": true
+            }
+          ],
+          "checks": [],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "The local composition is an episode example. A shared template registry is not verified."
+          }
+        },
+        {
+          "id": "hooks",
+          "name": "Enforcement hooks",
+          "purpose": "Keep required checks from being skipped.",
+          "sources": [],
+          "checks": [],
+          "examples": [],
+          "evidence": {
+            "state": "blocked",
+            "note": "No Intent-specific enforcement hook has been verified."
+          }
+        },
+        {
+          "id": "discovery",
+          "name": "Story selection",
+          "purpose": "Choose a clear lesson from the source transcript.",
+          "sources": [
+            {
+              "label": "E02 edit plan",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/edit.json",
+              "localOnly": true
+            }
+          ],
+          "checks": [],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "The selected Short is recorded. A reusable discovery ledger is not verified."
+          }
+        },
+        {
+          "id": "regression",
+          "name": "Regression tests",
+          "purpose": "Check known timing and output problems.",
+          "sources": [
+            {
+              "label": "Caption timing test",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/test_timing.py",
+              "localOnly": true
+            }
+          ],
+          "checks": [
+            {
+              "label": "Caption timing test",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/test_timing.py",
+              "localOnly": true
+            }
+          ],
+          "examples": [],
+          "evidence": {
+            "state": "documented",
+            "note": "The test covers selected captions and the audio hash. It does not check every edit or cut."
+          }
+        },
+        {
+          "id": "readback",
+          "name": "Readbacks + review",
+          "purpose": "Link the rendered version and separate review from automated checks.",
+          "sources": [],
+          "checks": [],
+          "examples": [
+            {
+              "label": "E02 Short review v07",
+              "url": "https://drive.google.com/file/d/1QslYkjuRe1XS6TPo_WUcMpynZjA8MXoA/view?usp=drivesdk"
+            }
+          ],
+          "evidence": {
+            "state": "documented",
+            "note": "The review link points to the E02 Short. Listening at each join is not recorded as complete."
+          }
+        },
+        {
+          "id": "corrections",
+          "name": "Correction records",
+          "purpose": "Carry client feedback into the next episode.",
+          "sources": [
+            {
+              "label": "E02 cut script",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/make-cut.py",
+              "localOnly": true
+            },
+            {
+              "label": "E02 composition",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/build.mjs",
+              "localOnly": true
+            },
+            {
+              "label": "Caption alignment",
+              "repository": "motion-studio",
+              "path": "comps/intent-keys-e02/short-point-v07/align-captions.py",
+              "localOnly": true
+            }
+          ],
+          "checks": [],
+          "examples": [],
+          "evidence": {
+            "state": "blocked",
+            "note": "These sources show parts of the fixes. A complete version-linked correction ledger is not yet built."
+          }
+        }
+      ]
+    }
+  ]
+}

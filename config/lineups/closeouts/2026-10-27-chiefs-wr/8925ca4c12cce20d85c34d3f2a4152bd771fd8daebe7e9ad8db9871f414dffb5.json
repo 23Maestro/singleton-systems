@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-10-30T18:09:18.121Z",
+  "status": "completed-in-asana",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1220033483213872",
+      "completed": true,
+      "due_at": "2026-10-30T14:00:00.000Z",
+      "due_on": "2026-10-30"
+    },
+    "driveFiles": [
+      {
+        "id": "1yclqXMDB7AQI3NVCHmeqrgnxkBbrxm_K",
+        "name": "2026-10-30_ChiefsWR.mp4",
+        "mimeType": "video/mp4",
+        "parents": [
+          "1YCqTWoK2MsHiW7-CiYpfZ0edzSZppnk-"
+        ],
+        "modifiedTime": "2026-10-30T14:06:02.336Z"
+      }
+    ],
+    "driveMatch": {
+      "url": "https://drive.google.com/file/d/1yclqXMDB7AQI3NVCHmeqrgnxkBbrxm_K/view?usp=drivesdk",
+      "matchEvidence": "Only Chiefs WR final in the exact folder. Subject and October 30 export date match exact task, source 10-27 Chiefs WR and episode production record.",
+      "sourceIntakeVerifiedAt": "2026-10-29T20:46:04.832547+00:00",
+      "proofNote": "Connector omitted trashed; use verified Asana completion for closeout status without inventing missing Drive fields."
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-10-27-chiefs-wr",
+    "asanaTask": "1220033483213872",
+    "dueDate": "2026-10-30",
+    "transcriptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-chiefs-wr/transcript/whisper.json",
+    "discoveryPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-chiefs-wr/storyboard/lane-discovery.json",
+    "cueMapPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-chiefs-wr/storyboard/cue-map.json",
+    "timingProofPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-chiefs-wr/storyboard/cue-proof-receipt.json",
+    "preFigma": {
+      "path": "/Users/singleton23/Documents/Development/singleton-systems/public/decision-maps/2026-10-27-chiefs-wr-pre-figma-review/index.html",
+      "title": "Chiefs Need a Receiver",
+      "candidateCount": 26
+    },
+    "finalExport": {
+      "folderId": "1YCqTWoK2MsHiW7-CiYpfZ0edzSZppnk-",
+      "name": "2026-10-30_ChiefsWR.mp4",
+      "notBefore": "2026-10-29T20:46:04.832547+00:00"
+    }
+  },
+  "activeScene": null
+}

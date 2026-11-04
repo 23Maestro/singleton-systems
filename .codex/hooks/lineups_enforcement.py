@@ -369,6 +369,12 @@ def response_objects(value):
             yield from response_objects(parsed)
 
 
+def approved_focal_position(asset):
+    exception = asset.get("approvedException")
+    return (isinstance(exception, dict) and exception.get("reviewer") == "Jerami"
+            and exception.get("status") == "approved" and bool(exception.get("source")))
+
+
 def validate_focal_asset_readback(manifest, tool_response):
     if required(manifest, "scene.lane") != "asset swap":
         return
@@ -398,10 +404,15 @@ def validate_focal_asset_readback(manifest, tool_response):
         if width <= 0:
             raise EnforcementError(f"{role} opaque bounds must have positive width")
         visible_centers[role] = x + width / 2
+        if approved_focal_position(expected) and not values_match(
+            visible_centers[role], expected["centerX"], ALIGNMENT_TOLERANCE
+        ):
+            raise EnforcementError(f"Figma {role} position differs from Jerami's approved edit")
     if {"left", "center", "right"}.issubset(visible_centers):
         if "logo" not in visible_centers:
             raise EnforcementError("Figma readback is missing the three-subject logo opaque bounds")
-        if not values_match(visible_centers["center"], 960, ALIGNMENT_TOLERANCE) or not values_match(
+        center_asset = next(asset for asset in expected_assets if asset["layoutRole"] == "center")
+        if (not approved_focal_position(center_asset) and not values_match(visible_centers["center"], 960, ALIGNMENT_TOLERANCE)) or not values_match(
             visible_centers["logo"], 960, ALIGNMENT_TOLERANCE
         ):
             raise EnforcementError("Figma opaque bounds do not place the logo and middle subject on the 960 px centerline")
@@ -635,7 +646,8 @@ def validate_manifest(manifest, require_export=False):
         for role in ("left", "center", "right"):
             if layout_kinds[role] != "photo":
                 raise EnforcementError(f"three-subject {role} role must use kind photo")
-        if not values_match(layout_roles["center"], 960) or not values_match(layout_roles["logo"], 960):
+        center_asset = next(asset for asset in figma["focalAssets"] if asset.get("layoutRole") == "center")
+        if (not approved_focal_position(center_asset) and not values_match(layout_roles["center"], 960)) or not values_match(layout_roles["logo"], 960):
             raise EnforcementError("the logo and middle subject must share the 960 px centerline")
         if layout_roles["left"] > 640 or layout_roles["right"] < 1280:
             raise EnforcementError("side subjects must occupy the left and right thirds")

@@ -37,6 +37,60 @@ def bound_manifest():
 
 
 class TemplateTests(unittest.TestCase):
+    def test_public_collector_routes_team_callouts_and_preserves_legacy_checks(self):
+        root = Path(__file__).resolve().parents[3]
+        script = root / 'scripts/lineups-templates.py'
+        contract = json.loads((root / 'config/lineups/team-callout-contract.json').read_text())
+        team = copy.deepcopy(contract['measuredSource'])
+        team_roles = ('wrapper', 'card', 'logoBlock', 'copyStack', 'subjectPanel', 'subject', 'panel', 'text')
+        renamed = {team[role]['id']: 'episode-' + role for role in team_roles}
+        renamed[contract['sourceComponentId']] = 'scene'
+        for role in team_roles:
+            node = team[role]
+            node.update(id=renamed[node['id']], parentId=renamed[node['parentId']])
+        team.update(rootNodeId='scene', rootDimensions={'width': 1920, 'height': 1080})
+        collect = """import fs from 'node:fs';
+const {request,readback,pageId}=JSON.parse(fs.readFileSync(0,'utf8'));
+const page={id:pageId,type:'PAGE'};
+const root={id:'scene',...readback.rootDimensions,parent:page};
+const nodes=new Map([[pageId,page],['scene',root]]);
+for(const value of Object.values(readback))if(value?.id)nodes.set(value.id,{...value,parent:{id:value.parentId}});
+const figma={fileKey:request.fileKey,mixed:Symbol(),getNodeByIdAsync:async id=>nodes.get(id),setCurrentPageAsync:async()=>{}};
+const run=new(Object.getPrototypeOf(async function(){}).constructor)('figma',request.code);
+process.stdout.write(JSON.stringify(await run(figma)));
+"""
+        with tempfile.TemporaryDirectory() as directory:
+            bindings = Path(directory) / 'bindings.json'
+            observed = Path(directory) / 'observed.json'
+            for key, readback, role_names in [
+                ('quick-stat.team-callout', team, team_roles),
+                (None, measured_callout(), load_callout_contract()['protected']),
+            ]:
+                with self.subTest(key=key):
+                    binding = {'sceneId': 'S02', 'rootNodeId': 'scene',
+                               'roleNodeIds': {role: readback[role]['id'] for role in role_names}}
+                    if key:
+                        binding['key'] = key
+                        binding['contractId'] = contract['id']
+                    bindings.write_text(json.dumps({'pageId': 'page', 'scenes': [binding]}))
+                    request = subprocess.run([sys.executable, str(script), 'fetch-callouts', str(bindings)],
+                                             capture_output=True, text=True, check=True)
+                    result = subprocess.run(['node', '--input-type=module', '-e', collect],
+                                            input=json.dumps({'request': json.loads(request.stdout),
+                                                              'readback': readback, 'pageId': 'page'}),
+                                            capture_output=True, text=True, check=True)
+                    observed.write_text(result.stdout)
+                    checked = subprocess.run([sys.executable, str(script), 'check', str(observed)],
+                                             capture_output=True, text=True)
+                    self.assertEqual(checked.returncode, 0, checked.stderr)
+                    changed = json.loads(result.stdout)
+                    changed['callouts'][0]['text']['fontSize'] = 1
+                    observed.write_text(json.dumps(changed))
+                    rejected = subprocess.run([sys.executable, str(script), 'check', str(observed)],
+                                              capture_output=True, text=True)
+                    self.assertEqual(rejected.returncode, 1)
+                    self.assertIn('fontSize', rejected.stderr)
+
     def test_team_callout_reuses_its_own_contract_and_rejects_stale_or_changed_readback(self):
         from tools.lineups_motion.templates import load_team_callout_contract, team_callout_fingerprint
         contract = load_team_callout_contract()
