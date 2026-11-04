@@ -220,8 +220,9 @@ reuse it. Native float measurements allow 0.000001 scale/opacity variance and
 Detached backgrounds and Quick Stat callout roles return actual episode IDs
 alongside exact planned IDs. Pending IDs are planning references only; source
 child IDs cannot stand in for cloned nodes. Quick Stat measures source style and
-episode callout geometry. The single-photo planner accepts Single-frame
-statement only; Two-photo progression uses a separate two-photo plan.
+episode callout geometry. The Single-frame statement and Two-photo progression
+planners remain for historical records; their retired keys cannot authorize
+new builds. Current options resolve through the registry.
 
 Premiere replacement requires the approved project item/media path, an approved
 live editorial/source timing baseline, and a successful matching readback from
@@ -285,7 +286,7 @@ The second command is an example; record Jerami's actual answer. It persists a
 hash of the selected scene, discovery candidate, transcript revision and routing
 contract. Preflight blocks missing or stale answers and rejects an engine mismatch.
 It does not change `motion.engine` or create a render. The native player master
-is visually approved; production Unreal routing remains disabled pending episode
+is visually approved; production Unreal routing is enabled, with per-episode
 Mark/Manim timing and handoff proof. Other unregistered team/period Unreal
 selections expose a reference gap. The fixed team routes below take precedence.
 
@@ -303,7 +304,9 @@ These routes do not ask for the engine again. The selected transcript candidate
 and revision must still match. Player 2-up keeps the Figma/Unreal question.
 The two team-logo entries use `config/unreal/team-logo-template.json`; their old
 Figma nodes are preserved for recovery, not used as fallback authoring targets.
-They remain pending native and human review.
+Read native readiness and approval from that manifest. The Rams/Seahawks v4
+visual and motion approval remains valid for its stated scope. Prototype maps
+and episode timing require their own proof.
 
 Team callout uses the team's primary color for the logo block and name tab,
 white text for the name, and dark copy on white. The body hugs the copy
@@ -319,13 +322,19 @@ out; Premiere owns the cut or transition.
 
 ### locked paired-logo card style
 
-Rams/Seahawks is the sole card style for both team options. Use angled stripes
-near the team's colors, a large team logo, a thin shiny border and a dark name
-strip. Swap team colors, logo and name; show a record or rank only when needed.
+All Team Cards share the November 4, 2026 background lock:
+`rank-card.sculpted-satin` version 2 in `config/lineups/design-registry.json`.
+It replaces the striped face only. See `docs/lineups-rank-card-surface.md`.
+This surface also applies to Team matchup and Logo stat cards.
+
+All new Team Cards use the latest Chiefs sculpted satin background, tinted
+with the team primary color. Stripes are retired. Keep the large team logo,
+thin metallic border and dark footer. Swap team colors, logo and name; show
+a record or rank only when needed.
 Browns/Ravens and Chiefs/Chargers use this same style.
 
-Use Three.js to generate one reusable GLB card shell with real geometry and
-standard PBR materials. Team colors are replaceable material inputs. Review
+Reuse one GLB shell with its rim and footer. Remove stripe geometry and use
+the bound satin material. Team primary color is the only surface input. Review
 one native Unreal still against the locked reference before adding logos,
 text, stadium or motion. Unreal owns logo depth, lighting, camera and a smooth
 entrance, then static hold with no animation out. Prototype maps and the shell

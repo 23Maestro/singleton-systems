@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "designs": [
+    {
+      "id": "rank-card.sculpted-satin",
+      "version": 1,
+      "status": "reference-approved",
+      "scope": {
+        "templateKeys": [
+          "comparison.rank-movement.2"
+        ],
+        "surface": "card-face-background-only"
+      },
+      "approval": {
+        "approvedBy": "Jerami",
+        "approvedAt": "2026-11-04",
+        "sessionId": "01a1a73c-d241-7f70-8940-2fbd2636680b",
+        "statement": "yep. can you make this repeatable per episode and team? locked by template and design registry?",
+        "referencePath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/rank-card-sculpted-v1/approved-reference.png",
+        "referenceSha256": "134a5620dd3f7a6c296ce643d002e4de64aa5e4496eb15693c7be916840f0489"
+      },
+      "protected": {
+        "finish": "satin team-color surface with fine micrograin",
+        "relief": "1 broad low-contrast angular fold at the right edge; quiet center",
+        "lighting": "soft upper-left highlight and dark lower corners",
+        "colorModel": "team primary hue; highlights and shadows stay in that hue",
+        "pattern": "no repeating stripes; no secondary-color bands",
+        "layout": "inherit the native rank-card layout",
+        "preserve": [
+          "card frame",
+          "logo art, size, position and depth",
+          "rank type, size and position",
+          "footer",
+          "stadium",
+          "arrow",
+          "camera",
+          "entrance motion"
+        ],
+        "reuse": "1 shared material and texture set; fixed UVs and grain seed for every team and episode",
+        "forbiddenOverrides": [
+          "pattern",
+          "texture",
+          "grainSeed",
+          "uvScale",
+          "relief",
+          "roughness",
+          "lighting",
+          "layout"
+        ],
+        "teamInputKeys": [
+          "teamId",
+          "primaryColor",
+          "colorSource"
+        ],
+        "episodeInputKeys": [
+          "episodeId"
+        ]
+      },
+      "implementation": {
+        "status": "native-material-pending",
+        "materialPath": null,
+        "textureSetSha256": null,
+        "nativeReviewProof": null,
+        "productionReady": false
+      },
+      "revisionPolicy": "A new surface look needs a new version and Jerami review. Keep prior versions for old episode renders."
+    },
+    {
+      "id": "rank-card.sculpted-satin",
+      "version": 2,
+      "status": "reference-approved",
+      "scope": {
+        "templateKeys": [
+          "comparison.rank-movement.2",
+          "comparison.team-matchup.2",
+          "comparison.logo-stat-cards.2"
+        ],
+        "surface": "card-face-background-only"
+      },
+      "approval": {
+        "approvedBy": "Jerami",
+        "approvedAt": "2026-11-04",
+        "sessionId": "01a1a73c-d241-7f70-8940-2fbd2636680b",
+        "statement": "Use the most recent Chiefs background for these cards and retire the stripes going forwards.",
+        "referencePath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/rank-card-sculpted-v1/approved-reference.png",
+        "referenceSha256": "134a5620dd3f7a6c296ce643d002e4de64aa5e4496eb15693c7be916840f0489",
+        "scope": "All future Team Cards: Rank Movement, Team matchup and Logo stat cards; team hue changes only."
+      },
+      "protected": {
+        "finish": "satin team-color surface with fine micrograin",
+        "relief": "1 broad low-contrast angular fold at the right edge; quiet center",
+        "lighting": "soft upper-left highlight and dark lower corners",
+        "colorModel": "team primary hue; highlights and shadows stay in that hue",
+        "pattern": "no repeating stripes; no secondary-color bands",
+        "layout": "inherit the selected native card layout",
+        "preserve": [
+          "card frame",
+          "logo art, size, position and depth",
+          "rank type, size and position",
+          "footer",
+          "stadium",
+          "arrow",
+          "camera",
+          "entrance motion"
+        ],
+        "reuse": "1 shared material and texture set; fixed UVs and grain seed for every team and episode",
+        "forbiddenOverrides": [
+          "pattern",
+          "texture",
+          "grainSeed",
+          "uvScale",
+          "relief",
+          "roughness",
+          "lighting",
+          "layout"
+        ],
+        "teamInputKeys": [
+          "teamId",
+          "primaryColor",
+          "colorSource"
+        ],
+        "episodeInputKeys": [
+          "episodeId"
+        ]
+      },
+      "implementation": {
+        "status": "native-approved",
+        "materialPath": "/Game/Lineups/TeamCardsSatinV2/Materials/M_SculptedSatin.M_SculptedSatin",
+        "textureSetSha256": null,
+        "nativeReviewProof": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/rank-card-sculpted-v2/native-build.json",
+        "productionReady": true,
+        "shaderSha256": "b72eea024f654735c09c89880b4e930838e15d3a2d7cd5b707c284dfa539576f",
+        "sourcePath": "tools/lineups_unreal/sculpted_satin.py",
+        "nativeApprovedBy": "Jerami",
+        "nativeApprovedAt": "2026-11-04",
+        "nativeApprovalStatement": "Hell yeah lets export and place into 06 motion render"
+      },
+      "revisionPolicy": "A new surface look needs a new version and Jerami review. Keep prior versions for old episode renders."
+    }
+  ]
+}

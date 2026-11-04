@@ -27,12 +27,27 @@ def measured_callout(width=598):
     return {"rootNodeId": "scene", "rootDimensions": {"width": 1920, "height": 1080}, **nodes}
 
 
+def measured_team_callout():
+    from tools.lineups_motion.templates import load_team_callout_contract
+    contract = load_team_callout_contract()
+    measured = copy.deepcopy(contract['measuredSource'])
+    roles = ('wrapper', 'card', 'logoBlock', 'copyStack', 'subjectPanel', 'subject', 'panel', 'text')
+    ids = {measured[r]['id']: 'episode-' + r for r in roles}
+    ids[contract['sourceComponentId']] = 'scene'
+    for role in roles:
+        node = measured[role]
+        node.update(id=ids[node['id']], parentId=ids[node['parentId']])
+    measured['rootNodeId'] = 'scene'
+    return measured
+
+
 def bound_manifest():
-    contract = load_callout_contract()
-    return {"scene": {"lane": "quick stat", "approvedOption": "Single-frame statement"},
-            "figma": {"fileKey": load_registry()["fileKey"], "rootNodeId": "scene", "sourceComponentId": "653:184",
-                      "templateBinding": {"key": "quick-stat.single", "contractId": contract["id"],
-                                          "sourceFingerprint": contract["sourceFingerprint"],
+    from tools.lineups_motion.templates import load_team_callout_contract, team_callout_fingerprint
+    contract = load_team_callout_contract()
+    return {"scene": {"lane": "quick stat", "approvedOption": "Team callout"},
+            "figma": {"fileKey": load_registry()["fileKey"], "rootNodeId": "scene", "sourceComponentId": "1843:1021",
+                      "templateBinding": {"key": "quick-stat.team-callout", "contractId": contract["id"],
+                                          "sourceFingerprint": team_callout_fingerprint(),
                                           "roleNodeIds": {role: "episode-"+role for role in ("wrapper", "panel", "text")}}}}
 
 
@@ -291,7 +306,7 @@ process.stdout.write('source-lock recovery passed');
             self.assertEqual(template['reviewStatus'], 'pending-unreal-review')
 
     def test_display_rename_does_not_break_retrieval(self):
-        template = resolve("quick-stat.single")
+        template = resolve("quick-stat.team-callout")
         readback = {**template["source"], "name": "Operator renamed this"}
         validate_source_identity(template, readback)
         readback["componentId"] = "episode-example"
@@ -308,7 +323,7 @@ process.stdout.write('source-lock recovery passed');
     def test_copy_can_hug_without_changing_design(self):
         for width in (220, 598, 1016, 1541):
             validate_callout(measured_callout(width))
-        validate_manifest_readback(bound_manifest(), measured_callout())
+        validate_manifest_readback(bound_manifest(), measured_team_callout())
 
     def test_historical_font_and_hug_height_regressions_fail(self):
         mutations = [
@@ -332,7 +347,7 @@ process.stdout.write('source-lock recovery passed');
         readback["text"].update(height=154, y=18)
         with self.assertRaisesRegex(TemplateError, "1 line"):
             validate_callout(readback)
-        readback = measured_callout()
+        readback = measured_team_callout()
         readback["text"]["id"] = "wrong"
         with self.assertRaisesRegex(TemplateError, "different episode node"):
             validate_manifest_readback(bound_manifest(), readback)
@@ -363,6 +378,20 @@ process.stdout.write('source-lock recovery passed');
     def test_team_matchup_uses_logos_without_player_alpha(self):
         result = eligible({"purpose": "comparison", "comparisonKind": "teams", "subjects": 2, "rows": 1, "evidence": "Both teams 3-0"})
         self.assertEqual(result["templates"], ["comparison.simple.2"])
+
+    def test_rank_movement_and_stat_variants_resolve_exact_native_sources(self):
+        rank = {'purpose': 'comparison', 'comparisonKind': 'periods', 'comparisonMetric': 'rank',
+                'subjects': 2, 'rows': 1, 'assetTreatment': 'logos', 'evidence': 'Jaguars dropped from 4 to 8'}
+        self.assertEqual(eligible(rank)['templates'], ['comparison.rank-movement.2'])
+        rank.pop('comparisonMetric')
+        self.assertEqual(eligible(rank)['templates'], ['comparison.simple.2'])
+        for n in (3, 4):
+            stats = {'purpose': 'stats', 'stats': n, 'evidence': 'Player stat line'}
+            self.assertEqual(eligible(stats)['templates'], [f'stat-breakdown.{n}'])
+            stats['engine'] = 'unreal'
+            self.assertEqual(eligible(stats)['status'], 'asset-blocked')
+            stats['realAlpha'] = True
+            self.assertEqual(eligible(stats)['templates'], [f'stat-breakdown.unreal.player.{n}'])
 
     def test_registered_logo_sources_fit_without_allowing_player_substitution(self):
         for option, subjects, rows, key in [

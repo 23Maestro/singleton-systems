@@ -48,6 +48,13 @@ print(json.dumps(result))`, directory, String(manifest.figma.focalAssets.filter(
     }
   }
   manifest.timing.proofPath = path.join(directory, 'timing-receipt.json');
+  if (manifest.figma.fileKey === 'o7E24iymIT80MTXGYIogVH') {
+    const enrolled = spawnSync(process.env.PYTHON || 'python3', ['-m', 'tools.lineups_motion.tests.contract_fixture'], {
+      cwd: sourceRoot, input: JSON.stringify({directory, manifest}), encoding: 'utf8',
+    });
+    if (enrolled.status !== 0) throw new Error(enrolled.stderr);
+    Object.assign(manifest, JSON.parse(enrolled.stdout));
+  }
   const installed = path.join(os.homedir(), '.pyenv/versions/3.12.3/bin/python3');
   const python = process.env.PYTHON || (fs.existsSync(installed) ? installed : 'python3');
   const result = spawnSync(python, ['-m', 'tools.lineups_motion.timing_evidence', '--issue'], {

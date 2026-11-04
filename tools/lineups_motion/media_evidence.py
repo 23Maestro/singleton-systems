@@ -53,6 +53,8 @@ if __name__ == '__main__':
     import sys
     try:
         record = json.loads(sys.stdin.read())
-        print(json.dumps(validate_media(record['root'], record['manifest'])))
+        from .contract_gate import check_production
+        result = check_production(record['root'], record['manifest'], 'before-handoff')
+        print(json.dumps(result or validate_media(record['root'], record['manifest'])))
     except (ValueError, OSError) as error:
         sys.exit(f'Lineups media evidence: {error}')

@@ -29,7 +29,7 @@ def selection_binding(manifest, ledger):
 def comparison_subjects(scene):
     if scene.get('lane') != 'comparison':
         return None
-    fixed = {'Cinematic 2-up': 2, 'Full comparison: 2': 2,
+    fixed = {'Cinematic 2-up': 2, 'Rank Movement': 2, 'Full comparison: 2': 2,
              'Full comparison: 3': 3, 'Full comparison: 4': 4}
     count = scene.get('subjectCount', fixed.get(scene.get('approvedOption')))
     if type(count) is not int or not 2 <= count <= 4:
@@ -39,9 +39,18 @@ def comparison_subjects(scene):
     return count
 
 
+def comparison_option(option, kind, metric, contract):
+    if (contract.get('productionUnrealEnabled') and kind == 'periods' and metric == 'rank'
+            and option in (None, 'Simple comparison')):
+        return 'Rank Movement'
+    return option
+
+
 def fixed_option_route(scene, contract):
+    option = comparison_option(scene.get('approvedOption'), scene.get('comparisonKind'),
+                               scene.get('comparisonMetric'), contract)
     return next((route for route in contract.get('fixedRoutes', [])
-                  if route['lane'] == scene.get('lane') and route['option'] == scene.get('approvedOption')
+                  if route['lane'] == scene.get('lane') and route['option'] == option
                   and ('subjects' not in route or route['subjects'] == comparison_subjects(scene))
                   and ('comparisonKind' not in route or route['comparisonKind'] == scene.get('comparisonKind'))), None)
 
@@ -55,6 +64,8 @@ def engine_route(manifest, ledger, require_choice=False, enforce_engine=False):
             raise ValueError('Comparison requires an explicit players, teams or periods kind')
         if scene.get('approvedOption') == 'Cinematic 2-up' and scene['comparisonKind'] != 'players':
             raise ValueError('Cinematic 2-up is registered for players only')
+        if scene.get('approvedOption') == 'Rank Movement' and scene['comparisonKind'] != 'periods':
+            raise ValueError('Rank Movement requires the same team across two periods')
     fixed = fixed_option_route(scene, contract)
     if fixed:
         override = episode_engine_override(manifest, ledger)
@@ -70,7 +81,7 @@ def engine_route(manifest, ledger, require_choice=False, enforce_engine=False):
         return {'status': fixed['reviewStatus'], 'engine': fixed['engine'],
                 'templateKeys': [fixed['templateKey']], 'templateManifest': fixed.get('templateManifest'),
                 'selectionSha256': binding, 'productionReady': False,
-                'reason': 'Engine route selected by Jerami. Native visual review and episode cue proof remain required.'}
+                'reason': 'Engine route selected by Jerami. Episode cue proof and visual review remain required.'}
     if count == 2 and scene['comparisonKind'] != 'players':
         sources = figma_sources(scene, count)
         binding = selection_binding(manifest, ledger)

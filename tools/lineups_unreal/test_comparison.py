@@ -7,6 +7,12 @@ from tools.lineups_unreal.comparison import ComparisonError, build_comparison
 
 
 class ComparisonRequestTests(unittest.TestCase):
+    def test_production_contract_cannot_authorize_the_legacy_trial_builder(self):
+        request = stats_request()
+        request['contractManifest'] = {'path': 'production.json', 'sha256': 'a'*64}
+        with self.assertRaisesRegex(ComparisonError, 'legacy trial'):
+            build_comparison(request)
+
     def test_stat_card_rejects_text_below_the_approved_36_pixel_floor(self):
         request = {
             "mode": "statistics",

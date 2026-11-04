@@ -295,6 +295,7 @@ function figmaReadback(manifest, overrides = {}) {
       layoutRole,
       opaqueBounds: { x: centerX - 100, y: 100, width: 200, height: 200 },
     })),
+    ...(manifest.contractGate?.measurement ? {contractMeasurement: JSON.parse(fs.readFileSync(manifest.contractGate.measurement.path, 'utf8'))} : {}),
     ...overrides,
   };
 }
@@ -406,6 +407,32 @@ try {
       /Figma mutation readback passed/,
       "Rank Reveal canonical and timing readback",
     );
+
+    const specPath = manifest.contractGate.spec.path;
+    const specBytes = fs.readFileSync(specPath);
+    const partialSpec = JSON.parse(specBytes);
+    delete partialSpec.roles['row.1.logo'];
+    const approval = partialSpec.approval;
+    delete partialSpec.approval;
+    partialSpec.approval = {...approval, sha256: hashValue(partialSpec)};
+    fs.writeFileSync(specPath, JSON.stringify(partialSpec));
+    const partialManifest = structuredClone(manifest);
+    partialManifest.contractGate.spec.sha256 = crypto.createHash('sha256').update(fs.readFileSync(specPath)).digest('hex');
+    fs.writeFileSync(testCase.manifestPath, JSON.stringify(partialManifest));
+    expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', rankFigmaInput),
+      /required role/, 'Rank Reveal cannot omit a required logo measurement');
+    fs.writeFileSync(specPath, specBytes);
+    fs.writeFileSync(testCase.manifestPath, JSON.stringify(manifest));
+
+    const staleMeasurement = figmaReadback(manifest);
+    staleMeasurement.contractMeasurement.roles.root.width = 960;
+    expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput, staleMeasurement), /contract measurement/, "stale contract measurement");
+    const noContract = structuredClone(manifest);
+    delete noContract.contractGate;
+    fs.writeFileSync(testCase.manifestPath, JSON.stringify(noContract));
+    expectDenied(pre(testCase, "mcp__codex_apps__figma_use_figma", rankFigmaInput),
+      /unregistered or duplicate template key/, "production build without current contract");
+    fs.writeFileSync(testCase.manifestPath, JSON.stringify(manifest));
 
     const failures = [
       ["stale Rank Reveal source", (m) => { m.figma.sourceComponentId = "835:231"; }, /normalized canonical source/],
@@ -937,28 +964,34 @@ try {
   withCase((testCase) => {
     const manifest = readManifest(testCase);
     const canonical = JSON.parse(fs.readFileSync(path.join(sourceRoot, "config/lineups/canonical-template-verification.json"), "utf8"));
-    const contract = JSON.parse(fs.readFileSync(path.join(sourceRoot, "config/lineups/callout-contract.json"), "utf8"));
-    const measured = JSON.parse(fs.readFileSync(path.join(fixtureSource, "callout-readback.json"), "utf8")).callouts[0];
+    const contract = JSON.parse(fs.readFileSync(path.join(sourceRoot, "config/lineups/team-callout-contract.json"), "utf8"));
+    const measured = structuredClone(contract.measuredSource);
+    const roles = ['wrapper', 'card', 'logoBlock', 'copyStack', 'subjectPanel', 'subject', 'panel', 'text'];
+    const ids = Object.fromEntries(roles.map(role => [measured[role].id, 'episode-' + role]));
+    ids[contract.sourceComponentId] = 'scene';
+    for (const role of roles) Object.assign(measured[role], {id: ids[measured[role].id], parentId: ids[measured[role].parentId]});
+    measured.rootNodeId = 'scene';
+    measured.sceneId = 'scene-07';
     manifest.scene.lane = "quick stat";
-    manifest.scene.approvedOption = "Single-frame statement";
+    manifest.scene.approvedOption = "Team callout";
     manifest.figma.fileKey = canonical.fileKey;
     manifest.figma.rootNodeId = measured.rootNodeId;
     manifest.figma.episodeInstanceId = measured.rootNodeId;
-    manifest.figma.sourceComponentId = "653:184";
+    manifest.figma.sourceComponentId = "1843:1021";
     manifest.figma.templateBinding = {
-      key: "quick-stat.single", contractId: contract.id, sourceFingerprint: contract.sourceFingerprint,
+      key: "quick-stat.team-callout", contractId: contract.id, sourceFingerprint: spawnSync(python, ['-c', 'from tools.lineups_motion.templates import team_callout_fingerprint; print(team_callout_fingerprint())'], {cwd: sourceRoot, encoding: 'utf8'}).stdout.trim(),
       roleNodeIds: Object.fromEntries(["wrapper", "panel", "text"].map(role => [role, measured[role].id])),
     };
     const input = { ...approvedFigmaInput, fileKey: canonical.fileKey };
     manifest.enforcement.approvedToolInputSha256 = hashValue(input);
     writeManifest(testCase, manifest);
-    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", input), "Components-bound Quick Stat");
-    const response = figmaReadback(manifest, { calloutReadback: measured, sourceCallout: canonical.callout });
-    expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", input, response), /Figma mutation readback passed/, "measured Quick Stat");
+    expectAllowed(pre(testCase, "mcp__codex_apps__figma_use_figma", input), "current Team callout");
+    const response = figmaReadback(manifest, { calloutReadback: measured, sourceCallout: contract.measuredSource });
+    expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", input, response), /Figma mutation readback passed/, "measured Team callout");
     const collapsed = structuredClone(response);
     collapsed.calloutReadback.panel.height = 90;
     collapsed.calloutReadback.panel.counterAxisSizingMode = "AUTO";
-    expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", input, collapsed), /panel.height/, "collapsed callout height");
+    expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", input, collapsed), /panel.height|panel.counterAxisSizingMode/, "collapsed callout height");
     const changedSource = structuredClone(response);
     changedSource.sourceCallout.text.fontName = { family: "Anton", style: "Regular" };
     expectPostBlock(post(testCase, "mcp__codex_apps__figma_use_figma", input, changedSource), /text.fontName/, "changed Components source");
@@ -985,10 +1018,10 @@ try {
     exportReceipt.episodeId = manifest.scene.episodeId;
     exportReceipt.sceneId = manifest.scene.sceneId;
     exportReceipt.manifestSha256 = hashValue(manifest);
-    expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", input, figmaReadback(manifest, {calloutReadback: measured, sourceCallout: canonical.callout})), /readback passed/, "current review-export measurement");
-    exportReceipt.evidence.sceneReadback = figmaReadback(manifest, {calloutReadback: measured, sourceCallout: canonical.callout});
+    expectPostPass(post(testCase, "mcp__codex_apps__figma_use_figma", input, figmaReadback(manifest, {calloutReadback: measured, sourceCallout: contract.measuredSource})), /readback passed/, "current review-export measurement");
+    exportReceipt.evidence.sceneReadback = figmaReadback(manifest, {calloutReadback: measured, sourceCallout: contract.measuredSource});
     exportReceipt.evidence.calloutReadback = measured;
-    exportReceipt.evidence.sourceCallout = canonical.callout;
+    exportReceipt.evidence.sourceCallout = contract.measuredSource;
     delete exportReceipt.receiptSha256;
     exportReceipt.receiptSha256 = hashValue(exportReceipt);
     fs.writeFileSync(path.join(testCase.receiptDir, `${manifest.scene.sceneId}.figma-to-export.receipt.json`), JSON.stringify(exportReceipt));

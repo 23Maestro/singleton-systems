@@ -35,8 +35,9 @@ class CueContract:
 
         motion = manifest.get("motion") or {}
         engine = motion.get("engine")
-        if engine != "figma" or motion.get("engineVersion") != "figma-motion":
-            raise CueContractError("Lineups motion must use Figma Motion as its visual engine")
+        versions = {"figma": "figma-motion", "unreal": "unreal-sequencer"}
+        if engine not in versions or motion.get("engineVersion") != versions[engine]:
+            raise CueContractError("Lineups motion requires Figma Motion or Unreal Sequencer with its matching engine version")
         if motion.get("timingValidator") != "manim":
             raise CueContractError("Lineups timing validation requires motion.timingValidator of manim")
 

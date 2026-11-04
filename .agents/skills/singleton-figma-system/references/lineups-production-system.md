@@ -38,7 +38,7 @@ Jerami's October 29, 2026 corrections apply to new scenes and their Components
 sources. Keep every wash overlay locked so a canvas click reaches the photo or
 text. Cap effective darkening at 20%. Do not stack a second wash.
 The cyan/blue Quick Stat callout is retired. Use the current white Team callout
-source `1843:1021`; do not copy `653:184` or `653:196` into a new episode.
+source `1843:1021` for new episodes.
 
 When a source conflicts with an agreed rule, fix the source, verify the repair,
 then build the episode copy. Do not knowingly copy a stale source and repair
@@ -296,11 +296,21 @@ another removal tool.
 
 ## quick-stat geometry
 
-Use the [Components callout source](https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=868-776)
+New builds use `quick-stat.team-callout` or `quick-stat.logo`. Team callout
+geometry is owned by `config/lineups/team-callout-contract.json`. Its 240 px logo
+block and 48 px body padding do not inherit the old photo callout's dimensions.
+Logo statement retains its registered 64 px type, 190 px panel and 72 px padding.
+
+### legacy photo statements: recovery only
+
+The following measurements describe saved photo statements. Their source keys
+are retired; do not use this section to start a new scene.
+
+The [Components callout source](https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=868-776)
 (`868:776`): Inter Bold at 64 px, a
 fixed 190 px panel height, 72 px left and right padding, and vertically centered
 text. Hug width only. Never set the panel's vertical sizing to Hug or Auto.
-Keep these measurements in every source and episode copy. Reduce the font
+Preserve these measurements when inspecting historical copies. Reduce the font
 only when a long statement exceeds the safe width; preserve height and padding.
 Keep the copy on one
 horizontal line. One point has no pipe. Two separate, parallel facts use one
@@ -344,7 +354,7 @@ approved assembly for Two-photo progression, not a global transition hierarchy.
 to exact Components node IDs. Resolve by its stable key, never by page order,
 search keywords, or an episode name. Template names are display labels.
 
-Use `python3 scripts/lineups-templates.py resolve quick-stat.single` to retrieve
+Use `python3 scripts/lineups-templates.py resolve quick-stat.team-callout` to retrieve
 a source. `fetch-sources` emits a read-only Figma tool input; execute it with
 `figma-use`, save its actual JSON response, then run
 `python3 scripts/lineups-templates.py check <readback.json> --live`.
@@ -459,6 +469,8 @@ editorial trims and source In/Out in `premiere.editorialTiming`; verify these
 values separately from the canonical padded render. Do not reset live trims
 from an older manifest. Initial placement uses the verified transcript anchor.
 
+Before handing off a Figma scene, inspect a fresh 1920 x 1080 still from the episode copy with the artwork visible. For logo scenes, check the visible size and center of each logo on the still. A slot can have the right size while the logo inside it stays small. Fix and check the still again before handoff.
+
 ## lifecycle
 
 ```text
@@ -495,10 +507,13 @@ These routes do not ask for the engine again. The selected transcript candidate
 and revision must still match. Player 2-up keeps the Figma/Unreal question.
 The two team-logo entries use `config/unreal/team-logo-template.json`; their old
 Figma nodes are preserved for recovery, not used as fallback authoring targets.
-They remain pending native and human review.
+Read native readiness from `config/unreal/team-logo-template.json`.
+Rams/Seahawks v4 keeps its scoped visual and motion approval. Prototype maps
+and current episode timing and handoff still need their own proof.
 
 Team callout uses the team's primary color for the logo block and name tab,
-white text for the name, and dark copy on white. The body hugs the copy
+white text for the name, and dark copy on white. The curved corner and the
+logo block stroke use the same team accent. The body hugs the copy
 with 48 px on each side. The 240 px logo block and full callout sit 36 px from
 the bottom at 1920 × 1080. Keep the clean soft shadow. See
 `config/lineups/team-callout-contract.json`. Human review and episode motion
@@ -511,13 +526,14 @@ out; Premiere owns the cut or transition.
 
 ### locked paired-logo card style
 
-Rams/Seahawks is the sole card style for both team options. Use angled stripes
-near the team's colors, a large team logo, a thin shiny border and a dark name
-strip. Swap team colors, logo and name; show a record or rank only when needed.
+All new Team Cards use the latest Chiefs sculpted satin background, tinted
+with the team primary color. Stripes are retired. Keep the large team logo,
+thin metallic border and dark footer. Swap team colors, logo and name; show
+a record or rank only when needed.
 Browns/Ravens and Chiefs/Chargers use this same style.
 
-Use Three.js to generate one reusable GLB card shell with real geometry and
-standard PBR materials. Team colors are replaceable material inputs. Review
+Reuse one GLB shell with its rim and footer. Remove stripe geometry and use
+the bound satin material. Team primary color is the only surface input. Review
 one native Unreal still against the locked reference before adding logos,
 text, stadium or motion. Unreal owns logo depth, lighting, camera and a smooth
 entrance, then static hold with no animation out. Prototype maps and the shell

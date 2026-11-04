@@ -128,6 +128,19 @@ class EngineChoiceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             engine_route(self.manifest, self.ledger)
 
+    def test_same_team_rank_change_defaults_to_unreal(self):
+        self.manifest['scene'].update(approvedOption='Simple comparison', comparisonKind='periods',
+                                      comparisonMetric='rank')
+        self.manifest['motion']['engine'] = 'unreal'
+        route = engine_route(self.manifest, self.ledger, require_choice=True, enforce_engine=True)
+        self.assertEqual(route['templateKeys'], ['comparison.rank-movement.2'])
+        self.assertEqual(route['engine'], 'unreal')
+        self.assertFalse(route['productionReady'])
+        self.assertNotIn('question', route)
+        self.manifest['motion']['engine'] = 'figma'
+        with self.assertRaisesRegex(ValueError, 'fixed option route'):
+            engine_route(self.manifest, self.ledger, enforce_engine=True)
+
     def test_team_options_have_explicit_unreal_routes_without_asking_again(self):
         for option in ('Team matchup', 'Logo stat cards'):
             manifest = copy.deepcopy(self.manifest)

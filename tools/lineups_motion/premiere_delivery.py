@@ -99,6 +99,17 @@ def validate_source(root, binding, row):
     proof = row["sourceProof"]
     require(file_digest(proof["path"]) == proof["sha256"], "motion source proof changed")
     source = read(proof["path"])
+    from .contract_gate import artifact, check
+    contract_manifest = read(artifact(root, row.get('contractManifest')))
+    require(contract_manifest['scene']['episodeId'] == binding['episodeId']
+            and contract_manifest['scene']['sceneId'] == row['sceneId']
+            and contract_manifest['motion']['engine'] == row['engine']
+            and contract_manifest['export']['fileSha256'] == row['sha256'], 'contract scene or render differs')
+    check(root, contract_manifest, 'before-handoff')
+    rate = contract_manifest['motion']['frameRate']
+    require(rate['numerator'] / rate['denominator'] == binding['fps']
+            and abs(contract_manifest['timing']['paddedCompositionEnd'] * binding['fps'] - row['durationFrames']) < 0.001,
+            'contract media timing differs from delivery')
     if row["engine"] == "figma":
         require(source["scene"]["episodeId"] == binding["episodeId"]
                 and source["scene"]["sceneId"] == row["sceneId"]

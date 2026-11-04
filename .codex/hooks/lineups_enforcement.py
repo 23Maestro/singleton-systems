@@ -1106,6 +1106,9 @@ def preflight(root, manifest, directory, tool_name, tool_input):
     validate_manifest(manifest, require_export=require_export)
     validate_alpha_assets(root, manifest)
     validate_timing_receipt(root, manifest)
+    from tools.lineups_motion.contract_gate import check_production
+    check_production(root, manifest, 'before-build' if tool_name in FIGMA_MUTATIONS | {FIGMA_EXPORT}
+                     else 'before-handoff')
     figma = manifest["figma"]
     timing = manifest["timing"]
     premiere = manifest["premiere"]
@@ -1274,6 +1277,9 @@ def postflight(root, manifest, directory, tool_name, payload):
 
     if tool_name == "mcp__codex_apps__figma_use_figma":
         scene_readback = validate_figma_readback(manifest, payload.get("tool_response"))
+        from tools.lineups_motion.contract_gate import check_production
+        check_production(root, manifest, 'after-build',
+                         readback=scene_readback.get('contractMeasurement'), require_readback=True)
         directory.mkdir(parents=True, exist_ok=True)
         record = {"status": "passed", "manifestSha256": manifest_hash(manifest),
                   "readbackSha256": sha256_value(scene_readback)}

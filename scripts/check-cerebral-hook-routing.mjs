@@ -388,79 +388,19 @@ for (const prompt of [
   const lineups = runHook(prompt);
   assert.equal(lineups.status, 0, `Lineups hook exited ${lineups.status}: ${lineups.stderr}`);
   for (const snippet of [
-    "[route] lineups-editor",
-    "[profile] Catena Media Lineups",
-    "plugins/s-systems/skills/client-video-storyboard/references/lineups-treatment-system.md",
-    "Use the seven approved lanes",
-    "[unreal-stat-breakdown]",
-    "config/unreal/stat-breakdown-template-02.json",
-    "subtle rounded red panel",
-    "Hold a static scene with no animation out; Premiere owns the cut or transition",
-    "Template approval does not change the production engine route",
-    "[engine-choice]",
-    "Lane 4 / Comparison / player 2-up",
-    "Fixed routes: Lane 2 Quick Stat / Team callout uses Figma",
-    "team-logo-template.json",
-    "Do not fall back to the preserved Figma nodes",
-    "Figma or Unreal? No default",
-    "engine-routing.json",
-    "changed candidate, scene setting or transcript revision requires a fresh answer",
-    "Always attempt full-transcript discovery across all seven lanes",
-    "before pacing and selection",
-    "Cinematic 2-up always uses full photos with original backgrounds",
-    "both visible together from the opening visual frame",
-    "top-left title position",
-    "Requested default is 4.5 seconds",
-    "Preserve live Premiere editorial trims and source In/Out",
-    "prefer action photos and avoid roster portraits",
-    "contextual photos are allowed",
-    "Google or Google Images using {missing asset} {episode year} week {episode week}",
-    "Inspect recorded source pages with scripts/firecrawl-source-inspect.py",
-    "PreToolUse hook checks scene, asset, Google lead and current evidence hashes",
-    "never reject a supported scene because its photo is missing",
-    "One source image may appear only once per episode",
-    "logo and middle subject share the 960 px centerline",
-    "Preserve transcript meaning, attribution, causal ownership",
-    "Single-frame statement at 6.5 seconds",
-    "Two-photo progression at 10 seconds",
-    "100% to 102.5%",
-    "One point has no pipe",
-    "singleton-figma-system",
-    "[workspace-titles]",
-    "actual-workday labels at exactly 300 px",
-    "America/New_York",
-    "Keep workday ranges and partial dates explicit",
-    "left to right by known work dates",
-    "6000 canvas px",
-    "Player Cut Outs + Logos",
-    "[lane-specs]",
-    ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
-    "file-hygiene and layer-cleanup",
-    "safe-auto-layout-conversion",
-    "accessibility-review",
-    "football-visible Field Night background",
-    "locked no-football Field Night background",
-    "Keep background and artwork as separate editable Figma layers",
-    "Export complete motion scenes with their approved backgrounds included",
-    "Asset Swap, Simple and Full comparison require real-alpha player assets",
-    "Search Eagle for suitable alpha player art first",
-    "Figma's native Remove background tool",
-    "The other five lanes have no automatic player-cutout requirement",
-    "Player-asset alpha does not require transparent final scene exports",
-    "Episode cutouts require real alpha",
-    "Only cutouts, logos, transcript copy, and reveal timing are replaceable",
-    "Keep text and cutout bounds tight",
-    "centered dark text",
-    "Auto Width or Hug",
-    "112 px or larger",
-    "48 px or larger",
-    "Episode / 06 Motion Renders",
-    "Fill the 1920 x 1080 frame",
-    "Components owns approved sources",
-    "Inspect a fresh 1920 x 1080 screenshot",
+    "[route] lineups-editor", "[profile] Catena Media Lineups",
+    "[lineups/start]", "[lineups/gate]", "lineups-editor/SKILL.md",
+    "lineups-treatment-system.md", "lineups-contract-gate.md", "all 7 lanes",
+    "locked speech cues", "fresh visual proof", "timing alone cannot approve appearance",
+    "[workspace-titles]", "[lane-specs]", "singleton-figma-system",
   ]) {
     assert.ok(lineups.stdout.includes(snippet), `Lineups hook: missing ${snippet}`);
   }
+  const routed = JSON.parse(lineups.stdout).hookSpecificOutput.additionalContext
+    .split("\n").filter(line => line.includes("[lineups/"));
+  assert.ok(routed.join(" ").split(/\s+/).length < 110, "Lineups routing must stay a short index");
+  assert.ok(!lineups.stdout.includes("stripes, large logo, shiny border"), "Old style must not be injected as a universal rule");
+
 }
 
 // Figma calls need workspace guidance even without an episode name in the code.
@@ -486,7 +426,7 @@ for (const suffix of figmaWorkTools) {
     assert.match(packet, /\[lane-specs\]/);
     if (fileKey === "o7E24iymIT80MTXGYIogVH") {
       assert.match(packet, /\[profile\] Catena Media Lineups/);
-      assert.match(packet, /lineups-production-system\.md/);
+      assert.match(packet, /lineups-editor\/SKILL\.md/);
     } else {
       assert.doesNotMatch(packet, /\[profile\] Catena Media Lineups/);
     }

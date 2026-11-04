@@ -33,71 +33,12 @@
       "editorialDefault": {
         "requestedDurationSeconds": 4.5,
         "rounding": "nearest-half-up"
-      }
-    },
-    {
-      "key": "quick-stat.single",
-      "lane": "quick stat",
-      "option": "Single-frame statement",
-      "settings": {
-        "photos": 1
       },
-      "source": {
-        "fileKey": "o7E24iymIT80MTXGYIogVH",
-        "pageId": "428:27",
-        "componentId": "653:184",
-        "name": "Option=Single-frame statement",
-        "type": "COMPONENT",
-        "parentId": "653:226",
-        "width": 1920,
-        "height": 1080,
-        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-184",
-        "variantProperties": {
-          "Option": "Single-frame statement"
-        }
+      "requiredRoles": {
+        "root": "frame",
+        "photo": "photo"
       },
-      "allowedChanges": [
-        "source asset slots",
-        "transcript copy",
-        "supported count variant",
-        "transcript reveal timing"
-      ],
-      "guards": [
-        "quick-stat.callout.v1"
-      ],
-      "visualGuardCoverage": "callout geometry and style"
-    },
-    {
-      "key": "quick-stat.progression",
-      "lane": "quick stat",
-      "option": "Two-photo progression",
-      "settings": {
-        "photos": 2
-      },
-      "source": {
-        "fileKey": "o7E24iymIT80MTXGYIogVH",
-        "pageId": "428:27",
-        "componentId": "653:196",
-        "name": "Option=Two-photo progression",
-        "type": "COMPONENT",
-        "parentId": "653:226",
-        "width": 1920,
-        "height": 1080,
-        "url": "https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=653-196",
-        "variantProperties": {
-          "Option": "Two-photo progression"
-        }
-      },
-      "allowedChanges": [
-        "source asset slots",
-        "transcript copy",
-        "supported count variant",
-        "transcript reveal timing"
-      ],
-      "guards": [
-        "quick-stat.callout.v1"
-      ],
-      "visualGuardCoverage": "callout geometry and style"
+      "requiredTeamRoles": []
     },
     {
       "key": "stat-breakdown.3",
@@ -127,7 +68,23 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "photo": "photo",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.3.label": "text",
+        "stat.3.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject"
+      ]
     },
     {
       "key": "stat-breakdown.4",
@@ -157,7 +114,25 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "photo": "photo",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.3.label": "text",
+        "stat.3.value": "text",
+        "stat.4.label": "text",
+        "stat.4.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject"
+      ]
     },
     {
       "key": "comparison.cinematic.2",
@@ -191,7 +166,19 @@
         "originalBackgrounds": true,
         "openingTogether": true,
         "titlePosition": "top-left"
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.photo": "photo",
+        "subject.2.name": "text",
+        "subject.2.photo": "photo"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.2.name"
+      ]
     },
     {
       "key": "comparison.simple.2",
@@ -224,7 +211,27 @@
       "guards": [
         "comparison.simple.2.background.v1"
       ],
-      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered"
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
+      ]
     },
     {
       "key": "comparison.simple.3",
@@ -255,7 +262,34 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card"
+      ]
     },
     {
       "key": "comparison.simple.4",
@@ -286,7 +320,41 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text",
+        "subject.4.name": "text",
+        "subject.4.logo": "logo",
+        "subject.4.card": "card",
+        "subject.4.value.1": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card",
+        "subject.4.name",
+        "subject.4.logo",
+        "subject.4.card"
+      ]
     },
     {
       "key": "comparison.full.2.2",
@@ -318,7 +386,29 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.1.value.2": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.2.value.2": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
+      ]
     },
     {
       "key": "comparison.full.2.3",
@@ -352,7 +442,31 @@
       "guards": [
         "comparison.full.2.3.background.v1"
       ],
-      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered"
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.1.value.2": "text",
+        "subject.1.value.3": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.2.value.2": "text",
+        "subject.2.value.3": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
+      ]
     },
     {
       "key": "comparison.full.3.2",
@@ -384,7 +498,37 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.1.value.2": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.2.value.2": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text",
+        "subject.3.value.2": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card"
+      ]
     },
     {
       "key": "comparison.full.3.3",
@@ -416,7 +560,40 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.1.value.2": "text",
+        "subject.1.value.3": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.2.value.2": "text",
+        "subject.2.value.3": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text",
+        "subject.3.value.2": "text",
+        "subject.3.value.3": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card"
+      ]
     },
     {
       "key": "comparison.full.4.2",
@@ -448,7 +625,45 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.1.value.2": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.2.value.2": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text",
+        "subject.3.value.2": "text",
+        "subject.4.name": "text",
+        "subject.4.logo": "logo",
+        "subject.4.card": "card",
+        "subject.4.value.1": "text",
+        "subject.4.value.2": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card",
+        "subject.4.name",
+        "subject.4.logo",
+        "subject.4.card"
+      ]
     },
     {
       "key": "comparison.full.4.3",
@@ -480,7 +695,49 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.1.value.2": "text",
+        "subject.1.value.3": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.2.value.2": "text",
+        "subject.2.value.3": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text",
+        "subject.3.value.2": "text",
+        "subject.3.value.3": "text",
+        "subject.4.name": "text",
+        "subject.4.logo": "logo",
+        "subject.4.card": "card",
+        "subject.4.value.1": "text",
+        "subject.4.value.2": "text",
+        "subject.4.value.3": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card",
+        "subject.4.name",
+        "subject.4.logo",
+        "subject.4.card"
+      ]
     },
     {
       "key": "year-by-year.trend.3",
@@ -510,7 +767,21 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "panel": "card",
+        "period.1.label": "text",
+        "period.1.value": "text",
+        "period.2.label": "text",
+        "period.2.value": "text",
+        "period.3.label": "text",
+        "period.3.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel"
+      ]
     },
     {
       "key": "year-by-year.trend.7",
@@ -540,7 +811,29 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "panel": "card",
+        "period.1.label": "text",
+        "period.1.value": "text",
+        "period.2.label": "text",
+        "period.2.value": "text",
+        "period.3.label": "text",
+        "period.3.value": "text",
+        "period.4.label": "text",
+        "period.4.value": "text",
+        "period.5.label": "text",
+        "period.5.value": "text",
+        "period.6.label": "text",
+        "period.6.value": "text",
+        "period.7.label": "text",
+        "period.7.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel"
+      ]
     },
     {
       "key": "asset-swap.standard",
@@ -570,7 +863,16 @@
       "guards": [
         "asset-swap.background.v1"
       ],
-      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered"
+      "visualGuardCoverage": "reviewed background geometry, lock, image, layer order and native tracks; full scene style not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "logo": "logo",
+        "photo.1": "photo",
+        "photo.2": "photo"
+      },
+      "requiredTeamRoles": [
+        "logo"
+      ]
     },
     {
       "key": "recurring.rank-reveal.10",
@@ -598,7 +900,79 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "row.1.card": "card",
+        "row.1.name": "text",
+        "row.1.logo": "logo",
+        "row.2.card": "card",
+        "row.2.name": "text",
+        "row.2.logo": "logo",
+        "row.3.card": "card",
+        "row.3.name": "text",
+        "row.3.logo": "logo",
+        "row.4.card": "card",
+        "row.4.name": "text",
+        "row.4.logo": "logo",
+        "row.5.card": "card",
+        "row.5.name": "text",
+        "row.5.logo": "logo",
+        "row.6.card": "card",
+        "row.6.name": "text",
+        "row.6.logo": "logo",
+        "row.7.card": "card",
+        "row.7.name": "text",
+        "row.7.logo": "logo",
+        "row.8.card": "card",
+        "row.8.name": "text",
+        "row.8.logo": "logo",
+        "row.9.card": "card",
+        "row.9.name": "text",
+        "row.9.logo": "logo",
+        "row.10.card": "card",
+        "row.10.name": "text",
+        "row.10.logo": "logo",
+        "focus.panel": "card",
+        "focus.logo": "logo",
+        "focus.text": "text"
+      },
+      "requiredTeamRoles": [
+        "row.1.card",
+        "row.1.name",
+        "row.1.logo",
+        "row.2.card",
+        "row.2.name",
+        "row.2.logo",
+        "row.3.card",
+        "row.3.name",
+        "row.3.logo",
+        "row.4.card",
+        "row.4.name",
+        "row.4.logo",
+        "row.5.card",
+        "row.5.name",
+        "row.5.logo",
+        "row.6.card",
+        "row.6.name",
+        "row.6.logo",
+        "row.7.card",
+        "row.7.name",
+        "row.7.logo",
+        "row.8.card",
+        "row.8.name",
+        "row.8.logo",
+        "row.9.card",
+        "row.9.name",
+        "row.9.logo",
+        "row.10.card",
+        "row.10.name",
+        "row.10.logo",
+        "focus.panel",
+        "focus.logo",
+        "focus.text"
+      ]
     },
     {
       "key": "recurring.super-bowl-bubble",
@@ -624,7 +998,19 @@
         "transcript reveal timing"
       ],
       "guards": [],
-      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered"
+      "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "board": "card",
+        "logo": "logo",
+        "team": "text"
+      },
+      "requiredTeamRoles": [
+        "board",
+        "logo",
+        "team"
+      ]
     },
     {
       "key": "stat-breakdown.grouped-stats.3-2-2",
@@ -823,7 +1209,31 @@
           "primary": 64,
           "detail": 36
         }
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "photo": "photo",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.3.label": "text",
+        "stat.3.value": "text",
+        "stat.4.label": "text",
+        "stat.4.value": "text",
+        "stat.5.label": "text",
+        "stat.5.value": "text",
+        "stat.6.label": "text",
+        "stat.6.value": "text",
+        "stat.7.label": "text",
+        "stat.7.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject"
+      ]
     },
     {
       "key": "stat-breakdown.grouped-logos.3-2-2",
@@ -1022,7 +1432,44 @@
           "primary": 64,
           "detail": 36
         }
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.1.logo": "logo",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.2.logo": "logo",
+        "stat.3.label": "text",
+        "stat.3.value": "text",
+        "stat.3.logo": "logo",
+        "stat.4.label": "text",
+        "stat.4.value": "text",
+        "stat.4.logo": "logo",
+        "stat.5.label": "text",
+        "stat.5.value": "text",
+        "stat.5.logo": "logo",
+        "stat.6.label": "text",
+        "stat.6.value": "text",
+        "stat.6.logo": "logo",
+        "stat.7.label": "text",
+        "stat.7.value": "text",
+        "stat.7.logo": "logo"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject",
+        "stat.1.logo",
+        "stat.2.logo",
+        "stat.3.logo",
+        "stat.4.logo",
+        "stat.5.logo",
+        "stat.6.logo",
+        "stat.7.logo"
+      ]
     },
     {
       "key": "stat-breakdown.grouped-logos.2-2-3",
@@ -1221,7 +1668,44 @@
           "primary": 64,
           "detail": 36
         }
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.1.logo": "logo",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.2.logo": "logo",
+        "stat.3.label": "text",
+        "stat.3.value": "text",
+        "stat.3.logo": "logo",
+        "stat.4.label": "text",
+        "stat.4.value": "text",
+        "stat.4.logo": "logo",
+        "stat.5.label": "text",
+        "stat.5.value": "text",
+        "stat.5.logo": "logo",
+        "stat.6.label": "text",
+        "stat.6.value": "text",
+        "stat.6.logo": "logo",
+        "stat.7.label": "text",
+        "stat.7.value": "text",
+        "stat.7.logo": "logo"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject",
+        "stat.1.logo",
+        "stat.2.logo",
+        "stat.3.logo",
+        "stat.4.logo",
+        "stat.5.logo",
+        "stat.6.logo",
+        "stat.7.logo"
+      ]
     },
     {
       "key": "comparison.logo-row.3",
@@ -1341,7 +1825,34 @@
           "primary": 64,
           "detail": 36
         }
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text",
+        "subject.3.name": "text",
+        "subject.3.logo": "logo",
+        "subject.3.card": "card",
+        "subject.3.value.1": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card",
+        "subject.3.name",
+        "subject.3.logo",
+        "subject.3.card"
+      ]
     },
     {
       "key": "comparison.logo-stat-cards.2",
@@ -1444,6 +1955,36 @@
         "sha256": "61f85c4256b943e26f65215ae7ee48cfc5f7500d1dc4770cf51d79e907fd8a3d",
         "authoredBackupPath": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-rams-seahawks-polish-v2",
         "sessionId": "01a14b9a-c69c-7873-b94a-012e11728769"
+      },
+      "family": "Team Cards",
+      "variant": "Game Result",
+      "use": "Show the final score for two teams. The source review example uses records, so review the first score copy.",
+      "exampleEagleItemId": "MVIW03KFDOSEV",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
+      ],
+      "surfaceDesign": {
+        "registryPath": "config/lineups/design-registry.json",
+        "id": "rank-card.sculpted-satin",
+        "version": 2,
+        "sha256": "9de90e6abe2b805d28fba181e9cfdef28975d420a277baaed1d1caa81d4c533b"
       }
     },
     {
@@ -1532,7 +2073,20 @@
           "logo geometry",
           "native motion"
         ]
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "logo": "logo",
+        "panel": "card",
+        "text": "text",
+        "team-background": "card"
+      },
+      "requiredTeamRoles": [
+        "logo",
+        "panel",
+        "text",
+        "team-background"
+      ]
     },
     {
       "key": "comparison.team-matchup.2",
@@ -1606,7 +2160,7 @@
             },
             "Statement#868:0": {
               "type": "TEXT",
-              "value": "DOMINATED THE PITTSBURGH STEELERS 20\u20133"
+              "value": "DOMINATED THE PITTSBURGH STEELERS 20–3"
             }
           }
         }
@@ -1621,7 +2175,35 @@
         "rightValue",
         "entranceCues"
       ],
-      "visualStyle": "rams-seahawks-angled-stripes"
+      "visualStyle": "rams-seahawks-angled-stripes",
+      "family": "Team Cards",
+      "variant": "Matchup",
+      "use": "Preview an upcoming game between two teams.",
+      "exampleEagleItemId": "MVUBVKQQ96EI2",
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
+      ],
+      "surfaceDesign": {
+        "registryPath": "config/lineups/design-registry.json",
+        "id": "rank-card.sculpted-satin",
+        "version": 2,
+        "sha256": "9de90e6abe2b805d28fba181e9cfdef28975d420a277baaed1d1caa81d4c533b"
+      }
     },
     {
       "key": "asset-swap.logo-pair",
@@ -1676,7 +2258,16 @@
       ],
       "assetPolicy": {
         "assetTreatment": "logos"
-      }
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "logo.1": "logo",
+        "logo.2": "logo"
+      },
+      "requiredTeamRoles": [
+        "logo.1",
+        "logo.2"
+      ]
     },
     {
       "key": "quick-stat.team-callout",
@@ -1728,6 +2319,243 @@
           "type": "INSTANCE_SWAP",
           "property": "Team logo#1870:2"
         }
+      ],
+      "requiredRoles": {
+        "root": "frame",
+        "photo": "photo",
+        "logo": "logo",
+        "logoBlock": "card",
+        "subjectPanel": "card",
+        "panel": "card",
+        "subject": "text",
+        "text": "text"
+      },
+      "requiredTeamRoles": [
+        "logo",
+        "logoBlock",
+        "subjectPanel",
+        "subject"
+      ]
+    },
+    {
+      "key": "comparison.rank-movement.2",
+      "lane": "comparison",
+      "option": "Rank Movement",
+      "family": "Team Cards",
+      "variant": "Rank Movement",
+      "settings": {
+        "subjects": 2,
+        "rows": 1
+      },
+      "source": {
+        "engine": "unreal",
+        "type": "UNREAL_SCENE",
+        "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+        "mapPath": "/Game/Lineups/Week8RankArrowsV2/C01/LV_C01",
+        "sequencePath": "/Game/Lineups/Week8RankArrowsV2/C01/LS_C01",
+        "manifestPath": "config/unreal/rank-movement-template.json",
+        "width": 1920,
+        "height": 1080
+      },
+      "reviewStatus": "visual-template-approved",
+      "allowedChanges": [
+        "team logo and colors",
+        "previous and current rank",
+        "rank movement direction",
+        "transcript reveal timing"
+      ],
+      "assetPolicy": {
+        "assetTreatment": "logos",
+        "comparisonKinds": [
+          "periods"
+        ]
+      },
+      "surfaceDesign": {
+        "registryPath": "config/lineups/design-registry.json",
+        "id": "rank-card.sculpted-satin",
+        "version": 2,
+        "sha256": "9de90e6abe2b805d28fba181e9cfdef28975d420a277baaed1d1caa81d4c533b"
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.1.value.1": "text",
+        "subject.2.name": "text",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card",
+        "subject.2.value.1": "text"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
+      ]
+    },
+    {
+      "key": "stat-breakdown.unreal.player.3",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "family": "Stat Breakdown",
+      "variant": "3 values",
+      "settings": {
+        "stats": 3
+      },
+      "source": {
+        "engine": "unreal",
+        "type": "UNREAL_SCENE",
+        "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+        "mapPath": "/Game/Lineups/StatBreakdownV1/LV_MahomesStat3",
+        "sequencePath": "/Game/Lineups/StatBreakdownV1/LS_MahomesStat3",
+        "manifestPath": "config/unreal/stat-breakdown-template-02.json",
+        "width": 1920,
+        "height": 1080
+      },
+      "reviewStatus": "visual-template-approved",
+      "allowedChanges": [
+        "player cutout and logo",
+        "team colors",
+        "player and stat labels",
+        "stat values",
+        "transcript reveal timing"
+      ],
+      "assetPolicy": {
+        "realAlpha": true
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "photo": "photo",
+        "logo": "logo",
+        "callout": "text",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.3.label": "text",
+        "stat.3.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject",
+        "logo"
+      ]
+    },
+    {
+      "key": "stat-breakdown.unreal.player.4",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "family": "Stat Breakdown",
+      "variant": "4 values",
+      "settings": {
+        "stats": 4
+      },
+      "source": {
+        "engine": "unreal",
+        "type": "UNREAL_SCENE",
+        "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+        "mapPath": "/Game/Lineups/StatBreakdownV1/LV_MahomesStat4",
+        "sequencePath": "/Game/Lineups/StatBreakdownV1/LS_MahomesStat4",
+        "manifestPath": "config/unreal/stat-breakdown-template-02.json",
+        "width": 1920,
+        "height": 1080
+      },
+      "reviewStatus": "visual-template-approved",
+      "allowedChanges": [
+        "player cutout and logo",
+        "team colors",
+        "player and stat labels",
+        "stat values",
+        "transcript reveal timing"
+      ],
+      "assetPolicy": {
+        "realAlpha": true
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "panel": "card",
+        "subject": "text",
+        "photo": "photo",
+        "logo": "logo",
+        "callout": "text",
+        "stat.1.label": "text",
+        "stat.1.value": "text",
+        "stat.2.label": "text",
+        "stat.2.value": "text",
+        "stat.3.label": "text",
+        "stat.3.value": "text",
+        "stat.4.label": "text",
+        "stat.4.value": "text"
+      },
+      "requiredTeamRoles": [
+        "panel",
+        "subject",
+        "logo"
+      ]
+    },
+    {
+      "key": "comparison.unreal.two-up",
+      "lane": "comparison",
+      "option": "Full comparison: 2",
+      "approvedOptions": [
+        "Full comparison: 2",
+        "Simple comparison",
+        "Cinematic 2-up"
+      ],
+      "settings": {
+        "subjects": 2,
+        "comparisonKind": "players",
+        "engine": "unreal"
+      },
+      "source": {
+        "engine": "unreal",
+        "type": "UNREAL_SCENE",
+        "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+        "mapPath": "/Game/Lineups/ReviewV1/LV_ComparisonReview",
+        "sequencePath": "/Game/Lineups/ReviewV1/LS_FullBodySmoothReview",
+        "manifestPath": "config/unreal/comparison-template-01.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "visual-approved-timing-pending"
+      },
+      "allowedChanges": [
+        "source asset slots",
+        "transcript copy",
+        "transcript reveal timing"
+      ],
+      "guards": [],
+      "visualGuardCoverage": "approved native player master; current episode evidence required",
+      "assetPolicy": {
+        "comparisonKinds": [
+          "players"
+        ],
+        "realAlpha": true
+      },
+      "requiredRoles": {
+        "root": "frame",
+        "title": "text",
+        "subject.1.name": "text",
+        "subject.1.photo": "photo",
+        "subject.1.logo": "logo",
+        "subject.1.card": "card",
+        "subject.2.name": "text",
+        "subject.2.photo": "photo",
+        "subject.2.logo": "logo",
+        "subject.2.card": "card"
+      },
+      "requiredTeamRoles": [
+        "subject.1.name",
+        "subject.1.logo",
+        "subject.1.card",
+        "subject.2.name",
+        "subject.2.logo",
+        "subject.2.card"
       ]
     }
   ],

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "templateKey": "comparison.rank-movement.2",
+  "family": "Team Cards",
+  "variant": "Rank Movement",
+  "projectPath": "/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58/LineupsSportsTrial.uproject",
+  "visualStatus": "approved-week8-v2",
+  "approval": "Jerami approved both Week 8 V2 clips on October 28, 2026, as recorded in Eagle.",
+  "cardShellManifest": "config/unreal/team-logo-template.json",
+  "variants": {
+    "down": {
+      "color": "red",
+      "eagleItemId": "MVSR7J1IQPS6H",
+      "exampleRanks": [
+        4,
+        8
+      ],
+      "mapPath": "/Game/Lineups/Week8RankArrowsV2/C01/LV_C01",
+      "sequencePath": "/Game/Lineups/Week8RankArrowsV2/C01/LS_C01",
+      "renderSha256": "d8eb615119c33cfe884181fcd40fecbfb98d894f9a9254017c105c62370be552"
+    },
+    "up": {
+      "color": "green",
+      "eagleItemId": "MVSR7J1JF5MVQ",
+      "exampleRanks": [
+        8,
+        5
+      ],
+      "mapPath": "/Game/Lineups/Week8RankArrowsV2/C02/LV_C02",
+      "sequencePath": "/Game/Lineups/Week8RankArrowsV2/C02/LS_C02",
+      "renderSha256": "7bdbaf184043438b43dd7fcd260706b8223d5bfb5bfc19c8c2fc4360bade7814"
+    }
+  },
+  "inputs": [
+    "team",
+    "teamLogo",
+    "teamColors",
+    "previousRank",
+    "currentRank",
+    "entranceCues"
+  ],
+  "rules": {
+    "direction": "Lower rank number is up (green); higher rank number is down (red). Equal ranks do not use a movement arrow.",
+    "labels": [
+      "LAST WEEK",
+      "THIS WEEK"
+    ],
+    "motion": "Enter both cards together, float the arrow after its entrance, hold the cards and omit animation out.",
+    "episodeTiming": "Use current dialogue and Manim timing proof. The 12-second review examples do not set the edit length.",
+    "cardBackground": "Use the bound sculpted satin surface for every team and episode. It replaces stripes on the card face only. Preserve the native layout and foreground."
+  },
+  "surfaceDesign": {
+    "registryPath": "config/lineups/design-registry.json",
+    "id": "rank-card.sculpted-satin",
+    "version": 2,
+    "sha256": "9de90e6abe2b805d28fba181e9cfdef28975d420a277baaed1d1caa81d4c533b"
+  }
+}

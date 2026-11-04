@@ -132,6 +132,12 @@ def resolve(key, registry=None):
     matches = [row for row in (registry or load_registry())["templates"] if row["key"] == key]
     if len(matches) != 1:
         raise TemplateError(f"unregistered or duplicate template key: {key}")
+    if 'surfaceDesign' in matches[0]:
+        from .designs import DesignError, resolve_design
+        try:
+            resolve_design(matches[0])
+        except DesignError as error:
+            raise TemplateError(str(error)) from error
     return matches[0]
 
 
@@ -170,13 +176,21 @@ def eligible(candidate, registry=None):
         return {"status": "needs-review", "reason": "Missing capacity setting: " + ", ".join(requirements), "templates": []}
     if purpose == "cast" and (type(candidate["subjects"]) is not int or not 1 <= candidate["subjects"] <= 4):
         return {"status": "reference-gap", "reason": "Asset Swap supports 1 to 4 subjects.", "templates": []}
+    option = candidate.get("option")
+    if purpose == "comparison":
+        from .engine_choice import comparison_option, routing_contract
+        option = comparison_option(option, candidate["comparisonKind"], candidate.get("comparisonMetric"), routing_contract())
     matches = []
     asset_blocked = False
     visual_review = False
     for row in registry["templates"]:
         if row["lane"] != lanes[purpose]:
             continue
-        if candidate.get("option") and candidate["option"] != row["option"]:
+        if option and option != row["option"]:
+            continue
+        if row["option"] == "Rank Movement" and option != "Rank Movement":
+            continue
+        if purpose == "stats" and row["source"].get("engine", "figma") != candidate.get("engine", "figma"):
             continue
         if row["option"] == "Cinematic 2-up":
             if purpose != "comparison" or candidate["comparisonKind"] != "players" or candidate["rows"] != 1:
@@ -187,6 +201,9 @@ def eligible(candidate, registry=None):
         if policy.get('comparisonKinds') and candidate.get('comparisonKind') not in policy['comparisonKinds']:
             continue
         if policy.get('assetTreatment') == 'logos' and candidate.get('assetTreatment') != 'logos':
+            asset_blocked = True
+            continue
+        if policy.get('realAlpha') and candidate.get('realAlpha') is not True:
             asset_blocked = True
             continue
         if row['option'] == 'Cinematic 2-up':
@@ -200,7 +217,7 @@ def eligible(candidate, registry=None):
         matches.append(row["key"])
         visual_review = visual_review or row.get('reviewStatus') in ('client-review', 'pending-unreal-review')
     if not matches and asset_blocked:
-        return {'status': 'asset-blocked', 'reason': 'Logo options require declared logo artwork. Cinematic 2-up requires full photos with original backgrounds together at frame zero and the top-left title. Player compositing in other options requires real alpha.', 'templates': []}
+        return {'status': 'asset-blocked', 'reason': 'Logo options require declared logo artwork. Cinematic 2-up requires full photos with original backgrounds together at frame zero and the top-left title. Composited player artwork requires real alpha.', 'templates': []}
     return {"status": "eligible" if len(matches) == 1 and not visual_review else "needs-review" if matches else "reference-gap",
             "reason": "Registered source fits; Jerami visual review is pending." if len(matches) == 1 and visual_review else "Fits the registered capacity." if len(matches) == 1 else
                       "Choose between the eligible approved looks." if matches else "No registered approved source fits these requirements.",

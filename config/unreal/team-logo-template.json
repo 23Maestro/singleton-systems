@@ -26,9 +26,9 @@
     "grass": "dry matte realistic turf; no wet or glossy reflections",
     "lighting": "team accents in stands and roofline; restrained neutral field light",
     "logos": "canonical supplied logo artwork, solid depth and beveled edges, restrained reflections; same horizontal plane",
-    "panels": "One shared Rams/Seahawks card style: angled team-color stripes, large team logo, thin shiny metallic border and dark team-name footer.",
+    "panels": "Shared sculpted satin card face from the latest Chiefs reference; team primary hue, fine grain and a quiet center. Preserve the large logo, thin metallic border and dark footer.",
     "teamReplacement": "Replace team colors, supplied team logo and team name. Optional record or rank uses the same layout family.",
-    "variantPolicy": "Every pairing uses this one card style, including Browns/Ravens and Chiefs/Chargers. Do not reproduce the separate Browns/Ravens texture or invent a new card treatment.",
+    "variantPolicy": "Stripes are retired for all new Team Cards. Preserve historical renders and use the bound satin surface for future pairings.",
     "fieldContact": "Soft card-bound contact shadow planes lie at turf height and move with each card. They are a composited contact-shadow treatment, not a shadow-catcher simulation."
   },
   "timing": {
@@ -73,13 +73,14 @@
     "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/references/team-cards-rams-seahawks-locked-reference.jpg",
     "sha256": "fca0999199f531aa073988302006994e503d02a78ea7c2b415e6541fab21f261",
     "sourceAttachment": "/tmp/codex-remote-attachments/01a14b9a-c69c-7873-b94a-012e11728769/4F407F59-0E3A-4143-A055-6D6C136D6724/1-Photo-1.jpg",
-    "statement": "The LA Rams and Seattle Seahawks cards are the ones that we lock in as our template."
+    "statement": "The LA Rams and Seattle Seahawks cards are the ones that we lock in as our template.",
+    "scope": "Historical layout and foreground reference only; its striped face is superseded by surfaceDesign version 2."
   },
   "workflow": {
-    "assetGeneration": "Three.js creates one reusable Rams/Seahawks-style card shell as standard PBR GLB geometry. Team colors are material inputs.",
+    "assetGeneration": "Reuse the card shell rim, footer and back. Remove raised stripe and accent-rail geometry; apply the shared sculpted satin material. Team primary hue is its only style input.",
     "unreal": "Import the GLB; add canonical logo depth, lighting, camera and smooth entrance. Hold static with no animation out.",
     "scope": "Rams-Seahawks paired-logo motion review on the shared shell. No additional team pairings or component rebuilds.",
-    "nextStep": "Bind actual episode Mark dialogue and same-revision Manim entrance cues to the visually approved Rams-Seahawks baseline, then verify production handoff."
+    "nextStep": "Build the shared satin material, review native proof, then bind current episode speech cues and verify handoff."
   },
   "nativeImplementationStatus": "Rams-Seahawks v4 visual design and motion approved by Jerami. Episode timing, production handoff and current-scope code review remain pending.",
   "shellAsset": {
@@ -91,7 +92,8 @@
     "proofMap": "/Game/Lineups/TeamCardShellV1/LV_CardShellProof",
     "proofSequence": "/Game/Lineups/TeamCardShellV1/LS_CardShellProof",
     "proofOnly": true,
-    "nativeStill": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/team-card-shell-three-v4/CardShellProof.0000.png"
+    "nativeStill": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/team-card-shell-three-v4/CardShellProof.0000.png",
+    "usage": "Historical geometry source only. New cards use the stripe-free shell and surfaceDesign material."
   },
   "motionPreview": {
     "mapPath": "/Game/Lineups/RamsSeahawksMotionV1/LV_RamsSeahawks",
@@ -128,5 +130,11 @@
       "authoredBackupPath": "/Users/singleton23/.local/state/singleton-systems/unreal-setup/authored-backups/20261021-rams-seahawks-polish-v2",
       "sessionId": "01a14b9a-c69c-7873-b94a-012e11728769"
     }
+  },
+  "surfaceDesign": {
+    "registryPath": "config/lineups/design-registry.json",
+    "id": "rank-card.sculpted-satin",
+    "version": 2,
+    "sha256": "9de90e6abe2b805d28fba181e9cfdef28975d420a277baaed1d1caa81d4c533b"
   }
 }

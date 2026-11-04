@@ -44,6 +44,8 @@ def build_comparison(request):
         raise ComparisonError("Supply the speaker-led headline.")
     if not re.fullmatch(r"WBP_[A-Za-z0-9_]+", request.get("assetName", "WBP_TwoPlayerComparison")):
         raise ComparisonError("Use a simple WBP_ scene name in the trial folder.")
+    if request.get('contractManifest') or request.get('episodeId'):
+        raise ComparisonError('This legacy trial builder cannot author production contracts. Use the registered native master.')
     config = json.loads((ROOT / "config/unreal/comparison-template.json").read_text())
     helper = ROOT / "plugins/s-systems/skills/unreal-storage/scripts/unreal_workspace.py"
     spec = importlib.util.spec_from_file_location("lineups_trial_storage", helper)

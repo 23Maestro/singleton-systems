@@ -89,10 +89,9 @@ const checks = [
     must: [
       "references/lineups-treatment-system.md",
       "references/lineups-episode-lifecycle.md",
-      "Use one Asana task",
-      "record per video",
-      "seven lanes",
-      "lane, option, and setting",
+      "references/lineups-corrections.md",
+      "references/lineups-contract-gate.md",
+      "lane, option, setting and engine",
     ],
   },
   {
@@ -108,26 +107,15 @@ const checks = [
       "evidence-receipt.md",
     ],
   },
-  {
-    file: path.join(pluginRoot, "skills", "lineups-editor", "references", "lineups-treatment-system.md"),
-    must: [
-      "quick action photo",
-      "quick stat",
-      "stat breakdown",
-      "Cinematic 2-up",
-      "Simple comparison",
-      "year-by-year",
-      "asset swap",
-      "recurring board",
-      "action photography",
-      "1920 x 1080",
-      "pre-Premiere gate",
-      "Pre-Figma review and Post-Figma review are fixed Lineups stages",
-      "An Asana task may be",
-      "required review and delivery readback pass",
-      "Episode-specific Decision Maps are temporary review surfaces",
-    ],
-  },
+  ...[
+    ["lineups-treatment-system.md", ["SELECT", "ASSET", "BUILD", "TEAM", "REVIEW", "lineups-lanes.md", "design-registry.json"]],
+    ["lineups-lanes.md", ["quick action photo", "quick stat", "stat breakdown", "Cinematic 2-up", "Simple comparison", "year-by-year", "asset swap", "recurring board"]],
+    ["lineups-assets.md", ["action photography", "1920 x 1080", "real-alpha"]],
+    ["lineups-review.md", ["pre-Premiere gate", "Pre-Figma review and Post-Figma review are fixed Lineups stages", "An Asana task may be", "required review and delivery readback pass", "Episode-specific Decision Maps are temporary review surfaces"]],
+    ["lineups-selection.md", ["full-transcript discovery", "transcript-to-graphic copy", "pacing"]],
+    ["lineups-build.md", ["engine choice after selection", "episode workspace", "motion engine"]],
+    ["lineups-team-routes.md", ["rank-card.sculpted-satin", "striped card background only"]],
+  ].map(([name, must]) => ({file: path.join(pluginRoot, "skills", "lineups-editor", "references", name), must})),
   {
     file: path.join(pluginRoot, "skills", "lineups-editor", "references", "lineups-episode-lifecycle.md"),
     must: [
@@ -203,6 +191,7 @@ for (const check of checks) {
 const lineupsActiveFiles = [
   skillPath("client-video-storyboard"),
   path.join(pluginRoot, "skills", "lineups-editor", "references", "lineups-treatment-system.md"),
+  ...["selection", "lanes", "assets", "build", "review", "team-routes"].map(name => path.join(pluginRoot, "skills", "lineups-editor", "references", `lineups-${name}.md`)),
   ".agents/skills/singleton-figma-system/references/lineups-production-system.md",
 ];
 for (const file of lineupsActiveFiles) {

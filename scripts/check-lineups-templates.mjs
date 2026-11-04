@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 
 const python = process.env.PYTHON || "python3";
 const checks = [
-  ["-m", "unittest", "tools.lineups_motion.tests.test_templates", "tools.lineups_motion.tests.test_engine_choice"],
+  ["-m", "unittest", "tools.lineups_motion.tests.test_templates", "tools.lineups_motion.tests.test_engine_choice", "tools.lineups_motion.tests.test_designs", "tools.lineups_motion.tests.test_contract_gate"],
   ["scripts/lineups-templates.py", "check", "config/lineups/canonical-template-verification.json"],
   ["scripts/lineups-templates.py", "check", "config/lineups/fixtures/valid/callout-readback.json"],
 ];

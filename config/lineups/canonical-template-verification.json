@@ -17,32 +17,6 @@
     {
       "fileKey": "o7E24iymIT80MTXGYIogVH",
       "pageId": "428:27",
-      "componentId": "653:184",
-      "type": "COMPONENT",
-      "parentId": "653:226",
-      "width": 1920,
-      "height": 1080,
-      "name": "Option=Single-frame statement",
-      "variantProperties": {
-        "Option": "Single-frame statement"
-      }
-    },
-    {
-      "fileKey": "o7E24iymIT80MTXGYIogVH",
-      "pageId": "428:27",
-      "componentId": "653:196",
-      "type": "COMPONENT",
-      "parentId": "653:226",
-      "width": 1920,
-      "height": 1080,
-      "name": "Option=Two-photo progression",
-      "variantProperties": {
-        "Option": "Two-photo progression"
-      }
-    },
-    {
-      "fileKey": "o7E24iymIT80MTXGYIogVH",
-      "pageId": "428:27",
       "componentId": "591:105",
       "type": "COMPONENT",
       "parentId": "591:124",

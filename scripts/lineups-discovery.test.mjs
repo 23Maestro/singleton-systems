@@ -586,7 +586,7 @@ test('delivery proof requires actual decoded images at every transcript cue', ()
   } finally {fs.rmSync(c.dir, {recursive: true, force: true}); if (mediaDirectory) fs.rmSync(mediaDirectory, {recursive: true, force: true});}
 });
 
-test('emitted canonical Quick Stat executes with native float tracks and actual cloned callout IDs', async () => {
+test('the planner rejects retired Quick Stat sources before emitting mutation code', () => {
   const c = sceneCase();
   try {
     const fileKey = 'o7E24iymIT80MTXGYIogVH';
@@ -600,61 +600,7 @@ test('emitted canonical Quick Stat executes with native float tracks and actual 
         sourceRevision: 'quick-source-v1', topicSmall: 'Defense', topicLarge: 'Takeaways',
         statement: 'FOUR TAKEAWAYS', x: 0, y: 0}]}));
     const result = spawnSync(process.execPath, ['scripts/prepare-lineups-motion-scene.mjs', sceneId, '--config', configPath], {encoding: 'utf8'});
-    assert.equal(result.status, 0, result.stderr);
-    const plan = JSON.parse(result.stdout);
-    const measured = JSON.parse(fs.readFileSync('config/lineups/fixtures/valid/callout-readback.json')).callouts[0];
-    const canonical = JSON.parse(fs.readFileSync('config/lineups/canonical-template-verification.json')).callout;
-    const all = [];
-    function node(id, name, type, properties = {}) {
-      const n = {id, name, type, width: 1920, height: 1080, children: [], manualKeyframeTracks: {}, animationStyles: [],
-        ...structuredClone(properties),
-        appendChild(child) {child.parent = this; this.children.push(child);},
-        findAll(predicate) {return this.children.flatMap(child => [child, ...child.findAll(() => true)]).filter(predicate);},
-        findOne(predicate) {return this.findAll(predicate)[0];},
-        detachInstance() {this.type = 'FRAME'; return this;},
-        applyManualKeyframeTrack(property, track) {
-          this.manualKeyframeTracks[property.name] = structuredClone(track);
-          for (const frame of this.manualKeyframeTracks[property.name].keyframes) {
-            if (frame.value.type === 'VECTOR') for (const key of ['x', 'y']) frame.value.value[key] = Math.fround(frame.value.value[key]);
-            else frame.value.value = Math.fround(frame.value.value);
-          }
-          this.timelines = [{id: 'timeline', duration: 14.2}];
-        },
-        setTimelineDuration(id, duration) {this.timelines[0].duration = duration;},
-      };
-      all.push(n); return n;
-    }
-    const section = node('SECTION', 'Episode', 'SECTION');
-    const source = node('653:184', 'Quick Stat', 'COMPONENT');
-    source.createInstance = () => {
-      const frame = node('CLONED:ROOT', 'Quick Stat', 'INSTANCE'); frame.mainComponent = source;
-      frame.appendChild(node('CLONED:SMALL', 'TOPIC SMALL', 'TEXT'));
-      frame.appendChild(node('CLONED:LARGE', 'TOPIC LARGE', 'TEXT'));
-      frame.appendChild(node('CLONED:PHOTO', 'EDIT / PHOTO 1 / FILL 1920x1080', 'RECTANGLE'));
-      const wrapper = node('CLONED:WRAPPER', 'STATEMENT / CYAN CALLOUT', 'FRAME', measured.wrapper);
-      const panel = node('CLONED:PANEL', 'Panel', 'FRAME', measured.panel);
-      const text = node('CLONED:TEXT', 'Statement', 'TEXT', measured.text);
-      // The API assigns fresh IDs; sample measurements supply independent style/geometry.
-      wrapper.id = 'CLONED:WRAPPER'; panel.id = 'CLONED:PANEL'; text.id = 'CLONED:TEXT';
-      frame.appendChild(wrapper); wrapper.appendChild(panel); panel.appendChild(text);
-      return frame;
-    };
-    for (const role of ['wrapper', 'panel', 'text']) {
-      const n = node(canonical[role].id, role, role === 'text' ? 'TEXT' : 'FRAME', canonical[role]);
-      n.parent = {id: canonical[role].parentId};
-    }
-    const figma = {fileKey, mixed: Symbol('mixed'), getNodeByIdAsync: async id => all.find(n => n.id === id), loadFontAsync: async () => {}};
-    const runCode = new (Object.getPrototypeOf(async function() {}).constructor)('figma', plan.toolInput.code);
-    const readback = await runCode(figma);
-    Object.assign(c.manifest, plan.manifest);
-    c.manifest.timing.manimTimingValidated = true;
-    c.manifest.review = {status: "approved", reviewer: "Jerami", reviewedAt: "2026-10-13T14:00:00Z", correctionPayloadId: "fixture-only"};
-    assert.equal(c.approve().status, 0);
-    const post = () => c.run('PostToolUse', 'mcp__codex_apps__figma_use_figma', plan.toolInput, readback);
-    assert.match(post().hookSpecificOutput?.additionalContext || '', /readback passed/, JSON.stringify(post()));
-    assert.equal(readback.calloutReadback.panel.id, 'CLONED:PANEL');
-    assert.equal(readback.motionTracks[0].keyframes.at(-1).value, 1.024999976158142);
-    readback.calloutReadback.panel.height = 90;
-    assert.match(JSON.stringify(post()), /panel.height/);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /source must match its registered option/);
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });

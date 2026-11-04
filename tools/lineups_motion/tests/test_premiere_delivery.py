@@ -14,7 +14,9 @@ class DeliveryTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         media = self.root / 'approved.mov'
-        media.write_bytes(b'approved render')
+        from tools.lineups_motion.tests.contract_fixture import delivery_contract
+        contract = delivery_contract(self.root, media)
+
         proof = self.root / 'unreal.json'
         self.row = dict(sceneId='C01', projectItemId='item', eaglePath=str(media),
                         sha256=gate.file_digest(media), labelIndex=3, engine='unreal',
@@ -25,6 +27,7 @@ class DeliveryTests(unittest.TestCase):
             eagleIntake='verified', scenes=[dict(sceneId='C01', status='checked',
             masterSha256=self.row['sha256'], eagleItemId='eagle', eagleManagedFile=str(media),
             fps=25, frames=300)])))
+        self.row['contractManifest'] = contract
         self.row['sourceProof'] = dict(path=str(proof), sha256=gate.file_digest(proof))
         ingest = self.root / 'ingest.json'
         ingest.write_text(json.dumps(dict(project='/week8.prproj', count=1, items=[dict(
@@ -73,6 +76,20 @@ class DeliveryTests(unittest.TestCase):
             args=self.add_args(); args[field]=value
             with self.subTest(field=field), self.assertRaises(ValueError):
                 self.call('add_to_timeline',args)
+
+    def test_timing_only_delivery_cannot_skip_visual_contract(self):
+        del self.row['contractManifest']
+        self.sign()
+        (self.root/'state.json').unlink()
+        self.context('/week8.prproj')
+        with self.assertRaisesRegex(ValueError, 'evidence'):
+            self.call('add_to_timeline', self.add_args())
+
+    def test_native_delivery_rejects_stale_manim_receipt(self):
+        manifest = json.loads(Path(self.row['contractManifest']['path']).read_text())
+        Path(manifest['timing']['proofPath']).write_text('{}')
+        with self.assertRaisesRegex(ValueError, 'Manim timing receipt'):
+            self.place()
 
     def test_valid_unreal_can_place_but_cannot_duplicate(self):
         self.place()

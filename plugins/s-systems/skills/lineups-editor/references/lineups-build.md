@@ -1,0 +1,102 @@
+# build the scene
+
+## engine choice after selection
+
+After transcript discovery, pacing and human candidate selection, a selected
+**Lane 4 / Comparison / player 2-up** must ask: **Figma or Unreal?** There is no default.
+Keep the existing option name and subject count; record the engine separately.
+The seven lane names and numbers in `config/lineups/engine-routing.json` stay
+fixed across both tools. The fixed team routes below take precedence.
+
+Before authoring, run `python3 scripts/lineups-templates.py engine-choice MANIFEST`.
+It checks the selected candidate against current transcript discovery. Ask the
+returned question in chat. Record Jerami's answer using `--engine figma|unreal
+--answer 'actual answer'`. This saves `engineChoice` in the scene manifest.
+Discovery preflight rejects a missing, stale or mismatched choice. Re-ask when
+the transcript revision, candidate, option or subject count changes. The answer
+is per scene; never turn one answer into an episode-wide engine default.
+
+Figma retrieves the registered option in Components with its existing asset
+rules. Unreal points to `config/unreal/comparison-template-01.json`, the approved
+player comparison master: fuller bodies and legs, mask-only background removal,
+team edge lighting, dimensional logos and one small smooth camera push. Its card
+is hidden for conceptual comparisons or shows 1–5 sourced rows at 36 px or larger.
+The demo's generated cutouts remain a demo-only exception. Unregistered team
+or period options return a reference gap. Fixed team routes use their saved
+native sources; do not invent replacements.
+
+Choosing Unreal does not pass the episode Mark/Manim hold and exit checks or the
+production handoff gate. No production renderer default changes. Review-only
+copies must remain labeled Unreal; never send them through Figma receipts.
+
+## episode workspace
+
+Jerami's October 29, 2026 corrections supersede older source styling: lock all
+wash overlays, keep photo darkening at or below 20%, and use the current white
+Team callout `1843:1021`. The blue callout is retired for new episode builds. Stat Breakdown subjects use 40 px Inter Bold;
+support labels use 36 px Inter italic, following the live Mahomes example
+`1976:5088`. The Figma production reference owns the exact role styles and line
+heights. Frame the visible person within the available photo slot and preserve
+Jerami's live crop edits. Centering the image rectangle alone does not pass.
+Keep available headroom in the initial framing so heads and helmets are intact
+when the source allows. Preserve Jerami's adjustments. Headroom at the end of
+the inherited push-in is not a separate approval requirement.
+When a source conflicts with these agreed rules, fix the source, verify it,
+then build the episode copy.
+
+At episode start, use `singleton-figma-system` for the shared Figma structure.
+Use simple episode titles and actual-workday labels at exactly 300 px. Keep
+episodes left to right by known work date, with wide gaps for a quick Loom pan.
+Keep a spec for each approved lane used. Loose cutouts, logos, original photos,
+extra render parts, and old versions live on `Player Cut Outs + Logos`, grouped
+by episode. Preserve the scene artwork, IDs, approved sources, and motion.
+Apply this at the first authorized Figma build; the review gates still apply.
+
+## data-driven background
+
+In Figma, Stat breakdown, Simple and Full comparison, year-by-year, and recurring
+boards use Field Night without the football. Unreal uses its native template plate. Keep the background locked and separate
+from the editable artwork inside Figma. Bind its Figma node and image hash in
+the scene manifest and verify them in the mutation readback. Photo-led options
+keep their photos. Asset Swap keeps its football-visible Field Night background.
+
+## motion engine
+
+Read `config/lineups/engine-routing.json` after transcript candidate selection.
+Player 2-ups ask Jerami to choose Figma or Unreal. For the same team's rank
+across 2 weeks, choose Team Cards / Rank Movement in Unreal. Set
+`comparisonKind: periods` and `comparisonMetric: rank` on the selected scene.
+Other period comparisons reuse their registered Figma source. Fixed options
+keep their recorded route. A different episode route needs a fresh answer
+from Jerami tied to that source.
+
+The Figma production path uses Figma Motion as its sole visual motion engine.
+An Unreal review master does not bypass its open production gates. Manim validates the Whisper word anchors, cue math,
+frame rate, and composition timing; it never renders the scene. The required
+order is Whisper word-level transcript -> Manim timing validation and cue proof
+-> Pre-Figma review page -> human candidate decisions -> Lane 4 2-up engine
+question when applicable -> the selected authoring path. Figma production uses
+Figma Motion. The cue
+list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The hook
+checks the math and motion proof before Figma mutation or export.
+
+Team callout uses `config/lineups/team-callout-contract.json`, including its
+current source fingerprint and all 8 protected node roles. It does not use
+the Single-frame statement callout contract. Fetch the exact bound nodes and
+check their measured properties. Keep the normal episode approval receipts.
+
+For Rank Reveal with the current-team panel and row highlight, bind all 4
+`figma.rankReveal.contentNodeIds` roles: `teamText`, `logo`, `currentTeamPanel`,
+and `rowHighlight`. Their opacity tracks use the same team-content cue.
+The earlier 2-node layout remains readable for prior records. New nodes cannot
+be added as unnamed tracks or used to replay the whole board.
+
+Every composition is at least 10 seconds long and extends at least two seconds
+beyond its last content cue. This padding is intentional so Premiere can trim a
+longer source instead of sending the scene back to Figma.
+
+## active-system rule
+
+Approved options live in the current menu. Working pages use copies of those
+approved options. Idea boards remain references. Rejected drafts, replaced
+masters, and stale labels leave active pages after each review pass.

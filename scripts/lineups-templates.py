@@ -14,6 +14,7 @@ from tools.lineups_motion.templates import (
 )
 from tools.lineups_motion.discovery import validate_scene_discovery
 from tools.lineups_motion.engine_choice import engine_route, record_engine_choice
+from tools.lineups_motion.designs import DesignError, surface_request
 
 
 def collector_code(page_id, bindings, sources=False, lock_backgrounds=False):
@@ -116,6 +117,9 @@ def main():
     sub.add_parser("list")
     get = sub.add_parser("resolve")
     get.add_argument("key")
+    surface = sub.add_parser('surface-request', help='Bind episode and team inputs to a locked card background')
+    surface.add_argument('key')
+    surface.add_argument('inputs', type=Path)
     fit = sub.add_parser("fit")
     fit.add_argument("candidate", type=Path)
     engine = sub.add_parser('engine-choice', help='Ask after transcript candidate selection; save only an explicit answer')
@@ -138,6 +142,8 @@ def main():
         result = registry
     elif args.command == "resolve":
         result = resolve(args.key)
+    elif args.command == 'surface-request':
+        result = surface_request(resolve(args.key), json.loads(args.inputs.read_text()))
     elif args.command == "fit":
         result = eligible(json.loads(args.candidate.read_text()))
     elif args.command == 'engine-choice':
@@ -200,6 +206,6 @@ def main():
 if __name__ == "__main__":
     try:
         main()
-    except (TemplateError, KeyError, TypeError, ValueError) as error:
+    except (TemplateError, DesignError, KeyError, TypeError, ValueError) as error:
         print(str(error), file=sys.stderr)
         sys.exit(1)
