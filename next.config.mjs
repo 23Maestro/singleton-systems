@@ -8,6 +8,7 @@ const nextConfig = {
       "/ai-workflow-session/:path*",
       "/business-links/:path*",
       "/business-ops/:path*",
+      "/studio/:path*",
       "/command-center/:path*",
       "/dashboard/:path*",
       "/decision-maps/:path*",
@@ -59,6 +60,7 @@ const nextConfig = {
         { source: "/ai-consultant", destination: "/AI-consultant" },
       ],
       beforeFiles: [
+        { source: "/studio", destination: "/studio/index.html" },
         {
           source: "/decision-maps/2026-09-15-kedasha-preview",
           destination: "/decision-maps/2026-09-15-kedasha-preview/index.html",

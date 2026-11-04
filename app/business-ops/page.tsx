@@ -5,7 +5,7 @@ import { founderName, siteName, siteUrl } from "../site";
 
 export const metadata: Metadata = {
   title: "Business Ops",
-  description: "Command Center, Fitness, and Finances in one place.",
+  description: "Studio and business tools in one place.",
   robots: {
     index: false,
     follow: false,
@@ -15,12 +15,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `${founderName} Business Ops | ${siteName}`,
-    description: "Command Center, Fitness, and Finances in one place.",
+    description: "Studio and business tools in one place.",
     url: `${siteUrl}/business-ops`,
   },
 };
 
 const links = [
+  { label: "Studio", href: "/studio", description: "Review scenes and leave frame notes." },
   { label: "Command Center", href: "/dashboard", description: "Work queue, planning, and client context." },
   { label: "Fitness", href: "/fitness", description: "Workouts and morning movement." },
   { label: "Finances", href: "/finances", description: "Current money and financial plans." },
@@ -45,13 +46,15 @@ export default function BusinessOpsPage() {
             Business Ops
           </h1>
           <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
-            Command Center, Fitness, and Finances.
+            Studio and business tools.
           </p>
         </header>
 
         <nav className="mt-9 grid gap-3" aria-label="Business tools">
-          {links.map((link) => (
-            <Link
+          {links.map((link) => {
+            const ToolLink = link.href === "/studio" ? "a" : Link;
+            return (
+            <ToolLink
               key={link.href}
               href={link.href}
               className="group block border-b border-black/15 py-3.5 transition hover:border-black/50 hover:bg-black/[0.03] focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#f7f7f5] dark:border-white/15 dark:hover:border-white/60 dark:hover:bg-white/[0.03] dark:focus:ring-white dark:focus:ring-offset-[#0c0d0f]"
@@ -69,8 +72,9 @@ export default function BusinessOpsPage() {
                   →
                 </span>
               </span>
-            </Link>
-          ))}
+            </ToolLink>
+            );
+          })}
         </nav>
       </section>
     </main>

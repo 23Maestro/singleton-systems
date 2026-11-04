@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "episodeId": "2026-10-27-nfl-week-8-power-rankings",
+  "validator": "manim",
+  "validatorVersion": "0.19.0",
+  "validatedAt": "2026-10-28T08:55:51.501051+00:00",
+  "result": "passed",
+  "sceneCount": 30,
+  "transcriptSha256": "b5d84d8e837a166bc1594e2986488571552f88183d0e1b50d7d2912d935c6583",
+  "discoverySha256": "a5b3e7d40d7e7b56eeb31d1bd1eeb4f7bc8c26a22e3073ec36a63af0e0b0ce78",
+  "cueMapSha256": "030a841a2d004bd50bb227de0c494bf627d08fe0c8827768e4c912c316c100da",
+  "scenes": [
+    {
+      "sceneId": "R10",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R10.manifest.json",
+      "manifestSha256": "1b50d092ba70ac6541037bdd84321bfb0e72c90a5310dccf5c4b76769ffe590d",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R10.receipt.json",
+      "receiptSha256": "5d02794098f34a8e40f07d30f6a71dd256664acf98281bc8ffb3bcb24130517b"
+    },
+    {
+      "sceneId": "P01",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P01.manifest.json",
+      "manifestSha256": "1065794158ab79da4761fd0df8d3cd2015d52ddf9d0d649800d2dc37882d134e",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P01.receipt.json",
+      "receiptSha256": "18d841e5892696666def5b6e7d41342bc70f18d2d91791a29b6907da598fec21"
+    },
+    {
+      "sceneId": "R09",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R09.manifest.json",
+      "manifestSha256": "50ee450dd8d8bd71a7b66a91160d1ae81fae547243686630143e0248f456bc13",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R09.receipt.json",
+      "receiptSha256": "2fc387560bb11eac9b6728ec415920ea91a88816fe4829d6b5c5782a96d50cd4"
+    },
+    {
+      "sceneId": "S01",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S01.manifest.json",
+      "manifestSha256": "4df8f8b72a964c45258e3a5bb0802a116c26d368abff48255259095013d8f978",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S01.receipt.json",
+      "receiptSha256": "3e8106a90e1ae3d9a057c1eb4666de0d9569eb951c2c41064fb1215fb443c22c"
+    },
+    {
+      "sceneId": "P02",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P02.manifest.json",
+      "manifestSha256": "71ceafb534bd7e3c7eb98125efe960f34f6e2a9a68a6139b41d51ba5602859d4",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P02.receipt.json",
+      "receiptSha256": "7dee84c4e1c0d90c5667ba11b52ad714f6e8717695fdeff768ba8a7bd1c83988"
+    },
+    {
+      "sceneId": "R08",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R08.manifest.json",
+      "manifestSha256": "b152ec58581be5b1af53b3d0a3e1d328f0f2a88a159420b0f563ed125223e92d",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R08.receipt.json",
+      "receiptSha256": "d87f3afd615d5b467fd99c5117f36ebabd370c708b695fe0c839553d226cfa02"
+    },
+    {
+      "sceneId": "C01",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/C01.manifest.json",
+      "manifestSha256": "48f95a4de76b16a3f5ee2ac512d513ba13833b4b6753839bb998c0a35c313a5f",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/C01.receipt.json",
+      "receiptSha256": "be7929e3ed9bc6db0b2427d56cce8f96e07eed79b65ad010bef1a83d92ee0e65"
+    },
+    {
+      "sceneId": "P03",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P03.manifest.json",
+      "manifestSha256": "b30e2a26a6345c6f74c797133d196c03ac4b7456345d9dd3766882c9e49598a6",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P03.receipt.json",
+      "receiptSha256": "06cb46fccddc5b25f266263617d2d6f9dfd4fbbfff4ad39abd3b2a5688c6ad00"
+    },
+    {
+      "sceneId": "R07",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R07.manifest.json",
+      "manifestSha256": "fe18bbcec8e4a72d283dd594fc81c996d590b342e337c6d7e33fdb73d71a094e",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R07.receipt.json",
+      "receiptSha256": "362f60579081d08581d097c0550033d790f62591ca594537b0a680610b418079"
+    },
+    {
+      "sceneId": "A03",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/A03.manifest.json",
+      "manifestSha256": "2530c760ee7748f7b7e707e77898f44ac1c9618fc647009400d892a789968b8f",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/A03.receipt.json",
+      "receiptSha256": "f778faf39b6cf838dab54b44e59fac0d63f3b1bf9aeedf39f33e9b6facb7cf0a"
+    },
+    {
+      "sceneId": "S02",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S02.manifest.json",
+      "manifestSha256": "fd2ca727c3b3d792204eb785479f514fc84c7e0c8fd86aaf690cbc49c8643f4c",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S02.receipt.json",
+      "receiptSha256": "c9c7b5e3de288bfa6e81b600181e404925d18c106e449ac1407395ccf5ad8999"
+    },
+    {
+      "sceneId": "P04",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P04.manifest.json",
+      "manifestSha256": "ca3ad1f2107acaf17a95dec59be9f88d7e3b316524970bbf60bda2e6e2076195",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P04.receipt.json",
+      "receiptSha256": "2a8534e1e2d7a6419d446c50bdcacbc66fc778b3dfc9a3156beea081872f3e93"
+    },
+    {
+      "sceneId": "R06",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R06.manifest.json",
+      "manifestSha256": "fe6b954a089655eff4bbb8020e4ba25d42852443a7193dc48ae3a881b0bba7bd",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R06.receipt.json",
+      "receiptSha256": "0fd8cd1d74c4474939562cfb4980cb5f35f7448e8ebe8565ef92af9a87d69616"
+    },
+    {
+      "sceneId": "S03",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S03.manifest.json",
+      "manifestSha256": "48aba3bf2a10914b1c9d5155568669b9b3a20260050f9bd76d9279dbbb934301",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S03.receipt.json",
+      "receiptSha256": "842862a401cfdfa8f3c55439412435615cf7a6d8779b30761a1c968a5be9a470"
+    },
+    {
+      "sceneId": "P05",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P05.manifest.json",
+      "manifestSha256": "7c3264e0a2f06f25c227f5a3cbb6a16fa4da417ec2baa741dd56b029987381ff",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P05.receipt.json",
+      "receiptSha256": "cbbe3fc1cb3e2b022e6368d44bc26ac36f37debefe65ade3aead6b1dcda2d422"
+    },
+    {
+      "sceneId": "R05",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R05.manifest.json",
+      "manifestSha256": "e8b866d3993c358014006c20163204c3e18583055aaca012e5ff526309cb860a",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R05.receipt.json",
+      "receiptSha256": "34d619fb5aab754486bfd19ab68d516d75ef53a679d0f2c074e509a9784299c5"
+    },
+    {
+      "sceneId": "C02",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/C02.manifest.json",
+      "manifestSha256": "7feb59ec45e8836b15f71b7c8cf68c83c11a5bab1b1f5037ad0bd8fb899bbd26",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/C02.receipt.json",
+      "receiptSha256": "29cc8362ae2b26743d60e0e565d8a5a958c32187491edb265cd1426cc828e4dc"
+    },
+    {
+      "sceneId": "P06",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P06.manifest.json",
+      "manifestSha256": "e0193416f8171372b7590a2d0e8cc2a1a7f013ef043c6ffe2cf410944568ff16",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P06.receipt.json",
+      "receiptSha256": "56b3095c7c1cb9d62cfb2f455044cd855557631863212619a2cb768f91d619ae"
+    },
+    {
+      "sceneId": "R04",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R04.manifest.json",
+      "manifestSha256": "a3f54d9275836a4e8d57add4ee13c061955b86856d688c8166adb55390458a0e",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R04.receipt.json",
+      "receiptSha256": "8cba1266bab8a772f63530d24760a89fe33b2c91a69c3ced2c30f2e7718d62b0"
+    },
+    {
+      "sceneId": "S04",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S04.manifest.json",
+      "manifestSha256": "9bbbdf52a6ff4cb9c64169c2d9175f3652144c4886a7bbe9235298c2f76a66d4",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S04.receipt.json",
+      "receiptSha256": "6d387663d57c91ed9f49f50fa5326765368db71684e8fde9638d178ce858aaed"
+    },
+    {
+      "sceneId": "P07",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P07.manifest.json",
+      "manifestSha256": "581f5833cfe1b12c69f20b76df866b29cf3116b8cf3ae714f6ad2ca7c5f63796",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P07.receipt.json",
+      "receiptSha256": "b5725bd21d819534dcc80c953c1473d4f5906a336bae24951e4bf0f2a157954b"
+    },
+    {
+      "sceneId": "A02",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/A02.manifest.json",
+      "manifestSha256": "5f6a6982d275986a4a3f05c4657187b88d4a5ec7599011506694b8726501cd95",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/A02.receipt.json",
+      "receiptSha256": "11a9e60d63fe4369b21489b6e3513a4f7ea68c633b63c05a215afe5dd2b18ad9"
+    },
+    {
+      "sceneId": "R03",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R03.manifest.json",
+      "manifestSha256": "bce73625ccfe55885b0b33e5b8123e2507b9e23c260399e899ebed59c9f23fad",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R03.receipt.json",
+      "receiptSha256": "8fca10447a5072b47530015c87b6038f90c91866a689833b87ca675b2c1354a9"
+    },
+    {
+      "sceneId": "A01",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/A01.manifest.json",
+      "manifestSha256": "f25d10c4a67f76e0db9b7cace8a8da237c0c49895a6ed2977194b4470d75976c",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/A01.receipt.json",
+      "receiptSha256": "17cac7794341f58c5c358b7cd59ebc29dfa0e360ba9f2080c720a3031271e905"
+    },
+    {
+      "sceneId": "P08",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P08.manifest.json",
+      "manifestSha256": "0fb288ece77ad887bce810f006209487a7ce61df4c035fdfa16a5f4a42f38682",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P08.receipt.json",
+      "receiptSha256": "a346a894c126829a43c05add45643854b6be9c54025840e849878ab6bc8217dc"
+    },
+    {
+      "sceneId": "R02",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R02.manifest.json",
+      "manifestSha256": "99bfe698018fbc6bd0d208472667cbb29994521b367e49c31e6fcb0f6bfef839",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R02.receipt.json",
+      "receiptSha256": "53fa7a1f4ff5a6c5fffe993e37b4ce12ac715f21e228d72c06e7676b1f8a4045"
+    },
+    {
+      "sceneId": "P09",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P09.manifest.json",
+      "manifestSha256": "bffeab1b46f67b6556a3d1585a7f49d9eecfcab951af3133ee5bbaa8a7142b50",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P09.receipt.json",
+      "receiptSha256": "4a3a93e40c6f989a49a71fdbb914a2600a94a7bb32b739eeff3414d47aaa75f2"
+    },
+    {
+      "sceneId": "R01",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R01.manifest.json",
+      "manifestSha256": "894c33da7cfdd90b805f5c4ee5b220cfc42ddebdc99a15b1b59d5cb26a4207df",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/R01.receipt.json",
+      "receiptSha256": "6bc30f81662e754f15bc9031ece2d7b70e081fcee83c6279fea94922a4943e91"
+    },
+    {
+      "sceneId": "S05",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S05.manifest.json",
+      "manifestSha256": "9df098c5bb5c96735d5372a865389273a5d30fff9181cb94f39aacd6974c9698",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/S05.receipt.json",
+      "receiptSha256": "6d04cf1aff0945fbd7ed27c37602b78bf214616b3c1dae102f29dc58e42d48ce"
+    },
+    {
+      "sceneId": "P10",
+      "result": "passed",
+      "manifestPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P10.manifest.json",
+      "manifestSha256": "c65db14f53562cd86d80ecde36b64dfa80e80634e7bf7944061d399c0c57313c",
+      "receiptPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-10-27-nfl-week-8-power-rankings/storyboard/timing/P10.receipt.json",
+      "receiptSha256": "eda4c05896e3d67b01d478d35602bc1a6f19c48668c4f771b89298066022115e"
+    }
+  ]
+}
