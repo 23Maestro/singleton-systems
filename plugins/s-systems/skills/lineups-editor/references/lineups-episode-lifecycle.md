@@ -78,6 +78,7 @@ ingest files
   -> file source media and packet in Eagle
   -> complete the Whisper word-level transcript
   -> review the full transcript against all seven lanes; bind discoveryPath to its hash
+  -> check transcript themes against the JSON discovery ledger with Jev
   -> select supported candidates without a scene quota
   -> run Manim timing validation and write the passed cue proof
   -> create the episode scene manifests with the validated Whisper/Manim timing
@@ -98,6 +99,7 @@ The timing order is a hard stop, not a suggestion:
 source media
   -> Whisper word-level transcript
   -> full-transcript seven-lane discovery with excerpts, outcomes and asset-search evidence
+  -> theme review against the JSON discovery ledger
   -> candidate selection and pacing
   -> Manim timing validation and cue proof
   -> scene manifest with the passed timing receipt
