@@ -1,0 +1,507 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-05",
+  "purpose": "The parts that make a broadcast frame look right, per technique category and LineUps lane. Scripts and hooks read this before any Blender build.",
+  "sourcePolicy": {
+    "licenses": [
+      "CC0"
+    ],
+    "sources": [
+      "polyhaven",
+      "ambientcg"
+    ],
+    "extract": "image maps and HDRIs only; never open a downloaded .blend",
+    "defaultResolution": "2K",
+    "root": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev",
+    "checksums": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/SHA256SUMS",
+    "downloadRule": "download when a lane goes into build; plan the rest here"
+  },
+  "assets": [
+    {
+      "id": "hdri.studio_small_03",
+      "kind": "hdri",
+      "source": "polyhaven",
+      "sourceId": "studio_small_03",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/studio_small_03",
+      "resolution": "2k",
+      "status": "downloaded",
+      "path": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/polyhaven/studio_small_03/studio_small_03_2k.hdr",
+      "use": "High-contrast studio. Crisp reflection lines on chrome, bevels and gem facets."
+    },
+    {
+      "id": "hdri.studio_small_09",
+      "kind": "hdri",
+      "source": "polyhaven",
+      "sourceId": "studio_small_09",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/studio_small_09",
+      "resolution": "2k",
+      "status": "downloaded",
+      "path": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/polyhaven/studio_small_09/studio_small_09_2k.hdr",
+      "use": "Softer studio. Alternate when studio_small_03 is too harsh."
+    },
+    {
+      "id": "hdri.stadium_01",
+      "kind": "hdri",
+      "source": "polyhaven",
+      "sourceId": "stadium_01",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/stadium_01",
+      "resolution": "2k",
+      "status": "planned",
+      "path": null,
+      "use": "Night stadium reflections for event worlds and live-graphic sets."
+    },
+    {
+      "id": "hdri.orlando_stadium",
+      "kind": "hdri",
+      "source": "polyhaven",
+      "sourceId": "orlando_stadium",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/orlando_stadium",
+      "resolution": "2k",
+      "status": "planned",
+      "path": null,
+      "use": "Second stadium option for event worlds."
+    },
+    {
+      "id": "tex.Metal009",
+      "kind": "pbr-texture",
+      "source": "ambientcg",
+      "sourceId": "Metal009",
+      "license": "CC0",
+      "url": "https://ambientcg.com/view?id=Metal009",
+      "resolution": "2K-JPG",
+      "status": "downloaded",
+      "path": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/ambientcg/Metal009",
+      "maps": [
+        "Color",
+        "Roughness",
+        "NormalGL",
+        "Displacement",
+        "Metalness"
+      ],
+      "use": "Brushed metal grain for etched team shards (roughness and normal only; color comes from the team)."
+    },
+    {
+      "id": "tex.Metal038",
+      "kind": "pbr-texture",
+      "source": "ambientcg",
+      "sourceId": "Metal038",
+      "license": "CC0",
+      "url": "https://ambientcg.com/view?id=Metal038",
+      "resolution": "2K-JPG",
+      "status": "downloaded",
+      "path": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/ambientcg/Metal038",
+      "maps": [
+        "Color",
+        "Roughness",
+        "NormalGL",
+        "Displacement",
+        "Metalness"
+      ],
+      "use": "Scratch layer mixed over shard roughness so facets catch light unevenly."
+    },
+    {
+      "id": "tex.Rubber004",
+      "kind": "pbr-texture",
+      "source": "ambientcg",
+      "sourceId": "Rubber004",
+      "license": "CC0",
+      "url": "https://ambientcg.com/view?id=Rubber004",
+      "resolution": "2K-JPG",
+      "status": "downloaded",
+      "path": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/ambientcg/Rubber004",
+      "maps": [
+        "Color",
+        "Roughness",
+        "NormalGL",
+        "Displacement"
+      ],
+      "use": "Rubber micro-grain for the chevron tread column."
+    },
+    {
+      "id": "tex.Fingerprints009",
+      "kind": "pbr-texture",
+      "source": "ambientcg",
+      "sourceId": "Fingerprints009",
+      "license": "CC0",
+      "url": "https://ambientcg.com/view?id=Fingerprints009",
+      "resolution": "2K-JPG",
+      "status": "planned",
+      "path": null,
+      "maps": [
+        "Roughness"
+      ],
+      "use": "Smudges on glass stat panels so glass reads as real glass."
+    },
+    {
+      "id": "tex.Ice003",
+      "kind": "pbr-texture",
+      "source": "ambientcg",
+      "sourceId": "Ice003",
+      "license": "CC0",
+      "url": "https://ambientcg.com/view?id=Ice003",
+      "resolution": "2K-JPG",
+      "status": "planned",
+      "path": null,
+      "maps": [
+        "Color",
+        "Roughness",
+        "NormalGL",
+        "Displacement"
+      ],
+      "use": "Ice world for hockey or winter event packages."
+    },
+    {
+      "id": "tex.DiamondPlate008A",
+      "kind": "pbr-texture",
+      "source": "ambientcg",
+      "sourceId": "DiamondPlate008A",
+      "license": "CC0",
+      "url": "https://ambientcg.com/view?id=DiamondPlate008A",
+      "resolution": "2K-JPG",
+      "status": "planned",
+      "path": null,
+      "maps": [
+        "Color",
+        "Roughness",
+        "NormalGL",
+        "Displacement",
+        "Metalness"
+      ],
+      "use": "Industrial plate for garage or motorsport looks."
+    },
+    {
+      "id": "tex.brown_leather",
+      "kind": "pbr-texture",
+      "source": "polyhaven",
+      "sourceId": "brown_leather",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/brown_leather",
+      "resolution": "2k",
+      "status": "planned",
+      "path": null,
+      "use": "Football leather for a 3D ball prop."
+    },
+    {
+      "id": "tex.concrete_floor_02",
+      "kind": "pbr-texture",
+      "source": "polyhaven",
+      "sourceId": "concrete_floor_02",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/concrete_floor_02",
+      "resolution": "2k",
+      "status": "planned",
+      "path": null,
+      "use": "Studio and tunnel floors for show opens."
+    },
+    {
+      "id": "tex.sparse_grass",
+      "kind": "pbr-texture",
+      "source": "polyhaven",
+      "sourceId": "sparse_grass",
+      "license": "CC0",
+      "url": "https://polyhaven.com/a/sparse_grass",
+      "resolution": "2k",
+      "status": "planned",
+      "path": null,
+      "use": "Field surface for turf floors and field plates."
+    }
+  ],
+  "components": {
+    "geometry": {
+      "svgBevelLogo": {
+        "what": "Team mark as a real 3D object",
+        "blender": "SVG import, extrude, convert to mesh, Bevel modifier with clamp overlap and harden normals, Weighted Normal",
+        "builtIn": true,
+        "lesson": "Never use curve bevel on logos; it spikes on sharp tips (Chiefs arrowhead)."
+      },
+      "facetedShards": {
+        "what": "Gem or crystal shard wall",
+        "blender": "Geometry Nodes Voronoi fracture of a plane into many small facets, per-facet random tilt and depth, Bevel on edges",
+        "builtIn": true,
+        "alternative": "Cell Fracture extension (needs install from extensions.blender.org)"
+      },
+      "chevronTread": {
+        "what": "Center spine of stacked shallow V bands",
+        "blender": "Generated V-band mesh, Solidify, rounded Bevel",
+        "builtIn": true,
+        "measuredFromReference": {
+          "widthShareOfFrame": 0.15,
+          "vAngleDeg": 14,
+          "bandToPitch": 0.74
+        }
+      },
+      "cutoutCard": {
+        "what": "Player cutout in the set",
+        "blender": "Image plane with hard alpha threshold at 0.5",
+        "builtIn": true,
+        "lesson": "Soft dithered alpha speckles edges at 1080p; threshold the alpha."
+      },
+      "slab": {
+        "what": "Nameplates, tables, plates",
+        "blender": "Polygon from points, Solidify, Bevel",
+        "builtIn": true
+      }
+    },
+    "materials": {
+      "teamBrushedMetal": {
+        "base": "team color at 0.35 to 0.95 value",
+        "maps": [
+          "tex.Metal009:Roughness",
+          "tex.Metal009:NormalGL",
+          "tex.Metal038:Roughness (mix)"
+        ],
+        "metallic": 0.75,
+        "anisotropic": 0.7
+      },
+      "chevronRubber": {
+        "base": "#08090b",
+        "maps": [
+          "tex.Rubber004:NormalGL",
+          "tex.Rubber004:Roughness"
+        ],
+        "roughness": 0.5
+      },
+      "chromeType": {
+        "base": "#ffffff",
+        "metallic": 1.0,
+        "roughness": 0.15,
+        "needs": "hdri.studio_small_03"
+      },
+      "glossyPlate": {
+        "base": "team color",
+        "coat": 1.0,
+        "roughness": 0.2
+      },
+      "satin": {
+        "roughness": 0.45,
+        "coat": 0.0
+      },
+      "darkGlassPanel": {
+        "base": "#0b0c0f",
+        "coat": 0.6,
+        "maps": [
+          "tex.Fingerprints009:Roughness"
+        ],
+        "lesson": "Glossy panels mirror square area lights as white boxes; use round or soft lights near them."
+      },
+      "logoTeamColors": {
+        "rule": "Keep the real logo colors; tint at most 0.35 toward a dark team tone. Let the rim light add the sheen.",
+        "lesson": "A 0.9 tint washed the Chiefs white into pink and maroon."
+      }
+    },
+    "environment": {
+      "worldHdri": {
+        "default": "hdri.studio_small_03",
+        "useFor": "reflections and soft fill; hide from camera with Film Transparent or a dark world strength for the backdrop"
+      },
+      "haze": {
+        "density": 0.0022,
+        "lesson": "Fill and top lights must have volume_factor 0, or they paint a grey cone over the set."
+      }
+    },
+    "post": {
+      "bloom": {
+        "blender": "Compositor Glare node, Bloom or Fog Glow",
+        "builtIn": true,
+        "renderAsSeparateLayer": true
+      },
+      "flash": {
+        "blender": "Compositor Glare Streaks or Sun Beams",
+        "builtIn": true
+      },
+      "chromaticAberration": {
+        "blender": "Compositor Lens Distortion with dispersion, transitions only",
+        "builtIn": true
+      },
+      "zoomBlur": {
+        "blender": "Compositor Directional Blur with zoom",
+        "builtIn": true
+      },
+      "grain": {
+        "where": "final comp only"
+      },
+      "colorView": {
+        "view": "Standard",
+        "adr": "docs/broadcast-engine/adr/0003-standard-view-for-team-colors.md"
+      }
+    },
+    "engines": {
+      "eevee": {
+        "for": "players, type, logos, motion, most sets",
+        "limits": "screen-space reflections only"
+      },
+      "cycles": {
+        "for": "gem facets, glass, ice, chrome that reflects chrome",
+        "costVsEevee": "about 3 to 10 times per frame",
+        "pattern": "render the background plate once per team pair in Cycles; everything else in EEVEE"
+      }
+    }
+  },
+  "categories": {
+    "1-network-league-ids": {
+      "components": [
+        "geometry.svgBevelLogo",
+        "materials.chromeType",
+        "materials.glossyPlate",
+        "materials.satin",
+        "environment.worldHdri",
+        "post.bloom",
+        "post.flash"
+      ],
+      "assets": [
+        "hdri.studio_small_03",
+        "hdri.studio_small_09",
+        "tex.Metal009",
+        "tex.DiamondPlate008A"
+      ]
+    },
+    "2-event-worlds": {
+      "components": [
+        "geometry.facetedShards",
+        "environment.worldHdri",
+        "environment.haze",
+        "engines.cycles"
+      ],
+      "assets": [
+        "hdri.stadium_01",
+        "hdri.orlando_stadium",
+        "tex.Ice003",
+        "tex.sparse_grass"
+      ]
+    },
+    "3-player-elements": {
+      "components": [
+        "geometry.cutoutCard",
+        "geometry.slab",
+        "materials.teamBrushedMetal",
+        "post.bloom"
+      ],
+      "assets": [
+        "hdri.studio_small_03",
+        "tex.Metal009",
+        "tex.Metal038",
+        "tex.brown_leather"
+      ]
+    },
+    "4-live-graphics": {
+      "components": [
+        "geometry.slab",
+        "materials.darkGlassPanel",
+        "environment.worldHdri"
+      ],
+      "assets": [
+        "hdri.studio_small_09",
+        "tex.Fingerprints009"
+      ]
+    },
+    "5-studio-show-opens": {
+      "components": [
+        "geometry.svgBevelLogo",
+        "environment.haze",
+        "post.zoomBlur"
+      ],
+      "assets": [
+        "hdri.stadium_01",
+        "tex.concrete_floor_02"
+      ]
+    },
+    "6-brand-transitions": {
+      "components": [
+        "geometry.svgBevelLogo",
+        "post.flash",
+        "post.chromaticAberration",
+        "post.zoomBlur"
+      ],
+      "assets": [
+        "hdri.studio_small_03"
+      ]
+    },
+    "7-live-action-beats": {
+      "components": [],
+      "assets": [],
+      "note": "Edit decision in Premiere; no 3D look needed."
+    },
+    "8-structure": {
+      "components": [],
+      "assets": [],
+      "note": "Reel and package shape; no 3D look needed."
+    }
+  },
+  "lanes": {
+    "1-quick-action-photo": {
+      "categories": [
+        "3-player-elements",
+        "6-brand-transitions"
+      ],
+      "assetsToAdd": []
+    },
+    "2-quick-stat": {
+      "categories": [
+        "3-player-elements",
+        "4-live-graphics"
+      ],
+      "assetsToAdd": [
+        "tex.brown_leather"
+      ]
+    },
+    "3-stat-breakdown": {
+      "categories": [
+        "4-live-graphics"
+      ],
+      "assetsToAdd": [
+        "tex.Fingerprints009"
+      ]
+    },
+    "4-comparison": {
+      "categories": [
+        "3-player-elements",
+        "4-live-graphics",
+        "6-brand-transitions"
+      ],
+      "assetsToAdd": [],
+      "status": "in-build",
+      "lookdevSet": [
+        "hdri.studio_small_03",
+        "hdri.studio_small_09",
+        "tex.Metal009",
+        "tex.Metal038",
+        "tex.Rubber004"
+      ],
+      "reference": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/previews/2026-10-18-mahomes-allen-stats-concept-v2.png"
+    },
+    "5-year-by-year": {
+      "categories": [
+        "4-live-graphics"
+      ],
+      "assetsToAdd": [
+        "hdri.stadium_01",
+        "tex.sparse_grass"
+      ]
+    },
+    "6-asset-swap": {
+      "categories": [
+        "1-network-league-ids",
+        "6-brand-transitions"
+      ],
+      "assetsToAdd": [
+        "tex.DiamondPlate008A"
+      ]
+    },
+    "7-recurring-board": {
+      "categories": [
+        "1-network-league-ids",
+        "4-live-graphics"
+      ],
+      "assetsToAdd": [
+        "hdri.stadium_01",
+        "tex.concrete_floor_02",
+        "tex.Fingerprints009"
+      ]
+    }
+  },
+  "spec": "docs/broadcast-engine/reference-technique-spec.md"
+}
