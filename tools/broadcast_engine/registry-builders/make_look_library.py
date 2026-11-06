@@ -74,6 +74,9 @@ components = {
         "eevee": {"for": "players, type, logos, motion, most sets", "limits": "screen-space reflections only"},
         "cycles": {"for": "gem facets, glass, ice, chrome that reflects chrome", "costVsEevee": "about 3 to 10 times per frame",
                    "pattern": "render the background plate once per team pair in Cycles; everything else in EEVEE"},
+        "measured": {"date": "2026-11-05", "frame": "Lane 4 upgrade v5, 1920x1080, M4 24 GB",
+                     "eevee64": "8 s per frame", "cycles128Denoised": "216 s per frame",
+                     "decision": "EEVEE for production. Tuned EEVEE (haze 0.001, bloom threshold 2.0, darker facets, roughness 0.08 to 0.3) matched the Cycles contrast."},
     },
 }
 

@@ -13,6 +13,10 @@ $B -b $O/lane4-v3-scene.blend --python-exit-code 1 -P add_lineups_open_v4.py -- 
 $B -b $O/lane4-v4.blend --python-exit-code 1 -P proof.py -- $O/proof 30,180
 ```
 
+`build_l4_v5.py` is the upgraded look: faceted gem shards, the studio HDRI,
+brushed-metal and scratch maps, bloom, and the stat card centered on the
+spine. It reads its assets from the look library folder. Run it the same way,
+then `still.py -- eevee 140 out.png` for one frame.
+
 `render_all.py` renders every frame to PNG. Assets come from
-`/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS` and Eagle. These scripts do
-not yet use the look library textures.
+`/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS` and Eagle. `build_l4_v3.py` predates the look library textures.
