@@ -86,17 +86,22 @@ PREMIERE_READBACK = {
 
 APPROVED_OPTIONS = {
     "quick action photo": {"quick action photo"},
-    "quick stat": {"Single-frame statement", "Two-photo progression", "Team callout"},
+    "quick stat": {"Single-frame statement", "Two-photo progression", "Team callout", "Logo statement"},
     "stat breakdown": {"stat breakdown"},
     "comparison": {"Cinematic 2-up", "Simple comparison", "Full comparison: 2", "Full comparison: 3", "Full comparison: 4", "Team matchup", "Logo stat cards"},
     "year-by-year": {"Trend table", "Simple board"},
-    "asset swap": {"asset swap"},
+    "asset swap": {"asset swap", "Logo pair"},
     "recurring board": {"Rank Reveal", "Super Bowl Bubble Board"},
 }
 NO_FOOTBALL_FIELD_HASH = "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
 LINEUPS_FIGMA_FILE_KEY = "o7E24iymIT80MTXGYIogVH"
 RANK_REVEAL_SOURCE_COMPONENT_ID = "1277:558"
 RANK_REVEAL_SOURCE_NAME = "Recurring Board / Rank Reveal / 10 Teams"
+
+
+def has_photo_callout_binding(manifest):
+    binding = manifest.get('figma', {}).get('templateBinding') or {}
+    return bool(binding) and binding.get('key') != 'quick-stat.logo'
 
 
 def is_data_driven(manifest):
@@ -575,8 +580,8 @@ def validate_manifest(manifest, require_export=False):
 
     validate_data_background(manifest)
     validate_cinematic(manifest)
-    if lane == 'quick action photo' and manifest['scene'].get('editorialDuration') != quick_action_duration(required(manifest, 'motion.frameRate')):
-        raise EnforcementError('Quick Action Photo requires requested 4.5 seconds and separate actual frame-rounded duration using nearest-half-up')
+    if lane in {'quick action photo', 'quick stat'} and manifest['scene'].get('editorialDuration') != quick_action_duration(required(manifest, 'motion.frameRate')):
+        raise EnforcementError('Quick Action Photo and Quick Stat require requested 5.5 seconds and separate actual frame-rounded duration using nearest-half-up')
 
     figma = manifest.get("figma") or {}
     uses_instance = required(manifest, "figma.episodeUsesInstance")
@@ -899,7 +904,7 @@ def load_receipt(root, manifest, directory, stage, previous_stage=None, require_
         evidence = receipt.get("evidence") or {}
         if evidence.get("sourceRevision") != required(manifest, "figma.sourceRevision"):
             raise EnforcementError(f"{stage} receipt does not bind the approved Figma source revision")
-        if manifest.get("figma", {}).get("templateBinding"):
+        if has_photo_callout_binding(manifest):
             validate_manifest_readback(manifest, evidence.get("calloutReadback") or {})
             validate_callout(evidence.get("sourceCallout") or {}, source=True, expected_contract_id=manifest["figma"]["templateBinding"].get("contractId"))
         if evidence.get("proofFrames") != required(manifest, "export.motionProof.frames"):
@@ -1005,7 +1010,7 @@ def registered_readback(tool_name, tool_input, manifest=None):
     bindings = [{'sceneId': 'canonical-callout', 'rootNodeId': callout['source']['componentId'],
                  'roleNodeIds': callout['source']['roleNodeIds']}]
     codes = [module.collector_code(registry['componentsPageId'], bindings, sources=True)]
-    if manifest and manifest.get('figma', {}).get('templateBinding'):
+    if manifest and has_photo_callout_binding(manifest):
         figma = manifest['figma']
         codes.append(module.collector_code(figma['pageId'], [{'sceneId': manifest['scene']['sceneId'],
             'rootNodeId': figma['rootNodeId'], 'roleNodeIds': figma['templateBinding']['roleNodeIds']}]))
@@ -1053,7 +1058,7 @@ def review_export_roster(root, manifest):
     for item in audit.get("rankRevealScenes", []) + audit.get("supportingMotionScenes", []):
         if listed.get(item.get("sceneId")) != item.get("rootNodeId"):
             raise EnforcementError("review export roster drifted from the approved motion audit")
-    quick_stats = [item for item in scenes if item.get("lane") == "quick stat"]
+    quick_stats = [item for item in scenes if item.get("lane") == "quick stat" and item.get('option') != 'Logo statement']
     if quick_stats:
         readback = read_json(episode_dir / "callout-readback.json", "Components-bound callout readback")
         bindings = read_json(episode_dir / "callout-bindings.json", "exact episode callout bindings")
@@ -1231,7 +1236,7 @@ def validate_figma_readback(manifest, tool_response):
             ):
                 raise EnforcementError("Figma readback motion keyframes or duration differ from the approved scene")
     validate_cinematic(manifest, scene_readback)
-    if figma.get("templateBinding"):
+    if has_photo_callout_binding(manifest):
         validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
         validate_callout(scene_readback.get("sourceCallout") or {}, source=True, expected_contract_id=figma["templateBinding"].get("contractId"))
     if is_data_driven(manifest):

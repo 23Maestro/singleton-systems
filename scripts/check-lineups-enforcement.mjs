@@ -489,6 +489,66 @@ try {
     );
   });
 
+  for (const key of ['quick-stat.logo', 'asset-swap.logo-pair']) {
+    withCase((testCase) => {
+      const registry = JSON.parse(fs.readFileSync(path.join(sourceRoot, 'config/lineups/template-registry.json'), 'utf8'));
+      const template = registry.templates.find(t => t.key === key);
+      const input = {...approvedFigmaInput, fileKey: registry.fileKey};
+      const m = readManifest(testCase);
+      m.scene.lane = template.lane;
+      m.scene.approvedOption = template.option;
+      m.scene.subjectCount = key === 'asset-swap.logo-pair' ? 2 : 1;
+      m.figma.fileKey = registry.fileKey;
+      m.figma.sourceComponentId = template.source.componentId;
+      m.figma.focalAssets = Array.from({length: m.scene.subjectCount}, (_, i) => ({
+        nodeId: `logo-${i + 1}`, kind: 'logo', centered: true,
+      }));
+      m.figma.assetLedger = m.figma.assetLedger.slice(0, m.scene.subjectCount);
+      if (key === 'quick-stat.logo') m.figma.templateBinding = {key};
+      m.enforcement.approvedToolInputSha256 = hashValue(input);
+      writeManifest(testCase, m);
+      refreshReceiptChain(testCase);
+      expectAllowed(pre(testCase, 'mcp__codex_apps__figma_use_figma', input), `${key} registered source`);
+      expectPostPass(post(testCase, 'mcp__codex_apps__figma_use_figma', input, figmaReadback(m)),
+        /Figma mutation readback passed/, `${key} measured scene without photo-callout roles`);
+      expectAllowed(pre(testCase, 'mcp__codex_apps__figma_export_video', {
+        fileKey: m.figma.fileKey, nodeId: m.figma.rootNodeId,
+      }), `${key} exports from its measured scene receipt`);
+
+      if (key === 'asset-swap.logo-pair') {
+        const unverifiedPlayer = structuredClone(m);
+        unverifiedPlayer.figma.focalAssets[0].kind = 'photo';
+        fs.writeFileSync(testCase.manifestPath, JSON.stringify(unverifiedPlayer));
+        expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', input),
+          /player compositing requires verified real alpha/, `${key} cannot bypass player alpha checks`);
+      }
+
+      const wrongSource = structuredClone(m);
+      wrongSource.figma.sourceComponentId = 'unregistered-source';
+      writeManifest(testCase, wrongSource);
+      expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', input),
+        /canonical source|unregistered source component/, `${key} rejects a different source`);
+
+      const wrongTiming = structuredClone(m);
+      wrongTiming.timing.manimTimingValidated = false;
+      fs.writeFileSync(testCase.manifestPath, JSON.stringify(wrongTiming));
+      expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', input),
+        /Manim timing gate/, `${key} still requires timing proof`);
+
+      writeManifest(testCase, m);
+      const changedDesign = figmaReadback(m);
+      changedDesign.contractMeasurement.roles.root.width = 960;
+      expectPostBlock(post(testCase, 'mcp__codex_apps__figma_use_figma', input, changedDesign),
+        /contract measurement/, `${key} still checks measured design`);
+
+      const unknownOption = structuredClone(m);
+      unknownOption.scene.approvedOption = 'Unregistered logo option';
+      fs.writeFileSync(testCase.manifestPath, JSON.stringify(unknownOption));
+      expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', input),
+        /not an approved option/, `${key} rejects unknown options`);
+    });
+  }
+
   for (const [lane, option] of [["stat breakdown", "stat breakdown"], ["comparison", "Simple comparison"], ["comparison", "Full comparison: 2"], ["year-by-year", "Trend table"], ["recurring board", "Super Bowl Bubble Board"]]) {
     withCase((testCase) => {
       const m = readManifest(testCase);

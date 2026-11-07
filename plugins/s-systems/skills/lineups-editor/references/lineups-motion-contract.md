@@ -12,6 +12,9 @@ For every Figma production motion candidate, use this fixed contract:
 - `motion.engine` is `figma` and `motion.engineVersion` is `figma-motion`;
 - `motion.timingValidator` is `manim`;
 - Whisper supplies word-level transcript timestamps;
+- every speech cue must match its full word or phrase at the exact Whisper
+  timestamp; the direct loader, receipt issuer and receipt reader all run this
+  check and reject missing or mismatched transcript data;
 - Manim validates transcript cue math, frame rate, and composition timing only;
 - Figma Motion is the sole visual motion engine and must have read-back manual
   keyframe tracks aligned to every approved non-zero cue;
@@ -19,6 +22,11 @@ For every Figma production motion candidate, use this fixed contract:
   beyond its final content cue for trim-safe Premiere placement;
 - Premiere places the rendered scene at the verified transcript anchor and does
   not retime the motion by eye.
+
+Quick Action Photo and Quick Stat request 5.5 seconds on the timeline. At 25 fps,
+nearest-half-up rounding gives 138 frames, or 5.52 seconds. Keep that editorial
+duration separate from the padded composition length. A transcript match proves
+agreement with Whisper; review the finished graphic with audio to confirm sync.
 
 The Lineups hook rejects cue math that differs by more than 0.001 seconds. It
 also requires `entranceTimes` to match the cue list in order. The frame rate is

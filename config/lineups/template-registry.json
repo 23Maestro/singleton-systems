@@ -31,7 +31,7 @@
       "guards": [],
       "visualGuardCoverage": "existing lane gates; full style snapshot not yet covered",
       "editorialDefault": {
-        "requestedDurationSeconds": 4.5,
+        "requestedDurationSeconds": 5.5,
         "rounding": "nearest-half-up"
       },
       "requiredRoles": {
@@ -2086,7 +2086,11 @@
         "panel",
         "text",
         "team-background"
-      ]
+      ],
+      "editorialDefault": {
+        "requestedDurationSeconds": 5.5,
+        "rounding": "nearest-half-up"
+      }
     },
     {
       "key": "comparison.team-matchup.2",
@@ -2335,7 +2339,11 @@
         "logoBlock",
         "subjectPanel",
         "subject"
-      ]
+      ],
+      "editorialDefault": {
+        "requestedDurationSeconds": 5.5,
+        "rounding": "nearest-half-up"
+      }
     },
     {
       "key": "comparison.rank-movement.2",

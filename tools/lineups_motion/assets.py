@@ -15,6 +15,8 @@ def validate_alpha_assets(root, manifest):
         return
     from PIL import Image
     photos = [asset for asset in figma['focalAssets'] if asset.get('kind') in ('photo', 'cutout')]
+    if not photos and scene['lane'] == 'asset swap' and scene['approvedOption'] == 'Logo pair':
+        return
     if not photos:
         raise TemplateError('player compositing requires verified real alpha and a preserved original')
     hashes = set()

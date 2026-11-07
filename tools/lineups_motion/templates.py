@@ -41,14 +41,18 @@ def logo_statement_paint(candidate):
                                'gradientTransform': [[0, 1, 0], [-1, 0, 1]]}}
 
 
-def quick_action_duration(frame_rate):
+def quick_style_duration(frame_rate):
     fps = Fraction(frame_rate['numerator'], frame_rate['denominator'])
     if fps <= 0:
-        raise TemplateError('Quick Action frame rate must be positive')
-    count = Fraction(9, 2) * fps + Fraction(1, 2)
+        raise TemplateError('Quick style frame rate must be positive')
+    count = Fraction(11, 2) * fps + Fraction(1, 2)
     frames = count.numerator // count.denominator
-    return {'requestedDurationSeconds': 4.5, 'durationFrames': frames,
+    return {'requestedDurationSeconds': 5.5, 'durationFrames': frames,
             'actualDurationSeconds': float(frames / fps), 'rounding': 'nearest-half-up'}
+
+
+def quick_action_duration(frame_rate):
+    return quick_style_duration(frame_rate)
 
 
 def load_registry():
@@ -408,6 +412,9 @@ def validate_manifest_binding(manifest):
         source_ids.update(row['componentId'] for row in load_team_callout_contract().get('teamVariants', []))
     if template["lane"] != manifest["scene"]["lane"] or template["option"] != manifest["scene"]["approvedOption"] or manifest["figma"]["sourceComponentId"] not in source_ids:
         raise TemplateError("template binding differs from the selected lane, option, or canonical source")
+    if template['key'] == 'quick-stat.logo':
+        # Logo statements use the shared template spec and measured roles, not a photo callout.
+        return
     contract = load_team_callout_contract() if template['key'] == 'quick-stat.team-callout' else load_callout_contract()
     source_fingerprint = team_callout_fingerprint(contract) if template['key'] == 'quick-stat.team-callout' else contract['sourceFingerprint']
     if binding.get("contractId") != contract["id"] or binding.get("sourceFingerprint") != source_fingerprint:
@@ -422,6 +429,8 @@ def validate_manifest_readback(manifest, readback):
     if not manifest.get("figma", {}).get("templateBinding"):
         return
     binding = manifest["figma"]["templateBinding"]
+    if binding.get('key') == 'quick-stat.logo':
+        return
     pending_root = str(manifest['figma']['rootNodeId']).startswith('pending:')
     actual_ids = []
     for role, node_id in binding["roleNodeIds"].items():

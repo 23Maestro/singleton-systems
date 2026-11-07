@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from dataclasses import dataclass
 from fractions import Fraction
 from pathlib import Path
@@ -29,7 +30,7 @@ class Cue:
 class CueContract:
     """A small runtime view of the manifest's transcript-timed cue schedule."""
 
-    def __init__(self, manifest: dict[str, Any], source: Path | None = None):
+    def __init__(self, manifest: dict[str, Any], source: Path | None = None, *, root: str | Path | None = None):
         if manifest.get("schemaVersion") != 2:
             raise CueContractError("Lineups cue execution requires manifest schemaVersion 2")
 
@@ -64,6 +65,10 @@ class CueContract:
             scene_time = self._number(raw.get("sceneTime"), f"{cue_id}.sceneTime")
             transcript_time = self._number(raw.get("transcriptTimestamp"), f"{cue_id}.transcriptTimestamp")
             duration = self._number(raw.get("duration"), f"{cue_id}.duration")
+            if raw.get("triggerType") not in {"WORD", "PHRASE", "EDIT"}:
+                raise CueContractError(f"motion cue {cue_id} needs a WORD, PHRASE or EDIT trigger")
+            if not isinstance(raw.get("triggerText"), str) or not raw["triggerText"].strip():
+                raise CueContractError(f"motion cue {cue_id} needs non-empty trigger text")
             if min(scene_time, transcript_time, duration) < 0:
                 raise CueContractError(f"motion cue {cue_id} timing cannot be negative")
             if abs((transcript_time - anchor) - scene_time) > 0.001:
@@ -95,15 +100,87 @@ class CueContract:
         self.pixel_height = int((manifest.get("export") or {}).get("dimensions", {}).get("height", 1080))
         self._cues = tuple(cues)
         self._by_id = {cue.cue_id: cue for cue in cues}
+        self._validate_transcript_words(Path(root) if root is not None else Path.cwd())
+
+    def _validate_transcript_words(self, root: Path) -> None:
+        timing = self.manifest.get("timing") or {}
+        if timing.get("transcriptSource") != "whisper" or timing.get("timestampResolution") != "word":
+            raise CueContractError("Whisper word timestamps must complete before Manim timing validation")
+        transcript_path = timing.get("transcriptPath")
+        if not isinstance(transcript_path, str) or not transcript_path.strip():
+            raise CueContractError("a transcriptPath with Whisper word timestamps is required")
+        try:
+            transcript = json.loads((root / transcript_path).read_text(encoding="utf-8"))
+        except (OSError, ValueError) as error:
+            raise CueContractError(f"Whisper word transcript could not be read: {error}") from error
+        segments = transcript.get("transcription") if isinstance(transcript, dict) else None
+        if not isinstance(segments, list):
+            raise CueContractError("Whisper word transcript requires transcription segments")
+        tokens = []
+        for segment in segments:
+            if not isinstance(segment, dict) or not isinstance(segment.get("tokens"), list):
+                raise CueContractError("Whisper word transcript requires timed tokens")
+            first_token = True
+            for token in segment["tokens"]:
+                if not isinstance(token, dict) or not isinstance(token.get("text"), str):
+                    raise CueContractError("Whisper word transcript has an invalid token")
+                text = token["text"]
+                if not text.strip() or text.startswith("[_"):
+                    continue
+                offsets = token.get("offsets") or {}
+                if not isinstance(offsets, dict):
+                    raise CueContractError("Whisper word token requires numeric offsets")
+                start = self._number(offsets.get("from"), "Whisper word start")
+                end = self._number(offsets.get("to"), "Whisper word end")
+                if start < 0 or end < start:
+                    raise CueContractError("Whisper word token has invalid start/end offsets")
+                tokens.append(((" " if first_token else "") + text, start / 1000))
+                first_token = False
+        if not tokens:
+            raise CueContractError("Whisper word timestamps must complete before Manim timing validation")
+
+        def normalize(text: str) -> str:
+            return " ".join(re.findall(r"\w+", text.casefold()))
+
+        for cue in self.cues:
+            if cue.trigger_type == "EDIT":
+                continue
+            if not isinstance(cue.trigger_text, str) or not normalize(cue.trigger_text):
+                raise CueContractError(f"{cue.cue_id}: speech trigger needs a non-empty word or phrase")
+            phrase = normalize(cue.trigger_text)
+            matched = False
+            for index, (first_text, start) in enumerate(tokens):
+                if abs(start - cue.transcript_timestamp) > 0.001:
+                    continue
+                if index and re.match(r"\w", first_text) and re.search(r"\w$", tokens[index - 1][0]):
+                    continue
+                text = ""
+                for end_index in range(index, len(tokens)):
+                    following = tokens[end_index][0]
+                    text += following
+                    current = normalize(text)
+                    if current == phrase:
+                        next_text = tokens[end_index + 1][0] if end_index + 1 < len(tokens) else ""
+                        if not next_text or not re.match(r"\w", next_text):
+                            matched = True
+                            break
+                    if len(current) > len(phrase):
+                        break
+                if matched:
+                    break
+            if not matched:
+                raise CueContractError(
+                    f"{cue.cue_id}: trigger phrase and timestamp do not match the Whisper words"
+                )
 
     @classmethod
-    def from_path(cls, path: str | Path) -> "CueContract":
+    def from_path(cls, path: str | Path, *, root: str | Path | None = None) -> "CueContract":
         source = Path(path).expanduser().resolve()
         try:
             manifest = json.loads(source.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:
             raise CueContractError(f"Lineups manifest could not be read: {error}") from error
-        return cls(manifest, source)
+        return cls(manifest, source, root=root)
 
     @property
     def cues(self) -> tuple[Cue, ...]:

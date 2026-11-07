@@ -107,9 +107,25 @@ def validate_source(root, binding, row):
             and contract_manifest['export']['fileSha256'] == row['sha256'], 'contract scene or render differs')
     check(root, contract_manifest, 'before-handoff')
     rate = contract_manifest['motion']['frameRate']
+    render_frames = contract_manifest['timing']['paddedCompositionEnd'] * binding['fps']
+    editorial = contract_manifest.get('premiere', {}).get('editorialTiming', {})
+    full_render = abs(render_frames - row['durationFrames']) < 0.001
+    approved_trim = (editorial.get('durationFrames') == row['durationFrames']
+                     and editorial.get('sourceInFrame', 0) == 0
+                     and editorial.get('timelineStartFrame') == row['timelineStartFrame'])
     require(rate['numerator'] / rate['denominator'] == binding['fps']
-            and abs(contract_manifest['timing']['paddedCompositionEnd'] * binding['fps'] - row['durationFrames']) < 0.001,
+            and 0 < row['durationFrames'] <= render_frames + 0.001
+            and (full_render or approved_trim),
             'contract media timing differs from delivery')
+    if contract_manifest['scene'].get('lane') in {'quick action photo', 'quick stat'}:
+        from .templates import quick_style_duration
+        expected = quick_style_duration(rate)
+        require(contract_manifest['scene'].get('editorialDuration') == expected
+                and row['durationFrames'] == expected['durationFrames'],
+                'quick styles require 5.5 seconds of editorial time, separate from padded render length')
+        require(all(cue['sceneTime'] + cue['duration'] <= row['durationFrames'] / binding['fps'] + 0.001
+                    for cue in contract_manifest['motion']['cues']),
+                'quick editorial cut truncates a content cue')
     if row["engine"] == "figma":
         require(source["scene"]["episodeId"] == binding["episodeId"]
                 and source["scene"]["sceneId"] == row["sceneId"]
@@ -235,7 +251,8 @@ def handle_locked(root, payload, binding):
                       and measured.get("sequenceId") == binding["sequenceId"]
                       and measured.get("trackIndex") == row["trackIndex"]
                       and same(measured.get("start"), row["timelineStartFrame"] / binding["fps"])
-                      and args.get("outPoint") is not None and previous["inputSha256"] != digest(args))
+                      and (args.get("outPoint") is not None or args.get("duration") is not None)
+                      and previous["inputSha256"] != digest(args))
         require(not previous or correction, "operation already attempted; recover readback before retrying")
         if tool == "add_to_timeline":
             require(sequence_matches and args.get("trackIndex") == row["trackIndex"]

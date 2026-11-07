@@ -140,6 +140,65 @@ class DeliveryTests(unittest.TestCase):
         self.assertFalse(gate.handle(self.root,dict(tool_name='other',tool_input={})))
         self.assertFalse(self.call('get_clip_properties',dict(clipId='unrelated')))
 
+    def test_figma_editorial_trim_keeps_full_render_proof(self):
+        manifest_path = Path(self.row['contractManifest']['path'])
+        manifest = json.loads(manifest_path.read_text())
+        manifest['motion']['engine'] = 'figma'
+        manifest['export'].update(validationStatus='passed', fileSha256=self.row['sha256'])
+        manifest['premiere'] = {'editorialTiming': {
+            'timelineStartFrame': 256, 'durationFrames': 100, 'sourceInFrame': 0}}
+        self.row.update(engine='figma', durationFrames=100, timelineEndFrame=356)
+
+        def write_source():
+            manifest_path.write_text(json.dumps(manifest))
+            proof = dict(path=str(manifest_path), sha256=gate.file_digest(manifest_path))
+            self.row['contractManifest'] = proof
+            self.row['sourceProof'] = proof
+
+        with patch('tools.lineups_motion.contract_gate.check'), patch(
+                'tools.lineups_motion.timing_evidence.validate_timing_receipt'):
+            write_source()
+            gate.validate_source(self.root, self.binding, self.row)
+            manifest['premiere']['editorialTiming'].pop('durationFrames')
+            write_source()
+            with self.assertRaisesRegex(ValueError, 'media timing'):
+                gate.validate_source(self.root, self.binding, self.row)
+
+            manifest['premiere']['editorialTiming']['durationFrames'] = 301
+            self.row['durationFrames'] = 301
+            write_source()
+            with self.assertRaisesRegex(ValueError, 'media timing'):
+                gate.validate_source(self.root, self.binding, self.row)
+
+    def test_quick_styles_cannot_use_padded_render_as_editorial_duration(self):
+        from tools.lineups_motion.templates import quick_style_duration
+        manifest_path = Path(self.row['contractManifest']['path'])
+        manifest = json.loads(manifest_path.read_text())
+        manifest['motion']['engine'] = 'figma'
+        manifest['export'].update(validationStatus='passed', fileSha256=self.row['sha256'])
+        manifest['premiere'] = {'editorialTiming': {
+            'timelineStartFrame': 256, 'durationFrames': 138, 'sourceInFrame': 0}}
+        manifest['scene']['editorialDuration'] = quick_style_duration(manifest['motion']['frameRate'])
+        self.row.update(engine='figma', durationFrames=138, timelineEndFrame=394)
+
+        def write_source():
+            manifest_path.write_text(json.dumps(manifest))
+            proof = dict(path=str(manifest_path), sha256=gate.file_digest(manifest_path))
+            self.row['contractManifest'] = proof
+            self.row['sourceProof'] = proof
+
+        with patch('tools.lineups_motion.contract_gate.check'), patch(
+                'tools.lineups_motion.timing_evidence.validate_timing_receipt'):
+            for lane in ('quick action photo', 'quick stat'):
+                manifest['scene']['lane'] = lane
+                self.row['durationFrames'] = 138
+                write_source()
+                gate.validate_source(self.root, self.binding, self.row)
+                self.row['durationFrames'] = 300
+                write_source()
+                with self.assertRaisesRegex(ValueError, '5.5 seconds'):
+                    gate.validate_source(self.root, self.binding, self.row)
+
 
 if __name__ == '__main__':
     unittest.main()

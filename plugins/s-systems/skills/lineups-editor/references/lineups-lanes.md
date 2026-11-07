@@ -5,12 +5,15 @@
 ### 1. quick action photo
 
 Use for an ordinary player or team mention with no data that changes the
-argument. Stay on Mark when a photo adds no value. Requested default: 4.5 seconds.
+argument. Stay on Mark when a photo adds no value. Requested default: 5.5 seconds.
 Record requested seconds separately from actual frame-rounded duration. Use
-nearest-half-up: 113 frames at 25 fps is 4.52 seconds. Render padding remains
+nearest-half-up: 138 frames at 25 fps is 5.52 seconds. Render padding remains
 separate; this default does not shorten other lanes.
 
 ### 2. quick stat
+
+Use the same requested 5.5-second editorial default and frame rounding as Quick
+Action Photo. Keep padded export length separate from time on the timeline.
 
 Choose a current registered option:
 

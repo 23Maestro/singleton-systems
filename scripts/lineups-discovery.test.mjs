@@ -187,7 +187,7 @@ test('Cinematic 2-up preflight requires full photos visible together at frame ze
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });
 
-test('Quick Action Photo requires requested 4.5 seconds separately from 113 frames at 25 fps', () => {
+test('Quick Action Photo requires requested 5.5 seconds separately from 138 frames at 25 fps', () => {
   const c = sceneCase();
   try {
     c.manifest.scene.lane = 'quick action photo';
@@ -195,7 +195,7 @@ test('Quick Action Photo requires requested 4.5 seconds separately from 113 fram
     c.manifest.motion.frameRate = {numerator: 25, denominator: 1};
     assert.equal(c.approve().status, 0);
     const result = c.run('PreToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: c.manifest.figma.fileKey});
-    assert.match(result.hookSpecificOutput?.permissionDecisionReason || '', /requested.*4.5/i);
+    assert.match(result.hookSpecificOutput?.permissionDecisionReason || '', /requested.*5.5/i);
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });
 
@@ -217,21 +217,34 @@ test('import destination readback cannot combine facts from different items', ()
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });
 
-test('Quick Action carries 113 frames and reports 4.52 seconds separately at 25 fps', () => {
+test('Quick Action carries 138 frames and reports 5.52 seconds separately at 25 fps', () => {
   const c = sceneCase();
   try {
     c.manifest.scene.lane = 'quick action photo';
     c.manifest.scene.approvedOption = 'quick action photo';
-    c.manifest.scene.editorialDuration = {requestedDurationSeconds: 4.5, durationFrames: 113, actualDurationSeconds: 4.52, rounding: 'nearest-half-up'};
+    c.manifest.scene.editorialDuration = {requestedDurationSeconds: 5.5, durationFrames: 138, actualDurationSeconds: 5.52, rounding: 'nearest-half-up'};
     c.manifest.motion.frameRate = {numerator: 25, denominator: 1};
     assert.equal(c.approve().status, 0);
     const p = c.manifest.premiere;
     const response = {data: {id: p.sequenceId, videoTracks: [{index: p.trackIndex, clips: [{nodeId: p.timelineClipId, start: p.approvedStartTime, end: p.approvedEndTime}]}]}};
     const result = c.run('PostToolUse', 'mcp__premiere_pro__get_full_sequence_info', {sequenceId: p.sequenceId}, response);
     assert.match(result.hookSpecificOutput?.additionalContext || '', /placement readback passed/);
-    c.manifest.scene.editorialDuration.actualDurationSeconds = 4.5;
+    c.manifest.scene.editorialDuration.actualDurationSeconds = 5.5;
     const rejected = c.run('PostToolUse', 'mcp__premiere_pro__get_full_sequence_info', {sequenceId: c.manifest.premiere.sequenceId}, {});
-    assert.match(JSON.stringify(rejected), /requested 4.5/);
+    assert.match(JSON.stringify(rejected), /requested 5.5/);
+  } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
+});
+
+test('Quick Stat requires the same 5.5-second editorial default', () => {
+  const c = sceneCase();
+  try {
+    c.manifest.scene.lane = 'quick stat';
+    c.manifest.scene.approvedOption = 'Team callout';
+    assert.equal(c.approve().status, 0);
+    assert.equal(c.manifest.scene.editorialDuration.requestedDurationSeconds, 5.5);
+    delete c.manifest.scene.editorialDuration;
+    const result = c.run('PreToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: c.manifest.figma.fileKey});
+    assert.match(JSON.stringify(result), /requested 5.5/);
   } finally {fs.rmSync(c.dir, {recursive: true, force: true});}
 });
 

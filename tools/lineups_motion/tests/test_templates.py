@@ -13,6 +13,7 @@ from tools.lineups_motion.templates import (
     validate_callout, validate_manifest_binding, validate_manifest_readback,
     validate_source_identity,
     load_source_guards, validate_source_guards,
+    quick_style_duration,
 )
 
 
@@ -52,6 +53,19 @@ def bound_manifest():
 
 
 class TemplateTests(unittest.TestCase):
+    def test_both_quick_lanes_use_5_5_seconds_with_frame_rounding(self):
+        self.assertEqual(quick_style_duration({'numerator': 25, 'denominator': 1}),
+            {'requestedDurationSeconds': 5.5, 'durationFrames': 138,
+             'actualDurationSeconds': 5.52, 'rounding': 'nearest-half-up'})
+        self.assertEqual(quick_style_duration({'numerator': 24, 'denominator': 1})['durationFrames'], 132)
+        fractional = quick_style_duration({'numerator': 24000, 'denominator': 1001})
+        self.assertEqual(fractional['durationFrames'], 132)
+        self.assertAlmostEqual(fractional['actualDurationSeconds'], 5.5055)
+        for template in load_registry()['templates']:
+            if template['lane'] in {'quick action photo', 'quick stat'}:
+                self.assertEqual(template['editorialDefault'],
+                    {'requestedDurationSeconds': 5.5, 'rounding': 'nearest-half-up'})
+
     def test_public_collector_routes_team_callouts_and_preserves_legacy_checks(self):
         root = Path(__file__).resolve().parents[3]
         script = root / 'scripts/lineups-templates.py'

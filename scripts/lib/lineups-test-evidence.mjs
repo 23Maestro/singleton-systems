@@ -7,6 +7,12 @@ import {hashValue} from '../../lib/transactions/contract.mjs';
 
 // External-boundary fixture. Run the real timing validator; this is not live-app proof.
 export function prepareSceneEvidence(directory, manifest, sourceRoot = process.cwd()) {
+  if (manifest.scene.lane === 'quick stat' && !manifest.scene.editorialDuration) {
+    const fps = manifest.motion.frameRate.numerator / manifest.motion.frameRate.denominator;
+    const frames = Math.floor(5.5 * fps + 0.5);
+    manifest.scene.editorialDuration = {requestedDurationSeconds: 5.5, durationFrames: frames,
+      actualDurationSeconds: frames / fps, rounding: 'nearest-half-up'};
+  }
   const cues = manifest.motion.cues.filter(cue => cue.triggerType !== 'EDIT');
   if (cues.length && cues[0].transcriptTimestamp > manifest.timing.verifiedAnchorTimestamp) {
     cues.unshift({triggerText: 'Introduction', transcriptTimestamp: manifest.timing.verifiedAnchorTimestamp});
