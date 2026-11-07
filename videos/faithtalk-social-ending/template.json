@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "faithtalk-animated-social-ending-v1",
+  "name": "FaithTalk social logo sting with broadcast schedule",
+  "referenceVideo": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-21-october-26-spacing/Videos/Fallen-Rise-Again_REEL.mp4",
+  "nativeLogoSting": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/social/FaithTalk_Logo_Sting_9x16.mp4",
+  "nativeLogoStingSha256": "d7361f14b51f8d4fdcd4fb616200c9e294a25e5f42b97bfd8906f8870e0faa61",
+  "assets": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-14-episode-3-promos/build/outro-project/assets",
+  "fps": "30000/1001",
+  "endingFrames": 231,
+  "endingSeconds": 7.7077,
+  "scheduleAnimationFrames": 159,
+  "freezeAfterFrame": 131,
+  "freezeFrames": 72,
+  "editable": [
+    "episode",
+    "airDate",
+    "airtime",
+    "source",
+    "videoEndFrame",
+    "audioEndSeconds",
+    "outputDirectory"
+  ],
+  "protected": [
+    "official logo animation",
+    "native sting audio",
+    "black background",
+    "Convergence episode text",
+    "existing schedule motion",
+    "official Greater Love TV artwork",
+    "watch URL"
+  ],
+  "holdAudio": "Silence after native sting. No new music.",
+  "status": "Episode 5 rendered and technically checked. Jerami responded beautiful and authorized upload on November 5, 2026.",
+  "rendererVersion": "0.8.70"
+}

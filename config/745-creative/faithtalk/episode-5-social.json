@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "episode": 5,
+  "airDate": "2026-11-09",
+  "airtime": "9:30 AM ET",
+  "source": "/Volumes/HomeSSD/Generated/FAITHTALK/source/Episode 5 - God Works in the Darkest Moments - Clean Opus.mp4",
+  "sourceSha256": "e2e3fcd0b9079319bf7224302bfe0d9909044e6f31306933b419e8361f589fea",
+  "videoEndFrame": 693,
+  "audioEndSeconds": 23.1,
+  "lastAllowedWords": "come in the morning",
+  "firstExcludedWords": "I dont know what / when that morning is",
+  "cutEvidence": "Full-context word timing ends morning near 23.12 seconds. Caption frames through 23.223 seconds still read IN THE MORNING. Cut picture at 23.1231 seconds and audio at 23.10 seconds, before I at approximately 23.12 seconds. Final truncated transcript and boundary frames require verification.",
+  "outputDirectory": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-11-05-episode-5/social-v2"
+}

@@ -5,6 +5,7 @@
   "adoptedOn": "2026-10-28",
   "authority": "Jerami adopted Darzell and Marco's supplied social kit for repeat use. The current episode brief sets scope, copy and broadcast details.",
   "references": {
+    "templateRegistry": "template-registry.json",
     "manifest": "references.jsonl",
     "sourceRoot": "/Users/singleton23/Downloads/SOCIAL-BRAND-CONCEPT",
     "eagleFolderId": "MVSH4R12PBOQB",
@@ -199,7 +200,7 @@
         "source": "The episode being promoted",
         "clipOwner": "Opus Clip",
         "captions": "Keep the supplied cut, complete audio and baked captions. A new brand direction alone does not authorize a recut.",
-        "brand": "Use this social kit for any requested cover or end card. Weekly promo copy uses ALL-NEW EPISODE.",
+        "brand": "Use the official black animated FaithTalk social sting with current episode, weekday, date and airtime, Greater Love TV and watch URL. Use ALL-NEW EPISODE. Static green cards are graphic references, not the default video ending.",
         "defaultExportSize": [
           1080,
           1920
@@ -232,6 +233,10 @@
           "review": "Cyan crop and amber buffer lines in review only. Keep all copy and logos within measured buffer. Check the actual upload crop before posting.",
           "guideExport": "Never burn guides into delivered covers or videos.",
           "scope": "Reel cover and video date card only. Story and square feed cards retain their supplied artboard measurements."
+        },
+        "animatedEnding": {
+          "registry": "template-registry.json#/lanes/social_reel/animatedEnding",
+          "template": "videos/faithtalk-social-ending/template.json"
         }
       },
       "broadcast_outro": {
