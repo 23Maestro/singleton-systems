@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "id": "intent-keys-long-form",
+  "fps": 30,
+  "canvas": [1920, 1080],
+  "components": {
+    "screen": "upper-right",
+    "captions": "max-manrope",
+    "counter": {"flubs": "e01-flubs", "keys": "e03-flubs-keys"},
+    "helper": "e01-helper",
+    "sheet": "e01-sheet-light-leak",
+    "quiz": "e02-countdown"
+  },
+  "styleSources": {
+    "styles/intent-keys/style.json": "6a5511b49d5ca36edc7a4cfd5d7c5d46e912d0b05bf364b96d984acc8eae6e6e",
+    "styles/intent-keys/style.css": "dc5dd3cb320f0507d7c108f4d23eb1f4bac3746cd4033e58fff41cd647e5716c",
+    "styles/intent-keys/overlays.py": "4cc8a8161f79007dcf8ad04b76da838af3a531de05021cd0d2a253ab3eafcc85",
+    "styles/intent-keys/short-captions.json": "627f4a270a546954efa860df9208bd8d630fb0ceedd69f30bdfde5cd994f2348"
+  },
+  "speech": {
+    "gapReviewFrames": 25,
+    "maxJoinRmsDbfs": -32,
+    "joinFadeMs": 5
+  },
+  "sheet": {
+    "reference": "Episode 1 v06, 00:22",
+    "paper": {"x": 48, "y": 102, "width": 1336, "height": 876, "radius": 28},
+    "camera": {"x": 1416, "y": 656, "width": 480, "height": 400, "border": 6, "radius": 18, "color": "#ff7a24"},
+    "background": "radial-gradient(ellipse 1730px 1040px at 0% 104%, #e06c21 0%, #a7521c 20%, #713b1a 32%, #442719 52%, #281a16 70%, #171317 88%, #0d0d10 100%)",
+    "reveal": {"type": "light-leak", "riseFrames": 9, "fallFrames": 12, "peakOpacity": 0.35}
+  },
+  "quiz": {
+    "title": "Pause & Think",
+    "reference": "Episode 2 v05 learning card and sound track",
+    "digits": [4, 3, 2, 1],
+    "framesPerDigit": 30,
+    "tickFrames": [30, 60, 90],
+    "chimeFrame": 114,
+    "tickPeakDbfs": -29,
+    "chimePeakDbfs": -26,
+    "assets": {
+      "card": {
+        "path": "previews/e02-learning-storyboard-2026-11-01/intent-e02-quiz-bottom-left.png",
+        "sha256": "d0741978e2192d16956a826d344d255291d8f7fbf66807aaf671c3372081e74c"
+      },
+      "sound": {
+        "path": "audio/e02-learning-sfx-v05.wav",
+        "sha256": "00db64c285ffb8012f6aad3472364410a9e92f0dc7b98276ad8c12609f81cc5b"
+      },
+      "soundCues": {
+        "path": "references/e02-learning-sound-v05.json",
+        "sha256": "4d9bc75f2e904a116e2196d970ba99c45b573037f20fae2250756268bb461637"
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ import json
 import math
 from pathlib import Path
 
+from tools.video_workflow.evidence import approval_matches, file_sha256, record_sha256 as digest
+
 from .templates import load_registry, load_team_callout_contract, resolve
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -16,11 +18,6 @@ STYLE_FIELDS = {
 }
 VISUAL_CHECKS = {'headroom', 'callouts', 'accents', 'team-backgrounds', 'logos',
                  'copy', 'template', 'workflow', 'composition'}
-
-
-def digest(value):
-    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
-                                     ensure_ascii=False, allow_nan=False).encode()).hexdigest()
 
 
 def require(condition, message):
@@ -59,16 +56,12 @@ def source_binding(root, manifest):
 def artifact(root, ref):
     require(isinstance(ref, dict) and ref.get('path') and ref.get('sha256'), 'missing evidence file')
     path = Path(root) / ref['path']
-    require(hashlib.sha256(path.read_bytes()).hexdigest() == ref['sha256'], 'evidence file changed: ' + str(path))
+    require(file_sha256(path) == ref['sha256'], 'evidence file changed: ' + str(path))
     return path
 
 
 def approved(value):
-    approval = value.get('approval') or {}
-    require(approval.get('reviewer') == 'Jerami' and isinstance(approval.get('source'), str)
-            and approval['source'].strip() and approval.get('sha256') == digest(
-                {k: v for k, v in value.items() if k != 'approval'}), 'approval is missing or stale')
-
+    require(approval_matches(value, 'Jerami'), 'approval is missing or stale')
 
 def same_values(actual, expected):
     if number(actual) and number(expected):

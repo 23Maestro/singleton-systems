@@ -13,7 +13,8 @@
     "intent-keys": {
       "title": "Intent Keys",
       "promise": "Learn the keyboard keys that replace the mouse, one tool at a time.",
-      "episodes": ["e01"]
+      "episodes": ["e01", "e02", "e03"],
+      "longFormTreatment": "config/intent-solutions/intent-keys/treatment.json"
     }
   },
   "audience": "People who have vibe coded for about a year and still steer with the mouse.",
@@ -37,10 +38,10 @@
     "mistakesStay": true,
     "flubbedSentencesCanGo": true,
     "screenChangeEverySeconds": [30, 60],
-    "maxOnScreen": "Max stays on screen the whole episode: camera full frame for the sheet and homework, a corner box everywhere else.",
+    "maxOnScreen": "Max stays visible. Use the locked lower-right frame on the sheet reveal.",
     "callsToAction": "One subscribe ask, in the close, with its reason: next week's payoff.",
     "captions": {
-      "mainVideo": "Separate SRT, no burned-in captions.",
+      "mainVideo": "Use Max’s locked Manrope captions and keep an SRT sidecar.",
       "short": "Burned-in captions on a dark backing.",
       "keySpelling": ["Ctrl A", "Ctrl E", "Ctrl W", "Ctrl U", "Ctrl R", "Option B", "Cmd N", "Cmd `", "Ctrl ← / →", "Cmd Tab", "Alacritty", "zsh", "Intent Solutions"]
     },
