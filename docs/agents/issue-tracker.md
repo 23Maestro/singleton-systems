@@ -111,6 +111,13 @@ Use this during normal selected work. No named skill is needed.
 5. If work or approval remains, leave the task open. Record that next step
    with `defer`. Keep the link for resume.
 
+For Linear, `finish` archives a top-level issue after the saved summary and
+Done state are confirmed and every subtask is Done. Archive subtasks before
+the parent. A completed subtask stays visible while its parent is open.
+Read the archived tree back before reporting closeout. If archival fails,
+retry `finish` with the same evidence. `check` and the Stop hook only read
+state. Asana closeout uses its native completion state.
+
 Task upkeep is part of the selected work. It does not authorize publishing,
 client messages or changes outside that task. Keep research and unrelated
 backlog items outside this closeout. Readback failure stays pending.

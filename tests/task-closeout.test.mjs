@@ -24,11 +24,13 @@ async function fixture(t) {
     memberships: [{ project: { gid: "1218890014545436" }, section: { gid: "1218890014545438" } }],
   }]));
   const writes = [];
+  const archives = [];
+  const archiveReadLag = new Map();
   const faults = {};
   const registry = JSON.parse(readFileSync(path.join(root, "config/cerebral-registry.json")));
   const issues = new Map(["issue-1", "issue-2"].map((id, i) => [id, {
     id, identifier: `23M-${i + 1}`, title: i ? "Check form" : "Build form", url: `https://linear.app/23maestro/issue/23M-${i + 1}`,
-    parent: i ? { id: "issue-1" } : null, state: { name: "In Progress", type: "started" },
+    parent: i ? { id: "issue-1" } : null, state: { name: "In Progress", type: "started" }, archivedAt: null,
     description: "Review is pending. [Source](https://example.com/source)",
     team: { key: "23M", states: { nodes: [{ id: "done-state", name: "Done", type: "completed" }] } },
   }]));
@@ -44,12 +46,27 @@ async function fixture(t) {
       const chunks = []; for await (const chunk of req) chunks.push(chunk);
       const body = JSON.parse(Buffer.concat(chunks));
       const issue = issues.get(body.variables.id) || [...issues.values()].find(x => x.identifier === body.variables.id);
+      const children = [...issues.values()].filter(x => x.parent?.id === issue?.id && (!x.archivedAt || body.query.includes("includeArchived:true")));
+      const archiveRead = task => {
+        const remaining = archiveReadLag.get(task.id) ?? 0;
+        if (!remaining) return task;
+        archiveReadLag.set(task.id, remaining - 1);
+        return { ...task, archivedAt: null };
+      };
       if (body.query.includes("LifecycleContext")) result = { data: { issue: {
         children: { nodes: [...issues.values()].filter(x => x.parent?.id === issue.id), pageInfo: { hasNextPage: false } },
         comments: { nodes: [], pageInfo: { hasNextPage: false } },
         inverseRelations: { nodes: [], pageInfo: { hasNextPage: false } },
       } } };
-      else if (body.query.startsWith("mutation")) {
+      else if (body.query.includes("issueArchive(")) {
+        const success = faults.archiveRejectId !== issue.id && issue.state.type === "completed";
+        if (success) {
+          issue.archivedAt = new Date().toISOString();
+          archiveReadLag.set(issue.id, faults.archiveVisibilityLag ?? 0);
+          archives.push(issue.id);
+        }
+        result = { data: { issueArchive: { success } } };
+      } else if (body.query.startsWith("mutation")) {
         if (faults.rejectLinear || (issue.id === "issue-1" && issues.get("issue-2").state.type !== "completed")) result = { data: { issueUpdate: { success: false } } };
         else {
           if (!faults.ignoreWrite) {
@@ -58,7 +75,10 @@ async function fixture(t) {
           }
           writes.push(issue.id); result = { data: { issueUpdate: { success: true } } };
         }
-      } else result = { data: { issue: issue ? { ...issue, children: { nodes: [...issues.values()].filter(x => x.parent?.id === issue.id).map(x => ({ id: x.id })), pageInfo: { hasNextPage: false, endCursor: null } } } : null } };
+      } else result = { data: { issue: issue ? {
+        ...archiveRead(issue), parent: issue.parent ? issues.get(issue.parent.id) : null,
+        children: { nodes: children.map(archiveRead), pageInfo: { hasNextPage: false, endCursor: null } },
+      } : null } };
     }
     else if (match?.[2] === "/stories") result = { data: [], next_page: null };
     else if (match?.[2]) result = { data: [...tasks.values()].filter(x => x.parent?.gid === match[1]), next_page: null };
@@ -110,7 +130,7 @@ async function fixture(t) {
     });
     child.stdin.end(JSON.stringify({ hook_event_name: event, cwd: root, session_id: "chat-a", turn_id: "turn-a", ...extra }));
   });
-  return { run, lifecycle: (command, options) => run(command, options, path.join(root, "scripts/task-lifecycle.mjs")), hook, env, tasks, issues, writes, faults };
+  return { run, lifecycle: (command, options) => run(command, options, path.join(root, "scripts/task-lifecycle.mjs")), hook, env, tasks, issues, writes, archives, faults };
 }
 
 test("Asana closes only the named finished children, then verifies the parent", async t => {
@@ -128,6 +148,7 @@ test("Asana closes only the named finished children, then verifies the parent", 
 
 test("Linear uses the issue's own Done state and verifies children before the parent", async t => {
   const f = await fixture(t);
+  f.faults.archiveVisibilityLag = 1;
   const bound = await f.run("bind", { owner: "linear", id: "23M-1", "done-when": "The form works and its checks pass" });
   assert.equal(bound.code, 0, bound.error || bound.stderr);
   const done = await f.run("finish", { owner: "linear", id: "23M-1", children: "issue-2", evidence: "Form checks passed on the current code" });
@@ -135,6 +156,33 @@ test("Linear uses the issue's own Done state and verifies children before the pa
   assert.equal(done.outcome, "complete");
   assert.deepEqual(done.tasks.map(x => [x.id, x.completed]), [["issue-1", true], ["issue-2", true]]);
   assert.deepEqual(f.writes, ["issue-2", "issue-1"]);
+  assert.deepEqual(f.archives, ["issue-2", "issue-1"]);
+  assert.ok(done.tasks.every(task => task.archivedAt));
+});
+
+test("Linear retains completed children under open parents", async t => {
+  const f = await fixture(t);
+  await f.run("bind", { owner: "linear", id: "23M-2", "done-when": "Form checks passed" });
+  const child = await f.run("finish", { owner: "linear", id: "23M-2", evidence: "Form checks passed" });
+  assert.equal(child.outcome, "complete", child.error);
+  assert.deepEqual(f.archives, []);
+  assert.equal(f.issues.get("issue-1").state.type, "started");
+});
+
+test("Linear retries partial archival after reading archived children", async t => {
+  const f = await fixture(t);
+  const options = { owner: "linear", id: "23M-1" };
+  await f.run("bind", { ...options, "done-when": "Form checks passed" });
+  f.faults.archiveRejectId = "issue-1";
+  const finish = { ...options, children: "issue-2", evidence: "Form checks passed" };
+  assert.match((await f.run("finish", finish)).error, /rejected archival/);
+  assert.equal((await f.run("check", options)).outcome, "pending");
+  assert.deepEqual(f.archives, ["issue-2"]);
+  delete f.faults.archiveRejectId;
+  const retried = await f.run("finish", finish);
+  assert.equal(retried.outcome, "complete", retried.error);
+  assert.deepEqual(f.writes, ["issue-2", "issue-1"]);
+  assert.deepEqual(f.archives, ["issue-2", "issue-1"]);
 });
 
 test("normal chat hooks request task matching, catch missed closeout and restore it on resume", async t => {
