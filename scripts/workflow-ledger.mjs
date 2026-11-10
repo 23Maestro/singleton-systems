@@ -24,7 +24,9 @@ function load(file) {
   for (const repository of records.repositories) {
     required(repository.id, 'Repository ID');
     if (repositories.has(repository.id)) throw new Error(`Duplicate repository: ${repository.id}`);
-    repositories.set(repository.id, {...repository, directory: fs.realpathSync(path.resolve(path.dirname(file), required(repository.root, 'Repository root')))});
+    const directory = path.resolve(path.dirname(file), required(repository.root, 'Repository root'));
+    const available = fs.existsSync(directory);
+    repositories.set(repository.id, {...repository, directory: available ? fs.realpathSync(directory) : directory, available});
     if (repository.browserBase) https(repository.browserBase);
   }
   const workflowIds = new Set();
@@ -49,7 +51,8 @@ function load(file) {
           else {
             const repository = repositories.get(link.repository);
             if (!repository) throw new Error(`Unknown repository: ${link.repository}`);
-            const target = fs.realpathSync(path.resolve(repository.directory, required(link.path, 'Source path')));
+            const candidate = path.resolve(repository.directory, required(link.path, 'Source path'));
+            const target = repository.available ? fs.realpathSync(candidate) : candidate;
             const relative = path.relative(repository.directory, target);
             if (relative === '..' || relative.startsWith(`..${path.sep}`) || path.isAbsolute(relative)) throw new Error('Source path leaves its declared repository.');
           }
@@ -104,15 +107,24 @@ try {
     options[key] = path.resolve(args[i + 1]);
   }
   const data = load(options.records);
+  const sitePage = path.join(options.site, 'index.html');
   if (command === 'generate') {
     fs.mkdirSync(path.dirname(options.markdown), {recursive: true});
     const md = markdown(data, options.markdown);
     const page = html(data);
     fs.mkdirSync(options.site, {recursive: true});
     fs.writeFileSync(options.markdown, md);
-    fs.writeFileSync(path.join(options.site, 'index.html'), page);
+    fs.writeFileSync(sitePage, page);
+  } else {
+    if (fs.readFileSync(options.markdown, 'utf8') !== markdown(data, options.markdown)) {
+      throw new Error('Repository view is stale. Regenerate both views.');
+    }
+    if ((fs.existsSync(sitePage) || args.includes('--site')) && fs.readFileSync(sitePage, 'utf8') !== html(data)) {
+      throw new Error('Hosted view source is stale. Regenerate both views.');
+    }
   }
-  console.log(JSON.stringify({outcome: 'passed', workflows: data.records.workflows.length, components: data.records.workflows.reduce((n, w) => n + w.components.length, 0), recordsSha256: data.digest}));
+  const unavailableRepositories = [...data.repositories.values()].filter(repo => !repo.available).map(repo => repo.id);
+  console.log(JSON.stringify({outcome: 'passed', unavailableRepositories, workflows: data.records.workflows.length, components: data.records.workflows.reduce((n, w) => n + w.components.length, 0), recordsSha256: data.digest}));
 } catch (error) {
   console.error(JSON.stringify({outcome: 'failed', error: error.message}));
   process.exitCode = 1;

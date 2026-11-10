@@ -41,6 +41,13 @@ test('one workflow record produces matching, linked repository and web tables', 
     assert.ok(md.includes('../tools/timing.py'));
     assert.ok(html.includes('https://github.com/example/systems/blob/main/tools/timing.py'));
     assert.ok(!html.includes(root), 'hosted page must not leak machine paths');
+    const check = () => spawnSync(process.execPath, [cli, 'check', '--records', source, '--markdown', markdown, '--site', site], {encoding: 'utf8'});
+    assert.equal(check().status, 0);
+    writeFileSync(path.join(site, 'index.html'), 'stale hosted view');
+    assert.equal(check().status, 1);
+    writeFileSync(path.join(site, 'index.html'), html);
+    writeFileSync(markdown, 'stale repository view');
+    assert.equal(check().status, 1);
     records.workflows[0].components[0].purpose = 'Keep each graphic on its spoken word.';
     writeFileSync(source, JSON.stringify(records));
     result = generate();

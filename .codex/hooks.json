@@ -14,6 +14,12 @@
             "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/creative_745.py\"",
             "timeout": 10,
             "statusMessage": "Loading 745 client visual contract"
+          },
+          {
+            "type": "command",
+            "command": "/Users/singleton23/.pyenv/versions/3.12.3/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/intent_keys.py\"",
+            "timeout": 30,
+            "statusMessage": "Checking Intent Keys production treatment"
           }
         ]
       }
@@ -85,6 +91,17 @@
             "command": "/usr/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/creative_745.py\"",
             "timeout": 10,
             "statusMessage": "Checking bound 745 visual treatment"
+          }
+        ]
+      },
+      {
+        "matcher": "^(?:Bash|exec_command|functions\\.exec|exec)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/singleton23/.pyenv/versions/3.12.3/bin/python3 \"/Users/singleton23/Documents/Development/singleton-systems/.codex/hooks/intent_keys.py\"",
+            "timeout": 30,
+            "statusMessage": "Checking Intent Keys production treatment"
           }
         ]
       }
