@@ -84,7 +84,8 @@ for r, y in zip(rows, ys):
 
 k.wipe(team, 4, 8)
 k.rise(title, 10, 8)
-k.block_dissolve(logo, 16, 6); k.pop(logo_floor, 16, 6, "CUBIC")
+if D.get("logo_in") == "dust": k.dust_in(logo, lim, 16, 16); k.pop(logo_floor, 26, 8, "CUBIC")
+else: k.block_dissolve(logo, 16, 6); k.pop(logo_floor, 16, 6, "CUBIC")
 
 k.key_light()
 k.hide_until_open(N)

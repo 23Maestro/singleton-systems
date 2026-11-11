@@ -420,3 +420,112 @@ def finish(blend_path, out, mode, still_frame=None, bloom=0.15):
         last = os.path.join(out, "frames", f"f_{h:04d}.png")
         for f in range(h + 1, n + 1): shutil.copyfile(last, os.path.join(out, "frames", f"f_{f:04d}.png"))
         print(f"HOLD rendered 1-{h}, froze {h + 1}-{n}")
+
+# ---------------------------------------------------------------- brushed team metal (card surface option)
+BRUSH = "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/lookdev/ambientcg/Metal009/Metal009_2K-JPG_Roughness.jpg"
+
+def brushed_mat(name, hexc, sweep_at=None, sweep_dur=14):
+    """Team color in brushed metal: horizontal grain from the Metal009 scan (CC0, local), a lit bevel,
+    and one soft light sweep across the face as the card lands."""
+    m = flat_mat(name, hexc, glow=0.6, rough=0.32, metal=0.55); nt = m.node_tree; p = nt.nodes["Principled BSDF"]
+    tc = nt.nodes.new("ShaderNodeTexCoord"); mp = nt.nodes.new("ShaderNodeMapping"); mp.inputs["Scale"].default_value = (0.35, 9.0, 1.0)
+    tx = nt.nodes.new("ShaderNodeTexImage"); tx.image = bpy.data.images.load(BRUSH, check_existing=True)
+    tx.image.colorspace_settings.name = "Non-Color"
+    nt.links.new(tc.outputs["Generated"], mp.inputs["Vector"]); nt.links.new(mp.outputs[0], tx.inputs["Vector"])
+    rr = nt.nodes.new("ShaderNodeMapRange"); rr.inputs["To Min"].default_value = 0.22; rr.inputs["To Max"].default_value = 0.45
+    nt.links.new(tx.outputs["Color"], rr.inputs["Value"]); nt.links.new(rr.outputs["Result"], p.inputs["Roughness"])
+    bp = nt.nodes.new("ShaderNodeBump"); bp.inputs["Strength"].default_value = 0.06
+    nt.links.new(tx.outputs["Color"], bp.inputs["Height"]); nt.links.new(bp.outputs["Normal"], p.inputs["Normal"])
+    if sweep_at is not None:                      # a soft diagonal band of light crosses the face once
+        sx = nt.nodes.new("ShaderNodeSeparateXYZ"); nt.links.new(tc.outputs["Generated"], sx.inputs[0])
+        diag = nt.nodes.new("ShaderNodeMath"); diag.operation = "MULTIPLY_ADD"; diag.inputs[1].default_value = 0.6
+        nt.links.new(sx.outputs["Y"], diag.inputs[0]); nt.links.new(sx.outputs["X"], diag.inputs[2])
+        pos = nt.nodes.new("ShaderNodeValue"); d = nt.nodes.new("ShaderNodeMath"); d.operation = "SUBTRACT"
+        nt.links.new(diag.outputs[0], d.inputs[0]); nt.links.new(pos.outputs[0], d.inputs[1])
+        ab = nt.nodes.new("ShaderNodeMath"); ab.operation = "ABSOLUTE"; nt.links.new(d.outputs[0], ab.inputs[0])
+        band = nt.nodes.new("ShaderNodeMapRange"); band.inputs["From Max"].default_value = 0.22
+        band.inputs["To Min"].default_value = 1.0; band.inputs["To Max"].default_value = 0.0
+        nt.links.new(ab.outputs[0], band.inputs["Value"])
+        st = nt.nodes.new("ShaderNodeMath"); st.operation = "MULTIPLY_ADD"; st.inputs[1].default_value = 0.45; st.inputs[2].default_value = 0.6
+        nt.links.new(band.outputs["Result"], st.inputs[0]); nt.links.new(st.outputs[0], p.inputs["Emission Strength"])
+        mx = nt.nodes.new("ShaderNodeMix"); mx.data_type = "RGBA"; mx.inputs["A"].default_value = lin(hexc); mx.inputs["B"].default_value = (1, 1, 1, 1)
+        soft = nt.nodes.new("ShaderNodeMath"); soft.operation = "MULTIPLY"; soft.inputs[1].default_value = 0.3
+        nt.links.new(band.outputs["Result"], soft.inputs[0]); nt.links.new(soft.outputs[0], mx.inputs["Factor"])
+        nt.links.new(mx.outputs["Result"], p.inputs["Emission Color"])
+        for f, v in ((sweep_at, -0.4), (sweep_at + sweep_dur, 1.6)):
+            pos.outputs[0].default_value = v; pos.outputs[0].keyframe_insert("default_value", frame=f)
+        for fc in _fcurves(nt.animation_data.action):
+            for kp in fc.keyframe_points: kp.interpolation = "SINE"; kp.easing = "EASE_IN_OUT"
+    return m
+
+# ---------------------------------------------------------------- dust logo: specks drift in on a wind and settle into the logo
+def _srgb(c): return np.where(c <= 0.04045, c / 12.92, ((c + 0.055) / 1.055) ** 2.4)
+
+def dust_in(logo, im, f0, dur=16, n=4500, wind=(-1.0, 0.0, 0.25), seed=7):
+    """Thousands of tiny specks, each colored from the logo pixel it lands on, blow in from one side with a little
+    turbulence and settle into the logo shape. The crisp logo fades in under them as they arrive."""
+    rng = np.random.default_rng(seed)
+    w, h = im.size; px_ = np.array(im.pixels[:], dtype=np.float32).reshape(h, w, 4)
+    ys, xs = np.nonzero(px_[..., 3] > 0.5); pick = rng.choice(len(xs), size=min(n, len(xs)), replace=False)
+    xs, ys = xs[pick], ys[pick]; col = _srgb(px_[ys, xs, :3])
+    fr = sc.frame_current; sc.frame_set(f0); bpy.context.view_layer.update()   # read the logo where the landed card holds it
+    mw = logo.matrix_world.copy(); sc.frame_set(fr)
+    tgt = [mw @ Vector((x / w - 0.5, y / h - 0.5, 0.002)) for x, y in zip(xs, ys)]
+    size = logo.scale.x
+    wv = Vector(wind).normalized(); dist = rng.uniform(0.25, 0.9, len(tgt)) * size     # start just beside the logo
+    jit = rng.normal(0, 0.12 * size, (len(tgt), 3))
+    start = [t + wv * dd + Vector(j) for t, dd, j in zip(tgt, dist, jit)]
+    xn = (xs / w); delay = np.clip(0.35 * (1 - xn) + rng.uniform(0, 0.15, len(xs)), 0, 0.5)   # far side of the wind settles last
+    me = bpy.data.meshes.new("Dust"); me.from_pydata([tuple(t) for t in tgt], [], [])
+    a = me.attributes.new("start", "FLOAT_VECTOR", "POINT"); a.data.foreach_set("vector", np.array([tuple(s) for s in start]).ravel())
+    a = me.attributes.new("delay", "FLOAT", "POINT"); a.data.foreach_set("value", delay.astype(np.float32))
+    a = me.attributes.new("col", "FLOAT_COLOR", "POINT"); a.data.foreach_set("color", np.c_[col, np.ones(len(col))].astype(np.float32).ravel())
+    o = bpy.data.objects.new("Dust", me); sc.collection.objects.link(o); o.visible_shadow = False
+    ng = bpy.data.node_groups.new("DustIn", "GeometryNodeTree")
+    ng.interface.new_socket("Geometry", in_out="INPUT", socket_type="NodeSocketGeometry")
+    ng.interface.new_socket("Geometry", in_out="OUTPUT", socket_type="NodeSocketGeometry")
+    N = ng.nodes; L = ng.links.new
+    gi, go = N.new("NodeGroupInput"), N.new("NodeGroupOutput")
+    def attr(name, t):
+        x = N.new("GeometryNodeInputNamedAttribute"); x.data_type = t; x.inputs["Name"].default_value = name; return x
+    def math(op, a_=None, b_=None):
+        x = N.new("ShaderNodeMath"); x.operation = op
+        for i, v in enumerate((a_, b_)):
+            if isinstance(v, (int, float)): x.inputs[i].default_value = v
+            elif v is not None: L(v, x.inputs[i])
+        return x
+    tm = N.new("GeometryNodeInputSceneTime"); st, dl, cl = attr("start", "FLOAT_VECTOR"), attr("delay", "FLOAT"), attr("col", "FLOAT_COLOR")
+    local = math("SUBTRACT", tm.outputs["Frame"], float(f0))                     # frames since the dust starts
+    dd = math("MULTIPLY", dl.outputs["Attribute"], float(dur))
+    tt = math("DIVIDE", math("SUBTRACT", local.outputs[0], dd.outputs[0]).outputs[0], dur * 0.55)
+    tt.use_clamp = True
+    sm = N.new("ShaderNodeMapRange"); sm.interpolation_type = "SMOOTHERSTEP"; L(tt.outputs[0], sm.inputs["Value"])
+    mix = N.new("ShaderNodeMix"); mix.data_type = "VECTOR"; L(sm.outputs["Result"], mix.inputs["Factor"])
+    L(st.outputs["Attribute"], mix.inputs["A"]); pos = N.new("GeometryNodeInputPosition"); L(pos.outputs[0], mix.inputs["B"])
+    sp = N.new("GeometryNodeSetPosition"); L(gi.outputs[0], sp.inputs["Geometry"]); L(mix.outputs["Result"], sp.inputs["Position"])
+    fade = math("SUBTRACT", 1.0, math("DIVIDE", math("SUBTRACT", local.outputs[0], dur - 2.0).outputs[0], 5.0).outputs[0]); fade.use_clamp = True
+    vis = math("GREATER_THAN", local.outputs[0], 0.0); alpha = math("MULTIPLY", fade.outputs[0], vis.outputs[0])
+    s1 = N.new("GeometryNodeStoreNamedAttribute"); s1.data_type = "FLOAT_COLOR"; s1.inputs["Name"].default_value = "dustcol"
+    L(sp.outputs[0], s1.inputs["Geometry"]); L(cl.outputs["Attribute"], s1.inputs["Value"])
+    s2 = N.new("GeometryNodeStoreNamedAttribute"); s2.data_type = "FLOAT"; s2.inputs["Name"].default_value = "dustalpha"
+    L(s1.outputs[0], s2.inputs["Geometry"]); L(alpha.outputs[0], s2.inputs["Value"])
+    grid = N.new("GeometryNodeMeshGrid"); speck = size / np.sqrt(n) * 0.5
+    grid.inputs["Size X"].default_value = speck; grid.inputs["Size Y"].default_value = speck
+    grid.inputs["Vertices X"].default_value = 2; grid.inputs["Vertices Y"].default_value = 2
+    iop = N.new("GeometryNodeInstanceOnPoints"); L(s2.outputs[0], iop.inputs["Points"]); L(grid.outputs["Mesh"], iop.inputs["Instance"])
+    iop.inputs["Rotation"].default_value = (math_rad := 1.5707963, 0, 0)
+    rz = N.new("GeometryNodeRealizeInstances"); L(iop.outputs[0], rz.inputs[0])
+    sm2 = N.new("GeometryNodeSetMaterial"); L(rz.outputs[0], sm2.inputs["Geometry"]); L(sm2.outputs[0], go.inputs[0])
+    mat = bpy.data.materials.new("Dust"); mat.use_nodes = True; mt = mat.node_tree; p = mt.nodes["Principled BSDF"]
+    ac = mt.nodes.new("ShaderNodeAttribute"); ac.attribute_name = "dustcol"; aa = mt.nodes.new("ShaderNodeAttribute"); aa.attribute_name = "dustalpha"
+    mt.links.new(ac.outputs["Color"], p.inputs["Base Color"]); mt.links.new(ac.outputs["Color"], p.inputs["Emission Color"])
+    p.inputs["Emission Strength"].default_value = 1.15; mt.links.new(aa.outputs["Fac"], p.inputs["Alpha"]); mat.surface_render_method = "BLENDED"
+    sm2.inputs["Material"].default_value = mat
+    mod = o.modifiers.new("Dust", "NODES"); mod.node_group = ng
+    # the crisp logo fades in under the settling specks
+    lm = logo.active_material; lt = lm.node_tree; lp = lt.nodes["Principled BSDF"]; tx = lt.nodes["Image Texture"]
+    fv = lt.nodes.new("ShaderNodeValue"); mul = lt.nodes.new("ShaderNodeMath"); mul.operation = "MULTIPLY"
+    lt.links.new(tx.outputs["Alpha"], mul.inputs[0]); lt.links.new(fv.outputs[0], mul.inputs[1]); lt.links.new(mul.outputs[0], lp.inputs["Alpha"])
+    for f, v in ((f0 + dur - 6, 0.0), (f0 + dur + 1, 1.0)):
+        fv.outputs[0].default_value = v; fv.outputs[0].keyframe_insert("default_value", frame=f)
+    return o
