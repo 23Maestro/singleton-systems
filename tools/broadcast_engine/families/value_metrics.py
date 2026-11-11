@@ -99,7 +99,8 @@ if plate: k.check_plate_cover(plate, N)
 print("PASS rows land on their cues; PASS frame check; PASS stadium covers every frame")
 
 json.dump({"focusTeam": FOCUS, "stadium": STADIUM, "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
-           "barScale": peak, "cues": {r["label"]: r["frame"] for r in rows}},
+           "barScale": peak, "cues": {r["label"]: r["frame"] for r in rows},
+           "dustFrames": [16] if D.get("logo_in") == "dust" else []},
           open(os.path.join(OUT, "scene-binding.json"), "w"), indent=1)
 still = [int(x) for x in args[3].split(",")] if MODE == "still" and len(args) > 3 and args[3][0].isdigit() else [N]
 k.finish(D.get("master") or os.path.join(OUT, "value-metrics.blend"), OUT, MODE, still, bloom=0.4)

@@ -116,7 +116,8 @@ print("PASS cards land on their cues; PASS frame check; PASS stadium covers ever
 
 json.dump({"layout": LAYOUT, "focusTeam": FOCUS, "stadium": STADIUM,
            "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
-           "cues": {c["team"] + " / " + c["label"]: c["frame"] for c in cards}},
+           "cues": {c["team"] + " / " + c["label"]: c["frame"] for c in cards},
+           "dustFrames": [c["frame"] + 2 for c in cards] if D.get("logo_in") == "dust" else []},
           open(os.path.join(OUT, "scene-binding.json"), "w"), indent=1)
 still = [int(x) for x in args[3].split(",")] if MODE == "still" and len(args) > 3 and args[3][0].isdigit() else [N]
 k.finish(D.get("master") or os.path.join(OUT, "team-cards.blend"), OUT, MODE, still)
