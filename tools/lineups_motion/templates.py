@@ -148,6 +148,11 @@ def resolve(key, registry=None):
 def validate_source_identity(template, readback):
     """Names/ordering may change; source ID, page, type, and capacity may not."""
     expected = template["source"]
+    if expected.get("engine") == "blender":
+        for key in ("engine", "type", "variant", "manifestPath", "width", "height"):
+            if readback.get(key) != expected[key]:
+                raise TemplateError(f"{template['key']}: source.{key} differs")
+        return
     keys = (("engine", "type", "projectPath", "mapPath", "sequencePath", "manifestPath", "width", "height")
             if expected.get('engine') == 'unreal' else
             ("fileKey", "pageId", "componentId", "type", "parentId", "width", "height", "variantProperties"))
@@ -200,7 +205,7 @@ def eligible(candidate, registry=None):
         if row["option"] == "Cinematic 2-up":
             if purpose != "comparison" or candidate["comparisonKind"] != "players" or candidate["rows"] != 1:
                 continue
-        if any(candidate.get(key) != value for key, value in row["settings"].items()):
+        if any(candidate.get(key) not in row.get("supportedSettings", {}).get(key, [value]) for key, value in row["settings"].items()):
             continue
         policy = row.get('assetPolicy', {})
         if policy.get('comparisonKinds') and candidate.get('comparisonKind') not in policy['comparisonKinds']:

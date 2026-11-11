@@ -1,0 +1,34 @@
+{
+  "position": "DT",
+  "number": "99",
+  "name": "Jeffery Simmons",
+  "team": "Chicago Bears",
+  "cutout": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/lane3-figma/simmons/simmons-cutout.png",
+  "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/lane3-figma/logos/chicago-bears-art-cutout.png",
+  "colors": {
+    "panel": "#122238",
+    "tag": "#FE5316",
+    "tag_text": "#071F34",
+    "badge": "#082237"
+  },
+  "stats": [
+    {
+      "value": "1",
+      "label": "SACK",
+      "frame": 131
+    },
+    {
+      "value": "2",
+      "label": "TFL",
+      "frame": 156
+    },
+    {
+      "value": "6",
+      "label": "TACKLES",
+      "frame": 250
+    }
+  ],
+  "tagline": "BEARS DEBUT",
+  "tagline_frame": 280,
+  "frames": 352
+}

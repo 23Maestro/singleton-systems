@@ -185,6 +185,9 @@ def main():
         if "sources" in readback:
             result['pendingUnrealSources'] = []
             for template in registry["templates"]:
+                if template['source'].get('engine') == 'blender':
+                    result.setdefault('pendingBlenderSources', []).append(template['key'])
+                    continue
                 if template['source'].get('engine') == 'unreal':
                     result['pendingUnrealSources'].append(template['key'])
                     continue

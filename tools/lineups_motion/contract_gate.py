@@ -50,6 +50,9 @@ def source_binding(root, manifest):
         require(binding.get('nativeManifestSha256') == hashlib.sha256(
             (ROOT / template['source']['manifestPath']).read_bytes()).hexdigest(), 'native manifest version is missing or stale')
         require(native.get('source') == template['source'], 'native template source differs')
+    if engine == 'blender':
+        from .blender_source import verify_source
+        verify_source(template)
     return template
 
 
@@ -114,8 +117,8 @@ def specification(root, manifest, template):
     approved(spec)
     require(spec.get('schemaVersion') == 1 and spec.get('scene') == manifest['scene']
             and spec.get('templateSha256') == digest(template), 'specification belongs to another scene or template')
-    if manifest['motion']['engine'] == 'unreal':
-        binding = gate.get('templateBinding') or manifest['unreal'].get('templateBinding', {})
+    if manifest['motion']['engine'] in {'unreal', 'blender'}:
+        binding = gate.get('templateBinding') or manifest[manifest['motion']['engine']].get('templateBinding', {})
         require(spec.get('nativeManifestSha256') == binding.get('nativeManifestSha256'),
                 'specification has a stale native manifest version')
     roles = spec.get('roles')
@@ -168,13 +171,17 @@ def workflow(root, manifest, spec):
         require(transcript.resolve() == (Path(root) / manifest['timing']['transcriptPath']).resolve(),
                 'cue lock and timing use different transcripts')
     order = spec.get('workflow', {})
-    require(order.get('order') in (['figma', 'unreal'], ['unreal', 'figma']), 'missing approved build order')
-    if order['order'] != ['figma', 'unreal']:
+    if motion['engine'] == 'blender':
+        require(order.get('order') in (['blender'], ['figma', 'blender'], ['blender', 'figma']),
+                'missing approved Figma/Blender build order')
+    else:
+        require(order.get('order') in (['figma', 'unreal'], ['unreal', 'figma']), 'missing approved build order')
+    if motion['engine'] != 'blender' and order['order'] != ['figma', 'unreal']:
         require(order.get('exceptionSource'), 'build order exception needs its scoped user instruction')
     required_scenes = order.get('figmaScenes')
     require(isinstance(required_scenes, list) and len(set(required_scenes)) == len(required_scenes)
             and all(isinstance(s, str) and s for s in required_scenes), 'missing Figma scene roster')
-    if motion['engine'] == 'unreal' and order['order'][0] == 'figma':
+    if motion['engine'] in {'unreal', 'blender'} and order['order'][0] == 'figma':
         exports = [json.loads(artifact(root, ref).read_text())
                    for ref in manifest['contractGate'].get('figmaExports', [])]
         require(len(exports) == len(required_scenes)
@@ -239,6 +246,9 @@ def check(root, manifest, stage):
                     'discovery transcript differs from the approved cue lock')
         from .timing_evidence import validate_timing_receipt
         validate_timing_receipt(root, manifest, require_approval=False)
+        if manifest['motion']['engine'] == 'blender':
+            require(manifest['scene'].get('blenderVariant') == template['source'].get('variant'),
+                    'Blender template differs from the named variant')
         if stage == 'before-build':
             from .engine_choice import routing_contract
             require(manifest['motion']['engine'] not in routing_contract().get('retiredEngines', []),

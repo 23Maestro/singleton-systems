@@ -3,6 +3,11 @@
 Usage: Blender -b --factory-startup --python-exit-code 1 -P build_l4_concept.py -- <out_dir>
 """
 import bpy, math, random, sys, os
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[4]))
+from tools.broadcast_engine.player_comparison_data import load
+_args = sys.argv[sys.argv.index("--") + 1:]
+DATA = load(_args[1]) if len(_args) > 1 else None
 from mathutils import Vector
 
 OUT = sys.argv[sys.argv.index("--") + 1]
@@ -12,11 +17,14 @@ A = "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS"
 F = "/Users/singleton23/Library/Fonts/"
 FONT_TITLE = F + "BarlowCondensed-ExtraBoldItalic.ttf"
 FONT_ROW = F + "BarlowCondensed-ExtraBoldItalic.ttf"
-FPS, N = 30, 240
+FPS, N = (25, DATA["frames"]) if DATA else (30, 240)
 CAM_Y, CAM_Z, REF_Y = -20.5, 0.8, 1.5
 random.seed(18)
 
 KC, KC_GOLD, BUF, BUF_RED = "#E31837", "#FFB81C", "#00338D", "#C60C30"
+if DATA:
+    P1, P2 = DATA["players"]
+    KC, KC_GOLD, BUF, BUF_RED = P1["primary"], P1["secondary"], P2["primary"], P2["secondary"]
 
 def lin(h, a=1.0):
     h = h.lstrip("#"); c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
@@ -261,8 +269,8 @@ def logo(svg, sx, sz, width, team_dark, tint, name, y=8.5):
     loc, k = at(sx, sz, y); s = width * k / w
     e.location = loc; e.rotation_euler = (math.radians(90), 0, 0); e.scale = (s, s, s)
     return e, s
-lkc, skc = logo(f"{A}/source/nfl-club-logos-svg/KC.svg", -5.6, 2.3, 7.4, "#7a0f1c", 0.3, "LogoKC")
-lbuf, sbuf = logo(f"{A}/source/nfl-club-logos-svg/BUF.svg", 5.9, 3.5, 8.2, "#001a55", 0.35, "LogoBUF")
+lkc, skc = logo(P1["logo"] if DATA else f"{A}/source/nfl-club-logos-svg/KC.svg", -5.6, 2.3, 7.4, P1["logoDark"] if DATA else "#7a0f1c", 0.3, "LogoKC")
+lbuf, sbuf = logo(P2["logo"] if DATA else f"{A}/source/nfl-club-logos-svg/BUF.svg", 5.9, 3.5, 8.2, P2["logoDark"] if DATA else "#001a55", 0.35, "LogoBUF")
 for e, s, d in ((lkc, skc, 1), (lbuf, sbuf, -1)):
     r = e.rotation_euler.copy()
     key(e, "scale", [(15, (0.0001,) * 3), (16, (s * 2.1,) * 3), (18, (s * 1.1,) * 3), (21, (s,) * 3), (N, (s * 0.96,) * 3)])
@@ -329,17 +337,17 @@ def nameplate(label, sx, sz, color, stripe, stripe_side):
     t = text(label, 0.98 * k, "#ffffff", FONT_TITLE, extrude=0.02, emit=1.0); t.parent = o; t.location = (stripe_side * -0.2 * k, -0.32, 0)
     return o
 
-mah = player(f"{A}/source/unreal-full-body-demo/Mahomes-full-body-demo.png", "Mahomes", -6.6, 9.4, KC, -14)
-alle = player(f"{A}/source/unreal-full-body-demo/Allen-full-body-demo.png", "Allen", 6.4, 10.4, BUF, 14)
-np1 = nameplate("PATRICK MAHOMES", -6.3, -4.3, "#b5102b", KC_GOLD, -1)
-np2 = nameplate("JOSH ALLEN", 6.5, -4.3, "#0b2c8a", BUF_RED, 1)
+mah = player(P1["cutout"] if DATA else f"{A}/source/unreal-full-body-demo/Mahomes-full-body-demo.png", "Mahomes", -6.6, 9.4, KC, -14)
+alle = player(P2["cutout"] if DATA else f"{A}/source/unreal-full-body-demo/Allen-full-body-demo.png", "Allen", 6.4, 10.4, BUF, 14)
+np1 = nameplate(P1["name"].upper() if DATA else "PATRICK MAHOMES", -6.3, -4.3, P1["plate"] if DATA else "#b5102b", KC_GOLD, -1)
+np2 = nameplate(P2["name"].upper() if DATA else "JOSH ALLEN", 6.5, -4.3, P2["plate"] if DATA else "#0b2c8a", BUF_RED, 1)
 for o, d in ((np1, -1), (np2, 1)):
     e = tuple(o.location); key(o, "location", [(26, (e[0] + d * 12, e[1], e[2])), (34, e), (N, (e[0] * 1.01, e[1], e[2]))])
 
 # ------------------------------------------------- title: chrome 2025 STATS (y -1.5)
 chrome = mat("Chrome", "#ffffff", rough=0.5, emit="#ffffff", estr=1.1)
 tl, k = at(-8.95, 5.7, -1.5)
-title = text("2025 STATS", 1.55 * k, "#ffffff", FONT_TITLE, extrude=0.16, align="LEFT", m=chrome)
+title = text(DATA["title"] if DATA else "2025 STATS", 1.55 * k, "#ffffff", FONT_TITLE, extrude=0.16, align="LEFT", m=chrome)
 title.location = tl
 key(title, "scale", [(37, (0.0001,) * 3), (38, (1.9,) * 3), (40, (1.08,) * 3), (43, (1, 1, 1)), (N, (1.02,) * 3)])
 
@@ -350,6 +358,8 @@ table = box("Table", (tw, 0.18, th), tc_, mat("Glass", "#0b0c0f", rough=0.6, coa
 key(table, "location", [(50, (tc_[0], tc_[1], tc_[2] - 6)), (58, tc_)])
 key(table, "scale", [(49, (0.0001,) * 3), (50, (tw, 0.18, th)), (N, (tw, 0.18, th))], interp="CONSTANT")
 rows = [("GAMES", "14", "17", 62), ("PASS YDS", "3,587", "3,668", 72), ("PASS TD", "22", "25", 82), ("INT", "11", "10", 92)]
+if DATA:
+    rows = [(r["label"], r["left"], r["right"], r["frame"] - 4) for r in DATA["stats"]]
 rule = mat("Rule", "#8b8f96", emit="#8b8f96", estr=0.6)
 for i, (lab, a, b, f) in enumerate(rows):
     rz = tc_[2] + th / 2 - th * (i + 0.5) / 4

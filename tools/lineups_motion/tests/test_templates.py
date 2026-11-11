@@ -305,10 +305,10 @@ process.stdout.write('source-lock recovery passed');
     def test_registry_has_unique_exact_sources_and_seven_lanes(self):
         rows = load_registry()["templates"]
         self.assertEqual(len(set(row["key"] for row in rows)), len(rows))
-        self.assertEqual(len({row['source'].get('componentId', row['source'].get('mapPath')) for row in rows}), len(rows))
+        self.assertEqual(len({row['source'].get('componentId', row['source'].get('mapPath', row['source'].get('manifestPath'))) for row in rows}), len(rows))
         self.assertEqual(len(set(row["lane"] for row in rows)), 7)
         for row in rows:
-            self.assertEqual(row["source"]["type"], "UNREAL_SCENE" if row['source'].get('engine') == 'unreal' else "COMPONENT")
+            self.assertEqual(row["source"]["type"], {"unreal":"UNREAL_SCENE", "blender":"BLENDER_CLI"}.get(row['source'].get('engine'), "COMPONENT"))
             self.assertEqual((row["source"]["width"], row["source"]["height"]), (1920, 1080))
 
     def test_unreal_options_reject_the_preserved_figma_identity(self):

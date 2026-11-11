@@ -8,7 +8,6 @@
     "schemaVersion",
     "enforcement",
     "scene",
-    "figma",
     "motion",
     "timing",
     "policy",
@@ -218,6 +217,94 @@
           "discoveryPath"
         ]
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "motion": {
+            "properties": {
+              "engine": {
+                "const": "figma"
+              }
+            },
+            "required": [
+              "engine"
+            ]
+          }
+        },
+        "required": [
+          "motion"
+        ]
+      },
+      "then": {
+        "required": [
+          "figma"
+        ],
+        "properties": {
+          "motion": {
+            "properties": {
+              "engineVersion": {
+                "const": "figma-motion"
+              }
+            }
+          },
+          "export": {
+            "properties": {
+              "motionProof": {
+                "properties": {
+                  "engine": {
+                    "const": "figma"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "motion": {
+            "properties": {
+              "engine": {
+                "const": "blender"
+              }
+            },
+            "required": [
+              "engine"
+            ]
+          }
+        },
+        "required": [
+          "motion"
+        ]
+      },
+      "then": {
+        "required": [
+          "blender"
+        ],
+        "properties": {
+          "motion": {
+            "properties": {
+              "engineVersion": {
+                "const": "blender-cli"
+              }
+            }
+          },
+          "export": {
+            "properties": {
+              "motionProof": {
+                "properties": {
+                  "engine": {
+                    "const": "blender"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   ],
   "properties": {
@@ -320,6 +407,13 @@
             "players",
             "teams",
             "periods"
+          ]
+        },
+        "blenderVariant": {
+          "enum": [
+            "3A",
+            "3B",
+            "4A"
           ]
         }
       }
@@ -984,10 +1078,16 @@
       ],
       "properties": {
         "engine": {
-          "const": "figma"
+          "enum": [
+            "figma",
+            "blender"
+          ]
         },
         "engineVersion": {
-          "const": "figma-motion"
+          "enum": [
+            "figma-motion",
+            "blender-cli"
+          ]
         },
         "timingValidator": {
           "const": "manim"
@@ -1247,7 +1347,10 @@
               ]
             },
             "engine": {
-              "const": "figma"
+              "enum": [
+                "figma",
+                "blender"
+              ]
             },
             "status": {
               "enum": [
@@ -1591,6 +1694,75 @@
               "pattern": "^[a-f0-9]{64}$"
             }
           }
+        }
+      }
+    },
+    "blender": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "data"
+      ],
+      "properties": {
+        "source": {
+          "type": "object",
+          "required": [
+            "engine",
+            "type",
+            "variant",
+            "manifestPath",
+            "width",
+            "height"
+          ],
+          "properties": {
+            "engine": {
+              "const": "blender"
+            },
+            "type": {
+              "const": "BLENDER_CLI"
+            },
+            "variant": {
+              "enum": [
+                "3B",
+                "4A"
+              ]
+            },
+            "manifestPath": {
+              "type": "string"
+            },
+            "width": {
+              "const": 1920
+            },
+            "height": {
+              "const": 1080
+            },
+            "status": {
+              "const": "approved"
+            }
+          }
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256"
+          ],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          }
+        },
+        "sourceRevision": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }

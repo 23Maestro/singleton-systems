@@ -2164,7 +2164,7 @@
             },
             "Statement#868:0": {
               "type": "TEXT",
-              "value": "DOMINATED THE PITTSBURGH STEELERS 20–3"
+              "value": "DOMINATED THE PITTSBURGH STEELERS 20\u20133"
             }
           }
         }
@@ -2564,6 +2564,118 @@
         "subject.2.name",
         "subject.2.logo",
         "subject.2.card"
+      ]
+    },
+    {
+      "key": "stat-breakdown.blender.card",
+      "lane": "stat breakdown",
+      "option": "stat breakdown",
+      "settings": {
+        "stats": 3
+      },
+      "source": {
+        "engine": "blender",
+        "type": "BLENDER_CLI",
+        "variant": "3B",
+        "manifestPath": "config/lineups/blender/3B.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "approved"
+      },
+      "allowedChanges": [
+        "episode copy",
+        "subject art",
+        "team colors",
+        "stat values",
+        "spoken cue frames"
+      ],
+      "protected": [
+        "layout",
+        "camera",
+        "lighting",
+        "native animation"
+      ],
+      "requiredRoles": {
+        "frame": "frame",
+        "subject.1.photo": "photo",
+        "subject.1.name": "text",
+        "team.1.logo": "logo",
+        "stat.1.value": "text",
+        "stat.1.label": "text",
+        "stat.2.value": "text",
+        "stat.2.label": "text",
+        "stat.3.value": "text",
+        "stat.3.label": "text"
+      },
+      "requiredTeamRoles": [
+        "team.1.logo"
+      ],
+      "supportedSettings": {
+        "stats": [
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "key": "comparison.blender.player.2",
+      "lane": "comparison",
+      "option": "Full comparison: 2",
+      "settings": {
+        "subjects": 2,
+        "rows": 4
+      },
+      "source": {
+        "engine": "blender",
+        "type": "BLENDER_CLI",
+        "variant": "4A",
+        "manifestPath": "config/lineups/blender/4A.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "approved"
+      },
+      "allowedChanges": [
+        "episode copy",
+        "subject art",
+        "team colors",
+        "stat values",
+        "spoken cue frames"
+      ],
+      "protected": [
+        "layout",
+        "camera",
+        "lighting",
+        "native animation"
+      ],
+      "requiredRoles": {
+        "frame": "frame",
+        "subject.1.photo": "photo",
+        "subject.1.name": "text",
+        "team.1.logo": "logo",
+        "subject.2.photo": "photo",
+        "subject.2.name": "text",
+        "team.2.logo": "logo",
+        "title": "text",
+        "stat.1.label": "text",
+        "stat.1.left": "text",
+        "stat.1.right": "text",
+        "stat.2.label": "text",
+        "stat.2.left": "text",
+        "stat.2.right": "text",
+        "stat.3.label": "text",
+        "stat.3.left": "text",
+        "stat.3.right": "text",
+        "stat.4.label": "text",
+        "stat.4.left": "text",
+        "stat.4.right": "text"
+      },
+      "requiredTeamRoles": [
+        "team.1.logo",
+        "team.2.logo"
+      ],
+      "approvedOptions": [
+        "Cinematic 2-up",
+        "Full comparison: 2"
       ]
     }
   ],

@@ -33,7 +33,9 @@ def source_state(root, manifest):
 
 
 def approval_state(manifest, receipt):
-    state = {'scene': manifest['scene'], 'figma': manifest['figma'], 'motion': manifest['motion'],
+    native = ({'blender': manifest['blender']} if manifest['motion']['engine'] == 'blender'
+              else {'figma': manifest['figma']})
+    state = {'scene': manifest['scene'], **native, 'motion': manifest['motion'],
             'policy': manifest['policy'], 'premiereIntent': {key: manifest['premiere'].get(key) for key in
                 ('sequenceId', 'trackIndex', 'approvedStartTime', 'approvedDuration', 'approvedEndTime', 'editorialTiming')},
             'timingSha256': receipt['timingSha256'], 'timingReceiptSha256': receipt['receiptSha256'],

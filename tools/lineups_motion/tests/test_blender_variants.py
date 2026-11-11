@@ -2,6 +2,7 @@ import copy
 import json
 import types
 import unittest
+from unittest.mock import patch
 
 from tools.lineups_motion.engine_choice import engine_route, routing_contract
 from tools.lineups_motion.variant_suggest import decision, suggest
@@ -29,9 +30,10 @@ class BlenderVariantTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, '3A .* is parked, not approved'):
             engine_route(manifest, self.ledger, enforce_engine=True)
         manifest['scene']['blenderVariant'] = '3B'
-        route = engine_route(manifest, self.ledger, enforce_engine=True)
+        with patch('tools.lineups_motion.blender_source.verify_source', return_value={}):
+            route = engine_route(manifest, self.ledger, enforce_engine=True)
         self.assertEqual((route['status'], route['templateKeys']), ('selected', ['stat-breakdown.blender.card']))
-        self.assertFalse(route['productionReady'])
+        self.assertTrue(route['productionReady'])
         with self.assertRaisesRegex(ValueError, 'needs a named variant'):
             engine_route(self.manifest, self.ledger, enforce_engine=True)
         manifest = copy.deepcopy(self.manifest)

@@ -58,7 +58,7 @@ def fixed_option_route(scene, contract, key='fixedRoutes'):
 def engine_route(manifest, ledger, require_choice=False, enforce_engine=False):
     scene = manifest['scene']
     contract = routing_contract()
-    if scene.get('lane') != 'comparison':
+    if scene.get('lane') != 'comparison' or scene.get('blenderVariant'):
         variant = variant_route(manifest, contract, enforce_engine)
         if variant:
             selection_binding(manifest, ledger)
@@ -179,11 +179,15 @@ def variant_route(manifest, contract, enforce_engine=False):
         raise ValueError(f'Blender variant {name} is not registered for this lane')
     if enforce_engine and manifest.get('motion', {}).get('engine') != 'blender':
         raise ValueError(f'Blender variant {name} needs motion.engine blender; do not substitute engines')
+    if scene.get('approvedOption') not in row.get('options', []):
+        raise ValueError(f'Blender variant {name} does not support this option')
+    if row.get('subjects') and (comparison_subjects(scene) != row['subjects'] or scene.get('comparisonKind') != row['comparisonKind']):
+        raise ValueError(f'Blender variant {name} needs its registered subject count and kind')
     ready = approved_variant(row)
     if enforce_engine and not ready:
         raise ValueError(f"Blender variant {name} ({row['name']}) is {row['status']}, not approved for production")
     return {'status': 'selected' if ready else 'reference-gap', 'engine': 'blender', 'variant': name,
-            'templateKeys': [row['templateKey']] if ready else [], 'productionReady': False,
+            'templateKeys': [row['templateKey']] if ready else [], 'productionReady': variant_production_ready(row) if ready else False,
             'reason': row.get('statusNote', '')}
 
 
@@ -254,3 +258,13 @@ def record_episode_engine_choice(manifest, ledger, answer):
         'episodeId': manifest['scene']['episodeId'], 'previousEngine': route['engine'] if route else None,
         'reviewer': 'Jerami', 'answer': answer, 'selectionSha256': selection_binding(manifest, ledger)}
     return episode_engine_override(manifest, ledger)
+
+
+def variant_production_ready(row):
+    from .blender_source import verify_source
+    from .templates import resolve
+    try:
+        verify_source(resolve(row['templateKey']))
+    except (ValueError, OSError, KeyError):
+        return False
+    return bool(row.get('productionRunner') and row.get('dataContract'))

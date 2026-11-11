@@ -128,11 +128,12 @@
       "exampleData": "tools/broadcast_engine/prototypes/lane3/cards/simmons-w9.json",
       "usage": "Blender -b --factory-startup --python-exit-code 1 -P <builder> -- <data.json> <out_dir> [still FRAME | anim]",
       "status": "approved",
-      "statusNote": "Approved. Template registry row and a hashable master file are still to add; the contract gate stops a build until they exist.",
+      "statusNote": "Registered source and runner are hash-checked. Per-episode timing and review gates still apply.",
       "templateKey": "stat-breakdown.blender.card",
       "approvedBy": "Jerami",
       "approvedOn": "2026-11-10",
-      "approvalSource": "Jerami in chat, November 10, 2026: \"3 b is approved.\""
+      "approvalSource": "Jerami in chat, November 10, 2026: \"3 b is approved.\"",
+      "productionRunner": "tools/broadcast_engine/fill.py"
     },
     {
       "id": "4A",
@@ -147,15 +148,16 @@
       "fit": "Two players side by side with a centered stat card.",
       "reference": "Mahomes vs Allen",
       "builder": "tools/broadcast_engine/prototypes/lane4/build_l4_v5.py",
-      "dataContract": null,
-      "exampleData": null,
+      "dataContract": "tools/broadcast_engine/player_comparison_data.py",
+      "exampleData": "tools/broadcast_engine/examples/player-comparison.json",
       "usage": "See tools/broadcast_engine/prototypes/lane4/README.md",
       "templateKey": "comparison.blender.player.2",
       "status": "approved",
       "approvedBy": "Jerami",
       "approvedOn": "2026-11-10",
       "approvalSource": "Jerami in chat, November 10, 2026: \"lane 4 is approved in my book\".",
-      "statusNote": "Production runner (fill.py, slot contract) and template registry row are not built yet; the contract gate stops until they exist."
+      "statusNote": "Registered source and runner are hash-checked. Per-episode timing and review gates still apply.",
+      "productionRunner": "tools/broadcast_engine/fill.py"
     }
   ]
 }

@@ -1,0 +1,50 @@
+{
+  "title": "2025 STATS",
+  "frames": 300,
+  "players": [
+    {
+      "name": "Patrick Mahomes",
+      "cutout": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal-full-body-demo/Mahomes-full-body-demo.png",
+      "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/nfl-club-logos-svg/KC.svg",
+      "primary": "#E31837",
+      "secondary": "#FFB81C",
+      "plate": "#b5102b",
+      "logoDark": "#7a0f1c"
+    },
+    {
+      "name": "Josh Allen",
+      "cutout": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal-full-body-demo/Allen-full-body-demo.png",
+      "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/source/nfl-club-logos-svg/BUF.svg",
+      "primary": "#00338D",
+      "secondary": "#C60C30",
+      "plate": "#0b2c8a",
+      "logoDark": "#001a55"
+    }
+  ],
+  "stats": [
+    {
+      "label": "GAMES",
+      "left": "14",
+      "right": "17",
+      "frame": 80
+    },
+    {
+      "label": "PASS YDS",
+      "left": "3,587",
+      "right": "3,668",
+      "frame": 110
+    },
+    {
+      "label": "PASS TD",
+      "left": "22",
+      "right": "25",
+      "frame": 140
+    },
+    {
+      "label": "INT",
+      "left": "11",
+      "right": "10",
+      "frame": 170
+    }
+  ]
+}

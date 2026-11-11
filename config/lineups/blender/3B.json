@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "templateKey": "stat-breakdown.blender.card",
+  "variant": "3B",
+  "master": {
+    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/blender-l3-card-simmons-v3/lane3-card.blend",
+    "sha256": "410efff6c0e971766fe283a801b60bb4e5ec94b1a9895cb95bfd441223917902"
+  },
+  "frameRate": {
+    "numerator": 25,
+    "denominator": 1
+  },
+  "files": {
+    "builder": {
+      "path": "tools/broadcast_engine/prototypes/lane3/build_card.py",
+      "sha256": "f8e7dfbb12fcd7f9499019ea057c6d6e4a1b94af0290ec37cc348590b8cd1ae8"
+    },
+    "dataContract": {
+      "path": "tools/broadcast_engine/prototypes/lane3/card_data.py",
+      "sha256": "ba15eea8d9f60551b26d13bbc86c661e5b78b480b5863e7b6f37eba2153d273c"
+    },
+    "runner": {
+      "path": "tools/broadcast_engine/fill.py",
+      "sha256": "ae62cf05c0e2d58f30accf5185e4290e76ab9f8b0b8109cb9b859c4921480e9c"
+    },
+    "cueDataContract": {
+      "path": "tools/broadcast_engine/production_data.py",
+      "sha256": "b55ecd687331d072c405be7a593f094fd8491320a1087a24153bff117d32f7cb"
+    }
+  },
+  "note": "Saved approved design is the source witness. Versioned builder and data contract fill episode copies. Visual and timing approval remain separate."
+}
