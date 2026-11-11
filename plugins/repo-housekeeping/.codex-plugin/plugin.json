@@ -1,6 +1,6 @@
 {
   "name": "repo-housekeeping",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Recoverable repository cleanup with Git evidence, maintenance audits and document pruning.",
   "author": {
     "name": "Jerami Singleton"
