@@ -30,7 +30,8 @@ k.setup(N, half="half" in args)
 FOCUS = D.get("focus_team", D["team"])
 STADIUM = k.stadium(FOCUS)
 if STADIUM:
-    plate = k.plate(STADIUM["filePath"], STADIUM["depthPath"], OUT, glow=0.35); k.scrim(40.0, alpha=0.35)   # rows sit straight on the photo
+    # rows sit straight on the photo, so darken the photo itself (a dimming sheet would cut across the 3D turf)
+    plate = k.plate(STADIUM["filePath"], STADIUM["depthPath"], OUT, glow=0.35, dark=0.6)
 else:
     plate = None; print(f"FLAG Stadium photo needed: {FOCUS}")
 

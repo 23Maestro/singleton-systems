@@ -142,7 +142,7 @@ def _blur(a, r):
             a = (hi - lo) / (2 * r + 1)
     return a
 
-def treat_photo(path, out_dir):
+def treat_photo(path, out_dir, dark=0.9):
     """Broadcast plate treatment for every stadium photo: 10% darker, soft edge blur and a gentle vignette.
     Writes an episode copy beside the scene; the registered Eagle original is never touched."""
     im = bpy.data.images.load(path, check_existing=False); w, h = im.size
@@ -152,18 +152,18 @@ def treat_photo(path, out_dir):
     rad = np.sqrt(nx ** 2 * 0.8 + ny ** 2 * 1.1)[..., None]
     edge = np.clip((rad - 0.55) / 0.55, 0, 1)
     rgb = rgb * (1 - edge) + soft * edge                       # edges go soft
-    rgb = rgb * 0.9 * (1 - 0.32 * edge ** 1.6)                 # 10% darker, then a gentle vignette
+    rgb = rgb * dark * (1 - 0.32 * edge ** 1.6)                # 10% darker by default, then a gentle vignette
     a[..., :3] = np.clip(rgb, 0, 1)
     dst = os.path.join(out_dir, "plate-" + os.path.splitext(os.path.basename(path))[0] + ".png")
     out = bpy.data.images.new("PlateTreated", w, h); out.pixels[:] = a.ravel()
     out.filepath_raw = dst; out.file_format = "PNG"; out.save(); bpy.data.images.remove(im)
     return dst
 
-def plate(path, depth_path, out_dir, d=90.0, glow=0.55, zoom=1.3, near=24.0, grid=(192, 108)):
+def plate(path, depth_path, out_dir, d=90.0, glow=0.55, zoom=1.3, near=24.0, grid=(192, 108), dark=0.9):
     """Stadium photo as real 3D: a grid cover-fitted at depth d (no stretching), each point pushed toward the
     camera along its own sight line by the team's DepthFlow depth map. The home frame looks exactly like the
     photo; any camera move shows true parallax. near is how close the front turf comes (metres)."""
-    o, im = image_plane("Plate", treat_photo(path, out_dir), d, glow)
+    o, im = image_plane("Plate", treat_photo(path, out_dir, dark), d, glow)
     s = pscale(d); fw, fh = 1920 * s * zoom, 1080 * s * zoom; aspect = im.size[0] / im.size[1]
     W, H = max(fw, fh * aspect), max(fh, fw / aspect); cx, cz = px(960, 540, d).x, px(960, 540, d).z
     dim = bpy.data.images.load(depth_path, check_existing=True); dim.colorspace_settings.name = "Non-Color"
@@ -186,6 +186,7 @@ def plate(path, depth_path, out_dir, d=90.0, glow=0.55, zoom=1.3, near=24.0, gri
     old = o.data; o.data = me; o.location = (0, 0, 0); o.rotation_euler = (0, 0, 0); o.scale = (1, 1, 1)
     me.materials.append(old.materials[0]); bpy.data.meshes.remove(old)
     o.active_material.node_tree.nodes["Image Texture"].extension = "EXTEND"
+    o.visible_shadow = False      # the 3D stadium would shadow its own turf in hard lines; cards still shadow it
     return o
 
 def check_plate_cover(o, n):
@@ -387,13 +388,3 @@ def finish(blend_path, out, mode, still_frame=None, bloom=0.15):
         last = os.path.join(out, "frames", f"f_{h:04d}.png")
         for f in range(h + 1, n + 1): shutil.copyfile(last, os.path.join(out, "frames", f"f_{f:04d}.png"))
         print(f"HOLD rendered 1-{h}, froze {h + 1}-{n}")
-
-def scrim(d, alpha=0.55):
-    """A see-through dark sheet over the whole home frame at depth d, so type stays legible on bright stadium photos."""
-    m = bpy.data.materials.new("Scrim"); m.use_nodes = True; p = m.node_tree.nodes["Principled BSDF"]
-    p.inputs["Base Color"].default_value = (0, 0, 0, 1); p.inputs["Alpha"].default_value = alpha
-    p.inputs["Roughness"].default_value = 1.0; m.surface_render_method = "BLENDED"
-    bpy.ops.mesh.primitive_plane_add(size=1, rotation=(math.radians(90), 0, 0)); o = bpy.context.object; o.name = "Scrim"
-    s = pscale(d); o.scale = (1920 * s * 3, 1080 * s * 3, 1); o.location = px(960, 540, d); o.data.materials.append(m)
-    o.visible_shadow = False
-    return o
