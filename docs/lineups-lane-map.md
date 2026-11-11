@@ -35,10 +35,11 @@ Each one checks that pieces land on their spoken cues at 25 fps and stay in fram
 
 ## shared look for 4B, 4C and 5A
 
-- Team names in Anton. Numbers and supporting words in Saira Semi Condensed (SIL Open Font License).
+- Team names in Antonio SemiBold, a lighter cut of the brand's Anton, with wider spacing. Numbers and supporting words in Saira Semi Condensed (SIL Open Font License).
 - Numbers and big words read flat. Team names and labels get a little depth. Cards, arrows, bars and logos keep full depth and cast floor shadows.
 - Card faces use the satin v2 surface in the team's primary color.
 - The stadium is the focus team's [registered photo](lineups-team-stadiums.md), darkened 10% with soft edges and a light vignette. A missing photo flags `Stadium photo needed: TEAM`.
+- Every Blender build turns the stadium into 3D with the team's DepthFlow depth map (`config/lineups/team-stadium-depth.json`). The camera moves for the first 6 seconds, then holds. Renders cover only the motion and freeze the hold.
 - Value bars compare only rows that share a unit. A zero has no bar.
 
 Proofs: `/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-11-11-team-cards-value-metrics/`.

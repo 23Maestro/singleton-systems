@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "teams": [
+    {
+      "team": "Buffalo Bills",
+      "eagleItemId": "MWCF3QSEB4491",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEB4491.info/buffalo-bills-stadium-canonical.jpg",
+      "sourceSha256": "715b4b2ca0d757d5eaced75f63ec6f6e72ac4c9ee2ec5a94ce22d7a7ce0f86a7",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/buffalo-bills/depth.png",
+      "depthSha256": "91ccd9609588fef693dc8d806652b45d090e19e677b38332058d58c175833466",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Chicago Bears",
+      "eagleItemId": "MWCF3QSET708S",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSET708S.info/chicago-bears-stadium-canonical.jpg",
+      "sourceSha256": "8943af5a2bff1475bd0ad315e12b00b4e40add2da0b7ab86c18251959a129866",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/chicago-bears/depth.png",
+      "depthSha256": "ab52352830358cd20539e40413ad84f44e4225ecbc7f0c2a1abc382ea8bb9357",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Cincinnati Bengals",
+      "eagleItemId": "MWCF3QSE8OL2T",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSE8OL2T.info/cincinnati-bengals-stadium-canonical.jpg",
+      "sourceSha256": "a4908df5e023d040cbef9e5ffc3c1bed590913666abbe2a77b294752e334c0c3",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/cincinnati-bengals/depth.png",
+      "depthSha256": "3b017e60cc519185037992293a058552efdd09151746959a55dfdf9bdc5a4ecf",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Denver Broncos",
+      "eagleItemId": "MWCF3QSEMZT4N",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEMZT4N.info/denver-broncos-stadium-canonical.jpg",
+      "sourceSha256": "c0ef3364b0e35f59aa5d196f6e6d98184c96a14fd506c6ba78cf5d13f871bdc3",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/denver-broncos/depth.png",
+      "depthSha256": "445d62ec222bef9b888d6ddc556e19708cbac3d1c2ce0d14adcab64b5fd536df",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Detroit Lions",
+      "eagleItemId": "MWCF3QSEU5OPQ",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEU5OPQ.info/detroit-lions-stadium-canonical.jpg",
+      "sourceSha256": "883b06d9e2fb1aa764cc4482abe440f5b878ce7e1e30e2ae6c0c3d1ac9e772a3",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/detroit-lions/depth.png",
+      "depthSha256": "7e33471bbb5014e06b8a52ab5db33b04c0cd850c187540a8a321d502123a81bc",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Green Bay Packers",
+      "eagleItemId": "MWCF3QSET4KVI",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSET4KVI.info/green-bay-packers-stadium-canonical.jpg",
+      "sourceSha256": "43b724826a4e4da30823baaeac98b020b4ad7c24fc19fdb88ee62f076bdd7574",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/green-bay-packers/depth.png",
+      "depthSha256": "8e67ee449f6cd52aa33c926d4e895dc377891c3f6f718800b34ce08fc0b2659b",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Jacksonville Jaguars",
+      "eagleItemId": "MWCF3QSE4OU82",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSE4OU82.info/jacksonville-jaguars-stadium-canonical.jpg",
+      "sourceSha256": "6a879fa20c0701f1ef7afc28a24973f6bff6dca3e1fb8f93d07365734c522393",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/jacksonville-jaguars/depth.png",
+      "depthSha256": "c9822207f6c72be94ec096e47202361767ef8977cad2c4486a2e38a87bb41c36",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Kansas City Chiefs",
+      "eagleItemId": "MWCF3QSER0O63",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSER0O63.info/kansas-city-chiefs-stadium-canonical.jpg",
+      "sourceSha256": "11ea3897377579425015e270f40a031986418e3ca542495ec247b607890370f7",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/kansas-city-chiefs/depth.png",
+      "depthSha256": "97eb8867d1b29562c0ae3b4fc352d2bea066a2ba7d2c4993adca524b44ef70d4",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Minnesota Vikings",
+      "eagleItemId": "MWCF3QSEDKJ6J",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEDKJ6J.info/minnesota-vikings-stadium-canonical.jpg",
+      "sourceSha256": "ae1f7590a703f52a2b0eb0773de7f152a64f9e8c498fabbf551ed8055aeaa4bd",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/minnesota-vikings/depth.png",
+      "depthSha256": "641a4125a24f5c4dc411274cd15954b7c315447b63ef961998996b693823fd0a",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "Pittsburgh Steelers",
+      "eagleItemId": "MWCF3QSEECA1M",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEECA1M.info/pittsburgh-steelers-stadium-canonical.jpg",
+      "sourceSha256": "51f7b5b8375eee5cd20759de53aad7749ddbafa02593df03e19f350dd8242dbc",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/pittsburgh-steelers/depth.png",
+      "depthSha256": "94b0c2cae20cc9cec2264c8d228c0f3ec2a6b8c085f861a404f47482ffe98840",
+      "estimator": "depthflow da2 base"
+    },
+    {
+      "team": "San Francisco 49ers",
+      "eagleItemId": "MWCF3QSEINTO9",
+      "sourcePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEINTO9.info/san-francisco-49ers-stadium-canonical.jpg",
+      "sourceSha256": "f2192506b24d6e7793a49ffb029bdf273f965f3e156933db101d1eab2538aa35",
+      "depthPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth/san-francisco-49ers/depth.png",
+      "depthSha256": "16c138427a85b5b4a15444abcb4b22fe97de930cec4ea54fbdc6f65e3916c31c",
+      "estimator": "depthflow da2 base"
+    }
+  ],
+  "rule": "One depth map per team stadium, made once with DepthFlow. Blender builds displace the stadium plate with it. Rebuild only when the registered photo changes."
+}

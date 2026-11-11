@@ -404,7 +404,7 @@ for (const prompt of [
   assert.equal(lineups.status, 0, `Lineups hook exited ${lineups.status}: ${lineups.stderr}`);
   for (const snippet of [
     "[route] lineups-editor", "[profile] Catena Media Lineups",
-    "[lineups/start]", "[lineups/gate]", "lineups-editor/SKILL.md",
+    "[lineups/start]", "[lineups/gate]", "[lineups/blender]", "team-stadium-depth.json", "lineups-editor/SKILL.md",
     "lineups-treatment-system.md", "lineups-contract-gate.md", "all 7 lanes",
     "locked speech cues", "fresh visual proof", "timing alone cannot approve appearance",
     "[workspace-titles]", "[lane-specs]", "singleton-figma-system",

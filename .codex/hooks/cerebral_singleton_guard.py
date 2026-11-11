@@ -697,6 +697,7 @@ def context(reason, text, payload=None):
             "- [profile] Catena Media Lineups",
             "- [lineups/start] Read plugins/s-systems/skills/lineups-editor/SKILL.md and references/lineups-treatment-system.md. Load current corrections and the named stage only; discovery still reads all 7 lanes.",
             "- [lineups/gate] docs/lineups-contract-gate.md owns the shared build and handoff checks. Use current template and design bindings, locked speech cues and the episode order. Inspect fresh visual proof before handoff; timing alone cannot approve appearance.",
+            "- [lineups/blender] Blender builds use the team's DepthFlow depth map from config/lineups/team-stadium-depth.json for a 3D stadium. Camera moves end by 6 s, then hold; render the motion only and freeze the hold.",
         ])
     lines.extend(drift_warnings(text))
     if public_output_requested(text, routes):

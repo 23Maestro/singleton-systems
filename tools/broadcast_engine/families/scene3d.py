@@ -12,6 +12,7 @@ from bpy_extras.object_utils import world_to_camera_view
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 FT = "/Users/singleton23/Library/Fonts/"
 LENS, HOME = 50.0, 30
+MOVE_END = 150        # every Blender camera move ends by 6 s (inside the 5-7 s rule); the rest of the scene is a hold
 sc = None
 
 def setup(frames, half=False):
@@ -35,7 +36,15 @@ def stadium(team):
     if not row: return None
     got = hashlib.sha256(open(row["filePath"], "rb").read()).hexdigest()
     assert got == row["sha256"], f"{team} stadium checksum changed: {got}"
-    return {k: row[k] for k in ("team", "eagleItemId", "filePath", "sha256")}
+    out = {k: row[k] for k in ("team", "eagleItemId", "filePath", "sha256")}
+    # the per-team DepthFlow depth source (config/lineups/team-stadium-depth.json) is required for every Blender build
+    dreg = json.load(open(os.path.join(REPO, "config/lineups/team-stadium-depth.json")))
+    drow = next((t for t in dreg["teams"] if t["team"] == team), None)
+    assert drow and drow["sourceSha256"] == row["sha256"], \
+        f"{team} has no current depth source; run tools/broadcast_engine/stadium_depth.py with DepthFlow's Python"
+    assert hashlib.sha256(open(drow["depthPath"], "rb").read()).hexdigest() == drow["depthSha256"], f"{team} depth map changed"
+    out["depthPath"], out["depthSha256"] = drow["depthPath"], drow["depthSha256"]
+    return out
 
 # ---------------------------------------------------------------- colour, space, keys
 def lin(h):
@@ -150,23 +159,45 @@ def treat_photo(path, out_dir):
     out.filepath_raw = dst; out.file_format = "PNG"; out.save(); bpy.data.images.remove(im)
     return dst
 
-def plate(path, out_dir, d=90.0, glow=0.55, zoom=1.3):
-    """Stadium photo behind everything, cover-fitted (no stretching) and big enough that the camera
-    never sees its edge (check_plate_cover proves it). No mirror tiling."""
+def plate(path, depth_path, out_dir, d=90.0, glow=0.55, zoom=1.3, near=24.0, grid=(192, 108)):
+    """Stadium photo as real 3D: a grid cover-fitted at depth d (no stretching), each point pushed toward the
+    camera along its own sight line by the team's DepthFlow depth map. The home frame looks exactly like the
+    photo; any camera move shows true parallax. near is how close the front turf comes (metres)."""
     o, im = image_plane("Plate", treat_photo(path, out_dir), d, glow)
     s = pscale(d); fw, fh = 1920 * s * zoom, 1080 * s * zoom; aspect = im.size[0] / im.size[1]
-    o.scale = (max(fw, fh * aspect), max(fh, fw / aspect), 1); o.location = px(960, 540, d)
+    W, H = max(fw, fh * aspect), max(fh, fw / aspect); cx, cz = px(960, 540, d).x, px(960, 540, d).z
+    dim = bpy.data.images.load(depth_path, check_existing=True); dim.colorspace_settings.name = "Non-Color"
+    dep = np.array(dim.pixels[:], dtype=np.float32).reshape(dim.size[1], dim.size[0], 4)[..., 0]   # row 0 = bottom
+    nx, nz = grid; verts, uvs, faces = [], [], []
+    for j in range(nz + 1):
+        for i in range(nx + 1):
+            u, v = i / nx, j / nz
+            dv = float(dep[min(int(v * (dim.size[1] - 1)), dim.size[1] - 1), min(int(u * (dim.size[0] - 1)), dim.size[0] - 1)])
+            dist = 1.0 / ((1 - dv) / d + dv / near)            # depth map is disparity: linear in 1/distance
+            k_ = dist / d
+            verts.append(((cx + (u - 0.5) * W) * k_, d * k_, (cz + (v - 0.5) * H) * k_)); uvs.append((u, v))
+    for j in range(nz):
+        for i in range(nx):
+            a_ = j * (nx + 1) + i; faces.append((a_, a_ + 1, a_ + nx + 2, a_ + nx + 1))
+    me = bpy.data.meshes.new("Plate"); me.from_pydata(verts, [], faces); me.uv_layers.new()
+    for poly in me.polygons:
+        for li in poly.loop_indices: me.uv_layers.active.data[li].uv = uvs[me.loops[li].vertex_index]
+    for poly in me.polygons: poly.use_smooth = True
+    old = o.data; o.data = me; o.location = (0, 0, 0); o.rotation_euler = (0, 0, 0); o.scale = (1, 1, 1)
+    me.materials.append(old.materials[0]); bpy.data.meshes.remove(old)
     o.active_material.node_tree.nodes["Image Texture"].extension = "EXTEND"
     return o
 
 def check_plate_cover(o, n):
-    """Every frame, all four corners of the camera view must land on the plate."""
-    cam = sc.camera; hw, hh = o.scale.x / 2, o.scale.y / 2; c = o.location
-    for f in range(1, n + 1):
+    """Through the whole camera move, all four corners of the view must hit the stadium surface."""
+    from mathutils.bvhtree import BVHTree
+    cam = sc.camera; bpy.context.view_layer.update()
+    tree = BVHTree.FromObject(o, bpy.context.evaluated_depsgraph_get())
+    for f in range(1, min(n, MOVE_END) + 1):
         sc.frame_set(f); bpy.context.view_layer.update(); mw = cam.matrix_world; eye = mw.translation
         for corner in cam.data.view_frame(scene=sc):
-            ray = (mw @ corner) - eye; t = (c.y - eye.y) / ray.y; hit = eye + ray * t
-            assert abs(hit.x - c.x) <= hw and abs(hit.z - c.z) <= hh, f"camera sees past the stadium photo at frame {f}"
+            hit = tree.ray_cast(eye, ((mw @ corner) - eye).normalized())
+            assert hit[0] is not None, f"camera sees past the stadium photo at frame {f}"
 
 def fit_image(o, im, u0, v0, u1, v1, d):
     """Scale an alpha image to fit inside the layout box (contain), centred on its visible pixels."""
@@ -180,13 +211,16 @@ def fit_image(o, im, u0, v0, u1, v1, d):
     cx = (bx0 + bx1) / 2 - 0.5; cy = 0.5 - (by0 + by1) / 2
     o.location = px((u0 + u1) / 2, (v0 + v1) / 2, d) - Vector((cx * iw, 0, cy * ih))
 
-# Type system. Anton is the brand face for team names; Saira Semi Condensed carries numbers and supporting words.
-ANTON = FT + "Anton-Regular.ttf"
+# Type system. Team names use Antonio SemiBold, a lighter cut of the brand's Anton with open counters;
+# Saira Semi Condensed carries numbers and supporting words.
+TEAM_FONT = FT + "Antonio-SemiBold.ttf"
 SAIRA = "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/fonts/SairaSemiCondensed-Bold.ttf"
 # Effect levels. Objects (cards, arrows, bars, logos) get the full 3D treatment elsewhere.
 #   flat - numbers and big words: reads flat like broadcast type, a fine lit edge and a tight shadow, no spins
-#   mid  - team names and labels: a little depth and a softer shadow
-TIERS = {"flat": dict(extrude=0.006, bevel=0.0025, spacing=1.06, shadow=(3, 4, 0.55)),
+#   mid  - labels: a little depth and a softer shadow
+#   team - team names: thin edge and wider spacing so condensed letters stay readable
+TIERS = {"team": dict(extrude=0.01, bevel=0.0015, spacing=1.08, shadow=(3, 4, 0.6)),
+         "flat": dict(extrude=0.006, bevel=0.0025, spacing=1.06, shadow=(3, 4, 0.55)),
          "mid": dict(extrude=0.018, bevel=0.005, spacing=1.04, shadow=(4, 5, 0.65))}
 
 def text(body, font, hexc, cap_px, d, tier="flat", glow=1.0):
@@ -294,16 +328,28 @@ def key_light():
     so = bpy.data.objects.new("Key", sun); sc.collection.objects.link(so)
     so.rotation_euler = (math.radians(60), math.radians(-22), math.radians(-12))
 
-def camera(n, focus, start=(-3.2, -2.6, 1.0), drift=(1.4, 0.7, -0.3)):
-    """3/4 arrival that lands home on frame 30, then a slow drift to the last frame."""
+def camera(n, focus, start=(-3.2, -2.6, 1.0), move=(1.4, 0.7, -0.3)):
+    """3/4 arrival that lands home on frame 30, then a truck that ends by MOVE_END (6 s). Then it holds."""
     cd = bpy.data.cameras.new("Cam"); cd.lens = LENS; cd.sensor_fit = "HORIZONTAL"; cd.sensor_width = 36
     cd.dof.use_dof = True; cd.dof.aperture_fstop = 4.0; cd.dof.focus_distance = focus
     cam = bpy.data.objects.new("Cam", cd); sc.collection.objects.link(cam); sc.camera = cam
     aim = bpy.data.objects.new("Aim", None); sc.collection.objects.link(aim)
     tc = cam.constraints.new("TRACK_TO"); tc.target = aim; tc.track_axis = "TRACK_NEGATIVE_Z"; tc.up_axis = "UP_Y"
-    key(cam, "location", [(1, start), (HOME, (0, 0, 0)), (n, drift)], ease="EASE_OUT")
-    key(aim, "location", [(1, (-0.8, focus, 0.35)), (HOME, (0, focus, 0)), (n, (drift[0] * 0.3, focus, -0.08))], ease="EASE_OUT")
+    end = min(n, MOVE_END)
+    key(cam, "location", [(1, start), (HOME, (0, 0, 0)), (end, move)], ease="EASE_OUT")
+    key(aim, "location", [(1, (-0.8, focus, 0.35)), (HOME, (0, focus, 0)), (end, (move[0] * 0.3, focus, -0.08))], ease="EASE_OUT")
     return cam
+
+def hold_from(n):
+    """First frame after every object has stopped: the camera move (MOVE_END) or the last landing, whichever is later.
+    Frames after it are a freeze of it."""
+    last = MOVE_END
+    for o in sc.objects:
+        ad = o.animation_data
+        if ad and ad.action:
+            for fc in _fcurves(ad.action):
+                if fc.data_path != "hide_render" and fc.keyframe_points: last = max(last, int(fc.keyframe_points[-1].co.x))
+    return min(n, last + 1)
 
 def check_on_cue(o, f, label, lead=7):
     """Hidden `lead` frames before its cue, settled by the cue."""
@@ -333,8 +379,14 @@ def finish(blend_path, out, mode, still_frame=None, bloom=0.15):
         for fr in still_frame:
             sc.frame_set(fr); sc.render.filepath = os.path.join(out, f"f_{fr:04d}.png"); bpy.ops.render.render(write_still=True)
     elif mode == "anim":
+        # render only the motion; the hold is copies of the last moving frame (the Unreal comps froze the same way)
+        n, h = sc.frame_end, hold_from(sc.frame_end); sc.frame_end = h
         sc.render.filepath = os.path.join(out, "frames", "f_"); sc.render.image_settings.file_format = "PNG"
         bpy.ops.render.render(animation=True)
+        import shutil
+        last = os.path.join(out, "frames", f"f_{h:04d}.png")
+        for f in range(h + 1, n + 1): shutil.copyfile(last, os.path.join(out, "frames", f"f_{f:04d}.png"))
+        print(f"HOLD rendered 1-{h}, froze {h + 1}-{n}")
 
 def scrim(d, alpha=0.55):
     """A see-through dark sheet over the whole home frame at depth d, so type stays legible on bright stadium photos."""

@@ -41,6 +41,14 @@ builder exists.
 Blender production renders run headless through the Blender CLI. The Blender
 MCP is for authoring only. Use the Standard view transform for team colors.
 
+Every Blender build gives the stadium real depth. Each team has 1 depth map,
+made once with DepthFlow by `tools/broadcast_engine/stadium_depth.py` and
+listed in `config/lineups/team-stadium-depth.json`. The builder pushes the
+stadium photo into 3D with it, so camera moves show true parallax. A build
+stops when its team has no current depth map. The camera arrives and moves
+for the first 6 seconds (`MOVE_END`, frame 150), then holds. Renders cover
+only the motion; the hold is a freeze of the last moving frame.
+
 Unreal is retired for new builds. The Unreal comparison, team-logo and rank
 movement masters stay as history with their saved approvals and exports. Team
 matchup, Logo stat cards and Rank Movement had Unreal-only routes. They now ask

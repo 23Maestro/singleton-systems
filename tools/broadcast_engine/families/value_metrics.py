@@ -30,12 +30,12 @@ k.setup(N, half="half" in args)
 FOCUS = D.get("focus_team", D["team"])
 STADIUM = k.stadium(FOCUS)
 if STADIUM:
-    plate = k.plate(STADIUM["filePath"], OUT, glow=0.35); k.scrim(40.0, alpha=0.35)   # rows sit straight on the photo
+    plate = k.plate(STADIUM["filePath"], STADIUM["depthPath"], OUT, glow=0.35); k.scrim(40.0, alpha=0.35)   # rows sit straight on the photo
 else:
     plate = None; print(f"FLAG Stadium photo needed: {FOCUS}")
 
 Z_HEAD, Z_LOGO, Z_ROW, Z_VAL = 24.0, 21.0, 22.0, 21.7
-F_TEAM, F_NUM = k.ANTON, k.SAIRA      # Anton for the team name; Saira for the title, labels and numbers
+F_TEAM, F_NUM = k.TEAM_FONT, k.SAIRA      # Antonio SemiBold for the team name; Saira for the title, labels and numbers
 U0, U1 = 790, 1840                         # the rows block; the team name and title centre over it
 CU = (U0 + U1) / 2
 
@@ -54,7 +54,7 @@ def glow_mat(hexc, n):
     nt.links.new(nz.outputs["Fac"], rp.inputs["Value"]); nt.links.new(rp.outputs["Result"], p.inputs["Emission Strength"])
     return m
 
-team = k.text(D["team"].upper(), F_TEAM, D["accent"], 58, Z_HEAD, tier="mid"); k.put(team, 80, 62, "LEFT", "TOP")
+team = k.text(D["team"].upper(), F_TEAM, D["accent"], 58, Z_HEAD, tier="team"); k.put(team, 80, 62, "LEFT", "TOP")
 title = k.text(D["title"].upper(), F_NUM, "#FFFFFF", 74, Z_HEAD, tier="flat"); k.put(title, CU, 168, "CENTER", "TOP")
 logo, lim = k.image_plane("Logo", D["logo"], Z_LOGO, glow=0.95); k.fit_image(logo, lim, 90, 330, 720, 820, Z_LOGO)
 k.parent(k.floor_shadow(130, 680, 880, Z_LOGO, strength=0.55), logo)
@@ -86,12 +86,12 @@ k.pop(logo, 14, 12, "BACK"); k.turn(logo, 14, 16, 180, interp="BACK")
 
 k.key_light()
 k.hide_until_open(N)
-k.camera(N, Z_ROW, drift=(0.25, -0.3, -0.15))
+k.camera(N, Z_ROW, move=(0.9, -0.6, -0.2))
 
 for r, lab, bar, val in built:
     k.check_on_cue(val, r["frame"], f"{r['label']} value")
     if bar: k.check_on_cue(bar, r["frame"], f"{r['label']} bar", lead=16)
-k.check_in_frame([team, title, logo] + [o for b in built for o in b[1:] if o], (k.HOME, N))
+k.check_in_frame([team, title, logo] + [o for b in built for o in b[1:] if o], (k.HOME, min(N, k.MOVE_END), N))
 if plate: k.check_plate_cover(plate, N)
 print("PASS rows land on their cues; PASS frame check; PASS stadium covers every frame")
 

@@ -113,7 +113,7 @@ const checks = [
     ["lineups-assets.md", ["action photography", "1920 x 1080", "real-alpha"]],
     ["lineups-review.md", ["pre-Premiere gate", "storyboard, artwork and motion in the episode's Studio project", "Complete Asana after review, delivery readback and Eagle filing pass", "linked Studio project after the Asana readback"]],
     ["lineups-selection.md", ["full-transcript discovery", "transcript-to-graphic copy", "pacing"]],
-    ["lineups-build.md", ["engine choice after selection", "episode workspace", "motion engine"]],
+    ["lineups-build.md", ["engine choice after selection", "episode workspace", "motion engine", "team-stadium-depth.json", "first 6 seconds"]],
     ["lineups-team-routes.md", ["rank-card.sculpted-satin", "striped card background only"]],
   ].map(([name, must]) => ({file: path.join(pluginRoot, "skills", "lineups-editor", "references", name), must})),
   {

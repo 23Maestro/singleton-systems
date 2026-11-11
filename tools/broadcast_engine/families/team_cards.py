@@ -35,10 +35,10 @@ assert cards[0]["frame"] <= cards[1]["frame"], "cue frames run in order"
 k.setup(N, half="half" in args)
 FOCUS = D.get("focus_team", cards[0]["team"])
 STADIUM = k.stadium(FOCUS)
-plate = k.plate(STADIUM["filePath"], OUT) if STADIUM else None
+plate = k.plate(STADIUM["filePath"], STADIUM["depthPath"], OUT) if STADIUM else None
 if not STADIUM: print(f"FLAG Stadium photo needed: {FOCUS}")
 
-F_TEAM, F_NUM = k.ANTON, k.SAIRA      # Anton for team names; Saira for numbers and supporting words
+F_TEAM, F_NUM = k.TEAM_FONT, k.SAIRA      # Antonio SemiBold for team names; Saira for numbers and supporting words
 Z_TITLE, Z_FRAME, Z_FACE, Z_ON, Z_MARK = 24.0, 22.08, 22.0, 21.85, 20.0
 
 # ---------------------------------------------------------------- one card: metal rim, satin face, dark footer, logo, value, label
@@ -63,7 +63,7 @@ def card(c, box, side):
     val = k.text(c["value"].upper(), F_NUM, "#FFFFFF", VAL_CAP, Z_ON, tier="flat")
     k.shrink_to(val, (u1 - u0) - 90); k.put(val, (u0 + u1) / 2, v0 + VAL, "CENTER", "CENTER")
     is_team = c["label"].upper() == c["team"].upper()
-    lab = k.text(c["label"].upper(), F_TEAM if is_team else F_NUM, "#FFFFFF", FOOT_CAP, Z_ON, tier="mid")
+    lab = k.text(c["label"].upper(), F_TEAM if is_team else F_NUM, "#FFFFFF", FOOT_CAP, Z_ON, tier="team" if is_team else "mid")
     k.shrink_to(lab, (u1 - u0) - 60); k.put(lab, (u0 + u1) / 2, v1 - FOOT_H / 2, "CENTER", "CENTER")
     floor = k.floor_shadow(u0, u1, v1, Z_FACE)
     for o in (rim, foot, logo, val, lab, floor): k.parent(o, face)
@@ -86,7 +86,7 @@ if LAYOUT == "pair" and D.get("center"):
     k.put(m, 960, 508 if vs else 958, "CENTER", "CENTER")
     f = D["center"]["frame"]; k.pop(m, f - 8, 8, "BACK"); extra.append(m)
 if LAYOUT == "rank":
-    t = k.text(cards[0]["team"].upper(), F_TEAM, "#FFFFFF", 100, Z_TITLE, tier="mid"); k.put(t, 960, 150, "CENTER", "TOP")
+    t = k.text(cards[0]["team"].upper(), F_TEAM, "#FFFFFF", 100, Z_TITLE, tier="team"); k.put(t, 960, 150, "CENTER", "TOP")
     k.slide(t, 4, dv=-60, dur=12); k.turn(t, 4, 14, -60, axis=0); extra.append(t)
     r = D["rank"]; up = r["direction"] == "up"; col = "#3DDC84" if up else "#F26B6B"
     shaft = [(0.32, 0), (0.68, 0), (0.68, 0.58), (1, 0.58), (0.5, 1), (0, 0.58), (0.32, 0.58)]
@@ -100,13 +100,13 @@ if LAYOUT == "rank":
 
 k.key_light()
 k.hide_until_open(N)
-k.camera(N, Z_FACE, drift=(0.25, -0.7, -0.15))   # wide layout: drift back a touch so the outer cards keep their margin
+k.camera(N, Z_FACE, move=(0.9, -1.2, -0.25))   # wide layout: truck right while easing back so the outer cards keep their margin
 
 # ---------------------------------------------------------------- checks
 for c, (face, logo, val, lab) in zip(cards, built):
     k.check_on_cue(face, c["frame"], f"{c['team']} card", lead=13)
     k.check_on_cue(val, c["frame"], f"{c['team']} value")
-k.check_in_frame([o for b in built for o in b] + extra, (k.HOME, N))
+k.check_in_frame([o for b in built for o in b] + extra, (k.HOME, min(N, k.MOVE_END), N))
 if plate: k.check_plate_cover(plate, N)
 print("PASS cards land on their cues; PASS frame check; PASS stadium covers every frame")
 
