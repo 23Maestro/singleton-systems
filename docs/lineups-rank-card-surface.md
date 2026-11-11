@@ -1,5 +1,8 @@
 # rank-card background
 
+Stadium image swaps follow [team stadium photos](lineups-team-stadiums.md).
+That rule changes the scene's stadium layer only; this card surface stays locked.
+
 Use `rank-card.sculpted-satin`, version 2, for all new Team Cards.
 Jerami approved the reference on November 4, 2026.
 

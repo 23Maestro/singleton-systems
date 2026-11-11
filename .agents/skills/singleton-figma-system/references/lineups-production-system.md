@@ -15,7 +15,7 @@ review notes. Use lane, option, and setting there.
 
 ## page ownership
 
-- `Foundations` holds approved colors, type, spacing, Field Night art, and
+- `Foundations` holds approved colors, type, spacing, team stadium art, and
   measured reference examples.
 - `Components` holds the only editable source for every approved option.
 - `Episode Workspace` holds episode copies and motion work.
@@ -171,7 +171,7 @@ Build one source family for each lane:
    `1949:3691` shows points scored, points allowed and KC red-zone trips;
    this use does not require years or multiple periods. Keep the stable lane
    key `year-by-year`.
-6. Asset swap with guarded Field Night art, centered logo, alpha-only
+6. Asset swap with the selected team's stadium art, centered logo, alpha-only
    replaceable people, start/end states, and transcript-timed motion copies.
 7. Recurring board with `Rank Reveal` and `Super Bowl Bubble` layouts and
    adjustable item count.
@@ -216,17 +216,23 @@ does not update the episode enforcement allowlist or waive motion, asset-fit,
 callout, background, and transcript checks. Saved three-person and championship
 cast examples remain in Asset Swap review until alpha and slot checks pass.
 
-Stat breakdown, Simple comparison, Full comparison, year-by-year, and recurring
-boards use the locked no-football Field Night art. The approved image hash is
-`6c84d05a7f038c5e3f9f14a4103cd9b533251e70` (source `594:1256`). Keep the background
-and artwork as separate editable Figma layers. `figma.background` records the
-setting, node ID, image hash, lock state, and separate-artwork state. Figma
-mutation readback must return that object from live node properties. These layer
-requirements do not require separate transparent artwork exports. Export the
-complete motion scene with its approved background included. A transparent
-overlay is a separate deliverable only when Jerami explicitly requests it.
-Asset Swap keeps its football-visible Field Night source. Cinematic comparison
-keeps its approved photo-led composition.
+New Figma and Blender stadium layers use the selected team's canonical Eagle
+photo. Follow [team stadium photos](../../../../../docs/lineups-team-stadiums.md)
+and `config/lineups/team-stadiums.json`. This November 11, 2026 rule replaces
+both generic Field Night images for new builds, including Asset Swap. Keep
+the approved layout and motion. Bind the team, Eagle ID, source checksum,
+actual Figma image hash and node ID in the episode background. Read the values
+back from the app. Blender binds the same image path and checksum.
+
+The new candidate build swaps the image in its episode copy. Old templates
+may keep their existing images. If the registry has no team photo, flag that
+candidate with `Stadium photo needed: TEAM` and keep the others moving.
+Backfill, old script updates and installed skill release do not block review.
+
+Figma keeps the background locked and separate from artwork. Export complete
+motion scenes with their backgrounds. A transparent overlay needs Jerami's
+request. Cinematic comparison keeps its full player photos. Card surface
+locks and solid team-color cards keep their approved treatments.
 
 ## editable and guarded values
 
@@ -235,18 +241,19 @@ headlines, values, labels, item count, period count, subject count, order, and
 visibility. Use image slots, text properties, booleans, instance swaps, named
 slots, and count variants where they fit.
 
-Guard typography, spacing, accent color, divider width, safe areas, Field Night
-art, measured background geometry, layer order, crop roles, approved
+Guard typography, spacing, accent color, divider width, safe areas,
+measured background geometry, layer order, crop roles, approved
 motion, and 1920 x 1080 export geometry. Guarded layers cannot be detached,
 replaced, resized, or animated in an episode copy. Use equal repeated spacing.
 Use a solid 100% center divider in Cinematic comparison with enough width for
 48 px stat labels.
 
-The guarded Asset Swap background comes from the approved football-visible
-Field Night layer in the Components source. Do not replace it with an episode
-photo, regenerate it, or cover it with full-frame episode art.
+Asset Swap replaces only the stadium image fill in the episode copy with the
+selected team's registered Eagle photo. Keep its geometry, blur, tracks and
+layer order. Keep alpha-only player slots separate from this background.
+Do not replace the Components source or cover player slots with full-frame art.
 
-`config/lineups/source-guards.json` records the reviewed source measurements.
+`config/lineups/source-guards.json` records historical source measurements.
 Asset Swap background `441:51` stays 3424 x 1956.9296875 at
 (-821.760009765625, -361.6800537109375). Preserve its native width, height,
 translation and scale tracks. The former 2040 x 1166 rule was stale; it must not
@@ -259,7 +266,8 @@ when the source component cannot support the episode without changing a guarded
 value.
 
 Bind every episode source ID and final Figma image hash in `figma.assetLedger`.
-Reject a repeated source ID or image hash anywhere in the same episode.
+Reject repeated foreground player photos or cutouts in the same episode.
+The same team's canonical stadium background may repeat across its scenes.
 
 For three-subject Asset Swaps, place the left, center, and right slot centers at
 about 320 px, 960 px, and 1600 px. The logo and center subject must share the

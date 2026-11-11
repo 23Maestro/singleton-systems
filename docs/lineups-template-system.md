@@ -46,7 +46,12 @@ new detailed style and geometry comparison. Other lanes retain their existing
 checks and require visual review; they do not yet have complete style snapshots.
 Simple board and some Asset Swap counts still need source registration.
 
-The four reviewed backgrounds have measured guards for geometry, lock state,
+New stadium backgrounds follow [team stadium photos](lineups-team-stadiums.md)
+and `config/lineups/team-stadiums.json` in both Figma and Blender. Replace the
+image in episode copies only. Keep the original Components sources and their
+saved proof. Both generic Field Night photos are retired for new builds.
+
+The four historical source backgrounds have measured guards for geometry, lock state,
 image fills, layer order and native background tracks. Their source IDs are
 441:50, 598:215, 594:1254 and 1413:664. The matchup guard does not register a new
 option. Asset Swap retains its measured 3424 x 1956.9296875 crop; the former
@@ -321,7 +326,9 @@ the bottom at 1920 × 1080. Keep the clean soft shadow. See
 `config/lineups/team-callout-contract.json`. Human review and episode motion
 proof remain open.
 
-Team stadium plates use dry matte grass. Keep colored light in the stands and
+Team stadium plates use the selected team's canonical Eagle photo. Follow
+[team stadium photos](lineups-team-stadiums.md). Keep the approved lighting
+treatment and dry matte grass. Keep colored light in the stands and
 roofline, with restrained neutral field light. Logos and panels stay editable.
 Entrance cues follow Mark and same-revision Manim. Hold static with no animation
 out; Premiere owns the cut or transition.

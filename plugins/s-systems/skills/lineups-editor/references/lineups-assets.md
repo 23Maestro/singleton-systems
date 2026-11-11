@@ -2,6 +2,18 @@
 
 ## image rules
 
+New Figma and Blender stadium layers use the selected team's photo from
+`config/lineups/team-stadiums.json`. Follow
+[team stadium photos](../../../../../docs/lineups-team-stadiums.md) for Eagle
+links and source checks. Both generic Field Night photos are retired for new
+builds. This rule does not replace Cinematic 2-up player photos or solid card
+surfaces. Repeated team stadium backgrounds are allowed; foreground player
+photo repeats still fail review.
+
+If a team has no registered stadium photo, flag that candidate with
+`Stadium photo needed: TEAM`. Keep the other candidates moving. Old template
+images need no backfill; the new build swaps the photo in its episode copy.
+
 - Use every suitable client-provided Eagle asset. A supplied contextual photo
   is not rejected because it is not an action shot.
 - For new searches, prefer action photography for active players. Avoid roster

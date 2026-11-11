@@ -124,9 +124,12 @@ changes alpha only; the original RGB pixels remain unchanged.
 [The source configuration](../config/unreal/stat-breakdown-template.json) keeps
 three and four points as explicit variants. Both retain the same large stat
 and label scales. The four-point variant redistributes columns inside the
-card. A full-frame Field Night background replaces the sample's transparent
+card. In this historical Unreal trial, a full-frame Field Night background replaces the sample's transparent
 surround. Name, number, position, team colors, logo and stats remain editable.
 The original Epic scene and approved Comparison master stay separate.
+
+New Figma and Blender builds use [team stadium photos](lineups-team-stadiums.md).
+This trial's generic image is not the source for new episodes.
 
 The native assets live under `/Game/Lineups/StatBreakdownV1` in
 `LineupsSportsTrial.uproject`: `LV_MahomesStat3` / `LS_MahomesStat3` and

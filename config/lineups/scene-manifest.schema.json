@@ -415,6 +415,10 @@
             "3B",
             "4A"
           ]
+        },
+        "focusTeam": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -438,34 +442,85 @@
       ],
       "properties": {
         "background": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "setting",
-            "nodeId",
-            "imageHash",
-            "locked",
-            "separateFromArtwork"
-          ],
-          "properties": {
-            "setting": {
-              "const": "Field Night / No football"
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "setting",
+                "nodeId",
+                "imageHash",
+                "locked",
+                "separateFromArtwork"
+              ],
+              "properties": {
+                "setting": {
+                  "const": "Field Night / No football"
+                },
+                "nodeId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "imageHash": {
+                  "const": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
+                },
+                "locked": {
+                  "const": true
+                },
+                "separateFromArtwork": {
+                  "description": "Background and artwork remain separate editable Figma layers. This does not require a transparent scene export or a separate artwork export.",
+                  "const": true
+                }
+              }
             },
-            "nodeId": {
-              "type": "string",
-              "minLength": 1
-            },
-            "imageHash": {
-              "const": "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"
-            },
-            "locked": {
-              "const": true
-            },
-            "separateFromArtwork": {
-              "description": "Background and artwork remain separate editable Figma layers. This does not require a transparent scene export or a separate artwork export.",
-              "const": true
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "setting",
+                "nodeId",
+                "imageHash",
+                "locked",
+                "separateFromArtwork",
+                "focusTeam",
+                "eagleItemId",
+                "sourceSha256"
+              ],
+              "properties": {
+                "setting": {
+                  "const": "Team Stadium"
+                },
+                "nodeId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "imageHash": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{40}$"
+                },
+                "locked": {
+                  "const": true
+                },
+                "separateFromArtwork": {
+                  "description": "Background and artwork remain separate editable Figma layers. This does not require a transparent scene export or a separate artwork export.",
+                  "const": true
+                },
+                "focusTeam": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "eagleItemId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sourceSha256": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
             }
-          }
+          ]
         },
         "templateBinding": {
           "oneOf": [
@@ -1318,7 +1373,8 @@
             "football-visible-baked",
             "no-football-baked",
             "transparent",
-            "original-photos-baked"
+            "original-photos-baked",
+            "team-stadium-baked"
           ]
         },
         "validationStatus": {

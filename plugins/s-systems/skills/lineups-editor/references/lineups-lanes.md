@@ -49,7 +49,8 @@ The photo and data options are:
 4. **Full comparison: 3** — three subjects with multiple comparable values.
 5. **Full comparison: 4** — four subjects with multiple comparable values.
 
-Figma Simple and Full comparisons use the approved Field Night background. Cinematic
+Figma and Blender Simple and Full comparisons use the selected team's
+[canonical stadium photo](../../../../../docs/lineups-team-stadiums.md). Cinematic
 2-up keeps its photo-led split treatment. The MVP tracker is the locked simple
 comparison reference. Supporting statistics are optional in Cinematic 2-up.
 Show them only when the transcript supplies a true like-for-like comparison.
@@ -67,7 +68,8 @@ Simple and Full player comparisons follow the [alpha-player workflow](lineups-as
 A period-only comparison with no players needs no player cutouts.
 
 Team matchup, Logo stat cards and Rank Movement use the
-[Team routes](lineups-team-routes.md). Native sources retain their own plates.
+[Team routes](lineups-team-routes.md). Native stadium layers use the selected
+team's canonical photo while keeping the approved native treatment.
 
 ### 5. year-by-year + value metrics
 
@@ -82,26 +84,28 @@ or multiple periods. The stable lane key remains `year-by-year`.
 ### 6. asset swap
 
 Use for a historical, causal, or emotional progression that needs movement.
-Use the approved Field Night background, centered team logo, replaceable action
+Use the selected team's canonical stadium background, centered team logo, replaceable action
 art, and transcript-timed swaps. The Patriots and 49ers scenes are locked
 references.
 
-Field Night, its measured source background geometry, the 1920 x 1080 export frame,
+The measured source background geometry, the 1920 x 1080 export frame,
 layer order, crop roles, and approved motion pattern are guarded. Episode
-cutouts, team logos, transcript-derived copy, and reveal timing are replaceable.
+cutouts, stadium image fill, team logos, transcript-derived copy, and reveal timing are replaceable.
 Every subject in a cutout slot must have real alpha. Do not place a rectangular
 photo, fake background, blur mask, or full-frame crop in that slot. Stop when an
 approved component cannot support the episode without changing a guarded part.
 
 The reviewed Asset Swap background keeps its 3424 x 1956.9296875 crop and
-native motion. Its exact offset, image, blur and tracks are recorded in
-`config/lineups/source-guards.json`. Lock this source background; preserve the
+native motion. Its historical offset, image, blur and tracks are recorded in
+`config/lineups/source-guards.json`. Replace only the stadium image fill in the
+episode copy using `config/lineups/team-stadiums.json`. Lock the episode background; preserve the
 1920 x 1080 export frame. The former 2040 x 1166 rule does not resize existing
 sources or episodes.
 
 Record every selected source ID and Figma image hash in the episode asset
-ledger. A source image may appear only once in an episode, including use as a
-photo and reuse as a cutout. Replace the later occurrence before review.
+ledger. A foreground player image may appear only once in an episode,
+including use as a photo and reuse as a cutout. Replace the later occurrence
+before review. The same team's canonical stadium background may repeat.
 
 Three-subject swaps use the left, center, and right thirds. Put the logo and
 middle subject on the 960 px centerline. Put the side subjects near 320 px and

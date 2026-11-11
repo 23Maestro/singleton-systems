@@ -112,6 +112,20 @@ def is_data_driven(manifest):
 
 
 def validate_data_background(manifest):
+    background = manifest.get('figma', {}).get('background') or {}
+    if background.get('setting') == 'Team Stadium':
+        from tools.lineups_motion.stadiums import validate_binding
+        try:
+            validate_binding(background)
+        except ValueError as error:
+            raise EnforcementError(str(error)) from error
+        from tools.lineups_motion.stadiums import focus_team
+        focus = focus_team(manifest.get('scene') or {})
+        if focus and focus != background.get('focusTeam'):
+            raise EnforcementError('Team stadium differs from the scene focus team')
+        if background.get('locked') is not True or background.get('separateFromArtwork') is not True or not background.get('nodeId'):
+            raise EnforcementError('team stadium must be locked, separate from artwork and bound to its node')
+        return
     if not is_data_driven(manifest):
         return
     background = required(manifest, "figma.background")
@@ -819,7 +833,9 @@ def validate_manifest(manifest, require_export=False):
         export = required(manifest, "export")
         if lane == "asset swap" and (
             export.get("artifactRole") != "final-premiere-render"
-            or export.get("backgroundPolicy") != "football-visible-baked"
+            or export.get("backgroundPolicy") != (
+                'team-stadium-baked' if manifest.get('figma', {}).get('background', {}).get('setting') == 'Team Stadium'
+                else 'football-visible-baked')
         ):
             raise EnforcementError("Asset Swap Premiere delivery must be the finished football-visible Premiere render")
         if export.get("validationStatus") != "passed":
@@ -1239,7 +1255,7 @@ def validate_figma_readback(manifest, tool_response):
     if has_photo_callout_binding(manifest):
         validate_manifest_readback(manifest, scene_readback.get("calloutReadback") or {})
         validate_callout(scene_readback.get("sourceCallout") or {}, source=True, expected_contract_id=figma["templateBinding"].get("contractId"))
-    if is_data_driven(manifest):
+    if is_data_driven(manifest) or figma.get('background', {}).get('setting') == 'Team Stadium':
         background = dict(scene_readback.get("background") or {})
         expected_background = figma["background"]
         planned_id = background.pop("plannedNodeId", None)

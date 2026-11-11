@@ -165,7 +165,8 @@ def shard_mat(name, color, value):
     return m
 
 def wall(side, color):
-    img = bpy.data.images.load(f"{A}/references/field-night-no-football.png")
+    stadium = DATA.get('stadium') if DATA else None
+    img = bpy.data.images.load(stadium['filePath'] if stadium else f"{A}/references/field-night-no-football.png")
     m = bpy.data.materials.new(f"Wall{side}"); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
     t = nt.nodes.new("ShaderNodeTexImage"); t.image = img
     mix = nt.nodes.new("ShaderNodeMix"); mix.data_type = "RGBA"; mix.blend_type = "MULTIPLY"; mix.inputs["Factor"].default_value = 1.0
@@ -176,7 +177,7 @@ def wall(side, color):
     loc, k = at(side * 7.0, 1.5, 24)
     bpy.ops.mesh.primitive_plane_add(size=1, location=loc, rotation=(math.radians(90), 0, 0))
     w_ = bpy.context.object; w_.scale = (16 * k, 13 * k, 1); w_.data.materials.append(m)
-    if side > 0: w_.scale.x *= -1   # mirror the plate so the lights sit on the outer edge
+    if side > 0 and not stadium: w_.scale.x *= -1   # preserve readable team branding on new stadium photos
 
 def _split(poly, ang):
     cx = sum(p[0] for p in poly) / len(poly); cz = sum(p[1] for p in poly) / len(poly)

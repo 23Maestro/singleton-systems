@@ -36,6 +36,15 @@ def main():
         raise ValueError('Variant is not approved')
     template = resolve(row['templateKey'])
     native = verify_source(template)
+    original_data = json.loads(args.data.read_text())
+    stadium = None
+    if not args.proof:
+        from tools.lineups_motion.stadiums import resolve_stadium
+        scene_data = json.loads(args.scene.read_text())
+        stadium = resolve_stadium({**original_data, **scene_data['scene']}, required=True, verify_file=True)
+        if stadium['status'] != 'ready':
+            print(json.dumps({'status': 'needs-assets', 'candidateId': scene_data['scene']['sceneId'], 'stadium': stadium}))
+            return
     if args.scene:
         from tools.lineups_motion.contract_gate import check
         scene = json.loads(args.scene.read_text())
@@ -58,6 +67,9 @@ def main():
     # Never overwrite an existing build. A retry uses a new, reviewable version.
     output.mkdir(parents=True, exist_ok=False)
     data = args.data.resolve()
+    if stadium:
+        data = output / 'prepared-data.json'
+        data.write_text(json.dumps({**original_data, 'stadium': stadium}, indent=2) + '\n')
     builder = ROOT / native['files']['builder']['path']
     if args.variant == '3B':
         sys.argv = [str(builder), '--', str(data), str(output), 'build']
@@ -66,6 +78,12 @@ def main():
         sys.argv = [str(builder), '--', str(output), str(data)]
         result_name = 'lane4-concept-v1.blend'
     runpy.run_path(str(builder), run_name='__main__')
+    if stadium:
+        matches = [image for image in bpy.data.images if Path(bpy.path.abspath(image.filepath)).resolve() == Path(stadium['filePath']).resolve()]
+        if not matches:
+            raise ValueError('Blender build did not use the selected team stadium')
+        for image in matches:
+            image.pack()
     sc = bpy.context.scene
     if sc.render.fps != 25 or sc.render.fps_base != 1:
         raise ValueError('Production must use 25 fps')
@@ -79,7 +97,9 @@ def main():
         sc.render.image_settings.file_format = 'PNG'
         bpy.ops.render.render(animation=True)
     receipt = {'schemaVersion': 1, 'variant': args.variant, 'proofOnly': args.proof,
-               'dataSha256': hashlib.sha256(data.read_bytes()).hexdigest(),
+               'dataSha256': hashlib.sha256(args.data.read_bytes()).hexdigest(),
+               'preparedDataSha256': hashlib.sha256(data.read_bytes()).hexdigest(),
+               'stadium': stadium,
                'nativeManifestSha256': hashlib.sha256((ROOT / template['source']['manifestPath']).read_bytes()).hexdigest(),
                'file': str(output / result_name), 'frameRate': 25}
     (output / 'build-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

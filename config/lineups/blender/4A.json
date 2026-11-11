@@ -13,7 +13,7 @@
   "files": {
     "builder": {
       "path": "tools/broadcast_engine/prototypes/lane4/build_l4_v5.py",
-      "sha256": "4c6ff9fa331ae12a1342e2e6e1e28666d5fd2599e5b6461c837f5172faf6b041"
+      "sha256": "548b40d35ce9cd4871896ba7275761b545cb1bc3f1f988f0df00f7e45c3442a3"
     },
     "dataContract": {
       "path": "tools/broadcast_engine/player_comparison_data.py",
@@ -21,11 +21,15 @@
     },
     "runner": {
       "path": "tools/broadcast_engine/fill.py",
-      "sha256": "ae62cf05c0e2d58f30accf5185e4290e76ab9f8b0b8109cb9b859c4921480e9c"
+      "sha256": "26eef6a54623fe3d4c41dff6badec772da6c3a80241b4ac6d703d5f87ed9c17b"
     },
     "cueDataContract": {
       "path": "tools/broadcast_engine/production_data.py",
       "sha256": "b55ecd687331d072c405be7a593f094fd8491320a1087a24153bff117d32f7cb"
+    },
+    "stadiumResolver": {
+      "path": "tools/lineups_motion/stadiums.py",
+      "sha256": "655db8ba40f2f64b9335ffe4c5c141f1edbaea422c460a05d2d1a991ec459c3d"
     }
   },
   "note": "Saved approved design is the source witness. Versioned builder and data contract fill episode copies. Visual and timing approval remain separate."

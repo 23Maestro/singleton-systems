@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import {prepareStadium, stadiumReadbackCode} from "../lib/lineups/stadiums.mjs";
 import {requireDiscovery} from "../lib/lineups/discovery.mjs";
 import fs from "node:fs";
 import path from "node:path";
@@ -85,13 +86,12 @@ tracks.push(
   },
 );
 
-const background = {
-  setting: "Field Night / No football",
-  nodeId: `pending:${scene.sceneId}/BACKGROUND`,
-  imageHash: "6c84d05a7f038c5e3f9f14a4103cd9b533251e70",
-  locked: true,
-  separateFromArtwork: true,
-};
+const stadium = prepareStadium(scene);
+if (!stadium.background) {
+  process.stdout.write(JSON.stringify({status: stadium.status || stadium.asset.status, stadium, scene}) + "\n");
+  process.exit(0);
+}
+const background = stadium.background;
 const rankReveal = {
   canonicalSourceComponentId: audit.figma.canonicalSourceComponentId,
   canonicalSourceName: audit.figma.canonicalSourceName,
@@ -164,11 +164,7 @@ const firstTarget = working.findOne((item) => item.name === targets[0].nodeName)
 const timeline = firstTarget?.timelines?.[0];
 if (!timeline) throw new Error("Figma Motion timeline was not created");
 firstTarget.setTimelineDuration(timeline.id, ${duration});
-const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
-if (!backgroundNode) throw new Error("Measured Field Night background is missing");
-const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id, plannedNodeId: ${JSON.stringify(background.nodeId)},
- imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
- locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
+${stadiumReadbackCode(background, true)}
 ${rankReadbackCode}
 return {
   rootNodeId: working.id,
@@ -202,11 +198,7 @@ const motionTracks = definitions.map(track => {
  return {nodeId: node.id, plannedNodeId: track.nodeId, property: track.property, cueId: track.cueId,
   duration: node.timelines[0].duration, keyframes: measured.keyframes.map(frame => ({time: frame.timelinePosition, value: frame.value.value}))};
 });
-const backgroundNode = working.findOne(node => Array.isArray(node.fills) && node.fills.some(fill => fill.type === "IMAGE" && fill.imageHash === "6c84d05a7f038c5e3f9f14a4103cd9b533251e70"));
-if (!backgroundNode) throw new Error("Measured Field Night background is missing");
-const measuredBackground = {setting: "Field Night / No football", nodeId: backgroundNode.id, plannedNodeId: ${JSON.stringify(background.nodeId)},
- imageHash: backgroundNode.fills.find(fill => fill.type === "IMAGE").imageHash,
- locked: backgroundNode.locked, separateFromArtwork: backgroundNode.id !== working.id};
+${stadiumReadbackCode(background)}
 ${rankReadbackCode}
 return {
   rootNodeId: working.id,
@@ -247,6 +239,7 @@ const manifest = {
   scene: {
     episodeId: audit.episodeId,
     sceneId: scene.sceneId,
+    focusTeam: background.focusTeam,
     lane: "recurring board",
     approvedOption: "Rank Reveal",
     setting: "weekly cumulative 10-to-1 reveal",
@@ -304,7 +297,7 @@ const manifest = {
     path: `pending/${audit.episodeId}/${scene.sceneId}.mp4`,
     fileSha256: "0".repeat(64),
     artifactRole: "final-premiere-render",
-    backgroundPolicy: "no-football-baked",
+    backgroundPolicy: "team-stadium-baked",
     validationStatus: "pending",
     motionProof: {
       type: "cue-frame-proof",

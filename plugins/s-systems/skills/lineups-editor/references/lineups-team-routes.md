@@ -38,7 +38,10 @@ the bottom at 1920 × 1080. Keep the clean soft shadow. See
 `config/lineups/team-callout-contract.json`. Human review and episode motion
 proof remain open.
 
-Team stadium plates use dry matte grass. Keep colored light in the stands and
+Team stadium plates use the team's canonical Eagle photo from
+`config/lineups/team-stadiums.json`; follow
+[team stadium photos](../../../../../docs/lineups-team-stadiums.md). Keep the
+approved lighting treatment and dry matte grass. Keep colored light in the stands and
 roofline, with restrained neutral field light. Logos and panels stay editable.
 Entrance cues follow Mark and same-revision Manim. Hold static with no animation
 out; Premiere owns the cut or transition.

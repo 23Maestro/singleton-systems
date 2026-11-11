@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "id": "lineups.team-stadiums.v1",
+  "approvedBy": "Jerami",
+  "approvedOn": "2026-11-11",
+  "sourceChatId": "01a1c730-69a2-78f3-8d57-fea9b10d6257",
+  "eagleFolderId": "MWCF32GULEBG8",
+  "eagleFolderUrl": "eagle://folder/MWCF32GULEBG8",
+  "policy": "Use the selected team's supplied stadium photo for new Figma and Blender stadium backgrounds. Preserve historical source guards and past exports. No generic fallback.",
+  "sourceUrl": null,
+  "captureDate": null,
+  "license": null,
+  "teams": [
+    {
+      "team": "Cincinnati Bengals",
+      "eagleItemId": "MWCF3QSE8OL2T",
+      "eagleUrl": "eagle://item/MWCF3QSE8OL2T",
+      "name": "cincinnati-bengals-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSE8OL2T.info/cincinnati-bengals-stadium-canonical.jpg",
+      "sha256": "a4908df5e023d040cbef9e5ffc3c1bed590913666abbe2a77b294752e334c0c3",
+      "width": 547,
+      "height": 365,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/1-Photo-1.jpg"
+    },
+    {
+      "team": "Pittsburgh Steelers",
+      "eagleItemId": "MWCF3QSEECA1M",
+      "eagleUrl": "eagle://item/MWCF3QSEECA1M",
+      "name": "pittsburgh-steelers-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEECA1M.info/pittsburgh-steelers-stadium-canonical.jpg",
+      "sha256": "51f7b5b8375eee5cd20759de53aad7749ddbafa02593df03e19f350dd8242dbc",
+      "width": 1280,
+      "height": 720,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/2-Photo-2.jpg"
+    },
+    {
+      "team": "Kansas City Chiefs",
+      "eagleItemId": "MWCF3QSER0O63",
+      "eagleUrl": "eagle://item/MWCF3QSER0O63",
+      "name": "kansas-city-chiefs-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSER0O63.info/kansas-city-chiefs-stadium-canonical.jpg",
+      "sha256": "11ea3897377579425015e270f40a031986418e3ca542495ec247b607890370f7",
+      "width": 678,
+      "height": 452,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/3-Photo-3.jpg"
+    },
+    {
+      "team": "San Francisco 49ers",
+      "eagleItemId": "MWCF3QSEINTO9",
+      "eagleUrl": "eagle://item/MWCF3QSEINTO9",
+      "name": "san-francisco-49ers-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEINTO9.info/san-francisco-49ers-stadium-canonical.jpg",
+      "sha256": "f2192506b24d6e7793a49ffb029bdf273f965f3e156933db101d1eab2538aa35",
+      "width": 1024,
+      "height": 683,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/4-Photo-4.jpg"
+    },
+    {
+      "team": "Chicago Bears",
+      "eagleItemId": "MWCF3QSET708S",
+      "eagleUrl": "eagle://item/MWCF3QSET708S",
+      "name": "chicago-bears-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSET708S.info/chicago-bears-stadium-canonical.jpg",
+      "sha256": "8943af5a2bff1475bd0ad315e12b00b4e40add2da0b7ab86c18251959a129866",
+      "width": 1280,
+      "height": 720,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/5-Photo-5.jpg"
+    },
+    {
+      "team": "Minnesota Vikings",
+      "eagleItemId": "MWCF3QSEDKJ6J",
+      "eagleUrl": "eagle://item/MWCF3QSEDKJ6J",
+      "name": "minnesota-vikings-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEDKJ6J.info/minnesota-vikings-stadium-canonical.jpg",
+      "sha256": "ae1f7590a703f52a2b0eb0773de7f152a64f9e8c498fabbf551ed8055aeaa4bd",
+      "width": 800,
+      "height": 530,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/6-Photo-6.jpg"
+    },
+    {
+      "team": "Buffalo Bills",
+      "eagleItemId": "MWCF3QSEB4491",
+      "eagleUrl": "eagle://item/MWCF3QSEB4491",
+      "name": "buffalo-bills-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEB4491.info/buffalo-bills-stadium-canonical.jpg",
+      "sha256": "715b4b2ca0d757d5eaced75f63ec6f6e72ac4c9ee2ec5a94ce22d7a7ce0f86a7",
+      "width": 400,
+      "height": 267,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/CB53256A-31DD-4B68-85F2-FA31BAFF34A1/7-Photo-7.jpg"
+    },
+    {
+      "team": "Green Bay Packers",
+      "eagleItemId": "MWCF3QSET4KVI",
+      "eagleUrl": "eagle://item/MWCF3QSET4KVI",
+      "name": "green-bay-packers-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSET4KVI.info/green-bay-packers-stadium-canonical.jpg",
+      "sha256": "43b724826a4e4da30823baaeac98b020b4ad7c24fc19fdb88ee62f076bdd7574",
+      "width": 1280,
+      "height": 720,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/BD88CF38-8F4E-4320-8ABA-9F35035E6CF3/1-Photo-1.jpg"
+    },
+    {
+      "team": "Denver Broncos",
+      "eagleItemId": "MWCF3QSEMZT4N",
+      "eagleUrl": "eagle://item/MWCF3QSEMZT4N",
+      "name": "denver-broncos-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEMZT4N.info/denver-broncos-stadium-canonical.jpg",
+      "sha256": "c0ef3364b0e35f59aa5d196f6e6d98184c96a14fd506c6ba78cf5d13f871bdc3",
+      "width": 599,
+      "height": 360,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/BD88CF38-8F4E-4320-8ABA-9F35035E6CF3/2-Photo-2.jpg"
+    },
+    {
+      "team": "Detroit Lions",
+      "eagleItemId": "MWCF3QSEU5OPQ",
+      "eagleUrl": "eagle://item/MWCF3QSEU5OPQ",
+      "name": "detroit-lions-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSEU5OPQ.info/detroit-lions-stadium-canonical.jpg",
+      "sha256": "883b06d9e2fb1aa764cc4482abe440f5b878ce7e1e30e2ae6c0c3d1ac9e772a3",
+      "width": 1280,
+      "height": 720,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/BD88CF38-8F4E-4320-8ABA-9F35035E6CF3/3-Photo-3.jpg"
+    },
+    {
+      "team": "Jacksonville Jaguars",
+      "eagleItemId": "MWCF3QSE4OU82",
+      "eagleUrl": "eagle://item/MWCF3QSE4OU82",
+      "name": "jacksonville-jaguars-stadium-canonical",
+      "filePath": "/Volumes/HomeSSD/Content Editor.library/images/MWCF3QSE4OU82.info/jacksonville-jaguars-stadium-canonical.jpg",
+      "sha256": "6a879fa20c0701f1ef7afc28a24973f6bff6dca3e1fb8f93d07365734c522393",
+      "width": 1280,
+      "height": 720,
+      "sourceAttachment": "/tmp/codex-remote-attachments/01a1c730-69a2-78f3-8d57-fea9b10d6257/BD88CF38-8F4E-4320-8ABA-9F35035E6CF3/4-Photo-4.jpg"
+    }
+  ],
+  "missingTeamPolicy": "Flag the affected candidate: Stadium photo needed: TEAM. Keep the other candidates moving.",
+  "legacyPolicy": "Old templates may keep their images. No backfill. New candidate builds swap the team photo in episode copies. Old script updates and installed skill release do not block candidate review."
+}

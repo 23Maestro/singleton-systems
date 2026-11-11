@@ -1,5 +1,23 @@
 # Lineups corrections by lane and condition
 
+## team stadium backgrounds
+
+For new builds, use the selected team's canonical stadium photo in Figma and
+Blender. This November 11, 2026 rule replaces both generic Field Night photos.
+Use [team stadium photos](../../../../../docs/lineups-team-stadiums.md) and
+`config/lineups/team-stadiums.json`. Swap only the stadium image in episode
+copies. Keep the approved geometry, native motion, card surfaces and player
+photo treatments. Past source measurements remain historical proof.
+
+Old templates may keep their existing images. Use the new candidate build to
+swap in the team photo and flag `Stadium photo needed: TEAM` when none exists.
+Keep the other candidates moving. Backfill, old script updates and installed
+skill release do not block candidate review.
+
+For a score or matchup, use the team Mark is focused on. "The Steelers beat
+the Ravens 39-8" uses the Steelers stadium. This is a stadium fill swap in the
+existing comp style; it does not ask for a new layout or engine choice.
+
 Use this checklist before candidate selection, source retrieval, authoring and
 visual handoff. It records Jerami's corrections in the Chiefs chat
 `01a18967-0f3d-7101-b280-087d5e7a743f`. Later clarifications control earlier loose

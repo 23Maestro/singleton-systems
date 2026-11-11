@@ -31,8 +31,9 @@ Before placement, inspect a fresh 1920 x 1080 screenshot and confirm:
 - all episode values and art can be replaced without rebuilding the design.
 - Asset Swap, Simple and Full comparison player assets have real alpha and clean edges.
 - Cinematic 2-up has both full photos visible at the opening and the top-left title.
-- Asset Swap inherits the guarded background, geometry, layer order, crop
-  roles, and motion from the approved component.
+- Stadium layers use the correct team's canonical Eagle photo and checksum.
+  Asset Swap keeps the approved geometry, layer order, crop roles and motion;
+  its episode background image comes from the team stadium registry.
 
 Premiere placement waits until this gate passes.
 

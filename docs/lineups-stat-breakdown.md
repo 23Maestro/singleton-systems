@@ -1,5 +1,9 @@
 # Lineups stat breakdown
 
+This page records retired Unreal work. New builds use Figma or Blender and
+the [team stadium photos](lineups-team-stadiums.md). The generic background
+below describes the saved trial only.
+
 Lane 3 uses the installed Epic `FS_PlayerStats` scene. Mahomes is the review
 subject. The source config supports 3 or 4 stats. The native maps and sequences
 live under `/Game/Lineups/StatBreakdownV1` in `LineupsSportsTrial.uproject`.
@@ -27,7 +31,7 @@ Remove inherited soccer highlight actors and their sequence bindings.
 - Figma sources: `591:105` and `591:123` in `o7E24iymIT80MTXGYIogVH`.
 
 Keep photo RGB pixels unchanged; background removal changes alpha only. Keep
-the Field Night background, player, logo, text and stat card separately editable.
+the trial's Field Night background, player, logo, text and stat card separately editable.
 Store native assets in the complete external Unreal project. Keep an internal
 authored backup. Generated frames and videos stay on verified HomeSSD.
 

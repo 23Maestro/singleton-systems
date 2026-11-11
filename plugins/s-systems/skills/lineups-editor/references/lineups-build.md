@@ -73,11 +73,23 @@ Apply this at the first authorized Figma build; the review gates still apply.
 
 ## data-driven background
 
-In Figma, Stat breakdown, Simple and Full comparison, year-by-year, and recurring
-boards use Field Night without the football. A native Blender master keeps its own plate. Keep the background locked and separate
-from the editable artwork inside Figma. Bind its Figma node and image hash in
-the scene manifest and verify them in the mutation readback. Photo-led options
-keep their photos. Asset Swap keeps its football-visible Field Night background.
+New Figma and Blender stadium backgrounds use the selected team's canonical
+Eagle photo. Follow [team stadium photos](../../../../../docs/lineups-team-stadiums.md)
+and `config/lineups/team-stadiums.json`. This replaces both generic Field Night
+photos for new builds, including Asset Swap. Keep the approved layout, crop
+roles and native motion. Figma keeps the background locked and separate from
+artwork. Bind the team, Eagle ID, source checksum, Figma node and actual image
+hash; verify them in live readback. Blender binds the same source path and
+checksum. Photo-led options keep their photos. Past sources keep their proof.
+
+The new candidate build swaps the registered team photo in its episode copy.
+If no team photo exists, flag `Stadium photo needed: TEAM` on that candidate
+and keep the others moving. Old templates may keep their old images. Backfill,
+old script updates and installed skill release do not block candidate review.
+
+Set `focusTeam` from Mark's main point. "The Steelers beat the Ravens 39-8"
+uses the Steelers stadium. The Figma planners and Blender `fill.py` use the
+same registry lookup. This changes the stadium fill, not the scene route.
 
 ## motion engine
 
