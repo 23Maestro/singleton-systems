@@ -27,11 +27,11 @@ that distinction in mind before editing.
 
 ```bash
 npm run dev                 # Next.js dev server
-npm run build                # prebuild runs decision-maps:sync + check:cerebral, then next build
+npm run build                # prebuild checks release contracts, then next build
 npm run start
-npm run lint                 # next lint
-npm run typecheck            # tsc --noEmit (no test runner exists; treat this + lint as the check suite)
-npm test                     # runs the four check:* scripts below (no unit test framework in this repo)
+npm run lint                 # eslint .
+npm run typecheck            # tsc --noEmit
+npm test                     # repository contracts and Node tests
 ```
 
 Cerebral/system-contract drift checks (all pure Node scripts, no framework —
@@ -52,9 +52,8 @@ npm run visual-maps:build     # builds docs/visual-maps -> docs/visual-maps/dist
 npm run visual-maps:export-portfolio
 ```
 
-There is no single-file/single-test runner to target — these are whole-repo
-consistency checks. To iterate on one check, run its script directly, e.g.
-`node scripts/check-cerebral-drift.mjs`.
+For a focused check, use its package command or `node --test path/to/test.mjs`.
+Run `npm run verify` before a commit. The commands in `CODEX.md` are the source.
 
 Other scripts of note (`scripts/`): Remotion renders, Blender scene assembly,
 Google Apps Script (`clasp`) push/pull for `docs/harness/personal-ops-google-systems`
@@ -158,6 +157,10 @@ Canonical source: `docs/harness/writing-rules.md` (full deny-list, voice, and
 the client-repo hook payload). Pinned summary in `docs/harness/README.md` →
 Writing Rules.
 
+Read the source's `Writing for Jerami` and `Operational format` sections before
+writing to any app. They govern short reader summaries and full technical
+ticket detail. The review limit below applies only to the reader entry point.
+
 - Correction = edit instruction. A correction fixes the artifact silently. Never log, quote, or restate the correction itself in output.
 - No process commentary in deliverables. State facts and results only.
 - Caveman brevity, full grammar. Short sentences, plain verbs, concrete numbers.
@@ -189,3 +192,17 @@ Writing Rules.
   list, remember Linear enforces a query complexity cap (~10000) — see the
   comment above `lookupQuery` in `app/api/linear/inbox/route.ts` for why it's
   filtered.
+
+## Operations entry point
+
+Start at `docs/operations/README.md`. Read the matching service Lane for offers,
+audience, clients, growth and outreach. Use `development/README.md` for technical
+project routing. Client-record migration remains open until live reads pass.
+
+For website branding, offers, SEO and forms, read [Website](docs/website/README.md)
+and the matching Lane. Keep code in its current folders.
+
+Cerebral runs at session start, prompts, tool steps and closeout. Follow
+[the shared routing contract](CODEX.md#cerebral) and
+[writing rules](docs/harness/writing-rules.md). Codex and Claude use the same
+`.codex/hooks/cerebral_singleton_guard.py` through their own hook settings.

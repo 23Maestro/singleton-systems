@@ -118,8 +118,8 @@ function run(command, args, options = {}) {
   return options.capture ? result.stdout : "";
 }
 
-function runNpm(root, script) {
-  run("npm", ["run", script], { cwd: root });
+function runNpm(root, script, ...args) {
+  run("npm", ["run", script, ...args], { cwd: root });
 }
 
 export function assertInstalledPlugin(codexList, expectedVersion) {
@@ -218,11 +218,10 @@ export function main(argv = process.argv.slice(2)) {
 
     const listOutput = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
     assertInstalledPlugin(JSON.parse(listOutput), releaseVersion);
-    runNpm(root, "check:skills:installed");
+    runNpm(root, "check:skills:installed", "--", "--s-systems");
 
     const retained = assertCacheRetention(cacheRoot, releaseVersion, existingCaches);
     for (const version of retained) console.log(`retained cache ${version} for active tasks`);
-    runNpm(root, "check:skills:installed");
   } catch (error) {
     restoreFiles(manifestSnapshots);
     try {
@@ -238,7 +237,7 @@ export function main(argv = process.argv.slice(2)) {
       restoreMissingCaches(cacheRoot, cacheBackup, existingCaches);
       const rollbackList = run("codex", ["plugin", "list", "--json"], { cwd: root, capture: true });
       assertInstalledPlugin(JSON.parse(rollbackList), currentVersion);
-      runNpm(root, "check:skills:installed");
+      assertCacheRetention(cacheRoot, currentVersion, existingCaches);
     } catch (rollbackError) {
       throw new Error(`${error.message}\nRollback failed: ${rollbackError.message}`, { cause: error });
     }

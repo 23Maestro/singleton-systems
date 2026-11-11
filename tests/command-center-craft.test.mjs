@@ -1,3 +1,6 @@
+import { newSession } from "../lib/studio-session.ts";
+process.env.STUDIO_OWNER_KEY = "test-dashboard-owner-key-at-least-32-characters";
+const ownerCookie = "studio_owner=" + newSession();
 import {test, beforeEach} from 'node:test';
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
@@ -64,8 +67,8 @@ beforeEach(()=>{
   throw Error('Unexpected HTTP host');
  };
 });
-const post=(body,origin='https://dashboard.test')=>POST(new Request('https://dashboard.test/api/command-center',{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify(body)}));
-const snapshot=async()=> (await GET()).json();
+const post=(body,origin='https://dashboard.test')=>POST(new Request('https://dashboard.test/api/command-center',{method:'POST',headers:{cookie:ownerCookie,origin,'content-type':'application/json'},body:JSON.stringify(body)}));
+const snapshot=async()=> (await GET(new Request("https://dashboard.test/api/command-center", {headers:{cookie:ownerCookie}}))).json();
 
 test('Craft import, plan, reload and refresh retain one capture and one block',async()=>{
  assert.equal((await post({action:'craftRefresh'})).status,200);
@@ -122,7 +125,7 @@ test('local completion reaches Craft and a Craft reopen preserves the dashboard 
  const command={action:'inboxUpdate',id:item.id,expectedUpdatedAt:item.updatedAt,task:{status:'Done'}};
  assert.equal((await post(command)).status,403);
  assert.equal(craftWrites,0);
- const local=body=>POST(new Request('http://localhost:3117/api/command-center',{method:'POST',headers:{origin:'http://localhost:3117','content-type':'application/json'},body:JSON.stringify(body)}));
+ const local=body=>POST(new Request('http://localhost:3117/api/command-center',{method:'POST',headers:{cookie:ownerCookie,origin:'http://localhost:3117','content-type':'application/json'},body:JSON.stringify(body)}));
  assert.equal((await local({...command,expectedUpdatedAt:'2026-11-01T20:00:00Z'})).status,409);
  assert.equal(craftWrites,0);
  assert.equal((await local(command)).status,200);

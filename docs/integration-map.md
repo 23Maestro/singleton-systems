@@ -3,14 +3,14 @@
 ## Purpose
 
 Lean index for where work belongs. This file points to owner contracts; it does
-not repeat their logic.
+not repeat their logic. Start at the [operations guide](operations/README.md).
 
 ## Owner Map
 
 | Work | Owner | Contract |
 | --- | --- | --- |
 | Natural-language routing | Cerebral + Supabase registry | `config/cerebral-registry.json` + hook |
-| Development ideas, commands, active decisions | Linear | `Command + Ideas` and `Singleton Systems` |
+| Development ideas, commands, active decisions | Linear | `Command + Ideas` for capture; [project index](../development/README.md) for selected work |
 | AI Consulting tasks and project state | Asana | `AI Consulting` |
 | Content Editor tasks and project state | Asana | `Content Editor` |
 | Career tasks and job workflow state | Opportunity HQ | `opportunity-hq-updater` |

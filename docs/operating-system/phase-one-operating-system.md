@@ -1,4 +1,10 @@
-# Phase One Operating System
+# Earlier operating plan
+
+This is historical source, not current operating guidance. Use the
+[operations guide](../operations/README.md) for current owners, offers and routing.
+Workflow-cleanup outreach is shelved pending its process review. Keep useful
+history until its callers and final file disposition are reviewed.
+
 
 ## North Star
 
@@ -12,7 +18,7 @@ The working lane:
 
 This system exists to help Jerami stay organized, use Codex and skills on purpose, ship portfolio, and turn lived workflow experience into paid work.
 
-## Current Offer
+## Earlier offer
 
 One-line offer:
 
@@ -60,7 +66,7 @@ Purpose:
 
 Current source files:
 
-- `business/offer-and-audience.md`
+- [Current Lane offers](../operations/README.md)
 - `app/page.tsx`
 
 Use these skills when useful:

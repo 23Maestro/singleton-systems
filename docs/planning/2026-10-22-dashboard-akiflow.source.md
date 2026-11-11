@@ -79,9 +79,7 @@ The checked router resolves work categories from registry triggers. Closeout rem
 
 ### Recovered HQ planning flow
 
-The [Opportunity HQ updater prompt](/Users/singleton23/Documents/Development/singleton-systems/docs/opportunity-hq/updater-prompt.md) contains Mini-Project Plan Mode. It turns a goal into a parent task, actionable subtasks, blockers, first 1–3 priority unlocks, duration, status and suggested work date/shift. Its size labels range from Tiny through Large and Later. Its Focus Shift Export uses rough task durations to propose 3–5 realistic work blocks.
-
-Reuse that planning structure with the approved owners. The old prompt routes durable work to Notion and contains dated priority rules; those do not override the current Asana/Linear split. The vault search found no matching operating note beyond a bundled example file. The useful HQ source recovered here is the repository prompt.
+The earlier HQ planning flow grouped goals into tasks, blockers, estimates and work blocks. Current owners and lifecycle rules live in [Task systems](../agents/issue-tracker.md). Use those rules for implementation; the old Notion-first prompt has been retired.
 
 Proposed shared flow: capture the goal → plan small tasks and blockers → review estimates and capacity → save to the owning tracker → choose ready work for Today → time-block → load task context at entry → record results and remaining work at closeout. Budget hands-on time separately from tool runtime and external waiting. Automatic draft generation, task matching and calendar placement are separate decisions. Keep automation savings labeled as estimates until measured.
 
@@ -120,7 +118,7 @@ The task model and child-task model have no planning estimate field. The existin
 | Server actions and snapshots | `app/api/command-center/route.ts`, `lib/command-center.ts` |
 | Scheduling rules | `lib/command-center-schedule.ts` |
 | Asana adapter | `lib/command-center-asana.ts` |
-| Existing Akiflow notes | `docs/planning/2026-09-05-business-planner-interview.md`; `docs/planning/planning-idea-routing-research-pass.md`, “What Akiflow Gets Right” |
+| Existing Akiflow notes | `docs/planning/planning-idea-routing-research-pass.md`, “What Akiflow Gets Right” |
 
 ### Observed
 

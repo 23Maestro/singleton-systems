@@ -12,6 +12,10 @@ export const LANES = [
 export type Lane = (typeof LANES)[number] | "Unassigned";
 export type Contact = {
   id: number;
+  relationship_type?: "current_client" | "returning_client" | "new_prospect" | "unpaid_collaboration" | null;
+  service_lanes?: string[];
+  asana_url?: string | null;
+  outreach_url?: string | null;
   name: string;
   company: string | null;
   email: string | null;
@@ -27,6 +31,12 @@ export type Contact = {
   invoice_url: string | null;
   payment_note: string | null;
   source_url: string | null;
+};
+export type ClientInquiryRecord = {
+  id: string; contact_id: number; form: string; offer: string;
+  delivery_state: "pending" | "delivered" | "failed"; delivery_error: string | null;
+  submitted: { name: string; details: Record<string, unknown> };
+  audio_file_name: string | null; created_at: string;
 };
 export type Interaction = {
   id: string;
@@ -314,6 +324,7 @@ export async function listLinearWork(): Promise<WorkItem[]> {
 export async function commandCenterSnapshot() {
   const [
     contacts,
+    inquiries,
     interactions,
     blocks,
     drafts,
@@ -325,8 +336,9 @@ export async function commandCenterSnapshot() {
     inbox,
   ] = await Promise.allSettled([
     supabaseRest(
-      "contacts?select=id,name,company,email,phone,lane,status,relationship_context,notes,next_action,next_action_at,linear_project_id,invoice_url,payment_note,source_url,updated_at&order=name.asc",
+      "contacts?select=*&order=name.asc",
     ),
+    supabaseRest("client_inquiries?select=id,contact_id,form,offer,submitted,delivery_state,delivery_error,audio_file_name,created_at&order=created_at.desc&limit=200"),
     supabaseRest(
       "crm_interactions?select=id,contact_id,channel,summary,occurred_at,external_url&order=occurred_at.desc&limit=200",
     ),
@@ -373,6 +385,7 @@ export async function commandCenterSnapshot() {
   ];
   return {
     contacts: take(contacts, "Clients", [] as Contact[]) as Contact[],
+    inquiries: take(inquiries, "Client requests", [] as ClientInquiryRecord[]) as ClientInquiryRecord[],
     interactions: take(
       interactions,
       "Interactions",

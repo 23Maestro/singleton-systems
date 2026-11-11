@@ -33,6 +33,7 @@ import {
 import type {
   Block,
   Contact,
+  ClientInquiryRecord,
   Draft,
   Interaction,
   Lane,
@@ -58,6 +59,7 @@ import {
 
 type Snapshot = {
   contacts: Contact[];
+  inquiries?: ClientInquiryRecord[];
   interactions: Interaction[];
   blocks: Block[];
   plans?: TaskPlan[];
@@ -214,6 +216,8 @@ export default function CommandCenterApp() {
   const [taskView, setTaskView] = useState<TaskView>("all");
   const [railCollapsed, setRailCollapsed] = useState(false);
   const [clientDirectory, setClientDirectory] = useState(false);
+  const [clientGroup, setClientGroup] = useState("all");
+  const [clientLane, setClientLane] = useState("all");
   const [preferencesReady, setPreferencesReady] = useState(false);
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [error, setError] = useState("");
@@ -387,6 +391,10 @@ export default function CommandCenterApp() {
         if (taskViews.some(([id]) => id === saved.taskView)) setTaskView(saved.taskView);
       }
     } catch { /* View controls still work when storage is unavailable. */ }
+    const linkedContact = Number(new URLSearchParams(window.location.search).get("contact"));
+    if (Number.isSafeInteger(linkedContact) && linkedContact > 0) {
+      setSurface("clients"); setClientDirectory(true); setSelectedContact(linkedContact);
+    }
     setPreferencesReady(true);
   }, []);
   useEffect(() => {
@@ -525,6 +533,10 @@ export default function CommandCenterApp() {
   const work = snapshot?.work ?? [];
   const blocks = snapshot?.blocks ?? [];
   const contacts = snapshot?.contacts ?? [];
+  const listedContacts = contacts.filter((contact) =>
+    (clientGroup === "all" || contact.relationship_type === clientGroup) &&
+    (clientLane === "all" || (contact.service_lanes?.length ? contact.service_lanes : [contact.lane]).includes(clientLane)),
+  );
   const shownBlocks = blocks.map((block) =>
     preview && preview.id === block.id
       ? {
@@ -1709,14 +1721,24 @@ export default function CommandCenterApp() {
               </Button>
             </div>
             {!clientDirectory && <ClientBoard work={work} projects={snapshot.asanaProjects} onOpenTask={(item) => openBlock(item)} />}
+            {clientDirectory && <div className="cc-toolbar">
+              <label>Group <select aria-label="Client group" value={clientGroup} onChange={(event) => setClientGroup(event.target.value)}>
+                <option value="all">All contacts</option><option value="current_client">Current work</option>
+                <option value="returning_client">Returning or seasonal</option><option value="new_prospect">New prospects</option>
+                <option value="unpaid_collaboration">Unpaid collaborations</option>
+              </select></label>
+              <label>Lane <select aria-label="Client Lane" value={clientLane} onChange={(event) => setClientLane(event.target.value)}>
+                <option value="all">Both Lanes</option><option>Content Editor</option><option value="AI Consultant">AI Consulting</option>
+              </select></label>
+            </div>}
             {clientDirectory && <div className="cc-split cc-clients">
               <div className="cc-list">
-                {contacts.length === 0 && (
+                {listedContacts.length === 0 && (
                   <p className="cc-empty">
-                    No clients yet. Add the first real lead.
+                    No contacts in this view.
                   </p>
                 )}
-                {contacts.map((item) => (
+                {listedContacts.map((item) => (
                   <Button variant="ghost"
                     key={item.id}
                     className={`cc-client-row ${selectedContact === item.id ? "selected" : ""}`}
@@ -1795,6 +1817,8 @@ export default function CommandCenterApp() {
                       </div>
                     )}
                     <div className="cc-fact">
+                      {client.asana_url && <p><a href={client.asana_url} target="_blank" rel="noreferrer">Asana next action</a></p>}
+                      {client.outreach_url && <p><a href={client.outreach_url} target="_blank" rel="noreferrer">Outreach history</a></p>}
                       <span>Next action</span>
                       <strong>{client.next_action || "None set"}</strong>
                       <small>{shortDate(client.next_action_at)}</small>
@@ -1834,6 +1858,21 @@ export default function CommandCenterApp() {
                         <strong>—</strong>
                       )}
                       {client.payment_note && <p>{client.payment_note}</p>}
+                    </div>
+                    <div className="cc-fact">
+                      <h3>Recent requests</h3>
+                      {(snapshot.inquiries ?? []).filter((request) => request.contact_id === client.id).map((request) => (
+                        <details key={request.id} open>
+                          <summary>{String(request.submitted.details.offerLabel ?? request.offer)} · {request.delivery_state}</summary>
+                          <p>{shortDate(request.created_at)}</p>
+                          {request.delivery_error && <p role="status">{request.delivery_error}</p>}
+                          {Object.entries({ footage: "Footage", aiWish: "Request", helpfulContext: "Notes", sport: "Sport", purpose: "Reel use", deadline: "Needed by" }).map(([key,label]) => {
+                            const value = request.submitted.details[key];
+                            return typeof value === "string" && value ? <div key={key}><strong>{label}</strong><p>{value}</p></div> : null;
+                          })}
+                          {request.audio_file_name && <p>Voice memo: {request.audio_file_name}</p>}
+                        </details>
+                      ))}
                     </div>
                     <div className="cc-divider" />
                     <div className="cc-section-heading">

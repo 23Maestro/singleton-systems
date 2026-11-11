@@ -50,6 +50,11 @@ LikeC4       -> reviewed architecture
 
 ## Writing Rules
 
+Read [Writing for Jerami](writing-rules.md#writing-for-jerami) and
+[Operational format](writing-rules.md#operational-format) before app writes.
+They own the reader layout, app text tools and technical-ticket exception.
+The short review limit below applies to the reader entry point.
+
 Apply the prose rules to writing we author or rewrite for a reader: emails,
 Upwork proposals, documentation, reviews, and Asana or Linear updates. Keep
 sentences short and words plain. Preserve client-supplied words and verbatim
@@ -81,8 +86,8 @@ For SSystems skill or route work:
 2. Treat `plugins/s-systems` as the canonical source for all registered
    SSystems skills.
 3. Treat installed Codex and Claude plugin copies as generated outputs only.
-4. Keep Development work in the Linear `Singleton Systems` project. Keep AI
-   Consulting and Content Editor work in their matching Asana projects.
+4. Choose Development's Linear project from the [project index](../../development/README.md).
+   Keep AI Consulting and Content Editor outcomes in their matching Asana projects.
 5. Run `npm run check:cerebral:registry` before completion. It verifies the
    versioned repository skill paths before they are seeded to Supabase.
 6. Run `npm run check:skills` for every versioned skill. Run

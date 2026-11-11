@@ -1,14 +1,15 @@
 # Writing Rules
 
-Canonical source. Generated copies live in `CODEX.md`, `CLAUDE.md`, skill files, and client
-repo hooks. Never hand-edit a copy.
+Canonical source for writing across apps. Repository guides and skills link here.
+Keep app-specific rules here until an app needs a longer reference of its own.
+Generated client-repo hook payloads must come from this file; never hand-edit them.
 
 ## Scope
 
 Applies by default to all client-facing and internal prose we author or rewrite
 for a reader:
 
-Markdown and MDX, Linear issues and docs, Asana projects and tasks, Google Sheets
+Markdown and MDX, Linear issues and docs, Asana projects and tasks, Craft blocks, Google Sheets
 and other spreadsheet cell text, documents, GitHub commit and PR bodies, Notion,
 memory files, emails, cover letters, proposals, briefs, client handoffs,
 captions, site copy, public HTML/pages, visual/source notes, and review docs.
@@ -43,6 +44,11 @@ Do not mark our own analysis or rewrites as source material.
 
 ## Voice
 
+For service copy, write as Jerami, a solo operator. Name the client's work and
+next step. Separate what Jerami did from what the client did. Use the matching
+[operations Lane](../operations/README.md) for offers and audiences. Internal
+tests do not prove client results.
+
 Caveman brevity, full grammar. Short sentences. Plain verbs. Concrete numbers.
 Second person when addressing a reader.
 
@@ -68,9 +74,9 @@ Second person when addressing a reader.
 
 ## Human review limit
 
-Jerami's review surface should usually stay between 300 and 500 words. This is
-a judgment check, not a word-filling target. Use fewer words when the decision
-is simple.
+Jerami's review entry point should stay under 500 words. Most updates need far
+less. This limit applies to what Jerami must read to act or decide. It does not
+cap technical ticket details, test plans or linked evidence used for execution.
 
 If a review artifact truly needs more than 500 words, keep its written entry
 point short and create a dated interactive HTML map under
@@ -82,9 +88,9 @@ Raw transcripts, source records, and machine contracts may stay long. Keep
 them behind links. Jerami should see the decision, current truth, next action,
 and review gate first.
 
-For Linear, keep an issue body short enough to scan without scrolling when
-possible. Store the workflow in its owning skill or linked portfolio. Do not copy
-an operating manual into a task.
+For Linear, keep the title and opening summary easy to scan. Put needed build
+details below that summary or behind a clear link. Store reusable workflows in
+their owning skills. Keep each ticket's exact tests, blockers and finish checks.
 
 For Asana, names stay short. A project name is one to three words. A task name
 is two to four words, a verb plus the object (Book pilot call, Rank spec lanes).
@@ -92,17 +98,54 @@ Parent tasks follow the same limit. Put context, links, dates, and the next
 action in the description. The Linear link goes in the description, never the
 name.
 
+## Writing for Jerami
+
+Use this rule on every surface Jerami reads, including the dashboard. Match the
+app's own layout and text tools. A Linear example is not a template for all apps.
+
+- Give tasks and tickets short, plain names. Prefer a verb and its object.
+  Keep product and client names exact. Put implementation terms in the body.
+- Start with the result, decision or next action. Add only the context needed
+  to understand it. Make the current state clear without repeating the history.
+- Use short sections and space between blocks. Put one fact in each bullet.
+  Number steps that must happen in order. Aim for 5 or fewer items per section.
+- Use bold for a key name, result or action when it helps scanning. Use italics
+  for brief secondary context. Keep critical actions visible in normal text.
+  Formatting must help the reader find meaning; do not decorate every sentence.
+- Keep deeper sources behind named links. Show an attention estimate when it
+  helps planning; label estimates and unknowns. Never invent times or deadlines.
+
+Technical tickets still need enough detail to execute. TDD, tracer-bullet and
+ticket-driven skills keep their test seams, first slice, acceptance checks,
+blockers and completion signals. Use a simple name and opening summary for
+Jerami, then keep those details in the ticket or its linked source. Do not
+remove needed detail to hit a reading-level or word-count target.
+
 ## Operational format
 
-Linear and Asana descriptions should read like polished CLI help: clear title,
-grouped sections, short facts, and visible whitespace.
+Use the native text and block tools supported by the chosen app connection.
+Read its current tool schema or saved API reference before a write. These are
+app choices, not one universal Markdown template.
+
+| Surface | Write and verify |
+| --- | --- |
+| Linear | CommonMark headings, lists, links and selective emphasis. Keep the short name and summary above technical details. Read back the saved body. |
+| Asana | Supported HTML in `html_notes`, with a `<body>` root. Use sections, lists, links and emphasis. Read back both `notes` and `html_notes`. |
+| Craft | Use its blocks, headings, lists and links. Use supported Markdown within blocks or the documented Markdown input. Preserve block IDs; read back changed blocks. |
+| Notion | Use supported native blocks and rich text. Use headings, lists, links or toggles when they help. Read back the changed blocks; do not paste markup into plain text. |
+| Dashboard | Use existing UI sections, task links and details views. Keep labels and action text short. Check the rendered view when changing it. |
+| Sheets and other apps | Use the supported cells, links, fields and text tools. Keep short labels and clear rows. Plain text fields must stay readable without markup. |
+
+Readback proves saved content. Check the rendered view when available before
+claiming visual proof. If a writer only accepts plain text, use clear lines or
+a supported rich-text writer. Do not send formatting markers as visible text.
 
 - Draft valid CommonMark. Linear accepts it directly. A standalone document
   gets one `#` title. Use `##` for sections; omit the title when the native
   task title already owns the page.
 - Convert Asana drafts to supported HTML before writing `html_notes`. Wrap
   the content in `<body>`, escape text, and close every tag. Use `<h2>` for
-  sections, `<strong>` for smaller labels, `<ul>/<li>` for lists, `<a>` for
+  sections, `<strong>` and `<em>` for emphasis, `<ul>/<li>` for lists, `<a>` for
   links, and `<pre>` for code. `notes` is plain text, not a Markdown renderer.
   Send only one description field. Read back both fields after writing.
   Use subtasks for actionable work; literal `- [ ]` is not a task control.
@@ -165,19 +208,20 @@ commence, demonstrate, additionally, enhance.
 
 **Puffery.** "marking a pivotal moment", "nestled in the heart of".
 
-**Formatting.** `**Thing**: explanation` as a list header. Boldface scattered
-through body text. Title Case In Headings. Em dashes on more than ~30% of
+**Formatting.** `**Thing**: explanation` as a list header. Decorative boldface
+scattered through body text; useful emphasis follows Writing for Jerami above.
+Title Case In Headings. Em dashes on more than ~30% of
 sentences.
 
 ## Hook payload
 
 Copy this block verbatim into a client repo at `.claude/writing-rules.md`.
-Fires on `UserPromptSubmit` via `cat`. Keep it near 150 tokens.
+Fires on `UserPromptSubmit` via `cat`. Keep it focused on the rules needed at entry.
 
 ```text
 Writing rules — apply by default to client-facing and internal prose we author
 or rewrite for a reader: Markdown, Linear docs, Asana tasks, Google Sheets and
-other spreadsheet cell text, documents, GitHub and Notion copy, memory, emails,
+other spreadsheet cell text, Craft blocks, documents, GitHub and Notion copy, memory, emails,
 cover letters, proposals, briefs, handoffs, captions, site copy, public HTML/pages,
 and visual/source notes. Not to source code, schemas, generated bundles, code
 blocks, or conversation.
@@ -206,9 +250,19 @@ Rewrite drafts only when requested; preserve facts, scope, attribution, sequence
 dates and names.
 Swap test hooks and site copy: if another company could reuse a line unchanged,
 make it specific or delete it.
+Jerami's surfaces: simple names, a clear result or next action, short sections.
+Use each app's own blocks, lists, links and text tools. Use bold for key names
+or actions and italics for brief secondary context when useful. Avoid decoration.
+Technical tickets keep the build detail, TDD seams, tests, blockers and finish
+checks needed to execute. The short title and summary are for Jerami; deeper
+details belong below them or in linked sources. Do not flatten technical tickets.
 Linear: CommonMark headings, bullets, fenced code, and blank lines.
 Asana: convert drafts to supported HTML in `html_notes`, wrapped in `<body>`.
 `notes` is plain text. Read back both fields. Emit real line breaks.
+Craft: use supported blocks and Markdown; preserve IDs and read back changes.
+Notion: use supported blocks and rich text; read back changes.
+Dashboard and other apps: use native fields and layout. Keep plain text readable
+without markup. Saved content alone does not prove the rendered layout.
 Updates state what changed, what is blocked or failed, and what comes next.
 
 Banned: delve, tapestry, testament, underscore, pivotal, crucial, meticulous,
@@ -222,6 +276,7 @@ headers, Title Case Headings.
 
 Short sentences. Plain verbs. Concrete numbers. Take the stance.
 Jerami review: aim for 300-500 words maximum. Use fewer when possible.
+This caps the review entry point, not required technical ticket details.
 If more is needed, create a dated interactive Decision Map and keep the written
 entry point short. Do not paste an operating manual into Linear.
 ```

@@ -11,10 +11,21 @@ chat. Creating a plan does not start agents or background work.
 
 ## Intake
 
+Apply the shared writing rules supplied by Cerebral or the repository guide.
+Use plain, third-grade names and reader summaries, with the app's own blocks
+and text tools. Preserve the technical detail needed for TDD, test seams,
+blockers and finish checks in Linear or its linked source.
+
 Read the selected task, its discussion and source links before planning new
 work. Match an existing record by outcome and project. Ask when the match is
 unclear. Use Linear for Development, Asana for Content Editor and AI Consulting.
 Keep unselected thoughts in their capture surface.
+
+Use the project index linked by CODEX.md to choose the exact Linear project ID.
+Singleton Operations owns shared tools; Service Builds owns distinct builds for
+editing or consulting; Software Tools owns standalone apps. Keep growth posts,
+SEO research and outreach in the service Lane. Link a service build both ways
+to its short Asana outcome. Actor labels do not choose the Lane or task status.
 
 Ask for a real due date when it is unknown. Reuse a clear answer already in the
 chat or task. “No deadline” means no due date. A day chosen to work on the task

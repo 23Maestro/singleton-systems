@@ -27,13 +27,13 @@ if (base) {
     "/api/fitness/session", "/api/finances/session", "/api/command-center/session",
   ]) {
     const response = await fetch(new URL(route, base), { signal: AbortSignal.timeout(45000) });
-    assert.equal(response.status, 200, `${route} must open without a cookie`);
+    assert.equal(response.status, route === "/api/command-center" ? 401 : 200, `${route} access must match its owner rule`);
     assert.equal(response.headers.get("set-cookie"), null, `${route} must not require a login cookie`);
     if (route.startsWith("/api/")) {
       const data = await response.json();
       assert.ok(data && typeof data === "object", `${route} must return data`);
-      if (route.endsWith("/session")) assert.equal(data.access, "open");
+      if (route.endsWith("/session")) assert.equal(data.access, route === "/api/command-center/session" ? "private" : "open");
     }
-    console.log(`PASS ${route}: 200 without cookies`);
+    console.log(`PASS ${route}: ${response.status} without cookies`);
   }
 }

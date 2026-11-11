@@ -109,11 +109,15 @@ Write selected AI Consulting and Content Editor work to Asana.
 
 ## Writing Rules
 
+Apply the shared writing rules supplied by Cerebral or the repository guide.
+Use plain, third-grade names and summaries, with each app's own text tools.
+The short reader summary below does not cap technical details for execution.
+
 Correction = edit instruction. A correction fixes the artifact silently. Never
 log, quote, or restate the correction itself in output.
 No process commentary in deliverables. State facts and results only.
 
-Keep each task to the outcome, current truth, next action, and done check. Link
+Start each task with the outcome, current truth, next action, and done check. Link
 the owning workflow or portfolio. Do not paste the workflow into the task. Use
 a dated interactive Decision Map when Jerami's review needs more than 500 words.
 

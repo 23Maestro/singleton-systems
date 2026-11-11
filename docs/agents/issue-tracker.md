@@ -1,6 +1,7 @@
 # Task systems
 
-Singleton Systems uses task systems by Lane.
+Singleton Systems uses task systems by Lane. Start at the
+[operations guide](../operations/README.md) and [project index](../../development/README.md).
 
 ## Ownership
 
@@ -10,7 +11,9 @@ Singleton Systems uses task systems by Lane.
 - GitHub holds linked implementation evidence such as branches, commits, and
   pull requests.
 - GitHub Issues do not duplicate Linear or Asana tasks.
-- Notion owns client and portfolio records.
+- Supabase is the chosen client-record home. The real-record move and Notion
+  intake cutover remain open in 23M-407. Preserve legacy records until verified.
+- Eagle owns portfolio assets; keep claims linked to their source evidence.
 - Supabase holds integration receipts and temporary drafts when needed.
 
 ## Asana
@@ -33,6 +36,11 @@ Use the `singleton-systems.com` workspace.
   section.
 
 ## Development workflow
+
+Use [Writing for Jerami](../harness/writing-rules.md#writing-for-jerami) for
+task names and reader summaries, and its app rules for saved formatting.
+Keep technical tests, blockers, build steps and finish checks in the ticket or
+linked source. The short review limit does not cap those execution details.
 
 - `Backlog`: captured but not accepted.
 - `Todo`: accepted and unclaimed.

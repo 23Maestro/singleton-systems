@@ -1,3 +1,6 @@
+import { newSession } from "../lib/studio-session.ts";
+process.env.STUDIO_OWNER_KEY = "test-dashboard-owner-key-at-least-32-characters";
+const ownerCookie = "studio_owner=" + newSession();
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
@@ -19,12 +22,12 @@ globalThis.fetch=async(input,init={})=>{
  if(u.host==='api.linear.app'){if(JSON.parse(init.body).query.includes('mutation'))throw Error('A capture must not write to Linear');return Response.json({data:{issues:{nodes:[],pageInfo:{hasNextPage:false}}}});}
  throw Error('Unexpected HTTP');
 };
-const post=(body)=>POST(new Request('https://dashboard.test/api/command-center',{method:'POST',headers:{origin:'https://dashboard.test','content-type':'application/json'},body:JSON.stringify(body)}));
+const post=(body)=>POST(new Request('https://dashboard.test/api/command-center',{method:'POST',headers:{cookie:ownerCookie,origin:'https://dashboard.test','content-type':'application/json'},body:JSON.stringify(body)}));
 test('a title-only Inbox capture survives readback and retry without an owner destination',async()=>{
  const body={action:'inboxCreate',id:'ab6ad6ca-1ea2-4f50-9dad-4213aa146bd7',title:'Clean kitchen'};
  assert.equal((await post(body)).status,200);
  assert.equal((await post(body)).status,200);
- const snapshot=await(await GET()).json();
+ const snapshot=await(await GET(new Request("https://dashboard.test/api/command-center", {headers:{cookie:ownerCookie}}))).json();
  const captures=snapshot.work.filter(t=>t.owner==='dashboard');
  assert.equal(captures.length,1);
  assert.equal(captures[0].title,'Clean kitchen');

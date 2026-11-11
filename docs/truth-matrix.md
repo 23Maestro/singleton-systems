@@ -4,11 +4,12 @@
 
 | Truth type | Owner | Notes |
 | --- | --- | --- |
-| System capture, decisions, commands, active next moves | Linear | `Command + Ideas` for intake; `Singleton Systems` for larger work. |
+| System capture, decisions, commands, active next moves | Linear | `Command + Ideas` for intake; [project index](../development/README.md) for selected work. |
 | Career task state and job workflow | Opportunity HQ | Keep its durable lane/status model until a separately approved migration. |
 | Development Wayfinder maps and active work | Linear | The map and its sub-issues own Development planning state. |
 | AI Consulting and Content Editor maps and active work | Asana | The parent task and subtasks own Lane planning state. |
 | Branches, commits, pull requests, and implementation history | GitHub | Link evidence to the owning Linear or Asana task; do not mirror status. |
+| Client and prospect records | Supabase, chosen home | Real-record move and Notion intake cutover remain open in [23M-407](https://linear.app/23maestro/issue/23M-407). |
 | Queryable events, routing registry, cross-surface reporting | Supabase | Facts only; never copy whole ticket bodies or prompt templates. |
 | Portfolio assets, screenshots, clips, examples | Eagle | Files and visual evidence live here. |
 | Home-task state | Apps Script | Keep home operations separate while the task list remains small. |

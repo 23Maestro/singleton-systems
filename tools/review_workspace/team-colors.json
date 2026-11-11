@@ -1,0 +1,165 @@
+{
+  "source": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams",
+  "teams": [
+    {
+      "name": "Arizona Cardinals",
+      "color": "#a40227",
+      "alternateColor": "#ffffff"
+    },
+    {
+      "name": "Atlanta Falcons",
+      "color": "#a71930",
+      "alternateColor": "#000000"
+    },
+    {
+      "name": "Baltimore Ravens",
+      "color": "#29126f",
+      "alternateColor": "#000000"
+    },
+    {
+      "name": "Buffalo Bills",
+      "color": "#00338d",
+      "alternateColor": "#d50a0a"
+    },
+    {
+      "name": "Carolina Panthers",
+      "color": "#0085ca",
+      "alternateColor": "#000000"
+    },
+    {
+      "name": "Chicago Bears",
+      "color": "#0b1c3a",
+      "alternateColor": "#e64100"
+    },
+    {
+      "name": "Cincinnati Bengals",
+      "color": "#fb4f14",
+      "alternateColor": "#000000"
+    },
+    {
+      "name": "Cleveland Browns",
+      "color": "#472a08",
+      "alternateColor": "#ff3c00"
+    },
+    {
+      "name": "Dallas Cowboys",
+      "color": "#002a5c",
+      "alternateColor": "#b0b7bc"
+    },
+    {
+      "name": "Denver Broncos",
+      "color": "#0a2343",
+      "alternateColor": "#fc4c02"
+    },
+    {
+      "name": "Detroit Lions",
+      "color": "#0076b6",
+      "alternateColor": "#bbbbbb"
+    },
+    {
+      "name": "Green Bay Packers",
+      "color": "#204e32",
+      "alternateColor": "#ffb612"
+    },
+    {
+      "name": "Houston Texans",
+      "color": "#021018",
+      "alternateColor": "#eb0028"
+    },
+    {
+      "name": "Indianapolis Colts",
+      "color": "#003b75",
+      "alternateColor": "#ffffff"
+    },
+    {
+      "name": "Jacksonville Jaguars",
+      "color": "#007487",
+      "alternateColor": "#d7a22a"
+    },
+    {
+      "name": "Kansas City Chiefs",
+      "color": "#e31837",
+      "alternateColor": "#ffb612"
+    },
+    {
+      "name": "Las Vegas Raiders",
+      "color": "#000000",
+      "alternateColor": "#a5acaf"
+    },
+    {
+      "name": "Los Angeles Chargers",
+      "color": "#0080c6",
+      "alternateColor": "#ffc20e"
+    },
+    {
+      "name": "Los Angeles Rams",
+      "color": "#003594",
+      "alternateColor": "#ffd100"
+    },
+    {
+      "name": "Miami Dolphins",
+      "color": "#008e97",
+      "alternateColor": "#fc4c02"
+    },
+    {
+      "name": "Minnesota Vikings",
+      "color": "#4f2683",
+      "alternateColor": "#ffc62f"
+    },
+    {
+      "name": "New England Patriots",
+      "color": "#002a5c",
+      "alternateColor": "#c60c30"
+    },
+    {
+      "name": "New Orleans Saints",
+      "color": "#d3bc8d",
+      "alternateColor": "#000000"
+    },
+    {
+      "name": "New York Giants",
+      "color": "#003c7f",
+      "alternateColor": "#c9243f"
+    },
+    {
+      "name": "New York Jets",
+      "color": "#115740",
+      "alternateColor": "#ffffff"
+    },
+    {
+      "name": "Philadelphia Eagles",
+      "color": "#06424d",
+      "alternateColor": "#000000"
+    },
+    {
+      "name": "Pittsburgh Steelers",
+      "color": "#000000",
+      "alternateColor": "#ffb612"
+    },
+    {
+      "name": "San Francisco 49ers",
+      "color": "#aa0000",
+      "alternateColor": "#b3995d"
+    },
+    {
+      "name": "Seattle Seahawks",
+      "color": "#002a5c",
+      "alternateColor": "#69be28"
+    },
+    {
+      "name": "Tampa Bay Buccaneers",
+      "color": "#bd1c36",
+      "alternateColor": "#3e3a35"
+    },
+    {
+      "name": "Tennessee Titans",
+      "color": "#4495d2",
+      "alternateColor": "#001532"
+    },
+    {
+      "name": "Washington Commanders",
+      "color": "#5a1414",
+      "alternateColor": "#ffb612"
+    }
+  ]
+}

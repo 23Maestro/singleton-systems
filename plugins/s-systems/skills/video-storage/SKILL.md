@@ -79,6 +79,22 @@ and irreplaceable source. Review superseded renders and comparison frames by
 exact path. Never delete source, active media, or editor-linked files solely
 because they are large or old.
 
+## 14-Day Review
+
+Every 14 days, inventory generated-media candidates by exact path and size.
+Check project and task state, workflow references, editor links, open processes,
+and whether a verified replacement or durable original exists. Identify reusable
+examples and their existing home before proposing cleanup. Keep reusable workflow
+source in Git and route replaceable media to the matching HomeSSD client/type
+directory. Use `dev-storage` for developer caches and worktrees. Use Jev to rank
+explicit, evidence-backed options and Graphify only for scoped code relationships
+when its output storage gate passes. Neither tool establishes deletion safety.
+
+Report each candidate's purpose, dependencies, size, proposed home or disposal,
+and unknowns. Preserve source, active work, approved exports, milestones and
+uncertain files. Obtain explicit approval for exact paths before retiring existing
+copies. After approved cleanup, measure the actual free-space change.
+
 Report the verified volume, chosen client/type path, files kept in Git, durable
 source location, exceptions, and any migration or retirement still awaiting
 approval.

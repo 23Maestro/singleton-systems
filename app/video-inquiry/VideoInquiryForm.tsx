@@ -1,14 +1,17 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState, useSyncExternalStore, type FormEvent } from "react";
+import { useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { VIDEO_OFFERS, isVideoOffer, videoOffer } from "@/lib/video-offers";
+
+import { prepareInquiryRequest, type InquiryAttempt } from "@/lib/inquiry-request";
 
 const subscribe = () => () => {};
 
 export default function VideoInquiryForm() {
   const requested = useSearchParams().get("offer");
   const preview = useSyncExternalStore(subscribe, () => window.location.hostname.endsWith(".chatgpt.site"), () => false);
+  const attempt = useRef<InquiryAttempt | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
   const [receipt, setReceipt] = useState("");
@@ -16,6 +19,7 @@ export default function VideoInquiryForm() {
     event.preventDefault();
     const form = event.currentTarget;
     const input = new FormData(form);
+    attempt.current = prepareInquiryRequest(input, attempt.current);
     const selected = input.get("offer");
     setStatus("sending");
     setError("");

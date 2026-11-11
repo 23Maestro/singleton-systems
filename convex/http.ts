@@ -3,6 +3,8 @@ import { httpAction } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { taskRequestHttp } from "./taskRequestHttp";
 import { videoReviewHttp } from "./videoReviewHttp";
+import { studioProjectHttp } from "./studioProjectHttp";
+import { studioAssetHttp } from "./studioAssetHttp";
 const http = httpRouter();
 const route = httpAction(async (ctx, request) => {
   const token = process.env.FITNESS_BACKEND_TOKEN;
@@ -40,4 +42,8 @@ http.route({ path: "/task-requests", method: "POST", handler: taskRequestHttp })
 http.route({ path: "/video-reviews", method: "GET", handler: videoReviewHttp });
 http.route({ path: "/video-reviews", method: "POST", handler: videoReviewHttp });
 http.route({ path: "/video-review-uploads", method: "POST", handler: videoReviewHttp });
+http.route({ path: "/studio-projects", method: "GET", handler: studioProjectHttp });
+http.route({ path: "/studio-projects", method: "POST", handler: studioProjectHttp });
+http.route({ path: "/studio-assets", method: "GET", handler: studioAssetHttp });
+http.route({ path: "/studio-assets", method: "POST", handler: studioAssetHttp });
 export default http;

@@ -22,23 +22,56 @@ class PreviewBuildTest(unittest.TestCase):
                      'option': 'quick action photo', 'duration': 4.52, 'anchor': 1,
                      'time': '00:01–00:05.52', 'reason': 'Original plan', 'setting': '1920 × 1080',
                      'primaryEngine': 'Figma Motion'}
-        data = {'episodeId': '2026-11-03-nfl-week-9-power-rankings', 'cueMapSha256': sha,
+        data = {'episodeId': '2026-11-10-nfl-week-10-power-rankings', 'cueMapSha256': sha,
                 'candidates': [candidate], 'postScenes': []}
         (packet / 'index.html').write_text('<script>const reviewData=' + json.dumps(data) + ';</script>')
         return packet, data
 
     @patch('tools.review_workspace.build.subprocess.run')
-    def test_w9_packet_keeps_identity_and_uses_verified_frame_rate(self, _gate):
+    def test_packet_keeps_identity_and_uses_verified_frame_rate(self, _gate):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             packet, _ = self.packet(root)
-            result = build(packet, root / 'dist')
+            result = build(packet, root / 'dist', title='Week 10 Power Rankings')
             published = json.loads((root / 'dist/packet.json').read_text())
             self.assertEqual(published['episodeId'], result['episodeId'])
             self.assertEqual(published['scenes'][0]['id'], 'P01')
             self.assertEqual(published['fps'], 25)
-            self.assertEqual(published['referenceLabel'], 'Week 9')
-            self.assertEqual(published['intake'], 'W9 review')
+            self.assertEqual(published['referenceLabel'], 'Week 10')
+            self.assertEqual(published['title'], 'Week 10 Power Rankings')
+            self.assertNotIn('intake', published)
+
+    @patch('tools.review_workspace.build.subprocess.run')
+    def test_finished_still_is_artwork_and_empty_source_link_is_omitted(self, _gate):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet, data = self.packet(root)
+            still = packet / 'assets/final.jpg'
+            still.write_bytes(b'review still')
+            data['postScenes'] = [{'id': 'P01', 'sourceUrl': '', 'preview': {
+                'image': 'assets/final.jpg', 'kind': 'image', 'sha256': hashlib.sha256(still.read_bytes()).hexdigest(),
+            }}]
+            (packet / 'index.html').write_text('<script>const reviewData=' + json.dumps(data) + ';</script>')
+            scene = build(packet, root / 'dist')['scenes'][0]
+            self.assertIsNone(scene['sourceUrl'])
+            self.assertEqual(scene['versions'][-1]['stage'], 'Artwork')
+
+    @patch('tools.review_workspace.build.subprocess.run')
+    def test_rank_plan_and_source_photo_are_distinct_versions(self, _gate):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet, data = self.packet(root)
+            photo = packet / 'assets/photo.jpg'
+            photo.write_bytes(b'source photo')
+            data['candidates'][0].update({'title':'#8 Cincinnati Bengals','lane':'recurring board',
+                'copy':'8. CINCINNATI BENGALS','images':[{'image':'assets/photo.jpg'}]})
+            (packet / 'index.html').write_text('<script>const reviewData=' + json.dumps(data) + ';</script>')
+            scene = build(packet, root / 'dist')['scenes'][0]
+            self.assertEqual(scene['presentation']['headline'], 'Cincinnati Bengals')
+            self.assertEqual(scene['presentation']['background'], '#fb4f14')
+            self.assertEqual(scene['versions'][-1]['kind'], 'plan')
+            self.assertEqual(scene['versions'][0]['label'], 'Source photo')
+            self.assertNotEqual(scene['thumbnail'], scene['versions'][0]['url'])
 
     @patch('tools.review_workspace.build.subprocess.run')
     def test_studio_base_path_keeps_relative_assets_under_the_public_route(self, _gate):
@@ -47,6 +80,11 @@ class PreviewBuildTest(unittest.TestCase):
             packet, _ = self.packet(root)
             build(packet, root / 'dist', '/studio/')
             self.assertIn('<base href="/studio/">', (root / 'dist/index.html').read_text())
+            self.assertIn('Opening Studio', (root / 'dist/index.html').read_text())
+            self.assertNotIn('type="password"', (root / 'dist/index.html').read_text())
+            self.assertIn('Opening review', (root / 'dist/review.html').read_text())
+            for client in ['Catena Media', 'Intent Solutions', 'Singleton Systems']:
+                self.assertIn(client, (root / 'dist/index.html').read_text())
             with self.assertRaisesRegex(ValueError, 'base path'):
                 build(packet, root / 'invalid', 'https://example.com/')
             self.assertFalse((root / 'invalid').exists())

@@ -98,7 +98,7 @@ FIGMA_WORK_TOOLS = {
 LINEUPS_FIGMA_FILE_KEY = "o7E24iymIT80MTXGYIogVH"
 CLAUSE_RE = re.compile(r"\bclause\b|claude-specific|claude naming|claude code", re.I)
 ARTIFACT_KIND_RE = (
-    r"(?:markdown|mdx|linear(?:\s+(?:issue|doc|document))?|asana|"
+    r"(?:markdown|mdx|linear(?:\s+(?:issue|doc|document))?|asana|craft|notion|dashboard|"
     r"(?:google\s+)?sheets?|spreadsheets?|documents?|"
     r"emails?|cover\s+(?:letters?|notes?)|proposals?|briefs?|handoffs?|"
     r"(?:public\s+)?(?:html|pages?|sites?|websites?)|captions?|bios?|"
@@ -916,7 +916,7 @@ def emit_block(message):
 
 
 def public_output_requested(text, routes=None):
-    public_routes = {"offer-content", "agency-growth", "freelance-proposal", "cover-note", "website-offer"}
+    public_routes = {"offer-content", "agency-growth", "freelance-proposal", "cover-note", "website-offer", "website-editing", "website-consulting"}
     if any((route.get("route_key") or "") in public_routes for route in routes or []):
         return True
     text = text or ""

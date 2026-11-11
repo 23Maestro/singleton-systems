@@ -1,16 +1,112 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-type="software">
 <head>
   <base href="/studio/">
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="dark"><title>Studio | Singleton Systems</title>
-  <meta name="description" content="Review Lineups scenes, play exports and leave frame notes.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <meta name="robots" content="noindex,nofollow">
-  <link rel="stylesheet" href="review.css">
+  <meta name="referrer" content="no-referrer">
+  <meta name="page-type" content="software">
+  <meta name="site-kind" content="software">
+  <meta name="description" content="Open edits and review scenes by client in Studio.">
+  <meta name="theme-color" content="#141618">
+  <title>Studio | Singleton Systems</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font: 16px/1.55 Poppins, system-ui, sans-serif;
+      background: #141618;
+      color: #f4f2ed;
+      --rule: #383b3e;
+      --muted: #bcbdbb;
+      --accent: #f4cd8e;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; }
+    .wrap { width: min(100% - clamp(36px, 10vw, 144px), 1260px); margin-inline: auto; }
+    header { border-bottom: 1px solid var(--rule); }
+    header .wrap { display: flex; justify-content: space-between; gap: 12px; padding-block: 18px; }
+    header span { color: var(--muted); }
+    .workspace { min-height: calc(100svh - 62px); padding-block: clamp(38px, 7vw, 96px) 56px; }
+    .heading { margin-bottom: 30px; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(38px, 6vw, 68px); letter-spacing: -.05em; line-height: 1.04; font-weight: 650; }
+    h2 { font-size: 20px; font-weight: 650; }
+    h3 { font-size: 16px; font-weight: 650; overflow-wrap: anywhere; }
+    .muted { color: var(--muted); }
+    #intro { margin-top: 12px; }
+    .skip { position: absolute; top: 8px; left: max(18px, calc((100% - 1260px) / 2)); transform: translateY(-150%); }
+    .skip:focus { transform: none; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); align-items: start; gap: 18px; padding-block: 20px; border-bottom: 1px solid var(--rule); }
+    .clients { border-top: 1px solid var(--rule); }
+    .project + .project { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--rule); }
+    .project:target { border-left: 2px solid var(--accent); padding-left: 14px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; }
+    .field { display: grid; gap: 6px; min-width: 0; }
+    label { font-size: 14px; }
+    form { display: grid; gap: 14px; }
+    #create { grid-template-columns: repeat(2, minmax(0, 1fr)); padding-block: 16px; }
+    details { margin-top: 20px; }
+    summary { cursor: pointer; min-height: 44px; align-content: center; width: fit-content; }
+    button, input, select, .action { font: inherit; min-height: 44px; border-radius: 5px; }
+    input, select { width: 100%; padding: 8px 10px; border: 1px solid #616468; background: #1c1f21; color: inherit; }
+    button, .action { width: fit-content; padding: 8px 14px; border: 1px solid #646769; background: #222527; color: inherit; cursor: pointer; transition: background 140ms, transform 140ms; }
+    button:hover, .action:hover { background: #36393c; transform: translateY(-2px); }
+    button:active, .action:active { transform: none; }
+    button:disabled { opacity: .55; cursor: default; }
+    .primary { background: var(--accent); border-color: var(--accent); color: #20180d; font-weight: 650; }
+    .primary:hover { background: #ffe0ae; }
+    .action { display: inline-flex; align-items: center; text-decoration: none; }
+    #message { color: var(--accent); margin-block: 12px; }
+    .heading { animation: enter 260ms ease-out both; }
+    @keyframes enter { from { opacity: 0; transform: translateY(6px); } }
+    @media (max-width: 560px) {
+      .row, #create { grid-template-columns: 1fr; gap: 10px; }
+      header .wrap { font-size: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .heading { animation: none; }
+      button, .action { transition: none; }
+      button:hover, .action:hover { transform: none; }
+    }
+  </style>
 </head>
 <body>
-  <div id="app"><p class="loading">Opening review…</p></div>
-  <div id="message" role="status" aria-live="polite"></div>
-  <script type="module" src="app.mjs"></script>
+  <header class="nav">
+    <a class="skip action" href="#main">Skip to projects</a>
+    <div class="wrap"><strong>Studio</strong><span>Singleton Systems</span></div>
+  </header>
+  <main id="main">
+    <section class="workspace hero" data-enter aria-labelledby="studio-title">
+      <div class="wrap">
+        <div class="hero-text">
+        <div class="heading">
+          <h1 id="studio-title">Video projects</h1>
+          <p id="intro" class="muted">Opening Studio…</p>
+        </div>
+        <p id="message" role="status" aria-live="polite"></p>
+        <div class="clients" id="clients" hidden>
+          <section class="row" data-client="Catena Media"><h2>Catena Media</h2><div class="edits"></div></section>
+          <section class="row" data-client="Intent Solutions"><h2>Intent Solutions</h2><div class="edits"></div></section>
+          <section class="row" data-client="Singleton Systems"><h2>Singleton Systems</h2><div class="edits"></div></section>
+        </div>
+        <details id="projects" hidden>
+          <summary>Add a project</summary>
+          <form id="create">
+            <div class="field"><label for="client">Client</label><select id="client"><option>Catena Media</option><option>Intent Solutions</option><option>Singleton Systems</option></select></div>
+            <div class="field"><label for="title">Project name</label><input id="title" maxlength="120" required></div>
+            <div class="field"><label for="owner">Task app</label><select id="owner"><option value="">None</option><option value="asana">Asana</option><option value="linear">Linear</option></select></div>
+            <div class="field"><label for="task">Task ID</label><input id="task" maxlength="160"></div>
+            <button class="primary">Create project</button>
+          </form>
+        </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="studio-home.mjs"></script>
 </body>
 </html>

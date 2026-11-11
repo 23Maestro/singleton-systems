@@ -16,3 +16,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+Cerebral runs at session start, prompts, tool steps and closeout. Follow
+[the shared routing contract](CODEX.md#cerebral) and
+[writing rules](docs/harness/writing-rules.md). Codex and Claude use the same
+`.codex/hooks/cerebral_singleton_guard.py` through their own hook settings.

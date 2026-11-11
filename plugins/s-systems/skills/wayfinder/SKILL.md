@@ -158,6 +158,10 @@ Resolve no more than one ticket per session.
 
 ## Writing Rules
 
+Apply the shared writing rules supplied by Cerebral or the repository guide.
+Use plain, third-grade names and summaries, with each app's own text tools.
+Keep technical ticket detail below the short summary or in linked sources.
+
 Correction = edit instruction. Fix the artifact silently; never log, quote, or
 restate the correction itself. No process commentary in deliverables. State
 facts and results only.

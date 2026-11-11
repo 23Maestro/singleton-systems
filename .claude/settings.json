@@ -1,0 +1,62 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(?:apply_patch|Edit|Write|Bash|exec_command|mcp__codex_apps__figma_(?:use_figma|weave_run_tool|export_video))$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/cerebral_singleton_guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,3 +1,6 @@
+import { newSession } from "../lib/studio-session.ts";
+process.env.STUDIO_OWNER_KEY = "test-dashboard-owner-key-at-least-32-characters";
+const ownerCookie = "studio_owner=" + newSession();
 import { test, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import { build } from "esbuild";
@@ -5,7 +8,7 @@ import { mkdir } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 import path from "node:path";
 
-// Public route handlers, with only external HTTP replaced. No production credentials.
+// Owner route handlers, with only external HTTP replaced. No production credentials.
 Object.assign(process.env, { SUPABASE_URL: "https://test.supabase.invalid", SUPABASE_SERVICE_ROLE_KEY: "test", ASANA_ACCESS_TOKEN: "test", LINEAR_API_KEY: "test" });
 const output = path.resolve(".scratch/task-plan-route-test/route.mjs");
 await mkdir(path.dirname(output), { recursive: true });
@@ -33,14 +36,14 @@ beforeEach(() => {
   };
 });
 const save = (extra) => POST(new Request("https://dashboard.test/api/command-center", {
-  method: "POST", headers: { origin: "https://dashboard.test", "content-type": "application/json" },
+  method: "POST", headers: { cookie: ownerCookie, origin: "https://dashboard.test", "content-type": "application/json" },
   body: JSON.stringify({ action: "taskPlanSave", owner: "asana", ownerId: "123", period: "inbox", plannedDate: null, durationMinutes: 5, ...extra }),
 }));
 
 test("an untimed plan is retrievable once after a duplicate save", async () => {
   assert.equal((await save({})).status, 200);
   assert.equal((await save({})).status, 200);
-  const snapshot = await (await GET()).json();
+  const snapshot = await (await GET(new Request("https://dashboard.test/api/command-center", {headers:{cookie:ownerCookie}}))).json();
   assert.deepEqual(snapshot.plans.map(({ owner, owner_id, period, planned_date, duration_minutes }) => ({ owner, owner_id, period, planned_date, duration_minutes })), [
     { owner: "asana", owner_id: "123", period: "inbox", planned_date: null, duration_minutes: 5 },
   ]);
@@ -54,5 +57,5 @@ test("planning periods reject mismatched dates and invalid duration without savi
     { period: "someday", plannedDate: "2026-10-24" },
     { durationMinutes: 7 },
   ]) assert.equal((await save(command)).status, 400);
-  assert.deepEqual((await (await GET()).json()).plans, []);
+  assert.deepEqual((await (await GET(new Request("https://dashboard.test/api/command-center", {headers:{cookie:ownerCookie}}))).json()).plans, []);
 });

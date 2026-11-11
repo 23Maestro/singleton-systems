@@ -13,10 +13,13 @@ Before exploring or changing the repository, read:
 - `docs/agents/issue-tracker.md` for Linear ownership and workflow;
 - `docs/agents/triage-labels.md` for tracker-label mappings.
 
-For offer, audience, outreach, or business work, also read
-`business/brand-foundation.md`, `business/offer-and-audience.md`, and
-`business/voice-rules.md`. `business/` is the single home for current business
-facts. Skills and old source notes must defer to it.
+For offer, audience, outreach, or operations work, start at
+`docs/operations/README.md`. Read the matching Content Editor or AI Consulting
+Lane files. `development/README.md` owns technical project routing. Shared
+writing stays in `docs/harness/writing-rules.md`. Shared story and career sources
+live in `docs/story-and-career/README.md`; Lane offers stay in operations.
+For website branding, page offers, SEO or forms, read `docs/website/README.md`
+and its matching Lane. It links code owners, data paths and routing checks.
 
 Before downloading, generating, moving, or cleaning video media, read
 `docs/video-storage-workflow.md` and use `s-systems:video-storage`.
@@ -128,6 +131,13 @@ Cerebral registry writes go through migrations and seed scripts.
 
 ## cerebral
 
+Use Cerebral at session start, each request, implementation steps and closeout.
+Codex registers the shared guard in `.codex/hooks.json`; Claude registers it in
+`.claude/settings.json`. Both load the same live registry and owner rules.
+For client intake, use [forms and records](docs/website/forms-and-records.md).
+Supabase owns records; Asana owns chosen next steps. The follow-up loop stays
+in 23M-281 until selected.
+
 ### Keychain access
 
 Background and SSH requests use a provider-specific login-session helper when
@@ -202,6 +212,8 @@ writes and starts no background work. Research alone needs no task binding.
 The canonical writing rules live in `docs/harness/writing-rules.md`. Apply them
 to prose we author or rewrite for a reader. Preserve supplied client words and
 verbatim speech transcripts. Code stays outside the prose gate.
+Read its `Writing for Jerami` and `Operational format` sections for each app.
+Those sections govern short reader summaries and full technical ticket detail.
 
 - Fix corrections silently.
 - State facts and results only.
@@ -212,7 +224,7 @@ verbatim speech transcripts. Code stays outside the prose gate.
   CommonMark. Convert Asana descriptions to supported HTML in `html_notes`,
   wrapped in `<body>`; `notes` is plain text. Read back both fields after writes.
   Never print escaped `\n` as layout.
-- Keep Jerami review surfaces under 500 words when the decision is simple.
+- Keep Jerami's review entry point under 500 words; retain needed technical detail.
 - Use a dated interactive Decision Map when the review needs more room.
 
 ## conventions

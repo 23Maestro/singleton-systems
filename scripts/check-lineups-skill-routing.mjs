@@ -15,7 +15,12 @@ const address = once(lines, "line");
 server.stdin.end(JSON.stringify({ routes: registry.routes, skills: rows, capabilities: registry.capabilities }));
 const [url] = await address;
 try {
-  for (const prompt of ["Prepare the next Lineups episode", "Prepare the Max Intent Solutions client video storyboard", "Prepare another client video storyboard"]) {
+  for (const prompt of [
+    "Prepare the next Lineups episode",
+    "It's Tuesday, Lineups is ready",
+    "Prepare the Max Intent Solutions client video storyboard",
+    "Prepare another client video storyboard",
+  ]) {
     const result = spawnSync(process.env.PYTHON || "python3", [path.join(root, ".codex/hooks/cerebral_singleton_guard.py")], {
       cwd: root,
       input: JSON.stringify({ hook_event_name: "UserPromptSubmit", cwd: root, prompt }),

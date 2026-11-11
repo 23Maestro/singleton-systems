@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { createAiIntakeRequest, createNotionAiIntakePage, saveAiIntakeAudio, updateAiIntakeAudio, updateAiIntakeNotionDelivery } from "@/lib/ai-intake";
+import { createHash } from "node:crypto";
+import { saveAiIntakeAudio, updateAiInquiryDelivery } from "@/lib/ai-intake";
+import { recordClientInquiry } from "@/lib/client-inquiries";
 import { delivered, deliveryFailed, deliveryHttpStatus, recordedReceipt, type DeliveryOutcome } from "@/lib/delivery-outcome";
 import { AI_WORKFLOW_OFFER_VALUES } from "@/lib/ai-workflow-offers";
 
 const MAX_AUDIO_BYTES = 25 * 1024 * 1024;
 
 const intakeSchema = z.object({
+  requestId: z.string().uuid().optional(),
   name: z.string().trim().min(1).max(120),
   email: z.string().trim().email().max(320),
   aiWish: z.string().trim().max(5000),
@@ -19,6 +22,7 @@ export async function POST(request: Request) {
   try {
     const form = await request.formData();
     const input = intakeSchema.parse({
+      requestId: form.get("requestId") ?? undefined,
       name: form.get("name") ?? "",
       email: form.get("email") ?? "",
       aiWish: form.get("aiWish") ?? "",
@@ -35,48 +39,30 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Add a link or notes, or attach a voice memo." }, { status: 400 });
     }
 
-    const draft = await createAiIntakeRequest({
-      name: input.name,
-      email: input.email,
-      ai_wish: input.aiWish || "Voice memo attached.",
-      helpful_context: input.helpfulContext || null,
-      offer: input.offer,
-      audio_object_path: null,
-      audio_file_name: null,
-      audio_content_type: null,
+    const record = await recordClientInquiry({
+      requestId: input.requestId, form: "ai", name: input.name, email: input.email, offer: input.offer,
+      details: {
+        aiWish: input.aiWish || "Voice memo attached.",
+        helpfulContext: input.helpfulContext || null,
+        hasAudio: Boolean(audio),
+        ...(audio ? { audioName: audio.name, audioType: audio.type, audioBytes: audio.size,
+          audioSha256: createHash("sha256").update(Buffer.from(await audio.arrayBuffer())).digest("hex") } : {}),
+      },
     });
-    const audioObjectPath = audio ? await saveAiIntakeAudio(draft.id, audio) : null;
-    const saved = audioObjectPath && audio
-      ? { ...draft, audio_object_path: audioObjectPath, audio_file_name: audio.name, audio_content_type: audio.type || null }
-      : draft;
-
-    if (audioObjectPath && audio) {
-      await updateAiIntakeAudio(draft.id, { audio_object_path: audioObjectPath, audio_file_name: audio.name, audio_content_type: audio.type || null });
-    }
-
-    let delivery: DeliveryOutcome;
-    try {
-      const notionPageId = await createNotionAiIntakePage(saved);
-      await updateAiIntakeNotionDelivery(draft.id, { notion_page_id: notionPageId, notion_delivery_state: "delivered", notion_delivery_error: null });
-      delivery = delivered({
-        owner: "Notion",
-        recordId: notionPageId,
-        recordUrl: `https://app.notion.com/p/${notionPageId.replaceAll("-", "")}`,
-        receipt: recordedReceipt(draft.id),
-      });
-    } catch (error) {
-      const notionDeliveryError = error instanceof Error ? error.message.slice(0, 500) : "Unknown Notion delivery error.";
-      console.error("[ai-intake] Notion delivery failed", { requestId: draft.id, error: notionDeliveryError });
-      await updateAiIntakeNotionDelivery(draft.id, {
-        notion_page_id: null,
-        notion_delivery_state: "failed",
-        notion_delivery_error: notionDeliveryError,
-      });
-      delivery = deliveryFailed({
-        owner: "Notion",
-        error: notionDeliveryError,
-        receipt: recordedReceipt(draft.id),
-      });
+    let delivery: DeliveryOutcome = delivered({ owner: "Supabase", ...record, receipt: recordedReceipt(record.recordId) });
+    if (audio) {
+      try {
+        const objectPath = await saveAiIntakeAudio(record.recordId, audio);
+        await updateAiInquiryDelivery(record.recordId, {
+          delivery_state: "delivered", delivery_error: null,
+          audio_object_path: objectPath, audio_file_name: audio.name, audio_content_type: audio.type,
+        });
+      } catch {
+        const message = "Your notes were saved, but the voice memo is not ready. Please try again.";
+        try { await updateAiInquiryDelivery(record.recordId, { delivery_state: "failed", delivery_error: message }); }
+        catch { console.error("[ai-intake] Could not save attachment failure state", { requestId: record.recordId }); }
+        delivery = deliveryFailed({ owner: "Supabase", error: message, receipt: recordedReceipt(record.recordId) });
+      }
     }
 
     return NextResponse.json(

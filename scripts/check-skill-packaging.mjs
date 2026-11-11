@@ -7,6 +7,8 @@ import path from "node:path";
 const root = process.cwd();
 const home = os.homedir();
 const checkInstalled = process.argv.includes("--installed");
+const checkOnlySSystems = process.argv.includes("--s-systems");
+assert.ok(!checkOnlySSystems || checkInstalled, "--s-systems requires --installed");
 const repoLocalSkillsRoot = path.join(root, ".agents", "skills");
 const repoLocalSkillRoots = fs.readdirSync(repoLocalSkillsRoot, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && fs.existsSync(path.join(repoLocalSkillsRoot, entry.name, "SKILL.md")))
@@ -133,7 +135,7 @@ for (const skillRoot of repoLocalSkillRoots) checkOwnedScriptCommandPaths(skillR
 for (const skillRoot of housekeepingSkills) checkOwnedScriptCommandPaths(skillRoot);
 console.log(`runtime paths ok: ${repoLocalSkillRoots.length} repo-local standalone skills`);
 
-if (checkInstalled) {
+if (checkInstalled && !checkOnlySSystems) {
   const housekeepingSource = path.join(root, "plugins", "repo-housekeeping");
   const housekeepingManifest = JSON.parse(fs.readFileSync(path.join(housekeepingSource, ".codex-plugin", "plugin.json"), "utf8"));
   const housekeepingCache = path.join(home, ".codex", "plugins", "cache", "singleton-housekeeping", "repo-housekeeping", housekeepingManifest.version);
@@ -153,6 +155,9 @@ if (checkInstalled) {
     }
   }
 
+}
+
+if (checkInstalled) {
   const pluginSource = path.join(root, "plugins", "s-systems");
   assertParity(pluginSource, path.join(home, "plugins", "s-systems"), "s-systems Codex source mirror");
   assertParity(pluginSource, path.join(home, ".claude", "plugins-dev", "s-systems"), "s-systems Claude source mirror");

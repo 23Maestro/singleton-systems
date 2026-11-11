@@ -1,3 +1,5 @@
+> Earlier design plan. Use the [website brand guide](../website/brand.md) for current source links.
+
 # App Design Brand Plan
 
 Lean capture, not a finished spec. Log the decisions that are actually

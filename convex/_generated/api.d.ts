@@ -11,6 +11,7 @@
 import type * as fitness from "../fitness.js";
 import type * as http from "../http.js";
 import type * as taskRequests from "../taskRequests.js";
+import type * as studioProjects from "../studioProjects.js";
 import type * as videoReviews from "../videoReviews.js";
 
 import type {
@@ -23,6 +24,7 @@ declare const fullApi: ApiFromModules<{
   fitness: typeof fitness;
   http: typeof http;
   taskRequests: typeof taskRequests;
+  studioProjects: typeof studioProjects;
   videoReviews: typeof videoReviews;
 }>;
 

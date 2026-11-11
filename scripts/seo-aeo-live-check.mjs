@@ -37,7 +37,7 @@ for (const path of requiredPaths) {
 const home = responses["/"].text;
 
 const requiredSnippets = [
-  "<title>Jerami Singleton | AI Workflow Consultant</title>",
+  "<title>Video Editing Services | Jerami Singleton</title>",
   'name="description"',
   'rel="canonical"',
   'property="og:title"',
@@ -102,11 +102,11 @@ const runtime = await page.evaluate(() => {
 await browser.close();
 
 assert(consoleMessages.length === 0, `Browser console has ${consoleMessages.length} errors/warnings`);
-assert(runtime.title === "Jerami Singleton | AI Workflow Consultant", "Hydrated title mismatch");
+assert(runtime.title === "Video Editing Services | Jerami Singleton", "Hydrated title mismatch");
 assert(runtime.canonical === "https://singleton-systems.com/", "Hydrated canonical mismatch");
 const h1AccessibleText = runtime.h1Label || runtime.h1Text;
 
-assert(h1AccessibleText?.includes("Take the Busy Work off Your Team"), `Hydrated H1 mismatch: ${h1AccessibleText}`);
+assert(h1AccessibleText?.includes("Your Next Episode, Already on Brand"), `Hydrated H1 mismatch: ${h1AccessibleText}`);
 assert(runtime.h1Count === 1, `Expected 1 H1, found ${runtime.h1Count}`);
 assert(runtime.jsonLdCount >= 1, "Hydrated page missing JSON-LD");
 assert(runtime.hasJsonLdFaq, "Hydrated page missing FAQPage JSON-LD");

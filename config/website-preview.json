@@ -5,7 +5,7 @@
   "checkout": ".scratch/review-artifacts/sites/singleton-website-preview",
   "expected_url": "https://singleton-website-preview.super-cedar-2285.chatgpt.site",
   "production_origin": "https://singleton-systems.com",
-  "routes": ["/", "/AI-consultant", "/tampa-ai-consultant", "/video-inquiry"],
+  "routes": ["/", "/AI-consultant", "/tampa-ai-consultant", "/video-inquiry", "/recruiting-highlights"],
   "server_forms": { "ai": "production", "video": "review-only" },
   "localhost_handoff": false
 }

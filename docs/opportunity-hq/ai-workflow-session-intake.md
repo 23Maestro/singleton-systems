@@ -1,5 +1,8 @@
 # AI Workflow Session Intake
 
+This is an earlier intake note. The current [website form map](../website/forms-and-records.md)
+owns source links and cutover rules. The watcher below is a proposal, not a live flow.
+
 ## Live path
 
 The public entry point is the native `/ai-workflow-session` page, not Tally.

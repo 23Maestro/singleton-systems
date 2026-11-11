@@ -1,38 +1,71 @@
 # Studio
 
-Source for `/studio` and the private review preview. The first packet uses
-verified Week 8 material. W9 intake remains open. Existing Pre/Post routing
-and the durable video review service remain unchanged. Chat sending is disabled.
+Source for `/studio` and the private review preview. The project list starts
+empty under Catena Media, Intent Solutions and Singleton Systems. The Lineups
+handoff records the scene packet and the originating Codex thread together.
 
-Build from a generated Lineups packet:
+Build the packet for the current episode. Run the storage check first and set
+`CATENA_PREVIEW_DIRECTORY` to an episode folder under the returned root.
 
 ```sh
+node scripts/developer-storage/storage-gate.mjs route --client CATENA_MEDIA --kind previews
+verified_review=$(python3 scripts/render-lineups-review.py \
+  --episode "$EPISODE_DIRECTORY" \
+  --destination "$CATENA_PREVIEW_DIRECTORY/source")
 python3 tools/review_workspace/build.py \
-  --packet public/decision-maps/2026-10-27-nfl-week-8-power-rankings-pre-figma-review \
-  --output sites/video-review-w9/dist
-node --test tools/review_workspace/model.test.mjs
-node tools/review_workspace/check-browser.mjs REVIEW_URL
+  --packet "$verified_review" \
+  --output "$CATENA_PREVIEW_DIRECTORY/studio" \
+  --title "$EPISODE_TITLE"
 ```
 
-Build the approved domain copy with `--output public/studio --base-path /studio/`.
-Commit that delivery bundle with these sources. The Next.js rewrite serves it
-at `/studio`; the base path keeps scripts, packet data and media on that route.
-Business Ops links to Studio first with a full-page link.
+Use an isolated Catena preview directory for each episode. The domain bundle
+serves the project list and viewer at `/studio`. Pass the generated
+`packet.json` to `studio-lineups-start.mjs --packet` from the Lineups skill.
+The command uploads the adjacent `assets/` into the project and verifies their
+hashes before attaching the packet.
 
 Check the domain bundle with `node --test tools/review_workspace/studio.test.mjs`
-and `python3 -m unittest tools.review_workspace.test_build`. Run the browser
-check against `/studio` after deployment. Test a fresh session and a direct
+and `python3 -m unittest tools.review_workspace.test_build`. Run
+`node tools/review_workspace/check-browser.mjs REVIEW_URL` against `/studio`
+after deployment. Test a fresh session and a direct
 reload. Browser notes from the private preview stay on that preview's origin.
 
-The builder checks timing/cue hashes and every copied media hash. It preserves
-scene IDs and links to source artwork and timing proof. It does not render or
-change episode content. No extra dependencies are installed.
+Plan uses large visual summaries and team-color rank cards. Timing and Needs
+live in Plan-only side tabs. Comments stays available in every stage. The status
+menu beside the title owns approval and changes. Phones place the panel below
+the visual. Source photos stay separate from the plan; the viewer has no
+repeated version-label overlay.
 
-Notes, replies, normalized frame rectangles and scene statuses live in browser
-storage under the episode and cue-map hash. Saves require storage readback.
-Export includes media identity and current statuses. Chat sending stays disabled
-until the shared service can provide an exact-source receipt. Online persistence,
-revision comparison and W9 intake remain open under 23M-323 and its children.
+The builder checks timing/cue hashes and every copied media hash. It preserves
+scene IDs and links to source artwork and timing proof. It creates planning thumbnails without changing episode content. No extra dependencies are installed.
+
+Studio keeps drafts in this browser. For a project review, **Save review** stores
+the posted notes, replies, frame rectangles and scene statuses for the selected
+packet revision. It reads the saved version back before reporting success. If
+another tab saves first, export your edits or load the saved review. **Send to
+chat** requires a verified delivery receipt from the bound thread (23M-326).
+
+On the source Mac, `node scripts/install-studio-relay.mjs` installs the
+relay. It checks for queued reviews every 15 seconds while the Mac is signed in.
+Studio shows **Sent to chat** after the relay finds the message in the bound
+thread. A claimed send with no receipt needs a chat check.
+
+Run `node scripts/studio-access-link.mjs` on the source Mac for the private
+Studio link. Bookmark the link itself. The address bar drops the access code
+after opening it. If the browser clears its cookies, use the same bookmark.
+Only share it with someone who should be able to manage Studio projects.
+
+To revoke the link and all Studio browser sessions, replace `STUDIO_OWNER_KEY`
+in the local Studio configuration and in Vercel production. Deploy with the
+new key, then run the link command again.
+
+Producer access lives in `~/.config/singleton-systems/studio.env`. To retry a specific send, run
+`node --env-file=~/.config/singleton-systems/studio.env scripts/studio-send-to-chat.mjs SEND_ID`.
+
+Pass `--studio-project PROJECT_ID` to the task closeout `finish` command for a
+linked project. If Studio fails after task closeout, run `check` with the same
+project ID to retry the Studio close. **Delete project** removes the project and
+saved review data from Studio. Confirm any claimed send before deleting.
 
 Focus a storyboard card or click the viewer to use ←/→ for scenes, A to approve,
 C to request changes and focus the comment field, and Space to play/pause video.
@@ -44,8 +77,8 @@ status and version controls; the viewer has no extra header. The storyboard row
 sizes from the cards so their footers remain visible in shorter windows. Changes
 Requested is shown as Changes while stored feedback keeps its original status.
 Poppins and white text carry the review UI. Production directions stay in the
-packet. Comments opens by default; Scene holds status, Mark's quote and source
-actions. Timing receipts stay in the packet without a panel control.
+packet. Comments opens by default. Plan holds lane, look, tool and Mark's quote. Timing
+holds the speech-cue table; Needs holds missing and verified source assets. Timing receipts stay in the packet without a panel control.
 
 Video comments pause playback and keep the timestamp from when typing starts.
 Cmd+Enter posts; Enter adds a line. Older untimed notes remain untimed. Drawing

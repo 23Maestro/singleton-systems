@@ -6,7 +6,8 @@ export function createState(packet, stored) {
     versions: {}, statuses: {}, drafts: {}, notes: [], times: {}, panelOpen: true, panelWidth: 350, panelTab: 'comments' };
   if (stored?.episodeId !== packet.episodeId || stored?.revision !== packet.revision) return initial;
   const state = { ...initial, ...stored };
-  if (!['comments', 'scene'].includes(state.panelTab)) state.panelTab = 'comments';
+  if (state.panelTab === 'scene') state.panelTab = 'plan';
+  if (!['comments', 'plan', 'timing', 'needs'].includes(state.panelTab)) state.panelTab = 'comments';
   if (!packet.scenes.some(scene => scene.id === state.selected)) state.selected = initial.selected;
   return state;
 }

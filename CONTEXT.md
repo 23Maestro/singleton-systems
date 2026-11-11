@@ -7,8 +7,9 @@ Notion, and Supabase delivery.
 
 ## Glossary
 
-- Lane: the front-facing work category. Valid values are the four initiatives
-  plus Writing Review and System Maintenance.
+- Lane: the front-facing work category. Routing values are Development,
+  Content Editor, AI Consultant and Portfolio, plus Writing Review and System Maintenance.
+  Linear initiatives group Development projects; they do not replace Lanes.
 - Bucket: the internal tool-harness destination. Its route key is canonical;
   trigger patterns are accepted aliases. It does not replace Lane in
   user-facing language.
@@ -56,11 +57,13 @@ about Jerami's real work.
   and the pointer to the owning record.
 - Linear owns Development task and status state.
 - Asana owns AI Consulting and Content Editor task and status state.
-- Notion owns client and portfolio records.
+- Supabase is the chosen client-record home. The real-record move and Notion
+  intake cutover remain open in 23M-407. Preserve legacy records until verified.
+- Eagle owns portfolio assets; keep claims linked to their source evidence.
 - Supabase holds integration receipts and temporary drafts when the workflow
   needs them.
 - Repo docs and skills own policy.
-- `business/` owns current business facts; task owners hold plans and progress.
+- `docs/operations/` owns service facts and operating rules; task owners hold plans and progress.
 - `config/cerebral-registry.json` is the machine-readable gate contract.
 - A delivery outcome uses `pending`, `delivered`, or `failed`. It names the
   owner and includes the record ID, record URL, and error fields.

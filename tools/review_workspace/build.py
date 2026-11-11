@@ -8,12 +8,17 @@ import re
 import shutil
 import subprocess
 
+try:
+    from .presentation import prepare_plan, thumbnail as plan_thumbnail
+except ImportError:
+    from presentation import prepare_plan, thumbnail as plan_thumbnail
+
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def build(packet, output, base_path=None):
+def build(packet, output, base_path=None, title=None):
     if base_path is not None and not re.fullmatch(r'/[A-Za-z0-9_/-]*/', base_path):
         raise ValueError('The base path must be an absolute directory path ending in /.')
     source = Path(__file__).parent
@@ -41,7 +46,7 @@ def build(packet, output, base_path=None):
     if not all(re.fullmatch(r'[A-Za-z0-9_-]+', c['id']) for c in data['candidates']):
         raise ValueError('Scene IDs must contain only letters, numbers, underscores or hyphens.')
     subprocess.run(['node', str(source.parents[1] / 'scripts/developer-storage/storage-gate.mjs'),
-                    'route', '--client', 'SINGLETON_SYSTEMS', '--kind', 'references'], check=True, capture_output=True)
+                    'route', '--client', 'CATENA_MEDIA', '--kind', 'previews'], check=True, capture_output=True)
     output.mkdir(parents=True, exist_ok=True)
     (output / 'assets').mkdir(exist_ok=True)
     (output / 'evidence').mkdir(exist_ok=True)
@@ -63,7 +68,7 @@ def build(packet, output, base_path=None):
     scenes = []
     for candidate in data['candidates']:
         c = candidate
-        versions = [{'id': 'plan-' + data['cueMapSha256'][:12], 'label': 'Scene plan',
+        versions = [{'id': 'plan-' + data['cueMapSha256'][:12], 'label': 'Build Storyboard',
                      'stage': 'Plan', 'kind': 'plan', 'sha256': data['cueMapSha256']}]
         thumbnail = None
         for image in c.get('images', [])[:1]:
@@ -75,31 +80,44 @@ def build(packet, output, base_path=None):
         if post:
             preview = post['preview']
             url, sha = asset(preview['image'], preview['sha256'])
+            is_motion = preview['kind'] == 'video'
             if preview.get('poster'):
                 thumbnail, _ = asset(preview['poster'])
-            versions.append({'id': 'render-' + sha[:12], 'label': 'Existing export', 'stage': 'Motion',
+            elif not is_motion:
+                thumbnail = url
+            versions.append({'id': 'render-' + sha[:12], 'label': 'Motion preview' if is_motion else 'Final artwork',
+                             'stage': 'Motion' if is_motion else 'Artwork',
                              'kind': preview['kind'], 'url': url, 'poster': thumbnail, 'sha256': sha})
+        source_url = (post or {}).get('sourceUrl') or c.get('sourceUrl')
+        presentation = prepare_plan(c)
+        if not post:
+            versions = versions[1:] + versions[:1]
+        thumbnail = plan_thumbnail(presentation, output)
         scenes.append({'id': c['id'], 'title': c['title'], 'lane': c['lane'], 'option': c['option'],
                        'duration': c['duration'], 'anchor': c['anchor'], 'sourceTime': c['time'],
-                       'plan': c['reason'], 'setting': c['setting'], 'excerpt': c.get('excerpt', ''),
+                       'plan': c['reason'], 'planCopy': c.get('copy', c['title']), 'presentation': presentation,
+                       'sourcePhotos': [a['name'] for a in c.get('assets', [])],
+                       'setting': c['setting'], 'excerpt': c.get('excerpt', ''),
                        'cues': c.get('cues', []), 'engine': c['primaryEngine'], 'thumbnail': thumbnail,
-                       'sourceUrl': (post or c).get('sourceUrl'), 'missingAssets': [a['name'] for a in c.get('assetRequests', []) if a.get('status') != 'verified'],
+                       'sourceUrl': source_url if source_url and source_url.startswith('https://') else None,
+                       'missingAssets': [a['name'] for a in c.get('assetRequests', []) if a.get('status') != 'verified'],
                        'versions': versions})
     week = re.search(r'week-(\d+)', data['episodeId'])
-    reference_label = 'Week ' + week[1] if week else data['episodeId']
-    is_pilot = week and week[1] == '9'
-    result = {'episodeId': data['episodeId'], 'revision': data['cueMapSha256'], 'title': 'Power Rankings',
-              'subtitle': reference_label if is_pilot else reference_label + ' reference · W9 pilot',
-              'referenceLabel': reference_label, 'client': 'Catena / Lineups', 'fps': frame_rate,
-              'intake': 'W9 review' if is_pilot else 'W9 · awaiting intake', 'scenes': scenes,
+    title = title or data['episodeId'].replace('-', ' ').title()
+    reference_label = 'Week ' + week[1] if week else title
+    result = {'episodeId': data['episodeId'], 'revision': data['cueMapSha256'], 'title': title,
+              'referenceLabel': reference_label, 'client': 'Catena Media', 'fps': frame_rate, 'scenes': scenes,
               'initialScene': next((c['id'] for c in scenes if any(v['kind'] == 'video' for v in c['versions'])), scenes[0]['id'])}
     (output / 'packet.json').write_text(json.dumps(result, ensure_ascii=False, indent=2))
     shutil.copy2(packet / 'evidence/cue-proof-receipt.json', output / 'evidence/timing.json')
-    for name in ['index.html', 'app.mjs', 'model.mjs', 'review.css']:
+    for name in ['index.html', 'app.mjs', 'model.mjs', 'presentation.mjs', 'review.css']:
         shutil.copy2(source / name, output / name)
     if base_path:
+        shutil.copy2(source / 'studio-home.mjs', output / 'studio-home.mjs')
         index = output / 'index.html'
-        index.write_text(index.read_text().replace('<head>', f'<head>\n  <base href="{base_path}">', 1))
+        review = output / 'review.html'
+        review.write_text(index.read_text().replace('<head>', f'<head>\n  <base href="{base_path}">', 1))
+        index.write_text((source / 'studio-home.html').read_text().replace('<head>', f'<head>\n  <base href="{base_path}">', 1))
     return result
 
 
@@ -107,7 +125,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--packet', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--title', help='Episode title shown in Studio.')
     parser.add_argument('--base-path', help='Public directory URL, for example /studio/.')
     args = parser.parse_args()
-    result = build(args.packet, args.output, args.base_path)
+    result = build(args.packet, args.output, args.base_path, args.title)
     print(json.dumps({'episodeId': result['episodeId'], 'sceneCount': len(result['scenes']), 'output': args.output}))

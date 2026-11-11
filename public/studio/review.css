@@ -24,3 +24,25 @@
 @media(min-width:1600px){.viewport-wrap{padding:16px 36px}}
 @media(max-width:1100px) and (min-width:701px){.stagebar{grid-template-columns:max-content minmax(0,1fr) max-content;padding:0 12px}.stage{padding:5px 6px}.stage b{display:none}.stage-scene{padding:0 14px;gap:8px}.stage-scene h1{font-size:14px}.stagebar select{max-width:145px}}
 @media(max-width:700px){.workspace{height:100dvh;min-height:0;grid-template-rows:54px auto minmax(0,1fr) auto;overflow:hidden}.stagebar{grid-template-columns:minmax(0,1fr) max-content;gap:8px;padding:8px 12px}.stages{grid-column:1;grid-row:1;overflow-x:auto;gap:0}.stage-scene{grid-column:1 / -1;grid-row:2;padding:4px 0;gap:10px;justify-content:center}.stagebar .viewer-actions{grid-column:2;grid-row:1;gap:5px}.stagebar select{font-size:11px;max-width:112px;padding:7px}.stagebar .icon{width:32px;min-height:32px}.stage{font-size:11px;padding:5px}.stage-scene h1{font-size:15px}.review-body,.review-body.panel-closed{min-height:0;overflow:auto;padding-bottom:0}.viewer{flex:none;grid-template-rows:auto 59px;min-height:0}.viewport-wrap{padding:10px 12px}.panel{flex:none}.storyboard{position:static;order:initial;height:auto;padding:8px 12px 6px;box-shadow:none}.storyboard-head{margin-bottom:6px}.cards{padding:6px 6px 12px;gap:9px}.scene-card{min-height:130px}.card-status{flex:none}#message{bottom:215px}}
+
+.panel-footer { flex-wrap: wrap; }
+.panel-footer .send:not(:disabled) { color: #171719; }
+
+/* Planning content stays out of the artwork and motion review. */
+.plan-canvas{container-type:inline-size;display:grid;place-items:center;width:100%;height:100%;padding:7%;background:var(--plan-bg,#252529);color:var(--plan-ink,#fff);overflow:hidden}
+.plan-canvas h2{font-size:clamp(22px,7.5cqw,106px);font-weight:700;line-height:1.13;letter-spacing:-.025em;text-align:center;text-wrap:balance;max-width:100%;overflow-wrap:break-word}
+.plan-rank h2{font-size:clamp(28px,10.5cqw,150px);line-height:1.06;text-transform:uppercase}
+.plan-fields{display:grid;grid-template-columns:repeat(var(--fields),minmax(0,1fr));gap:6%;align-items:center;width:100%;height:100%}
+.plan-field{min-width:0;text-align:center}.plan-field strong{font-size:clamp(18px,4.8cqw,70px);font-weight:700;line-height:1.2;letter-spacing:-.025em;text-wrap:balance;overflow-wrap:break-word}
+.plan-fields .plan-field+.plan-field{border-left:1px solid currentColor;padding-left:12%}
+.plan-details{margin:0;display:grid;gap:12px;font-size:14px}.plan-details>div{display:grid;grid-template-columns:54px minmax(0,1fr);gap:12px}.plan-details dt{color:var(--muted)}.plan-details dd{margin:0;text-transform:capitalize}
+.cue-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5}.cue-table caption{text-align:left;font-weight:600;font-size:16px;margin-bottom:16px}.cue-table th{text-align:left;font-weight:500;color:var(--muted);padding:0 10px 10px 0}.cue-table td{vertical-align:top;padding:12px 10px 12px 0;border-top:1px solid var(--line);overflow-wrap:anywhere}.cue-table td:first-child{white-space:nowrap;font-variant-numeric:tabular-nums}.cue-table small{display:block;color:var(--muted);margin-top:3px}.plan-needs h3{font-size:16px;font-weight:600;margin:0 0 12px}.plan-needs h3:not(:first-child){margin-top:24px}.plan-needs p,.plan-needs li{font-size:14px;line-height:1.65}.plan-needs ul{padding-left:18px;margin:0}
+#scene-status{border-color:#b79a6355;font-size:12px;background:#b79a6310;max-width:160px}#scene-status[data-status="Approved"]{background:#92c9b21a}#scene-status[data-status="Changes Requested"]{background:#eead871a}
+.panel-tabs{gap:16px;min-width:0;overflow-x:auto}.panel-tabs button{white-space:nowrap;flex:none}
+@media(max-width:700px){.plan-details{font-size:14px}.plan-canvas{padding:6%}.cue-table{font-size:13px}.panel-tabs{gap:20px}.panel-tabs button{font-size:14px}#scene-status{font-size:12px;max-width:140px}}
+
+.card-image{height:86px;object-fit:contain;background:#111}.card-rank{display:grid;place-items:center;padding:22px 8px 6px;font-size:17px;font-weight:700;line-height:1.15;text-align:center;text-transform:uppercase;text-wrap:balance;overflow-wrap:normal}
+.viewer.plan-view{grid-template-rows:minmax(0,1fr) 38px}.plan-transport{justify-content:flex-end}.plan-transport>*:not(#fullscreen){display:none}.plan-transport #fullscreen{width:30px;min-height:28px}
+@media(max-width:700px){.viewer.plan-view{grid-template-rows:auto 38px}}
+
+.cue-table{table-layout:fixed}.cue-table th:first-child{width:82px}.cue-table th:nth-child(2){width:102px}.cue-table td{overflow-wrap:break-word}

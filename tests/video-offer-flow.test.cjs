@@ -40,12 +40,12 @@ test("a phone or desktop visitor selects each video offer and gets an honest sub
   const browser = await chromium.launch();
   t.after(() => browser.close());
   const env = { ...process.env };
-  process.env.NOTION_API_KEY = "fixture-only";
-  process.env.NOTION_AI_INTAKE_DATA_SOURCE_ID = "fixture-data-source";
+  process.env.SUPABASE_URL = "https://receipt.fixture.invalid";
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "fixture-only";
   t.after(() => { process.env = env; });
   t.mock.method(globalThis, "fetch", async (url) => {
-    assert.equal(String(url), "https://api.notion.com/v1/pages");
-    return Response.json({ id: "11111111-2222-3333-4444-555555555555" });
+    assert.equal(String(url), "https://receipt.fixture.invalid/rest/v1/rpc/record_client_inquiry");
+    return Response.json([{ inquiry_id: "11111111-2222-4333-8444-555555555555", contact_id: 42 }]);
   });
   for (const width of [375, 1440]) {
     const context = await browser.newContext({ viewport: { width, height: 900 } });

@@ -5,8 +5,9 @@ description: Turn a documented portfolio work asset or operator lesson into a co
 
 # Offer Portfolio Content
 
-Read `business/offer-and-audience.md` in the Singleton Systems repository
-before choosing the offer angle. Keep business facts in that file.
+Read the operations guide linked by the Singleton Systems CODEX.md before
+choosing the offer angle. Use the matching service Lane's offers and audience.
+Growth stays in that Lane, including posts and SEO done by an agent.
 
 Use only with documented portfolio work. Read `references/portfolio-content-playbook.md` for the
 working shape and Final Human Pass.

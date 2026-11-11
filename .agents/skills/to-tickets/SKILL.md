@@ -8,6 +8,12 @@ description: "Break a plan, spec, or the current conversation into a set of trac
 Use this skill only when the user explicitly names it. Keep all analysis and execution in the current session. Recommend related skills or a separate task when useful, and leave every launch to the user. Leave agent hooks and model settings unchanged. Stage, commit, push, branch, and worktree actions require a separate explicit request from the user.
 
 # To Tickets
+
+For Singleton Systems, read `docs/harness/writing-rules.md` before drafting.
+Use plain task names and a short reader summary. Keep this skill's technical
+ticket sections, test seams, blockers and completion signals. Use the target
+app's text tools; the reader summary limit does not cap execution detail.
+
 Break a plan, spec, or conversation into a set of **tickets** — tracer-bullet vertical slices, each declaring the tickets that **block** it.
 
 The issue tracker and triage label vocabulary should have been provided. If not, stop and recommend that the user invoke `setup-matt-pocock-skills`.
@@ -54,9 +60,9 @@ Give each ticket its **blocking edges** — the other tickets that must complete
 
 Present the proposed breakdown as a numbered list. For each ticket, show:
 
-- **Title**: short descriptive name
-- **Blocked by**: which other tickets (if any) must complete first
-- **What it delivers**: the end-to-end behaviour this ticket makes work
+- Plain title with a short, clear name
+- Blockers that must finish first, if any
+- The end-to-end result this ticket makes work
 
 Ask the user:
 

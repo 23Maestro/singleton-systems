@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-11-11T19:11:42.031Z",
+  "status": "assumed-submitted",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1220404457026180",
+      "completed": false,
+      "due_at": "2026-11-11T15:00:00.000Z",
+      "due_on": "2026-11-11"
+    },
+    "driveFiles": [],
+    "driveCheck": {
+      "folderId": "1YCqTWoK2MsHiW7-CiYpfZ0edzSZppnk-",
+      "result": "No matching Week 10 final in the returned folder contents. Existing ranking exports are Weeks 7, 8 and 9.",
+      "files": [
+        {
+          "id": "1UUl3swtEZ0aijsseXOlthouypfgETgzF",
+          "name": "2026-11-06_Lamars_Future.mp4",
+          "mimeType": "video/mp4",
+          "modifiedTime": "2026-11-06T17:49:36.982Z"
+        },
+        {
+          "id": "1E5OhK7QqTCM9Bcbj7Y-oTLlo4DAL14JH",
+          "name": "2026-11-04_W9_PowerRankings.mp4",
+          "mimeType": "video/mp4",
+          "modifiedTime": "2026-11-04T22:09:12.967Z"
+        },
+        {
+          "id": "1yclqXMDB7AQI3NVCHmeqrgnxkBbrxm_K",
+          "name": "2026-10-30_ChiefsWR.mp4",
+          "mimeType": "video/mp4",
+          "modifiedTime": "2026-10-30T14:06:02.336Z"
+        },
+        {
+          "id": "13pzrqhfOO-pOk906BFmigUu7Bj7Ajs0W",
+          "name": "2026-10-29_W8_PowerRankings.mp4",
+          "mimeType": "video/mp4",
+          "modifiedTime": "2026-10-29T14:45:28.764Z"
+        },
+        {
+          "id": "1ZABy81xpd6-Fd8YS0mZIuMPVVaQTTN1P",
+          "name": "2026-10-23_TexansWatch.mp4",
+          "mimeType": "video/mp4",
+          "modifiedTime": "2026-10-23T19:46:42.487Z"
+        },
+        {
+          "id": "1MA94xy1ZvM02CzWuBKYDgcP3n9VN5LUC",
+          "name": "2026-10-22_W7_PowerRankings.mp4",
+          "mimeType": "video/mp4",
+          "modifiedTime": "2026-10-22T06:25:11.493Z"
+        }
+      ],
+      "taskContext": "Current task says storyboard choices, builds, Premiere editing and client delivery remain open."
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-11-10-nfl-week-10-power-rankings",
+    "asanaTask": "1220404457026180",
+    "dueDate": "2026-11-11",
+    "transcriptPath": "config/lineups/episodes/2026-11-10-nfl-week-10-power-rankings/transcript/whisper.json",
+    "discoveryPath": "config/lineups/episodes/2026-11-10-nfl-week-10-power-rankings/storyboard/lane-discovery.json",
+    "cueMapPath": "config/lineups/episodes/2026-11-10-nfl-week-10-power-rankings/storyboard/cue-map.json",
+    "timingProofPath": "config/lineups/episodes/2026-11-10-nfl-week-10-power-rankings/storyboard/cue-proof-receipt.json",
+    "studio": {
+      "projectId": "e4fcae4d-ff63-4c5a-a784-ff85bbd8e125",
+      "packetPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-11-10-nfl-week-10-power-rankings/studio/packet.json",
+      "candidateCount": 23
+    }
+  },
+  "activeScene": null
+}

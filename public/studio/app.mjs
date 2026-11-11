@@ -1,4 +1,5 @@
 import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages } from './model.mjs';
+import { panelTabs, planMarkup, planningPanel, cardPreview } from './presentation.mjs';
 
 const icons = {
   panel: '<path d="M14 3v18M3 3h18v18H3zM17 8h1M17 12h1M17 16h1"/>',
@@ -12,7 +13,140 @@ const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const $ = selector => document.querySelector(selector);
 const app = $('#app');
+const projectId = new URL(location.href).searchParams.get('project');
 let packet, state, storageKey, mediaAbort, mediaBlob, lastFrame, messageTimer, videoCallback;
+let onlineVersion = 0, onlineBusy = false, onlineConflict = false;
+let chatSendEnabled = false;
+let chatTimer;
+
+function savedReview() {
+  return { statuses: state.statuses, notes: state.notes };
+}
+function canonicalReview(value) {
+  return JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item)
+    ? Object.fromEntries(Object.keys(item).sort().map(key => [key, item[key]])) : item);
+}
+async function readReview() {
+  const query = new URLSearchParams({ projectId, reviewRevision: packet.revision });
+  const response = await fetch('/api/studio/projects?' + query);
+  if (!response.ok) throw new Error('Studio could not read this review. Reload to retry.');
+  return response.json();
+}
+function refreshReviewButtons() {
+  const save = $('#save-review'), reload = $('#reload-review');
+  if (!save || !reload) return;
+  save.disabled = onlineBusy || onlineConflict;
+  reload.hidden = !onlineConflict;
+  reload.disabled = onlineBusy;
+  const sentVersion = state.chatSend?.version === onlineVersion;
+  $('#send-review').disabled = !chatSendEnabled || onlineBusy || onlineConflict || state.reviewDirty || onlineVersion < 1 || sentVersion;
+  $('#send-review').textContent = sentVersion ? (state.chatSend.status === 'delivered' ? 'Sent to chat' : 'Queued for chat') : 'Send to chat';
+}
+async function saveReview() {
+  if (onlineBusy || onlineConflict) return;
+  const feedback = structuredClone(savedReview());
+  onlineBusy = true;
+  refreshReviewButtons();
+  try {
+    const response = await fetch('/api/studio/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'save-review', projectId, revision: packet.revision,
+        expectedVersion: onlineVersion, feedback,
+      }),
+    });
+    if (response.status === 409) {
+      onlineConflict = true;
+      throw new Error('The saved review changed. Export your edits or load the saved review.');
+    }
+    if (!response.ok) throw new Error('Studio could not save this review. Your edits are still in this browser.');
+    const receipt = await response.json();
+    const stored = await readReview();
+    if (stored.version !== receipt.version || canonicalReview(stored.feedback) !== canonicalReview(feedback)) {
+      onlineConflict = true;
+      throw new Error('The saved review changed. Export your edits or load the saved review.');
+    }
+    onlineVersion = stored.version;
+    state.reviewBaseVersion = onlineVersion;
+    state.reviewDirty = canonicalReview(savedReview()) !== canonicalReview(feedback);
+    persist();
+    say(state.reviewDirty ? 'Review saved. You have newer edits in this browser.' : 'Review saved online.');
+  } catch (error) {
+    say(error.message);
+  } finally {
+    onlineBusy = false;
+    refreshReviewButtons();
+  }
+}
+async function reloadReview() {
+  if (onlineBusy || !window.confirm('Replace this browser’s comments and choices with the saved review?')) return;
+  onlineBusy = true;
+  refreshReviewButtons();
+  try {
+    const stored = await readReview();
+    onlineVersion = stored.version;
+    onlineConflict = false;
+    Object.assign(state, stored.feedback, { reviewBaseVersion: onlineVersion, reviewDirty: false });
+    persist();
+    render();
+    say('Saved review loaded.');
+  } catch (error) {
+    say(error.message);
+  } finally {
+    onlineBusy = false;
+    refreshReviewButtons();
+  }
+}
+
+async function sendReview() {
+  if ($('#send-review').disabled) return;
+  onlineBusy = true;
+  refreshReviewButtons();
+  try {
+    const response = await fetch('/api/studio/projects', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'queue-chat-send', projectId, revision: packet.revision, version: onlineVersion }),
+    });
+    if (!response.ok) throw new Error('Studio could not queue the saved review. Reload to try again.');
+    const receipt = await response.json();
+    state.chatSend = { ...receipt, version: onlineVersion };
+    persist();
+    if (receipt.status === 'delivered' && receipt.turnId) say('Saved review sent to the source chat.');
+    else {
+      say('Saved review queued for the source chat.');
+      void checkChatSend();
+    }
+  } catch (error) {
+    say(error.message);
+  } finally {
+    onlineBusy = false;
+    refreshReviewButtons();
+  }
+}
+
+async function checkChatSend() {
+  clearTimeout(chatTimer);
+  const send = state.chatSend;
+  if (!send || send.status === 'delivered') return;
+  try {
+    const query = new URLSearchParams({ projectId, chatSendId: send.requestId });
+    const response = await fetch('/api/studio/projects?' + query, { signal: AbortSignal.timeout(10000) });
+    if (!response.ok) throw new Error('Studio could not check the chat receipt.');
+    const receipt = await response.json();
+    if (receipt.requestId !== send.requestId || state.chatSend?.requestId !== send.requestId) return;
+    if (receipt.status === 'delivered' && receipt.turnId) {
+      state.chatSend = { ...send, ...receipt };
+      persist();
+      refreshReviewButtons();
+      say('Saved review sent to the source chat.');
+      return;
+    }
+  } catch {
+    say('Saved review is queued. Waiting for the source chat receipt.');
+  }
+  chatTimer = setTimeout(checkChatSend, 3000);
+}
 
 function say(message) {
   clearTimeout(messageTimer);
@@ -33,12 +167,25 @@ function persist() {
 function commit(change) {
   const before = structuredClone(state);
   change();
-  if (persist()) return true;
+  if (projectId && canonicalReview(savedReview()) !== canonicalReview({ statuses: before.statuses, notes: before.notes })) {
+    state.reviewDirty = true;
+  }
+  if (persist()) {
+    refreshReviewButtons();
+    return true;
+  }
   state = before;
   return false;
 }
 const statusLabel = status => status === 'Changes Requested' ? 'Changes' : status;
 function badge(status = 'Needs Review') { return `<span class="badge" data-status="${esc(status)}">${esc(statusLabel(status))}</span>`; }
+function statusMenu(scene) {
+  const status = state.statuses[scene.id] ?? 'Needs Review';
+  return `<select id="scene-status" aria-label="Scene status" data-status="${esc(status)}">${statuses.map(s => `<option value="${esc(s)}" ${s === status ? 'selected' : ''}>${esc(statusLabel(s))}</option>`).join('')}</select>`;
+}
+function bindStatusMenu() {
+  $('#scene-status').addEventListener('change', event => setStatus(event.target.value));
+}
 function timecode(seconds = 0) {
   const frames = Math.round(seconds * packet.fps), fps = packet.fps;
   return [Math.floor(frames / (fps * 3600)), Math.floor(frames / (fps * 60)) % 60, Math.floor(frames / fps) % 60, frames % fps].map(x => String(x).padStart(2, '0')).join(':');
@@ -51,29 +198,27 @@ function render() {
   const { scene, version } = context(state, packet);
   app.innerHTML = `<main class="workspace">
     <header class="topbar"><div class="brand"><span class="brand-mark">s</span>studio</div><div class="breadcrumb"><span>${esc(packet.client)}</span><span>/</span><strong>${esc(packet.title)}</strong></div><span class="pilot">${esc(packet.intake)}</span><span class="avatar" aria-label="Jerami">JS</span></header>
-    <div class="stagebar"><nav class="stages" aria-label="Production stage">${stageButtons(scene, version)}</nav><div class="stage-scene"><div class="scene-heading"><h1>${esc(scene.title)}</h1></div><span id="outer-status">${badge(state.statuses[scene.id])}</span></div><div class="viewer-actions"><select id="version" aria-label="Review version">${scene.versions.map(v => `<option value="${esc(v.id)}" ${v.id === version.id ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select><button id="panel-toggle" class="icon" aria-label="${state.panelOpen ? 'Hide' : 'Show'} review panel" aria-keyshortcuts="Meta+B" aria-controls="review-panel" aria-expanded="${state.panelOpen}">${icon('panel')}</button></div></div>
+    <div class="stagebar"><nav class="stages" aria-label="Production stage">${stageButtons(scene, version)}</nav><div class="stage-scene"><div class="scene-heading"><h1>${esc(scene.title)}</h1></div><span id="outer-status">${statusMenu(scene)}</span></div><div class="viewer-actions"><select id="version" aria-label="Review version">${scene.versions.map(v => `<option value="${esc(v.id)}" ${v.id === version.id ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select><button id="panel-toggle" class="icon" aria-label="${state.panelOpen ? 'Hide' : 'Show'} review panel" aria-keyshortcuts="Meta+B" aria-controls="review-panel" aria-expanded="${state.panelOpen}">${icon('panel')}</button></div></div>
     <div class="review-body ${state.panelOpen ? '' : 'panel-closed'}" style="--panel:${state.panelWidth}px">
-      <section class="viewer" aria-label="Scene viewer" tabindex="0" aria-keyshortcuts="ArrowLeft ArrowRight A C Space F Escape">
+      <section class="viewer ${version.stage === 'Plan' ? 'plan-view' : ''}" aria-label="Scene viewer" tabindex="0" aria-keyshortcuts="ArrowLeft ArrowRight A C Space F Escape">
         <div class="viewport-wrap"><div class="viewport" id="viewport"><p class="muted">Opening version…</p></div></div>
-        <div class="transport"><button class="icon play" id="play" aria-label="Play" disabled>${icon('play')}</button><button class="icon" id="previous-frame" aria-label="Previous frame" disabled>${icon('back')}</button><button class="icon" id="next-frame" aria-label="Next frame" disabled>${icon('next')}</button><span class="mono time" id="time">${timecode(state.times[`${scene.id}:${version.id}`] ?? 0)}</span><input type="range" id="seek" aria-label="Playback position" min="0" max="${scene.duration}" step="${1 / packet.fps}" value="0" disabled><span class="source-time mono">${scene.duration.toFixed(2)}s</span><button class="capture" id="capture" disabled>${icon('camera')} <span>Frame note</span></button><button class="icon" id="fullscreen" aria-label="Full screen">${icon('expand')}</button></div>
+        <div class="transport ${version.stage === 'Plan' ? 'plan-transport' : ''}"><button class="icon play" id="play" aria-label="Play" disabled>${icon('play')}</button><button class="icon" id="previous-frame" aria-label="Previous frame" disabled>${icon('back')}</button><button class="icon" id="next-frame" aria-label="Next frame" disabled>${icon('next')}</button><span class="mono time" id="time">${timecode(state.times[`${scene.id}:${version.id}`] ?? 0)}</span><input type="range" id="seek" aria-label="Playback position" min="0" max="${scene.duration}" step="${1 / packet.fps}" value="0" disabled><span class="source-time mono">${scene.duration.toFixed(2)}s</span><button class="capture" id="capture" disabled>${icon('camera')} <span>Frame note</span></button><button class="icon" id="fullscreen" aria-label="Full screen">${icon('expand')}</button></div>
       </section>
       <button class="separator" role="separator" aria-label="Resize review panel" aria-orientation="vertical" aria-valuemin="285" aria-valuemax="480" aria-valuenow="${state.panelWidth}" tabindex="0"></button>
-      <aside class="panel" id="review-panel" aria-label="Scene review" ${state.panelOpen ? '' : 'inert'}><header class="panel-head"><h2>Scene review <span class="mono">${esc(scene.id)}</span></h2><button class="icon" id="panel-close" aria-label="Close review panel">${icon('close')}</button></header><nav id="panel-tabs" class="panel-tabs" role="tablist" aria-label="Review panel"></nav><div class="panel-content" id="panel-content"></div><footer class="panel-footer"><button id="export">Export feedback ${icon('arrow')}</button><button class="send" disabled>Send to chat</button></footer></aside>
+      <aside class="panel" id="review-panel" aria-label="Scene review" ${state.panelOpen ? '' : 'inert'}><header class="panel-head"><h2>Scene review <span class="mono">${esc(scene.id)}</span></h2><button class="icon" id="panel-close" aria-label="Close review panel">${icon('close')}</button></header><nav id="panel-tabs" class="panel-tabs" role="tablist" aria-label="Review panel"></nav><div class="panel-content" id="panel-content"></div><footer class="panel-footer"><button id="export">Export feedback ${icon('arrow')}</button>${projectId ? '<button id="save-review">Save review</button><button id="reload-review" hidden>Load saved review</button>' : ''}<button id="send-review" class="send" disabled>Send to chat</button></footer></aside>
     </div>
-    <section class="storyboard" aria-label="Storyboard"><header class="storyboard-head"><h2>Storyboard</h2><span class="mono">${packet.scenes.length} scenes</span></header><div class="cards">${packet.scenes.map(c => `<button class="scene-card" data-scene="${esc(c.id)}" aria-label="Scene ${esc(c.id)}: ${esc(c.title)}" aria-current="${scene.id === c.id}">${c.thumbnail ? `<img class="card-image" src="${esc(c.thumbnail)}" alt="" loading="lazy">` : `<span class="card-image card-plan">${esc(c.id)}</span>`}<span class="mono card-id">${esc(c.id)}</span><span class="mono card-duration">${c.duration.toFixed(2)}s</span><div class="card-info"><p class="card-title">${esc(c.title)}</p></div><span class="card-status" data-status-scene="${esc(c.id)}">${badge(state.statuses[c.id])}</span></button>`).join('')}</div></section>
+    <section class="storyboard" aria-label="Storyboard"><header class="storyboard-head"><h2>Storyboard</h2><span class="mono">${packet.scenes.length} ${packet.scenes.length === 1 ? 'scene' : 'scenes'}</span></header><div class="cards">${packet.scenes.map(c => `<button class="scene-card" data-scene="${esc(c.id)}" aria-label="Scene ${esc(c.id)}: ${esc(c.title)}" aria-current="${scene.id === c.id}">${cardPreview(c)}<span class="mono card-id">${esc(c.id)}</span><span class="mono card-duration">${c.duration.toFixed(2)}s</span><div class="card-info"><p class="card-title">${esc(c.title)}</p></div><span class="card-status" data-status-scene="${esc(c.id)}">${badge(state.statuses[c.id])}</span></button>`).join('')}</div></section>
     <dialog class="drawing-dialog" id="drawing" aria-label="Frame note"></dialog>
   </main>`;
-  renderPanel(); bind(); void mountMedia();
+  renderPanel(); bind(); refreshReviewButtons(); void mountMedia();
 }
 
 function renderPanel() {
   const { scene, version, key } = context(state, packet), draft = state.drafts[key];
   const notes = state.notes.filter(note => note.sceneId === scene.id && note.versionId === version.id);
-  $('#panel-tabs').innerHTML = ['comments', 'scene'].map(tab => `<button role="tab" id="tab-${tab}" aria-controls="panel-${tab}" aria-selected="${state.panelTab === tab}" tabindex="${state.panelTab === tab ? 0 : -1}" data-panel-tab="${tab}">${tab === 'comments' ? 'Comments' : 'Scene'}</button>`).join('');
-  $('#panel-content').innerHTML = `<div role="tabpanel" id="panel-${state.panelTab}" aria-labelledby="tab-${state.panelTab}">${state.panelTab === 'scene' ? `
-    <section class="panel-section"><div class="section-title"><h3>Scene status</h3></div><div class="status-buttons">${statuses.map(status => `<button data-status="${status}" aria-pressed="${(state.statuses[scene.id] ?? 'Needs Review') === status}">${statusLabel(status)}${status === 'Approved' ? '<kbd aria-hidden="true">A</kbd>' : status === 'Changes Requested' ? '<kbd aria-hidden="true">C</kbd>' : ''}</button>`).join('')}</div></section>
-    ${scene.excerpt ? `<blockquote class="source-quote"><cite>Mark</cite><p>“${esc(scene.excerpt)}”</p></blockquote>` : ''}
-    ${scene.sourceUrl?.startsWith('https://www.figma.com/') ? `<div class="proof-links"><a href="${esc(scene.sourceUrl)}" target="_blank" rel="noopener">Figma source ${icon('arrow')}</a></div>` : ''}` : `
+  const tabs = panelTabs(version), active = tabs.includes(state.panelTab) ? state.panelTab : 'comments';
+  $('#panel-tabs').innerHTML = tabs.map(tab => `<button role="tab" id="tab-${tab}" aria-controls="panel-${tab}" aria-selected="${active === tab}" tabindex="${active === tab ? 0 : -1}" data-panel-tab="${tab}">${tab[0].toUpperCase()+tab.slice(1)}</button>`).join('');
+  $('#panel-content').innerHTML = `<div role="tabpanel" id="panel-${active}" aria-labelledby="tab-${active}">${active !== 'comments' ? planningPanel(scene, active) : `
     <section class="panel-section"><div class="section-title"><h3 class="comments-title">Comments <span class="note-count">${notes.length}</span></h3></div><div id="notes">${notes.length ? notes.map(noteMarkup).join('') : '<p class="empty-notes">No notes on this version.</p>'}</div>
       ${draft?.snapshot ? `<button class="draft-image draft-preview" id="edit-drawing" aria-label="Edit drawing" style="aspect-ratio:${draft.width ?? 16}/${draft.height ?? 9}"><img src="${esc(draft.snapshot)}" alt="Frozen frame for this draft"><svg class="marks" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">${marks(draft.marks)}</svg></button><div class="draft-tools"><button id="clear-frame">Remove frame</button></div>` : ''}
       <form class="composer" id="note-form"><textarea id="note-body" aria-label="Comment on this version" placeholder="Leave a note…" maxlength="6000" required>${esc(draft?.body ?? '')}</textarea><div class="composer-footer"><span class="draft-target mono" id="comment-time">${draftTimeLabel(draft)}</span><button id="save-note" type="submit" aria-keyshortcuts="Meta+Enter" ${draft?.body.trim() ? '' : 'disabled'}>Post comment <kbd aria-hidden="true">⌘↵</kbd></button></div></form></section>`}</div>`;
@@ -82,7 +227,7 @@ function renderPanel() {
     button.addEventListener('click', () => activate(button.dataset.panelTab));
     button.addEventListener('keydown', event => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-      event.preventDefault(); activate(event.key === 'Home' ? 'comments' : event.key === 'End' ? 'scene' : state.panelTab === 'comments' ? 'scene' : 'comments');
+      event.preventDefault(); const index = tabs.indexOf(active); activate(event.key === 'Home' ? tabs[0] : event.key === 'End' ? tabs.at(-1) : tabs[(index + (event.key === 'ArrowLeft' ? -1 : 1) + tabs.length) % tabs.length]);
     });
   });
   $('#note-body')?.addEventListener('focus', anchorComment);
@@ -93,7 +238,7 @@ function renderPanel() {
   });
   $('#note-form')?.addEventListener('submit', event => {
     event.preventDefault(); anchorComment();
-    if (commit(() => saveNote(state, packet, crypto.randomUUID()))) { renderPanel(); $('#note-body').focus(); say('Comment saved.'); }
+    if (commit(() => saveNote(state, packet, crypto.randomUUID()))) { renderPanel(); $('#note-body').focus(); say(projectId ? 'Comment added. Save review to keep it online.' : 'Comment saved.'); }
   });
   document.querySelectorAll('.status-buttons button').forEach(button => button.addEventListener('click', () => setStatus(button.dataset.status)));
   $('#edit-drawing')?.addEventListener('click', () => openDrawing());
@@ -145,7 +290,7 @@ function rememberPlayback() {
 }
 function setStatus(status) {
   if (!commit(() => updateStatus(state, packet, status))) return false;
-  $('#outer-status').innerHTML = badge(status);
+  $('#outer-status').innerHTML = statusMenu(context(state, packet).scene); bindStatusMenu();
   document.querySelector(`[data-status-scene="${state.selected}"]`).innerHTML = badge(status);
   document.querySelectorAll('.status-buttons button').forEach(item => item.setAttribute('aria-pressed', String(item.dataset.status === status)));
   return true;
@@ -190,6 +335,7 @@ function shortcuts(event) {
   }
 }
 function bind() {
+  bindStatusMenu();
   $('#panel-toggle').addEventListener('click', () => togglePanel(!state.panelOpen));
   $('#panel-close').addEventListener('click', () => togglePanel(false));
   document.querySelectorAll('[data-scene]').forEach(button => button.addEventListener('click', () => goToScene(button.dataset.scene)));
@@ -198,6 +344,9 @@ function bind() {
   document.querySelectorAll('[data-stage]').forEach(button => button.addEventListener('click', () => { rememberPlayback(); const { scene } = context(state, packet); selectVersion(state, packet, scene.versions.filter(v => v.stage === button.dataset.stage).at(-1).id); persist(); render(); }));
   $('#fullscreen').addEventListener('click', () => { void $('#viewport').requestFullscreen?.().catch(() => say('Full screen is unavailable in this browser.')); });
   $('#capture').addEventListener('click', capture);
+  $('#save-review')?.addEventListener('click', saveReview);
+  $('#reload-review')?.addEventListener('click', reloadReview);
+  $('#send-review').addEventListener('click', sendReview);
   $('#export').addEventListener('click', () => {
     const blob = new Blob([JSON.stringify({ ...feedbackBatch(state, packet), unsavedDrafts: state.drafts }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob), link = document.createElement('a'); link.href = url; link.download = `${packet.episodeId}-feedback.json`; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -221,7 +370,7 @@ function stopMedia() {
 async function mountMedia() {
   const { scene, version, key } = context(state, packet), target = $('#viewport');
   if (version.kind === 'plan') {
-    target.innerHTML = `<div class="plan"><span class="eyebrow">${esc(scene.lane)} / ${esc(scene.id)}</span><h2>${esc(scene.title)}</h2><span class="plan-label">Storyboard · Awaiting artwork</span></div>`; return;
+    target.innerHTML = planMarkup(scene); return;
   }
   const controller = new AbortController(); mediaAbort = controller;
   try {
@@ -233,10 +382,10 @@ async function mountMedia() {
     if (controller.signal.aborted) return;
     mediaBlob = URL.createObjectURL(new Blob([bytes], { type: response.headers.get('content-type') ?? (version.kind === 'video' ? 'video/mp4' : 'image/jpeg') }));
     if (version.kind === 'image') {
-      target.innerHTML = `<img src="${mediaBlob}" alt="${esc(scene.title)}"><span class="viewport-label">${esc(version.label)}</span>`;
+      target.innerHTML = `<img src="${mediaBlob}" alt="${esc(scene.title)}">`;
       target.querySelector('img').addEventListener('load', () => { $('#capture').disabled = false; }); return;
     }
-    target.innerHTML = `<video playsinline preload="auto" src="${mediaBlob}" aria-label="Review video"></video><span class="viewport-label">${esc(packet.referenceLabel)} · ${esc(version.label)}</span>`;
+    target.innerHTML = `<video playsinline preload="auto" src="${mediaBlob}" aria-label="Review video"></video>`;
     const video = target.querySelector('video'), canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
     if (!ctx || !video.requestVideoFrameCallback) throw new Error('This browser cannot capture shown frames. Scene notes still work.');
     let pendingFrame;
@@ -314,13 +463,41 @@ function bindDrawing() {
 }
 
 try {
-  const response = await fetch('packet.json'); if (!response.ok) throw new Error('Review packet is unavailable. Reload to retry.');
-  packet = await response.json(); storageKey = `review-preview:${packet.episodeId}:${packet.revision}`;
+  const response = await fetch(projectId ? `/api/studio/projects?projectId=${encodeURIComponent(projectId)}` : 'packet.json');
+  if (!response.ok) throw new Error('Review packet is unavailable. Reload to retry.');
+  const data = await response.json();
+  packet = projectId ? JSON.parse(data?.packet ?? 'null') : data;
+  if (!packet || !Array.isArray(packet.scenes) || !packet.scenes.length) throw new Error('No scenes are ready for this project.');
+  if (projectId) {
+    packet.title = data.title;
+    packet.client = data.client;
+    packet.intake = '';
+    chatSendEnabled = data.chatSendEnabled === true;
+  }
+  storageKey = `review-preview:${projectId ?? packet.episodeId}:${packet.revision}`;
   let stored;
   try { stored = JSON.parse(localStorage.getItem(storageKey)); } catch { /* Keep the prior storage untouched when it cannot be read. */ }
   state = createState(packet, stored);
   if (!stored) selectScene(state, packet, packet.initialScene);
+  if (projectId) {
+    const online = await readReview();
+    onlineVersion = online.version;
+    const hasLocalEdits = state.reviewDirty ??
+      (state.notes.length > 0 || Object.keys(state.statuses).length > 0);
+    if (hasLocalEdits) {
+      const baseVersion = state.reviewBaseVersion ?? 0;
+      onlineConflict = baseVersion !== onlineVersion &&
+        canonicalReview(savedReview()) !== canonicalReview(online.feedback);
+      state.reviewBaseVersion = onlineConflict ? baseVersion : onlineVersion;
+      state.reviewDirty = canonicalReview(savedReview()) !== canonicalReview(online.feedback);
+    } else {
+      Object.assign(state, online.feedback, { reviewBaseVersion: onlineVersion, reviewDirty: false });
+    }
+    persist();
+  }
   render();
+  if (onlineConflict) say('Another review was saved online. Export your edits or load the saved review.');
   document.addEventListener('keydown', shortcuts);
-  window.addEventListener('pagehide', rememberPlayback);
+  if (projectId) void checkChatSend();
+  window.addEventListener('pagehide', () => { rememberPlayback(); clearTimeout(chatTimer); });
 } catch (error) { app.textContent = error.message; }

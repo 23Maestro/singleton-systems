@@ -17,8 +17,9 @@ Each surface has one job. Links may cross surfaces, but state ownership does not
 ## 1. Cerebral - Routing
 
 Intent: choose the owner, tool stack, review gate, and next action from natural
-language. The live route registry is stored in Supabase and has a checked-in
-fallback at `config/cerebral-registry.json`.
+language. The live route registry is stored in Supabase.
+`config/cerebral-registry.json` owns the versioned contract and seed data.
+The runtime hook has no local fallback.
 
 ```text
 request -> Cerebral route -> owner surface -> reviewed mutation -> verification
@@ -31,12 +32,16 @@ Cerebral never becomes a task database, background worker, or hidden writer.
 Intent: hold Development ideas, decisions, projects, assignments, and next
 moves.
 
+Choose the exact project from the [project index](../development/README.md).
+
 Canonical placements:
 
 ```text
 Team: 23Maestro
 Project: Command + Ideas  -> capture, commands, small decisions
-Project: Singleton Systems -> system plans, dashboard, GraphQL gateway
+Initiative: Singleton Operations -> Internal Systems, Time Intelligence, Hazel Assembler
+Initiative: Service Builds -> named editing and consulting build projects
+Initiative: Software Tools -> named standalone app projects
 Default issue status: Backlog
 ```
 

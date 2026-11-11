@@ -12,6 +12,7 @@ export default defineConfig([
   },
   globalIgnores([
     ".next/**",
+    ".vercel/output/**",
     "out/**",
     "build/**",
     "docs/visual-maps/dist/**",

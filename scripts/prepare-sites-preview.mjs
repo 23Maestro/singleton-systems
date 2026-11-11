@@ -24,7 +24,7 @@ const pages = {};
 const publicAssets = new Set();
 const imagePaths = new Set();
 for (const route of config.routes) {
-  assert.ok(["/", "/AI-consultant", "/tampa-ai-consultant", "/video-inquiry"].includes(route));
+  assert.ok(["/", "/AI-consultant", "/tampa-ai-consultant", "/video-inquiry", "/recruiting-highlights"].includes(route));
   const sourceName = route === "/" ? "index" : route.slice(1);
   const html = productionLinks(readFileSync(path.join(root, `.next/server/app/${sourceName}.html`), "utf8"));
   const rsc = productionLinks(readFileSync(path.join(root, `.next/server/app/${sourceName}.rsc`), "utf8"));
@@ -38,7 +38,7 @@ for (const route of config.routes) {
 }
 
 const assets = {};
-const mime = { ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".json": "application/json", ".mp4": "video/mp4", ".jpg": "image/jpeg" };
+const mime = { ".js": "text/javascript", ".css": "text/css", ".woff2": "font/woff2", ".json": "application/json", ".mp4": "video/mp4", ".jpg": "image/jpeg", ".webp": "image/webp", ".svg": "image/svg+xml" };
 function collect(directory) {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     const filename = path.join(directory, entry.name);
@@ -59,6 +59,13 @@ for (const name of ["catena-figma-reel.mp4", "catena-figma-reel-poster.jpg", "li
   assets[`/portfolio/video-offer/${name}`] = { type: mime[path.extname(name)], bytes: bytes.toString("base64") };
 }
 
+// Ship the selected recruiting photos with the review, before they reach production.
+for (const assetPath of ["/singleton-systems-wordmark.svg", "/portfolio/recruiting/football.webp", "/portfolio/recruiting/basketball.webp", "/portfolio/recruiting/baseball.webp", "/portfolio/recruiting/softball.webp", "/portfolio/recruiting/soccer.webp", "/portfolio/recruiting/volleyball.webp", "/portfolio/recruiting/lacrosse.webp"]) {
+  const bytes = readFileSync(path.join(root, "public", assetPath));
+  assert.ok(bytes.length <= 1024 * 1024, "Recruiting web assets must stay below 1 MiB each");
+  assets[assetPath] = { type: mime[path.extname(assetPath)], bytes: bytes.toString("base64") };
+}
+
 const worker = `// Built marketing preview. No credentials, server APIs, or personal pages.
 const pages = ${JSON.stringify(pages)};
 const assets = ${JSON.stringify(assets)};
@@ -67,7 +74,7 @@ const imagePaths = new Set(${JSON.stringify([...imagePaths])});
 const production = ${JSON.stringify(config.production_origin)};
 export default {
   async fetch(request) {
-    if (request.method === "POST" && new URL(request.url).pathname === "/api/video-intake") return Response.json({ preview: true }, { status: 409 });
+    if (request.method === "POST" && ["/api/video-intake", "/api/recruiting-intake"].includes(new URL(request.url).pathname)) return Response.json({ preview: true }, { status: 409 });
     if (!["GET", "HEAD"].includes(request.method)) return new Response("Preview is read-only", { status: 405 });
     const url = new URL(request.url);
     const pathname = url.pathname === "/" ? "/" : url.pathname.replace(/\\/$/, "");
@@ -102,7 +109,7 @@ export default {
 mkdirSync(path.join(checkout, "worker"), { recursive: true });
 writeFileSync(path.join(checkout, "worker/index.js"), worker);
 writeFileSync(path.join(checkout, "package.json"), `${JSON.stringify({ private: true, type: "module", scripts: { build: "bash scripts/build.sh && node scripts/validate-artifact.mjs" } }, null, 2)}\n`);
-const starterScripts = "/Users/singleton23/.codex/plugins/cache/openai-curated-remote/sites/1.1.2/skills/sites/templates/worker-esm-starter/scripts";
+const starterScripts = "/Users/singleton23/.codex/plugins/cache/openai-curated-remote/sites/1.1.6/skills/sites/templates/worker-esm-starter/scripts";
 cpSync(starterScripts, path.join(checkout, "scripts"), { recursive: true });
 delete manifest.static;
 writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);

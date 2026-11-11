@@ -2,8 +2,8 @@
 
 ## Inputs
 
-Read `business/offer-and-audience.md` and `business/voice-rules.md` in the
-Singleton Systems repository for current business facts and voice.
+Read the operations guide linked by the Singleton Systems CODEX.md. Use the
+matching service Lane's offers and audience, plus the shared writing rules.
 
 Use the actual post, platform, rate or budget, requested deliverables, timeline,
 and any provided screening questions. Separate verified facts from inference.

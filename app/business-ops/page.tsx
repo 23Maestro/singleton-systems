@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { newAccessLink, owner } from "@/lib/studio-session";
 import { founderName, siteName, siteUrl } from "../site";
 
 export const metadata: Metadata = {
@@ -20,14 +22,18 @@ export const metadata: Metadata = {
   },
 };
 
+const studioUrl = "https://www.singleton-systems.com/studio";
 const links = [
-  { label: "Studio", href: "/studio", description: "Review scenes and leave frame notes." },
+  { label: "Studio", href: studioUrl, description: "Review scenes and leave frame notes." },
   { label: "Command Center", href: "/dashboard", description: "Work queue, planning, and client context." },
   { label: "Fitness", href: "/fitness", description: "Workouts and morning movement." },
   { label: "Finances", href: "/finances", description: "Current money and financial plans." },
 ] as const;
 
-export default function BusinessOpsPage() {
+export default async function BusinessOpsPage() {
+  const studioHref = owner({ headers: await headers() })
+    ? `${studioUrl}#access=${newAccessLink()}`
+    : studioUrl;
   return (
     <main className="min-h-dvh bg-[#f7f7f5] px-5 py-8 text-[#111318] [color-scheme:light] dark:bg-[#0c0d0f] dark:text-white dark:[color-scheme:dark] sm:px-8">
       <section className="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-[30rem] flex-col justify-center">
@@ -52,11 +58,12 @@ export default function BusinessOpsPage() {
 
         <nav className="mt-9 grid gap-3" aria-label="Business tools">
           {links.map((link) => {
-            const ToolLink = link.href === "/studio" ? "a" : Link;
+            const isStudio = link.href === studioUrl;
+            const ToolLink = isStudio ? "a" : Link;
             return (
             <ToolLink
               key={link.href}
-              href={link.href}
+              href={isStudio ? studioHref : link.href}
               className="group block border-b border-black/15 py-3.5 transition hover:border-black/50 hover:bg-black/[0.03] focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#f7f7f5] dark:border-white/15 dark:hover:border-white/60 dark:hover:bg-white/[0.03] dark:focus:ring-white dark:focus:ring-offset-[#0c0d0f]"
             >
               <span className="flex items-center gap-4">

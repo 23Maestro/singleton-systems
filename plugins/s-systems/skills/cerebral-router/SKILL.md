@@ -12,7 +12,7 @@ Raycast, Shortcuts, Next/Vercel, docs, or LikeC4.
 
 ```text
 unselected thought -> Linear Command + Ideas
-active Development plan -> Linear Singleton Systems
+active Development plan -> Linear project matched to purpose
 fuzzy or branching Development build -> Linear Wayfinder map
 selected AI consulting work -> Asana AI Consulting
 selected client editing work -> Asana Content Editor
@@ -44,10 +44,17 @@ Content Editor tasks through that gateway.
 
 ## Route
 
-For business, audience, offer, or outreach work, read the current repository's
-`business/brand-foundation.md`, `business/offer-and-audience.md`, and
-`business/voice-rules.md`. Those files own business facts. Keep plans and
-progress in the named task owner; do not create dated repo plans.
+Apply the shared writing rules supplied by Cerebral or the repository guide.
+Use plain, third-grade wording for Jerami, short names and summaries, and each
+app's own blocks and text tools. Keep technical ticket details needed to execute
+below the summary or in linked sources. Apply this to Linear, Asana, Craft,
+Notion, dashboard copy and other reader surfaces. Read back saved content.
+
+For offers, audience, outreach or operations, follow the operations guide
+linked by the repository's CODEX.md. Choose the Content Editor or AI Consulting
+Lane. The technical project index routes Singleton Operations, Service Builds
+and Software Tools. Keep plans and progress in the task owner. Old business
+paths are redirects; do not treat earlier operating plans as current offers.
 
 1. Name one owner.
 2. Select the smallest skill or tool stack.

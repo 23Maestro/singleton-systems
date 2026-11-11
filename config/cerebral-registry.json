@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "source_revision": "2026-10-27-lineups-editor-v1",
+  "source_revision": "2026-11-11-website-lanes-v1",
   "vocabulary": {
     "initiatives": [
       "Development",
@@ -461,6 +461,48 @@
       "enabled": true
     },
     {
+      "route_key": "website-editing",
+      "bucket": "website-editing",
+      "trigger_patterns": [
+        "/recruiting-highlights\\b",
+        "\\b(?:video[- ]editing|content[- ]editor|recruiting(?: highlights)?|editing)\\b.{0,100}\\b(?:website|site|page|seo|offer)\\b",
+        "\\b(?:website|site|page|seo|offer)\\b.{0,100}\\b(?:video[- ]editing|content[- ]editor|recruiting(?: highlights)?|editing)\\b"
+      ],
+      "example_prompt": "Update the video editing website offer.",
+      "surface": "content",
+      "lane": "Content Editor",
+      "owner": "Docs/skills",
+      "intent": "Use the Content Editor website guide for this offer, page and search work. Keep its service outcome in the matching Asana Lane.",
+      "shape": "operating rule",
+      "required_tools": [
+        "s-systems:singleton-systems"
+      ],
+      "review_gate": "Use documented portfolio work and Final Human Pass for publishable copy.",
+      "priority": 72,
+      "enabled": true
+    },
+    {
+      "route_key": "website-consulting",
+      "bucket": "website-consulting",
+      "trigger_patterns": [
+        "/(?:AI-consultant|tampa-ai-consultant|ai-workflow-session)\\b",
+        "\\b(?:ai[- ]consult(?:ing|ant)|workflow cleanup)\\b.{0,100}\\b(?:website|site|page|seo|offer)\\b",
+        "\\b(?:website|site|page|seo|offer)\\b.{0,100}\\b(?:ai[- ]consult(?:ing|ant)|workflow cleanup)\\b"
+      ],
+      "example_prompt": "Update the AI consulting website offer.",
+      "surface": "content",
+      "lane": "AI Consultant",
+      "owner": "Docs/skills",
+      "intent": "Use the AI Consultant website guide for this offer, page and search work. Keep its service outcome in the matching Asana Lane.",
+      "shape": "operating rule",
+      "required_tools": [
+        "s-systems:singleton-systems"
+      ],
+      "review_gate": "Use documented portfolio work and Final Human Pass for publishable copy.",
+      "priority": 72,
+      "enabled": true
+    },
+    {
       "route_key": "website-offer",
       "bucket": "website-offer",
       "trigger_patterns": [
@@ -472,9 +514,9 @@
       ],
       "example_prompt": "Tighten the offer wording on the Singleton Systems landing page.",
       "surface": "content",
-      "lane": "AI Consultant",
+      "lane": "Writing Review",
       "owner": "Docs/skills",
-      "intent": "Make an offer or site decision from the Singleton Systems business model.",
+      "intent": "Choose the page and service Lane from the website guide before changing an unclear or shared website offer.",
       "shape": "operating rule",
       "required_tools": [
         "s-systems:singleton-systems"

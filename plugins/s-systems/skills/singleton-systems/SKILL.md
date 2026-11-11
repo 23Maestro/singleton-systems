@@ -8,9 +8,9 @@ description: Use for Singleton Systems offer, portfolio, or cross-surface busine
 Route first with `cerebral-router`. Use this only for an offer, portfolio, or
 cross-surface business decision not owned by a narrower skill.
 
-Read `business/brand-foundation.md`, `business/offer-and-audience.md`, and
-`business/voice-rules.md` in the Singleton Systems repository. They own the
-current facts. Do not use an old pitch or cached skill as a second offer source.
+Read the operations guide linked by the Singleton Systems CODEX.md. The
+Content Editor and AI Consulting Lane files own current offers and audiences.
+Use the shared writing rules. Old pitches and cached skills are source history.
 Use documented work and surface a cash-path action when offer polish crowds it out.
 
 Read `references/owner-boundaries.md` before changing an owner boundary.

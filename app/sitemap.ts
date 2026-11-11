@@ -4,6 +4,12 @@ import { siteUrl } from "./site";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
+      url: `${siteUrl}/recruiting-highlights`,
+      lastModified: new Date("2026-11-09"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: siteUrl,
       lastModified: new Date("2026-10-10"),
       changeFrequency: "weekly",

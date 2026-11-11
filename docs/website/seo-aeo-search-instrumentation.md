@@ -1,108 +1,48 @@
-# SEO/AEO Search Instrumentation
+# Website search checks
 
-## Owner Surface
+Use the [website guide](README.md) and choose the page's Lane before changing SEO.
 
-Singleton Systems website code owns the technical hooks.
+## Page intent
 
-Google Search Console and Bing Webmaster Tools own account-side verification,
-indexing status, impressions, clicks, average position, and sitemap submission.
+| Page | Search purpose | Source |
+| --- | --- | --- |
+| `/` | Editing services | [Editing page map](content-editor/README.md) and [site keywords](../../app/site.ts) |
+| `/recruiting-highlights` | Sports highlights for parents | [Editing page map](content-editor/README.md) |
+| `/AI-consultant` and `/tampa-ai-consultant` | Workflow and AI help | [Consulting page map](ai-consulting/README.md) |
 
-## Live Site
+Each page owns its title, description, canonical URL and structured data in code.
+Keep offer prices and claims aligned with the same Lane's approved source.
+Keyword research and content tasks stay in Asana. Technical changes use Website Growth.
 
-```text
-https://singleton-systems.com
-```
+## Indexing and proof
 
-## Verification Hooks
+[Site identity](../../app/site.ts) owns the production origin.
+[Sitemap](../../app/sitemap.ts) owns listed pages; [robots](../../app/robots.ts)
+owns crawler instructions. Check rendered URLs after deployment.
+Google Search Console and Bing Webmaster Tools own indexing and search metrics.
+Submit the production `/sitemap.xml` there.
 
-The site emits verification meta tags during build when these Vercel environment
-variables are present:
+[Layout](../../app/layout.tsx) reads `GOOGLE_SITE_VERIFICATION` and
+`BING_SITE_VERIFICATION`. These must be set in the target deployment environment.
+A local file does not prove account verification or a deployed tag.
 
-```text
-GOOGLE_SITE_VERIFICATION
-BING_SITE_VERIFICATION
-```
+Track each Lane's pages and queries separately. Use impressions, clicks,
+position and visits to the right inquiry page. Lighthouse measures technical
+health; it does not prove search rank, leads or sales.
 
-Use Vercel production env vars for these tokens, then redeploy production.
+## Checks
 
-## Submit
+- `npm run audit:seo-aeo` runs the [live contract check](../../scripts/seo-aeo-live-check.mjs).
+- `npm run audit:lighthouse` checks the deployed site's technical health.
+- `npm run audit:seo-stack` runs both.
 
-Submit this sitemap in both tools:
+The live contract checks the approved editing title and headline.
+Its browser tests accept the editing page and reject the old consulting title,
+a wrong headline and a preview canonical URL. Run `check:client-intake` for
+those regression checks.
+The current script checks the homepage and shared search files; it does not
+prove each Lane page's metadata. Check those pages too when they change.
 
-```text
-https://singleton-systems.com/sitemap.xml
-```
-
-## Track
-
-Use Google Search Console and Bing Webmaster Tools to track:
-
-```text
-indexed pages
-impressions
-clicks
-average position
-queries
-Core Web Vitals
-```
-
-Primary query lane:
-
-```text
-workflow cleanup consultant
-AI workflow consultant
-video workflow consultant
-Premiere Pro workflow systems
-Notion workflow dashboards
-creator operations systems
-course video migration workflow
-sports recruiting video production workflow
-```
-
-Do not treat Lighthouse as ranking portfolio. Lighthouse proves technical health.
-Search Console and Bing Webmaster Tools prove search visibility over time.
-
-## Repeatable Audit
-
-Run the live SEO/AEO contract check:
-
-```bash
-npm run audit:seo-aeo
-```
-
-Run Lighthouse against production:
-
-```bash
-npm run audit:lighthouse
-```
-
-Run both:
-
-```bash
-npm run audit:seo-stack
-```
-
-Current production Lighthouse evidence from July 2, 2026:
-
-```text
-Performance: 98
-Accessibility: 100
-Best Practices: 100
-SEO: 100
-```
-
-The SEO/AEO live check verifies:
-
-```text
-metadata
-canonical
-Open Graph
-Twitter card
-JSON-LD
-visible AEO content
-robots.txt
-sitemap.xml
-favicon/icon routes
-no initial Cal.com embed
-hydrated Vercel Speed Insights script
-```
+The recorded July 2, 2026 Lighthouse scores were 98 performance and 100 for
+accessibility, best practices and SEO. Those are historical results, not a fresh audit.
+Keep new results linked from the owning task with the checked URL and date.

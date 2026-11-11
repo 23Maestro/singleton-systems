@@ -2,8 +2,8 @@
 
 ## Load the right context
 
-Read `business/offer-and-audience.md` and `business/voice-rules.md` in the
-Singleton Systems repository. They own current business facts.
+Read the operations guide linked by the Singleton Systems CODEX.md. Use the
+matching service Lane's offers and audience, plus the shared writing rules.
 
 Private voice files live under
 `~/.local/share/singleton-systems/social-media-engine/`:

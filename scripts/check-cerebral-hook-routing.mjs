@@ -147,6 +147,21 @@ for (const route of routes) {
   }
 }
 
+// Website offers share tools but retain their service Lane. Recruiting is editing.
+for (const [prompt, lane, absentLane] of [
+  ["Update the video editing website offer.", "Content Editor", "AI Consultant"],
+  ["Review SEO for /recruiting-highlights.", "Content Editor", "AI Consultant"],
+  ["Update the AI consulting website offer.", "AI Consultant", "Content Editor"],
+  ["Review /AI-consultant page copy.", "AI Consultant", "Content Editor"],
+  ["Review the website offer.", "Writing Review", "AI Consultant"],
+]) {
+  const result = runHook(prompt);
+  assert.equal(result.status, 0, result.stderr);
+  const context = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
+  assert.ok(context.includes(`[lane] ${lane} |`), `${prompt}: expected ${lane}`);
+  assert.ok(!context.includes(`[lane] ${absentLane} |`), `${prompt}: wrong Lane ${absentLane}`);
+}
+
 const explicitBucket = runHook("[bucket] writing-review\nCompress this client update.");
 assert.equal(explicitBucket.status, 0);
 for (const snippet of ["[route] writing-review", "[lane] Writing Review", "[bucket] writing-review"]) {
@@ -259,7 +274,7 @@ assert.match(offerPacket.stdout, /12-hour format with AM\/PM, such as 2:04 PM/, 
 assert.match(offerPacket.stdout, /Keep required technical precision/, "offer packet: missing precision safeguard");
 assert.match(offerPacket.stdout, /Never turn video timecodes into clock times/, "offer packet: missing timecode safeguard");
 
-for (const prompt of ["Update Asana.", "Write Google Sheets cells.", "Draft spreadsheet copy.", "Write an internal handoff."]) {
+for (const prompt of ["Update Craft.", "Update Notion.", "Update Asana.", "Write Google Sheets cells.", "Draft spreadsheet copy.", "Write an internal handoff."]) {
   const packet = runHook(prompt);
   assert.equal(packet.status, 0, prompt);
   assert.match(packet.stdout, /Writing rules for reviewable artifacts/, prompt);
@@ -405,6 +420,10 @@ for (const prompt of [
 
 // Figma calls need workspace guidance even without an episode name in the code.
 const figmaWorkTools = ["use_figma", "weave_run_tool", "export_video"];
+const claudeHooks = JSON.parse(fs.readFileSync(path.join(root, ".claude/settings.json"), "utf8")).hooks;
+for (const event of ["SessionStart", "UserPromptSubmit", "PreToolUse", "PostToolUse", "Stop"]) {
+  assert.ok(claudeHooks[event]?.some(entry => entry.hooks.some(item => item.command.includes("cerebral_singleton_guard.py"))), `Claude ${event}: missing shared guard`);
+}
 const hookConfig = JSON.parse(fs.readFileSync(path.join(root, ".codex/hooks.json"), "utf8"));
 for (const suffix of figmaWorkTools) {
   const toolName = `mcp__codex_apps__figma_${suffix}`;
