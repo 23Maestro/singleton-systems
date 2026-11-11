@@ -57,8 +57,9 @@ about Jerami's real work.
   and the pointer to the owning record.
 - Linear owns Development task and status state.
 - Asana owns AI Consulting and Content Editor task and status state.
-- Supabase is the chosen client-record home. The real-record move and Notion
-  intake cutover remain open in 23M-407. Preserve legacy records until verified.
+- Supabase owns client records and all 3 live intake flows. The reviewed
+  records and dashboard reads passed 23M-407. Notion links are past sources;
+  removing those sources remains a separate cleanup step.
 - Eagle owns portfolio assets; keep claims linked to their source evidence.
 - Supabase holds integration receipts and temporary drafts when the workflow
   needs them.

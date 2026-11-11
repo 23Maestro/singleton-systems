@@ -16,13 +16,14 @@ Start with the work you need to do.
 | --- | --- |
 | Editing or consulting outcome and Jerami's next action | Asana, in the matching Lane |
 | Build steps, tests and technical proof | Linear, linked to the Asana outcome when it supports one |
-| Client and prospect facts | Supabase is the chosen home; the real-record move is still open |
+| Client and prospect facts | Supabase; the private dashboard reads its client cards |
 | Outreach history | Outreach sheet, linked to the same client and next-action task |
 | Ideas and rough notes | Craft; link selected work to its task owner |
 
 The dashboard shows these owners and opens their links. It holds no separate task status.
-Notion client records and highlight intake are legacy sources until checked and moved.
-Do not remove them before the live forms and readers work with the new records.
+All 3 live forms save in Supabase. Reviewed client cards are in the dashboard.
+Open the private Studio bookmark first to sign in. Notion links retain past
+sources; removing those sources remains a separate cleanup step.
 
 ## How we work
 
@@ -38,9 +39,10 @@ Finish verified children before the parent. Keep missing proof visible.
 
 ## Still open
 
-[Client records](https://linear.app/23maestro/issue/23M-407) owns the Supabase
-move and live reader checks. Jerami approved this guide and the website structure
-in [Project maintenance](https://linear.app/23maestro/issue/23M-408).
+[Client records](https://linear.app/23maestro/issue/23M-407) holds the live cutover
+proof. The [follow-up loop](https://linear.app/23maestro/issue/23M-281) stays for later.
+Jerami approved this guide and the website structure in
+[Project maintenance](https://linear.app/23maestro/issue/23M-408).
 [System alignment](https://linear.app/23maestro/issue/23M-328) retains file-home
 follow-through and routing gaps. Old mixed projects and delivery records still
 need record-by-record review; this guide does not mark them done.

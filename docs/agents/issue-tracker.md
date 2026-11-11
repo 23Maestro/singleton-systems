@@ -11,8 +11,9 @@ Singleton Systems uses task systems by Lane. Start at the
 - GitHub holds linked implementation evidence such as branches, commits, and
   pull requests.
 - GitHub Issues do not duplicate Linear or Asana tasks.
-- Supabase is the chosen client-record home. The real-record move and Notion
-  intake cutover remain open in 23M-407. Preserve legacy records until verified.
+- Supabase owns client records and all 3 live intake flows. The reviewed
+  records and dashboard reads passed 23M-407. Notion links are past sources;
+  removing those sources remains a separate cleanup step.
 - Eagle owns portfolio assets; keep claims linked to their source evidence.
 - Supabase holds integration receipts and temporary drafts when needed.
 

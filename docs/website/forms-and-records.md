@@ -10,7 +10,7 @@ AI workflow inquiries belong to AI Consulting. There are 3 forms across 2 servic
 
 ## Current source paths
 
-| Form | Server path | Replacement flow in source |
+| Form | Server path | Live flow |
 | --- | --- | --- |
 | Editing inquiry | [Video route](../../app/api/video-intake/route.ts) and [delivery](../../lib/video-intake.ts) | Saves a Supabase contact link and inquiry in one transaction |
 | Recruiting inquiry | [Recruiting route](../../app/api/recruiting-intake/route.ts) and [delivery](../../lib/recruiting-delivery.ts) | Saves a Supabase contact link and inquiry in one transaction |
@@ -30,10 +30,11 @@ cutover. No test inquiry should be sent to a client-facing queue without a test 
 
 ## Client cutover
 
-[23M-407](https://linear.app/23maestro/issue/23M-407) owns the real-record trace
-and cutover review. Check all 3 forms, dashboard reads, outreach links and return
-visits against the same client or prospect ID. Keep relationship type, Lane,
-payment and next action separate.
+[23M-407](https://linear.app/23maestro/issue/23M-407) holds the live cutover proof.
+All 3 production forms passed, including an AI voice memo. The dashboard
+showed each saved request. All 18 reviewed cards passed field and group checks.
+Test records from that run were removed. Keep relationship type, Lane, payment
+and next action separate.
 
 The Lane client indexes link the chosen record home:
 [editing](../operations/content-editor/clients.md) and
