@@ -15,15 +15,15 @@ Before reporting a missing source, blocked workflow or need for a new template:
 2. Match the content kind and approved option. A team across 2 weeks compares
    periods. It is not a player pair just because it has 2 values.
 3. Name the reusable source and its engine. Keep a new engine experiment
-   separate from the saved working route. A missing Unreal variant does not
-   erase an existing Figma source.
+   separate from the saved working route. Unreal is retired for new builds;
+   its saved exports stay as history and never erase an existing Figma source.
 4. If a current rule rejects that source, report the exact rule, expected value,
    observed value and evidence revision. Call this a validation conflict. Do
    not ask Jerami to recall the record or approve the same design again.
 
 Week 8's starting record is
 [`docs/handoffs/2026-10-21-week7-figma-review.md`](../../../../../docs/handoffs/2026-10-21-week7-figma-review.md):
-23 Figma exports and 4 preserved Unreal exports. The Week 7 edit packet records
+23 Figma exports and 4 preserved Unreal exports (history). The Week 7 edit packet records
 S01 as Ravens rank 3 last week versus rank 10 this week. Week 8 C01 and C02
 already name Figma source `598:215`, registry key `comparison.simple.2`.
 Use this evidence before proposing rank-comparison design work.
@@ -46,7 +46,7 @@ the `Content Editor` project (`1218890014545436`) under `Catena`. Record:
 - source delivery and Eagle folder;
 - confirmed delivery deadline as the Asana due date and time (10 AM America/New_York when only a date is supplied);
 - transcript and client notes;
-- Pre-Figma and Post-Figma review paths;
+- Studio project ID and review URL;
 - Premiere project and final export target.
 
 Leave the task incomplete from intake through review. Complete it only after
@@ -72,23 +72,41 @@ direct episode link. Intake does not authorize Figma construction before review.
 
 ## fixed flow
 
+Follow these 8 steps in order:
+
+1. Resolve the episode, its Asana task and its Eagle source.
+2. Complete the Whisper word-level transcript. Check unclear speech and the
+   source offsets. Time words with forced alignment when Whisper times drift.
+3. Review the full transcript across all 7 lanes. Use the latest meaning-led
+   examples. Keep supported alternatives and asset needs visible. There is no
+   scene quota. Check themes against the JSON discovery ledger with Jev.
+4. Bind each proposed event to its spoken word or phrase. Issue a timing-only
+   Manim receipt per scene, tied to the exact transcript, discovery and cue
+   revision. No render is needed here.
+5. Build the candidate packet and attach it to the episode's existing Studio
+   project. Test the hosted project: scene roster, evidence, preview paths,
+   saved feedback and reload. Return its direct HTTPS project link.
+6. Jerami reviews the candidates and approves builds.
+7. Build approved scenes in their recorded Figma or Blender route. Reuse current
+   approved sources and the current Blender design work. Attach finished art
+   and motion to the same Studio project.
+8. Check finished motion with audio after the approved builds. That check runs
+   in the chat Jerami named. Then follow the approval, Premiere, delivery, Eagle
+   filing, Asana and Studio closeout rules below.
+
 ```text
-ingest files
-  -> create or update Asana task and due date
-  -> file source media and packet in Eagle
-  -> complete the Whisper word-level transcript
-  -> review the full transcript against all seven lanes; bind discoveryPath to its hash
-  -> check transcript themes against the JSON discovery ledger with Jev
-  -> select supported candidates without a scene quota
-  -> run Manim timing validation and write the passed cue proof
-  -> create the episode scene manifests with the validated Whisper/Manim timing
-  -> generate and publish the locked Pre-Figma review
-  -> approved Figma source-family episode copies
-  -> locked Post-Figma review
+episode, Asana task and Eagle source
+  -> Whisper word-level transcript, checked
+  -> seven-lane discovery bound to the transcript hash
+  -> spoken cues and timing-only Manim receipts
+  -> candidate packet in the existing Studio project, tested on the hosted site
+  -> Jerami approves builds
+  -> approved scenes built in Figma or Blender; art and motion attached in Studio
+  -> finished motion checked with audio (other chat)
   -> Premiere edit and delivery readback
   -> file approved renders and final export in Eagle
   -> complete Asana task
-  -> remove episode-specific Decision Maps and active gate records
+  -> close its linked Studio project and retire the active gate records
 ```
 
 ## timing order and hook caveat
@@ -103,26 +121,30 @@ source media
   -> candidate selection and pacing
   -> Manim timing validation and cue proof
   -> scene manifest with the passed timing receipt
-  -> generate and publish the Pre-Figma review page
+  -> attach the verified storyboard to Studio
   -> human candidate decisions
-  -> Figma Motion
-  -> Post-Figma review
+  -> Figma Motion or the approved Blender master
+  -> review the current artwork and motion in Studio
+  -> finished motion with audio (other chat)
   -> Premiere placement
 ```
 
-Manim must run after the Whisper transcript is complete and before the associated
-Pre-Figma review page is created. The Pre-Figma page may display the validated
-trigger phrase, cue, frame rate, and proof status, but it must not be generated
-from an unvalidated timing map.
+Run Manim after the Whisper transcript is complete and before building the
+Studio storyboard. Use the passed timing receipt for the trigger phrase, cue,
+frame rate, and proof status.
 
 The hook caveat is explicit: current preflight validates the manifest's
 `manimTimingValidated` contract, cue math, and motion proof; it does not
 independently launch a fresh Manim run at mutation time. The upstream Manim
 validation therefore needs a current cue-proof receipt tied to the Whisper
 transcript hash and cue-map hash. A missing or stale receipt is a stop, not a
-reason to defer validation until Figma or Premiere.
+reason to defer validation until the build or Premiere.
 
 ## locked Pre-Figma UI
+
+Studio replaces the Pre-Figma and Post-Figma pages for new episodes. The page
+templates below serve earlier links and the source packet that Studio reads.
+New episode handoffs use the Studio project URL.
 
 Jerami approved the photo-first review template on October 13, 2026.
 The shared source is `tools/lineups_review/`. Its version and file hashes are
@@ -162,7 +184,7 @@ Do not copy an older episode's HTML or add episode-specific CSS overrides.
 
 ## locked Post-Figma UI
 
-Post-Figma uses the same header, typography, media sizing, spacing, source-link
+This stage serves earlier links only. Post-Figma uses the same header, typography, media sizing, spacing, source-link
 style, and review controls as Pre-Figma. The shared bundle owns both stages.
 Use fixed filters for all seven approved lanes. Show verified scene media first,
 then its title, timestamp, lane, option, timed transcript, Figma source, proof
@@ -172,14 +194,17 @@ An empty stage says that scene previews are pending. Never label a source photo
 or color plan as a finished Figma scene. Bind Post-Figma choices to the current
 preview evidence so changing a render makes its old choices stale.
 
-Generate both stages with the repository command:
+Use the command below only when rebuilding an earlier published link.
+For a new Studio handoff, use the local packet build in the repository's
+`tools/review_workspace/README.md`.
 
 ```bash
 python3 scripts/render-lineups-review.py --episode EPISODE_DIRECTORY --preview-root SITE_DIST
 npm run check:lineups:review
 ```
 
-Each episode supplies `review.json`, its current cue map, passed timing receipt,
+Set `reviewSlug` in `review.json` for a Studio source packet so the folder
+does not carry a stage name. Each episode supplies `review.json`, its current cue map, passed timing receipt,
 word transcript, discovery ledger, photo proposals, and optional verified scene
 previews. The renderer writes one packet under `public/decision-maps/` and copies
 that same packet to Sites. Vercel serves the same generated public packet when
@@ -210,36 +235,38 @@ Reveal scene, the gate also verifies:
   and normalized logo animate;
 - one verified team-content cue and exact cue math within 0.001 seconds;
 - Manim declared as timing validator and Figma Motion as the sole engine;
-- a passed Manim cue-proof receipt tied to the Whisper transcript and cue-map hashes before Pre-Figma publication;
+- a passed Manim timing receipt tied to the Whisper transcript and cue-map hashes before Studio handoff;
 - a live Figma Motion opacity track aligned to the cue start and duration;
 - live Figma readback matching the manifest before export.
 
-Use this record shape for each active episode:
+Use this record shape for each new active episode:
 
 ```json
 {
   "episodeSlug": "episode-slug",
   "asanaTask": "1234567890123456",
   "dueDate": "YYYY-MM-DD",
-  "map": "public/decision-maps/YYYY-MM-DD-episode-slug-post-figma-review/review-map.json",
-  "proof": "config/lineups/episode-slug-review-proof.json",
-  "preFigma": {
-    "path": "public/decision-maps/YYYY-MM-DD-episode-slug-pre-figma-review/index.html",
-    "title": "Episode title.<br>Pre-Figma review.",
+  "transcriptPath": "config/lineups/episodes/episode-slug/transcript/whisper.json",
+  "discoveryPath": "config/lineups/episodes/episode-slug/storyboard/lane-discovery.json",
+  "cueMapPath": "config/lineups/episodes/episode-slug/storyboard/cue-map.json",
+  "timingProofPath": "config/lineups/episodes/episode-slug/storyboard/cue-proof-receipt.json",
+  "studio": {
+    "projectId": "studio-project-uuid",
+    "packetPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/episode-slug/studio/packet.json",
     "candidateCount": 0
-  },
-  "postFigma": {
-    "readyLabel": "Ready for Jerami Review.",
-    "dateLabel": "Client / Lineups · review date",
-    "built": 0,
-    "needsReview": 0
-  },
-  "candidates": [],
-  "sourceCandidates": []
+  }
 }
 ```
 
+`check:lineups:framing` reads `studio` before `preFigma`. It checks the packet
+roster and revision against the proved cue map and every scene receipt.
+Earlier records keep their `preFigma`, `postFigma`, `map` and `proof` fields.
+
 ## closeout
+
+After task closeout confirms Asana completion, use its `finish` or `check`
+command with `--studio-project PROJECT_ID` to close the linked project.
+Use **Delete project** in Studio for a manual purge of its review data.
 
 When the Asana task is complete, run the deadline checker described in [Lineups episode closeout](lineups-episode-closeout.md).
 At intake, enroll the exact Asana task ID, due date, transcript/discovery paths,
@@ -266,12 +293,11 @@ to the passed current receipt. Timing proof never substitutes for discovery.
 
 ## review publication
 
-`localhost` is a QA address. Do not put it in the episode's review handoff as
-its published URL. Verify the hosted episode page, its evidence links and its
-entry on the hosted Decision Maps index before calling publication complete.
-Record the actual hosted review URL in Asana. Keep the durable local packet as
-the recovery source. When the checked-out index differs from production,
-prepare a scoped publication from the verified live source; do not deploy
-unrelated checkout changes. Follow the deployment skill's production gate.
+Use the Studio command in the skill's storyboard handoff. Keep the verified
+source packet and generated preview assets in the Catena preview workspace.
+Open the returned HTTPS project link and read back the episode, packet revision,
+and source chat. Record that Studio URL in Asana. Keep the local packet as
+the recovery source. Follow the deployment skill's production gate for site
+releases.
 
 Runtime evidence and retry handling follow [the Lineups template system](../../../../../docs/lineups-template-system.md). A boolean timing flag cannot replace a current Manim receipt. Bind human approval to the scene and evidence revision.

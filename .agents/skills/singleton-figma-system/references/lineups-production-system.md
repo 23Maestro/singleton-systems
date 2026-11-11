@@ -417,16 +417,16 @@ Do not turn that detached copy into another reusable master.
 ## Lane 4 engine choice
 
 After transcript candidates are selected, **Lane 4 / Comparison / player 2-up** asks
-**Figma or Unreal?** Keep Comparison as the lane, the approved look as the option,
-2-up as the subject setting and Figma/Unreal as a separate engine choice. Use
+**Figma or Blender?** Keep Comparison as the lane, the approved look as the option,
+2-up as the subject setting and Figma/Blender as a separate engine choice. Use
 `config/lineups/engine-routing.json` and `scripts/lineups-templates.py engine-choice
 MANIFEST`. Save the actual answer with `--engine` and `--answer`; a changed
 transcript, candidate or scene setting invalidates it. No default engine answer.
 
-These Figma asset and source rules apply when Figma is chosen. Unreal uses the
-approved player master in `config/unreal/comparison-template-01.json` with fuller
-cutouts and mask-only removal. The choice does not authorize production Unreal
-handoff or bypass Mark/Manim timing proof. The fixed team routes below take precedence.
+These Figma asset and source rules apply when Figma is chosen. Blender needs a
+lane master that Jerami approved in `blenderVariants`; Lane 4 player 2-up is approved.
+Unreal is retired for new builds; its masters are history. The choice never
+bypasses Mark/Manim timing proof. The fixed team routes below take precedence.
 
 ## motion-render ownership
 
@@ -495,21 +495,19 @@ Runtime evidence follows [the Lineups template system](../../../../docs/lineups-
 
 ## selected team routes
 
-Jerami selected these engine routes on October 21, 2026:
+Jerami selected these engine routes on October 21, 2026. On November 10,
+2026, Jerami moved new builds from Unreal to Figma or Blender:
 
 | Lane | Option | Engine | Source |
 | --- | --- | --- | --- |
 | 2 / Quick Stat | Team callout | Figma | `quick-stat.team-callout`, component `1843:1021` |
-| 4 / Comparison | Team matchup, 2 teams | Unreal | `comparison.team-matchup.2` |
-| 4 / Comparison | Logo stat cards, 2 teams | Unreal | `comparison.logo-stat-cards.2` |
+| 4 / Comparison | Team matchup, 2 teams | Ask Figma or Blender | Unreal `comparison.team-matchup.2` is history |
+| 4 / Comparison | Logo stat cards, 2 teams | Ask Figma or Blender | Unreal `comparison.logo-stat-cards.2` is history |
 
-These routes do not ask for the engine again. The selected transcript candidate
-and revision must still match. Player 2-up keeps the Figma/Unreal question.
-The two team-logo entries use `config/unreal/team-logo-template.json`; their old
-Figma nodes are preserved for recovery, not used as fallback authoring targets.
-Read native readiness from `config/unreal/team-logo-template.json`.
-Rams/Seahawks v4 keeps its scoped visual and motion approval. Prototype maps
-and current episode timing and handoff still need their own proof.
+Team callout does not ask for the engine again. The selected transcript
+candidate and revision must still match. Player 2-up asks Figma or Blender.
+The preserved Figma nodes for the two team-logo options serve only an explicit
+episode answer from Jerami. Rams/Seahawks v4 keeps its saved scoped approval.
 
 Team callout uses the team's primary color for the logo block and name tab,
 white text for the name, and dark copy on white. The curved corner and the
@@ -532,10 +530,8 @@ thin metallic border and dark footer. Swap team colors, logo and name; show
 a record or rank only when needed.
 Browns/Ravens and Chiefs/Chargers use this same style.
 
-Reuse one GLB shell with its rim and footer. Remove stripe geometry and use
-the bound satin material. Team primary color is the only surface input. Review
-one native Unreal still against the locked reference before adding logos,
-text, stadium or motion. Unreal owns logo depth, lighting, camera and a smooth
-entrance, then static hold with no animation out. Prototype maps and the shell
-proof are not approved reusable masters.
-The source image and hash are in `config/unreal/team-logo-template.json`.
+The satin surface came from a GLB shell built in Unreal. That shell, its
+prototype maps and its proof are history, not approved reusable masters. A new
+native build of this surface needs a Figma or Blender route that Jerami
+approves. Keep the entrance and static hold with no animation out. The source
+image and hash are in `config/unreal/team-logo-template.json`.

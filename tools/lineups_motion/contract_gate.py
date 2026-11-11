@@ -27,7 +27,7 @@ def require(condition, message):
 
 def source_binding(root, manifest):
     engine = manifest.get('motion', {}).get('engine')
-    require(engine in {'figma', 'unreal'}, 'record the scene engine')
+    require(engine in {'figma', 'blender', 'unreal'}, 'record the scene engine')
     native = manifest.get(engine) or {}
     binding = manifest.get('contractGate', {}).get('templateBinding') or native.get('templateBinding') or {}
     template = resolve(binding.get('key'))
@@ -214,6 +214,11 @@ def visual_review(root, manifest):
 
 def check(root, manifest, stage):
     require(stage in {'source', 'before-build', 'after-build', 'before-handoff'}, 'unknown gate stage')
+    if stage != 'source' and manifest['scene']['lane'] != 'comparison' and (
+            manifest.get('motion', {}).get('engine') == 'blender' or manifest['scene'].get('blenderVariant')):
+        # Unapproved or unnamed Blender variants stop here, before any template lookup.
+        from .engine_choice import engine_route
+        engine_route(manifest, json.loads((Path(root) / manifest['discoveryPath']).read_text()), enforce_engine=True)
     template = source_binding(root, manifest)
     if stage != 'source':
         if manifest['motion']['engine'] == 'unreal':
@@ -234,6 +239,10 @@ def check(root, manifest, stage):
                     'discovery transcript differs from the approved cue lock')
         from .timing_evidence import validate_timing_receipt
         validate_timing_receipt(root, manifest, require_approval=False)
+        if stage == 'before-build':
+            from .engine_choice import routing_contract
+            require(manifest['motion']['engine'] not in routing_contract().get('retiredEngines', []),
+                    'Unreal is retired for new builds; route the scene to Figma or Blender')
         if stage in {'after-build', 'before-handoff'}:
             measure(root, manifest, spec)
         if stage == 'before-handoff':

@@ -1,11 +1,12 @@
 # Lineups motion contract
 
 Use only for Catena Media Lineups. Follow the treatment system's current
-per-scene engine route before authoring. Player 2-up asks Figma or Unreal with
+per-scene engine route before authoring. Player 2-up asks Figma or Blender with
 no default. Keep approved fixed team routes and their pending-review states.
-Production Unreal remains disabled until episode timing and handoff proof pass.
-The Figma contract below applies to the Figma production path; never route an
-Unreal review copy through Figma receipts.
+Unreal is retired for new builds; `productionUnrealEnabled` is false. A Blender
+route needs an approved master and uses `motion.engineVersion: blender-cli`.
+The Figma contract below applies to the Figma production path; never route a
+Blender or Unreal copy through Figma receipts.
 
 For every Figma production motion candidate, use this fixed contract:
 
@@ -52,10 +53,9 @@ only reusable visual source.
 ## Figma production timing gate
 
 Manim does not render Lineups scenes. It runs after Whisper has produced the
-word-level transcript and before the associated Pre-Figma review page is
-generated. It validates the Whisper word anchors, scene-time math, frame rate,
-and duration before the candidate review is published or Figma Motion work
-begins.
+word-level transcript and before the Studio candidate packet is built. It
+validates the Whisper word anchors, scene-time math, frame rate, and duration
+before the candidate review is published or any build begins.
 
 1. Keep Figma as the approved visual source and Figma Motion as the sole engine
    for this production path.
@@ -63,20 +63,23 @@ begins.
    `motion.timingValidator` to `manim`.
 3. Keep `motion.sourcePath` and `motion.sceneClass` null.
 4. Run Manim against the completed Whisper transcript and cue map.
-5. Record the passed cue-proof receipt before generating the Pre-Figma review page.
+5. Record the passed timing receipt before building the Studio candidate packet.
 6. Load the validated contract with `validate_manim_timing_from_manifest()`.
 7. Write the validated cue times into Figma Motion manual keyframes.
 8. Make every composition at least 10 seconds long and keep at least two seconds
    after its final content cue for trim-safe Premiere placement.
 
-```bash
-node scripts/lineups-cue-proof.mjs \
-  --manifest path/to/scene-manifest.json \
-  --output path/to/cue-proof
-```
+Each stage has its own proof:
 
-The proof command captures the frame before, at, and after every cue. Review
-those images before setting the manifest proof status to `passed`.
+| Stage | Command | Receipt |
+| --- | --- | --- |
+| Before candidate review | `python3 -m tools.lineups_motion.timing_evidence --issue` with `{root, manifest}` on stdin | Timing-only Manim receipt for the transcript, discovery and cue revision. No render needed. |
+| After an approved build | `node scripts/lineups-cue-proof.mjs --manifest MANIFEST --output DIR` | Frames before, at and after every cue from the rendered export. |
+| After all approved builds | Finished motion with audio, in the chat Jerami named | Sync review. Not part of this order's gates. |
+
+The candidate gate never waits for a render. Review the cue frames from the
+rendered export before setting the manifest proof status to `passed`. A
+receipt for another transcript, discovery or cue revision is stale.
 
 ```python
 from tools.lineups_motion.manim_scene import validate_manim_timing_from_manifest

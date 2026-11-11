@@ -30,9 +30,9 @@ The build order is:
 
 1. Record transcript evidence and the visual purpose.
 2. Test the candidate's counts and asset requirements against registered looks.
-3. After candidate selection, ask **Figma or Unreal?** for **Lane 4 / Comparison / player 2-up**. Save the explicit answer per scene. There is no default.
-4. Retrieve the chosen engine’s approved source. Figma uses Components; Unreal uses `config/unreal/comparison-template-01.json` for player comparisons.
-5. Create the episode copy, replace allowed content, compare measurements and inspect the finished frame. Unreal production timing and handoff still require their separate proof.
+3. After candidate selection, ask **Figma or Blender?** for **Lane 4 / Comparison / player 2-up**. Save the explicit answer per scene. There is no default.
+4. Retrieve the chosen engine’s approved source. Figma uses Components. Blender uses a lane master listed in `blenderVariants`. Only the Lane 4 player 2-up master is approved (November 10, 2026); other Blender answers stop at a reference gap. Unreal is retired for new builds.
+5. Create the episode copy, replace allowed content, compare measurements and inspect the finished frame. Native timing and handoff still require their separate proof.
 
 A team matchup with 2 records fits Simple comparison with team logos. Simple and Full
 player comparison tables need verified alpha. Figma Cinematic 2-up needs
@@ -160,8 +160,10 @@ Editorial fit and source meaning still need human review.
 Run `python3 -m tools.lineups_motion.timing_evidence --issue` with stdin JSON
 `{"root":"/absolute/repository","manifest":{...}}`. It checks actual Whisper
 word timestamps and runs Manim timing configuration. Save its JSON receipt as
-`timing.proofPath`. It creates no visuals and grants no approval. Pre-Figma
-candidate checks require this current receipt before review generation.
+`timing.proofPath`. It creates no visuals and grants no approval. The Studio
+candidate gate requires this current receipt before the packet is built. It
+needs no render. `scripts/lineups-cue-proof.mjs` reads a rendered export, so it
+belongs after an approved build.
 
 Approval stores `review.approvedEvidenceSha256`, the SHA-256 of
 `tools.lineups_motion.timing_evidence.approval_state(manifest, receipt)` using
@@ -236,6 +238,10 @@ Closure preserves evidence and does not satisfy the delivery gates above.
 
 ## review website template
 
+Studio replaces the Pre-Figma and Post-Figma pages for new episodes. The
+renderer below still builds the source packet that Studio reads, and it keeps
+earlier links working.
+
 Jerami approved the photo-first Pre-Figma review on October 13, 2026.
 `tools/lineups_review/` owns the UI for both stages. The approved version and
 source hashes are in `config/lineups/review-template.json`.
@@ -279,34 +285,34 @@ Discovery stays engine-neutral. After selection, run:
 
 ```bash
 python3 scripts/lineups-templates.py engine-choice /absolute/path/scene-manifest.json
-python3 scripts/lineups-templates.py engine-choice /absolute/path/scene-manifest.json --engine unreal --answer 'Unreal for this scene'
+python3 scripts/lineups-templates.py engine-choice /absolute/path/scene-manifest.json --engine blender --answer 'Blender for this scene'
 ```
 
 The second command is an example; record Jerami's actual answer. It persists a
 hash of the selected scene, discovery candidate, transcript revision and routing
 contract. Preflight blocks missing or stale answers and rejects an engine mismatch.
-It does not change `motion.engine` or create a render. The native player master
-is visually approved; production Unreal routing is enabled, with per-episode
-Mark/Manim timing and handoff proof. Other unregistered team/period Unreal
-selections expose a reference gap. The fixed team routes below take precedence.
+It does not change `motion.engine` or create a render. Unreal is retired for
+new builds (`retiredEngines`, `productionUnrealEnabled: false`); a saved Unreal
+answer is stale. A Blender answer passes only with an approved master in
+`blenderVariants`. The fixed team routes below take precedence.
 
 ## selected team routes
 
-Jerami selected these engine routes on October 21, 2026:
+Jerami selected these engine routes on October 21, 2026. On November 10,
+2026, Jerami moved new builds from Unreal to Figma or Blender:
 
 | Lane | Option | Engine | Source |
 | --- | --- | --- | --- |
 | 2 / Quick Stat | Team callout | Figma | `quick-stat.team-callout`, component `1843:1021` |
-| 4 / Comparison | Team matchup, 2 teams | Unreal | `comparison.team-matchup.2` |
-| 4 / Comparison | Logo stat cards, 2 teams | Unreal | `comparison.logo-stat-cards.2` |
+| 4 / Comparison | Team matchup, 2 teams | Ask Figma or Blender | Unreal `comparison.team-matchup.2` is history |
+| 4 / Comparison | Logo stat cards, 2 teams | Ask Figma or Blender | Unreal `comparison.logo-stat-cards.2` is history |
+| 4 / Comparison | Rank Movement, 2 weeks | Figma Simple comparison | Unreal `comparison.rank-movement.2` is history |
 
-These routes do not ask for the engine again. The selected transcript candidate
-and revision must still match. Player 2-up keeps the Figma/Unreal question.
-The two team-logo entries use `config/unreal/team-logo-template.json`; their old
-Figma nodes are preserved for recovery, not used as fallback authoring targets.
-Read native readiness and approval from that manifest. The Rams/Seahawks v4
-visual and motion approval remains valid for its stated scope. Prototype maps
-and episode timing require their own proof.
+Team callout does not ask for the engine again. The selected transcript
+candidate and revision must still match. Player 2-up asks Figma or Blender.
+The retired rows stay under `retiredRoutes`. Their preserved Figma nodes serve
+only an explicit episode answer from Jerami. The Rams/Seahawks v4 approval
+stays valid for its saved scope.
 
 Team callout uses the team's primary color for the logo block and name tab,
 white text for the name, and dark copy on white. The body hugs the copy
@@ -333,10 +339,8 @@ thin metallic border and dark footer. Swap team colors, logo and name; show
 a record or rank only when needed.
 Browns/Ravens and Chiefs/Chargers use this same style.
 
-Reuse one GLB shell with its rim and footer. Remove stripe geometry and use
-the bound satin material. Team primary color is the only surface input. Review
-one native Unreal still against the locked reference before adding logos,
-text, stadium or motion. Unreal owns logo depth, lighting, camera and a smooth
-entrance, then static hold with no animation out. Prototype maps and the shell
-proof are not approved reusable masters.
-The source image and hash are in `config/unreal/team-logo-template.json`.
+The satin surface came from a GLB shell built in Unreal. That shell, its
+prototype maps and its proof are history, not approved reusable masters. A new
+native build of this surface needs a Figma or Blender route that Jerami
+approves. Keep the entrance and static hold with no animation out. The source
+image and hash are in `config/unreal/team-logo-template.json`.

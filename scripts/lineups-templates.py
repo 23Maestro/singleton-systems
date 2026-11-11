@@ -125,7 +125,7 @@ def main():
     engine = sub.add_parser('engine-choice', help='Ask after transcript candidate selection; save only an explicit answer')
     engine.add_argument('manifest', type=Path)
     engine.add_argument('--root', type=Path, default=ROOT)
-    engine.add_argument('--engine', choices=['figma', 'unreal'])
+    engine.add_argument('--engine', choices=['figma', 'blender'])
     engine.add_argument('--answer', help='Jerami’s actual answer; never infer a default')
     palette = sub.add_parser('logo-statement-paint')
     palette.add_argument('candidate', type=Path, help='Selected teamId and sourced teamColors.primary/secondary')

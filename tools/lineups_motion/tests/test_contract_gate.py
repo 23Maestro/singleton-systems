@@ -216,10 +216,11 @@ class ContractGateTests(unittest.TestCase, ContractEvidence):
         self.manifest['contractGate']['figmaExports'] = [self.artifact('figma-export.json', {
             'episodeId': 'test-episode', 'sceneId': 'A01', 'engine': 'figma', 'status': 'exported',
             'export': self.artifact('figma-media.fixture', {'fixture': 'export bytes'})})]
-        good = self.run_gate('before-build')
-        self.assertEqual(good.returncode, 0, good.stderr)
+        retired = self.run_gate('before-build')
+        self.assertNotEqual(retired.returncode, 0, retired.stdout)
+        self.assertIn('Unreal is retired', retired.stderr)
         (self.root / 'figma-media.fixture').write_text('changed')
-        self.assertEqual(self.run_gate('before-build').returncode, 1)
+        self.assertIn('evidence file changed', self.run_gate('before-build').stderr)
 
     def test_handoff_requires_current_visual_review_of_actual_export_frames(self):
         self.design()
@@ -262,7 +263,8 @@ class ContractGateTests(unittest.TestCase, ContractEvidence):
         self.spec['workflow']['figmaScenes'] = []
         self.save_spec()
         result = self.run_gate('before-build')
-        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotEqual(result.returncode, 0, result.stdout)
+        self.assertIn('Figma or Blender', result.stderr)
         pending = copy.deepcopy(resolve_design(template))
         pending['implementation']['productionReady'] = False
         with patch('tools.lineups_motion.designs.resolve_design', return_value=pending):
@@ -276,7 +278,7 @@ class ContractGateTests(unittest.TestCase, ContractEvidence):
         self.assertNotEqual(result.returncode, 0, result.stdout)
         self.assertIn('transcript', result.stderr)
 
-    def test_registered_native_player_master_and_scoped_figma_override_resolve(self):
+    def test_retired_unreal_fails_and_blender_waits_for_a_registered_master(self):
         from tools.lineups_motion.engine_choice import record_engine_choice, record_episode_engine_choice
         self.design()
         registry = json.loads((ROOT / 'config/lineups/template-registry.json').read_text())
@@ -286,32 +288,17 @@ class ContractGateTests(unittest.TestCase, ContractEvidence):
         ledger = json.loads(Path(self.manifest['discoveryPath']).read_text())
         ledger['transcriptSha256'] = 'a'*64
         self.manifest['discoveryPath'] = self.artifact('discovery.json', ledger)['path']
-        record_engine_choice(self.manifest, ledger, 'unreal', 'Unreal for this player scene')
-        template = next(t for t in registry['templates'] if t['key'] == 'comparison.unreal.two-up')
-        self.manifest['motion']['engine'] = 'unreal'
-        self.manifest['unreal'] = {'source': template['source'], 'templateBinding': {
-            'key': template['key'], 'templateSha256': digest(template),
-            'nativeManifestSha256': hashlib.sha256((ROOT / template['source']['manifestPath']).read_bytes()).hexdigest()}}
-        result = self.run_gate()
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.spec.update(templateSha256=digest(template))
-        self.use_template_roles(template)
-        self.spec['workflow']['figmaScenes'] = []
-        self.timing_proof()
-        self.spec['cueLock']['motionSha256'] = digest(self.manifest['motion'])
-        self.save_spec()
-        self.artifact('discovery.json', ledger)
-        record_engine_choice(self.manifest, ledger, 'unreal', 'Unreal for this player scene')
-        stale = self.run_gate('before-build')
-        self.assertNotEqual(stale.returncode, 0, stale.stdout)
-        self.assertIn('discovery transcript', stale.stderr)
-        ledger['transcriptSha256'] = self.spec['cueLock']['transcript']['sha256']
-        self.artifact('discovery.json', ledger)
-        record_engine_choice(self.manifest, ledger, 'unreal', 'Unreal for this player scene')
-        fresh = self.run_gate('before-build')
-        self.assertEqual(fresh.returncode, 0, fresh.stderr)
-        self.manifest['unreal']['templateBinding']['nativeManifestSha256'] = 'a'*64
-        self.assertNotEqual(self.run_gate().returncode, 0)
+        with self.assertRaisesRegex(ValueError, 'Unreal is retired'):
+            record_engine_choice(self.manifest, ledger, 'unreal', 'Unreal for this player scene')
+        record_engine_choice(self.manifest, ledger, 'blender', 'Blender for this player scene')
+        self.manifest['motion']['engine'] = 'blender'
+        from tools.lineups_motion.engine_choice import engine_route
+        # Approved route, but no template registry row or production runner yet: the gate must stop.
+        self.assertEqual(engine_route(self.manifest, ledger, require_choice=True, enforce_engine=True)['status'], 'selected')
+        for stage in ('before-build', 'before-handoff'):
+            result = self.run_gate(stage)
+            self.assertNotEqual(result.returncode, 0, result.stdout)
+            self.assertIn('unregistered or duplicate template key', result.stderr)
         template = next(t for t in registry['templates'] if t['key'] == 'comparison.logo-stat-cards.2')
         scene.update(approvedOption='Logo stat cards', comparisonKind='teams')
         self.manifest['motion']['engine'] = 'figma'

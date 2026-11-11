@@ -14,13 +14,25 @@ for (const entry of readJson(registryPath)) {
   assert.match(entry.episodeSlug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Active Lineups episode needs a stable slug');
   assert.match(entry.asanaTask, /^\d+$/, `${entry.episodeSlug}: missing Asana task`);
   assert.match(entry.dueDate, /^\d{4}-\d{2}-\d{2}$/, `${entry.episodeSlug}: missing confirmed due date`);
-  assert.ok(entry.preFigma?.path && entry.preFigma?.title && Number.isInteger(entry.preFigma?.candidateCount), `${entry.episodeSlug}: incomplete Pre-Figma stage record`);
+  // New episodes hand off through a Studio project; preFigma pages remain for earlier links.
+  const studio = entry.studio;
+  if (studio) {
+    assert.ok(/^[0-9a-f-]{36}$/.test(studio.projectId ?? '') && studio.packetPath && Number.isInteger(studio.candidateCount), `${entry.episodeSlug}: incomplete Studio stage record`);
+  } else {
+    assert.ok(entry.preFigma?.path && entry.preFigma?.title && Number.isInteger(entry.preFigma?.candidateCount), `${entry.episodeSlug}: incomplete Pre-Figma stage record`);
+  }
+  const stage = studio ?? entry.preFigma;
   requireDiscovery(entry, root);
-  if (entry.preFigma.candidateCount > 0) {
-    assert.ok(entry.timingProofPath && entry.cueMapPath, 'Pre-Figma timing proof and cue map are required');
+  if (stage.candidateCount > 0) {
+    assert.ok(entry.timingProofPath && entry.cueMapPath, 'Candidate timing proof and cue map are required');
     const timingProof = readJson(entry.timingProofPath);
     const cueMap = readJson(entry.cueMapPath);
-    assert.equal(timingProof.result, 'passed', 'Pre-Figma timing proof must pass');
+    assert.equal(timingProof.result, 'passed', 'Candidate timing proof must pass');
+    if (studio) {
+      const packet = readJson(studio.packetPath);
+      assert.equal(packet.revision, timingProof.cueMapSha256, 'Studio packet must bind the proved cue map');
+      assert.deepEqual(packet.scenes.map(scene => scene.id), cueMap.candidates.map(scene => scene.id), 'Studio packet candidate roster is stale');
+    } else {
     const pageHtml = fs.readFileSync(path.resolve(root, entry.preFigma.path), 'utf8');
     const pageData = pageHtml.match(/const beats=(\[.*?\]);\s*const key=/s);
     const sharedData = pageHtml.match(/<script>const reviewData=(.*?);const reviewerPhotoChoices=/s);
@@ -33,11 +45,12 @@ for (const entry of readJson(registryPath)) {
       }
     }
     assert.ok(pageHtml.includes(timingProof.cueMapSha256), 'Pre-Figma decision export must bind the proved cue map');
+    }
     assert.equal(timingProof.episodeId, entry.episodeSlug, 'Timing proof episode mismatch');
     assert.equal(timingProof.transcriptSha256, hash(entry.transcriptPath), 'Timing proof transcript is stale');
     assert.equal(timingProof.discoverySha256, hash(entry.discoveryPath), 'Timing proof discovery is stale');
     assert.equal(timingProof.cueMapSha256, hash(entry.cueMapPath), 'Timing proof cue map is stale');
-    assert.equal(timingProof.sceneCount, entry.preFigma.candidateCount, 'Timing proof candidate count changed');
+    assert.equal(timingProof.sceneCount, stage.candidateCount, 'Timing proof candidate count changed');
     assert.deepEqual(timingProof.scenes.map(scene => scene.sceneId), cueMap.candidates.map(scene => scene.id), 'Timing proof scenes changed');
     for (const scene of timingProof.scenes) {
       assert.equal(scene.result, 'passed', 'Scene timing proof must pass');
@@ -45,8 +58,12 @@ for (const entry of readJson(registryPath)) {
       const manifest = readJson(scene.manifestPath);
       requireDiscovery(manifest, root);
       const timing = checkTiming(manifest, root, false);
-      assert.equal(timing.status, 0, timing.stderr || timing.error?.message || 'Current Manim timing receipt is required before Pre-Figma review');
+      assert.equal(timing.status, 0, timing.stderr || timing.error?.message || 'Current Manim timing receipt is required before candidate review');
     }
+  }
+  if (studio) {
+    console.log(`${entry.episodeSlug}: discovery and timing passed for Studio candidate review`);
+    continue;
   }
   if (!entry.postFigma) {
     assert.ok(fs.readFileSync(path.resolve(root, entry.preFigma.path), 'utf8').includes(entry.preFigma.title), 'Pre-Figma title is missing');

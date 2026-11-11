@@ -31,8 +31,11 @@ sources are retired for new builds. Saved episodes retain their recorded proof.
 
 Use 1 subject with 3 or 4 data points. Figma uses an action photo on the left
 and a solid data panel on the right. Match the action to the claim; a passing
-touchdown needs a throwing photo. Unreal uses its registered player cutout
-master. The selected engine owns the asset treatment.
+touchdown needs a throwing photo. Blender has two Lane 3 variants. 3B, the
+stat card, shows one player's stats from one game. Jerami approved it on
+November 10, 2026. 3A, the Prime station, tells a season or multi-stage arc and
+is parked. Each fills from a scene JSON with spoken cue frames. The selected
+engine owns the asset treatment.
 
 ### 4. comparison
 

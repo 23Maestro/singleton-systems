@@ -556,7 +556,7 @@ try {
       if (lane === 'comparison') m.scene.subjectCount = 2;
       writeManifest(testCase, m);
       if (lane === 'comparison') {
-        expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', approvedFigmaInput), /Figma or Unreal/, 'missing engine answer');
+        expectDenied(pre(testCase, 'mcp__codex_apps__figma_use_figma', approvedFigmaInput), /Figma or Blender/, 'missing engine answer');
         const choice = spawnSync(python, [path.join(sourceRoot, 'scripts/lineups-templates.py'), 'engine-choice', testCase.manifestPath,
           '--root', testCase.root, '--engine', 'figma', '--answer', 'Figma for this fixture'], {encoding: 'utf8'});
         assert.equal(choice.status, 0, choice.stderr);

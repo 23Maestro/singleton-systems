@@ -180,7 +180,7 @@ test('Cinematic 2-up preflight requires full photos visible together at frame ze
     c.manifest.scene.comparisonKind = 'players';
     assert.equal(c.approve().status, 0);
     const pending = c.run('PreToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: c.manifest.figma.fileKey});
-    assert.match(pending.hookSpecificOutput?.permissionDecisionReason || '', /Figma or Unreal/);
+    assert.match(pending.hookSpecificOutput?.permissionDecisionReason || '', /Figma or Blender/);
     chooseFigma(c);
     const result = c.run('PreToolUse', 'mcp__codex_apps__figma_use_figma', {fileKey: c.manifest.figma.fileKey});
     assert.match(result.hookSpecificOutput?.permissionDecisionReason || '', /Cinematic.*full photos/i);

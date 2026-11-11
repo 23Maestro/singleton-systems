@@ -180,15 +180,16 @@ def eligible(candidate, registry=None):
         return {"status": "needs-review", "reason": "Missing capacity setting: " + ", ".join(requirements), "templates": []}
     if purpose == "cast" and (type(candidate["subjects"]) is not int or not 1 <= candidate["subjects"] <= 4):
         return {"status": "reference-gap", "reason": "Asset Swap supports 1 to 4 subjects.", "templates": []}
+    from .engine_choice import comparison_option, routing_contract
+    retired = set(routing_contract().get("retiredEngines", []))
     option = candidate.get("option")
     if purpose == "comparison":
-        from .engine_choice import comparison_option, routing_contract
         option = comparison_option(option, candidate["comparisonKind"], candidate.get("comparisonMetric"), routing_contract())
     matches = []
     asset_blocked = False
     visual_review = False
     for row in registry["templates"]:
-        if row["lane"] != lanes[purpose]:
+        if row["lane"] != lanes[purpose] or row["source"].get("engine", "figma") in retired:
             continue
         if option and option != row["option"]:
             continue

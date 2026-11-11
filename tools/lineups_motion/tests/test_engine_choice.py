@@ -39,7 +39,7 @@ class EngineChoiceTests(unittest.TestCase):
 
     def test_selected_candidate_asks_without_silent_default_and_blocks_build(self):
         result = engine_route(self.manifest, self.ledger)
-        self.assertEqual(result['question'], 'Figma or Unreal?')
+        self.assertEqual(result['question'], 'Figma or Blender?')
         self.assertEqual(result['label'], 'Lane 4 / Comparison / 2-up')
         self.assertEqual(result['status'], 'needs-engine-choice')
         self.assertIsNone(routing_contract()['defaultEngine'])
@@ -47,11 +47,15 @@ class EngineChoiceTests(unittest.TestCase):
         self.assertEqual([row['number'] for row in routing_contract()['lanes']], list(range(1, 8)))
         # Transcript/timing review must remain available before the engine question.
         validate_scene_discovery(self.root, self.manifest)
-        with self.assertRaisesRegex(ValueError, 'Figma or Unreal'):
+        with self.assertRaisesRegex(ValueError, 'Figma or Blender'):
             validate_scene_discovery(self.root, self.manifest, require_engine_choice=True)
 
-    def test_both_answers_persist_but_unreal_does_not_pass_production(self):
-        for engine in ('figma', 'unreal'):
+    def test_answers_persist_approved_blender_selects_and_retired_unreal_cannot_build(self):
+        with self.assertRaisesRegex(ValueError, 'Unreal is retired'):
+            record_engine_choice(copy.deepcopy(self.manifest), self.ledger, 'unreal', 'Unreal')
+        self.assertIn('unreal', routing_contract()['retiredEngines'])
+        self.assertFalse(routing_contract()['productionUnrealEnabled'])
+        for engine in ('figma', 'blender'):
             with self.subTest(engine=engine):
                 manifest = copy.deepcopy(self.manifest)
                 route = record_engine_choice(manifest, self.ledger, engine, engine.title())
@@ -60,12 +64,25 @@ class EngineChoiceTests(unittest.TestCase):
                     self.assertEqual(route['templateKeys'], ['comparison.cinematic.2'])
                     validate_scene_discovery(self.root, manifest, require_engine_choice=True)
                 else:
-                    self.assertEqual(route['templateManifest'], 'config/unreal/comparison-template-01.json')
+                    # Lane 4 player 2-up master approved by Jerami on November 10, 2026.
+                    self.assertEqual(route['status'], 'selected')
+                    self.assertEqual(route['templateKeys'], ['comparison.blender.player.2'])
                     self.assertFalse(route['productionReady'])
                     with self.assertRaisesRegex(ValueError, 'do not substitute engines'):
                         validate_scene_discovery(self.root, manifest, require_engine_choice=True)
-                    manifest['motion']['engine'] = 'unreal'
+                    manifest['motion']['engine'] = 'blender'
                     validate_scene_discovery(self.root, manifest, require_engine_choice=True)
+        unapproved = copy.deepcopy(self.manifest)
+        unapproved['scene'].update(comparisonKind='teams', approvedOption='Team matchup')
+        record_engine_choice(unapproved, self.ledger, 'blender', 'Blender')
+        unapproved['motion']['engine'] = 'blender'
+        with self.assertRaisesRegex(ValueError, 'No approved Blender lane master'):
+            engine_route(unapproved, self.ledger, require_choice=True, enforce_engine=True)
+        manifest = copy.deepcopy(self.manifest)
+        manifest['engineChoice'] = {'engine': 'unreal', 'reviewer': 'Jerami', 'answer': 'Unreal',
+                                    'selectionSha256': engine_route(manifest, self.ledger)['selectionSha256']}
+        with self.assertRaisesRegex(ValueError, 'Unreal is retired'):
+            engine_route(manifest, self.ledger)
 
     def test_answer_cannot_leak_to_changed_candidate_option_or_revision(self):
         record_engine_choice(self.manifest, self.ledger, 'figma', 'Figma')
@@ -128,34 +145,36 @@ class EngineChoiceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             engine_route(self.manifest, self.ledger)
 
-    def test_same_team_rank_change_defaults_to_unreal(self):
+    def test_same_team_rank_change_reuses_registered_figma_after_unreal_retirement(self):
         self.manifest['scene'].update(approvedOption='Simple comparison', comparisonKind='periods',
                                       comparisonMetric='rank')
-        self.manifest['motion']['engine'] = 'unreal'
         route = engine_route(self.manifest, self.ledger, require_choice=True, enforce_engine=True)
-        self.assertEqual(route['templateKeys'], ['comparison.rank-movement.2'])
-        self.assertEqual(route['engine'], 'unreal')
+        self.assertEqual(route['templateKeys'], ['comparison.simple.2'])
+        self.assertEqual(route['engine'], 'figma')
         self.assertFalse(route['productionReady'])
         self.assertNotIn('question', route)
-        self.manifest['motion']['engine'] = 'figma'
-        with self.assertRaisesRegex(ValueError, 'fixed option route'):
+        self.manifest['motion']['engine'] = 'unreal'
+        with self.assertRaisesRegex(ValueError, 'registered Figma source'):
             engine_route(self.manifest, self.ledger, enforce_engine=True)
 
-    def test_team_options_have_explicit_unreal_routes_without_asking_again(self):
-        for option in ('Team matchup', 'Logo stat cards'):
+    def test_retired_unreal_options_ask_figma_or_blender(self):
+        for option, kind in (('Team matchup', 'teams'), ('Logo stat cards', 'teams'), ('Rank Movement', 'periods')):
             manifest = copy.deepcopy(self.manifest)
-            manifest['scene'].update(approvedOption=option, comparisonKind='teams')
+            manifest['scene'].update(approvedOption=option, comparisonKind=kind)
             result = engine_route(manifest, self.ledger)
-            self.assertEqual(result['engine'], 'unreal')
-            self.assertEqual(result['status'], 'pending-unreal-review')
-            self.assertFalse(result['productionReady'])
-            self.assertNotIn('question', result)
-            with self.assertRaisesRegex(ValueError, 'fixed option route'):
-                engine_route(manifest, self.ledger, enforce_engine=True)
-            with self.assertRaisesRegex(ValueError, 'fixed engine route'):
-                record_engine_choice(manifest, self.ledger, 'figma', 'Figma')
-            manifest['motion']['engine'] = 'unreal'
-            engine_route(manifest, self.ledger, enforce_engine=True)
+            self.assertEqual(result['status'], 'needs-engine-choice')
+            self.assertEqual(result['question'], 'Figma or Blender?')
+            with self.assertRaisesRegex(ValueError, 'Figma or Blender'):
+                engine_route(manifest, self.ledger, require_choice=True)
+            with self.assertRaisesRegex(ValueError, 'Unreal is retired'):
+                record_engine_choice(copy.deepcopy(manifest), self.ledger, 'unreal', 'Unreal')
+            for engine, message in (('figma', 'No registered Figma source'), ('blender', 'No approved Blender lane master')):
+                chosen = copy.deepcopy(manifest)
+                route = record_engine_choice(chosen, self.ledger, engine, engine.title())
+                self.assertEqual(route['status'], 'reference-gap')
+                chosen['motion']['engine'] = engine
+                with self.assertRaisesRegex(ValueError, message):
+                    engine_route(chosen, self.ledger, enforce_engine=True)
             manifest['scene']['sceneId'] = 'missing'
             with self.assertRaisesRegex(ValueError, 'selected transcript candidate'):
                 engine_route(manifest, self.ledger)
@@ -211,11 +230,14 @@ class EngineChoiceTests(unittest.TestCase):
         self.assertEqual(json.loads(result.stdout)['status'], 'needs-engine-choice')
         self.assertEqual(before, path.read_bytes())
         result = subprocess.run(base + ['--engine', 'unreal', '--answer', 'Unreal for this one'], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(before, path.read_bytes())
+        result = subprocess.run(base + ['--engine', 'blender', '--answer', 'Blender for this one'], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
         saved = json.loads(path.read_text())
-        self.assertEqual(saved['engineChoice']['engine'], 'unreal')
+        self.assertEqual(saved['engineChoice']['engine'], 'blender')
         self.assertEqual(saved['motion']['engine'], 'figma')
-        self.assertEqual(json.loads(result.stdout)['status'], 'review-template')
+        self.assertEqual(json.loads(result.stdout)['status'], 'selected')
         self.transcript.write_text('{}')
         before = path.read_bytes()
         result = subprocess.run(base + ['--engine', 'figma', '--answer', 'Figma'], capture_output=True, text=True)

@@ -1460,6 +1460,7 @@
         "engine": {
           "enum": [
             "figma",
+            "blender",
             "unreal"
           ]
         },

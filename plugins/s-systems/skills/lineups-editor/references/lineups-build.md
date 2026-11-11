@@ -3,31 +3,50 @@
 ## engine choice after selection
 
 After transcript discovery, pacing and human candidate selection, a selected
-**Lane 4 / Comparison / player 2-up** must ask: **Figma or Unreal?** There is no default.
+**Lane 4 / Comparison / player 2-up** must ask: **Figma or Blender?** There is no default.
 Keep the existing option name and subject count; record the engine separately.
 The seven lane names and numbers in `config/lineups/engine-routing.json` stay
 fixed across both tools. The fixed team routes below take precedence.
 
 Before authoring, run `python3 scripts/lineups-templates.py engine-choice MANIFEST`.
 It checks the selected candidate against current transcript discovery. Ask the
-returned question in chat. Record Jerami's answer using `--engine figma|unreal
+returned question in chat. Record Jerami's answer using `--engine figma|blender
 --answer 'actual answer'`. This saves `engineChoice` in the scene manifest.
 Discovery preflight rejects a missing, stale or mismatched choice. Re-ask when
 the transcript revision, candidate, option or subject count changes. The answer
 is per scene; never turn one answer into an episode-wide engine default.
 
 Figma retrieves the registered option in Components with its existing asset
-rules. Unreal points to `config/unreal/comparison-template-01.json`, the approved
-player comparison master: fuller bodies and legs, mask-only background removal,
-team edge lighting, dimensional logos and one small smooth camera push. Its card
-is hidden for conceptual comparisons or shows 1–5 sourced rows at 36 px or larger.
-The demo's generated cutouts remain a demo-only exception. Unregistered team
-or period options return a reference gap. Fixed team routes use their saved
-native sources; do not invent replacements.
+rules. Blender works like Figma component variants. Each lane can have Blender
+variants, listed in `blenderVariants` in `config/lineups/engine-routing.json`.
+A variant is one swappable template: a Blender CLI builder plus a data file per
+player or episode. Cue frames are absolute at 25 fps from the spoken cues, so a
+new edit changes only the data. IDs are the lane number plus a letter.
 
-Choosing Unreal does not pass the episode Mark/Manim hold and exit checks or the
-production handoff gate. No production renderer default changes. Review-only
-copies must remain labeled Unreal; never send them through Figma receipts.
+| Variant | Template | Status |
+| --- | --- | --- |
+| 3A | Prime station: multi-stage or full-season arc (Lawrence, Prime TNF reference) | Parked; v8 needs work |
+| 3B | Stat card: one player's stats from one game (W9 Burrow, Simmons) | Approved by Jerami, November 10, 2026 |
+| 4A | Player 2-up (Cinematic 2-up, Full comparison: 2) | Approved by Jerami, November 10, 2026 |
+
+Run a variant with `Blender -b --factory-startup --python-exit-code 1 -P
+BUILDER -- DATA.json OUT_DIR [still FRAME | anim]`. Only an approved variant
+routes a build. A Lane 3 Blender scene names its variant in
+`scene.blenderVariant`; the gate rejects a missing, parked or working-template
+variant. 3B and 4A still lack a template registry row with a hashable master
+(4A also lacks its production runner), so the gate stops their builds until
+those exist. Team and period
+comparisons have no Blender variant. Register a new variant only when its
+builder exists.
+Blender production renders run headless through the Blender CLI. The Blender
+MCP is for authoring only. Use the Standard view transform for team colors.
+
+Unreal is retired for new builds. The Unreal comparison, team-logo and rank
+movement masters stay as history with their saved approvals and exports. Team
+matchup, Logo stat cards and Rank Movement had Unreal-only routes. They now ask
+Figma or Blender. Jerami may still choose the preserved Figma source for one
+episode with `record_episode_engine_choice`. Never send a Blender or Unreal copy
+through Figma receipts.
 
 ## episode workspace
 
@@ -55,7 +74,7 @@ Apply this at the first authorized Figma build; the review gates still apply.
 ## data-driven background
 
 In Figma, Stat breakdown, Simple and Full comparison, year-by-year, and recurring
-boards use Field Night without the football. Unreal uses its native template plate. Keep the background locked and separate
+boards use Field Night without the football. A native Blender master keeps its own plate. Keep the background locked and separate
 from the editable artwork inside Figma. Bind its Figma node and image hash in
 the scene manifest and verify them in the mutation readback. Photo-led options
 keep their photos. Asset Swap keeps its football-visible Field Night background.
@@ -63,18 +82,18 @@ keep their photos. Asset Swap keeps its football-visible Field Night background.
 ## motion engine
 
 Read `config/lineups/engine-routing.json` after transcript candidate selection.
-Player 2-ups ask Jerami to choose Figma or Unreal. For the same team's rank
-across 2 weeks, choose Team Cards / Rank Movement in Unreal. Set
-`comparisonKind: periods` and `comparisonMetric: rank` on the selected scene.
+Player 2-ups ask Jerami to choose Figma or Blender. For the same team's rank
+across 2 weeks, set `comparisonKind: periods` and `comparisonMetric: rank`.
+That scene reuses the registered Figma Simple comparison (`comparison.simple.2`).
 Other period comparisons reuse their registered Figma source. Fixed options
 keep their recorded route. A different episode route needs a fresh answer
 from Jerami tied to that source.
 
 The Figma production path uses Figma Motion as its sole visual motion engine.
-An Unreal review master does not bypass its open production gates. Manim validates the Whisper word anchors, cue math,
+A Blender master uses its own keyframes from the same cue list. Manim validates the Whisper word anchors, cue math,
 frame rate, and composition timing; it never renders the scene. The required
-order is Whisper word-level transcript -> Manim timing validation and cue proof
--> Pre-Figma review page -> human candidate decisions -> Lane 4 2-up engine
+order is Whisper word-level transcript -> Manim timing receipts -> Studio
+candidate packet -> human candidate decisions -> Lane 4 2-up engine
 question when applicable -> the selected authoring path. Figma production uses
 Figma Motion. The cue
 list owns `transcriptTimestamp`, `sceneTime`, action, and duration. The hook

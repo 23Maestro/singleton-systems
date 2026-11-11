@@ -111,7 +111,7 @@ const checks = [
     ["lineups-treatment-system.md", ["SELECT", "ASSET", "BUILD", "TEAM", "REVIEW", "lineups-lanes.md", "design-registry.json"]],
     ["lineups-lanes.md", ["quick action photo", "quick stat", "stat breakdown", "Cinematic 2-up", "Simple comparison", "year-by-year", "asset swap", "recurring board"]],
     ["lineups-assets.md", ["action photography", "1920 x 1080", "real-alpha"]],
-    ["lineups-review.md", ["pre-Premiere gate", "Pre-Figma review and Post-Figma review are fixed Lineups stages", "An Asana task may be", "required review and delivery readback pass", "Episode-specific Decision Maps are temporary review surfaces"]],
+    ["lineups-review.md", ["pre-Premiere gate", "storyboard, artwork and motion in the episode's Studio project", "Complete Asana after review, delivery readback and Eagle filing pass", "linked Studio project after the Asana readback"]],
     ["lineups-selection.md", ["full-transcript discovery", "transcript-to-graphic copy", "pacing"]],
     ["lineups-build.md", ["engine choice after selection", "episode workspace", "motion engine"]],
     ["lineups-team-routes.md", ["rank-card.sculpted-satin", "striped card background only"]],

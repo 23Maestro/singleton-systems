@@ -6,7 +6,8 @@
 - **Option** names the approved look inside that lane.
 - **Setting** changes content capacity, such as subject count, season count, or
   stat count.
-- **Engine** names the authoring tool: Figma or Unreal. It never renames a lane.
+- **Engine** names the authoring tool: Figma or Blender. It never renames a lane.
+  Unreal records stay as history; new builds do not use it.
 
 Keep component, variant, instance, and property language inside the Figma
 implementation notes.
@@ -38,7 +39,7 @@ judges editorial reasoning.
 
 ## check the episode's themes
 
-Before the first Pre-Figma review, open the episode's JSON discovery ledger
+Before the first Studio candidate review, open the episode's JSON discovery ledger
 and read it against the full timed transcript. Mark the main claims, changes in
 the argument, comparisons, and steps in a sequence. Use spoken order. Record
 the segment IDs, time range, and source words for each theme.
@@ -51,6 +52,11 @@ photos or quick stats. Keep strong motion ideas in the review even if a photo
 or engine choice is pending. Mark that need on the card.
 
 Use the local `jev` skill to classify what the speaker's words ask the viewer to see.
+When the chosen lane has Blender variants, run
+`python3 -m tools.lineups_motion.variant_suggest CUE_MAP SCENE_IDS` to have Jev
+suggest a variant from the spoken passage. A season or multi-stage arc points
+to 3A; one game's stat line points to 3B. Save the result as a suggestion and
+show it on the card. Jev never binds a variant; Jerami chooses.
 Start with the repeatable patterns below and use examples from past episodes
 with build or placement proof. Offer distinct choices supported by the spoken
 passage. Include `needs_review` if the words may support none of them.

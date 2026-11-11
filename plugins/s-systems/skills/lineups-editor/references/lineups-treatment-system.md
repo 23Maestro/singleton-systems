@@ -21,7 +21,9 @@ they do not replace the seven lanes or waive a gate.
 ## choose the source
 
 - **Engine:** `config/lineups/engine-routing.json`. Player 2-up requires Jerami's
-  Figma or Unreal choice. Fixed routes keep their recorded engine.
+  Figma or Blender choice. Fixed routes keep their recorded engine. Unreal is
+  retired for new builds. A Blender route needs a lane master that Jerami
+  approved in `blenderVariants`.
 - **Template:** `config/lineups/template-registry.json`. Resolve its exact key.
   Read the linked native manifest before editing.
 - **Surface:** `config/lineups/design-registry.json`. All Team Cards use

@@ -18,7 +18,7 @@
     "check:storage-gate": "node --test scripts/developer-storage/storage-gate.test.mjs scripts/developer-storage/git-media-policy.test.mjs",
     "check:lineups:enforcement": "node --test scripts/lineups-discovery.test.mjs scripts/lineups-episode-check.test.mjs && PYTHONDONTWRITEBYTECODE=1 python3 scripts/lineups-asset-search.test.py && node scripts/check-lineups-enforcement.mjs",
     "check:745:visual": "node --test scripts/745-visual-contract.test.mjs",
-    "check:lineups:framing": "node scripts/check-lineups-framing.test.mjs && node scripts/check-lineups-framing.mjs",
+    "check:lineups:framing": "node scripts/check-lineups-framing.test.mjs && node --test scripts/lineups-studio-gate.test.mjs && node scripts/check-lineups-framing.mjs",
     "check:lineups:motion": "python3 -m unittest tools.lineups_motion.tests.test_cue_contract tools.lineups_motion.tests.test_native_mapping tools.lineups_unreal.test_stat_readability tools.lineups_unreal.test_stat_layout",
     "check:upwork-hourly": "node scripts/check-upwork-hourly-rubric.mjs",
     "check:finances": "node scripts/check-finance-cycle.mjs && node scripts/check-finance-ledger.mjs && node scripts/check-ledger-integration.mjs && node --test tests/finance-shortcut.test.mjs",

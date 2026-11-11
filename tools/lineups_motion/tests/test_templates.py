@@ -393,25 +393,25 @@ process.stdout.write('source-lock recovery passed');
         result = eligible({"purpose": "comparison", "comparisonKind": "teams", "subjects": 2, "rows": 1, "evidence": "Both teams 3-0"})
         self.assertEqual(result["templates"], ["comparison.simple.2"])
 
-    def test_rank_movement_and_stat_variants_resolve_exact_native_sources(self):
+    def test_rank_movement_and_stat_variants_skip_retired_unreal_sources(self):
         rank = {'purpose': 'comparison', 'comparisonKind': 'periods', 'comparisonMetric': 'rank',
                 'subjects': 2, 'rows': 1, 'assetTreatment': 'logos', 'evidence': 'Jaguars dropped from 4 to 8'}
-        self.assertEqual(eligible(rank)['templates'], ['comparison.rank-movement.2'])
+        self.assertEqual(eligible(rank)['templates'], ['comparison.simple.2'])
         rank.pop('comparisonMetric')
         self.assertEqual(eligible(rank)['templates'], ['comparison.simple.2'])
         for n in (3, 4):
             stats = {'purpose': 'stats', 'stats': n, 'evidence': 'Player stat line'}
             self.assertEqual(eligible(stats)['templates'], [f'stat-breakdown.{n}'])
             stats['engine'] = 'unreal'
-            self.assertEqual(eligible(stats)['status'], 'asset-blocked')
+            self.assertEqual(eligible(stats)['status'], 'reference-gap')
             stats['realAlpha'] = True
-            self.assertEqual(eligible(stats)['templates'], [f'stat-breakdown.unreal.player.{n}'])
+            self.assertEqual(eligible(stats)['templates'], [])
 
     def test_registered_logo_sources_fit_without_allowing_player_substitution(self):
         for option, subjects, rows, key in [
-            ('Logo stat cards', 2, 1, 'comparison.logo-stat-cards.2'),
+            ('Logo stat cards', 2, 1, None),
             ('Logo row', 3, 1, 'comparison.logo-row.3'),
-            ('Team matchup', 2, 0, 'comparison.team-matchup.2'),
+            ('Team matchup', 2, 0, None),
         ]:
             with self.subTest(option=option):
                 candidate = {'purpose': 'comparison', 'comparisonKind': 'teams',
@@ -419,6 +419,9 @@ process.stdout.write('source-lock recovery passed');
                              'subjects': subjects, 'rows': rows,
                              'evidence': 'Reviewed shared team metric or game result'}
                 fit = eligible(candidate)
+                if key is None:  # Unreal-only option: retired, so Figma or Blender is asked instead.
+                    self.assertEqual((fit['status'], fit['templates']), ('reference-gap', []))
+                    continue
                 self.assertEqual(fit['templates'], [key])
                 self.assertEqual(fit['status'], 'needs-review')
                 self.assertIn('visual review', fit['reason'])

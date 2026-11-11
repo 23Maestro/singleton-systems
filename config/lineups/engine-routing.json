@@ -1,15 +1,21 @@
 {
   "schemaVersion": 1,
   "label": "Lane 4 / Comparison / 2-up",
-  "question": "Figma or Unreal?",
+  "question": "Figma or Blender?",
   "engines": [
     "figma",
-    "unreal"
+    "blender"
   ],
   "defaultEngine": null,
   "askAfter": "transcript-candidate-selection",
-  "unrealTemplateManifest": "config/unreal/comparison-template-01.json",
-  "productionUnrealEnabled": true,
+  "retiredEngines": [
+    "unreal"
+  ],
+  "productionUnrealEnabled": false,
+  "engineVersions": {
+    "figma": "figma-motion",
+    "blender": "blender-cli"
+  },
   "lanes": [
     {
       "number": 1,
@@ -54,7 +60,10 @@
       "engine": "figma",
       "templateKey": "quick-stat.team-callout",
       "reviewStatus": "client-review"
-    },
+    }
+  ],
+  "fixedRouteAuthority": "Jerami selected Figma for Team callout and Unreal for the two paired-logo options, October 21, 2026. Pending review is not production approval.",
+  "retiredRoutes": [
     {
       "lane": "comparison",
       "option": "Team matchup",
@@ -86,5 +95,67 @@
       "reviewStatus": "visual-template-approved"
     }
   ],
-  "fixedRouteAuthority": "Jerami selected Figma for Team callout and Unreal for the two paired-logo options, October 21, 2026. Pending review is not production approval."
+  "legacyUnrealTemplateManifest": "config/unreal/comparison-template-01.json",
+  "retirementAuthority": "Jerami moved new LineUps builds from Unreal to Figma or Blender on November 10, 2026. Unreal sources, exports and approvals stay as history. Options without a current source ask Figma or Blender.",
+  "blenderVariantRule": "A Blender variant is one swappable template, like a Figma component variant: a Blender CLI builder plus a per-player or per-episode data file. Cue frames are absolute at 25 fps from the spoken cues, so a new edit changes only the data. IDs are the lane number plus a letter (3A, 3B, 4A); add letters as lanes gain variants. Only status \"approved\" with approvedBy Jerami and an approvalSource can route a build. Jev may suggest a variant; it never binds one.",
+  "blenderVariants": [
+    {
+      "id": "3A",
+      "lane": "stat breakdown",
+      "name": "Prime station",
+      "options": [
+        "stat breakdown"
+      ],
+      "fit": "Multi-stage or full-season arc for one player, told as a sequence of stations.",
+      "reference": "Lawrence x Prime Thursday Night Football",
+      "builder": "tools/broadcast_engine/prototypes/lane3/build_station.py",
+      "dataContract": "tools/broadcast_engine/prototypes/lane3/station_data.py",
+      "exampleData": "tools/broadcast_engine/prototypes/lane3/players/lawrence-full-season.json",
+      "usage": "Blender -b --factory-startup --python-exit-code 1 -P <builder> -- <data.json> <out_dir> [still FRAME | anim]",
+      "status": "parked",
+      "statusNote": "Jerami: v8 still needs a lot of work. Status in Linear 23M-397 and 23M-398."
+    },
+    {
+      "id": "3B",
+      "lane": "stat breakdown",
+      "name": "Stat card",
+      "options": [
+        "stat breakdown"
+      ],
+      "fit": "One set of stats for one player or team from one game, like the W9 Burrow and Simmons cards.",
+      "builder": "tools/broadcast_engine/prototypes/lane3/build_card.py",
+      "dataContract": "tools/broadcast_engine/prototypes/lane3/card_data.py",
+      "exampleData": "tools/broadcast_engine/prototypes/lane3/cards/simmons-w9.json",
+      "usage": "Blender -b --factory-startup --python-exit-code 1 -P <builder> -- <data.json> <out_dir> [still FRAME | anim]",
+      "status": "approved",
+      "statusNote": "Approved. Template registry row and a hashable master file are still to add; the contract gate stops a build until they exist.",
+      "templateKey": "stat-breakdown.blender.card",
+      "approvedBy": "Jerami",
+      "approvedOn": "2026-11-10",
+      "approvalSource": "Jerami in chat, November 10, 2026: \"3 b is approved.\""
+    },
+    {
+      "id": "4A",
+      "lane": "comparison",
+      "name": "Player 2-up",
+      "options": [
+        "Cinematic 2-up",
+        "Full comparison: 2"
+      ],
+      "subjects": 2,
+      "comparisonKind": "players",
+      "fit": "Two players side by side with a centered stat card.",
+      "reference": "Mahomes vs Allen",
+      "builder": "tools/broadcast_engine/prototypes/lane4/build_l4_v5.py",
+      "dataContract": null,
+      "exampleData": null,
+      "usage": "See tools/broadcast_engine/prototypes/lane4/README.md",
+      "templateKey": "comparison.blender.player.2",
+      "status": "approved",
+      "approvedBy": "Jerami",
+      "approvedOn": "2026-11-10",
+      "approvalSource": "Jerami in chat, November 10, 2026: \"lane 4 is approved in my book\".",
+      "statusNote": "Production runner (fill.py, slot contract) and template registry row are not built yet; the contract gate stops until they exist."
+    }
+  ]
 }

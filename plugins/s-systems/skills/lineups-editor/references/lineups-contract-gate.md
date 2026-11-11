@@ -14,8 +14,9 @@ change either source contract.
 | Team styling | Approved per-team fills, strokes, corners and effects |
 | Text | Full approved copy, font, size, line height, spacing and alignment |
 | Artwork | Visible logo pixel bounds within the slot; approved size and center limits |
-| Cues | Locked motion hash, unchanged transcript and current Manim receipt for either engine |
-| Order | Approved episode roster; required Figma export files before Unreal |
+| Cues | Locked motion hash, unchanged transcript and current Manim receipt for any engine |
+| Order | Approved episode roster; required Figma export files before a native build |
+| Engine | No retired engine at `before-build`; a Blender build needs an approved master |
 | Appearance | Review of opening, cue and final hold frames from the exact export |
 
 Appearance review covers headroom, callouts, accents, team backgrounds, logos,
@@ -26,7 +27,7 @@ push does not add a separate headroom approval gate.
 ## evidence
 
 Bind `contractGate` in the scene manifest. `templateBinding` records `key` and
-`templateSha256`; Unreal also binds `nativeManifestSha256`. `spec`, `measurement` and `visualReview` each reference a file
+`templateSha256`; a native master also binds `nativeManifestSha256`. `spec`, `measurement` and `visualReview` each reference a file
 by `path` and `sha256`. Hashes use SHA-256; JSON hashes use sorted compact keys.
 
 The registry pins `requiredRoles` and `requiredTeamRoles` for each template.
@@ -60,8 +61,9 @@ python3 scripts/lineups-contract-gate.py after-build < request.json
 python3 scripts/lineups-contract-gate.py before-handoff < request.json
 ```
 
-Native manifests use schemaVersion 2 and `motion.engineVersion: unreal-sequencer`.
-Issue their timing proof with `tools.lineups_motion.timing_evidence --issue`.
+Native manifests use schemaVersion 2. Blender uses `motion.engineVersion:
+blender-cli`; historical Unreal records keep `unreal-sequencer`. Issue timing
+proof with `tools.lineups_motion.timing_evidence --issue`.
 It validates Whisper words, cue math, discovery and padding for the saved engine.
 The shared gate checks that receipt before build and handoff.
 
@@ -72,7 +74,8 @@ new builds and handoffs must bind current proof. This check changes no artwork o
 ## coverage
 
 The Figma mutation hooks, transaction reconciliation and Premiere delivery use
-this checker. Native production runs call the CLI before build and handoff;
-legacy Unreal trial scripts are not a production runner. The old comparison
-trial rejects production contracts. Satin v2 has native approval in the design
-registry. Each episode still needs its own timing and export review.
+this checker. Native production runs call the CLI before build and handoff.
+Unreal is retired: `before-build` rejects it, while saved Unreal exports keep
+their historical handoff and delivery checks. Legacy Unreal trial scripts are
+not a production runner. Each episode still needs its own timing and export
+review.

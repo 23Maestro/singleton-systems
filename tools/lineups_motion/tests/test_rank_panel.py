@@ -17,6 +17,8 @@ class RankPanelTests(unittest.TestCase):
                     'stateOrder':'10-to-1-cumulative','boardEntranceOrder':list(range(10,0,-1)),
                     'logoWrapperDimensions':{'width':96,'height':78},'motionWorkingCopyMode':'detached-from-canonical-instance',
                     'revealedRank':9,'visibleRanks':[10,9],
+                    'contentNodeIds':{'teamText':'team-text','logo':'team-logo','rowHighlight':'current-highlight',
+                        'currentTeamPanel':'current-team-panel'},
                     'logoAssignments':[{'rank':i,'team':f'Team {i}','componentId':f'logo-{i}',
                         'componentName':f'Asset/Team Logo/Normalized/Team {i}'}for i in range(1,11)]}}}
         self.cues=[{'action':'reveal-rank-9-content','cueId':'team'}]
@@ -25,11 +27,12 @@ class RankPanelTests(unittest.TestCase):
 
     def test_canonical_four_roles_and_legacy_pair_pass(self):
         guard.validate_rank_reveal(self.manifest,self.cues,self.tracks,.04)
-        guard.validate_rank_reveal(self.manifest,self.cues,self.tracks[:2],.04)
+        legacy=copy.deepcopy(self.manifest);del legacy['figma']['rankReveal']['contentNodeIds']
+        guard.validate_rank_reveal(legacy,self.cues,self.tracks[:2],.04)
 
     def test_extra_missing_duplicate_or_unrelated_panel_roles_fail(self):
         variants=[self.tracks[:3],self.tracks+[{'nodeId':'extra','role':'extra','property':'opacity','cueId':'team'}]]
-        bad=copy.deepcopy(self.tracks);bad[-1]['role']='unrelated-layer';variants.append(bad)
+        bad=copy.deepcopy(self.tracks);bad[-1]['nodeId']='unrelated-layer';variants.append(bad)
         bad=copy.deepcopy(self.tracks);bad[-1]['nodeId']=bad[0]['nodeId'];variants.append(bad)
         for tracks in variants:
             with self.assertRaises(guard.EnforcementError):guard.validate_rank_reveal(self.manifest,self.cues,tracks,.04)
