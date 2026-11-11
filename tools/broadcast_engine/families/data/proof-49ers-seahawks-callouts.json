@@ -1,0 +1,8 @@
+{
+ "proof": "Layout proof for separate talking points; words copied from the Seattle-Denver comp. Not episode data.",
+ "layout": "pair", "frames": 375, "focus_team": "San Francisco 49ers",
+ "cards": [
+  {"team": "San Francisco 49ers", "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/san-francisco-49ers.png", "color": "#AA0000", "value": "BLUEPRINT", "label": "San Francisco 49ers", "frame": 40},
+  {"team": "Seattle Seahawks", "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/seattle-seahawks.png", "color": "#002244", "value": "NEXT TEST", "label": "Seattle Seahawks", "frame": 190}
+ ]
+}

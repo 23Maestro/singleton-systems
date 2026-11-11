@@ -1,5 +1,7 @@
 # Broadcast engine
 
+The [LineUps lane map](../lineups-lane-map.md) lists every lane and Blender variant.
+
 The system that turns LineUps scene data into lit, television-grade graphics
 that look like one designer made them. It sits under the existing LineUps
 workflow and reuses its templates, cues and review gates.

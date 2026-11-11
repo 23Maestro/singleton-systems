@@ -1,5 +1,7 @@
 # choose the lane
 
+The [lane map](../../../../../docs/lineups-lane-map.md) shows each lane's Figma, Unreal and Blender sources and Blender variant IDs.
+
 ## seven lanes
 
 ### 1. quick action photo

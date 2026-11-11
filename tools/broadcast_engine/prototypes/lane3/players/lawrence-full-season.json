@@ -1,0 +1,13 @@
+{
+  "photo": "/Volumes/HomeSSD/Content Editor.library/images/MUD0SEKT5CP5X.info/trevor-lawrence-2.jpg",
+  "photo_center_x": 0.56,
+  "colors": {"glow": "#E8B53A", "accent": "#E8B53A"},
+  "kicker": "2025 SEASON", "title": "FULL SEASON",
+  "stats": [
+    {"value": "4,000+", "label": "PASS YARDS", "frame": 31},
+    {"value": "29", "label": "PASS TD", "frame": 70},
+    {"value": "9", "label": "RUSH TD", "frame": 152}
+  ],
+  "total": {"value": "38", "label": "TOTAL TDS", "frame": 206},
+  "frames": 250
+}

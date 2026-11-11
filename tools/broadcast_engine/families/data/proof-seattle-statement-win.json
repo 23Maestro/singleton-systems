@@ -1,0 +1,11 @@
+{
+ "proof": "Week 8 Seattle statement win, from the finished Figma comp (Eagle MVSWWAE2UUNUG). Row cues are proof timing.",
+ "frames": 351, "team": "Seattle Seahawks", "title": "Statement win",
+ "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/seattle-seahawks.png", "accent": "#4FB6E8", "bar_color": "#69BE28",
+ "master": "/Users/singleton23/Documents/Development/lineups-blender/team-cards-value-metrics/masters/value-metrics-v1.blend",
+ "rows": [
+  {"label": "Points scored", "value": 20, "unit": "points", "frame": 95},
+  {"label": "Points allowed", "value": 3, "unit": "points", "frame": 120},
+  {"label": "KC red-zone trips", "value": 0, "unit": "trips", "frame": 145}
+ ]
+}

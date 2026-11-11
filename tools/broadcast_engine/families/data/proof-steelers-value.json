@@ -1,0 +1,10 @@
+{
+ "proof": "Stadium check for the value family on a registered team photo. Values are layout placeholders, not episode data.",
+ "frames": 351, "team": "Pittsburgh Steelers", "title": "Statement win",
+ "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/pittsburgh-steelers.png", "accent": "#FFB612", "bar_color": "#FFB612",
+ "rows": [
+  {"label": "Points scored", "value": 39, "unit": "points", "frame": 95},
+  {"label": "Points allowed", "value": 8, "unit": "points", "frame": 120},
+  {"label": "Takeaways", "value": 3, "unit": "takeaways", "frame": 145}
+ ]
+}

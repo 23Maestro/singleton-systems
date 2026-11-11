@@ -1,0 +1,13 @@
+{
+  "position": "DT", "number": "99", "name": "Jeffery Simmons", "team": "Chicago Bears",
+  "photo": "/Volumes/HomeSSD/Content Editor.library/images/MW15TSZLZYDCM.info/jeffery-simmons-1.jpg",
+  "photo_center_x": 0.52,
+  "colors": {"glow": "#C83803", "accent": "#F26522"},
+  "stats": [
+    {"value": "1", "label": "SACK", "frame": 131},
+    {"value": "2", "label": "TFL", "frame": 156},
+    {"value": "6", "label": "TOTAL TACKLES", "frame": 250}
+  ],
+  "tagline": "BEARS DEBUT", "tagline_frame": 280,
+  "frames": 352
+}

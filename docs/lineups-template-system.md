@@ -1,5 +1,7 @@
 # Lineups template system
 
+Start with the [lane map](lineups-lane-map.md) for what each lane builds today.
+
 `s-systems:lineups-editor` owns the Lineups workflow. Shared intake and storyboard
 handoff stay in `s-systems:client-video-storyboard`. Its old Lineups reference
 paths forward to the focused skill so existing hooks and saved chats still work.

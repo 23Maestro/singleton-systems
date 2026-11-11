@@ -1,0 +1,13 @@
+{
+  "position": "QB", "number": "9", "name": "Joe Burrow", "team": "Cincinnati Bengals",
+  "photo": "/Volumes/HomeSSD/Content Editor.library/images/MVHECO5CQMSTO.info/joe-burrow-3.jpg",
+  "photo_center_x": 0.55,
+  "colors": {"glow": "#FB4F14", "accent": "#FB4F14"},
+  "stats": [
+    {"value": "400+", "label": "PASS YDS", "frame": 31},
+    {"value": "5", "label": "PASS TD", "frame": 62},
+    {"value": "3", "label": "INT", "frame": 100}
+  ],
+  "tagline": "BIG DAY VS TENNESSEE", "tagline_frame": 130,
+  "frames": 291
+}

@@ -1,0 +1,9 @@
+{
+ "proof": "Week 9 Vikings rank change, #4 last week to #10 this week.",
+ "layout": "rank", "frames": 250, "focus_team": "Minnesota Vikings",
+ "cards": [
+  {"team": "Minnesota Vikings", "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/minnesota-vikings.png", "color": "#4F2683", "value": "#4", "label": "Last week", "frame": 24},
+  {"team": "Minnesota Vikings", "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/minnesota-vikings.png", "color": "#4F2683", "value": "#10", "label": "This week", "frame": 40}
+ ],
+ "rank": {"direction": "down", "text": "Down 6", "frame": 56}
+}

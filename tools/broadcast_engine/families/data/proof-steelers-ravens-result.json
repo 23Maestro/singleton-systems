@@ -1,0 +1,10 @@
+{
+ "proof": "Layout proof from the handoff example: the Steelers beat the Ravens 39-8. Not episode data.",
+ "layout": "pair", "frames": 250, "focus_team": "Pittsburgh Steelers",
+ "master": "/Users/singleton23/Documents/Development/lineups-blender/team-cards-value-metrics/masters/team-cards-v1.blend",
+ "cards": [
+  {"team": "Pittsburgh Steelers", "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/pittsburgh-steelers.png", "color": "#1B1B1F", "value": "39", "label": "Pittsburgh Steelers", "frame": 26},
+  {"team": "Baltimore Ravens", "logo": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-11-team-cards-value-metrics/logos/baltimore-ravens.png", "color": "#241773", "value": "8", "label": "Baltimore Ravens", "frame": 44}
+ ],
+ "center": {"text": "FINAL", "frame": 58}
+}
