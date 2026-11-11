@@ -250,7 +250,7 @@ def drop_shadow(o, du=5, dv=7, alpha=0.75):
     s_ = pscale(o.location.y); sh.location = o.location + Vector((du * s_, 0.04, -dv * s_))
     parent(sh, o); return sh
 
-def floor_shadow(u0, u1, floor_v, d, owner=None, depth=2.6, strength=0.8, tilt=24):
+def floor_shadow(u0, u1, floor_v, d, owner=None, depth=2.8, strength=0.95, tilt=24):
     """Shadow on the turf under a piece: a soft dark pool lying flat at floor level, darkest right under the piece.
     With an owner it moves, turns and scales with it, so the piece reads as having weight."""
     s = pscale(d); pad = (u1 - u0) * 0.08
@@ -307,27 +307,59 @@ def turn(o, f0, dur, deg, axis=2, interp="EXPO"):
     rest = o.rotation_euler.copy(); start = rest.copy(); start[axis] += math.radians(deg)
     key(o, "rotation_euler", [(f0, tuple(start)), (f0 + dur, tuple(rest))], interp=interp)
 
+# Layer-cake build: the base lands first, then each layer on top gets its own move, a few frames apart.
+#   rise   - big values: up from just below, opening from a squash
+#   wipe   - names and labels: grow from their left edge
+#   block_dissolve - logos: snap on in a quick grid of blocks
+def rise(o, f0, dur=8, dv=28):
+    full = tuple(o.scale); slide(o, f0, dv=dv, dur=dur, interp="CUBIC")
+    key(o, "scale", [(f0, (full[0], full[1] * 0.35, full[2])), (f0 + dur, full)], interp="EXPO")
+
+def wipe(o, f0, dur=7):
+    full = tuple(o.scale)
+    key(o, "scale", [(f0, (0.0, full[1], full[2])), (f0 + dur, full)], interp="CUBIC")
+
+def block_dissolve(o, f0, dur=6, blocks=16):
+    """Image plane appears block by block: each cell of a grid turns on at its own random moment."""
+    m = o.active_material; nt = m.node_tree; p = nt.nodes["Principled BSDF"]; t = nt.nodes["Image Texture"]
+    tc = nt.nodes.new("ShaderNodeTexCoord"); mul = nt.nodes.new("ShaderNodeVectorMath"); mul.operation = "MULTIPLY"
+    mul.inputs[1].default_value = (blocks, blocks, 1); fl = nt.nodes.new("ShaderNodeVectorMath"); fl.operation = "FLOOR"
+    wn = nt.nodes.new("ShaderNodeTexWhiteNoise"); wn.noise_dimensions = "3D"
+    prog = nt.nodes.new("ShaderNodeValue"); lt = nt.nodes.new("ShaderNodeMath"); lt.operation = "LESS_THAN"
+    a = nt.nodes.new("ShaderNodeMath"); a.operation = "MULTIPLY"
+    nt.links.new(tc.outputs["UV"], mul.inputs[0]); nt.links.new(mul.outputs[0], fl.inputs[0]); nt.links.new(fl.outputs[0], wn.inputs["Vector"])
+    nt.links.new(wn.outputs["Value"], lt.inputs[0]); nt.links.new(prog.outputs[0], lt.inputs[1])
+    nt.links.new(lt.outputs[0], a.inputs[0]); nt.links.new(t.outputs["Alpha"], a.inputs[1]); nt.links.new(a.outputs[0], p.inputs["Alpha"])
+    prog.outputs[0].default_value = 0.0; prog.outputs[0].keyframe_insert("default_value", frame=f0)
+    prog.outputs[0].default_value = 1.01; prog.outputs[0].keyframe_insert("default_value", frame=f0 + dur)
+    for fc in _fcurves(nt.animation_data.action):
+        for kp in fc.keyframe_points: kp.interpolation = "LINEAR"
+
 def parent(child, to):
     """Keep the child where it is; its location keys stay in layout space."""
     bpy.context.view_layer.update(); child.parent = to; child.matrix_parent_inverse = to.matrix_world.inverted()
 
 def hide_until_open(n):
-    """A piece squashed to zero scale still renders its bevel as a sliver; hide it until it opens."""
-    for o in list(sc.objects):
+    """A piece squashed to zero scale still renders its bevel as a sliver; hide it until it opens.
+    Each piece waits for the later of its own opening and every parent's, so a parent never un-hides a child early."""
+    opens = {}
+    for o in sc.objects:
         ad = o.animation_data
         if not (ad and ad.action): continue
         fcs = [fc for fc in _fcurves(ad.action) if fc.data_path == "scale"]
-        if not fcs: continue
-        first = next((f for f in range(1, n + 1) if all(fc.evaluate(f) > 1e-3 for fc in fcs)), 1)
-        if first > 1:
-            for x in [o] + list(o.children_recursive):
-                key(x, "hide_render", [(1, True), (first, False)], interp="CONSTANT")
+        if fcs: opens[o.name] = next((f for f in range(1, n + 1) if all(fc.evaluate(f) > 1e-3 for fc in fcs)), 1)
+    for o in list(sc.objects):
+        first, p = opens.get(o.name, 1), o.parent
+        while p: first, p = max(first, opens.get(p.name, 1)), p.parent
+        if first > 1: key(o, "hide_render", [(1, True), (first, False)], interp="CONSTANT")
 
 # ---------------------------------------------------------------- light, camera, finish
 def key_light():
     sun = bpy.data.lights.new("Key", "SUN"); sun.energy = 2.2; sun.angle = math.radians(8)
     so = bpy.data.objects.new("Key", sun); sc.collection.objects.link(so)
-    so.rotation_euler = (math.radians(60), math.radians(-22), math.radians(-12))
+    # nearly overhead, tipped 18 deg away from the camera and a touch from the left:
+    # every piece's shadow falls on the turf right under it and a little behind
+    so.rotation_euler = (math.radians(18), math.radians(-8), 0)
 
 def camera(n, focus, start=(-3.2, -2.6, 1.0), move=(1.4, 0.7, -0.3)):
     """3/4 arrival that lands home on frame 30, then a truck that ends by MOVE_END (6 s). Then it holds."""

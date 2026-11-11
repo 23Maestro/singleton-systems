@@ -58,7 +58,7 @@ def glow_mat(hexc, n):
 team = k.text(D["team"].upper(), F_TEAM, D["accent"], 58, Z_HEAD, tier="team"); k.put(team, 80, 62, "LEFT", "TOP")
 title = k.text(D["title"].upper(), F_NUM, "#FFFFFF", 74, Z_HEAD, tier="flat"); k.put(title, CU, 168, "CENTER", "TOP")
 logo, lim = k.image_plane("Logo", D["logo"], Z_LOGO, glow=0.95); k.fit_image(logo, lim, 90, 330, 720, 820, Z_LOGO)
-k.parent(k.floor_shadow(130, 680, 880, Z_LOGO, strength=0.55), logo)
+logo_floor = k.floor_shadow(130, 680, 880, Z_LOGO, strength=0.55)
 
 ys = {2: (480, 680), 3: (410, 590, 770), 4: (380, 520, 660, 800)}[len(rows)]
 BAR_U0, BAR_MAX, BAR_H = 1330, 250, 40      # ends by 1580 so the widest number keeps clear air
@@ -76,22 +76,23 @@ for r, y in zip(rows, ys):
     shown = str(int(r["value"])) if float(r["value"]).is_integer() else str(r["value"])
     val = k.text(shown, F_NUM, "#FFFFFF", 112, Z_VAL, tier="flat"); k.put(val, U1, y, "RIGHT", "CENTER")
     f = r["frame"]
-    k.slide(lab, f - 10, du=-80, dur=10)
-    if bar: k.pop(bar, f - 15, 15, "CUBIC", axis=(0,))         # fills left to right and stops on the cue
-    k.pop(val, f - 6, 6, "BACK")                     # flat type: a clean pop, no spin
+    # layer cake per row: label wipes on, the bar fills, then the number rises onto the cue
+    k.wipe(lab, f - 16, 7)
+    if bar: k.pop(bar, f - 12, 12, "CUBIC", axis=(0,))         # fills left to right and stops on the cue
+    k.rise(val, f - 8, 8)
     built.append((r, lab, bar, val))
 
-k.slide(team, 6, du=-120, dur=12); k.turn(team, 6, 12, 50)
-k.slide(title, 10, dv=-30, dur=10)
-k.pop(logo, 14, 12, "BACK"); k.turn(logo, 14, 16, 180, interp="BACK")
+k.wipe(team, 4, 8)
+k.rise(title, 10, 8)
+k.block_dissolve(logo, 16, 6); k.pop(logo_floor, 16, 6, "CUBIC")
 
 k.key_light()
 k.hide_until_open(N)
 k.camera(N, Z_ROW, move=(0.9, -0.6, -0.2))
 
 for r, lab, bar, val in built:
-    k.check_on_cue(val, r["frame"], f"{r['label']} value")
-    if bar: k.check_on_cue(bar, r["frame"], f"{r['label']} bar", lead=16)
+    k.check_on_cue(val, r["frame"], f"{r['label']} value", lead=9)
+    if bar: k.check_on_cue(bar, r["frame"], f"{r['label']} bar", lead=13)
 k.check_in_frame([team, title, logo] + [o for b in built for o in b[1:] if o], (k.HOME, min(N, k.MOVE_END), N))
 if plate: k.check_plate_cover(plate, N)
 print("PASS rows land on their cues; PASS frame check; PASS stadium covers every frame")

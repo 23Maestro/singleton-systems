@@ -69,10 +69,11 @@ def card(c, box, side):
     for o in (rim, foot, logo, val, lab, floor): k.parent(o, face)
     # land on the cue: the card swings in on its outer edge, then logo, value and footer settle on it
     f = c["frame"]
+    # layer cake: the card lands on the cue, then logo, value and footer stack on in turn
     k.pop(face, f - 12, 12, "EXPO", axis=(0,)); k.turn(face, f - 12, 12, -70 if side == 0 else 70)
-    k.pop(logo, f - 8, 8, "BACK"); k.turn(logo, f - 8, 10, 180, interp="BACK")
-    k.pop(val, f - 6, 6, "BACK")                     # flat type: a clean pop, no spin
-    k.slide(lab, f - 5, dv=-24, dur=5)
+    k.block_dissolve(logo, f + 2, 6)
+    k.rise(val, f + 6, 8)
+    k.wipe(lab, f + 11, 7)
     return face, logo, val, lab
 
 built = [card(c, b, i) for i, (c, b) in enumerate(zip(cards, BOXES))]
@@ -84,19 +85,20 @@ if LAYOUT == "pair" and D.get("center"):
     m = k.text(D["center"]["text"].upper(), F_NUM, "#FFFFFF", 96, Z_MARK, tier="flat")
     if vs: k.shrink_to(m, 190)
     k.put(m, 960, 508 if vs else 958, "CENTER", "CENTER")
-    f = D["center"]["frame"]; k.pop(m, f - 8, 8, "BACK"); extra.append(m)
+    f = max(D["center"]["frame"], cards[1]["frame"] + 26)     # after both card stacks finish
+    k.pop(m, f - 8, 8, "BACK"); extra.append(m)
 if LAYOUT == "rank":
     t = k.text(cards[0]["team"].upper(), F_TEAM, "#FFFFFF", 100, Z_TITLE, tier="team"); k.put(t, 960, 150, "CENTER", "TOP")
-    k.slide(t, 4, dv=-60, dur=12); k.turn(t, 4, 14, -60, axis=0); extra.append(t)
+    k.wipe(t, 4, 10); extra.append(t)
     r = D["rank"]; up = r["direction"] == "up"; col = "#3DDC84" if up else "#F26B6B"
     shaft = [(0.32, 0), (0.68, 0), (0.68, 0.58), (1, 0.58), (0.5, 1), (0, 0.58), (0.32, 0.58)]
     if up: shaft = [(x, 1 - y) for x, y in shaft]
     arrow = k.slab("Arrow", 880, 440, 1040, 700, Z_MARK, k.flat_mat("Arrow", col, glow=0.9, rough=0.35), thick=0.5, bevel=0.06, pts=shaft)
-    f = r["frame"]; key_from = 260 if up else -260
+    f = max(r["frame"], cards[1]["frame"] + 26); key_from = 260 if up else -260     # after both card stacks
     k.slide(arrow, f - 10, dv=key_from, dur=10, interp="BACK"); k.turn(arrow, f - 10, 10, 90)
     afl = k.floor_shadow(880, 1040, BOXES[0][3], Z_MARK, strength=0.5); k.pop(afl, f - 10, 10, "CUBIC")   # pool grows as it lands
     ln = k.text(r["text"].upper(), F_NUM, "#FFFFFF", 92, Z_FACE - 0.4, tier="flat"); k.put(ln, 960, 980, "CENTER", "CENTER")
-    k.pop(ln, f + 2, 7, "BACK"); extra += [arrow, ln]
+    k.wipe(ln, f + 3, 8); extra += [arrow, ln]
 
 k.key_light()
 k.hide_until_open(N)
@@ -105,7 +107,7 @@ k.camera(N, Z_FACE, move=(0.9, -1.2, -0.25))   # wide layout: truck right while 
 # ---------------------------------------------------------------- checks
 for c, (face, logo, val, lab) in zip(cards, built):
     k.check_on_cue(face, c["frame"], f"{c['team']} card", lead=13)
-    k.check_on_cue(val, c["frame"], f"{c['team']} value")
+    k.check_on_cue(val, c["frame"] + 14, f"{c['team']} value", lead=9)   # stacks on after the card
 k.check_in_frame([o for b in built for o in b] + extra, (k.HOME, min(N, k.MOVE_END), N))
 if plate: k.check_plate_cover(plate, N)
 print("PASS cards land on their cues; PASS frame check; PASS stadium covers every frame")
