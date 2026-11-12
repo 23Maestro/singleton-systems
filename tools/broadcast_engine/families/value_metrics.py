@@ -84,7 +84,7 @@ for r, y in zip(rows, ys):
 
 k.wipe(team, 4, 8)
 k.rise(title, 10, 8)
-if D.get("logo_in") == "dust": k.dust_in(logo, lim, 16, 16); k.pop(logo_floor, 26, 8, "CUBIC")
+if D.get("logo_in", "dust") == "dust": k.dust_in(logo, lim, 16, 16); k.pop(logo_floor, 26, 8, "CUBIC")
 else: k.block_dissolve(logo, 16, 6); k.pop(logo_floor, 16, 6, "CUBIC")
 
 k.key_light()
@@ -100,7 +100,7 @@ print("PASS rows land on their cues; PASS frame check; PASS stadium covers every
 
 json.dump({"focusTeam": FOCUS, "stadium": STADIUM, "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
            "barScale": peak, "cues": {r["label"]: r["frame"] for r in rows},
-           "dustFrames": [16] if D.get("logo_in") == "dust" else []},
+           "dustFrames": [16] if D.get("logo_in", "dust") == "dust" else []},
           open(os.path.join(OUT, "scene-binding.json"), "w"), indent=1)
 still = [int(x) for x in args[3].split(",")] if MODE == "still" and len(args) > 3 and args[3][0].isdigit() else [N]
 k.finish(D.get("master") or os.path.join(OUT, "value-metrics.blend"), OUT, MODE, still, bloom=0.4)

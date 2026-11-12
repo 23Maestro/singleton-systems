@@ -2164,7 +2164,7 @@
             },
             "Statement#868:0": {
               "type": "TEXT",
-              "value": "DOMINATED THE PITTSBURGH STEELERS 20\u20133"
+              "value": "DOMINATED THE PITTSBURGH STEELERS 20–3"
             }
           }
         }
@@ -2676,6 +2676,146 @@
       "approvedOptions": [
         "Cinematic 2-up",
         "Full comparison: 2"
+      ]
+    },
+    {
+      "key": "comparison.blender.team-cards.2",
+      "lane": "comparison",
+      "option": "Team matchup",
+      "settings": {
+        "subjects": 2,
+        "layout": "pair"
+      },
+      "source": {
+        "engine": "blender",
+        "type": "BLENDER_CLI",
+        "variant": "4B",
+        "manifestPath": "config/lineups/blender/4B.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "approved"
+      },
+      "allowedChanges": [
+        "episode copy",
+        "team logos",
+        "team colors",
+        "values",
+        "spoken cue frames",
+        "focus team stadium"
+      ],
+      "protected": [
+        "layout",
+        "camera",
+        "lighting",
+        "native animation",
+        "card surface",
+        "type system"
+      ],
+      "requiredRoles": {
+        "frame": "frame",
+        "team.1.logo": "logo",
+        "team.2.logo": "logo",
+        "card.1.value": "text",
+        "card.1.label": "text",
+        "card.2.value": "text",
+        "card.2.label": "text"
+      },
+      "requiredTeamRoles": [
+        "team.1.logo",
+        "team.2.logo"
+      ]
+    },
+    {
+      "key": "comparison.blender.rank-cards.2",
+      "lane": "comparison",
+      "option": "Rank Movement",
+      "settings": {
+        "subjects": 2,
+        "layout": "rank"
+      },
+      "source": {
+        "engine": "blender",
+        "type": "BLENDER_CLI",
+        "variant": "4C",
+        "manifestPath": "config/lineups/blender/4C.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "approved"
+      },
+      "allowedChanges": [
+        "episode copy",
+        "team logos",
+        "team colors",
+        "values",
+        "spoken cue frames",
+        "focus team stadium"
+      ],
+      "protected": [
+        "layout",
+        "camera",
+        "lighting",
+        "native animation",
+        "card surface",
+        "type system"
+      ],
+      "requiredRoles": {
+        "frame": "frame",
+        "team.1.name": "text",
+        "team.1.logo": "logo",
+        "card.1.value": "text",
+        "card.1.label": "text",
+        "card.2.value": "text",
+        "card.2.label": "text",
+        "rank.change": "text"
+      },
+      "requiredTeamRoles": [
+        "team.1.logo"
+      ]
+    },
+    {
+      "key": "year-by-year.blender.value-metrics",
+      "lane": "year-by-year",
+      "option": "Value metrics",
+      "settings": {
+        "rows": 3
+      },
+      "source": {
+        "engine": "blender",
+        "type": "BLENDER_CLI",
+        "variant": "5A",
+        "manifestPath": "config/lineups/blender/5A.json",
+        "width": 1920,
+        "height": 1080,
+        "status": "approved"
+      },
+      "allowedChanges": [
+        "episode copy",
+        "team logos",
+        "team colors",
+        "values",
+        "spoken cue frames",
+        "focus team stadium"
+      ],
+      "protected": [
+        "layout",
+        "camera",
+        "lighting",
+        "native animation",
+        "card surface",
+        "type system"
+      ],
+      "requiredRoles": {
+        "frame": "frame",
+        "team.1.name": "text",
+        "team.1.logo": "logo",
+        "title": "text",
+        "row.1.label": "text",
+        "row.1.value": "text",
+        "row.2.label": "text",
+        "row.2.value": "text"
+      },
+      "requiredTeamRoles": [
+        "team.1.logo"
       ]
     }
   ],

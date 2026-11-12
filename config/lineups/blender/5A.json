@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "templateKey": "year-by-year.blender.value-metrics",
+  "variant": "5A",
+  "master": {
+    "path": "/Users/singleton23/Documents/Development/lineups-blender/team-cards-value-metrics/masters/approved/5A-value-metrics-steelers.blend",
+    "sha256": "07a4dd832faa32384dce2b032a176cc15cf474e9cd1620edaedc85a9024a4ae8"
+  },
+  "frameRate": {
+    "numerator": 25,
+    "denominator": 1
+  },
+  "files": {
+    "builder": {
+      "path": "tools/broadcast_engine/families/value_metrics.py",
+      "sha256": "261598cd647379ed0ce62aa4f9243b1b212c1b85e48bc8a9cac3818b9d23153d"
+    },
+    "dataContract": {
+      "path": "tools/broadcast_engine/families/value_metrics.py",
+      "sha256": "261598cd647379ed0ce62aa4f9243b1b212c1b85e48bc8a9cac3818b9d23153d"
+    },
+    "runner": {
+      "path": "tools/broadcast_engine/fill.py",
+      "sha256": "4eb2b89d98892024f4728d247a030fc1a3b59898f50b7af0b24e3613ef208290"
+    },
+    "sceneKit": {
+      "path": "tools/broadcast_engine/families/scene3d.py",
+      "sha256": "1455c1d820c3f7ce60141dfbc4a03c1ba3f6ae9b341070bad23502bcea72f486"
+    },
+    "dustSound": {
+      "path": "tools/broadcast_engine/families/add_sfx.py",
+      "sha256": "e2ce95c39c6439e32797bcfb570d9c655127d9c4d6e4d6946bf6dba3baa35de1"
+    },
+    "stadiumDepth": {
+      "path": "config/lineups/team-stadium-depth.json",
+      "sha256": "e7fc1bc0954960455d1f4ccbb17f817aa72bb9496a1d3f1bd8c00de4d18eeb6b"
+    }
+  },
+  "note": "Saved approved design is the source witness. Versioned builder and data contract fill episode copies. Visual and timing approval remain separate."
+}

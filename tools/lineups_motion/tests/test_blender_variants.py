@@ -17,9 +17,9 @@ class BlenderVariantTests(unittest.TestCase):
 
     def test_registry_names_variants_and_their_approval(self):
         rows = {v['id']: v for v in routing_contract()['blenderVariants']}
-        self.assertEqual(set(rows), {'3A', '3B', '4A'})
-        self.assertEqual((rows['3A']['status'], rows['3B']['status'], rows['4A']['status']),
-                         ('parked', 'approved', 'approved'))
+        self.assertEqual(set(rows), {'3A', '3B', '4A', '4B', '4C', '5A'})
+        self.assertEqual({i: r['status'] for i, r in rows.items()},
+                         {'3A': 'parked', '3B': 'approved', '4A': 'approved', '4B': 'approved', '4C': 'approved', '5A': 'approved'})
         for v in rows.values():
             self.assertRegex(v['id'], r'^[1-7][A-Z]$')
 

@@ -13,6 +13,8 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
+# Lane families (tools/broadcast_engine/families) take <data> <out> build and save one .blend each.
+FAMILY_RESULTS = {'4B': 'team-cards.blend', '4C': 'team-cards.blend', '5A': 'value-metrics.blend'}
 
 
 def main():
@@ -21,7 +23,7 @@ def main():
     from tools.lineups_motion.engine_choice import routing_contract
     from tools.lineups_motion.templates import resolve
     p = argparse.ArgumentParser()
-    p.add_argument('--variant', choices=['3B', '4A'], required=True)
+    p.add_argument('--variant', choices=['3B', '4A', '4B', '4C', '5A'], required=True)
     p.add_argument('--data', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--scene', type=Path)
@@ -67,18 +69,29 @@ def main():
     # Never overwrite an existing build. A retry uses a new, reviewable version.
     output.mkdir(parents=True, exist_ok=False)
     data = args.data.resolve()
-    if stadium:
+    family = args.variant in FAMILY_RESULTS
+    if stadium or family:
+        # family builders save to data["master"] when set; an episode build never writes over a master
+        prepared = {k: v for k, v in original_data.items() if not (family and k == 'master')}
         data = output / 'prepared-data.json'
-        data.write_text(json.dumps({**original_data, 'stadium': stadium}, indent=2) + '\n')
+        data.write_text(json.dumps({**prepared, 'stadium': stadium} if stadium else prepared, indent=2) + '\n')
     builder = ROOT / native['files']['builder']['path']
-    if args.variant == '3B':
+    if family:
+        sys.argv = [str(builder), '--', str(data), str(output), 'build']
+        result_name = FAMILY_RESULTS[args.variant]
+    elif args.variant == '3B':
         sys.argv = [str(builder), '--', str(data), str(output), 'build']
         result_name = 'lane3-card.blend'
     else:
         sys.argv = [str(builder), '--', str(output), str(data)]
         result_name = 'lane4-concept-v1.blend'
     runpy.run_path(str(builder), run_name='__main__')
-    if stadium:
+    if stadium and family:
+        # family builders load the registered photo themselves, check its SHA-256 and write a treated episode copy
+        used = json.loads((output / 'scene-binding.json').read_text()).get('stadium') or {}
+        if Path(used.get('filePath', '')).resolve() != Path(stadium['filePath']).resolve():
+            raise ValueError('Blender build did not use the selected team stadium')
+    elif stadium:
         matches = [image for image in bpy.data.images if Path(bpy.path.abspath(image.filepath)).resolve() == Path(stadium['filePath']).resolve()]
         if not matches:
             raise ValueError('Blender build did not use the selected team stadium')

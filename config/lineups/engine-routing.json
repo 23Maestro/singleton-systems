@@ -158,6 +158,97 @@
       "approvalSource": "Jerami in chat, November 10, 2026: \"lane 4 is approved in my book\".",
       "statusNote": "Registered source and runner are hash-checked. Per-episode timing and review gates still apply.",
       "productionRunner": "tools/broadcast_engine/fill.py"
+    },
+    {
+      "id": "4B",
+      "lane": "comparison",
+      "name": "Team cards",
+      "options": [
+        "Team matchup",
+        "Logo stat cards"
+      ],
+      "fit": "Two teams side by side: VS, a final result, or one talking point each, on their own cues.",
+      "builder": "tools/broadcast_engine/families/team_cards.py",
+      "dataContract": "tools/broadcast_engine/families/team_cards.py",
+      "exampleData": "tools/broadcast_engine/families/data/proof-steelers-ravens-result.json",
+      "usage": "Blender -b --factory-startup --python-exit-code 1 -P <builder> -- <data.json> <out_dir> [still F,F | anim]",
+      "templateKey": "comparison.blender.team-cards.2",
+      "status": "approved",
+      "approvedBy": "Jerami",
+      "approvedOn": "2026-11-11",
+      "approvalSource": "Jerami in chat, November 11, 2026: \"Thanks based on the Vikings and Steelers one I'm happy with this and approve\".",
+      "productionRunner": "tools/broadcast_engine/fill.py",
+      "statusNote": "Brushed team metal, dust logo with its sound, DepthFlow stadium. Registered source and runner are hash-checked. Per-episode timing and review gates still apply."
+    },
+    {
+      "id": "4C",
+      "lane": "comparison",
+      "name": "Rank cards",
+      "options": [
+        "Rank Movement"
+      ],
+      "fit": "One team at two points in time, like #4 last week to #10 this week, with an up or down arrow.",
+      "builder": "tools/broadcast_engine/families/team_cards.py",
+      "dataContract": "tools/broadcast_engine/families/team_cards.py",
+      "exampleData": "tools/broadcast_engine/families/data/proof-vikings-rank.json",
+      "usage": "Blender -b --factory-startup --python-exit-code 1 -P <builder> -- <data.json> <out_dir> [still F,F | anim]",
+      "templateKey": "comparison.blender.rank-cards.2",
+      "status": "approved",
+      "approvedBy": "Jerami",
+      "approvedOn": "2026-11-11",
+      "approvalSource": "Jerami in chat, November 11, 2026: \"Thanks based on the Vikings and Steelers one I'm happy with this and approve\".",
+      "productionRunner": "tools/broadcast_engine/fill.py",
+      "statusNote": "Brushed team metal, dust logo with its sound, DepthFlow stadium. Registered source and runner are hash-checked. Per-episode timing and review gates still apply."
+    },
+    {
+      "id": "5A",
+      "lane": "year-by-year",
+      "name": "Value metrics",
+      "options": [
+        "Value metrics"
+      ],
+      "fit": "2 to 4 related values that back one point, like Seattle 20 / 3 / 0.",
+      "builder": "tools/broadcast_engine/families/value_metrics.py",
+      "dataContract": "tools/broadcast_engine/families/value_metrics.py",
+      "exampleData": "tools/broadcast_engine/families/data/proof-steelers-value.json",
+      "usage": "Blender -b --factory-startup --python-exit-code 1 -P <builder> -- <data.json> <out_dir> [still F,F | anim]",
+      "templateKey": "year-by-year.blender.value-metrics",
+      "status": "approved",
+      "approvedBy": "Jerami",
+      "approvedOn": "2026-11-11",
+      "approvalSource": "Jerami in chat, November 11, 2026: \"Thanks based on the Vikings and Steelers one I'm happy with this and approve\".",
+      "productionRunner": "tools/broadcast_engine/fill.py",
+      "statusNote": "Brushed team metal, dust logo with its sound, DepthFlow stadium. Registered source and runner are hash-checked. Per-episode timing and review gates still apply."
     }
-  ]
+  ],
+  "blenderDefaults": {
+    "blender": [
+      "3B",
+      "4A",
+      "4B",
+      "4C",
+      "5A"
+    ],
+    "blenderPlanned": [
+      "Simple comparison",
+      "Full comparison: 3",
+      "Full comparison: 4",
+      "asset swap",
+      "Logo pair"
+    ],
+    "figma": [
+      "quick action photo",
+      "Team callout",
+      "Logo statement",
+      "Grouped stats",
+      "Grouped logo facts",
+      "Cinematic 2-up full photo",
+      "Logo row",
+      "Trend table",
+      "Rank Reveal",
+      "Super Bowl Bubble Board"
+    ],
+    "rule": "Propose the approved Blender variant first. A blenderPlanned option uses its Figma source until its Blender comp is approved. Jev only suggests; a scene names its variant before it builds.",
+    "authority": "Jerami in chat, November 11, 2026: \"I think simple comparison blender for sure along with full comparison and asset swap others stay Figma for now.\""
+  }
 }

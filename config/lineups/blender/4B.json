@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "templateKey": "comparison.blender.team-cards.2",
+  "variant": "4B",
+  "master": {
+    "path": "/Users/singleton23/Documents/Development/lineups-blender/team-cards-value-metrics/masters/approved/4B-team-cards-steelers-ravens.blend",
+    "sha256": "52ae31412eaad8007af24c99260a43d22eb2caf1b4c36857b750d4bfb74d43b1"
+  },
+  "frameRate": {
+    "numerator": 25,
+    "denominator": 1
+  },
+  "files": {
+    "builder": {
+      "path": "tools/broadcast_engine/families/team_cards.py",
+      "sha256": "3cb720f330d0fd403a4c291f6d2bd66a35869d31326c1612dec4d37bec364054"
+    },
+    "dataContract": {
+      "path": "tools/broadcast_engine/families/team_cards.py",
+      "sha256": "3cb720f330d0fd403a4c291f6d2bd66a35869d31326c1612dec4d37bec364054"
+    },
+    "runner": {
+      "path": "tools/broadcast_engine/fill.py",
+      "sha256": "4eb2b89d98892024f4728d247a030fc1a3b59898f50b7af0b24e3613ef208290"
+    },
+    "sceneKit": {
+      "path": "tools/broadcast_engine/families/scene3d.py",
+      "sha256": "1455c1d820c3f7ce60141dfbc4a03c1ba3f6ae9b341070bad23502bcea72f486"
+    },
+    "dustSound": {
+      "path": "tools/broadcast_engine/families/add_sfx.py",
+      "sha256": "e2ce95c39c6439e32797bcfb570d9c655127d9c4d6e4d6946bf6dba3baa35de1"
+    },
+    "stadiumDepth": {
+      "path": "config/lineups/team-stadium-depth.json",
+      "sha256": "e7fc1bc0954960455d1f4ccbb17f817aa72bb9496a1d3f1bd8c00de4d18eeb6b"
+    }
+  },
+  "note": "Saved approved design is the source witness. Versioned builder and data contract fill episode copies. Visual and timing approval remain separate."
+}

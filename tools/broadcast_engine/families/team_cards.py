@@ -51,8 +51,8 @@ else:
 
 def card(c, box, side):
     u0, v0, u1, v1 = box
-    # card surface: approved satin v2 by default; "brushed" is the brushed-metal option under review
-    surf = k.brushed_mat(f"Metal {side}", c["color"], sweep_at=c["frame"] + 2) if D.get("surface") == "brushed" else k.satin_mat(f"Satin {side}", c["color"])
+    # card surface: brushed team metal by default (approved Nov 11); "satin" keeps the older satin v2 face
+    surf = k.satin_mat(f"Satin {side}", c["color"]) if D.get("surface") == "satin" else k.brushed_mat(f"Metal {side}", c["color"], sweep_at=c["frame"] + 2)
     face = k.slab(f"Face {side}", u0, v0, u1, v1, Z_FACE, surf, thick=0.14, bevel=0.035,
                   origin="LEFT" if side == 0 else "RIGHT")
     rim = k.slab(f"Rim {side}", u0 - 7, v0 - 7, u1 + 7, v1 + 7, Z_FRAME, k.flat_mat("Rim", "#B9C0C8", glow=0.25, rough=0.3, metal=0.9),
@@ -73,7 +73,7 @@ def card(c, box, side):
     f = c["frame"]
     # layer cake: the card lands on the cue, then logo, value and footer stack on in turn
     k.pop(face, f - 12, 12, "EXPO", axis=(0,)); k.turn(face, f - 12, 12, -70 if side == 0 else 70)
-    k.dust_in(logo, lim, f + 2, 16) if D.get("logo_in") == "dust" else k.block_dissolve(logo, f + 2, 6)
+    k.dust_in(logo, lim, f + 2, 16) if D.get("logo_in", "dust") == "dust" else k.block_dissolve(logo, f + 2, 6)
     k.rise(val, f + 10, 8)
     k.wipe(lab, f + 15, 7)
     return face, logo, val, lab
@@ -117,7 +117,7 @@ print("PASS cards land on their cues; PASS frame check; PASS stadium covers ever
 json.dump({"layout": LAYOUT, "focusTeam": FOCUS, "stadium": STADIUM,
            "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
            "cues": {c["team"] + " / " + c["label"]: c["frame"] for c in cards},
-           "dustFrames": [c["frame"] + 2 for c in cards] if D.get("logo_in") == "dust" else []},
+           "dustFrames": [c["frame"] + 2 for c in cards] if D.get("logo_in", "dust") == "dust" else []},
           open(os.path.join(OUT, "scene-binding.json"), "w"), indent=1)
 still = [int(x) for x in args[3].split(",")] if MODE == "still" and len(args) > 3 and args[3][0].isdigit() else [N]
 k.finish(D.get("master") or os.path.join(OUT, "team-cards.blend"), OUT, MODE, still)

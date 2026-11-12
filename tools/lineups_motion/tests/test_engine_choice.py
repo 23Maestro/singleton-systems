@@ -72,12 +72,13 @@ class EngineChoiceTests(unittest.TestCase):
                         validate_scene_discovery(self.root, manifest, require_engine_choice=True)
                     manifest['motion']['engine'] = 'blender'
                     validate_scene_discovery(self.root, manifest, require_engine_choice=True)
-        unapproved = copy.deepcopy(self.manifest)
-        unapproved['scene'].update(comparisonKind='teams', approvedOption='Team matchup')
-        record_engine_choice(unapproved, self.ledger, 'blender', 'Blender')
-        unapproved['motion']['engine'] = 'blender'
-        with self.assertRaisesRegex(ValueError, 'No approved Blender lane master'):
-            engine_route(unapproved, self.ledger, require_choice=True, enforce_engine=True)
+        # Team cards master 4B approved by Jerami on November 11, 2026.
+        teams = copy.deepcopy(self.manifest)
+        teams['scene'].update(comparisonKind='teams', approvedOption='Team matchup')
+        record_engine_choice(teams, self.ledger, 'blender', 'Blender')
+        teams['motion']['engine'] = 'blender'
+        route = engine_route(teams, self.ledger, require_choice=True, enforce_engine=True)
+        self.assertEqual((route['status'], route['templateKeys']), ('selected', ['comparison.blender.team-cards.2']))
         manifest = copy.deepcopy(self.manifest)
         manifest['engineChoice'] = {'engine': 'unreal', 'reviewer': 'Jerami', 'answer': 'Unreal',
                                     'selectionSha256': engine_route(manifest, self.ledger)['selectionSha256']}
@@ -168,13 +169,17 @@ class EngineChoiceTests(unittest.TestCase):
                 engine_route(manifest, self.ledger, require_choice=True)
             with self.assertRaisesRegex(ValueError, 'Unreal is retired'):
                 record_engine_choice(copy.deepcopy(manifest), self.ledger, 'unreal', 'Unreal')
-            for engine, message in (('figma', 'No registered Figma source'), ('blender', 'No approved Blender lane master')):
-                chosen = copy.deepcopy(manifest)
-                route = record_engine_choice(chosen, self.ledger, engine, engine.title())
-                self.assertEqual(route['status'], 'reference-gap')
-                chosen['motion']['engine'] = engine
-                with self.assertRaisesRegex(ValueError, message):
-                    engine_route(chosen, self.ledger, enforce_engine=True)
+            chosen = copy.deepcopy(manifest)
+            route = record_engine_choice(chosen, self.ledger, 'figma', 'Figma')
+            self.assertEqual(route['status'], 'reference-gap')
+            chosen['motion']['engine'] = 'figma'
+            with self.assertRaisesRegex(ValueError, 'No registered Figma source'):
+                engine_route(chosen, self.ledger, enforce_engine=True)
+            # 4B and 4C were approved by Jerami on November 11, 2026.
+            chosen = copy.deepcopy(manifest)
+            route = record_engine_choice(chosen, self.ledger, 'blender', 'Blender')
+            key = 'comparison.blender.rank-cards.2' if option == 'Rank Movement' else 'comparison.blender.team-cards.2'
+            self.assertEqual((route['status'], route['templateKeys']), ('selected', [key]))
             manifest['scene']['sceneId'] = 'missing'
             with self.assertRaisesRegex(ValueError, 'selected transcript candidate'):
                 engine_route(manifest, self.ledger)
