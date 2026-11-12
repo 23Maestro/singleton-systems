@@ -201,6 +201,8 @@ project routing. Client-record migration remains open until live reads pass.
 
 For website branding, offers, SEO and forms, read [Website](docs/website/README.md)
 and the matching Lane. Keep code in its current folders.
+App links, their jobs and quirks, and the always-deploy and public-link
+rules are in [website apps](docs/website/apps.md).
 
 Cerebral runs at session start, prompts, tool steps and closeout. Follow
 [the shared routing contract](CODEX.md#cerebral) and

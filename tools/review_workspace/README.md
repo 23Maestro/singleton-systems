@@ -96,13 +96,9 @@ for the React integration after visual review.
 
 ## Deploys
 
-This repository is the canonical Studio source. Edit `tools/review_workspace`,
-then copy `app.mjs`, `model.mjs`, `review.css` and `studio-home.mjs` into
-`public/studio`; the Studio test fails when the copies differ. Every Studio
-change ships by pushing to `main`, which deploys the Vercel project
-`singleton-systems` to www.singleton-systems.com. Check the live file after the
-deploy before calling the change done. New review packets are data in Studio
-storage and need no deploy.
+Edit `tools/review_workspace`, then copy `app.mjs`, `model.mjs`, `review.css` and
+`studio-home.mjs` into `public/studio`; the Studio test fails when they differ.
+Deploy and link rules are in [website apps](../../docs/website/apps.md).
 
 ## Stages
 

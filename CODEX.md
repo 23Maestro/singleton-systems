@@ -20,6 +20,8 @@ writing stays in `docs/harness/writing-rules.md`. Shared story and career source
 live in `docs/story-and-career/README.md`; Lane offers stay in operations.
 For website branding, page offers, SEO or forms, read `docs/website/README.md`
 and its matching Lane. It links code owners, data paths and routing checks.
+Every app link, its job, Lane and quirks, plus the always-deploy and
+public-link rules, are in `docs/website/apps.md`.
 
 Before downloading, generating, moving, or cleaning video media, read
 `docs/video-storage-workflow.md` and use `s-systems:video-storage`.

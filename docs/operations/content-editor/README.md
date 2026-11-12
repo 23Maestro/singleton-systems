@@ -22,4 +22,6 @@ with a link to the editing outcome. Closing a build does not close the edit.
 Use the [website Lane guide](../../website/content-editor/README.md) for page, brand,
 SEO and intake source links.
 
+Review client builds in Studio. Its link, rules and quirks are in [website apps](../../website/apps.md#content-editor).
+
 Use [Story and career](../../story-and-career/README.md) for shared background and source evidence.
