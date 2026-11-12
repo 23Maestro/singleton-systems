@@ -57,7 +57,7 @@ Proofs: `/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-11-11-team-cards-
 | 4 | Full comparison: 2 (players, 4 stats) | Blender **4A** |
 | 4 | Team matchup, Logo stat cards | Blender **4B** |
 | 4 | Rank movement | Blender **4C** |
-| 4 | Role cards (2 players, what each adds, no stats) | Blender **4B role**, comp pending: player cutouts on 4B cards; Week 10 C23 is the first build |
+| 4 | Role cards (2 players, what each adds, no stats) | Blender **4B role**, comp pending: current-season NFL.com headshots on 4B cards; Week 10 C23 is the first build |
 | 4 | Simple comparison (2 to 4), Full comparison: 3 and 4 | Blender, comp pending |
 | 4 | Logo row | Figma |
 | 5 | Value metrics | Blender **5A** |

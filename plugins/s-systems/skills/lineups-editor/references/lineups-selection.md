@@ -119,7 +119,7 @@ Count fields only after choosing the lane; numbers alone do not choose it.
 | One measure changes over time | Year-by-Year: trend table | Require one subject and at least 3 comparable periods. A date or combined span is not a series. |
 | Subjects or periods must be seen together | Comparison | Choose photo-led, one-value or multi-value layout from the actual contrast. |
 | One team moves between 2 weekly ranks | Comparison: Rank Movement | Show old rank, new rank and direction using the current satin cards. |
-| 2 players and what each adds, with no stats | Comparison: Role cards | One player alpha action cutout per card with 1 or 2 role lines, each on its cue. No numbers. |
+| 2 players and what each adds, with no stats | Comparison: Role cards | One player per card: his current-season official headshot (NFL.com player page, transparent, same framing) above his name and 1 or 2 role lines, each on its cue. No numbers. |
 | Order or replacement explains the point | Asset Swap | Reveal the states on speech; verify the registered subject capacity. |
 | A named show premise returns | Recurring Board | Use Rank Reveal only in ranked episodes. |
 | A person or moment needs a visual reference | Quick Action Photo | Stay on the speaker if the photo adds no meaning. |

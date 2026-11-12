@@ -74,7 +74,9 @@ def card(c, box, side):
     foot = k.slab(f"Foot {side}", u0, v1 - FOOT_H, u1, v1, Z_FACE - 0.03, k.flat_mat("Foot", "#0B0D10", glow=0.0, rough=0.55),
                   thick=0.05, bevel=0.01)
     lu0, lv0, lu1, lv1 = LOGO_BOX
-    logo, lim = k.image_plane(f"Logo {side}", c["logo"], Z_ON, glow=0.95)
+    if c.get("photo"):           # Role cards: the player's official headshot takes the logo's place, a little larger
+        lu0, lv0, lu1, lv1 = LOGO_BOX[0], 6, LOGO_BOX[2], VAL - VAL_CAP // 2 - 8
+    logo, lim = k.image_plane(f"Logo {side}", c.get("photo") or c["logo"], Z_ON, glow=0.95)
     k.fit_image(logo, lim, u0 + lu0, v0 + lv0, u0 + lu1, v0 + lv1, Z_ON)   # LOGO_BOX is in card pixels, centred on the card
     val = k.text(c["value"].upper(), F_NUM, "#FFFFFF", VAL_CAP, Z_ON, tier="flat")
     k.shrink_to(val, (u1 - u0) - 90); k.put(val, (u0 + u1) / 2, v0 + VAL, "CENTER", "CENTER")

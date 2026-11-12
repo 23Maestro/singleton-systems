@@ -302,7 +302,7 @@
         "engine": "blender",
         "variant": "4B role",
         "status": "comp-pending",
-        "note": "2 players and what each adds, no stats: one player alpha action cutout per 4B card with role lines on their cues. Week 10 C23 (Bates, Davis) is the first build."
+        "note": "2 players and what each adds, no stats: each 4B card shows the player's current-season official NFL.com headshot (nfl.com/players/<slug>, t_headshot_desktop_3x), his name and role lines on their cues. Week 10 C23 (Bates, Davis) is the first build."
       },
       {
         "lane": "comparison",
