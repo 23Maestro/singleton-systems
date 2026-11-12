@@ -297,6 +297,16 @@
       {
         "lane": "comparison",
         "options": [
+          "Role cards"
+        ],
+        "engine": "blender",
+        "variant": "4B role",
+        "status": "comp-pending",
+        "note": "2 players and what each adds, no stats: one player alpha action cutout per 4B card with role lines on their cues. Week 10 C23 (Bates, Davis) is the first build."
+      },
+      {
+        "lane": "comparison",
+        "options": [
           "Simple comparison",
           "Full comparison: 3",
           "Full comparison: 4"
