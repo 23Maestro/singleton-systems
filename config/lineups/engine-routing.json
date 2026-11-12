@@ -221,34 +221,125 @@
       "statusNote": "Brushed team metal, dust logo with its sound, DepthFlow stadium. Registered source and runner are hash-checked. Per-episode timing and review gates still apply."
     }
   ],
-  "blenderDefaults": {
-    "blender": [
-      "3B",
-      "4A",
-      "4B",
-      "4C",
-      "5A"
+  "engineDefaults": {
+    "rule": "Each option has 1 default engine. Approved rows build in Blender with their variant. comp-pending rows are Blender once their comp is approved; until then they build in Figma. Jev suggests a variant; a scene names its variant before it builds.",
+    "options": [
+      {
+        "lane": "quick action photo",
+        "options": [
+          "quick action photo"
+        ],
+        "engine": "figma"
+      },
+      {
+        "lane": "quick stat",
+        "options": [
+          "Team callout",
+          "Logo statement"
+        ],
+        "engine": "figma"
+      },
+      {
+        "lane": "stat breakdown",
+        "options": [
+          "stat breakdown"
+        ],
+        "engine": "blender",
+        "variant": "3B",
+        "status": "approved"
+      },
+      {
+        "lane": "stat breakdown",
+        "options": [
+          "Grouped stats",
+          "Grouped logo facts"
+        ],
+        "engine": "figma"
+      },
+      {
+        "lane": "comparison",
+        "options": [
+          "Cinematic 2-up",
+          "Full comparison: 2"
+        ],
+        "engine": "blender",
+        "variant": "4A",
+        "status": "approved"
+      },
+      {
+        "lane": "comparison",
+        "options": [
+          "Team matchup",
+          "Logo stat cards"
+        ],
+        "engine": "blender",
+        "variant": "4B",
+        "status": "approved"
+      },
+      {
+        "lane": "comparison",
+        "options": [
+          "Rank Movement"
+        ],
+        "engine": "blender",
+        "variant": "4C",
+        "status": "approved"
+      },
+      {
+        "lane": "comparison",
+        "options": [
+          "Simple comparison",
+          "Full comparison: 3",
+          "Full comparison: 4"
+        ],
+        "engine": "blender",
+        "status": "comp-pending"
+      },
+      {
+        "lane": "comparison",
+        "options": [
+          "Logo row"
+        ],
+        "engine": "figma"
+      },
+      {
+        "lane": "year-by-year",
+        "options": [
+          "Value metrics"
+        ],
+        "engine": "blender",
+        "variant": "5A",
+        "status": "approved"
+      },
+      {
+        "lane": "year-by-year",
+        "options": [
+          "Trend table"
+        ],
+        "engine": "figma"
+      },
+      {
+        "lane": "asset swap",
+        "options": [
+          "asset swap",
+          "Logo pair"
+        ],
+        "engine": "blender",
+        "status": "comp-pending"
+      },
+      {
+        "lane": "recurring board",
+        "options": [
+          "Rank Reveal",
+          "Super Bowl Bubble Board"
+        ],
+        "engine": "figma"
+      }
     ],
-    "blenderPlanned": [
-      "Simple comparison",
-      "Full comparison: 3",
-      "Full comparison: 4",
-      "asset swap",
-      "Logo pair"
+    "approvalSources": [
+      "Jerami in chat, November 11, 2026: \"Thanks based on the Vikings and Steelers one I'm happy with this and approve\".",
+      "Jerami in chat, November 11, 2026: \"I think simple comparison blender for sure along with full comparison and asset swap others stay Figma for now.\""
     ],
-    "figma": [
-      "quick action photo",
-      "Team callout",
-      "Logo statement",
-      "Grouped stats",
-      "Grouped logo facts",
-      "Cinematic 2-up full photo",
-      "Logo row",
-      "Trend table",
-      "Rank Reveal",
-      "Super Bowl Bubble Board"
-    ],
-    "rule": "Propose the approved Blender variant first. A blenderPlanned option stays fully open in Figma until its Blender comp is approved; episodes may build or adjust Figma versions as needed. That openness covers only the blenderPlanned options; the built Blender defaults (3B, 4A, 4B, 4C, 5A) are unchanged. Jev only suggests; a scene names its variant before it builds.",
-    "authority": "Jerami in chat, November 11, 2026: \"I think simple comparison blender for sure along with full comparison and asset swap others stay Figma for now.\""
+    "pendingWork": "Linear 23M-415"
   }
 }

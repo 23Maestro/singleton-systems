@@ -45,13 +45,27 @@ Each one checks that pieces land on their spoken cues at 25 fps and stay in fram
 
 Proofs: `/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-11-11-team-cards-value-metrics/`.
 
-## which engine goes first
+## default engine per option
 
-- **Blender first, built:** 3B, 4A, 4B, 4C and 5A.
-- **Blender first, comp not built yet:** Simple comparison (2 to 4), Full comparison 3 and 4, and Asset swap (standard and Logo pair). Until each Blender comp is approved, Figma stays fully open for them. This week's videos may still need these lanes; build or adjust their Figma versions whenever an episode needs one.
-- **Figma:** quick action photo, Team callout, Logo statement, Grouped stats, Grouped logo facts, Cinematic 2-up full photo, Logo row, Trend table and the lane 7 boards.
+| Lane | Option | Engine |
+| --- | --- | --- |
+| 1 | Quick action photo | Figma |
+| 2 | Team callout, Logo statement | Figma |
+| 3 | Stat breakdown (1 player, 1 game) | Blender **3B** |
+| 3 | Grouped stats, Grouped logo facts | Figma |
+| 4 | Cinematic 2-up, Full comparison: 2 (players) | Blender **4A** |
+| 4 | Team matchup, Logo stat cards | Blender **4B** |
+| 4 | Rank movement | Blender **4C** |
+| 4 | Simple comparison (2 to 4), Full comparison: 3 and 4 | Blender, comp pending |
+| 4 | Logo row | Figma |
+| 5 | Value metrics | Blender **5A** |
+| 5 | Trend table | Figma |
+| 6 | Standard swap, Logo pair | Blender, comp pending |
+| 7 | Rank reveal, Super Bowl bubble board | Figma |
 
-Jev suggests a variant. A scene still names its variant before it builds. The split lives in `config/lineups/engine-routing.json` under `blenderDefaults`. Production builds run through `tools/broadcast_engine/fill.py --variant 4B|4C|5A`.
+**Comp pending** means Blender is the default once the comp is approved ([23M-415](https://linear.app/23maestro/issue/23M-415/build-later-blender-comps)). Until then, those options build in Figma.
+
+A scene names its variant before it builds; Jev only suggests. The same table lives in `config/lineups/engine-routing.json` under `engineDefaults`. Production Blender builds run through `tools/broadcast_engine/fill.py --variant 3B|4A|4B|4C|5A`.
 
 ## open
 
