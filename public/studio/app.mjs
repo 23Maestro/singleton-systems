@@ -14,6 +14,7 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;
 const $ = selector => document.querySelector(selector);
 const app = $('#app');
 const projectId = new URL(location.href).searchParams.get('project');
+let autoplayNext = false;      // a storyboard card pick plays its motion from the start
 let packet, state, storageKey, mediaAbort, mediaBlob, lastFrame, messageTimer, videoCallback;
 let onlineVersion = 0, onlineBusy = false, onlineConflict = false;
 let chatSendEnabled = false;
@@ -305,7 +306,7 @@ function setStatus(status) {
 }
 function goToScene(id) {
   if (id === state.selected) return;
-  rememberPlayback(); selectScene(state, packet, id); persist();
+  rememberPlayback(); selectScene(state, packet, id); persist(); autoplayNext = true;
   const scroll = $('.cards').scrollLeft; render(); $('.cards').scrollLeft = scroll;
   const card = document.querySelector(`[data-scene="${state.selected}"]`);
   card.focus({ preventScroll: true }); card.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -379,6 +380,7 @@ function stopMedia() {
 }
 async function mountMedia() {
   const { scene, version, key } = context(state, packet), target = $('#viewport');
+  if (version.kind !== 'video') autoplayNext = false;
   if (version.kind === 'plan') {
     target.innerHTML = planMarkup(scene); return;
   }
@@ -419,7 +421,10 @@ async function mountMedia() {
     video.addEventListener('loadedmetadata', () => {
       $('#seek').max = video.duration; $('#seek').disabled = false;
       ['play', 'previous-frame', 'next-frame'].forEach(id => { $('#' + id).disabled = false; });
-      if (state.times[key]) video.currentTime = Math.min(state.times[key], video.duration);
+      if (autoplayNext) {
+        autoplayNext = false; video.currentTime = 0;
+        void video.play().catch(() => say('Tap play to start.'));
+      } else if (state.times[key]) video.currentTime = Math.min(state.times[key], video.duration);
     });
     video.addEventListener('seeking', () => { pendingFrame = null; lastFrame = null; $('#capture').disabled = true; });
     video.addEventListener('timeupdate', () => { $('#time').textContent = timecode(video.currentTime); $('#seek').value = video.currentTime; state.times[key] = video.currentTime; if ($('#comment-time')) $('#comment-time').textContent = draftTimeLabel(state.drafts[key]); });
