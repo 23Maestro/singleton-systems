@@ -259,7 +259,16 @@
       {
         "lane": "comparison",
         "options": [
-          "Cinematic 2-up",
+          "Cinematic 2-up"
+        ],
+        "engine": "blender",
+        "variant": "4A reduced",
+        "status": "comp-pending",
+        "note": "Reduced Mahomes vs Allen: locked alpha player cutouts, no stat card, like the Figma Cinematic 2-up. 4A today needs exactly 4 stat rows."
+      },
+      {
+        "lane": "comparison",
+        "options": [
           "Full comparison: 2"
         ],
         "engine": "blender",
@@ -339,7 +348,8 @@
     "approvalSources": [
       "Jerami in chat, November 11, 2026: \"Thanks based on the Vikings and Steelers one I'm happy with this and approve\".",
       "Jerami in chat, November 11, 2026: \"I think simple comparison blender for sure along with full comparison and asset swap others stay Figma for now.\"",
-      "Jerami in chat, November 11, 2026, on Cinematic 2-up: \"Keep it on 4A\"."
+      "Jerami in chat, November 11, 2026, on Cinematic 2-up: \"Keep it on 4A\".",
+      "Jerami in chat, November 11, 2026: \"we make a reduced verision of the mahomes vs allen. this is the same we lock in alpha players and throw them in without stats just like the previous Figma routign\"."
     ],
     "pendingWork": "Linear 23M-415"
   }

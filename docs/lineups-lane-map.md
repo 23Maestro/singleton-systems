@@ -53,7 +53,8 @@ Proofs: `/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-11-11-team-cards-
 | 2 | Team callout, Logo statement | Figma |
 | 3 | Stat breakdown (1 player, 1 game) | Blender **3B** |
 | 3 | Grouped stats, Grouped logo facts | Figma |
-| 4 | Cinematic 2-up, Full comparison: 2 (players) | Blender **4A** |
+| 4 | Cinematic 2-up | Blender **4A reduced**, comp pending: alpha players, no stats |
+| 4 | Full comparison: 2 (players, 4 stats) | Blender **4A** |
 | 4 | Team matchup, Logo stat cards | Blender **4B** |
 | 4 | Rank movement | Blender **4C** |
 | 4 | Simple comparison (2 to 4), Full comparison: 3 and 4 | Blender, comp pending |
