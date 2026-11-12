@@ -13,11 +13,11 @@
   "files": {
     "builder": {
       "path": "tools/broadcast_engine/families/value_metrics.py",
-      "sha256": "261598cd647379ed0ce62aa4f9243b1b212c1b85e48bc8a9cac3818b9d23153d"
+      "sha256": "4fc1396f08016d0e4f33d89dfc3444748a1e9c93d0dd02008ea79b4e788405dd"
     },
     "dataContract": {
       "path": "tools/broadcast_engine/families/value_metrics.py",
-      "sha256": "261598cd647379ed0ce62aa4f9243b1b212c1b85e48bc8a9cac3818b9d23153d"
+      "sha256": "4fc1396f08016d0e4f33d89dfc3444748a1e9c93d0dd02008ea79b4e788405dd"
     },
     "runner": {
       "path": "tools/broadcast_engine/fill.py",

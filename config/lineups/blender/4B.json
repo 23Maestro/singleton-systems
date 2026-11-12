@@ -13,11 +13,11 @@
   "files": {
     "builder": {
       "path": "tools/broadcast_engine/families/team_cards.py",
-      "sha256": "48590d3b180a11e456772593b6619cadda014b872137bcc17051a965638f0731"
+      "sha256": "d106e03f7737715b40a595948805cdf415d7464a43f83eacbf75cdf2243ab822"
     },
     "dataContract": {
       "path": "tools/broadcast_engine/families/team_cards.py",
-      "sha256": "48590d3b180a11e456772593b6619cadda014b872137bcc17051a965638f0731"
+      "sha256": "d106e03f7737715b40a595948805cdf415d7464a43f83eacbf75cdf2243ab822"
     },
     "runner": {
       "path": "tools/broadcast_engine/fill.py",

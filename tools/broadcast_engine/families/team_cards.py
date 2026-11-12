@@ -27,7 +27,9 @@ N, LAYOUT, cards = D["frames"], D["layout"], D["cards"]
 for c in cards:
     if "cue" in c: c["frame"] = c["cue"] - 18
 PRE = max(0, 13 - min(c["frame"] for c in cards))
-for c in cards: c["frame"] += PRE
+for c in cards:
+    c["frame"] += PRE
+    if "label_cue" in c: c["label_frame"] = c["label_cue"] + PRE    # a footer that lands on its own spoken cue
 for key in ("center", "rank", "line"):
     if D.get(key) and "frame" in D[key]: D[key]["frame"] += PRE
 N += PRE
@@ -87,7 +89,7 @@ def card(c, box, side):
     k.pop(face, f - 12, 12, "EXPO", axis=(0,)); k.turn(face, f - 12, 12, -70 if side == 0 else 70)
     k.dust_in(logo, lim, f + 2, 16) if D.get("logo_in", "dust") == "dust" else k.block_dissolve(logo, f + 2, 6)
     k.rise(val, f + 10, 8)
-    k.wipe(lab, f + 15, 7)
+    k.wipe(lab, c.get("label_frame", f + 22) - 7, 7)
     return face, logo, val, lab
 
 built = [card(c, b, i) for i, (c, b) in enumerate(zip(cards, BOXES))]
@@ -126,6 +128,7 @@ k.camera(N, Z_FACE, move=(0.9, -1.2, -0.25))   # wide layout: truck right while 
 for c, (face, logo, val, lab) in zip(cards, built):
     k.check_on_cue(face, c["frame"], f"{c['team']} card", lead=13)
     k.check_on_cue(val, c["frame"] + 18, f"{c['team']} value", lead=9)   # stacks on after the card
+    if "label_frame" in c: k.check_on_cue(lab, c["label_frame"], f"{c['label']} label", lead=7)
 if LAYOUT == "pair" and D.get("line"): k.check_on_cue(ln, D["line"]["frame"], "line", lead=8)
 k.check_in_frame([o for b in built for o in b] + extra, (k.HOME, min(N, k.MOVE_END), N))
 if plate: k.check_plate_cover(plate, N)

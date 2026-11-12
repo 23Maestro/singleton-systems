@@ -16,6 +16,13 @@ D = json.load(open(args[0])); OUT = args[1]; os.makedirs(OUT, exist_ok=True)
 MODE = args[2] if len(args) > 2 else "still"
 N, rows = D["frames"], D["rows"]
 
+# ---------------------------------------------------------------- per-episode timing
+# Row frames are spoken cues (scene frame 1 = scene time zero). "title_cue" lands the title on its own word.
+# Early cues get a pre-roll: the render starts PRE frames before the scene so every stack plays in full.
+PRE = max(0, 17 - min(r["frame"] for r in rows), 18 - D.get("title_cue", 18))
+for r in rows: r["frame"] += PRE
+N += PRE
+
 # ---------------------------------------------------------------- contract
 for f in ("team", "title", "logo", "accent", "bar_color"): assert D.get(f), f"value metrics needs {f}"
 assert os.path.exists(D["logo"]), f"missing logo {D['logo']}"
@@ -99,7 +106,7 @@ if plate: k.check_plate_cover(plate, N)
 print("PASS rows land on their cues; PASS frame check; PASS stadium covers every frame")
 
 json.dump({"focusTeam": FOCUS, "stadium": STADIUM, "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
-           "barScale": peak, "cues": {r["label"]: r["frame"] for r in rows},
+           "barScale": peak, "preRoll": PRE, "sceneFrameOne": 1 + PRE, "cues": {r["label"]: r["frame"] for r in rows},
            "dustFrames": [16] if D.get("logo_in", "dust") == "dust" else []},
           open(os.path.join(OUT, "scene-binding.json"), "w"), indent=1)
 still = [int(x) for x in args[3].split(",")] if MODE == "still" and len(args) > 3 and args[3][0].isdigit() else [N]

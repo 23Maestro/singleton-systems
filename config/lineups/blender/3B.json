@@ -25,7 +25,7 @@
     },
     "cueDataContract": {
       "path": "tools/broadcast_engine/production_data.py",
-      "sha256": "f063d24f8c17fc236e075fff39a896c92205c8c9cda48e6906461e185adde079"
+      "sha256": "4eb98188f8c58740deb304749129ba8c0ba931950e487d5638ce8f5f34699695"
     },
     "stadiumResolver": {
       "path": "tools/lineups_motion/stadiums.py",
