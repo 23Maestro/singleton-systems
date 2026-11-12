@@ -105,6 +105,9 @@ if LAYOUT == "pair" and D.get("center"):
     k.put(m, 960, 508 if vs else 958, "CENTER", "CENTER")
     f = max(D["center"]["frame"], cards[1]["frame"] + 30)     # after both card stacks finish
     k.pop(m, f - 8, 8, "BACK"); extra.append(m)
+if LAYOUT == "pair" and D.get("title"):                # a headline over the cards, e.g. JAGS TRADE REVIEW
+    t = k.text(D["title"].upper(), F_TEAM, "#FFFFFF", 100, Z_TITLE, tier="team"); k.shrink_to(t, 1700)
+    k.put(t, 960, 50, "CENTER", "TOP"); k.wipe(t, 4, 10); extra.append(t)
 if LAYOUT == "pair" and D.get("line"):                 # a spoken line under the cards, e.g. MARK'S PICK
     ln = k.text(D["line"]["text"].upper(), F_NUM, "#FFFFFF", 64, Z_FACE - 0.4, tier="flat")
     k.shrink_to(ln, 1700); k.put(ln, 960, 958, "CENTER", "CENTER")
