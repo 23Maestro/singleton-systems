@@ -52,6 +52,22 @@ function mergeOnline(online) {
   state.notes = [...notes.values()];
   onlineVersion = online.version; onlineConflict = false;
 }
+// A new publish replaces the packet revision. Pick it up, keep this browser's notes and statuses, re-render.
+async function refreshPacket() {
+  if (!projectId) return false;
+  const response = await fetch(`/api/studio/projects?projectId=${encodeURIComponent(projectId)}`);
+  if (!response.ok) return false;
+  const data = await response.json(); const next = JSON.parse(data?.packet ?? 'null');
+  if (!next?.scenes?.length || next.revision === packet.revision) return false;
+  const keep = { statuses: state.statuses, notes: state.notes, drafts: state.drafts, planView: state.planView, panelOpen: state.panelOpen, panelWidth: state.panelWidth, panelTab: state.panelTab, selected: state.selected };
+  packet = Object.assign(next, { title: data.title, client: data.client, intake: '' });
+  storageKey = `review-preview:${projectId}:${packet.revision}`;
+  state = Object.assign(createState(packet), keep, { reviewDirty: true });
+  if (!packet.scenes.some(scene => scene.id === state.selected)) state.selected = packet.scenes[0].id;
+  const online = await readReview(); mergeOnline(online);
+  persist(); render();
+  return true;
+}
 async function saveReview(retry = true) {
   if (onlineBusy) { saveAgain = true; return; }
   const feedback = structuredClone(savedReview());
@@ -67,7 +83,7 @@ async function saveReview(retry = true) {
       }),
     });
     if (response.status === 409 && retry) {
-      mergeOnline(await readReview()); persist(); render();
+      if (!await refreshPacket()) { mergeOnline(await readReview()); persist(); render(); }
       onlineBusy = false; return saveReview(false);
     }
     if (!response.ok) throw new Error('Studio could not save this review. Your edits are still in this browser.');
@@ -492,4 +508,7 @@ try {
   document.addEventListener('keydown', shortcuts);
   if (projectId) void checkChatSend();
   window.addEventListener('pagehide', () => { rememberPlayback(); clearTimeout(chatTimer); });
+  document.addEventListener('visibilitychange', () => {        // back on the tab: pick up a newer publish
+    if (document.visibilityState === 'visible') void refreshPacket().then(changed => { if (changed) { say('Studio updated to the newest version.'); scheduleSave(); } });
+  });
 } catch (error) { app.textContent = error.message; }
