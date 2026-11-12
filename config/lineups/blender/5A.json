@@ -25,7 +25,7 @@
     },
     "sceneKit": {
       "path": "tools/broadcast_engine/families/scene3d.py",
-      "sha256": "1455c1d820c3f7ce60141dfbc4a03c1ba3f6ae9b341070bad23502bcea72f486"
+      "sha256": "071a9bc34777d4170cd3e6114be4cedf813a536fb27085c727c1f7e8d3f577b6"
     },
     "dustSound": {
       "path": "tools/broadcast_engine/families/add_sfx.py",

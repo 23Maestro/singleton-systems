@@ -395,6 +395,7 @@ def check_in_frame(objs, frames):
     for fr in frames:
         sc.frame_set(fr); bpy.context.view_layer.update()
         for o in objs:
+            if o.hide_render or min(o.matrix_world.to_scale()) < 1e-3: continue   # not on screen yet
             for c in o.bound_box:
                 v = world_to_camera_view(sc, cam, o.matrix_world @ Vector(c))
                 assert 0.02 <= v.x <= 0.98 and 0.02 <= v.y <= 0.98, f"{o.name} leaves the frame at {fr} ({v.x:.2f}, {v.y:.2f})"
