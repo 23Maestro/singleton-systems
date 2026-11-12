@@ -99,6 +99,14 @@ class BlenderSourceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'landing frame'):
             validate_cue_frames({'stats': [{'frame': 81}]}, manifest)
 
+    def test_team_cards_bind_values_to_spoken_cues(self):
+        manifest = {'motion': {'frameRate': {'numerator': 25, 'denominator': 1},
+                    'cues': [{'sceneTime': 0.32, 'triggerType': 'PHRASE'}, {'sceneTime': 5.34, 'triggerType': 'PHRASE'}]}}
+        data = {'cards': [{'cue': 9}, {'cue': 9}], 'line': {'frame': 135}}
+        self.assertEqual(validate_cue_frames(data, manifest), [9, 9, 135])
+        with self.assertRaisesRegex(ValueError, 'landing frame'):
+            validate_cue_frames({'cards': [{'cue': 13}, {'cue': 9}]}, manifest)
+
     def test_data_rejects_missing_subjects_and_rows(self):
         with self.assertRaises(ValueError):
             check({'title': 'STATS', 'frames': 300, 'players': []})

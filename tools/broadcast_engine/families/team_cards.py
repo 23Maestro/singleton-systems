@@ -20,6 +20,18 @@ D = json.load(open(args[0])); OUT = args[1]; os.makedirs(OUT, exist_ok=True)
 MODE = args[2] if len(args) > 2 else "still"
 N, LAYOUT, cards = D["frames"], D["layout"], D["cards"]
 
+# ---------------------------------------------------------------- per-episode timing
+# A card's "cue" is the spoken frame its value must be readable on (scene frame 1 = scene time zero).
+# The stack needs 30 frames (12-frame swing, value 18 after the card), so an early cue gets a pre-roll:
+# the render starts PRE frames before the scene and the editor places it that much earlier.
+for c in cards:
+    if "cue" in c: c["frame"] = c["cue"] - 18
+PRE = max(0, 13 - min(c["frame"] for c in cards))
+for c in cards: c["frame"] += PRE
+for key in ("center", "rank", "line"):
+    if D.get(key) and "frame" in D[key]: D[key]["frame"] += PRE
+N += PRE
+
 # ---------------------------------------------------------------- contract
 assert LAYOUT in ("pair", "rank"), "layout is pair or rank"
 assert len(cards) == 2, "team cards come in twos"
@@ -89,6 +101,10 @@ if LAYOUT == "pair" and D.get("center"):
     k.put(m, 960, 508 if vs else 958, "CENTER", "CENTER")
     f = max(D["center"]["frame"], cards[1]["frame"] + 30)     # after both card stacks finish
     k.pop(m, f - 8, 8, "BACK"); extra.append(m)
+if LAYOUT == "pair" and D.get("line"):                 # a spoken line under the cards, e.g. MARK'S PICK
+    ln = k.text(D["line"]["text"].upper(), F_NUM, "#FFFFFF", 64, Z_FACE - 0.4, tier="flat")
+    k.shrink_to(ln, 1700); k.put(ln, 960, 958, "CENTER", "CENTER")
+    k.wipe(ln, D["line"]["frame"] - 8, 8); extra.append(ln)
 if LAYOUT == "rank":
     t = k.text(cards[0]["team"].upper(), F_TEAM, "#FFFFFF", 100, Z_TITLE, tier="team"); k.put(t, 960, 150, "CENTER", "TOP")
     k.wipe(t, 4, 10); extra.append(t)
@@ -110,12 +126,14 @@ k.camera(N, Z_FACE, move=(0.9, -1.2, -0.25))   # wide layout: truck right while 
 for c, (face, logo, val, lab) in zip(cards, built):
     k.check_on_cue(face, c["frame"], f"{c['team']} card", lead=13)
     k.check_on_cue(val, c["frame"] + 18, f"{c['team']} value", lead=9)   # stacks on after the card
+if LAYOUT == "pair" and D.get("line"): k.check_on_cue(ln, D["line"]["frame"], "line", lead=8)
 k.check_in_frame([o for b in built for o in b] + extra, (k.HOME, min(N, k.MOVE_END), N))
 if plate: k.check_plate_cover(plate, N)
 print("PASS cards land on their cues; PASS frame check; PASS stadium covers every frame")
 
 json.dump({"layout": LAYOUT, "focusTeam": FOCUS, "stadium": STADIUM,
            "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
+           "preRoll": PRE, "sceneFrameOne": 1 + PRE,     # render frame that is scene time zero
            "cues": {c["team"] + " / " + c["label"]: c["frame"] for c in cards},
            "dustFrames": [c["frame"] + 2 for c in cards] if D.get("logo_in", "dust") == "dust" else []},
           open(os.path.join(OUT, "scene-binding.json"), "w"), indent=1)
