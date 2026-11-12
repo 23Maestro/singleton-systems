@@ -1,5 +1,6 @@
 export const statuses = ['In Progress', 'Needs Review', 'Changes Requested', 'Approved'];
 export const stages = ['Plan', 'Artwork', 'Motion', 'Revisions'];
+export const stageLabel = stage => stage === 'Motion' ? 'Scene Ready' : stage;
 
 export function createState(packet, stored) {
   const initial = { episodeId: packet.episodeId, revision: packet.revision, selected: packet.scenes[0]?.id,

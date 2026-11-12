@@ -1,4 +1,4 @@
-import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages, newestInStage, togglePlanView, versionChoices } from './model.mjs';
+import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages, stageLabel, newestInStage, togglePlanView, versionChoices } from './model.mjs';
 import { panelTabs, planMarkup, planningPanel, cardPreview } from './presentation.mjs';
 
 const icons = {
@@ -200,7 +200,7 @@ function timecode(seconds = 0) {
   return [Math.floor(frames / (fps * 3600)), Math.floor(frames / (fps * 60)) % 60, Math.floor(frames / fps) % 60, frames % fps].map(x => String(x).padStart(2, '0')).join(':');
 }
 function stageButtons(scene, version) {
-  return stages.map((stage, i) => `<button class="stage" data-stage="${stage}" ${stage === version.stage ? 'aria-current="step"' : ''} ${scene.versions.some(v => v.stage === stage) ? '' : 'disabled'}><b>${String(i + 1).padStart(2, '0')}</b>${stage}</button>`).join('');
+  return stages.map((stage, i) => `<button class="stage" data-stage="${stage}" ${stage === version.stage ? 'aria-current="step"' : ''} ${scene.versions.some(v => v.stage === stage) ? '' : 'disabled'}><b>${String(i + 1).padStart(2, '0')}</b>${stageLabel(stage)}</button>`).join('');
 }
 function render() {
   stopMedia();

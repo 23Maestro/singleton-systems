@@ -85,7 +85,7 @@ def build(packet, output, base_path=None, title=None):
                 thumbnail, _ = asset(preview['poster'])
             elif not is_motion:
                 thumbnail = url
-            versions.append({'id': 'render-' + sha[:12], 'label': 'Motion preview' if is_motion else 'Final artwork',
+            versions.append({'id': 'render-' + sha[:12], 'label': 'Scene Ready' if is_motion else 'Final artwork',
                              'stage': 'Motion' if is_motion else 'Artwork',
                              'kind': preview['kind'], 'url': url, 'poster': thumbnail, 'sha256': sha})
         source_url = (post or {}).get('sourceUrl') or c.get('sourceUrl')
