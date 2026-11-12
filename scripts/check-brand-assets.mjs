@@ -148,6 +148,26 @@ for (const file of sources) {
   }
 }
 
+// Each app keeps its own approved icon (approved 2026-11-12, 23M-417). The
+// route source must point at that app's SVG and 180 px Home Screen PNG.
+const APP_ICONS = {
+  "command-center": ["app/command-center/layout.tsx"],
+  fitness: ["app/fitness/page.tsx"],
+  finances: ["lib/ledger/metadata.ts", "app/finances/manifest.ts"],
+  studio: ["tools/review_workspace/index.html", "tools/review_workspace/studio-home.html", "public/studio/index.html", "public/studio/review.html"],
+};
+for (const [app, sources] of Object.entries(APP_ICONS)) {
+  for (const asset of [`public/brand/apps/${app}.svg`, `public/brand/apps/${app}-180.png`]) {
+    assert.ok(fs.existsSync(path.join(root, asset)), `${asset} is missing — the ${app} icon`);
+  }
+  for (const rel of sources) {
+    assert.ok(
+      fs.readFileSync(path.join(root, rel), "utf8").includes(`/brand/apps/${app}`),
+      `${rel} does not use /brand/apps/${app} — it would show the wrong icon`
+    );
+  }
+}
+
 console.log(
   `brand assets OK — ${WORDMARKS.length} wordmarks outlined, font-free, locked to ${EXPECTED_VIEWBOX}; ` +
     `${referenceCount} logo references all resolve to approved assets; ${FAVICON_SOURCE} is canonical`

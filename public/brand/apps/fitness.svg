@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-label="fitness icon">
+<rect width="512" height="512" rx="132" fill="#08090b"/>
+<g transform="translate(236 240) scale(1.45) translate(-232 -257)"><g fill="#ffffff" transform="rotate(-35 228 250)"><rect x="118" y="236" width="220" height="28" rx="6"/><rect x="140" y="170" width="36" height="160" rx="10"/><rect x="280" y="170" width="36" height="160" rx="10"/><rect x="112" y="200" width="24" height="100" rx="8"/><rect x="320" y="200" width="24" height="100" rx="8"/></g></g>
+<g stroke="#ff6257" stroke-width="16" stroke-linecap="square" transform="translate(416 410) scale(1.3)"><path d="M0-22V22M-19-11L19 11M-19 11L19-11"/></g>
+</svg>

@@ -20,6 +20,7 @@ export function financeMetadata(page: Page): Metadata {
   return {
     title: { absolute: title }, description, alternates: { canonical: url },
     robots: { index: false, follow: false },
+    icons: { icon: [{ url: "/brand/apps/finances.svg", type: "image/svg+xml" }], apple: [{ url: "/brand/apps/finances-180.png", sizes: "180x180", type: "image/png" }] },
     openGraph: { type: "website", siteName, title, description, url, images: [] },
     twitter: { card: "summary", title, description, images: [] },
   };
