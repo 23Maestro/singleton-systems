@@ -252,7 +252,7 @@ Use this record shape for each new active episode:
   "timingProofPath": "config/lineups/episodes/episode-slug/storyboard/cue-proof-receipt.json",
   "studio": {
     "projectId": "studio-project-uuid",
-    "packetPath": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/episode-slug/studio/packet.json",
+    "packetPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews/episode-slug/studio/packet.json",
     "candidateCount": 0
   }
 }

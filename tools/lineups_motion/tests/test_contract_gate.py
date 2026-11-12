@@ -45,6 +45,27 @@ class ContractGateTests(unittest.TestCase, ContractEvidence):
         self.measured['specSha256'] = self.manifest['contractGate']['spec']['sha256']
         self.save_measurement()
 
+    def test_figma_only_build_order_keeps_cue_and_source_checks(self):
+        self.bind_figma_template('quick-action.full-frame')
+        self.spec['workflow']['order'] = ['figma']
+        self.save_spec()
+        good = self.run_gate('before-build')
+        self.assertEqual(good.returncode, 0, good.stderr)
+        self.spec['cueLock']['motionSha256'] = '0' * 64
+        self.save_spec()
+        stale = self.run_gate('before-build')
+        self.assertNotEqual(stale.returncode, 0)
+        self.assertIn('speech cue lock', stale.stderr)
+
+    def test_figma_only_order_does_not_waive_native_export_order(self):
+        from tools.lineups_motion.contract_gate import workflow
+        self.design()
+        self.manifest['motion']['engine'] = 'unreal'
+        self.spec['cueLock']['motionSha256'] = digest(self.manifest['motion'])
+        self.spec['workflow']['order'] = ['figma']
+        with self.assertRaisesRegex(ValueError, 'missing approved build order'):
+            workflow(self.root, self.manifest, self.spec)
+
     def test_background_and_focus_roles_cannot_be_omitted(self):
         for key, roles in [('quick-stat.logo', ['team-background']),
                            ('recurring.rank-reveal.10', ['focus.panel', 'focus.logo', 'focus.text'])]:

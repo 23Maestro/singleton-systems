@@ -32,7 +32,7 @@ def template_lock():
 
 def verified_preview_directory(value):
     target = Path(value).expanduser().absolute()
-    expected = Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews')
+    expected = Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews')
     if not target.resolve().is_relative_to(expected):
         raise ValueError('Lineups media previews must stay in CATENA_MEDIA/previews on HomeSSD')
     gate = ROOT / 'scripts/developer-storage/storage-gate.mjs'

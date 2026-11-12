@@ -7,7 +7,7 @@ PROJECT=Path('/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/pr
 RECEIPTS=PROJECT.parent.parent/'receipts'
 request=json.loads((RECEIPTS/'rams-seahawks-render-request.json').read_text())
 assert request['mode'] in ['still','motion']
-output=Path(request['output']);assert output.resolve().is_relative_to(Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders'))
+output=Path(request['output']);assert output.resolve().is_relative_to(Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders'))
 proof=RECEIPTS/request['receipt'];assert Path(request['receipt']).name==request['receipt']
 ROOT='/Game/Lineups/RamsSeahawksMotionV1'
 state={**request,'status':'starting','errors':[],'animationOut':False,'editorialTimingApproved':False}

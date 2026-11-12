@@ -6,7 +6,7 @@ import unreal
 
 PROJECT = Path('/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58')
 ROOT = '/Game/Lineups/BillsPerformanceV1'
-OUTPUT = Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/bills-performance-v1')
+OUTPUT = Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/bills-performance-v1')
 PROOF = PROJECT.parent.parent / 'receipts/bills-performance-render-v1.json'
 state = {'status': 'starting', 'output': str(OUTPUT), 'errors': [], 'sceneId': 'P11',
          'visualApproval': False, 'editorialTimingApproved': False, 'animationOut': False}

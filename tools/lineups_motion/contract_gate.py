@@ -175,8 +175,12 @@ def workflow(root, manifest, spec):
         require(order.get('order') in (['blender'], ['figma', 'blender'], ['blender', 'figma']),
                 'missing approved Figma/Blender build order')
     else:
-        require(order.get('order') in (['figma', 'unreal'], ['unreal', 'figma']), 'missing approved build order')
-    if motion['engine'] != 'blender' and order['order'] != ['figma', 'unreal']:
+        allowed_orders = (['figma', 'unreal'], ['unreal', 'figma'])
+        if motion['engine'] == 'figma':
+            allowed_orders += (['figma'],)
+        require(order.get('order') in allowed_orders, 'missing approved build order')
+    if motion['engine'] != 'blender' and order['order'] != ['figma', 'unreal'] and not (
+            motion['engine'] == 'figma' and order['order'] == ['figma']):
         require(order.get('exceptionSource'), 'build order exception needs its scoped user instruction')
     required_scenes = order.get('figmaScenes')
     require(isinstance(required_scenes, list) and len(set(required_scenes)) == len(required_scenes)

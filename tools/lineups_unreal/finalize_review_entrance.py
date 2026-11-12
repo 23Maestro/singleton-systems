@@ -23,5 +23,5 @@ unreal.LevelSequenceEditorBlueprintLibrary.set_current_time(100)
 p=Path('/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/lineups-review-export.json')
 r=json.loads(p.read_text());assert r['status']=='rendered'
 r['previousRenders'].append({'output':r['output'],'status':'superseded-spacing','reason':'Card enters from above so the bottom corners remain clear of both nameplates.'})
-r['status']='built';r['output']='/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v5'
+r['status']='built';r['output']='/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v5'
 p.write_text(json.dumps(r,indent=2)+'\n')

@@ -13,7 +13,7 @@ import unreal
 REPO = Path('/Users/singleton23/Documents/Development/singleton-systems')
 PROJECT = Path('/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/projects/SportsBroadcastTrial58')
 RECEIPT = PROJECT.parent.parent / 'receipts/lineups-review-export.json'
-OUTPUT = Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v1')
+OUTPUT = Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v1')
 ROOT = '/Game/Lineups/ReviewV1'
 MAP = ROOT + '/LV_ComparisonReview'
 SEQ = ROOT + '/LS_ComparisonReview'

@@ -56,7 +56,7 @@ def finished(executor, success):
 def render():
     assert Path(unreal.Paths.convert_relative_path_to_full(unreal.Paths.project_dir())).resolve() == PROJECT
     output_dir = Path(STATE['output'])
-    assert output_dir.resolve().is_relative_to(Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders'))
+    assert output_dir.resolve().is_relative_to(Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders'))
     assert Path(STATE['receiptName']).name == STATE['receiptName'] and STATE['receiptName'].endswith('.json')
     assert STATE['variants'] and set(STATE['variants']) <= {'BrownsRavens', 'RamsSeahawks'}
     if output_dir.exists() and list(output_dir.rglob('*.png')):

@@ -16,7 +16,7 @@ from depthflow.estimators.anything import DepthAnythingV2
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 STADIUMS = os.path.join(REPO, "config/lineups/team-stadiums.json")
 REGISTRY = os.path.join(REPO, "config/lineups/team-stadium-depth.json")
-ROOT = "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/team-stadium-depth"
+ROOT = "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/team-stadium-depth"
 MODEL = "base"
 
 def sha(path): return hashlib.sha256(open(path, "rb").read()).hexdigest()

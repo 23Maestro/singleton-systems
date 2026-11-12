@@ -11,4 +11,4 @@ assert unreal.EditorLoadingAndSavingUtils.save_map(w,ROOT+'/LV_ComparisonReview'
 p=Path('/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/lineups-review-export.json')
 r=json.loads(p.read_text());assert r['status']=='rendered'
 r['previousRenders'].append({'output':r['output'],'status':'superseded-overscan','reason':'Backdrop overscan covers the start of the camera push.'})
-r['status']='built';r['output']='/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v6';p.write_text(json.dumps(r,indent=2)+'\n')
+r['status']='built';r['output']='/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v6';p.write_text(json.dumps(r,indent=2)+'\n')

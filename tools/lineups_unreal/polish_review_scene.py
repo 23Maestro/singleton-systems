@@ -22,6 +22,6 @@ world=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_editor_world
 assert unreal.EditorLoadingAndSavingUtils.save_map(world,ROOT+'/LV_ComparisonReview')
 p=PROJECT.parent.parent/'receipts/lineups-review-export.json'
 r=json.loads(p.read_text());r['status']='built';r['previousRenders'].append({'output':r['output'],'status':'superseded-polish','reason':'Lower light intensity and smoother logo silhouette.'})
-r['output']='/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v3'
+r['output']='/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v3'
 r['sourceInspiredLightRoles']=r.pop('reusedLights',[])
 p.write_text(json.dumps(r,indent=2)+'\n');unreal.log('LINEUPS_REVIEW_POLISHED')

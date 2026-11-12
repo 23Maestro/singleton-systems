@@ -22,7 +22,7 @@ class ReviewTests(unittest.TestCase):
         import subprocess
         with patch('tools.lineups_review.render.subprocess.run', side_effect=subprocess.CalledProcessError(1, 'storage-gate')):
             with self.assertRaises(subprocess.CalledProcessError):
-                verified_preview_directory('/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/test')
+                verified_preview_directory('/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews/test')
 
     def test_missing_preview_drive_fails_before_packet_creation(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -31,7 +31,7 @@ class ReviewTests(unittest.TestCase):
             cue['candidates'][0]['assets']=[{'eagleItemId':'source'}]
             cue_path.write_text(json.dumps(cue))
             proof_path=ep/'storyboard/cue-proof-receipt.json';proof=json.loads(proof_path.read_text());proof['cueMapSha256']=sha(cue_path);proof_path.write_text(json.dumps(proof))
-            meta_path=ep/'review.json';meta=json.loads(meta_path.read_text());meta['previewDirectory']='/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/test';meta_path.write_text(json.dumps(meta))
+            meta_path=ep/'review.json';meta=json.loads(meta_path.read_text());meta['previewDirectory']='/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews/test';meta_path.write_text(json.dumps(meta))
             with patch('tools.lineups_review.render.verified_preview_directory', side_effect=ValueError('missing drive')):
                 with self.assertRaisesRegex(ValueError, 'missing drive'):render_episode(ep,root/'public')
             self.assertFalse((root/'public').exists())

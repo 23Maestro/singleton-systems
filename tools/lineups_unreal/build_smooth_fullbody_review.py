@@ -153,7 +153,7 @@ def build():
     assert unreal.EditorLoadingAndSavingUtils.save_map(world,ROOT+'/LV_ComparisonReview')
     unreal.LevelSequenceEditorBlueprintLibrary.open_level_sequence(seq);unreal.LevelSequenceEditorBlueprintLibrary.set_current_time(180)
     previous=json.loads(PROOF.read_text());previous['previousRenders'].append({'output':previous['output'],'status':'prior-waist-crop-review','reason':'Jerami requested fuller bodies and smoother restrained motion.'})
-    previous.update(status='built',sequence=SEQ,frameRate=FPS,frameCount=END,reviewWindowSeconds=8,output='/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-full-body-smooth-v1',errors=[],nativeRenderSuccess=None,renderedFrameCount=0,placements=placements,contractSha256=hashlib.sha256((REPO/'config/unreal/comparison-motion-contract.json').read_bytes()).hexdigest(),demoImageryException=True,productionMaskOnly=True,exitCue=None)
+    previous.update(status='built',sequence=SEQ,frameRate=FPS,frameCount=END,reviewWindowSeconds=8,output='/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/unreal-full-body-smooth-v1',errors=[],nativeRenderSuccess=None,renderedFrameCount=0,placements=placements,contractSha256=hashlib.sha256((REPO/'config/unreal/comparison-motion-contract.json').read_bytes()).hexdigest(),demoImageryException=True,productionMaskOnly=True,exitCue=None)
     previous.pop('reviewExport',None);PROOF.write_text(json.dumps(previous,indent=2)+'\n')
     state.update(status='built',sequence=SEQ,placements=placements,frameCount=END,frameRate=FPS,contractSha256=previous['contractSha256']);save();unreal.log('LINEUPS_FULLBODY_SMOOTH_BUILT')
 

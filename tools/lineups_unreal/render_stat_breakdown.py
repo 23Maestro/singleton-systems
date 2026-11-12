@@ -84,7 +84,7 @@ def finished(executor,success):
 def render():
     assert Path(unreal.Paths.convert_relative_path_to_full(unreal.Paths.project_dir())).resolve()==PROJECT
     assert STATE['points'] in (3,4)
-    assert OUTPUT.resolve().is_relative_to(Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders'))
+    assert OUTPUT.resolve().is_relative_to(Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders'))
     assert Path(STATE['receiptName']).name==STATE['receiptName'] and STATE['receiptName'].endswith('.json')
     root='/Game/Lineups/StatBreakdownV1/'
     assert STATE['map']==root+'LV_MahomesStat'+str(STATE['points'])

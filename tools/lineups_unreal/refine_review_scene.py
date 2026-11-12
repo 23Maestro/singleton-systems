@@ -31,6 +31,6 @@ assert unreal.EditorLoadingAndSavingUtils.save_map(world,ROOT+'/LV_ComparisonRev
 unreal.LevelSequenceEditorBlueprintLibrary.set_current_time(100)
 p=Path('/Volumes/UnrealSSD/Generated/CATENA_MEDIA_LINEUPS/source/unreal/receipts/lineups-review-export.json')
 r=json.loads(p.read_text());r['status']='built';r['previousRenders']=r.get('previousRenders',[])+[{'output':r['output'],'status':'superseded-visual-errors','reason':'Native positional rotator order and OBJ handedness corrected; lighting retuned.'}]
-r['output']='/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v2'
+r['output']='/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/unreal-comparison-review-v2'
 p.write_text(json.dumps(r,indent=2)+'\n')
 unreal.log('LINEUPS_REVIEW_REFINED')

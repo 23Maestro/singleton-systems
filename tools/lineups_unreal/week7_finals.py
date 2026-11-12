@@ -33,7 +33,7 @@ if SCENE=='S03':
     SEQ=ROOT+'/LS_S03_Final'
 OWNER = 'lineups-week7-' + SCENE.lower() + '-final-' + REVISION
 PROOF = RECEIPTS / ('week7-' + SCENE.lower() + '-' + REQUEST['operation'] + '-' + REVISION + '.json')
-OUTPUT = Path('/Volumes/HomeSSD/Generated/CATENA_MEDIA_LINEUPS/renders/week7-finals-' + REVISION) / REQUEST.get('outputName', SCENE)
+OUTPUT = Path('/Volumes/HomeSSD/Active Work/CATENA_MEDIA_LINEUPS/renders/week7-finals-' + REVISION) / REQUEST.get('outputName', SCENE)
 state = dict(status='starting', sceneId=SCENE, map=MAP, sequence=SEQ,
              animationOut=False, fps=FPS, expectedFrameCount=END,
              durationSeconds=END/FPS, engine='unreal', visualApproval=SCENE in ['P11','S03'])
