@@ -9,7 +9,8 @@ The first-named person stands in the centre, nearest the camera. Nobody replaces
 Every person lands on the spoken cue of their name (scene frame 1 = scene time zero); an early cue gets a pre-roll.
 This is a review proof family: not registered until Jerami approves it.
 
-Data per person: name, cutout (trimmed alpha PNG), cue, height (px on screen), x (centre px). Optional "bottom" (default 1130).
+Data per person: name, cutout (trimmed alpha PNG), cue, height (px on screen), optional "bottom" (default 1130).
+x is computed: centre person on 960, even gaps to the others (set "auto_layout": false to place x by hand).
 People never touch: the nearest visible pixels of any two people stay at least "min_gap" px apart (default 60).
 """
 import bpy, sys, os, json
@@ -24,11 +25,31 @@ N, people = D["frames"], D["people"]
 
 assert 2 <= len(people) <= 3, "2 or 3 people"
 for p in people:
-    for f in ("name", "cutout", "cue", "height", "x"): assert p.get(f) not in (None, ""), f"person needs {f}"
+    for f in ("name", "cutout", "cue", "height"): assert p.get(f) not in (None, ""), f"person needs {f}"
     assert os.path.exists(p["cutout"]), f"missing cutout {p['cutout']}"
-    assert p.get("bottom", 1130) > 1080, f"{p['name']} must exit the bottom of the frame, never float"
+    # a cut-off body must run off the bottom of the frame; a head-to-toe cutout ("full_body") may stand inside it
+    assert p.get("full_body") or p.get("bottom", 1130) > 1080, f"{p['name']} must exit the bottom of the frame, never float"
 assert [p["cue"] for p in people] == sorted(p["cue"] for p in people), "cues run in order"
 assert os.path.exists(D["logo"]), "missing team logo"
+
+# Layout: the first-named person stands centred on 960 (under the logo); the others sit left and right with
+# the SAME gap on each side, measured between their visible edges. The gap is the widest equal gap that keeps
+# both outer people at least MARGIN px inside the frame, capped at MAX_GAP. Heights stay in the data so the
+# people can be matched by eye (equal helmet size); x is computed, never hand-set.
+MARGIN, MAX_GAP = D.get("edge_margin", 90), D.get("max_gap", 240)
+def _width(p):
+    im = bpy.data.images.load(p["cutout"], check_existing=True); return p["height"] * im.size[0] / im.size[1]
+if D.get("auto_layout", True):
+    mid = people[0]; wm = _width(mid); mid["x"] = 960
+    sides = people[1:]
+    if sides:
+        widths = [_width(p) for p in sides]
+        room = [960 - wm / 2 - w - MARGIN for w in widths]          # free space each outer person allows
+        gap = min(MAX_GAP, *room)
+        assert gap >= D.get("min_gap", 60), f"people do not fit with an even gap ({gap:.0f} px); scale them down"
+        for p, w, side in zip(sides, widths, (-1, 1)):
+            p["x"] = 960 + side * (wm / 2 + gap + w / 2)
+        print(f"LAYOUT centre 960, even gap {gap:.0f} px, margins >= {MARGIN} px")
 
 PRE = max(0, 14 - people[0]["cue"])          # each person needs 13 frames to arrive
 for p in people: p["frame"] = p["cue"] + PRE
