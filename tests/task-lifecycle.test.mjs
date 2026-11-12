@@ -32,7 +32,7 @@ function fixture(t) {
       const record = variables.input;
       assert.match(record.id, /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/, "Linear requires a version-4 UUID");
       assert.equal(issues.has(record.id), false, "A repeated create reached the owner");
-      const issue = { id: record.id, identifier: `23M-${issues.size + 1}`, title: record.title, description: record.description, dueDate: record.dueDate ?? null, url: `https://linear.app/23maestro/issue/${record.id}`, parent: record.parentId ? { id: record.parentId } : null, project: { id: record.projectId }, team: { key: "23M" }, state: { name: "Todo", type: "unstarted" } };
+      const issue = { id: record.id, identifier: `23M-${issues.size + 1}`, title: record.title, description: faults.escapeStars ? record.description.replaceAll("S*", "S\\*") : record.description, dueDate: record.dueDate ?? null, url: `https://linear.app/23maestro/issue/${record.id}`, parent: record.parentId ? { id: record.parentId } : null, project: { id: record.projectId }, team: { key: "23M" }, state: { name: "Todo", type: "unstarted" } };
       issues.set(record.id, issue); writes.push({ operation: "create", id: record.id });
       if (faults.lostReply) { delete faults.lostReply; throw new Error("Connection lost after owner applied the task"); }
       return { issueCreate: { success: true, issue: { id: record.id } } };
@@ -178,4 +178,12 @@ test("a selected existing subtask can own a plan without losing its original par
   const entry = await taskEntryContext(created.parentId, f.options);
   assert.equal(entry.task.parent.id, original.parentId);
   assert.equal(entry.children.length, 2);
+});
+
+test("Linear's escaped asterisks still match the approved description", async t => {
+  const f = fixture(t); f.faults.escapeStars = true;
+  const plan = input(); plan.tasks[0].description = "Test 1 draft S* icon. **Next:** sync.";
+  const created = await f.create(plan);
+  assert.equal(created.outcome, "created", created.error);
+  assert.match(f.issues.get(created.tasks[1].id).description, /S\\\* icon\. \*\*Next/);
 });
