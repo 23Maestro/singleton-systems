@@ -33,17 +33,27 @@ async function readReview() {
   return response.json();
 }
 function refreshReviewButtons() {
-  const save = $('#save-review'), reload = $('#reload-review');
-  if (!save || !reload) return;
-  save.disabled = onlineBusy || onlineConflict;
-  reload.hidden = !onlineConflict;
-  reload.disabled = onlineBusy;
+  if (!$('#send-review')) return;
   const sentVersion = state.chatSend?.version === onlineVersion;
   $('#send-review').disabled = !chatSendEnabled || onlineBusy || onlineConflict || state.reviewDirty || onlineVersion < 1 || sentVersion;
   $('#send-review').textContent = sentVersion ? (state.chatSend.status === 'delivered' ? 'Sent to chat' : 'Queued for chat') : 'Send to chat';
 }
-async function saveReview() {
-  if (onlineBusy || onlineConflict) return;
+// Notes and statuses save on their own. A save that meets a newer online review merges both
+// (notes by id, this browser's statuses win) and saves again, so nobody's note is lost.
+let saveTimer, saveAgain = false;
+function scheduleSave() {
+  if (!projectId) return;
+  clearTimeout(saveTimer); saveTimer = setTimeout(saveReview, 600);
+}
+function mergeOnline(online) {
+  const notes = new Map((online.feedback?.notes ?? []).map(note => [note.id, note]));
+  for (const note of state.notes) notes.set(note.id, note);
+  state.statuses = { ...(online.feedback?.statuses ?? {}), ...state.statuses };
+  state.notes = [...notes.values()];
+  onlineVersion = online.version; onlineConflict = false;
+}
+async function saveReview(retry = true) {
+  if (onlineBusy) { saveAgain = true; return; }
   const feedback = structuredClone(savedReview());
   onlineBusy = true;
   refreshReviewButtons();
@@ -56,46 +66,27 @@ async function saveReview() {
         expectedVersion: onlineVersion, feedback,
       }),
     });
-    if (response.status === 409) {
-      onlineConflict = true;
-      throw new Error('The saved review changed. Export your edits or load the saved review.');
+    if (response.status === 409 && retry) {
+      mergeOnline(await readReview()); persist(); render();
+      onlineBusy = false; return saveReview(false);
     }
     if (!response.ok) throw new Error('Studio could not save this review. Your edits are still in this browser.');
     const receipt = await response.json();
     const stored = await readReview();
     if (stored.version !== receipt.version || canonicalReview(stored.feedback) !== canonicalReview(feedback)) {
-      onlineConflict = true;
-      throw new Error('The saved review changed. Export your edits or load the saved review.');
+      saveAgain = true;
     }
     onlineVersion = stored.version;
     state.reviewBaseVersion = onlineVersion;
     state.reviewDirty = canonicalReview(savedReview()) !== canonicalReview(feedback);
     persist();
-    say(state.reviewDirty ? 'Review saved. You have newer edits in this browser.' : 'Review saved online.');
+    if (state.reviewDirty) saveAgain = true;
   } catch (error) {
     say(error.message);
   } finally {
     onlineBusy = false;
     refreshReviewButtons();
-  }
-}
-async function reloadReview() {
-  if (onlineBusy || !window.confirm('Replace this browser’s comments and choices with the saved review?')) return;
-  onlineBusy = true;
-  refreshReviewButtons();
-  try {
-    const stored = await readReview();
-    onlineVersion = stored.version;
-    onlineConflict = false;
-    Object.assign(state, stored.feedback, { reviewBaseVersion: onlineVersion, reviewDirty: false });
-    persist();
-    render();
-    say('Saved review loaded.');
-  } catch (error) {
-    say(error.message);
-  } finally {
-    onlineBusy = false;
-    refreshReviewButtons();
+    if (saveAgain) { saveAgain = false; scheduleSave(); }
   }
 }
 
@@ -169,6 +160,7 @@ function commit(change) {
   change();
   if (projectId && canonicalReview(savedReview()) !== canonicalReview({ statuses: before.statuses, notes: before.notes })) {
     state.reviewDirty = true;
+    scheduleSave();
   }
   if (persist()) {
     refreshReviewButtons();
@@ -205,7 +197,7 @@ function render() {
         <div class="transport ${version.stage === 'Plan' ? 'plan-transport' : ''}"><button class="icon play" id="play" aria-label="Play" disabled>${icon('play')}</button><button class="icon" id="previous-frame" aria-label="Previous frame" disabled>${icon('back')}</button><button class="icon" id="next-frame" aria-label="Next frame" disabled>${icon('next')}</button><span class="mono time" id="time">${timecode(state.times[`${scene.id}:${version.id}`] ?? 0)}</span><input type="range" id="seek" aria-label="Playback position" min="0" max="${scene.duration}" step="${1 / packet.fps}" value="0" disabled><span class="source-time mono">${scene.duration.toFixed(2)}s</span><button class="capture" id="capture" disabled>${icon('camera')} <span>Frame note</span></button><button class="icon" id="fullscreen" aria-label="Full screen">${icon('expand')}</button></div>
       </section>
       <button class="separator" role="separator" aria-label="Resize review panel" aria-orientation="vertical" aria-valuemin="285" aria-valuemax="480" aria-valuenow="${state.panelWidth}" tabindex="0"></button>
-      <aside class="panel" id="review-panel" aria-label="Scene review" ${state.panelOpen ? '' : 'inert'}><header class="panel-head"><h2>Scene review <span class="mono">${esc(scene.id)}</span></h2><button class="icon" id="panel-close" aria-label="Close review panel">${icon('close')}</button></header><nav id="panel-tabs" class="panel-tabs" role="tablist" aria-label="Review panel"></nav><div class="panel-content" id="panel-content"></div><footer class="panel-footer"><button id="export">Export feedback ${icon('arrow')}</button>${projectId ? '<button id="save-review">Save review</button><button id="reload-review" hidden>Load saved review</button>' : ''}<button id="send-review" class="send" disabled>Send to chat</button></footer></aside>
+      <aside class="panel" id="review-panel" aria-label="Scene review" ${state.panelOpen ? '' : 'inert'}><header class="panel-head"><h2>Scene review <span class="mono">${esc(scene.id)}</span></h2><button class="icon" id="panel-close" aria-label="Close review panel">${icon('close')}</button></header><nav id="panel-tabs" class="panel-tabs" role="tablist" aria-label="Review panel"></nav><div class="panel-content" id="panel-content"></div><footer class="panel-footer"><button id="export">Export feedback ${icon('arrow')}</button><button id="send-review" class="send" disabled>Send to chat</button></footer></aside>
     </div>
     <section class="storyboard" aria-label="Storyboard"><header class="storyboard-head"><h2>Storyboard</h2><span class="mono">${packet.scenes.length} ${packet.scenes.length === 1 ? 'scene' : 'scenes'}</span></header><div class="cards">${packet.scenes.map(c => `<button class="scene-card" data-scene="${esc(c.id)}" aria-label="Scene ${esc(c.id)}: ${esc(c.title)}" aria-current="${scene.id === c.id}">${cardPreview(c)}<span class="mono card-id">${esc(c.id)}</span><span class="mono card-duration">${c.duration.toFixed(2)}s</span><div class="card-info"><p class="card-title">${esc(c.title)}</p></div><span class="card-status" data-status-scene="${esc(c.id)}">${badge(state.statuses[c.id])}</span></button>`).join('')}</div></section>
     <dialog class="drawing-dialog" id="drawing" aria-label="Frame note"></dialog>
@@ -238,7 +230,7 @@ function renderPanel() {
   });
   $('#note-form')?.addEventListener('submit', event => {
     event.preventDefault(); anchorComment();
-    if (commit(() => saveNote(state, packet, crypto.randomUUID()))) { renderPanel(); $('#note-body').focus(); say(projectId ? 'Comment added. Save review to keep it online.' : 'Comment saved.'); }
+    if (commit(() => saveNote(state, packet, crypto.randomUUID()))) { renderPanel(); $('#note-body').focus(); say('Comment saved.'); }
   });
   document.querySelectorAll('.status-buttons button').forEach(button => button.addEventListener('click', () => setStatus(button.dataset.status)));
   $('#edit-drawing')?.addEventListener('click', () => openDrawing());
@@ -348,8 +340,6 @@ function bind() {
   document.querySelectorAll('[data-stage]').forEach(button => button.addEventListener('click', () => { rememberPlayback(); const { scene } = context(state, packet); selectVersion(state, packet, newestInStage(scene, button.dataset.stage).id); persist(); render(); }));
   $('#fullscreen').addEventListener('click', () => { void $('#viewport').requestFullscreen?.().catch(() => say('Full screen is unavailable in this browser.')); });
   $('#capture').addEventListener('click', capture);
-  $('#save-review')?.addEventListener('click', saveReview);
-  $('#reload-review')?.addEventListener('click', reloadReview);
   $('#send-review').addEventListener('click', sendReview);
   $('#export').addEventListener('click', () => {
     const blob = new Blob([JSON.stringify({ ...feedbackBatch(state, packet), unsavedDrafts: state.drafts }, null, 2)], { type: 'application/json' });
@@ -489,18 +479,16 @@ try {
     const hasLocalEdits = state.reviewDirty ??
       (state.notes.length > 0 || Object.keys(state.statuses).length > 0);
     if (hasLocalEdits) {
-      const baseVersion = state.reviewBaseVersion ?? 0;
-      onlineConflict = baseVersion !== onlineVersion &&
-        canonicalReview(savedReview()) !== canonicalReview(online.feedback);
-      state.reviewBaseVersion = onlineConflict ? baseVersion : onlineVersion;
+      mergeOnline(online);
+      state.reviewBaseVersion = onlineVersion;
       state.reviewDirty = canonicalReview(savedReview()) !== canonicalReview(online.feedback);
+      if (state.reviewDirty) scheduleSave();
     } else {
       Object.assign(state, online.feedback, { reviewBaseVersion: onlineVersion, reviewDirty: false });
     }
     persist();
   }
   render();
-  if (onlineConflict) say('Another review was saved online. Export your edits or load the saved review.');
   document.addEventListener('keydown', shortcuts);
   if (projectId) void checkChatSend();
   window.addEventListener('pagehide', () => { rememberPlayback(); clearTimeout(chatTimer); });

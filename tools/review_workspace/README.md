@@ -39,10 +39,10 @@ repeated version-label overlay.
 The builder checks timing/cue hashes and every copied media hash. It preserves
 scene IDs and links to source artwork and timing proof. It creates planning thumbnails without changing episode content. No extra dependencies are installed.
 
-Studio keeps drafts in this browser. For a project review, **Save review** stores
-the posted notes, replies, frame rectangles and scene statuses for the selected
-packet revision. It reads the saved version back before reporting success. If
-another tab saves first, export your edits or load the saved review. **Send to
+Studio keeps drafts in this browser. In a project review, every posted note,
+reply, frame rectangle and scene status saves online by itself about half a
+second later and is read back. If another tab saved first, Studio merges both:
+notes join by id and this browser's statuses win. There is no save button. **Send to
 chat** requires a verified delivery receipt from the bound thread (23M-326).
 
 On the source Mac, `node scripts/install-studio-relay.mjs` installs the

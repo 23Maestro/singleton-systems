@@ -3,9 +3,11 @@ export const stages = ['Plan', 'Artwork', 'Motion', 'Revisions'];
 
 export function createState(packet, stored) {
   const initial = { episodeId: packet.episodeId, revision: packet.revision, selected: packet.scenes[0]?.id,
-    versions: {}, statuses: {}, drafts: {}, notes: [], times: {}, panelOpen: true, panelWidth: 350, panelTab: 'comments', planView: false };
+    versions: {}, statuses: {}, drafts: {}, notes: [], times: {}, panelOpen: true, panelWidth: 350, panelTab: 'comments', planView: false, layout: 2 };
   if (stored?.episodeId !== packet.episodeId || stored?.revision !== packet.revision) return initial;
   const state = { ...initial, ...stored };
+  // Browsers that opened Studio before layout 2 saved a Plan pick for every scene they visited; drop those picks.
+  if (stored.layout !== 2) Object.assign(state, { versions: {}, planView: false, layout: 2 });
   if (state.panelTab === 'scene') state.panelTab = 'plan';
   if (!['comments', 'plan', 'timing', 'needs'].includes(state.panelTab)) state.panelTab = 'comments';
   if (!packet.scenes.some(scene => scene.id === state.selected)) state.selected = initial.selected;

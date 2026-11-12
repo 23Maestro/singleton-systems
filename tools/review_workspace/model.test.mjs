@@ -84,3 +84,10 @@ test('a built scene shows no version dropdown; the plan offers only the storyboa
   const rank = { id: 'R10', versions: [{ id: 'plan', stage: 'Plan', label: 'Build Storyboard' }] };
   assert.deepEqual(versionChoices(rank, rank.versions[0]).length, 1);
 });
+
+test('a browser that opened Studio before layout 2 drops its saved Plan picks', () => {
+  const p = { episodeId: 'w10', revision: 'r', scenes: [{ id: 'C17', versions: [{ id: 'm', stage: 'Motion' }, { id: 'plan', stage: 'Plan' }] }] };
+  const state = createState(p, { episodeId: 'w10', revision: 'r', versions: { C17: 'plan' }, notes: [{ id: 'n1' }] });
+  assert.deepEqual(state.versions, {});
+  assert.equal(state.notes[0].id, 'n1');
+});

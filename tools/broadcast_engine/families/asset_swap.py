@@ -10,6 +10,7 @@ Every person lands on the spoken cue of their name (scene frame 1 = scene time z
 This is a review proof family: not registered until Jerami approves it.
 
 Data per person: name, cutout (trimmed alpha PNG), cue, height (px on screen), x (centre px). Optional "bottom" (default 1130).
+People never touch: the nearest visible pixels of any two people stay at least "min_gap" px apart (default 60).
 """
 import bpy, sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -40,7 +41,7 @@ plate = k.plate(STADIUM["filePath"], STADIUM["depthPath"], OUT) if STADIUM else 
 if not STADIUM: print(f"FLAG Stadium photo needed: {FOCUS}")
 
 Z_LOGO = 26.0
-logo, lim = k.image_plane("Logo", D["logo"], Z_LOGO, glow=0.95); k.fit_image(logo, lim, 865, 70, 1055, 240, Z_LOGO)
+logo, lim = k.image_plane("Logo", D["logo"], Z_LOGO, glow=0.95); k.fit_image(logo, lim, 835, 40, 1085, 290, Z_LOGO)   # 250 px box
 if D.get("logo_in", "dust") == "dust": k.dust_in(logo, lim, 2, 18)
 else: k.block_dissolve(logo, 2, 6)
 
@@ -56,6 +57,28 @@ def alpha_shadow(o, im, du=16, dv=12, strength=0.55):
     sh.data.materials.clear(); sh.data.materials.append(m); sh.visible_shadow = False
     s_ = k.pscale(o.location.y); sh.location = o.location + Vector((du * s_, 0.05, -dv * s_))
     k.parent(sh, o); return sh
+
+import numpy as np
+def check_spacing(people, gap):
+    """Paint each person's visible pixels on a quarter-scale 1920x1080 grid, grow them by gap/2, and fail on any overlap."""
+    q, masks = 4, []
+    for p in people:
+        im = bpy.data.images.load(p["cutout"], check_existing=True); w0, h0 = im.size
+        a = np.array(im.pixels[:]).reshape(h0, w0, 4)[::-1, :, 3] > 0.3
+        h = p["height"]; w = h * w0 / h0; u0, v0 = p["x"] - w / 2, p.get("bottom", 1130) - h
+        grid = np.zeros((1600 // q, 2400 // q), bool)              # room for people that exit the frame
+        gh, gw = int(h / q), int(w / q)
+        small = a[(np.arange(gh) * h0 / gh).astype(int)][:, (np.arange(gw) * w0 / gw).astype(int)]
+        y0, x0 = int(v0 / q) + 100, int(u0 / q) + 100
+        grid[y0:y0 + gh, x0:x0 + gw] |= small[:max(0, grid.shape[0] - y0), :max(0, grid.shape[1] - x0)]
+        r = max(1, gap // (2 * q))
+        for _ in range(r):                                            # grow by r cells (cross dilation)
+            g = grid.copy(); g[1:] |= grid[:-1]; g[:-1] |= grid[1:]; g[:, 1:] |= grid[:, :-1]; g[:, :-1] |= grid[:, 1:]; grid = g
+        masks.append((p["name"], grid))
+    for i in range(len(masks)):
+        for j in range(i + 1, len(masks)):
+            assert not (masks[i][1] & masks[j][1]).any(), f"{masks[i][0]} and {masks[j][0]} are closer than {gap} px"
+check_spacing(people, D.get("min_gap", 60))
 
 built = []
 for i, p in enumerate(people):
