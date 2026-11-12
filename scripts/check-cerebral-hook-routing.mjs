@@ -436,7 +436,7 @@ for (const suffix of figmaWorkTools) {
       input: JSON.stringify({ hook_event_name: "PreToolUse", cwd: root, tool_name: toolName,
         tool_input: { fileKey, code: "return figma.currentPage.name;" } }),
       encoding: "utf8",
-      env: { ...process.env },
+      env: { ...process.env, ...registryEnv },
     });
     assert.equal(result.status, 0, result.stderr);
     const packet = JSON.parse(result.stdout).hookSpecificOutput.additionalContext;
