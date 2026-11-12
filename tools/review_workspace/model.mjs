@@ -23,6 +23,16 @@ export function defaultVersion(scene, planView = false) {
   return plan ?? scene.versions[0];
 }
 
+// The dropdown stays short. A built version (Motion or Revisions) plays alone, with no dropdown.
+// The plan shows the newest build storyboard and any source photos; a single option shows no dropdown.
+export function versionChoices(scene, version) {
+  if (version.stage === 'Motion' || version.stage === 'Revisions') return [];
+  const plan = newestInStage(scene, 'Plan');
+  const photos = scene.versions.filter(item => item.label === 'Source photo');
+  const list = [plan, ...photos].filter(Boolean);
+  return list.some(item => item.id === version.id) ? list : [];
+}
+
 export function togglePlanView(state) {
   state.planView = !state.planView;
   state.versions = {};            // a manual version pick lasts until the next view switch

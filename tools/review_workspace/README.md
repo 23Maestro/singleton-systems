@@ -106,4 +106,7 @@ Each scene opens on its furthest built version, newest first: Revisions, then
 Motion, then Artwork. A scene with nothing built opens on its Plan, the build
 storyboard. Press P on desktop to switch every scene between Plan and its built
 version. The stage buttons always open the newest version in that stage.
+A built scene plays its ready video with no version dropdown. The plan's
+dropdown lists only the build storyboard and source photos, and hides when
+there is one choice.
 Publish new versions first in each scene's list so newest stays first.

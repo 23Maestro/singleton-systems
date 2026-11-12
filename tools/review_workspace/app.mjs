@@ -1,4 +1,4 @@
-import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages, newestInStage, togglePlanView } from './model.mjs';
+import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages, newestInStage, togglePlanView, versionChoices } from './model.mjs';
 import { panelTabs, planMarkup, planningPanel, cardPreview } from './presentation.mjs';
 
 const icons = {
@@ -198,7 +198,7 @@ function render() {
   const { scene, version } = context(state, packet);
   app.innerHTML = `<main class="workspace">
     <header class="topbar"><div class="brand"><span class="brand-mark">s</span>studio</div><div class="breadcrumb"><span>${esc(packet.client)}</span><span>/</span><strong>${esc(packet.title)}</strong></div><span class="pilot">${esc(packet.intake)}</span><span class="avatar" aria-label="Jerami">JS</span></header>
-    <div class="stagebar"><nav class="stages" aria-label="Production stage" title="P switches every scene between the plan and the built version">${stageButtons(scene, version)}</nav><div class="stage-scene"><div class="scene-heading"><h1>${esc(scene.title)}</h1></div><span id="outer-status">${statusMenu(scene)}</span></div><div class="viewer-actions"><select id="version" aria-label="Review version">${scene.versions.map(v => `<option value="${esc(v.id)}" ${v.id === version.id ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select><button id="panel-toggle" class="icon" aria-label="${state.panelOpen ? 'Hide' : 'Show'} review panel" aria-keyshortcuts="Meta+B" aria-controls="review-panel" aria-expanded="${state.panelOpen}">${icon('panel')}</button></div></div>
+    <div class="stagebar"><nav class="stages" aria-label="Production stage" title="P switches every scene between the plan and the built version">${stageButtons(scene, version)}</nav><div class="stage-scene"><div class="scene-heading"><h1>${esc(scene.title)}</h1></div><span id="outer-status">${statusMenu(scene)}</span></div><div class="viewer-actions">${(() => { const list = versionChoices(scene, version); return list.length > 1 ? `<select id="version" aria-label="Review version">${list.map(v => `<option value="${esc(v.id)}" ${v.id === version.id ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select>` : ''; })()}<button id="panel-toggle" class="icon" aria-label="${state.panelOpen ? 'Hide' : 'Show'} review panel" aria-keyshortcuts="Meta+B" aria-controls="review-panel" aria-expanded="${state.panelOpen}">${icon('panel')}</button></div></div>
     <div class="review-body ${state.panelOpen ? '' : 'panel-closed'}" style="--panel:${state.panelWidth}px">
       <section class="viewer ${version.stage === 'Plan' ? 'plan-view' : ''}" aria-label="Scene viewer" tabindex="0" aria-keyshortcuts="ArrowLeft ArrowRight A C P Space F Escape">
         <div class="viewport-wrap"><div class="viewport" id="viewport"><p class="muted">Opening version…</p></div></div>
@@ -344,7 +344,7 @@ function bind() {
   $('#panel-close').addEventListener('click', () => togglePanel(false));
   document.querySelectorAll('[data-scene]').forEach(button => button.addEventListener('click', () => goToScene(button.dataset.scene)));
   $('#viewport').addEventListener('pointerdown', () => $('.viewer').focus({ preventScroll: true }));
-  $('#version').addEventListener('change', event => { rememberPlayback(); selectVersion(state, packet, event.target.value); persist(); render(); $('#version').focus(); });
+  $('#version')?.addEventListener('change', event => { rememberPlayback(); selectVersion(state, packet, event.target.value); persist(); render(); $('#version').focus(); });
   document.querySelectorAll('[data-stage]').forEach(button => button.addEventListener('click', () => { rememberPlayback(); const { scene } = context(state, packet); selectVersion(state, packet, newestInStage(scene, button.dataset.stage).id); persist(); render(); }));
   $('#fullscreen').addEventListener('click', () => { void $('#viewport').requestFullscreen?.().catch(() => say('Full screen is unavailable in this browser.')); });
   $('#capture').addEventListener('click', capture);

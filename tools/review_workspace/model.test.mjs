@@ -72,3 +72,15 @@ test('a built scene opens on its newest motion; a planned scene opens on its pla
   selectScene(state, staged, 'C08');
   assert.equal(context(state, staged).version.id, 'm2');
 });
+
+test('a built scene shows no version dropdown; the plan offers only the storyboard and source photos', async () => {
+  const { versionChoices } = await import('./model.mjs');
+  const scene = { id: 'C08', versions: [
+    { id: 'audio', stage: 'Motion', label: 'Motion + Mark audio' }, { id: 'bm', stage: 'Motion', label: 'Blender motion' },
+    { id: 'ba', stage: 'Artwork', label: 'Blender 4B team cards' }, { id: 'photo', stage: 'Artwork', label: 'Source photo' },
+    { id: 'plan', stage: 'Plan', label: 'Build Storyboard' }] };
+  assert.deepEqual(versionChoices(scene, scene.versions[0]), []);
+  assert.deepEqual(versionChoices(scene, scene.versions[4]).map(v => v.id), ['plan', 'photo']);
+  const rank = { id: 'R10', versions: [{ id: 'plan', stage: 'Plan', label: 'Build Storyboard' }] };
+  assert.deepEqual(versionChoices(rank, rank.versions[0]).length, 1);
+});
