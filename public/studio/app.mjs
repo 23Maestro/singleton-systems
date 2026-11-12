@@ -1,4 +1,4 @@
-import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages } from './model.mjs';
+import { createState, context, selectScene, selectVersion, updateDraft, updateStatus, saveNote, feedbackBatch, statuses, stages, newestInStage, togglePlanView } from './model.mjs';
 import { panelTabs, planMarkup, planningPanel, cardPreview } from './presentation.mjs';
 
 const icons = {
@@ -198,9 +198,9 @@ function render() {
   const { scene, version } = context(state, packet);
   app.innerHTML = `<main class="workspace">
     <header class="topbar"><div class="brand"><span class="brand-mark">s</span>studio</div><div class="breadcrumb"><span>${esc(packet.client)}</span><span>/</span><strong>${esc(packet.title)}</strong></div><span class="pilot">${esc(packet.intake)}</span><span class="avatar" aria-label="Jerami">JS</span></header>
-    <div class="stagebar"><nav class="stages" aria-label="Production stage">${stageButtons(scene, version)}</nav><div class="stage-scene"><div class="scene-heading"><h1>${esc(scene.title)}</h1></div><span id="outer-status">${statusMenu(scene)}</span></div><div class="viewer-actions"><select id="version" aria-label="Review version">${scene.versions.map(v => `<option value="${esc(v.id)}" ${v.id === version.id ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select><button id="panel-toggle" class="icon" aria-label="${state.panelOpen ? 'Hide' : 'Show'} review panel" aria-keyshortcuts="Meta+B" aria-controls="review-panel" aria-expanded="${state.panelOpen}">${icon('panel')}</button></div></div>
+    <div class="stagebar"><nav class="stages" aria-label="Production stage" title="P switches every scene between the plan and the built version">${stageButtons(scene, version)}</nav><div class="stage-scene"><div class="scene-heading"><h1>${esc(scene.title)}</h1></div><span id="outer-status">${statusMenu(scene)}</span></div><div class="viewer-actions"><select id="version" aria-label="Review version">${scene.versions.map(v => `<option value="${esc(v.id)}" ${v.id === version.id ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select><button id="panel-toggle" class="icon" aria-label="${state.panelOpen ? 'Hide' : 'Show'} review panel" aria-keyshortcuts="Meta+B" aria-controls="review-panel" aria-expanded="${state.panelOpen}">${icon('panel')}</button></div></div>
     <div class="review-body ${state.panelOpen ? '' : 'panel-closed'}" style="--panel:${state.panelWidth}px">
-      <section class="viewer ${version.stage === 'Plan' ? 'plan-view' : ''}" aria-label="Scene viewer" tabindex="0" aria-keyshortcuts="ArrowLeft ArrowRight A C Space F Escape">
+      <section class="viewer ${version.stage === 'Plan' ? 'plan-view' : ''}" aria-label="Scene viewer" tabindex="0" aria-keyshortcuts="ArrowLeft ArrowRight A C P Space F Escape">
         <div class="viewport-wrap"><div class="viewport" id="viewport"><p class="muted">Opening version…</p></div></div>
         <div class="transport ${version.stage === 'Plan' ? 'plan-transport' : ''}"><button class="icon play" id="play" aria-label="Play" disabled>${icon('play')}</button><button class="icon" id="previous-frame" aria-label="Previous frame" disabled>${icon('back')}</button><button class="icon" id="next-frame" aria-label="Next frame" disabled>${icon('next')}</button><span class="mono time" id="time">${timecode(state.times[`${scene.id}:${version.id}`] ?? 0)}</span><input type="range" id="seek" aria-label="Playback position" min="0" max="${scene.duration}" step="${1 / packet.fps}" value="0" disabled><span class="source-time mono">${scene.duration.toFixed(2)}s</span><button class="capture" id="capture" disabled>${icon('camera')} <span>Frame note</span></button><button class="icon" id="fullscreen" aria-label="Full screen">${icon('expand')}</button></div>
       </section>
@@ -330,6 +330,10 @@ function shortcuts(event) {
     if (setStatus('Changes Requested')) showComments(true);
   } else if (key === ' ' && !$('#play').disabled) {
     event.preventDefault(); $('#play').click();
+  } else if (key === 'p') {
+    event.preventDefault(); rememberPlayback(); togglePlanView(state); persist(); render();
+    say(state.planView ? 'Showing the plan for every scene.' : 'Showing the built version for every scene.');
+    $('.viewer').focus({ preventScroll: true });
   } else if (key === 'f' && !$('#capture').disabled) {
     event.preventDefault(); capture();
   }
@@ -341,7 +345,7 @@ function bind() {
   document.querySelectorAll('[data-scene]').forEach(button => button.addEventListener('click', () => goToScene(button.dataset.scene)));
   $('#viewport').addEventListener('pointerdown', () => $('.viewer').focus({ preventScroll: true }));
   $('#version').addEventListener('change', event => { rememberPlayback(); selectVersion(state, packet, event.target.value); persist(); render(); $('#version').focus(); });
-  document.querySelectorAll('[data-stage]').forEach(button => button.addEventListener('click', () => { rememberPlayback(); const { scene } = context(state, packet); selectVersion(state, packet, scene.versions.filter(v => v.stage === button.dataset.stage).at(-1).id); persist(); render(); }));
+  document.querySelectorAll('[data-stage]').forEach(button => button.addEventListener('click', () => { rememberPlayback(); const { scene } = context(state, packet); selectVersion(state, packet, newestInStage(scene, button.dataset.stage).id); persist(); render(); }));
   $('#fullscreen').addEventListener('click', () => { void $('#viewport').requestFullscreen?.().catch(() => say('Full screen is unavailable in this browser.')); });
   $('#capture').addEventListener('click', capture);
   $('#save-review')?.addEventListener('click', saveReview);

@@ -52,3 +52,23 @@ test('changed packet revision isolates prior notes and invalid selections', () =
   assert.throws(() => selectScene(state, packet, 'invented-scene'));
   assert.throws(() => selectVersion(state, packet, 'invented-revision'));
 });
+
+test('a built scene opens on its newest motion; a planned scene opens on its plan; P flips every scene', async () => {
+  const { defaultVersion, togglePlanView, context } = await import('./model.mjs');
+  const staged = { episodeId: 'w10', revision: 'r', scenes: [
+    { id: 'C08', versions: [{ id: 'm2', stage: 'Motion' }, { id: 'a1', stage: 'Artwork' }, { id: 'm1', stage: 'Motion' }, { id: 'plan', stage: 'Plan' }] },
+    { id: 'C09', versions: [{ id: 'plan9', stage: 'Plan' }] },
+  ] };
+  assert.equal(defaultVersion(staged.scenes[0]).id, 'm2');
+  assert.equal(defaultVersion(staged.scenes[1]).id, 'plan9');
+  const state = createState(staged);
+  assert.equal(context(state, staged).version.id, 'm2');
+  selectVersion(state, staged, 'a1');
+  togglePlanView(state);
+  assert.equal(context(state, staged).version.id, 'plan');
+  selectScene(state, staged, 'C09');
+  assert.equal(context(state, staged).version.id, 'plan9');
+  togglePlanView(state);
+  selectScene(state, staged, 'C08');
+  assert.equal(context(state, staged).version.id, 'm2');
+});

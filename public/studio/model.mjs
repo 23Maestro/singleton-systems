@@ -3,7 +3,7 @@ export const stages = ['Plan', 'Artwork', 'Motion', 'Revisions'];
 
 export function createState(packet, stored) {
   const initial = { episodeId: packet.episodeId, revision: packet.revision, selected: packet.scenes[0]?.id,
-    versions: {}, statuses: {}, drafts: {}, notes: [], times: {}, panelOpen: true, panelWidth: 350, panelTab: 'comments' };
+    versions: {}, statuses: {}, drafts: {}, notes: [], times: {}, panelOpen: true, panelWidth: 350, panelTab: 'comments', planView: false };
   if (stored?.episodeId !== packet.episodeId || stored?.revision !== packet.revision) return initial;
   const state = { ...initial, ...stored };
   if (state.panelTab === 'scene') state.panelTab = 'plan';
@@ -12,10 +12,26 @@ export function createState(packet, stored) {
   return state;
 }
 
+// Versions are listed newest first. A scene opens on its furthest built output (Revisions, then Motion, then
+// Artwork); a scene with nothing built yet opens on its Plan. planView flips every scene to its Plan instead.
+const outputStages = ['Revisions', 'Motion', 'Artwork'];
+export const newestInStage = (scene, stage) => scene.versions.find(item => item.stage === stage);
+export function defaultVersion(scene, planView = false) {
+  const plan = newestInStage(scene, 'Plan');
+  if (planView && plan) return plan;
+  for (const stage of outputStages) { const found = newestInStage(scene, stage); if (found) return found; }
+  return plan ?? scene.versions[0];
+}
+
+export function togglePlanView(state) {
+  state.planView = !state.planView;
+  state.versions = {};            // a manual version pick lasts until the next view switch
+}
+
 export function context(state, packet) {
   const scene = packet.scenes.find(item => item.id === state.selected);
   if (!scene) throw new Error('Select an existing scene.');
-  const version = scene.versions.find(item => item.id === state.versions[scene.id]) ?? scene.versions.at(-1);
+  const version = scene.versions.find(item => item.id === state.versions[scene.id]) ?? defaultVersion(scene, state.planView);
   if (!version) throw new Error('This scene has no review version.');
   return { scene, version, key: `${scene.id}:${version.id}` };
 }
@@ -24,7 +40,6 @@ export function selectScene(state, packet, id) {
   const scene = packet.scenes.find(item => item.id === id);
   if (!scene) throw new Error('Scene not found.');
   state.selected = id;
-  state.versions[id] ??= scene.versions.at(-1)?.id;
 }
 
 export function selectVersion(state, packet, id) {

@@ -93,3 +93,21 @@ flow and Raycast colors. Libraries found through ScrapeCreators are recorded
 in the November 3 research packet on HomeSSD; no third-party editor source was
 copied into this preview. Motion Panels is the leading panel-library candidate
 for the React integration after visual review.
+
+## Deploys
+
+This repository is the canonical Studio source. Edit `tools/review_workspace`,
+then copy `app.mjs`, `model.mjs`, `review.css` and `studio-home.mjs` into
+`public/studio`; the Studio test fails when the copies differ. Every Studio
+change ships by pushing to `main`, which deploys the Vercel project
+`singleton-systems` to www.singleton-systems.com. Check the live file after the
+deploy before calling the change done. New review packets are data in Studio
+storage and need no deploy.
+
+## Stages
+
+Each scene opens on its furthest built version, newest first: Revisions, then
+Motion, then Artwork. A scene with nothing built opens on its Plan, the build
+storyboard. Press P on desktop to switch every scene between Plan and its built
+version. The stage buttons always open the newest version in that stage.
+Publish new versions first in each scene's list so newest stays first.
