@@ -7,7 +7,12 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 async function proxy(request: Request) {
-  if (!producer(request) && !owner(request)) return Response.json({ error: "Open your private Studio link." }, { status: 401, headers: reviewHeaders });
+  // A project link is public: anyone with it can view the review and leave notes. Listing, creating,
+  // closing or deleting projects still needs the owner session, and packet writes need the producer token.
+  const linkOnly = !producer(request) && !owner(request);
+  if (linkOnly && !new URL(request.url).searchParams.get("projectId")) {
+    return Response.json({ error: "Open a Studio project link." }, { status: 401, headers: reviewHeaders });
+  }
   if (request.method !== "GET" && !producer(request) && !reviewSameOrigin(request)) return new Response("Invalid origin", { status: 403, headers: reviewHeaders });
   try {
     const site = process.env.VIDEO_REVIEW_SITE_URL, token = process.env.VIDEO_REVIEW_BACKEND_TOKEN;
@@ -41,6 +46,9 @@ async function proxy(request: Request) {
       const parsed = studioCommand.safeParse(JSON.parse(new TextDecoder().decode(bytes)));
       if (!parsed.success) return Response.json({ error: "Invalid Studio command." }, { status: 400, headers: reviewHeaders });
       const command = parsed.data;
+      if (linkOnly && (!["save-review", "feedback", "queue-chat-send"].includes(command.action) || command.projectId !== params.get("projectId"))) {
+        return Response.json({ error: "This link can only review its own project." }, { status: 403, headers: reviewHeaders });
+      }
       if (command.action === "queue-chat-send" && !producer(request) && process.env.STUDIO_CHAT_SEND_ENABLED !== "1") {
         return Response.json({ error: "Chat sending is unavailable." }, { status: 503, headers: reviewHeaders });
       }

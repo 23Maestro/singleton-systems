@@ -1,5 +1,4 @@
 import { issueStudioAssetTicket, studioAssetKey, studioAssetUpload } from "@/lib/studio-assets";
-import { owner } from "@/lib/studio-session";
 import { producer, reviewHeaders } from "@/lib/video-review-server";
 
 export const runtime = "nodejs";
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET(request: Request) {
-  if (!owner(request) && !producer(request)) return new Response("Unauthorized", { status: 401, headers: reviewHeaders });
+  // Review media is public by its project id and content hash, like the project link that shows it.
   const site = process.env.VIDEO_REVIEW_SITE_URL, token = process.env.VIDEO_REVIEW_BACKEND_TOKEN;
   if (!site || !token) return new Response("Storage unavailable", { status: 503, headers: reviewHeaders });
   const asset = studioAssetKey.safeParse(Object.fromEntries(new URL(request.url).searchParams));
