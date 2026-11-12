@@ -475,9 +475,11 @@ def dust_in(logo, im, f0, dur=16, n=4500, wind=(-1.0, 0.0, 0.25), seed=7):
     wv = Vector(wind).normalized(); dist = rng.uniform(0.25, 0.9, len(tgt)) * size     # start just beside the logo
     jit = rng.normal(0, 0.12 * size, (len(tgt), 3))
     start = [t + wv * dd + Vector(j) for t, dd, j in zip(tgt, dist, jit)]
+    bow = rng.normal(0, 0.18 * size, (len(tgt), 3))                            # each speck curls off the straight line
     xn = (xs / w); delay = np.clip(0.35 * (1 - xn) + rng.uniform(0, 0.15, len(xs)), 0, 0.5)   # far side of the wind settles last
     me = bpy.data.meshes.new("Dust"); me.from_pydata([tuple(t) for t in tgt], [], [])
     a = me.attributes.new("start", "FLOAT_VECTOR", "POINT"); a.data.foreach_set("vector", np.array([tuple(s) for s in start]).ravel())
+    a = me.attributes.new("bow", "FLOAT_VECTOR", "POINT"); a.data.foreach_set("vector", bow.astype(np.float32).ravel())
     a = me.attributes.new("delay", "FLOAT", "POINT"); a.data.foreach_set("value", delay.astype(np.float32))
     a = me.attributes.new("col", "FLOAT_COLOR", "POINT"); a.data.foreach_set("color", np.c_[col, np.ones(len(col))].astype(np.float32).ravel())
     o = bpy.data.objects.new("Dust", me); sc.collection.objects.link(o); o.visible_shadow = False
@@ -497,14 +499,20 @@ def dust_in(logo, im, f0, dur=16, n=4500, wind=(-1.0, 0.0, 0.25), seed=7):
     tm = N.new("GeometryNodeInputSceneTime"); st, dl, cl = attr("start", "FLOAT_VECTOR"), attr("delay", "FLOAT"), attr("col", "FLOAT_COLOR")
     local = math("SUBTRACT", tm.outputs["Frame"], float(f0))                     # frames since the dust starts
     dd = math("MULTIPLY", dl.outputs["Attribute"], float(dur))
-    tt = math("DIVIDE", math("SUBTRACT", local.outputs[0], dd.outputs[0]).outputs[0], dur * 0.55)
-    tt.use_clamp = True
-    sm = N.new("ShaderNodeMapRange"); sm.interpolation_type = "SMOOTHERSTEP"; L(tt.outputs[0], sm.inputs["Value"])
-    mix = N.new("ShaderNodeMix"); mix.data_type = "VECTOR"; L(sm.outputs["Result"], mix.inputs["Factor"])
+    own = math("SUBTRACT", local.outputs[0], dd.outputs[0])                     # frames since this speck appeared
+    tt = math("DIVIDE", own.outputs[0], dur * 0.6); tt.use_clamp = True
+    # ease-out: a speck moves fastest the moment it appears and only slows as it lands, so nothing waits in place
+    ease = math("SUBTRACT", 1.0, math("POWER", math("SUBTRACT", 1.0, tt.outputs[0]).outputs[0], 3.0).outputs[0])
+    mix = N.new("ShaderNodeMix"); mix.data_type = "VECTOR"; L(ease.outputs[0], mix.inputs["Factor"])
     L(st.outputs["Attribute"], mix.inputs["A"]); pos = N.new("GeometryNodeInputPosition"); L(pos.outputs[0], mix.inputs["B"])
-    sp = N.new("GeometryNodeSetPosition"); L(gi.outputs[0], sp.inputs["Geometry"]); L(mix.outputs["Result"], sp.inputs["Position"])
+    curl = math("SINE", math("MULTIPLY", tt.outputs[0], 3.14159265).outputs[0])  # a gust bend, zero at both ends
+    bw = N.new("ShaderNodeVectorMath"); bw.operation = "SCALE"; L(attr("bow", "FLOAT_VECTOR").outputs["Attribute"], bw.inputs[0])
+    L(curl.outputs[0], bw.inputs["Scale"])
+    path = N.new("ShaderNodeVectorMath"); path.operation = "ADD"; L(mix.outputs["Result"], path.inputs[0]); L(bw.outputs[0], path.inputs[1])
+    sp = N.new("GeometryNodeSetPosition"); L(gi.outputs[0], sp.inputs["Geometry"]); L(path.outputs[0], sp.inputs["Position"])
     fade = math("SUBTRACT", 1.0, math("DIVIDE", math("SUBTRACT", local.outputs[0], dur - 2.0).outputs[0], 5.0).outputs[0]); fade.use_clamp = True
-    vis = math("GREATER_THAN", local.outputs[0], 0.0); alpha = math("MULTIPLY", fade.outputs[0], vis.outputs[0])
+    vis = math("DIVIDE", own.outputs[0], 3.0); vis.use_clamp = True             # each speck fades in while already moving
+    alpha = math("MULTIPLY", fade.outputs[0], vis.outputs[0])
     s1 = N.new("GeometryNodeStoreNamedAttribute"); s1.data_type = "FLOAT_COLOR"; s1.inputs["Name"].default_value = "dustcol"
     L(sp.outputs[0], s1.inputs["Geometry"]); L(cl.outputs["Attribute"], s1.inputs["Value"])
     s2 = N.new("GeometryNodeStoreNamedAttribute"); s2.data_type = "FLOAT"; s2.inputs["Name"].default_value = "dustalpha"

@@ -47,7 +47,7 @@ if LAYOUT == "pair":
     LOGO_BOX, VAL, FOOT_H, VAL_CAP, FOOT_CAP = (70, 24, 670, 360), 462, 112, 140, 52
 else:
     BOXES = [(52, 328, 684, 888), (1236, 328, 1868, 888)]
-    LOGO_BOX, VAL, FOOT_H, VAL_CAP, FOOT_CAP = (110, 18, 522, 236), 334, 88, 128, 46
+    LOGO_BOX, VAL, FOOT_H, VAL_CAP, FOOT_CAP = (110, 18, 522, 236), 348, 88, 128, 46   # number sits low so the logo has room
 
 def card(c, box, side):
     u0, v0, u1, v1 = box
@@ -61,7 +61,7 @@ def card(c, box, side):
                   thick=0.05, bevel=0.01)
     lu0, lv0, lu1, lv1 = LOGO_BOX
     logo, lim = k.image_plane(f"Logo {side}", c["logo"], Z_ON, glow=0.95)
-    k.fit_image(logo, lim, u0 + lu0 * (u1 - u0) / 740, v0 + lv0, u0 + lu1 * (u1 - u0) / 740, v0 + lv1, Z_ON)
+    k.fit_image(logo, lim, u0 + lu0, v0 + lv0, u0 + lu1, v0 + lv1, Z_ON)   # LOGO_BOX is in card pixels, centred on the card
     val = k.text(c["value"].upper(), F_NUM, "#FFFFFF", VAL_CAP, Z_ON, tier="flat")
     k.shrink_to(val, (u1 - u0) - 90); k.put(val, (u0 + u1) / 2, v0 + VAL, "CENTER", "CENTER")
     is_team = c["label"].upper() == c["team"].upper()
