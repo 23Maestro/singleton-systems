@@ -1,16 +1,20 @@
-"""Lane 6 Asset Swap (named group) in Blender: 2-3 true-alpha people arrive by name and stay, on the team stadium.
+"""Lane 6 Asset Swap (named group) in Blender: 2-3 true-alpha people arrive on their names and stay, on the team stadium.
 
 Usage: Blender -b --factory-startup --python-exit-code 1 -P asset_swap.py -- <data.json> <out_dir> [still F,F,.. | anim] [half]
 
-Layout (1920x1080, 25 fps): the team logo on the 960 px centreline at the top, then one column per person.
-The first-named person stands in the centre and nearest the camera; the others stand either side, a step back,
-so the camera move separates the layers. Each name sits centred above its person. Nobody replaces anybody.
+Layout (1920x1080, 25 fps): the team logo on the 960 px centreline at the top, the people on rule-of-thirds columns.
+Every cutout shares one framing (head to thigh or knee) and a matched head size; its cut edge sits below the frame,
+so each person stands up through the picture. No name labels. Each person carries a soft drop shadow.
+The first-named person stands in the centre, nearest the camera. Nobody replaces anybody.
 Every person lands on the spoken cue of their name (scene frame 1 = scene time zero); an early cue gets a pre-roll.
 This is a review proof family: not registered until Jerami approves it.
+
+Data per person: name, cutout (trimmed alpha PNG), cue, height (px on screen), x (centre px). Optional "bottom" (default 1130).
 """
 import bpy, sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import scene3d as k
+from mathutils import Vector
 
 args = sys.argv[sys.argv.index("--") + 1:]
 D = json.load(open(args[0])); OUT = args[1]; os.makedirs(OUT, exist_ok=True)
@@ -19,8 +23,9 @@ N, people = D["frames"], D["people"]
 
 assert 2 <= len(people) <= 3, "2 or 3 people"
 for p in people:
-    for f in ("name", "cutout", "cue"): assert p.get(f) not in (None, ""), f"person needs {f}"
+    for f in ("name", "cutout", "cue", "height", "x"): assert p.get(f) not in (None, ""), f"person needs {f}"
     assert os.path.exists(p["cutout"]), f"missing cutout {p['cutout']}"
+    assert p.get("bottom", 1130) > 1080, f"{p['name']} must exit the bottom of the frame, never float"
 assert [p["cue"] for p in people] == sorted(p["cue"] for p in people), "cues run in order"
 assert os.path.exists(D["logo"]), "missing team logo"
 
@@ -34,40 +39,42 @@ STADIUM = k.stadium(FOCUS)
 plate = k.plate(STADIUM["filePath"], STADIUM["depthPath"], OUT) if STADIUM else None
 if not STADIUM: print(f"FLAG Stadium photo needed: {FOCUS}")
 
-Z_LOGO, Z_NAME = 26.0, 21.0
-# centre first, then left, then right; side people a step back from the camera
-COLS = [(640, 1280, 20.0), (60, 700, 23.0), (1220, 1860, 23.0)][:len(people)]
-if len(people) == 2: COLS = [(260, 900, 21.0), (1020, 1660, 21.0)]
-TOP, FLOOR = 350, 1060
-
-logo, lim = k.image_plane("Logo", D["logo"], Z_LOGO, glow=0.95); k.fit_image(logo, lim, 875, 80, 1045, 230, Z_LOGO)
-if D.get("logo_in", "dust") == "dust": k.dust_in(logo, lim, 2, 16)
+Z_LOGO = 26.0
+logo, lim = k.image_plane("Logo", D["logo"], Z_LOGO, glow=0.95); k.fit_image(logo, lim, 865, 70, 1055, 240, Z_LOGO)
+if D.get("logo_in", "dust") == "dust": k.dust_in(logo, lim, 2, 18)
 else: k.block_dissolve(logo, 2, 6)
 
+def alpha_shadow(o, im, du=16, dv=12, strength=0.55):
+    """Soft drop shadow that follows the cutout's own alpha, just behind it."""
+    sh = o.copy(); sh.data = o.data.copy(); bpy.context.scene.collection.objects.link(sh); sh.name = "Shadow " + o.name
+    m = bpy.data.materials.new("Shadow " + o.name); m.use_nodes = True; nt = m.node_tree; pb = nt.nodes["Principled BSDF"]
+    t = nt.nodes.new("ShaderNodeTexImage"); t.image = im
+    mul = nt.nodes.new("ShaderNodeMath"); mul.operation = "MULTIPLY"; mul.inputs[1].default_value = strength
+    nt.links.new(t.outputs["Alpha"], mul.inputs[0]); nt.links.new(mul.outputs[0], pb.inputs["Alpha"])
+    pb.inputs["Base Color"].default_value = (0, 0, 0, 1); pb.inputs["Emission Strength"].default_value = 0.0
+    pb.inputs["Roughness"].default_value = 1.0; m.surface_render_method = "BLENDED"
+    sh.data.materials.clear(); sh.data.materials.append(m); sh.visible_shadow = False
+    s_ = k.pscale(o.location.y); sh.location = o.location + Vector((du * s_, 0.05, -dv * s_))
+    k.parent(sh, o); return sh
+
 built = []
-for p, (u0, u1, z) in zip(people, COLS):
+for i, p in enumerate(people):
+    z = 20.0 if i == 0 else 22.5          # first-named stands nearest
     ph, pim = k.image_plane(f"Person {p['name']}", p["cutout"], z, glow=1.0)
-    k.fit_image(ph, pim, u0, TOP, u1, FLOOR, z)
-    cu = (u0 + u1) / 2
-    nm = k.text(p["name"].upper(), k.TEAM_FONT, "#FFFFFF", 64, Z_NAME, tier="team")
-    k.shrink_to(nm, u1 - u0); k.put(nm, cu, TOP - 46, "CENTER", "CENTER")
-    fl = k.floor_shadow(u0 + 60, u1 - 60, FLOOR, z, strength=0.6)
-    f = p["frame"]
-    k.rise(ph, f - 12, 12, dv=60)                 # steps up into place on the name
-    k.pop(fl, f - 12, 12, "CUBIC")
-    k.wipe(nm, f - 7, 7)
-    built.append((p, ph, nm))
+    h = p["height"]; w = h * pim.size[0] / pim.size[1]; b = p.get("bottom", 1130)
+    k.fit_image(ph, pim, p["x"] - w / 2, b - h, p["x"] + w / 2, b, z)
+    alpha_shadow(ph, pim)
+    k.rise(ph, p["frame"] - 12, 12, dv=80)          # rises up through the bottom of the frame onto the name
+    built.append((p, ph))
 
 k.key_light()
 k.hide_until_open(N)
 k.camera(N, 21.0, move=(0.9, -0.8, -0.25))
 
-for p, ph, nm in built:
-    k.check_on_cue(ph, p["frame"], f"{p['name']} person", lead=13)
-    k.check_on_cue(nm, p["frame"], f"{p['name']} name", lead=7)
-k.check_in_frame([logo] + [o for b in built for o in b[1:]], (k.HOME, min(N, k.MOVE_END), N))
+for p, ph in built: k.check_on_cue(ph, p["frame"], f"{p['name']} person", lead=13)
+k.check_in_frame([logo], (k.HOME, min(N, k.MOVE_END), N))      # people exit the bottom on purpose
 if plate: k.check_plate_cover(plate, N)
-print("PASS people land on their names; PASS frame check; PASS stadium covers every frame")
+print("PASS people land on their names; PASS logo in frame; PASS stadium covers every frame")
 
 json.dump({"focusTeam": FOCUS, "stadium": STADIUM, "flags": [] if STADIUM else [f"Stadium photo needed: {FOCUS}"],
            "preRoll": PRE, "sceneFrameOne": 1 + PRE,
