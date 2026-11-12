@@ -48,7 +48,7 @@ Proofs: `/Volumes/HomeSSD/Generated/CATENA_MEDIA/previews/2026-11-11-team-cards-
 ## which engine goes first
 
 - **Blender first, built:** 3B, 4A, 4B, 4C and 5A.
-- **Blender first, comp not built yet:** Simple comparison (2 to 4), Full comparison 3 and 4, and Asset swap (standard and Logo pair). Each one uses its Figma source until its Blender comp is approved.
+- **Blender first, comp not built yet:** Simple comparison (2 to 4), Full comparison 3 and 4, and Asset swap (standard and Logo pair). Until each Blender comp is approved, Figma stays fully open for them. This week's videos may still need these lanes; build or adjust their Figma versions whenever an episode needs one.
 - **Figma:** quick action photo, Team callout, Logo statement, Grouped stats, Grouped logo facts, Cinematic 2-up full photo, Logo row, Trend table and the lane 7 boards.
 
 Jev suggests a variant. A scene still names its variant before it builds. The split lives in `config/lineups/engine-routing.json` under `blenderDefaults`. Production builds run through `tools/broadcast_engine/fill.py --variant 4B|4C|5A`.

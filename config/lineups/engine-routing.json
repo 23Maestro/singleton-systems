@@ -248,7 +248,7 @@
       "Rank Reveal",
       "Super Bowl Bubble Board"
     ],
-    "rule": "Propose the approved Blender variant first. A blenderPlanned option uses its Figma source until its Blender comp is approved. Jev only suggests; a scene names its variant before it builds.",
+    "rule": "Propose the approved Blender variant first. A blenderPlanned option stays fully open in Figma until its Blender comp is approved; episodes may build or adjust Figma versions as needed. This split is a preference, not a block. Jev only suggests; a scene names its variant before it builds.",
     "authority": "Jerami in chat, November 11, 2026: \"I think simple comparison blender for sure along with full comparison and asset swap others stay Figma for now.\""
   }
 }
