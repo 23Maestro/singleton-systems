@@ -280,11 +280,12 @@ def logo(svg, sx, sz, width, name, y=8.5):
     e.location = loc; e.rotation_euler = (math.radians(90), 0, 0); e.scale = (s, s, s)
     return e, s
 lkc, skc = logo(P1["logo"] if DATA else f"{A}/source/nfl-club-logos-svg/KC.svg", -5.6, 2.3, 7.4, "LogoKC")
-lbuf, sbuf = logo(P2["logo"] if DATA else f"{A}/source/nfl-club-logos-svg/BUF.svg", 5.9, 3.5, 8.2, "LogoBUF")
+# Logo layout (approved on Packers C02): same width, mirrored left/right at the same height, no tilt.
+lbuf, sbuf = logo(P2["logo"] if DATA else f"{A}/source/nfl-club-logos-svg/BUF.svg", 5.6, 2.3, 7.4, "LogoBUF")
 for e, s, d in ((lkc, skc, 1), (lbuf, sbuf, -1)):
     r = e.rotation_euler.copy()
     key(e, "scale", [(15, (0.0001,) * 3), (16, (s * 2.1,) * 3), (18, (s * 1.1,) * 3), (21, (s,) * 3), (N, (s * 0.96,) * 3)])
-    key(e, "rotation_euler", [(16, (r.x, 0, math.radians(-9 * d))), (N, (r.x, 0, math.radians(6 * d)))])
+    key(e, "rotation_euler", [(16, (r.x, 0, 0)), (N, (r.x, 0, 0))])
 
 # ------------------------------------------------- chevron spine: wide rubber column of shallow V bands, behind the shard edges
 SPY = 13.5
