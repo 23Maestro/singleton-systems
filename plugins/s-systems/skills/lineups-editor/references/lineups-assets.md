@@ -58,6 +58,11 @@ real alpha, face and uniform detail, equipment, and clean edges against a
 contrasting background before using the cutout. Reject rectangular photo
 backgrounds and failed edges. Keep the approved composition and crop roles.
 
+When Figma's Remove background is out of reach, run
+`swift scripts/lineups-subject-lift.swift SOURCE OUT.png`. It uses Apple
+Vision subject lift and keeps the largest subject, so background people drop.
+Apply the same edge check on magenta before use.
+
 Quick Action Photo, Quick Stat, Stat Breakdown, Year-by-year, and Recurring Board
 have no automatic player-cutout requirement. Keep the approved full photos or
 board artwork for those lanes.

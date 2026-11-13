@@ -74,6 +74,25 @@ class PreviewBuildTest(unittest.TestCase):
             self.assertNotEqual(scene['thumbnail'], scene['versions'][0]['url'])
 
     @patch('tools.review_workspace.build.subprocess.run')
+    def test_new_render_comes_first_and_earlier_versions_stay(self, _gate):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            packet, data = self.packet(root)
+            video = packet / 'assets/final.mp4'
+            video.write_bytes(b'final video')
+            data['postScenes'] = [{'id': 'P01', 'preview': {
+                'image': 'assets/final.mp4', 'kind': 'video', 'sha256': hashlib.sha256(video.read_bytes()).hexdigest()}}]
+            (packet / 'index.html').write_text('<script>const reviewData=' + json.dumps(data) + ';</script>')
+            earlier = {'id': 'render-earlier', 'label': 'Motion preview', 'stage': 'Motion', 'kind': 'video',
+                       'url': '/api/studio/assets?projectId=p&sha256=' + 'a' * 64, 'sha256': 'a' * 64}
+            previous = {'scenes': [{'id': 'P01', 'versions': [earlier]}]}
+            versions = build(packet, root / 'dist', previous=previous)['scenes'][0]['versions']
+            ids = [v['sha256'] for v in versions]
+            newest = ids.index(hashlib.sha256(b'final video').hexdigest())
+            self.assertEqual(ids.index('a' * 64), newest + 1)
+            self.assertEqual(len([v for v in versions if v['id'] == 'render-earlier']), 1)
+
+    @patch('tools.review_workspace.build.subprocess.run')
     def test_studio_base_path_keeps_relative_assets_under_the_public_route(self, _gate):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

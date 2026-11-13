@@ -18,7 +18,7 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def build(packet, output, base_path=None, title=None):
+def build(packet, output, base_path=None, title=None, previous=None):
     if base_path is not None and not re.fullmatch(r'/[A-Za-z0-9_/-]*/', base_path):
         raise ValueError('The base path must be an absolute directory path ending in /.')
     source = Path(__file__).parent
@@ -65,6 +65,7 @@ def build(packet, output, base_path=None, title=None):
         return target, sha
 
     built = {c['id']: c for c in data['postScenes']}
+    earlier = {c['id']: c.get('versions', []) for c in (previous or {}).get('scenes', [])}
     scenes = []
     for candidate in data['candidates']:
         c = candidate
@@ -92,6 +93,11 @@ def build(packet, output, base_path=None, title=None):
         presentation = prepare_plan(c)
         if not post:
             versions = versions[1:] + versions[:1]
+        # Earlier Studio renders stay, right after the newest render, so the scene still opens on the newest.
+        known = {v['sha256'] for v in versions}
+        kept = [v for v in earlier.get(c['id'], []) if v.get('kind') != 'plan' and v['sha256'] not in known]
+        at = next((i + 1 for i, v in enumerate(versions) if v['id'].startswith('render-')), len(versions))
+        versions = versions[:at] + kept + versions[at:]
         thumbnail = plan_thumbnail(presentation, output)
         scenes.append({'id': c['id'], 'title': c['title'], 'lane': c['lane'], 'option': c['option'],
                        'duration': c['duration'], 'anchor': c['anchor'], 'sourceTime': c['time'],
@@ -127,6 +133,8 @@ if __name__ == '__main__':
     parser.add_argument('--output', required=True)
     parser.add_argument('--title', help='Episode title shown in Studio.')
     parser.add_argument('--base-path', help='Public directory URL, for example /studio/.')
+    parser.add_argument('--previous', help='The current Studio packet.json, so earlier versions stay.')
     args = parser.parse_args()
-    result = build(args.packet, args.output, args.base_path, args.title)
+    previous = json.loads(Path(args.previous).read_text()) if args.previous else None
+    result = build(args.packet, args.output, args.base_path, args.title, previous)
     print(json.dumps({'episodeId': result['episodeId'], 'sceneCount': len(result['scenes']), 'output': args.output}))

@@ -9,6 +9,7 @@ from tools.broadcast_engine.player_comparison_data import load
 _args = sys.argv[sys.argv.index("--") + 1:]
 DATA = load(_args[1]) if len(_args) > 1 else None
 from mathutils import Vector
+from tools.broadcast_engine import lane4_layout as L
 
 OUT = sys.argv[sys.argv.index("--") + 1]
 os.makedirs(OUT, exist_ok=True)
@@ -240,13 +241,10 @@ def logo(svg, sx, sz, width, name, y=8.5):
         q = [o.matrix_world @ Vector(c) for c in o.bound_box]
         return Vector((min(p.x for p in q), min(p.y for p in q))), Vector((max(p.x for p in q), max(p.y for p in q)))
     full = max((bb(o)[1] - bb(o)[0]).x for o in objs)
-    def canvas_box(o):
-        # A canvas background is a full-width rectangle: every point sits on a bounding-box corner.
-        # A full-width oval (the Packers gold ring has 6 points) is real artwork and stays.
-        lo, hi = o.bound_box[0], o.bound_box[6]; tol = 1e-3 * max(hi[0] - lo[0], hi[1] - lo[1], 1e-6)
-        pts = [q.co for sp in o.data.splines for q in (sp.bezier_points or sp.points)]
-        return (bb(o)[1] - bb(o)[0]).x >= full * 0.999 and all(
-            min(abs(q[0] - lo[0]), abs(q[0] - hi[0])) < tol and min(abs(q[1] - lo[1]), abs(q[1] - hi[1])) < tol for q in pts)
+    def canvas_box(o):  # shared rule: only a full-width rectangle is a canvas; the GB gold oval stays
+        mw = o.matrix_world
+        pts = [(mw @ q.co.xyz).xy for sp in o.data.splines for q in (sp.bezier_points or sp.points)]
+        return L.canvas_box(pts, full)
     for o in list(objs):  # drop open paths and the canvas-size background box
         if not any(s.use_cyclic_u for s in o.data.splines) or canvas_box(o):
             bpy.data.objects.remove(o); objs.remove(o)
@@ -457,6 +455,22 @@ y0 = min(q[1] for q in pts) - 0.12; y1 = max(q[1] for q in pts) + 0.12
 pm = bpy.data.meshes.new("Title panel"); pm.from_pydata([(x0, y0, -0.06), (x1, y0, -0.06), (x1, y1, -0.06), (x0, y1, -0.06)], [], [(0, 1, 2, 3)])
 panel = bpy.data.objects.new("Title panel", pm); sc.collection.objects.link(panel); panel.parent = title; panel.data.materials.append(flat("TitlePanel", PANEL))
 table.data.materials.clear(); table.data.materials.append(flat("TablePanel", PANEL))
+
+# ------------------------------------------------- house parts (approved on the Packers trio, 2026-11-12)
+from tools.broadcast_engine.prototypes.lane4 import house
+for o in (mah, alle):  # players hold their landed spot; the dust entrance brings them in
+    sc.frame_set(33); landed = tuple(o.location); o.animation_data_clear(); o.location = landed
+sc.frame_set(1)
+house.align_helmets([mah, alle])
+house.dust_entrance([mah, alle])
+if DATA and DATA.get("cards"):
+    # Focused mini cards on the nameplates take the place of the stat table.
+    for o in [table] + [o for o in sc.objects if o.name.startswith("Rule") or o.get("role") in ("label", "value")]:
+        o.animation_data_clear(); o.hide_render = True
+    for card in DATA["cards"]:
+        root, mats = house.stat_card(card["name"], [tuple(r) for r in card["rows"]], house.CARD_X[card["side"]])
+        if card.get("fadeAt") is not None:
+            house.fade(mats, house.frame(card["fadeAt"]), house.frame(card["fadeAt"]) + 8, 1, 0)
 
 for _n in ("SpineTop", "Top", "GrazeR", "Key", "Fill"): bpy.data.objects[_n].data.volume_factor = 0.0
 _cg = bpy.data.node_groups.new("Comp", "CompositorNodeTree"); sc.compositing_node_group = _cg

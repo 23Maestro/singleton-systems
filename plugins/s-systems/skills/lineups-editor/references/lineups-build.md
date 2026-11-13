@@ -49,6 +49,27 @@ stops when its team has no current depth map. The camera arrives and moves
 for the first 6 seconds (`MOVE_END`, frame 150), then holds. Renders cover
 only the motion; the hold is a freeze of the last moving frame.
 
+### 4A house defaults
+
+Jerami approved these on the Packers trio, November 12, 2026. The 4A builder
+and `tools/broadcast_engine/prototypes/lane4/house.py` build them. The rules
+and their tests live in `tools/broadcast_engine/lane4_layout.py`.
+
+- Logos and player photos show exact source color. Only a full-width
+  rectangle counts as a logo canvas, so the Green Bay gold ring stays.
+- Titles and names use upright Antonio. Stats use Saira. Text is flat white.
+- Both logos match in width, mirror left and right, and sit level.
+- Helmet tops sit on 1 line, measured from the cutout pixels.
+- Players build in from team-card dust after the logos land.
+- Episode data `cards` swaps the table for mini stat cards on the
+  nameplates. Each card is rounded black, uses Antonio and has a divider
+  between stats.
+- Centered callouts sit on rounded black panels just above the nameplates.
+- `house.player_swap` drops the old player, whips the new one in from the
+  right and flips the nameplate.
+- `render_review.py` renders frames with object or material keys, then adds
+  the episode audio at the scene anchor.
+
 Unreal is retired for new builds. The Unreal comparison, team-logo and rank
 movement masters stay as history with their saved approvals and exports. Team
 matchup, Logo stat cards and Rank Movement had Unreal-only routes. They now ask

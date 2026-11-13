@@ -123,6 +123,9 @@ try {
     const uploaded = new Map();
     const asset = async (relative, expectedHash) => {
       if (relative == null) return relative;
+      // Earlier versions kept from this project's live packet are already uploaded.
+      if (typeof relative === 'string' && project && relative.startsWith('/api/studio/assets?')
+          && new URLSearchParams(relative.split('?')[1]).get('projectId') === project.projectId) return relative;
       if (typeof relative !== 'string' || !/^assets\/[a-zA-Z0-9_-]+\.[a-zA-Z0-9]+$/.test(relative)) {
         throw new Error('The review packet has an invalid asset path.');
       }
