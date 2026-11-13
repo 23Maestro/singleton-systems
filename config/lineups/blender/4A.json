@@ -13,7 +13,7 @@
   "files": {
     "builder": {
       "path": "tools/broadcast_engine/prototypes/lane4/build_l4_v5.py",
-      "sha256": "548b40d35ce9cd4871896ba7275761b545cb1bc3f1f988f0df00f7e45c3442a3"
+      "sha256": "33999c8c9d8de644e5e2f6f111902fac2074771aea359e3274a52bcbe58adf61"
     },
     "dataContract": {
       "path": "tools/broadcast_engine/player_comparison_data.py",

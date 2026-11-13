@@ -48,7 +48,7 @@ U0, U1 = 790, 1840                         # the rows block; the team name and t
 CU = (U0 + U1) / 2
 
 def glow_mat(hexc, n):
-    """Bar fill: the team colour glowing hot enough to bloom, with a slow sparkle drifting through it."""
+    """Bar fill: the team colour, true to source, with a slow sparkle drifting through it."""
     m = k.flat_mat("Bar", hexc, glow=3.0, rough=0.3); nt = m.node_tree; p = nt.nodes["Principled BSDF"]
     tc = nt.nodes.new("ShaderNodeTexCoord"); nz = nt.nodes.new("ShaderNodeTexNoise"); nz.noise_dimensions = "4D"
     nz.inputs["Scale"].default_value = 3.0; nz.inputs["Detail"].default_value = 4
@@ -58,7 +58,8 @@ def glow_mat(hexc, n):
     for fc in k._fcurves(nt.animation_data.action):
         for kp in fc.keyframe_points: kp.interpolation = "LINEAR"
     rp = nt.nodes.new("ShaderNodeMapRange"); rp.inputs["From Min"].default_value = 0.45; rp.inputs["From Max"].default_value = 0.75
-    rp.inputs["To Min"].default_value = 2.4; rp.inputs["To Max"].default_value = 5.5
+    # Sparkle stays at or under 1.0 so the team colour never clips toward yellow or white.
+    rp.inputs["To Min"].default_value = 0.85; rp.inputs["To Max"].default_value = 1.0
     nt.links.new(nz.outputs["Fac"], rp.inputs["Value"]); nt.links.new(rp.outputs["Result"], p.inputs["Emission Strength"])
     return m
 
