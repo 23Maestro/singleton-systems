@@ -1,6 +1,6 @@
 # Studio
 
-Source for `/studio` and the private review preview. The project list starts
+Source for `/studio` and the public review preview. The project list starts
 empty under Catena Media, Intent Solutions and Singleton Systems. The Lineups
 handoff records the scene packet and the originating Codex thread together.
 
@@ -50,14 +50,9 @@ relay. It checks for queued reviews every 15 seconds while the Mac is signed in.
 Studio shows **Sent to chat** after the relay finds the message in the bound
 thread. A claimed send with no receipt needs a chat check.
 
-Run `node scripts/studio-access-link.mjs` on the source Mac for the private
-Studio link. Bookmark the link itself. The address bar drops the access code
-after opening it. If the browser clears its cookies, use the same bookmark.
-Only share it with someone who should be able to manage Studio projects.
-
-To revoke the link and all Studio browser sessions, replace `STUDIO_OWNER_KEY`
-in the local Studio configuration and in Vercel production. Deploy with the
-new key, then run the link command again.
+Open `https://www.singleton-systems.com/studio` to browse projects and review
+scenes. No private link or browser session is needed. Project creation and
+deletion keep the owner or producer guard. Packet writes need producer access.
 
 Producer access lives in `~/.config/singleton-systems/studio.env`. To retry a specific send, run
 `node --env-file=~/.config/singleton-systems/studio.env scripts/studio-send-to-chat.mjs SEND_ID`.

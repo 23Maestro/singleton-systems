@@ -1,18 +1,20 @@
 const $ = s => document.querySelector(s);
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const message = text => { $('#message').textContent = text; };
-async function request(url, options, denied = 'Open your private Studio link to continue.') {
+async function request(url, options) {
   const response = await fetch(url, options);
-  if (!response.ok) throw new Error(response.status === 401 ? denied : 'Studio couldn’t load this request. Try again.');
-  return response.json();
+  if (!response.ok) throw new Error('Studio couldn’t load this request. Try again.');
+  return response;
 }
 const command = value => request('/api/studio/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(value) });
 async function load() {
-  const rows = await request('/api/studio/projects');
+  const response = await request('/api/studio/projects');
+  const rows = await response.json();
+  const canManage = response.headers.get('X-Studio-Can-Manage') === 'true';
   const projectId = new URL(location.href).searchParams.get('project');
   const selected = rows.find(row => row.projectId === projectId);
   $('#clients').hidden = false;
-  $('#projects').hidden = false;
+  $('#projects').hidden = !canManage;
   $('#intro').textContent = 'Open an edit or check what is ready for review.';
   if (projectId && !selected) message('This project is no longer in Studio.');
   for (const group of document.querySelectorAll('[data-client]')) {
@@ -28,7 +30,7 @@ async function load() {
         : row.storyboardUrl ? `<a class="action" href="${escapeHtml(row.storyboardUrl)}">Review storyboard</a>` : '';
       const sourceChat = row.sourceChatId
         ? `<a class="action" href="codex://threads/${encodeURIComponent(row.sourceChatId)}">Open source chat</a>` : '';
-      const remove = `<button type="button" data-delete="${id}" data-title="${title}">Delete project</button>`;
+      const remove = canManage ? `<button type="button" data-delete="${id}" data-title="${title}">Delete project</button>` : '';
       return `<article class="project" id="project-${id}" tabindex="-1">
         <h3>${title}</h3><p class="muted">${detail}</p>
         ${review || sourceChat || remove ? `<div class="actions">${review}${sourceChat}${remove}</div>` : ''}
@@ -55,15 +57,9 @@ async function openStudio() {
   message('');
   try {
     const url = new URL(location.href);
-    const access = new URLSearchParams(url.hash.slice(1)).get('access');
-    if (access !== null) {
+    if (new URLSearchParams(url.hash.slice(1)).has('access')) {
       url.hash = '';
       history.replaceState(history.state, '', url);
-      await request('/api/studio/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ access }),
-      }, 'This Studio link is invalid. Open your current private link.');
     }
     await load();
   } catch (error) {
@@ -71,7 +67,4 @@ async function openStudio() {
     message(error.message);
   }
 }
-window.addEventListener('hashchange', () => {
-  if (new URLSearchParams(location.hash.slice(1)).has('access')) void openStudio();
-});
 await openStudio();

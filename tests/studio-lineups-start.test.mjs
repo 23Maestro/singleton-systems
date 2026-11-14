@@ -112,10 +112,23 @@ test('starting a ready Lineups record twice returns the same Catena Media projec
   assert.equal(first.url, origin + '/studio?project=' + first.projectId);
   assert.deepEqual(await start(), first);
 
-  const catalog = await nativeFetch(origin + '/api/studio/projects', { headers: { Authorization: 'Bearer ' + key } });
+  // A fresh visitor can browse Studio without a bookmark, cookie or producer token.
+  const catalog = await nativeFetch(origin + '/api/studio/projects');
   assert.equal(catalog.status, 200);
+  assert.equal(catalog.headers.get('X-Studio-Can-Manage'), 'false');
   const records = await catalog.json();
   assert.deepEqual(records.map(row => [row.projectId, row.client]), [[first.projectId, 'Catena Media']]);
+  const producerCatalog = await nativeFetch(origin + '/api/studio/projects', { headers: { Authorization: 'Bearer ' + key } });
+  assert.equal(producerCatalog.headers.get('X-Studio-Can-Manage'), 'true');
+  assert.equal((await nativeFetch(origin + '/api/studio/projects', {
+    method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'delete', projectId: first.projectId }),
+  })).status, 401);
+  assert.equal((await nativeFetch(origin + '/api/studio/projects?projectId=' + first.projectId, {
+    method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'delete', projectId: first.projectId }),
+  })).status, 403);
+  assert.equal((await nativeFetch(origin + '/api/studio/projects?pendingChatHost=review-host')).status, 401);
 
   const storyboard = 'https://review.example.invalid/week-12';
   const options = ['--storyboard', storyboard];
@@ -214,7 +227,7 @@ test('starting a ready Lineups record twice returns the same Catena Media projec
     assert.match(input.input[0].text, /Changes Requested/);
     assert.doesNotMatch(input.input[0].text, /"Approved"/);
     const frame = new URL(input.input[0].text.match(/"frameUrl":"([^"]+)"/)?.[1]);
-    assert.equal((await nativeFetch(frame)).status, 401);
+    assert.equal((await nativeFetch(frame)).status, 200);
     const still = await nativeFetch(frame, { headers: ownerHeaders });
     assert.equal(still.headers.get('content-type'), 'image/jpeg');
     assert.deepEqual(Buffer.from(await still.arrayBuffer()), Buffer.from('/9j/2Q==', 'base64'));
@@ -309,7 +322,7 @@ test('starting a ready Lineups record twice returns the same Catena Media projec
   assert.deepEqual(await start(...options, '--packet', packet), uploaded);
   const uploadedProject = await (await nativeFetch(endpoint + '?projectId=' + uploaded.projectId, { headers })).json();
   const mediaUrl = new URL(JSON.parse(uploadedProject.packet).scenes[0].versions[1].url, origin);
-  assert.equal((await nativeFetch(mediaUrl)).status, 401);
+  assert.equal((await nativeFetch(mediaUrl)).status, 200);
   assert.deepEqual(Buffer.from(await (await nativeFetch(mediaUrl, { headers })).arrayBuffer()), media);
   const range = await nativeFetch(mediaUrl, { headers: { ...headers, Range: 'bytes=0-1' } });
   assert.equal(range.status, 206);

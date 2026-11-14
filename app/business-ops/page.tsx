@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { newAccessLink, owner } from "@/lib/studio-session";
 import { founderName, siteName, siteUrl } from "../site";
 
 export const metadata: Metadata = {
@@ -30,10 +28,7 @@ const links = [
   { label: "Finances", href: "/finances", description: "Current money and financial plans." },
 ] as const;
 
-export default async function BusinessOpsPage() {
-  const studioHref = owner({ headers: await headers() })
-    ? `${studioUrl}#access=${newAccessLink()}`
-    : studioUrl;
+export default function BusinessOpsPage() {
   return (
     <main className="min-h-dvh bg-[#f7f7f5] px-5 py-8 text-[#111318] [color-scheme:light] dark:bg-[#0c0d0f] dark:text-white dark:[color-scheme:dark] sm:px-8">
       <section className="mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-[30rem] flex-col justify-center">
@@ -63,7 +58,7 @@ export default async function BusinessOpsPage() {
             return (
             <ToolLink
               key={link.href}
-              href={isStudio ? studioHref : link.href}
+              href={link.href}
               className="group block border-b border-black/15 py-3.5 transition hover:border-black/50 hover:bg-black/[0.03] focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-[#f7f7f5] dark:border-white/15 dark:hover:border-white/60 dark:hover:bg-white/[0.03] dark:focus:ring-white dark:focus:ring-offset-[#0c0d0f]"
             >
               <span className="flex items-center gap-4">

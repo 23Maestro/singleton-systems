@@ -22,7 +22,7 @@ Lane rules live in [operations](../operations/README.md).
 | Link | Job | Quirks |
 | --- | --- | --- |
 | `/studio/review.html?project=ID` | Studio review: plan, artwork and motion for each scene, with notes | Opens each scene on its newest built version; `P` flips every scene to the plan. A built scene plays its ready video with no dropdown. Notes and statuses save by themselves. Picking a storyboard card plays its motion from the start. Motion versions carry the client's audio. Packets publish through the Lineups `studio-lineups-start.mjs` script. Source is [tools/review_workspace](../../tools/review_workspace/README.md); copy it to `public/studio`. |
-| `/studio` | Studio project list | Lists every project, so it keeps the owner session. |
+| `/studio` | Studio project list | Public. Opens without a private link or browser session. Project management stays guarded. |
 | `/video-inquiry` | Client footage intake for test edits and bundles | Public form. |
 | `/recruiting-highlights` | Athlete highlight-reel offer page | Public page. |
 | `/decision-maps`, `/decision-maps/review/ID` | Dated decision maps and video review pages | Public by link. |

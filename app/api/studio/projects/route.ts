@@ -7,10 +7,12 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 async function proxy(request: Request) {
-  // A project link is public: anyone with it can view the review and leave notes. Listing, creating,
-  // closing or deleting projects still needs the owner session, and packet writes need the producer token.
+  // Browsing projects and reviewing a project are public. Management and packet writes stay guarded.
   const linkOnly = !producer(request) && !owner(request);
-  if (linkOnly && !new URL(request.url).searchParams.get("projectId")) {
+  const requestParams = new URL(request.url).searchParams;
+  const publicList = request.method === "GET" &&
+    !["reviewRevision", "chatSendId", "frameNoteId", "pendingChatHost"].some(key => requestParams.has(key));
+  if (linkOnly && !requestParams.get("projectId") && !publicList) {
     return Response.json({ error: "Open a Studio project link." }, { status: 401, headers: reviewHeaders });
   }
   if (request.method !== "GET" && !producer(request) && !reviewSameOrigin(request)) return new Response("Invalid origin", { status: 403, headers: reviewHeaders });
@@ -79,7 +81,11 @@ async function proxy(request: Request) {
       result.chatSendEnabled = process.env.STUDIO_CHAT_SEND_ENABLED === "1" && result.status === "active" &&
         Boolean(result.sourceChatId) && result.sourceHostId === process.env.VIDEO_REVIEW_PRODUCER_HOST_ID;
     }
-    return Response.json(result, { status: response.status, headers: reviewHeaders });
+    return Response.json(result, { status: response.status, headers: {
+      ...reviewHeaders,
+      ...(request.method === "GET" && !id && !sendId && pendingHost === null
+        ? { "X-Studio-Can-Manage": String(!linkOnly) } : {}),
+    } });
   } catch {
     return Response.json({ error: "Studio could not reach project storage." }, { status: 503, headers: reviewHeaders });
   }
