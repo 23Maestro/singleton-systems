@@ -14,3 +14,5 @@ blockers only for work that really gates another step.
 
 Keep deadlines separate from planned work dates. Check proof before closing
 children, then the parent. An initiative or label never starts work.
+
+Use [File homes](../files.md) for active work, kept media and closeout receipts.

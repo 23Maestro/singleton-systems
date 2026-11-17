@@ -265,7 +265,7 @@ print(json.dumps({"streams":[stream]}))
 `, { mode: 0o755 });
   const env = { ...process.env, CREATIVE_745_CONFIG_DIR: dir, CREATIVE_745_FFPROBE: probe };
   if (storageFixture) {
-    const generated = path.join(dir, "Generated");
+    const generated = path.join(dir, "Active Work");
     const file = path.join(dir, "visual-contract.json");
     const contract = JSON.parse(fs.readFileSync(file, "utf8"));
     contract.workflow.graphics.outputRoot = path.join(generated, "745_CREATIVE", "renders");

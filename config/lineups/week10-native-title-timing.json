@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "scope": "native-title-timing",
+  "episodeId": "2026-11-10-nfl-week-10-power-rankings",
+  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/CATENA_MEDIA/2026-11-12_w10_powerrankings.prproj",
+  "sequenceId": "1d87a35c-266a-4a9b-9d90-012c50814421",
+  "fps": 25,
+  "statePath": "/Users/singleton23/.local/state/singleton-systems/lineups-premiere/2026-11-12-w10-title-timing.json",
+  "timingSource": "/Users/singleton23/Documents/Handoffs/2026-11-12-week-10-approved-motion.json",
+  "timingRule": "First frame at or after rank reveal timelineIn, plus 16 frames; after either a 10 or 15 frame head transition. Preserve Jerami's updated opening cut at 91.84 seconds.",
+  "clips": [
+    {
+      "clipId": "000f42b8",
+      "name": "Graphic",
+      "trackIndex": 2,
+      "beforeStartFrame": 13536,
+      "beforeEndFrame": 15675,
+      "startFrame": 8821,
+      "endFrame": 11037
+    },
+    {
+      "clipId": "000f42b9",
+      "name": "Graphic",
+      "trackIndex": 2,
+      "beforeStartFrame": 15675,
+      "beforeEndFrame": 17319,
+      "startFrame": 11037,
+      "endFrame": 12666
+    },
+    {
+      "clipId": "000f42ba",
+      "name": "Graphic",
+      "trackIndex": 2,
+      "beforeStartFrame": 17319,
+      "beforeEndFrame": 18381,
+      "startFrame": 12666,
+      "endFrame": 14270
+    },
+    {
+      "clipId": "000f42bb",
+      "name": "Graphic",
+      "trackIndex": 2,
+      "beforeStartFrame": 18381,
+      "beforeEndFrame": 19824,
+      "startFrame": 14270,
+      "endFrame": 16148
+    },
+    {
+      "clipId": "000f42bc",
+      "name": "Graphic",
+      "trackIndex": 2,
+      "beforeStartFrame": 19824,
+      "beforeEndFrame": 22196,
+      "startFrame": 16148,
+      "endFrame": 17542
+    },
+    {
+      "clipId": "000f42bd",
+      "name": "Graphic",
+      "trackIndex": 2,
+      "beforeStartFrame": 22196,
+      "beforeEndFrame": 23859,
+      "startFrame": 17542,
+      "endFrame": 18926
+    }
+  ],
+  "approval": {
+    "reviewer": "Jerami",
+    "status": "approved",
+    "source": "2026-11-12 chat 01a1cf16-9a88-7c31-be58-4fa8ef850b53: Repair the binding and finish. Scope: existing Week 10 V3 ranks 6 through 1 only. No render ingest or transition approval is created.",
+    "bindingSha256": "24f94f2208db230179b97d95fb2b93db0a53acd30cdbf7a420eae5c6a15f4355"
+  }
+}

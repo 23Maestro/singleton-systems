@@ -3,7 +3,10 @@
   "reviewId": "singleton-systems-codex-rabbit",
   "intent": "Review the active Singleton Systems diff twice and keep delivery incomplete until checks, findings, current-scope readback, and human approval agree.",
   "baseRef": "origin/main",
-  "requiredPasses": ["initial", "verification"],
+  "requiredPasses": [
+    "initial",
+    "verification"
+  ],
   "contractFiles": [
     "AGENTS.md",
     "CODEX.md",
@@ -13,10 +16,107 @@
     "docs/agents/triage-labels.md"
   ],
   "checks": [
-    { "checkId": "diff-integrity", "command": "git", "args": ["diff", "--check"], "timeoutMs": 30000 },
-    { "checkId": "repository-tests", "command": "npm", "args": ["test"], "timeoutMs": 600000 },
-    { "checkId": "typecheck", "command": "npm", "args": ["run", "typecheck"], "timeoutMs": 180000 },
-    { "checkId": "build", "command": "npm", "args": ["run", "build"], "timeoutMs": 240000 }
+    {
+      "checkId": "diff-integrity",
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutMs": 30000
+    },
+    {
+      "checkId": "repository-tests",
+      "command": "npm",
+      "args": [
+        "test"
+      ],
+      "timeoutMs": 600000
+    },
+    {
+      "checkId": "typecheck",
+      "command": "npm",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "timeoutMs": 180000
+    },
+    {
+      "checkId": "build",
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutMs": 240000
+    }
   ],
-  "humanApproval": { "required": true }
+  "humanApproval": {
+    "required": true
+  },
+  "scopeProfiles": {
+    "task-closeout": {
+      "paths": [
+        "lib/task-closeout.mjs",
+        "lib/task-lifecycle.mjs",
+        "lib/linear-markdown.mjs",
+        "lib/reviews",
+        "scripts/codex-rabbit-review.mjs",
+        "scripts/task-closeout.mjs",
+        "scripts/check-agent-guidance.mjs",
+        "tests/task-closeout.test.mjs",
+        "tests/review-scope.test.mjs",
+        "scripts/check-code-delivery-stop.mjs",
+        "scripts/check-codex-rabbit-review.mjs",
+        "docs/harness/writing-rules.md",
+        "docs/harness/codex-rabbit.md",
+        "docs/agents/issue-tracker.md",
+        "config/reviews",
+        "package.json"
+      ],
+      "inputs": [
+        "pnpm-lock.yaml",
+        "tsconfig.json",
+        "eslint.config.mjs",
+        "lib/transactions",
+        "lib/linear-api.ts",
+        "lib/command-center-asana.ts",
+        "lib/task-lifecycle-asana.mjs",
+        "tests/task-lifecycle.test.mjs",
+        "tests/task-lifecycle-asana.test.mjs",
+        "tests/fixtures/task-owner-http.mjs",
+        "scripts/task-lifecycle.mjs",
+        "plugins/repo-housekeeping/skills/repo-prune-review/scripts/doc-evidence.mjs",
+        ".env.local",
+        ".codex/hooks/cerebral_singleton_guard.py",
+        ".codex/hooks.json"
+      ]
+    },
+    "workflow-ledger": {
+      "paths": [
+        "scripts/workflow-ledger.mjs",
+        "scripts/workflow-ledger.test.mjs",
+        "config/workflow-ledger.json",
+        "docs/workflow-ledger.md",
+        "docs/harness/workflow-ledger.md",
+        "sites/workflow-ledger/dist/index.html",
+        "sites/workflow-ledger/.openai/hosting.json",
+        "config/reviews/singleton-systems.json"
+      ],
+      "inputs": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "tsconfig.json",
+        "eslint.config.mjs",
+        "lib/reviews",
+        "lib/transactions",
+        "scripts/codex-rabbit-review.mjs",
+        "scripts/check-code-delivery-stop.mjs",
+        ".codex/hooks/cerebral_singleton_guard.py",
+        ".codex/hooks.json",
+        ".env.local"
+      ]
+    }
+  }
 }

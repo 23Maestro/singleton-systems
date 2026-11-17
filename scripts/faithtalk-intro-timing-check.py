@@ -11,7 +11,7 @@ from pathlib import Path
 
 PROJECT = Path("/Users/singleton23/Documents/Development/singleton-systems/videos/faithtalk-drawn-seed-preview")
 HTML = Path(sys.argv[1]) if len(sys.argv) > 1 else PROJECT / ".hyperframes/review-v23-project/index.html"
-DTW = Path("/Volumes/HomeSSD/Generated/FAITHTALK/audio/transcripts-2026-09-29/faithtalk-intro-enhanced-dtw.json")
+DTW = Path("/Volumes/HomeSSD/Active Work/FAITHTALK/audio/transcripts-2026-09-29/faithtalk-intro-enhanced-dtw.json")
 STEM_OFFSET = 0.75      # VO stem = source 0.750-37.250
 LOGO_LANDS = 3.963      # last tween end in compositions/logo-approved-v6-1.html
 END = 36.5

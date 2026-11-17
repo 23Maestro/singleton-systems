@@ -10,6 +10,7 @@ Notion is a past source. The full outreach loop stays in 23M-281 for later.
 | Name, Lane, relationship and short context | Supabase, shown in the dashboard |
 | Sent messages and replies | Gmail or the original channel |
 | Outreach events and results | The existing outreach sheet |
+| Work events, revisions, hours and delivery proof | Clients & Work, using the [client work rules](client-work.md) |
 | Next action Jerami accepts | Asana, opened from the dashboard |
 | Software build, tests and proof | Linear, linked to the client or offer |
 
@@ -17,6 +18,26 @@ The sheet may keep 500 rows without 500 client files or Asana tasks.
 Reuse contact and opportunity IDs across owners.
 Supabase may index the ledger for fast reads; it must not become a second
 editable event history. Keep source IDs and show when a read is stale or fails.
+
+## Quick contact and follow-up
+
+Search Apple Contacts when a person is named. Match the name and available
+phone or email. Choose the right person when matches are unclear. If asked to
+add someone, check for an existing match first. Create the contact with the
+details supplied. Do not overwrite, merge, or delete a contact automatically.
+Read the saved contact back.
+
+For a call, text, or work block, use the chosen person's details and the
+requested time and notes. Save the event to the chosen iCloud calendar with
+an alert. Read it back. The alert is the reminder.
+Do not send a message or invite the contact unless asked.
+
+Apple Contacts holds the device contact. Supabase holds the client record;
+link them when a reliable shared identifier exists. The source channel keeps
+the message history. A calendar entry does not replace the accepted Asana task.
+
+The quick Shortcut is in development. Do not claim device sync or contact
+creation works until each has been checked on the target device.
 
 ## The client card
 

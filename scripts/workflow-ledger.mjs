@@ -19,7 +19,16 @@ function https(value) {
 
 function load(file) {
   const records = JSON.parse(fs.readFileSync(file, 'utf8'));
-  if (records.schemaVersion !== 1 || !Array.isArray(records.repositories) || !records.workflows?.length) throw new Error('Use schemaVersion 1 with repositories and workflows.');
+  if (records.schemaVersion !== 1 || !Array.isArray(records.repositories) || !Array.isArray(records.workflows)
+    || (!records.workflows.length && !records.requiredWorkflows?.length)) throw new Error('Use schemaVersion 1 with repositories and workflows.');
+  const requirements = records.requiredWorkflows ?? [];
+  if (!Array.isArray(requirements)) throw new Error('Required workflows must be a list.');
+  const requiredIds = new Set();
+  for (const workflow of requirements) {
+    if (!workflow || typeof workflow.id !== 'string' || !/^[a-z][a-z0-9-]*$/.test(workflow.id) || requiredIds.has(workflow.id)) throw new Error('Required workflow IDs must be unique lowercase slugs.');
+    required(workflow.name, 'Required workflow name');
+    requiredIds.add(workflow.id);
+  }
   const repositories = new Map();
   for (const repository of records.repositories) {
     required(repository.id, 'Repository ID');
@@ -60,7 +69,9 @@ function load(file) {
       }
     }
   }
-  return {records, repositories, digest: createHash('sha256').update(JSON.stringify(records)).digest('hex')};
+  const missingWorkflows = requirements.filter(workflow => !workflowIds.has(workflow.id));
+  const coverage = {status:missingWorkflows.length ? 'incomplete' : requirements.length ? 'complete' : 'not-declared', required:requirements.length, missingWorkflows};
+  return {records, repositories, coverage, digest: createHash('sha256').update(JSON.stringify(records)).digest('hex')};
 }
 
 function targetFor(link, repositories, markdownPath) {
@@ -74,6 +85,7 @@ function targetFor(link, repositories, markdownPath) {
 function markdown(data, output) {
   const links = values => values.length ? values.map(link => `[${mdText(link.label)}](<${targetFor(link, data.repositories, output)}>)`).join('<br>') : 'Not linked';
   const lines = [`# ${mdText(data.records.name || 'Video Workflow Pipeline')}`, '', data.records.scope, '', 'Generated from the shared JSON records. Edit the records, then regenerate both views.', '', `Record SHA-256: \`${data.digest}\``, ''];
+  if (data.coverage.missingWorkflows.length) lines.push('## Missing workflows', '', ...data.coverage.missingWorkflows.map(w => `- ${mdText(w.name)}: not indexed.`), '');
   lines.push(...data.records.workflows.map(w => `- [${mdText(w.name)}](#${w.id})`), '');
   for (const workflow of data.records.workflows) {
     lines.push(`## ${mdText(workflow.name)}`, '', `${mdText(workflow.client)} · ${mdText(workflow.summary)}`, '', '| Component | What it does | Source | Checks | Example | Evidence |', '| --- | --- | --- | --- | --- | --- |');
@@ -85,12 +97,13 @@ function markdown(data, output) {
 }
 
 function html(data) {
+  const missing = data.coverage.missingWorkflows.length ? `<aside class="scope" aria-label="Missing workflows"><h2>Missing workflows</h2><ul>${data.coverage.missingWorkflows.map(w => `<li>${escapeHtml(w.name)}: not indexed.</li>`).join('')}</ul></aside>` : '';
   const links = values => values.length ? values.map(link => {
     const target = targetFor(link, data.repositories);
     return target ? `<a href="${escapeHtml(target)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)} <span aria-hidden="true">↗</span></a>` : `<span class="local">${escapeHtml(link.label)} · local only</span>`;
   }).join('') : '<span class="muted">Not linked</span>';
   const sections = data.records.workflows.map(workflow => `<section aria-labelledby="${escapeHtml(workflow.id)}"><header class="workflow"><div><p class="eyebrow">${escapeHtml(workflow.client)}</p><h2 id="${escapeHtml(workflow.id)}">${escapeHtml(workflow.name)}</h2><p>${escapeHtml(workflow.summary)}</p></div><span class="count">${workflow.components.length} components</span></header><div class="table-wrap"><table><caption class="sr-only">${escapeHtml(workflow.name)} workflow components</caption><thead><tr><th scope="col">Component</th><th scope="col">What it does</th><th scope="col">Source</th><th scope="col">Checks</th><th scope="col">Example</th><th scope="col">Evidence</th></tr></thead><tbody>${workflow.components.map(c => `<tr id="${escapeHtml(workflow.id)}-${escapeHtml(c.id)}"><th scope="row"><a class="component" href="#${escapeHtml(workflow.id)}-${escapeHtml(c.id)}">${escapeHtml(c.name)}</a></th><td>${escapeHtml(c.purpose)}</td><td class="links">${links(c.sources)}</td><td class="links">${links(c.checks)}</td><td class="links">${links(c.examples)}</td><td><span class="badge">${escapeHtml(c.evidence.state)}</span><p class="note">${escapeHtml(c.evidence.note)}</p></td></tr>`).join('')}</tbody></table></div></section>`).join('');
-  const navigation = `<nav aria-label="Workflows">${data.records.workflows.map(w => `<a href="#${escapeHtml(w.id)}">${escapeHtml(w.name)}</a>`).join(' · ')}</nav>`;
+  const navigation = `${missing}<nav aria-label="Workflows">${data.records.workflows.map(w => `<a href="#${escapeHtml(w.id)}">${escapeHtml(w.name)}</a>`).join(' · ')}</nav>`;
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>${escapeHtml(data.records.name || 'Video Workflow Pipeline')} · Singleton Systems</title><style>
 :root{color-scheme:light;--ink:#202a28;--muted:#58665f;--paper:#f6f7f2;--line:#d9dfd5;--accent:#245c45}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,sans-serif}main{max-width:1500px;margin:auto;padding:44px 32px 64px}a{color:var(--accent);text-underline-offset:4px}a:focus-visible{outline:3px solid #b17d17;outline-offset:4px}.brand{font-size:13px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;margin-bottom:44px}.intro{max-width:820px}h1{font-size:clamp(36px,5vw,60px);line-height:1.08;letter-spacing:-.045em;margin:0 0 20px}.lead{font-size:20px;color:var(--muted);margin:0 0 24px}.scope{background:#e9eee5;border-left:3px solid var(--accent);padding:14px 18px;font-size:15px}.workflow{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:32px 0 20px}.eyebrow{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 3px}h2{font-size:28px;margin:0 0 6px}.workflow p:last-child{margin:0;color:var(--muted)}.count{white-space:nowrap;font-size:13px;color:var(--muted)}.table-wrap{border:1px solid var(--line);border-radius:12px;background:white;overflow:auto}table{width:100%;border-collapse:collapse;min-width:1060px;table-layout:fixed}thead{background:#eef1e9}th,td{text-align:left;vertical-align:top;padding:20px 16px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}thead th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--muted)}th:nth-child(1){width:16%}th:nth-child(2){width:25%}th:nth-child(3),th:nth-child(4),th:nth-child(5){width:13%}th:nth-child(6){width:20%}tbody th{font-weight:650}tr:last-child>*{border-bottom:0}.component{color:var(--ink);text-decoration:none}.component:hover{text-decoration:underline}.links a,.links .local{display:block;font-size:14px;margin-bottom:9px}.local,.muted{color:var(--muted);font-size:13px}.badge{display:inline-block;background:#edf1e6;border:1px solid #d7dfc9;color:#425c30;font-size:12px;border-radius:20px;padding:3px 9px}.note{font-size:13px;color:var(--muted);margin:9px 0 0}.evidence{max-width:800px;margin-top:32px}.evidence h2{font-size:20px}.evidence p{color:var(--muted)}footer{margin-top:36px;font-size:12px;color:var(--muted);overflow-wrap:anywhere}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.mobile-hint{display:none}@media(max-width:700px){main{padding:24px 18px}.brand{margin-bottom:30px}.lead{font-size:18px}.workflow{align-items:flex-start}.count{display:none}.mobile-hint{display:block;font-size:13px;color:var(--muted)}.table-wrap{border-radius:8px}th,td{padding:16px 12px}}@media print{main{padding:0;max-width:none}.table-wrap{overflow:visible;border:0}table{min-width:0;font-size:10px}th,td{padding:8px}.brand{margin-bottom:20px}h1{font-size:30px}.workflow{padding-top:20px}.lead{font-size:14px}.mobile-hint{display:none}a{text-decoration:none}}
@@ -124,7 +137,9 @@ try {
     }
   }
   const unavailableRepositories = [...data.repositories.values()].filter(repo => !repo.available).map(repo => repo.id);
-  console.log(JSON.stringify({outcome: 'passed', unavailableRepositories, workflows: data.records.workflows.length, components: data.records.workflows.reduce((n, w) => n + w.components.length, 0), recordsSha256: data.digest}));
+  const incomplete = data.coverage.missingWorkflows.length > 0;
+  console.log(JSON.stringify({outcome: incomplete ? command === 'check' ? 'failed' : 'generated-with-gaps' : 'passed', coverage:data.coverage, unavailableRepositories, workflows: data.records.workflows.length, components: data.records.workflows.reduce((n, w) => n + w.components.length, 0), recordsSha256: data.digest}));
+  if (command === 'check' && incomplete) process.exitCode = 1;
 } catch (error) {
   console.error(JSON.stringify({outcome: 'failed', error: error.message}));
   process.exitCode = 1;

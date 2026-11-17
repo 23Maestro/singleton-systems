@@ -1,10 +1,17 @@
 # FaithTalk TV context
 
+## Media locations — November 13
+
+- 54 video and audio files now live in the [HomeSSD working copy](</Volumes/HomeSSD/Active Work/FAITHTALK/source/faithtalk-drawn-seed-assets>). Their original asset paths are links. HomeSSD must be mounted; there is no internal fallback.
+- The [MediaSSD backup](/Volumes/MediaSSD/02_EDITING/CLIENTS/FAITHTALK/STORAGE_RECOVERY_2026_11_13/faithtalk-drawn-seed-assets) has matching hashes for all 82 regular asset files. The 8 existing media links were kept.
+- 28 small source files, graphics, fonts and documents stay in the repository. The migration passed 298 media-link checks and a 3-second playback render before the old internal media copies were retired.
+- The [migration receipt](/Users/singleton23/.local/state/singleton-systems/storage-guard/2026-11-13-faithtalk-migration-verified.json) records each path and its restore copy.
+
 ## Media locations — September 30 (s-systems:video-storage, HomeSSD contract)
 
 - Canonical masters live in Eagle (Content Editor library) under 745 Productions / FaithTalk TV / Episode 1 / FINISHED: v3_FaithTalkTV_INTRO (MUOJ6LGUYW6J9), v3_FaithTalkTV_Outro_A (MUOJ6LMCJSURZ), v3_FaithTalkTV_Outro_B (MUOJ6LQHF1NBR). Checksums match the renders.
-- Generated media lives flat under /Volumes/HomeSSD/Generated/FAITHTALK/: renders/ (intro v23 4K-pass picture, milestones/, outro-r3-passes/{black,white,source-figma-*}, outro-r2-connect-seed.mp4, outro-r2-connect-soil-push-4k.mp4, MIGRATION-2026-09-30.txt with SHA-256 per file), previews/ (intro review MP4, outro r3 A/B previews, timing sheets), audio/ (VO stems, final intro and outro mixes).
-- scripts/faithtalk-outro-r3-assemble.sh reads passes from and writes its build to HomeSSD (override with FAITHTALK_MEDIA). New HyperFrames renders: `-o /Volumes/HomeSSD/Generated/FAITHTALK/renders/…`; extracted-frame cache /Volumes/HomeSSD/Generated/hyperframes/cache/extracted-frames.
+- Generated media lives flat under /Volumes/HomeSSD/Active Work/FAITHTALK/: renders/ (intro v23 4K-pass picture, milestones/, outro-r3-passes/{black,white,source-figma-*}, outro-r2-connect-seed.mp4, outro-r2-connect-soil-push-4k.mp4, MIGRATION-2026-09-30.txt with SHA-256 per file), previews/ (intro review MP4, outro r3 A/B previews, timing sheets), audio/ (VO stems, final intro and outro mixes).
+- scripts/faithtalk-outro-r3-assemble.sh reads passes from and writes its build to HomeSSD (override with FAITHTALK_MEDIA). New HyperFrames renders: `-o /Volumes/HomeSSD/Active Work/FAITHTALK/renders/…`; extracted-frame cache /Volumes/HomeSSD/Generated/hyperframes/cache/extracted-frames.
 - Internal SSD now holds only the project (compositions, notes, tests) and assets/ (composition-linked sources incl. Envato, kept for swaps). Internal renders/ and snapshots/ were deleted 2026-09-30 after scripts/faithtalk-media-links-check.py passed a simulated delete (293 links, 0 offline) and a negative control (18 offline when needed files were withheld). Run that check after any move or delete.
 
 ## Intro v23 and outro r3 timing — September 29

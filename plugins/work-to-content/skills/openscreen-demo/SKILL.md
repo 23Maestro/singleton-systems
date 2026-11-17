@@ -29,7 +29,7 @@ UUID `0EB7E204-D359-47B2-B9B1-89B2DC77BC5A`. Stop if the gate fails; do not use
 the internal SSD as a media fallback. Use the existing video-storage gate when
 available. Configure OpenScreen's recording folder before capture.
 
-Store working media under `/Volumes/HomeSSD/Generated/<CLIENT>/<TYPE>/`.
+Store working media under `/Volumes/HomeSSD/Active Work/<CLIENT>/<TYPE>/`.
 Use upper snake case for clients and `_INBOX` when unknown. Types are `source`,
 `audio`, `renders`, `previews` and `references`. Keep reusable source and small
 project manifests in the repository. Preserve irreplaceable raw source in

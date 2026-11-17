@@ -155,7 +155,7 @@ def verify_storage(root, file, must_exist=True, render_command=None):
     if parent not in path.parents:
         raise ValueError("745 graphics must live under their HomeSSD outputRoot; symlink escapes are blocked")
     from creative_745 import ROOT
-    cache = str(Path(os.environ.get("STORAGE_GATE_ROOT", "/Volumes/HomeSSD/Generated"))
+    cache = str(Path(os.environ.get("STORAGE_GATE_ROOT", "/Volumes/HomeSSD/Active Work"))
                 / "hyperframes/cache/extracted-frames")
     # Keep the gate's configured root spelling (macOS /var -> /private/var is
     # an alias); its own physical-path check still rejects escaping symlinks.

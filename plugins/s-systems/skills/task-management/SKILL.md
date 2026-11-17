@@ -32,8 +32,11 @@ chat or task. “No deadline” means no due date. A day chosen to work on the t
 is separate from its deadline. Clarify incomplete dates and time zones when a
 deadline includes a time. Preserve a confirmed existing deadline.
 
-Propose rough, editable estimates with a short basis. Show Jerami's attention,
-tool runtime and external waiting separately. Use minutes or null for unknown
+Use the repository task systems guide for estimate rules when it is available.
+Estimate AI research, writing, coding and checks at the agent's
+expected pace. Count only Jerami's choices, setup and review as his attention.
+Show a short basis for each estimate and revise it from observed runs. Keep
+fixed tool runs and outside waits visible. Use minutes or null for unknown
 values. Do not report planned savings as measured results.
 
 Use the old Opportunity HQ planning shape with current task owners: a clear

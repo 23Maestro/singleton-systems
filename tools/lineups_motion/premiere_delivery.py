@@ -149,7 +149,7 @@ def validate_source(root, binding, row):
 
 
 def handle(root, payload):
-    """Return True only for an operation owned by this approved delivery batch."""
+    """Own discovery reads and writes covered by the active delivery batch."""
     name = str(payload.get("tool_name", ""))
     if not name.startswith(PREFIX):
         return False
@@ -158,14 +158,41 @@ def handle(root, payload):
     if not path.exists():
         return False
     binding = read(path)
+    readonly = tool.startswith(('get_', 'list_', 'find_', 'check_', 'read_'))
+    if readonly and payload.get('hook_event_name') != 'PostToolUse':
+        return True
+    if binding.get('status') == 'closed':
+        if readonly:
+            return True
+        if tool in WRITES:
+            raise ValueError('Premiere delivery: this episode is closed; bind the next project before editing')
+        return False
     state_path = Path(binding["statePath"])
     state_path.parent.mkdir(parents=True, exist_ok=True)
     with state_path.with_suffix(".lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        return handle_locked(root, payload, binding)
+        if not readonly:
+            return handle_locked(root, payload, binding)
+        try:
+            handle_locked(root, payload, binding)
+        except (ValueError, KeyError, OSError) as error:
+            # Discovery must remain usable when yesterday's binding is stale.
+            # Failed evidence cannot authorize the next write.
+            state = read(state_path) if state_path.exists() else {}
+            for key in ('project', 'projectContext', 'sequence', 'itemsAt', 'itemReadbacks', 'clipReadbacks', 'verifiedClips'):
+                state.pop(key, None)
+            state['readbackError'] = str(error)
+            save(state_path, state)
+        return True
 
 
 def handle_locked(root, payload, binding):
+    if binding.get("scope") == "approved-motion-placement":
+        from .premiere_motion_placement import handle_locked as handle_motion_placement
+        return handle_motion_placement(payload, binding)
+    if binding.get("scope") == "native-title-timing":
+        from .premiere_title_timing import handle_locked as handle_title_timing
+        return handle_title_timing(payload, binding)
     name = str(payload.get("tool_name", ""))
     tool = name[len(PREFIX):]
     args = payload.get("tool_input") or {}

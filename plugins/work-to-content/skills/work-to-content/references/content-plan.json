@@ -11,16 +11,20 @@
     "expectedVolumeUUID": "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A",
     "notePath": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/work-to-content.md",
     "mediaRoots": {
-      "source": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/source",
-      "audio": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/audio",
-      "renders": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/renders",
-      "previews": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/previews"
+      "source": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/source",
+      "audio": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/audio",
+      "renders": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/renders",
+      "previews": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/previews"
     },
     "sourceRoot": "plugins/work-to-content",
     "beforeWrite": "node scripts/developer-storage/storage-gate.mjs route --client SINGLETON_SYSTEMS --kind references",
     "internalMediaFallback": false
   },
-  "firstStory": ["script cue", "timed graphic", "verified Premiere placement"],
+  "firstStory": [
+    "script cue",
+    "timed graphic",
+    "verified Premiere placement"
+  ],
   "suggestedSeconds": 30,
   "suggestedBeats": 3,
   "offerConnection": {
@@ -34,11 +38,26 @@
     "Retain Jerami's review and creative choices."
   ],
   "actions": {
-    "plan": { "capture": false, "publish": false },
-    "setup": { "capture": false, "publish": false },
-    "record": { "capture": "requested segment only", "publish": false },
-    "edit": { "capture": false, "publish": false },
-    "publish": { "capture": false, "publish": "explicit approval of clip, copy and destination" }
+    "plan": {
+      "capture": false,
+      "publish": false
+    },
+    "setup": {
+      "capture": false,
+      "publish": false
+    },
+    "record": {
+      "capture": "requested segment only",
+      "publish": false
+    },
+    "edit": {
+      "capture": false,
+      "publish": false
+    },
+    "publish": {
+      "capture": false,
+      "publish": "explicit approval of clip, copy and destination"
+    }
   },
   "automaticDelegation": false,
   "automaticRecording": false,

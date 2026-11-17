@@ -55,7 +55,7 @@
       "fallbackRenderer": "HyperFrames + GSAP, only when an export or motion requirement needs it; preserve the approved Figma design",
       "designReview": "Review each lane's first cover and opening against its approved Figma master. Review later covers as a Figma contact sheet. Test the opening once over real footage in Premiere before reuse.",
       "assembly": "Premiere Pro",
-      "outputRoot": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders",
+      "outputRoot": "/Volumes/HomeSSD/Active Work/745_CREATIVE/renders",
       "cover": {
         "format": "png",
         "width": 1080,

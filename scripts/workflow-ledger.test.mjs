@@ -90,3 +90,41 @@ test('a client workflow is findable by name and links to a separate source repos
     rmSync(root, {recursive: true, force: true});
   }
 });
+
+test('a missing required workflow stays visible in both views and fails check until indexed', () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'workflow-ledger-coverage-'));
+  try {
+    const component = {id:'guide', name:'Guide', purpose:'Keep the work steps clear.', sources:[], checks:[], examples:[], evidence:{state:'documented', note:'No fresh run is claimed.'}};
+    const records = {schemaVersion:1, repositories:[], scope:'Selected workflows only.',
+      requiredWorkflows:[{id:'lineups',name:'Lineups'},{id:'intent-keys',name:'Intent Keys'}],
+      workflows:[{id:'lineups',name:'Lineups',client:'Catena',summary:'Football edits.',components:[component]}]};
+    const source = path.join(root,'ledger.json');
+    const markdown = path.join(root,'ledger.md');
+    const site = path.join(root,'site');
+    const run = command => spawnSync(process.execPath,[cli,command,'--records',source,'--markdown',markdown,'--site',site],{encoding:'utf8'});
+    writeFileSync(source,JSON.stringify(records));
+    assert.equal(run('generate').status,0);
+    let checked = run('check');
+    assert.equal(checked.status,1,checked.stdout+checked.stderr);
+    const result = JSON.parse(checked.stdout);
+    assert.equal(result.coverage.status,'incomplete');
+    assert.deepEqual(result.coverage.missingWorkflows,[{id:'intent-keys',name:'Intent Keys'}]);
+    for (const file of [markdown,path.join(site,'index.html')]) {
+      const text = readFileSync(file,'utf8');
+      assert.ok(text.includes('Missing workflows'));
+      assert.ok(text.includes('Intent Keys'));
+    }
+    records.workflows.push({id:'intent-keys',name:'Intent Keys',client:'Intent Solutions',summary:'Screen-led lessons.',components:[component]});
+    writeFileSync(source,JSON.stringify(records));
+    assert.equal(run('generate').status,0);
+    checked = run('check');
+    assert.equal(checked.status,0,checked.stdout+checked.stderr);
+    assert.deepEqual(JSON.parse(checked.stdout).coverage.missingWorkflows,[]);
+    for (const file of [markdown,path.join(site,'index.html')]) assert.ok(!readFileSync(file,'utf8').includes('Missing workflows'));
+    records.requiredWorkflows.push({id:'lineups',name:'Copy'});
+    writeFileSync(source,JSON.stringify(records));
+    assert.equal(run('generate').status,1,'duplicate requirements must fail');
+  } finally {
+    rmSync(root,{recursive:true,force:true});
+  }
+});

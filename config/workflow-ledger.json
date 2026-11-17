@@ -2,6 +2,10 @@
   "schemaVersion": 1,
   "name": "Video Workflow Pipeline",
   "scope": "Selected workflows: Lineups and Intent Keys. Matching component roles use each client’s own sources. Other workflows are not yet indexed.",
+  "requiredWorkflows": [
+    { "id": "lineups", "name": "Lineups" },
+    { "id": "intent-keys", "name": "Intent Keys" }
+  ],
   "repositories": [
     {
       "id": "singleton-systems",

@@ -24,8 +24,8 @@ GB = 10**9
 GRACE = 48 * 3600
 MAX_GAP = 12 * 3600
 TREND_WINDOW = 48 * 3600
-RULES = {"chrome-clones", "uv-prune"}
-POLICY_VERSION = 1
+RULES = {"chrome-clones", "uv-prune", "worktree-caches"}
+POLICY_VERSION = 2
 STATE = Path.home() / ".local/state/singleton-systems/storage-guard"
 
 
@@ -78,6 +78,106 @@ def clone_root():
     return tmp.parent / "X/com.google.Chrome.code_sign_clone"
 
 
+def worktree_roots(home):
+    roots = [home / ".codex/worktrees", home / ".claude/worktrees"]
+    development = home / "Documents/Development"
+    if development.is_dir():
+        roots.extend(project / ".claude/worktrees" for project in development.iterdir()
+                     if project.is_dir() and not project.is_symlink()
+                     and (project / ".claude/worktrees").is_dir())
+    return roots
+
+
+def managed_worktrees(home):
+    result = []
+    def on_error(error):
+        raise error
+    for root in worktree_roots(home):
+        if not root.exists():
+            continue
+        real_directory(root)
+        for directory, dirs, files in os.walk(root, followlinks=False, onerror=on_error):
+            current = Path(directory)
+            if ".git" in files:
+                if (current / ".git").is_symlink():
+                    raise ValueError("Linked Git marker needs review")
+                result.append(current)
+                dirs[:] = []
+            else:
+                dirs[:] = [name for name in dirs
+                           if name not in {"node_modules", ".git", ".next"}
+                           and not (current/name).is_symlink()] if len(current.relative_to(root).parts) < 3 else []
+            if len(result) > 60:
+                raise RuntimeError("Worktree discovery exceeded its bound")
+    return result
+
+
+def worktree_details(path, home, inventory):
+    """Only generated folders in registered, merged, clean, inactive worktrees."""
+    real_directory(path)
+    if path not in managed_worktrees(home):
+        raise ValueError("Not a managed Codex or Claude worktree")
+    if busy(path, inventory):
+        raise ValueError("Worktree has open files or a process working in it")
+    git = ["git", "--no-optional-locks", "-C", str(path)]
+    if Path(command([*git, "rev-parse", "--show-toplevel"]).strip()) != path:
+        raise ValueError("Worktree root does not match Git")
+    registered = command([*git, "worktree", "list", "--porcelain"])
+    if f"worktree {path}\n" not in registered:
+        raise ValueError("Worktree is not registered with Git")
+    if command([*git, "status", "--porcelain=v1", "--untracked-files=all"]).strip():
+        raise ValueError("Worktree has unsaved or untracked source work")
+    head = command([*git, "rev-parse", "HEAD"]).strip()
+    # Use the existing recorded upstream. Cleanup never fetches or changes Git.
+    refs = command([*git, "for-each-ref", "--format=%(refname)",
+                    "refs/remotes/origin/main", "refs/remotes/origin/master"]).splitlines()
+    if not refs:
+        raise ValueError("Worktree has no recorded origin/main or origin/master")
+    merged = subprocess.run([*git, "merge-base", "--is-ancestor", head, refs[0]],
+                            capture_output=True, text=True, timeout=15, check=False)
+    if merged.returncode == 1:
+        raise ValueError("Worktree HEAD has unmerged source work")
+    if merged.returncode:
+        raise RuntimeError("Could not verify worktree merge status")
+    caches = []
+    latest = 0.0
+    for name in (".next", "node_modules"):
+        cache = path / name
+        if not cache.exists() and not cache.is_symlink():
+            continue
+        real_directory(cache)
+        if command([*git, "ls-files", "--", name]).strip():
+            raise ValueError("Generated folder contains tracked source")
+        if whisper_storage.protected(cache, home):
+            raise ValueError("Whisper is retained and excluded from cleanup")
+        latest = max(latest, tree_activity(cache))
+        caches.append(cache)
+    return {"head": head, "caches": caches, "latest_change": latest}
+
+
+def clean_worktree_caches(path, home, *, expected_head=None, latest_allowed_change=None):
+    details = worktree_details(path, home, processes())
+    if expected_head is not None and details["head"] != expected_head:
+        raise ValueError("Worktree HEAD changed after inspection")
+    if latest_allowed_change is not None and details["latest_change"] > latest_allowed_change:
+        raise ValueError("Worktree cache changed within 48 hours")
+    if not shutil.rmtree.avoids_symlink_attacks:
+        raise RuntimeError("Python lacks symlink-safe directory removal")
+    removed = []
+    for cache in details["caches"]:
+        token = identity(cache)
+        fresh = worktree_details(path, home, processes())
+        if fresh["head"] != details["head"] or identity(cache) != token:
+            raise ValueError("Worktree changed before cleanup")
+        if latest_allowed_change is not None and fresh["latest_change"] > latest_allowed_change:
+            raise ValueError("Worktree cache changed before cleanup")
+        shutil.rmtree(cache)
+        if cache.exists():
+            raise RuntimeError("Generated-folder removal did not complete")
+        removed.append(str(cache))
+    return "Removed generated folders: " + ", ".join(removed)
+
+
 def watched_paths(home, chrome):
     entries = [
         ("uv", ".cache/uv", "uv-prune", 8),
@@ -95,6 +195,10 @@ def watched_paths(home, chrome):
         ("Chrome cache", "Library/Caches/Google", "review", 3),
         ("Browser engines", "Library/Caches/ms-playwright", "protected-runtime", 4),
         ("Claude VM", "Library/Application Support/Claude/vm_bundles", "app-managed", 10),
+        ("Claude worktrees", ".claude/worktrees", "protected-source", 8),
+        ("Claude history", ".claude/projects", "protected-history", 8),
+        ("Claude app data and tools", "Library/Application Support/Claude", "app-managed", 5),
+        ("Claude update cache", "Library/Caches/com.anthropic.claudefordesktop.ShipIt", "review", 2),
         ("Frame.io Drive local cache", "Library/Application Support/Frame.io Drive/MountedStorageCache", "app-managed", 2),
         ("iCloud Intent Keys E02 local media", "Library/Mobile Documents/com~apple~CloudDocs/Jerami Intent Keys/E02", "protected-media", 2),
         ("iCloud Intent Keys E02 local review export", "Library/Mobile Documents/com~apple~CloudDocs/SingletonSystems/INBOX/intent-keys-e02-review-v05.mp4", "protected-media", 0),
@@ -114,10 +218,15 @@ def watched_paths(home, chrome):
         {"name": "macOS swap", "path": "/System/Volumes/VM", "class": "system-managed", "budget_bytes": 4*GB},
     ]
     # Bounded discovery; never descend into dependencies, Git, media, or links.
-    roots = [home / "Documents/Development", home / ".codex/worktrees"]
+    roots = [home / "Documents/Development", *worktree_roots(home)]
+    for root in roots[3:]:
+        result.append({"name": f"Claude worktrees ({root.parents[1].name})", "path": str(root),
+                       "class": "protected-source", "budget_bytes": 8*GB})
     candidates = {".next", "node_modules", ".scratch", ".git"}
     skip = candidates | {".venv", "venv", ".build", "vendor", "assets", "videos", "public", "_BLOAT_REVIEW"}
     for root in roots:
+        if not root.exists():
+            continue
         def on_error(error):
             raise error
         for directory, dirs, _ in os.walk(root, followlinks=False, onerror=on_error):
@@ -133,7 +242,7 @@ def watched_paths(home, chrome):
             dirs[:] = [n for n in dirs if n not in skip and not (current/n).is_symlink()] if depth < 3 else []
             if len(result) > 180:
                 raise RuntimeError("Discovery limit reached; narrow the configured roots")
-    return result
+    return list({item["path"]: item for item in result}.values())
 
 
 def processes():
@@ -178,7 +287,7 @@ def chrome_candidate(path, root):
     return identity(path)
 
 
-def tree_activity(path):
+def tree_activity(path, *, chrome=False):
     """Check nested changes too; root directory timestamps are insufficient."""
     newest = 0.0
     count = 0
@@ -192,9 +301,14 @@ def tree_activity(path):
             info = item.lstat()
             if info.st_dev != device:
                 raise ValueError("Cache contains a different mounted device")
-            if stat.S_ISLNK(info.st_mode) and item.resolve().is_dir() and not item.resolve().is_relative_to(path):
-                raise ValueError("Cache link escapes its root")
-            newest = max(newest, info.st_mtime, info.st_ctime)
+            # os.walk never follows links. Unlinking a contained package link
+            # leaves its destination alone, including pnpm's workspace links.
+            if chrome and stat.S_ISREG(info.st_mode):
+                # Chrome hard-links its executable across clones. Removing one
+                # changes every link's ctime without changing file contents.
+                newest = max(newest, info.st_mtime, getattr(info, "st_birthtime", 0))
+            else:
+                newest = max(newest, info.st_mtime, info.st_ctime)
             count += 1
             if count > 2_000_000 or time.monotonic() - started > 120:
                 raise RuntimeError("Cache activity scan exceeded its bound")
@@ -224,8 +338,10 @@ def cleanup_plan(home, chrome, previous, inventory, now):
                 record = idle_state(previous, str(path), token, now, active)
                 idle[str(path)] = record
                 old_enough = now - max(path.stat().st_mtime, path.stat().st_ctime) >= GRACE
-                if record["eligible"] and old_enough and now-tree_activity(path) < GRACE:
-                    record.update(idle_since=now, eligible=False)
+                if record["eligible"] and old_enough:
+                    latest = tree_activity(path, chrome=True)
+                    if now-latest < GRACE:
+                        record.update(idle_since=max(record["idle_since"], latest), eligible=False)
                 action.update(eligible=record["eligible"] and old_enough, identity=token,
                               reason="open files" if active else "eligible" if record["eligible"] and old_enough else "48-hour grace",
                               idle_since=record["idle_since"])
@@ -252,6 +368,23 @@ def cleanup_plan(home, chrome, previous, inventory, now):
         except (OSError, ValueError, RuntimeError) as error:
             action["reason"] = str(error)
         actions.append(action)
+    for path in managed_worktrees(home):
+        action = {"rule": "worktree-caches", "path": str(path), "eligible": False}
+        try:
+            details = worktree_details(path, home, inventory)
+            if not details["caches"]:
+                continue
+            token = [*identity(path), details["head"], details["latest_change"]]
+            record = idle_state(previous, str(path), token, now, False)
+            idle[str(path)] = record
+            action.update(identity=identity(path), head=details["head"],
+                          eligible=record["eligible"] and now-details["latest_change"] >= GRACE,
+                          idle_since=record["idle_since"],
+                          reason="eligible" if record["eligible"] and now-details["latest_change"] >= GRACE
+                          else "48-hour merged worktree cache grace")
+        except ValueError as error:
+            action["reason"] = str(error)
+        actions.append(action)
     return actions, idle
 
 
@@ -268,8 +401,14 @@ def execute_action(action, home, chrome, now):
     inventory = processes()
     if busy(path, inventory, uv=action["rule"] == "uv-prune"):
         raise ValueError("Target is in use")
+    if action["rule"] == "worktree-caches":
+        details = worktree_details(path, home, inventory)
+        if now-details["latest_change"] < GRACE:
+            raise ValueError("Worktree cache changed within 48 hours")
+        return clean_worktree_caches(path, home, expected_head=action["head"],
+                                     latest_allowed_change=now-GRACE)
     if action["rule"] == "chrome-clones":
-        if now-tree_activity(path) < GRACE:
+        if now-tree_activity(path, chrome=True) < GRACE:
             raise ValueError("Clone contents changed within 48 hours")
         if chrome_candidate(path, chrome) != action["identity"]:
             raise ValueError("Clone changed during the open-file check")
@@ -453,7 +592,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=["audit", "run", "health"])
     parser.add_argument("--json", action="store_true")
-    parser.add_argument("--maintain", default="", help="Approved rules only: chrome-clones,uv-prune. Never implied by disk pressure.")
+    parser.add_argument("--maintain", default="", help="Approved rules only: chrome-clones,uv-prune,worktree-caches. Never implied by disk pressure.")
     args = parser.parse_args(argv)
     rules = set(filter(None, args.maintain.split(",")))
     if rules-RULES or (rules and args.mode != "run"):

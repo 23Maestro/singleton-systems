@@ -138,7 +138,8 @@ class DeliveryTests(unittest.TestCase):
 
     def test_foreign_tools_unaffected(self):
         self.assertFalse(gate.handle(self.root,dict(tool_name='other',tool_input={})))
-        self.assertFalse(self.call('get_clip_properties',dict(clipId='unrelated')))
+        # Discovery belongs to this guard so old scene rules cannot block it.
+        self.assertTrue(self.call('get_clip_properties',dict(clipId='unrelated')))
 
     def test_figma_editorial_trim_keeps_full_render_proof(self):
         manifest_path = Path(self.row['contractManifest']['path'])

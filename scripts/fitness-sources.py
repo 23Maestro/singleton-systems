@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """Codex-only Sunday source discovery. Does not publish or prescribe routines."""
-import argparse,json,pathlib,subprocess,urllib.request,urllib.parse,datetime
+import argparse,json,pathlib,urllib.request,datetime,sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "tools/scrapecreators/scripts"))
+from request import request as api
 p=argparse.ArgumentParser()
 p.add_argument('--handle',default='coachgreen.pt')
 p.add_argument('--reel',help='Inspect one original Instagram reel URL')
 p.add_argument('--download',action='store_true',help='Download that reel to the private review folder')
 a=p.parse_args()
-key=subprocess.run(['security','find-generic-password','-s','com.singleton-systems.scrapecreators','-a','singleton23','-w'],capture_output=True,text=True,check=True).stdout.strip()
-def api(path,params):
-    req=urllib.request.Request('https://api.scrapecreators.com'+path+'?'+urllib.parse.urlencode(params),headers={'x-api-key':key})
-    with urllib.request.urlopen(req,timeout=45) as response:return json.load(response)
 folder=pathlib.Path('output/fitness/sources')/str(datetime.date.today());folder.mkdir(parents=True,exist_ok=True)
 if a.reel:
     if not a.reel.startswith('https://www.instagram.com/reel/'):p.error('Use an original https://www.instagram.com/reel/ URL')

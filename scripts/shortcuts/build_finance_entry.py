@@ -114,7 +114,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
-    route = subprocess.check_output(["node", "scripts/developer-storage/storage-gate.mjs", "route", "--client", "SINGLETON_SYSTEMS", "--kind", "references"], cwd=ROOT, text=True).strip()
+    route = subprocess.check_output(["node", "scripts/developer-storage/storage-gate.mjs", "route", "--area", "library", "--client", "SINGLETON_SYSTEMS", "--kind", "references"], cwd=ROOT, text=True).strip()
     output = args.output.resolve()
     if not output.is_relative_to(Path(route).resolve()):
         raise SystemExit("Choose an output under the verified references route.")

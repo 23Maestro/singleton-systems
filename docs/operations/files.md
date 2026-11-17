@@ -28,7 +28,9 @@ Website code stays in its existing code folders.
 | --- | --- |
 | Code, reusable recipes, schemas and small configuration | The owning Git repository |
 | Current operating rules | This guide and the owning skill; link shared rules |
-| Generated media and replaceable work files | Verified HomeSSD client/type folder |
+| Open-job media and active caches | HomeSSD / Active Work |
+| Kept templates, references and finished files | HomeSSD / Media Library, grouped by client |
+| Reviewed disposable byproducts | HomeSSD / Generated; old contents still need migration checks |
 | Irreplaceable footage and original source | Eagle or MediaSSD, with a durable backup |
 | Job IDs and receipt links needed for queries | Supabase; task status stays in Asana or Linear |
 
@@ -63,3 +65,14 @@ The storage skill owns the 14-day review. Each review needs current exact-file
 checks and the required approval. Automatic retirement is not implemented.
 Retire only the exact files reviewed for the current task. Check useful content
 and callers first. Media cleanup remains a separate job.
+
+## Keep, work and clear
+
+Use [the storage gate](../video-storage-workflow.md) for new output paths.
+Each Lane README links this file-home guide and its client template owners.
+The template reference names the working source, owner, reuse steps and final
+file/receipt home. Docs hold those links; the real source stays with its owner.
+
+At closeout, verify the final file and receipt, preserve reusable source, then
+list exact disposable byproducts. The cleanup owner checks any move and editor
+relink. Generated is not fully clearable until its legacy inventory is resolved.

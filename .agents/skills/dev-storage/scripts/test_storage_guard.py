@@ -6,6 +6,7 @@ from pathlib import Path
 import plistlib
 import subprocess
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 import whisper_storage
@@ -130,6 +131,160 @@ class StorageGuardTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "within 48"):
                 guard.execute_action(action, self.home, self.chrome, guard.time.time())
         self.assertTrue(path.exists())
+
+    def test_nested_clone_change_waits_from_change_time(self):
+        path = self.clone()
+        now = guard.time.time() + 3*guard.GRACE
+        previous = {str(path): {"token": guard.identity(path), "checked_at": now-3600,
+                                "idle_since": now-guard.GRACE-3600}}
+        changed = now-24*3600
+        with patch.object(guard, "tree_activity", return_value=changed):
+            actions, idle = guard.cleanup_plan(self.home, self.chrome, previous, self.clear, now)
+        self.assertFalse(actions[0]["eligible"])
+        self.assertEqual(idle[str(path)]["idle_since"], changed)
+
+    def test_chrome_link_count_changes_do_not_renew_content_age(self):
+        path = self.clone()
+        file = path/"Google Chrome.app.bundle/Contents/executable"
+        file.write_text("signed Chrome")
+        other = self.root/"other-executable"
+        os.link(file, other)
+        other.unlink()
+        original = Path.lstat
+        changed = False
+        def aged_info(item, *args, **kwargs):
+            info = original(item, *args, **kwargs)
+            return SimpleNamespace(st_dev=info.st_dev, st_mode=info.st_mode,
+                                   st_mtime=950 if changed and item == file else 100,
+                                   st_ctime=900 if item == file else 100, st_birthtime=100)
+        with patch.object(Path, "lstat", aged_info):
+            self.assertEqual(guard.tree_activity(path, chrome=True), 100)
+            self.assertEqual(guard.tree_activity(path), 900)
+            changed = True
+            self.assertEqual(guard.tree_activity(path, chrome=True), 950)
+
+    def worktree(self):
+        repo = self.root / "repository"
+        repo.mkdir()
+        def git(*args, cwd=repo):
+            result = subprocess.run(["git", "-c", "user.name=Storage Test", "-c",
+                                     "user.email=storage@example.invalid", *args],
+                                    cwd=cwd, capture_output=True, text=True, check=True)
+            return result.stdout
+        git("init", "-b", "main")
+        (repo / "source.txt").write_text("keep source")
+        (repo / ".gitignore").write_text("node_modules\n.next\n.env.local\n")
+        git("add", "source.txt", ".gitignore")
+        git("commit", "-m", "source")
+        git("update-ref", "refs/remotes/origin/main", "HEAD")
+        path = self.home / ".codex/worktrees/release/repository"
+        path.parent.mkdir(parents=True)
+        git("worktree", "add", "--detach", str(path), "HEAD")
+        for name in (".next", "node_modules"):
+            (path/name).mkdir()
+            (path/name/"generated").write_text("rebuildable")
+        return path
+
+    def test_worktree_cleanup_keeps_source_git_and_other_folders(self):
+        path = self.worktree()
+        (path / ".env.local").write_text("keep local settings")
+        external = self.root/"shared-package"
+        external.mkdir()
+        (external/"source.txt").write_text("keep package source")
+        (path/"node_modules/workspace-package").symlink_to(external)
+        with patch.object(guard, "processes", return_value=self.clear):
+            detail = guard.clean_worktree_caches(path, self.home)
+            self.assertIn("Removed generated", detail)
+            self.assertFalse((path/"node_modules").exists())
+            self.assertFalse((path/".next").exists())
+            self.assertEqual((path/"source.txt").read_text(), "keep source")
+            self.assertTrue((path/".git").is_file())
+            self.assertEqual((path/".env.local").read_text(), "keep local settings")
+            self.assertEqual((external/"source.txt").read_text(), "keep package source")
+
+    def test_worktree_cleanup_blocks_dirty_busy_unmerged_and_linked(self):
+        path = self.worktree()
+        with patch.object(guard, "processes", return_value=self.clear):
+            (path/"source.txt").write_text("active work")
+            with self.assertRaisesRegex(ValueError, "source work"):
+                guard.clean_worktree_caches(path, self.home)
+            (path/"source.txt").write_text("keep source")
+            with self.assertRaisesRegex(ValueError, "open files"):
+                guard.worktree_details(path, self.home, {"commands": [], "paths": [str(path)]})
+            (path/"untracked-source.txt").write_text("keep")
+            with self.assertRaisesRegex(ValueError, "source work"):
+                guard.clean_worktree_caches(path, self.home)
+            (path/"untracked-source.txt").unlink()
+            outside = self.root/"other-data"
+            outside.mkdir()
+            import shutil
+            shutil.rmtree(path/".next")
+            (path/".next").symlink_to(outside)
+            with self.assertRaisesRegex(ValueError, "Symlink"):
+                guard.clean_worktree_caches(path, self.home)
+            self.assertTrue((path/"node_modules").exists())
+            self.assertTrue(outside.exists())
+
+    def test_unmerged_worktree_cache_is_kept(self):
+        path = self.worktree()
+        (path/"source.txt").write_text("new source")
+        subprocess.run(["git", "-C", str(path), "add", "source.txt"], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(path), "-c", "user.name=Storage Test", "-c",
+                        "user.email=storage@example.invalid", "commit", "-m", "unmerged"],
+                       check=True, capture_output=True)
+        with patch.object(guard, "processes", return_value=self.clear):
+            with self.assertRaisesRegex(ValueError, "unmerged source"):
+                guard.clean_worktree_caches(path, self.home)
+        self.assertTrue((path/"node_modules").exists())
+
+    def test_worktree_change_during_recheck_defers_cleanup(self):
+        path = self.worktree()
+        with patch.object(guard, "processes", return_value=self.clear):
+            details = guard.worktree_details(path, self.home, self.clear)
+            initial = {**details, "latest_change": 1}
+            changed = {**details, "latest_change": 200001}
+            with patch.object(guard, "worktree_details", side_effect=[initial, changed]):
+                with self.assertRaisesRegex(ValueError, "changed before cleanup"):
+                    guard.clean_worktree_caches(path, self.home, latest_allowed_change=200000)
+        self.assertTrue((path/"node_modules").exists())
+        self.assertTrue((path/".next").exists())
+
+    def test_incomplete_worktree_discovery_and_git_checks_fail_closed(self):
+        path = self.worktree()
+        def denied(root, **kwargs):
+            kwargs["onerror"](PermissionError("Unreadable worktree root"))
+        with patch.object(guard.os, "walk", side_effect=denied):
+            with self.assertRaises(PermissionError):
+                guard.managed_worktrees(self.home)
+        with patch.object(guard, "worktree_details", side_effect=RuntimeError("Git check failed")):
+            with self.assertRaisesRegex(RuntimeError, "Git check failed"):
+                guard.cleanup_plan(self.home, self.chrome, {}, self.clear, 200000)
+        self.assertTrue((path/"node_modules").exists())
+
+    def test_worktree_maintenance_requires_observed_grace(self):
+        path = self.worktree()
+        old = {}
+        with patch.object(guard, "tree_activity", return_value=1):
+            for hours in range(0, 49, 6):
+                actions, old = guard.cleanup_plan(self.home, self.chrome, old, self.clear, 200000+hours*3600)
+                action = next(a for a in actions if a["rule"] == "worktree-caches")
+                self.assertEqual(action["eligible"], hours >= 48)
+            actions, old = guard.cleanup_plan(self.home, self.chrome, old,
+                                             {"commands": [], "paths": [str(path)]}, 200001+48*3600)
+            self.assertFalse(next(a for a in actions if a["rule"] == "worktree-caches")["eligible"])
+
+    def test_claude_worktree_is_discovered_without_following_links(self):
+        root = self.home/"Documents/Development/project/.claude/worktrees"
+        path = root/"feature"
+        path.mkdir(parents=True)
+        (path/".git").write_text("gitdir: /not-used-in-discovery")
+        (path/"node_modules").mkdir()
+        linked = root/"linked"
+        linked.symlink_to(self.root)
+        self.assertEqual(guard.managed_worktrees(self.home), [path])
+        watched = guard.watched_paths(self.home, self.chrome)
+        self.assertIn(str(path/"node_modules"), [i["path"] for i in watched])
+        self.assertIn(str(root), [i["path"] for i in watched])
 
     def test_uv_uses_native_prune_without_force_and_recent_activity_defers(self):
         cache = self.home / ".cache/uv"

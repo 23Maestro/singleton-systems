@@ -542,6 +542,8 @@ def content_workspace_context(cwd=None):
         status = "The working note is missing. Verify the drive and saved path before writing."
     else:
         status = "The working note is present. Resume from its next step."
+    if note.startswith(volume.rstrip("/") + "/Generated/"):
+        status += " This legacy note is read-only until migration. Use the gate for new media; cleanup owns moving and relinking this note."
     return (
         f"- [content-workspace] Working plan and capture log: [Work to Content]({urllib.parse.quote(note, safe='/')}). {status}\n"
         f"- [content-storage] Before writes, run {command}. Use the matching kind for media. "

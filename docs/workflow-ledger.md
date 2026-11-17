@@ -4,7 +4,7 @@ Selected workflows: Lineups and Intent Keys. Matching component roles use each c
 
 Generated from the shared JSON records. Edit the records, then regenerate both views.
 
-Record SHA-256: `ca1da8cd2b6bb7fed249b974e5a87bc8c7d7a9477ffb05a028c494b770d80d2f`
+Record SHA-256: `a30ae61740d302d92433f578c2d63567ce07440a66e6f928c21aae88422b0bcb`
 
 - [Lineups](#lineups)
 - [Intent Keys](#intent-keys)

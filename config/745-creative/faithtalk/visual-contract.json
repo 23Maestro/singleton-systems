@@ -241,7 +241,7 @@
       },
       "broadcast_outro": {
         "name": "Standalone broadcast outro",
-        "master": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-20-episode-4-outro/Episode 4 Outro - EP5 Tease.mov",
+        "master": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-10-20-episode-4-outro/Episode 4 Outro - EP5 Tease.mov",
         "masterSha256": "2e71ac8da1cb2294030ab7faae131db9793acee08d910f84eb97d12cce23dcd3",
         "frameRate": "30000/1001",
         "frames": 2166,
@@ -308,10 +308,10 @@
       "reelHeadline": "Episode 4",
       "carouselPage1Guest": "Aaron Crabb",
       "carouselPage2Title": "Aaron - \"A Dream, Or a Warning?\"",
-      "currentExportRoot": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current",
+      "currentExportRoot": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current",
       "thumbnailStyle": "Distinct warm forest path and lantern. Keep the official FaithTalk layout, logos, Episode4 and current schedule. No guest-name row.",
-      "approvedAaronStill": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/photo-review/source-match.json",
-      "reelTitleCentering": "/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/centering-verification.json"
+      "approvedAaronStill": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/photo-review/source-match.json",
+      "reelTitleCentering": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/centering-verification.json"
     }
   }
 }

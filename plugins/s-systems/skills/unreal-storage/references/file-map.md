@@ -19,7 +19,7 @@ The registered volume record is `config/unreal/storage.json` in Singleton
 Systems. Resolve the repository through the bundled helper before using it.
 
 All UnrealSSD paths above are inside `/Volumes/UnrealSSD/Generated/`. Media
-outputs retain `/Volumes/HomeSSD/Generated/`. Use the helper to resolve paths
+outputs retain `/Volumes/HomeSSD/Active Work/`. Use the helper to resolve paths
 after the matching volume gate. Keep `.uasset`, `.umap`, and large package
 content out of normal repository history. A source-control choice for authored
 binary assets is separate from this first setup.

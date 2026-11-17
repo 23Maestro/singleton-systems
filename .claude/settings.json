@@ -36,6 +36,16 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "^(?:Bash|exec_command)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/node \"${CLAUDE_PROJECT_DIR}/scripts/developer-storage/storage-gate.mjs\" hook",
+            "timeout": 10
+          }
+        ]
+      },
+      {
         "matcher": "^(?:apply_patch|Edit|Write|Bash|exec_command|mcp__codex_apps__figma_(?:use_figma|weave_run_tool|export_video))$",
         "hooks": [
           {

@@ -177,12 +177,14 @@ def hook(payload):
             return
         if tool_name.endswith("__import_media") or any(
                 re.search(r"mcp__premiere_pro__import_media\s*\(", value) for value in commands):
-            graphics_root = contract["workflow"]["graphics"]["outputRoot"]
-            files = [value for value in commands if value.startswith(graphics_root + "/")
+            graphics_roots = {contract["workflow"]["graphics"]["outputRoot"],
+                              "/Volumes/HomeSSD/Generated/745_CREATIVE/renders"}
+            files = [value for value in commands if any(value.startswith(root + "/") for root in graphics_roots)
                      and Path(value).suffix.lower() in {".png", ".mov"}]
             # Catch static nested calls. Dynamic JS paths still require manual checks.
             for value in commands:
-                files.extend(re.findall(r"[\"'](" + re.escape(graphics_root) + r"/[^\"']+\.(?:png|mov))[\"']", value))
+                for graphics_root in graphics_roots:
+                    files.extend(re.findall(r"[\"'](" + re.escape(graphics_root) + r"/[^\"']+\.(?:png|mov))[\"']", value))
             files = list(dict.fromkeys(files))
             if files:
                 emit(event, import_guard(contract, active, files))

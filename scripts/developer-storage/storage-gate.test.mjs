@@ -20,7 +20,7 @@ const GIB = 1024 ** 3;
 
 function fixture({ uuid = "TEST-HOMESSD", freeBytes = 200 * GIB, readOnly = false } = {}) {
   const sandbox = mkdtempSync(path.join(tmpdir(), "storage-gate-test-"));
-  const root = path.join(sandbox, "Generated");
+  const root = path.join(sandbox, "Active Work");
   const volumeRoot = sandbox;
   const diskutil = path.join(sandbox, "diskutil");
   mkdirSync(root, { recursive: true });
@@ -59,6 +59,22 @@ function run(args, { env, input = "" }) {
     input,
   });
 }
+
+test("new media defaults to Active Work and leaves legacy Generated untouched", (context) => {
+  const setup = fixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  delete setup.env.STORAGE_GATE_ROOT;
+  const legacy = path.join(setup.sandbox, "Generated", "keep-until-migration.txt");
+  mkdirSync(path.dirname(legacy));
+  writeFileSync(legacy, "existing work");
+  const result = run(["route", "--client", "FaithTalk", "--kind", "renders"], setup);
+  const expected = path.join(setup.sandbox, "Active Work", "FAITHTALK", "renders");
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout.trim(), expected);
+  assert.equal(existsSync(expected), true);
+  assert.equal(readFileSync(legacy, "utf8"), "existing work");
+  assert.equal(existsSync(path.join(setup.sandbox, "Generated", "FAITHTALK")), false);
+});
 
 test("route creates the normalized client and media-kind directory", (context) => {
   const setup = fixture();
@@ -108,13 +124,13 @@ test("route refuses the wrong physical volume", (context) => {
 test("route refuses a missing volume with no internal fallback", (context) => {
   const setup = fixture();
   context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
-  rmSync(setup.root, { recursive: true });
+  setup.env.STORAGE_GATE_VOLUME_ROOT = path.join(setup.sandbox, "missing-volume");
 
   const result = run(["route", "--client", "FaithTalk", "--kind", "renders"], setup);
 
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /VOLUME_MISSING/);
-  assert.equal(existsSync(setup.root), false);
+  assert.equal(existsSync(setup.env.STORAGE_GATE_VOLUME_ROOT), false);
 });
 
 test("route refuses a read-only or low-space volume", (context) => {
@@ -323,9 +339,81 @@ test("repository exposes the CLI and a dedicated Bash PreToolUse hook", () => {
   assert.equal(
     preToolUse.some(
       (entry) =>
-        entry.matcher === "Bash" &&
+        entry.matcher === "^(?:Bash|exec_command)$" &&
         entry.hooks.some((hook) => /storage-gate\.mjs\"? hook/.test(hook.command)),
     ),
     true,
   );
+});
+
+for (const alias of [false, true]) {
+  test(`route rejects Generated as an active root${alias ? " through a link" : ""}`, (context) => {
+    const setup = fixture();
+    context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+    const generated = path.join(setup.sandbox, "Generated");
+    mkdirSync(generated);
+    setup.env.STORAGE_GATE_ROOT = generated;
+    if (alias) {
+      const link = path.join(setup.sandbox, "Work alias");
+      symlinkSync(generated, link);
+      setup.env.STORAGE_GATE_ROOT = link;
+    }
+    const result = run(["route", "--kind", "renders"], setup);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /DISPOSABLE_ROOT/);
+    assert.equal(existsSync(path.join(generated, "_INBOX")), false);
+  });
+}
+
+test("kept templates, references and deliverables route to Media Library", (context) => {
+  const setup = fixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  for (const [kind, folder] of [["templates", "Templates"], ["references", "References"], ["deliverables", "Deliverables"]]) {
+    const result = run(["route", "--area", "library", "--client", "745 Creative", "--kind", kind], setup);
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout.trim(), path.join(setup.sandbox, "Media Library", "745_CREATIVE", folder));
+  }
+  for (const args of [["--area", "generated", "--kind", "renders"], ["--area", "library", "--kind", "renders"]]) {
+    const result = run(["route", ...args], setup);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /INVALID_AREA|INVALID_KIND/);
+  }
+});
+
+test("both shell payloads reject old Generated renders and caches", (context) => {
+  const setup = fixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  for (const tool of ["Bash", "exec_command"]) {
+    for (const legacy of ["output", "cache"]) {
+      const generated = path.join(setup.sandbox, "Generated");
+      const output = path.join(legacy === "output" ? generated : setup.root, "CLIENT", "renders", "job.mp4");
+      const cache = path.join(legacy === "cache" ? generated : setup.root, "hyperframes", "cache", "extracted-frames");
+      const command = `npx hyperframes render . --output "${output}" --frames-cache-dir "${cache}"`;
+      const result = run(["hook"], {env: setup.env, input: JSON.stringify({tool_name:tool,tool_input:tool === "Bash" ? {command} : {cmd:command}})});
+      assert.equal(JSON.parse(result.stdout).hookSpecificOutput.permissionDecision, "deny");
+    }
+  }
+});
+
+test("hook ignores a quoted render example in a file-writing command", (context) => {
+  const setup = fixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  const command = 'cat > test.mjs <<\'EOF\'\nconst example = "npx hyperframes render . --output /tmp/test.mp4";\nEOF';
+  const result = run(["hook"], {env:setup.env,input:JSON.stringify({tool_name:"Bash",tool_input:{command}})});
+  assert.equal(result.stdout, "");
+});
+
+test("check-output validates a producer destination without moving or writing media", (context) => {
+  const setup = fixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  const good = path.join(setup.root, "CATENA_MEDIA", "renders", "test.mp4");
+  const result = run(["check-output", "--path", good], setup);
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout.trim(), good);
+  assert.equal(existsSync(good), false);
+  for (const bad of [path.join(setup.sandbox, "Generated", "CATENA_MEDIA", "renders", "test.mp4"), path.join(setup.root, "unknown", "test.mp4")]) {
+    const denied = run(["check-output", "--path", bad], setup);
+    assert.notEqual(denied.status, 0);
+    assert.match(denied.stderr, /INVALID_OUTPUT/);
+  }
 });

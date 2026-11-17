@@ -40,8 +40,8 @@ Use the `singleton-systems.com` workspace.
 
 Use [Writing for Jerami](../harness/writing-rules.md#writing-for-jerami) for
 task names and reader summaries, and its app rules for saved formatting.
-Keep technical tests, blockers, build steps and finish checks in the ticket or
-linked source. The short review limit does not cap those execution details.
+Keep technical tests, blockers and build steps in task comments or a linked
+source. The short review limit does not cap those execution details.
 
 - `Backlog`: captured but not accepted.
 - `Todo`: accepted and unclaimed.
@@ -69,6 +69,31 @@ The `task-management` skill joins intake to this same lifecycle. Ask for a real
 deadline only when its answer is missing. Reuse a confirmed date or no-deadline
 answer. Propose editable attention, tool and waiting estimates before creation.
 Keep planned work dates separate from deadlines.
+
+### Time estimates
+
+Estimate the work for whoever will do it. AI research, drafting, coding and
+checks use the agent's expected speed with the tools and context it has.
+Do not use a manual human-work estimate for AI work.
+
+- `attentionMinutes`: Jerami's choices, setup, review and manual steps only.
+- `toolMinutes`: AI work and tool runs, including reading, edits, checks and
+  expected retries. Name fixed runs such as builds or renders in the basis.
+- `waitingMinutes`: outside waits, such as a reply, approval or service queue.
+
+State who does each step and give a short basis. Use recent observed runs when
+available. Use a range in the reader summary when the result is uncertain;
+store a rough minute value or `null` in the plan. A requested reduction can
+revise that plan, but it is not a measured speedup or a fixed rate for all work.
+Update estimates when a real blocker or timing result changes the basis.
+
+Parent totals count each child once. Tool-work totals are not elapsed finish
+times: account for allowed overlap and blockers without assuming permission
+to run agents or work in the background. Do not add AI work to Jerami's day
+as attention time. Keep fixed tool runs and outside waits visible when revising
+an AI estimate.
+
+### Plan fields
 
 Plans accept `dueDate` on the parent and each child: `YYYY-MM-DD` for a
 confirmed calendar date, `null` for no deadline, or omitted for older plans.
@@ -103,6 +128,13 @@ retries and keep failed writes open. Changed records need review.
 ### closeout steps
 
 Use this during normal selected work. No named skill is needed.
+
+For client deliverables and acquisition samples, follow the
+[client work record](../operations/client-work.md) at entry and closeout.
+Read the work history before estimating. Save the work event, hours basis,
+delivery proof and separate air date in Clients & Work, then read them back
+and link the row in the task result. Keep revision history and billing review
+separate from media approval. This extends the existing closeout, not its API.
 
 1. Find the existing task in its owning system. Match the outcome and project,
    not just a similar title. Resolve unclear matches before changing state.
@@ -164,3 +196,15 @@ Bindings and readback hashes stay in private local state under
 not another backlog. Asana and Linear remain the task owners. Prompt/resume
 shows pending bindings. Stop checks only work bound in the active turn and
 allows a clear deferred result. It never retries writes or runs a backlog sweep.
+
+### System proof
+
+For a selected system review, add `--system-review /absolute/path/proof.json`
+to `bind`. The proof uses the shared `doc-evidence.mjs` record. It names reviewed
+sources, callers and any installed skill copies. Bind only a current record for
+this repository. Rebinding without the flag keeps the proof requirement.
+
+`check` and `finish` recheck that exact record. Changed or missing proof, source,
+callers or installed copies leave closeout pending. `finish` checks before app
+writes. A current record proves its inputs still match; task tests and required
+human decisions still need their own evidence.

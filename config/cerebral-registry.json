@@ -636,7 +636,7 @@
       "surface": "video storage",
       "lane": "System Maintenance",
       "owner": "Docs/skills",
-      "intent": "Keep reusable video workflow source in Git, route generated media and replaceable working copies to the verified HomeSSD client/type root, and preserve irreplaceable originals in Eagle or MediaSSD.",
+      "intent": "Keep reusable source in Git. Route open jobs to HomeSSD Active Work and kept media to Media Library. Generated accepts only reviewed disposable files after migration. Preserve sole originals in Eagle or MediaSSD.",
       "shape": "operating rule",
       "required_tools": [
         "s-systems:video-storage"
@@ -775,6 +775,11 @@
       "skill_key": "cerebral-router",
       "activation": "core",
       "reason": "Front-door route selection."
+    },
+    {
+      "skill_key": "contact-follow-up",
+      "activation": "core",
+      "reason": "Apple contact and follow-up actions using the shared operations guide."
     },
     {
       "skill_key": "cover-letter-casual",

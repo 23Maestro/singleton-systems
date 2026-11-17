@@ -1,10 +1,11 @@
+import { normalizeLinearMarkdown } from "../lib/linear-markdown.mjs";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { mkdtempSync, realpathSync, rmSync, readFileSync } from "node:fs";
+import { mkdtempSync, realpathSync, rmSync, readFileSync, writeFileSync, mkdirSync, unlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { execFile, spawn } from "node:child_process";
+import { execFile, execFileSync, spawn } from "node:child_process";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
@@ -26,6 +27,7 @@ async function fixture(t) {
   const writes = [];
   const archives = [];
   const archiveReadLag = new Map();
+  const summaryReadLag = new Map();
   const faults = {};
   const registry = JSON.parse(readFileSync(path.join(root, "config/cerebral-registry.json")));
   const issues = new Map(["issue-1", "issue-2"].map((id, i) => [id, {
@@ -71,10 +73,20 @@ async function fixture(t) {
         else {
           if (!faults.ignoreWrite) {
             issue.state = { name: "Done", type: "completed" };
-            if (!faults.ignoreSummary && body.variables.input.description) issue.description = body.variables.input.description;
+            if (!faults.ignoreSummary && body.variables.input.description) {
+              const previous = structuredClone(issue);
+              issue.description = body.variables.input.description;
+              if (faults.normalizeMarkdown) issue.description = issue.description.replace(/^(\s*)- /gm, "$1* ").replace(/\]\((https?:\/\/[^)]+)\)/g, "](<$1>)");
+              if (faults.changeSummary) issue.description = issue.description.replace("checked", "unchecked");
+              if (faults.changeLink) issue.description = issue.description.replace("https://example.com/proof", "https://example.com/wrong");
+              summaryReadLag.set(issue.id, { remaining: faults.summaryLag ?? 0, previous });
+            }
           }
           writes.push(issue.id); result = { data: { issueUpdate: { success: true } } };
         }
+      } else if (summaryReadLag.get(issue?.id)?.remaining > 0) {
+        const lag = summaryReadLag.get(issue.id); lag.remaining--;
+        result = { data: { issue: lag.previous } };
       } else result = { data: { issue: issue ? {
         ...archiveRead(issue), parent: issue.parent ? issues.get(issue.parent.id) : null,
         children: { nodes: children.map(archiveRead), pageInfo: { hasNextPage: false, endCursor: null } },
@@ -102,6 +114,7 @@ async function fixture(t) {
           }
         }
         if (faults.reopenAfterParent && task.gid === "100") tasks.get("101").completed = false;
+        if (faults.reparentAfterWrite) task.parent = { gid: "999" };
         writes.push(task.gid); result = { data: task };
         if (faults.loseWriteReply) { faults.loseWriteReply = false; req.socket.destroy(); return; }
       }
@@ -112,10 +125,10 @@ async function fixture(t) {
   t.after(() => { server.close(); rmSync(directory, { recursive: true, force: true }); });
   const env = { ...process.env, TASK_CLOSEOUT_STATE_DIR: directory, TASK_CLOSEOUT_TEST_ORIGIN: `http://127.0.0.1:${server.address().port}`,
     ASANA_ACCESS_TOKEN: "test-token", LINEAR_API_KEY: "test-key", COMPOSIO_API_KEY: "", COMMAND_CENTER_ASANA_CONNECTION_ID: "" };
-  const run = async (command, options = {}, entrypoint = cli) => {
+  const run = async (command, options = {}, entrypoint = cli, cwd = root) => {
     const args = ["--import", preload, entrypoint, command, "--session", "chat-a", "--turn", "turn-a"];
     for (const [key, value] of Object.entries(options)) args.push(`--${key}`, value);
-    try { const r = await exec(process.execPath, args, { cwd: root, env }); return { code: 0, ...JSON.parse(r.stdout) }; }
+    try { const r = await exec(process.execPath, args, { cwd, env }); return { code: 0, ...JSON.parse(r.stdout) }; }
     catch (error) { return { code: error.code, ...JSON.parse(error.stdout || "{}"), stderr: error.stderr }; }
   };
   const hook = (event, extra = {}) => new Promise((resolve, reject) => {
@@ -132,6 +145,18 @@ async function fixture(t) {
   });
   return { run, lifecycle: (command, options) => run(command, options, path.join(root, "scripts/task-lifecycle.mjs")), hook, env, tasks, issues, writes, archives, faults };
 }
+
+for (const id of ["100", "101"]) test(`Asana ${id} closeout retains its real parent and rejects a changed parent at write readback`, async t => {
+  const f = await fixture(t);
+  if (id === "100") f.tasks.get("101").completed = true;
+  const options = { owner: "asana", id };
+  const bound = await f.run("bind", { ...options, "done-when": "The exact child is checked" });
+  assert.equal(bound.tasks[0].parent, id === "101" ? "100" : null);
+  f.faults.reparentAfterWrite = true;
+  const result = await f.run("finish", { ...options, evidence: "Export checked" });
+  assert.notEqual(result.code, 0);
+  assert.match(result.error, /Asana did not confirm completion/);
+});
 
 test("Asana closes only the named finished children, then verifies the parent", async t => {
   const f = await fixture(t);
@@ -380,4 +405,118 @@ test("free-Asana lifecycle CLI keeps dates and blocker links through the shared 
   assert.match(done.tasks[0].html_notes, /Keep the source/);
   const parent = await f.lifecycle("context", { owner: "asana", id: "100" });
   assert.equal(parent.task.completed, false);
+});
+
+
+test("Linear saved bullets and links survive delayed readback and retry without duplicate summaries", async t => {
+  const f = await fixture(t);
+  f.faults.normalizeMarkdown = true;
+  f.faults.summaryLag = 5;
+  const options = { owner: "linear", id: "23M-2", evidence: "Checked locally", summary: "- The form is checked. [Proof](https://example.com/proof)" };
+  await f.run("bind", { owner: "linear", id: "23M-2", "done-when": "The form works" });
+  assert.equal((await f.run("finish", options)).outcome, "complete");
+  const writes = f.writes.length;
+  assert.equal((await f.run("finish", options)).outcome, "complete");
+  assert.equal(f.writes.length, writes);
+  assert.equal((f.issues.get("issue-2").description.match(/## Done/g) ?? []).length, 1);
+});
+
+for (const fault of ["changeSummary", "changeLink"]) test(`Linear ${fault} stays pending and leaves its parent open`, async t => {
+  const f = await fixture(t);
+  f.faults[fault] = true;
+  await f.run("bind", { owner: "linear", id: "23M-1", "done-when": "The form works" });
+  const result = await f.run("finish", { owner: "linear", id: "23M-1", children: "issue-2", evidence: "Checked locally", summary: "- The form is checked. [Proof](https://example.com/proof)" });
+  assert.notEqual(result.code, 0);
+  assert.equal(f.issues.get("issue-1").state.type, "started");
+  assert.equal((await f.run("check", { owner: "linear", id: "23M-1" })).outcome, "pending");
+});
+
+test("Linear normalization preserves literal code, words and destinations", () => {
+  const code = "```md\n* Keep this code\n[Source](<https://example.com/proof>)\n```";
+  assert.equal(normalizeLinearMarkdown(code), code);
+  assert.notEqual(normalizeLinearMarkdown("- checked"), normalizeLinearMarkdown("* unchecked"));
+  assert.notEqual(normalizeLinearMarkdown("[Proof](https://example.com/proof)"), normalizeLinearMarkdown("[Proof](https://example.com/wrong)"));
+});
+
+test("lifecycle UUID binding can finish through the same Linear issue key", async t => {
+  const f = await fixture(t);
+  const id = "11111111-1111-4111-a111-111111111111";
+  f.issues.set(id, { ...structuredClone(f.issues.get("issue-2")), id, identifier: "23M-3", project: {id:"project"}, description: "## Done when\n\nThe alias works." });
+  assert.equal((await f.lifecycle("start", {id, owner:"linear"})).binding.outcome, "pending");
+  assert.equal((await f.run("finish", {id:"23M-3", owner:"linear", evidence:"Alias verified"})).outcome, "complete");
+});
+
+for (const owner of ["linear", "asana"]) test(`${owner} cleanup refuses changed, missing, cross-task and unbacked comments`, async () => {
+  const {reviewCommentCleanup} = await import("../lib/task-closeout.mjs");
+  const comment = owner === "linear" ? {id:"note",body:"Saved source",updatedAt:"1"} : {gid:"note",text:"Saved source",created_at:"1"};
+  const archive = {owner,taskId:"task",comments:[comment]};
+  const input = {owner,taskId:"task",comments:[structuredClone(comment)],archive,selectedIds:["note"]};
+  const plan = reviewCommentCleanup(input);
+  assert.equal(plan.eligible.length,1);
+  assert.equal(plan.blocked.length,0);
+  assert.equal(reviewCommentCleanup({...input, comments:[]}).eligible.length,0);
+  const changed = {...comment,[owner === "linear" ? "body" : "text"]:"New decision"};
+  assert.equal(reviewCommentCleanup({...input,comments:[changed]}).eligible.length,0);
+  assert.equal(reviewCommentCleanup({...input,archive:{...archive,comments:[]}}).eligible.length,0);
+  assert.throws(()=>reviewCommentCleanup({...input,archive:{...archive,taskId:"other"}}));
+  assert.throws(()=>reviewCommentCleanup({...input,archive:{...archive,owner:owner === "linear" ? "asana" : "linear"}}));
+  assert.throws(()=>reviewCommentCleanup({...input,selectedIds:["note","note"]}));
+  const edited = {...comment,quotedText:"inline decision"};
+  assert.equal(reviewCommentCleanup({...input,comments:[edited],archive:{...archive,comments:[edited]}}).eligible.length,0);
+});
+
+test("rebinding an older UUID record by issue key leaves no stale pending binding", async t => {
+  const f = await fixture(t);
+  const id = "11111111-1111-4111-a111-111111111111";
+  f.issues.set(id, {...structuredClone(f.issues.get("issue-2")),id,identifier:"23M-3",project:{id:"project"},description:"## Done when\n\nThe alias works."});
+  const started=await f.lifecycle("start",{id,owner:"linear"});
+  const file=started.binding.statePath;
+  const saved=JSON.parse(readFileSync(file,"utf8"));
+  delete saved.tasks[`linear:${id}`].aliases;
+  const {writeFileSync}=await import("node:fs");writeFileSync(file,JSON.stringify(saved));
+  await f.run("bind",{id:"23M-3",owner:"linear","done-when":"The alias works."});
+  assert.equal((await f.run("finish",{id:"23M-3",owner:"linear",evidence:"Alias verified"})).outcome,"complete");
+  const stopped=await f.hook("Stop",{last_assistant_message:"Verified."});
+  assert.notEqual(stopped?.decision,"block");
+});
+
+for (const owner of ["linear", "asana"]) test(`${owner} system finish rejects changed source, callers, installed copies and proof before writes`, async t => {
+  const { collectEvidence } = await import("../plugins/repo-housekeeping/skills/repo-prune-review/scripts/doc-evidence.mjs");
+  const f = await fixture(t);
+  const repo = path.join(f.env.TASK_CLOSEOUT_STATE_DIR, "repo");
+  const installed = path.join(f.env.TASK_CLOSEOUT_STATE_DIR, "installed");
+  mkdirSync(repo); mkdirSync(installed);
+  const git = (...args) => execFileSync("git", args, { cwd: repo, stdio: "pipe" });
+  git("init", "-q"); git("config", "user.name", "Fixture"); git("config", "user.email", "fixture@example.invalid");
+  writeFileSync(path.join(repo, "guide.md"), "Current guide\n");
+  writeFileSync(path.join(repo, "caller.md"), "Read guide.md\n");
+  writeFileSync(path.join(installed, "guide.md"), "Current guide\n");
+  git("add", "."); git("commit", "-qm", "fixture");
+  const proofPath = path.join(f.env.TASK_CLOSEOUT_STATE_DIR, "proof.json");
+  const proof = collectEvidence({ repo, targets: ["guide.md"], extraRoots: [installed] });
+  proof.mirrors = [{ file: "guide.md", installedPath: path.join(installed, "guide.md") }];
+  const original = JSON.stringify(proof);
+  writeFileSync(proofPath, original);
+  const id = owner === "linear" ? "23M-2" : "101";
+  const run = (command, options = {}) => f.run(command, { owner, id, ...options }, cli, repo);
+  assert.equal((await run("bind", { "done-when": "The guide and installed copy match", "system-review": proofPath })).code, 0);
+  // Rebinding without the optional flag cannot remove an existing proof gate.
+  assert.equal((await run("bind", { "done-when": "The guide and installed copy match" })).code, 0);
+  for (const [file, before] of [[path.join(repo, "guide.md"), "Current guide\n"], [path.join(repo, "caller.md"), "Read guide.md\n"], [path.join(installed, "guide.md"), "Current guide\n"], [proofPath, original]]) {
+    writeFileSync(file, before + "changed\n");
+    const failed = await run("finish", { evidence: "Guide checked" });
+    assert.notEqual(failed.code, 0, file);
+    assert.match(failed.error ?? failed.stderr, /proof.*(missing|stale)/i);
+    assert.equal(f.writes.length, 0);
+    assert.equal((await run("check")).outcome, "pending");
+    writeFileSync(file, before);
+  }
+  const done = await run("finish", { evidence: "Guide checked" });
+  assert.equal(done.code, 0, JSON.stringify(done));
+  assert.equal(done.outcome, "complete");
+  unlinkSync(proofPath);
+  assert.equal((await run("check")).outcome, "pending");
+  const before = f.writes.length;
+  assert.notEqual((await run("finish", { evidence: "Guide checked" })).code, 0);
+  assert.equal(f.writes.length, before);
 });

@@ -1,3 +1,4 @@
+import os
 import subprocess
 import tempfile
 import unittest
@@ -48,6 +49,21 @@ class OutputGateTests(unittest.TestCase):
     def test_volume_failures_stop_the_caller(self):
         with patch.object(storage.subprocess, "run", side_effect=subprocess.CalledProcessError(2, ["node"])), self.assertRaises(subprocess.CalledProcessError):
             storage.require_output(self.renders / "master.mov")
+
+
+class AssemblyInputTests(unittest.TestCase):
+    def test_input_listing_handles_spaces_without_starting_a_render(self):
+        with tempfile.TemporaryDirectory(prefix="faithtalk project ") as project:
+            media = str(Path(project) / "media with spaces")
+            result = subprocess.run(
+                ["bash", str(Path(__file__).with_name("faithtalk-outro-assemble.sh")), "--list-inputs"],
+                env={**os.environ, "FAITHTALK_PROJECT": project, "FAITHTALK_MEDIA": media},
+                capture_output=True, text=True, check=True,
+            )
+            inputs = result.stdout.splitlines()
+            self.assertEqual(len(inputs), 21)
+            self.assertIn(media + "/source/teaser-despair-to-revelation-v2.mov", inputs)
+            self.assertFalse(Path(media).exists())
 
 
 if __name__ == "__main__":

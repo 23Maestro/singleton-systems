@@ -88,10 +88,16 @@ python3 "$DEV_STORAGE_SKILL/scripts/storage_guard.py" health
 ```
 
 `run` saves a bounded growth history. It is report-only unless the user has
-approved the explicit `--maintain chrome-clones,uv-prune` rules. Those rules
+approved the explicit `--maintain chrome-clones,uv-prune,worktree-caches` rules. Those rules
 require 48 observed idle hours and fresh process/open-file checks. Gaps over
 12 hours reset the grace. No process is killed. uv owns its own pruning; never
 delete its cached environments by hand or use `--force`.
+
+The worktree rule removes only `.next` and `node_modules` from registered Codex
+and Claude worktrees after 48 observed idle hours. Git must be clean and merged
+into its recorded upstream main branch. Open files, a changed checkout, an
+unmerged commit, or a missed check defer cleanup. Source and local settings stay
+in place. Rebuild with the pinned package manager when the worktree is used again.
 
 The guard never deletes projects, Git, worktrees, history, media, models, or
 app-managed data. Over-budget locations remain visible with their class. Use

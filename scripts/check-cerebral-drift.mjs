@@ -59,13 +59,13 @@ const checks = [
   },
   {
     file: "docs/video-storage-workflow.md",
-    must: ["s-systems:video-storage", "dev-storage", "/Volumes/HomeSSD/Generated/<CLIENT>/<TYPE>/", "Eagle or MediaSSD"],
+    must: ["s-systems:video-storage", "dev-storage", "/Volumes/HomeSSD/Active Work/<CLIENT>/<TYPE>/", "Eagle or MediaSSD"],
   },
   {
     file: skillPath("video-storage"),
     must: [
       "Keep the reusable edit system in Git",
-      "/Volumes/HomeSSD/Generated/<CLIENT>/<TYPE>/",
+      "/Volumes/HomeSSD/Active Work/<CLIENT>/<TYPE>/",
       "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A",
       "Do not use the internal SSD as a fallback",
       "Do not blanket",

@@ -12,7 +12,7 @@ import {
 } from "node:fs";
 import path from "node:path";
 
-const DEFAULT_ROOT = "/Volumes/HomeSSD/Generated";
+const DEFAULT_VOLUME_ROOT = "/Volumes/HomeSSD";
 const DEFAULT_UUID = "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A";
 const DEFAULT_MIN_FREE_BYTES = 50 * 1024 ** 3;
 const DEFAULT_DISKUTIL = "/usr/sbin/diskutil";
@@ -23,6 +23,7 @@ const VALID_KINDS = new Set([
   "previews",
   "references",
 ]);
+const LIBRARY_KINDS = { templates: "Templates", references: "References", deliverables: "Deliverables" };
 
 class StorageGateError extends Error {
   constructor(code, message) {
@@ -31,13 +32,18 @@ class StorageGateError extends Error {
   }
 }
 
-function configuration() {
-  const root = path.resolve(process.env.STORAGE_GATE_ROOT || DEFAULT_ROOT);
+function configuration(area = "active") {
+  if (!["active", "library"].includes(area)) {
+    throw new StorageGateError("INVALID_AREA", "area must be active or library; Generated accepts no new work");
+  }
+  const volumeRoot = path.resolve(process.env.STORAGE_GATE_VOLUME_ROOT || DEFAULT_VOLUME_ROOT);
+  const activeRoot = path.resolve(process.env.STORAGE_GATE_ROOT || path.join(volumeRoot, "Active Work"));
+  const libraryRoot = path.join(volumeRoot, "Media Library");
+  const root = area === "active" ? activeRoot : libraryRoot;
   return {
     root,
-    volumeRoot: path.resolve(
-      process.env.STORAGE_GATE_VOLUME_ROOT || path.dirname(root),
-    ),
+    volumeRoot,
+    area,
     expectedUuid: process.env.STORAGE_GATE_EXPECTED_UUID || DEFAULT_UUID,
     minFreeBytes: Number(
       process.env.STORAGE_GATE_MIN_FREE_BYTES || DEFAULT_MIN_FREE_BYTES,
@@ -68,10 +74,10 @@ function parseDiskInfo(output) {
 }
 
 function verifyVolume(config = configuration()) {
-  if (!existsSync(config.root)) {
+  if (!existsSync(config.volumeRoot)) {
     throw new StorageGateError(
       "VOLUME_MISSING",
-      `${config.root} is unavailable; refusing an internal-disk fallback`,
+      `${config.volumeRoot} is unavailable; refusing an internal-disk fallback`,
     );
   }
 
@@ -96,6 +102,11 @@ function verifyVolume(config = configuration()) {
     );
   }
   assertWithinPhysicalRoot(config.root, config.volumeRoot);
+  const generated = physicalPath(path.join(config.volumeRoot, "Generated"));
+  const selected = physicalPath(config.root);
+  if (isWithin(selected, generated) || isWithin(generated, selected)) {
+    throw new StorageGateError("DISPOSABLE_ROOT", "Generated is reserved for reviewed disposable files; route new work to Active Work or Media Library");
+  }
   if (info.readOnly) {
     throw new StorageGateError(
       "VOLUME_READ_ONLY",
@@ -104,7 +115,7 @@ function verifyVolume(config = configuration()) {
   }
 
   try {
-    accessSync(config.root, fsConstants.W_OK);
+    accessSync(config.volumeRoot, fsConstants.W_OK);
   } catch {
     throw new StorageGateError(
       "VOLUME_READ_ONLY",
@@ -155,16 +166,18 @@ function parseArgs(args) {
 
 function route(args) {
   const options = parseArgs(args);
+  const config = configuration(options.area || "active");
   const kind = String(options.kind || "").toLowerCase();
-  if (!VALID_KINDS.has(kind)) {
+  const kinds = config.area === "active" ? VALID_KINDS : new Set(Object.keys(LIBRARY_KINDS));
+  if (!kinds.has(kind)) {
     throw new StorageGateError(
       "INVALID_KIND",
-      `kind must be one of: ${[...VALID_KINDS].join(", ")}`,
+      `kind must be one of: ${[...kinds].join(", ")}`,
     );
   }
 
-  const config = verifyVolume();
-  const destination = path.join(config.root, normalizeClient(options.client), kind);
+  verifyVolume(config);
+  const destination = path.join(config.root, normalizeClient(options.client), config.area === "library" ? LIBRARY_KINDS[kind] : kind);
   assertWithinPhysicalRoot(destination, config.root);
   mkdirSync(destination, { recursive: true });
   process.stdout.write(`${destination}\n`);
@@ -172,6 +185,20 @@ function route(args) {
 
 function readStdin() {
   return readFileSync(0, "utf8");
+}
+
+function checkOutput(args) {
+  const options = parseArgs(args);
+  const config = verifyVolume(configuration(options.area || "active"));
+  const target = path.resolve(options.path || ".");
+  const parts = path.relative(config.root, target).split(path.sep);
+  const kinds = config.area === "active" ? VALID_KINDS : new Set(Object.values(LIBRARY_KINDS));
+  if (!options.path || !isWithin(target, config.root) || parts.length < 3 ||
+      !/^(?:[A-Z0-9]+(?:_[A-Z0-9]+)*|_INBOX)$/.test(parts[0]) || !kinds.has(parts[1])) {
+    throw new StorageGateError("INVALID_OUTPUT", `output must be inside ${config.root}/<CLIENT>/<TYPE>/; legacy Generated inputs may be read but new outputs must be routed`);
+  }
+  assertWithinPhysicalRoot(target, config.root);
+  process.stdout.write(`${target}\n`);
 }
 
 function extractOption(command, option) {
@@ -259,8 +286,10 @@ function hook() {
   }
 
   const toolName = payload.tool_name || payload.toolName || "";
-  const command = payload.tool_input?.command || payload.toolInput?.command || "";
-  if (!/bash/i.test(toolName) || !/\bhyperframes(?:@[^\s]+)?\s+render\b/.test(command)) {
+  const input = payload.tool_input || payload.toolInput || {};
+  const command = input.command || input.cmd || "";
+  if (!/^(?:Bash|exec_command)$/i.test(toolName) ||
+      !/(?:^|[\n;&|])\s*(?:npx\s+(?:--yes\s+|-y\s+)?)?hyperframes(?:@[^\s]+)?\s+render\b/.test(command)) {
     return;
   }
 
@@ -303,11 +332,12 @@ function main() {
   const [command, ...args] = process.argv.slice(2);
   try {
     if (command === "route") route(args);
+    else if (command === "check-output") checkOutput(args);
     else if (command === "hook") hook();
     else {
       throw new StorageGateError(
         "USAGE",
-        'use "storage-gate.mjs route --client <name> --kind <kind>" or "storage-gate.mjs hook"',
+        'use "storage-gate.mjs route --area active|library --client <name> --kind <kind>" or "storage-gate.mjs hook"',
       );
     }
   } catch (error) {

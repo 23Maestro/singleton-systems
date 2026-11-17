@@ -1,5 +1,10 @@
 # 745 visual contract
 
+For intake, estimates and closeout, read the
+[client work record](operations/client-work.md). It links the existing client
+card, work history and final-file roots. An episode label does not establish
+how many edits were done or which revisions a past invoice covers.
+
 [Source visual direction](https://docs.google.com/document/d/1AmoyonXDcWnqPpYkCecxGnOVVxBk1dJbpdMSaRLkaSc/edit)
 governs the content lanes. `config/745-creative/visual-contract.json` owns the
 machine-readable treatments. `active-edit.json` binds one exact Premiere
@@ -176,7 +181,7 @@ carries its required opening treatment over footage. Other current lanes can
 omit a title when their treatment calls for it. No universal intro card is added.
 
 Save the plan at its printed `planPath`. Each sequence gets one job directory
-under `/Volumes/HomeSSD/Generated/745_CREATIVE/renders/`, with `cover.png` and,
+under `/Volumes/HomeSSD/Active Work/745_CREATIVE/renders/`, with `cover.png` and,
 when selected, `opening.png` by default. Hold or fade the transparent PNG in
 Premiere. For a verified animated alpha handoff, select `--opening-format mov`;
 the explicit HyperFrames fallback defaults to MOV. Native Figma video export is

@@ -1,523 +1,157 @@
 {
   "schemaVersion": 1,
-  "episodeId": "2026-11-03-lamar-jackson",
-  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/CATENA_MEDIA/2026-11-06_Lamar'sRavenFuture.prproj",
+  "scope": "approved-motion-placement",
+  "episodeId": "2026-11-10-packers-trio",
+  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/CATENA_MEDIA/2026-11-12_Packers_Trio.prproj",
   "sequenceId": "1d87a35c-266a-4a9b-9d90-012c50814421",
   "fps": 25,
-  "sourceOffsetFrames": 0,
-  "statePath": "/Users/singleton23/.local/state/singleton-systems/lineups-premiere/2026-11-03-lamar-timeline-v1.json",
-  "ingestProof": {
-    "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/premiere-ingest-proof.json",
-    "sha256": "ff61c2f4ac6c69c9a4ebac08d585986ca267d693aa8c8ebb7943fdf3a77893cb"
+  "trackIndex": 4,
+  "statePath": "/Users/singleton23/.local/state/singleton-systems/lineups-premiere/2026-11-12-packers-transition-11.json",
+  "manifest": {
+    "path": "/Users/singleton23/Documents/Development/singleton-systems/config/lineups/episodes/2026-11-10-packers-trio/premiere/placement-11-manifest.json",
+    "sha256": "cdda18e7e297cdb39d08ed4264d4309bfdce0e7c274fca559c9188448c9b79ac"
   },
   "scenes": [
     {
-      "sceneId": "P01",
-      "title": "Lamar\u2019s future",
-      "engine": "figma",
-      "anchor": 9.93,
-      "projectItemId": "000f429f",
-      "eagleItemId": "MW57S81FI7PYH",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81FI7PYH.info/2026-11-03-LAMAR-P01.mp4",
-      "sha256": "82f633a97bfe962f3656e78d1eb1f89c271360acf4b82f183e8b470b3c725c50",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 248,
-      "timelineEndFrame": 338,
-      "durationFrames": 90,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P01.manifest.json",
-        "sha256": "65975f88307423c3ee90de7ab2d8a69353c9fd233f364465faee65dcef765cea"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P01.manifest.json",
-        "sha256": "65975f88307423c3ee90de7ab2d8a69353c9fd233f364465faee65dcef765cea"
-      }
-    },
-    {
-      "sceneId": "P02",
-      "title": "The Buffalo setback",
-      "engine": "figma",
-      "anchor": 43.21,
-      "projectItemId": "000f42a0",
-      "eagleItemId": "MW57S81GT3BNL",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GT3BNL.info/2026-11-03-LAMAR-P02.mp4",
-      "sha256": "010a32204673cb0e79331b6b697d6fa08530485abb035f3b59c3e5ef5e4b76fb",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 1080,
-      "timelineEndFrame": 1194,
-      "durationFrames": 114,
-      "trackIndex": 3,
-      "transitionName": "Blur Dissolve",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P02.manifest.json",
-        "sha256": "a3107ba27659ebbcbef83e50694717b1f4f6a20462221c78f5145bd69c490272"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P02.manifest.json",
-        "sha256": "a3107ba27659ebbcbef83e50694717b1f4f6a20462221c78f5145bd69c490272"
-      }
-    },
-    {
-      "sceneId": "S06",
-      "title": "The contract clock",
-      "engine": "figma",
-      "anchor": 84.01,
-      "projectItemId": "000f42a1",
-      "eagleItemId": "MW57S81G6HQXR",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81G6HQXR.info/2026-11-03-LAMAR-S06.mp4",
-      "sha256": "82ba9496aef24c98078c754795e081f36f57715cbb2b80396a1ac66380de95ff",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 2100,
-      "timelineEndFrame": 2411,
-      "durationFrames": 311,
-      "trackIndex": 3,
-      "transitionName": "Grunge",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S06.manifest.json",
-        "sha256": "7faaf449d10eddfe1267bacd70d14837ec1c18ada17eaeb99489616374decc61"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S06.manifest.json",
-        "sha256": "7faaf449d10eddfe1267bacd70d14837ec1c18ada17eaeb99489616374decc61"
-      }
-    },
-    {
-      "sceneId": "S01",
-      "title": "Minnesota\u2019s QB opening",
-      "engine": "figma",
-      "anchor": 167.4,
-      "projectItemId": "000f42a2",
-      "eagleItemId": "MW57S81GKZFM4",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GKZFM4.info/2026-11-03-LAMAR-S01.mp4",
-      "sha256": "7d24505513f6727a2c260c3d6b8d9c67612fe6dee585b19ed97193c035a8b6f4",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 4185,
-      "timelineEndFrame": 4473,
-      "durationFrames": 288,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S01.manifest.json",
-        "sha256": "e41334205236823ee651985af0bd2473575ae6f85000b1f07c764ee9e4ef03e7"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S01.manifest.json",
-        "sha256": "e41334205236823ee651985af0bd2473575ae6f85000b1f07c764ee9e4ef03e7"
-      }
-    },
-    {
-      "sceneId": "P03",
-      "title": "Justin Jefferson",
-      "engine": "figma",
-      "anchor": 196.49,
-      "projectItemId": "000f42a3",
-      "eagleItemId": "MW57S81G3JIPB",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81G3JIPB.info/2026-11-03-LAMAR-P03.mp4",
-      "sha256": "a3e88a142e51c21745aab211baf15dc2872416d44f38adde85e6ef25bf250208",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 4912,
-      "timelineEndFrame": 5025,
-      "durationFrames": 113,
-      "trackIndex": 3,
-      "transitionName": "Blur Dissolve",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P03.manifest.json",
-        "sha256": "799a476f857cd831b216d3500981d1f69eb25592777b627da848d3e0b4a0c8f0"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P03.manifest.json",
-        "sha256": "799a476f857cd831b216d3500981d1f69eb25592777b627da848d3e0b4a0c8f0"
-      }
-    },
-    {
-      "sceneId": "S02",
-      "title": "Baltimore\u2019s cap hit",
-      "engine": "figma",
-      "anchor": 238.18,
-      "projectItemId": "000f42a4",
-      "eagleItemId": "MW57S81GKAST1",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GKAST1.info/2026-11-03-LAMAR-S02.mp4",
-      "sha256": "cc2aadce01b60ba6db8db5ac4fe4ce0dd696faa8b8587ccf14534746209e6b67",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 5955,
-      "timelineEndFrame": 6243,
-      "durationFrames": 288,
-      "trackIndex": 3,
-      "transitionName": "Grunge",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S02.manifest.json",
-        "sha256": "55aa9bf4a822ac8d5d7efb8bad445842724a50bda4c45dbfe394f7afe8bed019"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S02.manifest.json",
-        "sha256": "55aa9bf4a822ac8d5d7efb8bad445842724a50bda4c45dbfe394f7afe8bed019"
-      }
-    },
-    {
-      "sceneId": "S07",
-      "title": "Baltimore\u2019s 3 choices",
-      "engine": "figma",
-      "anchor": 257.84,
-      "projectItemId": "000f42a5",
-      "eagleItemId": "MW57VGH8MKJDY",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57VGH8MKJDY.info/2026-11-03-LAMAR-S07.mp4",
-      "sha256": "796c651474eb158ca7ebb117a784634bcf3e1c388917bc3e07b3a69207970d4d",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 6446,
-      "timelineEndFrame": 7009,
-      "durationFrames": 563,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S07.manifest.json",
-        "sha256": "543c56ed394b65160ea13445961d4aa7fb72569a7b4b44e82183859b4731515d"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S07.manifest.json",
-        "sha256": "543c56ed394b65160ea13445961d4aa7fb72569a7b4b44e82183859b4731515d"
-      }
-    },
-    {
-      "sceneId": "S03",
-      "title": "Lamar has a say",
-      "engine": "figma",
-      "anchor": 289.37,
-      "projectItemId": "000f42a6",
-      "eagleItemId": "MW57S81GSGPJ6",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GSGPJ6.info/2026-11-03-LAMAR-S03.mp4",
-      "sha256": "ae2b1fd5d10f75d550a56ce45a804681084c1d4a317d6a8a4c3084799831de33",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 7234,
-      "timelineEndFrame": 7522,
-      "durationFrames": 288,
-      "trackIndex": 3,
-      "transitionName": "Blur Dissolve",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S03.manifest.json",
-        "sha256": "2c6944a707bd66e0bfe84e212a5a7b4b02e7119cdc15c1cec58f4da3cc171518"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S03.manifest.json",
-        "sha256": "2c6944a707bd66e0bfe84e212a5a7b4b02e7119cdc15c1cec58f4da3cc171518"
-      }
-    },
-    {
-      "sceneId": "B02",
-      "title": "Baltimore went all in",
-      "engine": "figma",
-      "anchor": 331.65,
-      "projectItemId": "000f42a7",
-      "eagleItemId": "MW57S81GAUTRK",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GAUTRK.info/2026-11-03-LAMAR-B02.mp4",
-      "sha256": "02eda8e20bd84eaa5c8ccd4ba25d8082ed0c8f01aac915ce9ed73bb8e66ad01b",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 8291,
-      "timelineEndFrame": 8754,
-      "durationFrames": 463,
-      "trackIndex": 3,
-      "transitionName": "Grunge",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/B02.manifest.json",
-        "sha256": "34d4c0e533e2f547f375bd25cb9bc5fecb24ad9f220d812f90b790c56516bbb6"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/B02.manifest.json",
-        "sha256": "34d4c0e533e2f547f375bd25cb9bc5fecb24ad9f220d812f90b790c56516bbb6"
-      }
-    },
-    {
-      "sceneId": "S04",
-      "title": "Baltimore\u2019s 2023 window",
-      "engine": "figma",
-      "anchor": 402.85,
-      "projectItemId": "000f42a8",
-      "eagleItemId": "MW57S81GBTYKL",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GBTYKL.info/2026-11-03-LAMAR-S04.mp4",
-      "sha256": "dcff6de6cf8dc9f762affb37fa66730361142fa5faf63a1794a04944c2853924",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 10071,
-      "timelineEndFrame": 10359,
-      "durationFrames": 288,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S04.manifest.json",
-        "sha256": "cafdf48a66432d9d2f58e0fd38f01f0fe462168a7d9b36d485df36e84e8d57f2"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S04.manifest.json",
-        "sha256": "cafdf48a66432d9d2f58e0fd38f01f0fe462168a7d9b36d485df36e84e8d57f2"
-      }
-    },
-    {
       "sceneId": "C01",
-      "title": "Lamar and Jefferson",
-      "engine": "figma",
-      "anchor": 471.02,
-      "projectItemId": "000f42a9",
-      "eagleItemId": "MW57S81G427S4",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81G427S4.info/2026-11-03-LAMAR-C01.mp4",
-      "sha256": "90946f8ae4ec8794ec46a7f7121e626f3e58a2678499395416dfed9721c5c2b6",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 11776,
-      "timelineEndFrame": 12314,
-      "durationFrames": 538,
-      "trackIndex": 3,
-      "transitionName": "Blur Dissolve",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/C01.manifest.json",
-        "sha256": "8f1007916d65f55356ce12f4f38b90c9c45cd99d0b9104ad15901ab6dd24c3be"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/C01.manifest.json",
-        "sha256": "8f1007916d65f55356ce12f4f38b90c9c45cd99d0b9104ad15901ab6dd24c3be"
-      }
+      "projectItemId": "000f42b8",
+      "name": "2026-11-10-PACKERS-TRIO-C01.mp4",
+      "eagleItemId": "MWECW3WCF9SOL",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWECW3WCF9SOL.info/2026-11-10-PACKERS-TRIO-C01.mp4",
+      "sha256": "ae01b1aee41bcff9cf0ae6d41e6dce7da84e5d1d70a7870a0b36285f5f3066e5",
+      "time": 31.84,
+      "duration": 5.52,
+      "hasAudio": false
     },
     {
-      "sceneId": "P05",
-      "title": "Kevin O\u2019Connell calls the plays",
-      "engine": "figma",
-      "anchor": 512.12,
-      "projectItemId": "000f42aa",
-      "eagleItemId": "MW57S81GHNZA2",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GHNZA2.info/2026-11-03-LAMAR-P05.mp4",
-      "sha256": "b0783e179a43247143e5b9e7b36dac98f94873f7f1b82c46e554358da0520763",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 12803,
-      "timelineEndFrame": 12916,
-      "durationFrames": 113,
-      "trackIndex": 3,
-      "transitionName": "Grunge",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P05.manifest.json",
-        "sha256": "bfb82f3d87ab323fe716b08ebed20a28fa340ee1977d0a0e3d6daa700b59c7da"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P05.manifest.json",
-        "sha256": "bfb82f3d87ab323fe716b08ebed20a28fa340ee1977d0a0e3d6daa700b59c7da"
-      }
+      "sceneId": "C02",
+      "projectItemId": "000f42cc",
+      "name": "2026-11-10-PACKERS-TRIO-C02.mp4",
+      "eagleItemId": "MWED72PYCEL5G",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWED72PYCEL5G.info/2026-11-10-PACKERS-TRIO-C02.mp4",
+      "sha256": "bdaed2f11f151652d8c5647b0ab829b14d07935a12e42f76d3e3e36667afde2e",
+      "time": 72.2,
+      "duration": 12,
+      "hasAudio": false
     },
     {
-      "sceneId": "A03",
-      "title": "O\u2019Connell\u2019s past QBs",
-      "engine": "figma",
-      "anchor": 525.44,
-      "projectItemId": "000f42ab",
-      "eagleItemId": "MW57S81G5RF2G",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81G5RF2G.info/2026-11-03-LAMAR-A03.mp4",
-      "sha256": "48b35422eba0790e661fc4f33870d1d30710351900e145a226b4cb1c5ee0474e",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 13136,
-      "timelineEndFrame": 13474,
-      "durationFrames": 338,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/A03.manifest.json",
-        "sha256": "4cf2e4c03d1f8535ca29a976cc4ab4a46d141d7ba899059b5babebcc485a7995"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/A03.manifest.json",
-        "sha256": "4cf2e4c03d1f8535ca29a976cc4ab4a46d141d7ba899059b5babebcc485a7995"
-      }
+      "sceneId": "C03",
+      "projectItemId": "000f42b9",
+      "name": "2026-11-10-PACKERS-TRIO-C03.mp4",
+      "eagleItemId": "MWECXM8TIKY61",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWECXM8TIKY61.info/2026-11-10-PACKERS-TRIO-C03.mp4",
+      "sha256": "97dde61912873b5a2a8f6bb3a1c7c0fc572afdbd3b0d3a129373f10ee0e7651a",
+      "time": 87.32,
+      "duration": 10,
+      "hasAudio": false
     },
     {
-      "sceneId": "A01",
-      "title": "Minnesota\u2019s hypothetical big 3",
-      "engine": "figma",
-      "anchor": 588.03,
-      "projectItemId": "000f42ac",
-      "eagleItemId": "MW57S81GZX10L",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GZX10L.info/2026-11-03-LAMAR-A01.mp4",
-      "sha256": "fe8e6f69dc2ecc1be737f6eea6d0d5989be29bfc2dd07399536d1b7e5acba18d",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 14701,
-      "timelineEndFrame": 15064,
-      "durationFrames": 363,
-      "trackIndex": 3,
-      "transitionName": "Blur Dissolve",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/A01.manifest.json",
-        "sha256": "84af1ae4defd66161c988a8df60327b33f63d23f8f89435e3c36707004c2134a"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/A01.manifest.json",
-        "sha256": "84af1ae4defd66161c988a8df60327b33f63d23f8f89435e3c36707004c2134a"
-      }
+      "sceneId": "C04",
+      "projectItemId": "000f42ba",
+      "name": "2026-11-10-PACKERS-TRIO-C04.mp4",
+      "eagleItemId": "MWECXM9JSGZQ3",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWECXM9JSGZQ3.info/2026-11-10-PACKERS-TRIO-C04.mp4",
+      "sha256": "019f1f78e97f6bdf73a782fbea7a309bbd1e3d31c869b4c7749b3bea8b92d40d",
+      "time": 154.92,
+      "duration": 5.52,
+      "hasAudio": false
     },
     {
-      "sceneId": "S08",
-      "title": "The indoor edge",
-      "engine": "figma",
-      "anchor": 602.02,
-      "projectItemId": "000f42ad",
-      "eagleItemId": "MW57S81GYM9TX",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GYM9TX.info/2026-11-03-LAMAR-S08.mp4",
-      "sha256": "23e70fcff992eaa2c49eb00e97723e0c3e387dba1ceef3535de0fd76759b980a",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 15051,
-      "timelineEndFrame": 15364,
-      "durationFrames": 313,
+      "sceneId": "C05",
+      "projectItemId": "000f42d0",
+      "name": "2026-11-10-PACKERS-TRIO-C05.mp4",
+      "eagleItemId": "MWED9Y32V6QCI",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWED9Y32V6QCI.info/2026-11-10-PACKERS-TRIO-C05.mp4",
+      "sha256": "ea5f35f91dcd7eaf78f917175293e7d527d2b253e812a5a9479318a53e7c2b48",
+      "time": 173.64,
+      "duration": 13,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C06",
+      "projectItemId": "000f42d4",
+      "name": "2026-11-10-PACKERS-TRIO-C06.mp4",
+      "eagleItemId": "MWEDDQV66AS1T",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWEDDQV66AS1T.info/2026-11-10-PACKERS-TRIO-C06.mp4",
+      "sha256": "b9e852b4d9ee0d166d56cbd084fdf633053e3690a5d501b1dd6e3cc038cdafc8",
+      "time": 200.88,
+      "duration": 20,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C07",
+      "projectItemId": "000f42d8",
+      "name": "2026-11-10-PACKERS-TRIO-C07.mp4",
+      "eagleItemId": "MWEDL2X2NY6EX",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWEDL2X2NY6EX.info/2026-11-10-PACKERS-TRIO-C07.mp4",
+      "sha256": "354e52c2fc53dd1232e6511a1c57e9287694110eb5a2e25d4f4648562d938766",
+      "time": 313.28,
+      "duration": 17,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C08",
+      "projectItemId": "000f42bb",
+      "name": "2026-11-10-PACKERS-TRIO-C08.mp4",
+      "eagleItemId": "MWECXM9UAYA3X",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWECXM9UAYA3X.info/2026-11-10-PACKERS-TRIO-C08.mp4",
+      "sha256": "16f01d965aec4e2b52631076427207f3518b00d15a33fbba4d549b7b1833da81",
+      "time": 335.08,
+      "duration": 14,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C09",
+      "projectItemId": "000f42dc",
+      "name": "2026-11-10-PACKERS-TRIO-C09.mp4",
+      "eagleItemId": "MWEDPVFNRY8VW",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWEDPVFNRY8VW.info/2026-11-10-PACKERS-TRIO-C09.mp4",
+      "sha256": "c63b1524fd25973bb50fe248ae29f5e71eb3632c804522607031942975b5c1c0",
+      "time": 352.04,
+      "duration": 12,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C10",
+      "projectItemId": "000f42e0",
+      "name": "2026-11-10-PACKERS-TRIO-C10.mp4",
+      "eagleItemId": "MWEDPVIFO1D9O",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWEDPVIFO1D9O.info/2026-11-10-PACKERS-TRIO-C10.mp4",
+      "sha256": "f99d3b60bbf6c697155852266f85f6e7ab40c38823ace9cbe19770f757407abc",
+      "time": 427.36,
+      "duration": 10,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C11",
+      "projectItemId": "000f42bc",
+      "name": "2026-11-10-PACKERS-TRIO-C11.mp4",
+      "eagleItemId": "MWECXM9ZCLV3E",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWECXM9ZCLV3E.info/2026-11-10-PACKERS-TRIO-C11.mp4",
+      "sha256": "dc29ec6a23425b3cbedb5a0067a688f497365872e8e2a2c7b6ddb24c378a39c8",
+      "time": 450.24,
+      "duration": 5.52,
+      "hasAudio": false
+    }
+  ],
+  "transitions": [
+    {
       "trackIndex": 4,
-      "transitionName": "Grunge",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S08.manifest.json",
-        "sha256": "f2cc2a19192798d372d79620d340d537304d739f5c08018c24a70556e3d139d5"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S08.manifest.json",
-        "sha256": "f2cc2a19192798d372d79620d340d537304d739f5c08018c24a70556e3d139d5"
-      }
-    },
-    {
-      "sceneId": "A02",
-      "title": "The possible route to Minnesota",
-      "engine": "figma",
-      "anchor": 665.49,
-      "projectItemId": "000f42ae",
-      "eagleItemId": "MW57S81GSEQ5A",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81GSEQ5A.info/2026-11-03-LAMAR-A02.mp4",
-      "sha256": "f020fb65658b07fb910553c909ca7d93c5845da5cb278afc33c41b6dafd143f9",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 16637,
-      "timelineEndFrame": 17014,
-      "durationFrames": 377,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/A02.manifest.json",
-        "sha256": "a3823668268274ef4913613f4e1a9fb18a205117ca63d13db56efe748354e90a"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/A02.manifest.json",
-        "sha256": "a3823668268274ef4913613f4e1a9fb18a205117ca63d13db56efe748354e90a"
-      }
-    },
-    {
-      "sceneId": "B01",
-      "title": "What a trade would take",
-      "engine": "figma",
-      "anchor": 689.39,
-      "projectItemId": "000f42af",
-      "eagleItemId": "MW57S81HDVUOB",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81HDVUOB.info/2026-11-03-LAMAR-B01.mp4",
-      "sha256": "27be33831d8fcf0e64c0572cc07b5370014b35bcf6bcdbe521442136b1eb15ad",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 17235,
-      "timelineEndFrame": 17698,
-      "durationFrames": 463,
-      "trackIndex": 3,
-      "transitionName": "Blur Dissolve",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/B01.manifest.json",
-        "sha256": "5c11584129baadd92f3d5afeb0ee11f7e8bd288adfd5b91ff5c15ffb70965b20"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/B01.manifest.json",
-        "sha256": "5c11584129baadd92f3d5afeb0ee11f7e8bd288adfd5b91ff5c15ffb70965b20"
-      }
-    },
-    {
-      "sceneId": "S05",
-      "title": "Mark\u2019s trade estimate",
-      "engine": "figma",
-      "anchor": 709.9,
-      "projectItemId": "000f42b0",
-      "eagleItemId": "MW57S81HRZM4Y",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81HRZM4Y.info/2026-11-03-LAMAR-S05.mp4",
-      "sha256": "01eeaa6d69ae461c2d907ea55f30d4bbc427bdd40c6d7535747c764f5651091b",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 17748,
-      "timelineEndFrame": 17998,
-      "durationFrames": 250,
-      "trackIndex": 3,
-      "transitionName": "Grunge",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S05.manifest.json",
-        "sha256": "a33b03476daf172f04d2553b535e7f22832befc193c7ba605aa67af9b8b8c166"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/S05.manifest.json",
-        "sha256": "a33b03476daf172f04d2553b535e7f22832befc193c7ba605aa67af9b8b8c166"
-      }
-    },
-    {
-      "sceneId": "P04",
-      "title": "The end of an era?",
-      "engine": "figma",
-      "anchor": 915.5,
-      "projectItemId": "000f42b1",
-      "eagleItemId": "MW57S81H6QICS",
-      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MW57S81H6QICS.info/2026-11-03-LAMAR-P04.mp4",
-      "sha256": "5cf3148b35280f02aefae783ca06eda53a10f4328ded4510c8f4ea8751c99332",
-      "labelIndex": 3,
-      "labelName": "Pink",
-      "timelineStartFrame": 22888,
-      "timelineEndFrame": 23001,
-      "durationFrames": 113,
-      "trackIndex": 3,
-      "transitionName": "Light Leak",
-      "transitionFrames": 10,
-      "sourceProof": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P04.manifest.json",
-        "sha256": "97a25b16d3f826b3f03dc25283897bc6db835b695dbdacff9a4d129db13fabb6"
-      },
-      "contractManifest": {
-        "path": "/Volumes/HomeSSD/Generated/CATENA_MEDIA/references/2026-11-03-lamar-jackson/storyboard/figma-build/P04.manifest.json",
-        "sha256": "97a25b16d3f826b3f03dc25283897bc6db835b695dbdacff9a4d129db13fabb6"
+      "name": "2026-11-10-PACKERS-TRIO-C10.mp4",
+      "start": 427.36,
+      "end": 437.36,
+      "args": {
+        "clipId": "000f42e1",
+        "transitionName": "Light Leak",
+        "position": "both",
+        "durationFrames": 10
       }
     }
   ],
-  "sourceMappingProof": {
-    "sourceClipId": "000f4287",
-    "timelineStart": 0,
-    "sourceIn": 0,
-    "sourceOut": 934.28,
-    "trackIndex": 0,
-    "method": "Live Premiere sequence readback; no source trim or offset"
-  },
   "approval": {
     "reviewer": "Jerami",
     "status": "approved",
-    "source": "November 6: preserve first clip adjustment; quick action photos at roughly 4 seconds; finish timeline and alternate Light Leak, Blur Dissolve, Grunge with matching 10-frame ends. Existing manual clip edits remain preserved.",
-    "bindingSha256": "a461a8d93a93d3aef9d9eb7a69aba838fb7f2ea3c61ac14937d4a5d137032b7b"
+    "source": "2026-11-12 chat: all are approved; export and place all scenes with transitions",
+    "bindingSha256": "f2dd0cf0cb205365c83acba53b04ea024f90562721c88a954fabf579e8cec758"
   }
 }

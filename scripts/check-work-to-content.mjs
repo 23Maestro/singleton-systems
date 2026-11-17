@@ -42,7 +42,7 @@ assert.equal(plan.workspace.expectedVolumeUUID, "0EB7E204-D359-47B2-B9B1-89B2DC7
 assert.equal(plan.workspace.sourceRoot, "plugins/work-to-content");
 assert.equal(plan.workspace.internalMediaFallback, false);
 for (const [kind, directory] of Object.entries(plan.workspace.mediaRoots)) {
-  assert.equal(directory, `/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/${kind}`);
+  assert.equal(directory, `/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/${kind}`);
 }
 
 const provenance = read("provenance.json");

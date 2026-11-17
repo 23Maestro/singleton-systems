@@ -10,8 +10,8 @@ notification when it first appears.
 
 ## Cleanup rules
 
-The default is report-only. `run --maintain chrome-clones,uv-prune` enables
-only these 2 rules after user approval:
+The default is report-only. `run --maintain chrome-clones,uv-prune,worktree-caches`
+enables these 3 rules after user approval:
 
 - Chrome: owned direct `code_sign_clone.*` children in the current user's macOS
   clone root. Require the real Chrome bundle identity, no open files, unchanged
@@ -21,9 +21,19 @@ only these 2 rules after user approval:
   cache, with no uv process or cached tool running. Check every cache entry's
   latest change time before pruning. Require uv's in-use lock support. Use a
   short lock timeout and never `--force`, `--ci`, or direct cache deletion.
+- Worktree caches: remove only `.next` and `node_modules` in registered Codex or
+  Claude worktrees. Require clean Git state, a HEAD merged into the recorded
+  origin/main or origin/master, no open files or working processes, and 48
+  observed idle hours. Recheck Git and open files before each folder removal.
+  Keep the checkout, source, Git, local settings, history and media.
 
 The first run starts the idle clock. Active use or a gap over 12 hours resets
-it. An incomplete scan defers cleanup. The guard never kills a tool or restarts
+it. A nested Chrome change starts its wait at the file change time, so discovering
+an older change does not add another full 48 hours. Chrome's shared executable
+can change its link count when another clone is removed. For Chrome regular
+files, use modification and creation times instead of that link metadata time;
+directory and symlink changes still reset the wait. An incomplete scan defers
+cleanup. The guard never kills a tool or restarts
 an app. uv 0.13.6 has no age filter; continued daily cache activity therefore
 defers its whole-cache prune. The report keeps that reason visible.
 
@@ -38,12 +48,15 @@ routing produces an alert, never an internal download or automatic migration.
 Age and size do not permit removal. A new request naming Whisper is required.
 
 Watch uv, npm, pip, Homebrew, pnpm, Chrome copies, Codex temporary data,
-worktrees and history, browser engines, Claude's VM, HyperFrames, Whisper,
+worktrees and history, browser engines, Claude's VM, app data, update cache,
+chat history and coding worktrees, HyperFrames, Whisper,
 background-removal and Audio Hijack models, Premiere cache, and Apple assets.
 Report macOS swap, the Frame.io Drive local cache, the internal CAD cache, and
 the local iCloud copies of Intent Keys E02 media and its v05 review export.
 Find project dependencies, build output, scratch copies, and Git data within
-3 directory levels of Development and Codex worktrees.
+3 directory levels of Development, Codex worktrees and each project's Claude
+worktree root. Missing roots are skipped. Linked roots and incomplete scans
+defer cleanup.
 
 Source, Git, worktrees, history, media, models, and app data require separate
 review. Size alone never permits deletion. A linked path is reported without

@@ -6,7 +6,7 @@ from pathlib import Path
 from manim import *
 from faithtalk_storage import require_output
 
-config.media_dir = str(require_output(Path("/Volumes/HomeSSD/Generated/FAITHTALK/renders/timing-sheet")))
+config.media_dir = str(require_output(Path("/Volumes/HomeSSD/Active Work/FAITHTALK/renders/timing-sheet")))
 
 D = json.load(open(os.environ["FT_SHEET"]))
 

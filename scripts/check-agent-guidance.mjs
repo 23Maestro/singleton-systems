@@ -27,3 +27,13 @@ for (const command of [
 }
 
 console.log(`Agent guidance check passed: AGENTS.md is a ${words}-word routing entrypoint; durable rules remain in CODEX.md.`);
+
+const writing = fs.readFileSync(path.join(root, "docs/harness/writing-rules.md"), "utf8");
+const payload = writing.split("## Hook payload")[1]?.split("```text")[1]?.split("```")[0];
+assert.ok(payload, "writing rules must own the shared hook payload");
+for (const phrase of ["Task descriptions are for Jerami", "comments on that task", "subtask names and descriptions brief and plain"]) {
+  assert.ok(payload.includes(phrase), `shared writing payload must retain: ${phrase}`);
+}
+for (const app of ["Linear", "Asana"]) {
+  assert.match(writing, new RegExp(`\\| ${app} \\| [^\\n]*comments`), `${app} must use task comments for deeper notes`);
+}

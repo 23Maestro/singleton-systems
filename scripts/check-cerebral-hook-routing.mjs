@@ -181,6 +181,7 @@ for (const prompt of [
   assert.match(routed.stdout, /work-to-content:openscreen-demo/, prompt);
   assert.match(routed.stdout, /\[content-mode\] Use work-to-content first\./, prompt);
   assert.ok(routed.stdout.includes(workspace.notePath), prompt);
+  assert.match(routed.stdout, /legacy note is read-only until migration/, prompt);
 }
 for (const prompt of ["Build the Lineups graphic for this episode.", "Write a LinkedIn post about AI hooks.", "Install OBS for streaming."]) {
   const routed = runHook(prompt);

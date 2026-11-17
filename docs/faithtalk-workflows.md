@@ -15,7 +15,7 @@ Use `scripts/faithtalk-media-links-check.py` before retiring any linked media.
 without rendering.
 
 The mix, timing-sheet, and outro scripts verify the physical HomeSSD and output
-path before writing. Outputs stay under `/Volumes/HomeSSD/Generated/FAITHTALK/`.
+path before writing. Outputs stay under `/Volumes/HomeSSD/Active Work/FAITHTALK/`.
 Run `npm run check:faithtalk:storage` to check rejection of internal destinations
 and symlink escapes.
 

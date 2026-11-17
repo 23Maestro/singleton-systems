@@ -16,6 +16,23 @@ finding, or stale scope leaves the review incomplete.
 This is a local review transaction. It does not promise ACID behavior across
 GitHub, Linear, plugin runtimes, or other apps.
 
+## Selected work
+
+Use `--scope task-closeout` for the named closeout profile in
+`config/reviews/singleton-systems.json`. Use the same scope in both passes and
+add `"scope":"task-closeout"` to the delivery declaration. The Stop check loads
+that profile from the canonical config. A reply cannot replace its checks.
+
+The profile binds selected source, tests, shared rules, dependency inputs and
+local environment hashes. New files inside selected folders count. Changes to
+those inputs make the review stale. Unrelated files and unrelated commits do
+not. Each receipt also keeps the tracked-diff and file-status hash for its check run.
+All configured checks still run. A failed check blocks readiness.
+
+The `workflow-ledger` profile binds the pipeline generator, its tests and records,
+both generated views, and the Site manifest. Use that scope for pipeline code
+work. It keeps the same repository checks and approval boundary.
+
 ## Retained state
 
 The default is `~/.local/state/singleton-systems/reviews/<hash>.json`. The hash

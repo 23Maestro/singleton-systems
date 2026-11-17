@@ -1,5 +1,13 @@
 # FaithTalk brand
 
+## Work history
+
+Read the [client work rules](../../../docs/operations/client-work.md) and
+[745 Work](https://docs.google.com/spreadsheets/d/1RI6OGmv9HF5NTmHJu4Vk6QInT3Fs5-lOeXUZPTp8y28/edit#gid=2026111602)
+at intake and closeout. Work dates, air dates and paid scope are separate.
+Read the client context and revision sources before reusing an episode number
+or an older time estimate. Supabase contact `45` owns the client context.
+
 ## Social template registry
 
 Start with [template-registry.json](template-registry.json) for the FaithTalk
@@ -9,10 +17,10 @@ with hashes. Use these records before searching old chats.
 
 | Deliverable | Editable Figma source | Last delivered example |
 | --- | --- | --- |
-| 3 Story cards | [Episode 4 social workspace](https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1448) | [Story exports](/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/stories) |
-| 3 square feed cards | [Feed master](https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1545) | [Feed exports](/Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/feed) |
-| Social video | [Animated ending source](../../../videos/faithtalk-social-ending/README.md) | [Episode 5 render](</Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-11-05-episode-5/social-v2/FaithTalk Episode 5 - Social Promo - Clean Ending.mp4>) |
-| Reel cover | [Lantern cover master](https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=453-1692) | [Final cover](</Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/reel/COVER_FaithTalk Episode 4 - Lantern.png>) |
+| 3 Story cards | [Episode 4 social workspace](https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1448) | [Story exports](/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/stories) |
+| 3 square feed cards | [Feed master](https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1545) | [Feed exports](/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/feed) |
+| Social video | [Animated ending source](../../../videos/faithtalk-social-ending/README.md) | [Episode 5 render](</Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/social-v2/FaithTalk Episode 5 - Social Promo - Clean Ending.mp4>) |
+| Reel cover | [Lantern cover master](https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=453-1692) | [Final cover](</Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/reel/COVER_FaithTalk Episode 4 - Lantern.png>) |
 
 Eagle keeps the source kit under `745 Productions / FaithTalk TV /
 Social Brand - 2026-10 / 01 Masters`. The source-package item is
@@ -20,7 +28,7 @@ Social Brand - 2026-10 / 01 Masters`. The source-package item is
 The source-package annotation links back to this registry, Figma and final render.
 
 [Delivered package on Dropbox](https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%204%20-%20Final%20Delivery).
-The [local review ZIP](</Volumes/HomeSSD/Generated/FAITHTALK/renders/2026-10-28-episode-4-social-current/FaithTalk Episode 4 - Review Package.zip>)
+The [local review ZIP](</Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/FaithTalk Episode 4 - Review Package.zip>)
 also contains the separate broadcast outro. Its contents do not add deliverables
 to a new social brief. Episode 4's copy and schedule are examples; set current
 episode fields from the new brief. Keep the recorded review status.

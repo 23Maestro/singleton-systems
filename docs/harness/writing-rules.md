@@ -88,9 +88,13 @@ Raw transcripts, source records, and machine contracts may stay long. Keep
 them behind links. Jerami should see the decision, current truth, next action,
 and review gate first.
 
-For Linear, keep the title and opening summary easy to scan. Put needed build
-details below that summary or behind a clear link. Store reusable workflows in
-their owning skills. Keep each ticket's exact tests, blockers and finish checks.
+For Linear, keep the main description brief and written for Jerami. State the
+result, next action and finish check in plain words. Keep build notes, exact
+tests and deeper execution details in comments on that entry or linked sources.
+Use native headings and lists with space between sections. Aim for 40 words
+in routine task descriptions. Lead with one action. Use numbered steps only
+when order matters. Keep subtasks to one short action. Store reusable workflows
+in their owning skills.
 
 For Asana, names stay short. A project name is one to three words. A task name
 is two to four words, a verb plus the object (Book pilot call, Rank spec lanes).
@@ -115,10 +119,10 @@ app's own layout and text tools. A Linear example is not a template for all apps
 - Keep deeper sources behind named links. Show an attention estimate when it
   helps planning; label estimates and unknowns. Never invent times or deadlines.
 
-Technical tickets still need enough detail to execute. TDD, tracer-bullet and
+Task comments and linked sources still need enough detail to execute. TDD, tracer-bullet and
 ticket-driven skills keep their test seams, first slice, acceptance checks,
 blockers and completion signals. Use a simple name and opening summary for
-Jerami, then keep those details in the ticket or its linked source. Do not
+Jerami, then keep those details in comments on that task or its linked source. Do not
 remove needed detail to hit a reading-level or word-count target.
 
 ## Operational format
@@ -129,8 +133,8 @@ app choices, not one universal Markdown template.
 
 | Surface | Write and verify |
 | --- | --- |
-| Linear | CommonMark headings, lists, links and selective emphasis. Keep the short name and summary above technical details. Read back the saved body. |
-| Asana | Supported HTML in `html_notes`, with a `<body>` root. Use sections, lists, links and emphasis. Read back both `notes` and `html_notes`. |
+| Linear | Keep the main description brief and plain. Use comments for build notes and test details. Keep subtasks brief. Use CommonMark and read back the body and comments. |
+| Asana | Keep descriptions and subtasks brief and plain; use comments for working notes. Keep native blocker links in the description. Write supported HTML in `html_notes` with a `<body>` root. Read back both description fields and saved comments. |
 | Craft | Use its blocks, headings, lists and links. Use supported Markdown within blocks or the documented Markdown input. Preserve block IDs; read back changed blocks. |
 | Notion | Use supported native blocks and rich text. Use headings, lists, links or toggles when they help. Read back the changed blocks; do not paste markup into plain text. |
 | Dashboard | Use existing UI sections, task links and details views. Keep labels and action text short. Check the rendered view when changing it. |
@@ -253,9 +257,15 @@ make it specific or delete it.
 Jerami's surfaces: simple names, a clear result or next action, short sections.
 Use each app's own blocks, lists, links and text tools. Use bold for key names
 or actions and italics for brief secondary context when useful. Avoid decoration.
-Technical tickets keep the build detail, TDD seams, tests, blockers and finish
-checks needed to execute. The short title and summary are for Jerami; deeper
-details belong below them or in linked sources. Do not flatten technical tickets.
+Task descriptions are for Jerami: a short result, next action and finish check.
+Use native headings, bullets and space between sections. Aim for 40 words in
+routine descriptions. Lead with one action; number steps only when order matters.
+Keep one current work note in comments on that task or linked sources. Update
+that note; do not append repeated progress or copy the full description each time.
+Keep build notes, tests and deeper detail there. Archive checked old notes before
+a reviewed purge; keep source facts and decisions recoverable. Keep subtask names and descriptions brief and plain. Preserve source
+words and useful history before shortening old entries. Close duplicate work
+only after checking its owner, links and completion proof.
 Linear: CommonMark headings, bullets, fenced code, and blank lines.
 Asana: convert drafts to supported HTML in `html_notes`, wrapped in `<body>`.
 `notes` is plain text. Read back both fields. Emit real line breaks.

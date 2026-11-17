@@ -45,7 +45,19 @@
         "diffHash": { "$ref": "#/$defs/hash" },
         "contractHash": { "$ref": "#/$defs/hash" },
         "changedFiles": { "type": "array", "items": { "type": "string" } },
-        "untrackedFiles": { "type": "array", "items": { "type": "string" } }
+        "untrackedFiles": { "type": "array", "items": { "type": "string" } },
+        "workspaceHash": { "$ref": "#/$defs/hash" },
+        "selection": {
+          "type": "object",
+          "required": ["name", "selectors", "contentHash", "baselineHash", "runtimeHash"],
+          "properties": {
+            "name": { "type": "string" },
+            "selectors": { "type": "array", "items": { "type": "string" } },
+            "contentHash": { "$ref": "#/$defs/hash" },
+            "baselineHash": { "$ref": "#/$defs/hash" },
+            "runtimeHash": { "$ref": "#/$defs/hash" }
+          }
+        }
       }
     },
     "finding": {
@@ -86,6 +98,7 @@
         "passId": { "type": "string" },
         "attempt": { "type": "integer", "minimum": 1 },
         "scopeHash": { "$ref": "#/$defs/hash" },
+        "workspaceHash": { "$ref": "#/$defs/hash" },
         "headCommit": { "type": "string" },
         "diffHash": { "$ref": "#/$defs/hash" },
         "contractHash": { "$ref": "#/$defs/hash" },
@@ -108,6 +121,7 @@
         "configHash": { "$ref": "#/$defs/hash" },
         "passId": { "type": "string" },
         "scopeHash": { "$ref": "#/$defs/hash" },
+        "workspaceHash": { "$ref": "#/$defs/hash" },
         "checksHash": { "$ref": "#/$defs/hash" },
         "findingsHash": { "$ref": "#/$defs/hash" },
         "previousReceiptHash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },

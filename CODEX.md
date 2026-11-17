@@ -215,7 +215,7 @@ The canonical writing rules live in `docs/harness/writing-rules.md`. Apply them
 to prose we author or rewrite for a reader. Preserve supplied client words and
 verbatim speech transcripts. Code stays outside the prose gate.
 Read its `Writing for Jerami` and `Operational format` sections for each app.
-Those sections govern short reader summaries and full technical ticket detail.
+Those sections govern task descriptions, working comments and subtasks.
 
 - Fix corrections silently.
 - State facts and results only.

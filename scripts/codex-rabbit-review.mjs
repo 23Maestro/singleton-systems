@@ -1,3 +1,4 @@
+import {selectReviewScope} from "../lib/reviews/contract.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import { prepareReviewStateDirectory, reviewStatePath } from "../lib/reviews/state-path.mjs";
@@ -14,6 +15,7 @@ function parseArgs(argv) {
     };
     if (value === "--repo") args.root = take("--repo");
     else if (value === "--config") args.config = take("--config");
+    else if (value === "--scope") args.scope = take("--scope");
     else if (value === "--state") args.state = take("--state");
     else if (value === "--task") args.taskId = take("--task");
     else if (value === "--session") args.sessionId = take("--session");
@@ -41,7 +43,7 @@ function readJson(file, label) {
 const args = parseArgs(process.argv.slice(2));
 const root = path.resolve(args.root);
 const configPath = path.resolve(root, args.config ?? "config/reviews/singleton-systems.json");
-const config = readJson(configPath, "cannot read config");
+const config = selectReviewScope(readJson(configPath, "cannot read config"), args.scope);
 if (args.taskId || args.sessionId || args.runId) {
   if (!args.taskId || !args.sessionId || !args.runId) throw new Error("--task, --session and --run must be supplied together");
   config.completionBinding = { taskId: args.taskId, sessionId: args.sessionId, runId: args.runId };

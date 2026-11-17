@@ -46,5 +46,9 @@ method while its final review or delivery is still open.
 The local records map Lineups and Intent Keys to matching component roles.
 Intent Keys links to its own sources and marks unverified safeguards as gaps.
 The checker validates record structure and local source paths. Other client
-workflows and automatic evidence freshness checks remain open. A passing check
+workflows and automatic evidence freshness checks remain open. The JSON's
+`requiredWorkflows` list names the selected coverage. A missing entry appears
+under `Missing workflows` in both views and makes `check` fail. `generate`
+still writes those gaps so they stay visible. Undeclared client workflows are
+outside this coverage check. A passing check
 does not approve creative quality, run every linked test or close a client task.

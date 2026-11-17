@@ -1,0 +1,286 @@
+{
+  "schemaVersion": 1,
+  "scope": "approved-motion-placement",
+  "episodeId": "2026-11-10-nfl-week-10-power-rankings",
+  "projectPath": "/Volumes/MediaSSD/02_EDITING/23Projects/CATENA_MEDIA/2026-11-12_w10_powerrankings.prproj",
+  "sequenceId": "1d87a35c-266a-4a9b-9d90-012c50814421",
+  "fps": 25,
+  "trackIndex": 4,
+  "statePath": "/Users/singleton23/.local/state/singleton-systems/lineups-premiere/2026-11-12-w10-motion-placement.json",
+  "manifest": {
+    "path": "/Users/singleton23/Documents/Handoffs/2026-11-12-week-10-approved-motion.json",
+    "sha256": "5e4a4015143db760dffdb7faef8881cfa2f85252c487404358ba3ba628b5ff86"
+  },
+  "scenes": [
+    {
+      "sceneId": "C01",
+      "projectItemId": "000f42d6",
+      "name": "S01_C01_Vikings-out-of-the-top-10.mp4",
+      "eagleItemId": "MWDSHLZS8SVLY",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDSHLZS8SVLY.info/S01_C01_Vikings-out-of-the-top-10.mp4",
+      "sha256": "4d8a7ac42ba17e77536687e260c3cdc3d2351d09a1ed48c029d6d86e7cff66c1",
+      "time": 44.861,
+      "duration": 10.84,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "C02",
+      "projectItemId": "000f42d7",
+      "name": "S02_C02_Vikings-offense-versus-defense.mp4",
+      "eagleItemId": "MWDT402I6ZD6T",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402I6ZD6T.info/S02_C02_Vikings-offense-versus-defense.mp4",
+      "sha256": "643c0bf44f598e12f189b09b76acd432db5a9a8bf6c79895621af24b470ea7ba",
+      "time": 72.761,
+      "duration": 6.4,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "R10",
+      "projectItemId": "000f42d8",
+      "name": "S03_R10_10-Pittsburgh-Steelers.mp4",
+      "eagleItemId": "MWDT402IL1BN8",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402IL1BN8.info/S03_R10_10-Pittsburgh-Steelers.mp4",
+      "sha256": "1c65956cbdd20e1735bd26800cc656d6fb84af234740f080c2daadf39fc09b6d",
+      "time": 92.421,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "R09",
+      "projectItemId": "000f42ed",
+      "name": "S04_R09_9-Denver-Broncos.mp4",
+      "eagleItemId": "MWDTB0LLE5I35",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDTB0LLE5I35.info/S04_R09_9-Denver-Broncos.mp4",
+      "sha256": "7f3309f4d754a510786a1ca043cafaf1f194e65e418720472bcda50dd8c2b94b",
+      "time": 158.021,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C07",
+      "projectItemId": "000f42d9",
+      "name": "S05_C07_Broncos-rely-on-fourth-quarter-magic.mp4",
+      "eagleItemId": "MWDT402JSCC34",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JSCC34.info/S05_C07_Broncos-rely-on-fourth-quarter-magic.mp4",
+      "sha256": "4dd525c81ad89bb0c63dc2406dba34e59a9fabc4f77af5640f398ce35b0d38fc",
+      "time": 218.321,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "R08",
+      "projectItemId": "000f42da",
+      "name": "S06_R08_8-Cincinnati-Bengals.mp4",
+      "eagleItemId": "MWDT402JKW31M",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JKW31M.info/S06_R08_8-Cincinnati-Bengals.mp4",
+      "sha256": "cdceda1453b4432421abc58497219b3d80080e3fdc2fc5f3dabf94d291851670",
+      "time": 237.381,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C08",
+      "projectItemId": "000f42db",
+      "name": "S07_C08_Bengals-win-and-offense-keeps-moving.mp4",
+      "eagleItemId": "MWDT402JXLISJ",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JXLISJ.info/S07_C08_Bengals-win-and-offense-keeps-moving.mp4",
+      "sha256": "c0c5b6a36f9a804df8f106f636b130517c1a6a7116c73201bee5e0dd624c2889",
+      "time": 249.681,
+      "duration": 6.4,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "C10",
+      "projectItemId": "000f42dc",
+      "name": "S08_C10_Bengals-versus-Steelers-for-division-lead.mp4",
+      "eagleItemId": "MWDT402JFDYFR",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JFDYFR.info/S08_C10_Bengals-versus-Steelers-for-division-lead.mp4",
+      "sha256": "367c6843f0db471b48eb7734df1c3a5e4c77e8c5961dc727d48c6a88fdd56916",
+      "time": 279.681,
+      "duration": 8.52,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "R07",
+      "projectItemId": "000f42dd",
+      "name": "S09_R07_7-Detroit-Lions.mp4",
+      "eagleItemId": "MWDT402JO0TL6",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JO0TL6.info/S09_R07_7-Detroit-Lions.mp4",
+      "sha256": "4dc02ffe1c23bc4dfa2950f5b1255aa45631be49bbfd58a13858e59dd3aa0518",
+      "time": 294.341,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "R06",
+      "projectItemId": "000f42de",
+      "name": "S10_R06_6-Kansas-City-Chiefs.mp4",
+      "eagleItemId": "MWDT402JYY5EB",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JYY5EB.info/S10_R06_6-Kansas-City-Chiefs.mp4",
+      "sha256": "e9c031eec1bc8bc780b7f5adf5fef3d684d1471d9d39a6fd312da60be93d441c",
+      "time": 352.161,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C27",
+      "projectItemId": "000f42df",
+      "name": "S11_C27_Chiefs-finish-strong-3-linked-facts.mp4",
+      "eagleItemId": "MWDT402J6G92Z",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402J6G92Z.info/S11_C27_Chiefs-finish-strong-3-linked-facts.mp4",
+      "sha256": "5e86e5bccd0d2b9bb1e932292fd2aeed9b7116fb0955a0cfa176c70777a502f6",
+      "time": 364.401,
+      "duration": 9.28,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "R05",
+      "projectItemId": "000f42e0",
+      "name": "S12_R05_5-Green-Bay-Packers.mp4",
+      "eagleItemId": "MWDT402JV1SA3",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JV1SA3.info/S12_R05_5-Green-Bay-Packers.mp4",
+      "sha256": "a8c243cff634e7b0e86ef107be487be2c9b2c0c164d9295c4ad9b198af5ac2ca",
+      "time": 440.821,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C17",
+      "projectItemId": "000f42e1",
+      "name": "S13_C17_Packers-passing-trio.mp4",
+      "eagleItemId": "MWDT402JON0S2",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JON0S2.info/S13_C17_Packers-passing-trio.mp4",
+      "sha256": "25904ecb574fead0daeb99fb5d53ae207d94e6be91906e4bbd302fe786b64e49",
+      "time": 455.281,
+      "duration": 6.6,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "C18",
+      "projectItemId": "000f42e2",
+      "name": "S14_C18_Packers-put-up-45-in-New-England.mp4",
+      "eagleItemId": "MWDT402JP7HDF",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402JP7HDF.info/S14_C18_Packers-put-up-45-in-New-England.mp4",
+      "sha256": "c5c8f6865f3f4cc07b76db0882bfe3ff5275a743a79050baa52f16e7fafee0f2",
+      "time": 470.621,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "R04",
+      "projectItemId": "000f42e3",
+      "name": "S15_R04_4-Buffalo-Bills.mp4",
+      "eagleItemId": "MWDT402J46Q6X",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402J46Q6X.info/S15_R04_4-Buffalo-Bills.mp4",
+      "sha256": "711820bbd33bef98201ee002754f822979768e28faeaa2c5e8ee7881884928d9",
+      "time": 505.981,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "R04B",
+      "projectItemId": "000f42e4",
+      "name": "S16_R04B_Bills-drop-one-spot.mp4",
+      "eagleItemId": "MWDT402KE5HKW",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KE5HKW.info/S16_R04B_Bills-drop-one-spot.mp4",
+      "sha256": "4210f6669647658862a68a02885ee4a44006f8562b0e52dd678761f7cd2571b9",
+      "time": 510.761,
+      "duration": 6.24,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "C20",
+      "projectItemId": "000f42e5",
+      "name": "S17_C20_Bills-beat-Vikings-23-6.mp4",
+      "eagleItemId": "MWDT402KE0LPT",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KE0LPT.info/S17_C20_Bills-beat-Vikings-23-6.mp4",
+      "sha256": "2a0610b5a6daadc45e3c27aecc67fb839759814404832b60a9985870c51eb807",
+      "time": 520.661,
+      "duration": 6.4,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "R03",
+      "projectItemId": "000f42e6",
+      "name": "S18_R03_3-Jacksonville-Jaguars.mp4",
+      "eagleItemId": "MWDT402KA1R2U",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KA1R2U.info/S18_R03_3-Jacksonville-Jaguars.mp4",
+      "sha256": "ec1c2c5989f5cc7d386d79f934784351cc2869f895e42908a01cdfcfe2f259cf",
+      "time": 570.141,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C23",
+      "projectItemId": "000f42e7",
+      "name": "S19_C23_What-Bates-and-Davis-add.mp4",
+      "eagleItemId": "MWDT402KD95Y6",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KD95Y6.info/S19_C23_What-Bates-and-Davis-add.mp4",
+      "sha256": "2f045e079b8f16053bd6f02eda63153f8daac9b2fb156519636a24b348bd504c",
+      "time": 608.101,
+      "duration": 16.64,
+      "hasAudio": true
+    },
+    {
+      "sceneId": "R02",
+      "projectItemId": "000f42e8",
+      "name": "S20_R02_2-Chicago-Bears.mp4",
+      "eagleItemId": "MWDT402KRCW70",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KRCW70.info/S20_R02_2-Chicago-Bears.mp4",
+      "sha256": "a4e53cda3000de837b54f130576d32f05554f44f92fbc127ddbe95f2c49f762c",
+      "time": 645.261,
+      "duration": 10.08,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C24",
+      "projectItemId": "000f42e9",
+      "name": "S21_C24_Bears-win-despite-4-interceptions.mp4",
+      "eagleItemId": "MWDT402KQXFBG",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KQXFBG.info/S21_C24_Bears-win-despite-4-interceptions.mp4",
+      "sha256": "4b4042d46e5417038ebc06ef292135c57a2514d5f396653b375bbf4672c582d0",
+      "time": 649.801,
+      "duration": 13.92,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C25",
+      "projectItemId": "000f42ea",
+      "name": "S22_C25_Jeffery-Simmonss-impact.mp4",
+      "eagleItemId": "MWDT402K0ID7Y",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402K0ID7Y.info/S22_C25_Jeffery-Simmonss-impact.mp4",
+      "sha256": "79eea8dcfb700a3536389f1a6a08a54a730a79aa5eebc087d64907add0f7aa01",
+      "time": 676.961,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "R01",
+      "projectItemId": "000f42eb",
+      "name": "S23_R01_1-San-Francisco-49ers.mp4",
+      "eagleItemId": "MWDT402KJS3YY",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402KJS3YY.info/S23_R01_1-San-Francisco-49ers.mp4",
+      "sha256": "e07f94a9f31e3ee0fd507d6afb989189f1bdb2a63bd6800157eb6084377405eb",
+      "time": 701.021,
+      "duration": 10.56,
+      "hasAudio": false
+    },
+    {
+      "sceneId": "C26",
+      "projectItemId": "000f42ec",
+      "name": "S24_C26_Optional-49ers-38-17-score-callout.mp4",
+      "eagleItemId": "MWDT402K3LZNJ",
+      "eaglePath": "/Volumes/HomeSSD/Content Editor.library/images/MWDT402K3LZNJ.info/S24_C26_Optional-49ers-38-17-score-callout.mp4",
+      "sha256": "15366913c8307ba99a57c9196550c2c25e2765ff28cdab961bd794ee53a90897",
+      "time": 705.781,
+      "duration": 6.4,
+      "hasAudio": true
+    }
+  ],
+  "approval": {
+    "reviewer": "Jerami",
+    "status": "approved",
+    "source": "2026-11-12 chat: please now import all of our motion comps onto v5. Motion artwork and cues approved in named handoff; latest labels Pink for rank reveals and Dark Pink for other comps.",
+    "bindingSha256": "e4567c9e16194b1a576832156f6d957aefd741f83da860770e6eaf8375e27972"
+  }
+}

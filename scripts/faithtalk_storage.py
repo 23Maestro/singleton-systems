@@ -3,7 +3,7 @@ from pathlib import Path
 import subprocess
 import sys
 
-CLIENT_ROOT = Path("/Volumes/HomeSSD/Generated/FAITHTALK")
+CLIENT_ROOT = Path("/Volumes/HomeSSD/Active Work/FAITHTALK")
 
 
 def require_output(value):

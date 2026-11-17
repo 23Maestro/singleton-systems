@@ -47,7 +47,8 @@ function sceneCase() {
   const manifestPath = path.join(c.dir, 'scene.json');
   function run(event, tool, input, response, runtime = python) {
     fs.writeFileSync(manifestPath, JSON.stringify(manifest));
-    const result = spawnSync(runtime, [hook], {cwd: root, encoding: 'utf8', input: JSON.stringify({hook_event_name: event, cwd: root, tool_name: tool, tool_input: input, tool_response: response}), env: {...process.env, LINEUPS_MANIFEST_PATH: manifestPath}});
+    // Scene fixtures must never inherit the user's live delivery binding.
+    const result = spawnSync(runtime, [hook], {cwd: root, encoding: 'utf8', input: JSON.stringify({hook_event_name: event, cwd: root, tool_name: tool, tool_input: input, tool_response: response}), env: {...process.env, LINEUPS_MANIFEST_PATH: manifestPath, LINEUPS_PREMIERE_DELIVERY_PATH: path.join(c.dir, 'delivery.json')}});
     assert.equal(result.status, 0, result.stderr);
     return result.stdout.trim() ? JSON.parse(result.stdout) : {};
   }
