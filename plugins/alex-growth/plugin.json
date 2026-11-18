@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "alex-growth",
+  "version": "0.1.0",
+  "description": "Choose the next sales or growth step from checked Alex Hormozi sources and current offer facts.",
+  "author": { "name": "Singleton Systems" },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Alex Growth",
+        "shortDescription": "One useful next step for each offer and lead.",
+        "developerName": "Singleton Systems",
+        "category": "Productivity"
+      }
+    }
+  }
+}
