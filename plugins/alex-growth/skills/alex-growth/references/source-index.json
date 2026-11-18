@@ -1,0 +1,1754 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-17",
+  "archiveHint": "HomeSSD / Active Work / SINGLETON_SYSTEMS / references / alex-growth",
+  "pdfs": {
+    "pick-your-niche-checklist": {
+      "url": "https://www.acquisition.com/files/pick-your-niche-checklist.pdf",
+      "file": "pick-your-niche-checklist.pdf",
+      "sha256": "1957d79722567ed6ab62afece47be5deadd8d1ad88aaba2e8d6b4b5703295ecd",
+      "pageCount": 1,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "pricing-value-checklist": {
+      "url": "https://www.acquisition.com/files/pricing-value-checklist.pdf",
+      "file": "pricing-value-checklist.pdf",
+      "sha256": "620bb75832de1772410361be4f3761a390558722de7bf4277fd007e2aa63c19c",
+      "pageCount": 1,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "offer-creation-checklist": {
+      "url": "https://www.acquisition.com/files/offer-creation-checklist.pdf",
+      "file": "offer-creation-checklist.pdf",
+      "sha256": "eecaa18569151245bb4f1d089eae3f122981705e7d35f3a8a4e1973a2858c057",
+      "pageCount": 3,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "bonus-creation-checklist": {
+      "url": "https://www.acquisition.com/files/bonus-creation-checklist.pdf",
+      "file": "bonus-creation-checklist.pdf",
+      "sha256": "8bd99a9792e987bda663472b3150601f45182135b17074790e98f6e122f850b5",
+      "pageCount": 2,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "unbeatable-guarantee-checklist": {
+      "url": "https://www.acquisition.com/files/unbeatable-guarantee-checklist.pdf",
+      "file": "unbeatable-guarantee-checklist.pdf",
+      "sha256": "0e8bcbd63501dfe98b113fe0b97835c516dd83908d1a03994678843b1a36c836",
+      "pageCount": 2,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "scarcity-urgency-checklist": {
+      "url": "https://www.acquisition.com/files/scarcity-urgency-checklist.pdf",
+      "file": "scarcity-urgency-checklist.pdf",
+      "sha256": "838e49923ac6756c574be50c8b938dce117de1d3d60c868cd691c85346fff734",
+      "pageCount": 1,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "product-naming-checklist": {
+      "url": "https://www.acquisition.com/files/product-naming-checklist.pdf",
+      "file": "product-naming-checklist.pdf",
+      "sha256": "fb25da586425e54d6b05c88b18743a51e637bfe66c5a9216d6bc388f4221b0d3",
+      "pageCount": 2,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "$100M-leads-warm-outreach-downloads": {
+      "url": "https://www.acquisition.com/files/%24100M-leads-warm-outreach-downloads.pdf",
+      "file": "$100M-leads-warm-outreach-downloads.pdf",
+      "sha256": "955dfcd6c32285a829465d273f43fa66ed7329a37ac916768720a22607ccfd21",
+      "pageCount": 12,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "$100M Leads Cold Outreach Downloads": {
+      "url": "https://www.acquisition.com/hubfs/%24100M%20Leads%20Cold%20Outreach%20Downloads.pdf",
+      "file": "$100M Leads Cold Outreach Downloads.pdf",
+      "sha256": "efd80a10f714d061d41608c737a870c17ab56e91c316d85c74eec0efc0ee39a0",
+      "pageCount": 25,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage01_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage01_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage01_.pdf",
+      "sha256": "7d1df89365378daaba55a494b0915498aee15b113837a1ed051bbc3969f953c0",
+      "pageCount": 31,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage02_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage02_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage02_.pdf",
+      "sha256": "e56e319974f0014a825c194dd29b68f040503c31eb365517b3286661b6b112c0",
+      "pageCount": 31,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage03_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage03_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage03_.pdf",
+      "sha256": "c5eb86b1bc0834bb51fe44acb2df2c0da08632db410cde93c338ccbb6269e588",
+      "pageCount": 28,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage04_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage04_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage04_.pdf",
+      "sha256": "f002f04e709961693fc84d595745a97163c207c3943d742d5562a030da6c5ac3",
+      "pageCount": 25,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage05_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage05_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage05_.pdf",
+      "sha256": "3c6556a11552494fe3c1f6b73de248942fc2fedba02fb4f074f39c191fa2d018",
+      "pageCount": 26,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage06_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage06_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage06_.pdf",
+      "sha256": "998b6bd3a49f414c892029cfc683df5d2a8cb2b538c3b9c1cdbad7f806f58620",
+      "pageCount": 26,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage07_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage07_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage07_.pdf",
+      "sha256": "73dc50e4c63a22189e418c1c833626d1c83c1656f884a081b67e10f1998d2770",
+      "pageCount": 26,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage08_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage08_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage08_.pdf",
+      "sha256": "1143d9cc4df8e94951c82b3a2c38c7fede602187b3e5b76bb2605f62b76d30b4",
+      "pageCount": 27,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "Your_ACQ_100MScalingRoadmap-Stage09_": {
+      "url": "https://www.acquisition.com/hubfs/0-100M%20Scaling%20Course%20PDFs%20%28v6%29/Your_ACQ_100MScalingRoadmap-Stage09_.pdf",
+      "file": "Your_ACQ_100MScalingRoadmap-Stage09_.pdf",
+      "sha256": "a7059826f0850127b1b529746ac8f0d383d8600e0e2d503f33515cdf78793bd8",
+      "pageCount": 20,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    },
+    "The_Lost_Chapter-Your_First_Avatar": {
+      "url": "https://acquisition.com/hubfs/The_Lost_Chapter-Your_First_Avatar.pdf",
+      "file": "The_Lost_Chapter-Your_First_Avatar.pdf",
+      "sha256": "109d7d2de764658857387c9d09e3eef216d4cf64c5a9aecfaff7acc3fb163a88",
+      "pageCount": 8,
+      "recovery": "downloaded-and-extracted",
+      "review": "Only construct pages listed below are claimed as read."
+    }
+  },
+  "videos": {
+    "pxVeOkOVr2w": {
+      "url": "https://www.youtube.com/watch?v=pxVeOkOVr2w",
+      "title": "The Offer Is King (ALEX HORMOZI)",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 824000,
+      "metadataFile": "metadata-pxVeOkOVr2w.json",
+      "metadataSha256": "857c156fa2412241b0e2f1b718626b85b22e8644369cf25cc8d79b797c15ecdf",
+      "transcriptFile": "transcript-pxVeOkOVr2w.json",
+      "transcriptSha256": "a319e2c324bf52e93c37e082e2f76db48f3cc6466a36ecf20eafe7bae827874f",
+      "captionCount": 426,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "o64cI6tebnU": {
+      "url": "https://www.youtube.com/watch?v=o64cI6tebnU",
+      "title": "How I Would Build a $10M Service Business (If I Had to Start Over)",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 1606000,
+      "metadataFile": "metadata-o64cI6tebnU.json",
+      "metadataSha256": "6773de4b93d1cde073ba2213b7e05db892d8f1bdf5eb66a379da329efd47da38",
+      "transcriptFile": "transcript-o64cI6tebnU.json",
+      "transcriptSha256": "84202ad3a0ee6e9735e59007d20a1367380caefcab121c4e9ecfaeb672a5432a",
+      "captionCount": 946,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "StVqS0jD7Ls": {
+      "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls",
+      "title": "The Ultimate Sales Training for 2026 [Full Course]",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 9241000,
+      "metadataFile": "metadata-StVqS0jD7Ls.json",
+      "metadataSha256": "f6aa346274b983d83e4c6b84e357bda0e498859e166929723cdb9c5399c2332f",
+      "transcriptFile": "transcript-StVqS0jD7Ls.json",
+      "transcriptSha256": "30c031a3663650a01be8dc0ec6389aefd862c6d9af453997cc860530e3f8d976",
+      "captionCount": 4585,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "HxEQCHpZzHk": {
+      "url": "https://www.youtube.com/watch?v=HxEQCHpZzHk",
+      "title": "How to Grow Your Business SO Fast in 2026 It Feels ILLEGAL",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 3788000,
+      "metadataFile": "metadata-HxEQCHpZzHk.json",
+      "metadataSha256": "a312e1e3a2d2e536b9c04e98dc174490bd4f28d4085c2fd81d8afb4c591e2650",
+      "transcriptFile": "transcript-HxEQCHpZzHk.json",
+      "transcriptSha256": "ad7c91ea9fe9865ea279b28ecb455b8f021ea3f0db03e04382825798b3199028",
+      "captionCount": 1975,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "Gh9zWsP8JpI": {
+      "url": "https://www.youtube.com/watch?v=Gh9zWsP8JpI",
+      "title": "How To Upsell More Customers By Reversing Your Pricing",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 329000,
+      "metadataFile": "metadata-Gh9zWsP8JpI.json",
+      "metadataSha256": "531cac78df332cb8d45547eecafa1ae3f54185fc58b23223ddd1323403828c9c",
+      "transcriptFile": "transcript-Gh9zWsP8JpI.json",
+      "transcriptSha256": "b7874bcbdd217614c5d4fc625e2c63ff1e9f523c1c5fcf7932f196f61819cfe2",
+      "captionCount": 0,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "-j8_YCWZ05Q": {
+      "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q",
+      "title": "How to Get Your Customers to Stay FOREVER",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 1169000,
+      "metadataFile": "metadata--j8_YCWZ05Q.json",
+      "metadataSha256": "4f6546a9e504267088db4b01ecf599f083d9574f90f84328afaaa65a5cdcb6cf",
+      "transcriptFile": "transcript--j8_YCWZ05Q.json",
+      "transcriptSha256": "a526a0c1f21b1a2eef6f19162bff71efb8f6abf98727d80831e938a3e5c965a0",
+      "captionCount": 618,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "5MHQr-Z17Hc": {
+      "url": "https://www.youtube.com/watch?v=5MHQr-Z17Hc",
+      "title": "This ONE Equation Will Make You RICH",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 1375000,
+      "metadataFile": "metadata-5MHQr-Z17Hc.json",
+      "metadataSha256": "9c9aba7b976ac084df522d086da187b775ca0249588f93695196644ae21938c4",
+      "transcriptFile": "transcript-5MHQr-Z17Hc.json",
+      "transcriptSha256": "fb4c9d64e1cafa53765c042674e87000e0092f55831ffe7069ca35209ee57e35",
+      "captionCount": 794,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "cy2k1GdA-9o": {
+      "url": "https://www.youtube.com/watch?v=cy2k1GdA-9o",
+      "title": "Sales Was Hard Until I Understood These 9 Concepts",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 3081000,
+      "metadataFile": "metadata-cy2k1GdA-9o.json",
+      "metadataSha256": "7af7ece1a43fc07b2dcee866162f5d9832fd3cef3c42da930d0b17177072d436",
+      "transcriptFile": "transcript-cy2k1GdA-9o.json",
+      "transcriptSha256": "75ecbc6a0563a0727ba857c2ffa449b29261590ddd7e06dfea7b45c63d22f68a",
+      "captionCount": 826,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "Mst4hreQYl0": {
+      "url": "https://www.youtube.com/watch?v=Mst4hreQYl0",
+      "title": "Watch This To Generate 1000s of Leads (In Any Niche)",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 1892000,
+      "metadataFile": "metadata-Mst4hreQYl0.json",
+      "metadataSha256": "ad2201b29acac19a6a56b31179328b20c10aad5c3dc9e87d4deef1231b99bcd0",
+      "transcriptFile": "transcript-Mst4hreQYl0.json",
+      "transcriptSha256": "aedc1fd9ecc296d335a1511adacf86d204aac008a084bfd34f44cd5551efe5cf",
+      "captionCount": 1019,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    },
+    "Gy-RmpRif-I": {
+      "url": "https://www.youtube.com/watch?v=Gy-RmpRif-I",
+      "title": "How To Raise Your Prices [plus the letter I actually sent to customers]",
+      "uploader": {
+        "channelId": "UCUyDOdBWhC1MCxEjC46d-zw",
+        "author": "Alex Hormozi",
+        "url": "http://www.youtube.com/@AlexHormozi"
+      },
+      "durationMs": 502000,
+      "metadataFile": "metadata-Gy-RmpRif-I.json",
+      "metadataSha256": "2a9fb73a21fbd21914ebb5669956fb7953675f1c0ab460c8dbf3dc6046bf022d",
+      "transcriptFile": "transcript-Gy-RmpRif-I.json",
+      "transcriptSha256": "0152849815f33dfd1d88fe5968db390ffdd3aa4c9ad5e1026dbbb711b6c6d0d4",
+      "captionCount": 326,
+      "review": "Only cited caption windows were reviewed; audio was not checked."
+    }
+  },
+  "constructs": [
+    {
+      "id": "stage-0",
+      "title": "Improvise",
+      "group": "business",
+      "paraphrase": "Original lesson found; exact teaching remains open.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/improvise",
+      "gap": "Stage 0 PDF not recovered; lesson has no exposed subtitle track."
+    },
+    {
+      "id": "stage-1",
+      "title": "Monetize",
+      "group": "business",
+      "paraphrase": "Turn a working free result into a first paid sale.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage01_",
+        "pages": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/monetize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Paid V1",
+        "Free-to-paid message",
+        "Proof from free work",
+        "Paying-client expectations",
+        "Basic tools",
+        "Part-time help",
+        "Payment collection",
+        "Written agreements"
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Advertise",
+      "group": "business",
+      "paraphrase": "Make new-client flow more consistent.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage02_",
+        "pages": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/advertise",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Reliable delivery",
+        "Focused daily acquisition",
+        "CLOSER practice",
+        "Complaint handling",
+        "Basic CRM",
+        "Hiring and training",
+        "Accounting"
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Stabilize",
+      "group": "business",
+      "paraphrase": "Train help and fix the biggest delivery problem.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage03_",
+        "pages": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/stabilize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Top complaint",
+        "Trust content",
+        "Qualification",
+        "Onboarding",
+        "Tool pruning",
+        "Hiring and payroll"
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "Prioritize",
+      "group": "business",
+      "paraphrase": "Focus the offer on the best-fit customers.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage04_",
+        "pages": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/prioritize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Ideal buyer",
+        "Fit content",
+        "Sales response metrics",
+        "Customer satisfaction",
+        "Shared tools",
+        "Hiring rules",
+        "Financial reports"
+      ]
+    },
+    {
+      "id": "stage-5",
+      "title": "Productize",
+      "group": "business",
+      "paraphrase": "Add a useful premium next product.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage05_",
+        "pages": [
+          5,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/productize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Second offer",
+        "Aligned sales promises",
+        "Targeted acquisition",
+        "Support playbook",
+        "Lead data",
+        "Managers",
+        "Budget"
+      ]
+    },
+    {
+      "id": "stage-6",
+      "title": "Optimize",
+      "group": "business",
+      "paraphrase": "Improve existing systems and track the bottleneck.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage06_",
+        "pages": [
+          5,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/optimize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Product iteration",
+        "Ad production",
+        "Sales training",
+        "Retention cohorts",
+        "Access control",
+        "Hiring skills",
+        "Financial data"
+      ]
+    },
+    {
+      "id": "stage-7",
+      "title": "Categorize",
+      "group": "business",
+      "paraphrase": "Sort overloaded systems and work by category.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage07_",
+        "pages": [
+          5,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/categorize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Focused product teams",
+        "Second channel",
+        "Lead scoring",
+        "Sales coverage",
+        "Proactive renewal",
+        "Shared data",
+        "Recruiting",
+        "Budgets"
+      ]
+    },
+    {
+      "id": "stage-8",
+      "title": "Specialize",
+      "group": "business",
+      "paraphrase": "Assign specific work to skilled teams.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage08_",
+        "pages": [
+          5,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/specialize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "Simpler products",
+        "Brand",
+        "Lead routing",
+        "Cross-product journey",
+        "Specialist tools",
+        "Hiring standards",
+        "Training",
+        "Supplier review"
+      ]
+    },
+    {
+      "id": "stage-9",
+      "title": "Capitalize",
+      "group": "business",
+      "paraphrase": "Choose a major next growth investment.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage09_",
+        "pages": [
+          5,
+          7,
+          8
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/capitalize",
+      "gap": "Matching stage-specific video segment remains open.",
+      "subconstructs": [
+        "New product or acquisition",
+        "Channel attribution",
+        "Sales specialization",
+        "Support specialization",
+        "Enterprise systems",
+        "Executive hiring",
+        "Workforce planning",
+        "Audited finance"
+      ]
+    },
+    {
+      "id": "market-fit",
+      "title": "Market fit",
+      "group": "offer",
+      "paraphrase": "Check pain, spending power, reach and growth.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "pick-your-niche-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers2",
+      "gap": "Matching video segment open.",
+      "subconstructs": [
+        "Pain",
+        "Purchasing power",
+        "Easy to target",
+        "Growing market",
+        "Niche depth"
+      ]
+    },
+    {
+      "id": "best-customer",
+      "title": "Best-fit customer",
+      "group": "offer",
+      "paraphrase": "Study valuable customers and how they bought.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "The_Lost_Chapter-Your_First_Avatar",
+        "pages": [
+          3,
+          4,
+          6,
+          8
+        ]
+      },
+      "gap": "Matching video segment open.",
+      "subconstructs": [
+        "Survey",
+        "Rank value",
+        "Shared qualifiers",
+        "Buying path"
+      ]
+    },
+    {
+      "id": "pricing",
+      "title": "Pricing and value",
+      "group": "offer",
+      "paraphrase": "Tie price to credible value.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "pricing-value-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "5MHQr-Z17Hc",
+        "startSeconds": 270,
+        "endSeconds": 310,
+        "url": "https://www.youtube.com/watch?v=5MHQr-Z17Hc&t=270s",
+        "segmentIndices": [
+          150,
+          174
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers3"
+    },
+    {
+      "id": "dream-outcome",
+      "title": "Desired outcome",
+      "group": "offer",
+      "paraphrase": "Promise a result the buyer wants.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "pricing-value-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "5MHQr-Z17Hc",
+        "startSeconds": 108,
+        "endSeconds": 130,
+        "url": "https://www.youtube.com/watch?v=5MHQr-Z17Hc&t=108s",
+        "segmentIndices": [
+          65,
+          79
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers4"
+    },
+    {
+      "id": "proof",
+      "title": "Belief and proof",
+      "group": "offer",
+      "paraphrase": "Reduce doubt with relevant proof.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "pricing-value-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "5MHQr-Z17Hc",
+        "startSeconds": 270,
+        "endSeconds": 310,
+        "url": "https://www.youtube.com/watch?v=5MHQr-Z17Hc&t=270s",
+        "segmentIndices": [
+          150,
+          174
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers4"
+    },
+    {
+      "id": "time-to-value",
+      "title": "Time to value",
+      "group": "offer",
+      "paraphrase": "Shorten the wait for a useful result.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "pricing-value-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "5MHQr-Z17Hc",
+        "startSeconds": 345,
+        "endSeconds": 440,
+        "url": "https://www.youtube.com/watch?v=5MHQr-Z17Hc&t=345s",
+        "segmentIndices": [
+          196,
+          248
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers4"
+    },
+    {
+      "id": "buyer-effort",
+      "title": "Buyer effort",
+      "group": "offer",
+      "paraphrase": "Reduce the work needed from the buyer.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "pricing-value-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "5MHQr-Z17Hc",
+        "startSeconds": 575,
+        "endSeconds": 650,
+        "url": "https://www.youtube.com/watch?v=5MHQr-Z17Hc&t=575s",
+        "segmentIndices": [
+          331,
+          372
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers4"
+    },
+    {
+      "id": "offer-components",
+      "title": "Offer components",
+      "group": "offer",
+      "paraphrase": "List obstacles and the work that solves them.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "offer-creation-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers5",
+      "gap": "Matching video segment open."
+    },
+    {
+      "id": "delivery-cube",
+      "title": "Delivery choices",
+      "group": "offer",
+      "paraphrase": "Choose how the result is delivered.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "offer-creation-checklist",
+        "pages": [
+          2,
+          3
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers6",
+      "gap": "Matching video segment open.",
+      "subconstructs": [
+        "Group size",
+        "DIY/DWY/DFY",
+        "Support channel",
+        "Format",
+        "Speed",
+        "10x and one-tenth price tests"
+      ]
+    },
+    {
+      "id": "trim-stack",
+      "title": "Trim and stack",
+      "group": "offer",
+      "paraphrase": "Keep useful work and check delivery cost.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "offer-creation-checklist",
+        "pages": [
+          3
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers6",
+      "gap": "Matching video segment open."
+    },
+    {
+      "id": "bonuses",
+      "title": "Bonuses",
+      "group": "offer",
+      "paraphrase": "Solve a related barrier with a useful extra.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "bonus-creation-checklist",
+        "pages": [
+          1,
+          2
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers7",
+      "gap": "Matching video segment open.",
+      "subconstructs": [
+        "Name and value",
+        "Proof",
+        "Tools over training",
+        "Next problem",
+        "Partner products"
+      ]
+    },
+    {
+      "id": "guarantees",
+      "title": "Guarantees",
+      "group": "offer",
+      "paraphrase": "Define risk, terms and the promised remedy.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "unbeatable-guarantee-checklist",
+        "pages": [
+          1,
+          2
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers8",
+      "gap": "Matching video segment open.",
+      "subconstructs": [
+        "Unconditional",
+        "Conditional",
+        "Anti-guarantee",
+        "Performance",
+        "Stacked terms"
+      ]
+    },
+    {
+      "id": "scarcity",
+      "title": "Real capacity",
+      "group": "offer",
+      "paraphrase": "Explain the actual limit on service capacity.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "scarcity-urgency-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "Mst4hreQYl0",
+        "startSeconds": 1785,
+        "endSeconds": 1840,
+        "url": "https://www.youtube.com/watch?v=Mst4hreQYl0&t=1785s",
+        "segmentIndices": [
+          962,
+          991
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers9"
+    },
+    {
+      "id": "urgency",
+      "title": "Real deadline",
+      "group": "offer",
+      "paraphrase": "Tie a deadline to a real start or offer change.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "scarcity-urgency-checklist",
+        "pages": [
+          1
+        ]
+      },
+      "video": {
+        "sourceId": "Mst4hreQYl0",
+        "startSeconds": 1835,
+        "endSeconds": 1860,
+        "url": "https://www.youtube.com/watch?v=Mst4hreQYl0&t=1835s",
+        "segmentIndices": [
+          989,
+          1002
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers9"
+    },
+    {
+      "id": "naming",
+      "title": "Offer naming",
+      "group": "offer",
+      "paraphrase": "Make the buyer, goal and format clear.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "product-naming-checklist",
+        "pages": [
+          1,
+          2
+        ]
+      },
+      "lessonUrl": "https://www.acquisition.com/training/offers10",
+      "gap": "Matching video segment open.",
+      "subconstructs": [
+        "Reason",
+        "Buyer",
+        "Goal",
+        "Time",
+        "Container",
+        "Refresh order"
+      ]
+    },
+    {
+      "id": "core-four",
+      "title": "Lead channels",
+      "group": "leads",
+      "paraphrase": "Pick one acquisition channel and work it well.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "HxEQCHpZzHk",
+        "startSeconds": 20,
+        "endSeconds": 65,
+        "url": "https://www.youtube.com/watch?v=HxEQCHpZzHk&t=20s",
+        "segmentIndices": [
+          10,
+          33
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Public video; dedicated playbook not recovered."
+    },
+    {
+      "id": "lead-magnet",
+      "title": "First useful result",
+      "group": "leads",
+      "paraphrase": "Solve a narrow problem that leads to the core need.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "Mst4hreQYl0",
+        "startSeconds": 105,
+        "endSeconds": 140,
+        "url": "https://www.youtube.com/watch?v=Mst4hreQYl0&t=105s",
+        "segmentIndices": [
+          55,
+          72
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/leads3",
+      "gap": "Dedicated PDF not recovered."
+    },
+    {
+      "id": "warm-reply",
+      "title": "Warm reply",
+      "group": "leads",
+      "paraphrase": "Ask what prompted the response.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M-leads-warm-outreach-downloads",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 3500,
+        "endSeconds": 3570,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=3500s",
+        "segmentIndices": [
+          1676,
+          1713
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/leads4"
+    },
+    {
+      "id": "aca",
+      "title": "Acknowledge, compliment, ask",
+      "group": "leads",
+      "paraphrase": "Respond to their words before the next question.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "$100M-leads-warm-outreach-downloads",
+        "pages": [
+          10,
+          11,
+          12
+        ]
+      },
+      "gap": "Matching video segment open."
+    },
+    {
+      "id": "goal-question",
+      "title": "Goal question",
+      "group": "leads",
+      "paraphrase": "Ask about a real goal without invented proof.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          5
+        ]
+      },
+      "gap": "Matching video segment open."
+    },
+    {
+      "id": "prepared-sample",
+      "title": "Prepared sample",
+      "group": "leads",
+      "paraphrase": "Make a relevant observation clear with prepared work.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          10
+        ]
+      },
+      "gap": "Matching video segment open; Gift owns our permission-first adaptation."
+    },
+    {
+      "id": "same-thread",
+      "title": "Same-thread follow-up",
+      "group": "leads",
+      "paraphrase": "Keep the prior goal and context.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          11,
+          12,
+          13
+        ]
+      },
+      "gap": "Matching video segment open; source cadence does not replace Outreach."
+    },
+    {
+      "id": "pre-call",
+      "title": "Call preparation",
+      "group": "sales",
+      "paraphrase": "Read the prospect context before the call.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "cy2k1GdA-9o",
+        "startSeconds": 770,
+        "endSeconds": 835,
+        "url": "https://www.youtube.com/watch?v=cy2k1GdA-9o&t=770s",
+        "segmentIndices": [
+          212,
+          228
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Closing playbook not recovered."
+    },
+    {
+      "id": "qualify",
+      "title": "Qualification",
+      "group": "sales",
+      "paraphrase": "Check need, budget, decision authority and timing.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M-leads-warm-outreach-downloads",
+        "pages": [
+          2,
+          3,
+          4
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 2460,
+        "endSeconds": 2530,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=2460s",
+        "segmentIndices": [
+          1180,
+          1210
+        ],
+        "review": "caption-window-read"
+      }
+    },
+    {
+      "id": "booking",
+      "title": "Booking and show-up",
+      "group": "sales",
+      "paraphrase": "Confirm the meeting and relevant preparation.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M-leads-warm-outreach-downloads",
+        "pages": [
+          3,
+          4
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 990,
+        "endSeconds": 1100,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=990s",
+        "segmentIndices": [
+          464,
+          522
+        ],
+        "review": "caption-window-read"
+      }
+    },
+    {
+      "id": "meeting-next",
+      "title": "Next meeting",
+      "group": "sales",
+      "paraphrase": "Agree on the next step before the call ends.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "cy2k1GdA-9o",
+        "startSeconds": 398,
+        "endSeconds": 445,
+        "url": "https://www.youtube.com/watch?v=cy2k1GdA-9o&t=398s",
+        "segmentIndices": [
+          108,
+          122
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Lead Nurture playbook not recovered."
+    },
+    {
+      "id": "clarify",
+      "title": "Clarify the goal",
+      "group": "sales",
+      "paraphrase": "Ask why they took this step.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          2
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 3500,
+        "endSeconds": 3570,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=3500s",
+        "segmentIndices": [
+          1676,
+          1713
+        ],
+        "review": "caption-window-read"
+      }
+    },
+    {
+      "id": "label-gap",
+      "title": "Confirm the gap",
+      "group": "sales",
+      "paraphrase": "Restate present state, goal and obstacle.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          2,
+          3
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 3570,
+        "endSeconds": 3615,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=3570s",
+        "segmentIndices": [
+          1714,
+          1734
+        ],
+        "review": "caption-window-read"
+      }
+    },
+    {
+      "id": "past-attempts",
+      "title": "Past attempts",
+      "group": "sales",
+      "paraphrase": "Learn what they tried and what happened.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          3
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 3610,
+        "endSeconds": 3645,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=3610s",
+        "segmentIndices": [
+          1733,
+          1746
+        ],
+        "review": "caption-window-read"
+      }
+    },
+    {
+      "id": "outcome-pitch",
+      "title": "Outcome pitch",
+      "group": "sales",
+      "paraphrase": "Explain the result in a short pitch.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 3950,
+        "endSeconds": 4030,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=3950s",
+        "segmentIndices": [
+          1908,
+          1948
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Closing playbook missing; proposal checklist is our adaptation."
+    },
+    {
+      "id": "obstacles",
+      "title": "Obstacles and concerns",
+      "group": "sales",
+      "paraphrase": "Surface constraints before quoting.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "cy2k1GdA-9o",
+        "startSeconds": 1570,
+        "endSeconds": 1690,
+        "url": "https://www.youtube.com/watch?v=cy2k1GdA-9o&t=1570s",
+        "segmentIndices": [
+          423,
+          454
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Closing playbook not recovered."
+    },
+    {
+      "id": "decision-maker",
+      "title": "Decision maker",
+      "group": "sales",
+      "paraphrase": "Include relevant decision makers early.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M-leads-warm-outreach-downloads",
+        "pages": [
+          4
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 6830,
+        "endSeconds": 6875,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=6830s",
+        "segmentIndices": [
+          3406,
+          3430
+        ],
+        "review": "caption-window-read"
+      }
+    },
+    {
+      "id": "close-agreement",
+      "title": "Close after agreement",
+      "group": "sales",
+      "paraphrase": "Confirm the accepted step without adding a new pitch.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 4460,
+        "endSeconds": 4500,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=4460s",
+        "segmentIndices": [
+          2178,
+          2195
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Closing playbook not recovered."
+    },
+    {
+      "id": "reinforce-decision",
+      "title": "Reinforce the decision",
+      "group": "sales",
+      "paraphrase": "The complete CLOSER reinforcement step remains unchecked.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/leads4",
+      "gap": "Need exact original segment; do not infer it from the acronym."
+    },
+    {
+      "id": "terms-downsell",
+      "title": "Payment terms",
+      "group": "sales",
+      "paraphrase": "Changed terms differ from a price cut.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 9080,
+        "endSeconds": 9125,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=9080s",
+        "segmentIndices": [
+          4511,
+          4531
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/money/payment-plans",
+      "gap": "Dedicated Money Models segment/owned book open."
+    },
+    {
+      "id": "scope-downsell",
+      "title": "Less scope",
+      "group": "sales",
+      "paraphrase": "Reduced scope is a different offer.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 9080,
+        "endSeconds": 9125,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=9080s",
+        "segmentIndices": [
+          4511,
+          4531
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/money/feature-downsells",
+      "gap": "Dedicated Money Models segment/owned book open."
+    },
+    {
+      "id": "activation",
+      "title": "Early use",
+      "group": "retention",
+      "paraphrase": "Help buyers use the service and meet expectations.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 310,
+        "endSeconds": 340,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=310s",
+        "segmentIndices": [
+          156,
+          171
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "cancel-reasons",
+      "title": "Cancellation reasons",
+      "group": "retention",
+      "paraphrase": "Look for repeated reasons before changing the service.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 340,
+        "endSeconds": 405,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=340s",
+        "segmentIndices": [
+          172,
+          207
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "stay-reasons",
+      "title": "Reasons to stay",
+      "group": "retention",
+      "paraphrase": "Improve what long-term users value.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 406,
+        "endSeconds": 470,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=406s",
+        "segmentIndices": [
+          208,
+          243
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "tier-evidence",
+      "title": "Tier evidence",
+      "group": "retention",
+      "paraphrase": "Use good-fit buyer feedback when changing tiers.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 480,
+        "endSeconds": 570,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=480s",
+        "segmentIndices": [
+          249,
+          296
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "reduce-overwhelm",
+      "title": "Less overwhelm",
+      "group": "retention",
+      "paraphrase": "Remove unused complexity.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 570,
+        "endSeconds": 660,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=570s",
+        "segmentIndices": [
+          297,
+          344
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "simple-path",
+      "title": "Simple starting path",
+      "group": "retention",
+      "paraphrase": "Offer a clear path with optional depth.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 735,
+        "endSeconds": 775,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=735s",
+        "segmentIndices": [
+          386,
+          403
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "first-win",
+      "title": "First useful win",
+      "group": "retention",
+      "paraphrase": "Move useful value into onboarding.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 775,
+        "endSeconds": 825,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=775s",
+        "segmentIndices": [
+          404,
+          430
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Retention playbook not recovered."
+    },
+    {
+      "id": "annual-plan",
+      "title": "Annual commitment",
+      "group": "retention",
+      "paraphrase": "Annual terms are a community retention example.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "-j8_YCWZ05Q",
+        "startSeconds": 950,
+        "endSeconds": 1002,
+        "url": "https://www.youtube.com/watch?v=-j8_YCWZ05Q&t=950s",
+        "segmentIndices": [
+          499,
+          525
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/money/continuity-discounts",
+      "gap": "Not a verified Jerami offer or service benchmark."
+    },
+    {
+      "id": "second-offer",
+      "title": "Second premium offer",
+      "group": "expansion",
+      "paraphrase": "Solve the next need for existing clients.",
+      "status": "pdf-only",
+      "pdf": {
+        "sourceId": "Your_ACQ_100MScalingRoadmap-Stage05_",
+        "pages": [
+          5,
+          7,
+          8
+        ]
+      },
+      "gap": "Matching video segment open."
+    },
+    {
+      "id": "menu-upsell",
+      "title": "Menu fit",
+      "group": "expansion",
+      "paraphrase": "Recommend the option that fits and rule out poor fits.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "o64cI6tebnU",
+        "startSeconds": 1000,
+        "endSeconds": 1070,
+        "url": "https://www.youtube.com/watch?v=o64cI6tebnU&t=1000s",
+        "segmentIndices": [
+          597,
+          631
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/money/menu-upsell",
+      "gap": "Lifetime Value playbook not recovered; case discussion is not the full lesson."
+    },
+    {
+      "id": "referral",
+      "title": "Referral",
+      "group": "expansion",
+      "paraphrase": "Ask who else would benefit.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "cy2k1GdA-9o",
+        "startSeconds": 525,
+        "endSeconds": 557,
+        "url": "https://www.youtube.com/watch?v=cy2k1GdA-9o&t=525s",
+        "segmentIndices": [
+          145,
+          152
+        ],
+        "review": "caption-window-read"
+      },
+      "lessonUrl": "https://www.acquisition.com/training/leads11",
+      "gap": "Dedicated PDF not recovered."
+    },
+    {
+      "id": "reactivation",
+      "title": "Reactivation",
+      "group": "expansion",
+      "paraphrase": "A later timing change can reopen a qualified need.",
+      "status": "paired",
+      "pdf": {
+        "sourceId": "$100M Leads Cold Outreach Downloads",
+        "pages": [
+          5
+        ]
+      },
+      "video": {
+        "sourceId": "StVqS0jD7Ls",
+        "startSeconds": 8685,
+        "endSeconds": 8770,
+        "url": "https://www.youtube.com/watch?v=StVqS0jD7Ls&t=8685s",
+        "segmentIndices": [
+          4320,
+          4361
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Fast Cash playbook not recovered. Our opt-out and new-reason rules take priority."
+    },
+    {
+      "id": "price-change",
+      "title": "Price change",
+      "group": "expansion",
+      "paraphrase": "Explain current value and the planned service change.",
+      "status": "video-only",
+      "video": {
+        "sourceId": "Gy-RmpRif-I",
+        "startSeconds": 128,
+        "endSeconds": 272,
+        "url": "https://www.youtube.com/watch?v=Gy-RmpRif-I&t=128s",
+        "segmentIndices": [
+          83,
+          177
+        ],
+        "review": "caption-window-read"
+      },
+      "gap": "Price Raise playbook not recovered."
+    },
+    {
+      "id": "classic-upsell",
+      "title": "Classic upsell",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/classic-upsell",
+      "gap": "Original lesson transcript and book not recovered."
+    },
+    {
+      "id": "anchor-upsell",
+      "title": "Anchor upsell",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/anchor-upsell",
+      "gap": "Original lesson transcript and book not recovered."
+    },
+    {
+      "id": "rollover-upsell",
+      "title": "Rollover upsell",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/rollover-upsell",
+      "gap": "Original lesson transcript and book not recovered."
+    },
+    {
+      "id": "free-trial",
+      "title": "Free trial",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/free-trials",
+      "gap": "Original lesson transcript and book not recovered."
+    },
+    {
+      "id": "continuity-bonus",
+      "title": "Continuity bonus",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/continuity-bonus",
+      "gap": "Original lesson transcript and book not recovered."
+    },
+    {
+      "id": "waived-fee",
+      "title": "Waived fee",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/waived-fee",
+      "gap": "Original lesson transcript and book not recovered."
+    },
+    {
+      "id": "continuity",
+      "title": "Continuity offers",
+      "group": "expansion",
+      "paraphrase": "Publisher lesson listed; rule not yet verified.",
+      "status": "lesson-only",
+      "lessonUrl": "https://www.acquisition.com/training/money/continuity-offers",
+      "gap": "Original lesson transcript and book not recovered."
+    }
+  ],
+  "missingOriginals": [
+    {
+      "title": "Branding",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Closing",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Fast Cash",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "GOATed Ads",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Hooks",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Lead Nurture",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Lifetime Value",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Marketing Machine",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Price Raise",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Pricing",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Proof Checklist",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Retention",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    },
+    {
+      "title": "Affiliate Blackbook",
+      "status": "not-recovered",
+      "constructCoverage": "unknown",
+      "search": "Publisher-domain searches and bounded local PDF/EPUB search found no checked original. Community manifest is only a title lead.",
+      "next": "Locate publisher-provided or Jerami-owned original before claiming full playbook coverage."
+    }
+  ],
+  "communityReferences": [
+    "https://github.com/andrescala/alex-hormozi-gtm-skills",
+    "https://github.com/ezjonline/hormozi-skill"
+  ],
+  "limits": [
+    "Not all recovered pages were read.",
+    "Caption review is not audiovisual review.",
+    "Subconstruct lists name PDF coverage; unmatched video detail remains open.",
+    "No paid playbook was imported."
+  ]
+}

@@ -117,6 +117,26 @@
         ".codex/hooks.json",
         ".env.local"
       ]
+    },
+    "alex-growth": {
+      "paths": [
+        "plugins/alex-growth",
+        "scripts/check-skill-packaging.mjs",
+        "package.json",
+        "config/reviews/singleton-systems.json"
+      ],
+      "inputs": [
+        "pnpm-lock.yaml",
+        "tsconfig.json",
+        "eslint.config.mjs",
+        "lib/reviews",
+        "lib/transactions",
+        "scripts/codex-rabbit-review.mjs",
+        "scripts/check-code-delivery-stop.mjs",
+        ".codex/hooks/cerebral_singleton_guard.py",
+        ".codex/hooks.json",
+        ".env.local"
+      ]
     }
   }
 }

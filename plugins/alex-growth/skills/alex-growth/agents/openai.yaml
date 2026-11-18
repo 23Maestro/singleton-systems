@@ -1,0 +1,4 @@
+interface:
+  display_name: "Alex Growth"
+  short_description: "Pick the next growth or sales step from real facts."
+  default_prompt: "Use $alex-growth to review this offer and lead, then give me one next action with its source."

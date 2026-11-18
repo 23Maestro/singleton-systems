@@ -18,6 +18,7 @@ const housekeepingSkills = fs.readdirSync(housekeepingRoot, { withFileTypes: tru
   .filter((entry) => entry.isDirectory())
   .map((entry) => path.join(housekeepingRoot, entry.name));
 const skillRoots = [
+  path.join(root, "plugins", "alex-growth", "skills", "alex-growth"),
   ...housekeepingSkills,
   ...fs.readdirSync(path.join(root, "plugins", "social-content", "skills"), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
