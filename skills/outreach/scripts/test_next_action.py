@@ -13,7 +13,7 @@ class OutreachDates(unittest.TestCase):
             "history_verified": True,
             "timezone": "America/New_York",
             "anchor_at": "2026-11-06T12:00:00-05:00",
-            "total_unanswered_sent": 1,
+            "total_unanswered_sent": 0 if stage == "not_contacted" else 1,
             "followups_sent": 0,
         }
         record.update(changes)
@@ -21,6 +21,33 @@ class OutreachDates(unittest.TestCase):
 
     def result(self, record, as_of="2026-11-06", blocked=()):
         return plan(record, date.fromisoformat(as_of), blocked)
+
+    def test_not_contacted_rejects_prior_sends(self):
+        for total, followups in ((1, 0), (2, 1), (0, 1)):
+            with self.subTest(total=total, followups=followups):
+                with self.assertRaisesRegex(ValueError, "not_contacted conflicts with sent history"):
+                    self.result(self.record("not_contacted", total_unanswered_sent=total, followups_sent=followups))
+
+    def test_not_contacted_with_zero_counts_prepares_first_offer(self):
+        result = self.result(self.record("not_contacted"))
+        self.assertEqual(result["next_action"], "Prepare the first offer.")
+        self.assertEqual(result["due_date"], "2026-11-06")
+        self.assertFalse(result["send_authorized"])
+
+    def test_not_contacted_allows_optional_counts_to_be_omitted(self):
+        for omitted in (("total_unanswered_sent",), ("followups_sent",), ("total_unanswered_sent", "followups_sent")):
+            with self.subTest(omitted=omitted):
+                record = self.record("not_contacted")
+                for name in omitted:
+                    del record[name]
+                self.assertEqual(self.result(record)["next_action"], "Prepare the first offer.")
+
+    def test_not_contacted_validates_each_supplied_count(self):
+        for name in ("total_unanswered_sent", "followups_sent"):
+            for value in (None, True, False, -1, "0", 0.5):
+                with self.subTest(name=name, value=value):
+                    with self.assertRaisesRegex(ValueError, f"{name} must be a verified nonnegative integer"):
+                        self.result(self.record("not_contacted", **{name: value}))
 
     def test_friday_cold_nudge_skips_weekend(self):
         self.assertEqual(self.result(self.record())["due_date"], "2026-11-12")
