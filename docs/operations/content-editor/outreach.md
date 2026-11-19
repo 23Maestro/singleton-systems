@@ -13,6 +13,7 @@ The [outreach sheet](https://docs.google.com/spreadsheets/d/1RI6OGmv9HF5NTmHJu4V
 keeps history. Asana holds the next action. Both must link to the same Supabase
 client or prospect once the [record move](clients.md) is complete.
 
-Use the existing Outreach and Gift skills. Gmail supplies message facts. Read
+Use the shared [Outreach guide](../../../skills/outreach/SKILL.md). Gift opens
+the same sample guidance. Gmail supplies message facts. Read
 later replies before drafting. Sending needs approval for the actual message.
 Do not create a second outreach ledger.

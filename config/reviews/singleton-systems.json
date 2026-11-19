@@ -137,6 +137,34 @@
         ".codex/hooks.json",
         ".env.local"
       ]
+    },
+    "outreach": {
+      "paths": [
+        "skills/outreach",
+        "scripts/check-outreach.mjs",
+        "scripts/check-skill-packaging.mjs",
+        "package.json",
+        "docs/operations/README.md",
+        "docs/operations/clients-and-outreach.md",
+        "docs/operations/content-editor/outreach.md",
+        "docs/operations/ai-consulting/outreach.md",
+        "config/reviews/singleton-systems.json",
+        "plugins/s-systems/skills/agency-growth",
+        "scripts/check-cerebral-registry.mjs",
+        "config/cerebral-registry.json"
+      ],
+      "inputs": [
+        "pnpm-lock.yaml",
+        "tsconfig.json",
+        "eslint.config.mjs",
+        "lib/reviews",
+        "scripts/codex-rabbit-review.mjs",
+        "scripts/check-code-delivery-stop.mjs",
+        ".codex/hooks/cerebral_singleton_guard.py",
+        ".codex/hooks.json",
+        ".env.local",
+        "scripts/lib/repo-skill-registry.mjs"
+      ]
     }
   }
 }

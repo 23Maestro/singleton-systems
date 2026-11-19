@@ -57,7 +57,9 @@ A saved draft is not a sent message.
 
 Show current work and due reviews first. Keep dormant people searchable but
 out of the daily queue. Add a task only when there is a chosen next action.
-An old lead needs a new reason or an agreed date before it returns to the queue.
+An old lead needs a reviewed useful reason and an accepted next step before
+it returns to the queue. An agreed later date can supply that next step.
+Two old sends do not ban a later follow-up. Keep their history.
 
 Relationship, outreach stage and payment are separate. Cold or warm describes
 the route to a person. It does not prove buying interest. One company may have
@@ -65,10 +67,10 @@ several contacts and offers. Closing one opportunity must not close the others.
 
 ## Follow-up loop
 
-Use [Outreach](/Users/singleton23/.codex/skills/outreach/SKILL.md) for stages and
-[Gift](/Users/singleton23/.codex/skills/gift/SKILL.md) for sample messages. Match the gift to the Lane: an
-editing sample for Content Editor; a useful workflow example for AI Consulting.
-Neither example proves a paid result.
+Use the shared [Outreach guide](../../skills/outreach/SKILL.md) for offers,
+messages, lead checks and dates. Gift opens the same guide. Match a sample to
+the Lane: an edit for Content Editor; a useful workflow example for AI Consulting.
+A direct offer can also fit. Neither sample proves a paid result.
 
 Read real sends and later replies, apply the stage rule, and stage the next
 review. A promised date wins over a default wait. The dashboard explains why
@@ -76,12 +78,17 @@ the review is due and opens its source or exact draft. Asana owns accepted work.
 Automatic checks may stage review; sending still needs approval for that message.
 Retries must not duplicate sends, ledger events or tasks.
 
-The outreach skill owns timing rules. Its waits remain proposed settings.
+The outreach skill owns timing rules. Its waits remain operating defaults.
+On November 17, 2026, Jerami authorized automatic unsent drafts and due-day
+notices. The scheduled-follow-ups reference owns that small workflow. The
+wider dashboard loop remains separate.
 Judge results by Lane, offer and stage; do not claim improvement without data.
 
 ## Delivery
 
 [23M-407](https://linear.app/23maestro/issue/23M-407) owns records and cutover.
 [23M-281](https://linear.app/23maestro/issue/23M-281) holds the dashboard loop for later.
-Run Outreach on request now; no recurring loop is enabled.
+Run Outreach on request or through its weekday draft check. Sending always
+needs approval for the actual message. The first scheduled run must prove the
+notice; saved settings alone do not prove execution.
 Retain source history before removing a legacy record. Deletion is separate.

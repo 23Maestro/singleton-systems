@@ -7,6 +7,7 @@ Start with the work you need to do.
 - [Development](development/README.md): technical work and its project home.
 - [File homes](files.md): source, work files and proof.
 - [Clients and outreach](clients-and-outreach.md): one client card, history and due reviews.
+- [Outreach guide](../../skills/outreach/SKILL.md): shared method, messages, sources and follow-up dates.
 - [Website](../website/README.md): page offers, brand, SEO, forms and code owners.
 - [Writing rules](../harness/writing-rules.md): short names, clear summaries and each app's text tools.
 

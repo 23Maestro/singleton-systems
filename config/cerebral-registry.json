@@ -925,6 +925,11 @@
       "skill_key": "task-management",
       "activation": "core",
       "reason": "Reviewed task intake, estimates, deadlines and shared startup/closeout."
+    },
+    {
+      "skill_key": "outreach",
+      "activation": "core",
+      "reason": "Shared direct outreach method, messages and follow-up dates; Gift is a compatibility entry."
     }
   ],
   "capabilities": [

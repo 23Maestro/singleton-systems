@@ -28,6 +28,8 @@ const skillRoots = [
     .map((entry) => path.join(root, "plugins", "work-to-content", "skills", entry.name)),
   path.join(root, "skills", "html-playground"),
   path.join(root, "skills", "firecrawl-research"),
+  path.join(root, "skills", "outreach"),
+  path.join(root, "skills", "outreach", "references", "gift-entry"),
   ...fs.readdirSync(path.join(root, "plugins", "s-systems", "skills"), { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => path.join(root, "plugins", "s-systems", "skills", entry.name)),

@@ -84,7 +84,10 @@ if (fs.existsSync(pluginSkillsRoot)) {
     .sort();
   assert.deepEqual(pluginSkills, bundledSkills, "registry must classify every bundled SSystems skill");
 }
-assert.equal(catalogSkills.length, 64, "registry must classify every repository skill");
+assert.equal(new Set(catalogSkills).size, catalogSkills.length, "repository skill keys must stay unique");
+assert.ok(registry.skills.some(skill => skill.skill_key === "outreach"), "classify the shared Outreach owner explicitly");
+assert.equal(repoSkills.find(skill => skill.skill_key === "outreach")?.canonical_path,
+  "skills/outreach", "Outreach must resolve to its single versioned home");
 assert.ok(repoSkills.every((skill) => skill.activation === "core"));
 
 const skillNames = new Set(pluginSkills);
