@@ -1,0 +1,4 @@
+interface:
+  display_name: "Outreach"
+  short_description: "Plan useful offers and checked follow-ups"
+  default_prompt: "Use $outreach to check the buyer, offer and live history. Plan 1 useful next step with a review date. Use the shared guide for sample or direct offers. Keep drafts unsent."

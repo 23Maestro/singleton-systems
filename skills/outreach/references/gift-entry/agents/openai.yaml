@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gift"
+  short_description: "Open the shared Outreach guide for sample offers"
+  default_prompt: "Use $gift to load $outreach and draft the useful sample offer or follow-up that fits the actual conversation."

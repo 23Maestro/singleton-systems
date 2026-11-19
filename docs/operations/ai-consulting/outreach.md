@@ -10,7 +10,8 @@ The [outreach sheet](https://docs.google.com/spreadsheets/d/1RI6OGmv9HF5NTmHJu4V
 keeps contact history. Asana holds the next action. Both link to the same
 Supabase record after the [record move](clients.md).
 
-Use Outreach for the existing history and next-step flow. Use Gift when a
-finished sample fits the opportunity. Check Gmail for later replies and opt-outs.
+Use the shared [Outreach guide](../../../skills/outreach/SKILL.md) for offers,
+history and next steps. Gift opens its sample guidance. A finished sample or
+a direct offer can fit the opportunity. Check Gmail for replies and opt-outs.
 Keep an unpaid collaboration separate from a paid lead or client. Sending
 still needs approval for the actual message or selected batch.
