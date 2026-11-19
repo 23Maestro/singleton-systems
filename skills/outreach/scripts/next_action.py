@@ -101,6 +101,10 @@ def plan(record, as_of, blocked=()):
         raise ValueError(f"Unknown stage {stage!r}.")
     if record.get("history_verified") is not True:
         raise ValueError("Read the live history before planning a date.")
+    if stage == "not_contacted":
+        for name in ("total_unanswered_sent", "followups_sent"):
+            if name in record and count(record, name) != 0:
+                raise ValueError("not_contacted conflicts with sent history; verify the stage.")
     timezone = ZoneInfo(record["timezone"])
     blocked = set(blocked)
     anchor = None
