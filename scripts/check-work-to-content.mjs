@@ -37,7 +37,7 @@ for (const action of ["plan", "setup", "record", "edit"]) assert.equal(plan.acti
 assert.equal(plan.automaticRecording, false);
 assert.equal(plan.automaticPublishing, false);
 assert.equal(plan.automaticDelegation, false);
-assert.equal(plan.workspace.notePath, "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/work-to-content.md");
+assert.equal(plan.workspace.notePath, "docs/operations/content-editor/work-to-content/README.md");
 assert.equal(plan.workspace.expectedVolumeUUID, "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A");
 assert.equal(plan.workspace.sourceRoot, "plugins/work-to-content");
 assert.equal(plan.workspace.internalMediaFallback, false);

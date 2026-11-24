@@ -9,7 +9,7 @@
   "workspace": {
     "volumeRoot": "/Volumes/HomeSSD",
     "expectedVolumeUUID": "0EB7E204-D359-47B2-B9B1-89B2DC77BC5A",
-    "notePath": "/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/work-to-content.md",
+    "notePath": "docs/operations/content-editor/work-to-content/README.md",
     "mediaRoots": {
       "source": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/source",
       "audio": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/audio",

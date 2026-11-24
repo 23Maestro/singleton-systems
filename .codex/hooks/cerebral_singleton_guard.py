@@ -532,18 +532,16 @@ def content_workspace_context(cwd=None):
         source = workspace["sourceRoot"]
         if not all(isinstance(value, str) and "\n" not in value for value in (note, volume, command, source)):
             raise ValueError("invalid workspace pointer")
-        if not os.path.isabs(note) or not note.startswith(volume.rstrip("/") + "/"):
-            raise ValueError("note must be on the named volume")
+        if os.path.isabs(note) or ".." in note.split("/"):
+            raise ValueError("note must be a repo-relative path")
     except (OSError, ValueError, KeyError, TypeError):
         return f"- [content-workspace] Location is unverified. Read {CONTENT_PLAN_PATH}; do not create an internal media fallback."
-    if not os.path.ismount(volume):
-        status = "HomeSSD is offline. Wait for the drive; do not create an internal media fallback."
-    elif not os.path.isfile(note):
-        status = "The working note is missing. Verify the drive and saved path before writing."
+    if not os.path.isfile(os.path.join(repo_root_from(cwd), note)):
+        status = "The working note is missing. Check the saved repo path before writing."
     else:
         status = "The working note is present. Resume from its next step."
-    if note.startswith(volume.rstrip("/") + "/Generated/"):
-        status += " This legacy note is read-only until migration. Use the gate for new media; cleanup owns moving and relinking this note."
+    if not os.path.ismount(volume):
+        status += " HomeSSD is offline. Wait for the drive before media writes; do not create an internal media fallback."
     return (
         f"- [content-workspace] Working plan and capture log: [Work to Content]({urllib.parse.quote(note, safe='/')}). {status}\n"
         f"- [content-storage] Before media writes, run {command}. Plans and research notes use "
