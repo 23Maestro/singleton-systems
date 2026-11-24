@@ -24,6 +24,11 @@ const VALID_KINDS = new Set([
   "references",
 ]);
 const LIBRARY_KINDS = { templates: "Templates", references: "References", deliverables: "Deliverables" };
+const PLAN_KINDS = new Set(["plan", "research"]);
+const PLAN_LANES = new Set(["content-editor", "ai-consulting", "development"]);
+const REPO_ROOT = process.env.STORAGE_GATE_REPO_ROOT || path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
+const DEFAULT_FINISHED_VOLUME = "/Volumes/MediaSSD";
+const DEFAULT_FINISHED_UUID = "AE796278-38CF-438E-8C7E-BBEE1CC1A327";
 
 class StorageGateError extends Error {
   constructor(code, message) {
@@ -50,6 +55,34 @@ function configuration(area = "active") {
     ),
     diskutil: process.env.STORAGE_GATE_DISKUTIL || DEFAULT_DISKUTIL,
   };
+}
+
+function finishedConfiguration() {
+  const volumeRoot = path.resolve(process.env.STORAGE_GATE_FINISHED_VOLUME_ROOT || DEFAULT_FINISHED_VOLUME);
+  return {
+    root: path.join(volumeRoot, "05_FINISHED"),
+    volumeRoot,
+    finished: true,
+    expectedUuid: process.env.STORAGE_GATE_FINISHED_UUID || DEFAULT_FINISHED_UUID,
+    minFreeBytes: Number(process.env.STORAGE_GATE_MIN_FREE_BYTES || DEFAULT_MIN_FREE_BYTES),
+    diskutil: process.env.STORAGE_GATE_DISKUTIL || DEFAULT_DISKUTIL,
+  };
+}
+
+function planRoute(kind, options) {
+  const lane = String(options.lane || "").toLowerCase();
+  const name = String(options.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  if (!PLAN_LANES.has(lane) || !name) {
+    throw new StorageGateError(
+      "PLAN_HOME",
+      `a ${kind} lives in its Lane folder in the repo: docs/operations/<lane>/<plan>/. ` +
+        `Pass --lane ${[...PLAN_LANES].join("|")} --name <plan>. Plans and research never go to HomeSSD.`,
+    );
+  }
+  const destination = path.join(REPO_ROOT, "docs", "operations", lane, name);
+  assertWithinPhysicalRoot(destination, path.join(REPO_ROOT, "docs", "operations"));
+  mkdirSync(destination, { recursive: true });
+  return destination;
 }
 
 function parseDiskInfo(output) {
@@ -98,13 +131,13 @@ function verifyVolume(config = configuration()) {
   if (info.uuid !== config.expectedUuid) {
     throw new StorageGateError(
       "WRONG_VOLUME",
-      `expected HomeSSD UUID ${config.expectedUuid}, found ${info.uuid || "none"}`,
+      `expected ${path.basename(config.volumeRoot)} UUID ${config.expectedUuid}, found ${info.uuid || "none"}`,
     );
   }
   assertWithinPhysicalRoot(config.root, config.volumeRoot);
   const generated = physicalPath(path.join(config.volumeRoot, "Generated"));
   const selected = physicalPath(config.root);
-  if (isWithin(selected, generated) || isWithin(generated, selected)) {
+  if (!config.finished && (isWithin(selected, generated) || isWithin(generated, selected))) {
     throw new StorageGateError("DISPOSABLE_ROOT", "Generated is reserved for reviewed disposable files; route new work to Active Work or Media Library");
   }
   if (info.readOnly) {
@@ -166,13 +199,42 @@ function parseArgs(args) {
 
 function route(args) {
   const options = parseArgs(args);
+  const requested = String(options.kind || "").toLowerCase();
+  if (PLAN_KINDS.has(requested)) {
+    process.stdout.write(`${planRoute(requested, options)}\n`);
+    return;
+  }
+  if (requested === "finished") {
+    // Confirmed-done final copies only. MediaSSD must be mounted and writable; no internal fallback.
+    const product = String(options.product || "").trim();
+    if (!product || product === "." || product === ".." || /[/\\]/.test(product)) {
+      throw new StorageGateError(
+        "PRODUCT_REQUIRED",
+        "finished videos go in a product folder: /Volumes/MediaSSD/05_FINISHED/<Product>/. Pass --product <name>, such as Product-Ads",
+      );
+    }
+    const finished = verifyVolume(finishedConfiguration());
+    if (!existsSync(finished.root)) {
+      throw new StorageGateError("FINISHED_MISSING", `${finished.root} is missing; refusing to create or substitute it`);
+    }
+    try {
+      accessSync(finished.root, fsConstants.W_OK);
+    } catch {
+      throw new StorageGateError("VOLUME_READ_ONLY", `${finished.root} is not writable`);
+    }
+    const destination = path.join(finished.root, product);
+    assertWithinPhysicalRoot(destination, finished.root);
+    mkdirSync(destination, { recursive: true });
+    process.stdout.write(`${destination}\n`);
+    return;
+  }
   const config = configuration(options.area || "active");
   const kind = String(options.kind || "").toLowerCase();
   const kinds = config.area === "active" ? VALID_KINDS : new Set(Object.keys(LIBRARY_KINDS));
   if (!kinds.has(kind)) {
     throw new StorageGateError(
       "INVALID_KIND",
-      `kind must be one of: ${[...kinds].join(", ")}`,
+      `kind must be one of: ${[...kinds, ...PLAN_KINDS, "finished"].join(", ")}`,
     );
   }
 
@@ -337,7 +399,7 @@ function main() {
     else {
       throw new StorageGateError(
         "USAGE",
-        'use "storage-gate.mjs route --area active|library --client <name> --kind <kind>" or "storage-gate.mjs hook"',
+        'use "storage-gate.mjs route --area active|library --client <name> --kind <kind>", "route --kind plan|research --lane <lane> --name <plan>", "route --kind finished --product <name>" or "storage-gate.mjs hook"',
       );
     }
   } catch (error) {

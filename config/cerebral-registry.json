@@ -636,7 +636,7 @@
       "surface": "video storage",
       "lane": "System Maintenance",
       "owner": "Docs/skills",
-      "intent": "Keep reusable source in Git. Route open jobs to HomeSSD Active Work and kept media to Media Library. Generated accepts only reviewed disposable files after migration. Preserve sole originals in Eagle or MediaSSD.",
+      "intent": "Keep reusable source in Git. Plans and research live in their Lane folder. Route open jobs to HomeSSD Active Work and kept media to Media Library. Finished videos go to MediaSSD 05_FINISHED. Generated accepts only reviewed disposable files after migration. Preserve sole originals in Eagle or MediaSSD.",
       "shape": "operating rule",
       "required_tools": [
         "s-systems:video-storage"

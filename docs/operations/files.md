@@ -20,6 +20,10 @@ Choose a home by purpose. JSON can be source, proof or a temporary file.
 Each service Lane uses `README.md`, `offers.md`, `audience.md`, `clients.md`,
 `growth.md` and `outreach.md`. Use these names consistently. Development has
 no sales offer or audience file. Add a new guide only for a distinct owner.
+
+A focused plan gets its own folder inside the Lane it serves, such as
+`docs/operations/content-editor/product-ads/`. Its research notes live beside it.
+Plans and research never go to HomeSSD Generated.
 Website code stays in its existing code folders.
 
 ## Records and work files
@@ -30,7 +34,8 @@ Website code stays in its existing code folders.
 | Current operating rules | This guide and the owning skill; link shared rules |
 | Open-job media and active caches | HomeSSD / Active Work |
 | Kept templates, references and finished files | HomeSSD / Media Library, grouped by client |
-| Reviewed disposable byproducts | HomeSSD / Generated; old contents still need migration checks |
+| Finished videos, once confirmed done | `/Volumes/MediaSSD/05_FINISHED`, in a product folder such as `Product-Ads` |
+| Reviewed disposable byproducts | HomeSSD / Generated; delete once the final copy exists. Old contents still need migration checks |
 | Irreplaceable footage and original source | Eagle or MediaSSD, with a durable backup |
 | Job IDs and receipt links needed for queries | Supabase; task status stays in Asana or Linear |
 

@@ -17,7 +17,7 @@
       "previews": "/Volumes/HomeSSD/Active Work/SINGLETON_SYSTEMS/previews"
     },
     "sourceRoot": "plugins/work-to-content",
-    "beforeWrite": "node scripts/developer-storage/storage-gate.mjs route --client SINGLETON_SYSTEMS --kind references",
+    "beforeWrite": "node scripts/developer-storage/storage-gate.mjs route --client SINGLETON_SYSTEMS --kind <media kind>",
     "internalMediaFallback": false
   },
   "firstStory": [

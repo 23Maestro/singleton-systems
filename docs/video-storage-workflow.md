@@ -13,6 +13,10 @@ retention, and exact-path cleanup.
   Valid types are `source`, `audio`, `renders`, `previews` and `references`.
 - `/Volumes/HomeSSD/Media Library/<CLIENT>/<TYPE>/` holds kept media.
   Use `Templates`, `References` and `Deliverables` as needed.
+- `/Volumes/MediaSSD/05_FINISHED/<Product>/` holds finished videos, once
+  confirmed done. Example: `05_FINISHED/Product-Ads/`.
+- Plans and research notes are not media. They live in their Lane folder in
+  the repo: `docs/operations/<lane>/<plan>/`. They never go to HomeSSD.
 - `/Volumes/HomeSSD/Generated/` is the disposable boundary. The gate routes
   no new work there. Legacy contents stay protected until verified migration.
 - Missing client context uses `_INBOX`.
@@ -34,6 +38,11 @@ extracted-frame cache belongs at
 `/Volumes/HomeSSD/Active Work/hyperframes/cache/extracted-frames`.
 
 Use `--area library --kind templates|references|deliverables` to route kept media.
+Use `route --kind plan|research --lane content-editor|ai-consulting|development --name <plan>`
+for a plan folder. Without a Lane and name, the gate refuses and names that home.
+Use `route --kind finished --product <name>` for a confirmed-done video. It checks MediaSSD UUID
+`AE796278-38CF-438E-8C7E-BBEE1CC1A327`, write access and 50 GiB free. It
+prints `/Volumes/MediaSSD/05_FINISHED/<Product>`. It never falls back to the internal SSD.
 Use `check-output --path "<path>"` to validate a supplied active output without
 writing media. The matching library check adds `--area library`.
 
@@ -44,7 +53,8 @@ not migrated or retired by this tracer bullet.
 
 ## Clear only after closeout
 
-Finals and receipts must be verified and retained. Reusable source must have a
+Copy the confirmed final to `05_FINISHED` first. Finals and receipts must be
+verified and retained. Reusable source must have a
 known owner. List exact disposable files only after those checks. Active caches
 stay with the open job. Cleanup owns migration, relinks and exact deletion;
 changing this gate does not make legacy Generated files safe to clear.

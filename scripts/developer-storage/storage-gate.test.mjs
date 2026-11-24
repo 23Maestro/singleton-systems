@@ -417,3 +417,65 @@ test("check-output validates a producer destination without moving or writing me
     assert.match(denied.stderr, /INVALID_OUTPUT/);
   }
 });
+
+test("plans and research route to the repo Lane folder, never HomeSSD", (context) => {
+  const setup = fixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  const repo = path.join(setup.sandbox, "repo");
+  mkdirSync(path.join(repo, "docs", "operations"), { recursive: true });
+  const env = { ...setup.env, STORAGE_GATE_REPO_ROOT: repo };
+  for (const kind of ["plan", "research"]) {
+    const result = run(["route", "--kind", kind, "--lane", "content-editor", "--name", "Product Ads"], { env });
+    const expected = path.join(repo, "docs", "operations", "content-editor", "product-ads");
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout.trim(), expected);
+    assert.equal(existsSync(expected), true);
+  }
+  const missing = run(["route", "--client", "SINGLETON_SYSTEMS", "--kind", "plan"], { env });
+  assert.equal(missing.status, 2);
+  assert.match(missing.stderr, /PLAN_HOME: .*docs\/operations\/<lane>\/<plan>\//);
+  assert.equal(existsSync(path.join(setup.sandbox, "Active Work", "SINGLETON_SYSTEMS")), false);
+  assert.equal(existsSync(path.join(setup.sandbox, "Generated")), false);
+});
+
+function finishedFixture(options) {
+  const setup = fixture({ uuid: "TEST-MEDIASSD", ...options });
+  mkdirSync(path.join(setup.sandbox, "05_FINISHED"));
+  setup.env = {
+    ...setup.env,
+    STORAGE_GATE_FINISHED_VOLUME_ROOT: setup.sandbox,
+    STORAGE_GATE_FINISHED_UUID: "TEST-MEDIASSD",
+  };
+  return setup;
+}
+
+test("finished videos route to MediaSSD 05_FINISHED after the volume check", (context) => {
+  const setup = finishedFixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  const result = run(["route", "--kind", "finished", "--product", "Product-Ads"], setup);
+  const expected = path.join(setup.sandbox, "05_FINISHED", "Product-Ads");
+  assert.equal(result.status, 0, result.stderr);
+  assert.equal(result.stdout.trim(), expected);
+  assert.equal(existsSync(expected), true);
+  for (const product of [[], ["--product", "../escape"]]) {
+    const refused = run(["route", "--kind", "finished", ...product], setup);
+    assert.equal(refused.status, 2);
+    assert.match(refused.stderr, /^PRODUCT_REQUIRED: .*05_FINISHED\/<Product>\//);
+  }
+});
+
+test("finished route refuses a wrong, read-only or missing MediaSSD", (context) => {
+  for (const [options, code] of [[{ uuid: "OTHER" }, "WRONG_VOLUME"], [{ readOnly: true }, "VOLUME_READ_ONLY"]]) {
+    const setup = finishedFixture(options);
+    context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+    const result = run(["route", "--kind", "finished", "--product", "Product-Ads"], setup);
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, new RegExp(`^${code}:`));
+  }
+  const setup = finishedFixture();
+  context.after(() => rmSync(setup.sandbox, { recursive: true, force: true }));
+  const env = { ...setup.env, STORAGE_GATE_FINISHED_VOLUME_ROOT: path.join(setup.sandbox, "offline") };
+  const offline = run(["route", "--kind", "finished", "--product", "Product-Ads"], { env });
+  assert.equal(offline.status, 2);
+  assert.match(offline.stderr, /^VOLUME_MISSING:/);
+});

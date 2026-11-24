@@ -546,7 +546,8 @@ def content_workspace_context(cwd=None):
         status += " This legacy note is read-only until migration. Use the gate for new media; cleanup owns moving and relinking this note."
     return (
         f"- [content-workspace] Working plan and capture log: [Work to Content]({urllib.parse.quote(note, safe='/')}). {status}\n"
-        f"- [content-storage] Before writes, run {command}. Use the matching kind for media. "
+        f"- [content-storage] Before media writes, run {command}. Plans and research notes use "
+        "--kind plan --lane <lane> --name <plan> and live in the repo Lane folder, never on HomeSSD. "
         f"Plugin source stays at {source}; Asana owns content task state. "
         "The note supplies working context, not routing rules."
     )

@@ -6,6 +6,7 @@ editing outcomes and the next action. Keep work under its client section.
 - [Offers](offers.md) and [audience](audience.md)
 - [Clients and prospects](clients.md)
 - [Growth](growth.md) and [outreach](outreach.md)
+- [Product ads](product-ads/README.md): spec ad plan, safe-showing rules and references
 - [File homes](../files.md)
 
 ## Editing rules
