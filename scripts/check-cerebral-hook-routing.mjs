@@ -345,6 +345,13 @@ print(module["supabase_connection"]())
   assert.match(worktreeEnv.stdout, /https:\/\/main\.example/, "worktree hooks must read the main checkout .env.local");
 }
 
+const braceSkillList = runPreTool("ls -d .agents/skills/{worktree-router,file-hygiene,dev-storage}");
+assert.equal(braceSkillList.status, 0);
+assert.doesNotMatch(braceSkillList.stdout, /not registered in harness_skills/, "shell brace lists must be expanded before the registry check");
+
+const braceUnknownSkill = runPreTool("ls -d .agents/skills/{worktree-router,not-a-real-skill}");
+assert.match(braceUnknownSkill.stdout, /not-a-real-skill is not registered in harness_skills/, "each expanded brace path is still checked");
+
 const wrongEagleDocument = runPreTool("sed -n '1,240p' .agents/skills/eagle-skill/SKILL.md");
 assert.equal(wrongEagleDocument.status, 0);
 assert.match(wrongEagleDocument.stdout, /"continue": false/);

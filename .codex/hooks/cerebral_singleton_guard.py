@@ -314,6 +314,15 @@ def repo_root_from(cwd=None):
         current = parent
 
 
+def expand_braces(token):
+    # Shell brace lists like a/{b,c} name several paths; check each one.
+    match = re.search(r"\{([^{}]*,[^{}]*)\}", token)
+    if not match:
+        return [token]
+    head, tail = token[: match.start()], token[match.end():]
+    return [path for part in match.group(1).split(",") for path in expand_braces(head + part + tail)]
+
+
 class RegistryUnavailable(RuntimeError):
     pass
 
@@ -467,8 +476,7 @@ def canonical_skill_script_error(payload):
     except ValueError:
         return None
     effective_cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
-    for token in tokens:
-        candidate = token.strip(";&|()")
+    for candidate in (path for token in tokens for path in expand_braces(token.strip(";&|()"))):
         expanded = os.path.expandvars(os.path.expanduser(candidate))
         if "$" in expanded:
             continue
