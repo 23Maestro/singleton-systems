@@ -9,6 +9,7 @@ Start with the work you need to do.
 - [Clients and outreach](clients-and-outreach.md): one client card, history and due reviews.
 - [Outreach guide](../../skills/outreach/SKILL.md): shared method, messages, sources and follow-up dates.
 - [Website](../website/README.md): page offers, brand, SEO, forms and code owners.
+- [Profile copy](profile-copy.md): the same facts on the site, Upwork, LinkedIn, X, Instagram and Google.
 - [Writing rules](../harness/writing-rules.md): short names, clear summaries and each app's text tools.
 
 ## Where work lives
