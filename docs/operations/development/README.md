@@ -16,3 +16,5 @@ Keep deadlines separate from planned work dates. Check proof before closing
 children, then the parent. An initiative or label never starts work.
 
 Use [File homes](../files.md) for active work, kept media and closeout receipts.
+
+Git workflow, worktrees and cleanup: [GitHub repo maintenance](github-repo-maintenance.md).

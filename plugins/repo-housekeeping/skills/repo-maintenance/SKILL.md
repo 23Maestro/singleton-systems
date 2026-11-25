@@ -25,6 +25,8 @@ python3 "$REPO_MAINTENANCE_ROOT/scripts/audit_repo_maintenance.py" \
 
 Read [references/safety-protocol.md](references/safety-protocol.md) before changing structure, refs, worktrees, stashes, or generated directories.
 
+This skill audits structure and generated artifacts. It hands branch and worktree removal to `git-cleanup` and new-worktree setup to `worktree-router`.
+
 For repository-boundary, module, or folder-layout work, read [references/repository-taxonomy.md](references/repository-taxonomy.md). For application-specific, build-system, cache, or generated-layout work, read [references/stack-profiles.md](references/stack-profiles.md). Classify signals before recommending a target structure.
 
 ## Classify the repository without forcing one label

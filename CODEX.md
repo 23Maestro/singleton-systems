@@ -54,7 +54,10 @@ npm run typecheck
 npm test
 ```
 
-Husky runs `npm run verify` before every commit.
+Husky runs `npm run verify` before every commit, in the main checkout and in
+every worktree. Git workflow, worktree setup and cleanup owners live in
+[GitHub repo maintenance](docs/operations/development/github-repo-maintenance.md).
+Every agent follows it.
 
 ## dependency setup and storage
 

@@ -1,0 +1,4 @@
+# A new worktree checks out from the all-zero commit. Link its env file and dependencies.
+[ "$1" = "0000000000000000000000000000000000000000" ] || exit 0
+main="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
+node "$main/scripts/worktree-setup.mjs" || true

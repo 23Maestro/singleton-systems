@@ -62,6 +62,12 @@ When carrying over approved work, copy only the named files after the worktree e
 
 After creation:
 
+0. In singleton-systems, `scripts/worktree-setup.mjs` runs on its own after
+   `git worktree add` (through `.husky/post-checkout`). It links the main
+   checkout's `.env.local`, installs dependencies from pnpm's shared store and
+   points the pre-commit gate at the main `.husky/_`. Confirm its
+   `worktree setup:` line, or run `npm run worktree:setup`. Removal belongs to
+   `git-cleanup`. Rules live in `docs/operations/development/github-repo-maintenance.md`.
 1. Detect the package manager and project setup from tracked files.
 2. Install dependencies only when required for verification. Use the repository's
    pinned package manager and frozen lockfile. Reuse a native package store on

@@ -10,6 +10,9 @@ This is a Codex adapter of Trail of Bits Git Cleanup. Read
 [merge-evidence.md](references/merge-evidence.md) before categorizing branches.
 Perform the analysis in the current task. Do not start background workers.
 
+This skill is the one owner of branch and worktree removal. Other
+housekeeping skills report stale worktrees and hand removal here.
+
 Read the repository guide, verify its Git root, and inspect HEAD, tracking refs,
 staged, unstaged and untracked paths, stashes, and every linked worktree. Resolve
 origin/HEAD, then strip origin/. If it is missing, verify the repository default

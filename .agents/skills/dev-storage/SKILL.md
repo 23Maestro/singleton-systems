@@ -62,6 +62,10 @@ items.
    Never share a mutable `node_modules` directory between worktrees. Docs-only
    work needs no install. Do not copy build caches into release folders.
 
+In singleton-systems, worktree and branch removal belongs to `git-cleanup`.
+This skill reports stale worktrees and frees their caches; hand removal to
+`git-cleanup`. See `docs/operations/development/github-repo-maintenance.md`.
+
 ## Machine Pass
 
 CAD tooling uses HomeSSD. Follow [the CAD route](references/cad-storage.md).
