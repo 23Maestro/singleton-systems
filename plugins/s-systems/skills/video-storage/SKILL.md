@@ -1,6 +1,6 @@
 ---
 name: video-storage
-description: Route active media to Active Work and kept media to Media Library on HomeSSD. Keep Generated for reviewed disposable files. Preserve sole originals in Eagle or MediaSSD. Use for video-media storage; use dev-storage for dependencies, runtimes, and Git worktrees.
+description: Route active media to Active Work and kept media to Media Library on HomeSSD. Send finished videos to MediaSSD 05_FINISHED and plans to their repo Lane folder. Keep Generated for reviewed disposable files. Preserve sole originals in Eagle or MediaSSD. Use for video-media storage; use dev-storage for dependencies, runtimes, and Git worktrees.
 ---
 
 # Video Storage
@@ -18,6 +18,10 @@ Keep the durable copy of irreplaceable source in Eagle or MediaSSD.
   Types are `source`, `audio`, `renders`, `previews` and `references`.
 - Put kept media under `/Volumes/HomeSSD/Media Library/<CLIENT>/<TYPE>/`.
   Types are `Templates`, `References` and `Deliverables`.
+- Put each finished video, once confirmed done, in its product folder,
+  `/Volumes/MediaSSD/05_FINISHED/<Product>/`, such as `Product-Ads`.
+- Plans and research notes are not media. Put them in their Lane folder in the
+  repo; the plan route prints that path. Never put them on HomeSSD.
 - Generated accepts no new jobs, renders, receipts or active caches through the gate.
   Existing files there remain protected until the cleanup owner verifies migration.
   A folder name alone never makes an existing file disposable.
@@ -43,7 +47,11 @@ Before downloading, generating, copying, or rendering large artifacts:
 
 Use `npm run storage:gate -- route --client "<name>" --kind <kind>` for active work.
 Use `npm run storage:gate -- route --area library --client "<name>" --kind templates|references|deliverables`
-for kept media. Use `check-output --path "<absolute path>"` before a producer writes
+for kept media. Use `npm run storage:gate -- route --kind plan --lane <lane> --name <plan>`
+for a plan or research folder; without both, the gate refuses and names the home.
+Use `npm run storage:gate -- route --kind finished --product <name>` for a confirmed-done video. It checks
+MediaSSD UUID `AE796278-38CF-438E-8C7E-BBEE1CC1A327`, write access and 50 GiB free,
+then prints `/Volumes/MediaSSD/05_FINISHED/<Product>`. Use `check-output --path "<absolute path>"` before a producer writes
 a supplied output path; use `--area library` for a library output. These commands apply
 this gate, create the destination, and print its absolute path. Normalize client
 names to upper snake case. If client context is unavailable, route to `_INBOX`;

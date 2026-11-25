@@ -28,6 +28,8 @@ Link the source edit and check [sharing rights](clients.md#sharing-work) before 
 [shared writing rules](../../harness/writing-rules.md). Name what Jerami did
 and what the client did. Never invent results or measured time savings.
 
+Spec ads for the portfolio follow the [product ads plan](product-ads/README.md).
+
 Use [outreach](outreach.md) for pitches and follow-ups. A distinct website or
 reusable content-tool build gets a linked [Service Builds](../../../development/service-builds/README.md)
 ticket. The Asana task stays the short outcome Jerami can act on.

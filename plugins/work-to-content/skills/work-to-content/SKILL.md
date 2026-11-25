@@ -5,10 +5,10 @@ description: Plan or prepare Jerami's social content from real client work, star
 
 # Work to Content
 
-Read [the content plan](references/content-plan.json), then its HomeSSD
-`workspace.notePath`. The startup hook repeats that link. Keep working notes,
-capture logs and drafts there. If HomeSSD is offline, keep the pointer and stop
-writes until the drive returns. Run `workspace.beforeWrite` before writing.
+Read [the content plan](references/content-plan.json), then its repo
+`workspace.notePath`. The startup hook repeats that link. Keep working notes
+and the capture log there. Media stays on HomeSSD. If HomeSSD is offline, stop
+media writes until the drive returns. Run `workspace.beforeWrite` before writing.
 For media, run the storage gate with its matching type.
 Start with the work already done. Keep the next step small.
 For the Social Media Engine, use [saved routing](references/saved-routing.md).

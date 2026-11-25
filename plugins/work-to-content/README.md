@@ -22,7 +22,7 @@ The helper retains claim links and choices through interruption. Each beat gets
 its own production route. It keeps missing proof and tools visible at review.
 The assembly choice remains open until Jerami selects it.
 
-Read [the HomeSSD working note](/Volumes/HomeSSD/Generated/SINGLETON_SYSTEMS/references/work-to-content.md).
+Read [the working note](../../docs/operations/content-editor/work-to-content/README.md).
 It holds the next step, capture log and draft links. The repository's startup
 and resume hook repeats the link, even when live routing is unavailable.
 Content requests repeat it after this route is enabled.

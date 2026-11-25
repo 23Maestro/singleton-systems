@@ -314,13 +314,37 @@ def repo_root_from(cwd=None):
         current = parent
 
 
+def expand_braces(token):
+    # Shell brace lists like a/{b,c} name several paths; check each one.
+    match = re.search(r"\{([^{}]*,[^{}]*)\}", token)
+    if not match:
+        return [token]
+    head, tail = token[: match.start()], token[match.end():]
+    return [path for part in match.group(1).split(",") for path in expand_braces(head + part + tail)]
+
+
 class RegistryUnavailable(RuntimeError):
     pass
+
+
+def main_checkout_root(root):
+    # A git worktree's .git is a file: "gitdir: <main>/.git/worktrees/<name>".
+    try:
+        with open(os.path.join(root, ".git"), "r", encoding="utf-8") as handle:
+            gitdir = handle.read().strip()
+    except OSError:
+        return root
+    marker = os.sep + ".git" + os.sep + "worktrees" + os.sep
+    if gitdir.startswith("gitdir:") and marker in gitdir:
+        return gitdir[len("gitdir:"):].strip().split(marker)[0]
+    return root
 
 
 def supabase_connection():
     root = repo_root_from()
     env_path = os.environ.get("CEREBRAL_SUPABASE_ENV_FILE") or os.path.join(root, ".env.local")
+    if not os.environ.get("CEREBRAL_SUPABASE_ENV_FILE") and not os.path.exists(env_path):
+        env_path = os.path.join(main_checkout_root(root), ".env.local")
     values = {}
     try:
         with open(env_path, "r", encoding="utf-8") as handle:
@@ -452,8 +476,7 @@ def canonical_skill_script_error(payload):
     except ValueError:
         return None
     effective_cwd = str(tool_input.get("workdir") or payload.get("cwd") or root)
-    for token in tokens:
-        candidate = token.strip(";&|()")
+    for candidate in (path for token in tokens for path in expand_braces(token.strip(";&|()"))):
         expanded = os.path.expandvars(os.path.expanduser(candidate))
         if "$" in expanded:
             continue
@@ -532,21 +555,20 @@ def content_workspace_context(cwd=None):
         source = workspace["sourceRoot"]
         if not all(isinstance(value, str) and "\n" not in value for value in (note, volume, command, source)):
             raise ValueError("invalid workspace pointer")
-        if not os.path.isabs(note) or not note.startswith(volume.rstrip("/") + "/"):
-            raise ValueError("note must be on the named volume")
+        if os.path.isabs(note) or ".." in note.split("/"):
+            raise ValueError("note must be a repo-relative path")
     except (OSError, ValueError, KeyError, TypeError):
         return f"- [content-workspace] Location is unverified. Read {CONTENT_PLAN_PATH}; do not create an internal media fallback."
-    if not os.path.ismount(volume):
-        status = "HomeSSD is offline. Wait for the drive; do not create an internal media fallback."
-    elif not os.path.isfile(note):
-        status = "The working note is missing. Verify the drive and saved path before writing."
+    if not os.path.isfile(os.path.join(repo_root_from(cwd), note)):
+        status = "The working note is missing. Check the saved repo path before writing."
     else:
         status = "The working note is present. Resume from its next step."
-    if note.startswith(volume.rstrip("/") + "/Generated/"):
-        status += " This legacy note is read-only until migration. Use the gate for new media; cleanup owns moving and relinking this note."
+    if not os.path.ismount(volume):
+        status += " HomeSSD is offline. Wait for the drive before media writes; do not create an internal media fallback."
     return (
         f"- [content-workspace] Working plan and capture log: [Work to Content]({urllib.parse.quote(note, safe='/')}). {status}\n"
-        f"- [content-storage] Before writes, run {command}. Use the matching kind for media. "
+        f"- [content-storage] Before media writes, run {command}. Plans and research notes use "
+        "--kind plan --lane <lane> --name <plan> and live in the repo Lane folder, never on HomeSSD. "
         f"Plugin source stays at {source}; Asana owns content task state. "
         "The note supplies working context, not routing rules."
     )
