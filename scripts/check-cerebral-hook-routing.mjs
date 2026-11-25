@@ -322,6 +322,29 @@ assert.equal(unavailableRegistry.status, 0);
 assert.match(unavailableRegistry.stdout, /"continue": false/);
 assert.match(unavailableRegistry.stdout, /No local registry fallback is allowed/);
 
+// A git worktree has no .env.local of its own; the hook must read the main checkout's.
+{
+  const tmp = fs.mkdtempSync(path.join(fs.realpathSync(process.env.TMPDIR || "/tmp"), "cerebral-wt-"));
+  const main = path.join(tmp, "main");
+  const wt = path.join(tmp, "wt");
+  fs.mkdirSync(path.join(main, ".git/worktrees/wt"), { recursive: true });
+  fs.mkdirSync(path.join(wt, "config"), { recursive: true });
+  fs.writeFileSync(path.join(main, ".env.local"), "SUPABASE_URL=https://main.example\nSUPABASE_PUBLISHABLE_KEY=main-key\n");
+  fs.writeFileSync(path.join(wt, ".git"), `gitdir: ${path.join(main, ".git/worktrees/wt")}\n`);
+  fs.writeFileSync(path.join(wt, "config/cerebral-registry.json"), "{}");
+  const env = { ...process.env, SUPABASE_URL: "", SUPABASE_PUBLISHABLE_KEY: "", SUPABASE_ANON_KEY: "" };
+  delete env.CEREBRAL_SUPABASE_ENV_FILE;
+  const worktreeEnv = spawnSync(python, ["-c", `
+import os, runpy
+module = runpy.run_path(${JSON.stringify(hook)})
+os.chdir(${JSON.stringify(wt)})
+print(module["supabase_connection"]())
+`], { encoding: "utf8", env });
+  fs.rmSync(tmp, { recursive: true, force: true });
+  assert.equal(worktreeEnv.status, 0, worktreeEnv.stderr);
+  assert.match(worktreeEnv.stdout, /https:\/\/main\.example/, "worktree hooks must read the main checkout .env.local");
+}
+
 const wrongEagleDocument = runPreTool("sed -n '1,240p' .agents/skills/eagle-skill/SKILL.md");
 assert.equal(wrongEagleDocument.status, 0);
 assert.match(wrongEagleDocument.stdout, /"continue": false/);

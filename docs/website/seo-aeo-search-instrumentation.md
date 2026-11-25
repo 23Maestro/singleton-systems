@@ -23,8 +23,9 @@ Google Search Console and Bing Webmaster Tools own indexing and search metrics.
 Submit the production `/sitemap.xml` there.
 
 [Layout](../../app/layout.tsx) reads `GOOGLE_SITE_VERIFICATION` and
-`BING_SITE_VERIFICATION`. These must be set in the target deployment environment.
-A local file does not prove account verification or a deployed tag.
+`BING_SITE_VERIFICATION`. They are optional. Google verifies the bare domain
+by DNS, and Bing verified through the Google import, so production has no tags.
+Set them only if a property loses DNS verification.
 
 Track each Lane's pages and queries separately. Use impressions, clicks,
 position and visits to the right inquiry page. Lighthouse measures technical
@@ -46,3 +47,16 @@ prove each Lane page's metadata. Check those pages too when they change.
 The recorded July 2, 2026 Lighthouse scores were 98 performance and 100 for
 accessibility, best practices and SEO. Those are historical results, not a fresh audit.
 Keep new results linked from the owning task with the checked URL and date.
+
+## Search loop
+
+These checks prove technical health only. Rank and leads come from the
+`seo-money-page-loop` skill. Claude and Codex share 1 copy of it. Its
+workspace is `~/Projects/seo/singleton-systems/`, which holds the brief,
+state and log.
+
+Every run starts with its sync check. That compares the brief with the live
+offer, the sitemap with logged indexing requests, and the log with the
+owning Asana task. It then runs `npm run audit:seo-stack`. Paid SEO tools stay
+off. Search data comes from Search Console exports and the free
+question-filter regex.

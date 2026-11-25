@@ -318,9 +318,24 @@ class RegistryUnavailable(RuntimeError):
     pass
 
 
+def main_checkout_root(root):
+    # A git worktree's .git is a file: "gitdir: <main>/.git/worktrees/<name>".
+    try:
+        with open(os.path.join(root, ".git"), "r", encoding="utf-8") as handle:
+            gitdir = handle.read().strip()
+    except OSError:
+        return root
+    marker = os.sep + ".git" + os.sep + "worktrees" + os.sep
+    if gitdir.startswith("gitdir:") and marker in gitdir:
+        return gitdir[len("gitdir:"):].strip().split(marker)[0]
+    return root
+
+
 def supabase_connection():
     root = repo_root_from()
     env_path = os.environ.get("CEREBRAL_SUPABASE_ENV_FILE") or os.path.join(root, ".env.local")
+    if not os.environ.get("CEREBRAL_SUPABASE_ENV_FILE") and not os.path.exists(env_path):
+        env_path = os.path.join(main_checkout_root(root), ".env.local")
     values = {}
     try:
         with open(env_path, "r", encoding="utf-8") as handle:
