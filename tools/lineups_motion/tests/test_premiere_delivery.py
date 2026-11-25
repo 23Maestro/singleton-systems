@@ -141,6 +141,21 @@ class DeliveryTests(unittest.TestCase):
         # Discovery belongs to this guard so old scene rules cannot block it.
         self.assertTrue(self.call('get_clip_properties',dict(clipId='unrelated')))
 
+    def test_invoke_tool_is_unwrapped_before_guard_dispatch(self):
+        payload = dict(tool_name=gate.PREFIX+'invoke_tool', tool_input=dict(
+            name='trim_clip', arguments=dict(clipId='clip', duration=4.0)))
+        result = gate.normalize_tool_call(payload)
+        self.assertEqual(result['tool_name'], gate.PREFIX+'trim_clip')
+        self.assertEqual(result['tool_input'], dict(clipId='clip', duration=4.0))
+
+    def test_invoke_tool_rejects_missing_or_invalid_inner_tool(self):
+        for payload in (
+            dict(tool_name=gate.PREFIX+'invoke_tool', tool_input=dict(arguments={})),
+            dict(tool_name=gate.PREFIX+'invoke_tool', tool_input=dict(name='../../Shell', arguments={})),
+        ):
+            with self.subTest(payload=payload), self.assertRaises(ValueError):
+                gate.normalize_tool_call(payload)
+
     def test_figma_editorial_trim_keeps_full_render_proof(self):
         manifest_path = Path(self.row['contractManifest']['path'])
         manifest = json.loads(manifest_path.read_text())

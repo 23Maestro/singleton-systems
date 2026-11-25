@@ -1,4 +1,4 @@
-import { owner } from "@/lib/studio-session";
+import { dashboardOwner } from "@/lib/dashboard-auth";
 import {
   createAsanaTask,
   createAsanaSubtask,
@@ -191,12 +191,12 @@ const actionSchema = z.discriminatedUnion("action", [
 ]);
 
 export async function GET(request: Request) {
-  if (!owner(request)) return Response.json({ error: "Open your private Studio bookmark, then return here." }, { status: 401, headers });
+  if (!await dashboardOwner()) return Response.json({ error: "Sign in to your dashboard." }, { status: 401, headers });
   return Response.json(await commandCenterSnapshot(), { headers });
 }
 
 export async function POST(request: Request) {
-  if (!owner(request)) return Response.json({ error: "Open your private Studio bookmark, then return here." }, { status: 401, headers });
+  if (!await dashboardOwner()) return Response.json({ error: "Sign in to your dashboard." }, { status: 401, headers });
   if (request.headers.get("origin") !== new URL(request.url).origin)
     return Response.json(
       { error: "Invalid origin." },

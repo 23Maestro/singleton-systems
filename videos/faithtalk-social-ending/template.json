@@ -19,7 +19,8 @@
     "source",
     "videoEndFrame",
     "audioEndSeconds",
-    "outputDirectory"
+    "outputDirectory",
+    "watchUrl"
   ],
   "protected": [
     "official logo animation",
@@ -27,10 +28,13 @@
     "black background",
     "Convergence episode text",
     "existing schedule motion",
-    "official Greater Love TV artwork",
-    "watch URL"
+    "official Greater Love TV artwork"
   ],
   "holdAudio": "Silence after native sting. No new music.",
   "status": "Episode 5 rendered and technically checked. Jerami responded beautiful and authorized upload on November 5, 2026.",
-  "rendererVersion": "0.8.70"
+  "rendererVersion": "0.8.70",
+  "watchUrl": "myfaithtalktv.com",
+  "watchUrlSource": "Darzell correction supplied by Jerami November 18, 2026.",
+  "speechTargetLufs": -24.0,
+  "speechLevelRule": "745 teaser loudness check: match Opus clip speech to the measured opening narration of the current approved outro (config speechReference) within 0.5 LU, true peak at or under -2 dBTP, one static dialogue gain. Native sting audio unchanged. Listening review stays with Jerami. The native sting keeps its sound but is set to the approved outro's closing-logo level (speechReference logoStart..logoEnd), matching the outro's speech-to-logo balance."
 }

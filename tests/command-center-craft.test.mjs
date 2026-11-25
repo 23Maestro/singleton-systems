@@ -7,7 +7,7 @@ import {build} from 'esbuild';
 import {pathToFileURL} from 'node:url';
 
 Object.assign(process.env, {SUPABASE_URL:'https://craft-storage.test', SUPABASE_SERVICE_ROLE_KEY:'test', LINEAR_API_KEY:'test', ASANA_ACCESS_TOKEN:'test', COMMAND_CENTER_CRAFT_API_URL:'https://connect.craft.do/links/test-only/api/v1'});
-await build({entryPoints:['app/api/command-center/route.ts'],bundle:true,platform:'node',format:'esm',packages:'external',outfile:'.scratch/craft-route.mjs',tsconfig:'tsconfig.json'});
+await build({plugins:[{name:"test-owner",setup(b){b.onResolve({filter:/^@\/lib\/dashboard-auth$/},()=>({path:"owner",namespace:"test-owner"}));b.onLoad({filter:/.*/,namespace:"test-owner"},()=>({contents:"export async function dashboardOwner(){return true}",loader:"js"}));}}],entryPoints:['app/api/command-center/route.ts'],bundle:true,platform:'node',format:'esm',packages:'external',outfile:'.scratch/craft-route.mjs',tsconfig:'tsconfig.json'});
 const {POST,GET}=await import(pathToFileURL(process.cwd()+'/.scratch/craft-route.mjs'));
 const spaceId='f5b0a75f-1553-cc83-3804-f83592a53df1';
 const taskId='B5552310-8AD3-45DF-BB90-14C0AF7A99ED';

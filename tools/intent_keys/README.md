@@ -8,7 +8,7 @@ It renders no artwork and changes no timeline.
 python3 -m unittest tools.intent_keys.test_plan -v
 python3 -m tools.intent_keys.plan \
   --request config/intent-solutions/intent-keys/e01/review.json \
-  --output /Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-23-e01-flow/plan.json
+  --output "/Volumes/HomeSSD/Active Work/INTENT_SOLUTIONS/references/2026-10-23-e01-flow/plan.json"
 ```
 
 The output includes source hashes, source-to-cut ranges, 13 spoken-word card

@@ -22,6 +22,46 @@ Use `s-systems:client-video-storyboard` for shared intake and Premiere handoff.
 Asana owns the episode task. Eagle owns source assets. The episode record keeps
 scene IDs, transcript revisions, engine choices and review evidence.
 
+## Tuesday lineup
+
+Plan for 2 Lineups videos each Tuesday. One is the weekly Power Rankings. The
+other is a reaction video. Track each as its own episode and use the confirmed
+deadline for each.
+
+## Weekly ranking titles in Premiere
+
+1. Use the latest approved Power Rankings project as the visual reference and
+   leave it unchanged. Copy its native Premiere Graphic title clips in the UI
+   to keep the approved layout. `duplicate_clip` does not duplicate these
+   native Graphic clips.
+2. Premiere 27's typed `MogrtText` API covers After Effects-authored MoGRTs.
+   Native Graphic text uses `AE.ADBE Text`; `read_uxp_track_graphics` can show
+   `Source Text: null` even when the title renders. That means the MCP cannot
+   read the title text; it does not mean the title is blank. Do not use
+   `update_uxp_mogrt_texts` or write an opaque CEP value to edit it. Edit text
+   in Premiere's Properties panel, then check the Program Monitor.
+3. Make one full-week opener, then 10 cards in rank order from `#10` to `#1`.
+   Use `WEEK {week} NFL POWER RANKINGS` for the opener and
+   `W{week} POWER RANKING #{rank}:` for each rank. Keep the approved font,
+   size, layout and right-side logo space. Put each team logo on its own track.
+4. Use the current episode's passed Manim timing receipt for every card's
+   exact start and end. Align each logo to its matching rank cue. Do not use a
+   fixed frame offset from a prior week. If a specific transition needs an
+   offset, measure and record it from the current sequence.
+5. Match the approved alternating red clip-label pattern when available. Set
+   labels through a verified Premiere UI or label API; do not change the title
+   artwork's fill color to imitate clip labels. After all 10 logos are placed,
+   select them on Video 4 and run the saved `PRank Logo` Excalibur shortcut
+   while Premiere and its timeline are focused. This is a Premiere UI action,
+   so MCP hooks cannot detect the keypress. Check the logo positions in the
+   Program Monitor.
+6. Read back all 11 title and 10 logo timings. Check title text in Properties,
+   rank order, exact cue coverage, logo clearance, the alternating clip labels,
+   and the opening and rank cards at full size. Save the project after review.
+
+The approved Week 11 project is a style reference, not a timing source. Read
+the current week's Manim receipt and Premiere sequence for every edit.
+
 ## Start from chat
 
 When Jerami says a Lineups episode is ready to start, resolve

@@ -73,7 +73,7 @@
         ]
       },
       {
-        "matcher": "^(?:mcp__codex_apps__figma_(?:use_figma|weave_run_tool|export_video)|mcp__premiere_pro__(?:import_media|add_to_timeline|insert_from_source|overwrite_clip|overwrite_from_source|replace_clip|replace_clip_media|move_clip|move_clip_to_track|set_clip_start_time|trim_clip|add_transition|add_transition_to_clip|batch_add_transitions|add_adjustment_layer|apply_audio_effect|apply_audio_effect_to_all_clips|apply_effect|batch_apply_effect|color_correct|crop_clip|set_blend_mode|set_effect_property|apply_lut|set_clip_opacity|set_clip_properties|delete_multiple_project_items|delete_project_item|extract_selection|lift_selection|razor_all_tracks|razor_timeline_at_time|remove_from_timeline|remove_selected_clips|ripple_delete))$",
+        "matcher": "^(?:mcp__codex_apps__figma_(?:use_figma|weave_run_tool|export_video)|mcp__premiere_pro__.*)$",
         "hooks": [
           {
             "type": "command",
@@ -119,7 +119,7 @@
         ]
       },
       {
-        "matcher": "^(?:mcp__codex_apps__figma_(?:use_figma|export_video)|mcp__premiere_pro__(?:import_media|add_to_timeline|replace_clip|replace_clip_media|trim_clip|add_transition_to_clip|get_project_info|get_project_item_info|find_items_by_media_path|get_full_sequence_info|get_clip_properties|list_sequence_tracks))$",
+        "matcher": "^(?:mcp__codex_apps__figma_(?:use_figma|export_video)|mcp__premiere_pro__.*)$",
         "hooks": [
           {
             "type": "command",

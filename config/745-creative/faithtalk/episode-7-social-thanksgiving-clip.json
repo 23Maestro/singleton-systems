@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "episode": 7,
+  "airDate": "2026-11-30",
+  "airtime": "9:30 AM ET",
+  "watchUrl": "myfaithtalktv.com",
+  "scheduleBasis": "Episode 7 aired November 23, 2026. Post date is open, so the card has no date.",
+  "source": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-8-social/Episode 7 - Thanksgiving Lifestyle - Opus.mp4",
+  "sourceSha256": "9c4c053bef180d9f8dac7fda7727821441e76df673bfd21505e6ba87b9afb7c2",
+  "videoEndFrame": 1162,
+  "audioEndSeconds": 38.762,
+  "cutEvidence": "Use all frames of the supplied Opus clip from Episode 7 (about 05:56 to 06:36). Whisper confirms it ends on a full sentence. No recut, crop or new captions.",
+  "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-thanksgiving-lifestyle-v2",
+  "lastAllowedWords": "for this is the will of God in Christ Jesus for your life",
+  "instance": "episode-7-thanksgiving-clip",
+  "cardText": {
+    "TAGLINE": "A THANKSGIVING MESSAGE",
+    "WEEKDAY": "FULL EPISODE",
+    "AIR_DATE": "WATCH NOW",
+    "AIRTIME": ""
+  }
+}

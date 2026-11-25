@@ -10,6 +10,7 @@ Start with the Lane the page helps.
 - [Forms and records](forms-and-records.md): intake, Supabase and the Notion cutover.
 - [Routing and checks](routing-and-checks.md): Cerebral, config and test owners.
 - [Apps](apps.md): every app link, its job, Lane and quirks; deploy and public-link rules.
+- [Private sites](private-sites.md): Google sign-in through Supabase for sensitive Vercel sites.
 
 ## What belongs here
 

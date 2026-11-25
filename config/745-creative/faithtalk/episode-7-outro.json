@@ -1,0 +1,30 @@
+{
+  "episode": 7,
+  "masterReference": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/outro/FaithTalk Episode 5 - Outro - FT Update Teaser.mov",
+  "teaserSource": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-7/FT EP 8 Update promo edit .mp4",
+  "teaserStartFrame": 5665,
+  "teaserFrames": 696,
+  "teaserStartSeconds": 189.02216666666666,
+  "teaserSeconds": 23.2232,
+  "totalFrames": 2166,
+  "totalSeconds": 72.2722,
+  "teaserPictureSlotStartFrame": 1179,
+  "teaserAudioStartSample": 2008406,
+  "teaserFirstFrameHold": 75,
+  "teaserLastFrameHold": 67,
+  "closingStartFrame": 2017,
+  "closingAudioStartSample": 3230427,
+  "website": "myfaithtalktv.com",
+  "socialHandle": "@myfaithtalktv",
+  "futureNarration": "January, when schedule changes to 5 days a week. Keep current narration for this edit.",
+  "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v2",
+  "cutEvidence": "Starts in the quiet gap at 189.022167 seconds before the complete word Today. Ends at 212.245367 seconds after ministry, before the next sentence. Final encoded transcript confirms both boundaries.",
+  "firstWords": "Today on our episode",
+  "lastWords": "was to bless ministry",
+  "endingRevision": {
+    "source": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v2/FaithTalk Episode 7 - Outro - Episode 8 Teaser.mov",
+    "reference": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-10-30-episode-4-outro-v6-audio/FaithTalk Episode 4 - Outro - Audio Updated V6.mov",
+    "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v3",
+    "direction": "Match the Aaron prayer outro: dissolve moving speaker picture into the native logo under the last words. No speaker freeze. Hold final brand card before native fade. Same total runtime."
+  }
+}

@@ -6,6 +6,8 @@ from pathlib import Path
 from tools.intent_keys.plan import match_word_anchor, map_cue, frame_number, validate_manim
 
 ROOT = Path('/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references')
+OUTPUT = Path('/Volumes/HomeSSD/Active Work/INTENT_SOLUTIONS/references')
+OUTPUT.mkdir(parents=True, exist_ok=True)
 words = ROOT / 'e01-sheet-six-keys.json'
 main_path = ROOT / '2026-10-23-e01-flow/plan.json'
 main = json.loads(main_path.read_text())
@@ -28,6 +30,6 @@ plan = {'fps':main['fps'], 'ranges':main['ranges'], 'wordCues':cues,'candidates'
         'sourceWindow':{'sourceFile':'02-the-sheet-screen.mp4','sourceIn':44,'duration':16},
         'sourceBindings':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in [words,main_path]}}
 proof = validate_manim(plan)
-(ROOT / 'e01-sheet-focus-cues.json').write_text(json.dumps(plan,indent=2)+'\n')
-(ROOT / 'e01-sheet-focus-manim-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+(OUTPUT / 'e01-sheet-focus-cues.json').write_text(json.dumps(plan,indent=2)+'\n')
+(OUTPUT / 'e01-sheet-focus-manim-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
 print(json.dumps({'keys':[c['key'] for c in cues], 'previewFrames':[c['previewFrame'] for c in cues], 'manim':proof['result']}))

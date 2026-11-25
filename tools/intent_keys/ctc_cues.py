@@ -14,7 +14,7 @@ from tools.intent_keys.plan import PlanError, frame_number, validate_manim
 
 PLAN = Path('/Volumes/HomeSSD/Content Editor.library/images/MVLQY7ALE3DGL.info/Intent Keys E01 - current tested plan 2026-10-23.json')
 WORDS = Path('/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/previews/e01-v01/srt-words.json')
-OUT = Path('/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS/references/2026-10-24-e01-ctc')
+OUT = Path('/Volumes/HomeSSD/Active Work/INTENT_SOLUTIONS/references/2026-10-24-e01-ctc')
 FPS = Fraction(30)
 SEARCH = 2.5  # seconds either side of the old cue
 LEAD = {'ctrl': ('control', 'ctrl'), 'option': ('option',), 'tab': ('tab',), 'cmd': ('command', 'cmd')}

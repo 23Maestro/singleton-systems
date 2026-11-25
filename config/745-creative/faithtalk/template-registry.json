@@ -10,11 +10,11 @@
     "Marco social kit"
   ],
   "clientId": "faithtalk",
-  "verifiedOn": "2026-11-05",
+  "verifiedOn": "2026-11-17",
   "scope": "Social cards, Reel and cover. The standalone broadcast outro has a separate master.",
   "contract": "visual-contract.json",
   "sourceManifest": "references.jsonl",
-  "lookup": "Resolve this package before searching old chats or asking which template to use. Open the registered source and final example. Ask only for current episode inputs or an exact broken reference.",
+  "lookup": "Open the latest submitted files first. Match editable Figma layers to those files before reuse. The source kit and older examples do not override the submitted treatment. New episode copy and schedule require the current brief.",
   "eagle": {
     "folderId": "MVSH4R12PBOQB",
     "folderPath": "745 Productions/FaithTalk TV/Social Brand - 2026-10",
@@ -60,25 +60,21 @@
     "pageId": "24:736",
     "sectionId": "430:1486",
     "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=430-1486",
-    "verification": "Live metadata confirms all registered components and instances on November 5, 2026."
+    "verification": "November 17: live Episode 5 preview matches submitted graphics, but photo cards 471:2095, 471:2136, 471:2177 and 471:2232 expose only their logo children through the editor API. Do not blindly clone those cards. Use intact editable photo masters, compare to submitted exports, and verify fresh exports.",
+    "lastDeliveredSectionId": "459:1716",
+    "lastDeliveredUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=459-1716"
   },
   "lastDeliveredExample": {
-    "episode": 4,
-    "airDate": "2026-11-02",
-    "root": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current",
-    "productionRecord": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/production-record.json",
-    "deliveryManifest": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/dropbox-delivery-manifest.json",
-    "deliveryUrl": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%204%20-%20Final%20Delivery",
+    "episode": 5,
+    "airDate": "2026-11-09",
+    "root": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5",
+    "deliveryManifest": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json",
+    "deliveryUrl": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery",
     "socialFiles": 8,
     "packageIncludesBroadcastOutro": true,
-    "reviewPackage": {
-      "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/FaithTalk Episode 4 - Review Package.zip",
-      "sha256": "9ddda5d15fd9317c2f24892ca556af992bc68bddcc61d1e86c70bf9de274cf97",
-      "bytes": 260313773
-    },
-    "taskUrl": "https://app.asana.com/1/1216086803382161/project/1218890014545436/task/1219990580413625",
-    "reviewState": "Asana marks the package delivered and completed. Earlier local records retain pending visual and playback review. This registry adds no new visual approval.",
-    "reuse": "Episode 4 is a finished reference. Set episode, guest, headline, source clip and schedule from the new brief; the visual contract owns treatment and formats."
+    "taskUrl": "https://app.asana.com/1/1216086803382161/project/1218890014545436/task/1220268339640466",
+    "reviewState": "Jerami approved the graphics and animated social video and authorized upload on November 5. Dropbox filenames and sizes were rechecked November 17. The 8 local social files match the submitted manifest SHA-256 hashes.",
+    "reuse": "Submitted Episode 5 exports own the treatment. Current brief owns the source clip, headline, image, episode and confirmed schedule."
   },
   "lanes": [
     {
@@ -91,8 +87,8 @@
           "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1448"
         },
         {
-          "nodeId": "429:1469",
-          "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1469"
+          "nodeId": "464:1945",
+          "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=464-1945"
         },
         {
           "nodeId": "429:1510",
@@ -100,6 +96,44 @@
         }
       ],
       "deliveredExample": [
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Carousel/REEL/01 - Episode 5 - Aaron Crabb.png",
+          "sha256": "f22f961c247bc1093f8c62f44706245899f2a842fa4987607324d643f1849b4a",
+          "bytes": 1287683,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAANw",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Carousel/REEL/01 - Episode 5 - Aaron Crabb.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Carousel/REEL/01%20-%20Episode%205%20-%20Aaron%20Crabb.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=471-2136"
+        },
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Carousel/REEL/02 - Episode 5 - Joy Comes in the Morning.png",
+          "sha256": "74e37a23d8a274324d0385ebd44955e9a5ab9369d65049b47700fafe96488731",
+          "bytes": 116074,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAAOA",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Carousel/REEL/02 - Episode 5 - Joy Comes in the Morning.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Carousel/REEL/02%20-%20Episode%205%20-%20Joy%20Comes%20in%20the%20Morning.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=464-1945"
+        },
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Carousel/REEL/03 - Episode 5 - Brand.png",
+          "sha256": "541beac49237a47e79ba05a986a44387886d2b069b10dc94031cdd43eee5c025",
+          "bytes": 2301761,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAAOg",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Carousel/REEL/03 - Episode 5 - Brand.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Carousel/REEL/03%20-%20Episode%205%20-%20Brand.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=471-2232"
+        }
+      ],
+      "historicalDeliveredExample": [
         {
           "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/stories/01 - Episode 4 - Aaron Crabb.png",
           "sha256": "b0790a801fcd22b86351572324dddccace32f9ad7b87a6cdddaee1df3e0aaa8a",
@@ -136,7 +170,8 @@
           },
           "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1510"
         }
-      ]
+      ],
+      "reuseCheck": "Photo cards use intact Episode 4 geometry with the approved Episode 5 framing and Card 3 gold trim hidden. Match a fresh export against the submitted Episode 5 files. Preserve real supplied people and official logos."
     },
     {
       "id": "episode_carousel",
@@ -148,8 +183,8 @@
           "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1545"
         },
         {
-          "nodeId": "429:1566",
-          "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1566"
+          "nodeId": "464:1805",
+          "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=464-1805"
         },
         {
           "nodeId": "429:1607",
@@ -157,6 +192,44 @@
         }
       ],
       "deliveredExample": [
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Carousel/GRID/01 - Episode 5 - Aaron Crabb.png",
+          "sha256": "4335f9502c4e692d1152970a8d6f9dd906b56964406a11e7b09086f6d22f08cf",
+          "bytes": 1003599,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAANA",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Carousel/GRID/01 - Episode 5 - Aaron Crabb.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Carousel/GRID/01%20-%20Episode%205%20-%20Aaron%20Crabb.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=471-2095"
+        },
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Carousel/GRID/02 - Episode 5 - Joy Comes in the Morning.png",
+          "sha256": "e7eef7b7052118960dd9fa1e337d8d50f0b1430839b14d45f2ecc73307c47568",
+          "bytes": 79872,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAANQ",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Carousel/GRID/02 - Episode 5 - Joy Comes in the Morning.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Carousel/GRID/02%20-%20Episode%205%20-%20Joy%20Comes%20in%20the%20Morning.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=464-1805"
+        },
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Carousel/GRID/03 - Episode 5 - Brand.png",
+          "sha256": "6e8aaa94ce569cf09e06c3a7112cdc2de6c5486e99fac28c7346183cbc730a26",
+          "bytes": 1342881,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAANg",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Carousel/GRID/03 - Episode 5 - Brand.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Carousel/GRID/03%20-%20Episode%205%20-%20Brand.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=471-2177"
+        }
+      ],
+      "historicalDeliveredExample": [
         {
           "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/feed/01 - Episode 4 - Aaron Crabb.png",
           "sha256": "76aaf9c64b649a80778e14b7a3e9fda6c31ef9b1cf930678fed9c871afe67fe8",
@@ -193,7 +266,8 @@
           },
           "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=429-1607"
         }
-      ]
+      ],
+      "reuseCheck": "Photo cards use intact Episode 4 geometry with the approved Episode 5 framing and Card 3 gold trim hidden. Match a fresh export against the submitted Episode 5 files. Preserve real supplied people and official logos."
     },
     {
       "id": "social_reel",
@@ -211,16 +285,15 @@
       ],
       "deliveredExample": [
         {
-          "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/reel/FaithTalk Episode 4 - Social Promo - November 2.mp4",
-          "sha256": "53e77cf4c954afc9a80bcd72d2b28263e29d66e35aaf88d21ee36d75f081c5b2",
-          "bytes": 25776370,
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/social-v2/FaithTalk Episode 5 - Social Promo - Clean Ending.mp4",
+          "sha256": "1b4b018f4fd7d1ef68cbaeeac0224d58701767d8fda4ada6582d299db38a11fb",
+          "bytes": 17988489,
           "delivery": {
-            "fileId": "id:xh73omn-wvcAAAAAAAAAIg",
-            "path": "ns:13855626625//Episode 4 - Final Delivery/Social Video/FaithTalk Episode 4 - Social Promo.mp4",
-            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%204%20-%20Final%20Delivery/Social%20Video/FaithTalk%20Episode%204%20-%20Social%20Promo.mp4",
-            "record": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/dropbox-delivery-manifest.json"
-          },
-          "reuse": "Historical Episode 4 export. Its static green ending is superseded by animatedEnding for future social videos."
+            "fileId": "id:xh73omn-wvcAAAAAAAAALg",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Social Video/FaithTalk Episode 5 - Social Promo.mp4",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Social%20Video/FaithTalk%20Episode%205%20-%20Social%20Promo.mp4",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          }
         }
       ],
       "figmaUsage": "Listed green Figma cards are static graphic references. The video ending uses the registered black animated logo sting.",
@@ -235,7 +308,21 @@
         "review": "Jerami responded beautiful and authorized client upload on November 5. Uploaded to Episode 5 - Final Delivery/Social Video.",
         "treatment": "Black background. Official animated FaithTalk logo and native sting audio. Episode, ALL-NEW EPISODE, weekday, date and airtime. Greater Love TV logo and watch URL. No added music.",
         "deliveryUrl": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Social%20Video/FaithTalk%20Episode%205%20-%20Social%20Promo.mp4"
-      }
+      },
+      "historicalDeliveredExample": [
+        {
+          "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/reel/FaithTalk Episode 4 - Social Promo - November 2.mp4",
+          "sha256": "53e77cf4c954afc9a80bcd72d2b28263e29d66e35aaf88d21ee36d75f081c5b2",
+          "bytes": 25776370,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAAIg",
+            "path": "ns:13855626625//Episode 4 - Final Delivery/Social Video/FaithTalk Episode 4 - Social Promo.mp4",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%204%20-%20Final%20Delivery/Social%20Video/FaithTalk%20Episode%204%20-%20Social%20Promo.mp4",
+            "record": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/dropbox-delivery-manifest.json"
+          },
+          "reuse": "Historical Episode 4 export. Its static green ending is superseded by animatedEnding for future social videos."
+        }
+      ]
     },
     {
       "id": "social_reel.thumbnail",
@@ -243,11 +330,25 @@
       "contractPointer": "/client/lanes/social_reel/thumbnail",
       "figma": [
         {
-          "nodeId": "453:1692",
-          "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=453-1692"
+          "nodeId": "465:2044",
+          "url": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=465-2044"
         }
       ],
       "deliveredExample": [
+        {
+          "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/graphics-approved/Social Video/COVER_FaithTalk Episode 5.png",
+          "sha256": "16f96c7b4381a690424ed92726b6705647ec669fdb553a838a2a2f7205b3e47f",
+          "bytes": 1448553,
+          "delivery": {
+            "fileId": "id:xh73omn-wvcAAAAAAAAAOQ",
+            "path": "ns:13855626625//Episode 5 - Final Delivery/Social Video/COVER_FaithTalk Episode 5.png",
+            "url": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%205%20-%20Final%20Delivery/Social%20Video/COVER_FaithTalk%20Episode%205.png",
+            "record": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/dropbox-delivery-manifest.json"
+          },
+          "figmaUrl": "https://www.figma.com/design/v6sFPJsZp0u3CqyjYy50yV/FaithTalk-TV?node-id=465-2044"
+        }
+      ],
+      "historicalDeliveredExample": [
         {
           "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/reel/COVER_FaithTalk Episode 4 - Lantern.png",
           "sha256": "98aebef1eafdf2c322e412336a680500993991d9ab216a94172af84af28b2e44",
@@ -272,5 +373,44 @@
     "frameRate": "30000/1001",
     "endingFrames": 231,
     "timingPolicy": "Set the source video frame and audio endpoint from each brief. Use a fresh output directory. Check the final words and caption boundary."
+  },
+  "historicalDeliveredExamples": [
+    {
+      "episode": 4,
+      "airDate": "2026-11-02",
+      "root": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current",
+      "productionRecord": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/production-record.json",
+      "deliveryManifest": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/dropbox-delivery-manifest.json",
+      "deliveryUrl": "https://www.dropbox.com/home/Faith%20Talk%20TV%20Episodes/Episode%204%20-%20Final%20Delivery",
+      "socialFiles": 8,
+      "packageIncludesBroadcastOutro": true,
+      "reviewPackage": {
+        "path": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/FaithTalk Episode 4 - Review Package.zip",
+        "sha256": "9ddda5d15fd9317c2f24892ca556af992bc68bddcc61d1e86c70bf9de274cf97",
+        "bytes": 260313773
+      },
+      "taskUrl": "https://app.asana.com/1/1216086803382161/project/1218890014545436/task/1219990580413625",
+      "reviewState": "Asana marks the package delivered and completed. Earlier local records retain pending visual and playback review. This registry adds no new visual approval.",
+      "reuse": "Episode 4 is a finished reference. Set episode, guest, headline, source clip and schedule from the new brief; the visual contract owns treatment and formats."
+    }
+  ],
+  "episodePhotoPolicy": {
+    "card1": "Choose a flattering real still from the current episode. Record source, frame time and crop.",
+    "card3": "Rotate remaining photos from the supplied social media pack. Use the same selected photo in both sizes. Do not replace the pack with episode stills. After the suitable pool is exhausted, wait for new client photos.",
+    "rotationRecord": "brand-photo-rotation.json",
+    "originals": "Retain every supplied original. Using up the pool does not mean deleting files.",
+    "review": "Check prior use and both crops in Figma before export. Episode 7 photo choices approved and exports authorized November 17."
+  },
+  "currentWatchLink": {
+    "url": "myfaithtalktv.com",
+    "effectiveOn": "2026-11-18",
+    "authority": "Darzell written correction supplied by Jerami",
+    "sourceEmail": "https://mail.google.com/mail/u/?authuser=jerami%40singleton-systems.com#all/1a1eaf6c106083b0",
+    "scope": "Current episode website. January five-day narration is separate."
+  },
+  "currentSocialHandle": {
+    "handle": "@myfaithtalktv",
+    "effectiveOn": "2026-11-18",
+    "authority": "Darzell written correction supplied by Jerami"
   }
 }

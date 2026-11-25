@@ -22,10 +22,11 @@ export const metadata: Metadata = {
 
 const studioUrl = "https://www.singleton-systems.com/studio";
 const links = [
-  { label: "Studio", href: studioUrl, description: "Review scenes and leave frame notes." },
-  { label: "Command Center", href: "/dashboard", description: "Work queue, planning, and client context." },
-  { label: "Fitness", href: "/fitness", description: "Workouts and morning movement." },
-  { label: "Finances", href: "/finances", description: "Current money and financial plans." },
+  { label: "Studio", href: studioUrl, description: "Review scenes and leave frame notes.", icon: "studio" },
+  { label: "Command Center", href: "/command-center", description: "Work queue, planning, and client context.", icon: "command-center" },
+  { label: "Fitness", href: "/fitness", description: "Workouts and morning movement.", icon: "fitness" },
+  { label: "Finances", href: "/finances", description: "Current money and financial plans.", icon: "finances" },
+  { label: "My docs", href: "https://singleton-docs-canvas.super-cedar-2285.chatgpt.site", description: "Read your work guides and explore folders.", icon: "my-docs" },
 ] as const;
 
 export default function BusinessOpsPage() {
@@ -53,8 +54,7 @@ export default function BusinessOpsPage() {
 
         <nav className="mt-9 grid gap-3" aria-label="Business tools">
           {links.map((link) => {
-            const isStudio = link.href === studioUrl;
-            const ToolLink = isStudio ? "a" : Link;
+            const ToolLink = link.href.startsWith("https://") ? "a" : Link;
             return (
             <ToolLink
               key={link.href}
@@ -70,9 +70,14 @@ export default function BusinessOpsPage() {
                     {link.description}
                   </span>
                 </span>
-                <span aria-hidden="true" className="text-lg text-neutral-400 transition group-hover:text-[#2383e2]">
-                  →
-                </span>
+                <Image
+                  src={`/brand/apps/illustrated/${link.icon}.png`}
+                  alt=""
+                  width={192}
+                  height={192}
+                  sizes="(min-width: 640px) 96px, 80px"
+                  className="h-20 w-20 shrink-0 object-contain transition-transform group-hover:scale-105 motion-reduce:transform-none sm:h-24 sm:w-24"
+                />
               </span>
             </ToolLink>
             );

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "episode": 8,
+  "airDate": "2026-11-30",
+  "airtime": "9:30 AM ET",
+  "watchUrl": "myfaithtalktv.com",
+  "scheduleBasis": "Jerami set November 30 at 9:30 AM for these Episode 8 promos on November 23.",
+  "source": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-8-social/Episode 8 - Teaser - Opus.mp4",
+  "sourceSha256": "1323a6ff3c74aa5f4cc3f6bc5af9baea99c8d01faf0cb087fa58674a11727a03",
+  "videoEndFrame": 684,
+  "audioEndSeconds": 22.805,
+  "cutEvidence": "Use all frames of the supplied Opus clip. No recut, crop or new captions.",
+  "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-teaser"
+}

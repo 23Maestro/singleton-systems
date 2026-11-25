@@ -43,7 +43,7 @@
         "436:1753",
         "453:1744"
       ],
-      "copyRules": "Current Episode 4: Reel cover and video date card have no guest-name row. Carousel page 1 uses Aaron Crabb. Page 2 uses the exact current brief title. All public episode labels read Episode 4.",
+      "copyRules": "Historical Episode 4 source components carry sample copy. Current episode copy comes from workflow.currentEpisode and the current brief; submitted files in the registry own the latest delivered treatment.",
       "scenicThumbnailReference": "401:1380"
     }
   },
@@ -299,19 +299,42 @@
     "titleExample": "FaithTalk Episode 4 - Aaron - Social Promo",
     "scopeLimit": "The broad pillar calendar and its Opus clip cadence do not add deliverables to an episode assignment.",
     "currentEpisode": {
-      "episode": 4,
-      "guest": "Aaron Crabb",
+      "episode": 7,
+      "guest": null,
       "publicPartLabel": null,
-      "outroTeaserEpisode": 5,
-      "authority": "Jerami clarified in chat on2026-10-28:4/5 is source routing,current episode4 and episode5 outro teaser.",
+      "outroTeaserEpisode": 8,
+      "authority": "Jerami authorized Episode 7 social files and the Episode 8 broadcast teaser. November 18: keep the current outro narration; new five-day narration waits until January. Darzell corrected the website to myfaithtalktv.com and socials to @myfaithtalktv.",
       "socialReelGuestLabel": null,
-      "reelHeadline": "Episode 4",
-      "carouselPage1Guest": "Aaron Crabb",
-      "carouselPage2Title": "Aaron - \"A Dream, Or a Warning?\"",
-      "currentExportRoot": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current",
-      "thumbnailStyle": "Distinct warm forest path and lantern. Keep the official FaithTalk layout, logos, Episode4 and current schedule. No guest-name row.",
-      "approvedAaronStill": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/photo-review/source-match.json",
-      "reelTitleCentering": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/centering-verification.json"
-    }
+      "reelHeadline": "Episode 7",
+      "carouselPage1Guest": "Thanksgiving",
+      "carouselPage2Title": "Thanks Around Every Table",
+      "airDate": "2026-11-23",
+      "airtime": "9:30 AM ET",
+      "currentExportRoot": null,
+      "figmaSectionId": "478:2027",
+      "thumbnailStyle": "Established official-logo cover layout with real Thanksgiving table detail from Episode 7. New exports await review.",
+      "reviewState": "Working layouts. Schedule unconfirmed. No Episode 7 delivery approval.",
+      "scheduleBasis": "Jerami confirmed every Monday; Episode 5 aired November 9. Episode 7 follows November 23 at the established 9:30 AM ET.",
+      "carouselBrandPhoto": "Supplied social pack _ASSETS/IMG_2613.PNG, Eagle MVSH8JJV0H5LI. Reserved for Episode 7; review pending."
+    },
+    "historicalEpisodeExamples": [
+      {
+        "episode": 4,
+        "guest": "Aaron Crabb",
+        "publicPartLabel": null,
+        "outroTeaserEpisode": 5,
+        "authority": "Jerami clarified in chat on2026-10-28:4/5 is source routing,current episode4 and episode5 outro teaser.",
+        "socialReelGuestLabel": null,
+        "reelHeadline": "Episode 4",
+        "carouselPage1Guest": "Aaron Crabb",
+        "carouselPage2Title": "Aaron - \"A Dream, Or a Warning?\"",
+        "currentExportRoot": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current",
+        "thumbnailStyle": "Distinct warm forest path and lantern. Keep the official FaithTalk layout, logos, Episode4 and current schedule. No guest-name row.",
+        "approvedAaronStill": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/photo-review/source-match.json",
+        "reelTitleCentering": "/Volumes/HomeSSD/Media Library/FAITHTALK/Deliverables/2026-10-28-episode-4-social-current/centering-verification.json"
+      }
+    ],
+    "brandPhotoRotation": "brand-photo-rotation.json",
+    "card3PhotoRule": "Use remaining supplied social-pack photos across episodes. After the suitable pool is used, wait for new client photos. Keep originals."
   }
 }

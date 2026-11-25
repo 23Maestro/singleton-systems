@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "episode": 7,
+  "airDate": "2026-11-23",
+  "airtime": "9:30 AM ET",
+  "source": "/Users/singleton23/.codex/attachments/c4f1f528-9eb6-431a-a429-51d0be012882/Thanksgiving Gratitude_ Find Thanks Around Every Table.mp4",
+  "sourceSha256": "80062ace59ed5b6b7ab902d37f91ab451a1b0a704df9710d49c30dd3de76a0ec",
+  "videoEndFrame": 1088,
+  "audioEndSeconds": 36.302933333333335,
+  "lastAllowedWords": "it still wasn't enough",
+  "firstExcludedWords": null,
+  "cutEvidence": "Use all 1088 frames of the supplied 36.302933-second Opus clip. Whisper stdout review confirms the last full sentence ends with it still wasnt enough. No recut, added speech, crop or new captions. Listening approval remains pending.",
+  "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2",
+  "status": "Corrected short video is on Drive. Broadcast outro master and review exported.",
+  "figmaSectionId": "478:2027",
+  "figmaCards": {
+    "grid": [
+      "478:2030",
+      "478:2065",
+      "478:2121"
+    ],
+    "reel": [
+      "478:2170",
+      "478:2205",
+      "478:2261"
+    ],
+    "cover": "478:2310"
+  },
+  "sourceFrame": {
+    "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-7/FT EPISODE 7 Thanksgiving.mp4",
+    "seconds": 645,
+    "figmaPhotoHash": "2970a3d40490b983181b1bcaff11aec0f488d57e",
+    "coverCrop": {
+      "x": 650,
+      "y": 600,
+      "width": 650,
+      "height": 480
+    },
+    "figmaCoverPhotoHash": "c0cfddba5373312bcc3573eb79d2992ffbb9fcef",
+    "coverSourceSeconds": 120
+  },
+  "review": "Carousel photos remain approved. Thumbnail uses the real Pexels photo chosen by Jerami. Shared thumbnail updated. Final package playback and visual review remain.",
+  "scheduleBasis": "Jerami confirmed every Monday; Episode 5 aired November 9. Episode 7 follows November 23 at the established 9:30 AM ET.",
+  "rejectedPhotos": [
+    {
+      "figmaImageHash": "9d866e63eb5adbb86c8a037f75d5cc6a275d8eac",
+      "reason": "Repeated Amanda portrait from old carousel"
+    },
+    {
+      "figmaImageHash": "ddecd53108ba5a4a6d74ed071396d85ba2aa2596",
+      "seconds": 120,
+      "reason": "Episode 7 source frame is not flattering"
+    }
+  ],
+  "carouselBrandPhoto": {
+    "source": "social pack _ASSETS/IMG_2613.PNG",
+    "eagleId": "MVSH8JJV0H5LI",
+    "path": "/Volumes/HomeSSD/Content Editor.library/images/MVSH8JJV0H5LI.info/IMG_2613.png",
+    "sha256": "35cce00f776d31dbf248e27296fc943e61e5192032f78ae641b5323d286bcc74",
+    "figmaImageHash": "6c895ad1458a1ca316974ae5c53ca018f26e011b",
+    "rotationState": "reserved",
+    "review": "Jerami approved photo choices November 17. Both sizes exported and checked. No client delivery yet."
+  },
+  "photoApproval": {
+    "approvedBy": "Jerami",
+    "date": "2026-11-17",
+    "statement": "much better. these are good.",
+    "scope": "Current Figma photo choices in square and vertical cards",
+    "exportAuthorized": true
+  },
+  "watchUrl": "myfaithtalktv.com",
+  "watchUrlSource": "https://mail.google.com/mail/u/?authuser=jerami%40singleton-systems.com#all/1a1eaf6c106083b0",
+  "watchUrlDirection": "Darzell correction supplied by Jerami November 18: website myfaithtalktv.com, social handle @myfaithtalktv. New five-day narration is deferred until January.",
+  "exportAuthorized": true,
+  "reviewDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review",
+  "thumbnailPhoto": {
+    "sourceRecord": "config/745-creative/faithtalk/episode-7-photo-source.json",
+    "figmaImageHash": "c478b7a8dc76a9cf8d45ba511800e8ca66abd5f4",
+    "approvedBy": "Jerami",
+    "approvedDate": "2026-11-18",
+    "export": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/thumbnail-v3/Episode 7 - Thumbnail.png",
+    "fade": "Black-to-transparent overlay must reach full black before the photograph ends. No hard photo edge."
+  }
+}

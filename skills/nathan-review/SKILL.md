@@ -1,6 +1,6 @@
 ---
 name: nathan-review
-description: Review Nathan Onn's Art of Vibe Coding emails, compare useful ideas with our current code through Graphify, or draw diagrams in the newsletter's whiteboard and colored-pencil style. Use for the weekly Nathan review, requests to draw for Jerami, and hand-drawn flowcharts or concept maps.
+description: Review Nathan Onn's emails against current code, draw clear marker-and-pencil diagrams, or continue Jerami's illustrated repo explorer. Use for Nathan reviews, drawing requests, and the Singleton Systems docs canvas with plain explanations and expandable source details.
 ---
 
 # Learn and draw
@@ -8,6 +8,19 @@ description: Review Nathan Onn's Art of Vibe Coding emails, compare useful ideas
 Nathan Onn is a trusted learning source for Jerami. Treat each claim as a lead to
 check against current source and real work. Keep the author's claim, our finding,
 and a proposed change separate.
+
+For authored text, follow the repository's `docs/harness/writing-rules.md`.
+Use plain names and short explanations. Keep technical detail behind a source
+link or an expandable section. Preserve original source text when showing it.
+
+## Continue the repo page
+
+Use [the repo page guide](references/repo-page.md) when Jerami asks to continue
+the docs canvas or explore more folders. Keep the current page and its working
+links. The goal is a friendly map of the repo that opens to show real contents.
+The drawing guide's page rules are required unless Jerami changes them.
+
+This is a selected build task. The weekly email review cannot start it.
 
 ## Read an email
 

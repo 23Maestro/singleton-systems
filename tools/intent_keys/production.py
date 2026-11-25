@@ -10,7 +10,8 @@ from tools.video_workflow.evidence import approval_matches, file_sha256 as diges
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "config/intent-solutions/intent-keys/treatment.json"
-MEDIA = Path("/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS")
+MEDIA = Path("/Volumes/HomeSSD/Generated/INTENT_SOLUTIONS")  # Legacy input; migration owns relinking.
+WORK = Path("/Volumes/HomeSSD/Active Work/INTENT_SOLUTIONS")
 
 
 def read(path):
@@ -172,7 +173,7 @@ def page_fingerprint(page, inputs=()):
     return record_sha256({str(path): digest(path) for path in paths})
 
 
-def preflight_path(composition, media=MEDIA, version=None):
+def preflight_path(composition, media=WORK, version=None):
     composition = Path(composition)
     if re.fullmatch(r"short-v\d+", composition.name) and re.fullmatch(r"intent-keys-e\d+", composition.parent.name):
         return media / "references" / f"{composition.parent.name}-{composition.name}-preflight.json"
@@ -186,7 +187,7 @@ def preflight_sources(composition):
     return {CONTRACT, Path(__file__).resolve(), ROOT / "tools/video_workflow/evidence.py", composition / entry}
 
 
-def write_preflight(composition, version, inputs, evidence, media=MEDIA):
+def write_preflight(composition, version, inputs, evidence, media=WORK):
     composition = Path(composition).resolve()
     paths = preflight_sources(composition)
     paths.update(Path(path).absolute() for path in inputs)
@@ -200,7 +201,7 @@ def write_preflight(composition, version, inputs, evidence, media=MEDIA):
     return path
 
 
-def require_preflight(composition, version=None, media=MEDIA):
+def require_preflight(composition, version=None, media=WORK):
     composition = Path(composition).resolve()
     plan_path = composition / "treatment-plan.json"
     if version is None and plan_path.is_file():
@@ -221,7 +222,7 @@ def require_preflight(composition, version=None, media=MEDIA):
     return receipt
 
 
-def check_short(composition, media=MEDIA):
+def check_short(composition, media=WORK):
     from html.parser import HTMLParser
 
     class Elements(HTMLParser):
@@ -270,7 +271,7 @@ def check_short(composition, media=MEDIA):
                            {"clockFrames": int(float(root["data-duration"]) * 30 + 0.5), "gaps": []}, media)
 
 
-def measure_short(composition, export, media=MEDIA):
+def measure_short(composition, export, media=WORK):
     composition, export = Path(composition).resolve(), Path(export).resolve()
     version = composition.name.removeprefix("short-")
     receipt = require_preflight(composition, version, media)
@@ -309,7 +310,7 @@ def evidence_file(root, reference):
     return path
 
 
-def require_handoff(export, media=MEDIA):
+def require_handoff(export, media=WORK):
     export = Path(export).resolve()
     identity = EXPORT_NAME.fullmatch(export.name)
     need(identity and export.parent == (media / "renders").resolve(), "Use the exact Intent Keys review export")

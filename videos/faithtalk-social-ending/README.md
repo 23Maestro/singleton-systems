@@ -4,6 +4,10 @@ Use this source for each new social video. The ending has the official animated
 FaithTalk logo on black, the current episode schedule, Greater Love TV and the
 watch URL. Keep the native sting audio. Added holds stay silent.
 
+New social endings use `myfaithtalktv.com`, per Darzell's November 18 correction and
+Jerami's watch-link direction. Each episode's `watchUrl` keeps its own value.
+Episode 5 retains `greaterlove.tv/watch-live` as the submitted reference.
+
 The [template](template.json) records the source sting, assets and prior export.
 The [registry](../../config/745-creative/faithtalk/template-registry.json) links
 Eagle, Figma and the current render. Figma's static green cards remain graphic

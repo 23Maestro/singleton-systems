@@ -1,0 +1,17 @@
+{
+  "approval": "Jerami approved verified temporary cleanup November 17, 2026",
+  "removed": [
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/outro-r8-build/nextweek-new.mov",
+      "bytes": 2440086263
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/outro-r8-build/nextweek-hold.mov",
+      "bytes": 2659242415
+    }
+  ],
+  "preservedSource": "/Volumes/HomeSSD/Content Editor.library/images/MUYQW17MSVQ1I.info/When the Family Bowl Shatters- A Powerful Metaphor-esv2-70p-bg-11p-music-m.mp4",
+  "preservedFinal": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/LFT_Ep2_Review_4K_OutroB_r9.mov",
+  "preservedBuildScripts": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/outro-r8-build/",
+  "reason": "Rebuildable old Episode 2 intermediate picture segments. Durable supplied clip found in Eagle. No open handles."
+}

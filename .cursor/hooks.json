@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeMCPExecution": [
+      {
+        "command": "python3 .cursor/hooks/lineups_enforcement.py",
+        "matcher": "premiere|invoke_tool|search_tools|get_tool_schema|list_sequences",
+        "timeout": 90,
+        "failClosed": true
+      }
+    ],
+    "afterMCPExecution": [
+      {
+        "command": "python3 .cursor/hooks/lineups_enforcement.py",
+        "matcher": "premiere|invoke_tool|search_tools|get_tool_schema|list_sequences",
+        "timeout": 90,
+        "failClosed": true
+      }
+    ]
+  }
+}

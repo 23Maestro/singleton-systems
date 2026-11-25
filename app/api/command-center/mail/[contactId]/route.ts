@@ -1,4 +1,4 @@
-import { owner } from "@/lib/studio-session";
+import { dashboardOwner } from "@/lib/dashboard-auth";
 import { google } from "googleapis";
 import { supabaseRest } from "@/lib/supabase-rest";
 
@@ -13,7 +13,7 @@ export async function GET(
   request: Request,
   context: { params: Promise<{ contactId: string }> },
 ) {
-  if (!owner(request)) return Response.json({ error: "Open your private Studio bookmark, then return here." }, { status: 401, headers });
+  if (!await dashboardOwner()) return Response.json({ error: "Sign in to your dashboard." }, { status: 401, headers });
   const { contactId } = await context.params;
   if (!/^\d+$/.test(contactId))
     return Response.json(

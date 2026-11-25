@@ -11,7 +11,10 @@ Lane rules live in [operations](../operations/README.md).
   live link after the deploy before calling the change done. A saved file or a
   passing test is not a live change.
 - **Links are public.** A new or changed app opens for anyone with the link.
-  Do not add sign-in pages, passcodes or private-link steps. Keep one guard
+  When Jerami names sensitive data or asks to close off a site, follow
+  [Private sites](private-sites.md) and guard its pages and APIs with Google
+  sign-in through Supabase Auth. Otherwise, do not add sign-in pages,
+  passcodes or private-link steps. Keep one guard
   only where a stranger could break or erase work: deleting, replacing or
   listing all records may need the producer key.
 - **Data is not code.** A new Studio packet or form record is stored data. It
@@ -42,7 +45,8 @@ Lane rules live in [operations](../operations/README.md).
 | Link | Job | Quirks |
 | --- | --- | --- |
 | `/linear-inbox` | Capture to Linear from desktop or phone | Server route sends the Linear key raw. |
-| `/command-center`, `/business-ops`, `/dashboard` | Work dashboards and business tools | `command-center` keeps its session for mail. |
+| `/command-center`, `/dashboard` | Private work dashboard | Google sign-in through Supabase Auth; server checks the allowed owner on pages and APIs. |
+| `/business-ops` | Business tool links | Public hub. Each tool keeps its own access rule. |
 | `/links`, `/business-links` | Link hubs | Public. |
 | `/visual-maps`, `/portfolio-c4-plan` | LikeC4 architecture maps and plan | Built by `npm run visual-maps:build`. |
 | `/wemby-shot-lab`, `/flowzone` | Separate Vercel projects | Reached through rewrites in `next.config.mjs`; their code is not here. |

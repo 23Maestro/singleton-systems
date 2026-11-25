@@ -37,6 +37,24 @@ evidence blocks progression. Timing proof cannot satisfy discovery. These
 checks establish structure, excerpts, coverage and freshness; human review
 judges editorial reasoning.
 
+### division standings candidate
+
+Run `python3 -m tools.lineups_motion.division_standings "TRANSCRIPT.json"` during
+Recurring Board discovery. An explicit AFC or NFC North, South, East, or West
+mention proposes the matching **Division Standings** card at the first word of
+the phrase. A conference name or compass word alone does not trigger a card.
+Review repeated mentions in context and keep the one that best explains the
+standings, playoff race, or division comparison. A cue suggests the card for
+review. Jerami still chooses whether to use it.
+
+Use the [8 Week 11 Figma examples](https://www.figma.com/design/o7E24iymIT80MTXGYIogVH/lineups?node-id=2375-7516)
+for the look. Keep 4 teams in the official [NFL division order](https://www.nfl.com/standings/),
+with overall record, division record, and streak as of the episode. Use the
+conference SVG and larger team logos with no white tiles. Check fresh standings
+for each new episode. Save the selected excerpt, cue, and source in the episode
+ledger. The existing Week 11 review example is NFC North at 116.970 seconds in
+the source transcript.
+
 ## check the episode's themes
 
 Before the first Studio candidate review, open the episode's JSON discovery ledger

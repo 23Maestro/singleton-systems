@@ -1,0 +1,31 @@
+{
+ "episode": 8,
+ "masterReference": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/outro/FaithTalk Episode 5 - Outro - FT Update Teaser.mov",
+ "teaserSource": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-8-9-teaser/Ep 9 Promo Edit .mp4",
+ "teaserStartFrame": 14460,
+ "teaserFrames": 591,
+ "teaserStartSeconds": 482.482,
+ "teaserSeconds": 19.7197,
+ "totalFrames": 2166,
+ "totalSeconds": 72.2722,
+ "teaserPictureSlotStartFrame": 1179,
+ "teaserAudioStartSample": 2008406,
+ "teaserFirstFrameHold": 75,
+ "teaserLastFrameHold": 172,
+ "closingStartFrame": 2017,
+ "closingAudioStartSample": 3230427,
+ "website": "myfaithtalktv.com",
+ "socialHandle": "@myfaithtalktv",
+ "futureNarration": "January, when schedule changes to 5 days a week. Keep current narration for this edit.",
+ "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-outro/stage-1",
+ "cutEvidence": "Starts at 482.482 s in the quiet before her breath into \"Listen\" (CTC: Oh ends 481.08, listen starts 483.00). Ends at 502.202 s in silence after \"right?\" (CTC: right ends 501.80, and starts 502.52; -70 dB). Drops the opening \"Oh\".",
+ "firstWords": "Listen, from five until I was nine",
+ "lastWords": "that becomes evident, right?",
+ "endingRevision": {
+  "source": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-outro/stage-1/FaithTalk Episode 8 - Outro - Episode 9 Teaser.mov",
+  "reference": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-10-30-episode-4-outro-v6-audio/FaithTalk Episode 4 - Outro - Audio Updated V6.mov",
+  "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-outro/outro-v1",
+  "direction": "Match the Aaron prayer outro: dissolve moving speaker picture into the native logo under the last words. No speaker freeze. Hold final brand card before native fade. Same total runtime."
+ },
+ "masterName": "FaithTalk Episode 8 - Outro - Episode 9 Teaser"
+}

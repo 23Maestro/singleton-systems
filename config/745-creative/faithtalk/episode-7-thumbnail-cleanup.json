@@ -1,0 +1,30 @@
+{
+  "approval": "Prior authorization to clear verified temporary FaithTalk files; source and finals preserved",
+  "removed": [
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v2/assembled-audio.wav",
+      "bytes": 20814458,
+      "retained": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v2/FaithTalk Episode 7 - Outro - Episode 8 Teaser.mov",
+      "decodedAudioHash": "SHA256=0acb15bb1f13545d5b38cc47325fe83c7580646098422fa45d8e4fe99c9abdf3"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v3/assembled-audio.wav",
+      "bytes": 20814458,
+      "retained": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v3/FaithTalk Episode 7 - Outro - Episode 8 Teaser.mov",
+      "decodedAudioHash": "SHA256=f447e99119d3cbeb3304e72df9ed1044e3bd62a5644d40ce89ac7328e0c31cca"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Social Video/FaithTalk Episode 7 - Social Promo.mp4",
+      "bytes": 37698646,
+      "retained": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2/FaithTalk Episode 7 - Social Promo - Clean Ending.mp4",
+      "sha256": "32e0482e7fc0ce78da418c928bb7e52ecc63eab7f3f3ce449f8a5fc680a52b72"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/audio/episode-8-teaser-review.wav",
+      "bytes": 52925134,
+      "retainedSource": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-7/FT EP 8 Update promo edit .mp4",
+      "reason": "Temporary transcription audio is byte-identical to a fresh source decode at 16kHz mono",
+      "pcmHash": "SHA256=1d60b165fd57f6a7d8f917cce0d4d06df7cbd538dd37c76598e9f8db7c817f30"
+    }
+  ]
+}

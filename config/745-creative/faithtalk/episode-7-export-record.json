@@ -1,0 +1,142 @@
+{
+  "episode": 7,
+  "status": "Shared Drive copies updated; thumbnail now uses approved real Pexels photo. Final review remains.",
+  "airDate": "2026-11-23",
+  "airtime": "9:30 AM ET",
+  "watchUrl": "myfaithtalktv.com",
+  "files": [
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Carousel/GRID/01_FaithTalk Episode 7.png",
+      "nodeId": "478:2030",
+      "bytes": 1046718,
+      "width": 1080,
+      "height": 1080,
+      "sha256": "7076ee54590dc85877db5ba98a1b58603211faef4041fa9c91a45b22385ab510"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Carousel/GRID/02_FaithTalk Episode 7.png",
+      "nodeId": "478:2065",
+      "bytes": 75963,
+      "width": 1080,
+      "height": 1080,
+      "sha256": "f6a51fe5eac53aaf9f7b1371bf5c6027783dc3e12bbfb7b00ee74f01aa39f06e"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Carousel/GRID/03_FaithTalk Episode 7.png",
+      "nodeId": "478:2121",
+      "bytes": 2141978,
+      "width": 1080,
+      "height": 1080,
+      "sha256": "f6c2c07cb218b44d04d6563e3dcd89aa7b5e95327369ce5a7c3d42f59add257d"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Carousel/REEL/01_FaithTalk Episode 7.png",
+      "nodeId": "478:2170",
+      "bytes": 1507050,
+      "width": 1080,
+      "height": 1920,
+      "sha256": "f4fc64ed4bb8ae9d54511c166f3da7b8993a94312a43651a9c7feccaa3b7dd9f"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Carousel/REEL/02_FaithTalk Episode 7.png",
+      "nodeId": "478:2205",
+      "bytes": 110699,
+      "width": 1080,
+      "height": 1920,
+      "sha256": "6c30e3ac0c2b55d284f229b1beffd0dbb1fa9ae8552193378b6d2cc795ea443b"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Carousel/REEL/03_FaithTalk Episode 7.png",
+      "nodeId": "478:2261",
+      "bytes": 3196494,
+      "width": 1080,
+      "height": 1920,
+      "sha256": "dc506b01ad36d9ea9d7e82662caa056b2647f13ef24042a25bca57383abba436"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/thumbnail-v3/Episode 7 - Thumbnail.png",
+      "nodeId": "478:2310",
+      "bytes": 1768417,
+      "width": 1080,
+      "height": 1920,
+      "sha256": "cba22dc13f0e2df426be265225645b41ada20d977a8aefbb637e6b4f280f8b51",
+      "driveId": "1_fF-KSoYB-kow9q3rkX9Qw_1ywTDW1FJ",
+      "url": "https://drive.google.com/file/d/1_fF-KSoYB-kow9q3rkX9Qw_1ywTDW1FJ/view",
+      "imageHash": "c478b7a8dc76a9cf8d45ba511800e8ca66abd5f4",
+      "crop": [
+        [
+          0.8,
+          0,
+          0.1
+        ],
+        [
+          0,
+          2.133333333,
+          -0.088888889
+        ]
+      ],
+      "visualCheck": "Full composition checked. Photo fades through black to transparent gradient before its edge. No hard boundary. Copy and logos retained.",
+      "approval": "Jerami approved this real source photo November 18; updated composition awaits review.",
+      "fade": {
+        "startY": 600,
+        "blackY": 900,
+        "photoEndY": 900
+      }
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2/FaithTalk Episode 7 - Social Promo - Clean Ending.mp4",
+      "bytes": 37698646,
+      "sha256": "32e0482e7fc0ce78da418c928bb7e52ecc63eab7f3f3ce449f8a5fc680a52b72",
+      "width": 1080,
+      "height": 1920,
+      "frames": 1319,
+      "duration": 44.010633
+    }
+  ],
+  "audio": {
+    "dialogueExact": true,
+    "nativeStingExact": true,
+    "addedTailSilent": true,
+    "listeningApproval": "Pending Jerami playback review"
+  },
+  "decode": "Full MP4 decode passed",
+  "visual": "All 7 PNGs and source-to-ending boundary frames checked",
+  "pending": "Full playback review for corrected exports. Current recording approved for Episode 7 outro. New five-day narration deferred to January.",
+  "revisionDate": "2026-11-18",
+  "previousThumbnails": [
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/Episode 7 - Social Review/Social Video/COVER_FaithTalk Episode 7.png",
+      "nodeId": "478:2310",
+      "bytes": 1846445,
+      "width": 1080,
+      "height": 1920,
+      "sha256": "e01fbe8f9cbb5a920bd0b98f61b0ddc1ddd9d1e8d858363fd9c32b1f352325da"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/thumbnail-v2/Episode 7 - Thumbnail.png",
+      "nodeId": "478:2310",
+      "bytes": 1661992,
+      "width": 1080,
+      "height": 1920,
+      "sha256": "42a13e152c4e975282be35fe332e3a58d4bdc1edf91399a2b3993d250c178733",
+      "driveId": "1_fF-KSoYB-kow9q3rkX9Qw_1ywTDW1FJ",
+      "url": "https://drive.google.com/file/d/1_fF-KSoYB-kow9q3rkX9Qw_1ywTDW1FJ/view",
+      "imageHash": "c478b7a8dc76a9cf8d45ba511800e8ca66abd5f4",
+      "crop": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          2.6666667,
+          -0.1111111
+        ]
+      ],
+      "visualCheck": "Sharp real photo. Copy, logos, schedule and instance link retained. Full composition inspected.",
+      "approval": "Jerami approved this real source photo November 18; updated composition awaits review.",
+      "rejectedReason": "Hard photo edge; user requires black-to-transparent fade"
+    }
+  ]
+}

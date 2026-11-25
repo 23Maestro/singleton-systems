@@ -1,0 +1,336 @@
+{
+  "approved": "Jerami: Just keep going, in response to bounded cache and old-review cleanup question November 18",
+  "cacheRoots": [
+    "/Volumes/HomeSSD/Generated/hyperframes/cache",
+    "/Volumes/HomeSSD/Active Work/hyperframes/cache"
+  ],
+  "cacheBytes": 3300954595,
+  "removedReviewFiles": [
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_1970sColonial_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 106872378,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_1970sColonial_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_BestTown_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 118096193,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_BestTown_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_BoatHouse_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 79296909,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_BoatHouse_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_DreamHome_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 93283624,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_DreamHome_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_EastOfTheRiverConnecticut_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 95277354,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_EastOfTheRiverConnecticut_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_FirstHomeSteps_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 118243089,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_FirstHomeSteps_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_FunFact_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 117228223,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_FunFact_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_Glastonbury_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 141914106,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_Glastonbury_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_HotTake_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 77486144,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_HotTake_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_InspectionsKeys_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 170340483,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_InspectionsKeys_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_NationalLevel_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 194738086,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_NationalLevel_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_OldMill_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 101562890,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_OldMill_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_QuestionsForBuyers_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 101193381,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_QuestionsForBuyers_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_YoursVsNeighbors_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 101122081,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/Eric/2026-10-22-captions-up5/745_EM_DTC_YoursVsNeighbors_MUSIC_B_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_Prayer_CarryingEveryoneElse_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 133546593,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-john-music-review/745_PJ_Prayer_CarryingEveryoneElse_MUSIC_B_COLORFIX_v02_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_Prayer_FeelingBehindEveryoneElse_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 124334555,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-john-music-review/745_PJ_Prayer_FeelingBehindEveryoneElse_MUSIC_A_REVIEW_20261022.mp4"
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-caption-review-01/745_EM_DTC_1970sColonial_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 106637135,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_1970sColonial_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-caption-review-01/745_EM_DTC_BoatHouse_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 79544403,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_BoatHouse_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-caption-review-01/745_EM_DTC_NationalLevel_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 194618413,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_NationalLevel_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_BestTown_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 118034331,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_BestTown_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_DreamHome_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 93298694,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_DreamHome_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_EastOfTheRiverConnecticut_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 95164075,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_EastOfTheRiverConnecticut_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_FirstHomeSteps_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 118424009,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_FirstHomeSteps_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_FunFact_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 118184053,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_FunFact_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_Glastonbury_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 141662188,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_Glastonbury_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_HotTake_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 77391052,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_HotTake_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_InspectionsKeys_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 169798442,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_InspectionsKeys_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_OldMill_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 102118642,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_OldMill_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_QuestionsForBuyers_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 101448369,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_QuestionsForBuyers_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-22-eric-plus3db/745_EM_DTC_YoursVsNeighbors_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 101136839,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_EM_DTC_YoursVsNeighbors_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-23-john-captions-up5/745_PJ_BoldBeliefs_Freedom_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 62293412,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_Freedom_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-23-john-captions-up5/745_PJ_BoldBeliefs_GraceVsWillpower_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 101714933,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_GraceVsWillpower_MUSIC_A_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-23-john-captions-up5/745_PJ_BoldBeliefs_Resistance_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 129667493,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_Resistance_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/superseded/2026-10-23-john-captions-up5/745_PJ_BoldBeliefs_ShameAndForgiveness_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 59121610,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_ShameAndForgiveness_MUSIC_B_REVIEW_20261022.mp4",
+      "reason": "Superseded caption or music review. Replacement retained per READ-ME and manifest."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_PB_DTC_GiftedDoesntAlwaysMeanMature_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 91026820,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/Ben/Gifted Doesn’t Always Mean Mature - REV02.mp4",
+      "reason": "Superseded by October 30 REV02. Original caption source and audio retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_PB_DTC_KnowingTheWordIsntEnough_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 67091368,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/Ben/Knowing the Word Isn’t Enough - REV02.mp4",
+      "reason": "Superseded by October 30 REV02. Original caption source and audio retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_PB_DTC_LoveIsMoreThanAFeeling_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 77499991,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/Ben/Love Is More Than a Feeling - REV02.mp4",
+      "reason": "Superseded by October 30 REV02. Original caption source and audio retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_PB_DTC_TheBibleTellsYouToStudyAnAnt_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 65572118,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/Ben/The Bible Tells You to Study an Ant - REV02.mp4",
+      "reason": "Superseded by October 30 REV02. Original caption source and audio retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_PB_DTC_WaitingIsntDoingNothing_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 85433478,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/Ben/Waiting Isn’t Doing Nothing - REV02.mp4",
+      "reason": "Superseded by October 30 REV02. Original caption source and audio retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/745_PB_DTC_WhenYourMindWontStop_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 60311358,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/Ben/When Your Mind Won’t Stop - REV02.mp4",
+      "reason": "Superseded by October 30 REV02. Original caption source and audio retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_GraceVsWillpower_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 101806179,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/John/Grace vs Willpower - REV02.mp4",
+      "reason": "Superseded October 22 review, October 30 REV02 retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_Resistance_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 129624106,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/John/Resistance - REV02.mp4",
+      "reason": "Superseded October 22 review, October 30 REV02 retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_BoldBeliefs_StartingOver_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 76797324,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/John/Starting Over - REV02.mp4",
+      "reason": "Superseded October 22 review, October 30 REV02 retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_Prayer_AMarriageHoldingOn_MUSIC_A_REVIEW_20261022.mp4",
+      "size": 126204259,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/John/A Marriage Holding On - REV02.mp4",
+      "reason": "Superseded October 22 review, October 30 REV02 retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-22-full-music-review/John/745_PJ_Prayer_AshamedtoComeBack_MUSIC_B_REVIEW_20261022.mp4",
+      "size": 142977524,
+      "kept": "/Volumes/HomeSSD/Generated/745_CREATIVE/renders/2026-10-30-revisions/John/Ashamed to Come Back - REV02.mp4",
+      "reason": "Superseded October 22 review, October 30 REV02 retained."
+    }
+  ],
+  "additionalFaithTalkIntermediates": [
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/social-v1/trimmed-picture.mp4",
+      "size": 35772524,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/social-v1/assembled-audio.wav",
+      "size": 12675104,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/social-v1/FaithTalk Social Ending.mp4",
+      "size": 577105,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-17-episode-7/social-v1/schedule-animation.mp4",
+      "size": 559460,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2/trimmed-picture.mp4",
+      "size": 35772524,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2/assembled-audio.wav",
+      "size": 12675104,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2/FaithTalk Social Ending.mp4",
+      "size": 591921,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/social-v2/schedule-animation.mp4",
+      "size": 575096,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/social-v2/trimmed-picture.mp4",
+      "size": 16465375,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/social-v2/assembled-audio.wav",
+      "size": 8879312,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/social-v2/FaithTalk Social Ending.mp4",
+      "size": 612980,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/social-v2/schedule-animation.mp4",
+      "size": 594167,
+      "reason": "Rebuildable intermediate. Original source, assembly record and completed final retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-05-episode-5/outro/assembled-audio.wav",
+      "size": 20814458,
+      "reason": "Master PCM exactly matches this intermediate. Master and source retained."
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/outro-v2/corrected-connect.mp4",
+      "size": 37732467,
+      "reason": "Intermediate scene is now in complete master; original passes and build source retained."
+    }
+  ]
+}

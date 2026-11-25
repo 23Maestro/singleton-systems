@@ -305,6 +305,22 @@ const lineupsPreMatcher = hookConfig.hooks.PreToolUse.find((entry) => entry.hook
 const lineupsPostMatcher = hookConfig.hooks.PostToolUse.find((entry) => entry.hooks.some((item) => item.command.includes("lineups_enforcement.py"))).matcher;
 const preRegex = new RegExp(lineupsPreMatcher);
 const postRegex = new RegExp(lineupsPostMatcher);
+const claudeHooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, ".claude/settings.json"), "utf8")).hooks;
+const claudePre = claudeHooks.PreToolUse.find((entry) => entry.hooks.some((item) => item.command.includes("lineups_enforcement.py")));
+const claudePost = claudeHooks.PostToolUse.find((entry) => entry.hooks.some((item) => item.command.includes("lineups_enforcement.py")));
+assert.ok(claudePre && claudePost, "Claude must register Lineups enforcement before and after Premiere calls");
+assert.ok(new RegExp(claudePre.matcher).test("mcp__premiere_pro__invoke_tool"), "Claude pre-hook must cover MCP's catalog dispatcher");
+assert.ok(new RegExp(claudePost.matcher).test("mcp__premiere_pro__invoke_tool"), "Claude post-hook must cover MCP's catalog dispatcher");
+const cursorHooks = JSON.parse(fs.readFileSync(path.join(sourceRoot, ".cursor/hooks.json"), "utf8"));
+assert.equal(cursorHooks.version, 1, "Cursor hooks must use the current native format");
+for (const hookName of ["beforeMCPExecution", "afterMCPExecution"]) {
+  const entry = cursorHooks.hooks[hookName]?.find((item) => item.command.includes("lineups_enforcement.py"));
+  assert.ok(entry, `Cursor must register Lineups enforcement for ${hookName}`);
+  const matcher = new RegExp(entry.matcher);
+  for (const toolName of ["mcp__premiere_pro__invoke_tool", "MCP:premiere_pro.get_tool_schema", "invoke_tool", "verify_premiere_connection"]) {
+    assert.ok(matcher.test(toolName), `Cursor ${hookName} matcher misses ${toolName}`);
+  }
+}
 for (const toolName of [
   "mcp__codex_apps__figma_use_figma",
   "mcp__codex_apps__figma_weave_run_tool",
@@ -320,6 +336,8 @@ for (const toolName of [
   "mcp__premiere_pro__apply_lut",
   "mcp__premiere_pro__set_clip_opacity",
   "mcp__premiere_pro__delete_project_item",
+  "mcp__premiere_pro__invoke_tool",
+  "mcp__premiere_pro__verify_premiere_connection",
 ]) {
   assert.ok(preRegex.test(toolName), `PreToolUse matcher misses ${toolName}`);
 }
@@ -333,7 +351,7 @@ for (const toolName of [
 ]) {
   assert.ok(postRegex.test(toolName), `PostToolUse matcher misses ${toolName}`);
 }
-assert.ok(!preRegex.test("mcp__premiere_pro__get_transcript"), "read-only transcript calls must stay outside the mutation matcher");
+assert.ok(preRegex.test("mcp__premiere_pro__get_transcript"), "all Premiere discovery calls must reach the active Lineups guard");
 
 const cases = [];
 function withCase(callback) {

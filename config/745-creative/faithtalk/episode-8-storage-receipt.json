@@ -1,0 +1,70 @@
+{
+  "approval": "Jerami approved clearing today's superseded FaithTalk Episode 8 builds on November 23, 2026 to clear the 50 GiB storage gate.",
+  "removed": [
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-first-call",
+      "bytes": 62955520
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-first-call-v2",
+      "bytes": 64839680
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-first-call-v3",
+      "bytes": 8921088
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-first-call-v4",
+      "bytes": 64884736
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-first-call-v5",
+      "bytes": 68464640
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-first-call-v6",
+      "bytes": 81264640
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-ministry-partners",
+      "bytes": 51257344
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-ministry-partners-v2",
+      "bytes": 51744768
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-ministry-partners-v3",
+      "bytes": 49782784
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-teaser",
+      "bytes": 40804352
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-thanksgiving-lifestyle",
+      "bytes": 88670208
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/ministry-partners-captions",
+      "bytes": 22605824
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-bill-blessing-v1",
+      "bytes": 12288
+    },
+    {
+      "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-outro/stage-1",
+      "bytes": 265220096
+    }
+  ],
+  "totalBytes": 921427968,
+  "kept": [
+    "social-first-call-v7",
+    "social-ministry-partners-v4",
+    "social-thanksgiving-lifestyle-v2",
+    "ministry-partners-captions-v2",
+    "outro-v1"
+  ],
+  "reason": "Superseded intermediate builds; every delivered file is a kept build and each removed one is rebuildable from its config."
+}

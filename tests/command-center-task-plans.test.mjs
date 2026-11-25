@@ -12,7 +12,7 @@ import path from "node:path";
 Object.assign(process.env, { SUPABASE_URL: "https://test.supabase.invalid", SUPABASE_SERVICE_ROLE_KEY: "test", ASANA_ACCESS_TOKEN: "test", LINEAR_API_KEY: "test" });
 const output = path.resolve(".scratch/task-plan-route-test/route.mjs");
 await mkdir(path.dirname(output), { recursive: true });
-await build({ entryPoints: ["app/api/command-center/route.ts"], bundle: true, platform: "node", format: "esm", packages: "external", outfile: output, tsconfig: "tsconfig.json" });
+await build({plugins:[{name:"test-owner",setup(b){b.onResolve({filter:/^@\/lib\/dashboard-auth$/},()=>({path:"owner",namespace:"test-owner"}));b.onLoad({filter:/.*/,namespace:"test-owner"},()=>({contents:"export async function dashboardOwner(){return true}",loader:"js"}));}}], entryPoints: ["app/api/command-center/route.ts"], bundle: true, platform: "node", format: "esm", packages: "external", outfile: output, tsconfig: "tsconfig.json" });
 const { POST, GET } = await import(pathToFileURL(output).href);
 let plans;
 beforeEach(() => {

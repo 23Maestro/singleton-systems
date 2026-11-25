@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "episode": 7,
+  "airDate": "2026-11-30",
+  "airtime": "9:30 AM ET",
+  "watchUrl": "myfaithtalktv.com",
+  "scheduleBasis": "Thanksgiving clip from Darzell. The speaker says \"this Monday of Thanksgiving week\", which is Nov 23, the Episode 7 air date. Post date is open, so the card has no date.",
+  "source": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-8-social/Thanksgiving - Gratitude Family and Love - Opus v2.mp4",
+  "sourceSha256": "ca942e982dfcadd9506b8cc17f67db8ec80d05d433ffb602f19954135e2c09ca",
+  "videoEndFrame": 769,
+  "audioEndSeconds": 25.658,
+  "cutEvidence": "Use all frames of Jerami's corrected Opus export (Nov 24). No recut, crop or new captions.",
+  "speechReference": {
+    "file": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-outro/outro-v1/FaithTalk Episode 8 - Outro - Episode 9 Teaser.mov",
+    "end": 41.842,
+    "note": "Opening narration before the teaser starts (sample 2008406).",
+    "logoStart": 61.6,
+    "logoEnd": 72.27
+  },
+  "outputDirectory": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-23-episode-8-promos/social-thanksgiving-family-v6",
+  "lastAllowedWords": "and your family a happy Thanksgiving",
+  "instance": "thanksgiving-family-ep7",
+  "cardText": {
+    "TAGLINE": "HAPPY THANKSGIVING\nFROM FAITHTALK",
+    "WEEKDAY": "FULL EPISODE",
+    "AIR_DATE": "WATCH NOW",
+    "AIRTIME": ""
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-11-20T19:11:11.490Z",
+  "status": "completed-in-asana",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1220627909091157",
+      "completed": true,
+      "completed_at": "2026-11-19T14:44:18.412Z",
+      "due_at": "2026-11-19T15:00:00.000Z",
+      "due_on": "2026-11-19"
+    },
+    "driveFiles": [
+      {
+        "id": "1VR-agQMxJXwXsx7DtHg7f27cwZQlNk6W",
+        "name": "2026-11-18_Kirk_O_Chains_Returns.mp4",
+        "mimeType": "video/mp4",
+        "parents": [
+          "1YCqTWoK2MsHiW7-CiYpfZ0edzSZppnk-"
+        ],
+        "createdTime": "2026-11-19T14:08:20.137Z",
+        "modifiedTime": "2026-11-19T14:04:36.710Z",
+        "size": "1674925208",
+        "url": "https://drive.google.com/file/d/1VR-agQMxJXwXsx7DtHg7f27cwZQlNk6W/view?usp=drivesdk"
+      }
+    ],
+    "deliveryMatch": {
+      "episodeRecord": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/episode.json",
+      "intakeRecord": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/intake-import.json",
+      "match": "Exact saved delivery file ID, filename, folder and byte count; modified after recorded intake.",
+      "summaryReadback": true,
+      "checkerProof": "Asana completion verified; connector omits trashed, so confirmed-submitted is not claimed.",
+      "notBefore": "2026-11-17T18:33:49.809Z"
+    },
+    "studio": {
+      "projectId": "cedad8c6-2250-48b9-abf4-d22a01dbff82",
+      "status": "closed",
+      "readback": "/tmp/lineups-kirk-task-closeout-2026-11-20.json"
+    },
+    "enrollmentBeforeFinalExportBinding": {
+      "episodeSlug": "2026-11-17-kirk-cousins",
+      "asanaTask": "1220627909091157",
+      "dueDate": "2026-11-19",
+      "transcriptPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/transcript/whisper.json",
+      "discoveryPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/storyboard/lane-discovery.json",
+      "cueMapPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/storyboard/cue-map.json",
+      "timingProofPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/storyboard/cue-proof-receipt.json",
+      "studio": {
+        "projectId": "cedad8c6-2250-48b9-abf4-d22a01dbff82",
+        "url": "https://www.singleton-systems.com/studio?project=cedad8c6-2250-48b9-abf4-d22a01dbff82",
+        "status": "candidate-review-ready",
+        "candidateCount": 19,
+        "packetPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews/2026-11-17-kirk-cousins/studio/packet.json",
+        "sourceChatId": "01a1ea8c-e024-73c3-9dcb-2e199c84886a",
+        "producerHostId": "local"
+      }
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-11-17-kirk-cousins",
+    "asanaTask": "1220627909091157",
+    "dueDate": "2026-11-19",
+    "transcriptPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/transcript/whisper.json",
+    "discoveryPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/storyboard/lane-discovery.json",
+    "cueMapPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/storyboard/cue-map.json",
+    "timingProofPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-kirk-cousins/storyboard/cue-proof-receipt.json",
+    "studio": {
+      "projectId": "cedad8c6-2250-48b9-abf4-d22a01dbff82",
+      "url": "https://www.singleton-systems.com/studio?project=cedad8c6-2250-48b9-abf4-d22a01dbff82",
+      "status": "candidate-review-ready",
+      "candidateCount": 19,
+      "packetPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews/2026-11-17-kirk-cousins/studio/packet.json",
+      "sourceChatId": "01a1ea8c-e024-73c3-9dcb-2e199c84886a",
+      "producerHostId": "local"
+    },
+    "finalExport": {
+      "folderId": "1YCqTWoK2MsHiW7-CiYpfZ0edzSZppnk-",
+      "name": "2026-11-18_Kirk_O_Chains_Returns.mp4",
+      "notBefore": "2026-11-17T18:33:49.809Z"
+    }
+  },
+  "activeScene": null
+}

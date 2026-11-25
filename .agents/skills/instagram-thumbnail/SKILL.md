@@ -15,6 +15,8 @@ Record the source size, the grid rectangle in source pixels, and where it was ob
 
 Jerami's October 22, 2026 test showed a centered **1080 × 1440** window in a **1080 × 1920** cover: **x = 0, y = 240 through 1680**. This is evidence from that test, not a rule for every Instagram view or future version. A changed upload crop or grid shape needs a new rectangle.
 
+Live FaithTalk profile screenshots from November 24, 2026 match that window. The Episode 5 cover's block, from logo to Greater Love at about y = 760 through 1583, shows whole in the 3:4 Posts grid. The Reels tab shows almost the full 9:16 cover. For this layout, keep the block from logo to network mark between y = 320 and 1620. Jerami prefers slightly more air between its parts. Use 60 px from the logo to the episode line, 28 px around the gold divider, 20 px between schedule lines, and 72 px above the network mark. When a longer line wraps, move the logo up before shrinking type.
+
 ## Draw guides
 
 Use [thumbnail_grid.py](scripts/thumbnail_grid.py) with a cover PNG and measured layout JSON. Start from [the example](references/layout.example.json), replacing its groups with current source bounds. Resolve `SKILL_DIR` to this skill's absolute folder. Use the video-storage gate for client review media.

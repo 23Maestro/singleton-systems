@@ -11,6 +11,36 @@ fills with visible strokes. Use large rounded hand lettering. Give the main
 steps room. Use orange for action arrows, blue for inputs, yellow for decisions,
 and green for a checked result. Use fewer colors when the idea needs fewer.
 
+Colored pencil belongs in the drawings. It does not set the page theme.
+
+## Required page rules
+
+For the Singleton Systems repo page, keep these choices unless Jerami changes
+them. Do not replace them with a new design on each run.
+
+- Use the real Singleton Systems wordmarks, favicon, and Geist font from the
+  existing page and `public/brand`. Do not draw a new company logo.
+- Use a white light mode and a black dark mode, with neutral gray panels and
+  dots like Obsidian Canvas. No green background or green dark theme.
+- Keep the main title exactly `How Your Work Fits Together`. Use title case
+  for this page's display titles. Keep the main subtitle absent. This is a
+  page-specific choice, not a change to the shared writing rules.
+- Keep the larger type already used on the page. Main card labels should be
+  at least 22 px and descriptions at least 16 px before zoom. Check their
+  rendered size on desktop and phone; fitting the map must not make them tiny.
+- Give each folder a drawing that explains its purpose. Content Editor uses
+  a video timeline. Use a distinct, relevant object for each other purpose;
+  reuse a drawing only when the meaning matches. Keep a text label too.
+- Match the inspected Nathan references closely in black marker weight,
+  uneven outlines, pencil texture, simple objects, and open spacing. Compare
+  the new drawing beside those references before calling it ready. Generic
+  flat icons, emoji, and smooth stock vectors do not meet this drawing rule.
+- Keep labels, arrows, file counts, and clickable areas in HTML or SVG above
+  the artwork. The art must not hide the data or make the page a flat image.
+
+Keep original compositions and Singleton Systems branding. Use Nathan's art
+as a reference for the medium and treatment, without his logo or signature.
+
 Small paper notes, folders, tools, or friendly doodles may explain a step.
 Leave out mascots that add no meaning. Keep labels short. Use 3 to 6 main nodes
 per panel. Split a dense flow into panels. Use 16:9 for a broad flow unless the
@@ -63,6 +93,8 @@ Save as [unique filename] in [external destination].
 Make 1 draft unless Jerami asks for variants. Inspect it at normal size and a
 small mobile size. Check spelling, all edges, contrast, and clipping. Give the
 source file and image path. Label the result as a draft until Jerami accepts it.
+For page assets, also check both themes, the real brand marks, and readable
+labels in the page. A saved image alone does not pass the page check.
 
 ## Limits
 

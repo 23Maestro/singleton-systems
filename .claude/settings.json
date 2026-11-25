@@ -54,6 +54,16 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "^mcp__premiere_pro__.*$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/singleton23/.pyenv/versions/3.12.3/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/lineups_enforcement.py\"",
+            "timeout": 90
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -64,6 +74,16 @@
             "type": "command",
             "command": "/usr/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/cerebral_singleton_guard.py\"",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "^mcp__premiere_pro__.*$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/singleton23/.pyenv/versions/3.12.3/bin/python3 \"${CLAUDE_PROJECT_DIR}/.codex/hooks/lineups_enforcement.py\"",
+            "timeout": 90
           }
         ]
       }

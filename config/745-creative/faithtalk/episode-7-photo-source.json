@@ -1,0 +1,49 @@
+{
+  "episode": 7,
+  "purpose": "Replace soft Thanksgiving thumbnail photograph",
+  "sourceUrl": "https://www.pexels.com/photo/autumn-pumpkin-display-with-lantern-on-table-28904466/",
+  "photographer": "Gundula Vogel",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "licenseEvidence": "Free use, edits allowed, attribution optional; promotional and social use listed. Verified with Firecrawl.",
+  "localPath": "/Volumes/HomeSSD/Active Work/FAITHTALK/source/episode-7/pexels-gundula-vogel-28904466.jpg",
+  "sha256": "327fc07f1b1afaff3f88cf48e9b50de21369e4846088d5b13d97c7a87c9553e4",
+  "width": 7008,
+  "height": 4672,
+  "bytes": 2677756,
+  "figmaAssetNode": "498:808",
+  "figmaImageHash": "c478b7a8dc76a9cf8d45ba511800e8ca66abd5f4",
+  "sourceReceipt": "/Volumes/HomeSSD/Active Work/FAITHTALK/references/episode-7-photo/20261118T182934.536303Z-57736da9f163/receipt.json",
+  "licenseReceipt": "/Volumes/HomeSSD/Active Work/FAITHTALK/references/episode-7-photo/20261118T183040.372880Z-bf40b0a3e872/receipt.json",
+  "visualReview": "Actual downloaded photo checked. Orange pumpkin, small ivory pumpkin, lantern candle, autumn leaves. Sharp natural detail.",
+  "status": "Real photo with corrected soft black-to-transparent fade is shared. Final visual review remains.",
+  "export": {
+    "path": "/Volumes/HomeSSD/Active Work/FAITHTALK/renders/2026-11-18-episode-7/thumbnail-v3/Episode 7 - Thumbnail.png",
+    "nodeId": "478:2310",
+    "bytes": 1768417,
+    "width": 1080,
+    "height": 1920,
+    "sha256": "cba22dc13f0e2df426be265225645b41ada20d977a8aefbb637e6b4f280f8b51",
+    "driveId": "1_fF-KSoYB-kow9q3rkX9Qw_1ywTDW1FJ",
+    "url": "https://drive.google.com/file/d/1_fF-KSoYB-kow9q3rkX9Qw_1ywTDW1FJ/view",
+    "imageHash": "c478b7a8dc76a9cf8d45ba511800e8ca66abd5f4",
+    "crop": [
+      [
+        0.8,
+        0,
+        0.1
+      ],
+      [
+        0,
+        2.133333333,
+        -0.088888889
+      ]
+    ],
+    "visualCheck": "Full composition checked. Photo fades through black to transparent gradient before its edge. No hard boundary. Copy and logos retained.",
+    "approval": "Jerami approved this real source photo November 18; updated composition awaits review.",
+    "fade": {
+      "startY": 600,
+      "blackY": 900,
+      "photoEndY": 900
+    }
+  }
+}

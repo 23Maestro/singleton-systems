@@ -1405,6 +1405,16 @@ def postflight(root, manifest, directory, tool_name, payload):
 
 def main():
     payload = json.load(sys.stdin)
+    from tools.lineups_motion.premiere_delivery import normalize_tool_call
+    try:
+        payload = normalize_tool_call(payload)
+    except Exception as error:
+        event = payload.get("hook_event_name") or ""
+        if event == "PreToolUse":
+            deny(str(error))
+        elif event == "PostToolUse":
+            post_block(str(error))
+        return
     root = repo_root(payload.get("cwd"))
     manifest_path = active_manifest_path(root)
     event = payload.get("hook_event_name") or ""

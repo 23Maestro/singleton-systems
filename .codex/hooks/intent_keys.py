@@ -94,7 +94,7 @@ def main(payload):
             if scoped and not names:
                 raise ValueError("Identify the exact versioned Intent export in the upload metadata")
             for name in names:
-                production.require_handoff(production.MEDIA / "renders" / name)
+                production.require_handoff(production.WORK / "renders" / name)
         except (OSError, ValueError, TypeError, KeyError, AttributeError) as error:
             emit(event, f"Intent Keys handoff blocked: {error}", deny=True)
             return

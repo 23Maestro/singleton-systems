@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "closedAt": "2026-11-18T04:58:03.397Z",
+  "status": "completed-in-asana",
+  "deliveryVerified": false,
+  "observations": {
+    "asana": {
+      "gid": "1220640890171438",
+      "completed": true,
+      "due_at": "2026-11-18T15:00:00.000Z"
+    }
+  },
+  "enrollment": {
+    "episodeSlug": "2026-11-17-nfl-week-11-power-rankings",
+    "asanaTask": "1220640890171438",
+    "dueDate": "2026-11-18",
+    "transcriptPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-nfl-week-11-power-rankings/transcript/whisper.json",
+    "discoveryPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-nfl-week-11-power-rankings/storyboard/lane-discovery.json",
+    "cueMapPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-nfl-week-11-power-rankings/storyboard/cue-map.json",
+    "timingProofPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/references/2026-11-17-nfl-week-11-power-rankings/storyboard/cue-proof-receipt.json",
+    "studio": {
+      "projectId": "aa11b744-2aab-41ba-bc36-eddb1ce82f52",
+      "url": "https://www.singleton-systems.com/studio?project=aa11b744-2aab-41ba-bc36-eddb1ce82f52",
+      "status": "candidate-review-ready",
+      "candidateCount": 29,
+      "packetPath": "/Volumes/HomeSSD/Active Work/CATENA_MEDIA/previews/2026-11-17-nfl-week-11-power-rankings/studio/packet.json",
+      "sourceChatId": "01a1ea8c-e024-73c3-9dcb-2e199c84886a",
+      "producerHostId": "local"
+    }
+  },
+  "activeScene": null
+}

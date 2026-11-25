@@ -9,6 +9,7 @@ import fcntl
 import json
 import math
 import os
+import re
 import time
 from pathlib import Path
 
@@ -65,6 +66,28 @@ def require(condition, message):
 
 def same(actual, expected):
     return type(actual) in (int, float) and math.isfinite(actual) and abs(actual - expected) < 0.001
+
+
+def normalize_tool_call(payload):
+    """Unwrap Premiere MCP's catalog dispatcher before the host hook checks it."""
+    if payload.get("tool_name") != PREFIX + "invoke_tool":
+        return payload
+    outer = payload.get("tool_input") or {}
+    if isinstance(outer, str):
+        outer = json.loads(outer)
+    require(isinstance(outer, dict), "invoke_tool input must be an object")
+    tool = outer.get("name")
+    if isinstance(tool, str) and tool.startswith(PREFIX):
+        tool = tool[len(PREFIX):]
+    require(isinstance(tool, str) and bool(re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", tool)),
+            "invoke_tool must name one Premiere catalog tool")
+    args = outer.get("arguments") or {}
+    if isinstance(args, str):
+        args = json.loads(args)
+    require(isinstance(args, dict), "invoke_tool arguments must be an object")
+    payload["tool_name"] = PREFIX + tool
+    payload["tool_input"] = args
+    return payload
 
 
 def validate_binding(binding):
