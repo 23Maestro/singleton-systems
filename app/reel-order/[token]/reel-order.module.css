@@ -1,6 +1,11 @@
+/* Layout:
+   >= 1024px (desktop, iPad landscape): fixed app, 1 screen tall. Player + side panel, filmstrip below.
+   <  1024px (iPad portrait, phone): normal page scroll. Player, reel list, more plays; send bar sticks to the bottom.
+   Inner scroll areas use overscroll-behavior: contain so a swipe at their end does not scroll the page. */
 .page {
   --bg: #151515; --panel: #1c1c1f; --line: #303033; --muted: #c9c9cf; --accent: #ff6363;
   position: fixed; inset: 0; z-index: 50;
+  height: 100vh; height: 100dvh;
   display: flex; flex-direction: column;
   background: var(--bg); color: #fff; overflow: hidden;
 }
@@ -15,11 +20,32 @@
 .page .send { background: var(--accent); border-color: var(--accent); color: #171719; font-weight: 600; font-size: 17px; padding: 12px 22px; min-height: 50px; white-space: nowrap; }
 .page .send:hover { background: #ff8282; border-color: #ff8282; }
 .page .send:disabled { opacity: .6; cursor: default; }
+.bottomBar { display: none; }
 .notice, .error { padding: 10px 28px; font-size: 15px; border-bottom: 1px solid var(--line); }
 .notice { background: #1f3a2c; }
 .error { background: #4a2020; }
 
-.main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 340px; min-height: 0; }
+.topActions { display: flex; align-items: center; gap: 10px; }
+.main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); min-height: 0; }
+.mainOpen { grid-template-columns: minmax(0, 1fr) 340px; }
+.panelHead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.filmHead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.filmHead small { margin-left: auto; color: var(--muted); font-size: 13px; }
+.page .addMore { border-color: var(--accent); color: #fff; font-weight: 600; min-height: 40px; }
+.page .addMore[aria-expanded="true"] { border-color: #4a4a50; font-weight: 400; }
+
+/* How it works guide: the lit hole is a box with a huge shadow that dims everything else. */
+.tour { position: fixed; inset: 0; z-index: 100; }
+.spot { position: fixed; border-radius: 10px; box-shadow: 0 0 0 9999px #000a, 0 0 0 2px var(--accent); pointer-events: none; transition: all 220ms cubic-bezier(.22, 1, .36, 1); }
+.tourCard { position: fixed; background: #222225; border: 1px solid #4a4a50; border-radius: 12px; padding: 16px; box-shadow: 0 16px 40px #000a; }
+.tourCard h2 { font-size: 18px; font-weight: 600; margin: 2px 0 6px !important; }
+.tourCard p { font-size: 15px; line-height: 1.5; }
+.page .tourCount { font-size: 13px; color: var(--muted); }
+.tourActions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.page .tourActions button { min-height: 44px; }
+.page .tourNext { background: var(--accent); border-color: var(--accent); color: #171719; font-weight: 600; }
+.page .tourNext:hover { background: #ff8282; }
+@media (prefers-reduced-motion: reduce) { .spot { transition: none; } }
 .player { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: 10px; padding: 16px 28px; min-height: 0; background: #111113; }
 .playerHead { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .playerHead h2 { font-size: 20px; font-weight: 600; }
@@ -30,8 +56,9 @@
 .panel h2, .film h2 { font-size: 17px; font-weight: 600; display: flex; align-items: baseline; gap: 10px; }
 .panel h2 span, .film h2 span { color: var(--muted); font-weight: 400; font-size: 15px; }
 .hint { color: var(--muted); font-size: 14px; margin: 4px 0 12px !important; }
-.benchList { list-style: none; margin: 0; padding: 0 4px 0 0; overflow-y: auto; display: grid; gap: 8px; align-content: start; flex: 1; }
-.benchList li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 8px; padding: 6px; background: #202023; cursor: grab; }
+.benchList { list-style: none; margin: 0; padding: 0 4px 0 0; overflow-y: auto; overscroll-behavior: contain; display: grid; gap: 8px; align-content: start; flex: 1; }
+.benchList li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 8px; padding: 6px; background: #202023; }
+.benchList li[draggable="true"] { cursor: grab; }
 .benchList li.active { border-color: var(--accent); }
 .page .benchPlay { display: flex; align-items: center; gap: 10px; border: 0; background: none; padding: 0; text-align: left; min-width: 0; }
 .page .benchPlay:hover { background: none; }
@@ -39,23 +66,77 @@
 .benchPlay span { font-size: 14px; line-height: 1.3; }
 .benchActions { display: grid; gap: 4px; }
 .page .benchActions button { font-size: 13px; min-height: 30px; padding: 3px 10px; }
-.empty { color: var(--muted); font-size: 14px; cursor: default !important; }
+.empty { color: var(--muted); font-size: 14px; }
 .trash { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 14px; }
 .trash summary { cursor: pointer; color: var(--muted); min-height: 32px; align-content: center; }
-.trash ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 6px; max-height: 140px; overflow-y: auto; }
+.trash ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 6px; max-height: 140px; overflow-y: auto; overscroll-behavior: contain; }
 .trash li { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .page .trash button { font-size: 13px; min-height: 28px; padding: 2px 10px; }
 
 .film { border-top: 1px solid var(--line); background: #19191b; padding: 12px 28px 6px; min-width: 0; }
-.film small { margin-left: auto; color: var(--muted); font-size: 13px; font-weight: 400; }
-.strip { list-style: none; margin: 8px 0 0; padding: 6px 2px 14px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #4a4a50 transparent; }
-.card { position: relative; flex: 0 0 156px; border: 1px solid #3a3a3f; border-radius: 7px; overflow: hidden; background: #202023; cursor: grab; user-select: none; }
+.stripScroll { margin-top: 8px; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #4a4a50 transparent; }
+.strip { list-style: none; margin: 0; padding: 6px 2px 14px; display: flex; gap: 10px; width: max-content; }
+.card { position: relative; flex: 0 0 156px; border: 1px solid #3a3a3f; border-radius: 7px; overflow: hidden; background: #202023; cursor: grab; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 .card:active { cursor: grabbing; }
 .card.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .card img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; pointer-events: none; }
 .card b { position: absolute; top: 5px; left: 5px; min-width: 26px; text-align: center; font-size: 14px; background: #000c; border-radius: 4px; padding: 1px 6px; }
-.card span { display: block; padding: 6px 8px 8px; font-size: 13px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card > span:not(.grip) { display: block; padding: 6px 8px 8px; font-size: 13px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .page .remove { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; min-height: 0; padding: 0; border-radius: 50%; background: #000c; border-color: #ffffff33; font-size: 16px; line-height: 1; opacity: 0; transition: opacity 120ms; }
 .card:hover .remove, .remove:focus-visible { opacity: 1; }
+/* The grip is the only drag start on touch screens; touch-action: none stops the browser from scrolling instead. */
+.grip { position: absolute; bottom: 30px; right: 4px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 8px; background: #000c; font-size: 20px; line-height: 1; touch-action: none; cursor: grab; }
 .dropBefore { box-shadow: -7px 0 0 -2px var(--accent); }
 .dropAfter { box-shadow: 7px 0 0 -2px var(--accent); }
+
+/* Touch screens have no hover: keep the remove button visible. */
+@media (pointer: coarse) {
+  .page .remove { opacity: 1; width: 32px; height: 32px; }
+  .card { cursor: default; }
+}
+
+@media (max-width: 1023px) {
+  .page { position: static; height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible; padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .top { padding: 16px; }
+  .top h1 { font-size: 20px; }
+  .top { flex-wrap: wrap; gap: 10px; }
+  .topActions .send { display: none; }
+  .notice, .error { padding: 10px 16px; }
+  .page { display: flex; flex-direction: column; }
+  /* Unwrap main so the order is player, reel, more plays. */
+  .main { display: contents; }
+  .player { order: 1; display: block; padding: 12px 16px 16px; }
+  .playerHead { flex-wrap: wrap; gap: 6px 16px; margin-bottom: 10px; }
+  .playerHead h2 { font-size: 18px; }
+  .video { height: auto; aspect-ratio: 16 / 9; }
+  .film { order: 2; padding: 16px; }
+  .filmHead small { margin-left: 0; flex-basis: 100%; order: 3; }
+  .page .addMore { width: 100%; order: 4; }
+  .top, .notice, .error { order: 0; }
+  .panel { order: 3; border-left: 0; border-top: 1px solid var(--line); }
+  .benchList { overflow: visible; }
+  .trash ul { max-height: none; overflow: visible; }
+
+  /* Reel becomes a vertical list: page scroll moves it, the grip reorders it. */
+  /* Own scroll box: Motion auto-scrolls it during a grip drag. Window scroll during drag is unreliable.
+     Default scroll chaining stays on, so a swipe past the list end keeps scrolling the page. */
+  .stripScroll { max-height: 62vh; max-height: 62dvh; overflow-y: auto; border: 1px solid var(--line); border-radius: 10px; padding: 6px; }
+  .strip { flex-direction: column; width: auto; padding: 4px 0 0; gap: 8px; }
+  .card { flex: none; display: grid; grid-template-columns: 112px minmax(0, 1fr) auto auto; align-items: center; gap: 10px; padding: 6px; padding-right: 8px; }
+  .card img { border-radius: 4px; }
+  .card > span:not(.grip) { padding: 0; font-size: 15px; white-space: normal; }
+  .card b { top: 10px; left: 10px; }
+  .page .remove { position: static; opacity: 1; width: 36px; height: 36px; order: 4; }
+  .grip { position: static; order: 3; width: 44px; height: 44px; background: #2a2a2e; }
+  .dropBefore { box-shadow: 0 -5px 0 -1px var(--accent); }
+  .dropAfter { box-shadow: 0 5px 0 -1px var(--accent); }
+
+  .bottomBar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: #19191bf2; border-top: 1px solid var(--line); backdrop-filter: blur(8px); }
+  .bottomBar .send { width: 100%; }
+}
+
+@media (max-width: 1023px) and (min-width: 700px) {
+  .player { padding: 16px 24px; }
+  .film, .panel { padding: 16px 24px; }
+  .video { max-height: 56vh; }
+}
