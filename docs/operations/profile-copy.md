@@ -96,10 +96,11 @@ Free 30-second test edit below
 
 ### Google Business
 
-Status: **fix**.
+Status: **live** (November 25, 2026).
 
-- The description leads with AI. Swap it for the words below.
-- The Profiles row links a Facebook page for a different Singleton Systems. Remove that link.
+- The description below is live.
+- The social profile is your own Facebook page. Keep it.
+- A Facebook page for a different Singleton Systems shows up in search results. It is not on your profile, and you can't remove it.
 - The category is "Video editing service." Keep it.
 
 ```text google-business-description max=750
