@@ -283,7 +283,7 @@ test('starting a ready Lineups record twice returns the same Catena Media projec
   assert.equal(activeTurn.items.length, 1);
 
   await writeFile(packet, JSON.stringify({ ...reviewPacket, episodeId: 'another-episode' }));
-  await assert.rejects(start(...packetArgs), /does not match the episode/);
+  await assert.rejects(start(...packetArgs), /does not match --slug/);
   assert.equal(JSON.parse((await readProject()).packet).revision, published.packetRevision);
 
   await assert.rejects(start('--storyboard', storyboard, '--chat-id',
@@ -335,6 +335,16 @@ test('starting a ready Lineups record twice returns the same Catena Media projec
   const pastEnd = await nativeFetch(mediaUrl, { headers: { ...headers, Range: 'bytes=' + media.length + '-' } });
   assert.equal(pastEnd.status, 416);
   assert.equal(pastEnd.headers.get('content-range'), 'bytes */' + media.length);
+  // The shared script starts any client lane, tracked in Asana or Linear.
+  const general = JSON.parse((await run(process.execPath, ['scripts/studio-start.mjs',
+    '--client', 'Singleton Systems', '--slug', 'site-review', '--task', 'linear:23M-1', '--title', 'Site review',
+  ], { env: { ...process.env, STUDIO_ORIGIN: origin } })).stdout);
+  assert.equal(general.client, 'Singleton Systems');
+  assert.deepEqual(general.task, { owner: 'linear', id: '23M-1' });
+  await assert.rejects(run(process.execPath, ['scripts/studio-start.mjs',
+    '--client', 'Not A Client', '--slug', 'x', '--task', 'linear:23M-2', '--title', 'X',
+  ], { env: { ...process.env, STUDIO_ORIGIN: origin } }), /Studio start failed/);
+  assert.equal((await post({ action: 'delete', projectId: general.projectId })).status, 200);
   assert.equal((await post({ action: 'delete', projectId: uploaded.projectId })).status, 200);
   assert.equal((await nativeFetch(mediaUrl, { headers })).status, 404);
   assert.equal(blobs.size, 0);

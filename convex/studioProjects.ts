@@ -91,12 +91,12 @@ export const apply = internalMutation({ args: { command: v.string() }, handler: 
     if (send.status !== "delivered") await ctx.db.patch(send._id, { status: "delivered", turnId: value.turnId });
     return { requestId: send.requestId, status: "delivered", turnId: value.turnId };
   }
-  if (value.action === "start-lineups") {
+  if (value.action === "start") {
     const linked = await ctx.db.query("studioProjects")
-      .withIndex("by_task", q => q.eq("taskOwner", "asana").eq("taskId", value.asanaTask))
+      .withIndex("by_task", q => q.eq("taskOwner", value.task.owner).eq("taskId", value.task.id))
       .unique();
-    if (linked && (linked.client !== "Catena Media" || linked.episodeSlug !== value.episodeSlug)) {
-      throw new Error("This Asana task is linked to a different Studio project.");
+    if (linked && (linked.client !== value.client || linked.episodeSlug !== value.slug)) {
+      throw new Error("This task is linked to a different Studio project.");
     }
     const handoff = value.handoff;
     if (handoff && linked?.sourceChatId &&
@@ -106,8 +106,8 @@ export const apply = internalMutation({ args: { command: v.string() }, handler: 
     if (handoff && linked?.status === "closed") throw new Error("The Studio project is closed.");
     const packet = handoff?.packet;
     const incoming = packet ? studioReviewPacket.parse(JSON.parse(packet)) : null;
-    if (incoming && incoming.episodeId !== value.episodeSlug) {
-      throw new Error("The review packet does not match this episode.");
+    if (incoming && incoming.episodeId !== value.slug) {
+      throw new Error("The review packet does not match this project.");
     }
     if (incoming) await checkPacketAssets(ctx, linked?.projectId ?? value.projectId, incoming);
     const savedRevision = linked?.packet ? JSON.parse(linked.packet).revision : undefined;
@@ -124,9 +124,9 @@ export const apply = internalMutation({ args: { command: v.string() }, handler: 
       if (row) throw new Error("This project ID is already in use.");
       const now = Date.now();
       await ctx.db.insert("studioProjects", {
-        projectId: value.projectId, title: value.title, client: "Catena Media",
-        episodeSlug: value.episodeSlug, status: "active", taskOwner: "asana",
-        taskId: value.asanaTask, createdAt: now, updatedAt: now, ...review,
+        projectId: value.projectId, title: value.title, client: value.client,
+        episodeSlug: value.slug, status: "active", taskOwner: value.task.owner,
+        taskId: value.task.id, createdAt: now, updatedAt: now, ...review,
       });
     } else if (handoff && (linked.storyboardUrl !== handoff.storyboardUrl || !linked.sourceChatId || (packet && linked.packet !== packet))) {
       await ctx.db.patch(linked._id, { ...review, updatedAt: Date.now() });
@@ -136,8 +136,8 @@ export const apply = internalMutation({ args: { command: v.string() }, handler: 
       ? { threadId: linked.sourceChatId, hostId: linked.sourceHostId } : undefined);
     return {
       projectId: linked?.projectId ?? value.projectId, title: linked?.title ?? value.title,
-      episodeSlug: value.episodeSlug, client: "Catena Media", status: linked?.status ?? "active",
-      task: { owner: "asana", id: value.asanaTask },
+      episodeSlug: value.slug, client: value.client, status: linked?.status ?? "active",
+      task: value.task,
       ...(storyboardUrl && origin ? { storyboardUrl, origin } : {}),
       packetRevision: incoming?.revision ?? savedRevision ?? null,
     };

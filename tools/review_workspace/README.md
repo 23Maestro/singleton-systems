@@ -4,6 +4,9 @@ Source for `/studio` and the public review preview. The project list starts
 empty under Catena Media, Intent Solutions and Singleton Systems. The Lineups
 handoff records the scene packet and the originating Codex thread together.
 
+For any client lane, start with [Studio review](../../docs/website/studio.md).
+This README covers the viewer source and the Lineups packet builder.
+
 Build the packet for the current episode. Run the storage check first and set
 `CATENA_PREVIEW_DIRECTORY` to an episode folder under the returned root.
 
@@ -20,7 +23,7 @@ python3 tools/review_workspace/build.py \
 
 Use an isolated Catena preview directory for each episode. The domain bundle
 serves the project list and viewer at `/studio`. Pass the generated
-`packet.json` to `studio-lineups-start.mjs --packet` from the Lineups skill.
+`packet.json` to `scripts/studio-start.mjs --packet`. Lineups uses its `studio-lineups-start.mjs` wrapper.
 The command uploads the adjacent `assets/` into the project and verifies their
 hashes before attaching the packet.
 

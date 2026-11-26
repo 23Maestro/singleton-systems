@@ -54,10 +54,10 @@ async function proxy(request: Request) {
       if (command.action === "queue-chat-send" && !producer(request) && process.env.STUDIO_CHAT_SEND_ENABLED !== "1") {
         return Response.json({ error: "Chat sending is unavailable." }, { status: 503, headers: reviewHeaders });
       }
-      if (["start-lineups", "packet", "claim-chat-send", "confirm-chat-send", "close-linked"].includes(command.action) && !producer(request)) {
+      if (["start", "packet", "claim-chat-send", "confirm-chat-send", "close-linked"].includes(command.action) && !producer(request)) {
         return Response.json({ error: "Producer access is required." }, { status: 403, headers: reviewHeaders });
       }
-      if (command.action === "start-lineups" && command.handoff &&
+      if (command.action === "start" && command.handoff &&
           command.handoff.origin.hostId !== process.env.VIDEO_REVIEW_PRODUCER_HOST_ID) {
         return Response.json({ error: "This producer cannot bind that chat host." }, { status: 403, headers: reviewHeaders });
       }

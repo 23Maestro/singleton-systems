@@ -75,6 +75,10 @@ contains this skill.
 node --env-file=.env.local "$LINEUPS_SKILL_DIR/scripts/studio-lineups-start.mjs" --episode EPISODE_RECORD --title "Episode title"
 ```
 
+The wrapper reads the episode record and runs the repository's shared
+Studio start script with the Catena Media client.
+The shared Studio rules for every client are in the repository's
+Studio review guide, linked from the website apps list.
 Use the configured `STUDIO_ORIGIN` and server-side producer credential.
 Return the Studio link from the command. If it fails, report that Studio
 did not confirm the project. A closed project stays closed. The project

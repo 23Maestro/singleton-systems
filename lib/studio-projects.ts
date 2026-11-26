@@ -59,10 +59,11 @@ export const STUDIO_REQUEST_BYTES = 3_500_000;
 
 export const studioCommand = z.discriminatedUnion("action", [
   z.object({
-    action: z.literal("start-lineups"),
+    action: z.literal("start"),
     projectId: id,
-    episodeSlug: z.string().regex(/^[a-z0-9][a-z0-9-]{0,119}$/),
-    asanaTask: z.string().regex(/^\d{10,25}$/),
+    client: studioClient,
+    slug: z.string().regex(/^[a-z0-9][a-z0-9-]{0,119}$/),
+    task,
     title: z.string().trim().min(1).max(120),
     handoff: z.object({
       storyboardUrl: httpsUrl,
