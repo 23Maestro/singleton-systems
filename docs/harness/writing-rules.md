@@ -185,14 +185,6 @@ npm run check:cerebral
 ```
 ````
 
-Rhythm target, from the Ginain transcript:
-
-- "You go to school, you get one job, you work at that company forever."
-- "I could ask a 15-word question and it gives me 300 words back."
-- "It's only as good as the person driving the machine."
-
-No tells in any of those.
-
 ## Banned
 
 **Words.** delve, tapestry, testament, underscore, pivotal, crucial,
