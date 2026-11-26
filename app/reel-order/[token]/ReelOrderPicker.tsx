@@ -104,6 +104,36 @@ export default function ReelOrderPicker({ reel, token, media }: { reel: Reel; to
   });
 
   const spot = lists.timeline.indexOf(current);
+  const video = useRef<HTMLVideoElement>(null);
+
+  // Space plays or pauses (and replays a finished clip). Shift+Space turns "play the next one" on or off.
+  // Works wherever focus sits after a click (a card, a button, the checkbox, the video), so it
+  // never silently does something else. Only text boxes keep Space for typing. We blur the
+  // focused control so its own Space click (fired on keyup) and the video's built-in toggle
+  // can't fire too and cancel ours out. Enter still presses buttons.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.code !== "Space" || touring || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target;
+      if (t instanceof HTMLElement && (t.isContentEditable || t.matches("textarea, select, input:not([type=checkbox]):not([type=radio]):not([type=button])"))) return;
+      const v = video.current;
+      if (!v) return;
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.repeat) return;
+      if (document.activeElement instanceof HTMLElement && document.activeElement !== document.body) document.activeElement.blur();
+      if (e.shiftKey) {
+        setPlayNext((on) => !on);
+      } else if (v.paused || v.ended) {
+        if (v.ended) v.currentTime = 0;
+        void v.play();
+      } else {
+        v.pause();
+      }
+    }
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
+  }, [touring]);
 
   function dropIndex(event: DragEvent) {
     const cards = [...(strip.current?.children ?? [])] as HTMLElement[];
@@ -150,11 +180,13 @@ export default function ReelOrderPicker({ reel, token, media }: { reel: Reel; to
         <section className={styles.player} aria-label="Selected play">
           <div className={styles.playerHead}>
             <h2>{spot >= 0 ? `${spot + 1}. ` : ""}{titles.get(current)}</h2>
+            {!touch && <span className={styles.keys}><kbd>Space</kbd> play or pause · <kbd>Shift</kbd>+<kbd>Space</kbd> keep playing on/off</span>}
             <label className={styles.toggle}>
               <input type="checkbox" checked={playNext} onChange={(e) => setPlayNext(e.target.checked)} /> Play the next one when it ends
             </label>
           </div>
           <video
+            ref={video}
             key={current}
             className={styles.video}
             src={`${media}/${current}.mp4`}
