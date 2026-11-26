@@ -4,7 +4,7 @@ How to name a QB highlight play. Jerami set this pattern on Nov 25, 2026.
 
 ## Name formula
 
-`Start + 1 descriptor (if earned) + N YRD + TD`
+`Start + 1 descriptor (if earned) + N Yd + TD`
 
 A pass needs no word; most QB plays are passes. Only a run gets a prefix.
 
@@ -12,11 +12,11 @@ A pass needs no word; most QB plays are passes. Only a run gets a prefix.
 |---|---|---|
 | Start | `Pocket` · `Rollout L` · `Rollout R` · `QBRun` | Always. A play that breaks down and rolls out is still a Rollout. If he keeps the ball, it is `QBRun`. |
 | Descriptor | 1 at most | Only when it is the impressive part. See the lists below. |
-| Yards | `35 YRD` | Always. Rounded to 5. This is what makes each name unique. |
+| Yards | `35 Yd` | Always. Rounded to 5. This is what makes each name unique. |
 | Result | `TD` | Only for touchdowns. |
 
-Examples: **QBRun S.Line 20 YRD TD**, **Rollout L 4th Down 45 YRD TD**,
-**Pocket Slant 95 YRD TD**, **Pocket Touch Pass 10 YRD TD**.
+Examples: **QBRun S.Line 20 Yd TD**, **Rollout L 4th Down 45 Yd TD**,
+**Pocket Slant 95 Yd TD**, **Pocket Touch Pass 10 Yd TD**.
 
 ## Yards
 
@@ -33,17 +33,39 @@ Runs are memorable, so they get a descriptor. Pick 1, or none.
 |---|---|
 | `S.Line` | He runs down the sideline. |
 | `Middle` | He runs up the middle, often from the pocket. |
+| `Reverse` | He reverses field. |
+| `Bad Snap` | He saves a bad snap and runs. |
+| `Diving` | He dives in to score. |
+| `Trick Play` | The play is a trick play. |
+
+## Pocket or rollout
+
+Look at the frame where the ball leaves his hand. Was he running or planted?
+Where was he? Throwing from outside the hash marks is a rollout. Planted
+inside the hashes is `Pocket`.
+
+## Left or right
+
+Use his left and right. He is right-handed. Freeze the first frame and find
+which side is offense. On a sideline camera, if he rolls toward the camera,
+he rolls right. Away from the camera is left.
 
 ## Visual cues for reviewers
 
 These help a reviewer read the clip. They never go in a play name.
 
-- **Pylon:** the orange marker at each corner of the end zone. A runner who
-  crosses the goal line past the pylon scored, even if the camera loses him.
-- **Yard numbers:** painted every 10 yards; lines every 5.
-- **Orange sideline markers:** the chains and down marker show the line of
-  scrimmage.
+- **Goal line:** the white line a player must cross to score.
+- **Pylons:** the orange markers at the corners of the end zone.
+- **Yard markers:** orange sideline markers in 10s: 10, 20, 30, 40, 50, 40,
+  30, 20, 10, then **G** at each goal line. Painted field numbers follow the
+  same count; lines are every 5 yards.
 - **Ref's arms straight up:** a touchdown.
+- **Lost camera:** when the camera shakes or loses the runner, keep watching
+  to the last frame. He often shows up again (A11 reappears by the bottom left
+  scoreboard edge). Judge the play from every frame. 1 moment never decides it.
+
+Later: write these cues as a canonical schema, so reviewers and models see
+exactly which visual told them what.
 
 ## Pass descriptors
 
@@ -52,9 +74,14 @@ These help a reviewer read the clip. They never go in a play name.
 | `S.Line` | The catch is at the sideline. |
 | `Corner` | A throw to the corner of the end zone. |
 | `Touch Pass` | A soft, placed throw, like a fingertip catch. |
-| `Under Pressure` | He throws with a defender in his face. |
+| `Heave` | He throws a long, high ball, often with a defender on him. |
+| `Jump Ball` | The receiver goes up for a contested catch. |
 | `4th Down` | It is clearly a 4th down play. |
-| Route | `Slant`, `Post`, `Seam`, `Go`, `Out`, `Corner` when clearly seen. |
+| Route | `Slant`, `Post`, `Seam`, `Go`, `Out`, `Corner`, `Curl` when clearly seen. |
+
+## Defense and special teams
+
+Name the play type first: `INT Return 45 Yd TD`, `Blocked Punt`.
 
 Do not use **Checkdown** for a QB's throw unless it goes to the running back.
 A corner touch pass is caught in the end zone, so it has no run after the catch.
@@ -97,18 +124,38 @@ not "to the 5."
 
 | Clip | Wrong first name | Final name |
 |---|---|---|
-| A09 | Long gain to TD | QBRun 80 YRD TD |
-| A01 | Pocket pass | QBRun 20 YRD TD |
-| A11 | Pocket pass into red zone | QBRun S.Line 20 YRD TD |
-| A27 | Catch and run to the corner | QBRun S.Line 35 YRD TD |
-| A13 | Long QB keeper | QBRun Middle 35 YRD TD |
-| A46 | Long run to the 5 | QBRun 35 YRD TD |
-| A04 | Night shotgun pass | Rollout R Under Pressure 30 YRD (tackled; not a TD) |
-| A41 | Deep shot to end zone | Pocket Post 30 YRD TD |
-| A30 | Corner end zone throw | Pocket Touch Pass 10 YRD TD |
-| A36 | Rollout end zone throw | Rollout R 10 YRD TD (not a checkdown) |
+| A09 | Long gain to TD | QBRun 80 Yd TD |
+| A01 | Pocket pass | QBRun 20 Yd TD |
+| A11 | Pocket pass into red zone | QBRun S.Line 20 Yd TD |
+| A27 | Catch and run to the corner | QBRun S.Line 35 Yd TD |
+| A13 | Long QB keeper | QBRun Middle 35 Yd TD |
+| A46 | Long run to the 5 | QBRun 35 Yd TD |
+| A04 | Night shotgun pass | Rollout R Heave 30 Yd (tackled; not a TD) |
+| A41 | Deep shot to end zone | Pocket Post 30 Yd TD |
+| A30 | Corner end zone throw | Pocket Touch Pass 10 Yd TD |
+| A36 | Rollout end zone throw | Rollout R 10 Yd TD (not a checkdown) |
 | A06 | Pass, run to the sideline | Not a pass. Deleted. |
 | A32 | Quick pass long run | Deleted: throws behind the receiver. |
 
 Blind yardage test (Nov 25): 5 of 6 guesses landed within 10 yards of Jerami's
 numbers. The miss was run versus pass: 3 QB runs were called passes.
+
+## Round 2 checks (Armand, Nov 25)
+
+| Clip | Reviewer name | Final name |
+|---|---|---|
+| A08 | Rollout R 4th Down 50 Yd TD | Rollout R Heave 50 Yd TD |
+| A26 | Pocket 20 Yd TD | Rollout L 20 Yd TD |
+| A28 | Pocket S.Line 45 Yd TD | Rollout R S.Line 45 Yd TD |
+| A31 | QBRun S.Line 35 Yd | Rollout R S.Line 35 Yd |
+| A16 | Pocket 20 Yd TD | QBRun Diving 20 Yd TD |
+| A25 | Pocket 4th Down 45 Yd TD | QBRun Trick Play 45 Yd TD |
+| A34 | Pocket S.Line 55 Yd TD | QBRun S.Line 55 Yd TD |
+| A23 | Same play as A26 | Different game. Pocket Post 15 Yd TD |
+| A45 | Not a QB play (punt) | Blocked Punt |
+| A49 | Not a QB play | INT Return 45 Yd TD |
+| A21 | QBRun S.Line 10 Yd | Rollout L 40 Yd |
+| A42 | Pocket S.Line 15 Yd | Pocket Post 15 Yd |
+| A44 | Pocket 4th Down 15 Yd | Pocket Jump Ball 25 Yd |
+
+The main miss was pocket versus rollout. Use the throw frame and the hash marks.

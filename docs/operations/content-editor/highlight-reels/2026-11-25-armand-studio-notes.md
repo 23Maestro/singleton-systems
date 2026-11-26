@@ -122,3 +122,111 @@ These did not save to Studio online; copied word for word from his screenshots.
 > Sideline feel relevant for runs and the gain is memorable. Up the middle or something to the effect for runs like the pocket one is useful to distinguish that. QBRun is the Prefix I want.
 >
 > QBRun S.Line 20 YRD TD
+
+## A45, chat note
+
+> There are zero punts.
+
+## A49, chat note
+
+> A49 the team doesn't have the ball.
+
+## Question round 2 (20 clips)
+
+### A08 at 0.0 s
+
+> Roll Right. the repeatable way to learn left and right like this is. at the play start in similar more standard framing. after we know which side is offense or defense. in this play he throws the ball the camera pans right, late but not the point it does and the kid goes and scores. TD. hope that makes sense. opposite think play start frozen frame. offense is right defense is left. in this specific qb example armand rolls right toward the camera. if he ran away from the camera he's rolling right. in a lot of sideline angle camera views this can't really waiver. even if the view is sideline but futher away.
+
+### A08 at 1.0 s
+
+> we should change under pressure back to heave. it's shorter. and this is a heave
+
+### A38 at 2.4 s
+
+> pocket. he's not ON THE RUN.
+
+### A38 at 5.0 s
+
+> Curl route
+
+### A02 at 6.9 s
+
+> touch
+
+### A07 at 12.1 s
+
+> Out or post corner route
+
+### A26 at 7.1 s
+
+> he's right handed. rolls out not a pocket pass. we have to name this. rollout mean when the QB frames change and the ball leaves his hand and is thrown was he running or planted number one. and if needed where is he throwing from out side of theinner hash marks are inside the pocket.
+
+### A26 at 7.1 s
+
+> simply put for file naming. Rollout L 20 Yrd TD
+
+### A31 at 11.0 s
+
+> i have to know why this is a  question. its a throw. he rolls out
+
+### A28 at 6.7 s
+
+> throw frame. and if the qb is throwing out side of the has marks. its a roll out. to the Right
+
+### A47 at 3.6 s
+
+> nothing. delete this. and when i've been saying delete it i mean don't even show it in the extra plays section. i think this play and the other play i said to delete shouldn't make it onto the coming update for rich's review.
+
+### A17 at 10.2 s
+
+> it's a rollout L drop sidline
+
+### A03 at 5.3 s
+
+> Rollout L 20 YRD Jump Ball
+
+### A03 at 11.0 s
+
+> Jump Ball
+
+### A18 at 9.5 s
+
+> Rollout L 50 YRD Out
+
+### A01 at 6.5 s
+
+> REV before 20 he reverses field lol
+
+### A12 at 7.2 s
+
+> yes. Bad Snap QBRun 30 YD TD
+
+### A16 at 14.2 s
+
+> he keeps it. QBRun Diving 20 YD TD
+
+### A23 at 5.0 s
+
+> these are not the same play. in this play he stands in the pocket teams are different too. 
+>
+> Pocket 15 YD TD Post
+
+### A25 at 9.0 s
+
+> QBRun Trick Play 45 YD TD
+
+### A34 at 8.9 s
+
+> QBRun S.Line 55 Yd TD.
+
+### A43 at 6.2 s
+
+> Post
+
+### A45 at 5.0 s
+
+> i missed this one. he blocks a punt i guess. random speacilaty play
+
+### A49 at 11.3 s
+
+> yeah and armand intercepts it and returns it for a touchdown
