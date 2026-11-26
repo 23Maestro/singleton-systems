@@ -27,13 +27,23 @@ to that spot. Jerami corrects misses; that is how this improves.
 
 ## QB run cheat sheet
 
-Runs are memorable, so they get a descriptor. Pick 1.
+Runs are memorable, so they get a descriptor. Pick 1, or none.
 
 | Descriptor | Use when |
 |---|---|
 | `S.Line` | He runs down the sideline. |
 | `Middle` | He runs up the middle, often from the pocket. |
-| `Pylon` | He beats the defense to the pylon at the end zone corner. |
+
+## Visual cues for reviewers
+
+These help a reviewer read the clip. They never go in a play name.
+
+- **Pylon:** the orange marker at each corner of the end zone. A runner who
+  crosses the goal line past the pylon scored, even if the camera loses him.
+- **Yard numbers:** painted every 10 yards; lines every 5.
+- **Orange sideline markers:** the chains and down marker show the line of
+  scrimmage.
+- **Ref's arms straight up:** a touchdown.
 
 ## Pass descriptors
 
@@ -92,7 +102,7 @@ not "to the 5."
 | A11 | Pocket pass into red zone | QBRun S.Line 20 YRD TD |
 | A27 | Catch and run to the corner | QBRun S.Line 35 YRD TD |
 | A13 | Long QB keeper | QBRun Middle 35 YRD TD |
-| A46 | Long run to the 5 | QBRun Pylon 35 YRD TD |
+| A46 | Long run to the 5 | QBRun 35 YRD TD |
 | A04 | Night shotgun pass | Rollout R Under Pressure 30 YRD (tackled; not a TD) |
 | A41 | Deep shot to end zone | Pocket Post 30 YRD TD |
 | A30 | Corner end zone throw | Pocket Touch Pass 10 YRD TD |
