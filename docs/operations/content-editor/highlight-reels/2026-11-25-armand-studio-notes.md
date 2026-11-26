@@ -90,3 +90,7 @@ Studio project `ba6244aa-02c4-497b-a093-a6ffdc9d3446`. The time is the clip time
 ## A46 at 11.3 s
 
 > he scores. to the 5 implies he was tackled. he passes the pylon. TD QB Rollout 35 YD TD
+
+## A32 at 6.7 s, later note
+
+> save the notes from this but delete. throws behind the receiver
