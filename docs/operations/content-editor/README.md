@@ -7,6 +7,7 @@ editing outcomes and the next action. Keep work under its client section.
 - [Clients and prospects](clients.md)
 - [Growth](growth.md) and [outreach](outreach.md)
 - [Product ads](product-ads/README.md): spec ad plan, safe-showing rules and references
+- [Highlight reels](highlight-reels/README.md): football reel flow and the QB play library
 - [File homes](../files.md)
 
 ## Editing rules
