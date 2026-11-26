@@ -87,3 +87,16 @@ directly.
 Notes and statuses save by themselves. Read them back with
 `GET /api/studio/projects?projectId=ID` and the producer token. Close the
 project through task closeout with `--studio-project ID`.
+
+## Deploy the backend
+
+Vercel ships the site from `main`. It does not ship Convex. After a change in
+`convex/`, deploy it yourself. The Studio backend is `kindly-squirrel-875`.
+
+```sh
+echo 'CONVEX_DEPLOYMENT=prod:kindly-squirrel-875' > /tmp/convex-review.env
+npx convex deploy --env-file /tmp/convex-review.env
+```
+
+Deploy Convex first, then merge to `main`, so the site never sends a command
+the backend does not know.

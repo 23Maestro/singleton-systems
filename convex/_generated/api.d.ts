@@ -10,8 +10,12 @@
 
 import type * as fitness from "../fitness.js";
 import type * as http from "../http.js";
-import type * as taskRequests from "../taskRequests.js";
+import type * as studioAssetHttp from "../studioAssetHttp.js";
+import type * as studioProjectHttp from "../studioProjectHttp.js";
 import type * as studioProjects from "../studioProjects.js";
+import type * as taskRequestHttp from "../taskRequestHttp.js";
+import type * as taskRequests from "../taskRequests.js";
+import type * as videoReviewHttp from "../videoReviewHttp.js";
 import type * as videoReviews from "../videoReviews.js";
 
 import type {
@@ -23,8 +27,12 @@ import type {
 declare const fullApi: ApiFromModules<{
   fitness: typeof fitness;
   http: typeof http;
-  taskRequests: typeof taskRequests;
+  studioAssetHttp: typeof studioAssetHttp;
+  studioProjectHttp: typeof studioProjectHttp;
   studioProjects: typeof studioProjects;
+  taskRequestHttp: typeof taskRequestHttp;
+  taskRequests: typeof taskRequests;
+  videoReviewHttp: typeof videoReviewHttp;
   videoReviews: typeof videoReviews;
 }>;
 
