@@ -516,7 +516,22 @@ def canonical_skill_script_error(payload):
                 ).replace(os.sep, "/")
                 expected_by_name.setdefault(filename, {})[os.path.realpath(script_path)] = display_path
 
+    # Only check what a command runs: the script after an interpreter and its flags,
+    # or a command word. A grep pattern or doc mention of the name runs nothing.
+    interpreters = {"node", "python", "python3", "bash", "sh", "zsh", "deno", "bun", "tsx", "npx", "uv"}
+    run_targets, after_interpreter, command_start = [], False, True
     for token in tokens:
+        if token in {";", "&&", "||", "|", "&"}:
+            after_interpreter, command_start = False, True
+            continue
+        if command_start or (after_interpreter and not token.startswith("-")):
+            run_targets.append(token)
+            after_interpreter = os.path.basename(token) in interpreters
+        elif not token.startswith("-"):
+            after_interpreter = False
+        command_start = False
+
+    for token in run_targets:
         candidate = token.strip(";&|()")
         expected_paths = expected_by_name.get(os.path.basename(candidate))
         if not expected_paths:

@@ -395,6 +395,13 @@ const correctRepoSkillPath = runPreTool(
 assert.equal(correctRepoSkillPath.status, 0);
 assert.doesNotMatch(correctRepoSkillPath.stdout, /"continue": false/);
 
+// Searching for a skill script's name runs nothing, so it must not block.
+const scriptNameSearch = runPreTool(
+  "git grep -n 'start-lineups\\|studio-lineups-start.mjs' && grep -v '^plugins/x/studio-lineups-start.mjs' notes.txt",
+);
+assert.equal(scriptNameSearch.status, 0);
+assert.doesNotMatch(scriptNameSearch.stdout, /"continue": false/);
+
 const ordinaryRepoScript = runPreTool("node scripts/check-cerebral-registry.mjs");
 assert.equal(ordinaryRepoScript.status, 0);
 assert.doesNotMatch(ordinaryRepoScript.stdout, /"continue": false/);
