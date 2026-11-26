@@ -4,24 +4,50 @@ How to name a QB highlight play. Jerami set this pattern on Nov 25, 2026.
 
 ## Name formula
 
-`[QB action or route] [about N Yd] [field spot] [result]`
+`Start + 1 descriptor (if earned) + N YRD + TD`
 
-Use only the parts you can see. Keep it 2 to 6 words. Use Title Case, like
-Jerami's names. Give rough yards when you can measure them from the yard lines.
+A pass needs no word; most QB plays are passes. Only a run gets a prefix.
 
-Examples Jerami gave: **QB Keeper 70 Yd TD**, **Quick Slant 50 Yd TD**,
-**Pocket 35 Yd Midfield**, **Rollout Redzone Corner TD**, **Post 30 Yd TD**.
+| Slot | Choose | Rule |
+|---|---|---|
+| Start | `Pocket` · `Rollout L` · `Rollout R` · `QBRun` | Always. A play that breaks down and rolls out is still a Rollout. If he keeps the ball, it is `QBRun`. |
+| Descriptor | 1 at most | Only when it is the impressive part. See the lists below. |
+| Yards | `35 YRD` | Always. Rounded to 5. This is what makes each name unique. |
+| Result | `TD` | Only for touchdowns. |
 
-## QB action
+Examples: **QBRun S.Line 20 YRD TD**, **Rollout L 4th Down 45 YRD TD**,
+**Pocket Slant 95 YRD TD**, **Pocket Touch Pass 10 YRD TD**.
 
-| Word | Means |
+## Yards
+
+Always give a number. A guess within 10 yards beats a blank. Count the painted
+numbers (every 10 yards) and lines (every 5) from the snap spot to where the
+play stops. If he is tackled short of the end zone, the play ends there: count
+to that spot. Jerami corrects misses; that is how this improves.
+
+## QB run cheat sheet
+
+Runs are memorable, so they get a descriptor. Pick 1.
+
+| Descriptor | Use when |
 |---|---|
-| Pocket | He drops back and throws from behind the line. |
-| Rollout | He moves outside the pocket on purpose, then throws. |
-| Scramble | The play breaks down. He runs around to buy time or to run. |
-| QB Keeper | A planned QB run. He keeps the ball. |
-| Heave | A long, high throw, often under pressure. |
-| Checkdown | A short throw to a safe target after deeper looks. |
+| `S.Line` | He runs down the sideline. |
+| `Middle` | He runs up the middle, often from the pocket. |
+| `Pylon` | He beats the defense to the pylon at the end zone corner. |
+
+## Pass descriptors
+
+| Descriptor | Use when |
+|---|---|
+| `S.Line` | The catch is at the sideline. |
+| `Corner` | A throw to the corner of the end zone. |
+| `Touch Pass` | A soft, placed throw, like a fingertip catch. |
+| `Under Pressure` | He throws with a defender in his face. |
+| `4th Down` | It is clearly a 4th down play. |
+| Route | `Slant`, `Post`, `Seam`, `Go`, `Out`, `Corner` when clearly seen. |
+
+Do not use **Checkdown** for a QB's throw unless it goes to the running back.
+A corner touch pass is caught in the end zone, so it has no run after the catch.
 
 ## Routes (receiver's path)
 
@@ -59,13 +85,20 @@ not "to the 5."
 
 ## Checked examples (Armand, Nov 25)
 
-| Clip | Wrong first name | Jerami's call |
+| Clip | Wrong first name | Final name |
 |---|---|---|
-| A09 | Long gain to TD | QB Keeper 70 Yd TD |
-| A01 | Pocket pass | QB Scramble TD |
-| A11 | Pocket pass into red zone | QB scramble for a TD |
-| A27 | Catch and run to the corner | QB scramble TD |
-| A46 | Long run to the 5 | QB Rollout 35 Yd TD |
-| A32 | Quick pass long run | Quick Slant 50 Yd TD |
-| A41 | Deep shot to end zone | Post 30 Yd TD |
+| A09 | Long gain to TD | QBRun 80 YRD TD |
+| A01 | Pocket pass | QBRun 20 YRD TD |
+| A11 | Pocket pass into red zone | QBRun S.Line 20 YRD TD |
+| A27 | Catch and run to the corner | QBRun S.Line 35 YRD TD |
+| A13 | Long QB keeper | QBRun Middle 35 YRD TD |
+| A46 | Long run to the 5 | QBRun Pylon 35 YRD TD |
+| A04 | Night shotgun pass | Rollout R Under Pressure 30 YRD (tackled; not a TD) |
+| A41 | Deep shot to end zone | Pocket Post 30 YRD TD |
+| A30 | Corner end zone throw | Pocket Touch Pass 10 YRD TD |
+| A36 | Rollout end zone throw | Rollout R 10 YRD TD (not a checkdown) |
 | A06 | Pass, run to the sideline | Not a pass. Deleted. |
+| A32 | Quick pass long run | Deleted: throws behind the receiver. |
+
+Blind yardage test (Nov 25): 5 of 6 guesses landed within 10 yards of Jerami's
+numbers. The miss was run versus pass: 3 QB runs were called passes.

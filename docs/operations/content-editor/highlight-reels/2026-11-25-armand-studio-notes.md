@@ -94,3 +94,31 @@ Studio project `ba6244aa-02c4-497b-a093-a6ffdc9d3446`. The time is the clip time
 ## A32 at 6.7 s, later note
 
 > save the notes from this but delete. throws behind the receiver
+
+## Open-question answers (from Jerami's Studio screenshots, 9:25 PM)
+
+These did not save to Studio online; copied word for word from his screenshots.
+
+### A04 at 13:27
+
+> 30 yard marker. Catches behind well behind it. No way this is ever a touchdown.
+
+### A04 at 13:28
+
+> He gets tackled here. If the play stops like this and he isn't In the end zone assume calculate yards.
+
+### A30 at 7:15
+
+> Yes pocket start. Touch pass
+
+### A36 at 8:13
+
+> Check down implies to running back and corner touch wouldn't have run after catch and would be in end zone already.
+
+### A11 at 13:02
+
+> I think for QB runs they're memorable and adding descriptors are important. Dropping QB helps remove bloat. Kinda a duh moment. I think using a similar qb running pdf to help remind me of the names I can make clean and situationally. I only need like 3 or 4.
+>
+> Sideline feel relevant for runs and the gain is memorable. Up the middle or something to the effect for runs like the pocket one is useful to distinguish that. QBRun is the Prefix I want.
+>
+> QBRun S.Line 20 YRD TD

@@ -61,5 +61,31 @@ Score the reviewers against Jerami's corrected names before trusting a new pass.
   Jerami's labels.
 
 **Later:** bundle intake, naming, the order page and the Premiere build into
-1 highlight-reel plugin. Roboflow or model training waits until the labeled set
-is big enough.
+1 highlight-reel plugin.
+
+## AI Football Assistant link
+
+The MVP lives in `~/Documents/Development/football-highlight-editor` (a FreeCut
+fork with a `football/` app). Its plan is `football/roboflow-steps.md`: teach
+**Find athlete** to spot the QB, using the Roboflow project
+[AiFootballAssistant](https://app.roboflow.com/23maestro/aifootballassistant).
+That project has 4 labeled photos and no trained model yet. Working footage is
+in HomeSSD `Active Work/FOOTBALL_AI`.
+
+Reel reviews already make most of what that plan asks for:
+
+- **QB frames near the snap.** Every reviewed clip has a snap time and #6 marked.
+  Drawing 1 `QB` box on that frame gives a training image.
+- **Same-game groups.** Reels group clips by game, which is how Roboflow wants
+  train, validation and test split.
+- **Play labels.** Start (Pocket, Rollout L, Rollout R, QB Run), yards and TD
+  from the [QB play library](qb-play-library.md) can become later classes.
+- **Corrections.** Jerami's Studio notes are checked answers for scoring a model.
+
+Before any upload: get the family's OK, and use a private Roboflow project. The
+current project is public, and these are minors' clips.
+
+Connect Roboflow in Claude Code with
+`claude mcp add -s user roboflow --transport http https://mcp.roboflow.com/mcp`,
+or the Claude connector from the [Roboflow MCP docs](https://docs.roboflow.com/agents/mcp-server).
+Both need Jerami's Roboflow sign-in. Training uses workspace credits.
